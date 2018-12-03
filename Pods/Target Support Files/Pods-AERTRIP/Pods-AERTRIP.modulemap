@@ -1,0 +1,6 @@
+framework module Pods_AERTRIP {
+  umbrella header "Pods-AERTRIP-umbrella.h"
+
+  export *
+  module * { export * }
+}
