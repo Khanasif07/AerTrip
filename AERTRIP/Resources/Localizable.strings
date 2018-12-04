@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  AERTRIP
+
+  Created by Pramod Kumar on 04/12/18.
+  Copyright © 2018 Pramod Kumar. All rights reserved.
+*/
+
+//Strings For Profile Screen
+"NoInternet" = "There is no internet.";
+"ParsingError" = "Error in parsing the JSON data.";
+"error" = "Error";
