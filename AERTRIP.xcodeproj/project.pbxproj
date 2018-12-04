@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */; };
+		18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */; };
+		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1D21B55F5600248A6F /* BaseTabBarController.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
@@ -62,6 +65,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVC.swift; sourceTree = "<group>"; };
+		18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
+		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -133,6 +139,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18A96B8C21B6458E00EA9B3A /* SocialLoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */,
+				18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */,
+			);
+			path = SocialLoginVC;
+			sourceTree = "<group>";
+		};
 		303782E47A5C7F1294906B16 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,7 +194,6 @@
 				84F983AB21B51A070018DFED /* Network */,
 				84F9837A21B51A070018DFED /* Resources */,
 				84F9838121B51A070018DFED /* Third Party */,
-				84F983BB21B51A070018DFED /* XIBs */,
 			);
 			path = AERTRIP;
 			sourceTree = "<group>";
@@ -197,6 +211,7 @@
 			children = (
 				84020F1D21B55F5600248A6F /* BaseTabBarController.swift */,
 				84F9837321B51A070018DFED /* BaseVC.swift */,
+				18A96B9121B646C500EA9B3A /* DemoVC.swift */,
 				84F9837421B51A070018DFED /* PreLogin */,
 			);
 			path = Modules;
@@ -205,6 +220,7 @@
 		84F9837421B51A070018DFED /* PreLogin */ = {
 			isa = PBXGroup;
 			children = (
+				18A96B8C21B6458E00EA9B3A /* SocialLoginVC */,
 				84F9837521B51A070018DFED /* LoginVC */,
 				84F9837821B51A070018DFED /* TutorilsVC */,
 			);
@@ -349,13 +365,6 @@
 			path = AppStoryboards;
 			sourceTree = "<group>";
 		};
-		84F983BB21B51A070018DFED /* XIBs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = XIBs;
-			sourceTree = "<group>";
-		};
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +505,7 @@
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
+				18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
@@ -504,6 +514,7 @@
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
+				18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
@@ -514,6 +525,7 @@
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
+				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,

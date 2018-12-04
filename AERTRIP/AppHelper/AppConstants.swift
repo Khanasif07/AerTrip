@@ -27,4 +27,9 @@ enum AppConstants {
     static let kMaxPhoneLength             =         15
     static let kOtpTimeOutSeconds          =         60
     static let kMaxDescriptionLength       =         250
+    
+    // MARK:- SocialLoginVC
+    //MARK:-
+    static let I_am_new_register  = "I_am_new_register"
+//    static let kGoogleClientID    = ""
 }
