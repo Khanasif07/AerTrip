@@ -20,5 +20,12 @@ enum LocalizedString: String {
     case NoInternet = "NoInternet"
     case ParsingError = "ParsingError"
     case error = "error"
+    
+    // MARK:- SocialLoginVC
+    //MARK:-
+    case I_am_new_register  = "I_am_new_register"
+    case Existing_User_Sign = "Existing_User_Sign"
+    
+    
 }
 

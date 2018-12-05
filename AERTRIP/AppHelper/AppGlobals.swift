@@ -13,6 +13,13 @@ func printDebug<T>(_ obj : T) {
     print(obj)
 }
 
+func printFonts() {
+    for family in UIFont.familyNames {
+        let fontsName = UIFont.fontNames(forFamilyName: family)
+        printDebug(fontsName)
+    }
+}
+
 func delay(seconds: Double, completion: @escaping () -> ()) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
         completion()

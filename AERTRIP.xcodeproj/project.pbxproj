@@ -10,8 +10,23 @@
 		18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */; };
 		18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */; };
 		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
+		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
+		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1D21B55F5600248A6F /* BaseTabBarController.swift */; };
+		84956FA921B655D900BF1183 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */; };
+		84956FAA21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9E21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf */; };
+		84956FAB21B655D900BF1183 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9F21B655D900BF1183 /* SourceSansPro-Regular.ttf */; };
+		84956FAC21B655D900BF1183 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA021B655D900BF1183 /* SourceSansPro-Bold.ttf */; };
+		84956FAD21B655D900BF1183 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA121B655D900BF1183 /* SourceSansPro-LightItalic.ttf */; };
+		84956FAE21B655D900BF1183 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA221B655D900BF1183 /* SourceSansPro-Light.ttf */; };
+		84956FAF21B655D900BF1183 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA321B655D900BF1183 /* SourceSansPro-Black.ttf */; };
+		84956FB021B655D900BF1183 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA421B655D900BF1183 /* SourceSansPro-ExtraLight.ttf */; };
+		84956FB121B655D900BF1183 /* SourceSansPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA521B655D900BF1183 /* SourceSansPro-BoldItalic.ttf */; };
+		84956FB221B655D900BF1183 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA621B655D900BF1183 /* SourceSansPro-SemiBold.ttf */; };
+		84956FB321B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */; };
+		84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */; };
+		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -68,11 +83,26 @@
 		18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVC.swift; sourceTree = "<group>"; };
 		18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
 		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
+		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
+		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84020F1D21B55F5600248A6F /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
+		84956F9E21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		84956F9F21B655D900BF1183 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		84956FA021B655D900BF1183 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		84956FA121B655D900BF1183 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		84956FA221B655D900BF1183 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		84956FA321B655D900BF1183 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		84956FA421B655D900BF1183 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		84956FA521B655D900BF1183 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		84956FA621B655D900BF1183 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
+		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -148,6 +178,15 @@
 			path = SocialLoginVC;
 			sourceTree = "<group>";
 		};
+		18A96B9321B661F900EA9B3A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
+				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		303782E47A5C7F1294906B16 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,9 +232,37 @@
 				84F9837221B51A070018DFED /* Modules */,
 				84F983AB21B51A070018DFED /* Network */,
 				84F9837A21B51A070018DFED /* Resources */,
+				18A96B9321B661F900EA9B3A /* Controller */,
 				84F9838121B51A070018DFED /* Third Party */,
 			);
 			path = AERTRIP;
+			sourceTree = "<group>";
+		};
+		84956F9B21B655D900BF1183 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				84956F9C21B655D900BF1183 /* SourceSansPro */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		84956F9C21B655D900BF1183 /* SourceSansPro */ = {
+			isa = PBXGroup;
+			children = (
+				84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */,
+				84956F9E21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf */,
+				84956F9F21B655D900BF1183 /* SourceSansPro-Regular.ttf */,
+				84956FA021B655D900BF1183 /* SourceSansPro-Bold.ttf */,
+				84956FA121B655D900BF1183 /* SourceSansPro-LightItalic.ttf */,
+				84956FA221B655D900BF1183 /* SourceSansPro-Light.ttf */,
+				84956FA321B655D900BF1183 /* SourceSansPro-Black.ttf */,
+				84956FA421B655D900BF1183 /* SourceSansPro-ExtraLight.ttf */,
+				84956FA521B655D900BF1183 /* SourceSansPro-BoldItalic.ttf */,
+				84956FA621B655D900BF1183 /* SourceSansPro-SemiBold.ttf */,
+				84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */,
+				84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */,
+			);
+			path = SourceSansPro;
 			sourceTree = "<group>";
 		};
 		84F9837021B51A070018DFED /* AppDelegate */ = {
@@ -254,11 +321,13 @@
 		84F9837A21B51A070018DFED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84956F9B21B655D900BF1183 /* Font */,
 				84F9837B21B51A070018DFED /* Assets.xcassets */,
 				84F9837C21B51A070018DFED /* countryData.json */,
 				84F9837D21B51A070018DFED /* AERTRIP-Bridging-Header.h */,
 				84F9837E21B51A070018DFED /* AERTRIP.xcdatamodeld */,
 				84F9838021B51A070018DFED /* Info.plist */,
+				84956FB521B6579F00BF1183 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -385,6 +454,7 @@
 				8469FE8C21B513FD0027BB2E /* Frameworks */,
 				8469FE8D21B513FD0027BB2E /* Resources */,
 				4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */,
+				1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -434,11 +504,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				84F983F421B51A070018DFED /* PreLogin.storyboard in Resources */,
+				84956FB121B655D900BF1183 /* SourceSansPro-BoldItalic.ttf in Resources */,
 				84F983C121B51A070018DFED /* countryData.json in Resources */,
+				84956FAF21B655D900BF1183 /* SourceSansPro-Black.ttf in Resources */,
+				84956FAA21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
+				84956FAE21B655D900BF1183 /* SourceSansPro-Light.ttf in Resources */,
+				84956FA921B655D900BF1183 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				84F983C021B51A070018DFED /* Assets.xcassets in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
+				84956FB221B655D900BF1183 /* SourceSansPro-SemiBold.ttf in Resources */,
+				84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */,
+				84956FB021B655D900BF1183 /* SourceSansPro-ExtraLight.ttf in Resources */,
+				84956FAD21B655D900BF1183 /* SourceSansPro-LightItalic.ttf in Resources */,
 				84F983D221B51A070018DFED /* LICENSE in Resources */,
+				84956FAC21B655D900BF1183 /* SourceSansPro-Bold.ttf in Resources */,
+				84956FB321B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
+				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
+				84956FAB21B655D900BF1183 /* SourceSansPro-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,15 +533,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AERTRIP-checkManifestLockResult.txt",
 			);
@@ -467,25 +546,55 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,10 +611,12 @@
 			files = (
 				84F983BF21B51A070018DFED /* LoginVM.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
+				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */,
+				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
@@ -677,6 +788,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -697,6 +809,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

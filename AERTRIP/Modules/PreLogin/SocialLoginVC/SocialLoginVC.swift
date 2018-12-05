@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SocialLoginVC: UIViewController {
+class SocialLoginVC: BaseVC {
 
     //MARK:- Properties
     //MARK:-
+    let viewModel = SocialLoginVM()
     
     //MARK:- IBOutlets
     //MARK:-
@@ -32,15 +33,33 @@ class SocialLoginVC: UIViewController {
         self.initialSetups()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.fbButton.cornerRadius = self.fbButton.height/2
+        self.googleButton.cornerRadius  = self.googleButton.height/2
+        self.linkedInButton.cornerRadius = self.linkedInButton.height/2
+        
+        self.fbButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
+        self.googleButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
+        self.linkedInButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
+    }
+    
     //MARK:- IBActions
     //MARK:-
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
+        
+        self.viewModel.fbLogin(vc: self)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
+        
+        self.viewModel.googleLogin(vc: self)
     }
     
     @IBAction func linkedInLoginButtonAction(_ sender: UIButton) {
+        
+        self.viewModel.linkedLogin(vc: self)
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
@@ -56,18 +75,25 @@ private extension SocialLoginVC {
     
     func initialSetups() {
         
-        let attributedString = NSMutableAttributedString(string: "I’m New\nRegister", attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 14.0)!,
+        self.setupsFonts()
+    }
+    
+    func setupsFonts() {
+        
+        self.centerTitleLabel.font = AppFonts.Regular.withSize(16)
+        self.centerTitleLabel.textColor = AppColors.themeBlack
+        let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
+            .font: AppFonts.Regular.withSize(14.0),
             .foregroundColor: UIColor.black
             ])
-        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!, range: NSRange(location: 0, length: 7))
+        attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
         self.newRegisterLabel.attributedText = attributedString
         
-        let existingUserString = NSMutableAttributedString(string: "Existing User\nSign in", attributes: [
-            .font: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!,
+        let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
+            .font: AppFonts.SemiBold.withSize(18.0),
             .foregroundColor: UIColor.black
             ])
-        existingUserString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range: NSRange(location: 14, length: 7))
+        existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
     }
 }

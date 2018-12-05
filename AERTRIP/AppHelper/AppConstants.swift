@@ -28,8 +28,12 @@ enum AppConstants {
     static let kOtpTimeOutSeconds          =         60
     static let kMaxDescriptionLength       =         250
     
-    // MARK:- SocialLoginVC
-    //MARK:-
-    static let I_am_new_register  = "I_am_new_register"
-//    static let kGoogleClientID    = ""
+    static let fbUrl = "fb329235157662435"
+    static let googleUrl = "com.googleusercontent.apps.13350074803-jnf88no6vp1qpo3np3bveti5nqrdm51i"
+    static let linkedIn_Client_Id = "78nutigh7qtc48"
+    static let linkedIn_ClientSecret = "zIDH0nPzW7YT4bit"
+    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
+    static let linkedIn_redirectUri = "https://com.aertrip.linkedin.oauth/oauth"
+    
 }

@@ -25,7 +25,7 @@ class AppFlowManager {
     private var mainNavigationController = UINavigationController() {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            mainNavigationController.navigationBar.backgroundColor = AppColors.themeTotalBlack
+            mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
             mainNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] as [NSAttributedString.Key : Any]
         }
     }
