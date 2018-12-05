@@ -22,6 +22,8 @@
 		84956FB321B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */; };
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
+		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
+		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -93,6 +95,8 @@
 		84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
+		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,
+				84956FB721B65C4300BF1183 /* Common */,
 				84F9837921B51A070018DFED /* Models */,
 				84F9837221B51A070018DFED /* Modules */,
 				84F983AB21B51A070018DFED /* Network */,
@@ -235,6 +240,15 @@
 				84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */,
 			);
 			path = SourceSansPro;
+			sourceTree = "<group>";
+		};
+		84956FB721B65C4300BF1183 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				84956FBC21B65DA600BF1183 /* AppExtension.swift */,
+				84956FBE21B667D200BF1183 /* ATButton.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		84F9837021B51A070018DFED /* AppDelegate */ = {
@@ -562,6 +576,7 @@
 				84F983BF21B51A070018DFED /* LoginVM.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
+				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
@@ -579,6 +594,7 @@
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
+				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,

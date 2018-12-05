@@ -32,7 +32,6 @@ extension UnicodeScalar {
 
 //MARK:- glyphCount
 extension String {
-    
     var encodeUrl: String {
         return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
     }

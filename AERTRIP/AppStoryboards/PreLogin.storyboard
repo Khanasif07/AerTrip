@@ -18,20 +18,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOOOO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEH-bW-6yK">
-                                <rect key="frame" x="157" y="333" width="61.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PeL-US-ZJx">
+                                <rect key="frame" x="67.5" y="75" width="240" height="400"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOOOO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEH-bW-6yK">
+                                        <rect key="frame" x="89.5" y="189.5" width="61.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="XEH-bW-6yK" firstAttribute="centerY" secondItem="PeL-US-ZJx" secondAttribute="centerY" id="7Hr-Fm-gvb"/>
+                                    <constraint firstAttribute="width" constant="240" id="Dzz-k0-HPI"/>
+                                    <constraint firstAttribute="height" constant="400" id="hFf-rw-sq8"/>
+                                    <constraint firstItem="XEH-bW-6yK" firstAttribute="centerX" secondItem="PeL-US-ZJx" secondAttribute="centerX" id="tOA-25-eJm"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHC-OQ-4V9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="127.5" y="497" width="120" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.52120530610000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="1Ke-HB-f9G"/>
+                                    <constraint firstAttribute="width" constant="120" id="HmO-wu-pdg"/>
+                                </constraints>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="myButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1q7-Kw-K7b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XEH-bW-6yK" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="OYS-b7-B1B"/>
-                            <constraint firstItem="XEH-bW-6yK" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZYx-Yr-4XV"/>
+                            <constraint firstItem="pHC-OQ-4V9" firstAttribute="top" secondItem="PeL-US-ZJx" secondAttribute="bottom" constant="22" id="02w-R9-eIK"/>
+                            <constraint firstItem="PeL-US-ZJx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eMu-fA-OqF"/>
+                            <constraint firstItem="PeL-US-ZJx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="f5c-r9-UlA"/>
+                            <constraint firstItem="pHC-OQ-4V9" firstAttribute="centerX" secondItem="PeL-US-ZJx" secondAttribute="centerX" id="kvB-VM-bWb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="myButton" destination="pHC-OQ-4V9" id="9cu-cy-Z1P"/>
+                        <outlet property="myView" destination="PeL-US-ZJx" id="DI9-ER-IQR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

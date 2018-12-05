@@ -12,7 +12,9 @@ class LoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-
+    @IBOutlet weak var myView: UIView!
+    @IBOutlet weak var myButton: ATButton!
+    
     
     //MARK:- Properties
     //MARK:- Private
@@ -49,13 +51,18 @@ class LoginVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     override func initialSetup() {
+        self.myView.addGredient(isVertical: true)
         
+        self.myButton.layer.cornerRadius = self.myButton.frame.height / 2.0
+        self.myButton.shadowColor = AppColors.themeGreen
     }
 
     //MARK:- Public
     
     
     //MARK:- Action
-
+    @IBAction func myButtonPressed(_ sender: ATButton) {
+        print("myButtonPressed")
+    }
 }
 
