@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DemoVC: UIViewController {
+class DemoVC: BaseVC {
 
     //MARK:- Properties
     //MARK:-

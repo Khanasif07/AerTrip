@@ -63,9 +63,13 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
+        
+        AppFlowManager.default.moveToCreateYourAccountVC()
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
+        
+        AppFlowManager.default.moveToLoginVC()
     }
 }
 
@@ -76,6 +80,9 @@ private extension SocialLoginVC {
     func initialSetups() {
         
         self.setupsFonts()
+        self.fbButton.addRequiredActionToShowAnimation()
+        self.googleButton.addRequiredActionToShowAnimation()
+        self.linkedInButton.addRequiredActionToShowAnimation()
     }
     
     func setupsFonts() {

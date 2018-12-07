@@ -7,11 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804322D21B8F6D100E6EE23 /* AKAlertController.swift */; };
+		1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */; };
+		1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */; };
+		18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB121BA386F00BF342E /* CreateProfileVC.swift */; };
+		18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB321BA387E00BF342E /* CreateProfileVM.swift */; };
+		18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */; };
+		18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB821BA75A300BF342E /* ForgotPasswordVM.swift */; };
+		18109EBC21BAB37D00BF342E /* SuccessPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EBB21BAB37D00BF342E /* SuccessPopupVC.swift */; };
+		18109EBE21BAB38900BF342E /* SuccessPopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */; };
 		18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */; };
 		18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */; };
 		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
+		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
+		18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */; };
+		18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */; };
+		18F4956021B7F4710003AC16 /* CreateYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955F21B7F4710003AC16 /* CreateYourAccountVM.swift */; };
+		18F4956321B8176A0003AC16 /* ThankYouRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4956221B8176A0003AC16 /* ThankYouRegistrationVC.swift */; };
+		18F8F19421B850190056440A /* ThankYouRegistrationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F8F19321B850190056440A /* ThankYouRegistrationVM.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1D21B55F5600248A6F /* BaseTabBarController.swift */; };
 		84956FA921B655D900BF1183 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */; };
@@ -27,6 +42,8 @@
 		84956FB321B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */; };
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
+		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
+		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -80,11 +97,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1804322D21B8F6D100E6EE23 /* AKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertController.swift; sourceTree = "<group>"; };
+		1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
+		1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVC.swift; sourceTree = "<group>"; };
+		18109EB121BA386F00BF342E /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
+		18109EB321BA387E00BF342E /* CreateProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVM.swift; sourceTree = "<group>"; };
+		18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		18109EB821BA75A300BF342E /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
+		18109EBB21BAB37D00BF342E /* SuccessPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopupVC.swift; sourceTree = "<group>"; };
+		18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopupVM.swift; sourceTree = "<group>"; };
 		18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVC.swift; sourceTree = "<group>"; };
 		18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
 		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
+		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldExtension.swift; sourceTree = "<group>"; };
+		18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateYourAccountVC.swift; sourceTree = "<group>"; };
+		18F4955F21B7F4710003AC16 /* CreateYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateYourAccountVM.swift; sourceTree = "<group>"; };
+		18F4956221B8176A0003AC16 /* ThankYouRegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouRegistrationVC.swift; sourceTree = "<group>"; };
+		18F8F19321B850190056440A /* ThankYouRegistrationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouRegistrationVM.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -103,6 +135,8 @@
 		84956FA721B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		84956FA821B655D900BF1183 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
+		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -169,6 +203,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804322F21B905F200E6EE23 /* SecureYourAccountVC */ = {
+			isa = PBXGroup;
+			children = (
+				1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */,
+				1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */,
+			);
+			path = SecureYourAccountVC;
+			sourceTree = "<group>";
+		};
+		18109EB021BA377200BF342E /* CreateProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				18109EB121BA386F00BF342E /* CreateProfileVC.swift */,
+				18109EB321BA387E00BF342E /* CreateProfileVM.swift */,
+			);
+			path = CreateProfileVC;
+			sourceTree = "<group>";
+		};
+		18109EB521BA756A00BF342E /* ForgotPasswordVC */ = {
+			isa = PBXGroup;
+			children = (
+				18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */,
+				18109EB821BA75A300BF342E /* ForgotPasswordVM.swift */,
+			);
+			path = ForgotPasswordVC;
+			sourceTree = "<group>";
+		};
+		18109EBA21BAB35200BF342E /* SuccessPopupVC */ = {
+			isa = PBXGroup;
+			children = (
+				18109EBB21BAB37D00BF342E /* SuccessPopupVC.swift */,
+				18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */,
+			);
+			path = SuccessPopupVC;
+			sourceTree = "<group>";
+		};
 		18A96B8C21B6458E00EA9B3A /* SocialLoginVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +255,24 @@
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		18F4955C21B7F3FC0003AC16 /* CreateYourAccountVC */ = {
+			isa = PBXGroup;
+			children = (
+				18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */,
+				18F4955F21B7F4710003AC16 /* CreateYourAccountVM.swift */,
+			);
+			path = CreateYourAccountVC;
+			sourceTree = "<group>";
+		};
+		18F4956121B8173C0003AC16 /* ThankYouRegistrationVC */ = {
+			isa = PBXGroup;
+			children = (
+				18F4956221B8176A0003AC16 /* ThankYouRegistrationVC.swift */,
+				18F8F19321B850190056440A /* ThankYouRegistrationVM.swift */,
+			);
+			path = ThankYouRegistrationVC;
 			sourceTree = "<group>";
 		};
 		303782E47A5C7F1294906B16 /* Pods */ = {
@@ -228,6 +316,7 @@
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,
+				84956FB721B65C4300BF1183 /* Common */,
 				84F9837921B51A070018DFED /* Models */,
 				84F9837221B51A070018DFED /* Modules */,
 				84F983AB21B51A070018DFED /* Network */,
@@ -265,6 +354,15 @@
 			path = SourceSansPro;
 			sourceTree = "<group>";
 		};
+		84956FB721B65C4300BF1183 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				84956FBC21B65DA600BF1183 /* AppExtension.swift */,
+				84956FBE21B667D200BF1183 /* ATButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		84F9837021B51A070018DFED /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,8 +385,14 @@
 		84F9837421B51A070018DFED /* PreLogin */ = {
 			isa = PBXGroup;
 			children = (
+				18109EBA21BAB35200BF342E /* SuccessPopupVC */,
 				18A96B8C21B6458E00EA9B3A /* SocialLoginVC */,
 				84F9837521B51A070018DFED /* LoginVC */,
+				18F4955C21B7F3FC0003AC16 /* CreateYourAccountVC */,
+				18F4956121B8173C0003AC16 /* ThankYouRegistrationVC */,
+				1804322F21B905F200E6EE23 /* SecureYourAccountVC */,
+				18109EB021BA377200BF342E /* CreateProfileVC */,
+				18109EB521BA756A00BF342E /* ForgotPasswordVC */,
 				84F9837821B51A070018DFED /* TutorilsVC */,
 			);
 			path = PreLogin;
@@ -352,6 +456,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				1804322D21B8F6D100E6EE23 /* AKAlertController.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
 				84F9838621B51A070018DFED /* AssetController.swift */,
 				84F9838821B51A070018DFED /* APIKeys.swift */,
@@ -401,6 +506,8 @@
 				84F983A221B51A070018DFED /* UIImageExtension.swift */,
 				84F983A321B51A070018DFED /* UserDefaultsExtension.swift */,
 				84F983A421B51A070018DFED /* DateExtension.swift */,
+				18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */,
+				18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -572,6 +679,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -581,11 +689,13 @@
 				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActiveLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -595,6 +705,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,29 +722,41 @@
 			files = (
 				84F983BF21B51A070018DFED /* LoginVM.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
+				1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */,
+				18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */,
+				18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */,
+				18109EBC21BAB37D00BF342E /* SuccessPopupVC.swift in Sources */,
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
+				1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
+				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */,
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
+				18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
+				18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */,
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */,
+				1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
+				18F8F19421B850190056440A /* ThankYouRegistrationVM.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
+				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
+				18F4956321B8176A0003AC16 /* ThankYouRegistrationVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
@@ -642,6 +765,7 @@
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
+				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
@@ -652,13 +776,17 @@
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
+				18109EBE21BAB38900BF342E /* SuccessPopupVM.swift in Sources */,
 				84F983F721B53F6C0018DFED /* AppNetworking.swift in Sources */,
 				84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */,
 				84F983DC21B51A070018DFED /* UIDeviceExtension.swift in Sources */,
 				84F983BE21B51A070018DFED /* LoginVC.swift in Sources */,
+				18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
+				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,
 				84F983FB21B545060018DFED /* UserInfo.swift in Sources */,
 				84F983CB21B51A070018DFED /* LocationManager.swift in Sources */,
+				18F4956021B7F4710003AC16 /* CreateYourAccountVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

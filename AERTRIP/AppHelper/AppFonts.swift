@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum AppFonts: String {
-
+    
     case Light = "SourceSansPro-Light"
     case BoldItalic = "SourceSansPro-BoldItalic"
     case LightItalic = "SourceSansPro-LightItalic"

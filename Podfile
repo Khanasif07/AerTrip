@@ -13,5 +13,6 @@ target 'AERTRIP' do
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
     pod 'LinkedinSwift'
-
+    pod 'SkyFloatingLabelTextField'
+    pod 'ActiveLabel'
 end

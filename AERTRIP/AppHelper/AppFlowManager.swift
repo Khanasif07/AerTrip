@@ -83,7 +83,9 @@ class AppFlowManager {
     }
     
     func goToLogin() {
-        
+        let nvc = UINavigationController(rootViewController: SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin))
+        self.mainNavigationController = nvc
+        self.window.rootViewController = nvc
         self.window.becomeKey()
         self.window.makeKeyAndVisible()
     }
@@ -97,12 +99,48 @@ class AppFlowManager {
 
 //MARK: - Public Navigation func
 extension AppFlowManager {
-    func moveToLoginFromSignup() {
+    func moveToLogoutNavigation() {
         
     }
     
-    func moveToLogoutNavigation() {
+    func moveToLoginVC() {
+        let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToCreateYourAccountVC() {
+        let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToRegistrationSuccefullyVC(email: String) {
+        let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount) {
+        let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.isPasswordType = isPasswordType
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToCreateProfileVC() {
+        let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToForgotPasswordVC() {
+        let ob = ForgotPasswordVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func addSuccessFullPopupVC(vc: UIViewController) {
         
+        let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
+        
+        vc.view.addSubview(ob.view)
+        vc.addChild(ob)
     }
 }
 

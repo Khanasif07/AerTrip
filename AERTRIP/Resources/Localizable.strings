@@ -15,3 +15,76 @@
 //MARK:-
 "I_am_new_register"  = "I’m New\nRegister";
 "Existing_User_Sign" = "Existing User\nSign in";
+
+// MARK:- LoginVC
+//MARK:-
+"Forgot_Password"  = "Forgot Password?";
+"Welcome_Back"    = "Welcome Back!";
+"Email_ID"      = "Email ID";
+"Password"      = "Password";
+"Not_ye_registered_Register_here"  = "Not yet registered? Register here";
+"Login" = "Login";
+"Register_here" = "Register here";
+
+// MARK:- CreateYourAccountVC
+//MARK:-
+"Create_your_account"  = "Create your account";
+"Register"             = "Register";
+"By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use" = "By registering, you agree to Aertrip’s \nprivacy policy & terms of use.";
+"Already_Registered" = "Already Registered?";
+"Login_here"    = "Login here";
+"privacy_policy" = "privacy policy";
+"terms_of_use"   = "terms of use";
+
+// MARK:- ThankYouRegistrationVC
+//MARK:-
+"Thank_you_for_registering"  = "Thank you for registering.";
+"We_have_sent_you_an_account_activation_link_on" = "We have sent you an account activation link on";
+"Check_your_email_to_activate_your_account" = "Check your email to activate your account.";
+"Open_Email_App" = "Open Email App";
+"No_Reply_Email_Text" = "The activation email will expire in 7 days. If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com";
+"noreply_aertrip_com" = "noreply@aertrip.com";
+"Mail_Default" = "Mail (Default)";
+"Gmail"      = "Gmail";
+
+// MARK:- SecureYourAccountVC
+//MARK:-
+"Secure_your_account"  = "Secure your account";
+"Set_password" = "Set password";
+"Password_Conditions" = "Password Conditions:";
+"one" = "1";
+"a"   = "a";
+"A"   = "A";
+"at"  = "@";
+"eight_Plus" = "8+";
+"Number"     = "Number";
+"Lowercase"  = "Lowercase";
+"Uppercase"  = "Uppercase";
+"Special"    = "Special";
+"Characters" = "Characters";
+"Next"       = "Next";
+"Reset_Password"  = "Reset \nPassword";
+"Please_enter_new_Password" = "Please enter new Password";
+"New_Password" = "New Password";
+
+// MARK:- CreateProfileVC
+//MARK:-
+"Create_Your_Profile"  = "Create Your \n Profile";
+"and_you_are_done"    = "and you are done!";
+"Title"           = "Title";
+"First_Name"        = "First Name";
+"Last_Name"        = "Last name";
+"Country"          = "Country";
+"Mobile_Number"      = "Mobile Number";
+"Lets_Get_Started"    = "Lets Get Started!";
+
+// MARK:- ForgotPasswordVC
+//MARK:-
+"Forgot_Your_Password"  = "Forgot Your Password?";
+"Email_Intruction" = "Don’t worry. We’ll email you instructions on how to reset your password.";
+"Continue" = "Continue";
+
+// MARK:- SuccessPopupVC
+//MARK:-
+"Successful"  = "Successful";
+"Your_password_has_been_reset_successfully" = "Your password has been reset\n successfully.";

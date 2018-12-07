@@ -10,5 +10,7 @@ import UIKit
 
 class LoginVM {
 
+    var email    = ""
+    var password = ""
 }
 
