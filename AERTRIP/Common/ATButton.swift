@@ -25,6 +25,18 @@ class ATButton: UIButton {
         }
     }
     
+    var disabledGradientColors: [UIColor] = [UIColor.black, UIColor.lightGray] {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
+    override var isEnabled: Bool {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -72,8 +84,15 @@ class ATButton: UIButton {
             gradientLayer.cornerRadius = self.cornerRadius
             gradientLayer.masksToBounds = true
             
-            gradientLayer.colors = gradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+            if self.isEnabled {
+                gradientLayer.colors = gradientColors.map { (clr) -> CGColor in
+                    clr.cgColor
+                }
+            }
+            else {
+                gradientLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
+                    clr.cgColor
+                }
             }
             
             self.titleLabel?.font = AppFonts.SemiBold.withSize(17)

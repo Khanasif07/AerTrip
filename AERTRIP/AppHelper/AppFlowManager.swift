@@ -17,7 +17,6 @@ class AppFlowManager {
     
     static let `default` = AppFlowManager()
     
-    
     private let urlScheme = "://"
 
     private init() {}
