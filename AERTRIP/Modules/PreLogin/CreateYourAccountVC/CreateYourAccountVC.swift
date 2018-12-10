@@ -83,7 +83,8 @@ class CreateYourAccountVC: BaseVC {
     @IBAction func registerButtonAction(_ sender: UIButton) {
         
         if self.viewModel.isValidEmail {
-            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.viewModel.email)
+            
+            self.viewModel.webserviceForCreateAccount()
         }
     }
     

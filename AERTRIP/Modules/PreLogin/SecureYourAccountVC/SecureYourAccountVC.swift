@@ -150,11 +150,6 @@ private extension SecureYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.password = textField.text ?? ""
-        if self.viewModel.password.isEmpty {
-            self.passwordTextField.rightViewMode = .never
-        } else {
-            self.passwordTextField.rightViewMode = .always
-        }
         self.setupValidation()
     }
     
@@ -276,6 +271,12 @@ private extension SecureYourAccountVC {
             }
             animation.startAnimation()
             
+        }
+        
+        if self.viewModel.password.isEmpty {
+            self.passwordTextField.rightViewMode = .never
+        } else {
+            self.passwordTextField.rightViewMode = .always
         }
     }
 }

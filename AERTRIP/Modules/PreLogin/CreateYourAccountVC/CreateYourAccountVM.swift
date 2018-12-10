@@ -22,3 +22,22 @@ class CreateYourAccountVM {
         }
     }
 }
+
+//MARK:- Extension Webservices
+//MARK:-
+extension CreateYourAccountVM {
+    
+    func webserviceForCreateAccount() {
+        
+        var params = JSONDictionary()
+        
+        params[APIKeys.email.rawValue]  = self.email
+        
+        APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, data) in
+            
+            printDebug(data)
+            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+        })
+        
+    }
+}

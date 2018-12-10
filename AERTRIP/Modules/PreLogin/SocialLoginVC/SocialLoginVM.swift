@@ -85,3 +85,23 @@ class SocialLoginVM {
         })
     }
 }
+
+//MARK:- Extension Webservices
+//MARK:-
+extension SocialLoginVM {
+    
+    func webserviceForSocialLogin() {
+        
+        var params = JSONDictionary()
+        
+//        params[APIKeys.loginid.rawValue]     = email
+//        params[APIKeys.password.rawValue]    = password
+        params[APIKeys.isGuestUser.rawValue]  = false
+        
+        APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
+            
+            printDebug(data)
+        })
+        
+    }
+}

@@ -11,11 +11,19 @@ import Foundation
 enum APIEndPoint : String {
     
     //MARK: - Base URLs
-    case apiKey                =       "asas"
-    case baseUrlPath           =       "http://bananidev.appskeeper.com/api/v1/"
+    case apiKey       = "3a457a74be76d6c3603059b559f6addf"
+    case baseUrlPath  = "https://beta.aertrip.com/api/v1/users/"
 
     //MARK: - Account URLs -
-    case login                  =       "Account/Login"
+    case isActiveUser       = "is-active-user"
+    case login              = "login"
+    case logout             = "logout/"
+    case socialLogin        = "app-social-login"
+    case register           = "register"
+    case emailAvailability  = "email-availability"
+    case forgotPassword     = "reset-password"
+    case updateUserDetail   = "initial-details"
+    case updateUserPassword = "update-password"
 }
 
 //MARK: - endpoint extension for url -

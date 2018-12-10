@@ -21,6 +21,7 @@
 		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
+		18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D00D2221BE31E400EC2E5F /* UserModel.swift */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
 		18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */; };
 		18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */; };
@@ -111,6 +112,7 @@
 		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
+		18D00D2221BE31E400EC2E5F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldExtension.swift; sourceTree = "<group>"; };
 		18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateYourAccountVC.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				84F983FA21B545050018DFED /* UserInfo.swift */,
+				18D00D2221BE31E400EC2E5F /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
+				18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,

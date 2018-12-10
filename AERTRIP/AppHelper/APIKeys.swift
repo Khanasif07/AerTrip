@@ -17,7 +17,22 @@ enum APIKeys: String {
     case status
     
     //MARK:- Login Module
-    case email
+    //MARK:-
+    case loginid     = "loginid"
+    case password    = "password"
+    case isGuestUser = "isGuestUser"
+    case id     = "id"
+    case userName    = "username"
+    case firstName = "first_name"
+    case lastName     = "last_name"
+    case authKey    = "authKey"
+    case email = "email"
+    case picture     = "picture"
+    case gender    = "gender"
+    case service = "service"
+    case dob     = "dob"
+    case permissions    = "permissions"
+    case login = "login"
 }
 
 

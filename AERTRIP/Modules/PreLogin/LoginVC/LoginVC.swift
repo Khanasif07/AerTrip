@@ -74,6 +74,7 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func loginButtonAction(_ sender: UIButton) {
+        self.viewModel.webserviceForLogin()
     }
     
     @IBAction func registerHereButtonAction(_ sender: UIButton) {
