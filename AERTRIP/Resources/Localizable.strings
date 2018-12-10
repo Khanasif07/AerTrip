@@ -11,6 +11,13 @@
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
 
+// MARK:- TextField validation
+//MARK:-
+"Enter_email_address"     = "Enter email address";
+"Enter_valid_email_address" = "Enter valid email address";
+"Enter_password"        = "Enter password";
+"Enter_valid_Password"    = "Enter valid Password";
+
 // MARK:- SocialLoginVC
 //MARK:-
 "I_am_new_register"  = "I’m New\nRegister";

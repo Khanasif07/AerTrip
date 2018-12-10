@@ -14,12 +14,13 @@ class CreateYourAccountVM {
     var isValidEmail: Bool {
         
         if self.email.isEmpty {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized)
             return false
         } else if self.email.checkInvalidity(.Email) {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized)
             return false
-        } else {
-            return true
         }
+        return true
     }
 }
 

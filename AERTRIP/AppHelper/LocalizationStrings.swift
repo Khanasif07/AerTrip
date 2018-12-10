@@ -21,6 +21,14 @@ enum LocalizedString: String {
     case ParsingError = "ParsingError"
     case error = "error"
     
+    // MARK:- TextField validation
+    //MARK:-
+    case Enter_email_address       = "Enter_email_address"
+    case Enter_valid_email_address = "Enter_valid_email_address"
+    case Enter_password            = "Enter_password"
+    case Enter_valid_Password      = "Enter_valid_Password"
+   
+    
     // MARK:- SocialLoginVC
     //MARK:-
     case I_am_new_register  = "I_am_new_register"

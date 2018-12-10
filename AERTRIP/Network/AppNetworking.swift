@@ -185,11 +185,16 @@ enum AppNetworking {
             printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
         }
         
-        Alamofire.request(URLString,
+       let request = Alamofire.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
                           encoding: encoding,
-                          headers: header).responseData { (response:DataResponse<Data>) in
+                          headers: header)
+        
+        request.responseString { (data) in
+            printDebug(data)
+        }
+        request.responseData { (response:DataResponse<Data>) in
                             
                             printDebug(headers)
                             
@@ -221,6 +226,7 @@ enum AppNetworking {
                                 failure(e as NSError)
                             }
         }
+        
     }
     
     //Multipart
