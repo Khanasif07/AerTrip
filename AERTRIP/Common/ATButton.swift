@@ -13,7 +13,7 @@ class ATButton: UIButton {
     var shadowLayer: CAShapeLayer!
     var gradientLayer: CAGradientLayer!
     
-    var shadowColor: UIColor = .darkGray {
+    var shadowColor: UIColor = AppColors.themeGreen {
         didSet {
             self.layoutSubviews()
         }
@@ -95,6 +95,7 @@ class ATButton: UIButton {
                 }
             }
             
+            self.titleLabel?.font = AppFonts.SemiBold.withSize(17)
             self.layer.insertSublayer(gradientLayer, at: 1)
         }
     }

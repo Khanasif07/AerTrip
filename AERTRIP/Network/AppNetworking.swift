@@ -53,29 +53,29 @@ enum AppNetworking {
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
         return params
-//        var temp = params
-//        temp["device_type"] = UIDevice.deviceOSType
-//        if let remotePushToken = UIDevice.remotePushToken{
-//            temp["device_token"] = remotePushToken
-//        }
-//        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-//            temp["app_version"] = "\(version)"
-//        }
-//        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
-//            temp["user_id"] = "\(user_id)"
-//        }
-//
-//        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
-//        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
-//            temp["device_id"] = "\(deviceId)"
-//        }
-//        else {
-//            let uuid = UUID().uuidString
-//            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
-//            temp["device_id"] = "\(uuid)"
-//        }
-//
-//        return temp
+        //        var temp = params
+        //        temp["device_type"] = UIDevice.deviceOSType
+        //        if let remotePushToken = UIDevice.remotePushToken{
+        //            temp["device_token"] = remotePushToken
+        //        }
+        //        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
+        //            temp["app_version"] = "\(version)"
+        //        }
+        //        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
+        //            temp["user_id"] = "\(user_id)"
+        //        }
+        //
+        //        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
+        //        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
+        //            temp["device_id"] = "\(deviceId)"
+        //        }
+        //        else {
+        //            let uuid = UUID().uuidString
+        //            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
+        //            temp["device_id"] = "\(uuid)"
+        //        }
+        //
+        //        return temp
     }
     
     
@@ -164,7 +164,7 @@ enum AppNetworking {
             guard let data = "\(username):\(password)".data(using: String.Encoding.utf8) else { return  }
             
             let base64LoginString = data.base64EncodedString()
-            
+//            header["api-key"] = "3a457a74be76d6c3603059b559f6addf"
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
@@ -173,7 +173,7 @@ enum AppNetworking {
                 //            printDebug("Access-Token: \(accessToken)")
             }
             else {
-                header["Api-Key"] = APIEndPoint.apiKey.rawValue
+                header["api-key"] = APIEndPoint.apiKey.rawValue
                 printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
             }
             
