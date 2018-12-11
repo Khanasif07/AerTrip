@@ -60,7 +60,7 @@ class ShowToastMessageVC: BaseVC {
     
     override func setupColors() {
         
-        self.toastView.backgroundColor = AppColors.themeGray60WithOpacity
+        self.toastView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.82)
         self.messageLabel.textColor   = AppColors.themeWhite
         self.rightViewButton.titleLabel?.textColor = AppColors.themeYellow
     }

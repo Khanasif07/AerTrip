@@ -11,6 +11,8 @@ import UIKit
 
 enum AppColors {
 
+    static let clear = UIColor.clear
+    
     /// RGB - 0, 204, 153
     static let themeGreen = #colorLiteral(red: 0, green: 0.8, blue: 0.6, alpha: 1)
     
@@ -62,8 +64,8 @@ enum AppColors {
     /// RGB - 0, 120, 186
     static let linkedinButtonBackgroundColor  = #colorLiteral(red: 0, green: 0.4705882353, blue: 0.7294117647, alpha: 1)
 
-    /// RGB - 102, 102, 102, 0.82
-    static let themeGray60WithOpacity = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.82)
+    /// RGB - 50, 58, 69
+    static let themeTextColor  = #colorLiteral(red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
 
     case headlines
     case body

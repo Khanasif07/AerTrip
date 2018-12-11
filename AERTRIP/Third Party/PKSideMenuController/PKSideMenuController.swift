@@ -74,6 +74,20 @@ class PKSideMenuController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.mainViewController?.viewWillAppear(animated)
+        self.rightMenuViewController?.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.mainViewController?.viewWillDisappear(animated)
+        self.rightMenuViewController?.viewWillDisappear(animated)
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initView() {
@@ -185,27 +199,34 @@ class PKSideMenuController: UIViewController {
     
     open func showRightMenu() {
         
-//        var rotationAndPerspectiveTransform: CATransform3D = CATransform3DIdentity
-//        rotationAndPerspectiveTransform.m34 = 1.0 / -1000.0
-//        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (.pi * 0.9), 0.0, 5.0, 0.0)
-        
         UIView.animate(withDuration: 0.3, animations: {
             self.setupShadowLayer(withCornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, shadowWidth: 8.0)
-
+            
             let scaleTransform = CGAffineTransform(scaleX: 0.9, y: 0.85)
             let translateTransform = CGAffineTransform(translationX: -(PKSideMenuOptions.rightViewWidth), y: 0.0)
-
+            
             let animationTransform = translateTransform.concatenating(scaleTransform)
             self.mainContainerView.transform = animationTransform
-            
-//            self.mainContainerView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-//            self.mainContainerView.layer.transform = rotationAndPerspectiveTransform
             
             self.opacityView.alpha = 0.0
             
         }) { (isCompleted) in
             
         }
+        
+        
+        //        var rotationAndPerspectiveTransform: CATransform3D = CATransform3DIdentity
+        //        rotationAndPerspectiveTransform.m34 = 1.0 / -1000.0
+        //        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -(.pi * 0.1), 0.0, 1.0, 0.0)
+        //
+        //        UIView.animate(withDuration: 0.3, animations: {
+        //
+        //            //            self.mainContainerView.layer.anchorPoint = CGPoint(x: 0, y: 0)
+        //            self.mainContainerView.layer.transform = rotationAndPerspectiveTransform
+        //
+        //        }) { (isCompleted) in
+        //        }
+        
         
         UIView.animate(withDuration: 0.3, animations: {
             

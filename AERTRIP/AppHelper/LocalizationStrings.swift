@@ -111,5 +111,15 @@ enum LocalizedString: String {
     //MARK:-
     case Successful  = "Successful"
     case Your_password_has_been_reset_successfully = "Your_password_has_been_reset_successfully"
+    
+    //MARK:- DashboardVC
+    //MARK:-
+    case aerin = "aerin"
+    case flights = "flights"
+    case hotels = "hotels"
+    case trips = "trips"
+    case hiImAerin = "hiImAerin"
+    case yourPersonalTravelAssistant = "yourPersonalTravelAssistant"
+    case tryAskingForFlightsFromMumbai = "tryAskingForFlightsFromMumbai"
 }
 

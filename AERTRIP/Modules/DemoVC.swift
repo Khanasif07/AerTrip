@@ -25,15 +25,14 @@ class DemoVC: BaseVC {
         self.initialSetups()
     }
     
-    //MARK:- IBActions
-    //MARK:-
-}
-
-//MARK:- Extension Initialsetups
-//MARK:-
-private extension DemoVC {
-    
-    func initialSetups() {
+    //MARK:- Methods
+    //MARK:- Private
+    private func initialSetups() {
         
     }
+    
+    //MARK:- Public
+    
+    
+    //MARK:- Action
 }
