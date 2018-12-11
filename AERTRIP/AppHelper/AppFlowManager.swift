@@ -17,6 +17,8 @@ class AppFlowManager {
     
     static let `default` = AppFlowManager()
     
+    var sideMenuController: PKSideMenuController?
+    
     private let urlScheme = "://"
 
     private init() {}
@@ -68,29 +70,16 @@ class AppFlowManager {
 //    }
     
     func setupInitialFlow() {
-        
-        if let _ = UserInfo.loggedInUserId {
-//            if user.userType == .guest {
-//                let home = MapVC.instantiate(fromAppStoryboard: .Home)
-//                self.mainNavigationController.viewControllers.append(home)
-//            } else {
-                self.goToHomeWithSideMenu()
-//            }
-        } else {
-            self.goToLogin()
-        }
+        self.goToDashboard()
     }
     
-    func goToLogin() {
-        let nvc = UINavigationController(rootViewController: SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin))
+    func goToDashboard() {
+        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeGreen
+        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
+        self.sideMenuController = dashboard
+        let nvc = UINavigationController(rootViewController: dashboard)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
-        self.window.becomeKey()
-        self.window.makeKeyAndVisible()
-    }
-    
-    func goToHomeWithSideMenu() {
-        
         self.window.becomeKey()
         self.window.makeKeyAndVisible()
     }

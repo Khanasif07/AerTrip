@@ -88,3 +88,13 @@
 //MARK:-
 "Successful"  = "Successful";
 "Your_password_has_been_reset_successfully" = "Your password has been reset\n successfully.";
+
+//MARK:- DashboardVC
+//MARK:-
+"aerin" = "Aerin";
+"flights" = "Flights";
+"hotels" = "Hotels";
+"trips" = "Trips";
+"hiImAerin" = "Hi, I’m Aerin";
+"yourPersonalTravelAssistant" = "Your personal travel assistant";
+"tryAskingForFlightsFromMumbai" = "Try asking for Flights from Mumbai to Delhi on Christmas";

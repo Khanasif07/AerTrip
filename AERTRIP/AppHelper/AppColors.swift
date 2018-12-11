@@ -11,6 +11,8 @@ import UIKit
 
 enum AppColors {
 
+    static let clear = UIColor.clear
+    
     /// RGB - 0, 204, 153
     static let themeGreen = #colorLiteral(red: 0, green: 0.8, blue: 0.6, alpha: 1)
     
@@ -55,6 +57,9 @@ enum AppColors {
     
     /// RGB - 51, 51, 51
     static let textFieldTextColor51  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+
+    /// RGB - 50, 58, 69
+    static let themeTextColor  = #colorLiteral(red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
 
 
     case headlines

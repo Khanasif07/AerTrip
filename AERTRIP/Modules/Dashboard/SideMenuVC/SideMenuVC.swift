@@ -1,15 +1,15 @@
 //
-//  DemoVC.swift
+//  SideMenuVC.swift
 //  AERTRIP
 //
-//  Created by Aakash Srivastav on 04/12/18.
+//  Created by Admin on 10/12/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class DemoVC: BaseVC {
-
+class SideMenuVC: BaseVC {
+    
     //MARK:- Properties
     //MARK:-
     
@@ -35,4 +35,7 @@ class DemoVC: BaseVC {
     
     
     //MARK:- Action
+    @IBAction func loginButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.moveToLoginVC()
+    }
 }

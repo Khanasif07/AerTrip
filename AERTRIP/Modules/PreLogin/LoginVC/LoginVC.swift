@@ -74,7 +74,12 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func loginButtonAction(_ sender: UIButton) {
-        self.viewModel.webserviceForLogin()
+        self.loginButton.isEnabled = false
+        
+        delay(seconds: 2.0) {
+            self.loginButton.isEnabled = true
+        }
+        //        self.viewModel.webserviceForLogin()
     }
     
     @IBAction func registerHereButtonAction(_ sender: UIButton) {

@@ -139,9 +139,11 @@ class ATButton: UIButton {
         self.titleDuringLoading = self.currentTitle ?? ""
         self.setTitle(nil, for: UIControl.State.normal)
         self.loaderIndicator.startAnimating()
+        self.isUserInteractionEnabled = false
     }
     
     private func stopLoading() {
+        self.isUserInteractionEnabled = true
         self.setTitle(self.titleDuringLoading, for: UIControl.State.normal)
         self.titleDuringLoading = ""
         self.loaderIndicator.stopAnimating()

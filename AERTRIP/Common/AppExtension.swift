@@ -47,4 +47,16 @@ extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
+    
+    func addDropShadow(withColor color: UIColor = AppColors.themeGreen) {
+        layer.shadowRadius = 5.0
+        layer.masksToBounds = false
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 0.0, height: 7.0)
+        layer.shadowRadius = 5.0
+        
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+        layer.shouldRasterize = true
+    }
 }

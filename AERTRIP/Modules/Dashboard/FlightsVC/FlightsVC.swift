@@ -1,15 +1,15 @@
 //
-//  DemoVC.swift
+//  FlightsVC.swift
 //  AERTRIP
 //
-//  Created by Aakash Srivastav on 04/12/18.
+//  Created by Admin on 11/12/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class DemoVC: BaseVC {
-
+class FlightsVC: BaseVC {
+    
     //MARK:- Properties
     //MARK:-
     
