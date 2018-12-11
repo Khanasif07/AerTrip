@@ -55,7 +55,15 @@ enum AppColors {
     
     /// RGB - 51, 51, 51
     static let textFieldTextColor51  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    
+    /// RGB - 66, 97, 168
+    static let fbButtonBackgroundColor  = #colorLiteral(red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
+    
+    /// RGB - 0, 120, 186
+    static let linkedinButtonBackgroundColor  = #colorLiteral(red: 0, green: 0.4705882353, blue: 0.7294117647, alpha: 1)
 
+    /// RGB - 102, 102, 102, 0.82
+    static let themeGray60WithOpacity = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.82)
 
     case headlines
     case body

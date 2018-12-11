@@ -13,20 +13,20 @@ import SwiftyJSON
 
 enum Gender : String {
     
-    case Male = "1",Female = "2" ,Other = "3", None
+    case male = "1",female = "2" ,other = "3", none
     
     init(stringValue: String) {
         
         switch stringValue.lowercased() {
             
         case "male":
-            self = .Male
+            self = .male
             
         case "female":
-            self = .Female
+            self = .female
             
         default:
-            self = .Other
+            self = .other
         }
     }
     
@@ -34,13 +34,13 @@ enum Gender : String {
         
         switch self {
             
-        case .Male :
+        case .male :
             return "1"
-        case .Female :
+        case .female :
             return "2"
-        case .Other :
+        case .other :
             return "3"
-        case .None:
+        case .none:
             return "0"
         }
     }
@@ -49,36 +49,40 @@ enum Gender : String {
         
         switch self {
             
-        case .Male :
+        case .male :
             return "Male"
-        case .Female :
+        case .female :
             return "Female"
-        case .Other :
+        case .other :
             return "Other"
             
-        case .None:
+        case .none:
             return ""
         }
     }
     
-    static let  allOption : [Gender] = [.Male,.Female,.Other,.None]
+    static let  allOption : [Gender] = [.male,.female,.other,.none]
     
 }
 
 struct UserModel {
     
+    var id         : String
     var email      : String
     var password   : String
-    var first_name : String
-    var last_name  : String
+    var firstName  : String
+    var lastName   : String
     var mobile     : String
-    var gender     : Gender = .None
+    var gender     : Gender = .none
     var isd        : String
     var country    : String
     var salutation : String
+    var picture    : String
+    var service    : String
+    var dob        : String
+    var userName   : String
     
-    
-    init() {
+     init() {
         
         let json = JSON()
         self.init(json: json)
@@ -86,15 +90,20 @@ struct UserModel {
     
     init(json: JSON) {
         
-        self.email     = json["email"].stringValue
-        self.password   = json["password"].stringValue
-        self.first_name  = json["first_name"].stringValue
-        self.last_name  = json["last_name"].stringValue
-        self.mobile    = json["mobile"].stringValue
-        self.isd      = json["isd"].stringValue
-        self.country   = json["country"].stringValue
-        self.salutation = json["salutation"].stringValue
-        self.country   = json["country"].stringValue
+        self.id         = json["id"].stringValue
+        self.email       = json["email"].stringValue
+        self.password     = json["password"].stringValue
+        self.firstName    = json["first_name"].stringValue
+        self.lastName     = json["last_name"].stringValue
+        self.mobile      = json["mobile"].stringValue
+        self.isd        = json["isd"].stringValue
+        self.country     = json["country"].stringValue
+        self.salutation   = json["salutation"].stringValue
+        self.country     = json["country"].stringValue
+        self.picture     = json["picture"].stringValue
+        self.service     = json["service"].stringValue
+        self.dob       = json["dob"].stringValue
+        self.userName    = json["user_name"].stringValue
         
         if let gender   = json["gender"].string {
             

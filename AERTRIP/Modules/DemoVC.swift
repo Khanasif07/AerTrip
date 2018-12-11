@@ -25,7 +25,7 @@ class DemoVC: BaseVC {
         self.initialSetups()
     }
     
-    //MARK:- IBOutlets
+    //MARK:- IBActions
     //MARK:-
 }
 

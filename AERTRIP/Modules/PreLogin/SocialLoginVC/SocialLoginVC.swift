@@ -45,6 +45,29 @@ class SocialLoginVC: BaseVC {
         self.linkedInButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
     }
     
+    override func setupFonts() {
+        
+        self.centerTitleLabel.font = AppFonts.Regular.withSize(16)
+        self.fbButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+        self.googleButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+        self.linkedInButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+    }
+    
+    override func setupColors() {
+        
+        self.centerTitleLabel.textColor = AppColors.themeBlack
+        self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
+        self.googleButton.backgroundColor = AppColors.themeWhite
+        self.linkedInButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+    }
+    
+    override func setupTexts() {
+        
+        self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
+        self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
+        self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
+    }
+    
     //MARK:- IBActions
     //MARK:-
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
@@ -87,8 +110,7 @@ private extension SocialLoginVC {
     
     func setupsFonts() {
         
-        self.centerTitleLabel.font = AppFonts.Regular.withSize(16)
-        self.centerTitleLabel.textColor = AppColors.themeBlack
+        
         let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
             .font: AppFonts.Regular.withSize(14.0),
             .foregroundColor: UIColor.black

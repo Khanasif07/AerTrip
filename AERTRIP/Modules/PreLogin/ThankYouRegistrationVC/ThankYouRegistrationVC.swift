@@ -31,6 +31,7 @@ class ThankYouRegistrationVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.viewModel.webserviceForGetRegistrationData()
         self.initialSetups()
     }
     

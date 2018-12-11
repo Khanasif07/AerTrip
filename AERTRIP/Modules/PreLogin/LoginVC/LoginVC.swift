@@ -76,7 +76,7 @@ class LoginVC: BaseVC {
     @IBAction func loginButtonAction(_ sender: UIButton) {
         
         self.view.endEditing(true)
-        if self.viewModel.isValidateData {
+        if self.viewModel.isValidateData(vc: self) {
             self.viewModel.webserviceForLogin()
         }
     }

@@ -17,3 +17,22 @@ class SecureYourAccountVM {
     var isPasswordType: SecureAccount = .setPassword
     var password = ""
 }
+
+//MARK:- Extension Webservices
+//MARK:-
+extension SecureYourAccountVM {
+    
+    func webserviceForUpdatePassword() {
+        
+        var params = JSONDictionary()
+        
+        params[APIKeys.password.rawValue]  = self.password
+        
+        APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
+            
+            printDebug(data)
+            //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+        })
+        
+    }
+}

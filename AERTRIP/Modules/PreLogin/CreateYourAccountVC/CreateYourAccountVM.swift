@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 class CreateYourAccountVM {
     
     var email = ""
-    var isValidEmail: Bool {
+    func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized)
+            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
         } else if self.email.checkInvalidity(.Email) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized)
+            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
         }
         return true

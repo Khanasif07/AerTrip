@@ -22,6 +22,9 @@
 //MARK:-
 "I_am_new_register"  = "I’m New\nRegister";
 "Existing_User_Sign" = "Existing User\nSign in";
+"Continue_with_Facebook"  = "Continue with Facebook";
+"Continue_with_Google"    = "Continue with Google";
+"Continue_with_Linkedin"  = "Continue with Linkedin";
 
 // MARK:- LoginVC
 //MARK:-
@@ -84,11 +87,12 @@
 "Country"          = "Country";
 "Mobile_Number"      = "Mobile Number";
 "Lets_Get_Started"    = "Lets Get Started!";
+"Done"            = "Done";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
-"Forgot_Your_Password"  = "Forgot Your Password?";
-"Email_Intruction" = "Don’t worry. We’ll email you instructions on how to reset your password.";
+"ForgotYourPassword"  = "Forgot Your\n Password?";
+"EmailIntruction" = "Don’t worry. We’ll email you instructions on how to reset your password.";
 "Continue" = "Continue";
 
 // MARK:- SuccessPopupVC

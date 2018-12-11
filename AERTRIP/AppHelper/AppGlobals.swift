@@ -35,8 +35,16 @@ struct AppGlobals {
        printDebug(message)
     }
     
-    func showError(message: String) {
+    func showError(message: String, vc: UIViewController, isRightImageButton: Bool = false, rightButtonTitle: String = "") {
         printDebug(message)
+        
+        let ob = ShowToastMessageVC.instantiate(fromAppStoryboard: .PreLogin)
+        
+        ob.message = message
+        ob.isRightButtonImage  = isRightImageButton
+        ob.rightButtonTitle   = rightButtonTitle
+        vc.view.addSubview(ob.view)
+        vc.add(childViewController: ob)
     }
     
     func showWarning(message: String) {

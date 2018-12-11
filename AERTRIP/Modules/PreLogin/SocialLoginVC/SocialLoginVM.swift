@@ -13,6 +13,7 @@ class SocialLoginVM {
     
     //MARK:- Properties
     //MARK:-
+    var userData = UserModel()
     
     //MARK:- Actions
     //MARK:-
@@ -23,13 +24,13 @@ class SocialLoginVM {
             
             printDebug(result)
             
-            //            self.socialData[.image]        = "https://graph.facebook.com/\(result.id)/picture?width=200"
-            //            self.socialData[.name]         = result.name
-            //            self.socialData[.email]        = result.email
-            //            self.socialData[.socialType]   = "1"
-            //            self.socialData[.id]           = result.id
-            //            self.socialData[.manual_email] = "2"
-            //            self.webserviceForSocialLogin(data: self.socialData)
+            self.userData.picture     = "https://graph.facebook.com/\(result.id)/picture?width=200"
+            self.userData.firstName   = result.first_name
+            self.userData.lastName    = result.last_name
+            self.userData.email       = result.email
+            self.userData.service     = "facebook"
+            self.userData.id          = result.id
+            self.webserviceForSocialLogin()
             
         }, failure: { (error) in
             printDebug(error?.localizedDescription ?? "")
@@ -43,17 +44,18 @@ class SocialLoginVM {
             
             printDebug(model.name)
             
-//            self.socialData[.name]         = model.name
-//            self.socialData[.email]        = model.email
-//            self.socialData[.socialType]   = "2"
-//            self.socialData[.id]           = model.id
-//            self.socialData[.manual_email] = "2"
-//
-//            if let imageURl = model.image {
-//
-//                self.socialData[.image] = "\(imageURl)"
-//            }
-//            self.webserviceForSocialLogin(data: self.socialData)
+            self.userData.firstName        = model.name
+            self.userData.email           = model.email
+            self.userData.service          = "google"
+            self.userData.id             = model.id
+            
+            if let imageURl = model.image {
+                
+                self.userData.picture = "\(imageURl)"
+            }
+            
+            
+            self.webserviceForSocialLogin()
             
         }){ (err : Error) in
             printDebug(err.localizedDescription)
@@ -61,7 +63,7 @@ class SocialLoginVM {
     }
     
     func linkedLogin(vc: UIViewController) {
-     
+        
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
         )
@@ -70,9 +72,19 @@ class SocialLoginVM {
             //Login success lsToken
             
             linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-              
+                
+                guard let data = response.jsonObject else {return}
+                
+                self.userData.firstName = data["firstName"] as? String ?? ""
+                self.userData.lastName  = data["lastName"]  as? String ?? ""
+                self.userData.id      = data["id"] as? String ?? ""
+                self.userData.service   = "linkedin"
+                
                 printDebug(response)
+                
+                self.webserviceForSocialLogin()
                 linkedinHelper.logout()
+                
             }) { [unowned self] (error) -> Void in
                 
                 //Encounter error
@@ -94,9 +106,18 @@ extension SocialLoginVM {
         
         var params = JSONDictionary()
         
-//        params[APIKeys.loginid.rawValue]     = email
-//        params[APIKeys.password.rawValue]    = password
-        params[APIKeys.isGuestUser.rawValue]  = false
+        params[APIKeys.id.rawValue]        = self.userData.id
+        params[APIKeys.userName.rawValue]    = self.userData.userName
+        params[APIKeys.firstName.rawValue]   = self.userData.firstName
+        params[APIKeys.lastName.rawValue]    = self.userData.lastName
+        //        params[APIKeys.authKey.rawValue]       = self.userData.authKey
+        params[APIKeys.email.rawValue]     = self.userData.email
+        params[APIKeys.picture.rawValue]   = self.userData.picture
+        params[APIKeys.service.rawValue]   = self.userData.service
+        params[APIKeys.dob.rawValue]       = self.userData.dob
+        
+        let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
+        params[APIKeys.permissions.rawValue] = [permission]
         
         APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
             

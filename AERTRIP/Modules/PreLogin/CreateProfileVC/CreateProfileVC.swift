@@ -14,6 +14,7 @@ class CreateProfileVC: BaseVC {
     //MARK:- Properties
     //MARK:-
     let viewModel = CreateProfileVM()
+    let salutationPicker = UIPickerView()
     
     //MARK:- IBOutlets
     //MARK:-
@@ -24,10 +25,11 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var firstNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var lastNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var countryTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var countryCodeButton: UIButton!
     @IBOutlet weak var mobileNumberTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var countryCodeSepratorView: UIView!
     @IBOutlet weak var letsStartedButton: ATButton!
+    @IBOutlet weak var countryCodeTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var countryCodeLabel: UILabel!
+    @IBOutlet weak var countryFlagImage: UIImageView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -48,7 +50,7 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.font      = AppFonts.Bold.withSize(38)
         self.createProfileSubTitleLabel.font    = AppFonts.Regular.withSize(16)
-        self.countryCodeButton.titleLabel?.font = AppFonts.Regular.withSize(18)
+        self.countryCodeLabel.font           = AppFonts.Regular.withSize(18)
         self.setupTextFieldColorTextAndFont()
         
     }
@@ -64,7 +66,6 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.textColor  = AppColors.themeBlack
         self.createProfileSubTitleLabel.textColor  = AppColors.themeBlack
-        self.countryCodeSepratorView.backgroundColor = AppColors.themeGray20
     }
     
     //MARK:- IBOutlets
@@ -73,10 +74,11 @@ class CreateProfileVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func countryCodeButtonAction(_ sender: UIButton) {
-    }
-    
     @IBAction func letsGetStartButton(_ sender: UIButton) {
+        
+        if self.viewModel.isValidateData {
+            
+        }
     }
 }
 
@@ -93,11 +95,57 @@ private extension CreateProfileVC {
     
     func setupTextFieldColorTextAndFont () {
         
+        self.salutationPicker.delegate = self
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .done, isSecureText: false)
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
         self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.countryTextField.delegate = self
+        self.countryCodeTextField.delegate = self
+        self.countryCodeTextField.tintColor = .clear
+        self.nameTitleTextField.inputView = self.salutationPicker
+        self.nameTitleTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
+        self.nameTitleTextField.tintColor = UIColor.clear
+    }
+    
+    func initToolBar(picker: UIPickerView) -> UIToolbar {
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
+        toolBar.sizeToFit()
+        // TODO need to update actions for all buttons
+        let cancelButton = UIBarButtonItem(title: LocalizedString.Cancel.localized, style: UIBarButtonItem.Style.plain, target: self, action: nil)
+        let doneButton = UIBarButtonItem()
+        doneButton.title  = LocalizedString.Done.localized
+        
+        cancelButton.tintColor = AppColors.themeBlack
+        doneButton.tintColor   = AppColors.themeBlack
+        
+        doneButton.addTargetForAction(self, action: #selector(self.pickerViewDoneButtonAction(_:)))
+        cancelButton.addTargetForAction(self, action: #selector(self.cancleButtonAction(_:)))
+        
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
+    
+    
+    @objc func pickerViewDoneButtonAction(_ sender: UITextField){
+        
+        let indexPath = self.salutationPicker.selectedRow(inComponent: 0)
+        self.nameTitleTextField.text = self.viewModel.salutation[indexPath]
+        self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
+    }
+    
+    @objc func cancleButtonAction(_ sender: UITextField) {
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
     }
 }
 
@@ -110,16 +158,58 @@ extension CreateProfileVC {
         switch textField {
             
         case self.firstNameTextField:
-            printDebug(textField.text)
+            self.viewModel.userData.firstName = textField.text ?? ""
             
         case self.lastNameTextField:
-            printDebug(textField.text)
+            self.viewModel.userData.lastName = textField.text ?? ""
             
         case self.mobileNumberTextField:
-            printDebug(textField.text)
+            self.viewModel.userData.mobile = textField.text ?? ""
             
         default:
             break
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField === self.countryCodeTextField || textField === self.countryTextField {
+            
+            PKCountryPicker.default.chooseCountry(onViewController: self) { (selectedCountry) in
+                printDebug("selected country data: \(selectedCountry)")
+                
+                self.countryCodeLabel.text  = selectedCountry.countryCode
+                self.countryFlagImage.image = selectedCountry.flagImage
+                self.countryTextField.text = selectedCountry.countryEnglishName
+                self.viewModel.userData.country = selectedCountry.countryEnglishName
+                self.viewModel.userData.isd = selectedCountry.countryCode
+            }
+            return false
+        }
+        
+        return true
+    }
+}
+
+//MARK:- Extension UIPickerViewDataSource, UIPickerViewDelegate
+//MARK:-
+extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        return self.viewModel.salutation.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        return self.self.viewModel.salutation[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
     }
 }

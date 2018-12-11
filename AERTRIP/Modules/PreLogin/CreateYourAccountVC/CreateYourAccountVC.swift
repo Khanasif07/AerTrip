@@ -82,7 +82,7 @@ class CreateYourAccountVC: BaseVC {
     
     @IBAction func registerButtonAction(_ sender: UIButton) {
         
-        if self.viewModel.isValidEmail {
+        if self.viewModel.isValidEmail(vc: self) {
             
             self.viewModel.webserviceForCreateAccount()
         }
@@ -138,6 +138,8 @@ extension CreateYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
+        
+        
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
