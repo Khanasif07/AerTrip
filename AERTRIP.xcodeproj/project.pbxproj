@@ -22,6 +22,7 @@
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D00D2221BE31E400EC2E5F /* UserModel.swift */; };
+		18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
 		18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */; };
 		18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */; };
@@ -130,6 +131,7 @@
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18D00D2221BE31E400EC2E5F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastMessageVC.swift; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldExtension.swift; sourceTree = "<group>"; };
 		18F4955D21B7F4320003AC16 /* CreateYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateYourAccountVC.swift; sourceTree = "<group>"; };
@@ -291,6 +293,14 @@
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		18DF45D121BFB46400ADD4DD /* ShowToastMessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */,
+			);
+			path = ShowToastMessageVC;
 			sourceTree = "<group>";
 		};
 		18F4955C21B7F3FC0003AC16 /* CreateYourAccountVC */ = {
@@ -523,6 +533,7 @@
 				1804322F21B905F200E6EE23 /* SecureYourAccountVC */,
 				18109EB021BA377200BF342E /* CreateProfileVC */,
 				18109EB521BA756A00BF342E /* ForgotPasswordVC */,
+				18DF45D121BFB46400ADD4DD /* ShowToastMessageVC */,
 				84F9837821B51A070018DFED /* TutorilsVC */,
 			);
 			path = PreLogin;
@@ -870,6 +881,7 @@
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
 				1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
+				18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */,

@@ -74,12 +74,10 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func loginButtonAction(_ sender: UIButton) {
-        self.loginButton.isEnabled = false
-        
-        delay(seconds: 2.0) {
-            self.loginButton.isEnabled = true
+        self.view.endEditing(true)
+        if self.viewModel.isValidateData(vc: self) {
+            self.viewModel.webserviceForLogin()
         }
-        //        self.viewModel.webserviceForLogin()
     }
     
     @IBAction func registerHereButtonAction(_ sender: UIButton) {

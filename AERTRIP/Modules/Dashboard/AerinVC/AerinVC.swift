@@ -30,13 +30,19 @@ class AerinVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.pulsAnimation.start()
+
+    }
+    
     override func initialSetup() {
         
         self.pulsAnimation.numPulse = 5
         self.pulsAnimation.radius = 100.0
         self.pulsAnimation.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.pulsAnimation, below: self.aerinButton.layer)
-        self.pulsAnimation.start()
     }
     
     override func setupFonts() {

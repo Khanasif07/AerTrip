@@ -24,7 +24,7 @@ extension NSError {
             [   NSLocalizedDescriptionKey : LocalizedString.NoInternet.localized,
                 NSURLErrorFailingURLErrorKey : "\(urlString)"
         ]
-        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.noInternet, userInfo:errorUserInfo)
+        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.noInternet.rawValue, userInfo:errorUserInfo)
     }
     
     class func jsonParsingError(urlString: String) -> NSError{
@@ -32,6 +32,6 @@ extension NSError {
             [   NSLocalizedDescriptionKey : "Error In Parsing JSON",
                 NSURLErrorFailingURLErrorKey : "\(urlString)"
         ]
-        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.parsing, userInfo:errorUserInfo)
+        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.parsing.rawValue, userInfo:errorUserInfo)
     }
 }

@@ -24,3 +24,18 @@ extension UIButton {
         self.transform = CGAffineTransform.identity
     }
 }
+
+
+public extension UIBarButtonItem {
+    
+    /// SwifterSwift: Add Target to UIBarButtonItem
+    ///
+    /// - Parameters:
+    ///   - target: target.
+    ///   - action: selector to run when button is tapped.
+    public func addTargetForAction(_ target: AnyObject, action: Selector) {
+        self.target = target
+        self.action = action
+    }
+    
+}

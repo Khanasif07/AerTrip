@@ -47,8 +47,8 @@ class ForgotPasswordVC: BaseVC {
     
     override func setupTexts() {
         
-        self.forgotPasswordLabel.text = LocalizedString.Forgot_Your_Password.localized
-        self.intructionLabel.text = LocalizedString.Email_Intruction.localized
+        self.forgotPasswordLabel.text = LocalizedString.ForgotYourPassword.localized
+        self.intructionLabel.text = LocalizedString.EmailIntruction.localized
         self.continueButton.setTitle(LocalizedString.Continue.localized, for: .normal)
     }
     
@@ -66,9 +66,12 @@ class ForgotPasswordVC: BaseVC {
     
     @IBAction func continueButtonAction(_ sender: Any) {
         
-        AppFlowManager.default.addSuccessFullPopupVC(vc: self)
+        self.view.endEditing(true)
+        if self.viewModel.isValidEmail(vc: self) {
+            
+            self.viewModel.webserviceForForgotPassword()
+        }
     }
-    
 }
 
 //MARK:- Extension Initialsetups

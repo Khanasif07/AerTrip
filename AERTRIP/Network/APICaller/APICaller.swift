@@ -21,11 +21,11 @@ class APICaller {
     //Common handler/parser for all webservices response
     func handleResponse(_ response: JSON, success: complitionClosure, failure: failureClosure) {
         
-        if response["error_code"].intValue == AppErrorCodeFor.success {
+        if response["success"].boolValue {
             //Success Handling
             success(true, response)
         }
-        else if response["error_code"].intValue == AppErrorCodeFor.authenticationFailed {
+        else if response["error_code"].intValue == AppErrorCodeFor.authenticationFailed.rawValue {
             //logout the user forcely and send user to home screen.
             
             //delete all logged in user data

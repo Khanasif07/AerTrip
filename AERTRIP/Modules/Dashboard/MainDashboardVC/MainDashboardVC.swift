@@ -87,10 +87,10 @@ class MainDashboardVC: BaseVC {
         }
     }
     
-    private weak var aerinVC: AerinVC!
-    private weak var flightsVC: FlightsVC!
-    private weak var hotelsVC: HotelsVC!
-    private weak var tripsVC: TripsVC!
+    private var aerinVC: AerinVC!
+    private var flightsVC: FlightsVC!
+    private var hotelsVC: HotelsVC!
+    private var tripsVC: TripsVC!
     
     private var previousSelectedSegment: Segment?
     
@@ -163,11 +163,21 @@ class MainDashboardVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.aerinVC?.viewWillAppear(animated)
+        self.flightsVC?.viewWillAppear(animated)
+        self.hotelsVC?.viewWillAppear(animated)
+        self.tripsVC?.viewWillAppear(animated)
+        
         AppFlowManager.default.sideMenuController?.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.aerinVC?.viewWillDisappear(animated)
+        self.flightsVC?.viewWillDisappear(animated)
+        self.hotelsVC?.viewWillDisappear(animated)
+        self.tripsVC?.viewWillDisappear(animated)
     }
     
     override func setupFonts() {

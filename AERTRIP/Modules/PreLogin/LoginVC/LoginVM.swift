@@ -13,6 +13,24 @@ class LoginVM {
     var email    = ""
     var password = ""
     
+    func isValidateData(vc: UIViewController) -> Bool {
+        
+        if self.email.isEmpty {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            return false
+        } else if self.email.checkInvalidity(.Email) {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            return false
+        } else if self.password.isEmpty {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_password.localized, vc: vc)
+            return false
+        } else if self.password.checkInvalidity(.Password) {
+            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
+            return false
+        }
+        return true
+    }
+    
     func webserviceForLogin() {
         
         var params = JSONDictionary()

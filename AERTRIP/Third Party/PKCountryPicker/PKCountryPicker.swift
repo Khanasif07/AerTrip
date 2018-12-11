@@ -181,5 +181,6 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentSelectedIndex = row
+        
     }
 }

@@ -103,13 +103,14 @@ class GoogleUser {
     let name : String
     let email: String
     let image: URL?
+//    let authKey : String
     
     required init(_ googleUser: GIDGoogleUser) {
         
-        id    = googleUser.userID
-        name  = googleUser.profile.name
-        email = googleUser.profile.email
-        image = googleUser.profile.imageURL(withDimension: 200)
+        id       = googleUser.userID
+        name      = googleUser.profile.name
+        email     = googleUser.profile.email
+        image     = googleUser.profile.imageURL(withDimension: 200)
     }
     
     var dictionaryObject: [String:Any] {

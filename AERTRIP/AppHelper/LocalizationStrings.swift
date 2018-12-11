@@ -21,10 +21,21 @@ enum LocalizedString: String {
     case ParsingError = "ParsingError"
     case error = "error"
     
+    // MARK:- TextField validation
+    //MARK:-
+    case Enter_email_address       = "Enter_email_address"
+    case Enter_valid_email_address = "Enter_valid_email_address"
+    case Enter_password            = "Enter_password"
+    case Enter_valid_Password      = "Enter_valid_Password"
+   
+    
     // MARK:- SocialLoginVC
     //MARK:-
     case I_am_new_register  = "I_am_new_register"
     case Existing_User_Sign = "Existing_User_Sign"
+    case Continue_with_Facebook  = "Continue_with_Facebook"
+    case Continue_with_Google    = "Continue_with_Google"
+    case Continue_with_Linkedin  = "Continue_with_Linkedin"
     
     // MARK:- LoginVC
     //MARK:-
@@ -88,11 +99,12 @@ enum LocalizedString: String {
     case Country   = "Country"
     case Mobile_Number  = "Mobile_Number"
     case Lets_Get_Started = "Lets_Get_Started"
+    case Done    = "Done"
     
     // MARK:- ForgotPasswordVC
     //MARK:-
-    case Forgot_Your_Password  = "Forgot_Your_Password"
-    case Email_Intruction = "Email_Intruction"
+    case ForgotYourPassword  = "ForgotYourPassword"
+    case EmailIntruction = "EmailIntruction"
     case Continue = "Continue"
     
     // MARK:- SuccessPopupVC

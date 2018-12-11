@@ -142,4 +142,24 @@ extension APICaller {
             completionBlock(false, error.localizedDescription)
         }
     }
+    
+    //MARK: - Api for Update UserDetail
+    //MARK: -
+    func callVerifyRegistrationApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+        
+        AppNetworking.GET(endPoint: APIEndPoint.verifyRegistration, parameters: params, loader: loader, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                completionBlock(true, jsonData[""].stringValue)
+                
+            }, failure: { (error) in
+                completionBlock(false, error.localizedDescription)
+            })
+            
+        }) { (error) in
+            completionBlock(false, error.localizedDescription)
+        }
+    }
 }

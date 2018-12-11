@@ -485,7 +485,7 @@ on Christmas”</string>
         <image name="flights" width="66.5" height="66.5"/>
         <image name="hotels" width="64.5" height="45.5"/>
         <image name="logoIconRightWhite" width="54" height="48"/>
-        <image name="off" width="27" height="27"/>
+        <image name="off" width="27" height="17"/>
         <image name="trips" width="64.5" height="48.5"/>
     </resources>
 </document>

@@ -33,6 +33,11 @@ enum APIKeys: String {
     case dob     = "dob"
     case permissions    = "permissions"
     case login = "login"
+    case ref   = "ref"
+    case isd   = "isd"
+    case country    = "country"
+    case salutation = "salutation"
+   
 }
 
 
