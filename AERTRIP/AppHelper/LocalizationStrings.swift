@@ -121,5 +121,12 @@ enum LocalizedString: String {
     case hiImAerin = "hiImAerin"
     case yourPersonalTravelAssistant = "yourPersonalTravelAssistant"
     case tryAskingForFlightsFromMumbai = "tryAskingForFlightsFromMumbai"
+    case EnjoyAMorePersonalisedTravelExperience = "EnjoyAMorePersonalisedTravelExperience"
+    case LoginOrRegister = "LoginOrRegister"
+    case WhyAertrip      = "WhyAertrip"
+    case SmartSort       = "SmartSort"
+    case Offers          = "Offers"
+    case ContactUs       = "ContactUs"
+    case Settings        = "Settings"
 }
 

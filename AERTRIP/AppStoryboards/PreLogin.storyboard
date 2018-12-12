@@ -274,7 +274,7 @@ travel experience</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RGN-G9-erh"/>
+                                    <action selector="loginButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ezz-qX-apM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ef3-Jf-KiE">
@@ -382,7 +382,7 @@ travel experience</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="registerButtonAction:" destination="DAZ-Gc-qAH" eventType="touchUpInside" id="gfH-Qu-dei"/>
+                                    <action selector="registerButtonAction:" destination="DAZ-Gc-qAH" eventType="touchUpInside" id="Yxt-Ki-Rhs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By registering, you agree to Aertrip’s privacy policy &amp; terms of use." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knd-x8-mi8" customClass="ActiveLabel" customModule="ActiveLabel">
@@ -692,7 +692,7 @@ activation link on</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="nextButtonAction:" destination="1Th-aI-URg" eventType="touchUpInside" id="Oex-PJ-xid"/>
+                                    <action selector="nextButtonAction:" destination="1Th-aI-URg" eventType="touchUpInside" id="xwI-LO-j0p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -853,7 +853,7 @@ activation link on</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="X7e-7X-cXK"/>
+                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
@@ -966,7 +966,7 @@ activation link on</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="continueButtonAction:" destination="iDK-1j-keg" eventType="touchUpInside" id="qAm-uB-qSc"/>
+                                    <action selector="continueButtonAction:" destination="iDK-1j-keg" eventType="touchUpInside" id="3Jz-YX-wkz"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ogJ-fi-jDI" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
@@ -1054,7 +1054,7 @@ activation link on</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonAction:" destination="kcq-FZ-Z11" eventType="touchUpInside" id="Kar-CA-sO4"/>
+                                    <action selector="loginButtonAction:" destination="kcq-FZ-Z11" eventType="touchUpInside" id="VGg-9Y-g5Z"/>
                                 </connections>
                             </button>
                         </subviews>

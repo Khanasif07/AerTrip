@@ -73,10 +73,16 @@ class LoginVC: BaseVC {
         AppFlowManager.default.moveToForgotPasswordVC()
     }
     
-    @IBAction func loginButtonAction(_ sender: UIButton) {
+    @IBAction func loginButtonAction(_ sender: ATButton) {
+        
+//        AppToast.showToastMessageWithRightButtonImage(vc: self, message: LocalizedString.Enter_email_address.localized, delegate: self)
+        
         self.view.endEditing(true)
+
         if self.viewModel.isValidateData(vc: self) {
-            self.viewModel.webserviceForLogin()
+
+            sender.isLoading = true
+            self.viewModel.webserviceForLogin(sender)
         }
     }
     
@@ -92,6 +98,7 @@ private extension LoginVC {
     func initialSetups() {
         
         self.setupFontsAndText()
+//        self.loginButton.isEnabled = false
     }
     
     func setupFontsAndText() {
@@ -119,7 +126,12 @@ private extension LoginVC {
 
 //MARK:- Extension Initialsetups
 //MARK:-
-extension LoginVC {
+extension LoginVC: ToastDelegate {
+    
+    func toastRightButtoAction() {
+        printDebug("Apply")
+    }
+    
     
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
@@ -135,6 +147,12 @@ extension LoginVC {
                 self.passwordTextField.rightViewMode = .always
             }
         }
+        
+//        if self.viewModel.isLoginButtonEnable {
+//            self.loginButton.isEnabled = true
+//        } else {
+//            self.loginButton.isEnabled = false
+//        }
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

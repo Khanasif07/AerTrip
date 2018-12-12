@@ -22,7 +22,7 @@ class SecureYourAccountVM {
 //MARK:-
 extension SecureYourAccountVM {
     
-    func webserviceForUpdatePassword() {
+    func webserviceForUpdatePassword(_ sender: ATButton) {
         
         var params = JSONDictionary()
         
@@ -30,6 +30,8 @@ extension SecureYourAccountVM {
         
         APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
             
+            sender.isLoading = false
+            AppFlowManager.default.moveToCreateProfileVC()
             printDebug(data)
             //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
         })

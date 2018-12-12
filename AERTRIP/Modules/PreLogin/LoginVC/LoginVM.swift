@@ -12,26 +12,46 @@ class LoginVM {
 
     var email    = ""
     var password = ""
+    var isLoginButtonEnable: Bool {
+        
+        if self.email.isEmpty {
+            return false
+        } else if self.email.checkInvalidity(.Email) {
+            return false
+        } else if self.password.isEmpty {
+            return false
+        } else if self.password.checkInvalidity(.Password) {
+           return false
+        }
+        return true
+    }
     
     func isValidateData(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            
+            AppToast.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
+            
         } else if self.email.checkInvalidity(.Email) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            
+            AppToast.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
+            
         } else if self.password.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_password.localized, vc: vc)
+            
+            AppToast.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
             return false
+            
         } else if self.password.checkInvalidity(.Password) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
+            
+            AppToast.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
             return false
         }
         return true
     }
     
-    func webserviceForLogin() {
+    func webserviceForLogin(_ sender: ATButton) {
         
         var params = JSONDictionary()
         
@@ -41,6 +61,7 @@ class LoginVM {
         
         APICaller.shared.callLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
             
+            sender.isLoading = false
             printDebug(data)
         })
         

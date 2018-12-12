@@ -37,9 +37,8 @@ class SocialLoginVM {
         })
     }
     
-    func googleLogin(vc: UIViewController) {
+    func googleLogin() {
         
-        vc.view.endEditing(true)
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
             printDebug(model.name)
@@ -62,7 +61,7 @@ class SocialLoginVM {
         }
     }
     
-    func linkedLogin(vc: UIViewController) {
+    func linkedLogin() {
         
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)

@@ -44,7 +44,7 @@ class CreateProfileVM {
 //MARK:-
 extension CreateProfileVM {
     
-    func webserviceForUpdateProfile() {
+    func webserviceForUpdateProfile(_ sender: ATButton) {
         
         var params = JSONDictionary()
         
@@ -59,6 +59,7 @@ extension CreateProfileVM {
         
         APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
             
+            sender.isLoading = false
             printDebug(data)
             //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
         })

@@ -80,11 +80,12 @@ class CreateYourAccountVC: BaseVC {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    @IBAction func registerButtonAction(_ sender: UIButton) {
+    @IBAction func registerButtonAction(_ sender: ATButton) {
         
         if self.viewModel.isValidEmail(vc: self) {
             
-            self.viewModel.webserviceForCreateAccount()
+            sender.isLoading = true
+            self.viewModel.webserviceForCreateAccount(sender)
         }
     }
     
@@ -99,7 +100,8 @@ private extension CreateYourAccountVC {
     
     func initialSetups() {
         
-        self.emailTextField.delegate = self
+        self.registerButton.isEnabled = false
+        self.emailTextField.delegate  = self
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -139,6 +141,11 @@ extension CreateYourAccountVC {
         
         self.viewModel.email = textField.text ?? ""
         
+        if self.viewModel.isEnableRegisterButton {
+            self.registerButton.isEnabled = true
+        } else {
+            self.registerButton.isEnabled = false
+        }
         
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -78,7 +78,7 @@ class SuccessPopupVC: BaseVC {
     }
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func loginButtonAction(_ sender: UIButton) {
+    @IBAction func loginButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.35) {

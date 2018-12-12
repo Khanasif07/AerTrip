@@ -74,10 +74,13 @@ class CreateProfileVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func letsGetStartButton(_ sender: UIButton) {
+    @IBAction func letsGetStartButton(_ sender: ATButton) {
+        
+        self.view.endEditing(true)
         
         if self.viewModel.isValidateData {
-            
+            sender.isLoading = true
+            self.viewModel.webserviceForUpdateProfile(sender)
         }
     }
 }
