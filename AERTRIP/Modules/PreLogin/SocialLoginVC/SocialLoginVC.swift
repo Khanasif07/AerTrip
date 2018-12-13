@@ -77,12 +77,12 @@ class SocialLoginVC: BaseVC {
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
         
-        self.viewModel.googleLogin(vc: self)
+        self.viewModel.googleLogin()
     }
     
     @IBAction func linkedInLoginButtonAction(_ sender: UIButton) {
         
-        self.viewModel.linkedLogin(vc: self)
+        self.viewModel.linkedLogin()
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
@@ -93,6 +93,11 @@ class SocialLoginVC: BaseVC {
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
         AppFlowManager.default.moveToLoginVC()
+    }
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

@@ -22,7 +22,7 @@ public struct PKSideMenuOptions {
     public static var sideDistanceForOpenMenu: CGFloat = 220.0
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
-    public static var mainViewShadowWidth: Double = 7.0
+    public static var mainViewShadowWidth: Double = 5.0
     public static var panGesturesEnabled: Bool = true
     public static var tapGesturesEnabled: Bool = true
     public static var currentOpeningSide: PKSideMenuOpenSide = .left
@@ -278,12 +278,12 @@ extension PKSideMenuController {
             var tRotate : CATransform3D = CATransform3DIdentity
             tRotate.m34 = 1.0 / (-500.0)
             
-            let aXpos: CGFloat = CGFloat(-25.0 * (.pi / 180))
+            let aXpos: CGFloat = CGFloat(-20.0 * (.pi / 180))
             tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
             
             var tScale : CATransform3D = CATransform3DIdentity
             tScale.m34 = 1.0 / (-500.0)
-            tScale = CATransform3DScale(tScale, 0.8, 0.8, 1.0)
+            tScale = CATransform3DScale(tScale, 0.8, 0.7, 1.0)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
             
             self.mainContainer?.view.frame = mainFrame

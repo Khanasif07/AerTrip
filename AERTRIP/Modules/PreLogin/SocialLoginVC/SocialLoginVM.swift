@@ -24,12 +24,13 @@ class SocialLoginVM {
             
             printDebug(result)
             
-            self.userData.picture     = "https://graph.facebook.com/\(result.id)/picture?width=200"
-            self.userData.firstName   = result.first_name
-            self.userData.lastName    = result.last_name
-            self.userData.email       = result.email
-            self.userData.service     = "facebook"
-            self.userData.id          = result.id
+            self.userData.authKey = "\(result.authToken)"
+            self.userData.picture   = "https://graph.facebook.com/\(result.id)/picture?width=200"
+            self.userData.firstName  = result.first_name
+            self.userData.lastName   = result.last_name
+            self.userData.email     = result.email
+            self.userData.service   = "facebook"
+            self.userData.id        = result.id
             self.webserviceForSocialLogin()
             
         }, failure: { (error) in
@@ -37,9 +38,8 @@ class SocialLoginVM {
         })
     }
     
-    func googleLogin(vc: UIViewController) {
+    func googleLogin() {
         
-        vc.view.endEditing(true)
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
             printDebug(model.name)
@@ -62,7 +62,7 @@ class SocialLoginVM {
         }
     }
     
-    func linkedLogin(vc: UIViewController) {
+    func linkedLogin() {
         
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
@@ -107,17 +107,17 @@ extension SocialLoginVM {
         var params = JSONDictionary()
         
         params[APIKeys.id.rawValue]        = self.userData.id
-        params[APIKeys.userName.rawValue]    = self.userData.userName
+        params[APIKeys.userName.rawValue]    = self.userData.firstName
         params[APIKeys.firstName.rawValue]   = self.userData.firstName
         params[APIKeys.lastName.rawValue]    = self.userData.lastName
-        //        params[APIKeys.authKey.rawValue]       = self.userData.authKey
+        params[APIKeys.authKey.rawValue]     = self.userData.authKey
         params[APIKeys.email.rawValue]     = self.userData.email
         params[APIKeys.picture.rawValue]   = self.userData.picture
         params[APIKeys.service.rawValue]   = self.userData.service
         params[APIKeys.dob.rawValue]       = self.userData.dob
         
         let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
-        params[APIKeys.permissions.rawValue] = [permission]
+        params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
         
         APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
             

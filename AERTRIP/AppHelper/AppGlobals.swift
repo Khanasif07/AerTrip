@@ -35,20 +35,28 @@ struct AppGlobals {
        printDebug(message)
     }
     
-    func showError(message: String, vc: UIViewController, isRightImageButton: Bool = false, rightButtonTitle: String = "") {
-        printDebug(message)
-        
-        let ob = ShowToastMessageVC.instantiate(fromAppStoryboard: .PreLogin)
-        
-        ob.message = message
-        ob.isRightButtonImage  = isRightImageButton
-        ob.rightButtonTitle   = rightButtonTitle
-        vc.view.addSubview(ob.view)
-        vc.add(childViewController: ob)
+    func showError(message: String) {
     }
     
     func showWarning(message: String) {
         printDebug(message)
+    }
+    
+    static func lines(label: UILabel) -> Int {
+        
+        let textSize  = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
+        let rHeight   = lroundf(Float(label.sizeThatFits(textSize).height))
+        let charSize  = lroundf(Float(label.font.lineHeight))
+        let lineCount = rHeight/charSize
+        return lineCount
+    }
+    
+    func json(from object:Any) -> String? {
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+            return nil
+        }
+        return String(data: data, encoding: String.Encoding.utf8)
     }
 }
 

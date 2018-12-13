@@ -64,6 +64,10 @@ class LoginVC: BaseVC {
         self.registerHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -73,9 +77,15 @@ class LoginVC: BaseVC {
         AppFlowManager.default.moveToForgotPasswordVC()
     }
     
-    @IBAction func loginButtonAction(_ sender: UIButton) {
+    @IBAction func loginButtonAction(_ sender: ATButton) {
+        
+//        AppToast.default.showToastMessageWithRightButtonImage(vc: self, message: LocalizedString.Enter_email_address.localized, delegate: self)
+        
         self.view.endEditing(true)
+
         if self.viewModel.isValidateData(vc: self) {
+
+            sender.isLoading = true
             self.viewModel.webserviceForLogin()
         }
     }
@@ -92,6 +102,7 @@ private extension LoginVC {
     func initialSetups() {
         
         self.setupFontsAndText()
+//        self.loginButton.isEnabled = false
     }
     
     func setupFontsAndText() {
@@ -117,9 +128,42 @@ private extension LoginVC {
     }
 }
 
+//MARK:- Extension LoginVMDelegate
+//MARK:-
+extension LoginVC: LoginVMDelegate {
+    func willLogin() {
+        self.loginButton.isLoading = true
+    }
+    
+    func didLoginSuccess() {
+        self.loginButton.isLoading = false
+        AppFlowManager.default.goToDashboard()
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        self.loginButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
 //MARK:- Extension Initialsetups
 //MARK:-
-extension LoginVC {
+extension LoginVC: ToastDelegate {
+    
+    func toastRightButtoAction() {
+        printDebug("Apply")
+    }
+    
     
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
@@ -135,6 +179,12 @@ extension LoginVC {
                 self.passwordTextField.rightViewMode = .always
             }
         }
+        
+//        if self.viewModel.isLoginButtonEnable {
+//            self.loginButton.isEnabled = true
+//        } else {
+//            self.loginButton.isEnabled = false
+//        }
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

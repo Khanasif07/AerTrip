@@ -24,7 +24,7 @@ class ATButton: UIButton {
         }
     }
     
-    var disabledShadowColor: UIColor = AppColors.themeGray60 {
+    var disabledShadowColor: UIColor = AppColors.clear {
         didSet {
             self.layoutSubviews()
         }
@@ -83,11 +83,15 @@ class ATButton: UIButton {
         shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = UIColor.white.cgColor
         
-        shadowLayer.shadowColor = self.isEnabled ? shadowColor.cgColor : disabledShadowColor.cgColor
-        shadowLayer.shadowPath = shadowLayer.path
-        shadowLayer.shadowOffset = CGSize(width: 0.0, height: 7.0)
-        shadowLayer.shadowOpacity = 0.4
-        shadowLayer.shadowRadius = 5.0
+//        shadowLayer.shadowColor = self.isEnabled ? shadowColor.cgColor : disabledShadowColor.cgColor
+        if self.isEnabled {
+            
+            shadowLayer.shadowColor = shadowColor.cgColor
+            shadowLayer.shadowPath  = shadowLayer.path
+            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 7.0)
+            shadowLayer.shadowOpacity = 0.4
+            shadowLayer.shadowRadius = 5.0
+        }
     }
     
     private func addGradientLayer() {
@@ -115,7 +119,7 @@ class ATButton: UIButton {
             }
         }
         
-        self.titleLabel?.font = AppFonts.SemiBold.withSize(17)
+        self.titleLabel?.font = AppFonts.SemiBold.withSize(15)
     }
     
     private func addRequiredAction() {
@@ -136,7 +140,7 @@ class ATButton: UIButton {
     }
     
     private func startLoading() {
-        self.titleDuringLoading = self.currentTitle ?? ""
+        self.titleDuringLoading = self.titleLabel?.text ?? ""
         self.setTitle(nil, for: UIControl.State.normal)
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
@@ -145,7 +149,7 @@ class ATButton: UIButton {
     private func stopLoading() {
         self.isUserInteractionEnabled = true
         self.setTitle(self.titleDuringLoading, for: UIControl.State.normal)
-        self.titleDuringLoading = ""
+//        self.titleDuringLoading = ""
         self.loaderIndicator.stopAnimating()
     }
     

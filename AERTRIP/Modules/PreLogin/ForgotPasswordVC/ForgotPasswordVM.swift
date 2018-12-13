@@ -12,13 +12,23 @@ import UIKit
 class ForgotPasswordVM  {
     
     var email = ""
+    var isValidateForContinueButtonSelection: Bool {
+        
+        if self.email.isEmpty {
+            return false
+        } else if self.email.checkInvalidity(.Email) {
+            return false
+        }
+        return true
+    }
+    
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
         } else if self.email.checkInvalidity(.Email) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
         }
         return true
@@ -29,7 +39,7 @@ class ForgotPasswordVM  {
 //MARK:-
 extension ForgotPasswordVM {
     
-    func webserviceForForgotPassword() {
+    func webserviceForForgotPassword(_ sender: ATButton) {
         
         var params = JSONDictionary()
         
@@ -37,6 +47,7 @@ extension ForgotPasswordVM {
         
         APICaller.shared.callForgotPasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
             
+            sender.isLoading = false
             printDebug(data)
 //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
         })

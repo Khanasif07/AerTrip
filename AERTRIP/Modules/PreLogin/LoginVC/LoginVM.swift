@@ -8,24 +8,51 @@
 
 import UIKit
 
+protocol LoginVMDelegate: class {
+    func willLogin()
+    func didLoginSuccess()
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class LoginVM {
 
+    weak var delegate: LoginVMDelegate?
     var email    = ""
     var password = ""
+    var isLoginButtonEnable: Bool {
+        
+        if self.email.isEmpty {
+            return false
+        } else if self.email.checkInvalidity(.Email) {
+            return false
+        } else if self.password.isEmpty {
+            return false
+        } else if self.password.checkInvalidity(.Password) {
+           return false
+        }
+        return true
+    }
     
     func isValidateData(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
+            
         } else if self.email.checkInvalidity(.Email) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
+            
         } else if self.password.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_password.localized, vc: vc)
+            
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
             return false
+            
         } else if self.password.checkInvalidity(.Password) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
+            
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
             return false
         }
         return true
@@ -35,13 +62,17 @@ class LoginVM {
         
         var params = JSONDictionary()
         
-        params[APIKeys.loginid.rawValue]     = email
-        params[APIKeys.password.rawValue]    = password
-        params[APIKeys.isGuestUser.rawValue]  = false
-        
-        APICaller.shared.callLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
-            
-            printDebug(data)
+        params[APIKeys.loginid.rawValue]      = email
+        params[APIKeys.password.rawValue]     = password
+
+        self.delegate?.willLogin()
+        APICaller.shared.callLoginAPI(params: params, completionBlock: {(success, errors) in
+            if success {
+                self.delegate?.didLoginSuccess()
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }

@@ -114,8 +114,14 @@ class SecureYourAccountVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func nextButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToCreateProfileVC()
+    @IBAction func nextButtonAction(_ sender: ATButton) {
+        
+        if self.viewModel.password.checkValidity(.Password) {
+            
+            sender.isLoading = true
+            self.viewModel.webserviceForUpdatePassword(sender)
+            AppFlowManager.default.moveToCreateProfileVC()
+        }
     }
 }
 
@@ -126,7 +132,7 @@ private extension SecureYourAccountVC {
     func initialSetups() {
         
         self.passwordTextField.delegate = self
-        
+        self.nextButton.isEnabled = false
         var placeholder = LocalizedString.Password.localized
         if  self.viewModel.isPasswordType == .resetPasswod {
             placeholder = LocalizedString.New_Password.localized
@@ -277,6 +283,12 @@ private extension SecureYourAccountVC {
             self.passwordTextField.rightViewMode = .never
         } else {
             self.passwordTextField.rightViewMode = .always
+        }
+        
+        if self.viewModel.password.checkValidity(.Password) {
+            self.nextButton.isEnabled = true
+        } else {
+            self.nextButton.isEnabled = false
         }
     }
 }

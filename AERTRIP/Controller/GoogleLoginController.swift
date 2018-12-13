@@ -26,7 +26,7 @@ class GoogleLoginController : NSObject {
     
     func configure() {
         
-        let clientId = "13350074803-jnf88no6vp1qpo3np3bveti5nqrdm51i.apps.googleusercontent.com"
+        let clientId = "175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().clientID = clientId
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self

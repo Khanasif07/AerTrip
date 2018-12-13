@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb329235157662435</string>
+				<string>fb2150155951662059</string>
 			</array>
 		</dict>
 		<dict>
@@ -31,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.13350074803-jnf88no6vp1qpo3np3bveti5nqrdm51i</string>
+				<string>com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm</string>
 			</array>
 		</dict>
 		<dict>
@@ -39,16 +39,16 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>li12426494</string>
+				<string>li4769155</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_ID</key>
-	<string>13350074803-jnf88no6vp1qpo3np3bveti5nqrdm51i.apps.googleusercontent.com</string>
+	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
-	<string>329235157662435</string>
+	<string>2150155951662059</string>
 	<key>FacebookDisplayName</key>
 	<string>Aertrip</string>
 	<key>LIAppId</key>

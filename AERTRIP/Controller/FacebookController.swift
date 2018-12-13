@@ -18,6 +18,7 @@ class FacebookController {
     //==================
     static let shared = FacebookController()
     var facebookAccount: ACAccount?
+    var currentAccessToken = ""
     
     private init() {}
     
@@ -42,6 +43,10 @@ class FacebookController {
             if let res = result,res.isCancelled {
                 completion(nil,error)
             }else{
+            
+                if let token = result?.token.tokenString {
+                    self.currentAccessToken = token
+                }
                 completion(result,error)
             }
             
@@ -83,6 +88,7 @@ class FacebookController {
                 
                 if error == nil,let _ = result?.token {
                     self.getInfo(success: { (result) in
+                        
                         success(result)
                     }, failure: { (e) in
                         failure(e)
@@ -316,8 +322,9 @@ struct FacebookModel {
     var picture: URL?
     var is_verified : Bool
     var image : String = ""
+    let authToken = FacebookController.shared.currentAccessToken
     
-    
+//    FBSDKAccessToken.current()
     
     init(withJSON json: JSON) {
         

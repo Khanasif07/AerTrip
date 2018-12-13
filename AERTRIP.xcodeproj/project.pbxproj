@@ -10,6 +10,14 @@
 		1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804322D21B8F6D100E6EE23 /* AKAlertController.swift */; };
 		1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */; };
 		1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */; };
+		180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D7021C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift */; };
+		180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180A3D7121C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib */; };
+		180A3D7621C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D7521C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift */; };
+		180A3D7821C0E262001A1E6A /* SideMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D7721C0E262001A1E6A /* SideMenuVM.swift */; };
+		180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180A3D7F21C108C0001A1E6A /* ToastView.xib */; };
+		180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8321C1098E001A1E6A /* ToastView.swift */; };
+		180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8521C11AE7001A1E6A /* AppToast.swift */; };
+		180A3D8821C127F6001A1E6A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8721C127F6001A1E6A /* Toast.swift */; };
 		18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB121BA386F00BF342E /* CreateProfileVC.swift */; };
 		18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB321BA387E00BF342E /* CreateProfileVM.swift */; };
 		18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */; };
@@ -119,6 +127,14 @@
 		1804322D21B8F6D100E6EE23 /* AKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertController.swift; sourceTree = "<group>"; };
 		1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
 		1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVC.swift; sourceTree = "<group>"; };
+		180A3D7021C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuOptionsLabelCell.swift; sourceTree = "<group>"; };
+		180A3D7121C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuOptionsLabelCell.xib; sourceTree = "<group>"; };
+		180A3D7521C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSideMenuHeaderCell.swift; sourceTree = "<group>"; };
+		180A3D7721C0E262001A1E6A /* SideMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVM.swift; sourceTree = "<group>"; };
+		180A3D7F21C108C0001A1E6A /* ToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastView.xib; sourceTree = "<group>"; };
+		180A3D8321C1098E001A1E6A /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		180A3D8521C11AE7001A1E6A /* AppToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToast.swift; sourceTree = "<group>"; };
+		180A3D8721C127F6001A1E6A /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		18109EB121BA386F00BF342E /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
 		18109EB321BA387E00BF342E /* CreateProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVM.swift; sourceTree = "<group>"; };
 		18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -248,6 +264,33 @@
 				1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */,
 			);
 			path = SecureYourAccountVC;
+			sourceTree = "<group>";
+		};
+		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				180A3D6F21C0DA13001A1E6A /* Dashboard */,
+				180A3D7F21C108C0001A1E6A /* ToastView.xib */,
+				180A3D8321C1098E001A1E6A /* ToastView.swift */,
+			);
+			path = Xibs;
+			sourceTree = "<group>";
+		};
+		180A3D6F21C0DA13001A1E6A /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				180A3D7021C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift */,
+				180A3D7121C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		180A3D7421C0DB27001A1E6A /* PrototypeCell */ = {
+			isa = PBXGroup;
+			children = (
+				180A3D7521C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift */,
+			);
+			path = PrototypeCell;
 			sourceTree = "<group>";
 		};
 		18109EB021BA377200BF342E /* CreateProfileVC */ = {
@@ -404,6 +447,7 @@
 				84F983B821B51A070018DFED /* AppStoryboards */,
 				84956FB721B65C4300BF1183 /* Common */,
 				84F9837921B51A070018DFED /* Models */,
+				180A3D6E21C0D9EF001A1E6A /* Xibs */,
 				84F9837221B51A070018DFED /* Modules */,
 				84F983AB21B51A070018DFED /* Network */,
 				84F9837A21B51A070018DFED /* Resources */,
@@ -476,6 +520,7 @@
 		84D2FB9921BE761300011000 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				180A3D7421C0DB27001A1E6A /* PrototypeCell */,
 				8429C91121BF9E5E009C208E /* AerinVC */,
 				8429C91321BF9E5E009C208E /* FlightsVC */,
 				8429C91221BF9E5E009C208E /* HotelsVC */,
@@ -498,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				84D2FBA021BE76C900011000 /* SideMenuVC.swift */,
+				180A3D7721C0E262001A1E6A /* SideMenuVM.swift */,
 			);
 			path = SideMenuVC;
 			sourceTree = "<group>";
@@ -600,6 +646,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				180A3D8721C127F6001A1E6A /* Toast.swift */,
 				1804322D21B8F6D100E6EE23 /* AKAlertController.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
 				84F9838621B51A070018DFED /* AssetController.swift */,
@@ -615,6 +662,7 @@
 				84F983A821B51A070018DFED /* AppConstants.swift */,
 				84F983A921B51A070018DFED /* AppGlobals.swift */,
 				84F983AA21B51A070018DFED /* AppFonts.swift */,
+				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";
@@ -767,6 +815,7 @@
 				84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				84956FB221B655D900BF1183 /* SourceSansPro-SemiBold.ttf in Resources */,
+				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
 				84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */,
 				84956FB021B655D900BF1183 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				84956FAD21B655D900BF1183 /* SourceSansPro-LightItalic.ttf in Resources */,
@@ -776,6 +825,7 @@
 				84956FB321B655D900BF1183 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
+				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
 				84956FAB21B655D900BF1183 /* SourceSansPro-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -895,6 +945,7 @@
 				18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */,
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
+				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
@@ -918,6 +969,7 @@
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
+				180A3D7621C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
@@ -925,7 +977,9 @@
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
+				180A3D8821C127F6001A1E6A /* Toast.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
+				180A3D7821C0E262001A1E6A /* SideMenuVM.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
@@ -936,6 +990,7 @@
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
+				180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */,
 				84D2FB8221BE351E00011000 /* PKCountryModel.swift in Sources */,
 				18109EBE21BAB38900BF342E /* SuccessPopupVM.swift in Sources */,
 				8429C91721BF9E83009C208E /* FlightsVC.swift in Sources */,
@@ -949,6 +1004,7 @@
 				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,
 				84F983FB21B545060018DFED /* UserInfo.swift in Sources */,
 				84F983CB21B51A070018DFED /* LocationManager.swift in Sources */,
+				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
 				18F4956021B7F4710003AC16 /* CreateYourAccountVM.swift in Sources */,
 				84D2FBA121BE76C900011000 /* SideMenuVC.swift in Sources */,
 			);
@@ -1085,7 +1141,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.AERTRIP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";
@@ -1106,7 +1162,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.AERTRIP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";

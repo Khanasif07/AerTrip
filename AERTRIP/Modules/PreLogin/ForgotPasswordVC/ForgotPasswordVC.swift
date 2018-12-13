@@ -64,12 +64,13 @@ class ForgotPasswordVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func continueButtonAction(_ sender: Any) {
+    @IBAction func continueButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
             
-            self.viewModel.webserviceForForgotPassword()
+            sender.isLoading = true
+            self.viewModel.webserviceForForgotPassword(sender)
         }
     }
 }
@@ -80,6 +81,7 @@ private extension ForgotPasswordVC {
     
     func initialSetups() {
         
+        self.continueButton.isEnabled = false
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -92,5 +94,10 @@ extension ForgotPasswordVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
+        if self.viewModel.isValidateForContinueButtonSelection {
+            self.continueButton.isEnabled = true
+        } else {
+            self.continueButton.isEnabled = false
+        }
     }
 }

@@ -72,6 +72,10 @@ class CreateYourAccountVC: BaseVC {
         self.loginHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     
@@ -80,10 +84,11 @@ class CreateYourAccountVC: BaseVC {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    @IBAction func registerButtonAction(_ sender: UIButton) {
+    @IBAction func registerButtonAction(_ sender: ATButton) {
         
         if self.viewModel.isValidEmail(vc: self) {
             
+            sender.isLoading = true
             self.viewModel.webserviceForCreateAccount()
         }
     }
@@ -99,7 +104,8 @@ private extension CreateYourAccountVC {
     
     func initialSetups() {
         
-        self.emailTextField.delegate = self
+        self.registerButton.isEnabled = false
+        self.emailTextField.delegate  = self
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -139,11 +145,46 @@ extension CreateYourAccountVC {
         
         self.viewModel.email = textField.text ?? ""
         
+        if self.viewModel.isEnableRegisterButton {
+            self.registerButton.isEnabled = true
+        } else {
+            self.registerButton.isEnabled = false
+        }
         
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.emailTextField.resignFirstResponder()
         return true
+    }
+}
+
+//MARK:- Extension UITextFieldDelegate
+//MARK:-
+extension CreateYourAccountVC: CreateYourAccountVMDelegate {
+    
+    func willLogin() {
+        self.registerButton.isLoading = true
+    }
+    
+    func didLoginSuccess(email: String) {
+        
+        self.registerButton.isLoading = false
+        AppFlowManager.default.moveToRegistrationSuccefullyVC(email: email)
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        self.registerButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

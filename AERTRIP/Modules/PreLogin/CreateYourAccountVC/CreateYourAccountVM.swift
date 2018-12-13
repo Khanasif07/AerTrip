@@ -9,16 +9,33 @@
 import Foundation
 import UIKit
 
+protocol CreateYourAccountVMDelegate: class {
+    func willLogin()
+    func didLoginSuccess(email: String)
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class CreateYourAccountVM {
     
+    weak var delegate: CreateYourAccountVMDelegate?
     var email = ""
+    var isEnableRegisterButton: Bool {
+       
+        if self.email.isEmpty {
+            return false
+        } else if self.email.checkInvalidity(.Email) {
+            return false
+        }
+        return true
+    }
+    
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
         } else if self.email.checkInvalidity(.Email) {
-            AppGlobals.shared.showError(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
         }
         return true
@@ -35,10 +52,15 @@ extension CreateYourAccountVM {
         
         params[APIKeys.email.rawValue]  = self.email
         
-        APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, data) in
+        self.delegate?.willLogin()
+        APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, email, errors) in
             
-            printDebug(data)
-            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+            if success {
+                self.delegate?.didLoginSuccess(email: email)
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }
