@@ -9,8 +9,15 @@
 import Foundation
 import UIKit
 
+protocol CreateYourAccountVMDelegate: class {
+    func willLogin()
+    func didLoginSuccess(email: String)
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class CreateYourAccountVM {
     
+    weak var delegate: CreateYourAccountVMDelegate?
     var email = ""
     var isEnableRegisterButton: Bool {
        
@@ -25,10 +32,10 @@ class CreateYourAccountVM {
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppToast.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
         } else if self.email.checkInvalidity(.Email) {
-            AppToast.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
         }
         return true
@@ -39,16 +46,21 @@ class CreateYourAccountVM {
 //MARK:-
 extension CreateYourAccountVM {
     
-    func webserviceForCreateAccount(_ sender: ATButton) {
+    func webserviceForCreateAccount() {
         
         var params = JSONDictionary()
         
         params[APIKeys.email.rawValue]  = self.email
         
-        APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, data) in
-            sender.isLoading = false
-            printDebug(data)
-            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+        self.delegate?.willLogin()
+        APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, email, errors) in
+            
+            if success {
+                self.delegate?.didLoginSuccess(email: email)
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }

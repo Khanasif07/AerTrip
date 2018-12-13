@@ -72,6 +72,10 @@ class CreateYourAccountVC: BaseVC {
         self.loginHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     
@@ -85,7 +89,7 @@ class CreateYourAccountVC: BaseVC {
         if self.viewModel.isValidEmail(vc: self) {
             
             sender.isLoading = true
-            self.viewModel.webserviceForCreateAccount(sender)
+            self.viewModel.webserviceForCreateAccount()
         }
     }
     
@@ -152,5 +156,35 @@ extension CreateYourAccountVC {
         
         self.emailTextField.resignFirstResponder()
         return true
+    }
+}
+
+//MARK:- Extension UITextFieldDelegate
+//MARK:-
+extension CreateYourAccountVC: CreateYourAccountVMDelegate {
+    
+    func willLogin() {
+        self.registerButton.isLoading = true
+    }
+    
+    func didLoginSuccess(email: String) {
+        
+        self.registerButton.isLoading = false
+        AppFlowManager.default.moveToRegistrationSuccefullyVC(email: email)
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        self.registerButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

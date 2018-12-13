@@ -24,7 +24,7 @@ class ATButton: UIButton {
         }
     }
     
-    var disabledShadowColor: UIColor = AppColors.themeGray60 {
+    var disabledShadowColor: UIColor = AppColors.clear {
         didSet {
             self.layoutSubviews()
         }
@@ -140,7 +140,7 @@ class ATButton: UIButton {
     }
     
     private func startLoading() {
-        self.titleDuringLoading = self.currentTitle ?? ""
+        self.titleDuringLoading = self.titleLabel?.text ?? ""
         self.setTitle(nil, for: UIControl.State.normal)
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false

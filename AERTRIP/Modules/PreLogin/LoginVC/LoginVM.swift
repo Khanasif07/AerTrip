@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol LoginVMDelegate: class {
+    func willLogin()
+    func didLoginSuccess()
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class LoginVM {
 
+    weak var delegate: LoginVMDelegate?
     var email    = ""
     var password = ""
     var isLoginButtonEnable: Bool {
@@ -30,39 +37,42 @@ class LoginVM {
         
         if self.email.isEmpty {
             
-            AppToast.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
             
         } else if self.email.checkInvalidity(.Email) {
             
-            AppToast.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
             
         } else if self.password.isEmpty {
             
-            AppToast.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
             return false
             
         } else if self.password.checkInvalidity(.Password) {
             
-            AppToast.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
             return false
         }
         return true
     }
     
-    func webserviceForLogin(_ sender: ATButton) {
+    func webserviceForLogin() {
         
         var params = JSONDictionary()
         
-        params[APIKeys.loginid.rawValue]     = email
-        params[APIKeys.password.rawValue]    = password
-        params[APIKeys.isGuestUser.rawValue]  = false
-        
-        APICaller.shared.callLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
-            
-            sender.isLoading = false
-            printDebug(data)
+        params[APIKeys.loginid.rawValue]      = email
+        params[APIKeys.password.rawValue]     = password
+
+        self.delegate?.willLogin()
+        APICaller.shared.callLoginAPI(params: params, completionBlock: {(success, errors) in
+            if success {
+                self.delegate?.didLoginSuccess()
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }

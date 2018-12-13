@@ -18,10 +18,10 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, "")
                 
             }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                completionBlock(false, "")
             })
             
         }) { (error) in
@@ -31,58 +31,60 @@ extension APICaller {
     
     //MARK: - Api for login user
     //MARK: -
-    func callLoginAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callLoginAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
-        AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, loader: loader, success: { [weak self] (data) in
+        AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (data) in
             guard let sSelf = self else {return}
-            
+
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, [])
                 
-            }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+            }, failure: { (errors) in
+                completionBlock(false, errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
+//            completionBlock(false, error.localizedDescription)
         }
     }
     
     //MARK: - Api for Social login
     //MARK: -
-    func callSocialLoginAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callSocialLoginAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool,  _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.socialLogin, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, [])
                 
-            }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+            }, failure: { (errors) in
+                completionBlock(false, errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
+            //            completionBlock(false, error.localizedDescription)
         }
     }
     
     //MARK: - Api for Register
     //MARK: -
-    func callRegisterNewUserAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callRegisterNewUserAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.register, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
                 
-            }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                let email = jsonData[APIKeys.data.rawValue][APIKeys.email.rawValue].stringValue
+                completionBlock(true, email, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, "", errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
+            //            completionBlock(false, error.localizedDescription)
         }
     }
     
@@ -94,10 +96,10 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, "")
                 
             }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                completionBlock(false, "")
             })
             
         }) { (error) in
@@ -113,10 +115,10 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, "")
                 
             }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                completionBlock(false, "")
             })
             
         }) { (error) in
@@ -132,10 +134,10 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, "")
                 
             }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                completionBlock(false, "")
             })
             
         }) { (error) in
@@ -152,10 +154,10 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, jsonData[""].stringValue)
+                completionBlock(true, "")
                 
             }, failure: { (error) in
-                completionBlock(false, error.localizedDescription)
+                completionBlock(false, "")
             })
             
         }) { (error) in

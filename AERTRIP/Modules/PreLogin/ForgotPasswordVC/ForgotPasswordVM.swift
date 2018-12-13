@@ -25,10 +25,10 @@ class ForgotPasswordVM  {
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            AppToast.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
         } else if self.email.checkInvalidity(.Email) {
-            AppToast.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
             return false
         }
         return true

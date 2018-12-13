@@ -81,6 +81,7 @@ struct UserModel {
     var service    : String
     var dob        : String
     var userName   : String
+    var authKey    : String
     
      init() {
         
@@ -104,6 +105,7 @@ struct UserModel {
         self.service     = json["service"].stringValue
         self.dob       = json["dob"].stringValue
         self.userName    = json["user_name"].stringValue
+        self.authKey    = json["authKey"].stringValue
         
         if let gender   = json["gender"].string {
             

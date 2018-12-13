@@ -94,6 +94,11 @@ class SocialLoginVC: BaseVC {
         
         AppFlowManager.default.moveToLoginVC()
     }
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 //MARK:- Extension Initialsetups

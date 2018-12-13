@@ -91,6 +91,11 @@ extension AppFlowManager {
         
     }
     
+    func moveToSocialLoginVC() {
+        let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     func moveToLoginVC() {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)

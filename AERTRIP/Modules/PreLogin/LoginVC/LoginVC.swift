@@ -64,6 +64,10 @@ class LoginVC: BaseVC {
         self.registerHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -75,14 +79,14 @@ class LoginVC: BaseVC {
     
     @IBAction func loginButtonAction(_ sender: ATButton) {
         
-//        AppToast.showToastMessageWithRightButtonImage(vc: self, message: LocalizedString.Enter_email_address.localized, delegate: self)
+//        AppToast.default.showToastMessageWithRightButtonImage(vc: self, message: LocalizedString.Enter_email_address.localized, delegate: self)
         
         self.view.endEditing(true)
 
         if self.viewModel.isValidateData(vc: self) {
 
             sender.isLoading = true
-            self.viewModel.webserviceForLogin(sender)
+            self.viewModel.webserviceForLogin()
         }
     }
     
@@ -121,6 +125,34 @@ private extension LoginVC {
     @objc func showPasswordAction(_ sender: UIButton) {
         
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+    }
+}
+
+//MARK:- Extension LoginVMDelegate
+//MARK:-
+extension LoginVC: LoginVMDelegate {
+    func willLogin() {
+        self.loginButton.isLoading = true
+    }
+    
+    func didLoginSuccess() {
+        self.loginButton.isLoading = false
+        AppFlowManager.default.goToDashboard()
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        self.loginButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }
 

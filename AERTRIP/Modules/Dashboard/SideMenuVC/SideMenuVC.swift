@@ -61,6 +61,15 @@ private extension SideMenuVC {
     }
 }
 
+//MARK:- Extension Target Methods
+//MARK:-
+extension SideMenuVC {
+    
+    @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
+        AppFlowManager.default.moveToSocialLoginVC()
+    }
+}
+
 //MARK:- Extension SetupView
 //MARK:-
 extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
@@ -79,6 +88,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("GuestSideMenuHeaderCell not found")
             }
             
+            cell.loginAndRegisterButton.addTarget(self, action: #selector(self.loginAndRegistrationButtonAction(_:)), for: .touchUpInside)
             return cell
             
         default:
@@ -94,15 +104,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch indexPath.row {
-            
-        case 0:
-            AppFlowManager.default.moveToLoginVC()
-            
-        default:
-            break
-        }
+       
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
-class AppToast {
+struct AppToast {
     
-    static func showToastMessage(message: String, vc: UIViewController) {
+    static let `default` = AppToast()
+    private init() {}
+    
+    func showToastMessage(message: String, vc: UIViewController) {
         
         let ob  = ToastView.instanceFromNib()
         
@@ -21,7 +24,7 @@ class AppToast {
         vc.view.showToast(ob)
     }
     
-    static func showToastMessageWithRightButtonTitle( vc: UIViewController, message: String,buttonTitle: String, delegate: ToastDelegate) {
+    func showToastMessageWithRightButtonTitle(vc: UIViewController, message: String, buttonTitle: String, delegate: ToastDelegate) {
         
         let ob  = ToastView.instanceFromNib()
         
@@ -32,7 +35,7 @@ class AppToast {
         vc.view.showToast(ob)
     }
     
-    static func showToastMessageWithRightButtonImage( vc: UIViewController, message: String, delegate: ToastDelegate) {
+    func showToastMessageWithRightButtonImage(vc: UIViewController, message: String, delegate: ToastDelegate) {
         
         let ob  = ToastView.instanceFromNib()
         
