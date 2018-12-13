@@ -74,13 +74,26 @@ class AppFlowManager {
     }
     
     func goToDashboard() {
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeGreen
-        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
-        self.sideMenuController = dashboard
-        let nvc = UINavigationController(rootViewController: dashboard)
+        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
+        PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
+//        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
+//        self.sideMenuController = dashboard
+//        let nvc = UINavigationController(rootViewController: dashboard)
+//        self.mainNavigationController = nvc
+//        self.window.rootViewController = nvc
+//        self.window.becomeKey()
+//        self.window.makeKeyAndVisible()
+        
+        let sideMenuVC = PKSideMenuController()
+        sideMenuVC.view.frame = UIScreen.main.bounds
+        sideMenuVC.mainViewController(MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard))
+        sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
+        self.sideMenuController = sideMenuVC
+        let nvc = UINavigationController(rootViewController: sideMenuVC)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
+        self.window.backgroundColor = .white
         self.window.makeKeyAndVisible()
     }
 }
