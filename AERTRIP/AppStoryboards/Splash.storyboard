@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoIconVertical" translatesAutoresizingMaskIntoConstraints="NO" id="QWW-vp-3Pn">
-                                <rect key="frame" x="163.5" y="229.5" width="48" height="54"/>
+                                <rect key="frame" x="163.5" y="233" width="48" height="54"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="TcW-Fx-7dq">
-                                <rect key="frame" x="107" y="323.5" width="161" height="20"/>
+                                <rect key="frame" x="132" y="327" width="111" height="13"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -37,7 +37,7 @@
                             <constraint firstItem="TcW-Fx-7dq" firstAttribute="centerX" secondItem="p3B-Nz-hsR" secondAttribute="centerX" id="bkr-YM-vos"/>
                             <constraint firstItem="p3B-Nz-hsR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i1e-jc-r7l"/>
                             <constraint firstItem="p3B-Nz-hsR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="u1O-tW-BH8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="p3B-Nz-hsR" secondAttribute="bottom" id="vH2-On-KJf"/>
+                            <constraint firstAttribute="bottom" secondItem="p3B-Nz-hsR" secondAttribute="bottom" id="vH2-On-KJf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -49,7 +49,7 @@
     </scenes>
     <resources>
         <image name="logoIconVertical" width="48" height="54"/>
-        <image name="logoTitleWhite" width="161" height="20"/>
+        <image name="logoTitleWhite" width="111" height="13"/>
         <image name="splashBackground" width="202" height="359.5"/>
     </resources>
 </document>

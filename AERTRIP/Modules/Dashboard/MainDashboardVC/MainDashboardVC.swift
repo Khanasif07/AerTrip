@@ -44,6 +44,8 @@ class MainDashboardVC: BaseVC {
     //MARK:- Properties
     //MARK:- Private
     private var previousSegmentHeight: CGFloat = 0.0
+    private var previousSegmentFont: CGFloat = 0.0
+    
     private var oldOffset: CGPoint = CGPoint.zero
     private var headerViewHeightToHide: CGFloat = 44.0
     private var segmentViewContainerActualHeight: CGFloat = 0.0
@@ -55,20 +57,12 @@ class MainDashboardVC: BaseVC {
     private let selectedSegmentFontSize: CGFloat = 18.0
     private let deSelectedSegmentFontSize: CGFloat = 14.0
     
-    private var currentSegmentHeightConstraint: NSLayoutConstraint {
-        switch self.currentSegment {
-        case .aerin:
-            return self.aerinHeightConstraint
-            
-        case .flight:
-            return self.flightHeightConstraint
-            
-        case .hotel:
-            return self.hotelHeightConstraint
-            
-        case .trip:
-            return self.tripHeightConstraint
-        }
+    private var segmentMinimizedHeight: CGFloat {
+        return segmentMaxmizedHeight - segmentMinimizableHeight
+    }
+    
+    private var segmentMaxmizedHeight: CGFloat {
+        return self.segmentViewContainer.height
     }
     
     private var currentSegmentLabel: UILabel {
@@ -85,6 +79,59 @@ class MainDashboardVC: BaseVC {
         case .trip:
             return self.tripsTitleLabel
         }
+    }
+    
+    private var selectedFontSizeForCurrentState: CGFloat {
+        let diff = self.mainScrollView.contentOffset.y
+        guard diff <= self.headerViewHeightToHide else {
+            return self.selectedSegmentFontSize
+        }
+        
+        let ratio = (self.selectedSegmentFontSize / self.headerViewHeightToHide)
+        return ((ratio * (self.headerViewHeightToHide-diff)) < 2.0) ? 0.0 : (ratio * (self.headerViewHeightToHide-diff))
+    }
+    
+    private var deSelectedFontSizeForCurrentState: CGFloat {
+        let diff = self.mainScrollView.contentOffset.y
+        guard diff <= self.headerViewHeightToHide else {
+            return self.deSelectedSegmentFontSize
+        }
+        
+        let ratio = (self.deSelectedSegmentFontSize / self.headerViewHeightToHide)
+        return ((ratio * (self.headerViewHeightToHide-diff)) < 2.0) ? 0.0 : (ratio * (self.headerViewHeightToHide-diff))
+    }
+    
+    private var selectedSegmentHeightForVerticalState: CGFloat {
+        let diff = self.mainScrollView.contentOffset.y
+        guard diff <= self.headerViewHeightToHide else {
+            return self.segmentMinimizedHeight
+        }
+        
+        let ratio = (self.segmentMaxmizedHeight / self.headerViewHeightToHide)
+        let finalH = max((ratio * (self.headerViewHeightToHide-diff)), self.segmentMinimizedHeight)
+        return min(finalH, self.segmentMaxmizedHeight)
+    }
+    
+    private var selectedSegmentHeightForHorizentalState: CGFloat {
+        let diff = self.bottomScrollView.contentOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width)
+        guard diff <= self.bottomScrollView.width else {
+            return self.selectedSegmentHeightForVerticalState
+        }
+        
+        let ratio = (self.selectedSegmentHeightForVerticalState / self.bottomScrollView.width)
+        let finalH = max((ratio * (self.bottomScrollView.width-diff)), self.segmentMinimizedHeight)
+        return min(finalH, self.selectedSegmentHeightForVerticalState)
+    }
+    
+    private var deSelectedSegmentHeightForHorizentalState: CGFloat {
+        let diff = self.bottomScrollView.contentOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width)
+        guard diff <= self.bottomScrollView.width else {
+            return self.selectedSegmentHeightForVerticalState
+        }
+        
+        let ratio = (self.selectedSegmentHeightForVerticalState / self.bottomScrollView.width)
+        let finalH = (self.segmentMinimizedHeight) + (ratio * diff)
+        return min(finalH, self.selectedSegmentHeightForVerticalState)
     }
     
     private var aerinVC: AerinVC!
@@ -124,7 +171,12 @@ class MainDashboardVC: BaseVC {
     @IBOutlet weak var hotelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tripHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var bottomScrollView: UIScrollView!
+    @IBOutlet weak var bottomScrollView: UIScrollView! {
+        didSet {
+            bottomScrollView.alwaysBounceHorizontal = false
+            bottomScrollView.alwaysBounceVertical = false
+        }
+    }
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -137,7 +189,7 @@ class MainDashboardVC: BaseVC {
     override func initialSetup() {
         self.view.addGredient()
         
-        self.previousSegmentHeight = self.segmentViewContainer.frame.height
+        self.updatePreviousSegmentStoredValues()
         self.segmentViewContainerActualHeight = self.segmentViewContainer.height
         
         self.mainScrollView.showsVerticalScrollIndicator = false
@@ -155,9 +207,7 @@ class MainDashboardVC: BaseVC {
         self.segmentViewContainer.backgroundColor = AppColors.clear
         
         self.updateSegments()
-        self.setupBottomScrollView()
-        
-        self.profileButton.set(count: 5, animated: true)
+        self.setupBottomScrollView()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -169,6 +219,7 @@ class MainDashboardVC: BaseVC {
         self.tripsVC?.viewWillAppear(animated)
         
         AppFlowManager.default.sideMenuController?.navigationController?.isNavigationBarHidden = true
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -203,7 +254,12 @@ class MainDashboardVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
-    private func currentSegmentContainerView(forSegment: Segment) -> UIView {
+    private func updatePreviousSegmentStoredValues() {
+        self.previousSegmentHeight = self.getSegmentHeightConstraint().constant
+        self.previousSegmentFont = self.currentSegmentLabel.font.pointSize
+    }
+    
+    private func getSegmentContainerView(forSegment: Segment) -> UIView {
         
         switch forSegment {
         case .aerin:
@@ -220,27 +276,65 @@ class MainDashboardVC: BaseVC {
         }
     }
     
+    private func getSegmentHeightConstraint(forSegment: Segment? = nil) -> NSLayoutConstraint {
+        let final = forSegment ?? self.currentSegment
+        switch final {
+        case .aerin:
+            return self.aerinHeightConstraint
+            
+        case .flight:
+            return self.flightHeightConstraint
+            
+        case .hotel:
+            return self.hotelHeightConstraint
+            
+        case .trip:
+            return self.tripHeightConstraint
+        }
+    }
+    
     private func updateSegments() {
-        
+
         //update alpha for view
         let allSegmentContainers = [self.aerinContainerView, self.flightsContainerView, self.hotelsContainerView, self.tripsContainerView]
+        let shadowH:CGFloat = self.selectedSegmentHeightForVerticalState * 0.52
         for segmentView in allSegmentContainers {
             guard let segV = segmentView else {return}
-            segV.alpha = (segV === self.currentSegmentContainerView(forSegment: self.currentSegment)) ? self.selectedSegmentAlpha : self.deSelectedSegmentAlpha
+            UIView.animate(withDuration: 0.3) {
+                if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
+                    segV.alpha = self.selectedSegmentAlpha
+                    segV.layer.masksToBounds = false
+                    segV.layer.shadowColor = AppColors.themeBlack.cgColor
+                    segV.layer.shadowOpacity = 0.4
+                    segV.layer.shadowOffset = CGSize(width: 0, height: 1)
+                    segV.layer.shadowRadius = 15
+                    
+                    segV.layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: (segV.width - shadowH)/2.0, y: ((segV.height - shadowH)/2.0) + 15.0, width: shadowH, height: shadowH), cornerRadius: shadowH/2.0).cgPath
+                }
+                else {
+                    segV.alpha = self.deSelectedSegmentAlpha
+                    segV.layer.masksToBounds = true
+                    segV.layer.shadowColor = AppColors.clear.cgColor
+                }
+            }
         }
         
         //update font size for label
         let allSegmentLabels = [self.aerinTitleLabel, self.flightsTitleLabel, self.hotelsTitleLabel, self.tripsTitleLabel]
         for segmentLabel in allSegmentLabels {
             guard let lbl = segmentLabel else {return}
-            lbl.font = AppFonts.SemiBold.withSize((lbl === self.currentSegmentLabel) ? self.selectedSegmentFontSize : self.deSelectedSegmentFontSize)
+            UIView.animate(withDuration: 0.3) {
+                lbl.font = AppFonts.SemiBold.withSize((lbl === self.currentSegmentLabel) ? self.selectedFontSizeForCurrentState : self.deSelectedFontSizeForCurrentState)
+            }
         }
         
         //update size for icon
         let allSegmentIconH = [self.aerinHeightConstraint, self.flightHeightConstraint, self.hotelHeightConstraint, self.tripHeightConstraint]
         for segmentIconH in allSegmentIconH {
             guard let iconH = segmentIconH else {return}
-            iconH.constant = (iconH === self.currentSegmentHeightConstraint) ? self.previousSegmentHeight : (self.segmentViewContainer.height - self.segmentMinimizableHeight)
+            UIView.animate(withDuration: 0.3) {
+                iconH.constant = (iconH === self.getSegmentHeightConstraint()) ? self.selectedSegmentHeightForVerticalState : self.segmentMinimizedHeight
+            }
         }
     }
     
@@ -278,8 +372,6 @@ class MainDashboardVC: BaseVC {
         self.tripsVC.view.backgroundColor = AppColors.clear
         
         self.bottomScrollView.addSubview(self.tripsVC.view)
-        
-//        self.currentSegmentContainerView(forSegment: self.currentSegment).addDropShadow(withColor: AppColors.themeBlack)
     }
     
     //MARK:- Public
@@ -287,7 +379,7 @@ class MainDashboardVC: BaseVC {
     
     //MARK:- Action
     @IBAction func profileButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.sideMenuController?.toggleRight()
+        AppFlowManager.default.sideMenuController?.toggleMenu()
     }
 }
 
@@ -298,29 +390,13 @@ extension MainDashboardVC {
         if scrollView === self.mainScrollView {
             //handling for vertical scrolling
             if 0...self.headerViewHeightToHide ~= scrollView.contentOffset.y {
-                let diff: CGFloat = scrollView.contentOffset.y
-                
-                let selectedFont = (0.41 * (self.headerViewHeightToHide-diff))
-                let deSelectedFont = (0.32 * (self.headerViewHeightToHide-diff))
-                
                 for segmentLabel in [self.aerinTitleLabel, self.flightsTitleLabel, self.hotelsTitleLabel, self.tripsTitleLabel] {
                     guard let lbl = segmentLabel else {return}
-                    lbl.font = AppFonts.SemiBold.withSize((lbl === self.currentSegmentLabel) ? selectedFont : deSelectedFont)
+                    lbl.font = AppFonts.SemiBold.withSize((lbl === self.currentSegmentLabel) ? self.selectedFontSizeForCurrentState : self.deSelectedFontSizeForCurrentState)
                 }
                 
-                let diffH = (diff * 0.5)
-                if diff > 0, self.currentSegmentHeightConstraint.constant > (self.segmentViewContainerActualHeight - self.segmentMinimizableHeight) {
-                    
-                    //decreas
-                    let finalH = (self.segmentViewContainerActualHeight - diffH)
-                    let maxH = (self.segmentViewContainerActualHeight - self.segmentMinimizableHeight)
-                    self.currentSegmentHeightConstraint.constant = max(finalH, maxH)
-                }
-                else {
-                    //increas
-                    let finalH = (self.segmentViewContainerActualHeight + diffH)
-                    self.currentSegmentHeightConstraint.constant = min(finalH, self.segmentViewContainerActualHeight)
-                }
+                self.getSegmentHeightConstraint().constant = self.selectedSegmentHeightForVerticalState
+                self.updateSegments()
             }
             else if scrollView.contentOffset.y >= 0 {
                 scrollView.setContentOffset(CGPoint(x: 0.0, y: self.headerViewHeightToHide), animated: false)
@@ -328,24 +404,43 @@ extension MainDashboardVC {
         }
         else if scrollView === self.bottomScrollView {
             //handling for horizontal scrolling
+            guard 0...(scrollView.contentSize.width-scrollView.width) ~= scrollView.contentOffset.x else {
+                return
+            }
+            
+            let currentStep = (scrollView.contentOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width))
+            let alphaProgress = ((self.selectedSegmentAlpha - self.deSelectedSegmentAlpha) / self.bottomScrollView.frame.width) * currentStep
 
-            let alphaProgress = ((self.selectedSegmentAlpha - self.deSelectedSegmentAlpha) / self.bottomScrollView.frame.width) * (scrollView.contentOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width))
-
+            //clear all pre alpha
+            let allSegmentContainers = [self.aerinContainerView, self.flightsContainerView, self.hotelsContainerView, self.tripsContainerView]
+            for segmentView in allSegmentContainers {
+                guard let segV = segmentView else {return}
+                if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
+                    segV.alpha = self.selectedSegmentAlpha
+                }
+                else {
+                    segV.alpha = self.deSelectedSegmentAlpha
+                }
+            }
+            
+            self.getSegmentContainerView(forSegment: self.currentSegment).alpha = self.selectedSegmentAlpha - alphaProgress
+            self.getSegmentHeightConstraint().constant = self.selectedSegmentHeightForHorizentalState
             if scrollView.contentOffset.x > self.oldOffset.x {
                 //increasing or next
-                self.currentSegmentContainerView(forSegment: self.currentSegment).alpha = self.selectedSegmentAlpha - alphaProgress
                 if let next = self.currentSegment.next {
-                    self.currentSegmentContainerView(forSegment: next).alpha = self.selectedSegmentAlpha + alphaProgress
+                    self.getSegmentContainerView(forSegment: next).alpha = self.selectedSegmentAlpha + alphaProgress
+                    self.getSegmentHeightConstraint(forSegment: next).constant = self.deSelectedSegmentHeightForHorizentalState
+                    
+                    print("from \(self.currentSegment.rawValue) to \(next.rawValue)")
                 }
-                print("+++++++")
             }
             else {
                 //descreasing or previous
-                self.currentSegmentContainerView(forSegment: self.currentSegment).alpha = self.selectedSegmentAlpha - alphaProgress
                 if let prev = self.currentSegment.previous {
-                    self.currentSegmentContainerView(forSegment: prev).alpha = self.selectedSegmentAlpha + alphaProgress
+                    self.getSegmentContainerView(forSegment: prev).alpha = self.selectedSegmentAlpha + alphaProgress
+                    self.getSegmentHeightConstraint(forSegment: prev).constant = self.deSelectedSegmentHeightForHorizentalState
+                    print("from \(self.currentSegment.rawValue) to \(prev.rawValue)")
                 }
-                print("--------")
             }
         }
     }
@@ -354,14 +449,21 @@ extension MainDashboardVC {
         self.manageScrolling(scrollView)
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.manageScrolling(scrollView)
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.oldOffset = scrollView.contentOffset
         if scrollView === self.bottomScrollView {
             let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.width)
             if let seg = Segment(rawValue: currentPage) {
-                self.previousSegmentHeight = self.currentSegmentHeightConstraint.constant
+                self.updatePreviousSegmentStoredValues()
                 self.currentSegment = seg
             }
+        }
+        else {
+            self.manageScrolling(scrollView)
         }
     }
 }
