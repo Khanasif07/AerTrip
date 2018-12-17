@@ -24,6 +24,11 @@
 		18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB821BA75A300BF342E /* ForgotPasswordVM.swift */; };
 		18109EBC21BAB37D00BF342E /* SuccessPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EBB21BAB37D00BF342E /* SuccessPopupVC.swift */; };
 		18109EBE21BAB38900BF342E /* SuccessPopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */; };
+		1851A75321C39355008DF03F /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75221C39355008DF03F /* AccountModel.swift */; };
+		1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */; };
+		1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */; };
+		1851A75A21C3C7AB008DF03F /* SideMenuViewAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75921C3C7AB008DF03F /* SideMenuViewAccountCell.swift */; };
+		1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75B21C3E051008DF03F /* AppUserDefaults.swift */; };
 		18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */; };
 		18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */; };
 		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
@@ -142,6 +147,11 @@
 		18109EB821BA75A300BF342E /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
 		18109EBB21BAB37D00BF342E /* SuccessPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopupVC.swift; sourceTree = "<group>"; };
 		18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopupVM.swift; sourceTree = "<group>"; };
+		1851A75221C39355008DF03F /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuProfileImageCell.swift; sourceTree = "<group>"; };
+		1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuProfileImageCell.xib; sourceTree = "<group>"; };
+		1851A75921C3C7AB008DF03F /* SideMenuViewAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewAccountCell.swift; sourceTree = "<group>"; };
+		1851A75B21C3E051008DF03F /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVC.swift; sourceTree = "<group>"; };
 		18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
 		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
@@ -272,8 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				180A3D6F21C0DA13001A1E6A /* Dashboard */,
-				180A3D7F21C108C0001A1E6A /* ToastView.xib */,
-				180A3D8321C1098E001A1E6A /* ToastView.swift */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -281,8 +289,9 @@
 		180A3D6F21C0DA13001A1E6A /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				180A3D7021C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift */,
-				180A3D7121C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib */,
+				1851A75821C3B026008DF03F /* SideMenu */,
+				180A3D7F21C108C0001A1E6A /* ToastView.xib */,
+				180A3D8321C1098E001A1E6A /* ToastView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -291,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				180A3D7521C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift */,
+				1851A75921C3C7AB008DF03F /* SideMenuViewAccountCell.swift */,
 			);
 			path = PrototypeCell;
 			sourceTree = "<group>";
@@ -320,6 +330,17 @@
 				18109EBD21BAB38900BF342E /* SuccessPopupVM.swift */,
 			);
 			path = SuccessPopupVC;
+			sourceTree = "<group>";
+		};
+		1851A75821C3B026008DF03F /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				180A3D7021C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift */,
+				180A3D7121C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib */,
+				1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */,
+				1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		18A96B8C21B6458E00EA9B3A /* SocialLoginVC */ = {
@@ -609,6 +630,7 @@
 			children = (
 				84F983FA21B545050018DFED /* UserInfo.swift */,
 				18D00D2221BE31E400EC2E5F /* UserModel.swift */,
+				1851A75221C39355008DF03F /* AccountModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -649,6 +671,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				1851A75B21C3E051008DF03F /* AppUserDefaults.swift */,
 				180A3D8721C127F6001A1E6A /* Toast.swift */,
 				1804322D21B8F6D100E6EE23 /* AKAlertController.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
@@ -817,6 +840,7 @@
 				84956FA921B655D900BF1183 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
+				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
 				84956FB221B655D900BF1183 /* SourceSansPro-SemiBold.ttf in Resources */,
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
 				84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */,
@@ -937,12 +961,14 @@
 				18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
+				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */,
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */,
+				1851A75A21C3C7AB008DF03F /* SideMenuViewAccountCell.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
 				18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */,
@@ -977,6 +1003,7 @@
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
+				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
@@ -987,6 +1014,7 @@
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
+				1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */,
 				84F983D821B51A070018DFED /* UIViewExtension.swift in Sources */,
 				84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */,
 				84F983E721B51A070018DFED /* AppGlobals.swift in Sources */,

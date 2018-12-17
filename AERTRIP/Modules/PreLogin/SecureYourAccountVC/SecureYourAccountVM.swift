@@ -8,12 +8,19 @@
 
 import Foundation
 
+protocol SecureYourAccountVMDelegate: class {
+    func willCallApi()
+    func getSuccess()
+    func getFail(errors: ErrorCodes)
+}
+
 class SecureYourAccountVM {
     
     enum SecureAccount {
         case setPassword, resetPasswod
     }
     
+    var delegate: SecureYourAccountVMDelegate?
     var isPasswordType: SecureAccount = .setPassword
     var password = ""
 }
@@ -22,18 +29,21 @@ class SecureYourAccountVM {
 //MARK:-
 extension SecureYourAccountVM {
     
-    func webserviceForUpdatePassword(_ sender: ATButton) {
+    func webserviceForUpdatePassword() {
         
         var params = JSONDictionary()
         
         params[APIKeys.password.rawValue]  = self.password
         
-        APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
+        self.delegate?.willCallApi()
+        APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data, errors) in
             
-            sender.isLoading = false
-            AppFlowManager.default.moveToCreateProfileVC()
-            printDebug(data)
-            //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+            if success {
+                self.delegate?.getSuccess()
+            }
+            else {
+                self.delegate?.getFail(errors: errors)
+            }
         })
         
     }

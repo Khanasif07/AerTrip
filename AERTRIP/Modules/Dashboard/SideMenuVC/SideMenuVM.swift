@@ -10,9 +10,19 @@ import Foundation
 
 class SideMenuVM {
     
-    let displayCells = [ LocalizedString.WhyAertrip.localized,
-                         LocalizedString.SmartSort.localized,
-                         LocalizedString.Offers.localized,
-                         LocalizedString.ContactUs.localized,
-                         LocalizedString.Settings.localized]
+    var isLogin = AppUserDefaults.value(forKey: .isLogin).boolValue
+    let displayCellsForGuest = [ LocalizedString.WhyAertrip.localized,
+                                 LocalizedString.SmartSort.localized,
+                                 LocalizedString.Offers.localized,
+                                 LocalizedString.ContactUs.localized,
+                                 LocalizedString.Settings.localized]
+    let cellForLoginUser = [ LocalizedString.Bookings.localized,
+                             LocalizedString.Offers.localized,
+                             LocalizedString.Notification.localized,
+                             LocalizedString.ReferAndEarn.localized,
+                             LocalizedString.Settings.localized,
+                             "",
+                             LocalizedString.WhyAertrip.localized,
+                             LocalizedString.SmartSort.localized,
+                             LocalizedString.ContactUs.localized]
 }

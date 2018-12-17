@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -799,6 +799,58 @@ travel experience</string>
                                             <outlet property="logoImage" destination="eM0-aY-yLY" id="cNV-ZQ-4QW"/>
                                             <outlet property="logoTextImage" destination="bs6-i3-TJy" id="bG0-L0-3V4"/>
                                             <outlet property="sepratorView" destination="fW6-QH-GVh" id="dLm-md-WhM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuViewAccountCell" rowHeight="62" id="jo2-Cw-Idk" customClass="SideMenuViewAccountCell" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="285" width="255" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jo2-Cw-Idk" id="TmU-Fr-dt0">
+                                            <rect key="frame" x="0.0" y="0.0" width="255" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
+                                                    <rect key="frame" x="20" y="10" width="137" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
+                                                    <rect key="frame" x="20" y="31" width="102" height="30"/>
+                                                    <state key="normal" title="View Accounts"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 18,992" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
+                                                    <rect key="frame" x="167" y="20.5" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d">
+                                                    <rect key="frame" x="20" y="61.5" width="215" height="0.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.40000000000000002" id="mi5-lS-Fl6"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" id="Ae0-rz-CmG"/>
+                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GhO-D6-E1f"/>
+                                                <constraint firstItem="K55-7N-Anf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="K6L-Bb-5eg"/>
+                                                <constraint firstAttribute="trailing" secondItem="4u1-Ye-r3d" secondAttribute="trailing" constant="20" id="LGB-J8-rXS"/>
+                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="V4r-sD-2fp"/>
+                                                <constraint firstItem="UTm-27-Lt8" firstAttribute="top" secondItem="TmU-Fr-dt0" secondAttribute="top" constant="10" id="eLa-lj-dXM"/>
+                                                <constraint firstAttribute="trailing" secondItem="K55-7N-Anf" secondAttribute="trailing" constant="20" id="eya-dW-U8f"/>
+                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="top" secondItem="KZt-tb-ePj" secondAttribute="bottom" constant="0.5" id="gHT-Iq-Ckj"/>
+                                                <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="lNy-ip-SIZ"/>
+                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" id="uQ3-Je-Nsq"/>
+                                                <constraint firstItem="K55-7N-Anf" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="yNA-01-rk6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="K55-7N-Anf" id="snt-Pq-lY8"/>
+                                            <outlet property="sepratorView" destination="4u1-Ye-r3d" id="aym-HC-nQw"/>
+                                            <outlet property="totalDueAmountLabel" destination="UTm-27-Lt8" id="tqX-5Z-SJf"/>
+                                            <outlet property="viewAccountButton" destination="KZt-tb-ePj" id="FA9-4G-Nyt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -86,9 +86,8 @@ class CreateYourAccountVC: BaseVC {
     
     @IBAction func registerButtonAction(_ sender: ATButton) {
         
+        self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
-            
-            sender.isLoading = true
             self.viewModel.webserviceForCreateAccount()
         }
     }
@@ -144,17 +143,13 @@ extension CreateYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
-        
-        if self.viewModel.isEnableRegisterButton {
-            self.registerButton.isEnabled = true
-        } else {
-            self.registerButton.isEnabled = false
-        }
+        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.emailTextField.resignFirstResponder()
+        self.registerButtonAction(self.registerButton)
         return true
     }
 }
@@ -162,18 +157,18 @@ extension CreateYourAccountVC {
 //MARK:- Extension UITextFieldDelegate
 //MARK:-
 extension CreateYourAccountVC: CreateYourAccountVMDelegate {
-    
-    func willLogin() {
+
+    func willRegister() {
         self.registerButton.isLoading = true
     }
     
-    func didLoginSuccess(email: String) {
+    func didRegisterSuccess(email: String) {
         
         self.registerButton.isLoading = false
         AppFlowManager.default.moveToRegistrationSuccefullyVC(email: email)
     }
     
-    func didLoginFail(errors: ErrorCodes) {
+    func didRegisterFail(errors: ErrorCodes) {
         
         self.registerButton.isLoading = false
         var message = ""

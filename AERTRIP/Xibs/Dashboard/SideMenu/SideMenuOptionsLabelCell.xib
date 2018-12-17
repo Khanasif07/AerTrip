@@ -25,17 +25,28 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zuD-gY-i6R">
+                        <rect key="frame" x="20" y="66" width="357" height="0.5"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.40000000000000002" id="c1v-mA-oqs"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="zuD-gY-i6R" secondAttribute="trailing" constant="20" id="0iJ-4c-wMG"/>
                     <constraint firstItem="wD6-W3-c4i" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ApF-XI-9Co"/>
                     <constraint firstItem="wD6-W3-c4i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="FQa-nY-HNf"/>
                     <constraint firstAttribute="bottom" secondItem="wD6-W3-c4i" secondAttribute="bottom" constant="12" id="L0Q-E1-bPC"/>
+                    <constraint firstItem="zuD-gY-i6R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="UHv-eX-Rif"/>
+                    <constraint firstAttribute="bottom" secondItem="zuD-gY-i6R" secondAttribute="bottom" id="eRA-gz-nk5"/>
                     <constraint firstAttribute="trailing" secondItem="wD6-W3-c4i" secondAttribute="trailing" constant="16" id="q0W-QO-ggv"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="displayTextLabel" destination="wD6-W3-c4i" id="nkR-VF-yqb"/>
+                <outlet property="sepratorView" destination="zuD-gY-i6R" id="3La-GU-9pn"/>
             </connections>
             <point key="canvasLocation" x="-21.600000000000001" y="39.130434782608695"/>
         </tableViewCell>

@@ -79,13 +79,10 @@ class LoginVC: BaseVC {
     
     @IBAction func loginButtonAction(_ sender: ATButton) {
         
-//        AppToast.default.showToastMessageWithRightButtonImage(vc: self, message: LocalizedString.Enter_email_address.localized, delegate: self)
-        
         self.view.endEditing(true)
 
         if self.viewModel.isValidateData(vc: self) {
-
-            sender.isLoading = true
+            
             self.viewModel.webserviceForLogin()
         }
     }
@@ -101,8 +98,8 @@ private extension LoginVC {
     
     func initialSetups() {
         
+        self.loginButton.isEnabled = false
         self.setupFontsAndText()
-//        self.loginButton.isEnabled = false
     }
     
     func setupFontsAndText() {
@@ -131,6 +128,7 @@ private extension LoginVC {
 //MARK:- Extension LoginVMDelegate
 //MARK:-
 extension LoginVC: LoginVMDelegate {
+    
     func willLogin() {
         self.loginButton.isLoading = true
     }
@@ -180,12 +178,13 @@ extension LoginVC: ToastDelegate {
             }
         }
         
-//        if self.viewModel.isLoginButtonEnable {
-//            self.loginButton.isEnabled = true
-//        } else {
-//            self.loginButton.isEnabled = false
-//        }
+        if self.viewModel.isLoginButtonEnable {
+            self.loginButton.isEnabled = true
+        } else {
+            self.loginButton.isEnabled = false
+        }
     }
+    
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField === self.emailTextField {
@@ -195,6 +194,7 @@ extension LoginVC: ToastDelegate {
             
         } else {
             self.passwordTextField.resignFirstResponder()
+            self.loginButtonAction(self.loginButton)
         }
         
         return true

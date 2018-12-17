@@ -40,6 +40,8 @@ class ThankYouRegistrationVC: BaseVC {
         self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
         self.emailLabel.font = AppFonts.Regular.withSize(20)
         self.sentAccountLinkLabel.font = AppFonts.Regular.withSize(16)
+        self.checkEmailLabel.font = AppFonts.Regular.withSize(16)
+        self.openEmailAppButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         
         let attributedString = NSMutableAttributedString(string: LocalizedString.No_Reply_Email_Text.localized, attributes: [
             .font: AppFonts.Regular.withSize(14),
@@ -78,12 +80,13 @@ class ThankYouRegistrationVC: BaseVC {
         
       let action =   AKAlertController.actionSheet( nil, message: nil, sourceView: self.view, buttons: [LocalizedString.Mail_Default.localized,LocalizedString.Gmail.localized], tapBlock: {(alert,index) in
         
+        AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
         if index == 0 {
             
-            let mailURL = URL(string: "message://")!
-            if UIApplication.shared.canOpenURL(mailURL) {
-                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
-            }
+//            let mailURL = URL(string: "message://")!
+//            if UIApplication.shared.canOpenURL(mailURL) {
+//                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+//            }
         } else {
             
         }
@@ -115,7 +118,7 @@ private extension ThankYouRegistrationVC {
             label.customSelectedColor[noReplyEmail] = AppColors.themeGray60
             label.handleCustomTap(for: noReplyEmail) { element in
                 
-                AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod)
+                AppToast.default.showToastMessage(message: LocalizedString.We_have_sent_you_an_account_activation_link_on.localized, vc: self)
             }
         }
     }

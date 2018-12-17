@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 protocol CreateYourAccountVMDelegate: class {
-    func willLogin()
-    func didLoginSuccess(email: String)
-    func didLoginFail(errors: ErrorCodes)
+    func willRegister()
+    func didRegisterSuccess(email: String)
+    func didRegisterFail(errors: ErrorCodes)
 }
 
 class CreateYourAccountVM {
@@ -52,14 +52,14 @@ extension CreateYourAccountVM {
         
         params[APIKeys.email.rawValue]  = self.email
         
-        self.delegate?.willLogin()
+        self.delegate?.willRegister()
         APICaller.shared.callRegisterNewUserAPI(params: params, loader: true, completionBlock: {(success, email, errors) in
             
             if success {
-                self.delegate?.didLoginSuccess(email: email)
+                self.delegate?.didRegisterSuccess(email: email)
             }
             else {
-                self.delegate?.didLoginFail(errors: errors)
+                self.delegate?.didRegisterFail(errors: errors)
             }
         })
         

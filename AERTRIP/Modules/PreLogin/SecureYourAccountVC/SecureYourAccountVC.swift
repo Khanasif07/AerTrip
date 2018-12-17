@@ -108,6 +108,10 @@ class SecureYourAccountVC: BaseVC {
         self.charactersLabel.tintColor = AppColors.themeGray60
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -116,11 +120,10 @@ class SecureYourAccountVC: BaseVC {
     
     @IBAction func nextButtonAction(_ sender: ATButton) {
         
+        self.view.endEditing(true)
         if self.viewModel.password.checkValidity(.Password) {
             
-            sender.isLoading = true
-            self.viewModel.webserviceForUpdatePassword(sender)
-            AppFlowManager.default.moveToCreateProfileVC()
+            self.viewModel.webserviceForUpdatePassword()
         }
     }
 }
@@ -151,12 +154,19 @@ private extension SecureYourAccountVC {
 
 //MARK:- Extension UITexFieldDElegate methods
 //MARK:-
-private extension SecureYourAccountVC {
+extension SecureYourAccountVC {
     
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.password = textField.text ?? ""
         self.setupValidation()
+    }
+    
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.passwordTextField.resignFirstResponder()
+        self.nextButtonAction(self.nextButton)
+        return true
     }
     
     @objc func showPasswordAction(_ sender: UIButton) {
@@ -290,5 +300,35 @@ private extension SecureYourAccountVC {
         } else {
             self.nextButton.isEnabled = false
         }
+    }
+}
+
+//MARK:- Extension LoginVMDelegate
+//MARK:-
+extension SecureYourAccountVC: SecureYourAccountVMDelegate {
+    
+    func willCallApi() {
+        self.nextButton.isLoading = true
+    }
+    
+    func getSuccess() {
+        self.nextButton.isLoading = false
+        AppFlowManager.default.moveToCreateProfileVC()
+    }
+    
+    func getFail(errors: ErrorCodes) {
+        
+        self.nextButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
+        AppFlowManager.default.moveToCreateProfileVC()
     }
 }

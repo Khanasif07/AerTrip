@@ -12,6 +12,7 @@ class GoogleLoginController : NSObject {
     
     // MARK: Variables and properties...
     static let shared = GoogleLoginController()
+    var accessToken = ""
     fileprivate(set) var currentGoogleUser: GoogleUser?
     fileprivate weak var contentViewController:UIViewController!
     fileprivate var hasAuthInKeychain: Bool {
@@ -70,6 +71,11 @@ extension GoogleLoginController : GIDSignInDelegate, GIDSignInUIDelegate {
         
         if (error == nil) {
             
+            if (GIDSignIn.sharedInstance().currentUser != nil) {
+                GoogleLoginController.shared.accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
+                // Use accessToken in your URL Requests Header
+            }
+    
             let googleUser = GoogleUser(user)
             currentGoogleUser = googleUser
             success?(googleUser)
@@ -103,6 +109,7 @@ class GoogleUser {
     let name : String
     let email: String
     let image: URL?
+    let accessToken = GoogleLoginController.shared.accessToken
 //    let authKey : String
     
     required init(_ googleUser: GIDGoogleUser) {

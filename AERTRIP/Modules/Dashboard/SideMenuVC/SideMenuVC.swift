@@ -14,6 +14,7 @@ class SideMenuVC: BaseVC {
     //MARK:-
     let viewModel = SideMenuVM()
     let socialViewModel = SocialLoginVM()
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var sideMenuTableView: UITableView!
@@ -25,6 +26,7 @@ class SideMenuVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+//        self.viewModel.isLogin.is
         self.initialSetups()
     }
     
@@ -56,8 +58,9 @@ private extension SideMenuVC {
     func registerXibs() {
         
         self.sideMenuTableView.register(UINib(nibName: "SideMenuOptionsLabelCell", bundle: nil), forCellReuseIdentifier: "SideMenuOptionsLabelCell")
+        self.sideMenuTableView.register(UINib(nibName: "SideMenuProfileImageCell", bundle: nil), forCellReuseIdentifier: "SideMenuProfileImageCell")
         self.sideMenuTableView.dataSource = self
-        self.sideMenuTableView.delegate  = self
+        self.sideMenuTableView.delegate   = self
     }
 }
 
@@ -68,6 +71,9 @@ extension SideMenuVC {
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
         AppFlowManager.default.moveToSocialLoginVC()
     }
+    
+    @objc func viewProfileButtonAction(_ sender: ATButton) {
+    }
 }
 
 //MARK:- Extension SetupView
@@ -75,7 +81,15 @@ extension SideMenuVC {
 extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.displayCells.count + 1
+        
+        if self.viewModel.isLogin {
+            
+            return self.viewModel.cellForLoginUser.count + 1
+            
+        } else {
+            
+            return self.viewModel.displayCellsForGuest.count + 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,12 +98,27 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
         case 0:
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
-                fatalError("GuestSideMenuHeaderCell not found")
+            if self.viewModel.isLogin {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuProfileImageCell", for: indexPath) as? SideMenuProfileImageCell else {
+                    fatalError("SideMenuProfileImageCell not found")
+                }
+                
+                cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
+                
+                return cell
+                
+            } else {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
+                    fatalError("GuestSideMenuHeaderCell not found")
+                }
+                
+                cell.loginAndRegisterButton.addTarget(self, action: #selector(self.loginAndRegistrationButtonAction(_:)), for: .touchUpInside)
+                
+                return cell
             }
             
-            cell.loginAndRegisterButton.addTarget(self, action: #selector(self.loginAndRegistrationButtonAction(_:)), for: .touchUpInside)
-            return cell
             
         default:
             
@@ -97,7 +126,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("SideMenuOptionsLabelCell not found")
             }
             
-            cell.populateData(text: self.viewModel.displayCells[indexPath.row - 1])
+            if self.viewModel.isLogin {
+                
+                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 1])
+                
+            } else {
+                
+                cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
+            }
+            
             return cell
         }
     }

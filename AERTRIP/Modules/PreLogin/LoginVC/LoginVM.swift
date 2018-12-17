@@ -74,7 +74,6 @@ class LoginVM {
                 self.delegate?.didLoginFail(errors: errors)
             }
         })
-        
     }
 }
 

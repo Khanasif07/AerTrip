@@ -33,10 +33,12 @@ extension APICaller {
     //MARK: -
     func callLoginAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
-        AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (data) in
+        AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
 
-            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
+                AppUserDefaults.save(value: true, forKey: .isLogin)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -44,7 +46,6 @@ extension APICaller {
             })
             
         }) { (error) in
-//            completionBlock(false, error.localizedDescription)
         }
     }
     
@@ -63,7 +64,7 @@ extension APICaller {
             })
             
         }) { (error) in
-            //            completionBlock(false, error.localizedDescription)
+            
         }
     }
     
@@ -84,64 +85,67 @@ extension APICaller {
             })
             
         }) { (error) in
-            //            completionBlock(false, error.localizedDescription)
+            
         }
     }
     
     //MARK: - Api for ForgotPassword
     //MARK: -
-    func callForgotPasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callForgotPasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.forgotPassword, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
                 
-            }, failure: { (error) in
-                completionBlock(false, "")
+                let email = jsonData[APIKeys.data.rawValue][APIKeys.email.rawValue].stringValue
+                completionBlock(true, email, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, "", errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
         }
     }
     
     //MARK: - Api for UpdatePassword
     //MARK: -
-    func callUpdatePasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callUpdatePasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserPassword, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
                 
-            }, failure: { (error) in
-                completionBlock(false, "")
+                let data = jsonData[APIKeys.data.rawValue].stringValue
+                completionBlock(true, data, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, "", errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
         }
     }
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserDetail, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
                 
-            }, failure: { (error) in
-                completionBlock(false, "")
+                let data = jsonData[APIKeys.data.rawValue].stringValue
+                completionBlock(true, data, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, "", errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
         }
     }
     

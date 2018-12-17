@@ -79,6 +79,8 @@ enum AppErrorCodeFor: Int {
     case failedToSendRegistrationEmail = 91
     case youHaveExceededMaximumAttemptsToResetPassword = 106
     case noUserAccountWithThisEmailId = 117
+    case user_Not_Found = 116
+    case user_type_not_matched = 115
     
     var message: String {
         
@@ -93,10 +95,10 @@ enum AppErrorCodeFor: Int {
             return "Not Logged In"
             
         case .emailRequired:
-            return "email required"
+            return "Email ID is required"
             
         case .invalidEmailFormat:
-            return "invalid email format"
+            return "Kindly provide a valid email ID"
             
         case .passwordIsRequired:
             return "password is required"
@@ -105,16 +107,16 @@ enum AppErrorCodeFor: Int {
             return "Multiple user accounts with this email id"
             
         case .NoUserAccountWithThisEmailId:
-            return "No user account with this email id"
+            return "The email ID and / or password you have entered is incorrect."
             
         case .userTypeNotMatched:
-            return "user type not matched"
+            return "The email ID and / or password you have entered is incorrect."
             
         case .InvalidPassword:
-            return "Invalid Password"
+            return "The email ID and / or password you have entered is incorrect."
             
         case .userNotFound:
-            return "user not found"
+            return "The email ID and / or password you have entered is incorrect."
             
         case .linkHasBeenExpired:
             return "Link has been expired"
@@ -123,61 +125,61 @@ enum AppErrorCodeFor: Int {
             return "Link already used to create a user"
             
         case .userIdRequired:
-            return "user id required"
+            return "User not found"
             
         case .accountMasterIdRequired:
-            return "Account master id required"
+            return "Invalid user data"
             
         case .userTypeIdRequired:
-            return "user type id required"
+            return "Invalid user data"
             
         case .userGroupIdRequired:
-            return "user group id required"
+            return "Invalid user data"
             
         case .userTypeCodeRequired:
-            return "user type code required"
+            return "Invalid user data"
             
         case .userMemberIdRequired:
-            return "user member id required"
+            return "Invalid user data"
             
         case .membershipNumberRequired:
-            return "membership number required"
+            return "Invalid user data"
             
         case .hashKeyIsRequired:
-            return "Hash key is required"
+            return "Please provide valid hash key"
             
         case .passengerIdRequired:
-            return "passenger id required"
+            return "Invalid user data"
             
         case .contactSourceIdRequired:
-            return "contact source id required"
+            return "Invalid user data"
             
         case .billingNameRequired:
-            return "billing name required"
+            return "Invalid user data"
             
         case .billingAddressIdRequired:
-            return "billing address id required"
+            return "Invalid user data"
             
         case .creditTypeRequired:
-            return "credit type required"
+            return "Invalid user data"
             
         case .defaultCountryRequired:
-            return "default country required"
+            return "Invalid user data"
             
         case .preferredCurrencyRequired:
-            return "preferred currency required"
+            return "Invalid user data"
             
         case .refundModeRequired:
-            return "refund mode required"
+            return "Invalid user data"
             
         case .userAlreadyRegisterdWithThisEmailId:
             return "user already registerd with this email id"
             
         case .emailActiveAsSocialUser:
-            return "email active as social user"
+            return "User already registerd with this email id"
             
         case .userWithNoPasswordAndNotInSocial:
-            return "user with no password and not in social"
+            return "User already registerd with this email id"
             
         case .userAlreadyLoggedIn:
             return "user already logged in"
@@ -204,7 +206,7 @@ enum AppErrorCodeFor: Int {
             return "User already created using this link"
             
         case .failedToCreateAccountMaster:
-            return "Failed to create Account master"
+            return "Failed to create user"
             
         case .failedToCreateUser:
             return "Failed to create user"
@@ -213,16 +215,16 @@ enum AppErrorCodeFor: Int {
             return "Password is weak. Please set a stronger password."
             
         case .newPasswordIsRequired:
-            return "new password is required"
+            return "Please provide a valid new password"
             
         case .unableToSetNewPassword:
             return "Unable to set new password"
             
         case .tokenIsRequired:
-            return "Token is required"
+            return "Please provide valid token"
             
         case .invalidToken:
-            return "Invalid token"
+            return "Please provide valid token"
             
         case .passowrdHasAlreadyBeenResetUsingThisLink:
             return "Passowrd has already been reset using this link"
@@ -246,8 +248,10 @@ enum AppErrorCodeFor: Int {
             return "Failed to send registration email"
             
         case .youHaveExceededMaximumAttemptsToResetPassword:
-            return "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow."
-            
+            return "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.            "
+           
+        case .user_Not_Found, .user_type_not_matched:
+            return "The email ID provided is incorrect"
         default:
             return ""
         }
