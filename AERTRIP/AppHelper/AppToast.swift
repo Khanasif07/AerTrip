@@ -21,20 +21,22 @@ struct AppToast {
         ob.showToastMessage(message: message)
         let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
         ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (ob.height + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+
         UIView.animate(withDuration: 0.5, animations: {
             
             UIView.animate(withDuration: 0.5, animations: {
                 
                 vc.view.addSubview(ob)
             })
-        }, completion: {
-            
+        }, completion: { (isCompleted) in
             UIView.animate(withDuration: 0.5, animations: {
                 
-                ob.vi
+//                ob.vi
             })
         })
     }
+    
+
     
     func showToastMessageWithRightButtonTitle(vc: UIViewController, message: String, buttonTitle: String, delegate: ToastDelegate) {
         
