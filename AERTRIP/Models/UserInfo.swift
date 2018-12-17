@@ -138,7 +138,7 @@ class UserInfo {
         }
     }
     
-    static var loggedInUser:UserInfo?{
+    static var loggedInUser:UserInfo? {
         
         if let id = UserInfo.loggedInUserId{
             return fetchUser(userId: id)

@@ -128,5 +128,6 @@ enum LocalizedString: String {
     case Offers          = "Offers"
     case ContactUs       = "ContactUs"
     case Settings        = "Settings"
+    case weekendGetaway = "weekendGetaway"
 }
 

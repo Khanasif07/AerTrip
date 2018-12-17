@@ -45,6 +45,7 @@
 		8429C91921BF9E96009C208E /* HotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91821BF9E96009C208E /* HotelsVC.swift */; };
 		8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91A21BF9EA6009C208E /* TripsVC.swift */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
+		844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */; };
 		84956FA921B655D900BF1183 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */; };
 		84956FAA21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9E21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf */; };
 		84956FAB21B655D900BF1183 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84956F9F21B655D900BF1183 /* SourceSansPro-Regular.ttf */; };
@@ -164,6 +165,7 @@
 		8429C91821BF9E96009C208E /* HotelsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsVC.swift; sourceTree = "<group>"; };
 		8429C91A21BF9EA6009C208E /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
+		844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84956F9D21B655D900BF1183 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		84956F9E21B655D900BF1183 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */,
+				844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */,
 			);
 			path = MainDashboardVC;
 			sourceTree = "<group>";
@@ -949,6 +952,7 @@
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
+				844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */,
 				1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */,

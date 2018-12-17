@@ -35,8 +35,8 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     //MARK:- Public
     
     //MARK:- Private
-    private var mainContainer : UIViewController?
-    private var menuContainer : UIViewController?
+    private var mainContainer : UIView?
+    private var menuContainer : UIView?
     private var menuViewController : UIViewController?
     private var mainViewController : UIViewController?
     private var shadowLayer: CAShapeLayer!
@@ -59,23 +59,18 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     //MARK:- Private
     private func setUp(){
         self.view.backgroundColor = UIColor.white
-        self.menuContainer = UIViewController()
-        self.menuContainer!.view.layer.anchorPoint = CGPoint(x: 1.0, y: 0.5)
+        self.menuContainer = UIView()
         
         var newFrame = self.view.bounds
         newFrame.origin.x = PKSideMenuOptions.currentOpeningSide == .right ? -(self.view.bounds.width) : self.view.bounds.width
-        self.menuContainer!.view.frame = newFrame
-        self.menuContainer!.view.backgroundColor = UIColor.clear
-        self.addChild(self.menuContainer!)
-        self.view.addSubview((self.menuContainer?.view)!)
-        self.menuContainer?.didMove(toParent: self)
+        self.menuContainer!.frame = newFrame
+        self.menuContainer!.backgroundColor = UIColor.clear
+        self.view.addSubview((self.menuContainer!))
         
-        self.mainContainer = UIViewController()
-        self.mainContainer!.view.frame = self.view.bounds
-        self.mainContainer!.view.backgroundColor = UIColor.clear
-        self.addChild(self.mainContainer!)
-        self.view.addSubview((self.mainContainer?.view)!)
-        self.mainContainer?.didMove(toParent: self)
+        self.mainContainer = UIView()
+        self.mainContainer!.frame = self.view.bounds
+        self.mainContainer!.backgroundColor = UIColor.clear
+        self.view.addSubview((self.mainContainer!))
         
         self.addDropOffShadow()
         if PKSideMenuOptions.currentAnimation == .curve3D {
@@ -84,18 +79,18 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     private func addDropOffShadow() {
-        let layerTemp = self.mainContainer!.view.layer
+        let layerTemp = self.mainContainer!.layer
         layerTemp.masksToBounds = false
         layerTemp.shadowColor = AppColors.themeBlack.cgColor
         layerTemp.shadowOpacity = 0.0
         layerTemp.shadowOffset = CGSize(width: 0, height: 2)
         layerTemp.shadowRadius = 20.0
 
-        layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.view.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
+        layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
     }
     
     private func animateDropOffShadow(from: CGFloat, to: CGFloat) {
-        let layerTemp = self.mainContainer!.view.layer
+        let layerTemp = self.mainContainer!.layer
 
         /* Do Animations */
         CATransaction.begin()
@@ -155,10 +150,10 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     private func setup3DShadowLayer(withCornerRadius: CGFloat, shadowWidthFrom: Double, shadowWidthTo: Double) {
         if shadowLayer == nil {
             shadowLayer = CAShapeLayer()
-            self.mainContainer?.view.layer.insertSublayer(shadowLayer, at: 1)
+            self.mainContainer?.layer.insertSublayer(shadowLayer, at: 1)
         }
 
-        shadowLayer.path = UIBezierPath(roundedRect: self.mainContainer?.view.bounds ?? .zero, cornerRadius: withCornerRadius).cgPath
+        shadowLayer.path = UIBezierPath(roundedRect: self.mainContainer?.bounds ?? .zero, cornerRadius: withCornerRadius).cgPath
         shadowLayer.fillColor = UIColor.clear.cgColor
         
         shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.cgColor
@@ -179,9 +174,9 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         self.menuViewController = menuVC
         self.menuViewController!.view.frame = self.view.bounds
         self.menuViewController!.view.layer.masksToBounds = true
-        self.menuContainer?.addChild(self.menuViewController!)
-        self.menuContainer?.view.addSubview(menuVC.view)
-        self.menuContainer?.didMove(toParent: self.menuViewController)
+        self.addChild(self.menuViewController!)
+        self.menuContainer?.addSubview(menuVC.view)
+        self.didMove(toParent: self.menuViewController)
     }
     
     func mainViewController(_ mainVC : UIViewController) {
@@ -194,11 +189,11 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         }
         self.mainViewController = mainVC
         self.mainViewController!.view.frame = self.view.bounds
-        self.mainContainer?.addChild(self.mainViewController!)
-        self.mainContainer?.view.addSubview(self.mainViewController!.view)
-        self.mainViewController?.didMove(toParent: self.mainContainer)
+        self.addChild(self.mainViewController!)
+        self.mainContainer?.addSubview(self.mainViewController!.view)
+        self.didMove(toParent: self.mainViewController)
         
-        if (self.mainContainer!.view.frame.minX == self.distanceOpenMenu) {
+        if (self.mainContainer!.frame.minX == self.distanceOpenMenu) {
             closeMenu()
         }
     }
@@ -206,7 +201,7 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     func openMenu(){
        
         addTapGestures()
-        var fMain : CGRect = self.mainContainer!.view.frame
+        var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = self.distanceOpenMenu
         
         switch PKSideMenuOptions.currentAnimation {
@@ -219,7 +214,7 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     func closeMenu(){
-        var fMain : CGRect = self.mainContainer!.view.frame
+        var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = 0
         
         switch PKSideMenuOptions.currentAnimation {
@@ -235,13 +230,13 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         self.mainViewController!.view.isUserInteractionEnabled = false
         
         let tapGestureRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapMainAction))
-        self.mainContainer!.view.addGestureRecognizer(tapGestureRecognizer)
+        self.mainContainer!.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func removeGesture(){
-        for recognizer in  self.mainContainer!.view.gestureRecognizers ?? [] {
+        for recognizer in  self.mainContainer!.gestureRecognizers ?? [] {
             if (recognizer .isKind(of: UITapGestureRecognizer.self)){
-                self.mainContainer!.view.removeGestureRecognizer(recognizer)
+                self.mainContainer!.removeGestureRecognizer(recognizer)
             }
         }
     }
@@ -251,7 +246,7 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     func toggleMenu(){
-        let fMain : CGRect = self.mainContainer!.view.frame
+        let fMain : CGRect = self.mainContainer!.frame
         if (fMain.minX == self.distanceOpenMenu) {
             closeMenu()
         }else{
@@ -272,7 +267,7 @@ extension PKSideMenuController {
         self.animateMainViewCorner(from: 0.0, to: PKSideMenuOptions.mainViewCornerRadiusInOpenMode)
         
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
-            let layerTemp : CALayer = (self.mainContainer?.view.layer)!
+            let layerTemp : CALayer = (self.mainContainer?.layer)!
             layerTemp.zPosition = 1000
             
             var tRotate : CATransform3D = CATransform3DIdentity
@@ -286,9 +281,9 @@ extension PKSideMenuController {
             tScale = CATransform3DScale(tScale, 0.8, 0.7, 1.0)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
             
-            self.mainContainer?.view.frame = mainFrame
+            self.mainContainer?.frame = mainFrame
             
-            self.menuContainer?.view.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
+            self.menuContainer?.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
             
         }) { (finished: Bool) -> Void in
         }
@@ -300,8 +295,8 @@ extension PKSideMenuController {
         self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0)
 
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
-            self.mainContainer?.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            let layerTemp : CALayer = (self.mainContainer?.view.layer)!
+            self.mainContainer?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            let layerTemp : CALayer = (self.mainContainer?.layer)!
             layerTemp.zPosition = 1000
             
             var tRotate : CATransform3D = CATransform3DIdentity
@@ -317,9 +312,9 @@ extension PKSideMenuController {
             layerTemp.transform = tScale
             layerTemp.transform = CATransform3DConcat(tRotate, tScale)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
-            self.mainContainer!.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.mainContainer!.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             
-            self.menuContainer?.view.transform = CGAffineTransform.identity
+            self.menuContainer?.transform = CGAffineTransform.identity
 
         }) { (finished: Bool) -> Void in
             self.mainViewController!.view.isUserInteractionEnabled = true
@@ -330,9 +325,9 @@ extension PKSideMenuController {
     //MARK:- Normal animation
     private func openWithCurveLinear(mainFrame: CGRect) {
         UIView.animate(withDuration: self.animationTime, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
-            self.mainContainer!.view.frame = mainFrame
+            self.mainContainer!.frame = mainFrame
             
-            self.menuContainer?.view.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
+            self.menuContainer?.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
 
         }) { (finished: Bool) -> Void in
             
@@ -341,9 +336,9 @@ extension PKSideMenuController {
     
     private func closeWithCurveLinear(mainFrame: CGRect) {
         UIView.animate(withDuration: self.animationTime, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.6, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
-            self.mainContainer!.view.frame = mainFrame
+            self.mainContainer!.frame = mainFrame
             
-            self.menuContainer?.view.transform = CGAffineTransform.identity
+            self.menuContainer?.transform = CGAffineTransform.identity
 
         }) { (finished: Bool) -> Void in
             self.mainViewController!.view.isUserInteractionEnabled = true

@@ -21,6 +21,8 @@ class AerinVC: BaseVC {
     @IBOutlet weak var aerinButton: UIButton!
     @IBOutlet weak var commandHintLabel: UILabel!
     @IBOutlet weak var aerinContainer: UIView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var weekendMessageLabel: UILabel!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -43,10 +45,13 @@ class AerinVC: BaseVC {
         self.pulsAnimation.radius = 100.0
         self.pulsAnimation.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.pulsAnimation, below: self.aerinButton.layer)
+        
+        self.weekendMessageLabel.alpha = 0.7
     }
     
     override func setupFonts() {
         self.messageLabel.font = AppFonts.Regular.withSize(16.0)
+        self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,10 +73,13 @@ class AerinVC: BaseVC {
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Delhi"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Christmas"))
         self.commandHintLabel.attributedText = commandAttrTxt
+        
+        self.weekendMessageLabel.text = LocalizedString.weekendGetaway.localized
     }
     
     override func setupColors() {
         self.messageLabel.textColor = AppColors.themeTextColor
+        self.weekendMessageLabel.textColor = AppColors.themeWhite
     }
     
     //MARK:- Methods
