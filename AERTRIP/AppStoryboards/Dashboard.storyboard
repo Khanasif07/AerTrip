@@ -39,7 +39,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="bDu-gI-raO" secondAttribute="height" multiplier="1:1" id="5Wq-Gt-vPx"/>
                                                         </constraints>
-                                                        <state key="normal" image="off"/>
+                                                        <state key="normal" image="userPlaceholder"/>
                                                         <connections>
                                                             <action selector="profileButtonAction:" destination="Lxq-na-cWX" eventType="touchUpInside" id="USN-lu-JZu"/>
                                                         </connections>
@@ -393,24 +393,24 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo">
-                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <rect key="frame" x="120" y="20" width="255" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="257"/>
+                                        <rect key="frame" x="0.0" y="28" width="255" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="257"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="255" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-aY-yLY">
-                                                    <rect key="frame" x="173.5" y="38" width="28" height="25"/>
+                                                    <rect key="frame" x="113.5" y="38" width="28" height="25"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="bs6-i3-TJy">
-                                                    <rect key="frame" x="132" y="81" width="111" height="13"/>
+                                                    <rect key="frame" x="72" y="81" width="111" height="13"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRi-ME-lzS">
-                                                    <rect key="frame" x="10" y="117" width="355" height="41"/>
+                                                    <rect key="frame" x="10" y="117" width="235" height="41"/>
                                                     <string key="text">Enjoy a more personalised 
 travel experience</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -418,9 +418,8 @@ travel experience</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-Cf-DnY" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="100" y="182" width="175" height="50"/>
+                                                    <rect key="frame" x="38.5" y="182" width="178.5" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="175" id="67k-QT-F7f"/>
                                                         <constraint firstAttribute="height" constant="50" id="bTS-a2-NBv"/>
                                                     </constraints>
                                                     <state key="normal" title="Login or Register">
@@ -428,7 +427,7 @@ travel experience</string>
                                                     </state>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-QH-GVh">
-                                                    <rect key="frame" x="16" y="256" width="343" height="0.5"/>
+                                                    <rect key="frame" x="20" y="256" width="215" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.40000000000000002" id="LzN-VQ-gA8"/>
@@ -437,10 +436,10 @@ travel experience</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eM0-aY-yLY" firstAttribute="top" secondItem="MSE-KU-n6l" secondAttribute="top" constant="38" id="2FL-0J-iWW"/>
-                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="16" id="Aah-eD-HPT"/>
+                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="20" id="Aah-eD-HPT"/>
                                                 <constraint firstItem="eM0-aY-yLY" firstAttribute="centerX" secondItem="MSE-KU-n6l" secondAttribute="centerX" id="DB3-qY-qzq"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="zRi-ME-lzS" secondAttribute="bottom" constant="24.100000000000001" id="DLK-Ur-jO6"/>
-                                                <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="16" id="H8U-L2-4Sb"/>
+                                                <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="20" id="H8U-L2-4Sb"/>
                                                 <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="24" id="JnX-oI-0Ua"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="centerX" secondItem="zRi-ME-lzS" secondAttribute="centerX" id="LHA-Gf-7W9"/>
                                                 <constraint firstItem="zRi-ME-lzS" firstAttribute="top" secondItem="bs6-i3-TJy" secondAttribute="bottom" constant="23" id="PKX-yg-eox"/>
@@ -448,6 +447,7 @@ travel experience</string>
                                                 <constraint firstItem="zRi-ME-lzS" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="10" id="aSS-i5-rJq"/>
                                                 <constraint firstItem="bs6-i3-TJy" firstAttribute="top" secondItem="eM0-aY-yLY" secondAttribute="bottom" constant="18" id="f8n-wB-ixn"/>
                                                 <constraint firstAttribute="bottom" secondItem="fW6-QH-GVh" secondAttribute="bottom" constant="0.5" id="fnk-4i-ZnD"/>
+                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="width" secondItem="MSE-KU-n6l" secondAttribute="width" multiplier="0.7" id="poC-tW-X4R"/>
                                                 <constraint firstAttribute="trailing" secondItem="zRi-ME-lzS" secondAttribute="trailing" constant="10" id="qXZ-Aw-V79"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -459,45 +459,109 @@ travel experience</string>
                                             <outlet property="sepratorView" destination="fW6-QH-GVh" id="dLm-md-WhM"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuViewAccountCell" rowHeight="62" id="jo2-Cw-Idk" customClass="SideMenuViewAccountCell" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="285" width="255" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jo2-Cw-Idk" id="TmU-Fr-dt0">
+                                            <rect key="frame" x="0.0" y="0.0" width="255" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
+                                                    <rect key="frame" x="20" y="10" width="137" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
+                                                    <rect key="frame" x="20" y="31" width="102" height="30"/>
+                                                    <state key="normal" title="View Accounts"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 18,992" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
+                                                    <rect key="frame" x="167" y="20.5" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d">
+                                                    <rect key="frame" x="20" y="61.5" width="215" height="0.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.40000000000000002" id="mi5-lS-Fl6"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" id="Ae0-rz-CmG"/>
+                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GhO-D6-E1f"/>
+                                                <constraint firstItem="K55-7N-Anf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="K6L-Bb-5eg"/>
+                                                <constraint firstAttribute="trailing" secondItem="4u1-Ye-r3d" secondAttribute="trailing" constant="20" id="LGB-J8-rXS"/>
+                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="V4r-sD-2fp"/>
+                                                <constraint firstItem="UTm-27-Lt8" firstAttribute="top" secondItem="TmU-Fr-dt0" secondAttribute="top" constant="10" id="eLa-lj-dXM"/>
+                                                <constraint firstAttribute="trailing" secondItem="K55-7N-Anf" secondAttribute="trailing" constant="20" id="eya-dW-U8f"/>
+                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="top" secondItem="KZt-tb-ePj" secondAttribute="bottom" constant="0.5" id="gHT-Iq-Ckj"/>
+                                                <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="lNy-ip-SIZ"/>
+                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" id="uQ3-Je-Nsq"/>
+                                                <constraint firstItem="K55-7N-Anf" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="yNA-01-rk6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="K55-7N-Anf" id="snt-Pq-lY8"/>
+                                            <outlet property="sepratorView" destination="4u1-Ye-r3d" id="aym-HC-nQw"/>
+                                            <outlet property="totalDueAmountLabel" destination="UTm-27-Lt8" id="tqX-5Z-SJf"/>
+                                            <outlet property="viewAccountButton" destination="KZt-tb-ePj" id="FA9-4G-Nyt"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEQ-BN-39k">
+                                <rect key="frame" x="158.5" y="607" width="178.5" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="fbIcon"/>
-                                        <connections>
-                                            <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="googleIcon"/>
-                                        <connections>
-                                            <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="twiterIcon"/>
-                                        <connections>
-                                            <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
+                                        <rect key="frame" x="0.0" y="0.0" width="178.5" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
+                                                <rect key="frame" x="0.0" y="0.0" width="59.5" height="45"/>
+                                                <state key="normal" image="fbIcon"/>
+                                                <connections>
+                                                    <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
+                                                <rect key="frame" x="59.5" y="0.0" width="59.5" height="45"/>
+                                                <state key="normal" image="googleIcon"/>
+                                                <connections>
+                                                    <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
+                                                <rect key="frame" x="119" y="0.0" width="59.5" height="45"/>
+                                                <state key="normal" image="twiterIcon"/>
+                                                <connections>
+                                                    <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="xO9-mQ-wya" secondAttribute="bottom" id="7ih-Do-Icr"/>
+                                    <constraint firstAttribute="height" constant="45" id="Alf-4a-nyV"/>
+                                    <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" id="dMh-nZ-aZ1"/>
+                                    <constraint firstAttribute="trailing" secondItem="xO9-mQ-wya" secondAttribute="trailing" id="pcd-TZ-GJ5"/>
+                                    <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" id="qi5-sY-oAs"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xO9-mQ-wya" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="3Gb-gn-wO4"/>
-                            <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="7wQ-HB-oP4"/>
-                            <constraint firstItem="xO9-mQ-wya" firstAttribute="bottom" secondItem="tYV-0J-82w" secondAttribute="bottom" id="aqG-qd-RO3"/>
-                            <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="Nk2-kJ-uNo" secondAttribute="leading" id="gHp-l4-3Tm"/>
+                            <constraint firstItem="mEQ-BN-39k" firstAttribute="bottom" secondItem="tYV-0J-82w" secondAttribute="bottom" constant="-15" id="3yD-nR-eaO"/>
+                            <constraint firstItem="mEQ-BN-39k" firstAttribute="width" secondItem="Nk2-kJ-uNo" secondAttribute="width" multiplier="0.7" id="FMo-Ah-RYX"/>
+                            <constraint firstItem="mEQ-BN-39k" firstAttribute="top" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="H0g-E4-Gaj"/>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="tYV-0J-82w" secondAttribute="top" id="ged-fM-RP1"/>
+                            <constraint firstItem="mEQ-BN-39k" firstAttribute="centerX" secondItem="Nk2-kJ-uNo" secondAttribute="centerX" id="m7T-zW-Hg8"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" id="rk6-ll-PPp"/>
-                            <constraint firstItem="tYV-0J-82w" firstAttribute="bottom" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" constant="50" id="zHD-in-JWl"/>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" constant="120" id="rk6-ll-PPp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tYV-0J-82w"/>
                     </view>
@@ -568,14 +632,14 @@ travel experience</string>
         <image name="aerin" width="62.5" height="57"/>
         <image name="aerinTapLogo" width="170" height="170"/>
         <image name="fbIcon" width="10" height="19"/>
-        <image name="flights" width="66.5" height="66.5"/>
+        <image name="flights" width="44.5" height="44"/>
         <image name="googleIcon" width="19" height="18.5"/>
-        <image name="hotels" width="64.5" height="45.5"/>
+        <image name="hotels" width="43" height="30"/>
         <image name="logoIconRightWhite" width="54" height="48"/>
         <image name="logoImage" width="28" height="25"/>
         <image name="logoText" width="111" height="13"/>
-        <image name="off" width="27" height="17"/>
-        <image name="trips" width="64.5" height="48.5"/>
+        <image name="trips" width="43" height="32"/>
         <image name="twiterIcon" width="20" height="16"/>
+        <image name="userPlaceholder" width="16.5" height="20.5"/>
     </resources>
 </document>

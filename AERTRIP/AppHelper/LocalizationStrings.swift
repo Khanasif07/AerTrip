@@ -128,5 +128,21 @@ enum LocalizedString: String {
     case Offers          = "Offers"
     case ContactUs       = "ContactUs"
     case Settings        = "Settings"
+    case ViewProfile     = "ViewProfile"
+    case Bookings        = "Bookings"
+    case Notification    = "Notification"
+    case ReferAndEarn    = "ReferAndEarn"
+    
+    
+    //MARK:- CreateProfileVCDelegate
+    //MARK:-
+    case Mr  = "Mr"
+    case Mis = "Mis"
+    case PleaseSelectSalutation = "PleaseSelectSalutation"
+    case PleaseEnterFirstName   = "PleaseEnterFirstName"
+    case PleaseEnterLastName    = "PleaseEnterLastName"
+    case PleaseSelectCountry    = "PleaseSelectCountry"
+    case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
+    
 }
 

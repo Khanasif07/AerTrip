@@ -21,7 +21,19 @@ struct AppToast {
         ob.showToastMessage(message: message)
         let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
         ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (ob.height + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
-        vc.view.showToast(ob)
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                vc.view.addSubview(ob)
+            })
+        }, completion: {
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                ob.vi
+            })
+        })
     }
     
     func showToastMessageWithRightButtonTitle(vc: UIViewController, message: String, buttonTitle: String, delegate: ToastDelegate) {
@@ -32,7 +44,11 @@ struct AppToast {
         ob.showToastMessageWithRightButtonTitle(message: message, buttonTitle: buttonTitle)
         let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
         ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (ob.height + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
-        vc.view.showToast(ob)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            vc.view.addSubview(ob)
+        })
     }
     
     func showToastMessageWithRightButtonImage(vc: UIViewController, message: String, delegate: ToastDelegate) {
@@ -43,6 +59,10 @@ struct AppToast {
         ob.showToastMessageWithRightButtonImage(message: message)
         let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
         ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (ob.height + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
-        vc.view.showToast(ob)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            vc.view.addSubview(ob)
+        })
     }
 }

@@ -21,39 +21,45 @@ class UserInfo {
     }
 
     struct address {
+        
+        var isLoggedIn: Bool = false
+        var profileName: String = ""
         var firstName: String = ""
         var lastName: String = ""
-        var company: String = ""
-        var address1: String = ""
-        var address2: String = ""
         var city: String = ""
         var state: String = ""
         var country: String = ""
         var postcode: String = ""
         var email: String = ""
-        var phone: String = ""
+        var mobile: String = ""
+        var billingName: String = ""
+        var creditType: String = ""
+        var profileImage: String = ""
+        var preferredCurrency: String = ""
+        var isd: String = ""
+        
         var dict: JSONDictionary {
-            return ["first_name": self.firstName,
+            
+            return ["isLoggedIn": self.isLoggedIn,
+                "profile_name": self.profileName,
+                    "first_name": self.firstName,
                     "last_name": self.lastName,
-                    "company": self.company,
-                    "address_1": self.address1,
-                    "address_2": self.address2,
                     "city": self.city,
                     "state": self.state,
                     "postcode": self.postcode,
                     "country": self.country,
                     "email": self.email,
-                    "phone": self.phone]
+                    "mobile": self.mobile,
+                "billing_name": self.billingName,
+                "credit_type": self.creditType,
+                "profile_img": self.profileImage,
+                "preferred_currency": self.preferredCurrency]
         }
+        
         var full: String {
             var fullAdd = ""
             
-            if !address1.isEmpty {
-               fullAdd = address1
-            }
-            if !address2.isEmpty {
-                fullAdd = fullAdd + " " + address2
-            }
+            
             if !city.isEmpty {
                 fullAdd = fullAdd + " " + city
             }
@@ -66,14 +72,26 @@ class UserInfo {
             if !postcode.isEmpty {
                 fullAdd = fullAdd + " " + postcode
             }
-            if !phone.isEmpty {
-                fullAdd = fullAdd + " " + phone
+            if !mobile.isEmpty {
+                fullAdd = fullAdd + " " + mobile
             }
             
             return fullAdd
         }
         
         init(dict: JSONDictionary) {
+            
+            if let obj = dict["isLoggedIn"] {
+                self.isLoggedIn = obj as? Bool ?? false
+            }
+            
+            if let obj = dict["profile_name"] {
+                self.profileName = "\(obj)"
+            }
+            
+            if let obj = dict["profile_image"] {
+                self.profileImage = "\(obj)"
+            }
             
             if let obj = dict["first_name"] {
                 self.firstName = "\(obj)"
@@ -83,17 +101,6 @@ class UserInfo {
                 self.lastName = "\(obj)"
             }
             
-            if let obj = dict["company"] {
-                self.company = "\(obj)"
-            }
-            
-            if let obj = dict["address_1"] {
-                self.address1 = "\(obj)"
-            }
-            
-            if let obj = dict["address_2"] {
-                self.address2 = "\(obj)"
-            }
             
             if let obj = dict["city"] {
                 self.city = "\(obj)"
@@ -115,8 +122,8 @@ class UserInfo {
                 self.email = "\(obj)"
             }
             
-            if let obj = dict["phone"] {
-                self.phone = "\(obj)"
+            if let obj = dict["mobile"] {
+                self.mobile = "\(obj)"
             }
         }
     }
@@ -158,6 +165,15 @@ class UserInfo {
         }
         set{
             updateInfo(withData: ["user_email":newValue])
+        }
+    }
+    
+    var isLoggedIn: Bool {
+        get{
+            return (userData?["isLoggedIn"] as? Bool ?? false)
+        }
+        set{
+            updateInfo(withData: ["isLoggedIn":newValue])
         }
     }
     

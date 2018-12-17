@@ -8,34 +8,57 @@
 
 import Foundation
 
+protocol CreateProfileVMDelegate: class {
+    func willApiCall()
+    func getSuccess()
+    func getFail(errors: ErrorCodes)
+}
+
 class CreateProfileVM {
     
-    let salutation = ["Mr", "Mis"]
+    weak var delegate: CreateProfileVMDelegate?
+    let salutation = [LocalizedString.Mr.localized, LocalizedString.Mis.localized]
     var userData   = UserModel()
+    
+    var isValidateForButtonEnable : Bool {
+        
+        if self.userData.salutation.isEmpty {
+            return false
+        } else if self.userData.firstName.isEmpty {
+            return false
+        } else if self.userData.lastName.isEmpty {
+            return false
+        } else if self.userData.country.isEmpty {
+            return false
+        } else if self.userData.mobile.isEmpty {
+            return false
+        }
+        return true
+    }
+    
     var isValidateData : Bool {
         
         if self.userData.salutation.isEmpty {
             
-            AppGlobals.shared.showWarning(message: "Please select salutation")
+            AppGlobals.shared.showWarning(message: LocalizedString.PleaseSelectSalutation.localized)
             return false
         } else if self.userData.firstName.isEmpty {
             
-            AppGlobals.shared.showWarning(message: "Please enter first name")
+            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterFirstName.localized)
             return false
         } else if self.userData.lastName.isEmpty {
             
-            AppGlobals.shared.showWarning(message: "Please enter last name")
+            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterLastName.localized)
             return false
         } else if self.userData.country.isEmpty {
             
-            AppGlobals.shared.showWarning(message: "Please select country")
+            AppGlobals.shared.showWarning(message: LocalizedString.PleaseSelectCountry.localized)
             return false
         } else if self.userData.mobile.isEmpty {
             
-            AppGlobals.shared.showWarning(message: "please enter mobile number")
+            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterMobileNumber.localized)
             return false
         }
-        
         return true
     }
 }
@@ -57,11 +80,15 @@ extension CreateProfileVM {
         params[APIKeys.country.rawValue]    = self.userData.country
         params[APIKeys.salutation.rawValue] = self.userData.salutation
         
-        APICaller.shared.callUpdatePasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
+        self.delegate?.willApiCall()
+        APICaller.shared.callUpdateUserDetailAPI(params: params, loader: true, completionBlock: {(success, data, errors) in
             
-            sender.isLoading = false
-            printDebug(data)
-            //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+            if success {
+                self.delegate?.getSuccess()
+            }
+            else {
+                self.delegate?.getFail(errors: errors)
+            }
         })
         
     }

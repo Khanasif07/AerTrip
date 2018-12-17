@@ -9,10 +9,18 @@
 import UIKit
 import LinkedinSwift
 
+protocol SocialLoginVMDelegate: class {
+    
+    func willLogin()
+    func didLoginSuccess()
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class SocialLoginVM {
     
     //MARK:- Properties
     //MARK:-
+    weak var delegate: SocialLoginVMDelegate?
     var userData = UserModel()
     
     //MARK:- Actions
@@ -44,10 +52,11 @@ class SocialLoginVM {
             
             printDebug(model.name)
             
-            self.userData.firstName        = model.name
-            self.userData.email           = model.email
-            self.userData.service          = "google"
-            self.userData.id             = model.id
+            self.userData.authKey        = model.accessToken
+            self.userData.firstName       = model.name
+            self.userData.email          = model.email
+            self.userData.service         = "google"
+            self.userData.id            = model.id
             
             if let imageURl = model.image {
                 
@@ -71,10 +80,12 @@ class SocialLoginVM {
         linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
             //Login success lsToken
             
+            
             linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
                 
                 guard let data = response.jsonObject else {return}
                 
+                self.userData.authKey = linkedinHelper.lsAccessToken?.accessToken ?? ""
                 self.userData.firstName = data["firstName"] as? String ?? ""
                 self.userData.lastName  = data["lastName"]  as? String ?? ""
                 self.userData.id      = data["id"] as? String ?? ""
@@ -119,9 +130,16 @@ extension SocialLoginVM {
         let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
         params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
         
-        APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, data) in
+        self.delegate?.willLogin()
+        APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
-            printDebug(data)
+            if success {
+                
+                self.delegate?.didLoginSuccess()
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }

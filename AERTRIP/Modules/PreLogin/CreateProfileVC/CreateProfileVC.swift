@@ -46,6 +46,10 @@ class CreateProfileVC: BaseVC {
         self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     override func setupFonts() {
         
         self.createProfileTitleLabel.font      = AppFonts.Bold.withSize(38)
@@ -77,9 +81,7 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        
         if self.viewModel.isValidateData {
-            sender.isLoading = true
             self.viewModel.webserviceForUpdateProfile(sender)
         }
     }
@@ -110,6 +112,9 @@ private extension CreateProfileVC {
         self.nameTitleTextField.inputView = self.salutationPicker
         self.nameTitleTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.nameTitleTextField.tintColor = UIColor.clear
+        self.firstNameTextField.delegate = self
+        self.lastNameTextField.delegate = self
+        self.mobileNumberTextField.delegate = self
     }
     
     func initToolBar(picker: UIPickerView) -> UIToolbar {
@@ -144,6 +149,7 @@ private extension CreateProfileVC {
         let indexPath = self.salutationPicker.selectedRow(inComponent: 0)
         self.nameTitleTextField.text = self.viewModel.salutation[indexPath]
         self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
+        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
     }
     
@@ -172,6 +178,8 @@ extension CreateProfileVC {
         default:
             break
         }
+        
+        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -188,6 +196,27 @@ extension CreateProfileVC {
                 self.viewModel.userData.isd = selectedCountry.countryCode
             }
             return false
+        }
+        
+        return true
+    }
+    
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField === self.firstNameTextField {
+            
+            self.firstNameTextField.resignFirstResponder()
+            self.lastNameTextField.becomeFirstResponder()
+            
+        } else if textField === self.lastNameTextField {
+            
+            self.countryTextField.becomeFirstResponder()
+            self.lastNameTextField.resignFirstResponder()
+            
+        } else if textField == self.mobileNumberTextField {
+            
+            self.mobileNumberTextField.resignFirstResponder()
+            self.letsGetStartButton(self.letsStartedButton)
         }
         
         return true
@@ -214,5 +243,38 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+    }
+}
+
+//MARK:- Extension UIPickerViewDataSource, UIPickerViewDelegate
+//MARK:-
+extension CreateProfileVC: CreateProfileVMDelegate {
+    
+    func willApiCall() {
+        
+        self.letsStartedButton.isLoading = true
+    }
+    
+    func getSuccess() {
+        
+        self.letsStartedButton.isLoading = false
+        AppFlowManager.default.goToDashboard()
+    }
+    
+    func getFail(errors: ErrorCodes) {
+        
+        self.letsStartedButton.isLoading = false
+        
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

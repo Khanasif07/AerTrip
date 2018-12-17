@@ -58,6 +58,10 @@ class ForgotPasswordVC: BaseVC {
         self.intructionLabel.textColor  = AppColors.themeBlack
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -68,8 +72,6 @@ class ForgotPasswordVC: BaseVC {
         
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
-            
-            sender.isLoading = true
             self.viewModel.webserviceForForgotPassword(sender)
         }
     }
@@ -82,6 +84,7 @@ private extension ForgotPasswordVC {
     func initialSetups() {
         
         self.continueButton.isEnabled = false
+        self.emailTextField.delegate = self
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -99,5 +102,41 @@ extension ForgotPasswordVC {
         } else {
             self.continueButton.isEnabled = false
         }
+    }
+    
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.emailTextField.resignFirstResponder()
+        self.continueButtonAction(self.continueButton)
+        return true
+    }
+}
+
+
+//MARK:- Extension UITextFieldDelegate
+//MARK:-
+extension ForgotPasswordVC: ForgotPasswordVMDelegate {
+    
+    func willLogin() {
+        self.continueButton.isLoading = true
+    }
+    
+    func didLoginSuccess(email: String) {
+        self.continueButton.isLoading = false
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        self.continueButton.isLoading = false
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

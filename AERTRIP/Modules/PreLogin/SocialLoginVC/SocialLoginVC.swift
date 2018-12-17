@@ -9,7 +9,7 @@
 import UIKit
 
 class SocialLoginVC: BaseVC {
-
+    
     //MARK:- Properties
     //MARK:-
     let viewModel = SocialLoginVM()
@@ -28,7 +28,7 @@ class SocialLoginVC: BaseVC {
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
@@ -66,6 +66,10 @@ class SocialLoginVC: BaseVC {
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     //MARK:- IBActions
@@ -129,5 +133,33 @@ private extension SocialLoginVC {
             ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
+    }
+}
+
+
+//MARK:- Extension Initialsetups
+//MARK:-
+extension SocialLoginVC: SocialLoginVMDelegate {
+    
+    func willLogin() {
+    }
+    
+    func didLoginSuccess() {
+        
+        AppFlowManager.default.goToDashboard()
+    }
+    
+    func didLoginFail(errors: ErrorCodes) {
+        
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

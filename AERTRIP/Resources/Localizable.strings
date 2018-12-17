@@ -38,7 +38,7 @@
 
 // MARK:- CreateYourAccountVC
 //MARK:-
-"Create_your_account"  = "Create your account";
+"Create_your_account"  = "Create your \n account";
 "Register"             = "Register";
 "By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use" = "By registering, you agree to Aertrip’s \nprivacy policy & terms of use.";
 "Already_Registered" = "Already Registered?";
@@ -48,9 +48,9 @@
 
 // MARK:- ThankYouRegistrationVC
 //MARK:-
-"Thank_you_for_registering"  = "Thank you for registering.";
-"We_have_sent_you_an_account_activation_link_on" = "We have sent you an account activation link on";
-"Check_your_email_to_activate_your_account" = "Check your email to activate your account.";
+"Thank_you_for_registering"  = "Thank you for \n registering.";
+"We_have_sent_you_an_account_activation_link_on" = "We have sent you an account \n activation link on";
+"Check_your_email_to_activate_your_account" = "Check your email to activate \n your account.";
 "Open_Email_App" = "Open Email App";
 "No_Reply_Email_Text" = "The activation email will expire in 7 days. If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com";
 "noreply_aertrip_com" = "noreply@aertrip.com";
@@ -59,7 +59,7 @@
 
 // MARK:- SecureYourAccountVC
 //MARK:-
-"Secure_your_account"  = "Secure your account";
+"Secure_your_account"  = "Secure your \n account";
 "Set_password" = "Set password";
 "Password_Conditions" = "Password Conditions:";
 "one" = "1";
@@ -116,3 +116,17 @@
 "Offers"       = "Offers";
 "ContactUs"     = "Contact Us";
 "Settings"     = "Settings";
+"Bookings"       = "Bookings";
+"Notification"    = "Notification";
+"ReferAndEarn"    = "Refer & Earn";
+
+//MARK:- CreateProfileVCDelegate
+//MARK:-
+"Mr"  = "Mr";
+"Mis" = "Mis";
+"PleaseSelectSalutation" = "Please select salutation";
+"PleaseEnterFirstName"   = "Please enter first name";
+"PleaseEnterLastName"    = "Please enter last name";
+"PleaseSelectCountry"    = "Please select country";
+"PleaseEnterMobileNumber" = "Please enter mobile number";
+"ViewProfile"         = "View Profile";

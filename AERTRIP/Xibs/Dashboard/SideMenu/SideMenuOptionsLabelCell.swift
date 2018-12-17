@@ -11,6 +11,7 @@ import UIKit
 class SideMenuOptionsLabelCell: UITableViewCell {
 
     @IBOutlet weak var displayTextLabel: UILabel!
+    @IBOutlet weak var sepratorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +33,8 @@ extension SideMenuOptionsLabelCell {
     
     private func initialSetups() {
         
-        self.displayTextLabel.font     = AppFonts.Regular.withSize(18)
+        self.sepratorView.isHidden = true
+        self.displayTextLabel.font      = AppFonts.Regular.withSize(18)
         self.displayTextLabel.textColor = AppColors.themeBlack
     }
     

@@ -122,7 +122,9 @@ import AVFoundation
          Visit: https://github.com/TUNER88/iOSSystemSoundsLibrary
          for more system sound ids
          */
-        AudioServicesPlayAlertSound(SystemSoundID(1012))
+        if count > 0 {
+            AudioServicesPlayAlertSound(SystemSoundID(1012))
+        }
         self.internalSetCount(from: self.count, to: count, animated: animated)
     }
 }

@@ -9,8 +9,15 @@
 import Foundation
 import UIKit
 
+protocol ForgotPasswordVMDelegate: class {
+    func willLogin()
+    func didLoginSuccess(email: String)
+    func didLoginFail(errors: ErrorCodes)
+}
+
 class ForgotPasswordVM  {
     
+    weak var delegate: ForgotPasswordVMDelegate?
     var email = ""
     var isValidateForContinueButtonSelection: Bool {
         
@@ -45,11 +52,15 @@ extension ForgotPasswordVM {
         
         params[APIKeys.email.rawValue]  = self.email
         
-        APICaller.shared.callForgotPasswordAPI(params: params, loader: true, completionBlock: {(success, data) in
+        self.delegate?.willLogin()
+        APICaller.shared.callForgotPasswordAPI(params: params, loader: true, completionBlock: {(success, email, errors) in
             
-            sender.isLoading = false
-            printDebug(data)
-//            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+            if success {
+                self.delegate?.didLoginSuccess(email: email)
+            }
+            else {
+                self.delegate?.didLoginFail(errors: errors)
+            }
         })
         
     }
