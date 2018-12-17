@@ -43,9 +43,6 @@ class MainDashboardVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Private
-    private var previousSegmentHeight: CGFloat = 0.0
-    private var previousSegmentFont: CGFloat = 0.0
-    
     private var oldOffset: CGPoint = CGPoint.zero
     private var headerViewHeightToHide: CGFloat = 44.0
     private var segmentViewContainerActualHeight: CGFloat = 0.0
@@ -139,7 +136,7 @@ class MainDashboardVC: BaseVC {
     private var hotelsVC: HotelsVC!
     private var tripsVC: TripsVC!
     
-    private var previousSelectedSegment: Segment?
+    private var moveableSegment: Segment?
     
     //MARK:- Public
     var currentSegment: Segment = Segment.aerin {
@@ -189,7 +186,6 @@ class MainDashboardVC: BaseVC {
     override func initialSetup() {
         self.view.addGredient()
         
-        self.updatePreviousSegmentStoredValues()
         self.segmentViewContainerActualHeight = self.segmentViewContainer.height
         
         self.mainScrollView.showsVerticalScrollIndicator = false
@@ -207,7 +203,15 @@ class MainDashboardVC: BaseVC {
         self.segmentViewContainer.backgroundColor = AppColors.clear
         
         self.updateSegments()
-        self.setupBottomScrollView()        
+        self.setupBottomScrollView()
+        
+//        self.mainScrollView.isScrollEnabled = false
+//        let pan = UIPanGestureRecognizer(target: self, action: #selector(panHandler(_:)))
+//        self.view.addGestureRecognizer(pan)
+    }
+    
+    @objc func panHandler(_ sender: UIGestureRecognizer) {
+        print("pan : \(sender.location(in: self.view))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -254,9 +258,21 @@ class MainDashboardVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
-    private func updatePreviousSegmentStoredValues() {
-        self.previousSegmentHeight = self.getSegmentHeightConstraint().constant
-        self.previousSegmentFont = self.currentSegmentLabel.font.pointSize
+    private func getSegmentLabel(forSegment: Segment) -> UILabel {
+        
+        switch forSegment {
+        case .aerin:
+            return self.aerinTitleLabel
+            
+        case .flight:
+            return self.flightsTitleLabel
+            
+        case .hotel:
+            return self.hotelsTitleLabel
+            
+        case .trip:
+            return self.tripsTitleLabel
+        }
     }
     
     private func getSegmentContainerView(forSegment: Segment) -> UIView {
@@ -300,22 +316,22 @@ class MainDashboardVC: BaseVC {
         let shadowH:CGFloat = self.selectedSegmentHeightForVerticalState * 0.52
         for segmentView in allSegmentContainers {
             guard let segV = segmentView else {return}
-            UIView.animate(withDuration: 0.3) {
-                if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
-                    segV.alpha = self.selectedSegmentAlpha
-                    segV.layer.masksToBounds = false
-                    segV.layer.shadowColor = AppColors.themeBlack.cgColor
-                    segV.layer.shadowOpacity = 0.4
-                    segV.layer.shadowOffset = CGSize(width: 0, height: 1)
-                    segV.layer.shadowRadius = 15
-                    
-                    segV.layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: (segV.width - shadowH)/2.0, y: ((segV.height - shadowH)/2.0) + 15.0, width: shadowH, height: shadowH), cornerRadius: shadowH/2.0).cgPath
-                }
-                else {
-                    segV.alpha = self.deSelectedSegmentAlpha
-                    segV.layer.masksToBounds = true
-                    segV.layer.shadowColor = AppColors.clear.cgColor
-                }
+            if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
+                UIViewPropertyAnimator(duration: 0.3, curve: .easeIn) {
+                segV.alpha = self.selectedSegmentAlpha
+                segV.layer.masksToBounds = false
+                segV.layer.shadowColor = AppColors.themeBlack.cgColor
+                segV.layer.shadowOpacity = 0.4
+                segV.layer.shadowOffset = CGSize(width: 0, height: 1)
+                segV.layer.shadowRadius = 15
+                
+                segV.layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: (segV.width - shadowH)/2.0, y: ((segV.height - shadowH)/2.0) + 15.0, width: shadowH, height: shadowH), cornerRadius: shadowH/2.0).cgPath
+                }.startAnimation()
+            }
+            else {
+                segV.alpha = self.deSelectedSegmentAlpha
+                segV.layer.masksToBounds = true
+                segV.layer.shadowColor = AppColors.clear.cgColor
             }
         }
         
@@ -323,8 +339,13 @@ class MainDashboardVC: BaseVC {
         let allSegmentLabels = [self.aerinTitleLabel, self.flightsTitleLabel, self.hotelsTitleLabel, self.tripsTitleLabel]
         for segmentLabel in allSegmentLabels {
             guard let lbl = segmentLabel else {return}
-            UIView.animate(withDuration: 0.3) {
-                lbl.font = AppFonts.SemiBold.withSize((lbl === self.currentSegmentLabel) ? self.selectedFontSizeForCurrentState : self.deSelectedFontSizeForCurrentState)
+            if (lbl === self.currentSegmentLabel) {
+                UIViewPropertyAnimator(duration: 0.3, curve: .easeIn) {
+                lbl.font = AppFonts.SemiBold.withSize(self.selectedFontSizeForCurrentState)
+                }.startAnimation()
+            }
+            else {
+                lbl.font = AppFonts.SemiBold.withSize(self.deSelectedFontSizeForCurrentState)
             }
         }
         
@@ -332,8 +353,13 @@ class MainDashboardVC: BaseVC {
         let allSegmentIconH = [self.aerinHeightConstraint, self.flightHeightConstraint, self.hotelHeightConstraint, self.tripHeightConstraint]
         for segmentIconH in allSegmentIconH {
             guard let iconH = segmentIconH else {return}
-            UIView.animate(withDuration: 0.3) {
-                iconH.constant = (iconH === self.getSegmentHeightConstraint()) ? self.selectedSegmentHeightForVerticalState : self.segmentMinimizedHeight
+            if (iconH === self.getSegmentHeightConstraint()) {
+                UIViewPropertyAnimator(duration: 0.3, curve: .easeIn) {
+                iconH.constant = self.selectedSegmentHeightForVerticalState
+                }.startAnimation()
+            }
+            else {
+                iconH.constant = self.segmentMinimizedHeight
             }
         }
     }
@@ -344,7 +370,7 @@ class MainDashboardVC: BaseVC {
         
         //add aerin vc view
         self.aerinVC = AerinVC.instantiate(fromAppStoryboard: .Dashboard)
-        self.aerinVC.view.frame = CGRect(x: (0 * self.bottomScrollView.width), y: 0.0, width: self.bottomScrollView.width, height: self.bottomScrollView.height)
+        self.aerinVC.view.frame = CGRect(x: (0 * self.bottomScrollView.width), y: 0.0, width: self.bottomScrollView.width, height: self.aerinVC.contentView.height)
         self.aerinVC.view.backgroundColor = AppColors.clear
         
         self.bottomScrollView.addSubview(self.aerinVC.view)
@@ -410,38 +436,64 @@ extension MainDashboardVC {
             
             let currentStep = (scrollView.contentOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width))
             let alphaProgress = ((self.selectedSegmentAlpha - self.deSelectedSegmentAlpha) / self.bottomScrollView.frame.width) * currentStep
-
+            
+            let fontProgress = ((self.selectedFontSizeForCurrentState - self.deSelectedFontSizeForCurrentState) / self.bottomScrollView.frame.width) * currentStep
+            let selectedFont = (40...44 ~= mainScrollView.contentOffset.y) ? 0.0 : (self.selectedSegmentFontSize - fontProgress)
+            let deSelectedFont = (40...44 ~= mainScrollView.contentOffset.y) ? 0.0 : (self.deSelectedSegmentFontSize + fontProgress)
+            
             //clear all pre alpha
-            let allSegmentContainers = [self.aerinContainerView, self.flightsContainerView, self.hotelsContainerView, self.tripsContainerView]
-            for segmentView in allSegmentContainers {
-                guard let segV = segmentView else {return}
-                if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
-                    segV.alpha = self.selectedSegmentAlpha
-                }
-                else {
-                    segV.alpha = self.deSelectedSegmentAlpha
-                }
+            self.updateSegments()
+//            let allSegmentContainers = [self.aerinContainerView, self.flightsContainerView, self.hotelsContainerView, self.tripsContainerView]
+//            for segmentView in allSegmentContainers {
+//                guard let segV = segmentView else {return}
+//                if segV === self.getSegmentContainerView(forSegment: self.currentSegment) {
+//                    segV.alpha = self.selectedSegmentAlpha
+//                }
+//                else {
+//                    segV.alpha = self.deSelectedSegmentAlpha
+//                }
+//            }
+            
+            if self.oldOffset.x.truncatingRemainder(dividingBy: self.bottomScrollView.frame.width) == 0 {
+               //current item selected
+//                let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.width)
+//                if let seg = Segment(rawValue: currentPage+1) {
+//                    self.currentSegment = seg
+//                }
+                self.moveableSegment = nil
+            }
+            else {
+                self.moveableSegment = (scrollView.contentOffset.x > self.oldOffset.x) ? self.currentSegment.next : self.currentSegment.previous
             }
             
             self.getSegmentContainerView(forSegment: self.currentSegment).alpha = self.selectedSegmentAlpha - alphaProgress
             self.getSegmentHeightConstraint().constant = self.selectedSegmentHeightForHorizentalState
-            if scrollView.contentOffset.x > self.oldOffset.x {
-                //increasing or next
-                if let next = self.currentSegment.next {
-                    self.getSegmentContainerView(forSegment: next).alpha = self.selectedSegmentAlpha + alphaProgress
-                    self.getSegmentHeightConstraint(forSegment: next).constant = self.deSelectedSegmentHeightForHorizentalState
-                    
-                    print("from \(self.currentSegment.rawValue) to \(next.rawValue)")
-                }
+            self.getSegmentLabel(forSegment: self.currentSegment).font = AppFonts.SemiBold.withSize(selectedFont)
+            
+            if let move = self.moveableSegment {
+                self.getSegmentHeightConstraint(forSegment: move).constant = self.deSelectedSegmentHeightForHorizentalState
+                self.getSegmentContainerView(forSegment: move).alpha = self.deSelectedSegmentAlpha + alphaProgress
+                self.getSegmentLabel(forSegment: move).font = AppFonts.SemiBold.withSize(deSelectedFont)
             }
-            else {
-                //descreasing or previous
-                if let prev = self.currentSegment.previous {
-                    self.getSegmentContainerView(forSegment: prev).alpha = self.selectedSegmentAlpha + alphaProgress
-                    self.getSegmentHeightConstraint(forSegment: prev).constant = self.deSelectedSegmentHeightForHorizentalState
-                    print("from \(self.currentSegment.rawValue) to \(prev.rawValue)")
-                }
-            }
+//            if scrollView.contentOffset.x > self.oldOffset.x {
+//                //increasing or next
+//                if let next = self.currentSegment.next {
+//                    self.getSegmentContainerView(forSegment: next).alpha = self.deSelectedSegmentAlpha + alphaProgress
+//                    self.getSegmentHeightConstraint(forSegment: next).constant = self.deSelectedSegmentHeightForHorizentalState
+//
+//                    print("from \(self.currentSegment.rawValue) to \(next.rawValue)")
+//                }
+//            }
+//            else {
+//                //descreasing or previous
+//                if let prev = self.currentSegment.previous {
+//                    self.getSegmentContainerView(forSegment: prev).alpha = self.deSelectedSegmentAlpha + alphaProgress
+//                    self.getSegmentHeightConstraint(forSegment: prev).constant = self.deSelectedSegmentHeightForHorizentalState
+//                    print("from \(self.currentSegment.rawValue) to \(prev.rawValue)")
+//                }
+//            }
+            print(scrollView.contentOffset)
+            self.oldOffset = scrollView.contentOffset
         }
     }
     
@@ -458,7 +510,6 @@ extension MainDashboardVC {
         if scrollView === self.bottomScrollView {
             let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.width)
             if let seg = Segment(rawValue: currentPage) {
-                self.updatePreviousSegmentStoredValues()
                 self.currentSegment = seg
             }
         }

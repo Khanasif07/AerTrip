@@ -128,6 +128,7 @@ enum LocalizedString: String {
     case Offers          = "Offers"
     case ContactUs       = "ContactUs"
     case Settings        = "Settings"
+    case weekendGetaway  = "weekendGetaway"
     case ViewProfile     = "ViewProfile"
     case Bookings        = "Bookings"
     case Notification    = "Notification"
@@ -143,6 +144,5 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
-    
 }
 
