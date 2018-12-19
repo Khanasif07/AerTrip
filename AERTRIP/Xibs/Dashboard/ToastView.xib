@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ass" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af8-5d-Bif">
-                    <rect key="frame" x="16" y="12" width="307" height="55"/>
+                    <rect key="frame" x="16" y="12" width="307" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -40,7 +40,6 @@
                 <constraint firstItem="Gn8-UY-jtY" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Jlk-hU-yH7"/>
                 <constraint firstItem="Af8-5d-Bif" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="MDe-H2-H1F"/>
                 <constraint firstItem="Gn8-UY-jtY" firstAttribute="leading" secondItem="Af8-5d-Bif" secondAttribute="trailing" id="cW1-R2-XsE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Af8-5d-Bif" secondAttribute="bottom" constant="12" id="euF-xD-UFy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gn8-UY-jtY" secondAttribute="trailing" constant="16" id="sD0-w3-5Vz"/>
                 <constraint firstItem="Af8-5d-Bif" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="tZf-WA-2If"/>
             </constraints>

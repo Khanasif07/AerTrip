@@ -19,6 +19,7 @@ class ForgotPasswordVM  {
     
     weak var delegate: ForgotPasswordVMDelegate?
     var email = ""
+    var isFirstTime = true
     var isValidateForContinueButtonSelection: Bool {
         
         if self.email.isEmpty {

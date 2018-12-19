@@ -22,6 +22,7 @@ enum AppNetworking {
         case image, video
     }
     
+    static var loader = __Loader(frame: CGRect(x:0, y:0, width:0, height:0))
     static let username = ""
     static let password = ""
     //static var manager:AFHTTPSessionManager?
@@ -148,11 +149,13 @@ enum AppNetworking {
                                 parameters : JSONDictionary = [:],
                                 encoding: URLEncoding = .httpBody,
                                 headers : HTTPHeaders = [:],
-                                loader : Bool = true,
+                                loader : Bool = false,
                                 loaderContainerView: UIView? = nil,
                                 success : @escaping Success,
                                 failure : @escaping Failure) {
         
+        
+        if loader { showLoader() }
         
         var header : HTTPHeaders = [:]
         let isLocalServerUrl = URLString.hasPrefix(APIEndPoint.baseUrlPath.rawValue)
@@ -198,9 +201,7 @@ enum AppNetworking {
                             
                             printDebug(headers)
                             
-                            if loader {
-                                //stop loading
-                            }
+                            if loader { hideLoader() }
                             
                             switch(response.result) {
                                 
@@ -217,7 +218,7 @@ enum AppNetworking {
                                     
                                     // Handle Internet Not available UI
                                     if loader {
-                                        //stop loading
+                                        if loader { hideLoader() }
                                     }
                                 }
                                 else{
@@ -240,6 +241,7 @@ enum AppNetworking {
                                progress : @escaping Progress,
                                failure : @escaping Failure) {
         
+        if loader { showLoader() }
         
         printDebug("request params: \(addMandatoryParams(toExistingParams: parameters))\nmultipart params: \(multipartData ?? [])\nurl: \(URLString)\nmethod: \(httpMethod)")
         
@@ -321,7 +323,7 @@ enum AppNetworking {
                                         
                                     case .success(let value):
                                         if loader {
-                                            //stop loading
+                                            if loader { hideLoader() }
                                         }
                                         
                                         printDebug("response: \(value)\nresponse url: \(URLString)")
@@ -329,7 +331,7 @@ enum AppNetworking {
                                         
                                     case .failure(let e):
                                         if loader {
-                                            //stop loading
+                                            if loader { hideLoader() }
                                         }
                                         
                                         if (e as NSError).code == NSURLErrorNotConnectedToInternet {
@@ -344,7 +346,7 @@ enum AppNetworking {
                                 
                             case .failure(let e):
                                 if loader {
-                                    //stop loading
+                                    if loader { hideLoader() }
                                 }
                                 
                                 
@@ -360,5 +362,17 @@ enum AppNetworking {
     }
 }
 
+extension AppNetworking {
+    
+    static func showLoader() {
+        
+        guard let window = AppDelegate.shared.window else {return}
+        loader.start(sender: window)
+    }
+    
+    static func hideLoader() {
+        loader.stop()
+    }
+}
 
 

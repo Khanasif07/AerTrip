@@ -19,6 +19,7 @@ class CreateProfileVM {
     weak var delegate: CreateProfileVMDelegate?
     let salutation = [LocalizedString.Mr.localized, LocalizedString.Mis.localized]
     var userData   = UserModel()
+    var isFirstTime = true
     
     var isValidateForButtonEnable : Bool {
         

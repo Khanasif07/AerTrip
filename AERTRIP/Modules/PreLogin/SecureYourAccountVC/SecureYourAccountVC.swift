@@ -145,7 +145,7 @@ private extension SecureYourAccountVC {
         let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: self.passwordTextField.height))
         
         showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
-        let image = UIImage(named: "off")
+        let image = UIImage(named: "showPassword")
         showButton.setImage(image, for: .normal)
         self.passwordTextField.rightView = showButton
         self.passwordTextField.rightViewMode = .never
@@ -172,6 +172,15 @@ extension SecureYourAccountVC {
     @objc func showPasswordAction(_ sender: UIButton) {
         
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        if self.passwordTextField.isSecureTextEntry {
+            
+            let image = UIImage(named: "showPassword")
+            sender.setImage(image, for: .normal)
+        } else {
+            
+            let image = UIImage(named: "hidePassword")
+            sender.setImage(image, for: .normal)
+        }
     }
     
     func setupValidation() {
@@ -330,5 +339,50 @@ extension SecureYourAccountVC: SecureYourAccountVMDelegate {
         }
         AppToast.default.showToastMessage(message: message, vc: self)
         AppFlowManager.default.moveToCreateProfileVC()
+    }
+}
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension SecureYourAccountVC {
+    
+    func setupInitialAnimation() {
+        
+        self.headerImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.secureAccountLabel.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.setPasswordLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.passwordConditionLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.passwordTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.validationStackView.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.nextButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.headerImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.secureAccountLabel.transform      = .identity
+            self.setPasswordLabel.transform      = .identity
+        }
+        
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.passwordTextField.transform    = .identity
+            self.passwordConditionLabel.transform = .identity
+            self.validationStackView.transform    = .identity
+            self.nextButton.transform    = .identity
+            
+        }) { (success) in
+            
+            self.passwordTextField.becomeFirstResponder()
+            self.viewModel.isFirstTime = false
+        }
     }
 }

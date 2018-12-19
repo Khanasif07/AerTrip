@@ -58,6 +58,16 @@ struct AppGlobals {
         }
         return String(data: data, encoding: String.Encoding.utf8)
     }
+    
+    static func retunsStringArray(jsonArr:[JSON]) -> [String] {
+        var labels = [String]()
+        for element in jsonArr {
+            
+            labels.append(element["display_order"].stringValue)
+        }
+        return labels
+    }
+
 }
 
 

@@ -22,6 +22,7 @@ class SocialLoginVM {
     //MARK:-
     weak var delegate: SocialLoginVMDelegate?
     var userData = UserModel()
+    var isFirstTime = true
     
     //MARK:- Actions
     //MARK:-

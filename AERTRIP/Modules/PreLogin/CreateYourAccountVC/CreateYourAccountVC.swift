@@ -36,6 +36,22 @@ class CreateYourAccountVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupViewDidLoadAnimation()
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -181,5 +197,46 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
             }
         }
         AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension CreateYourAccountVC {
+    
+    func setupInitialAnimation() {
+        
+        self.headerImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.headerTitleLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.emailTextField.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.registerButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.privacyPolicyLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.headerImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.headerTitleLabel.transform      = .identity
+        }
+        
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.emailTextField.transform    = .identity
+            self.registerButton.transform    = .identity
+            self.privacyPolicyLabel.transform = .identity
+            
+        }) { (success) in
+            
+            self.emailTextField.becomeFirstResponder()
+            self.viewModel.isFirstTime = false
+        }
     }
 }

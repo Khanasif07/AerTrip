@@ -32,6 +32,22 @@ class ForgotPasswordVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupViewDidLoadAnimation()
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -138,5 +154,47 @@ extension ForgotPasswordVC: ForgotPasswordVMDelegate {
             }
         }
         AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension ForgotPasswordVC {
+    
+    func setupInitialAnimation() {
+        
+        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.forgotPasswordLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.intructionLabel.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.emailTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.continueButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.logoImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.forgotPasswordLabel.transform      = .identity
+        }
+        
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.intructionLabel.transform    = .identity
+            self.emailTextField.transform = .identity
+            self.continueButton.transform    = .identity
+            
+        }) { (success) in
+            
+            self.emailTextField.becomeFirstResponder()
+            self.viewModel.isFirstTime = false
+        }
     }
 }

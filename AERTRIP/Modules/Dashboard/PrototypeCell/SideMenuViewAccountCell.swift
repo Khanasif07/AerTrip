@@ -48,5 +48,12 @@ extension SideMenuViewAccountCell {
         
         self.viewAccountButton.titleLabel?.font = AppFonts.Regular.withSize(14)
         self.viewAccountButton.titleLabel?.textColor = AppColors.themeGreen
+        self.viewAccountButton.setTitle(LocalizedString.ViewAccounts.localized, for: .normal)
+        
+    }
+    
+    func populateData(data: UserModel) {
+        
+        self.amountLabel.text = "\(data.accountData.statements.amountDue)"
     }
 }

@@ -16,13 +16,15 @@ class SocialLoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var topImage: UIImageView!
     @IBOutlet weak var centerTitleLabel: UILabel!
-    @IBOutlet weak var fbButton: UIButton!
-    @IBOutlet weak var googleButton: UIButton!
-    @IBOutlet weak var linkedInButton: UIButton!
+    @IBOutlet weak var fbButton: SocialButton!
+    @IBOutlet weak var googleButton: SocialButton!
+    @IBOutlet weak var linkedInButton: SocialButton!
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
+    @IBOutlet weak var sepratorLineImage: UIImageView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -31,6 +33,22 @@ class SocialLoginVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupViewDidLoadAnimation()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -142,14 +160,46 @@ private extension SocialLoginVC {
 extension SocialLoginVC: SocialLoginVMDelegate {
     
     func willLogin() {
+        
+        if self.viewModel.userData.service == APIKeys.facebook.rawValue {
+            
+            self.fbButton.isLoading = true
+        } else if self.viewModel.userData.service == APIKeys.google.rawValue {
+            
+            self.googleButton.isLoading = true
+        } else {
+            
+            self.googleButton.isLoading = true
+        }
     }
     
     func didLoginSuccess() {
         
+        if self.viewModel.userData.service == APIKeys.facebook.rawValue {
+            
+            self.fbButton.isLoading = false
+        } else if self.viewModel.userData.service == APIKeys.google.rawValue {
+            
+            self.googleButton.isLoading = false
+        } else {
+            
+            self.googleButton.isLoading = false
+        }
         AppFlowManager.default.goToDashboard()
     }
     
     func didLoginFail(errors: ErrorCodes) {
+        
+        if self.viewModel.userData.service == APIKeys.facebook.rawValue {
+            
+            self.fbButton.isLoading = false
+        } else if self.viewModel.userData.service == APIKeys.google.rawValue {
+            
+            self.googleButton.isLoading = false
+        } else {
+            
+            self.googleButton.isLoading = false
+        }
         
         var message = ""
         for index in 0..<errors.count {
@@ -161,5 +211,53 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             }
         }
         AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension SocialLoginVC {
+    
+    func setupInitialAnimation() {
+        
+        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.topImage.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.centerTitleLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.newRegisterLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.existingUserLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.sepratorLineImage.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.logoImage.transform          = .identity
+            self.topImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.centerTitleLabel.transform      = .identity
+        }
+        
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.fbButton.transform    = .identity
+            self.googleButton.transform = .identity
+            self.linkedInButton.transform    = .identity
+            self.newRegisterLabel.transform  = .identity
+            self.existingUserLabel.transform = .identity
+            self.sepratorLineImage.transform = .identity
+            
+        }) { (success) in
+            
+            self.viewModel.isFirstTime = false
+        }
     }
 }

@@ -92,6 +92,9 @@ class AppFlowManager {
         let nvc = UINavigationController(rootViewController: sideMenuVC)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
+        
+        
+        
         self.window.becomeKey()
         self.window.backgroundColor = .white
         self.window.makeKeyAndVisible()

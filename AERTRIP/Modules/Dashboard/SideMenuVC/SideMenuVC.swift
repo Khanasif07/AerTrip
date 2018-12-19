@@ -104,6 +104,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("SideMenuProfileImageCell not found")
                 }
                 
+                cell.populateData(userData: self.viewModel.userData)
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell
@@ -119,6 +120,27 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             
+        case 1:
+            
+            if self.viewModel.isLogin {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuViewAccountCell", for: indexPath) as? SideMenuViewAccountCell else {
+                    fatalError("SideMenuViewAccountCell not found")
+                }
+                
+                cell.populateData(data: self.viewModel.userData)
+                return cell
+
+            } else {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
+                    fatalError("SideMenuOptionsLabelCell not found")
+                }
+                
+                cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                return cell
+            }
+            
             
         default:
             
@@ -128,7 +150,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if self.viewModel.isLogin {
                 
-                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 1])
+                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
+                
+                if indexPath.row == 6 {
+                    cell.sepratorView.isHidden = false
+                }
                 
             } else {
                 
@@ -142,6 +168,20 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
+        let alert = UIAlertController(title: LocalizedString.ALERT.localized, message: LocalizedString.DoYouWantToLogout.localized, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: LocalizedString.Logout.localized.uppercased(), style: .default, handler: { _ in
+            
+            AppUserDefaults.removeAllValues()
+            AppFlowManager.default.goToDashboard()
+        })
+        
+        let cancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -15,4 +15,6 @@ target 'AERTRIP' do
     pod 'LinkedinSwift'
     pod 'SkyFloatingLabelTextField'
     pod 'ActiveLabel'
+    pod 'Firebase/Core'
+    pod 'Firebase/DynamicLinks'
 end

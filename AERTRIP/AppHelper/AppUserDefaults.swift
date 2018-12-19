@@ -76,5 +76,7 @@ extension AppUserDefaults {
         case Accesstoken
         case tutorialDisplayed
         case isLogin
+        case userData
+        case userId
     }
 }

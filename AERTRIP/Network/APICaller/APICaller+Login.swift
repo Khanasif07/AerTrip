@@ -12,7 +12,7 @@ extension APICaller {
     
     //MARK: - Api for Active user
     //MARK: -
-    func callActiveUserAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callActiveUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
         
         AppNetworking.GET(endPoint: APIEndPoint.isActiveUser, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
@@ -31,14 +31,18 @@ extension APICaller {
     
     //MARK: - Api for login user
     //MARK: -
-    func callLoginAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func callLoginAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
 
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 
-                AppUserDefaults.save(value: true, forKey: .isLogin)
+                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
+                if let userData = userSettings{
+                    AppUserDefaults.save(value: userData, forKey: .userData)
+                }
+                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -51,12 +55,18 @@ extension APICaller {
     
     //MARK: - Api for Social login
     //MARK: -
-    func callSocialLoginAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool,  _ errorCodes: ErrorCodes)->Void ) {
+    func callSocialLoginAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,  _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.socialLogin, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                
+                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
+                if let userData = userSettings{
+                    AppUserDefaults.save(value: userData, forKey: .userData)
+                }
+                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -70,7 +80,7 @@ extension APICaller {
     
     //MARK: - Api for Register
     //MARK: -
-    func callRegisterNewUserAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
+    func callRegisterNewUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.register, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
@@ -91,7 +101,7 @@ extension APICaller {
     
     //MARK: - Api for ForgotPassword
     //MARK: -
-    func callForgotPasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
+    func callForgotPasswordAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ email: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.forgotPassword, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
@@ -111,7 +121,7 @@ extension APICaller {
     
     //MARK: - Api for UpdatePassword
     //MARK: -
-    func callUpdatePasswordAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
+    func callUpdatePasswordAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserPassword, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
@@ -131,7 +141,7 @@ extension APICaller {
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
+    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserDetail, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
@@ -151,7 +161,7 @@ extension APICaller {
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callVerifyRegistrationApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callVerifyRegistrationApi(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
         
         AppNetworking.GET(endPoint: APIEndPoint.verifyRegistration, parameters: params, loader: loader, success: { [weak self] (data) in
             

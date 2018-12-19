@@ -21,6 +21,7 @@ enum APIKeys: String {
     
     //MARK:- Login Module
     //MARK:-
+    case isLoggedIn
     case data
     case loginid     = "loginid"
     case password    = "password"
@@ -41,6 +42,9 @@ enum APIKeys: String {
     case isd   = "isd"
     case country    = "country"
     case salutation = "salutation"
+    case facebook   = "facebook"
+    case google     = "google"
+    case linkedin   = "linkedin"
    
 }
 

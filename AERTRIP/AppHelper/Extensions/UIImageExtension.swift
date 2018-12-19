@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 //MARK:- UIImage Extension
 extension UIImage {
@@ -92,4 +93,41 @@ extension UIImage {
         let img: UIImage = UIImage(cgImage: cgimg)
         return img
     }
+}
+
+extension UIImageView {
+    
+    func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
+        
+        guard imageUrl.count > 0 else {
+            self.image = placeholder
+            return
+        }
+        
+        func setImage(url: URL, showIndicator:Bool) {
+            if showIndicator{
+                self.kf.indicatorType = .activity
+            }
+            self.kf.setImage(with: url, placeholder: placeholder)
+        }
+        
+        self.image = placeholder
+        if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
+            setImage(url: url, showIndicator:showIndicator)
+        }
+        else {
+            setImage(url: URL(fileURLWithPath: imageUrl), showIndicator:showIndicator)
+        }
+    }
+    
+    func addBlurEffect()
+    {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
+    }
+    
 }

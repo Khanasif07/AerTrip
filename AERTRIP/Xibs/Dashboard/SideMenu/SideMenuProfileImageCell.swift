@@ -49,8 +49,10 @@ extension SideMenuProfileImageCell {
         self.viewProfileButton.setTitle(LocalizedString.ViewProfile.localized, for: .normal)
     }
     
-//    func populateData(text: String) {
-//
-//        self.displayTextLabel.text = text
-//    }
+    func populateData(userData: UserModel) {
+        
+        self.userNameLabel.text = userData.userName
+        let placeHolder = UIImage(named: "group")
+        self.profileImage.setImageWithUrl(userData.picture, placeholder: placeHolder!, showIndicator: true)
+    }
 }

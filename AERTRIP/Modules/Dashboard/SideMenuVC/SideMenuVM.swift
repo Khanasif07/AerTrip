@@ -10,7 +10,8 @@ import Foundation
 
 class SideMenuVM {
     
-    var isLogin = AppUserDefaults.value(forKey: .isLogin).boolValue
+    let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
+    let isLogin = !AppUserDefaults.value(forKey: .userId).stringValue.isEmpty
     let displayCellsForGuest = [ LocalizedString.WhyAertrip.localized,
                                  LocalizedString.SmartSort.localized,
                                  LocalizedString.Offers.localized,
@@ -21,7 +22,6 @@ class SideMenuVM {
                              LocalizedString.Notification.localized,
                              LocalizedString.ReferAndEarn.localized,
                              LocalizedString.Settings.localized,
-                             "",
                              LocalizedString.WhyAertrip.localized,
                              LocalizedString.SmartSort.localized,
                              LocalizedString.ContactUs.localized]

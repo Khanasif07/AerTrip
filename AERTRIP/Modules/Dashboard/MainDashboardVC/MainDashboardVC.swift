@@ -181,10 +181,27 @@ class MainDashboardVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.initialSetup()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.profileButton.cornerRadius = self.profileButton.height/2
     }
     
     override func initialSetup() {
         self.view.addGredient()
+        
+        let image = UIImage(named: "userPlaceholder")
+        self.profileButton.setImage(image, for: .normal)
+        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
+        if !userData.picture.isEmpty {
+            
+            if let url = URL(string: userData.picture){
+                self.profileButton.kf.setImage(with: url, for: .normal)
+            }
+        }
         
         self.segmentViewContainerActualHeight = self.segmentViewContainer.height
         
@@ -405,6 +422,7 @@ class MainDashboardVC: BaseVC {
     
     //MARK:- Action
     @IBAction func profileButtonAction(_ sender: UIButton) {
+        
         AppFlowManager.default.sideMenuController?.toggleMenu()
     }
 }

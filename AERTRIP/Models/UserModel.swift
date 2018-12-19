@@ -67,6 +67,7 @@ enum Gender : String {
 
 struct UserModel {
     
+    var isLoggedIn : Bool
     var id         : String
     var email      : String
     var password   : String
@@ -82,6 +83,14 @@ struct UserModel {
     var dob        : String
     var userName   : String
     var authKey    : String
+    var billingName: String
+    var creditType : String
+    var paxId      : Int
+    var points     : Int
+    var preferredCurrency: String
+    let hotels     : HotelsModel
+    let accountData: AccountModel
+    let generalPref: GeneralPrefrenceModel
     
      init() {
         
@@ -91,21 +100,31 @@ struct UserModel {
     
     init(json: JSON) {
         
-        self.id         = json["id"].stringValue
+        self.id          = json["id"].stringValue
         self.email       = json["email"].stringValue
-        self.password     = json["password"].stringValue
-        self.firstName    = json["first_name"].stringValue
+        self.password    = json["password"].stringValue
+        self.firstName   = json["first_name"].stringValue
         self.lastName     = json["last_name"].stringValue
         self.mobile      = json["mobile"].stringValue
         self.isd        = json["isd"].stringValue
         self.country     = json["country"].stringValue
         self.salutation   = json["salutation"].stringValue
         self.country     = json["country"].stringValue
-        self.picture     = json["picture"].stringValue
+        self.picture     = json["profile_image"].stringValue
         self.service     = json["service"].stringValue
         self.dob       = json["dob"].stringValue
-        self.userName    = json["user_name"].stringValue
+        self.userName    = json["profile_name"].stringValue
         self.authKey    = json["authKey"].stringValue
+        self.paxId      = json["pax_id"].intValue
+        
+        self.isLoggedIn = json["isLoggedIn"].boolValue
+        self.billingName    = json["billing_name"].stringValue
+        self.creditType      = json["credit_type"].stringValue
+        self.points = json["points"].intValue
+        self.preferredCurrency    = json["preferred_currency"].stringValue
+        self.hotels = HotelsModel(json: json["hotels"])
+        self.accountData = AccountModel(json: json["account_data"])
+        self.generalPref = GeneralPrefrenceModel(json: json["general_pref"])
         
         if let gender   = json["gender"].string {
             
@@ -116,4 +135,7 @@ struct UserModel {
         }
     }
 }
+
+
+
 

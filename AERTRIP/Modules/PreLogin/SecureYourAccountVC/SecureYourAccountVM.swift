@@ -23,6 +23,7 @@ class SecureYourAccountVM {
     var delegate: SecureYourAccountVMDelegate?
     var isPasswordType: SecureAccount = .setPassword
     var password = ""
+    var isFirstTime = true
 }
 
 //MARK:- Extension Webservices

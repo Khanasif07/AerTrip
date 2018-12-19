@@ -17,7 +17,6 @@
 		180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180A3D7F21C108C0001A1E6A /* ToastView.xib */; };
 		180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8321C1098E001A1E6A /* ToastView.swift */; };
 		180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8521C11AE7001A1E6A /* AppToast.swift */; };
-		180A3D8821C127F6001A1E6A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8721C127F6001A1E6A /* Toast.swift */; };
 		18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB121BA386F00BF342E /* CreateProfileVC.swift */; };
 		18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB321BA387E00BF342E /* CreateProfileVM.swift */; };
 		18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */; };
@@ -29,12 +28,17 @@
 		1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */; };
 		1851A75A21C3C7AB008DF03F /* SideMenuViewAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75921C3C7AB008DF03F /* SideMenuViewAccountCell.swift */; };
 		1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75B21C3E051008DF03F /* AppUserDefaults.swift */; };
+		18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A01E3F21CA0B180071E772 /* HotelModel.swift */; };
+		18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A01E4121CA1FE40071E772 /* GeneralPrefrenceModel.swift */; };
+		18A01E4421CA50ED0071E772 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18A01E4321CA50ED0071E772 /* GoogleService-Info.plist */; };
 		18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */; };
 		18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */; };
 		18A96B9221B646C500EA9B3A /* DemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9121B646C500EA9B3A /* DemoVC.swift */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D00D2221BE31E400EC2E5F /* UserModel.swift */; };
+		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
+		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
 		18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */; };
@@ -140,7 +144,6 @@
 		180A3D7F21C108C0001A1E6A /* ToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastView.xib; sourceTree = "<group>"; };
 		180A3D8321C1098E001A1E6A /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		180A3D8521C11AE7001A1E6A /* AppToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToast.swift; sourceTree = "<group>"; };
-		180A3D8721C127F6001A1E6A /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		18109EB121BA386F00BF342E /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
 		18109EB321BA387E00BF342E /* CreateProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVM.swift; sourceTree = "<group>"; };
 		18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -152,12 +155,17 @@
 		1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuProfileImageCell.xib; sourceTree = "<group>"; };
 		1851A75921C3C7AB008DF03F /* SideMenuViewAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewAccountCell.swift; sourceTree = "<group>"; };
 		1851A75B21C3E051008DF03F /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
+		18A01E3F21CA0B180071E772 /* HotelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelModel.swift; sourceTree = "<group>"; };
+		18A01E4121CA1FE40071E772 /* GeneralPrefrenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPrefrenceModel.swift; sourceTree = "<group>"; };
+		18A01E4321CA50ED0071E772 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVC.swift; sourceTree = "<group>"; };
 		18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
 		18A96B9121B646C500EA9B3A /* DemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVC.swift; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18D00D2221BE31E400EC2E5F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
+		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastMessageVC.swift; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldExtension.swift; sourceTree = "<group>"; };
@@ -514,6 +522,7 @@
 				84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */,
 				84956FBC21B65DA600BF1183 /* AppExtension.swift */,
 				84956FBE21B667D200BF1183 /* ATButton.swift */,
+				18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -631,6 +640,8 @@
 				84F983FA21B545050018DFED /* UserInfo.swift */,
 				18D00D2221BE31E400EC2E5F /* UserModel.swift */,
 				1851A75221C39355008DF03F /* AccountModel.swift */,
+				18A01E3F21CA0B180071E772 /* HotelModel.swift */,
+				18A01E4121CA1FE40071E772 /* GeneralPrefrenceModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -643,6 +654,7 @@
 				8429C90E21BF918C009C208E /* Assets.xcassets */,
 				84F9837E21B51A070018DFED /* AERTRIP.xcdatamodeld */,
 				84F9838021B51A070018DFED /* Info.plist */,
+				18A01E4321CA50ED0071E772 /* GoogleService-Info.plist */,
 				84956FB521B6579F00BF1183 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -672,7 +684,6 @@
 			isa = PBXGroup;
 			children = (
 				1851A75B21C3E051008DF03F /* AppUserDefaults.swift */,
-				180A3D8721C127F6001A1E6A /* Toast.swift */,
 				1804322D21B8F6D100E6EE23 /* AKAlertController.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
 				84F9838621B51A070018DFED /* AssetController.swift */,
@@ -689,6 +700,7 @@
 				84F983A921B51A070018DFED /* AppGlobals.swift */,
 				84F983AA21B51A070018DFED /* AppFonts.swift */,
 				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
+				18D2BC9721C8D535003A37E1 /* AppLoader.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";
@@ -842,6 +854,7 @@
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
 				84956FB221B655D900BF1183 /* SourceSansPro-SemiBold.ttf in Resources */,
+				18A01E4421CA50ED0071E772 /* GoogleService-Info.plist in Resources */,
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
 				84956FB421B655D900BF1183 /* SourceSansPro-Italic.ttf in Resources */,
 				84956FB021B655D900BF1183 /* SourceSansPro-ExtraLight.ttf in Resources */,
@@ -911,11 +924,13 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -927,11 +942,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1006,10 +1023,11 @@
 				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
+				18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
-				180A3D8821C127F6001A1E6A /* Toast.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
+				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				180A3D7821C0E262001A1E6A /* SideMenuVM.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
@@ -1030,8 +1048,10 @@
 				84F983F721B53F6C0018DFED /* AppNetworking.swift in Sources */,
 				84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */,
 				84F983DC21B51A070018DFED /* UIDeviceExtension.swift in Sources */,
+				18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */,
 				84F983BE21B51A070018DFED /* LoginVC.swift in Sources */,
 				18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */,
+				18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,
 				84F983FB21B545060018DFED /* UserInfo.swift in Sources */,
@@ -1166,7 +1186,9 @@
 			baseConfigurationReference = E0F38BF1D204A4F56D91BDD2 /* Pods-AERTRIP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 23FC5W285E;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1176,6 +1198,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Aertrip_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1187,7 +1210,9 @@
 			baseConfigurationReference = 251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 23FC5W285E;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1197,6 +1222,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Aertrip_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

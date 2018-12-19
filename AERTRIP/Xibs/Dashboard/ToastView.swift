@@ -33,7 +33,7 @@ class ToastView: UIView {
     
     func setupTextColorAndFont() {
         
-        self.cornerRadius = 10
+        self.cornerRadius = 8
         self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite

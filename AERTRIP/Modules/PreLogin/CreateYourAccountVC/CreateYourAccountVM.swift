@@ -19,6 +19,7 @@ class CreateYourAccountVM {
     
     weak var delegate: CreateYourAccountVMDelegate?
     var email = ""
+    var isFirstTime = true
     var isEnableRegisterButton: Bool {
        
         if self.email.isEmpty {

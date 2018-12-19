@@ -14,9 +14,10 @@ class LoginVC: BaseVC {
     //MARK:- Properties
     //MARK:-
     let viewModel = LoginVM()
-
+    
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak private var topImage: UIImageView!
     @IBOutlet weak private var welcomeLabel: UILabel!
     @IBOutlet weak private var emailTextField: SkyFloatingLabelTextField!
@@ -33,6 +34,24 @@ class LoginVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            
+            self.setupInitialAnimation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            
+            self.setupViewDidLoadAnimation()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -80,7 +99,7 @@ class LoginVC: BaseVC {
     @IBAction func loginButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
-
+        
         if self.viewModel.isValidateData(vc: self) {
             
             self.viewModel.webserviceForLogin()
@@ -113,7 +132,7 @@ private extension LoginVC {
         let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: self.passwordTextField.height))
         
         showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
-        let image = UIImage(named: "off")
+        let image = UIImage(named: "showPassword")
         showButton.setImage(image, for: .normal)
         self.passwordTextField.rightView = showButton
         self.passwordTextField.rightViewMode = .never
@@ -122,6 +141,16 @@ private extension LoginVC {
     @objc func showPasswordAction(_ sender: UIButton) {
         
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        
+        if self.passwordTextField.isSecureTextEntry {
+            
+            let image = UIImage(named: "showPassword")
+            sender.setImage(image, for: .normal)
+        } else {
+            
+            let image = UIImage(named: "hidePassword")
+            sender.setImage(image, for: .normal)
+        }
     }
 }
 
@@ -201,3 +230,46 @@ extension LoginVC: ToastDelegate {
     }
     
 }
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension LoginVC {
+    
+    func setupInitialAnimation() {
+        
+        self.topImage.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.welcomeLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.emailTextField.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.passwordTextField.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.loginButton.transform       = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.forgotPasswordButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.topImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.welcomeLabel.transform      = .identity
+        }
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.emailTextField.transform    = .identity
+            self.passwordTextField.transform = .identity
+            self.loginButton.transform       = .identity
+            self.forgotPasswordButton.transform = .identity
+            
+        }) { (success) in
+            
+            self.emailTextField.becomeFirstResponder()
+            self.viewModel.isFirstTime = false
+        }
+    }
+}
+

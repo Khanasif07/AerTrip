@@ -40,7 +40,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6A-oH-74k" customClass="ATNotificationButton" customModule="AERTRIP" customModuleProvider="target">
-                                                            <rect key="frame" x="326" y="10" width="34" height="34"/>
+                                                            <rect key="frame" x="316" y="0.0" width="44" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="k6A-oH-74k" secondAttribute="height" multiplier="1:1" id="Qtw-qn-fUS"/>
                                                             </constraints>
@@ -60,11 +60,11 @@
                                                     <constraints>
                                                         <constraint firstItem="wPI-AZ-Ls2" firstAttribute="leading" secondItem="5KX-bs-S52" secondAttribute="trailing" constant="10" id="JJ5-qc-8Hb"/>
                                                         <constraint firstItem="5KX-bs-S52" firstAttribute="leading" secondItem="x1e-WT-TPs" secondAttribute="leading" constant="15" id="M9W-fB-bEO"/>
-                                                        <constraint firstItem="k6A-oH-74k" firstAttribute="top" secondItem="x1e-WT-TPs" secondAttribute="top" constant="10" id="N8I-8e-cgR"/>
                                                         <constraint firstItem="wPI-AZ-Ls2" firstAttribute="centerY" secondItem="5KX-bs-S52" secondAttribute="centerY" id="Sj3-nN-RW8"/>
                                                         <constraint firstAttribute="trailing" secondItem="k6A-oH-74k" secondAttribute="trailing" constant="15" id="XUj-uo-lMW"/>
                                                         <constraint firstAttribute="bottom" secondItem="k6A-oH-74k" secondAttribute="bottom" id="ely-U8-e9r"/>
                                                         <constraint firstItem="5KX-bs-S52" firstAttribute="centerY" secondItem="x1e-WT-TPs" secondAttribute="centerY" id="oqC-y1-okt"/>
+                                                        <constraint firstItem="k6A-oH-74k" firstAttribute="centerY" secondItem="wPI-AZ-Ls2" secondAttribute="centerY" id="thz-qV-aHQ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -313,7 +313,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O47-s5-Hm1">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O47-s5-Hm1">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j9-so-qlm">
@@ -734,7 +734,7 @@ on Christmas”</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo">
                                 <rect key="frame" x="120" y="20" width="255" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -808,17 +808,20 @@ travel experience</string>
                                             <rect key="frame" x="0.0" y="0.0" width="255" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
                                                     <rect key="frame" x="20" y="10" width="137" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                    <rect key="frame" x="20" y="31" width="102" height="30"/>
-                                                    <state key="normal" title="View Accounts"/>
+                                                    <rect key="frame" x="20" y="28" width="96" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title="View Accounts">
+                                                        <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 18,992" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 18,992" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
                                                     <rect key="frame" x="167" y="20.5" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -842,7 +845,7 @@ travel experience</string>
                                                 <constraint firstAttribute="trailing" secondItem="K55-7N-Anf" secondAttribute="trailing" constant="20" id="eya-dW-U8f"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="top" secondItem="KZt-tb-ePj" secondAttribute="bottom" constant="0.5" id="gHT-Iq-Ckj"/>
                                                 <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="lNy-ip-SIZ"/>
-                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" id="uQ3-Je-Nsq"/>
+                                                <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-3" id="uQ3-Je-Nsq"/>
                                                 <constraint firstItem="K55-7N-Anf" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="yNA-01-rk6"/>
                                             </constraints>
                                         </tableViewCellContentView>

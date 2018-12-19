@@ -133,6 +133,7 @@ enum LocalizedString: String {
     case Bookings        = "Bookings"
     case Notification    = "Notification"
     case ReferAndEarn    = "ReferAndEarn"
+    case ViewAccounts    = "ViewAccounts"
     
     
     //MARK:- CreateProfileVCDelegate
@@ -144,5 +145,12 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
+    
+    //MARK:- ViewProfileVC
+    //MARK:-
+    case ALERT  = "ALERT"
+    case DoYouWantToLogout = "DoYouWantToLogout"
+    case Logout = "Logout"
+    
 }
 

@@ -42,7 +42,7 @@ travel experience</string>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KAq-60-Ls3">
                                 <rect key="frame" x="16" y="288" width="343" height="196"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-Yf-Sii">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-Yf-Sii" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="49"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -52,7 +52,7 @@ travel experience</string>
                                             <action selector="fbLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="fVx-zn-c1M"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqA-K7-akV">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqA-K7-akV" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="73" width="343" height="49.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -63,7 +63,7 @@ travel experience</string>
                                             <action selector="googleLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="Jho-TB-dz1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="146.5" width="343" height="49.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.4431372549" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -149,10 +149,12 @@ travel experience</string>
                     <connections>
                         <outlet property="centerTitleLabel" destination="Z2C-dF-580" id="SFR-GY-HmE"/>
                         <outlet property="existingUserLabel" destination="joQ-u7-ebo" id="Vvs-WU-ujG"/>
-                        <outlet property="fbButton" destination="OFp-Yf-Sii" id="yJt-K9-1MK"/>
-                        <outlet property="googleButton" destination="zqA-K7-akV" id="yWb-A9-xn7"/>
-                        <outlet property="linkedInButton" destination="Pm1-2w-crw" id="KHF-nj-TV0"/>
+                        <outlet property="fbButton" destination="OFp-Yf-Sii" id="74c-tW-ZBi"/>
+                        <outlet property="googleButton" destination="zqA-K7-akV" id="XFz-by-YX5"/>
+                        <outlet property="linkedInButton" destination="Pm1-2w-crw" id="sIC-yn-K7O"/>
+                        <outlet property="logoImage" destination="YpS-Cj-ba2" id="vgq-co-85S"/>
                         <outlet property="newRegisterLabel" destination="Bvt-bN-fe0" id="DN8-S4-SZI"/>
+                        <outlet property="sepratorLineImage" destination="tgC-3v-ig4" id="QQx-Xh-ZY8"/>
                         <outlet property="topImage" destination="7GP-AQ-lWD" id="Lys-VI-tAg"/>
                     </connections>
                 </viewController>
@@ -325,6 +327,7 @@ travel experience</string>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="n8y-Ay-Iht" id="M19-ZX-9L9"/>
                         <outlet property="emailTextField" destination="wBs-5f-tsh" id="hP0-mn-MKz"/>
                         <outlet property="forgotPasswordButton" destination="ef3-Jf-KiE" id="en9-CC-c9c"/>
                         <outlet property="loginButton" destination="eWx-zl-ou5" id="cGy-8j-AZZ"/>

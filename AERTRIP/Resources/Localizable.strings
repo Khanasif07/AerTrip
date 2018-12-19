@@ -120,6 +120,7 @@
 "Bookings"       = "Bookings";
 "Notification"    = "Notification";
 "ReferAndEarn"    = "Refer & Earn";
+"ViewAccounts"    = "View Accounts";
 
 //MARK:- CreateProfileVCDelegate
 //MARK:-
@@ -131,3 +132,9 @@
 "PleaseSelectCountry"    = "Please select country";
 "PleaseEnterMobileNumber" = "Please enter mobile number";
 "ViewProfile"         = "View Profile";
+
+//MARK:- ViewProfileVC
+//MARK:-
+"ALERT"  = "ALERT";
+"DoYouWantToLogout" = "Are you sure, Do you want to logout?";
+"Logout" = "Logout";

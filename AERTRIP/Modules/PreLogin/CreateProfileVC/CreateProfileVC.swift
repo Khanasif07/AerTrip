@@ -40,6 +40,22 @@ class CreateProfileVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.viewModel.isFirstTime {
+            self.setupViewDidLoadAnimation()
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -276,5 +292,59 @@ extension CreateProfileVC: CreateProfileVMDelegate {
         }
         
         AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
+
+//MARK:- Extension InitialAnimation
+//MARK:-
+extension CreateProfileVC {
+    
+    func setupInitialAnimation() {
+        
+        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.createProfileTitleLabel.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.createProfileSubTitleLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.nameTitleTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.firstNameTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.lastNameTextField.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.countryTextField.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.mobileNumberTextField.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.letsStartedButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.countryCodeTextField.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.countryCodeLabel.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.countryFlagImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+    }
+    
+    func setupViewDidLoadAnimation() {
+        
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.logoImage.transform          = .identity
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            self.createProfileTitleLabel.transform      = .identity
+            self.createProfileSubTitleLabel.transform      = .identity
+            self.nameTitleTextField.transform      = .identity
+            self.countryFlagImage.transform      = .identity
+            self.countryCodeLabel.transform      = .identity
+            self.countryCodeTextField.transform      = .identity
+        }
+        
+        
+        UIView.animate(withDuration: 0.35, animations:{
+            
+            self.firstNameTextField.transform    = .identity
+            self.lastNameTextField.transform = .identity
+            self.countryTextField.transform    = .identity
+            self.mobileNumberTextField.transform  = .identity
+            self.letsStartedButton.transform = .identity
+            
+        }) { (success) in
+            self.viewModel.isFirstTime = false
+        }
     }
 }

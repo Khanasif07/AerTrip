@@ -19,6 +19,7 @@ class LoginVM {
     weak var delegate: LoginVMDelegate?
     var email    = ""
     var password = ""
+    var isFirstTime = true
     var isLoginButtonEnable: Bool {
         
         if self.email.isEmpty {
