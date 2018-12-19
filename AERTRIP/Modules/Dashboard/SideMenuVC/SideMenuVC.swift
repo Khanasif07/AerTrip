@@ -167,21 +167,14 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        let alert = UIAlertController(title: LocalizedString.ALERT.localized, message: LocalizedString.DoYouWantToLogout.localized, preferredStyle: .alert)
+
         
-        let okAction = UIAlertAction(title: LocalizedString.Logout.localized.uppercased(), style: .default, handler: { _ in
+        let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
             
             AppUserDefaults.removeAllValues()
             AppFlowManager.default.goToDashboard()
+            
         })
-        
-        let cancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: .cancel, handler: nil)
-        
-        alert.addAction(cancel)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -9,6 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 import ActiveLabel
+import SafariServices
 
 class CreateYourAccountVC: BaseVC {
 
@@ -97,7 +98,7 @@ class CreateYourAccountVC: BaseVC {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func registerButtonAction(_ sender: ATButton) {
@@ -141,12 +142,18 @@ private extension CreateYourAccountVC {
             
             label.handleCustomTap(for: privacyPolicy) { element in
                 
-                printDebug("Privacy policy")
+                guard let url = URL(string: AppConstants.privacyPolicy) else {return}
+                let safariVC = SFSafariViewController(url: url)
+                self.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
             }
             
             label.handleCustomTap(for: termsOfUse) { element in
                 
-                printDebug("terms of uses")
+                guard let url = URL(string: AppConstants.termsOfUse) else {return}
+                let safariVC = SFSafariViewController(url: url)
+                self.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
             }
         }
     }
@@ -202,7 +209,7 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
 
 //MARK:- Extension InitialAnimation
 //MARK:-
-extension CreateYourAccountVC {
+extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     
     func setupInitialAnimation() {
         
@@ -238,5 +245,9 @@ extension CreateYourAccountVC {
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

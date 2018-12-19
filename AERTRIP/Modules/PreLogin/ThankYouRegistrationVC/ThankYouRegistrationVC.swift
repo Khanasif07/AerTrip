@@ -8,6 +8,7 @@
 
 import UIKit
 import ActiveLabel
+import SafariServices
 
 class ThankYouRegistrationVC: BaseVC {
 
@@ -80,15 +81,25 @@ class ThankYouRegistrationVC: BaseVC {
         
       let action =   AKAlertController.actionSheet( nil, message: nil, sourceView: self.view, buttons: [LocalizedString.Mail_Default.localized,LocalizedString.Gmail.localized], tapBlock: {(alert,index) in
         
-        AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+        //AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
         if index == 0 {
             
-//            let mailURL = URL(string: "message://")!
-//            if UIApplication.shared.canOpenURL(mailURL) {
-//                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
-//            }
+            let mailURL = URL(string: "message://")!
+            if UIApplication.shared.canOpenURL(mailURL) {
+                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+            }
         } else {
             
+            let mailURL = URL(string: "googlegmail://")!
+            if UIApplication.shared.canOpenURL(mailURL) {
+                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+            } else {
+                
+                guard let url = URL(string: "https://gmail.com") else {return}
+                let safariVC = SFSafariViewController(url: url)
+                self.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
+            }
         }
             
         })
@@ -98,15 +109,15 @@ class ThankYouRegistrationVC: BaseVC {
 
 //MARK:- Extension Initialsetups
 //MARK:-
-private extension ThankYouRegistrationVC {
+extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
     
-    func initialSetups() {
+    private func initialSetups() {
         
         self.emailLabel.text = self.viewModel.email
         self.linkSetupForTermsAndCondition(withLabel: self.noReplyLabel)
     }
     
-    func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
+    private func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
         
         let noReplyEmail  = ActiveType.custom(pattern: "\\s\(LocalizedString.noreply_aertrip_com.localized)\\b")
         
@@ -118,8 +129,13 @@ private extension ThankYouRegistrationVC {
             label.customSelectedColor[noReplyEmail] = AppColors.themeGray60
             label.handleCustomTap(for: noReplyEmail) { element in
                 
-                AppToast.default.showToastMessage(message: LocalizedString.We_have_sent_you_an_account_activation_link_on.localized, vc: self)
+                AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email)
+//                AppToast.default.showToastMessage(message: LocalizedString.We_have_sent_you_an_account_activation_link_on.localized, vc: self)
             }
         }
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

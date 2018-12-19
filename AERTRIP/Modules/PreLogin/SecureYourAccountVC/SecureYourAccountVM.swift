@@ -22,7 +22,9 @@ class SecureYourAccountVM {
     
     var delegate: SecureYourAccountVMDelegate?
     var isPasswordType: SecureAccount = .setPassword
+    var email = ""
     var password = ""
+    var refId  = ""
     var isFirstTime = true
 }
 

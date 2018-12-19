@@ -35,5 +35,7 @@ enum AppConstants {
     static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
     static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
     static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
+    static let privacyPolicy = "https://beta.aertrip.com/privacy"
+    static let termsOfUse    = "https://beta.aertrip.com/terms"
     
 }

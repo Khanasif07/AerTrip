@@ -128,9 +128,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount) {
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.isPasswordType = isPasswordType
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

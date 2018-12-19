@@ -123,7 +123,13 @@ class SecureYourAccountVC: BaseVC {
         self.view.endEditing(true)
         if self.viewModel.password.checkValidity(.Password) {
             
-            self.viewModel.webserviceForUpdatePassword()
+            if self.viewModel.isPasswordType == .setPassword {
+                
+                AppFlowManager.default.moveToCreateProfileVC()
+                
+            } else {
+                self.viewModel.webserviceForUpdatePassword()
+            }
         }
     }
 }
@@ -322,7 +328,6 @@ extension SecureYourAccountVC: SecureYourAccountVMDelegate {
     
     func getSuccess() {
         self.nextButton.isLoading = false
-        AppFlowManager.default.moveToCreateProfileVC()
     }
     
     func getFail(errors: ErrorCodes) {
