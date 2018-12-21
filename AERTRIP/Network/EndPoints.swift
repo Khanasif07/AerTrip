@@ -25,6 +25,8 @@ enum APIEndPoint : String {
     case updateUserDetail   = "users/initial-details"
     case updateUserPassword = "users/update-password"
     case verifyRegistration = "users/verify-registration"
+    case resetPassword         = "users/validate-password-reset-token"
+    
 }
 
 //MARK: - endpoint extension for url -

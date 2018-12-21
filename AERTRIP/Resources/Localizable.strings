@@ -57,6 +57,12 @@
 "Mail_Default" = "Mail (Default)";
 "Gmail"      = "Gmail";
 
+// MARK:- ResetPasswordVC
+//MARK:-
+"CheckYourEmail"  = "Check Your \n Email";
+"PasswordResetInstruction" = "We have sent you password reset\n instructions on";
+"CheckEmailToResetPassword" = "Check your email to reset password";
+
 // MARK:- SecureYourAccountVC
 //MARK:-
 "Secure_your_account"  = "Secure your \n account";

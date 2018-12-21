@@ -169,12 +169,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         
-        let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+        if indexPath.row == 6 && self.viewModel.isLogin {
             
-            AppUserDefaults.removeAllValues()
-            AppFlowManager.default.goToDashboard()
-            
-        })
+            let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+                
+                AppUserDefaults.removeAllValues()
+                AppFlowManager.default.goToDashboard()
+                
+            })
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

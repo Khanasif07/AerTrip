@@ -32,8 +32,16 @@ class ThankYouRegistrationVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.viewModel.webserviceForGetRegistrationData()
+        
+        if self.viewModel.type !=  .setPassword {
+            
+            self.viewModel.webserviceForGetRegistrationData()
+        }
         self.initialSetups()
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     override func setupFonts() {
@@ -54,10 +62,19 @@ class ThankYouRegistrationVC: BaseVC {
     
     override func setupTexts() {
         
-        self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
-        self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
-        self.checkEmailLabel.text = LocalizedString.Check_your_email_to_activate_your_account.localized
-        self.noReplyLabel.text = LocalizedString.No_Reply_Email_Text.localized
+        if self.viewModel.type == .deeplinkResetPassword {
+            
+            self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
+            self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
+            self.checkEmailLabel.text = LocalizedString.Check_your_email_to_activate_your_account.localized
+            self.noReplyLabel.text = LocalizedString.No_Reply_Email_Text.localized
+            
+        } else {
+            
+            self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
+            self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
+            self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized
+        }
     }
     
     override func setupColors() {
@@ -88,7 +105,7 @@ class ThankYouRegistrationVC: BaseVC {
             if UIApplication.shared.canOpenURL(mailURL) {
                 UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
             }
-        } else {
+        } else if index == 1 {
             
             let mailURL = URL(string: "googlegmail://")!
             if UIApplication.shared.canOpenURL(mailURL) {
@@ -137,5 +154,40 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK:- Extension Initialsetups
+//MARK:-
+extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
+    
+    func willApiCall() {
+        
+    }
+    
+    func didGetSuccess() {
+        
+        if self.viewModel.type == .deeplinkSetPassword {
+            
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, refId: self.viewModel.refId)
+            
+        } else if self.viewModel.type == .deeplinkResetPassword {
+            
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+        }
+    }
+    
+    func didGetFail(errors: ErrorCodes) {
+        
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

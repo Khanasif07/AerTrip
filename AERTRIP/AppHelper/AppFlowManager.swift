@@ -122,21 +122,29 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToRegistrationSuccefullyVC(email: String) {
+    func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "") {
         let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.type  = type
         ob.viewModel.email = email
+        ob.viewModel.refId = refId
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "") {
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", refId: String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.isPasswordType = isPasswordType
-        ob.viewModel.email = email
+        ob.viewModel.email  = email
+        ob.viewModel.refId = refId
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToCreateProfileVC() {
+    func moveToCreateProfileVC(refId: String, email: String, password: String) {
+        
         let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+        
+        ob.viewModel.userData.id = refId
+        ob.viewModel.userData.email    = email
+        ob.viewModel.userData.password = password
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

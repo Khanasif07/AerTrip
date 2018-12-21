@@ -117,7 +117,14 @@ private extension CreateProfileVC {
     func setupTextFieldColorTextAndFont () {
         
         self.salutationPicker.delegate = self
+        self.nameTitleTextField.delegate = self
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .done, isSecureText: false)
+        if let rightViewImage = UIImage(named: "downArrow") {
+            
+            self.nameTitleTextField.addRightViewInTextField(rightViewImage, width: 10, height: 50)
+            self.countryTextField.addRightViewInTextField(rightViewImage, width: 10, height: 50)
+        }
+        
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
@@ -202,6 +209,7 @@ extension CreateProfileVC {
         
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
+            UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
             PKCountryPicker.default.chooseCountry(onViewController: self) { (selectedCountry) in
                 printDebug("selected country data: \(selectedCountry)")
                 
@@ -212,6 +220,9 @@ extension CreateProfileVC {
                 self.viewModel.userData.isd = selectedCountry.countryCode
             }
             return false
+        } else if textField == self.nameTitleTextField {
+            
+            PKCountryPicker.default.resignFirstResponder()
         }
         
         return true

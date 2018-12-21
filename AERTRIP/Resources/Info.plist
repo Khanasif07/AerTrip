@@ -45,9 +45,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundle ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Z3688DX2N9.com.aertrip.app</string>
+				<string>com.aertrip.app</string>
 			</array>
 		</dict>
 		<dict>

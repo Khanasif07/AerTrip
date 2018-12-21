@@ -139,6 +139,7 @@ extension ForgotPasswordVC: ForgotPasswordVMDelegate {
     
     func didLoginSuccess(email: String) {
         self.continueButton.isLoading = false
+        
     }
     
     func didLoginFail(errors: ErrorCodes) {

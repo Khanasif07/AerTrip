@@ -72,7 +72,7 @@ extension CreateProfileVM {
         
         var params = JSONDictionary()
         
-        params[APIKeys.ref.rawValue]        = ""
+        params[APIKeys.ref.rawValue]        = self.userData.id
         params[APIKeys.email.rawValue]      = self.userData.email
         params[APIKeys.password.rawValue]   = self.userData.password
         params[APIKeys.firstName.rawValue]  = self.userData.firstName

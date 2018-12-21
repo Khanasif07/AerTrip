@@ -188,7 +188,7 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
     func didRegisterSuccess(email: String) {
         
         self.registerButton.isLoading = false
-        AppFlowManager.default.moveToRegistrationSuccefullyVC(email: email)
+        AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .setPassword, email: email)
     }
     
     func didRegisterFail(errors: ErrorCodes) {

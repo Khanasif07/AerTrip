@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         FirebaseApp.configure()
         GoogleLoginController.shared.configure()
         AppFlowManager.default.setupInitialFlow()
@@ -51,12 +52,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
-                     restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+    
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
         let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
             // ...
+            guard let  url = dynamiclink?.url else {return}
+            
+            if url.absoluteString.contains("email=") && url.absoluteString.contains("&ref") {
+                
+                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else {return}
+                guard let ref   = url.absoluteString.components(separatedBy: "&ref=").last else {return}
+                AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
+                
+            } else if url.absoluteString.contains("link=") && url.absoluteString.contains("&email=") {
+                
+                guard let email = url.absoluteString.components(separatedBy: "&email=").last else {return}
+                
+            }
         }
-        
         return handled
     }
     

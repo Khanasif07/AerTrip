@@ -161,21 +161,25 @@ extension APICaller {
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callVerifyRegistrationApi(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callVerifyRegistrationApi(type: ThankYouRegistrationVM.VerifyRegistrasion, params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
-        AppNetworking.GET(endPoint: APIEndPoint.verifyRegistration, parameters: params, loader: loader, success: { [weak self] (data) in
+        var endPoint = APIEndPoint.verifyRegistration
+        if type == .deeplinkResetPassword {
+            endPoint = .resetPassword
+        }
+        
+        AppNetworking.GET(endPoint: endPoint, parameters: params, loader: loader, success: { [weak self] (data) in
             
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
+                completionBlock(true, [])
                 
-            }, failure: { (error) in
-                completionBlock(false, "")
+            }, failure: { (errors) in
+                completionBlock(false, errors)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
         }
     }
 }

@@ -45,6 +45,7 @@ enum APIKeys: String {
     case facebook   = "facebook"
     case google     = "google"
     case linkedin   = "linkedin"
+    case token
    
 }
 

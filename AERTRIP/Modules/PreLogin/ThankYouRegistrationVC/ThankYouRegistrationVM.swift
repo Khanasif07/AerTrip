@@ -8,9 +8,23 @@
 
 import Foundation
 
+protocol ThankYouRegistrationVMDelegate: class {
+    
+    func willApiCall()
+    func didGetSuccess()
+    func didGetFail(errors: ErrorCodes)
+}
+
 class ThankYouRegistrationVM {
     
+    enum VerifyRegistrasion {
+        case setPassword, deeplinkSetPassword, deeplinkResetPassword
+    }
+    
+    weak var delegate: ThankYouRegistrationVMDelegate?
     var email = ""
+    var refId = ""
+    var type: VerifyRegistrasion = .setPassword
 }
 
 //MARK:- Extension Webservices
@@ -21,12 +35,24 @@ extension ThankYouRegistrationVM {
         
         var params = JSONDictionary()
         
-        params[APIKeys.ref.rawValue]  = "2e1370bb3ca3fc8939aac7eff2dc06bf"
-        
-        APICaller.shared.callVerifyRegistrationApi(params: params, loader: true, completionBlock: {(success, data) in
+        if self.type == .deeplinkSetPassword {
             
-            printDebug(data)
-            //            AppFlowManager.default.moveToRegistrationSuccefullyVC(email: self.email)
+            params[APIKeys.ref.rawValue]  = self.refId
+        } else {
+            params[APIKeys.key.rawValue]    = self.refId
+            params[APIKeys.token.rawValue]  = self.refId
+        }
+        
+        
+        self.delegate?.willApiCall()
+        APICaller.shared.callVerifyRegistrationApi(type: self.type, params: params, loader: true, completionBlock: {(success, errors) in
+            
+            if success {
+                self.delegate?.didGetSuccess()
+            }
+            else {
+                self.delegate?.didGetFail(errors: errors)
+            }
         })
         
     }

@@ -69,6 +69,13 @@ enum LocalizedString: String {
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
     
+    // MARK:- ResetPasswordVC
+    //MARK:-
+    case CheckYourEmail  = "CheckYourEmail"
+    case PasswordResetInstruction = "PasswordResetInstruction"
+    case CheckEmailToResetPassword = "CheckEmailToResetPassword"
+    
+    
     // MARK:- SecureYourAccountVC
     //MARK:-
     case Secure_your_account  = "Secure_your_account"

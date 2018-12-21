@@ -125,7 +125,7 @@ class SecureYourAccountVC: BaseVC {
             
             if self.viewModel.isPasswordType == .setPassword {
                 
-                AppFlowManager.default.moveToCreateProfileVC()
+                AppFlowManager.default.moveToCreateProfileVC(refId: self.viewModel.refId, email: self.viewModel.email, password: self.viewModel.password)
                 
             } else {
                 self.viewModel.webserviceForUpdatePassword()
@@ -343,7 +343,6 @@ extension SecureYourAccountVC: SecureYourAccountVMDelegate {
             }
         }
         AppToast.default.showToastMessage(message: message, vc: self)
-        AppFlowManager.default.moveToCreateProfileVC()
     }
 }
 
