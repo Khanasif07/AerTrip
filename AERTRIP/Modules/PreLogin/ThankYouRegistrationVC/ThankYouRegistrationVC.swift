@@ -62,7 +62,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     override func setupTexts() {
         
-        if self.viewModel.type == .deeplinkResetPassword {
+        if self.viewModel.type == .deeplinkSetPassword {
             
             self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
             self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
@@ -173,7 +173,7 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
             
         } else if self.viewModel.type == .deeplinkResetPassword {
             
-            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod)
         }
     }
     
