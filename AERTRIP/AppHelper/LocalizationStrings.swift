@@ -68,14 +68,13 @@ enum LocalizedString: String {
     case Cancel = "Cancel"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
-    
+
     // MARK:- ResetPasswordVC
     //MARK:-
     case CheckYourEmail  = "CheckYourEmail"
     case PasswordResetInstruction = "PasswordResetInstruction"
     case CheckEmailToResetPassword = "CheckEmailToResetPassword"
-    
-    
+ 
     // MARK:- SecureYourAccountVC
     //MARK:-
     case Secure_your_account  = "Secure_your_account"
@@ -143,6 +142,7 @@ enum LocalizedString: String {
     case ViewAccounts    = "ViewAccounts"
     
     
+    
     //MARK:- CreateProfileVCDelegate
     //MARK:-
     case Mr  = "Mr"
@@ -152,12 +152,44 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
-    
+
     //MARK:- ViewProfileVC
     //MARK:-
     case ALERT  = "ALERT"
     case DoYouWantToLogout = "DoYouWantToLogout"
     case Logout = "Logout"
+    
+    //MARK: - View Profile
+    
+    case Edit = "Edit"
+    case TravellerList = "Travellers List"
+    case HotelPreferences = "Hotel Preferences"
+    case QuickPay = "QuickPay"
+    case LinkedAccounts = "Linked Accounts"
+    case NewsLetters = "Newsletters"
+    case Notifications  = "Notifications"
+    case LogOut = "Log Out"
+    
+    // MARK: - ViewProfileDetailVC
+    
+    case EmailAddress = "Email address"
+    case ContactNumber = "Contact Number"
+    case SocialAccounts = "Social Accounts"
+    case Address = "Address"
+    case MoreInformation = "More Information"
+    case PasswordDetails = "Passport Details"
+    case FlightPreferences = "Flight Preferences"
+    case Birthday = "Birthday"
+    case Anniversary = "Anniversary"
+    case Notes = "Notes"
+    case Mobile = "Mobile"
+    case passportNo = "Passport No."
+    case issueCountry = "Issue Country"
+    case issueDate = "Issue Date"
+    case expiryDate = "Expiry Date"
+    case seatPreference = "Seat Preference"
+    case mealPreference = "Meal Preference"
+
     
 }
 

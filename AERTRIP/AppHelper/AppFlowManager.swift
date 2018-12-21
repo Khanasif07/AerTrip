@@ -83,6 +83,7 @@ class AppFlowManager {
 //        self.window.rootViewController = nvc
 //        self.window.becomeKey()
 //        self.window.makeKeyAndVisible()
+
         
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.view.frame = UIScreen.main.bounds
@@ -92,9 +93,6 @@ class AppFlowManager {
         let nvc = UINavigationController(rootViewController: sideMenuVC)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
-        
-        
-        
         self.window.becomeKey()
         self.window.backgroundColor = .white
         self.window.makeKeyAndVisible()
@@ -121,7 +119,7 @@ extension AppFlowManager {
         let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
-    
+
     func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "") {
         let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.type  = type
@@ -154,11 +152,23 @@ extension AppFlowManager {
     }
     
     func addSuccessFullPopupVC(vc: UIViewController) {
-        
+
         let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
         
         vc.view.addSubview(ob.view)
         vc.addChild(ob)
+
+    }
+    
+    func moveToViewProfileVC() {
+        let ob = ViewProfileVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: false)
+    }
+    
+    func moveToViewProfileDetailVC() {
+        let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+
     }
 }
 

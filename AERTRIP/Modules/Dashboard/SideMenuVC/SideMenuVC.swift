@@ -9,7 +9,7 @@
 import UIKit
 
 class SideMenuVC: BaseVC {
-    
+
     //MARK:- Properties
     //MARK:-
     let viewModel = SideMenuVM()
@@ -20,8 +20,7 @@ class SideMenuVC: BaseVC {
     @IBOutlet weak var sideMenuTableView: UITableView!
     
     
-    //MARK:- ViewLifeCycle
-    //MARK:-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,9 +29,28 @@ class SideMenuVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+        self.view.alpha = 1.0
+    }
     
-    //MARK:- IBAction
-    //MARK:-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        UIView.animate(withDuration: 0.3) {
+             self.view.alpha = 0.5
+        }
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    // MARK: - IBAction
+    
+    // MARK: -
+
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
         self.socialViewModel.fbLogin(vc: self)
     }
@@ -46,12 +64,15 @@ class SideMenuVC: BaseVC {
     }
 }
 
-//MARK:- Extension SetupView
-//MARK:-
+
+// MARK: - Extension SetupView
+
+// MARK: -
+
 private extension SideMenuVC {
     
     func initialSetups() {
-        
+
         self.registerXibs()
     }
     
@@ -64,36 +85,39 @@ private extension SideMenuVC {
     }
 }
 
-//MARK:- Extension Target Methods
-//MARK:-
+
+// MARK: - Extension Target Methods
+
+// MARK: -
+
 extension SideMenuVC {
-    
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
         AppFlowManager.default.moveToSocialLoginVC()
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
+        
+        AppFlowManager.default.moveToViewProfileVC()
     }
 }
 
-//MARK:- Extension SetupView
-//MARK:-
+
+// MARK: - Extension SetupView
+
+// MARK: -
+
 extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if self.viewModel.isLogin {
-            
             return self.viewModel.cellForLoginUser.count + 1
             
         } else {
-            
             return self.viewModel.displayCellsForGuest.count + 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         switch indexPath.row {
             
         case 0:
@@ -111,6 +135,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             } else {
                 
+
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
                     fatalError("GuestSideMenuHeaderCell not found")
                 }
@@ -119,7 +144,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
             }
-            
+
         case 1:
             
             if self.viewModel.isLogin {
@@ -140,8 +165,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
                 return cell
             }
-            
-            
+
         default:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
@@ -158,14 +182,14 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             } else {
                 
+
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
             
             return cell
         }
     }
-    
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         
@@ -179,6 +203,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             })
         }
     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

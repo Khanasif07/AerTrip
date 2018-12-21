@@ -17,4 +17,5 @@ target 'AERTRIP' do
     pod 'ActiveLabel'
     pod 'Firebase/Core'
     pod 'Firebase/DynamicLinks'
+    pod "MXParallaxHeader"
 end

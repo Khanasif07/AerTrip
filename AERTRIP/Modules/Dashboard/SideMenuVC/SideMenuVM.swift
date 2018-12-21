@@ -12,6 +12,7 @@ class SideMenuVM {
     
     let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
     let isLogin = !AppUserDefaults.value(forKey: .userId).stringValue.isEmpty
+
     let displayCellsForGuest = [ LocalizedString.WhyAertrip.localized,
                                  LocalizedString.SmartSort.localized,
                                  LocalizedString.Offers.localized,

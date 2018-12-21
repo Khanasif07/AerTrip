@@ -70,6 +70,9 @@ enum AppColors {
     /// RGB - 50, 58, 69
     static let themeTextColor  = #colorLiteral(red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
 
+    // RGB - 0,0,0 , 0.21
+    static let viewProfileGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2180622799)
+
     case headlines
     case body
     case subheads
@@ -82,6 +85,9 @@ enum AppColors {
     case divider
     case screensBackground
     case topBarBackground
+
+    case viewProfileTopGradient
+
     
     var color: UIColor {
         switch self {
@@ -105,6 +111,9 @@ enum AppColors {
             
         case .topBarBackground :
             return AppColors.themeWhite
+
+        case .viewProfileTopGradient:
+            return AppColors.viewProfileGradientColor
         }
     }
 }

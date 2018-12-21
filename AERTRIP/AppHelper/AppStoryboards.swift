@@ -13,6 +13,7 @@ enum AppStoryboard : String {
     case PreLogin
     case Splash
     case Dashboard
+    case Profile
 }
 
 extension AppStoryboard {
