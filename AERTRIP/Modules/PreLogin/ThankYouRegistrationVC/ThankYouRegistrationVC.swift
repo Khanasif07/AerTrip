@@ -166,7 +166,7 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
     }
     
     func didGetSuccess() {
-        
+        print("before comit")
         if self.viewModel.type == .deeplinkSetPassword {
             
             AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, refId: self.viewModel.refId)
