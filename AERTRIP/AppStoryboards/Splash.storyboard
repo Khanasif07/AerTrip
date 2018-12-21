@@ -18,17 +18,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-6S-nMq">
-                                <rect key="frame" x="150" y="333" width="75" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackground" translatesAutoresizingMaskIntoConstraints="NO" id="p3B-Nz-hsR">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoIconVertical" translatesAutoresizingMaskIntoConstraints="NO" id="QWW-vp-3Pn">
+                                <rect key="frame" x="163.5" y="233" width="48" height="54"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="TcW-Fx-7dq">
+                                <rect key="frame" x="132" y="327" width="111" height="13"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="lWu-6S-nMq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="5N1-sA-RMa"/>
-                            <constraint firstItem="lWu-6S-nMq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="M5J-fr-770"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p3B-Nz-hsR" secondAttribute="trailing" id="2x6-tv-cvj"/>
+                            <constraint firstItem="TcW-Fx-7dq" firstAttribute="centerY" secondItem="p3B-Nz-hsR" secondAttribute="centerY" id="DmF-DZ-bvW"/>
+                            <constraint firstItem="TcW-Fx-7dq" firstAttribute="top" secondItem="QWW-vp-3Pn" secondAttribute="bottom" constant="40" id="GYS-kc-oqR"/>
+                            <constraint firstItem="QWW-vp-3Pn" firstAttribute="centerX" secondItem="p3B-Nz-hsR" secondAttribute="centerX" id="HiL-l0-EVf"/>
+                            <constraint firstItem="TcW-Fx-7dq" firstAttribute="centerX" secondItem="p3B-Nz-hsR" secondAttribute="centerX" id="bkr-YM-vos"/>
+                            <constraint firstItem="p3B-Nz-hsR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i1e-jc-r7l"/>
+                            <constraint firstItem="p3B-Nz-hsR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="u1O-tW-BH8"/>
+                            <constraint firstAttribute="bottom" secondItem="p3B-Nz-hsR" secondAttribute="bottom" id="vH2-On-KJf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,4 +47,9 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logoIconVertical" width="48" height="54"/>
+        <image name="logoTitleWhite" width="111" height="13"/>
+        <image name="splashBackground" width="202" height="359.5"/>
+    </resources>
 </document>

@@ -11,16 +11,18 @@ import UIKit
 
 enum AppFonts: String {
     
-    case Fontin_Bold = "Fontin-Bold"
-    case Fontin_SmallCaps = "Fontin-SmallCaps"
-    case Fontin_Italic = "Fontin-Italic"
-    case Fontin_Regular = "Fontin-Regular"
-
-    case WorkSans_Bold = "WorkSans-Bold"
-    case WorkSans_ExtraBold = "WorkSans-ExtraBold"
-    case WorkSans_Medium = "WorkSans-Medium"
-    case WorkSans_Regular = "WorkSans-Regular"
-    case WorkSans_SemiBold = "WorkSans-SemiBold"
+    case Light = "SourceSansPro-Light"
+    case BoldItalic = "SourceSansPro-BoldItalic"
+    case LightItalic = "SourceSansPro-LightItalic"
+    case Regular = "SourceSansPro-Regular"
+    case Italic = "SourceSansPro-Italic"
+    case ExtraLight = "SourceSansPro-ExtraLight"
+    case BlackItalic = "SourceSansPro-BlackItalic"
+    case SemiBoldItalic = "SourceSansPro-SemiBoldItalic"
+    case Bold = "SourceSansPro-Bold"
+    case SemiBold = "SourceSansPro-SemiBold"
+    case Black = "SourceSansPro-Black"
+    case ExtraLightItalic = "SourceSansPro-ExtraLightItalic"
 }
 
 enum DeviceType {

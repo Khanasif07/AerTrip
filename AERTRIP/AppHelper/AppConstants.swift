@@ -27,4 +27,13 @@ enum AppConstants {
     static let kMaxPhoneLength             =         15
     static let kOtpTimeOutSeconds          =         60
     static let kMaxDescriptionLength       =         250
+    
+    static let fbUrl = "fb2150155951662059"
+    static let googleUrl = "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
+    static let linkedIn_Client_Id = "81zznun7zyml11"
+    static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"
+    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
+    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
+    
 }

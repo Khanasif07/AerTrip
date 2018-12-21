@@ -13,35 +13,51 @@ func printDebug<T>(_ obj : T) {
     print(obj)
 }
 
+func printFonts() {
+    for family in UIFont.familyNames {
+        let fontsName = UIFont.fontNames(forFamilyName: family)
+        printDebug(fontsName)
+    }
+}
+
 func delay(seconds: Double, completion: @escaping () -> ()) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
         completion()
     }
 }
 
-func getCurrentCountryCode() {
-    if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+
+struct AppGlobals {
+    static let shared = AppGlobals()
+    private init() {}
+    
+    func showSuccess(message: String) {
+       printDebug(message)
+    }
+    
+    func showError(message: String) {
+    }
+    
+    func showWarning(message: String) {
+        printDebug(message)
+    }
+    
+    static func lines(label: UILabel) -> Int {
         
-        if let code = UserDefaults.getObject(forKey: UserDefaults.Key.currentCountryCode.rawValue) as? String, code != countryCode {
-            
-            let file = Bundle.main.path(forResource: "countryData", ofType: "json")
-            let data = try? Data(contentsOf: URL(fileURLWithPath: file!))
-            
-            let jsonData = try? JSONSerialization.jsonObject(with: data!, options: []) as! [JSONDictionary]
-            
-            if let currentCountry = jsonData?.first(where: { (obj) -> Bool in
-                if let countryName = obj["ISOCode"] as? String {
-                    return countryCode == countryName
-                } else {
-                    return false
-                }
-            }) {
-                printDebug(currentCountry["CountryCode"] as? Int)
-                if let phoneCode = currentCountry["CountryCode"] as? Int {
-                    UserDefaults.setObject("+\(phoneCode)", forKey: UserDefaults.Key.currentCountryCode.rawValue)
-                    UserDefaults.setObject(countryCode, forKey: UserDefaults.Key.countryiSOCode.rawValue)
-                }
-            }
+        let textSize  = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
+        let rHeight   = lroundf(Float(label.sizeThatFits(textSize).height))
+        let charSize  = lroundf(Float(label.font.lineHeight))
+        let lineCount = rHeight/charSize
+        return lineCount
+    }
+    
+    func json(from object:Any) -> String? {
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+            return nil
         }
+        return String(data: data, encoding: String.Encoding.utf8)
     }
 }
+
+

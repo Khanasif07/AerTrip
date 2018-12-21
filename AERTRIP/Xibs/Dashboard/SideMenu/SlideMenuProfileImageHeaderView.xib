@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SlideMenuProfileImageHeaderView" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
+                </imageView>
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
+                    <rect key="frame" x="142.5" y="106" width="90" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
+                        <constraint firstAttribute="height" constant="90" id="pms-Kr-etU"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
+                    <rect key="frame" x="10" y="211" width="349" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
+                    <rect key="frame" x="10" y="253" width="355" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="Bmj-uE-WfO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 97827328723" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqV-cI-FPs">
+                    <rect key="frame" x="10" y="274" width="355" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="WHq-Vd-F3o"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp">
+                    <rect key="frame" x="0.0" y="318" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="bd3-nQ-oMo"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
+                    <rect key="frame" x="146.5" y="258" width="82" height="25"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                    <inset key="contentEdgeInsets" minX="18" minY="0.0" maxX="18" maxY="0.0"/>
+                    <state key="normal" title="Family">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uqV-cI-FPs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="08d-QY-hce"/>
+                <constraint firstItem="pgB-ko-N2g" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="14" id="37D-7S-Ljt"/>
+                <constraint firstItem="95a-79-0je" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="4JL-7P-jxA"/>
+                <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="15" id="5W1-fH-Uoi"/>
+                <constraint firstItem="95a-79-0je" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="9" id="7qH-07-Hkk"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="9ws-vz-w8g"/>
+                <constraint firstAttribute="bottom" secondItem="ycJ-AK-oMp" secondAttribute="bottom" id="9zN-a6-9wk"/>
+                <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bmw-WN-UKN"/>
+                <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
+                <constraint firstItem="uqV-cI-FPs" firstAttribute="top" secondItem="95a-79-0je" secondAttribute="bottom" constant="3" id="If4-EN-Ljf"/>
+                <constraint firstItem="ycJ-AK-oMp" firstAttribute="top" secondItem="uqV-cI-FPs" secondAttribute="bottom" constant="26" id="MaG-Vv-Fdj"/>
+                <constraint firstItem="ARz-1y-xpA" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="RLr-G1-EyF"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bbK-0v-AkW"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eG1-bH-VIx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eAE-bT-BMd" secondAttribute="trailing" constant="16" id="eyr-bN-llD"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="fkP-SD-7gS"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="iDi-J4-ZHk"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kKO-o2-q7e"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uqV-cI-FPs" secondAttribute="trailing" constant="10" id="m9j-IT-uUJ"/>
+                <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="mfx-y3-upg"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pSG-Cm-jrZ"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wCJ-bF-R1h"/>
+                <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="x2n-dX-FxW" secondAttribute="centerX" id="weq-Xh-dZR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="95a-79-0je" secondAttribute="trailing" constant="10" id="zel-LH-grg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="emailIdLabel" destination="95a-79-0je" id="uSz-m1-OL3"/>
+                <outlet property="familyButton" destination="pgB-ko-N2g" id="qkA-zP-CuH"/>
+                <outlet property="mobileNumberLabel" destination="uqV-cI-FPs" id="9k1-rh-G9x"/>
+                <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
+                <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>
+                <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
+            </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="group" width="90" height="90"/>
+        <image name="group4" width="375" height="319"/>
+    </resources>
+</document>

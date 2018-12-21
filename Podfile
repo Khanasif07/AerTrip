@@ -10,5 +10,11 @@ target 'AERTRIP' do
     pod 'Alamofire'
     pod 'Kingfisher'
     pod 'SwiftyJSON', '~> 4.0'
-
+    pod 'FBSDKLoginKit'
+    pod 'GoogleSignIn'
+    pod 'LinkedinSwift'
+    pod 'SkyFloatingLabelTextField'
+    pod 'ActiveLabel'
+    pod 'TTGSnackbar'
+    pod "MXParallaxHeader"
 end

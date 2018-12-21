@@ -42,26 +42,15 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setUpNagigationBarUI()
         self.registerLogoutNotification()
         
         UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
 
-        self.navigationController?.isNavigationBarHidden = self.hideNavigaitonBar()
-        self.navigationController?.navigationBar.tintColor = self.navigationBarTint()
-
-        UIApplication.shared.isStatusBarHidden = false
-        UIApplication.shared.statusBarStyle = self.statusBarColorDefault ?  .default : .lightContent
-        
         if let nav = self.navigationController {
             AppFlowManager.default.setCurrentTabbarNavigationController(navigation: nav)
         }
     }
-    
-    func setUpNagigationBarUI() {
 
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
         
@@ -70,10 +59,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
-    }
-    
-    var statusBarColorDefault: Bool {
-        return true
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,19 +71,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     }
     
     //MARK: Overrideabel functions
-    
-    func onBackPress() {
-        self.navigationController?.popViewController(animated: true);
-    }
-    
-    func hideNavigaitonBar() -> Bool {
-        return false
-    }
-    
-    func navigationBarTint() -> UIColor {
-        return .white
-    }
-    
     func bindViewModel() {
     }
     
@@ -187,7 +159,6 @@ extension BaseVC {
     
     /// Initial Setup
     @objc func initialSetup() {
-        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     /// Setup Fonts

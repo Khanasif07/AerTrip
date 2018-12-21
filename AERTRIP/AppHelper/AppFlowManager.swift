@@ -17,6 +17,7 @@ class AppFlowManager {
     
     static let `default` = AppFlowManager()
     
+    var sideMenuController: PKSideMenuController?
     
     private let urlScheme = "://"
 
@@ -25,7 +26,7 @@ class AppFlowManager {
     private var mainNavigationController = UINavigationController() {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            mainNavigationController.navigationBar.backgroundColor = AppColors.themeTotalBlack
+            mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
             mainNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] as [NSAttributedString.Key : Any]
         }
     }
@@ -69,40 +70,93 @@ class AppFlowManager {
 //    }
     
     func setupInitialFlow() {
-        
-        if let _ = UserInfo.loggedInUserId {
-//            if user.userType == .guest {
-//                let home = MapVC.instantiate(fromAppStoryboard: .Home)
-//                self.mainNavigationController.viewControllers.append(home)
-//            } else {
-                self.goToHomeWithSideMenu()
-//            }
-        } else {
-            self.goToLogin()
-        }
+        self.goToDashboard()
     }
     
-    func goToLogin() {
+    func goToDashboard() {
+        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
+        PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
+//        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
+//        self.sideMenuController = dashboard
+//        let nvc = UINavigationController(rootViewController: dashboard)
+//        self.mainNavigationController = nvc
+//        self.window.rootViewController = nvc
+//        self.window.becomeKey()
+//        self.window.makeKeyAndVisible()
         
+        let sideMenuVC = PKSideMenuController()
+        sideMenuVC.view.frame = UIScreen.main.bounds
+        sideMenuVC.mainViewController(MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard))
+        sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
+        self.sideMenuController = sideMenuVC
+        let nvc = UINavigationController(rootViewController: sideMenuVC)
+        self.mainNavigationController = nvc
+        self.window.rootViewController = nvc
         self.window.becomeKey()
-        self.window.makeKeyAndVisible()
-    }
-    
-    func goToHomeWithSideMenu() {
-        
-        self.window.becomeKey()
+        self.window.backgroundColor = .white
         self.window.makeKeyAndVisible()
     }
 }
 
 //MARK: - Public Navigation func
 extension AppFlowManager {
-    func moveToLoginFromSignup() {
+    func moveToLogoutNavigation() {
         
     }
     
-    func moveToLogoutNavigation() {
+    func moveToSocialLoginVC() {
+        let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToLoginVC() {
+        let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToCreateYourAccountVC() {
+        let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToRegistrationSuccefullyVC(email: String) {
+        let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount) {
+        let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.isPasswordType = isPasswordType
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToCreateProfileVC() {
+        let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToForgotPasswordVC() {
+        let ob = ForgotPasswordVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func addSuccessFullPopupVC(vc: UIViewController) {
         
+        let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
+        
+        vc.view.addSubview(ob.view)
+        vc.addChild(ob)
+    }
+    
+    func moveToViewProfileVC() {
+        let ob = ViewProfileVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: false)
+    }
+    
+    func moveToViewProfileDetailVC() {
+        let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
 }
 

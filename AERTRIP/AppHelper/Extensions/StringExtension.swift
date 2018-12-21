@@ -32,7 +32,6 @@ extension UnicodeScalar {
 
 //MARK:- glyphCount
 extension String {
-    
     var encodeUrl: String {
         return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
     }
@@ -569,4 +568,85 @@ extension String {
     }
     
    
+}
+
+extension String {
+    
+    var containsWhitespace : Bool {
+        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
+    }
+    
+    func checkValidity(_ ValidityExpression : ValidityExpression) -> Bool {
+        
+        let regEx = ValidityExpression.rawValue
+        
+        let test = NSPredicate(format:"SELF MATCHES %@", regEx)
+        
+        return test.evaluate(with: self)
+    }
+    
+    func checkInvalidity(_ ValidityExpression : ValidityExpression) -> Bool {
+        
+        return !self.checkValidity(ValidityExpression)
+    }
+    
+    func stringByAppendingPathComponent(path: String) -> String {
+        
+        let nsSt = self as NSString
+        return nsSt.appendingPathComponent(path)
+    }
+    
+    func convertUtcToCurrent() -> String {
+        
+        let inDateFormatter: DateFormatter = DateFormatter()
+        inDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        inDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        let inDate: Date = inDateFormatter.date(from: self)!
+        let outDateFormatter: DateFormatter = DateFormatter()
+        outDateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let outDateStr: Date = outDateFormatter.date(from: outDateFormatter.string(from: inDate))!
+        
+        outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return outDateFormatter.string(from: outDateStr)
+    }
+    
+    func containsNumbers() -> Bool {
+        let numberRegEx  = ".*[0-9]+.*"
+        let testCase     = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+        return testCase.evaluate(with: self)
+    }
+    
+    func containsUpperCase() -> Bool {
+        
+        let capitalLetterRegEx  = ".*[A-Z]+.*"
+        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        return texttest.evaluate(with: self)
+    }
+    
+    func containsLowerCase() -> Bool {
+        
+        let capitalLetterRegEx  = ".*[a-z]+.*"
+        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        return texttest.evaluate(with: self)
+    }
+    
+    func containsSpecialCharacters() -> Bool {
+        
+        let capitalLetterRegEx  = ".*[!&^%$#@()/]+.*"
+        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        return texttest.evaluate(with: self)
+    }
+}
+
+enum ValidityExpression : String {
+    
+    case Username     = "^[a-zA-z]{1,}+[a-zA-z0-9!@#$%&*]{2,15}"
+    case Email        = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    case MobileNumber = "^[+0-9]{0,16}$"
+    case Password     = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/])[A-Za-z\\dd$@$!%*?&#]{8,}"
+    case Name         = "^[a-zA-Z ]{2,50}"
+    case Url          = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+    case Price        = "^([0-9]{0,0}((.)[0-9]{0,0}))$"
 }
