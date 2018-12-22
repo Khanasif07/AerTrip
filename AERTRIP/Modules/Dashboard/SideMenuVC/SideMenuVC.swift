@@ -52,7 +52,7 @@ class SideMenuVC: BaseVC {
     // MARK: -
 
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.fbLogin(vc: self)
+       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {

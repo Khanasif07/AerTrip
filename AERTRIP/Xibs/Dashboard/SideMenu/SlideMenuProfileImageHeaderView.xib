@@ -27,6 +27,13 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="319" id="KBt-zf-xo5"/>
+                    </constraints>
+                </view>
                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
                     <rect key="frame" x="142.5" y="106" width="90" height="90"/>
                     <constraints>
@@ -80,10 +87,6 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -115,8 +118,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
                 <outlet property="emailIdLabel" destination="95a-79-0je" id="uSz-m1-OL3"/>
                 <outlet property="familyButton" destination="pgB-ko-N2g" id="qkA-zP-CuH"/>
+                <outlet property="gradientView" destination="x2n-dX-FxW" id="N2m-r2-NM7"/>
                 <outlet property="mobileNumberLabel" destination="uqV-cI-FPs" id="9k1-rh-G9x"/>
                 <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
                 <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>

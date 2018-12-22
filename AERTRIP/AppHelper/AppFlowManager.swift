@@ -170,6 +170,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
 
     }
+    
+    func moveToEditProfileVC(){
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
 }
 
 //MARK: - Private func

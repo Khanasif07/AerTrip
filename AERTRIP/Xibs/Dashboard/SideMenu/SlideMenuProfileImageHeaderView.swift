@@ -14,54 +14,58 @@ protocol SlideMenuProfileImageHeaderViewDelegate: class {
 }
 
 class SlideMenuProfileImageHeaderView: UIView {
-
     // MARK: - IBOutlet
     
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var emailIdLabel: UILabel!
-    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mobileNumberLabel: UILabel!
-    @IBOutlet weak var familyButton: UIButton!
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var userNameLabel: UILabel!
+    @IBOutlet var emailIdLabel: UILabel!
+    @IBOutlet var profileImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var mobileNumberLabel: UILabel!
+    @IBOutlet var familyButton: UIButton!
+    @IBOutlet var backgroundImageView: UIImageView!
+    @IBOutlet var gradientView: UIView!
     
     // MARK: - Variable
-    weak var delegate : SlideMenuProfileImageHeaderViewDelegate?
     
+    weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
     
     // MARK: - IBAction
     
     @IBAction func viewProfileButtonTapped(_ sender: Any) {
         delegate?.profileHeaderTapped()
-        
     }
     
-    
-    class func instanceFromNib(_ controller : UIViewController) -> SlideMenuProfileImageHeaderView {
-      let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
+    class func instanceFromNib(_ controller: UIViewController) -> SlideMenuProfileImageHeaderView {
+        let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
         if controller is ViewProfileVC {
             parentView.familyButton.isHidden = true
         } else {
             parentView.emailIdLabel.isHidden = true
             parentView.mobileNumberLabel.isHidden = true
-            
         }
-        
         
         return parentView
     }
     
-    //Action
+    // Action
     @objc func profileImageClicked() {
         delegate?.profileImageTapped()
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(singleTap)
+        
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        profileImageView.layer.borderWidth = 6.0
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = gradientView.bounds
+        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
+        gradientView.layer.insertSublayer(gradient, at: 0)
         
         doInitialSetup()
     }
@@ -69,7 +73,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     // MARK: - Helper Method
     
     func doInitialSetup() {
-         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         familyButton.layer.cornerRadius = 14.0
     }
 }

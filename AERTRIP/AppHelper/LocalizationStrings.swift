@@ -189,7 +189,23 @@ enum LocalizedString: String {
     case expiryDate = "Expiry Date"
     case seatPreference = "Seat Preference"
     case mealPreference = "Meal Preference"
-
     
+    // MARK: - Edit Profile VC
+    
+    case Save = "Save"
+    case FirstName = "First name"
+    case LastName = "Last name"
+    case TakePhoto = "Take Photo"
+    case ChoosePhoto = "Choose Photo"
+    case ImportFromFacebook = "Import from Facebook"
+    case ImportFromGoogle  = "Import from Google"
+    case RemovePhoto = "Remove Photo"
+    
+    // Mark: - Salutation
+    case Mrs = "Mrs"
+    case Ms = "Ms"
+    case Miss = "Miss"
+    case Mast = "Mast"
+
 }
 

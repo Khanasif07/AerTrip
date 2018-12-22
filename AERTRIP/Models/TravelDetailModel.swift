@@ -14,8 +14,8 @@ struct TravelDetailModel {
     var id: String
     var label: String
     var salutation: String
-    var first_name: String
-    var last_name: String
+    var firstName: String
+    var lastName: String
     var dob: String
     var doa: String
     var passportNumber: String
@@ -40,8 +40,8 @@ struct TravelDetailModel {
         self.id = json["id"].stringValue
         self.label = json["label"].stringValue
         self.salutation = json["salutation"].stringValue
-        self.first_name = json["first_name"].stringValue
-        self.last_name = json["last_name"].stringValue
+        self.firstName = json["first_name"].stringValue
+        self.lastName = json["last_name"].stringValue
         self.dob = json["dob"].stringValue
         self.doa = json["doa"].stringValue
         self.passportNumber = json["passport_number"].stringValue

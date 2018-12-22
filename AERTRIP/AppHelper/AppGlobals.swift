@@ -67,6 +67,10 @@ struct AppGlobals {
         }
         return labels
     }
+    
+     func getTextFromImage(_ fromText: String) -> UIImage {
+        return UIImage(text: fromText, font: UIFont.boldSystemFont(ofSize: 20), color: UIColor.gray, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
+    }
 
 }
 

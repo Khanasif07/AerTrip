@@ -148,6 +148,9 @@
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="editButtonTapped:" destination="4Br-lQ-s4g" eventType="touchUpInside" id="g8C-L1-RAq"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -161,9 +164,9 @@
                                     <constraint firstItem="H57-fY-tbz" firstAttribute="top" secondItem="zmO-L4-TOY" secondAttribute="top" constant="20" id="yyf-w3-Jyy"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="if8-RQ-AKh">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="if8-RQ-AKh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="4Br-lQ-s4g" id="J8w-Ah-PeH"/>
                                     <outlet property="delegate" destination="4Br-lQ-s4g" id="Cey-gA-Mex"/>
@@ -194,20 +197,87 @@
             </objects>
             <point key="canvasLocation" x="1086" y="-480"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="zPz-ga-JI9">
+        <!--Edit ProfileVC-->
+        <scene sceneID="nsV-iJ-nLM">
             <objects>
-                <viewController id="eNv-8A-Xtg" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dho-Ed-6Qd">
+                <viewController storyboardIdentifier="EditProfileVC" automaticallyAdjustsScrollViewInsets="NO" id="ud7-3X-EQa" customClass="EditProfileVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x63-jN-dWV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-Ak-SKz">
+                                <rect key="frame" x="0.0" y="44" width="375" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Z1-mf-vN3">
+                                        <rect key="frame" x="16" y="0.0" width="51" height="35"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="ud7-3X-EQa" eventType="touchUpInside" id="sKh-Tj-wge"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7H-YC-IE8">
+                                        <rect key="frame" x="307" y="0.0" width="52" height="35"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveButtonTapped:" destination="ud7-3X-EQa" eventType="touchUpInside" id="jLL-PD-77s"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5Z1-mf-vN3" firstAttribute="leading" secondItem="s0p-Ak-SKz" secondAttribute="leading" constant="16" id="AtO-jg-t61"/>
+                                    <constraint firstItem="C7H-YC-IE8" firstAttribute="centerY" secondItem="5Z1-mf-vN3" secondAttribute="centerY" id="Gs9-Ig-rjl"/>
+                                    <constraint firstAttribute="trailing" secondItem="C7H-YC-IE8" secondAttribute="trailing" constant="16" id="T3Y-VU-SHZ"/>
+                                    <constraint firstAttribute="height" constant="35" id="V3i-2r-gug"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Z1-mf-vN3" secondAttribute="bottom" id="oho-xb-Tes"/>
+                                    <constraint firstItem="5Z1-mf-vN3" firstAttribute="top" secondItem="s0p-Ak-SKz" secondAttribute="top" id="vK7-kO-hfg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9">
+                                <rect key="frame" x="0.0" y="79" width="375" height="699"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ud7-3X-EQa" id="KK4-LI-las"/>
+                                    <outlet property="delegate" destination="ud7-3X-EQa" id="nSQ-wm-vXG"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TY-jX-cxe">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="hWS-bw-5C2"/>
+                        <constraints>
+                            <constraint firstItem="s0p-Ak-SKz" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="4sd-bq-nme"/>
+                            <constraint firstItem="2TY-jX-cxe" firstAttribute="top" secondItem="x63-jN-dWV" secondAttribute="top" id="BFP-jq-dfj"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="DvB-eG-oMs"/>
+                            <constraint firstItem="2TY-jX-cxe" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="FYU-qi-7hZ"/>
+                            <constraint firstItem="m2S-Wn-qw2" firstAttribute="trailing" secondItem="2TY-jX-cxe" secondAttribute="trailing" id="Gd1-pE-q17"/>
+                            <constraint firstItem="s0p-Ak-SKz" firstAttribute="top" secondItem="2TY-jX-cxe" secondAttribute="bottom" id="PKc-4G-MqB"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="top" secondItem="s0p-Ak-SKz" secondAttribute="bottom" id="QW4-Nt-s69"/>
+                            <constraint firstItem="s0p-Ak-SKz" firstAttribute="top" secondItem="m2S-Wn-qw2" secondAttribute="top" id="ajB-9w-y8w"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="n5i-2j-q5T"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="bottom" secondItem="m2S-Wn-qw2" secondAttribute="bottom" id="nI8-H7-OTy"/>
+                            <constraint firstItem="s0p-Ak-SKz" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="yi8-ch-2i1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m2S-Wn-qw2"/>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="5Z1-mf-vN3" id="YvS-2b-pIZ"/>
+                        <outlet property="headerView" destination="s0p-Ak-SKz" id="Ev5-bp-yDY"/>
+                        <outlet property="saveButton" destination="C7H-YC-IE8" id="L14-l9-FxS"/>
+                        <outlet property="tableView" destination="rvP-JD-Bu9" id="9Oc-Ez-e8y"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hH9-yP-QiR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sOi-yP-r00" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857" y="-668"/>
+            <point key="canvasLocation" x="2760.8000000000002" y="-17.733990147783253"/>
         </scene>
     </scenes>
     <resources>
