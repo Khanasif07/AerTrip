@@ -25,6 +25,9 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
     @IBOutlet weak var sepratorLineImage: UIImageView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    @IBOutlet weak var socialButtonsStackView: UIStackView!
+   @IBOutlet weak var aertripHeaderTitleTopConstraint: NSLayoutConstraint!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -169,7 +172,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             self.googleButton.isLoading = true
         } else {
             
-            self.googleButton.isLoading = true
+            self.linkedInButton.isLoading = true
         }
     }
     
@@ -183,7 +186,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             self.googleButton.isLoading = false
         } else {
             
-            self.googleButton.isLoading = false
+            self.linkedInButton.isLoading = false
         }
         AppFlowManager.default.goToDashboard()
     }
@@ -198,7 +201,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             self.googleButton.isLoading = false
         } else {
             
-            self.googleButton.isLoading = false
+            self.linkedInButton.isLoading = false
         }
         
         var message = ""
@@ -220,43 +223,49 @@ extension SocialLoginVC {
     
     func setupInitialAnimation() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.topImage.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.centerTitleLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.newRegisterLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.existingUserLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.sepratorLineImage.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.logoImage.transform         = CGAffineTransform(translationX: 20, y: -20)
+        self.topImage.transform          = CGAffineTransform(translationX: 20, y: -20)
+        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 20, y: -20)
+//        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+////        self.newRegisterLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//        self.bottomStackView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+//        self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
     }
     
     func setupViewDidLoadAnimation() {
         
         
-        UIView.animate(withDuration: 0.2) {
-            
-            self.logoImage.transform          = .identity
-            self.topImage.transform          = .identity
-        }
+//        UIView.animate(withDuration: 0.2) {
+//
+//             self.centerTitleLabel.transform      = .identity
+//        }
         
-        UIView.animate(withDuration: 0.3) {
-            
-            self.centerTitleLabel.transform      = .identity
-        }
+//        UIView.animate(withDuration: 0.3) {
+//
+//
+//        }
         
         
         UIView.animate(withDuration: 0.35, animations:{
             
-            self.fbButton.transform    = .identity
-            self.googleButton.transform = .identity
-            self.linkedInButton.transform    = .identity
-            self.newRegisterLabel.transform  = .identity
-            self.existingUserLabel.transform = .identity
-            self.sepratorLineImage.transform = .identity
+            self.logoImage.transform = .identity
+            self.topImage.transform  = .identity
+            self.centerTitleLabel.transform  = .identity
+//            self.fbButton.transform    = .identity
+//            self.googleButton.transform = .identity
+//            self.linkedInButton.transform    = .identity
+//            self.newRegisterLabel.transform  = .identity
+            
             
         }) { (success) in
             
+//            UIView.animate(withDuration: 0.2) {
+//
+//                self.bottomStackView.transform = .identity
+//                self.sepratorLineImage.transform = .identity
+//            }
             self.viewModel.isFirstTime = false
         }
     }

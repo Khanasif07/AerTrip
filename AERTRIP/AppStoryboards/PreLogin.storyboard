@@ -13,7 +13,7 @@
         <!--Social LoginVC-->
         <scene sceneID="lxc-pF-W3Q">
             <objects>
-                <viewController storyboardIdentifier="SocialLoginVC" id="qt3-bg-yqI" customClass="SocialLoginVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SocialLoginVC" modalTransitionStyle="partialCurl" id="qt3-bg-yqI" customClass="SocialLoginVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hCX-v0-Jq7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,43 +39,54 @@ travel experience</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KAq-60-Ls3">
-                                <rect key="frame" x="16" y="288" width="343" height="196"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaD-gk-V9Y">
+                                <rect key="frame" x="0.0" y="218" width="375" height="369"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-Yf-Sii" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="49"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Continue with Facebook" image="facebook"/>
-                                        <connections>
-                                            <action selector="fbLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="fVx-zn-c1M"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqA-K7-akV" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="73" width="343" height="49.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                                        <state key="normal" title="Continue with Google" image="google">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="googleLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="Jho-TB-dz1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="146.5" width="343" height="49.5"/>
-                                        <color key="backgroundColor" red="0.0" green="0.4431372549" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                                        <state key="normal" title="Continue with Linkedin" image="linkedInIcon">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="linkedInLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="Edu-ww-7yG"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KAq-60-Ls3">
+                                        <rect key="frame" x="16" y="84.5" width="343" height="196"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-Yf-Sii" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="49.5"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Continue with Facebook" image="facebook"/>
+                                                <connections>
+                                                    <action selector="fbLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="fVx-zn-c1M"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqA-K7-akV" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="73.5" width="343" height="49"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                                <state key="normal" title="Continue with Google" image="google">
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="googleLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="Jho-TB-dz1"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw" customClass="SocialButton" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="146.5" width="343" height="49.5"/>
+                                                <color key="backgroundColor" red="0.0" green="0.4431372549" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                                <state key="normal" title="Continue with Linkedin" image="linkedInIcon">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="linkedInLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="b3s-uV-XNC"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="KAq-60-Ls3" firstAttribute="centerY" secondItem="UaD-gk-V9Y" secondAttribute="centerY" multiplier="0.99" id="6c9-IO-d58"/>
+                                    <constraint firstAttribute="trailing" secondItem="KAq-60-Ls3" secondAttribute="trailing" constant="16" id="DbQ-Ur-dSG"/>
+                                    <constraint firstItem="KAq-60-Ls3" firstAttribute="leading" secondItem="UaD-gk-V9Y" secondAttribute="leading" constant="16" id="pW6-Kn-j7U"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AKK-Lw-N8e">
                                 <rect key="frame" x="0.0" y="587" width="375" height="50"/>
                                 <subviews>
@@ -119,25 +130,26 @@ travel experience</string>
                             <constraint firstItem="Z2C-dF-580" firstAttribute="top" secondItem="7GP-AQ-lWD" secondAttribute="bottom" constant="27" id="1Fq-l6-c5G"/>
                             <constraint firstItem="tgC-3v-ig4" firstAttribute="centerX" secondItem="AKK-Lw-N8e" secondAttribute="centerX" id="1cQ-ma-rIW"/>
                             <constraint firstItem="aXb-zd-SJ2" firstAttribute="top" secondItem="Bvt-bN-fe0" secondAttribute="top" id="345-CP-Vyr"/>
+                            <constraint firstItem="UaD-gk-V9Y" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" id="6Id-Jo-yph"/>
                             <constraint firstItem="tgC-3v-ig4" firstAttribute="centerY" secondItem="AKK-Lw-N8e" secondAttribute="centerY" id="7Tx-1j-2DR"/>
-                            <constraint firstItem="KAq-60-Ls3" firstAttribute="top" secondItem="Z2C-dF-580" secondAttribute="bottom" constant="70" id="AZ1-xa-ao9"/>
-                            <constraint firstItem="OFp-Yf-Sii" firstAttribute="height" secondItem="hCX-v0-Jq7" secondAttribute="height" multiplier="0.074" id="BlC-gs-TqJ"/>
                             <constraint firstItem="YpS-Cj-ba2" firstAttribute="centerX" secondItem="7GP-AQ-lWD" secondAttribute="centerX" id="ClB-tQ-hjj"/>
                             <constraint firstItem="7GP-AQ-lWD" firstAttribute="centerY" secondItem="QL8-ug-Kiz" secondAttribute="centerY" multiplier="0.42" id="Dh3-si-fNa"/>
                             <constraint firstItem="Z2C-dF-580" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" constant="40" id="DpB-Uq-V2g"/>
                             <constraint firstItem="7GP-AQ-lWD" firstAttribute="centerX" secondItem="QL8-ug-Kiz" secondAttribute="centerX" id="E9J-pp-7Lm"/>
+                            <constraint firstItem="UaD-gk-V9Y" firstAttribute="top" secondItem="Z2C-dF-580" secondAttribute="bottom" id="EmT-QQ-fgC"/>
                             <constraint firstItem="aXb-zd-SJ2" firstAttribute="leading" secondItem="Bvt-bN-fe0" secondAttribute="leading" id="FbM-LN-QqK"/>
-                            <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="KAq-60-Ls3" secondAttribute="trailing" constant="16" id="Jjw-Ja-XqU"/>
+                            <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="UaD-gk-V9Y" secondAttribute="trailing" id="JZA-BJ-DYF"/>
                             <constraint firstItem="HEu-aC-9RY" firstAttribute="leading" secondItem="joQ-u7-ebo" secondAttribute="leading" id="L1Z-yA-3jk"/>
                             <constraint firstItem="aXb-zd-SJ2" firstAttribute="trailing" secondItem="Bvt-bN-fe0" secondAttribute="trailing" id="LCd-dH-aof"/>
+                            <constraint firstItem="AKK-Lw-N8e" firstAttribute="top" secondItem="UaD-gk-V9Y" secondAttribute="bottom" id="R5P-i9-fCQ"/>
                             <constraint firstItem="aXb-zd-SJ2" firstAttribute="bottom" secondItem="Bvt-bN-fe0" secondAttribute="bottom" id="RDg-MI-zi7"/>
                             <constraint firstItem="HEu-aC-9RY" firstAttribute="trailing" secondItem="joQ-u7-ebo" secondAttribute="trailing" id="YD6-XN-YAZ"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="AKK-Lw-N8e" secondAttribute="trailing" id="a2u-Nn-qXl"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="Z2C-dF-580" secondAttribute="trailing" constant="40" id="abo-Cv-Mgk"/>
-                            <constraint firstItem="QL8-ug-Kiz" firstAttribute="bottom" secondItem="AKK-Lw-N8e" secondAttribute="bottom" constant="30" id="cG0-CQ-ffM"/>
+                            <constraint firstAttribute="bottom" secondItem="AKK-Lw-N8e" secondAttribute="bottom" constant="30" id="cG0-CQ-ffM"/>
                             <constraint firstItem="ZjO-ym-E6P" firstAttribute="top" secondItem="QL8-ug-Kiz" secondAttribute="top" constant="8" id="cpj-zP-rXZ"/>
-                            <constraint firstItem="KAq-60-Ls3" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" constant="16" id="i51-nE-Vc2"/>
                             <constraint firstItem="AKK-Lw-N8e" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" id="jEk-NA-Wsl"/>
+                            <constraint firstItem="OFp-Yf-Sii" firstAttribute="height" secondItem="hCX-v0-Jq7" secondAttribute="height" multiplier="0.074" id="k0j-iF-6Ry"/>
                             <constraint firstItem="ZjO-ym-E6P" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" constant="8" id="mQV-Q8-FcO"/>
                             <constraint firstItem="HEu-aC-9RY" firstAttribute="bottom" secondItem="joQ-u7-ebo" secondAttribute="bottom" id="mTZ-UG-mM3"/>
                             <constraint firstItem="HEu-aC-9RY" firstAttribute="top" secondItem="joQ-u7-ebo" secondAttribute="top" id="nuA-an-eJI"/>
@@ -147,14 +159,16 @@ travel experience</string>
                     </view>
                     <navigationItem key="navigationItem" id="EA5-8e-qPT"/>
                     <connections>
+                        <outlet property="bottomStackView" destination="AKK-Lw-N8e" id="Lio-fd-ppZ"/>
                         <outlet property="centerTitleLabel" destination="Z2C-dF-580" id="SFR-GY-HmE"/>
                         <outlet property="existingUserLabel" destination="joQ-u7-ebo" id="Vvs-WU-ujG"/>
                         <outlet property="fbButton" destination="OFp-Yf-Sii" id="74c-tW-ZBi"/>
                         <outlet property="googleButton" destination="zqA-K7-akV" id="XFz-by-YX5"/>
-                        <outlet property="linkedInButton" destination="Pm1-2w-crw" id="sIC-yn-K7O"/>
+                        <outlet property="linkedInButton" destination="Pm1-2w-crw" id="ot7-Nz-NE4"/>
                         <outlet property="logoImage" destination="YpS-Cj-ba2" id="vgq-co-85S"/>
                         <outlet property="newRegisterLabel" destination="Bvt-bN-fe0" id="DN8-S4-SZI"/>
                         <outlet property="sepratorLineImage" destination="tgC-3v-ig4" id="QQx-Xh-ZY8"/>
+                        <outlet property="socialButtonsStackView" destination="KAq-60-Ls3" id="HVc-IM-PpS"/>
                         <outlet property="topImage" destination="7GP-AQ-lWD" id="Lys-VI-tAg"/>
                     </connections>
                 </viewController>
@@ -269,6 +283,18 @@ travel experience</string>
                                     <constraint firstAttribute="height" constant="120" id="cVQ-ud-0gm"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4x-KU-Ehx">
+                                <rect key="frame" x="324" y="305" width="35" height="27"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="POh-wS-rdh"/>
+                                    <constraint firstAttribute="height" constant="27" id="i7q-Tc-Ge2"/>
+                                </constraints>
+                                <state key="normal" image="showPassword"/>
+                                <connections>
+                                    <action selector="showPasswordButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0O3-n3-ZgQ"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWx-zl-ou5" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="112.5" y="361" width="150" height="50"/>
                                 <constraints>
@@ -306,9 +332,11 @@ travel experience</string>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="n8y-Ay-Iht" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="0ps-uI-qpQ"/>
+                            <constraint firstItem="u4x-KU-Ehx" firstAttribute="trailing" secondItem="di7-Bv-0cQ" secondAttribute="trailing" id="2Ek-c4-ctf"/>
                             <constraint firstItem="ef3-Jf-KiE" firstAttribute="top" secondItem="eWx-zl-ou5" secondAttribute="bottom" constant="21" id="4gN-gZ-g7W"/>
                             <constraint firstItem="eWx-zl-ou5" firstAttribute="top" secondItem="Hk6-lw-OH2" secondAttribute="bottom" constant="26" id="B48-DL-FDG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CIg-eF-8Re" secondAttribute="trailing" constant="20" id="F7R-4x-QP9"/>
+                            <constraint firstItem="u4x-KU-Ehx" firstAttribute="bottom" secondItem="di7-Bv-0cQ" secondAttribute="bottom" constant="-3" id="HWD-zH-eqE"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="IZe-qR-5RO"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="MTb-Jj-gOJ"/>
                             <constraint firstItem="n8y-Ay-Iht" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="Shw-W2-gg0"/>
@@ -334,6 +362,7 @@ travel experience</string>
                         <outlet property="passwordTextField" destination="di7-Bv-0cQ" id="Btp-1m-XHS"/>
                         <outlet property="registerHereButton" destination="dk8-xp-fXq" id="deB-Zd-A4I"/>
                         <outlet property="registerHereLabel" destination="482-jm-agR" id="PaT-Pg-vjF"/>
+                        <outlet property="showPasswordButton" destination="u4x-KU-Ehx" id="nHX-j4-aYD"/>
                         <outlet property="topImage" destination="Fn8-Ii-58k" id="QcC-fu-KHa"/>
                         <outlet property="welcomeLabel" destination="CIg-eF-8Re" id="8rY-ha-b0J"/>
                     </connections>
@@ -592,6 +621,18 @@ activation link on</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUd-Ow-hk8">
+                                <rect key="frame" x="324" y="276.5" width="35" height="27"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="ITd-R7-rC7"/>
+                                    <constraint firstAttribute="width" constant="35" id="JvJ-Fh-klf"/>
+                                </constraints>
+                                <state key="normal" image="showPassword"/>
+                                <connections>
+                                    <action selector="showPasswordButtonAction:" destination="1Th-aI-URg" eventType="touchUpInside" id="mH2-Sw-OrT"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Conditions:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwZ-rV-NrL">
                                 <rect key="frame" x="16" y="322.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -706,6 +747,7 @@ activation link on</string>
                         <constraints>
                             <constraint firstItem="1Jo-vX-IHw" firstAttribute="trailing" secondItem="mNt-bY-Y2Q" secondAttribute="trailing" constant="16" id="24W-3Y-9ko"/>
                             <constraint firstItem="rwZ-rV-NrL" firstAttribute="trailing" secondItem="mNt-bY-Y2Q" secondAttribute="trailing" id="7XK-0I-wHD"/>
+                            <constraint firstItem="VUd-Ow-hk8" firstAttribute="trailing" secondItem="mNt-bY-Y2Q" secondAttribute="trailing" id="8c8-8Q-c4p"/>
                             <constraint firstItem="Zgo-5R-uJc" firstAttribute="leading" secondItem="1Jo-vX-IHw" secondAttribute="leading" constant="8" id="DX4-Gc-s1W"/>
                             <constraint firstItem="dTe-bJ-40D" firstAttribute="leading" secondItem="1Jo-vX-IHw" secondAttribute="leading" constant="28" id="GuF-Ta-5Fg"/>
                             <constraint firstItem="dTe-bJ-40D" firstAttribute="top" secondItem="R1S-Mx-17e" secondAttribute="bottom" constant="13" id="INj-5O-cLE"/>
@@ -713,6 +755,7 @@ activation link on</string>
                             <constraint firstItem="rwZ-rV-NrL" firstAttribute="leading" secondItem="mNt-bY-Y2Q" secondAttribute="leading" id="Njl-SC-N12"/>
                             <constraint firstItem="R1S-Mx-17e" firstAttribute="centerX" secondItem="1Jo-vX-IHw" secondAttribute="centerX" id="Pvk-9f-LRz"/>
                             <constraint firstItem="EoD-cQ-G3e" firstAttribute="top" secondItem="rwZ-rV-NrL" secondAttribute="bottom" constant="16" id="Vre-XZ-PHB"/>
+                            <constraint firstItem="VUd-Ow-hk8" firstAttribute="bottom" secondItem="mNt-bY-Y2Q" secondAttribute="bottom" constant="-3" id="WNO-ha-XLR"/>
                             <constraint firstItem="R1S-Mx-17e" firstAttribute="top" secondItem="1Jo-vX-IHw" secondAttribute="top" constant="41" id="WjJ-2j-O0L"/>
                             <constraint firstItem="1Jo-vX-IHw" firstAttribute="trailing" secondItem="EoD-cQ-G3e" secondAttribute="trailing" constant="5" id="fkm-Bq-htM"/>
                             <constraint firstItem="u6H-J4-iHj" firstAttribute="centerX" secondItem="EoD-cQ-G3e" secondAttribute="centerX" id="hpI-Lw-SB0"/>
@@ -743,6 +786,7 @@ activation link on</string>
                         <outlet property="passwordTextField" destination="mNt-bY-Y2Q" id="eKn-kh-7MS"/>
                         <outlet property="secureAccountLabel" destination="dTe-bJ-40D" id="Qwh-kX-ETC"/>
                         <outlet property="setPasswordLabel" destination="k4i-yM-WRf" id="Tf1-Et-GKN"/>
+                        <outlet property="showPasswordButton" destination="VUd-Ow-hk8" id="e3o-yD-Lfd"/>
                         <outlet property="smallALabel" destination="K3v-pT-NJX" id="Jqn-79-wOZ"/>
                         <outlet property="specialLabel" destination="ORf-wK-Odp" id="xQ2-my-kW1"/>
                         <outlet property="upperCaseLabel" destination="gfa-Iw-2tp" id="nVi-bN-wCt"/>
@@ -795,6 +839,9 @@ activation link on</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Title"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="gas-Fm-8KW">
+                                <rect key="frame" x="83" y="236" width="9" height="6"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mVk-hB-44C">
                                 <rect key="frame" x="107" y="207" width="252" height="50"/>
                                 <subviews>
@@ -802,7 +849,7 @@ activation link on</string>
                                         <rect key="frame" x="0.0" y="0.0" width="118.5" height="50"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="First Name"/>
                                         </userDefinedRuntimeAttributes>
@@ -811,7 +858,7 @@ activation link on</string>
                                         <rect key="frame" x="133.5" y="0.0" width="118.5" height="50"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Last name"/>
                                         </userDefinedRuntimeAttributes>
@@ -830,6 +877,9 @@ activation link on</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Country"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="pnN-Hl-zo1">
+                                <rect key="frame" x="350" y="296" width="9" height="6"/>
+                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0U9-7b-2mE" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                 <rect key="frame" x="16" y="327" width="76" height="50"/>
                                 <constraints>
@@ -862,7 +912,7 @@ activation link on</string>
                                     <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
                                 <rect key="frame" x="16" y="344.5" width="20" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="fK0-AT-5Wi"/>
@@ -879,6 +929,7 @@ activation link on</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="KeZ-q3-qwq" firstAttribute="leading" secondItem="0U9-7b-2mE" secondAttribute="trailing" constant="15" id="2El-hY-koj"/>
+                            <constraint firstItem="gas-Fm-8KW" firstAttribute="trailing" secondItem="tOg-Zi-bYN" secondAttribute="trailing" id="2F7-2q-jlN"/>
                             <constraint firstItem="Igl-7h-Czp" firstAttribute="top" secondItem="1ay-s3-FhZ" secondAttribute="top" constant="8" id="5aG-02-F2W"/>
                             <constraint firstItem="pRP-US-Kko" firstAttribute="leading" secondItem="tOg-Zi-bYN" secondAttribute="leading" id="61k-9b-DrX"/>
                             <constraint firstItem="1ay-s3-FhZ" firstAttribute="trailing" secondItem="mVk-hB-44C" secondAttribute="trailing" constant="16" id="7CX-No-ep1"/>
@@ -887,7 +938,9 @@ activation link on</string>
                             <constraint firstItem="mVk-hB-44C" firstAttribute="leading" secondItem="tOg-Zi-bYN" secondAttribute="trailing" constant="15" id="E1u-JZ-R0U"/>
                             <constraint firstItem="9eF-1J-L9S" firstAttribute="leading" secondItem="0U9-7b-2mE" secondAttribute="leading" id="G5P-Sh-DBV"/>
                             <constraint firstItem="KeZ-q3-qwq" firstAttribute="centerY" secondItem="0U9-7b-2mE" secondAttribute="centerY" id="IMK-2I-5CQ"/>
+                            <constraint firstItem="pnN-Hl-zo1" firstAttribute="bottom" secondItem="pRP-US-Kko" secondAttribute="bottom" constant="-15" id="KJM-5a-1pI"/>
                             <constraint firstItem="dWL-VF-RMv" firstAttribute="leading" secondItem="9eF-1J-L9S" secondAttribute="trailing" constant="2" id="KnN-Ll-Ms5"/>
+                            <constraint firstItem="pnN-Hl-zo1" firstAttribute="trailing" secondItem="pRP-US-Kko" secondAttribute="trailing" id="MOU-50-2G1"/>
                             <constraint firstItem="LtP-IR-kku" firstAttribute="trailing" secondItem="1ay-s3-FhZ" secondAttribute="trailing" constant="-20" id="MhR-7D-6ug"/>
                             <constraint firstItem="mVk-hB-44C" firstAttribute="top" secondItem="Mya-bc-eLz" secondAttribute="bottom" constant="26" id="Nzs-tw-Bnj"/>
                             <constraint firstItem="pRP-US-Kko" firstAttribute="trailing" secondItem="mVk-hB-44C" secondAttribute="trailing" id="ONj-ZU-q1P"/>
@@ -899,6 +952,7 @@ activation link on</string>
                             <constraint firstItem="Mya-bc-eLz" firstAttribute="top" secondItem="LtP-IR-kku" secondAttribute="bottom" constant="16" id="XUq-hX-ATY"/>
                             <constraint firstItem="JhX-hK-MVU" firstAttribute="centerX" secondItem="1ay-s3-FhZ" secondAttribute="centerX" id="asg-fa-JTz"/>
                             <constraint firstItem="yzr-jj-cAo" firstAttribute="centerX" secondItem="1ay-s3-FhZ" secondAttribute="centerX" id="bDo-Z2-j9K"/>
+                            <constraint firstItem="gas-Fm-8KW" firstAttribute="bottom" secondItem="tOg-Zi-bYN" secondAttribute="bottom" constant="-15" id="cZj-4E-dmt"/>
                             <constraint firstItem="9eF-1J-L9S" firstAttribute="centerY" secondItem="0U9-7b-2mE" secondAttribute="centerY" id="ce1-Ny-jU1"/>
                             <constraint firstItem="1ay-s3-FhZ" firstAttribute="trailing" secondItem="KeZ-q3-qwq" secondAttribute="trailing" constant="16" id="fJs-h0-adE"/>
                             <constraint firstItem="tOg-Zi-bYN" firstAttribute="centerY" secondItem="mVk-hB-44C" secondAttribute="centerY" id="fir-3u-AP7"/>
@@ -916,6 +970,7 @@ activation link on</string>
                     <connections>
                         <outlet property="countryCodeLabel" destination="dWL-VF-RMv" id="Zgf-RA-08m"/>
                         <outlet property="countryCodeTextField" destination="0U9-7b-2mE" id="mUw-pX-6ca"/>
+                        <outlet property="countryDropdownImage" destination="pnN-Hl-zo1" id="8JR-C0-Urw"/>
                         <outlet property="countryFlagImage" destination="9eF-1J-L9S" id="iB2-Gz-zBc"/>
                         <outlet property="countryTextField" destination="pRP-US-Kko" id="W6a-VC-ykH"/>
                         <outlet property="createProfileSubTitleLabel" destination="Mya-bc-eLz" id="zut-xh-S09"/>
@@ -926,6 +981,7 @@ activation link on</string>
                         <outlet property="logoImage" destination="yzr-jj-cAo" id="Qjd-G0-65N"/>
                         <outlet property="mobileNumberTextField" destination="KeZ-q3-qwq" id="bfI-4A-jHE"/>
                         <outlet property="nameTitleTextField" destination="tOg-Zi-bYN" id="fCF-v8-umA"/>
+                        <outlet property="titleDropDownImage" destination="gas-Fm-8KW" id="h3V-bc-A30"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckS-Jv-m59" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1093,21 +1149,24 @@ activation link on</string>
             </objects>
             <point key="canvasLocation" x="5137" y="68"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Profile SuccessVC-->
         <scene sceneID="CA9-Cg-50e">
             <objects>
-                <viewController id="69v-VQ-DNw" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateProfileSuccessVC" id="69v-VQ-DNw" customClass="CreateProfileSuccessVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JSS-aL-u10">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipj-3f-sMD" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipj-3f-sMD" customClass="TransitionButton" customModule="TransitionButton">
                                 <rect key="frame" x="150.5" y="306.5" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="Smi-aa-YlU"/>
                                     <constraint firstAttribute="height" constant="74" id="fyw-Ma-4XY"/>
                                 </constraints>
                                 <state key="normal" image="Checkmark"/>
+                                <connections>
+                                    <action selector="successButtonAction:" destination="69v-VQ-DNw" eventType="touchUpInside" id="LtZ-3f-w3I"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1117,6 +1176,9 @@ activation link on</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tTB-Da-via"/>
                     </view>
+                    <connections>
+                        <outlet property="successButton" destination="ipj-3f-sMD" id="mEs-fL-7lx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kP6-MA-1W9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1126,11 +1188,14 @@ activation link on</string>
     <resources>
         <image name="Checkmark" width="23" height="18.5"/>
         <image name="backGreen" width="27" height="27"/>
+        <image name="downArrow" width="9" height="6"/>
         <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
+        <image name="in" width="100" height="67"/>
         <image name="line" width="1" height="60.5"/>
         <image name="linkedInIcon" width="24" height="24"/>
         <image name="logoImage" width="28" height="25"/>
         <image name="logoText" width="111" height="13"/>
+        <image name="showPassword" width="27" height="17"/>
     </resources>
 </document>

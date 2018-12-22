@@ -30,6 +30,9 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var countryCodeTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var countryFlagImage: UIImageView!
+    @IBOutlet weak var titleDropDownImage: UIImageView!
+    
+    @IBOutlet weak var countryDropdownImage: UIImageView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -37,6 +40,7 @@ class CreateProfileVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.viewModel.webserviceForGetSalutations()
         self.initialSetups()
     }
     
@@ -64,6 +68,12 @@ class CreateProfileVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        PKCountryPicker.default.closePicker()
     }
     
     override func setupFonts() {
@@ -98,7 +108,7 @@ class CreateProfileVC: BaseVC {
         
         self.view.endEditing(true)
         if self.viewModel.isValidateData {
-            self.viewModel.webserviceForUpdateProfile(sender)
+            self.viewModel.webserviceForUpdateProfile()
         }
     }
 }
@@ -118,17 +128,13 @@ private extension CreateProfileVC {
         
         self.salutationPicker.delegate = self
         self.nameTitleTextField.delegate = self
-        self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .done, isSecureText: false)
-        if let rightViewImage = UIImage(named: "downArrow") {
-            
-            self.nameTitleTextField.addRightViewInTextField(rightViewImage, width: 10, height: 50)
-            self.countryTextField.addRightViewInTextField(rightViewImage, width: 10, height: 50)
-        }
+        self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
+        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
-        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: AppColors.themeGray40, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self
         self.countryCodeTextField.tintColor = .clear
@@ -152,8 +158,8 @@ private extension CreateProfileVC {
         let doneButton = UIBarButtonItem()
         doneButton.title  = LocalizedString.Done.localized
         
-        cancelButton.tintColor = AppColors.themeBlack
-        doneButton.tintColor   = AppColors.themeBlack
+        cancelButton.tintColor = AppColors.themeGreen
+        doneButton.tintColor   = AppColors.themeGreen
         
         doneButton.addTargetForAction(self, action: #selector(self.pickerViewDoneButtonAction(_:)))
         cancelButton.addTargetForAction(self, action: #selector(self.cancleButtonAction(_:)))
@@ -218,11 +224,18 @@ extension CreateProfileVC {
                 self.countryTextField.text = selectedCountry.countryEnglishName
                 self.viewModel.userData.country = selectedCountry.countryEnglishName
                 self.viewModel.userData.isd = selectedCountry.countryCode
+                self.viewModel.userData.countryCode = selectedCountry.ISOCode
             }
             return false
-        } else if textField == self.nameTitleTextField {
+        } else {
             
-            PKCountryPicker.default.resignFirstResponder()
+            PKCountryPicker.default.closePicker()
+            if textField === self.nameTitleTextField {
+                
+                if self.viewModel.salutation.isEmpty {
+                    return false
+                }
+            }
         }
         
         return true
@@ -277,6 +290,10 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //MARK:-
 extension CreateProfileVC: CreateProfileVMDelegate {
     
+    func getSalutationResponse(salutations: [String]) {
+        self.viewModel.salutation = salutations
+    }
+    
     func willApiCall() {
         
         self.letsStartedButton.isLoading = true
@@ -285,7 +302,7 @@ extension CreateProfileVC: CreateProfileVMDelegate {
     func getSuccess() {
         
         self.letsStartedButton.isLoading = false
-        AppFlowManager.default.goToDashboard()
+        AppFlowManager.default.moveToCreateProfileSuccessVC()
     }
     
     func getFail(errors: ErrorCodes) {
@@ -325,6 +342,8 @@ extension CreateProfileVC {
         self.countryCodeTextField.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.countryCodeLabel.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.countryFlagImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.titleDropDownImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.countryDropdownImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
     }
     
     func setupViewDidLoadAnimation() {
@@ -340,6 +359,7 @@ extension CreateProfileVC {
             self.createProfileTitleLabel.transform      = .identity
             self.createProfileSubTitleLabel.transform      = .identity
             self.nameTitleTextField.transform      = .identity
+            self.titleDropDownImage.transform      = .identity
             self.countryFlagImage.transform      = .identity
             self.countryCodeLabel.transform      = .identity
             self.countryCodeTextField.transform      = .identity
@@ -351,6 +371,7 @@ extension CreateProfileVC {
             self.firstNameTextField.transform    = .identity
             self.lastNameTextField.transform = .identity
             self.countryTextField.transform    = .identity
+            self.countryDropdownImage.transform      = .identity
             self.mobileNumberTextField.transform  = .identity
             self.letsStartedButton.transform = .identity
             

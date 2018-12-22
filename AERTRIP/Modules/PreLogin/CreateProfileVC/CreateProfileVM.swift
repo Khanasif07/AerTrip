@@ -12,12 +12,13 @@ protocol CreateProfileVMDelegate: class {
     func willApiCall()
     func getSuccess()
     func getFail(errors: ErrorCodes)
+    func getSalutationResponse(salutations: [String])
 }
 
 class CreateProfileVM {
     
     weak var delegate: CreateProfileVMDelegate?
-    let salutation = [LocalizedString.Mr.localized, LocalizedString.Mis.localized]
+    var salutation = [String]()
     var userData   = UserModel()
     var isFirstTime = true
     
@@ -68,7 +69,7 @@ class CreateProfileVM {
 //MARK:-
 extension CreateProfileVM {
     
-    func webserviceForUpdateProfile(_ sender: ATButton) {
+    func webserviceForUpdateProfile() {
         
         var params = JSONDictionary()
         
@@ -78,14 +79,28 @@ extension CreateProfileVM {
         params[APIKeys.firstName.rawValue]  = self.userData.firstName
         params[APIKeys.lastName.rawValue]   = self.userData.lastName
         params[APIKeys.isd.rawValue]        = self.userData.isd
-        params[APIKeys.country.rawValue]    = self.userData.country
+        params[APIKeys.country.rawValue]    = self.userData.countryCode
         params[APIKeys.salutation.rawValue] = self.userData.salutation
         
         self.delegate?.willApiCall()
-        APICaller.shared.callUpdateUserDetailAPI(params: params, loader: true, completionBlock: {(success, data, errors) in
+        APICaller.shared.callUpdateUserDetailAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
                 self.delegate?.getSuccess()
+            }
+            else {
+                self.delegate?.getFail(errors: errors)
+            }
+        })
+        
+    }
+    
+    func webserviceForGetSalutations() {
+        
+        APICaller.shared.callGetSalutationsApi(completionBlock: {(success, data, errors) in
+            
+            if success {
+                self.delegate?.getSalutationResponse(salutations: data)
             }
             else {
                 self.delegate?.getFail(errors: errors)

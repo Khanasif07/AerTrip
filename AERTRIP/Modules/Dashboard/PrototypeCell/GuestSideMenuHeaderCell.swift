@@ -53,7 +53,7 @@ private extension GuestSideMenuHeaderCell {
     func setupFontColorAndText() {
         
         self.loginAndRegisterButton.layer.cornerRadius = self.loginAndRegisterButton.height/2
-        self.headerTitleLabel.font      = AppFonts.Regular.withSize(14)
+        self.headerTitleLabel.font      = AppFonts.Regular.withSize(16)
         self.headerTitleLabel.textColor  = AppColors.themeBlack
         self.headerTitleLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
         self.loginAndRegisterButton.setTitle(LocalizedString.LoginOrRegister.localized, for: .normal)

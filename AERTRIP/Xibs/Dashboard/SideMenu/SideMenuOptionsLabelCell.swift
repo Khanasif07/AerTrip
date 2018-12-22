@@ -34,7 +34,7 @@ extension SideMenuOptionsLabelCell {
     private func initialSetups() {
         
         self.sepratorView.isHidden = true
-        self.displayTextLabel.font      = AppFonts.Regular.withSize(18)
+        self.displayTextLabel.font      = AppFonts.Regular.withSize(20)
         self.displayTextLabel.textColor = AppColors.themeBlack
     }
     

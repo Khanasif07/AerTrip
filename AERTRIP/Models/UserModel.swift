@@ -77,6 +77,7 @@ struct UserModel {
     var gender     : Gender = .none
     var isd        : String
     var country    : String
+    var countryCode: String
     var salutation : String
     var picture    : String
     var service    : String
@@ -125,6 +126,7 @@ struct UserModel {
         self.hotels = HotelsModel(json: json["hotels"])
         self.accountData = AccountModel(json: json["account_data"])
         self.generalPref = GeneralPrefrenceModel(json: json["general_pref"])
+        self.countryCode = json["countryCode"].stringValue
         
         if let gender   = json["gender"].string {
             

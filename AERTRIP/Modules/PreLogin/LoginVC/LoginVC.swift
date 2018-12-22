@@ -26,6 +26,7 @@ class LoginVC: BaseVC {
     @IBOutlet weak private var forgotPasswordButton: UIButton!
     @IBOutlet weak private var registerHereLabel: UILabel!
     @IBOutlet weak private var registerHereButton: UIButton!
+    @IBOutlet weak var showPasswordButton: UIButton!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -89,6 +90,21 @@ class LoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBAction func showPasswordButtonAction(_ sender: UIButton) {
+        
+        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        
+        if self.passwordTextField.isSecureTextEntry {
+            
+            let image = UIImage(named: "showPassword")
+            sender.setImage(image, for: .normal)
+        } else {
+            
+            let image = UIImage(named: "hidePassword")
+            sender.setImage(image, for: .normal)
+        }
+    }
+    
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -128,29 +144,7 @@ private extension LoginVC {
         
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        
-        let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: self.passwordTextField.height))
-        
-        showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
-        let image = UIImage(named: "showPassword")
-        showButton.setImage(image, for: .normal)
-        self.passwordTextField.rightView = showButton
-        self.passwordTextField.rightViewMode = .never
-    }
-    
-    @objc func showPasswordAction(_ sender: UIButton) {
-        
-        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
-        
-        if self.passwordTextField.isSecureTextEntry {
-            
-            let image = UIImage(named: "showPassword")
-            sender.setImage(image, for: .normal)
-        } else {
-            
-            let image = UIImage(named: "hidePassword")
-            sender.setImage(image, for: .normal)
-        }
+       
     }
 }
 
@@ -185,14 +179,9 @@ extension LoginVC: LoginVMDelegate {
 
 //MARK:- Extension Initialsetups
 //MARK:-
-extension LoginVC: ToastDelegate {
+extension LoginVC {
     
-    func toastRightButtoAction() {
-        printDebug("Apply")
-    }
-    
-    
-    @objc func textFieldValueChanged(_ textField: UITextField) {
+   @objc func textFieldValueChanged(_ textField: UITextField) {
         
         if textField === self.emailTextField {
             
@@ -200,11 +189,6 @@ extension LoginVC: ToastDelegate {
         } else {
             
             self.viewModel.password = textField.text ?? ""
-            if self.viewModel.password.isEmpty {
-                self.passwordTextField.rightViewMode = .never
-            } else {
-                self.passwordTextField.rightViewMode = .always
-            }
         }
         
         if self.viewModel.isLoginButtonEnable {
@@ -241,6 +225,7 @@ extension LoginVC {
         self.welcomeLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.emailTextField.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.passwordTextField.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.showPasswordButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.loginButton.transform       = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.forgotPasswordButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
     }
@@ -260,8 +245,9 @@ extension LoginVC {
         
         UIView.animate(withDuration: 0.35, animations:{
             
-            self.emailTextField.transform    = .identity
-            self.passwordTextField.transform = .identity
+            self.emailTextField.transform     = .identity
+            self.passwordTextField.transform   = .identity
+            self.showPasswordButton.transform  = .identity
             self.loginButton.transform       = .identity
             self.forgotPasswordButton.transform = .identity
             

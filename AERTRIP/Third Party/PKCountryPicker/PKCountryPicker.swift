@@ -56,7 +56,7 @@ open class PKCountryPicker: UIView {
         self.addSubview(self.pickerView)
         self.countries = self.getAllCountries()
         
-        self.setupToolBar()
+//        self.setupToolBar()
         self.setupAppearance()
     }
     
@@ -130,7 +130,7 @@ open class PKCountryPicker: UIView {
         }
     }
     
-    private func closePicker(animated: Bool = true) {
+     func closePicker(animated: Bool = true) {
         
         let hiddenFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
         
@@ -182,5 +182,9 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentSelectedIndex = row
         
+        if let handler = self.selectionHandler {
+            handler(self.countries[self.currentSelectedIndex])
+            
+        }
     }
 }

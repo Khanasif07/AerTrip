@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else if url.absoluteString.contains("link=") && url.absoluteString.contains("&email=") {
                 
                 guard let email = url.absoluteString.components(separatedBy: "&email=").last else {return}
-                
+                AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email)
             }
         }
         return handled
@@ -97,12 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         }
         
-        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
-            // Handle the deep link. For example, show the deep-linked content or
-            // apply a promotional offer to the user's account.
-            // ...
-            return true
-        }
         return true
     }
     // MARK: - Core Data stack
