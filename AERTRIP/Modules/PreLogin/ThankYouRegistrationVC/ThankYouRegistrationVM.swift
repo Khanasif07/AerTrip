@@ -18,7 +18,7 @@ protocol ThankYouRegistrationVMDelegate: class {
 class ThankYouRegistrationVM {
     
     enum VerifyRegistrasion {
-        case setPassword, deeplinkSetPassword, deeplinkResetPassword
+        case setPassword, resetPassword, deeplinkSetPassword, deeplinkResetPassword
     }
     
     weak var delegate: ThankYouRegistrationVMDelegate?

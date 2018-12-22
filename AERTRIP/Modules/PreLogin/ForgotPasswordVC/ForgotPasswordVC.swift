@@ -139,7 +139,7 @@ extension ForgotPasswordVC: ForgotPasswordVMDelegate {
     
     func didLoginSuccess(email: String) {
         self.continueButton.isLoading = false
-        
+        AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .resetPassword, email: self.viewModel.email)
     }
     
     func didLoginFail(errors: ErrorCodes) {

@@ -141,18 +141,22 @@ extension APICaller {
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ data: String, _ errorCodes: ErrorCodes)->Void ) {
+    func callUpdateUserDetailAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserDetail, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-                let data = jsonData[APIKeys.data.rawValue].stringValue
-                completionBlock(true, data, [])
+//                let userSettings = jsonData[APIKeys.data.rawValue].dictionary
+//                AppUserDefaults.save(value: userSettings, forKey: .userData)
+//                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
+                
+                
+                completionBlock(true, [])
                 
             }, failure: { (errors) in
-                completionBlock(false, "", errors)
+                completionBlock(false,  errors)
             })
             
         }) { (error) in
@@ -177,6 +181,35 @@ extension APICaller {
                 
             }, failure: { (errors) in
                 completionBlock(false, errors)
+            })
+            
+        }) { (error) in
+        }
+    }
+    
+    //MARK: - Api for Update UserDetail
+    //MARK: -
+    func callGetSalutationsApi( completionBlock: @escaping(_ success: Bool, _ salutations: [String], _ errorCodes: ErrorCodes)->Void ) {
+        
+       AppNetworking.GET(endPoint: .dropDownSalutation, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                
+                let saluDict = jsonData[APIKeys.data.rawValue][APIKeys.salutation.rawValue].dictionaryObject
+                var salutation = [String]()
+                if let keys = saluDict?.keys {
+                    
+                    for key in keys {
+                        
+                        salutation.append(key)
+                    }
+                }
+                completionBlock(true, salutation, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, [""], errors)
             })
             
         }) { (error) in

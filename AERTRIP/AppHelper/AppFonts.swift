@@ -71,9 +71,11 @@ extension AppFonts{
         }
     }
     
-    func withDefaultSize() -> UIFont {
-        return UIFont(name: self.rawValue, size: 12.0) ?? UIFont.systemFont(ofSize: 12.0)
-    }
+    
+    
+//    func withDefaultSize() -> UIFont {
+//        return UIFont(name: name, size: 12.0) ?? UIFont.systemFont(ofSize: 12.0)
+//    }
     
     
     private func calculateSize(_ fontSize:CGFloat, _ deviceType: DeviceType) -> CGFloat {

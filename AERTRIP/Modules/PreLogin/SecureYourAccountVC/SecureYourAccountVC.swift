@@ -36,6 +36,8 @@ class SecureYourAccountVC: BaseVC {
     @IBOutlet weak var validationStackView: UIStackView!
     @IBOutlet weak var nextButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var showPasswordButton: UIButton!
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -118,6 +120,20 @@ class SecureYourAccountVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func showPasswordButtonAction(_ sender: UIButton) {
+        
+        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        if self.passwordTextField.isSecureTextEntry {
+            
+            let image = UIImage(named: "showPassword")
+            sender.setImage(image, for: .normal)
+        } else {
+            
+            let image = UIImage(named: "hidePassword")
+            sender.setImage(image, for: .normal)
+        }
+    }
+    
     @IBAction func nextButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
@@ -148,13 +164,13 @@ private extension SecureYourAccountVC {
         }
         self.passwordTextField.setupTextField(placehoder: placeholder, keyboardType: .default, returnType: .done, isSecureText: true)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: self.passwordTextField.height))
-        
-        showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
-        let image = UIImage(named: "showPassword")
-        showButton.setImage(image, for: .normal)
-        self.passwordTextField.rightView = showButton
-        self.passwordTextField.rightViewMode = .never
+//        let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 27, height: 27))
+//
+//        showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
+//        let image = UIImage(named: "showPassword")
+//        showButton.setImage(image, for: .normal)
+//        self.passwordTextField.rightView = showButton
+//        self.passwordTextField.rightViewMode = .always
     }
 }
 
@@ -175,19 +191,7 @@ extension SecureYourAccountVC {
         return true
     }
     
-    @objc func showPasswordAction(_ sender: UIButton) {
-        
-        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
-        if self.passwordTextField.isSecureTextEntry {
-            
-            let image = UIImage(named: "showPassword")
-            sender.setImage(image, for: .normal)
-        } else {
-            
-            let image = UIImage(named: "hidePassword")
-            sender.setImage(image, for: .normal)
-        }
-    }
+    
     
     func setupValidation() {
         
@@ -241,7 +245,7 @@ extension SecureYourAccountVC {
                     
                     guard let strongSelf = self else {return}
                     
-                    strongSelf.nextButtonTopConstraint.constant = 16
+                    strongSelf.nextButtonTopConstraint.constant = 26
                     strongSelf.passwordConditionLabel.isHidden = true
                     strongSelf.validationStackView.isHidden = true
                     
@@ -304,12 +308,6 @@ extension SecureYourAccountVC {
             
         }
         
-        if self.viewModel.password.isEmpty {
-            self.passwordTextField.rightViewMode = .never
-        } else {
-            self.passwordTextField.rightViewMode = .always
-        }
-        
         if self.viewModel.password.checkValidity(.Password) {
             self.nextButton.isEnabled = true
         } else {
@@ -359,6 +357,7 @@ extension SecureYourAccountVC {
         self.passwordTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.validationStackView.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.nextButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.showPasswordButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
     }
     
     func setupViewDidLoadAnimation() {
@@ -382,6 +381,7 @@ extension SecureYourAccountVC {
             self.passwordConditionLabel.transform = .identity
             self.validationStackView.transform    = .identity
             self.nextButton.transform    = .identity
+            self.showPasswordButton.transform    = .identity
             
         }) { (success) in
             

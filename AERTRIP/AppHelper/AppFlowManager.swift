@@ -170,6 +170,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
 
     }
+    
+    func moveToCreateProfileSuccessVC() {
+        let ob = CreateProfileSuccessVC.instantiate(fromAppStoryboard: .PreLogin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
 }
 
 //MARK: - Private func

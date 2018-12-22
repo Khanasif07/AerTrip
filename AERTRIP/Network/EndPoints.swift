@@ -27,6 +27,7 @@ enum APIEndPoint : String {
     case verifyRegistration = "users/verify-registration"
     case resetPassword         = "users/validate-password-reset-token"
     case getTravellerDetail = "users/traveller-detail"
+    case dropDownSalutation = "default/dropdown-keys"
 
 }
 
