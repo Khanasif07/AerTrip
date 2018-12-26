@@ -87,7 +87,7 @@ class AppFlowManager {
         
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.mainViewController(MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard))
+        sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
         sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
         self.sideMenuController = sideMenuVC
         let nvc = UINavigationController(rootViewController: sideMenuVC)
