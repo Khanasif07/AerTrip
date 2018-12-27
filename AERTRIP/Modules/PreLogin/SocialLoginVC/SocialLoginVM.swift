@@ -26,7 +26,7 @@ class SocialLoginVM {
     
     //MARK:- Actions
     //MARK:-
-    func fbLogin(vc: UIViewController) {
+    func fbLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? ) {
         
         vc.view.endEditing(true)
         FacebookController.shared.getFacebookUserInfo(fromViewController: vc, success: { (result) in
@@ -40,10 +40,16 @@ class SocialLoginVM {
             self.userData.email     = result.email
             self.userData.service   = "facebook"
             self.userData.id        = result.id
-            self.webserviceForSocialLogin()
+            if vc is EditProfileVC {
+             // do nothing
+            } else {
+                 self.webserviceForSocialLogin()
+            }
+            completionBlock?(true)
             
         }, failure: { (error) in
             printDebug(error?.localizedDescription ?? "")
+            completionBlock?(false)
         })
     }
     

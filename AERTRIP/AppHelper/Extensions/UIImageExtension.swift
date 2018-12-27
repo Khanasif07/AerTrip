@@ -93,6 +93,22 @@ extension UIImage {
         let img: UIImage = UIImage(cgImage: cgimg)
         return img
     }
+    
+    convenience init?(text: String, font: UIFont = UIFont.systemFont(ofSize: 20), color: UIColor = UIColor.white, backgroundColor: UIColor = UIColor.gray, size:CGSize = CGSize(width: 100, height: 100), offset: CGPoint = CGPoint(x: 0, y: 0))
+    {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let context = UIGraphicsGetCurrentContext()
+        context?.setFillColor(backgroundColor.cgColor)
+        context?.fill(CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        let attr = [NSAttributedString.Key.font:font, NSAttributedString.Key.foregroundColor:color, NSAttributedString.Key.paragraphStyle:style]
+        let rect = CGRect(x: offset.x, y: offset.y, width: size.width, height: size.height)
+        text.draw(in: rect, withAttributes: attr)
+        self.init(cgImage:(UIGraphicsGetImageFromCurrentImageContext()?.cgImage!)!)
+        UIGraphicsEndImageContext()
+    }
+    
 }
 
 extension UIImageView {
@@ -129,5 +145,7 @@ extension UIImageView {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         self.addSubview(blurEffectView)
     }
+    
+        
     
 }

@@ -101,7 +101,7 @@ class SocialLoginVC: BaseVC {
     //MARK:-
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
         
-        self.viewModel.fbLogin(vc: self)
+        self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {

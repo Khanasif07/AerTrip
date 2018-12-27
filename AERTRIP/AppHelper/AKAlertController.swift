@@ -101,7 +101,16 @@ open class AKAlertController {
     open class func actionSheet(_ title: String?, message: String?, sourceView: UIView, buttons:[String], tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet, buttons: buttons, cancel: LocalizedString.Cancel.localized, tapBlock: tapBlock)
-        alert.view.tintColor = AppColors.themeGreen
+       
+         alert.view.tintColor = AppColors.themeGreen
+//        for button in buttons {
+//            if button == LocalizedString.RemovePhoto.localized {
+//                alert.view.tintColor = AppColors.themeRed
+//                NSLog("set theme red color")
+//            } else {
+//                
+//            }
+//        }
 //        alert.view.te
         alert.popoverPresentationController?.sourceView = sourceView
         alert.popoverPresentationController?.sourceRect = sourceView.bounds

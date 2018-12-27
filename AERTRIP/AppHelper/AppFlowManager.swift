@@ -186,6 +186,11 @@ extension AppFlowManager {
 
     }
     
+    func moveToEditProfileVC(){
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     func moveToCreateProfileSuccessVC() {
         let ob = CreateProfileSuccessVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)

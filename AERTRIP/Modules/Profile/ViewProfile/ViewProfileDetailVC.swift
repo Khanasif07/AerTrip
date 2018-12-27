@@ -38,7 +38,7 @@ class ViewProfileDetailVC: BaseVC {
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     let cellIdentifier = "ViewProfileDetailTableViewCell"
     let multipleDetailCellIdentifier = "ViewProfileMultiDetailTableViewCell"
-    var profileImageHeaderView: SlideMenuProfileImageHeaderView?
+    var profileImageHeaderView: SlideMenuProfileImageHeaderView = SlideMenuProfileImageHeaderView()
     var travelData: TravelDetailModel?
     
     override func viewDidLoad() {
@@ -51,8 +51,8 @@ class ViewProfileDetailVC: BaseVC {
         
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView!.profileImageViewHeightConstraint.constant = 121
-            self?.profileImageHeaderView!.layoutIfNeeded()
+            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
+            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -72,6 +72,10 @@ class ViewProfileDetailVC: BaseVC {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func editButtonTapped(_ sender: Any) {
+        AppFlowManager.default.moveToEditProfileVC()
+    }
+    
     // MARK: - Helper method
     
     func doInitialSetUp() {
@@ -89,12 +93,7 @@ class ViewProfileDetailVC: BaseVC {
         
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
-        let gradient = CAGradientLayer()
-        gradient.frame = profileImageHeaderView!.bounds
-        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
-        profileImageHeaderView!.layer.insertSublayer(gradient, at: 0)
-        
-        profileImageHeaderView!.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: parallexHeaderHeight)
+        profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: parallexHeaderHeight)
         
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
@@ -102,13 +101,29 @@ class ViewProfileDetailVC: BaseVC {
         tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         tableView.parallaxHeader.delegate = self
         
+        let gradient = CAGradientLayer()
+        gradient.frame = profileImageHeaderView.gradientView.bounds
+//        gradient.colors = [ AppColors.viewProfileDetailTopGradientColor.cgColor,AppColors.viewProfileDetailBottomGradientColor.cgColor]
+        gradient.colors = [AppColors.themeRed.cgColor, AppColors.themeBlue.cgColor]
+        profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
+        
         view.bringSubviewToFront(headerView)
     }
     
     private func setUpDataFromApi() {
-        profileImageHeaderView?.userNameLabel.text = travelData?.first_name
-        profileImageHeaderView?.familyButton.setTitle(travelData?.label, for: .normal)
-        profileImageHeaderView?.layoutIfNeeded()
+        profileImageHeaderView.userNameLabel.text = (travelData?.firstName)! + " " + (travelData?.lastName)!
+        profileImageHeaderView.familyButton.setTitle(travelData?.label, for: .normal)
+        profileImageHeaderView.layoutIfNeeded()
+        
+        if travelData?.profileImage != "" {
+            profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travelData?.profileImage)!))
+        } else {
+            let string = "\((travelData?.firstName)!.firstCharacter)" + "\((travelData?.lastName)!.firstCharacter)"
+            let image = AppGlobals.shared.getTextFromImage(string)
+            profileImageHeaderView.profileImageView.image = image
+            profileImageHeaderView.backgroundImageView.image = image
+        }
+        
         if let mobile = travelData?.contact.mobile {
             if mobile.count > 0 {
                 self.mobile = mobile
@@ -156,7 +171,7 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.FlightPreferences)
         }
         
-        if let frequentFlyer =  travelData?.frequestFlyer,frequentFlyer.count > 0 {
+        if let frequentFlyer = travelData?.frequestFlyer, frequentFlyer.count > 0 {
             self.frequentFlyer = frequentFlyer
         }
         
@@ -192,7 +207,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             return 3
         case LocalizedString.FlightPreferences:
             if frequentFlyer.count > 0 {
-             return 2 + frequentFlyer.count
+                return 2 + frequentFlyer.count
             } else {
                 return 2
             }
@@ -209,13 +224,14 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress:
             cell.configureCell(email[indexPath.row].label, email[indexPath.row].value)
+            cell.separatorView.isHidden = (indexPath.row + 1 == email.count) ? true : false
             return cell
         case LocalizedString.MoreInformation:
             if informations[indexPath.row] != "" {
                 cell.configureCell(moreInformation[indexPath.row].rawValue, informations[indexPath.row])
                 return cell
             }
-            
+            cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
             return UITableViewCell()
             
         case LocalizedString.ContactNumber:
@@ -223,15 +239,17 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(mobile.label, mobile.value)
                 return cell
             }
-            
+            cell.separatorView.isHidden = (indexPath.row + 1 == contactNumber.count) ? true : false
             return UITableViewCell()
             
         case LocalizedString.SocialAccounts:
             cell.configureCell(social[indexPath.row].label, social[indexPath.row].value)
+            cell.separatorView.isHidden = (indexPath.row + 1 == social.count) ? true : false
             return cell
         case LocalizedString.Address:
             let content = addresses[indexPath.row].line2 + "\n" + addresses[indexPath.row].line1
             cell.configureCell(addresses[indexPath.row].label, content)
+            cell.separatorView.isHidden = (indexPath.row + 1 == addresses.count) ? true : false
             return cell
         case LocalizedString.PasswordDetails:
             
@@ -253,8 +271,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
                 }
                 viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
-                    viewProfileMultiDetailcell.configureCellForFrequentFlyer(frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName,frequentFlyer[indexPath.row - 2].airlineCode)
-                    return viewProfileMultiDetailcell
+                viewProfileMultiDetailcell.configureCellForFrequentFlyer(frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].airlineCode)
+                return viewProfileMultiDetailcell
                 
             } else {
                 cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
@@ -285,7 +303,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         NSLog("progress %f", parallaxHeader.progress)
         
         if parallaxHeader.progress >= 0.6 {
-            profileImageHeaderView!.profileImageViewHeightConstraint.constant = 120 * parallaxHeader.progress
+            profileImageHeaderView.profileImageViewHeightConstraint.constant = 120 * parallaxHeader.progress
         }
         
         if parallaxHeader.progress <= 0.5 {
@@ -306,7 +324,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.backButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
-                self?.headerLabel.text = self?.profileImageHeaderView!.userNameLabel.text
+                self?.headerLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
         } else {
             headerView.backgroundColor = UIColor.clear
@@ -314,8 +332,8 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
             backButton.tintColor = UIColor.white
             headerLabel.text = ""
         }
-        profileImageHeaderView!.layoutIfNeeded()
-        profileImageHeaderView!.doInitialSetup()
+        profileImageHeaderView.layoutIfNeeded()
+        profileImageHeaderView.doInitialSetup()
     }
 }
 
