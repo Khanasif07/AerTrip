@@ -23,7 +23,9 @@ class AerinVC: BaseVC {
     @IBOutlet weak var aerinContainer: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var weekendMessageLabel: UILabel!
-    
+
+    private var previousOffSet = CGPoint.zero
+
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -80,6 +82,33 @@ class AerinVC: BaseVC {
     override func setupColors() {
         self.messageLabel.textColor = AppColors.themeTextColor
         self.weekendMessageLabel.textColor = AppColors.themeWhite
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        //dont do anything if bouncing
+            let difference = scrollView.contentOffset.y - previousOffSet.y
+
+            if let parent = parent as? DashboardVC{
+                if difference > 0{
+                    //check if reached bottom
+                    if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
+                        if scrollView.contentOffset.y > 0.0{
+                            parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
+                            scrollView.contentOffset = CGPoint.zero
+                        }
+                    }
+                }else{
+                    if parent.mainScrollView.contentOffset.y > 0.0{
+                        if scrollView.contentOffset.y <= 0.0{
+                            parent.mainScrollView.contentOffset.y = max(parent.mainScrollView.contentOffset.y + difference, 0.0)
+                        }
+                    }
+                }
+            }
+
+            previousOffSet = scrollView.contentOffset
+
     }
     
     //MARK:- Methods
