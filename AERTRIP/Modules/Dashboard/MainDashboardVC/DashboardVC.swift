@@ -10,6 +10,7 @@ import UIKit
 
 class DashboardVC: UIViewController {
 
+    @IBOutlet weak var innerScrollView: UIScrollView!
     @IBOutlet weak var innerScrollViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
@@ -61,6 +62,33 @@ class DashboardVC: UIViewController {
         innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height
     }
 
+    //MARK:- IBAction
+    @IBAction func aerinAction(_ sender: UIButton) {
+
+        if selectedOption == .aerin {return}
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+    }
+
+    @IBAction func flightsAction(_ sender: UIButton) {
+
+        if selectedOption == .flight {return}
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+    }
+
+    @IBAction func hotelsAction(_ sender: UIButton) {
+
+        if selectedOption == .hotels {return}
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+    }
+
+    
+    @IBAction func tripsAction(_ sender: UIButton) {
+
+        if selectedOption == .trips {return}
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+    }
+    
+
     //MARK:- Private
     private func resetItems(){
 
@@ -97,7 +125,6 @@ extension DashboardVC : UIScrollViewDelegate{
             }
 
             switch selectedOption{
-
                 case .aerin: aerinView.transform = CGAffineTransform(scaleX: transform, y: transform)
                 case .flight: flightsView.transform = CGAffineTransform(scaleX: transform, y: transform)
                 case .hotels: hotelsView.transform = CGAffineTransform(scaleX: transform, y: transform)
