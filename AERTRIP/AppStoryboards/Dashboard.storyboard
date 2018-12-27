@@ -592,19 +592,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, I’m Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scz-4i-JRa">
-                                                <rect key="frame" x="0.0" y="5" width="375" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="39" width="375" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your personal travel assistant" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-ox-irL">
-                                                <rect key="frame" x="0.0" y="46" width="375" height="23"/>
+                                                <rect key="frame" x="0.0" y="80" width="375" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBE-4e-7Yr">
-                                                <rect key="frame" x="112.5" y="89" width="150" height="150"/>
+                                                <rect key="frame" x="112.5" y="123" width="150" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-eF-3hM">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
@@ -622,7 +622,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJN-Be-u7u">
-                                                <rect key="frame" x="15" y="259" width="345" height="68.5"/>
+                                                <rect key="frame" x="15" y="293" width="345" height="68.5"/>
                                                 <string key="text">“Try asking for Flights from Mumbai to Delhi
 on Christmas”</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -630,14 +630,14 @@ on Christmas”</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-aV-lTD">
-                                                <rect key="frame" x="30" y="407.5" width="315" height="130"/>
+                                                <rect key="frame" x="30" y="441.5" width="315" height="130"/>
                                                 <color key="backgroundColor" red="0.3428386578" green="0.89365664779999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="130" id="Gmf-A9-uXA"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekend Getaway!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG4-JY-83S">
-                                                <rect key="frame" x="30" y="378.5" width="315" height="21"/>
+                                                <rect key="frame" x="30" y="412.5" width="315" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -647,7 +647,7 @@ on Christmas”</string>
                                         <constraints>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="5rZ-LR-yJq"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="20" id="6Ic-CZ-Qwm"/>
-                                            <constraint firstItem="Scz-4i-JRa" firstAttribute="top" secondItem="8Bl-Z0-ANd" secondAttribute="top" constant="5" id="A11-5H-2mE"/>
+                                            <constraint firstItem="Scz-4i-JRa" firstAttribute="top" secondItem="8Bl-Z0-ANd" secondAttribute="top" constant="39" id="A11-5H-2mE"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" id="IZE-6N-K2G"/>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="20" id="OMK-Va-R3H"/>
                                             <constraint firstItem="ZaM-aV-lTD" firstAttribute="top" secondItem="bJN-Be-u7u" secondAttribute="bottom" constant="80" id="PnF-dT-uxx"/>
@@ -1115,9 +1115,10 @@ travel experience</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pb7-Ev-yW3" customClass="ATNotificationButton" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="338" y="14" width="22" height="22"/>
+                            <rect key="frame" x="330" y="10" width="30" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="Pb7-Ev-yW3" secondAttribute="height" multiplier="1:1" id="wNw-aQ-bO3"/>
+                                <constraint firstAttribute="width" constant="30" id="KrP-Be-fAc"/>
+                                <constraint firstAttribute="height" constant="30" id="RwA-Fg-zoD"/>
                             </constraints>
                             <state key="normal" image="userPlaceholder"/>
                             <connections>
@@ -1129,7 +1130,6 @@ travel experience</string>
                     <constraints>
                         <constraint firstItem="Pb7-Ev-yW3" firstAttribute="trailing" secondItem="oFL-Tu-ChT" secondAttribute="trailing" constant="-15" id="7jg-Xs-lVG"/>
                         <constraint firstItem="4Ce-Br-bjb" firstAttribute="leading" secondItem="oFL-Tu-ChT" secondAttribute="leading" constant="15" id="Gg8-Vc-a8y"/>
-                        <constraint firstItem="Pb7-Ev-yW3" firstAttribute="width" secondItem="Pb7-Ev-yW3" secondAttribute="height" multiplier="1:1" id="GwO-RS-sCM"/>
                         <constraint firstItem="LJC-Bd-vpK" firstAttribute="leading" secondItem="4Ce-Br-bjb" secondAttribute="trailing" constant="10" id="SzZ-Vh-Bsf"/>
                         <constraint firstItem="4Ce-Br-bjb" firstAttribute="centerY" secondItem="oFL-Tu-ChT" secondAttribute="centerY" id="nFB-4J-Fn3"/>
                         <constraint firstItem="LJC-Bd-vpK" firstAttribute="centerY" secondItem="4Ce-Br-bjb" secondAttribute="centerY" id="sSD-lD-eNz"/>

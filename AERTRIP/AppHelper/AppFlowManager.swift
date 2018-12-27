@@ -76,15 +76,7 @@ class AppFlowManager {
     func goToDashboard() {
         PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
         PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
-//        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
-//        self.sideMenuController = dashboard
-//        let nvc = UINavigationController(rootViewController: dashboard)
-//        self.mainNavigationController = nvc
-//        self.window.rootViewController = nvc
-//        self.window.becomeKey()
-//        self.window.makeKeyAndVisible()
 
-        
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.view.frame = UIScreen.main.bounds
         sideMenuVC.mainViewController(MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard))
@@ -107,32 +99,57 @@ extension AppFlowManager {
     
     func moveToSocialLoginVC() {
         let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        ob.view.backgroundColor = .clear
+        ob.view.layer.backgroundColor = UIColor.clear.cgColor
+        ob.view.layer.shadowOpacity   = 0
+        self.mainNavigationController.view.layer.shadowOpacity = 0
+        self.mainNavigationController.pushViewController(ob, animated: false)
     }
     
-    func moveToLoginVC() {
+    func moveToLoginVC(email: String) {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToCreateYourAccountVC() {
+    func moveToCreateYourAccountVC(email: String) {
         let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
 
-    func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "") {
+    func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
         let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.type  = type
         ob.viewModel.email = email
         ob.viewModel.refId = refId
+        ob.viewModel.token = token
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", refId: String = "") {
+    func deeplinkToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
+        
+        let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.type  = type
+        ob.viewModel.email = email
+        ob.viewModel.refId = refId
+        ob.viewModel.token = token
+        
+        let nvc = UINavigationController(rootViewController: ob)
+        self.mainNavigationController = nvc
+        self.window.rootViewController = nvc
+        self.window.becomeKey()
+        self.window.makeKeyAndVisible()
+    }
+    
+    
+    
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", key: String = "", token:String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.isPasswordType = isPasswordType
-        ob.viewModel.email  = email
-        ob.viewModel.refId = refId
+        ob.viewModel.email   = email
+        ob.viewModel.hashKey = key
+        ob.viewModel.token   = token
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
@@ -146,18 +163,16 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToForgotPasswordVC() {
+    func moveToForgotPasswordVC(email: String) {
         let ob = ForgotPasswordVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func addSuccessFullPopupVC(vc: UIViewController) {
+    func moveResetSuccessFullyPopup(vc: UIViewController) {
 
         let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
-        
-        vc.view.addSubview(ob.view)
-        vc.addChild(ob)
-
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToViewProfileVC() {

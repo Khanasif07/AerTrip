@@ -37,14 +37,15 @@ class CreateProfileSuccessVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
-        self.addShadowLayer()
-        self.addGradientLayer()
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
         
+//        self.addShadowLayer()
+//        self.addGradientLayer()
+//        self.successButton.setImage(UIImage(named: "Checkmark"), for: .normal)
     }
     
     //MARK:- Public
@@ -85,9 +86,8 @@ class CreateProfileSuccessVC: BaseVC {
     //MARK:- Action
     @IBAction func successButtonAction(_ sender: TransitionButton) {
         
-        UIView.animate(withDuration: 6, animations: {
-            
-            sender.startAnimation()
+        sender.startAnimation()
+        UIView.animate(withDuration: 10, animations: {
         }, completion: { animation in
             sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 0, completion: {
                 

@@ -85,6 +85,8 @@ class ViewProfileVC: UIViewController {
          setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
         tableView.tableFooterView = footerView
+        self.tableView.dataSource = self
+        self.tableView.delegate   = self
         
         
     }
@@ -137,7 +139,7 @@ class ViewProfileVC: UIViewController {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
-extension ViewProfileVC : UITableViewDataSource {
+extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -181,15 +183,30 @@ extension ViewProfileVC : UITableViewDataSource {
         default:
             return UITableViewCell()
         }
-        
     
         
     }
     
     
-   
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch sections[indexPath.section] {
+            
+        case "logOut":
+            
+            let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+                
+                if index == 0 {
+                    
+                    AppUserDefaults.removeAllValues()
+                    AppFlowManager.default.goToDashboard()
+                }
+            })
+            
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - MXParallaxHeaderDelegate methods

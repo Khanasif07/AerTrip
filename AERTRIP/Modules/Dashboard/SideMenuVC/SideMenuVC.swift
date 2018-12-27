@@ -32,6 +32,7 @@ class SideMenuVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.view.isHidden = false
         self.setNeedsStatusBarAppearanceUpdate()
         self.view.alpha = 1.0
     }
@@ -91,7 +92,10 @@ private extension SideMenuVC {
 // MARK: -
 
 extension SideMenuVC {
+    
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
+        
+        self.view.isHidden = true
         AppFlowManager.default.moveToSocialLoginVC()
     }
     
@@ -192,16 +196,6 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        
-        if indexPath.row == 6 && self.viewModel.isLogin {
-            
-            let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
-                
-                AppUserDefaults.removeAllValues()
-                AppFlowManager.default.goToDashboard()
-                
-            })
-        }
     }
 
     

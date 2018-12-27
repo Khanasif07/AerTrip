@@ -27,7 +27,7 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var sepratorLineImage: UIImageView!
     @IBOutlet weak var bottomStackView: UIStackView!
     @IBOutlet weak var socialButtonsStackView: UIStackView!
-   @IBOutlet weak var aertripHeaderTitleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var backButton: UIButton!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -41,17 +41,21 @@ class SocialLoginVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         if self.viewModel.isFirstTime {
+            
+            self.backButton.isHidden  = true
+            self.view.backgroundColor = .clear
             self.setupInitialAnimation()
         }
     }
     
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
-        }
+        self.backButton.isHidden = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -112,16 +116,37 @@ class SocialLoginVC: BaseVC {
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
         
-        AppFlowManager.default.moveToCreateYourAccountVC()
+        AppFlowManager.default.moveToCreateYourAccountVC(email: "")
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
-        AppFlowManager.default.moveToLoginVC()
+        AppFlowManager.default.moveToLoginVC(email: "")
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         
+        UIView.animate(withDuration: 0.35, animations: {
+            
+            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+            self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.bottomStackView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            
+            self.fbButton.alpha = 0
+            self.googleButton.alpha = 0
+            self.linkedInButton.alpha = 0
+            
+            self.backButton.isHidden        = true
+            self.logoImage.isHidden         = true
+            self.topImage.isHidden          = true
+            self.centerTitleLabel.isHidden  = true
+            
+        })
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -223,49 +248,50 @@ extension SocialLoginVC {
     
     func setupInitialAnimation() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: 20, y: -20)
-        self.topImage.transform          = CGAffineTransform(translationX: 20, y: -20)
-        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 20, y: -20)
-//        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-//        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-//        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-////        self.newRegisterLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-//        self.bottomStackView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-//        self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-    }
-    
-    func setupViewDidLoadAnimation() {
+        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.bottomStackView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
-        
-//        UIView.animate(withDuration: 0.2) {
-//
-//             self.centerTitleLabel.transform      = .identity
-//        }
-        
-//        UIView.animate(withDuration: 0.3) {
-//
-//
-//        }
-        
+        self.fbButton.alpha = 0
+        self.googleButton.alpha = 0
+        self.linkedInButton.alpha = 0
         
         UIView.animate(withDuration: 0.35, animations:{
             
             self.logoImage.transform = .identity
             self.topImage.transform  = .identity
             self.centerTitleLabel.transform  = .identity
-//            self.fbButton.transform    = .identity
-//            self.googleButton.transform = .identity
-//            self.linkedInButton.transform    = .identity
-//            self.newRegisterLabel.transform  = .identity
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
             
+            self.fbButton.transform = .identity
+            self.fbButton.alpha = 1.0
+        })
+        
+        UIView.animate(withDuration: 0.65, animations:{
             
+            self.googleButton.transform     = .identity
+            self.googleButton.alpha = 1.0
+        })
+        
+        UIView.animate(withDuration: 0.8, animations:{
+            
+            self.linkedInButton.transform     = .identity
+            self.linkedInButton.alpha = 1.0
+        })
+        
+        UIView.animate(withDuration: 0.75, animations:{
+            
+            self.bottomStackView.transform    = .identity
+            self.sepratorLineImage.transform  = .identity
         }) { (success) in
             
-//            UIView.animate(withDuration: 0.2) {
-//
-//                self.bottomStackView.transform = .identity
-//                self.sepratorLineImage.transform = .identity
-//            }
             self.viewModel.isFirstTime = false
         }
     }

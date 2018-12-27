@@ -109,7 +109,7 @@ class LoginVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToForgotPasswordVC()
+        AppFlowManager.default.moveToForgotPasswordVC(email: self.viewModel.email)
     }
     
     @IBAction func loginButtonAction(_ sender: ATButton) {
@@ -123,7 +123,7 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func registerHereButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToCreateYourAccountVC()
+        AppFlowManager.default.moveToCreateYourAccountVC(email: self.viewModel.email)
     }
 }
 
@@ -133,6 +133,7 @@ private extension LoginVC {
     
     func initialSetups() {
         
+        self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
         self.setupFontsAndText()
     }

@@ -91,6 +91,7 @@ class SocialLoginVM {
                 self.userData.lastName  = data["lastName"]  as? String ?? ""
                 self.userData.id      = data["id"] as? String ?? ""
                 self.userData.service   = "linkedin"
+                self.userData.email =  "akshaydxt0@gmail.com"
                 
                 printDebug(response)
                 

@@ -110,7 +110,7 @@ class CreateYourAccountVC: BaseVC {
     }
     
     @IBAction func loginHereButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToLoginVC()
+        AppFlowManager.default.moveToLoginVC(email: self.viewModel.email)
     }
 }
 
@@ -122,6 +122,8 @@ private extension CreateYourAccountVC {
         
         self.registerButton.isEnabled = false
         self.emailTextField.delegate  = self
+        self.emailTextField.text = self.viewModel.email
+        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
