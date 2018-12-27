@@ -26,7 +26,9 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var flightsLabel: UILabel!
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
-
+    @IBOutlet weak var profileButton: ATNotificationButton!
+    @IBOutlet weak var mainScrollviewTopConstraint: NSLayoutConstraint!
+    
     private var previousOffset = CGPoint.zero
     private var mainScrollViewOffset = CGPoint.zero
 
@@ -60,8 +62,15 @@ class DashboardVC: UIViewController {
         let fullHeight = UIScreen.main.bounds.size.height
 
         innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height
+        self.profileButton.cornerRadius = self.profileButton.height/2
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setupInitialAnimation()
+    }
+    
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
 
@@ -88,10 +97,17 @@ class DashboardVC: UIViewController {
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
+    
+    @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
+        
+        AppFlowManager.default.sideMenuController?.toggleMenu()
+    }
+    
 
     //MARK:- Private
     private func resetItems(){
 
+        self.mainScrollviewTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         aerinView.alpha = 0.5
         flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -100,6 +116,25 @@ class DashboardVC: UIViewController {
         hotelsView.alpha = 0.5
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
+        
+        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
+            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
+        }
+    }
+    
+    func setupInitialAnimation() {
+        
+        let originalCenter = self.view.center
+        self.view.alpha = 0.0
+        self.view.center = self.view.center
+        self.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.1, options: [.curveEaseOut], animations: {
+            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.view.center = originalCenter
+            self.view.alpha = 1.0
+        }, completion: nil)
+        
     }
 }
 

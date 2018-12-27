@@ -88,16 +88,17 @@ class SocialLoginVM {
             //Login success lsToken
             
             
-            linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+            linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,headline,picture-url,public-profile-url)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
                 
                 guard let data = response.jsonObject else {return}
                 
-                self.userData.authKey = linkedinHelper.lsAccessToken?.accessToken ?? ""
-                self.userData.firstName = data["firstName"] as? String ?? ""
+                self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
+                self.userData.firstName  = data["firstName"] as? String ?? ""
                 self.userData.lastName  = data["lastName"]  as? String ?? ""
-                self.userData.id      = data["id"] as? String ?? ""
+                self.userData.id            = data["id"] as? String ?? ""
                 self.userData.service   = "linkedin"
-                self.userData.email =  "akshaydxt0@gmail.com"
+                self.userData.email      =  data["emailAddress"] as? String ?? ""
+                self.userData.picture   = data["pictureUrl"] as? String ?? ""
                 
                 printDebug(response)
                 

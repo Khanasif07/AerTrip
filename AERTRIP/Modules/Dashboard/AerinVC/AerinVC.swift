@@ -47,7 +47,7 @@ class AerinVC: BaseVC {
         
         self.bottomCollectionView.layer.cornerRadius = 20
         self.bottomCollectionView.layer.borderWidth = 7
-        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(30).cgColor
+        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.5).cgColor
         
     }
     

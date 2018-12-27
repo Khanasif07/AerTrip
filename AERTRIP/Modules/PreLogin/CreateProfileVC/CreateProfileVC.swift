@@ -31,8 +31,10 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var countryFlagImage: UIImageView!
     @IBOutlet weak var titleDropDownImage: UIImageView!
-    
     @IBOutlet weak var countryDropdownImage: UIImageView!
+    @IBOutlet weak var letsStartButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var letStartButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var backButton: UIButton!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -107,8 +109,15 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        if self.viewModel.isValidateData {
-            self.viewModel.webserviceForUpdateProfile()
+        
+        if self.viewModel.isSuccessView{
+            
+            AppFlowManager.default.goToDashboard()
+        } else {
+           
+            if self.viewModel.isValidateData {
+                self.viewModel.webserviceForUpdateProfile()
+            }
         }
     }
 }
@@ -303,7 +312,7 @@ extension CreateProfileVC: CreateProfileVMDelegate {
     func getSuccess() {
         
         self.letsStartedButton.isLoading = false
-        AppFlowManager.default.moveToCreateProfileSuccessVC()
+        self.setupViewForSuccessAnimation()
     }
     
     func getFail(errors: ErrorCodes) {
@@ -328,6 +337,36 @@ extension CreateProfileVC: CreateProfileVMDelegate {
 //MARK:- Extension InitialAnimation
 //MARK:-
 extension CreateProfileVC {
+    
+    func setupViewForSuccessAnimation() {
+        
+        self.viewModel.isSuccessView = true
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            
+            self.letsStartedButton.setTitle("", for: .normal)
+            
+            let myLayer = CALayer()
+            myLayer.backgroundColor = UIColor.clear.cgColor
+            let myImage = UIImage(named: "Checkmark")?.cgImage
+            myLayer.frame = CGRect(x: 27, y: 27, width: 20, height: 20)
+            myLayer.contents = myImage
+            self.letsStartedButton.layer.addSublayer(myLayer)
+            
+            self.letStartButtonHeight.constant   = 74
+            self.letsStartButtonWidth.constant   = 74
+            
+            self.letsStartedButton.layer.cornerRadius = 37
+            let y = UIScreen.main.bounds.height/2 - 37
+            self.setViewAlphaZero()
+            self.letsStartedButton.transform = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y))
+            
+            DispatchQueue.main.async {
+                
+                self.letsStartedButton.layoutIfNeeded()
+            }
+        })
+    }
     
     func setupInitialAnimation() {
         
@@ -379,5 +418,23 @@ extension CreateProfileVC {
         }) { (success) in
             self.viewModel.isFirstTime = false
         }
+    }
+    
+    func setViewAlphaZero() {
+        
+        self.logoImage.alpha         = 0
+        self.createProfileTitleLabel.alpha         = 0
+        self.createProfileSubTitleLabel.alpha         = 0
+        self.nameTitleTextField.alpha = 0
+        self.firstNameTextField.alpha = 0
+        self.lastNameTextField.alpha = 0
+        self.countryTextField.alpha = 0
+        self.mobileNumberTextField.alpha = 0
+        self.backButton.alpha = 0
+        self.countryCodeTextField.alpha = 0
+        self.countryCodeLabel.alpha = 0
+        self.countryFlagImage.alpha = 0
+        self.titleDropDownImage.alpha = 0
+        self.countryDropdownImage.alpha = 0
     }
 }

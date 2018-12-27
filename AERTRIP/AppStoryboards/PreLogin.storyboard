@@ -900,19 +900,6 @@ activation link on</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Mobile Number"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-hK-MVU" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="97.5" y="403" width="180" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ncc-bi-9oR"/>
-                                    <constraint firstAttribute="width" constant="180" id="hpk-Hl-bTa"/>
-                                </constraints>
-                                <state key="normal" title="Lets Get Started!">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
                                 <rect key="frame" x="16" y="344.5" width="20" height="15"/>
                                 <constraints>
@@ -926,6 +913,19 @@ activation link on</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-hK-MVU" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="97.5" y="403" width="180" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ncc-bi-9oR"/>
+                                    <constraint firstAttribute="width" constant="180" id="hpk-Hl-bTa"/>
+                                </constraints>
+                                <state key="normal" title="Lets Get Started!">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -969,6 +969,7 @@ activation link on</string>
                         <viewLayoutGuide key="safeArea" id="1ay-s3-FhZ"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Igl-7h-Czp" id="geD-ld-kpS"/>
                         <outlet property="countryCodeLabel" destination="dWL-VF-RMv" id="Zgf-RA-08m"/>
                         <outlet property="countryCodeTextField" destination="0U9-7b-2mE" id="mUw-pX-6ca"/>
                         <outlet property="countryDropdownImage" destination="pnN-Hl-zo1" id="8JR-C0-Urw"/>
@@ -978,6 +979,8 @@ activation link on</string>
                         <outlet property="createProfileTitleLabel" destination="LtP-IR-kku" id="FhF-6K-NoZ"/>
                         <outlet property="firstNameTextField" destination="Ae2-mr-IqQ" id="OAm-9N-rD9"/>
                         <outlet property="lastNameTextField" destination="dMv-iW-8FW" id="HJ4-eR-nmR"/>
+                        <outlet property="letStartButtonHeight" destination="Ncc-bi-9oR" id="dGK-PJ-YZd"/>
+                        <outlet property="letsStartButtonWidth" destination="hpk-Hl-bTa" id="amn-or-zrF"/>
                         <outlet property="letsStartedButton" destination="JhX-hK-MVU" id="Pwr-qB-8Se"/>
                         <outlet property="logoImage" destination="yzr-jj-cAo" id="Qjd-G0-65N"/>
                         <outlet property="mobileNumberTextField" destination="KeZ-q3-qwq" id="bfI-4A-jHE"/>
