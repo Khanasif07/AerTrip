@@ -23,7 +23,8 @@ class AerinVC: BaseVC {
     @IBOutlet weak var aerinContainer: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var weekendMessageLabel: UILabel!
-
+    @IBOutlet weak var bottomCollectionView: UIView!
+    
     private var previousOffSet = CGPoint.zero
 
     //MARK:- ViewLifeCycle
@@ -39,6 +40,15 @@ class AerinVC: BaseVC {
         
         self.pulsAnimation.start()
 
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.bottomCollectionView.layer.cornerRadius = 20
+        self.bottomCollectionView.layer.borderWidth = 7
+        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(30).cgColor
+        
     }
     
     override func initialSetup() {

@@ -644,7 +644,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="484.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Bl-Z0-ANd">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="634"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="651"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, I’m Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scz-4i-JRa">
                                                 <rect key="frame" x="0.0" y="50" width="375" height="33.5"/>
@@ -659,7 +659,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBE-4e-7Yr">
-                                                <rect key="frame" x="112.5" y="141.5" width="150" height="150"/>
+                                                <rect key="frame" x="112.5" y="146.5" width="150" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-eF-3hM">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
@@ -677,7 +677,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJN-Be-u7u">
-                                                <rect key="frame" x="15" y="321.5" width="345" height="68.5"/>
+                                                <rect key="frame" x="15" y="331.5" width="345" height="68.5"/>
                                                 <string key="text">“Try asking for Flights from Mumbai to Delhi
 on Christmas”</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -685,13 +685,13 @@ on Christmas”</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekend Getaway!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG4-JY-83S">
-                                                <rect key="frame" x="30" y="460" width="315" height="21"/>
+                                                <rect key="frame" x="30" y="470" width="315" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-aV-lTD">
-                                                <rect key="frame" x="30" y="489" width="315" height="130"/>
+                                                <rect key="frame" x="30" y="506" width="315" height="130"/>
                                                 <color key="backgroundColor" red="0.3428386578" green="0.89365664779999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="130" id="Gmf-A9-uXA"/>
@@ -701,11 +701,11 @@ on Christmas”</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="5rZ-LR-yJq"/>
-                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="30" id="6Ic-CZ-Qwm"/>
+                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="35" id="6Ic-CZ-Qwm"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZaM-aV-lTD" secondAttribute="bottom" constant="15" id="8DM-Eg-KIw"/>
                                             <constraint firstItem="Scz-4i-JRa" firstAttribute="top" secondItem="8Bl-Z0-ANd" secondAttribute="top" constant="50" id="A11-5H-2mE"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" id="IZE-6N-K2G"/>
-                                            <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="30" id="OMK-Va-R3H"/>
+                                            <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="35" id="OMK-Va-R3H"/>
                                             <constraint firstItem="Scz-4i-JRa" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" id="Q21-27-dso"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" id="UzB-W0-FFD"/>
                                             <constraint firstItem="ese-ox-irL" firstAttribute="leading" secondItem="Scz-4i-JRa" secondAttribute="leading" id="XAH-7s-eUj"/>
@@ -716,7 +716,7 @@ on Christmas”</string>
                                             <constraint firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="kWb-g8-wmH"/>
                                             <constraint firstItem="ZaM-aV-lTD" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="30" id="tkU-EY-dy5"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="leading" secondItem="ese-ox-irL" secondAttribute="leading" constant="15" id="u1V-He-MDk"/>
-                                            <constraint firstItem="ZaM-aV-lTD" firstAttribute="top" secondItem="DG4-JY-83S" secondAttribute="bottom" constant="8" id="uMm-t4-kLG"/>
+                                            <constraint firstItem="ZaM-aV-lTD" firstAttribute="top" secondItem="DG4-JY-83S" secondAttribute="bottom" constant="15" id="uMm-t4-kLG"/>
                                             <constraint firstItem="ese-ox-irL" firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="xEZ-I7-Sqd"/>
                                         </constraints>
                                     </view>
@@ -747,6 +747,7 @@ on Christmas”</string>
                     <connections>
                         <outlet property="aerinButton" destination="Jou-eF-3hM" id="IPK-TE-OwC"/>
                         <outlet property="aerinContainer" destination="FBE-4e-7Yr" id="1y0-Qz-Kc4"/>
+                        <outlet property="bottomCollectionView" destination="ZaM-aV-lTD" id="uhB-cG-Rhi"/>
                         <outlet property="commandHintLabel" destination="bJN-Be-u7u" id="3Cj-Wg-CQg"/>
                         <outlet property="contentView" destination="8Bl-Z0-ANd" id="OWB-d5-Kot"/>
                         <outlet property="greetingLabel" destination="Scz-4i-JRa" id="uXk-Cm-uhE"/>
