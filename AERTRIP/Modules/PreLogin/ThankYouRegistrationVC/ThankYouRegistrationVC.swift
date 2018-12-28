@@ -169,11 +169,11 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
         print("before comit")
         if self.viewModel.type == .deeplinkSetPassword {
             
-            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, refId: self.viewModel.refId)
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, key: self.viewModel.refId)
             
         } else if self.viewModel.type == .deeplinkResetPassword {
             
-            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod)
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod, email: self.viewModel.email, key: self.viewModel.refId, token: self.viewModel.token)
         }
     }
     

@@ -57,11 +57,7 @@ enum APIKeys: String {
     case contact = "contact"
     case ff = "ff"
     case label = "label"
-   
-    
-    
-    
-    
+    case hash_key
     
 }
 

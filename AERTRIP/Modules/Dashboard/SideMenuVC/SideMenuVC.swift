@@ -29,22 +29,24 @@ class SideMenuVC: BaseVC {
 //        self.viewModel.isLogin.is
         self.initialSetups()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        self.sideMenuTableView.isHidden = false
         self.setNeedsStatusBarAppearanceUpdate()
-        self.view.alpha = 1.0
+        self.sideMenuTableView.alpha = 1.0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3) {
-            self.view.alpha = 0.5
+
+             self.sideMenuTableView.alpha = 0.5
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
     }
     
     // MARK: - IBAction
@@ -52,15 +54,16 @@ class SideMenuVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+
+//       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.googleLogin(vc: self, completionBlock: nil)
+//        self.socialViewModel.googleLogin()
     }
     
     @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.linkedLogin()
+//        self.socialViewModel.linkedLogin()
     }
 }
 
@@ -86,7 +89,10 @@ private extension SideMenuVC {
 // MARK: -
 
 extension SideMenuVC {
+    
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
+        
+        self.sideMenuTableView.isHidden = true
         AppFlowManager.default.moveToSocialLoginVC()
     }
     
@@ -174,14 +180,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 6, self.viewModel.isLogin {
-            let action = AKAlertController.actionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: { _, _ in
-                
-                AppUserDefaults.removeAllValues()
-                AppFlowManager.default.goToDashboard()
-                
-            })
-        }
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

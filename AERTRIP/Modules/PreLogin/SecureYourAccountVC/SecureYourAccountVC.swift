@@ -141,7 +141,7 @@ class SecureYourAccountVC: BaseVC {
             
             if self.viewModel.isPasswordType == .setPassword {
                 
-                AppFlowManager.default.moveToCreateProfileVC(refId: self.viewModel.refId, email: self.viewModel.email, password: self.viewModel.password)
+                AppFlowManager.default.moveToCreateProfileVC(refId: self.viewModel.hashKey, email: self.viewModel.email, password: self.viewModel.password)
                 
             } else {
                 self.viewModel.webserviceForUpdatePassword()
@@ -326,6 +326,7 @@ extension SecureYourAccountVC: SecureYourAccountVMDelegate {
     
     func getSuccess() {
         self.nextButton.isLoading = false
+        AppFlowManager.default.moveResetSuccessFullyPopup(vc: self)
     }
     
     func getFail(errors: ErrorCodes) {

@@ -21,7 +21,7 @@ class CreateProfileVM {
     var salutation = [String]()
     var userData   = UserModel()
     var isFirstTime = true
-    
+    var isSuccessView = false
     var isValidateForButtonEnable : Bool {
         
         if self.userData.salutation.isEmpty {
@@ -33,6 +33,8 @@ class CreateProfileVM {
         } else if self.userData.country.isEmpty {
             return false
         } else if self.userData.mobile.isEmpty {
+            return false
+        } else if self.userData.mobile.count < self.userData.minNumberCount {
             return false
         }
         return true
@@ -81,9 +83,10 @@ extension CreateProfileVM {
         params[APIKeys.isd.rawValue]        = self.userData.isd
         params[APIKeys.country.rawValue]    = self.userData.countryCode
         params[APIKeys.salutation.rawValue] = self.userData.salutation
+         params[APIKeys.mobile.rawValue]  = self.userData.mobile
         
         self.delegate?.willApiCall()
-        APICaller.shared.callUpdateUserDetailAPI(params: params, loader: true, completionBlock: {(success, errors) in
+        APICaller.shared.callUpdateUserDetailAPI(params: params,  loader: true,  completionBlock: {(success, errors) in
             
             if success {
                 self.delegate?.getSuccess()

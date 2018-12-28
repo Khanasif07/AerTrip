@@ -101,6 +101,8 @@ private extension ForgotPasswordVC {
         
         self.continueButton.isEnabled = false
         self.emailTextField.delegate = self
+        self.emailTextField.text = self.viewModel.email
+        self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -113,11 +115,7 @@ extension ForgotPasswordVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
-        if self.viewModel.isValidateForContinueButtonSelection {
-            self.continueButton.isEnabled = true
-        } else {
-            self.continueButton.isEnabled = false
-        }
+        self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -18,21 +18,26 @@ public enum PKSideMenuAnimation {
 }
 
 public struct PKSideMenuOptions {
-    public static var mainViewCornerRadiusInOpenMode: CGFloat = 15.0
+    public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
     public static var sideDistanceForOpenMenu: CGFloat = 220.0
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
+    public static var dropOffShadowColor: UIColor = UIColor.black
     public static var panGesturesEnabled: Bool = true
     public static var tapGesturesEnabled: Bool = true
     public static var currentOpeningSide: PKSideMenuOpenSide = .left
     public static var currentAnimation: PKSideMenuAnimation = .curve3D
 }
 
-class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
+open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK:- Properties
     //MARK:- Public
+    public var isOpen: Bool {
+        let fMain : CGRect = self.mainContainer!.frame
+        return (fMain.minX == self.distanceOpenMenu)
+    }
     
     //MARK:- Private
     private var mainContainer : UIView?
@@ -48,12 +53,31 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK:- View Controller Life Cycle
     //MARK:-
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         setUp()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        if self.menuViewController != nil {
+             return .lightContent
+        }
+        
+        if self.mainViewController != nil {
+            return .default
+        }
+       
+         return .default
+     }
     
     //MARK:- Methods
     //MARK:- Private
@@ -81,10 +105,10 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     private func addDropOffShadow() {
         let layerTemp = self.mainContainer!.layer
         layerTemp.masksToBounds = false
-        layerTemp.shadowColor = AppColors.themeBlack.cgColor
+        layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.cgColor
         layerTemp.shadowOpacity = 0.0
         layerTemp.shadowOffset = CGSize(width: 0, height: 2)
-        layerTemp.shadowRadius = 20.0
+        layerTemp.shadowRadius = 15.0
 
         layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
     }
@@ -246,8 +270,7 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     func toggleMenu(){
-        let fMain : CGRect = self.mainContainer!.frame
-        if (fMain.minX == self.distanceOpenMenu) {
+        if self.isOpen {
             closeMenu()
         }else{
             openMenu()
@@ -269,22 +292,23 @@ extension PKSideMenuController {
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             let layerTemp : CALayer = (self.mainContainer?.layer)!
             layerTemp.zPosition = 1000
-            
+
             var tRotate : CATransform3D = CATransform3DIdentity
-            tRotate.m34 = 1.0 / (-500.0)
-            
-            let aXpos: CGFloat = CGFloat(-20.0 * (.pi / 180))
+            tRotate.m34 = 1.0 / (-800.0)
+            tRotate.m44 = 1.0
+
+            let aXpos: CGFloat = CGFloat(-40.0 * (.pi / 180))
             tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
-            
+
             var tScale : CATransform3D = CATransform3DIdentity
-            tScale.m34 = 1.0 / (-500.0)
-            tScale = CATransform3DScale(tScale, 0.8, 0.7, 1.0)
+            tScale.m34 = 1.0 / (-800.0)
+            tScale = CATransform3DScale(tScale, 0.85, 0.75, 1.0)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
-            
+
             self.mainContainer?.frame = mainFrame
-            
+
             self.menuContainer?.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
-            
+
         }) { (finished: Bool) -> Void in
         }
     }

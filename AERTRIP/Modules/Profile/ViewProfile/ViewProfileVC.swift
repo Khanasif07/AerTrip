@@ -107,6 +107,8 @@ class ViewProfileVC: BaseVC {
         self.setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
         tableView.tableFooterView = footerView
+        self.tableView.dataSource = self
+        self.tableView.delegate   = self
     }
     
     func addTableHeaderView() {
@@ -156,7 +158,8 @@ class ViewProfileVC: BaseVC {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
-extension ViewProfileVC: UITableViewDataSource {
+extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
     }
@@ -197,6 +200,29 @@ extension ViewProfileVC: UITableViewDataSource {
             return cell
         default:
             return UITableViewCell()
+        }
+    
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch sections[indexPath.section] {
+            
+        case "logOut":
+            
+            let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+                
+                if index == 0 {
+                    
+                    AppUserDefaults.removeAllValues()
+                    AppFlowManager.default.goToDashboard()
+                }
+            })
+            
+        default:
+            break
         }
     }
 }

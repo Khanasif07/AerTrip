@@ -109,6 +109,8 @@ class MainDashboardVC: BaseVC {
     private var currentSegment: MainDashboardVC.Segment = .aerin
     private let transformScalePercent: CGFloat = 0.25
     private let fadeAlphaPercentage: CGFloat = 0.6
+    private let expandCurve:CAMediaTimingFunction   = CAMediaTimingFunction(controlPoints: 0.95, 0.02, 1, 0.05)
+    private var isFirstTime = true
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
@@ -169,6 +171,55 @@ class MainDashboardVC: BaseVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.isFirstTime {
+            
+            
+//            let expandAnim = CABasicAnimation(keyPath: "transform.scale")
+//            let expandScale = 0.0
+//            expandAnim.fromValue            = 1.0
+//            expandAnim.toValue              = max(expandScale,1.0)
+//            expandAnim.timingFunction       = self.expandCurve
+//            expandAnim.duration             = 0.4
+//            expandAnim.fillMode             = .forwards
+//            expandAnim.isRemovedOnCompletion  = false
+//
+//            CATransaction.setCompletionBlock {
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                    self.setOriginalState(completion: nil)
+//                    self.view.layer.removeAllAnimations() // make sure we remove all animation
+//                }
+//            }
+            
+//            self.view.layer.add(expandAnim, forKey: expandAnim.keyPath)
+//
+//            CATransaction.commit()
+            
+            self.view.transform = CGAffineTransform(scaleX: 0, y: 0)
+            self.headerView.transform = CGAffineTransform(translationX: 0, y: -self.headerView.height)
+            self.sectionHeader.transform = CGAffineTransform(translationX: 0, y: -(self.headerView.height + self.sectionHeader.height))
+            
+            UIView.animate(withDuration: 0.6, animations: {
+
+                self.view.transform = .identity
+            })
+            
+            UIView.animate(withDuration:  0.9,  animations: {
+                
+                self.headerView.transform = .identity
+                self.sectionHeader.transform = .identity
+                
+            }, completion: { success in
+                self.isFirstTime = false
+            })
+        }
+        
+        
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -198,7 +249,7 @@ class MainDashboardVC: BaseVC {
     
     @IBAction func profileButtonAction(_ sender: UIButton) {
         
-         AppFlowManager.default.sideMenuController?.toggleMenu()
+        AppFlowManager.default.sideMenuController?.toggleMenu()
     }
     
     @IBAction func aerinButtonAction(_ sender: UIButton) {
@@ -271,7 +322,7 @@ extension MainDashboardVC {
         
         self.tableViewTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         self.headerView.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 44)
-//        self.sectionHeader.backgroundColor = AppColors.themeGreen
+        //        self.sectionHeader.backgroundColor = AppColors.themeGreen
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.tableHeaderView = self.headerView
@@ -280,9 +331,14 @@ extension MainDashboardVC {
         self.hotelsContainerView.alpha = self.fadeAlphaPercentage
         self.tripsContainerView.alpha = self.fadeAlphaPercentage
         
-//        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
-//            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
-//        }
+        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
+            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
+        }
+    }
+    
+    private func setOriginalState(completion:(()->Void)?) {
+        // enable again the user interaction
+        self.view.layer.cornerRadius = self.view.cornerRadius
     }
 }
 

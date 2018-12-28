@@ -148,11 +148,13 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-//                let userSettings = jsonData[APIKeys.data.rawValue].dictionary
-//                AppUserDefaults.save(value: userSettings, forKey: .userData)
-//                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
-                
-                
+                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
+                if let userData = userSettings{
+                   var  newUserData = userData
+                    newUserData["points"] = "0"
+                    AppUserDefaults.save(value: newUserData, forKey: .userData)
+                }
+                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in

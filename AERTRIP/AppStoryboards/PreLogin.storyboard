@@ -13,7 +13,7 @@
         <!--Social LoginVC-->
         <scene sceneID="lxc-pF-W3Q">
             <objects>
-                <viewController storyboardIdentifier="SocialLoginVC" modalTransitionStyle="partialCurl" id="qt3-bg-yqI" customClass="SocialLoginVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SocialLoginVC" modalTransitionStyle="crossDissolve" id="qt3-bg-yqI" customClass="SocialLoginVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hCX-v0-Jq7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,6 +159,7 @@ travel experience</string>
                     </view>
                     <navigationItem key="navigationItem" id="EA5-8e-qPT"/>
                     <connections>
+                        <outlet property="backButton" destination="ZjO-ym-E6P" id="KOd-jk-D5j"/>
                         <outlet property="bottomStackView" destination="AKK-Lw-N8e" id="Lio-fd-ppZ"/>
                         <outlet property="centerTitleLabel" destination="Z2C-dF-580" id="SFR-GY-HmE"/>
                         <outlet property="existingUserLabel" destination="joQ-u7-ebo" id="Vvs-WU-ujG"/>
@@ -350,7 +351,7 @@ travel experience</string>
                             <constraint firstItem="CIg-eF-8Re" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pab-85-MYm"/>
                             <constraint firstItem="dk8-xp-fXq" firstAttribute="leading" secondItem="482-jm-agR" secondAttribute="trailing" constant="5" id="r0H-M6-nDn"/>
                             <constraint firstItem="dk8-xp-fXq" firstAttribute="centerY" secondItem="482-jm-agR" secondAttribute="centerY" id="wJY-Qw-eqo"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="482-jm-agR" secondAttribute="bottom" constant="26" id="zxW-yX-oFi"/>
+                            <constraint firstAttribute="bottom" secondItem="482-jm-agR" secondAttribute="bottom" constant="26" id="zxW-yX-oFi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -459,7 +460,7 @@ travel experience</string>
                             <constraint firstItem="knd-x8-mi8" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pH4-H8-Hck"/>
                             <constraint firstItem="vBZ-BY-zXq" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pp4-nq-WBE"/>
                             <constraint firstItem="W31-w0-Pb4" firstAttribute="top" secondItem="c0R-YW-wXW" secondAttribute="bottom" constant="13" id="sKa-uR-WwU"/>
-                            <constraint firstItem="hGy-N8-L8G" firstAttribute="bottom" secondItem="VeF-rv-nfP" secondAttribute="bottom" constant="26" id="xPs-fO-ywd"/>
+                            <constraint firstAttribute="bottom" secondItem="VeF-rv-nfP" secondAttribute="bottom" constant="26" id="xPs-fO-ywd"/>
                             <constraint firstItem="W31-w0-Pb4" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="yjI-Eb-5Pg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hGy-N8-L8G"/>
@@ -545,7 +546,7 @@ activation link on</string>
                             <constraint firstItem="sC4-D6-RSH" firstAttribute="leading" secondItem="iad-Aw-MzD" secondAttribute="leading" constant="20" id="3U2-eW-QL1"/>
                             <constraint firstItem="tcA-OM-qCg" firstAttribute="trailing" secondItem="msy-WE-wC6" secondAttribute="trailing" id="4Q6-ws-3In"/>
                             <constraint firstItem="iad-Aw-MzD" firstAttribute="trailing" secondItem="sC4-D6-RSH" secondAttribute="trailing" constant="20" id="FPC-yy-gpq"/>
-                            <constraint firstItem="iad-Aw-MzD" firstAttribute="bottom" secondItem="sC4-D6-RSH" secondAttribute="bottom" constant="26" id="Flm-ca-3XS"/>
+                            <constraint firstAttribute="bottom" secondItem="sC4-D6-RSH" secondAttribute="bottom" constant="26" id="Flm-ca-3XS"/>
                             <constraint firstItem="msy-WE-wC6" firstAttribute="trailing" secondItem="iad-Aw-MzD" secondAttribute="trailing" constant="-20" id="HOd-YM-LG2"/>
                             <constraint firstItem="VG6-Nw-jpn" firstAttribute="top" secondItem="iad-Aw-MzD" secondAttribute="top" constant="8" id="LCJ-Ya-Lvl"/>
                             <constraint firstItem="msy-WE-wC6" firstAttribute="leading" secondItem="iad-Aw-MzD" secondAttribute="leading" constant="24" id="O09-5c-CpK"/>
@@ -899,19 +900,6 @@ activation link on</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Mobile Number"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-hK-MVU" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="97.5" y="403" width="180" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ncc-bi-9oR"/>
-                                    <constraint firstAttribute="width" constant="180" id="hpk-Hl-bTa"/>
-                                </constraints>
-                                <state key="normal" title="Lets Get Started!">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
                                 <rect key="frame" x="16" y="344.5" width="20" height="15"/>
                                 <constraints>
@@ -925,6 +913,19 @@ activation link on</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-hK-MVU" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="97.5" y="403" width="180" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ncc-bi-9oR"/>
+                                    <constraint firstAttribute="width" constant="180" id="hpk-Hl-bTa"/>
+                                </constraints>
+                                <state key="normal" title="Lets Get Started!">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="letsGetStartButton:" destination="J7s-HH-e9f" eventType="touchUpInside" id="dJ9-iy-q6z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -968,6 +969,7 @@ activation link on</string>
                         <viewLayoutGuide key="safeArea" id="1ay-s3-FhZ"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Igl-7h-Czp" id="geD-ld-kpS"/>
                         <outlet property="countryCodeLabel" destination="dWL-VF-RMv" id="Zgf-RA-08m"/>
                         <outlet property="countryCodeTextField" destination="0U9-7b-2mE" id="mUw-pX-6ca"/>
                         <outlet property="countryDropdownImage" destination="pnN-Hl-zo1" id="8JR-C0-Urw"/>
@@ -977,6 +979,8 @@ activation link on</string>
                         <outlet property="createProfileTitleLabel" destination="LtP-IR-kku" id="FhF-6K-NoZ"/>
                         <outlet property="firstNameTextField" destination="Ae2-mr-IqQ" id="OAm-9N-rD9"/>
                         <outlet property="lastNameTextField" destination="dMv-iW-8FW" id="HJ4-eR-nmR"/>
+                        <outlet property="letStartButtonHeight" destination="Ncc-bi-9oR" id="dGK-PJ-YZd"/>
+                        <outlet property="letsStartButtonWidth" destination="hpk-Hl-bTa" id="amn-or-zrF"/>
                         <outlet property="letsStartedButton" destination="JhX-hK-MVU" id="Pwr-qB-8Se"/>
                         <outlet property="logoImage" destination="yzr-jj-cAo" id="Qjd-G0-65N"/>
                         <outlet property="mobileNumberTextField" destination="KeZ-q3-qwq" id="bfI-4A-jHE"/>
@@ -1093,7 +1097,7 @@ activation link on</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-dP-08B">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenOvLogin" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-dP-08B">
                                 <rect key="frame" x="156.5" y="173.5" width="62" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="e3z-rs-C8d"/>
@@ -1119,6 +1123,9 @@ activation link on</string>
                                     <action selector="loginButtonAction:" destination="kcq-FZ-Z11" eventType="touchUpInside" id="VGg-9Y-g5Z"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCheckMark" translatesAutoresizingMaskIntoConstraints="NO" id="ct2-Nn-Ece">
+                                <rect key="frame" x="172" y="192.5" width="31" height="24"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1127,6 +1134,8 @@ activation link on</string>
                             <constraint firstItem="soF-hB-etE" firstAttribute="top" secondItem="whD-cN-46r" secondAttribute="bottom" constant="16" id="4vU-hP-jvy"/>
                             <constraint firstItem="BGA-dP-08B" firstAttribute="centerX" secondItem="soF-hB-etE" secondAttribute="centerX" id="G5G-wb-Pge"/>
                             <constraint firstItem="whD-cN-46r" firstAttribute="top" secondItem="gIT-5k-y26" secondAttribute="top" constant="41" id="GqN-s1-O8b"/>
+                            <constraint firstItem="ct2-Nn-Ece" firstAttribute="centerX" secondItem="BGA-dP-08B" secondAttribute="centerX" id="Hf0-WB-bqw"/>
+                            <constraint firstItem="ct2-Nn-Ece" firstAttribute="centerY" secondItem="BGA-dP-08B" secondAttribute="centerY" id="VzQ-uJ-xXb"/>
                             <constraint firstItem="soF-hB-etE" firstAttribute="leading" secondItem="gIT-5k-y26" secondAttribute="leading" constant="20" id="XMC-SV-xrU"/>
                             <constraint firstItem="gIT-5k-y26" firstAttribute="trailing" secondItem="soF-hB-etE" secondAttribute="trailing" constant="20" id="aVl-Z7-NZ1"/>
                             <constraint firstItem="gIT-5k-y26" firstAttribute="trailing" secondItem="YHv-9D-IBk" secondAttribute="trailing" constant="20" id="dkX-F3-aBk"/>
@@ -1158,21 +1167,22 @@ activation link on</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipj-3f-sMD" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="150.5" y="306.5" width="74" height="74"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="74" id="Smi-aa-YlU"/>
-                                    <constraint firstAttribute="height" constant="74" id="fyw-Ma-4XY"/>
-                                </constraints>
-                                <state key="normal" image="Checkmark"/>
+                                <rect key="frame" x="140.5" y="296" width="94" height="95"/>
+                                <state key="normal" image="greenCircleShadow"/>
                                 <connections>
                                     <action selector="successButtonAction:" destination="69v-VQ-DNw" eventType="touchUpInside" id="LtZ-3f-w3I"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="OE0-L0-UwC">
+                                <rect key="frame" x="176" y="321" width="23" height="18"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="OE0-L0-UwC" firstAttribute="centerY" secondItem="ipj-3f-sMD" secondAttribute="centerY" multiplier="0.96" id="B15-f6-dmp"/>
                             <constraint firstItem="ipj-3f-sMD" firstAttribute="centerX" secondItem="tTB-Da-via" secondAttribute="centerX" id="HWh-Lf-Wqv"/>
                             <constraint firstItem="ipj-3f-sMD" firstAttribute="centerY" secondItem="tTB-Da-via" secondAttribute="centerY" id="NQR-l1-5MC"/>
+                            <constraint firstItem="OE0-L0-UwC" firstAttribute="centerX" secondItem="ipj-3f-sMD" secondAttribute="centerX" id="YDU-ca-cqL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tTB-Da-via"/>
                     </view>
@@ -1191,6 +1201,9 @@ activation link on</string>
         <image name="downArrow" width="9" height="6"/>
         <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
+        <image name="greenCheckMark" width="31.5" height="24.5"/>
+        <image name="greenCircleShadow" width="94.5" height="95.5"/>
+        <image name="greenOvLogin" width="62" height="62"/>
         <image name="in" width="100" height="67"/>
         <image name="line" width="1" height="60.5"/>
         <image name="linkedInIcon" width="24" height="24"/>
