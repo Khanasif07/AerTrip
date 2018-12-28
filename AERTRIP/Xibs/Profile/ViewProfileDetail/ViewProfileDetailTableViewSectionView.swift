@@ -10,6 +10,7 @@ import UIKit
 
 class ViewProfileDetailTableViewSectionView: UITableViewHeaderFooterView {
 
+    @IBOutlet weak var topSeparatorView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     
     

@@ -24,7 +24,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7WK-Gu-nru">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="143"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="AgY-Q3-eMG">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="AgY-Q3-eMG">
                             <rect key="frame" x="16" y="21" width="90" height="90"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="YVT-jL-yVq"/>
@@ -135,7 +135,6 @@
                         <constraint firstAttribute="bottom" secondItem="UMr-KD-giJ" secondAttribute="bottom" constant="11" id="8E1-Mk-0h8"/>
                         <constraint firstItem="AgY-Q3-eMG" firstAttribute="top" secondItem="7WK-Gu-nru" secondAttribute="top" constant="21" id="DOV-74-6X3"/>
                         <constraint firstItem="WGe-mC-R33" firstAttribute="centerX" secondItem="AgY-Q3-eMG" secondAttribute="centerX" id="DWK-qe-rxP"/>
-                        <constraint firstAttribute="height" constant="143" id="JJg-pr-tJq"/>
                         <constraint firstItem="UMr-KD-giJ" firstAttribute="leading" secondItem="AgY-Q3-eMG" secondAttribute="trailing" constant="16" id="Wa2-lT-RXH"/>
                         <constraint firstItem="WGe-mC-R33" firstAttribute="top" secondItem="AgY-Q3-eMG" secondAttribute="bottom" constant="6" id="Wo2-JI-Gwc"/>
                         <constraint firstItem="AgY-Q3-eMG" firstAttribute="leading" secondItem="7WK-Gu-nru" secondAttribute="leading" constant="16" id="bMp-fw-gfm"/>
@@ -165,6 +164,6 @@
     </objects>
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
-        <image name="group" width="90" height="90"/>
+        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
     </resources>
 </document>
