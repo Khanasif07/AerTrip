@@ -46,7 +46,7 @@ class SocialLoginVC: BaseVC {
             
             self.backButton.isHidden  = true
             self.view.backgroundColor = .clear
-            self.setupInitialAnimation()
+            self.animateContentOnLoad()
         }
     }
     
@@ -125,28 +125,12 @@ class SocialLoginVC: BaseVC {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         
-        UIView.animate(withDuration: 0.35, animations: {
-            
-            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
-            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
-            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
-            self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.bottomStackView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-            self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-            
-            self.fbButton.alpha = 0
-            self.googleButton.alpha = 0
-            self.linkedInButton.alpha = 0
-            
-            self.backButton.isHidden        = true
-            self.logoImage.isHidden         = true
-            self.topImage.isHidden          = true
-            self.centerTitleLabel.isHidden  = true
-            
-        })
-        self.navigationController?.popViewController(animated: true)
+        self.animateContentOnPop()
+        
+        delay(seconds: 0.45) { [weak self] in
+            AppFlowManager.default.addPopAnimation(onNavigationController: self?.navigationController)
+            self?.navigationController?.popToRootViewController(animated: false)
+        }
     }
 }
 
@@ -245,7 +229,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
 //MARK:-
 extension SocialLoginVC {
     
-    func setupInitialAnimation() {
+    private func animateContentOnLoad() {
         
         self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
         self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
@@ -279,12 +263,6 @@ extension SocialLoginVC {
             self.googleButton.alpha = 1.0
         })
         
-        UIView.animate(withDuration: 0.8, animations:{
-            
-            self.linkedInButton.transform     = .identity
-            self.linkedInButton.alpha = 1.0
-        })
-        
         UIView.animate(withDuration: 0.75, animations:{
             
             self.bottomStackView.transform    = .identity
@@ -293,5 +271,48 @@ extension SocialLoginVC {
             
             self.viewModel.isFirstTime = false
         }
+        
+        UIView.animate(withDuration: 0.8, animations:{
+            
+            self.linkedInButton.transform     = .identity
+            self.linkedInButton.alpha = 1.0
+        })
+    }
+    
+    private func animateContentOnPop() {
+
+        UIView.animate(withDuration: 0.05, animations:{
+            
+            self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.linkedInButton.alpha = 0.0
+        })
+        
+        UIView.animate(withDuration: 0.10, animations:{
+            
+            self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        }) { (success) in
+            
+            self.viewModel.isFirstTime = true
+        }
+        
+        UIView.animate(withDuration: 0.20, animations:{
+            
+            self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.googleButton.alpha = 0.0
+        })
+
+        UIView.animate(withDuration: 0.35, animations: {
+            
+            self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.fbButton.alpha = 0.0
+        })
+        
+        UIView.animate(withDuration: 0.5, animations:{
+            
+            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+        })
     }
 }

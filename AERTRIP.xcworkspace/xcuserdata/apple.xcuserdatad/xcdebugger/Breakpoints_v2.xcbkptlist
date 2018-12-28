@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
-            timestampString = "567698854.770781"
+            timestampString = "567699990.763872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "349"
             endingLineNumber = "349"
-            landmarkName = "openWithCurveLinear(mainFrame:)"
-            landmarkType = "7">
+            landmarkName = "PKSideMenuController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
-            timestampString = "567698854.7713031"
+            timestampString = "567699990.7643861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/PreLogin/CreateProfileVC/CreateProfileVC.swift"
-            timestampString = "567698854.771711"
+            timestampString = "567699990.764712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>

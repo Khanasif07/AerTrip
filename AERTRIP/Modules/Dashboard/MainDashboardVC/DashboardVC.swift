@@ -54,8 +54,6 @@ class DashboardVC: UIViewController {
         aerinView.alpha = 1.0
     }
 
-   
-    
     override func viewDidLayoutSubviews() {
 
         super.viewDidLayoutSubviews()
@@ -70,12 +68,7 @@ class DashboardVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setNeedsStatusBarAppearanceUpdate()
-        self.setupInitialAnimation()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+//        self.setupInitialAnimation()
     }
     
     //MARK:- IBAction
@@ -124,17 +117,8 @@ class DashboardVC: UIViewController {
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
         
-        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
-        if let url = URL(string: userData.picture) {
-            
+        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
             self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
-            
-        } else if !userData.firstName.isEmpty {
-            
-            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            
-            self.profileButton.setImage(image, for: .normal)
         }
     }
     
