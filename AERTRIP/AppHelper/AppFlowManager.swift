@@ -76,6 +76,7 @@ class AppFlowManager {
     func goToDashboard() {
         PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
         PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
+        PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
 
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.view.frame = UIScreen.main.bounds
@@ -99,10 +100,6 @@ extension AppFlowManager {
     
     func moveToSocialLoginVC() {
         let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-        ob.view.backgroundColor = .clear
-        ob.view.layer.backgroundColor = UIColor.clear.cgColor
-        ob.view.layer.shadowOpacity   = 0
-        self.mainNavigationController.view.layer.shadowOpacity = 0
         self.mainNavigationController.pushViewController(ob, animated: false)
     }
     
@@ -198,7 +195,13 @@ extension AppFlowManager {
     
 }
 
-//MARK: - Private func
+//MARK: - Animation
 extension AppFlowManager {
-
+    func addPopAnimation(onNavigationController: UINavigationController?) {
+        let transition = CATransition()
+        transition.duration = 0.6
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        onNavigationController?.view.layer.add(transition, forKey: nil)
+    }
 }

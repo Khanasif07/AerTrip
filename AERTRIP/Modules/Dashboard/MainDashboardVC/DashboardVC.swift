@@ -68,7 +68,7 @@ class DashboardVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setupInitialAnimation()
+//        self.setupInitialAnimation()
     }
     
     //MARK:- IBAction

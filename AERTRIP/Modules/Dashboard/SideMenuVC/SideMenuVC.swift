@@ -32,15 +32,15 @@ class SideMenuVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.view.isHidden = false
+        self.sideMenuTableView.isHidden = false
         self.setNeedsStatusBarAppearanceUpdate()
-        self.view.alpha = 1.0
+        self.sideMenuTableView.alpha = 1.0
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3) {
-             self.view.alpha = 0.5
+             self.sideMenuTableView.alpha = 0.5
         }
     }
     
@@ -95,7 +95,7 @@ extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
         
-        self.view.isHidden = true
+        self.sideMenuTableView.isHidden = true
         AppFlowManager.default.moveToSocialLoginVC()
     }
     

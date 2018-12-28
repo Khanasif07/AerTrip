@@ -53,8 +53,11 @@ class AerinVC: BaseVC {
     
     override func initialSetup() {
         
-        self.pulsAnimation.numPulse = 5
+        self.pulsAnimation.numPulse = 6
         self.pulsAnimation.radius = 100.0
+        self.pulsAnimation.currentAnimation = .line
+        self.pulsAnimation.lineWidth = 2.0
+        self.pulsAnimation.lineColor = AppColors.themeDarkGreen
         self.pulsAnimation.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.pulsAnimation, below: self.aerinButton.layer)
         
