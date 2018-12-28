@@ -55,6 +55,25 @@ class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        if self.menuViewController != nil {
+             return .lightContent
+        }
+        
+        if self.mainViewController != nil {
+            return .default
+        }
+       
+         return .default
+     }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setUp(){

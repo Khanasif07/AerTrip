@@ -28,10 +28,11 @@ class SideMenuVC: BaseVC {
 //        self.viewModel.isLogin.is
         self.initialSetups()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.setNeedsStatusBarAppearanceUpdate()
         self.view.isHidden = false
         self.setNeedsStatusBarAppearanceUpdate()
         self.view.alpha = 1.0
@@ -45,7 +46,7 @@ class SideMenuVC: BaseVC {
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     // MARK: - IBAction
@@ -53,15 +54,15 @@ class SideMenuVC: BaseVC {
     // MARK: -
 
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+//       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.googleLogin()
+//        self.socialViewModel.googleLogin()
     }
     
     @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-        self.socialViewModel.linkedLogin()
+//        self.socialViewModel.linkedLogin()
     }
 }
 

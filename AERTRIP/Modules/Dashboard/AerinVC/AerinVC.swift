@@ -24,6 +24,9 @@ class AerinVC: BaseVC {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var weekendMessageLabel: UILabel!
     @IBOutlet weak var bottomCollectionView: UIView!
+    @IBOutlet weak var bottomFirstView: UIView!
+    @IBOutlet weak var bottomSecondView: UIView!
+    @IBOutlet weak var bottomViewImage: UIImageView!
     
     private var previousOffSet = CGPoint.zero
 
@@ -45,9 +48,21 @@ class AerinVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        self.bottomViewImage.layer.cornerRadius = 20
+        self.bottomViewImage.layer.borderWidth = 7
+        self.bottomViewImage.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+        
         self.bottomCollectionView.layer.cornerRadius = 20
         self.bottomCollectionView.layer.borderWidth = 7
-        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.5).cgColor
+        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+        
+        self.bottomFirstView.layer.cornerRadius = 10.3
+        self.bottomFirstView.layer.borderWidth = 10
+        self.bottomFirstView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.3).cgColor
+        
+        self.bottomSecondView.layer.cornerRadius = 9
+        self.bottomSecondView.layer.borderWidth = 8
+        self.bottomSecondView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.1).cgColor
         
     }
     
@@ -57,8 +72,8 @@ class AerinVC: BaseVC {
         self.pulsAnimation.radius = 100.0
         self.pulsAnimation.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.pulsAnimation, below: self.aerinButton.layer)
-        
-        self.weekendMessageLabel.alpha = 0.7
+        self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
+        self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
     }
     
     override func setupFonts() {
@@ -91,7 +106,7 @@ class AerinVC: BaseVC {
     
     override func setupColors() {
         self.messageLabel.textColor = AppColors.themeTextColor
-        self.weekendMessageLabel.textColor = AppColors.themeWhite
+        self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

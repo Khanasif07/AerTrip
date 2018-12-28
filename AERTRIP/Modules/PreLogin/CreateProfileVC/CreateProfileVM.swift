@@ -34,6 +34,8 @@ class CreateProfileVM {
             return false
         } else if self.userData.mobile.isEmpty {
             return false
+        } else if self.userData.mobile.count < self.userData.minNumberCount {
+            return false
         }
         return true
     }

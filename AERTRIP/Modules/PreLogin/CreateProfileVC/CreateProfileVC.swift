@@ -128,6 +128,8 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
+        self.viewModel.userData.maxNumberCount = 10
+        self.viewModel.userData.minNumberCount  = 10
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -235,6 +237,15 @@ extension CreateProfileVC {
                 self.viewModel.userData.country = selectedCountry.countryEnglishName
                 self.viewModel.userData.isd = selectedCountry.countryCode
                 self.viewModel.userData.countryCode = selectedCountry.ISOCode
+                self.viewModel.userData.maxNumberCount = selectedCountry.maxNSN
+                self.viewModel.userData.minNumberCount  = selectedCountry.minNSN
+                
+                if self.viewModel.userData.mobile.count > self.viewModel.userData.maxNumberCount  {
+                    
+                    self.viewModel.userData.mobile  = self.viewModel.userData.mobile.substring(to: self.viewModel.userData.maxNumberCount - 1)
+                    self.mobileNumberTextField.text = self.viewModel.userData.mobile
+                }
+                
             }
             return false
         } else {
@@ -251,6 +262,21 @@ extension CreateProfileVC {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+//        var maxLength = 50
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        
+        if textField === self.mobileNumberTextField {
+            return newString.length <= self.viewModel.userData.maxNumberCount
+        }
+       
+        return true
+    }
+    
+
+
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField === self.firstNameTextField {
@@ -360,7 +386,7 @@ extension CreateProfileVC {
             let y = UIScreen.main.bounds.height/2 - 37
             self.setViewAlphaZero()
             self.letsStartedButton.transform = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y))
-            
+            self.letsStartedButton.layer.bounds = self.letsStartedButton.bounds
             DispatchQueue.main.async {
                 
                 self.letsStartedButton.layoutIfNeeded()

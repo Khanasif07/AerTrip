@@ -77,7 +77,7 @@
 		<key>MXParallaxHeader.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>19</integer>
 		</dict>
 		<key>Pods-AERTRIP.xcscheme</key>
 		<dict>
@@ -97,7 +97,7 @@
 		<key>TransitionButton.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>20</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>

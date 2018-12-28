@@ -54,5 +54,12 @@ extension SideMenuProfileImageCell {
         self.userNameLabel.text = userData.userName
         let placeHolder = UIImage(named: "group")
         self.profileImage.setImageWithUrl(userData.picture, placeholder: placeHolder!, showIndicator: true)
+        
+        if userData.picture.isEmpty && !userData.firstName.isEmpty {
+            
+            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
+            let image = AppGlobals.shared.getTextFromImage(string)
+            self.profileImage.image = image
+        }
     }
 }

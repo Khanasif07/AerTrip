@@ -88,6 +88,8 @@ struct UserModel {
     var creditType : String
     var paxId      : Int
     var points     : Int
+    var maxNumberCount : Int
+    var minNumberCount  : Int
     var preferredCurrency: String
     let hotels     : HotelsModel
     let accountData: AccountModel
@@ -117,6 +119,8 @@ struct UserModel {
         self.userName    = json["profile_name"].stringValue
         self.authKey    = json["authKey"].stringValue
         self.paxId      = json["pax_id"].intValue
+        self.maxNumberCount = json["Max NSN"].intValue
+        self.minNumberCount  = json["Min NSN"].intValue
         
         self.isLoggedIn = json["isLoggedIn"].boolValue
         self.billingName    = json["billing_name"].stringValue
