@@ -31,6 +31,15 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var socialButtonsStackView: UIStackView!
     @IBOutlet weak var backButton: UIButton!
 
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.transitioningDelegate = AppFlowManager.default
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.transitioningDelegate = AppFlowManager.default
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
