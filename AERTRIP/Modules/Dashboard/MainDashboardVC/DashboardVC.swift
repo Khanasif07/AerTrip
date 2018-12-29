@@ -117,8 +117,19 @@ class DashboardVC: UIViewController {
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
         
-        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
+        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
+        
+        if let url = URL(string: userData.picture) {
             self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
+        }
+        
+        if userData.picture.isEmpty && !userData.firstName.isEmpty {
+            
+            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
+            let image = AppGlobals.shared.getTextFromImage(string)
+            self.profileButton.setImage(image, for: .normal)
+            self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+            self.profileButton.layer.borderWidth = 2.0
         }
     }
     

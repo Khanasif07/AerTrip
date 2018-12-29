@@ -59,7 +59,7 @@
 
 // MARK:- ResetPasswordVC
 //MARK:-
-"CheckYourEmail"  = "Check Your \n Email";
+"CheckYourEmail"  = "Check Your\n Email";
 "PasswordResetInstruction" = "We have sent you password reset\n instructions on";
 "CheckEmailToResetPassword" = "Check your email to reset password";
 
@@ -79,13 +79,13 @@
 "Special"    = "Special";
 "Characters" = "Characters";
 "Next"       = "Next";
-"Reset_Password"  = "Reset \nPassword";
+"Reset_Password"  = "Reset\nPassword";
 "Please_enter_new_Password" = "Please enter new Password";
 "New_Password" = "New Password";
 
 // MARK:- CreateProfileVC
 //MARK:-
-"Create_Your_Profile"  = "Create Your \n Profile";
+"Create_Your_Profile"  = "Create Your\n Profile";
 "and_you_are_done"    = "and you are done!";
 "Title"           = "Title";
 "First_Name"        = "First Name";
