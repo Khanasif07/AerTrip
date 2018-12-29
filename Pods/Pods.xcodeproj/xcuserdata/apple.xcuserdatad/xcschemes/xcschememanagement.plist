@@ -27,20 +27,12 @@
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
 			<integer>4</integer>
-=======
-			<integer>5</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
 		</dict>
 		<key>FBSDKLoginKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
 			<integer>5</integer>
-=======
-			<integer>7</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
 		</dict>
 		<key>FirebaseCore.xcscheme</key>
 		<dict>
@@ -75,11 +67,7 @@
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
 			<integer>12</integer>
-=======
-			<integer>4</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
 		</dict>
 		<key>LinkedinSwift.xcscheme</key>
 		<dict>
@@ -89,34 +77,22 @@
 		<key>MXParallaxHeader.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>14</integer>
-=======
 			<integer>19</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
 		</dict>
 		<key>Pods-AERTRIP.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>16</integer>
-=======
-			<integer>6</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
+			<integer>15</integer>
 		</dict>
 		<key>SkyFloatingLabelTextField.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>16</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>18</integer>
-=======
-			<integer>8</integer>
->>>>>>> b6ce322ddf3a520db4ff526bd86546f7078d0f39
+			<integer>17</integer>
 		</dict>
 		<key>TransitionButton.xcscheme</key>
 		<dict>
@@ -126,7 +102,7 @@
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>14</integer>
 		</dict>
 	</dict>
 </dict>

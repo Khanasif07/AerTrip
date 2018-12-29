@@ -26,7 +26,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var gradientView: UIView!
     
     // MARK: - Variable
-    
+    private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
     
     // MARK: - IBAction
@@ -47,6 +47,12 @@ class SlideMenuProfileImageHeaderView: UIView {
         return parentView
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradient.frame = gradientView.bounds
+    }
+    
     // Action
     @objc func profileImageClicked() {
         delegate?.profileImageTapped()
@@ -62,7 +68,6 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 6.0
         
-        let gradient = CAGradientLayer()
         gradient.frame = gradientView.bounds
         gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
         gradientView.layer.insertSublayer(gradient, at: 0)

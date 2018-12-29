@@ -109,6 +109,7 @@
 		8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91A21BF9EA6009C208E /* TripsVC.swift */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
 		844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */; };
+		846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */; };
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
 		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
@@ -281,6 +282,7 @@
 		8429C91A21BF9EA6009C208E /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
 		844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginNavigationTransition.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 			children = (
 				18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */,
 				18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */,
+				846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */,
 			);
 			path = SocialLoginVC;
 			sourceTree = "<group>";
@@ -1277,6 +1280,7 @@
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				1809A47F21CDFE850018AB2F /* EditProfileTwoPartTableViewCell.swift in Sources */,
+				846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
 				180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */,
