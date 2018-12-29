@@ -122,12 +122,15 @@ struct Email {
     var label: String
     var value: String
     
+    var jsonDict: [String:Any] = [:]
+    
     init() {
         let json = JSON()
         self.init(json: json)
     }
     
     init(json: JSON) {
+        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue
@@ -153,12 +156,16 @@ struct Mobile {
     var isd: String
     var mobileFormatted: String
     
+    var jsonDict: [String:Any] = [:]
+
     init() {
         let json = JSON()
         self.init(json: json)
     }
     
     init(json: JSON) {
+        
+        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue
@@ -182,12 +189,15 @@ struct Social {
     var label : String
     var value : String
     
+    var jsonDict: [String:Any] = [:]
+
     init () {
         let json = JSON()
         self.init(json:json)
     }
     
     init(json : JSON) {
+        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue

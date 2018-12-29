@@ -70,6 +70,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="headerLabel" destination="Xhh-v5-f9v" id="xsK-vk-S9S"/>
+                <outlet property="topSeparatorView" destination="aAX-lb-4Ut" id="fOH-QT-oa5"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="153.82308845577214"/>
         </view>

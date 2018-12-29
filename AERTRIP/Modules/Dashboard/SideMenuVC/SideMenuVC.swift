@@ -9,17 +9,18 @@
 import UIKit
 
 class SideMenuVC: BaseVC {
-
-    //MARK:- Properties
-    //MARK:-
+    // MARK: - Properties
+    
+    // MARK: -
+    
     let viewModel = SideMenuVM()
     let socialViewModel = SocialLoginVM()
     
-    //MARK:- IBOutlets
-    //MARK:-
-    @IBOutlet weak var sideMenuTableView: UITableView!
+    // MARK: - IBOutlets
     
+    // MARK: -
     
+    @IBOutlet var sideMenuTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,9 @@ class SideMenuVC: BaseVC {
         self.sideMenuTableView.alpha = 1.0
     }
     
-    
     override func viewDidDisappear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3) {
+
              self.sideMenuTableView.alpha = 0.5
         }
     }
@@ -51,8 +52,9 @@ class SideMenuVC: BaseVC {
     // MARK: - IBAction
     
     // MARK: -
-
+    
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
+
 //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
@@ -65,27 +67,22 @@ class SideMenuVC: BaseVC {
     }
 }
 
-
 // MARK: - Extension SetupView
 
 // MARK: -
 
 private extension SideMenuVC {
-    
     func initialSetups() {
-
         self.registerXibs()
     }
     
     func registerXibs() {
-        
         self.sideMenuTableView.register(UINib(nibName: "SideMenuOptionsLabelCell", bundle: nil), forCellReuseIdentifier: "SideMenuOptionsLabelCell")
         self.sideMenuTableView.register(UINib(nibName: "SideMenuProfileImageCell", bundle: nil), forCellReuseIdentifier: "SideMenuProfileImageCell")
         self.sideMenuTableView.dataSource = self
-        self.sideMenuTableView.delegate   = self
+        self.sideMenuTableView.delegate = self
     }
 }
-
 
 // MARK: - Extension Target Methods
 
@@ -100,11 +97,9 @@ extension SideMenuVC {
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
-        
         AppFlowManager.default.moveToViewProfileVC()
     }
 }
-
 
 // MARK: - Extension SetupView
 
@@ -121,13 +116,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         switch indexPath.row {
-            
         case 0:
             
             if self.viewModel.isLogin {
-                
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuProfileImageCell", for: indexPath) as? SideMenuProfileImageCell else {
                     fatalError("SideMenuProfileImageCell not found")
                 }
@@ -138,8 +130,6 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
                 
             } else {
-                
-
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
                     fatalError("GuestSideMenuHeaderCell not found")
                 }
@@ -148,20 +138,18 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
             }
-
+            
         case 1:
             
             if self.viewModel.isLogin {
-                
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuViewAccountCell", for: indexPath) as? SideMenuViewAccountCell else {
                     fatalError("SideMenuViewAccountCell not found")
                 }
                 
                 cell.populateData(data: self.viewModel.userData)
                 return cell
-
-            } else {
                 
+            } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
                     fatalError("SideMenuOptionsLabelCell not found")
                 }
@@ -169,7 +157,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
                 return cell
             }
-
+            
         default:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
@@ -177,7 +165,6 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if self.viewModel.isLogin {
-                
                 cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
                 
                 if indexPath.row == 6 {
@@ -185,19 +172,16 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
             } else {
-                
-
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
             
             return cell
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
     }
-
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

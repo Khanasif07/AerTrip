@@ -28,6 +28,12 @@ enum APIEndPoint : String {
     case resetPassword         = "users/validate-password-reset-token"
     case getTravellerDetail = "users/traveller-detail"
     case dropDownSalutation = "default/dropdown-keys"
+    case flightsPreferences = "flights/preference-master"
+    case flyerSearch = "airlines/search"
+    case countryList = "country/list"
+    case saveProfile =  "user-passenger/save-new"
+    case defaultAirlines = "airlines/get-default-airlines"
+
 
 }
 

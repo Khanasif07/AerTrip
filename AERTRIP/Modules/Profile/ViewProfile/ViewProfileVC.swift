@@ -9,7 +9,7 @@
 import MXParallaxHeader
 import UIKit
 
-class ViewProfileVC: UIViewController {
+class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet var headerView: UIView!
@@ -28,6 +28,8 @@ class ViewProfileVC: UIViewController {
     var accounts = [LocalizedString.Settings, LocalizedString.Notification]
     var logOut = [LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView = SlideMenuProfileImageHeaderView()
+    let viewModel = ViewProfileDetailVM()
+    var travelData: TravelDetailModel?
     
     // MARK: - View Life cycle
     
@@ -35,6 +37,9 @@ class ViewProfileVC: UIViewController {
         super.viewDidLoad()
         
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(self)
+        self.profileImageHeaderView.delegate = self
+        
+        self.viewModel.webserviceForGetTravelDetail()
         
         self.view.alpha = 0.5
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -50,6 +55,23 @@ class ViewProfileVC: UIViewController {
         super.viewWillAppear(animated)
         
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        guard let headerView = tableView.tableHeaderView else {
+            return
+        }
+        
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if headerView.frame.size.height != size.height {
+            headerView.frame.size.height = size.height
+            self.tableView.tableHeaderView = headerView
+            self.tableView.layoutIfNeeded()
+        }
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,8 +91,8 @@ class ViewProfileVC: UIViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        // AppFlowManager.default.moveToViewProfileDetailVC()
-        let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = self.travelData
         self.navigationController?.pushViewController(ob, animated: true)
     }
     
@@ -107,11 +129,6 @@ class ViewProfileVC: UIViewController {
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
-//        let gradient = CAGradientLayer()
-//        gradient.frame = profileImageHeaderView.bounds
-//        gradient.colors = [ AppColors.viewProfileTopGradient.color.cgColor,UIColor.white.cgColor]
-//        profileImageHeaderView.layer.insertSublayer(gradient, at: 0)
-//
         profileImageHeaderView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: parallexHeaderHeight)
         
         self.tableView.parallaxHeader.view = profileImageHeaderView
@@ -263,5 +280,19 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     func profileImageTapped() {
         NSLog("profile Image Tapped View ProfileVc")
         AppFlowManager.default.moveToViewProfileDetailVC()
+    }
+}
+
+extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willGetDetail() {
+        //
+    }
+    
+    func getSuccess(_ data: TravelDetailModel) {
+        self.travelData = data
+    }
+    
+    func getFail(errors: ErrorCodes) {
+        //
     }
 }

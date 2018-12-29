@@ -37,6 +37,9 @@ class EditProfileImageHeaderView: UIView {
         salutationView.isUserInteractionEnabled = true
         salutationView.addGestureRecognizer(tap)
         
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+        self.profileImageView.clipsToBounds = true
+        
     }
     
     // MARK: - Helper methods

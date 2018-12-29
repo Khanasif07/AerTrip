@@ -53,7 +53,7 @@ class SocialLoginVM {
         })
     }
     
-    func googleLogin() {
+    func googleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
         
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
@@ -69,11 +69,15 @@ class SocialLoginVM {
                 
                 self.userData.picture = "\(imageURl)"
             }
-            
-            
-            self.webserviceForSocialLogin()
+             completionBlock?(true)
+            if vc is EditProfileVC {
+                // do nothing
+            } else {
+                self.webserviceForSocialLogin()
+            }
             
         }){ (err : Error) in
+             completionBlock?(false)
             printDebug(err.localizedDescription)
         }
     }
