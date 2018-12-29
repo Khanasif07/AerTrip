@@ -116,7 +116,7 @@ class SocialLoginVC: BaseVC {
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToCreateYourAccountVC(email: "")
-    }
+   }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         

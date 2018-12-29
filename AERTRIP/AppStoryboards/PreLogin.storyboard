@@ -338,12 +338,12 @@ travel experience</string>
                             <constraint firstItem="eWx-zl-ou5" firstAttribute="top" secondItem="Hk6-lw-OH2" secondAttribute="bottom" constant="26" id="B48-DL-FDG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CIg-eF-8Re" secondAttribute="trailing" constant="20" id="F7R-4x-QP9"/>
                             <constraint firstItem="u4x-KU-Ehx" firstAttribute="bottom" secondItem="di7-Bv-0cQ" secondAttribute="bottom" constant="-3" id="HWD-zH-eqE"/>
+                            <constraint firstItem="eWx-zl-ou5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="HYS-UZ-NpP"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="IZe-qR-5RO"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="MTb-Jj-gOJ"/>
                             <constraint firstItem="n8y-Ay-Iht" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="Shw-W2-gg0"/>
                             <constraint firstItem="ef3-Jf-KiE" firstAttribute="centerX" secondItem="eWx-zl-ou5" secondAttribute="centerX" id="Syp-B2-FiZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hk6-lw-OH2" secondAttribute="trailing" constant="16" id="UDK-be-Ze5"/>
-                            <constraint firstItem="eWx-zl-ou5" firstAttribute="centerX" secondItem="Hk6-lw-OH2" secondAttribute="centerX" id="WCg-6v-Vm8"/>
                             <constraint firstItem="Fn8-Ii-58k" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WSB-0K-O6W"/>
                             <constraint firstItem="CIg-eF-8Re" firstAttribute="top" secondItem="Fn8-Ii-58k" secondAttribute="bottom" constant="13" id="dQt-9c-NxP"/>
                             <constraint firstItem="Fn8-Ii-58k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="ej2-A6-6af"/>
