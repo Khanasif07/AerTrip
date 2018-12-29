@@ -878,14 +878,14 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo">
-                                <rect key="frame" x="120" y="20" width="255" height="587"/>
+                                <rect key="frame" x="131.5" y="20" width="243.5" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="255" height="257"/>
+                                        <rect key="frame" x="0.0" y="28" width="243.5" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
-                                            <rect key="frame" x="0.0" y="0.0" width="255" height="257"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243.5" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-aY-yLY">
@@ -945,10 +945,10 @@ travel experience</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuViewAccountCell" rowHeight="62" id="jo2-Cw-Idk" customClass="SideMenuViewAccountCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="285" width="255" height="62"/>
+                                        <rect key="frame" x="0.0" y="285" width="243.5" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jo2-Cw-Idk" id="TmU-Fr-dt0">
-                                            <rect key="frame" x="0.0" y="0.0" width="255" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243.5" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
@@ -1002,27 +1002,27 @@ travel experience</string>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEQ-BN-39k">
-                                <rect key="frame" x="158.5" y="607" width="178.5" height="45"/>
+                                <rect key="frame" x="168" y="607" width="170.5" height="45"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
-                                        <rect key="frame" x="0.0" y="0.0" width="178.5" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="170.5" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
-                                                <rect key="frame" x="0.0" y="0.0" width="59.5" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="45"/>
                                                 <state key="normal" image="fbIcon"/>
                                                 <connections>
                                                     <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                                <rect key="frame" x="59.5" y="0.0" width="59.5" height="45"/>
+                                                <rect key="frame" x="56.5" y="0.0" width="57" height="45"/>
                                                 <state key="normal" image="googleIcon"/>
                                                 <connections>
                                                     <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                                <rect key="frame" x="119" y="0.0" width="59.5" height="45"/>
+                                                <rect key="frame" x="113.5" y="0.0" width="57" height="45"/>
                                                 <state key="normal" image="twiterIcon"/>
                                                 <connections>
                                                     <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
@@ -1046,10 +1046,10 @@ travel experience</string>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="bottom" secondItem="tYV-0J-82w" secondAttribute="bottom" constant="-15" id="3yD-nR-eaO"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="width" secondItem="Nk2-kJ-uNo" secondAttribute="width" multiplier="0.7" id="FMo-Ah-RYX"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="top" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="H0g-E4-Gaj"/>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="width" secondItem="y8S-Y4-E4n" secondAttribute="width" multiplier="0.65" id="ZPa-oV-JPv"/>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="tYV-0J-82w" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="centerX" secondItem="Nk2-kJ-uNo" secondAttribute="centerX" id="m7T-zW-Hg8"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" constant="120" id="rk6-ll-PPp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tYV-0J-82w"/>
                     </view>
