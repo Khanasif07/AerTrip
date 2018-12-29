@@ -111,39 +111,51 @@ class AerinVC: BaseVC {
         self.messageLabel.textColor = AppColors.themeTextColor
         self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
     }
+}
 
+extension AerinVC{
+
+    #warning("Copy below three methods when adding scrolling of any kind in the child of the dashboardVC")
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         //dont do anything if bouncing
-            let difference = scrollView.contentOffset.y - previousOffSet.y
+        let difference = scrollView.contentOffset.y - previousOffSet.y
 
-            if let parent = parent as? DashboardVC{
-                if difference > 0{
-                    //check if reached bottom
-                    if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
-                        if scrollView.contentOffset.y > 0.0{
-                            parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
-                            scrollView.contentOffset = CGPoint.zero
-                        }
+        if let parent = parent as? DashboardVC{
+            if difference > 0{
+                //check if reached bottom
+                if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
+                    if scrollView.contentOffset.y > 0.0{
+                        parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
+                        scrollView.contentOffset = CGPoint.zero
                     }
-                }else{
-                    if parent.mainScrollView.contentOffset.y > 0.0{
-                        if scrollView.contentOffset.y <= 0.0{
-                            parent.mainScrollView.contentOffset.y = max(parent.mainScrollView.contentOffset.y + difference, 0.0)
-                        }
+                }
+            }else{
+                if parent.mainScrollView.contentOffset.y > 0.0{
+                    if scrollView.contentOffset.y <= 0.0{
+                        parent.mainScrollView.contentOffset.y = max(parent.mainScrollView.contentOffset.y + difference, 0.0)
                     }
                 }
             }
+        }
 
-            previousOffSet = scrollView.contentOffset
-
+        previousOffSet = scrollView.contentOffset
     }
-    
-    //MARK:- Methods
-    //MARK:- Private
 
-    //MARK:- Public
-    
-    
-    //MARK:- Action
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+        if !decelerate{
+            if let parent = parent as? DashboardVC{
+                parent.childDidEndDragging()
+            }
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        if let parent = parent as? DashboardVC{
+            parent.childDidEndDecelerating()
+        }
+    }
 }

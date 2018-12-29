@@ -28,106 +28,110 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
-    
+
+    /// To keep track of previous offset for the inner scroll view
     private var previousOffset = CGPoint.zero
+
+    /// To keep track of outermost scrollview offset
     private var mainScrollViewOffset = CGPoint.zero
 
+    /// do first time calculation
     private var firstTime = true
-    private var userDidScrollUp = false
-    private var previousSelected : SelectedOption = .aerin
-    private var alreadyTransformedValue : CGFloat = 0.0
+
+    /// To keep track of original size at the load of the screen
     private var identitySize = CGSize.zero
+
+    /// To keep track of small size after applying transform at the time of screen loading
     private var smallerSize = CGSize.zero
 
-    var itemWidth : CGFloat {
-        return aerinView.width
-    }
-
+    ///Keep track of currently loaded screen
     enum SelectedOption : Int {
-
         case aerin = 0
         case flight = 1
         case hotels = 2
         case trips = 3
     }
 
-    var selectedOption : SelectedOption = .aerin
+    private var selectedOption : SelectedOption = .aerin
+
+    //The selected view will be identity and other views will be the smaller scale. This is done to ensure nothing pixelates if we stretch it. Affine Transforms were used over anything else to allow the font to animate the increase in size
+    private let smallAffineTransform = CGAffineTransform(scaleX: 0.75, y: 0.75)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetItems()
-        
-        headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-        aerinView.transform = .identity
-        aerinView.alpha = 1.0
+
+        initialSetup()
     }
 
     override func viewDidLayoutSubviews() {
 
         super.viewDidLayoutSubviews()
 
-        let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
-        let fullHeight = UIScreen.main.bounds.size.height
-
-        innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        //logic i have applied is that the outermost scrollviews content size will just be larger by the header amount and status bar amount so that when scrolling up only that part disappears
+        innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - segmentContainerView.bounds.height - view.safeAreaInsets.bottom
         self.profileButton.cornerRadius = self.profileButton.height/2
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         if firstTime{
             firstTime = false
+            //as by here autolayout has been applied and these will be the values of the frames after applying their respective transforms. This is used to ensure later on that sizes dont go greater or smaller than these
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
-
-//        self.setupInitialAnimation()
     }
     
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
 
+        //no need to do anything else as other things are handled by the scrollviewdidscroll method
         if selectedOption == .aerin {return}
-        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+        scrollToCurrentOption()
     }
 
     @IBAction func flightsAction(_ sender: UIButton) {
 
         if selectedOption == .flight {return}
-        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+        scrollToCurrentOption()
     }
 
     @IBAction func hotelsAction(_ sender: UIButton) {
 
         if selectedOption == .hotels {return}
-        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+        scrollToCurrentOption()
     }
 
     
     @IBAction func tripsAction(_ sender: UIButton) {
 
         if selectedOption == .trips {return}
-        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+        scrollToCurrentOption()
     }
-    
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        
         AppFlowManager.default.sideMenuController?.toggleMenu()
     }
-    
 
     //MARK:- Private
-    private func resetItems(){
+    private func scrollToCurrentOption(){
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+    }
 
-        aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        aerinView.alpha = 0.5
-        flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+    private func initialSetup(){
+
+        //done so that the the header doesn't overlap the status bar initially
+        headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
+
+        //as aerin is the first selected view, we set it to identity
+        aerinView.transform = .identity
+        aerinView.alpha = 1.0
+        flightsView.transform = smallAffineTransform
         flightsView.alpha = 0.5
-        hotelsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        hotelsView.transform = smallAffineTransform
         hotelsView.alpha = 0.5
-        tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        tripsView.transform = smallAffineTransform
         tripsView.alpha = 0.5
         
         let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
@@ -137,7 +141,6 @@ class DashboardVC: UIViewController {
         }
         
         if userData.picture.isEmpty && !userData.firstName.isEmpty {
-            
             let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
             let image = AppGlobals.shared.getTextFromImage(string)
             self.profileButton.setImage(image, for: .normal)
@@ -163,26 +166,23 @@ class DashboardVC: UIViewController {
 
 extension DashboardVC : UIScrollViewDelegate{
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-
-        previousSelected = selectedOption
-    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if scrollView == mainScrollView{
 
+            //done to fade out alpha labels, the header and make selected icon smaller. This receives calls backs from the child
             var transform : CGFloat = 0.0
+            var userDidScrollUp = false
 
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0{
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
-                let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
+                let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y - view.safeAreaInsets.bottom)
                 updateUpLabels(with: headerValueMoved)
                 transform = 1.0 - headerValueMoved/4.0
                 userDidScrollUp = true
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
-                let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
+                let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y - view.safeAreaInsets.bottom)
                 updateDownLabels(with: headerValueMoved)
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
@@ -230,16 +230,92 @@ extension DashboardVC : UIScrollViewDelegate{
         }
     }
 
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        if scrollView == mainScrollView{
+            if mainScrollView.contentOffset.y + mainScrollView.height >= mainScrollView.contentSize.height{
+                updateSelected(transform: CGAffineTransform(scaleX: 0.75, y: 0.75))
+            }else if mainScrollView.contentOffset.y == 0.0{
+                updateSelected(transform: .identity)
+            }
+        }
+
+        resetNonSelectedViews()
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+        if !decelerate{
+            if scrollView == mainScrollView{
+                if mainScrollView.contentOffset.y + mainScrollView.height >= mainScrollView.contentSize.height{
+                    updateSelected(transform: CGAffineTransform(scaleX: 0.75, y: 0.75))
+                }else if mainScrollView.contentOffset.y == 0.0{
+                    updateSelected(transform: .identity)
+                }
+            }
+
+            resetNonSelectedViews()
+        }
+    }
+
+    func childDidEndDragging(){
+        resetNonSelectedViews()
+    }
+
+    func childDidEndDecelerating(){
+        resetNonSelectedViews()
+    }
+
+    private func updateSelected(transform : CGAffineTransform){
+
+        UIView.animate(withDuration: 0.3) {
+            switch self.selectedOption{
+                case .aerin: self.aerinView.transform = transform
+                case .flight: self.flightsView.transform = transform
+                case .hotels: self.hotelsView.transform = transform
+                case .trips: self.tripsView.transform = transform
+            }
+        }
+    }
+
+    private func resetNonSelectedViews(){
+
+        UIView.animate(withDuration: 0.3) {
+            switch self.selectedOption{
+            case .aerin:
+                self.flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.hotelsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            case .flight:
+                self.aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.hotelsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            case .hotels:
+                self.flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            case .trips:
+                self.flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.hotelsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                self.aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            }
+        }
+    }
+
+
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
 
         let initialTransform = view.transform
         let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
 
-        if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+        if transformedBounds.size.width >= identitySize.width{
+            print(view)
             view.transform = CGAffineTransform.identity
-        }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+        }else if transformedBounds.size.width < smallerSize.width{
+            print(view)
             view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         }else{
+            print(view)
             view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
         }
     }
