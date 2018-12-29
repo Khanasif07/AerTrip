@@ -21,7 +21,6 @@ class CreateProfileVM {
     var salutation = [String]()
     var userData   = UserModel()
     var isFirstTime = true
-    var isSuccessView = false
     var isValidateForButtonEnable : Bool {
         
         if self.userData.salutation.isEmpty {
