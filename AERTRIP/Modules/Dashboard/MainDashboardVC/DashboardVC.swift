@@ -10,6 +10,7 @@ import UIKit
 
 class DashboardVC: UIViewController {
 
+    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var innerScrollView: UIScrollView!
     @IBOutlet weak var innerScrollViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainScrollView: UIScrollView!
@@ -27,10 +28,16 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
-    @IBOutlet weak var mainScrollviewTopConstraint: NSLayoutConstraint!
     
     private var previousOffset = CGPoint.zero
     private var mainScrollViewOffset = CGPoint.zero
+
+    private var firstTime = true
+    private var userDidScrollUp = false
+    private var previousSelected : SelectedOption = .aerin
+    private var alreadyTransformedValue : CGFloat = 0.0
+    private var identitySize = CGSize.zero
+    private var smallerSize = CGSize.zero
 
     var itemWidth : CGFloat {
         return aerinView.width
@@ -49,7 +56,8 @@ class DashboardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
-
+        
+        headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
     }
@@ -61,13 +69,19 @@ class DashboardVC: UIViewController {
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
 
-        innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height
+        innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
         self.profileButton.cornerRadius = self.profileButton.height/2
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        if firstTime{
+            firstTime = false
+            identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
+            smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
+        }
+
 //        self.setupInitialAnimation()
     }
     
@@ -107,7 +121,6 @@ class DashboardVC: UIViewController {
     //MARK:- Private
     private func resetItems(){
 
-        self.mainScrollviewTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         aerinView.alpha = 0.5
         flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -134,38 +147,43 @@ class DashboardVC: UIViewController {
             self.view.center = originalCenter
             self.view.alpha = 1.0
         }, completion: nil)
-        
     }
 }
 
 extension DashboardVC : UIScrollViewDelegate{
 
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+
+        previousSelected = selectedOption
+    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if scrollView == mainScrollView{
 
-            let t = scrollView.contentOffset.y/(headerView.height + headerView.origin.y)
-            let transform = max(1.0 - t/4.0, 0.75)
+            var transform : CGFloat = 0.0
 
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0{
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
+                transform = 1.0 - headerValueMoved/4.0
+                userDidScrollUp = true
             }else{
-
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateDownLabels(with: headerValueMoved)
+                transform = 1.0 + headerValueMoved/4.0
+                userDidScrollUp = false
             }
 
             switch selectedOption{
-                case .aerin: aerinView.transform = CGAffineTransform(scaleX: transform, y: transform)
-                case .flight: flightsView.transform = CGAffineTransform(scaleX: transform, y: transform)
-                case .hotels: hotelsView.transform = CGAffineTransform(scaleX: transform, y: transform)
-                case .trips: tripsView.transform = CGAffineTransform(scaleX: transform, y: transform)
+                case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
+                case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp)
+                case .hotels: checkAndApplyTransform(hotelsView, transformValue: transform, scrolledUp: userDidScrollUp)
+                case .trips: checkAndApplyTransform(tripsView, transformValue: transform, scrolledUp: userDidScrollUp)
             }
-
+            
             mainScrollViewOffset = scrollView.contentOffset
 
         }else{
@@ -179,24 +197,20 @@ extension DashboardVC : UIScrollViewDelegate{
 
                 //as we want on scale of 0.0 to 1.0 so i divide it by the width
                 let valueMoved = offset.x - previousOffset.x
-                let tabValueMoved = valueMoved/scrollView.bounds.width
+                let progressValueMoved = valueMoved/scrollView.bounds.width
 
-                let t = (offset.x - scrollView.bounds.width * CGFloat(page))/scrollView.bounds.width
+                let increaseTransform = 1.0 + progressValueMoved/4.0
+                let decreaseTransform = 1.0 - progressValueMoved/4.0
 
-                let increaseTransform = min(t/4.0 + 0.75, CGFloat(1.0))
-                let decreaseTransform = max(1.0 - t/4.0, 0.75)
-
-                animateForPage(moved: tabValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
 
             }else{
 
                 let valueMoved = previousOffset.x - offset.x
                 let tabValueMoved = valueMoved/scrollView.bounds.width
 
-                let t = (offset.x - scrollView.bounds.width * CGFloat(page))/scrollView.bounds.width
-
-                let increaseTransform = min(t/4.0 + 0.75, CGFloat(1.0))
-                let decreaseTransform = max(1.0 - t/4.0, 0.75)
+                let increaseTransform = 1.0 + tabValueMoved/4.0
+                let decreaseTransform = 1.0 - tabValueMoved/4.0
 
                 animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
             }
@@ -205,7 +219,23 @@ extension DashboardVC : UIScrollViewDelegate{
         }
     }
 
+    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+
+        let initialTransform = view.transform
+        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
+
+        if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+            view.transform = CGAffineTransform.identity
+        }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+            view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        }else{
+            view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+        }
+    }
+
     private func updateUpLabels(with alpha : CGFloat){
+
+        headerView.alpha = max(headerView.alpha - alpha, 0.0)
 
         aerinLabel.alpha = max(aerinLabel.alpha - alpha, 0.0)
         flightsLabel.alpha = max(flightsLabel.alpha - alpha, 0.0)
@@ -214,6 +244,8 @@ extension DashboardVC : UIScrollViewDelegate{
     }
 
     private func updateDownLabels(with alpha : CGFloat){
+
+        headerView.alpha = min(headerView.alpha + alpha, 1.0)
 
         aerinLabel.alpha = min(aerinLabel.alpha + alpha, 1.0)
         flightsLabel.alpha = min(flightsLabel.alpha + alpha, 1.0)
@@ -231,23 +263,25 @@ extension DashboardVC : UIScrollViewDelegate{
                 case .aerin:
                     aerinView.alpha = max(aerinView.alpha - moved, 0.5)
                     flightsView.alpha = min(flightsView.alpha + moved, 1.0)
-                    if mainScrollView.contentOffset.y == 0{
-                        aerinView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
-                        flightsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
+
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
                     }
+
                 case .flight:
                     flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                     hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
-                    if mainScrollView.contentOffset.y == 0{
-                        flightsView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
-                        hotelsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
                     }
                 case .hotels:
                     hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                     tripsView.alpha = min(tripsView.alpha + moved, 1.0)
-                    if mainScrollView.contentOffset.y == 0{
-                        hotelsView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
-                        tripsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward)
                     }
                 case .trips: break
             }
@@ -258,26 +292,27 @@ extension DashboardVC : UIScrollViewDelegate{
                     flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                     aerinView.alpha = min(aerinView.alpha + moved, 1.0)
 
-                    if mainScrollView.contentOffset.y == 0{
-                        flightsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
-                        aerinView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward)
                     }
 
                 case .flight:
                     hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                     flightsView.alpha = min(flightsView.alpha + moved, 1.0)
 
-                    if mainScrollView.contentOffset.y == 0{
-                        hotelsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
-                        flightsView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
                     }
                 case .hotels:
 
                     tripsView.alpha = max(tripsView.alpha - moved, 0.5)
                     hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
-                    if mainScrollView.contentOffset.y == 0{
-                        tripsView.transform = CGAffineTransform(scaleX: increaseSize, y: increaseSize)
-                        hotelsView.transform = CGAffineTransform(scaleX: decreaseSize, y: decreaseSize)
+
+                    if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                        checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward)
+                        checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
                     }
                 case .trips: break
             }
