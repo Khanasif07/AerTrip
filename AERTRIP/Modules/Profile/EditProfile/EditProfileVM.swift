@@ -128,17 +128,33 @@ class EditProfileVM {
         params[APIKeys.lastName.rawValue] = lastName
         params[APIKeys.id.rawValue] = AppUserDefaults.value(forKey: .userId)
         
-        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
-            emailObj.jsonDict
+        
+        var emailDictArr = [String:Any]()
+        for (idx, emailObj) in self.email.enumerated() {
+            emailDictArr["\(idx)"] = emailObj.jsonDict
         }
         
-        let mobileDictArr = self.mobile.map { (mobileObj) -> [String: Any] in
-            mobileObj.jsonDict
+        var mobileDictArr = [String:Any]()
+        for (idx, mobileObj) in self.mobile.enumerated() {
+            emailDictArr["\(idx)"] = mobileObj.jsonDict
         }
         
-        let socialDictArr = self.social.map { (socialObj) -> [String: Any] in
-            socialObj.jsonDict
+        var socialDictArr = [String:Any]()
+        for (idx, socialObj) in self.social.enumerated() {
+            emailDictArr["\(idx)"] = socialObj.jsonDict
         }
+        
+//        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
+//            emailObj.jsonDict
+//        }
+//
+//        let mobileDictArr = self.mobile.map { (mobileObj) -> [String: Any] in
+//            mobileObj.jsonDict
+//        }
+//
+//        let socialDictArr = self.social.map { (socialObj) -> [String: Any] in
+//            socialObj.jsonDict
+//        }
         
         let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
         

@@ -259,3 +259,8 @@ enum AppErrorCodeFor: Int {
 }
 
 //AppErrorCodeFor(rawValue: 1212)?.message
+
+//Navigation
+public enum ATTransitionMode: Int {
+    case present, dismiss, push, pop
+}
