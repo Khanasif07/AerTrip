@@ -913,6 +913,10 @@ activation link on</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQy-75-szy">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-hK-MVU" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="97.5" y="403" width="180" height="50"/>
                                 <constraints>
@@ -931,9 +935,12 @@ activation link on</string>
                         <constraints>
                             <constraint firstItem="KeZ-q3-qwq" firstAttribute="leading" secondItem="0U9-7b-2mE" secondAttribute="trailing" constant="15" id="2El-hY-koj"/>
                             <constraint firstItem="gas-Fm-8KW" firstAttribute="trailing" secondItem="tOg-Zi-bYN" secondAttribute="trailing" id="2F7-2q-jlN"/>
+                            <constraint firstItem="1ay-s3-FhZ" firstAttribute="bottom" secondItem="iQy-75-szy" secondAttribute="bottom" id="2W9-R1-V8u"/>
                             <constraint firstItem="Igl-7h-Czp" firstAttribute="top" secondItem="1ay-s3-FhZ" secondAttribute="top" constant="8" id="5aG-02-F2W"/>
                             <constraint firstItem="pRP-US-Kko" firstAttribute="leading" secondItem="tOg-Zi-bYN" secondAttribute="leading" id="61k-9b-DrX"/>
                             <constraint firstItem="1ay-s3-FhZ" firstAttribute="trailing" secondItem="mVk-hB-44C" secondAttribute="trailing" constant="16" id="7CX-No-ep1"/>
+                            <constraint firstItem="1ay-s3-FhZ" firstAttribute="trailing" secondItem="iQy-75-szy" secondAttribute="trailing" id="7ZC-fG-spM"/>
+                            <constraint firstItem="iQy-75-szy" firstAttribute="top" secondItem="1ay-s3-FhZ" secondAttribute="top" id="8rZ-t6-dkF"/>
                             <constraint firstItem="pRP-US-Kko" firstAttribute="height" secondItem="tOg-Zi-bYN" secondAttribute="height" id="9Vj-a4-alw"/>
                             <constraint firstItem="LtP-IR-kku" firstAttribute="top" secondItem="yzr-jj-cAo" secondAttribute="bottom" constant="13" id="ClT-TL-jbL"/>
                             <constraint firstItem="mVk-hB-44C" firstAttribute="leading" secondItem="tOg-Zi-bYN" secondAttribute="trailing" constant="15" id="E1u-JZ-R0U"/>
@@ -960,6 +967,7 @@ activation link on</string>
                             <constraint firstItem="tOg-Zi-bYN" firstAttribute="leading" secondItem="1ay-s3-FhZ" secondAttribute="leading" constant="16" id="ija-3V-Slu"/>
                             <constraint firstItem="JhX-hK-MVU" firstAttribute="top" secondItem="KeZ-q3-qwq" secondAttribute="bottom" constant="26" id="lQ0-vk-ZbP"/>
                             <constraint firstItem="Mya-bc-eLz" firstAttribute="trailing" secondItem="LtP-IR-kku" secondAttribute="trailing" id="lXC-eK-bX5"/>
+                            <constraint firstItem="iQy-75-szy" firstAttribute="leading" secondItem="1ay-s3-FhZ" secondAttribute="leading" id="q8f-fL-6NI"/>
                             <constraint firstItem="tOg-Zi-bYN" firstAttribute="height" secondItem="mVk-hB-44C" secondAttribute="height" id="rEy-qx-OCz"/>
                             <constraint firstItem="Igl-7h-Czp" firstAttribute="leading" secondItem="1ay-s3-FhZ" secondAttribute="leading" constant="8" id="rfH-jo-Klg"/>
                             <constraint firstItem="KeZ-q3-qwq" firstAttribute="height" secondItem="0U9-7b-2mE" secondAttribute="height" id="xiR-ki-O4o"/>
@@ -980,12 +988,14 @@ activation link on</string>
                         <outlet property="firstNameTextField" destination="Ae2-mr-IqQ" id="OAm-9N-rD9"/>
                         <outlet property="lastNameTextField" destination="dMv-iW-8FW" id="HJ4-eR-nmR"/>
                         <outlet property="letStartButtonHeight" destination="Ncc-bi-9oR" id="dGK-PJ-YZd"/>
+                        <outlet property="letStartButtonTopConstraint" destination="lQ0-vk-ZbP" id="cxM-Aa-b2v"/>
                         <outlet property="letsStartButtonWidth" destination="hpk-Hl-bTa" id="amn-or-zrF"/>
                         <outlet property="letsStartedButton" destination="JhX-hK-MVU" id="Pwr-qB-8Se"/>
                         <outlet property="logoImage" destination="yzr-jj-cAo" id="Qjd-G0-65N"/>
                         <outlet property="mobileNumberTextField" destination="KeZ-q3-qwq" id="bfI-4A-jHE"/>
                         <outlet property="nameTitleTextField" destination="tOg-Zi-bYN" id="fCF-v8-umA"/>
                         <outlet property="titleDropDownImage" destination="gas-Fm-8KW" id="h3V-bc-A30"/>
+                        <outlet property="whiteBackgroundView" destination="iQy-75-szy" id="hqf-Bg-QbP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckS-Jv-m59" userLabel="First Responder" sceneMemberID="firstResponder"/>

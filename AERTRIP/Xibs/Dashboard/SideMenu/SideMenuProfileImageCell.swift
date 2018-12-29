@@ -60,6 +60,8 @@ extension SideMenuProfileImageCell {
             let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
             let image = AppGlobals.shared.getTextFromImage(string)
             self.profileImage.image = image
+            self.profileImage.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+            self.profileImage.layer.borderWidth = 6.0
         }
     }
 }
