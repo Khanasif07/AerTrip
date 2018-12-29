@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/MainDashboardVC/MainDashboardVC.swift"
-            timestampString = "567673861.447673"
+            filePath = "AERTRIP/Modules/Profile/EditProfile/EditProfileVM.swift"
+            timestampString = "567774982.043528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            timestampString = "567689145.394212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "moveToSocialLoginVC()"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "webserviceForSaveProfile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

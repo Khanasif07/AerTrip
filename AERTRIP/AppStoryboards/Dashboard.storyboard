@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Y-5a-ItW" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="652"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="650.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1e-WT-TPs">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -72,33 +72,31 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghj-w4-cj0">
-                                                <rect key="frame" x="0.0" y="60" width="375" height="87.5"/>
+                                                <rect key="frame" x="0.0" y="60" width="375" height="86"/>
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MF0-Cj-Ypt">
-                                                        <rect key="frame" x="5" y="2" width="365" height="83.5"/>
+                                                        <rect key="frame" x="5" y="2" width="365" height="82"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsR-KY-HZ5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="365" height="83.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="365" height="82"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-Vp-DEf">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="83.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="82"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerin" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-
-                                                                                <rect key="frame" x="11.5" y="0.0" width="68.5" height="68.5"/>
+                                                                                <rect key="frame" x="14.5" y="0.0" width="62" height="62"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="hKG-lk-EnP" secondAttribute="height" multiplier="1:1" id="DHW-qt-SDU"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-
-                                                                                <rect key="frame" x="0.0" y="68.5" width="91.5" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="62" width="91.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5c-jg-G8V">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="83.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="82"/>
                                                                                 <connections>
                                                                                     <action selector="aerinAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="XEC-2x-8PM"/>
                                                                                 </connections>
@@ -121,24 +119,22 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6D-EY-y2X">
-                                                                        <rect key="frame" x="91.5" y="0.0" width="91" height="83.5"/>
+                                                                        <rect key="frame" x="91.5" y="0.0" width="91" height="82"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flights" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-
-                                                                                <rect key="frame" x="11" y="0.0" width="68.5" height="68.5"/>
+                                                                                <rect key="frame" x="14.5" y="0.0" width="62" height="62"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="KsZ-Ga-z3J" secondAttribute="height" multiplier="1:1" id="8Hy-dr-IoG"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-
-                                                                                <rect key="frame" x="0.0" y="68.5" width="91" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="62" width="91" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-pX-OEm">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="91" height="83.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="91" height="82"/>
                                                                                 <connections>
                                                                                     <action selector="flightsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m6B-7i-DW0"/>
                                                                                 </connections>
@@ -161,24 +157,22 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUw-j7-ETK">
-                                                                        <rect key="frame" x="182.5" y="0.0" width="91.5" height="83.5"/>
+                                                                        <rect key="frame" x="182.5" y="0.0" width="91.5" height="82"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-
-                                                                                <rect key="frame" x="11.5" y="0.0" width="68.5" height="68.5"/>
+                                                                                <rect key="frame" x="14.5" y="0.0" width="62" height="62"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="BKX-kN-nNl" secondAttribute="height" multiplier="1:1" id="fdI-Wu-z9g"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-
-                                                                                <rect key="frame" x="0.0" y="68.5" width="91.5" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="62" width="91.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-ya-Wwi">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="83.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="82"/>
                                                                                 <connections>
                                                                                     <action selector="hotelsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="k4Q-ft-cuS"/>
                                                                                 </connections>
@@ -201,24 +195,22 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tu-Ax-XQ7">
-                                                                        <rect key="frame" x="274" y="0.0" width="91" height="83.5"/>
+                                                                        <rect key="frame" x="274" y="0.0" width="91" height="82"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trips" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-
-                                                                                <rect key="frame" x="11" y="0.0" width="68.5" height="68.5"/>
+                                                                                <rect key="frame" x="14.5" y="0.0" width="62" height="62"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="ncO-p1-Aoc" secondAttribute="height" multiplier="1:1" id="H1h-j1-Qqa"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-
-                                                                                <rect key="frame" x="0.0" y="68.5" width="91" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="62" width="91" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aja-V4-2aL">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="91" height="83.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="91" height="82"/>
                                                                                 <connections>
                                                                                     <action selector="tripsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m3v-5u-bRz"/>
                                                                                 </connections>
@@ -282,7 +274,7 @@
                                                 </constraints>
                                             </view>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7M1-zd-tJX" userLabel="Inner Scroll View">
-                                                <rect key="frame" x="0.0" y="147.5" width="375" height="504.5"/>
+                                                <rect key="frame" x="0.0" y="146" width="375" height="504.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAo-n3-rEy" userLabel="Inner Container View">
                                                         <rect key="frame" x="0.0" y="0.0" width="1500" height="504.5"/>
@@ -883,7 +875,7 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo">
-                                <rect key="frame" x="120" y="20" width="255" height="587"/>
+                                <rect key="frame" x="120" y="0.0" width="255" height="607"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
@@ -1051,7 +1043,7 @@ travel experience</string>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="bottom" secondItem="tYV-0J-82w" secondAttribute="bottom" constant="-15" id="3yD-nR-eaO"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="width" secondItem="Nk2-kJ-uNo" secondAttribute="width" multiplier="0.7" id="FMo-Ah-RYX"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="top" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="H0g-E4-Gaj"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="tYV-0J-82w" secondAttribute="top" id="ged-fM-RP1"/>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="y8S-Y4-E4n" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="mEQ-BN-39k" firstAttribute="centerX" secondItem="Nk2-kJ-uNo" secondAttribute="centerX" id="m7T-zW-Hg8"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" constant="120" id="rk6-ll-PPp"/>
