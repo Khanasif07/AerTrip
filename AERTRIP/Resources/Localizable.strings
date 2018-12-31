@@ -94,6 +94,8 @@
 "Mobile_Number"      = "Mobile Number";
 "Lets_Get_Started"    = "Lets Get Started!";
 "Done"            = "Done";
+"selectedCountryCode"    = "+91";
+"selectedCountry"        = "India";
 
 // MARK:- ForgotPasswordVC
 //MARK:-

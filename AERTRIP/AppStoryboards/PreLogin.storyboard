@@ -901,14 +901,14 @@ activation link on</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-1J-L9S">
-                                <rect key="frame" x="16" y="344.5" width="20" height="15"/>
+                                <rect key="frame" x="16" y="352" width="20" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="fK0-AT-5Wi"/>
                                     <constraint firstAttribute="height" constant="15" id="lA5-3K-4Jc"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-VF-RMv">
-                                <rect key="frame" x="38" y="342" width="29" height="20.5"/>
+                                <rect key="frame" x="38" y="349.5" width="29" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -961,7 +961,7 @@ activation link on</string>
                             <constraint firstItem="JhX-hK-MVU" firstAttribute="centerX" secondItem="1ay-s3-FhZ" secondAttribute="centerX" id="asg-fa-JTz"/>
                             <constraint firstItem="yzr-jj-cAo" firstAttribute="centerX" secondItem="1ay-s3-FhZ" secondAttribute="centerX" id="bDo-Z2-j9K"/>
                             <constraint firstItem="gas-Fm-8KW" firstAttribute="bottom" secondItem="tOg-Zi-bYN" secondAttribute="bottom" constant="-15" id="cZj-4E-dmt"/>
-                            <constraint firstItem="9eF-1J-L9S" firstAttribute="centerY" secondItem="0U9-7b-2mE" secondAttribute="centerY" id="ce1-Ny-jU1"/>
+                            <constraint firstItem="9eF-1J-L9S" firstAttribute="bottom" secondItem="0U9-7b-2mE" secondAttribute="bottom" constant="-10" id="f0w-UX-iui"/>
                             <constraint firstItem="1ay-s3-FhZ" firstAttribute="trailing" secondItem="KeZ-q3-qwq" secondAttribute="trailing" constant="16" id="fJs-h0-adE"/>
                             <constraint firstItem="tOg-Zi-bYN" firstAttribute="centerY" secondItem="mVk-hB-44C" secondAttribute="centerY" id="fir-3u-AP7"/>
                             <constraint firstItem="tOg-Zi-bYN" firstAttribute="leading" secondItem="1ay-s3-FhZ" secondAttribute="leading" constant="16" id="ija-3V-Slu"/>

@@ -121,6 +121,7 @@ class EditProfileVM {
     }
     
     func webserviceForSaveProfile() {
+        
         var params = JSONDictionary()
         
         params[APIKeys.salutation.rawValue] = salutation
@@ -136,12 +137,12 @@ class EditProfileVM {
         
         var mobileDictArr = [String:Any]()
         for (idx, mobileObj) in self.mobile.enumerated() {
-            emailDictArr["\(idx)"] = mobileObj.jsonDict
+            mobileDictArr["\(idx)"] = mobileObj.jsonDict
         }
         
         var socialDictArr = [String:Any]()
         for (idx, socialObj) in self.social.enumerated() {
-            emailDictArr["\(idx)"] = socialObj.jsonDict
+            socialDictArr["\(idx)"] = socialObj.jsonDict
         }
         
 //        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in

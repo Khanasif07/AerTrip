@@ -210,6 +210,18 @@ extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
         
         switch sections[indexPath.section] {
             
+        case "details":
+            
+            switch indexPath.row {
+                
+            case 1:
+                
+                AppFlowManager.default.moveToHotelPreferencesVC()
+                
+            default:
+                break
+            }
+            
         case "logOut":
             
             let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in

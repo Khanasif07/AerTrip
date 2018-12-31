@@ -152,6 +152,8 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
+    case selectedCountryCode    = "selectedCountryCode"
+    case selectedCountry        = "selectedCountry"
 
     //MARK:- ViewProfileVC
     //MARK:-

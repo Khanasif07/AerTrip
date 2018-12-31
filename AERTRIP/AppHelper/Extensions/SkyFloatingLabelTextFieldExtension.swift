@@ -36,6 +36,8 @@ extension SkyFloatingLabelTextField {
         self.font           = AppFonts.Regular.withSize(18)
         self.titleLabel.font   = AppFonts.Regular.withSize(14)
         self.tintColor = AppColors.themeGreen
+        self.selectedLineHeight = 0.5
+        self.selectedLineColor  = AppColors.themeGray20
     }
     
     func addRightViewInTextField(_ image: UIImage, width: Int, height: Int ) {
