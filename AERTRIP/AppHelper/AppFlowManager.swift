@@ -191,6 +191,11 @@ extension AppFlowManager {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
+    
+    func moveToHotelPreferencesVC(){
+        let ob = HotelPreferencesVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
 }
 
 //MARK: - Animation

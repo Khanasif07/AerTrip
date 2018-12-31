@@ -7,7 +7,9 @@
 //
 
 import Foundation
+
 struct TravelDetailModel {
+    
     var address: [Address]
     var contact: Contact
     var preferences: Preferences

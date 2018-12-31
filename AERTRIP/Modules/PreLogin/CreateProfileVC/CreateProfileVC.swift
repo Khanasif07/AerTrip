@@ -127,6 +127,8 @@ private extension CreateProfileVC {
         
         self.viewModel.userData.maxNumberCount = 10
         self.viewModel.userData.minNumberCount  = 10
+        self.viewModel.userData.countryCode = LocalizedString.selectedCountryCode.localized
+        self.viewModel.userData.country = LocalizedString.selectedCountry.localized
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
