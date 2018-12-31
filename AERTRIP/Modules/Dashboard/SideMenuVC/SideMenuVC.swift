@@ -10,6 +10,14 @@ import UIKit
 
 class SideMenuVC: BaseVC {
     // MARK: - Properties
+    weak private(set) var loginRegistrationButton: ATButton?
+    var logoContainerView: SideMenuLogoView! {
+        didSet {
+            if logoContainerView == nil {
+                logoContainerView.removeFromSuperview()
+            }
+        }
+    }
     
     // MARK: -
     
@@ -26,25 +34,25 @@ class SideMenuVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-//        self.viewModel.isLogin.is
+
         self.initialSetups()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.sideMenuTableView.isHidden = false
-        self.setNeedsStatusBarAppearanceUpdate()
-        self.sideMenuTableView.alpha = 1.0
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        UIView.animate(withDuration: 0.3) {
-
-             self.sideMenuTableView.alpha = 0.5
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.logoContainerView == nil {
+            self.logoContainerView = SideMenuLogoView.instanceFromNib()
         }
+        
+        self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 180.0)
+        self.view.addSubview(self.logoContainerView)
     }
-    
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .default
     }
@@ -91,8 +99,7 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
-        
-        self.sideMenuTableView.isHidden = true
+        self.loginRegistrationButton = sender
         AppFlowManager.default.moveToSocialLoginVC()
     }
     
@@ -134,6 +141,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("GuestSideMenuHeaderCell not found")
                 }
                 
+                cell.logoContainerView.isHidden = true
                 cell.loginAndRegisterButton.addTarget(self, action: #selector(self.loginAndRegistrationButtonAction(_:)), for: .touchUpInside)
                 
                 return cell

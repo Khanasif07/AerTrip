@@ -126,6 +126,9 @@
 		84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB9C21BE767700011000 /* Dashboard.storyboard */; };
 		84D2FB9F21BE76A900011000 /* MainDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */; };
 		84D2FBA121BE76C900011000 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FBA021BE76C900011000 /* SideMenuVC.swift */; };
+		84EAABE921D9D18F006B757F /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */; };
+		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
+		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -300,6 +303,9 @@
 		84D2FB9C21BE767700011000 /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDashboardVC.swift; sourceTree = "<group>"; };
 		84D2FBA021BE76C900011000 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
+		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
+		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -511,6 +517,8 @@
 				1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */,
 				18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */,
 				18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */,
+				84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */,
+				84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -778,10 +786,11 @@
 		84F9837221B51A070018DFED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				18930A2021D349E7005442C8 /* SearchVC */,
 				84020F1D21B55F5600248A6F /* BaseTabBarController.swift */,
+				84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */,
 				84F9837321B51A070018DFED /* BaseVC.swift */,
 				18A96B9121B646C500EA9B3A /* DemoVC.swift */,
+				18930A2021D349E7005442C8 /* SearchVC */,
 				1841AF8C21C8BA2C0038111D /* Profile */,
 				84D2FB9921BE761300011000 /* Dashboard */,
 				84F9837421B51A070018DFED /* PreLogin */,
@@ -1079,6 +1088,7 @@
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
+				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				189D1F4E21CE3F8E00746329 /* SourceSansPro-Italic.ttf in Resources */,
 				189D1F4A21CE3F8E00746329 /* SourceSansPro-Bold.ttf in Resources */,
 			);
@@ -1217,6 +1227,7 @@
 				18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */,
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				1804889621CA7CFF00437C81 /* ViewProfileDetailVM.swift in Sources */,
+				84EAABE921D9D18F006B757F /* TransitionCoordinator.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
 				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
@@ -1227,6 +1238,7 @@
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */,
 				1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */,
+				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				18F8F19421B850190056440A /* ThankYouRegistrationVM.swift in Sources */,

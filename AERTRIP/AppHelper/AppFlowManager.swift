@@ -18,7 +18,7 @@ class AppFlowManager: NSObject {
     static let `default` = AppFlowManager()
     
     var sideMenuController: PKSideMenuController?
-    
+        
     private let urlScheme = "://"
 
     private override init() {
@@ -87,6 +87,7 @@ class AppFlowManager: NSObject {
         sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
         self.sideMenuController = sideMenuVC
         let nvc = UINavigationController(rootViewController: sideMenuVC)
+        nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
@@ -103,11 +104,7 @@ extension AppFlowManager {
     
     func moveToSocialLoginVC() {
         let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-//        ob.modalPresentationStyle = .custom
-//        ob.transitioningDelegate = self
-        self.mainNavigationController.delegate = self
-//        self.mainNavigationController.transitioningDelegate = self
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToLoginVC(email: String) {
@@ -204,45 +201,5 @@ extension AppFlowManager {
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         transition.type = CATransitionType.push
         onNavigationController?.view.layer.add(transition, forKey: nil)
-    }
-}
-
-
-//MARK:- Navigation Transitioning Animation
-extension AppFlowManager: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .present
-        return transition
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .dismiss
-        return transition
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return nil
-    }
-}
-
-extension AppFlowManager: UINavigationControllerDelegate {
-    
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        print("will show")
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        print("didShow")
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .dismiss
-        return nil
     }
 }

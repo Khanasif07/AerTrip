@@ -12,7 +12,8 @@ class SocialLoginVC: BaseVC {
     // MARK: - Properties
     
     // MARK: -
-    
+    // used to find the logo view to hide
+    var logoContainerPassedView: SideMenuLogoView?
     let viewModel = SocialLoginVM()
     
 
@@ -30,15 +31,14 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var bottomStackView: UIStackView!
     @IBOutlet weak var socialButtonsStackView: UIStackView!
     @IBOutlet weak var backButton: UIButton!
-
+    @IBOutlet weak var logoContainerView: UIView!
+    
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.transitioningDelegate = AppFlowManager.default
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.transitioningDelegate = AppFlowManager.default
     }
     
     override func viewDidLoad() {
@@ -51,20 +51,22 @@ class SocialLoginVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         if self.viewModel.isFirstTime {
-            
             self.backButton.isHidden  = true
             self.view.backgroundColor = .clear
             self.animateContentOnLoad()
         }
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.logoContainerPassedView?.isHidden = true
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.logoContainerPassedView?.isHidden = false
         self.backButton.isHidden = false
     }
     
@@ -135,8 +137,8 @@ class SocialLoginVC: BaseVC {
         self.animateContentOnPop()
         
         delay(seconds: 0.45) { [weak self] in
-            AppFlowManager.default.addPopAnimation(onNavigationController: self?.navigationController)
-            self?.navigationController?.popToRootViewController(animated: false)
+//            AppFlowManager.default.addPopAnimation(onNavigationController: self?.navigationController)
+            self?.navigationController?.popToRootViewController(animated: true)
         }
     }
 }
@@ -226,9 +228,9 @@ extension SocialLoginVC {
     
     private func animateContentOnLoad() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
-        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
-        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+//        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+//        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+//        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
         self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
@@ -239,12 +241,12 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.linkedInButton.alpha = 0
         
-        UIView.animate(withDuration: 0.35, animations:{
-            
-            self.logoImage.transform = .identity
-            self.topImage.transform  = .identity
-            self.centerTitleLabel.transform  = .identity
-        })
+//        UIView.animate(withDuration: 0.35, animations:{
+//
+//            self.logoImage.transform = .identity
+//            self.topImage.transform  = .identity
+//            self.centerTitleLabel.transform  = .identity
+//        })
         
         UIView.animate(withDuration: 0.5, animations: {
             
@@ -303,11 +305,11 @@ extension SocialLoginVC {
             self.fbButton.alpha = 0.0
         })
         
-        UIView.animate(withDuration: 0.5, animations:{
-            
-            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
-            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
-            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
-        })
+//        UIView.animate(withDuration: 0.5, animations:{
+//
+//            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+//            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+//            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+//        })
     }
 }

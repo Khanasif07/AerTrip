@@ -39,10 +39,11 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         return (fMain.minX == self.distanceOpenMenu)
     }
     
+    private(set) var menuContainer : UIView?
+    private(set) var menuViewController : UIViewController?
+
     //MARK:- Private
     private var mainContainer : UIView?
-    private var menuContainer : UIView?
-    private var menuViewController : UIViewController?
     private var mainViewController : UIViewController?
     private var shadowLayer: CAShapeLayer!
     private let animationTime: TimeInterval = 0.4

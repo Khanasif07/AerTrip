@@ -885,26 +885,42 @@ on Christmas”</string>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="243.5" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
                                             <rect key="frame" x="0.0" y="0.0" width="243.5" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-aY-yLY">
-                                                    <rect key="frame" x="108" y="38" width="28" height="25"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="bs6-i3-TJy">
-                                                    <rect key="frame" x="66.5" y="81" width="111" height="13"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRi-ME-lzS">
-                                                    <rect key="frame" x="10" y="117" width="223.5" height="41"/>
-                                                    <string key="text">Enjoy a more personalised 
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sr-St-Vaq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="243.5" height="179"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-aY-yLY">
+                                                            <rect key="frame" x="108" y="20" width="28" height="25"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="bs6-i3-TJy">
+                                                            <rect key="frame" x="66.5" y="63" width="111" height="13"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRi-ME-lzS">
+                                                            <rect key="frame" x="20" y="99" width="203.5" height="41"/>
+                                                            <string key="text">Enjoy a more personalised 
 travel experience</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="eM0-aY-yLY" firstAttribute="centerX" secondItem="4sr-St-Vaq" secondAttribute="centerX" id="2uG-C4-iqS"/>
+                                                        <constraint firstItem="bs6-i3-TJy" firstAttribute="top" secondItem="eM0-aY-yLY" secondAttribute="bottom" constant="18" id="Fsa-FI-KLU"/>
+                                                        <constraint firstItem="zRi-ME-lzS" firstAttribute="top" secondItem="bs6-i3-TJy" secondAttribute="bottom" constant="23" id="Jdu-kf-QsQ"/>
+                                                        <constraint firstItem="bs6-i3-TJy" firstAttribute="centerX" secondItem="eM0-aY-yLY" secondAttribute="centerX" id="RwU-E7-oQE"/>
+                                                        <constraint firstItem="eM0-aY-yLY" firstAttribute="top" secondItem="4sr-St-Vaq" secondAttribute="top" constant="20" id="TFC-4B-Qjl"/>
+                                                        <constraint firstAttribute="height" constant="179" id="TG3-rV-XsM"/>
+                                                        <constraint firstItem="zRi-ME-lzS" firstAttribute="leading" secondItem="4sr-St-Vaq" secondAttribute="leading" constant="20" id="ouU-Af-etd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zRi-ME-lzS" secondAttribute="trailing" constant="20" id="wUt-GH-czB"/>
+                                                    </constraints>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-Cf-DnY" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="36.5" y="182" width="170.5" height="50"/>
+                                                    <rect key="frame" x="36.5" y="179" width="170.5" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="bTS-a2-NBv"/>
                                                     </constraints>
@@ -921,25 +937,22 @@ travel experience</string>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="eM0-aY-yLY" firstAttribute="top" secondItem="MSE-KU-n6l" secondAttribute="top" constant="38" id="2FL-0J-iWW"/>
                                                 <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="20" id="Aah-eD-HPT"/>
-                                                <constraint firstItem="eM0-aY-yLY" firstAttribute="centerX" secondItem="MSE-KU-n6l" secondAttribute="centerX" id="DB3-qY-qzq"/>
-                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="zRi-ME-lzS" secondAttribute="bottom" constant="24.100000000000001" id="DLK-Ur-jO6"/>
+                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="4sr-St-Vaq" secondAttribute="bottom" id="E7S-YN-tAd"/>
                                                 <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="20" id="H8U-L2-4Sb"/>
-                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="24" id="JnX-oI-0Ua"/>
-                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="centerX" secondItem="zRi-ME-lzS" secondAttribute="centerX" id="LHA-Gf-7W9"/>
-                                                <constraint firstItem="zRi-ME-lzS" firstAttribute="top" secondItem="bs6-i3-TJy" secondAttribute="bottom" constant="23" id="PKX-yg-eox"/>
-                                                <constraint firstItem="bs6-i3-TJy" firstAttribute="centerX" secondItem="eM0-aY-yLY" secondAttribute="centerX" id="YOy-re-aR0"/>
-                                                <constraint firstItem="zRi-ME-lzS" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="10" id="aSS-i5-rJq"/>
-                                                <constraint firstItem="bs6-i3-TJy" firstAttribute="top" secondItem="eM0-aY-yLY" secondAttribute="bottom" constant="18" id="f8n-wB-ixn"/>
+                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="centerX" secondItem="4sr-St-Vaq" secondAttribute="centerX" id="JSa-bc-5WV"/>
+                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="27" id="JnX-oI-0Ua"/>
+                                                <constraint firstItem="4sr-St-Vaq" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" id="QKZ-oY-PWh"/>
+                                                <constraint firstAttribute="trailing" secondItem="4sr-St-Vaq" secondAttribute="trailing" id="RgJ-dU-EZ3"/>
+                                                <constraint firstItem="4sr-St-Vaq" firstAttribute="top" secondItem="MSE-KU-n6l" secondAttribute="top" id="Wcb-Ws-ong"/>
                                                 <constraint firstAttribute="bottom" secondItem="fW6-QH-GVh" secondAttribute="bottom" constant="0.5" id="fnk-4i-ZnD"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="width" secondItem="MSE-KU-n6l" secondAttribute="width" multiplier="0.7" id="poC-tW-X4R"/>
-                                                <constraint firstAttribute="trailing" secondItem="zRi-ME-lzS" secondAttribute="trailing" constant="10" id="qXZ-Aw-V79"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="headerTitleLabel" destination="zRi-ME-lzS" id="AUf-iH-zuX"/>
                                             <outlet property="loginAndRegisterButton" destination="yod-Cf-DnY" id="H4Q-Tp-nsl"/>
+                                            <outlet property="logoContainerView" destination="4sr-St-Vaq" id="9Gp-Fx-4wY"/>
                                             <outlet property="logoImage" destination="eM0-aY-yLY" id="cNV-ZQ-4QW"/>
                                             <outlet property="logoTextImage" destination="bs6-i3-TJy" id="bG0-L0-3V4"/>
                                             <outlet property="sepratorView" destination="fW6-QH-GVh" id="dLm-md-WhM"/>
