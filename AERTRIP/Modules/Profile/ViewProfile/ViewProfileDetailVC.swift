@@ -120,20 +120,17 @@ class ViewProfileDetailVC: BaseVC {
         if travelData?.profileImage != "" {
             profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travelData?.profileImage)!))
         } else {
-            let string = "\((travelData?.firstName)!.firstCharacter)" + "\((travelData?.lastName)!.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            profileImageHeaderView.profileImageView.image = image
-            profileImageHeaderView.backgroundImageView.image = image
+            profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
         
         if let mobile = travelData?.contact.mobile {
             if mobile.count > 0 {
                 self.mobile = mobile
             } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
                 var mobile = Mobile()
                 mobile.label = "Default"
-                mobile.value = userData.mobile
+                mobile.value = UserInfo.loggedInUser?.mobile ?? ""
                 self.mobile.append(mobile)
             }
         }
@@ -145,10 +142,9 @@ class ViewProfileDetailVC: BaseVC {
             if email.count > 0 {
                 self.email = email
             } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
                 var email = Email()
                 email.label = "Default"
-                email.value = userData.email
+                email.value = UserInfo.loggedInUser?.email ?? ""
                 self.email.append(email)
             }
         }

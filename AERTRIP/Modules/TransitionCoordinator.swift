@@ -15,6 +15,12 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
+        func getDefaultTransition() -> DefaultNavigationTransition {
+            let animation = DefaultNavigationTransition()
+            animation.transitionMode = operation == .pop ? .pop : .push
+            return animation
+        }
+        
         switch fromVC {
             
         case is PKSideMenuController:
@@ -28,12 +34,12 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
                 animation.transitionMode = .pop
                 return animation
             }
-            return nil
+            return getDefaultTransition()
             
         default:
-            return nil
+            return getDefaultTransition()
         }
 
-        return nil
+        return getDefaultTransition()
     }
 }

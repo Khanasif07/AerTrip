@@ -125,10 +125,10 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
-        self.viewModel.userData.maxNumberCount = 10
-        self.viewModel.userData.minNumberCount  = 10
-        self.viewModel.userData.countryCode = LocalizedString.selectedCountryCode.localized
-        self.viewModel.userData.country = LocalizedString.selectedCountry.localized
+        self.viewModel.userData.maxContactLimit = 10
+        self.viewModel.userData.minContactLimit  = 10
+        self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
+        self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -233,15 +233,15 @@ extension CreateProfileVC {
                 self.countryCodeLabel.text  = selectedCountry.countryCode
                 self.countryFlagImage.image = selectedCountry.flagImage
                 self.countryTextField.text = selectedCountry.countryEnglishName
-                self.viewModel.userData.country = selectedCountry.countryEnglishName
+                self.viewModel.userData.address?.country = selectedCountry.countryEnglishName
                 self.viewModel.userData.isd = selectedCountry.countryCode
-                self.viewModel.userData.countryCode = selectedCountry.ISOCode
-                self.viewModel.userData.maxNumberCount = selectedCountry.maxNSN
-                self.viewModel.userData.minNumberCount  = selectedCountry.minNSN
+                self.viewModel.userData.address?.countryCode = selectedCountry.ISOCode
+                self.viewModel.userData.maxContactLimit = selectedCountry.maxNSN
+                self.viewModel.userData.minContactLimit  = selectedCountry.minNSN
                 
-                if self.viewModel.userData.mobile.count > self.viewModel.userData.maxNumberCount  {
+                if self.viewModel.userData.mobile.count > self.viewModel.userData.minContactLimit  {
                     
-                    self.viewModel.userData.mobile  = self.viewModel.userData.mobile.substring(to: self.viewModel.userData.maxNumberCount - 1)
+                    self.viewModel.userData.mobile  = self.viewModel.userData.mobile.substring(to: self.viewModel.userData.minContactLimit - 1)
                     self.mobileNumberTextField.text = self.viewModel.userData.mobile
                 }
                 
@@ -268,7 +268,7 @@ extension CreateProfileVC {
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         
         if textField === self.mobileNumberTextField {
-            return newString.length <= self.viewModel.userData.maxNumberCount
+            return newString.length <= self.viewModel.userData.minContactLimit
         }
        
         return true

@@ -158,7 +158,7 @@ extension AppFlowManager {
         
         let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         
-        ob.viewModel.userData.id = refId
+        ob.viewModel.userData.paxId = refId
         ob.viewModel.userData.email    = email
         ob.viewModel.userData.password = password
         self.mainNavigationController.pushViewController(ob, animated: true)

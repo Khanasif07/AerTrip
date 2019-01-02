@@ -16,7 +16,7 @@ class SocialLoginVC: BaseVC {
     var logoContainerPassedView: SideMenuLogoView?
     let viewModel = SocialLoginVM()
     
-
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var logoImage: UIImageView!
@@ -54,7 +54,6 @@ class SocialLoginVC: BaseVC {
         if self.viewModel.isFirstTime {
             self.backButton.isHidden  = true
             self.view.backgroundColor = .clear
-            self.animateContentOnLoad()
         }
     }
     
@@ -123,9 +122,9 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
-
+        
         AppFlowManager.default.moveToCreateYourAccountVC(email: "")
-   }
+    }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
@@ -133,12 +132,10 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        
-        self.animateContentOnPop()
-        
-        delay(seconds: 0.45) { [weak self] in
-//            AppFlowManager.default.addPopAnimation(onNavigationController: self?.navigationController)
-            self?.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
+        delay(seconds: 0.6) {
+            self.logoContainerView.removeFromSuperview()
+            self.view.addSubview(self.logoContainerView)
         }
     }
 }
@@ -226,7 +223,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
 extension SocialLoginVC {
 
     
-    private func animateContentOnLoad() {
+    func animateContentOnLoad() {
         
 //        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
 //        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
@@ -276,7 +273,7 @@ extension SocialLoginVC {
         })
     }
     
-    private func animateContentOnPop() {
+    func animateContentOnPop() {
 
         UIView.animate(withDuration: 0.05, animations:{
             

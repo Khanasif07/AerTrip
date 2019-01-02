@@ -137,19 +137,16 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
-        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
+        self.profileImageHeaderView.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
+        self.profileImageHeaderView.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
+        self.profileImageHeaderView.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
         
-        self.profileImageHeaderView.userNameLabel.text = userData.firstName + " " + userData.lastName
-        self.profileImageHeaderView.emailIdLabel.text = userData.email
-        self.profileImageHeaderView.mobileNumberLabel.text = userData.mobile
-        
-        if userData.picture != "" {
-            self.profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: userData.picture))
-        } else {
-            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            profileImageHeaderView.profileImageView.image = image
-            profileImageHeaderView.backgroundImageView.image = image
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: imagePath))
+        }
+        else {
+            profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
         
         self.view.bringSubviewToFront(self.headerView)
@@ -224,11 +221,10 @@ extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
             
         case "logOut":
             
-            let action =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+            let _ =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
                 
                 if index == 0 {
-                    
-                    AppUserDefaults.removeAllValues()
+                    UserInfo.loggedInUserId = nil
                     AppFlowManager.default.goToDashboard()
                 }
             })

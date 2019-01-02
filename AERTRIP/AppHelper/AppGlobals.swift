@@ -59,6 +59,14 @@ struct AppGlobals {
         return String(data: data, encoding: String.Encoding.utf8)
     }
     
+    func onject(from json:String) -> Any? {
+        
+        if let data = json.data(using: .utf8) {
+            return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+        }
+        return nil
+    }
+    
     static func retunsStringArray(jsonArr:[JSON]) -> [String] {
         var labels = [String]()
         for element in jsonArr {
@@ -68,7 +76,7 @@ struct AppGlobals {
         return labels
     }
     
-     func getTextFromImage(_ fromText: String) -> UIImage {
+     func getImageFromText(_ fromText: String) -> UIImage {
         return UIImage(text: fromText, font: UIFont.boldSystemFont(ofSize: 20), color: UIColor.gray, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
     }
 

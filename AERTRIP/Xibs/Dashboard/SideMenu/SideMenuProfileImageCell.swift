@@ -49,17 +49,14 @@ extension SideMenuProfileImageCell {
         self.viewProfileButton.setTitle(LocalizedString.ViewProfile.localized, for: .normal)
     }
     
-    func populateData(userData: UserModel) {
+    func populateData() {
         
-        self.userNameLabel.text = userData.userName
-        let placeHolder = UIImage(named: "group")
-        self.profileImage.setImageWithUrl(userData.picture, placeholder: placeHolder!, showIndicator: true)
-        
-        if userData.picture.isEmpty && !userData.firstName.isEmpty {
-            
-            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            self.profileImage.image = image
+        self.userNameLabel.text = UserInfo.loggedInUser?.profileName
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileImage.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+        }
+        else {
+            self.profileImage.image = UserInfo.loggedInUser?.profileImagePlaceholder
             self.profileImage.layer.borderColor = AppColors.profileImageBorderColor.cgColor
             self.profileImage.layer.borderWidth = 6.0
         }

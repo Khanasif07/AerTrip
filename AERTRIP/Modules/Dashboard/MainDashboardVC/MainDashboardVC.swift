@@ -331,7 +331,7 @@ extension MainDashboardVC {
         self.hotelsContainerView.alpha = self.fadeAlphaPercentage
         self.tripsContainerView.alpha = self.fadeAlphaPercentage
         
-        if let url = URL(string: UserModel(json: AppUserDefaults.value(forKey: .userData)).picture){
+        if let profileImage = UserInfo.loggedInUser?.profileImage, let url = URL(string: profileImage) {
             self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
         }
     }

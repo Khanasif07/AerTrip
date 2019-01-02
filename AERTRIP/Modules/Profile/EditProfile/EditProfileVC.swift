@@ -197,9 +197,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         let socialModel = SocialLoginVM()
         socialModel.fbLogin(vc: self) { success in
             if success {
-                let placeHolder = UIImage(named: "group")
-                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
-            } else {}
+                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+            }
         }
     }
     
@@ -214,51 +213,39 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func setUpData() {
-        if let email = travelData?.contact.email {
-            self.email = email
+        
+        guard let travel = travelData else {
+            return
         }
         
-        if let social = travelData?.contact.social {
-            self.social = social
-            viewModel.social = social
-            sections.append(LocalizedString.SocialAccounts)
-        }
+        self.email = travel.contact.email
         
-        if let mobile = travelData?.contact.mobile {
-            self.mobile = mobile
-            viewModel.mobile = mobile
-        }
-        if let travelData = travelData {
-            informations.append((travelData.dob))
-            informations.append((travelData.doa))
-        }
+        self.social = travel.contact.social
+        viewModel.social = travel.contact.social
+        sections.append(LocalizedString.SocialAccounts)
+
+        self.mobile = travel.contact.mobile
+        viewModel.mobile = travel.contact.mobile
         
-        if travelData?.notes != "" {
-            informations.append((travelData?.notes)!)
-        }
+        informations.append(travel.dob)
+        informations.append(travel.doa)
         
-        if travelData?.passportNumber != "" {
-            passportDetails.append((travelData?.passportNumber)!)
-            passportDetails.append((travelData?.passportCountryName)!)
-            sections.append(LocalizedString.PassportDetails)
-        }
+        informations.append(travel.notes)
         
-        if let frequentFlyer = travelData?.frequestFlyer, frequentFlyer.count > 0 {
-            self.frequentFlyer = frequentFlyer
-        }
+        passportDetails.append(travel.passportNumber)
+        passportDetails.append(travel.passportCountryName)
+        sections.append(LocalizedString.PassportDetails)
+
+        self.frequentFlyer = travel.frequestFlyer
         
-        let seatPreference = (travelData?.preferences.seat.name)! + "-" + (travelData?.preferences.seat.value)!
-        let mealPreference = (travelData?.preferences.meal.name)! + "-" + (travelData?.preferences.meal.value)!
-        flightDetails.append(seatPreference)
-        flightDetails.append(mealPreference)
+        flightDetails.append(travel.preferences.seat.name + "-" + travel.preferences.seat.value)
+        flightDetails.append(travel.preferences.meal.name + "-" + travel.preferences.meal.value)
         
         if travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences)
         }
         
-        if let addresses = travelData?.address {
-            self.addresses = addresses
-        }
+        self.addresses = travel.address
         
         tableView.reloadData()
     }

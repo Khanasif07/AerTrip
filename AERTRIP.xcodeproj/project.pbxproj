@@ -95,7 +95,6 @@
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */; };
 		18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */; };
-		18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D00D2221BE31E400EC2E5F /* UserModel.swift */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
 		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */; };
@@ -109,6 +108,7 @@
 		18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */; };
 		18F8F19421B850190056440A /* ThankYouRegistrationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F8F19321B850190056440A /* ThankYouRegistrationVM.swift */; };
 		18FC56AA21CCA95900C19B80 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC56A921CCA95900C19B80 /* EditProfileVC.swift */; };
+		840062A221DB9DA6000BD3BF /* SocialUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840062A121DB9DA6000BD3BF /* SocialUserModel.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84020F1E21B55F5600248A6F /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1D21B55F5600248A6F /* BaseTabBarController.swift */; };
 		8429C90F21BF918C009C208E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8429C90E21BF918C009C208E /* Assets.xcassets */; };
@@ -138,6 +138,7 @@
 		84EAABE921D9D18F006B757F /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */; };
 		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
 		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
+		84F4957B21DC80D900998E83 /* DefaultNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -278,7 +279,6 @@
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextEditTableViewCell.swift; sourceTree = "<group>"; };
 		18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTextEditTableViewCell.xib; sourceTree = "<group>"; };
-		18D00D2221BE31E400EC2E5F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
 		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastMessageVC.swift; sourceTree = "<group>"; };
@@ -294,6 +294,7 @@
 		18FC56A921CCA95900C19B80 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		840062A121DB9DA6000BD3BF /* SocialUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserModel.swift; sourceTree = "<group>"; };
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84020F1D21B55F5600248A6F /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		8429C90E21BF918C009C208E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -324,6 +325,7 @@
 		84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
 		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
 		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
+		84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationTransition.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -835,9 +837,9 @@
 			isa = PBXGroup;
 			children = (
 				183E3F6021D9EA180032DEBA /* HotelPreferences */,
-				18930A2021D349E7005442C8 /* SearchVC */,
 				84020F1D21B55F5600248A6F /* BaseTabBarController.swift */,
 				84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */,
+				84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */,
 				84F9837321B51A070018DFED /* BaseVC.swift */,
 				18A96B9121B646C500EA9B3A /* DemoVC.swift */,
 				18930A2021D349E7005442C8 /* SearchVC */,
@@ -884,8 +886,8 @@
 		84F9837921B51A070018DFED /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				840062A121DB9DA6000BD3BF /* SocialUserModel.swift */,
 				84F983FA21B545050018DFED /* UserInfo.swift */,
-				18D00D2221BE31E400EC2E5F /* UserModel.swift */,
 				1851A75221C39355008DF03F /* AccountModel.swift */,
 				18A01E3F21CA0B180071E772 /* HotelModel.swift */,
 				18A01E4121CA1FE40071E772 /* GeneralPrefrenceModel.swift */,
@@ -1323,7 +1325,6 @@
 				180A3D7621C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */,
-				18D00D2321BE31E400EC2E5F /* UserModel.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
@@ -1336,10 +1337,12 @@
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
 				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				180A3D7821C0E262001A1E6A /* SideMenuVM.swift in Sources */,
+				840062A221DB9DA6000BD3BF /* SocialUserModel.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				1886378E21D0AD6000D64443 /* EditProfileVM.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
+				84F4957B21DC80D900998E83 /* DefaultNavigationTransition.swift in Sources */,
 				1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */,
 				1804888321CA192900437C81 /* ViewProfileDetailVC.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,

@@ -27,8 +27,8 @@ class ViewProfileDetailVM {
         
         APICaller.shared.getTravelDetail(params: params, completionBlock: { success, data, errorCode in
             
-            if success {
-                self.delegate?.getSuccess(data)
+            if success, let trav = data {
+                self.delegate?.getSuccess(trav)
             } else {
                 self.delegate?.getFail(errors: errorCode)
                 debugPrint(errorCode)

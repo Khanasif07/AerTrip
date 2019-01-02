@@ -19,6 +19,8 @@ class SideMenuVC: BaseVC {
         }
     }
     
+    var sideMenuSnap: UIView?
+    
     // MARK: -
     
     let viewModel = SideMenuVM()
@@ -45,12 +47,17 @@ class SideMenuVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.logoContainerView == nil {
-            self.logoContainerView = SideMenuLogoView.instanceFromNib()
+        if UserInfo.loggedInUserId == nil {
+            //add the logo view only if user is not logged in 
+            if self.logoContainerView == nil {
+                self.logoContainerView = SideMenuLogoView.instanceFromNib()
+            }
+            
+            self.sideMenuSnap =  AppFlowManager.default.sideMenuController?.view.snapshotView(afterScreenUpdates: false)
+            
+            self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 160.0)
+            self.view.addSubview(self.logoContainerView)
         }
-        
-        self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 180.0)
-        self.view.addSubview(self.logoContainerView)
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -100,6 +107,8 @@ extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
         self.loginRegistrationButton = sender
+        self.logoContainerView.removeFromSuperview()
+        AppFlowManager.default.mainNavigationController.view.addSubview(self.logoContainerView)
         AppFlowManager.default.moveToSocialLoginVC()
     }
     
@@ -114,7 +123,7 @@ extension SideMenuVC {
 
 extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.viewModel.isLogin {
+        if let _ = UserInfo.loggedInUserId {
             return self.viewModel.cellForLoginUser.count + 1
             
         } else {
@@ -126,12 +135,12 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             
-            if self.viewModel.isLogin {
+            if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuProfileImageCell", for: indexPath) as? SideMenuProfileImageCell else {
                     fatalError("SideMenuProfileImageCell not found")
                 }
                 
-                cell.populateData(userData: self.viewModel.userData)
+                cell.populateData()
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell
@@ -149,12 +158,12 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
         case 1:
             
-            if self.viewModel.isLogin {
+            if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuViewAccountCell", for: indexPath) as? SideMenuViewAccountCell else {
                     fatalError("SideMenuViewAccountCell not found")
                 }
                 
-                cell.populateData(data: self.viewModel.userData)
+                cell.populateData()
                 return cell
                 
             } else {
@@ -172,7 +181,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("SideMenuOptionsLabelCell not found")
             }
             
-            if self.viewModel.isLogin {
+            if let _ = UserInfo.loggedInUserId {
                 cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
                 
                 if indexPath.row == 6 {

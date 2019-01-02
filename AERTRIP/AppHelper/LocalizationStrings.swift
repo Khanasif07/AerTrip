@@ -20,6 +20,7 @@ enum LocalizedString: String {
     case NoInternet = "NoInternet"
     case ParsingError = "ParsingError"
     case error = "error"
+    case na = "na"
     
     // MARK:- TextField validation
     //MARK:-

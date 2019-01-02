@@ -264,3 +264,9 @@ enum AppErrorCodeFor: Int {
 public enum ATTransitionMode: Int {
     case present, dismiss, push, pop
 }
+
+enum AppPlaceholderImage {
+    static let user: UIImage = #imageLiteral(resourceName: "userPlaceholder")
+    static let profile: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
+    static let hotelCard: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+}

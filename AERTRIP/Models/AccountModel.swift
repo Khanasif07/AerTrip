@@ -13,6 +13,11 @@ struct AccountModel {
     let statements : Statements
     let credit     : Credit
     
+    var jsonDict: [String:Any] {
+        return ["statement": self.statements.jsonDict,
+                "credit": self.credit.jsonDict]
+    }
+    
     init() {
         
         let json = JSON()
@@ -34,6 +39,15 @@ struct Statements {
     let lastStatementBalence: LastStatement
     let recentDebit         : LastStatement
     let beforeAmountDue     : LastStatement
+    
+    var jsonDict: [String:Any] {
+        return ["id": self.id,
+                "recent_credit": self.recentCredit,
+                "amount_due": self.amountDue,
+                "last_statement_balance": self.lastStatementBalence.jsonDict,
+                "recent_debit": self.recentDebit.jsonDict,
+                "before_amount_due": self.beforeAmountDue.jsonDict]
+    }
     
     init() {
         
@@ -58,6 +72,11 @@ struct LastStatement {
     var amount : String
     var dates  : [String]
     
+    var jsonDict: [String:Any] {
+        return ["amount": self.amount,
+                "date": self.dates]
+    }
+    
     init() {
         
         let json = JSON()
@@ -77,6 +96,12 @@ struct Credit {
     let creditLimit     : Double
     let currentBalance  : Double
     let availableCredit : Double
+    
+    var jsonDict: [String:Any] {
+        return ["credit_limit": self.creditLimit,
+         "current_balance": self.currentBalance,
+         "available_credit": self.availableCredit]
+    }
     
     init() {
         

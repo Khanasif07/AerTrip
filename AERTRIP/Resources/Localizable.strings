@@ -10,6 +10,7 @@
 "NoInternet" = "There is no internet.";
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
+"na" = "N/A";
 
 // MARK:- TextField validation
 //MARK:-

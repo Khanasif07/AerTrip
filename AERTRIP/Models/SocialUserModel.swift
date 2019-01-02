@@ -65,7 +65,7 @@ enum Gender : String {
     
 }
 
-struct UserModel {
+struct SocialUserModel {
     
     var isLoggedIn : Bool
     var id         : String
