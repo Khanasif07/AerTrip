@@ -16,16 +16,25 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         return sections.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if sections[indexPath.section] == LocalizedString.Address && indexPath.row != addresses.count {
+            return 264.0
+        } else {
+           return  UITableView.automaticDimension
+        }
+       
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case LocalizedString.EmailAddress:
             return email.count + 1
-            
         case LocalizedString.ContactNumber:
             return mobile.count + 1
-            
         case LocalizedString.SocialAccounts:
             return social.count + 1
+        case LocalizedString.Address:
+            return addresses.count + 1
         case LocalizedString.MoreInformation:
             return informations.count
         case LocalizedString.PassportDetails:
@@ -36,27 +45,27 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 return 2
             }
-        case LocalizedString.Address:
-            return 6
+       
         default:
             return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
-            fatalError("EditProfileTwoPartTableViewCell not found")
-        }
-        cell.editProfilTwoPartTableViewCelldelegate = self
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress:
             if indexPath.row == email.count {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
+                
                 cell.configureCell(LocalizedString.AddEmail.localized)
                 return cell
             } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
+                    fatalError("EditProfileTwoPartTableViewCell not found")
+                }
+                cell.editProfilTwoPartTableViewCelldelegate = self
                 cell.configureCell(indexPath, email[indexPath.row].label, email[indexPath.row].value)
                 if indexPath.row + 1 == email.count {
                     cell.leftSeparatorView.isHidden = true
@@ -98,8 +107,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(LocalizedString.AddSocialAccountId.localized)
                 return cell
             } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
+                    fatalError("EditProfileTwoPartTableViewCell not found")
+                }
+                cell.editProfilTwoPartTableViewCelldelegate = self
                 cell.configureCell(indexPath, social[indexPath.row].label, social[indexPath.row].value)
-                if indexPath.row + 1 == email.count {
+                if indexPath.row + 1 == social.count {
                     cell.leftSeparatorView.isHidden = true
                     cell.rightSeparatorView.isHidden = true
                 } else {
@@ -126,6 +139,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.delegate = self
+                cell.delegate = self
                 if indexPath.row == 0 {
                     cell.editableTextField.isEnabled = true
                 } else {
@@ -136,38 +150,23 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.Address:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: addressTextEditTableCellIdentier, for: indexPath) as? AddressTextEditTableViewCell else {
-                fatalError("AddressTextEditTableViewCell not found")
-            }
             
-            if indexPath.row == 0 || indexPath.row == 5 {
-                cell.downArrow.isHidden = false
-                cell.textField.isEnabled = false
+            if indexPath.row == addresses.count {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
+                    fatalError("TableViewAddActionCell not found")
+                }
+                cell.configureCell(LocalizedString.AddAddress.localized)
+                return cell
             } else {
-                cell.downArrow.isHidden = true
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: addAddressTableViewCellIdentifier, for: indexPath) as? AddAddressTableViewCell else {
+                    fatalError("AddAddressTableViewCell not found")
+                }
+                
+                cell.configureCell(addressType: addresses[indexPath.row].label, addressLineOne: addresses[indexPath.row].line1, addressLineTwo: addresses[indexPath.row].line3, cityName:addresses[indexPath.row].city, postalCode: addresses[indexPath.row].postalCode, stateName: addresses[indexPath.row].state, countryName: addresses[indexPath.row].country)
+            
+                
+                return cell
             }
-            switch indexPath.row {
-            case 0:
-                cell.configureCell(indexPath, addresses[0].label)
-            case 1:
-                cell.configureCell(indexPath, addresses[0].line1)
-            case 2:
-                cell.configureCell(indexPath, addresses[0].line2)
-            case 3:
-                cell.configureCell(indexPath, addresses[0].postalCode)
-            case 4:
-                cell.configureCell(indexPath, addresses[0].state)
-            case 5:
-                cell.configureCell(indexPath, addresses[0].countryName)
-            default:
-                break
-            }
-            
-            cell.deleteButton.isHidden = true
-            
-            return cell
-            
-//            cell.separatorView.isHidden = (indexPath.row + 1 == passportDetails.count) ? true : false
             
         case LocalizedString.MoreInformation:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
@@ -225,7 +224,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -245,37 +243,55 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress:
-            self.indexPath = indexPath
-            var email = Email()
-            email.type = "email"
-            self.email.append(email)
-            tableView.beginUpdates()
-            insertRowsAtIndexPaths(indexPaths: [indexPath as NSIndexPath], withRowAnimation: .bottom)
-            tableView.endUpdates()
+            if indexPath.row == email.count {
+                self.indexPath = indexPath
+                var email = Email()
+                email.type = "email"
+                self.email.append(email)
+                tableView.beginUpdates()
+                insertRowsAtIndexPaths(indexPaths: [indexPath as NSIndexPath], withRowAnimation: .bottom)
+                tableView.endUpdates()
+            }
+            
         case LocalizedString.SocialAccounts:
-            self.indexPath = indexPath
-            let social = Social()
-            self.social.append(social)
-            tableView.beginUpdates()
-            let IndexPathOfLastRow = NSIndexPath(row: self.social.count - 1, section: indexPath.section)
-            self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-            tableView.endUpdates()
-            tableView.reloadData()
+            if indexPath.row == social.count {
+                self.indexPath = indexPath
+                let social = Social()
+                self.social.append(social)
+                tableView.beginUpdates()
+                let IndexPathOfLastRow = NSIndexPath(row: self.social.count - 1, section: indexPath.section)
+                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
+                tableView.endUpdates()
+            }
+            
+        case LocalizedString.Address:
+            if indexPath.row == addresses.count {
+                self.indexPath = indexPath
+                let address = Address()
+                self.addresses.append(address)
+                tableView.beginUpdates()
+                let IndexPathOfLastRow = NSIndexPath(row: self.addresses.count - 1, section: indexPath.section)
+                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
+                tableView.endUpdates()
+            }
+         
         case LocalizedString.MoreInformation:
             self.handleMoreInformationSectionSelection(indexPath)
             break
             
         case LocalizedString.ContactNumber:
-            self.indexPath = indexPath
-            var mobile = Mobile()
-            mobile.label = "Mobile"
-            mobile.type = "mobile"
-            self.mobile.append(mobile)
-            tableView.beginUpdates()
-            let IndexPathOfLastRow = NSIndexPath(row: self.mobile.count - 1, section: indexPath.section)
-            self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-            tableView.endUpdates()
-            tableView.reloadData()
+            if indexPath.row == self.mobile.count {
+                self.indexPath = indexPath
+                var mobile = Mobile()
+                mobile.label = "Mobile"
+                mobile.type = "mobile"
+                self.mobile.append(mobile)
+                tableView.beginUpdates()
+                let IndexPathOfLastRow = NSIndexPath(row: self.mobile.count - 1, section: indexPath.section)
+                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
+                tableView.endUpdates()
+            }
+            
             break
         case LocalizedString.PassportDetails:
             self.handlePassportDetailSectionSelection(indexPath)
@@ -289,8 +305,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 let IndexPathOfLastRow = NSIndexPath(row: self.frequentFlyer.count - 1, section: indexPath.section)
                 self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
                 tableView.endUpdates()
-                tableView.reloadData()
-                
             } else {
                 self.handleFlightPreferencesSectionSelection(indexPath)
             }
@@ -329,6 +343,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func salutationViewTapped() {
         if salutationTypes.count > 0 {
+            pickerType = .salutation
             pickerData = salutationTypes
             openPicker()
         }
@@ -414,6 +429,7 @@ extension EditProfileVC {
 
 extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
     func textFieldEndEditing(_ indexPath: IndexPath, _ text: String) {
+        self.view.endEditing(true)
         if !text.checkValidity(.Email) {
             AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.rawValue, vc: self)
         }
@@ -503,7 +519,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getSuccess() {
-        //
+        self.navigationController?.popViewController(animated: true)
     }
     
     func willApiCall() {
@@ -619,6 +635,7 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
             }
             cell.leftTitleLabel.text = pickerTitle
             email[indexPath.row].label = pickerTitle
+            viewModel.email = email
         case .contactNumber:
             let indexPath = IndexPath(row: indexPathRow, section: 1)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
@@ -626,12 +643,16 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
             }
             mobile[indexPath.row].type = pickerTitle
             cell.leftTitleLabel.text = pickerTitle
+            viewModel.mobile = mobile
         case .social:
             let indexPath = IndexPath(row: indexPathRow, section: self.indexPath!.section)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? EditProfileTwoPartTableViewCell else {
                 fatalError("EditProfileTwoPartTableViewCell not found")
             }
+            social[indexPath.row].label = pickerTitle
             cell.leftTitleLabel.text = pickerTitle
+            viewModel.social = social
+            
         case .seatPreference:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
@@ -656,7 +677,8 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
             cell.editableTextField.text = pickerTitle
-            viewModel.passportCountry = pickerTitle
+            viewModel.passportCountryName = pickerTitle
+            viewModel.passportCountry = countries.someKey(forValue: pickerTitle)!
             
         default:
             break
@@ -720,6 +742,10 @@ extension EditProfileVC: TextEditableTableViewCellDelegate {
         switch sections[indexPath.section] {
         case LocalizedString.MoreInformation:
             viewModel.notes = text
+        case LocalizedString.PassportDetails:
+            if indexPath.row == 0 {
+                viewModel.passportNumber = text
+            }
         default:
             break
         }

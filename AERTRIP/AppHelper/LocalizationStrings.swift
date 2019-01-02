@@ -210,6 +210,7 @@ enum LocalizedString: String {
     case Delete = "Delete"
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
+    case AddAddress = "Add Address"
     
     // Mark: - Salutation
     case Mrs = "Mrs"

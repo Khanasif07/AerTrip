@@ -124,7 +124,12 @@ struct Email {
     var label: String
     var value: String
     
-    var jsonDict: [String:Any] = [:]
+    var jsonDict: [String:Any] {
+        return ["id":self.id,
+                "type":self.type,
+                "label":self.label,
+                "value":self.value]
+    }
     
     init() {
         let json = JSON()
@@ -132,7 +137,6 @@ struct Email {
     }
     
     init(json: JSON) {
-        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue
@@ -143,6 +147,7 @@ struct Email {
         var email = [Email]()
         for element in jsonArr {
             email.append(Email(json: element))
+         
         }
         return email
     }
@@ -158,7 +163,14 @@ struct Mobile {
     var isd: String
     var mobileFormatted: String
     
-    var jsonDict: [String:Any] = [:]
+    var jsonDict: [String:Any] {
+        return ["id":self.id,
+                "type":self.type,
+                "label":self.label,
+                "value":self.value,
+                "isd":self.isd,
+                "mobileFormatted" : self.mobileFormatted]
+    }
 
     init() {
         let json = JSON()
@@ -166,8 +178,6 @@ struct Mobile {
     }
     
     init(json: JSON) {
-        
-        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue
@@ -191,7 +201,12 @@ struct Social {
     var label : String
     var value : String
     
-    var jsonDict: [String:Any] = [:]
+    var jsonDict: [String:Any] {
+        return ["id":self.id,
+                "type":self.type,
+                "label":self.label,
+                "value":self.value]
+    }
 
     init () {
         let json = JSON()
@@ -199,7 +214,7 @@ struct Social {
     }
     
     init(json : JSON) {
-        self.jsonDict = json.dictionaryObject ?? [:]
+//        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue

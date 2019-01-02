@@ -58,6 +58,12 @@ enum APIKeys: String {
     case ff = "ff"
     case label = "label"
     case hash_key
+    case passportCountryName = "passport_country_name"
+    case passportCountry = "passport_country"
+    case passportIssueDate = "passport_issue_date"
+    case passportExpiryDate = "passport_expiry_date"
+    case passportNumber = "passport_number"
+    case doa = "doa"
     
 }
 

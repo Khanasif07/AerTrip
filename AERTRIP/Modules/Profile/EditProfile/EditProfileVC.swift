@@ -78,6 +78,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let textEditableCellIdentifier = "TextEditableTableViewCell"
     let twoPartEditTableViewCellIdentifier = "TwoPartEditTableViewCell"
     let addressTextEditTableCellIdentier = "AddressTextEditTableViewCell"
+    let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
     
     // MARK: - View Lifecycle
     
@@ -122,7 +123,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBAction func saveButtonTapped(_ sender: Any) {
         NSLog("save button tapped")
         view.endEditing(true)
-        
+        viewModel.email = self.email
+        viewModel.social = self.social
+        viewModel.mobile = self.mobile
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -172,6 +175,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.register(UINib(nibName: twoPartEditTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: twoPartEditTableViewCellIdentifier)
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
+        tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
         tableView.reloadData()
     }
     
@@ -219,7 +223,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         self.email = travel.contact.email
-        
+        viewModel.email = self.email
         self.social = travel.contact.social
         viewModel.social = travel.contact.social
         sections.append(LocalizedString.SocialAccounts)
@@ -244,7 +248,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         if travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences)
         }
-        
+    
+        viewModel.salutation = travel.salutation
+        editProfileImageHeaderView.salutaionLabel.text = travel.salutation
+        editProfileImageHeaderView.firstNameTextField.text = travel.firstName
+        viewModel.firstName = travel.firstName
+        editProfileImageHeaderView.lastNameTextField.text = travel.lastName
+        viewModel.lastName = travel.lastName
         self.addresses = travel.address
         
         tableView.reloadData()
@@ -372,7 +382,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @objc func donedatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
         switch sections[(self.indexPath?.section)!] {
         case LocalizedString.MoreInformation:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)

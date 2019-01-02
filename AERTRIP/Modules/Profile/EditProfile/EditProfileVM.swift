@@ -37,32 +37,30 @@ class EditProfileVM {
     var notes = ""
     var passportNumber = ""
     var passportCountry = ""
+    var passportCountryName = ""
     var passportIssueDate = ""
     var passportExpiryDate = ""
     var seat: Seat?
     var meal: Meal?
     
     func isValidateData(vc: UIViewController) -> Bool {
-//        if self.email.isEmpty {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
-//            return false
-//
-//        } else if self.email.checkInvalidity(.Email) {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
-//            return false
-//
-//        } else if self.password.isEmpty {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
-//            return false
-//
-//        } else if self.password.checkInvalidity(.Password) {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
-//            return false
-//        }
+        
+        if self.salutation == LocalizedString.Title.rawValue {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
+            return false
+        } else if self.firstName.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized, vc: vc)
+            return false
+        } else if self.lastName.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
+            return false
+        } else if self.email.isEmpty {
+
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            return false
+
+        }
+        
         return true
     }
     
@@ -127,6 +125,15 @@ class EditProfileVM {
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName
         params[APIKeys.lastName.rawValue] = lastName
+        params[APIKeys.dob.rawValue] = dob
+        params[APIKeys.doa.rawValue] = doa
+        params[APIKeys.passportNumber.rawValue] = passportNumber
+        params[APIKeys.passportCountryName.rawValue] = passportCountryName
+        params[APIKeys.passportCountry.rawValue] = passportCountry
+        params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
+        params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
+        
+     
         params[APIKeys.id.rawValue] = AppUserDefaults.value(forKey: .userId)
         
         
@@ -178,7 +185,7 @@ class EditProfileVM {
 //        }
 //
         
-        self.delegate?.willApiCall()
+     self.delegate?.willApiCall()
         APICaller.shared.callSaveProfileAPI(params: params, loader: true, completionBlock: { success, errors in
             
             if success {
