@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="AddressTextEditTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRr-zw-7Ni">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfo-U5-Mn1">
+                                <rect key="frame" x="16" y="0.0" width="241" height="43.5"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="CHO-59-mOj">
+                                <rect key="frame" x="256.5" y="19" width="9" height="6"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="6" id="YGX-Rl-5XO"/>
+                                    <constraint firstAttribute="width" constant="9" id="dcI-wa-huR"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9g-eA-hQE">
+                                <rect key="frame" x="16" y="42.5" width="249.5" height="1"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="bMZ-rI-FeJ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xid-IM-bgy">
+                                <rect key="frame" x="282" y="0.0" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="4cv-yI-kX2"/>
+                                    <constraint firstAttribute="width" constant="22" id="Mg7-kp-ZH1"/>
+                                </constraints>
+                                <state key="normal" image="redMinusButton"/>
+                                <connections>
+                                    <action selector="deleteSectionTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nCo-lZ-qUf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="CHO-59-mOj" secondAttribute="trailing" constant="54.299999999999997" id="6UN-eW-4mS"/>
+                            <constraint firstAttribute="bottom" secondItem="sfo-U5-Mn1" secondAttribute="bottom" id="Cle-iQ-Z0B"/>
+                            <constraint firstItem="sfo-U5-Mn1" firstAttribute="top" secondItem="pRr-zw-7Ni" secondAttribute="top" id="GQ4-DI-2bU"/>
+                            <constraint firstItem="sfo-U5-Mn1" firstAttribute="leading" secondItem="pRr-zw-7Ni" secondAttribute="leading" constant="16" id="VWg-GZ-0NG"/>
+                            <constraint firstItem="p9g-eA-hQE" firstAttribute="leading" secondItem="pRr-zw-7Ni" secondAttribute="leading" constant="16" id="fE1-0q-jyC"/>
+                            <constraint firstItem="p9g-eA-hQE" firstAttribute="trailing" secondItem="CHO-59-mOj" secondAttribute="trailing" id="fbB-8Z-40W"/>
+                            <constraint firstAttribute="height" constant="43.5" id="gJ4-Tg-jNH"/>
+                            <constraint firstAttribute="trailing" secondItem="sfo-U5-Mn1" secondAttribute="trailing" constant="63" id="kn0-jz-PB6"/>
+                            <constraint firstItem="Xid-IM-bgy" firstAttribute="top" secondItem="pRr-zw-7Ni" secondAttribute="top" id="lfs-Kt-tLo"/>
+                            <constraint firstItem="CHO-59-mOj" firstAttribute="centerY" secondItem="sfo-U5-Mn1" secondAttribute="centerY" id="tCj-GR-ugb"/>
+                            <constraint firstAttribute="bottom" secondItem="p9g-eA-hQE" secondAttribute="bottom" id="wuZ-nj-lcS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="pRr-zw-7Ni" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6eU-27-lHf"/>
+                    <constraint firstAttribute="trailing" secondItem="pRr-zw-7Ni" secondAttribute="trailing" id="f5F-JL-w8f"/>
+                    <constraint firstAttribute="bottom" secondItem="pRr-zw-7Ni" secondAttribute="bottom" id="gh7-6w-zWI"/>
+                    <constraint firstItem="pRr-zw-7Ni" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qZs-BN-uf9"/>
+                    <constraint firstAttribute="trailing" secondItem="Xid-IM-bgy" secondAttribute="trailing" constant="16" id="vrz-a8-Udu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="deleteButton" destination="Xid-IM-bgy" id="ldQ-DF-xFk"/>
+                <outlet property="downArrow" destination="CHO-59-mOj" id="4kF-sI-bbJ"/>
+                <outlet property="separatorArrow" destination="p9g-eA-hQE" id="x7K-Bj-aaQ"/>
+                <outlet property="textField" destination="sfo-U5-Mn1" id="8lq-hq-B1L"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="blackDownArrow" width="9" height="6"/>
+        <image name="redMinusButton" width="22" height="22"/>
+    </resources>
+</document>

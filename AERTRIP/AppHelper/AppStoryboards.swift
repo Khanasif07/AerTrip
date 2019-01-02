@@ -14,6 +14,7 @@ enum AppStoryboard : String {
     case Splash
     case Dashboard
     case Profile
+    case HotelPreferences
 }
 
 extension AppStoryboard {

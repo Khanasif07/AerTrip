@@ -9,10 +9,13 @@
 import UIKit
 
 class SocialLoginVC: BaseVC {
+    // MARK: - Properties
     
-    //MARK:- Properties
-    //MARK:-
+    // MARK: -
+    // used to find the logo view to hide
+    var logoContainerPassedView: SideMenuLogoView?
     let viewModel = SocialLoginVM()
+    
     
     //MARK:- IBOutlets
     //MARK:-
@@ -25,9 +28,19 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
     @IBOutlet weak var sepratorLineImage: UIImageView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    @IBOutlet weak var socialButtonsStackView: UIStackView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var logoContainerView: UIView!
     
-    //MARK:- ViewLifeCycle
-    //MARK:-
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,24 +52,29 @@ class SocialLoginVC: BaseVC {
         super.viewWillAppear(animated)
         
         if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
+            self.backButton.isHidden  = true
+            self.view.backgroundColor = .clear
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.logoContainerPassedView?.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
-        }
+        self.logoContainerPassedView?.isHidden = false
+        self.backButton.isHidden = false
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.fbButton.cornerRadius = self.fbButton.height/2
-        self.googleButton.cornerRadius  = self.googleButton.height/2
-        self.linkedInButton.cornerRadius = self.linkedInButton.height/2
+        self.fbButton.cornerRadius = self.fbButton.height / 2
+        self.googleButton.cornerRadius = self.googleButton.height / 2
+        self.linkedInButton.cornerRadius = self.linkedInButton.height / 2
         
         self.fbButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
         self.googleButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
@@ -64,7 +82,6 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupFonts() {
-        
         self.centerTitleLabel.font = AppFonts.Regular.withSize(16)
         self.fbButton.titleLabel?.font = AppFonts.Regular.withSize(16)
         self.googleButton.titleLabel?.font = AppFonts.Regular.withSize(16)
@@ -72,7 +89,6 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupColors() {
-        
         self.centerTitleLabel.textColor = AppColors.themeBlack
         self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.googleButton.backgroundColor = AppColors.themeWhite
@@ -80,7 +96,6 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupTexts() {
-        
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
@@ -90,45 +105,47 @@ class SocialLoginVC: BaseVC {
         self.viewModel.delegate = self
     }
     
-    //MARK:- IBActions
-    //MARK:-
+    // MARK: - IBActions
+    
+    // MARK: -
+    
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        
         self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        
-        self.viewModel.googleLogin()
+        self.viewModel.googleLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func linkedInLoginButtonAction(_ sender: UIButton) {
-        
         self.viewModel.linkedLogin()
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
         
-        AppFlowManager.default.moveToCreateYourAccountVC()
+        AppFlowManager.default.moveToCreateYourAccountVC(email: "")
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
-        AppFlowManager.default.moveToLoginVC()
+        AppFlowManager.default.moveToLoginVC(email: "")
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
+        delay(seconds: 0.6) {
+            self.logoContainerView.removeFromSuperview()
+            self.view.addSubview(self.logoContainerView)
+        }
     }
 }
 
-//MARK:- Extension Initialsetups
-//MARK:-
+// MARK: - Extension Initialsetups
+
+// MARK: -
+
 private extension SocialLoginVC {
-    
     func initialSetups() {
-        
         self.setupsFonts()
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
@@ -136,75 +153,60 @@ private extension SocialLoginVC {
     }
     
     func setupsFonts() {
-        
-        
         let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
             .font: AppFonts.Regular.withSize(14.0),
             .foregroundColor: UIColor.black
-            ])
+        ])
         attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
         self.newRegisterLabel.attributedText = attributedString
         
         let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
             .font: AppFonts.SemiBold.withSize(18.0),
             .foregroundColor: UIColor.black
-            ])
+        ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
     }
 }
 
+// MARK: - Extension Initialsetups
 
-//MARK:- Extension Initialsetups
-//MARK:-
+// MARK: -
+
 extension SocialLoginVC: SocialLoginVMDelegate {
-    
     func willLogin() {
-        
         if self.viewModel.userData.service == APIKeys.facebook.rawValue {
-            
             self.fbButton.isLoading = true
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
-            
             self.googleButton.isLoading = true
         } else {
-            
-            self.googleButton.isLoading = true
+            self.linkedInButton.isLoading = true
         }
     }
     
     func didLoginSuccess() {
-        
         if self.viewModel.userData.service == APIKeys.facebook.rawValue {
-            
             self.fbButton.isLoading = false
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
-            
             self.googleButton.isLoading = false
         } else {
-            
-            self.googleButton.isLoading = false
+            self.linkedInButton.isLoading = false
         }
         AppFlowManager.default.goToDashboard()
     }
     
     func didLoginFail(errors: ErrorCodes) {
-        
         if self.viewModel.userData.service == APIKeys.facebook.rawValue {
-            
             self.fbButton.isLoading = false
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
-            
             self.googleButton.isLoading = false
         } else {
-            
-            self.googleButton.isLoading = false
+            self.linkedInButton.isLoading = false
         }
         
         var message = ""
         for index in 0..<errors.count {
             if index == 0 {
-                
                 message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
             } else {
                 message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
@@ -214,50 +216,97 @@ extension SocialLoginVC: SocialLoginVMDelegate {
     }
 }
 
-//MARK:- Extension InitialAnimation
-//MARK:-
+// MARK: - Extension InitialAnimation
+
+// MARK: -
+
 extension SocialLoginVC {
+
     
-    func setupInitialAnimation() {
+    func animateContentOnLoad() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.topImage.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.centerTitleLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+//        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+//        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
         self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.newRegisterLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.existingUserLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.sepratorLineImage.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-    }
-    
-    func setupViewDidLoadAnimation() {
+        self.bottomStackView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
+        self.fbButton.alpha = 0
+        self.googleButton.alpha = 0
+        self.linkedInButton.alpha = 0
         
-        UIView.animate(withDuration: 0.2) {
+//        UIView.animate(withDuration: 0.35, animations:{
+//
+//            self.logoImage.transform = .identity
+//            self.topImage.transform  = .identity
+//            self.centerTitleLabel.transform  = .identity
+//        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
             
-            self.logoImage.transform          = .identity
-            self.topImage.transform          = .identity
-        }
+            self.fbButton.transform = .identity
+            self.fbButton.alpha = 1.0
+        })
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.65, animations:{
             
-            self.centerTitleLabel.transform      = .identity
-        }
+            self.googleButton.transform     = .identity
+            self.googleButton.alpha = 1.0
+        })
         
-        
-        UIView.animate(withDuration: 0.35, animations:{
+        UIView.animate(withDuration: 0.75, animations:{
             
-            self.fbButton.transform    = .identity
-            self.googleButton.transform = .identity
-            self.linkedInButton.transform    = .identity
-            self.newRegisterLabel.transform  = .identity
-            self.existingUserLabel.transform = .identity
-            self.sepratorLineImage.transform = .identity
-            
+            self.bottomStackView.transform    = .identity
+            self.sepratorLineImage.transform  = .identity
         }) { (success) in
             
             self.viewModel.isFirstTime = false
         }
+        
+        UIView.animate(withDuration: 0.8, animations:{
+            
+            self.linkedInButton.transform     = .identity
+            self.linkedInButton.alpha = 1.0
+        })
+    }
+    
+    func animateContentOnPop() {
+
+        UIView.animate(withDuration: 0.05, animations:{
+            
+            self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.linkedInButton.alpha = 0.0
+        })
+        
+        UIView.animate(withDuration: 0.10, animations:{
+            
+            self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        }) { (success) in
+            
+            self.viewModel.isFirstTime = true
+        }
+        
+        UIView.animate(withDuration: 0.20, animations:{
+            
+            self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.googleButton.alpha = 0.0
+        })
+
+        UIView.animate(withDuration: 0.35, animations: {
+            
+            self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+            self.fbButton.alpha = 0.0
+        })
+        
+//        UIView.animate(withDuration: 0.5, animations:{
+//
+//            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
+//            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
+//            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
+//        })
     }
 }

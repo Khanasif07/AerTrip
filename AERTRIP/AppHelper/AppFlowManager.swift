@@ -13,17 +13,19 @@ enum ViewPresnetEnum {
     case push, present, popup
 }
 
-class AppFlowManager {
+class AppFlowManager: NSObject {
     
     static let `default` = AppFlowManager()
     
     var sideMenuController: PKSideMenuController?
-    
+        
     private let urlScheme = "://"
 
-    private init() {}
+    private override init() {
+        super.init()
+    }
     
-    private var mainNavigationController = UINavigationController() {
+    var mainNavigationController = UINavigationController() {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
@@ -74,23 +76,18 @@ class AppFlowManager {
     }
     
     func goToDashboard() {
+        
         PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
         PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
-//        let dashboard = PKSideMenuController(mainViewController: MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard), rightMenuViewController: SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
-//        self.sideMenuController = dashboard
-//        let nvc = UINavigationController(rootViewController: dashboard)
-//        self.mainNavigationController = nvc
-//        self.window.rootViewController = nvc
-//        self.window.becomeKey()
-//        self.window.makeKeyAndVisible()
+        PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
 
-        
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.mainViewController(MainDashboardVC.instantiate(fromAppStoryboard: .Dashboard))
+        sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
         sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
         self.sideMenuController = sideMenuVC
         let nvc = UINavigationController(rootViewController: sideMenuVC)
+        nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
@@ -110,29 +107,50 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToLoginVC() {
+    func moveToLoginVC(email: String) {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToCreateYourAccountVC() {
+    func moveToCreateYourAccountVC(email: String) {
         let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
 
-    func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "") {
+    func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
         let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.type  = type
         ob.viewModel.email = email
         ob.viewModel.refId = refId
+        ob.viewModel.token = token
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", refId: String = "") {
+    func deeplinkToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
+        
+        let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.type  = type
+        ob.viewModel.email = email
+        ob.viewModel.refId = refId
+        ob.viewModel.token = token
+        
+        let nvc = UINavigationController(rootViewController: ob)
+        self.mainNavigationController = nvc
+        self.window.rootViewController = nvc
+        self.window.becomeKey()
+        self.window.makeKeyAndVisible()
+    }
+    
+    
+    
+    func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", key: String = "", token:String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.isPasswordType = isPasswordType
-        ob.viewModel.email  = email
-        ob.viewModel.refId = refId
+        ob.viewModel.email   = email
+        ob.viewModel.hashKey = key
+        ob.viewModel.token   = token
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
@@ -140,24 +158,22 @@ extension AppFlowManager {
         
         let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         
-        ob.viewModel.userData.id = refId
+        ob.viewModel.userData.paxId = refId
         ob.viewModel.userData.email    = email
         ob.viewModel.userData.password = password
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToForgotPasswordVC() {
+    func moveToForgotPasswordVC(email: String) {
         let ob = ForgotPasswordVC.instantiate(fromAppStoryboard: .PreLogin)
+        ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func addSuccessFullPopupVC(vc: UIViewController) {
+    func moveResetSuccessFullyPopup(vc: UIViewController) {
 
         let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
-        
-        vc.view.addSubview(ob.view)
-        vc.addChild(ob)
-
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToViewProfileVC() {
@@ -175,9 +191,20 @@ extension AppFlowManager {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
+    
+    func moveToHotelPreferencesVC(){
+        let ob = HotelPreferencesVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
 }
 
-//MARK: - Private func
+//MARK: - Animation
 extension AppFlowManager {
-
+    func addPopAnimation(onNavigationController: UINavigationController?) {
+        let transition = CATransition()
+        transition.duration = 0.6
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        onNavigationController?.view.layer.add(transition, forKey: nil)
+    }
 }

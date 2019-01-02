@@ -20,6 +20,7 @@ enum LocalizedString: String {
     case NoInternet = "NoInternet"
     case ParsingError = "ParsingError"
     case error = "error"
+    case na = "na"
     
     // MARK:- TextField validation
     //MARK:-
@@ -152,6 +153,8 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
+    case selectedCountryCode    = "selectedCountryCode"
+    case selectedCountry        = "selectedCountry"
 
     //MARK:- ViewProfileVC
     //MARK:-
@@ -177,7 +180,7 @@ enum LocalizedString: String {
     case SocialAccounts = "Social Accounts"
     case Address = "Address"
     case MoreInformation = "More Information"
-    case PasswordDetails = "Passport Details"
+    case PassportDetails = "Passport Details"
     case FlightPreferences = "Flight Preferences"
     case Birthday = "Birthday"
     case Anniversary = "Anniversary"
@@ -200,6 +203,13 @@ enum LocalizedString: String {
     case ImportFromFacebook = "Import from Facebook"
     case ImportFromGoogle  = "Import from Google"
     case RemovePhoto = "Remove Photo"
+    case AddEmail = "Add Email"
+    case AddSocialAccountId = "Add Social Account ID"
+    case AddContactNumber = "Add Contact Number"
+    case WouldYouLikeToDelete = "Would you like to delete this?"
+    case Delete = "Delete"
+    case FrequentFlyer = "Frequent Flyer"
+    case AddFrequentFlyer = "Add Frequent Flyer"
     
     // Mark: - Salutation
     case Mrs = "Mrs"

@@ -21,7 +21,7 @@ class SocialLoginVM {
     //MARK:- Properties
     //MARK:-
     weak var delegate: SocialLoginVMDelegate?
-    var userData = UserModel()
+    var userData = SocialUserModel()
     var isFirstTime = true
     
     //MARK:- Actions
@@ -53,7 +53,7 @@ class SocialLoginVM {
         })
     }
     
-    func googleLogin() {
+    func googleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
         
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
@@ -69,11 +69,15 @@ class SocialLoginVM {
                 
                 self.userData.picture = "\(imageURl)"
             }
-            
-            
-            self.webserviceForSocialLogin()
+             completionBlock?(true)
+            if vc is EditProfileVC {
+                // do nothing
+            } else {
+                self.webserviceForSocialLogin()
+            }
             
         }){ (err : Error) in
+             completionBlock?(false)
             printDebug(err.localizedDescription)
         }
     }
@@ -88,15 +92,17 @@ class SocialLoginVM {
             //Login success lsToken
             
             
-            linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+            linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,headline,picture-url,public-profile-url)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
                 
                 guard let data = response.jsonObject else {return}
                 
-                self.userData.authKey = linkedinHelper.lsAccessToken?.accessToken ?? ""
-                self.userData.firstName = data["firstName"] as? String ?? ""
+                self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
+                self.userData.firstName  = data["firstName"] as? String ?? ""
                 self.userData.lastName  = data["lastName"]  as? String ?? ""
-                self.userData.id      = data["id"] as? String ?? ""
+                self.userData.id            = data["id"] as? String ?? ""
                 self.userData.service   = "linkedin"
+                self.userData.email      =  data["emailAddress"] as? String ?? ""
+                self.userData.picture   = data["pictureUrl"] as? String ?? ""
                 
                 printDebug(response)
                 

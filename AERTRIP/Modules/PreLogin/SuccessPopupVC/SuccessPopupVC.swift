@@ -36,31 +36,11 @@ class SuccessPopupVC: BaseVC {
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.view.transform  = CGAffineTransform(scaleX: 0, y: 0)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 0.35) {
-            
-            self.view.transform  = .identity
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.view.removeFromSuperview()
-    }
     
     override func setupFonts() {
         
-        self.successfullLabel.font      = AppFonts.Bold.withSize(38)
-        self.titleLabel.font    = AppFonts.Regular.withSize(16)
+        self.successfullLabel.font  = AppFonts.Bold.withSize(38)
+        self.titleLabel.font        = AppFonts.Regular.withSize(16)
         
     }
     
@@ -83,8 +63,7 @@ class SuccessPopupVC: BaseVC {
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.35) {
             
-            self.view.transform  = CGAffineTransform(scaleX: 0, y: 0)
-            self.view.removeFromSuperview()
+            AppFlowManager.default.moveToLoginVC(email: "")
         }
     }
 }

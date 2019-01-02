@@ -18,12 +18,13 @@ protocol ThankYouRegistrationVMDelegate: class {
 class ThankYouRegistrationVM {
     
     enum VerifyRegistrasion {
-        case setPassword, deeplinkSetPassword, deeplinkResetPassword
+        case setPassword, resetPassword, deeplinkSetPassword, deeplinkResetPassword
     }
     
     weak var delegate: ThankYouRegistrationVMDelegate?
     var email = ""
     var refId = ""
+    var token = ""
     var type: VerifyRegistrasion = .setPassword
 }
 
@@ -40,7 +41,7 @@ extension ThankYouRegistrationVM {
             params[APIKeys.ref.rawValue]  = self.refId
         } else {
             params[APIKeys.key.rawValue]    = self.refId
-            params[APIKeys.token.rawValue]  = self.refId
+            params[APIKeys.token.rawValue]  = self.token
         }
         
         

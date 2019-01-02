@@ -9,7 +9,7 @@
 import MXParallaxHeader
 import UIKit
 
-class ViewProfileVC: UIViewController {
+class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet var headerView: UIView!
@@ -28,6 +28,8 @@ class ViewProfileVC: UIViewController {
     var accounts = [LocalizedString.Settings, LocalizedString.Notification]
     var logOut = [LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView = SlideMenuProfileImageHeaderView()
+    let viewModel = ViewProfileDetailVM()
+    var travelData: TravelDetailModel?
     
     // MARK: - View Life cycle
     
@@ -35,6 +37,9 @@ class ViewProfileVC: UIViewController {
         super.viewDidLoad()
         
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(self)
+        self.profileImageHeaderView.delegate = self
+        
+        self.viewModel.webserviceForGetTravelDetail()
         
         self.view.alpha = 0.5
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -50,6 +55,23 @@ class ViewProfileVC: UIViewController {
         super.viewWillAppear(animated)
         
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        guard let headerView = tableView.tableHeaderView else {
+            return
+        }
+        
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if headerView.frame.size.height != size.height {
+            headerView.frame.size.height = size.height
+            self.tableView.tableHeaderView = headerView
+            self.tableView.layoutIfNeeded()
+        }
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,8 +91,8 @@ class ViewProfileVC: UIViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        // AppFlowManager.default.moveToViewProfileDetailVC()
-        let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = self.travelData
         self.navigationController?.pushViewController(ob, animated: true)
     }
     
@@ -85,6 +107,8 @@ class ViewProfileVC: UIViewController {
         self.setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
         tableView.tableFooterView = footerView
+        self.tableView.dataSource = self
+        self.tableView.delegate   = self
     }
     
     func addTableHeaderView() {
@@ -105,11 +129,6 @@ class ViewProfileVC: UIViewController {
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
-//        let gradient = CAGradientLayer()
-//        gradient.frame = profileImageHeaderView.bounds
-//        gradient.colors = [ AppColors.viewProfileTopGradient.color.cgColor,UIColor.white.cgColor]
-//        profileImageHeaderView.layer.insertSublayer(gradient, at: 0)
-//
         profileImageHeaderView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: parallexHeaderHeight)
         
         self.tableView.parallaxHeader.view = profileImageHeaderView
@@ -118,19 +137,16 @@ class ViewProfileVC: UIViewController {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
-        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
+        self.profileImageHeaderView.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
+        self.profileImageHeaderView.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
+        self.profileImageHeaderView.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
         
-        self.profileImageHeaderView.userNameLabel.text = userData.firstName + " " + userData.lastName
-        self.profileImageHeaderView.emailIdLabel.text = userData.email
-        self.profileImageHeaderView.mobileNumberLabel.text = userData.mobile
-        
-        if userData.picture != "" {
-            self.profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: userData.picture))
-        } else {
-            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            profileImageHeaderView.profileImageView.image = image
-            profileImageHeaderView.backgroundImageView.image = image
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: imagePath))
+        }
+        else {
+            profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
         
         self.view.bringSubviewToFront(self.headerView)
@@ -139,7 +155,8 @@ class ViewProfileVC: UIViewController {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
-extension ViewProfileVC: UITableViewDataSource {
+extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
     }
@@ -180,6 +197,40 @@ extension ViewProfileVC: UITableViewDataSource {
             return cell
         default:
             return UITableViewCell()
+        }
+    
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch sections[indexPath.section] {
+            
+        case "details":
+            
+            switch indexPath.row {
+                
+            case 1:
+                
+                AppFlowManager.default.moveToHotelPreferencesVC()
+                
+            default:
+                break
+            }
+            
+        case "logOut":
+            
+            let _ =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+                
+                if index == 0 {
+                    UserInfo.loggedInUserId = nil
+                    AppFlowManager.default.goToDashboard()
+                }
+            })
+            
+        default:
+            break
         }
     }
 }
@@ -237,5 +288,19 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     func profileImageTapped() {
         NSLog("profile Image Tapped View ProfileVc")
         AppFlowManager.default.moveToViewProfileDetailVC()
+    }
+}
+
+extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willGetDetail() {
+        //
+    }
+    
+    func getSuccess(_ data: TravelDetailModel) {
+        self.travelData = data
+    }
+    
+    func getFail(errors: ErrorCodes) {
+        //
     }
 }

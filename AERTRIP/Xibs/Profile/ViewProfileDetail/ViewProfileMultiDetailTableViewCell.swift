@@ -24,6 +24,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var frequentFlyerView: UIView!
     @IBOutlet weak var frequentFlyerImageView: UIImageView!
     @IBOutlet weak var frequentFlyerLabel: UILabel!
+    @IBOutlet weak var separatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,11 +37,19 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     }
     
     
-    func configureCellForFrequentFlyer(_ logoUrl:String,_ flightName:String,_ flightNo:String) {
+    func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String) {
         self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
             self.frequentFlyerLabel.text = flightName
-            self.firstTitleLabel.text = "Frequent Flyer"
+        
             self.secondSubTitleLabel.text = flightNo
+        
+        if indexPath.row == 2 {
+            firstTitleLabel.isHidden = false
+             self.firstTitleLabel.text = "Frequent Flyer"
+        } else {
+            firstTitleLabel.isHidden = true
+            firstTitleLabelHeightConstraint.constant = 0
+        }
         
         
     }

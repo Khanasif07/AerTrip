@@ -105,6 +105,7 @@ PODS:
   - nanopb/encode (0.3.901)
   - SkyFloatingLabelTextField (3.6.0)
   - SwiftyJSON (4.2.0)
+  - TransitionButton (0.5.2)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -118,6 +119,7 @@ DEPENDENCIES:
   - MXParallaxHeader
   - SkyFloatingLabelTextField
   - SwiftyJSON (~> 4.0)
+  - TransitionButton
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -145,6 +147,7 @@ SPEC REPOS:
     - nanopb
     - SkyFloatingLabelTextField
     - SwiftyJSON
+    - TransitionButton
 
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
@@ -171,7 +174,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: ce38ed662dad1496f1a467d19bd3976a75c9cf20
+PODFILE CHECKSUM: a01b62be62b6d39a0ca1dfe8532e3d236a9c0537
 
 COCOAPODS: 1.5.3

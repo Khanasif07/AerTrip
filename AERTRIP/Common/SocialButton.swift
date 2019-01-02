@@ -14,7 +14,7 @@ class SocialButton: UIButton {
     //MARK:- Properties
     //MARK:- Private
     private var loaderIndicator: UIActivityIndicatorView!
-    private var titleDuringLoading: String = ""
+    private var titleDuringLoading: UIColor?
     
     var isLoading: Bool = false {
         didSet {
@@ -37,19 +37,21 @@ class SocialButton: UIButton {
             self.addSubview(self.loaderIndicator)
         }
         self.loaderIndicator.hidesWhenStopped = true
+        self.loaderIndicator.style = .whiteLarge
         self.loaderIndicator.color = self.titleLabel?.textColor ?? AppColors.themeWhite
     }
     
     private func startLoading() {
-        self.titleDuringLoading = self.titleLabel?.text ?? ""
-        self.setTitle(nil, for: UIControl.State.normal)
+        
+        self.titleDuringLoading = self.titleLabel?.textColor
+        self.titleLabel?.textColor = self.backgroundColor
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
     }
     
     private func stopLoading() {
         self.isUserInteractionEnabled = true
-        self.setTitle(self.titleDuringLoading, for: UIControl.State.normal)
+        self.titleLabel?.textColor = self.titleDuringLoading
         //        self.titleDuringLoading = ""
         self.loaderIndicator.stopAnimating()
     }

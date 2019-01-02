@@ -73,7 +73,9 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        AppFlowManager.default.moveToEditProfileVC()
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = travelData
+        navigationController?.pushViewController(ob, animated: true)
     }
     
     // MARK: - Helper method
@@ -103,9 +105,9 @@ class ViewProfileDetailVC: BaseVC {
         
         let gradient = CAGradientLayer()
         gradient.frame = profileImageHeaderView.gradientView.bounds
-//        gradient.colors = [ AppColors.viewProfileDetailTopGradientColor.cgColor,AppColors.viewProfileDetailBottomGradientColor.cgColor]
-        gradient.colors = [AppColors.themeRed.cgColor, AppColors.themeBlue.cgColor]
-        profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
+        gradient.colors = [AppColors.viewProfileDetailTopGradientColor.cgColor, AppColors.viewProfileDetailBottomGradientColor.cgColor]
+//        gradient.colors = [AppColors.themeRed.cgColor, AppColors.themeBlue.cgColor]
+//        profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
         
         view.bringSubviewToFront(headerView)
     }
@@ -118,20 +120,17 @@ class ViewProfileDetailVC: BaseVC {
         if travelData?.profileImage != "" {
             profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travelData?.profileImage)!))
         } else {
-            let string = "\((travelData?.firstName)!.firstCharacter)" + "\((travelData?.lastName)!.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            profileImageHeaderView.profileImageView.image = image
-            profileImageHeaderView.backgroundImageView.image = image
+            profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
         
         if let mobile = travelData?.contact.mobile {
             if mobile.count > 0 {
                 self.mobile = mobile
             } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
                 var mobile = Mobile()
                 mobile.label = "Default"
-                mobile.value = userData.mobile
+                mobile.value = UserInfo.loggedInUser?.mobile ?? ""
                 self.mobile.append(mobile)
             }
         }
@@ -143,10 +142,9 @@ class ViewProfileDetailVC: BaseVC {
             if email.count > 0 {
                 self.email = email
             } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
                 var email = Email()
                 email.label = "Default"
-                email.value = userData.email
+                email.value = UserInfo.loggedInUser?.email ?? ""
                 self.email.append(email)
             }
         }
@@ -164,7 +162,7 @@ class ViewProfileDetailVC: BaseVC {
         if travelData?.passportNumber != "" {
             passportDetails.append((travelData?.passportNumber)!)
             passportDetails.append((travelData?.passportCountryName)!)
-            sections.append(LocalizedString.PasswordDetails)
+            sections.append(LocalizedString.PassportDetails)
         }
         
         if travelData?.preferences != nil {
@@ -203,7 +201,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             return social.count
         case LocalizedString.Address:
             return addresses.count
-        case LocalizedString.PasswordDetails:
+        case LocalizedString.PassportDetails:
             return 3
         case LocalizedString.FlightPreferences:
             if frequentFlyer.count > 0 {
@@ -251,7 +249,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.configureCell(addresses[indexPath.row].label, content)
             cell.separatorView.isHidden = (indexPath.row + 1 == addresses.count) ? true : false
             return cell
-        case LocalizedString.PasswordDetails:
+        case LocalizedString.PassportDetails:
             
             if indexPath.row >= 2 {
                 guard let viewProfileMultiDetailcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
@@ -271,7 +269,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
                 }
                 viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
-                viewProfileMultiDetailcell.configureCellForFrequentFlyer(frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].airlineCode)
+                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].airlineCode)
                 return viewProfileMultiDetailcell
                 
             } else {

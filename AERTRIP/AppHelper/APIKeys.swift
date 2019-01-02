@@ -47,6 +47,17 @@ enum APIKeys: String {
     case linkedin   = "linkedin"
     case token
     case paxId = "pax_id"
+    case address = "address"
+    case mobile = "mobile"
+    case social = "social"
+    case preferences = "preferences"
+    case seat = "seat"
+    case meal = "meal"
+    case query = "q"
+    case contact = "contact"
+    case ff = "ff"
+    case label = "label"
+    case hash_key
     
 }
 

@@ -33,7 +33,7 @@ class ThankYouRegistrationVC: BaseVC {
         
         // Do any additional setup after loading the view.
         
-        if self.viewModel.type !=  .setPassword {
+        if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {
             
             self.viewModel.webserviceForGetRegistrationData()
         }
@@ -62,18 +62,17 @@ class ThankYouRegistrationVC: BaseVC {
     
     override func setupTexts() {
         
-        if self.viewModel.type == .deeplinkSetPassword {
+        if self.viewModel.type == .deeplinkResetPassword  || self.viewModel.type == .resetPassword {
+            
+            self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
+            self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
+            self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized
+        } else {
             
             self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
             self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
             self.checkEmailLabel.text = LocalizedString.Check_your_email_to_activate_your_account.localized
             self.noReplyLabel.text = LocalizedString.No_Reply_Email_Text.localized
-            
-        } else {
-            
-            self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
-            self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
-            self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized
         }
     }
     
@@ -101,15 +100,16 @@ class ThankYouRegistrationVC: BaseVC {
         //AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
         if index == 0 {
             
-            let mailURL = URL(string: "message://")!
+            guard let mailURL = URL(string: "message://") else {return}
             if UIApplication.shared.canOpenURL(mailURL) {
                 UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
             }
         } else if index == 1 {
             
-            let mailURL = URL(string: "googlegmail://")!
+            guard let mailURL = URL(string: "googlegmail://") else {return}
             if UIApplication.shared.canOpenURL(mailURL) {
                 UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+                
             } else {
                 
                 guard let url = URL(string: "https://gmail.com") else {return}
@@ -169,11 +169,11 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
         print("before comit")
         if self.viewModel.type == .deeplinkSetPassword {
             
-            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, refId: self.viewModel.refId)
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, key: self.viewModel.refId)
             
         } else if self.viewModel.type == .deeplinkResetPassword {
             
-            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod)
+            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .resetPasswod, email: self.viewModel.email, key: self.viewModel.refId, token: self.viewModel.token)
         }
     }
     
