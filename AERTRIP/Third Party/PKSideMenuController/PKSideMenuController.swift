@@ -35,8 +35,13 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     //MARK:- Properties
     //MARK:- Public
     public var isOpen: Bool {
-        let fMain : CGRect = self.mainContainer!.frame
-        return (fMain.minX == self.distanceOpenMenu)
+//        let fMain : CGRect = self.mainContainer!.frame
+//        return (fMain.minX == self.distanceOpenMenu)
+        
+        if let menu = menuContainer {
+            return menu.frame.origin.x <= CGFloat(0.0)
+        }
+        return false
     }
     
     private(set) var menuContainer : UIView?

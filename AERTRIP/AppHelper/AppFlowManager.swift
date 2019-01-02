@@ -178,7 +178,7 @@ extension AppFlowManager {
     
     func moveToViewProfileVC() {
         let ob = ViewProfileVC.instantiate(fromAppStoryboard: .Profile)
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToViewProfileDetailVC() {

@@ -24,9 +24,18 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
         switch fromVC {
             
         case is PKSideMenuController:
-            let animation = SocialLoginNavigationTransition()
-            animation.transitionMode = .push
-            return animation
+            
+            if toVC.isKind(of: ViewProfileVC.self) {
+                let animation = ViewProfileNavigationTransition()
+                animation.transitionMode = .push
+                return animation
+            }
+            else if toVC.isKind(of: SocialLoginVC.self) {
+                let animation = SocialLoginNavigationTransition()
+                animation.transitionMode = .push
+                return animation
+            }
+            return getDefaultTransition()
             
         case is SocialLoginVC:
             if operation == .pop {
@@ -36,10 +45,13 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
             }
             return getDefaultTransition()
             
+        case is ViewProfileVC :
+            let animation = ViewProfileNavigationTransition()
+            animation.transitionMode = .pop
+            return animation
+            
         default:
             return getDefaultTransition()
         }
-
-        return getDefaultTransition()
     }
 }

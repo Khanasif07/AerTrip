@@ -225,9 +225,6 @@ extension SocialLoginVC {
     
     func animateContentOnLoad() {
         
-//        self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
-//        self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
-//        self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
         self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
@@ -237,14 +234,7 @@ extension SocialLoginVC {
         self.fbButton.alpha = 0
         self.googleButton.alpha = 0
         self.linkedInButton.alpha = 0
-        
-//        UIView.animate(withDuration: 0.35, animations:{
-//
-//            self.logoImage.transform = .identity
-//            self.topImage.transform  = .identity
-//            self.centerTitleLabel.transform  = .identity
-//        })
-        
+
         UIView.animate(withDuration: 0.5, animations: {
             
             self.fbButton.transform = .identity
@@ -301,12 +291,5 @@ extension SocialLoginVC {
             self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
             self.fbButton.alpha = 0.0
         })
-        
-//        UIView.animate(withDuration: 0.5, animations:{
-//
-//            self.logoImage.transform         = CGAffineTransform(translationX: 35, y: -35)
-//            self.topImage.transform          = CGAffineTransform(translationX: 35, y: -35)
-//            self.centerTitleLabel.transform  = CGAffineTransform(translationX: 35, y: -35)
-//        })
     }
 }

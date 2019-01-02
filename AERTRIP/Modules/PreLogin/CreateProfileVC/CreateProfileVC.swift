@@ -111,11 +111,10 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        
+
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
         }
-
     }
 }
 
@@ -365,81 +364,42 @@ extension CreateProfileVC {
     
     func setupViewForSuccessAnimation() {
         
-//        self.letsStartedButton.setTitle("", for: .normal)
-//
-////        let myLayer = CALayer()
-////        myLayer.backgroundColor = UIColor.clear.cgColor
-////        let myImage = UIImage(named: "Checkmark")?.cgImage
-////        myLayer.frame = CGRect(x: 27, y: 27, width: 20, height: 20)
-////        myLayer.contents = myImage
-////        self.letsStartedButton.layer.addSublayer(myLayer)
-////
-////        self.viewModel.isSuccessView = true
-////
-////        let scale = CGAffineTransform(scaleX: 0.41, y: 1.48)
-////        let y = (self.whiteBackgroundView.height - 74.0) / 2.0
-////        let translate = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y) )
-////
-////        UIView.animate(withDuration: 1.0, animations: {
-////            self.letsStartedButton.transform = scale.concatenating(translate)
-////            self.whiteBackgroundView.alpha = 1.0
-////            self.letsStartedButton.layer.cornerRadius = 37.0
-////        }) { (isCompleted) in
-////            if isCompleted {
-////                self.whiteBackgroundView.isUserInteractionEnabled = true
-////            }
-////        }
-//
-//        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
-//
-//        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
-//        UIView.animate(withDuration: 0.2, animations: {
-//            self.letsStartedButton.frame = reScaleFrame
-//            self.whiteBackgroundView.alpha = 0.5
-//
-//            self.view.layoutIfNeeded()
-//        }) { (isCompleted) in
-////            let repositionFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: (self.whiteBackgroundView.height - 74.0) / 2.0, width: 74.0, height: 74.0)
-////            UIView.animate(withDuration: 0.3, animations: {
-////                self.letsStartedButton.frame = repositionFrame
-////                self.whiteBackgroundView.alpha = 1.0
-////            }) { (isCompleted) in
-////                if isCompleted {
-////                    self.whiteBackgroundView.isUserInteractionEnabled = true
-////                }
-////            }
-//        }
-    
-        UIView.animate(withDuration: 0.5, animations: {
+        self.letsStartedButton.setTitle("", for: .normal)
 
+        self.letsStartedButton.layer.masksToBounds = true
+        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
-            self.letsStartedButton.setTitle("", for: .normal)
+        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
+        
+        let myLayer = CALayer()
+        myLayer.backgroundColor = UIColor.clear.cgColor
+        myLayer.frame = CGRect(x: (reScaleFrame.width - 20.0) / 2.0, y: (reScaleFrame.height - 20.0) / 2.0, width: 20.0, height: 20.0)
+        myLayer.contents = #imageLiteral(resourceName: "Checkmark").cgImage
+        self.letsStartedButton.layer.addSublayer(myLayer)
 
-            let myLayer = CALayer()
-            myLayer.backgroundColor = UIColor.clear.cgColor
-            let myImage = UIImage(named: "Checkmark")?.cgImage
-            myLayer.frame = CGRect(x: 27, y: 27, width: 20, height: 20)
-            myLayer.contents = myImage
-            self.letsStartedButton.layer.addSublayer(myLayer)
-
-            self.letStartButtonHeight.constant   = 74
-            self.letsStartButtonWidth.constant   = 74
-
-            self.letsStartedButton.layer.cornerRadius = 37
-            let y = UIScreen.main.bounds.height/2 - 37
-            self.setViewAlphaZero()
-            self.letsStartedButton.transform = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y))
-
-
-            DispatchQueue.main.async {
-
-                self.letsStartedButton.bounds = self.letsStartedButton.layer.bounds
-                self.letsStartedButton.layoutIfNeeded()
-            }
-        }, completion: { (success) in
+        UIView.animate(withDuration: 0.1, animations: {
+            self.letsStartedButton.frame = reScaleFrame
+            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            self.whiteBackgroundView.alpha = 0.5
+            self.view.layoutIfNeeded()
             
-            AppFlowManager.default.goToDashboard()
-        })
+        }) { (isCompleted) in
+            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+
+            let tY = ((UIDevice.screenHeight - reScaleFrame.height) / 2.0) - self.letsStartedButton.y
+            var t = CGAffineTransform.identity
+            t = t.translatedBy(x: 0.0, y: tY)
+
+            UIView.animate(withDuration: 0.4, animations: {
+                self.letsStartedButton.transform = t
+                self.whiteBackgroundView.alpha = 1.0
+            }) { (isCompleted) in
+                if isCompleted {
+                    self.whiteBackgroundView.isUserInteractionEnabled = true
+                    AppFlowManager.default.goToDashboard()
+                }
+            }
+        }
     }
     
     func setupInitialAnimation() {

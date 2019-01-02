@@ -10,6 +10,8 @@ import UIKit
 
 class SideMenuVC: BaseVC {
     // MARK: - Properties
+    weak var profileImage: UIImageView!
+    weak var userNameLabel: UILabel!
     weak private(set) var loginRegistrationButton: ATButton?
     var logoContainerView: SideMenuLogoView! {
         didSet {
@@ -19,7 +21,6 @@ class SideMenuVC: BaseVC {
         }
     }
     
-    var sideMenuSnap: UIView?
     
     // MARK: -
     
@@ -51,12 +52,11 @@ class SideMenuVC: BaseVC {
             //add the logo view only if user is not logged in 
             if self.logoContainerView == nil {
                 self.logoContainerView = SideMenuLogoView.instanceFromNib()
+                self.logoContainerView.backgroundColor = AppColors.clear
             }
-            
-            self.sideMenuSnap =  AppFlowManager.default.sideMenuController?.view.snapshotView(afterScreenUpdates: false)
-            
-            self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 160.0)
-            self.view.addSubview(self.logoContainerView)
+                        
+            self.logoContainerView.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
+            self.sideMenuTableView.addSubview(self.logoContainerView)
         }
     }
 
@@ -69,7 +69,6 @@ class SideMenuVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-
 //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
@@ -108,6 +107,7 @@ extension SideMenuVC {
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
         self.loginRegistrationButton = sender
         self.logoContainerView.removeFromSuperview()
+        self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
         AppFlowManager.default.mainNavigationController.view.addSubview(self.logoContainerView)
         AppFlowManager.default.moveToSocialLoginVC()
     }
@@ -141,6 +141,8 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.populateData()
+                self.profileImage = cell.profileImage
+                self.userNameLabel = cell.userNameLabel
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell

@@ -34,7 +34,7 @@ travel experience</string>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="uho-Jk-ZYW" firstAttribute="leading" secondItem="SJD-h8-ZWh" secondAttribute="leading" constant="20" id="0bA-R8-9UY"/>
                         <constraint firstItem="uho-Jk-ZYW" firstAttribute="top" secondItem="HJk-Os-vtO" secondAttribute="bottom" constant="23" id="0eX-03-ecD"/>

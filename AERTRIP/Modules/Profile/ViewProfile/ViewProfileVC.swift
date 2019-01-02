@@ -129,7 +129,7 @@ class ViewProfileVC: BaseVC {
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
-        profileImageHeaderView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: parallexHeaderHeight)
+        profileImageHeaderView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
         
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64

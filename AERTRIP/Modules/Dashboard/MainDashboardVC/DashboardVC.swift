@@ -29,6 +29,7 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     
+    private var overlayView = UIView()
     private var previousOffset = CGPoint.zero
     private var mainScrollViewOffset = CGPoint.zero
 
@@ -60,6 +61,8 @@ class DashboardVC: UIViewController {
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
+        
+        self.addOverlayView()
     }
 
     override func viewDidLayoutSubviews() {
@@ -81,8 +84,10 @@ class DashboardVC: UIViewController {
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
-
-//        self.setupInitialAnimation()
+        
+        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
+            self.setupInitialAnimation()
+        }
     }
     
     //MARK:- IBAction
@@ -113,7 +118,6 @@ class DashboardVC: UIViewController {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        
         AppFlowManager.default.sideMenuController?.toggleMenu()
     }
     
@@ -148,18 +152,54 @@ class DashboardVC: UIViewController {
         }
     }
     
-    func setupInitialAnimation() {
+    private func addOverlayView() {
+        overlayView.frame = self.view.bounds
+        overlayView.alpha = 1.0
+        overlayView.backgroundColor = AppColors.themeWhite
+        self.view.addSubview(overlayView)
         
-        let originalCenter = self.view.center
-        self.view.alpha = 0.0
-        self.view.center = self.view.center
-        self.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        let maskLayer = CAShapeLayer()
         
-        UIView.animate(withDuration: 0.25, delay: 0.1, options: [.curveEaseOut], animations: {
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.view.center = originalCenter
-            self.view.alpha = 1.0
-        }, completion: nil)
+        // Create a path with the rectangle in it.
+        let path = CGMutablePath()
+        
+        let radius : CGFloat = 50.0
+        let xOffset : CGFloat = view.frame.midX
+        let yOffset : CGFloat = view.frame.midY + 50.0
+        
+        path.addArc(center: CGPoint(x: xOffset, y: yOffset), radius: radius, startAngle: 0.0, endAngle: 2 * 3.14, clockwise: false)
+        path.addRect(CGRect(x: 0, y: 0, width: overlayView.frame.width, height: overlayView.frame.height))
+        
+        maskLayer.backgroundColor = AppColors.themeWhite.cgColor
+        
+        maskLayer.path = path
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        
+        // Release the path since it's not covered by ARC.
+        overlayView.layer.mask = maskLayer
+        overlayView.clipsToBounds = true
+    }
+    
+    private func setupInitialAnimation() {
+        
+        let tScale = CGAffineTransform(scaleX: 12.0, y: 12.0)
+        let tTrans = CGAffineTransform(translationX: 0.0, y: -(self.view.height))
+        
+        self.overlayView.isHidden = false
+        self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
+        self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
+        
+        UIView.animate(withDuration: 0.6, animations: {
+            self.overlayView.transform = tScale.concatenating(tTrans)
+        }) { (isDone) in
+            if isDone {
+                self.overlayView.isHidden = true
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
+                    self.headerView.transform = CGAffineTransform.identity
+                    self.segmentContainerView.transform = CGAffineTransform.identity
+                }, completion: nil)
+            }
+        }
     }
 }
 
