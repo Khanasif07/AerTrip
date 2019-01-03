@@ -35,15 +35,15 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
      Required by UIViewControllerAnimatedTransitioning
      */
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        guard let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController, let sideMenu = fromVC.menuViewController as? SideMenuVC else {
-            return duration
-        }
-        
-        sideMenu.profileImage.isHidden = true
-        sideMenu.userNameLabel.isHidden = true
-        self.snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) ?? UIView()
-        sideMenu.profileImage.isHidden = false
-        sideMenu.userNameLabel.isHidden = false
+//        if let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController,
+//            let toVC = transitionContext?.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC {
+//
+////            let ratio = CGFloat(0.71)//sideMenu.profileImage.height / toVC.profileImageHeaderView.profileImageView.height
+////            let tScale = CGAffineTransform(scaleX: ratio, y: ratio)
+////            toVC.profileImageHeaderView.profileImageView.transform = tScale
+//        } else {
+//
+//        }
         
         return duration
     }
@@ -64,7 +64,25 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
                     return
             }
             
+//            let ratio = sideMenu.profileImage.height / toVC.profileImageHeaderView.profileImageView.height
+//            let tScale = CGAffineTransform(scaleX: ratio, y: ratio)
+//
+//
+//            let tTX = sideMenu.sideMenuTableView.convert(sideMenu.profileImage.frame, to: toVC.view).origin.x - toVC.headerView.convert(toVC.profileImageHeaderView.profileImageView.frame, to: toVC.view).origin.x
+//
+//            let tTY = sideMenu.sideMenuTableView.convert(sideMenu.profileImage.frame, to: toVC.view).origin.y - toVC.headerView.convert(toVC.profileImageHeaderView.profileImageView.frame, to: toVC.view).origin.y
+//            let tTrans = CGAffineTransform(translationX: tTX, y: tTY)
+//            toVC.profileImageHeaderView.profileImageView.transform = tTrans.concatenating(tScale)
+            
             containerView.addSubview(fromVC.view)
+            
+//            toVC.profileImageHeaderView.profileContainerView.removeFromSuperview()
+//            toVC.profileImageHeaderView.profileContainerView.frame = CGRect(x: 0.0, y: 20.0, width: UIDevice.screenWidth, height: 100.0)
+//            AppFlowManager.default.mainNavigationController.view.addSubview(toVC.profileImageHeaderView.profileContainerView)
+            
+//            UIView.animate(withDuration: 0.3) {
+//                toVC.profileImageHeaderView.profileContainerView.frame = toVC.headerView.bounds
+//            }
             
             toVC.view.frame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
@@ -106,6 +124,8 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let headerFrame = CGRect(x: fromVC.view.frame.origin.x, y: fromVC.view.frame.origin.y, width: fromVC.view.frame.size.width, height: 0.0)
 
+            sideMenu.profileImage.isHidden = false
+            sideMenu.userNameLabel.isHidden = false
             UIView.animate(withDuration: 0.6, animations: {
                 fromVC.view.frame = snapFrame
                 toVC.view.frame = viewFrame
@@ -114,8 +134,6 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
                 fromVC.profileImageHeaderView.frame = headerFrame
             }) { (isDone) in
                 if isDone {
-                    sideMenu.profileImage.isHidden = false
-                    sideMenu.userNameLabel.isHidden = false
                     self.context?.completeTransition(true)
                 }
             }

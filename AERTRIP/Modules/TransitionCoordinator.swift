@@ -46,9 +46,12 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
             return getDefaultTransition()
             
         case is ViewProfileVC :
-            let animation = ViewProfileNavigationTransition()
-            animation.transitionMode = .pop
-            return animation
+            if toVC.isKind(of: PKSideMenuController.self) {
+                let animation = ViewProfileNavigationTransition()
+                animation.transitionMode = .pop
+                return animation
+            }
+            return getDefaultTransition()
             
         default:
             return getDefaultTransition()

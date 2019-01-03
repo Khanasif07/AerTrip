@@ -24,6 +24,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var familyButton: UIButton!
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
+    @IBOutlet weak var profileContainerView: UIView!
     
     // MARK: - Variable
     private let gradient = CAGradientLayer()

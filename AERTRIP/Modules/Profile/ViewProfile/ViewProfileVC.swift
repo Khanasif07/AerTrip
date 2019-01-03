@@ -49,6 +49,10 @@ class ViewProfileVC: BaseVC {
             self?.view.alpha = 1.0
         }
         self.doInitialSetup()
+        
+//        self.profileImageHeaderView.profileContainerView.removeFromSuperview()
+//        self.profileImageHeaderView.profileContainerView.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 100.0)
+//        AppFlowManager.default.mainNavigationController.view.addSubview(self.profileImageHeaderView.profileContainerView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
