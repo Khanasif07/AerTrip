@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelCardTableViewCell" rowHeight="212" id="KGk-i7-Jjw" customClass="HotelCardTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="424" height="212"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="424" height="211.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mumbai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndn-bc-i5O">
+                        <rect key="frame" x="16" y="9" width="76.5" height="28.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKr-Wd-CDo">
+                        <rect key="frame" x="366" y="7" width="52" height="33"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                        <state key="normal" title="View all">
+                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ei0-hO-Ubv">
+                        <rect key="frame" x="0.0" y="51.5" width="424" height="152"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="152" id="rdM-Qd-9Cj"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1wz-yc-MxX">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZKr-Wd-CDo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ndn-bc-i5O" secondAttribute="trailing" constant="10" id="792-T5-5oU"/>
+                    <constraint firstAttribute="trailing" secondItem="ZKr-Wd-CDo" secondAttribute="trailing" constant="6" id="7XK-LQ-nHq"/>
+                    <constraint firstItem="Ei0-hO-Ubv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="A3O-ae-xtb"/>
+                    <constraint firstItem="Ndn-bc-i5O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="A67-G6-SrI"/>
+                    <constraint firstAttribute="bottom" secondItem="Ei0-hO-Ubv" secondAttribute="bottom" constant="8" id="Nk7-bF-Nto"/>
+                    <constraint firstAttribute="trailing" secondItem="Ei0-hO-Ubv" secondAttribute="trailing" id="Qbs-kd-SSR"/>
+                    <constraint firstItem="Ei0-hO-Ubv" firstAttribute="top" secondItem="Ndn-bc-i5O" secondAttribute="bottom" constant="14" id="SjA-je-cWd"/>
+                    <constraint firstItem="Ndn-bc-i5O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="dtr-tK-2h8"/>
+                    <constraint firstItem="ZKr-Wd-CDo" firstAttribute="centerY" secondItem="Ndn-bc-i5O" secondAttribute="centerY" id="ktD-ga-c6g"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cityLabel" destination="Ndn-bc-i5O" id="Ulq-hW-ahV"/>
+                <outlet property="hotelCollectionView" destination="Ei0-hO-Ubv" id="mAy-V9-SJW"/>
+                <outlet property="viewAllButton" destination="ZKr-Wd-CDo" id="n0H-fv-eXX"/>
+            </connections>
+            <point key="canvasLocation" x="-84.799999999999997" y="97.151424287856074"/>
+        </tableViewCell>
+    </objects>
+</document>

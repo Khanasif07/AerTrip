@@ -57,6 +57,7 @@ extension SideMenuProfileImageCell {
         
         if userData.picture.isEmpty && !userData.firstName.isEmpty {
             
+            
             let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
             let image = AppGlobals.shared.getTextFromImage(string)
             self.profileImage.image = image

@@ -12,6 +12,7 @@ class HotelPreferencesVC:  BaseVC {
     
     //MARK:- Properties
     //MARK:-
+    let viewModel = HotelPreferencesVM()
     
     //MARK:- IBOutlets
     //MARK:-
@@ -28,13 +29,16 @@ class HotelPreferencesVC:  BaseVC {
         self.initialSetups()
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
     //MARK:- Public
     
     
     //MARK:- Action
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-         self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -47,22 +51,14 @@ private extension HotelPreferencesVC {
     func initialSetups() {
         
         self.registerXibs()
+        self.viewModel.webserviceForGetHotelPreferenceList()
     }
     
     func registerXibs() {
         
+        self.hotelsTableView.register(UINib(nibName: "HotelCardTableViewCell", bundle: nil), forCellReuseIdentifier: "HotelCardTableViewCell")
         self.hotelsTableView.dataSource = self
         self.hotelsTableView.delegate      = self
-    }
-}
-
-//MARK:- Extension Initial setups
-//MARK:-
-extension HotelPreferencesVC {
-    
-    @objc func oneStarButtonAction(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
     }
 }
 
@@ -71,7 +67,12 @@ extension HotelPreferencesVC {
 extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        
+        if self.viewModel.hotels.isEmpty {
+            return 3
+        } else {
+            return self.viewModel.hotels.count + 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,11 +85,6 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
                 fatalError("PreferStarCategoryCell not found")
             }
             
-            cell.oneStarButton.addTarget(self, action: #selector(self.oneStarButtonAction(_:)), for: .touchUpInside)
-            cell.twoStarButton.addTarget(self, action: #selector(self.oneStarButtonAction(_:)), for: .touchUpInside)
-            cell.threeStarButton.addTarget(self, action: #selector(self.oneStarButtonAction(_:)), for: .touchUpInside)
-            cell.fourStarButton.addTarget(self, action: #selector(self.oneStarButtonAction(_:)), for: .touchUpInside)
-            cell.fiveStarButton.addTarget(self, action: #selector(self.oneStarButtonAction(_:)), for: .touchUpInside)
             
             return cell
             
@@ -100,16 +96,33 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
             
             return cell
             
-        case 2:
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoFavouriteHotelCell", for: indexPath) as? NoFavouriteHotelCell  else {
-                fatalError("NoFavouriteHotelCell not found")
-            }
             
-            return cell
+            
             
         default:
-            fatalError()
+            
+            if self.viewModel.hotels.isEmpty {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoFavouriteHotelCell", for: indexPath) as? NoFavouriteHotelCell  else {
+                    fatalError("NoFavouriteHotelCell not found")
+                }
+                
+                return cell
+                
+            } else {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell", for: indexPath) as? HotelCardTableViewCell  else {
+                    fatalError("HotelCardTableViewCell not found")
+                }
+                
+                cell.cityLabel.text = self.viewModel.hotels[indexPath.row - 2].cityName
+                cell.hotels = self.viewModel.hotels[indexPath.row - 2].holetList
+                cell.hotelCollectionView.reloadData()
+                
+                return cell
+            }
+            
         }
         
     }
@@ -117,4 +130,26 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+}
+
+
+//MARK:- Extension HotelPreferencesDelegate
+//MARK:-
+extension HotelPreferencesVC : HotelPreferencesDelegate {
+    
+    func willCallApi() {
+        
+    }
+    
+    func getApiSuccess() {
+        
+        self.hotelsTableView.reloadData()
+    }
+    
+    func getApiFailure(errors: ErrorCodes) {
+        
+        AppGlobals.shared.showErrorOnToastView(errors: errors, viewController: self)
+    }
+    
+    
 }

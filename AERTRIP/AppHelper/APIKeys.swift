@@ -58,6 +58,20 @@ enum APIKeys: String {
     case ff = "ff"
     case label = "label"
     case hash_key
+    case hotel_min_star
+    case hotel_max_star
+    case hotels
+    case hid
+    case name
+    case city_id
+    case stars
+    case rating
+    case ta_rating
+    case photo
+    case city
+    case preference_id
+    case is_favourite
+    
     
 }
 

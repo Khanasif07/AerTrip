@@ -31,4 +31,15 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.bgView.cornerRadius = 10
     }
 
+    func populateData(data: HotelsModel) {
+        
+        self.hotelNameLabel.text = data.name
+        self.starRatingView.rating = data.stars
+        self.greenCircleRatingView.rating = data.taRating
+        
+        if let image = UIImage(named: "hotelCardPlaceHolder") {
+            self.hotelImageView.setImageWithUrl(data.photo, placeholder: image, showIndicator: true)
+        }
+        
+    }
 }
