@@ -216,6 +216,14 @@ enum LocalizedString: String {
     case Ms = "Ms"
     case Miss = "Miss"
     case Mast = "Mast"
-
+    
+    //MARK:- Hotel Search
+    //MARK:-
+    case PreferredStarCategory = "PreferredStarCategory"
+    case FavouriteHotels = "FavouriteHotels"
+    case stars = "stars"
+    case star = "star"
+    case searchForHotelsToAdd = "searchForHotelsToAdd"
+    case searchHotelName = "searchHotelName"
 }
 

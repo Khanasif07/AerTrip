@@ -148,3 +148,11 @@
 "DoYouWantToLogout" = "Are you sure, Do you want to logout?";
 "Logout" = "Logout";
 
+//MARK:- Hotel Search
+//MARK:-
+"PreferredStarCategory" = "Preferred Star Category";
+"FavouriteHotels" = "Favourite Hotels";
+"stars" = "Stars";
+"star" = "Star";
+"searchForHotelsToAdd" = "Search for hotels to add";
+"searchHotelName" = "Search hotel name";

@@ -16,6 +16,8 @@ class AddFavouriteHotels: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.setupText()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,5 +25,14 @@ class AddFavouriteHotels: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func addFavouriteButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.moveToHotelSearchVC()
+    }
+    
+    func setupText() {
+        self.titleLabe.textColor = AppColors.themeBlack
+        self.titleLabe.font = AppFonts.SemiBold.withSize(16.0)
+        self.titleLabe.text = LocalizedString.FavouriteHotels.localized
+    }
 }

@@ -19,10 +19,18 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var starRatingView: FloatRatingView!
     @IBOutlet weak var tripLogoImage: UIImageView!
     @IBOutlet weak var greenCircleRatingView: FloatRatingView!
+    @IBOutlet weak var gradientView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        let gradientLayer:CAGradientLayer = CAGradientLayer()
+        gradientLayer.frame.size = self.gradientView.frame.size
+        gradientLayer.colors =
+            [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.backgroundColor = AppColors.clear
     }
     
     override func draw(_ rect: CGRect) {
@@ -31,4 +39,15 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.bgView.cornerRadius = 10
     }
 
+    func populateData(data: HotelsModel) {
+        
+        self.hotelNameLabel.text = data.name
+        self.starRatingView.rating = data.stars
+        self.greenCircleRatingView.rating = data.taRating
+        
+        if let image = UIImage(named: "hotelCardPlaceHolder") {
+            self.hotelImageView.setImageWithUrl(data.photo, placeholder: image, showIndicator: true)
+        }
+        
+    }
 }

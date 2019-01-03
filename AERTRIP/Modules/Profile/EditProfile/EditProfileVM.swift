@@ -128,7 +128,7 @@ class EditProfileVM {
         params[APIKeys.firstName.rawValue] = firstName
         params[APIKeys.lastName.rawValue] = lastName
         params[APIKeys.id.rawValue] = AppUserDefaults.value(forKey: .userId)
-        
+
         
         var emailDictArr = [String:Any]()
         for (idx, emailObj) in self.email.enumerated() {
@@ -145,38 +145,14 @@ class EditProfileVM {
             socialDictArr["\(idx)"] = socialObj.jsonDict
         }
         
-//        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
-//            emailObj.jsonDict
-//        }
-//
-//        let mobileDictArr = self.mobile.map { (mobileObj) -> [String: Any] in
-//            mobileObj.jsonDict
-//        }
-//
-//        let socialDictArr = self.social.map { (socialObj) -> [String: Any] in
-//            socialObj.jsonDict
-//        }
-        
         let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
         
-        params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
         
-//        do {
-//            let jsonData = try JSONSerialization.data(withJSONObject: contact, options: .prettyPrinted)
-//            // here "jsonData" is the dictionary encoded in JSON data
-//              params[APIKeys.contact.rawValue] = jsonData
-//            let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
-//            // here "decoded" is of type `Any`, decoded from JSON data
-//
-//            // you can now cast it with the right type
-//            if let dictFromJSON = decoded as? [String:String] {
-//                // use dictFromJSON
-//
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
+        
+//        let contact: [String: Any] = ["email": self.email, "mobile": self.mobile, "social": self.social]
+        
+
+        params[APIKeys.contact.rawValue] = contact
         
         self.delegate?.willApiCall()
         APICaller.shared.callSaveProfileAPI(params: params, loader: true, completionBlock: { success, errors in

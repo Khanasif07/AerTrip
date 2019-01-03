@@ -9,12 +9,15 @@
 import UIKit
 
 class DemoVC: BaseVC {
-
-    //MARK:- Properties
-    //MARK:-
     
     //MARK:- IBOutlets
     //MARK:-
+    
+    
+    //MARK:- Properties
+    //MARK:- Public
+    
+    //MARK:- Private
     
     //MARK:- ViewLifeCycle
     //MARK:-

@@ -196,6 +196,11 @@ extension AppFlowManager {
         let ob = HotelPreferencesVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
+    
+    func moveToHotelSearchVC(){
+        let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Animation

@@ -59,4 +59,11 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         layer.shouldRasterize = true
     }
+    
+    func addCardShadow(withColor color: UIColor = AppColors.themeBlack) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = 0.8
+        layer.shadowOffset = CGSize.zero
+        layer.shadowRadius = 5
+    }
 }

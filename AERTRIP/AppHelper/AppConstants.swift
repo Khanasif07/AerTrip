@@ -38,4 +38,5 @@ enum AppConstants {
     static let privacyPolicy = "https://beta.aertrip.com/privacy"
     static let termsOfUse    = "https://beta.aertrip.com/terms"
     
+    static let kSearchTextLimit = 3
 }
