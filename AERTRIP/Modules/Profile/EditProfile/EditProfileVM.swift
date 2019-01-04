@@ -23,7 +23,7 @@ protocol EditProfileVMDelegate: class {
 class EditProfileVM {
     weak var delegate: EditProfileVMDelegate?
     
-    var profilePicutre = ""
+    var profilePicture = ""
     var salutation = ""
     var firstName = ""
     var lastName = ""
@@ -31,38 +31,41 @@ class EditProfileVM {
     var email: [Email] = []
     var mobile: [Mobile] = []
     var social: [Social] = []
-    var address: [Address] = []
+    var addresses: [Address] = []
     var dob = ""
     var doa = ""
     var notes = ""
     var passportNumber = ""
     var passportCountry = ""
+    var passportCountryName = ""
     var passportIssueDate = ""
     var passportExpiryDate = ""
-    var seat: Seat?
-    var meal: Meal?
+    var seat = ""
+    var meal = ""
+    var frequentFlyer : [FrequentFlyer] = []
+    var filePath:String = ""
+    var imageSource = ""
     
     func isValidateData(vc: UIViewController) -> Bool {
-//        if self.email.isEmpty {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
-//            return false
-//
-//        } else if self.email.checkInvalidity(.Email) {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
-//            return false
-//
-//        } else if self.password.isEmpty {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
-//            return false
-//
-//        } else if self.password.checkInvalidity(.Password) {
-//
-//            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
-//            return false
-//        }
+        
+        if self.salutation == LocalizedString.Title.rawValue {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
+            return false
+        } else if self.firstName.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized, vc: vc)
+            return false
+        } else if self.lastName.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
+            return false
+        } else if self.email.isEmpty {
+
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            return false
+
+        } else if self.email.count > 0 {
+            
+        }
+        
         return true
     }
     
@@ -127,8 +130,16 @@ class EditProfileVM {
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName
         params[APIKeys.lastName.rawValue] = lastName
-        params[APIKeys.id.rawValue] = AppUserDefaults.value(forKey: .userId)
-
+        params[APIKeys.dob.rawValue] = dob
+        params[APIKeys.doa.rawValue] = doa
+        params[APIKeys.passportNumber.rawValue] = passportNumber
+        params[APIKeys.passportCountryName.rawValue] = passportCountryName
+        params[APIKeys.passportCountry.rawValue] = passportCountry
+        params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
+        params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
+     
+        params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
+        
         
         var emailDictArr = [String:Any]()
         for (idx, emailObj) in self.email.enumerated() {
@@ -145,17 +156,61 @@ class EditProfileVM {
             socialDictArr["\(idx)"] = socialObj.jsonDict
         }
         
+        var addressDictArr = [String:Any]()
+        for (idx, addressObj) in self.addresses.enumerated() {
+            addressDictArr["\(idx)"] = addressObj.jsonDict
+        }
+        
+        var frequentFlyerDictArr = [String:Any]()
+        for (idx,frequentFlyerObj) in self.frequentFlyer.enumerated(){
+            frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
+        }
+    
+//        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
+//            emailObj.jsonDict
+//        }
+//
+//        let mobileDictArr = self.mobile.map { (mobileObj) -> [String: Any] in
+//            mobileObj.jsonDict
+//        }
+//
+//        let socialDictArr = self.social.map { (socialObj) -> [String: Any] in
+//            socialObj.jsonDict
+//        }
+        
         let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
+        params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
+        params[APIKeys.address.rawValue] = addressDictArr
+        params[APIKeys.ff.rawValue] = frequentFlyerDictArr
+        params[APIKeys.seatPreference.rawValue] = seat
+        params[APIKeys.mealPreference.rawValue] = meal
+        
+        if profilePicture.contains("https://") {
+           params[APIKeys.profileImage.rawValue] = profilePicture
+        }
+        params[APIKeys.imageSource.rawValue] = imageSource
         
         
         
-//        let contact: [String: Any] = ["email": self.email, "mobile": self.mobile, "social": self.social]
+//        do {
+//            let jsonData = try JSONSerialization.data(withJSONObject: contact, options: .prettyPrinted)
+//            // here "jsonData" is the dictionary encoded in JSON data
+//              params[APIKeys.contact.rawValue] = jsonData
+//            let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+//            // here "decoded" is of type `Any`, decoded from JSON data
+//
+//            // you can now cast it with the right type
+//            if let dictFromJSON = decoded as? [String:String] {
+//                // use dictFromJSON
+//
+//            }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//
         
-
-        params[APIKeys.contact.rawValue] = contact
-        
-        self.delegate?.willApiCall()
-        APICaller.shared.callSaveProfileAPI(params: params, loader: true, completionBlock: { success, errors in
+     self.delegate?.willApiCall()
+        APICaller.shared.callSaveProfileAPI(params: params,filePath: filePath, loader: true, completionBlock: { success, errors in
             
             if success {
                 self.delegate?.getSuccess()

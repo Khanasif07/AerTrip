@@ -72,7 +72,16 @@ enum APIKeys: String {
     case preference_id
     case is_favourite
     
-    
+    case passportCountryName = "passport_country_name"
+    case passportCountry = "passport_country"
+    case passportIssueDate = "passport_issue_date"
+    case passportExpiryDate = "passport_expiry_date"
+    case passportNumber = "passport_number"
+    case doa = "doa"
+    case seatPreference = "seat_pref"
+    case mealPreference = "meal_pref"
+    case profileImage = "profile_image"
+    case imageSource = "image_source"
 }
 
 

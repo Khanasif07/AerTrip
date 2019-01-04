@@ -21,7 +21,7 @@ class ViewProfileDetailVM {
     func webserviceForGetTravelDetail() {
         var params = JSONDictionary()
         
-        params[APIKeys.paxId.rawValue] = AppUserDefaults.value(forKey: .userId)
+        params[APIKeys.paxId.rawValue] = UserInfo.loggedInUser?.userId
         
         self.delegate?.willGetDetail()
         

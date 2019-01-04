@@ -38,9 +38,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(self)
         self.profileImageHeaderView.delegate = self
-        
-        self.viewModel.webserviceForGetTravelDetail()
-        
+    
         self.view.alpha = 0.5
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.tableView.origin.x = -200
@@ -58,6 +56,7 @@ class ViewProfileVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.viewModel.webserviceForGetTravelDetail()
         self.setNeedsStatusBarAppearanceUpdate()
     }
     

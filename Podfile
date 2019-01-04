@@ -6,7 +6,6 @@ target 'AERTRIP' do
   use_frameworks!
 
   # Pods for AERTRIP
-
     pod 'Alamofire'
     pod 'Kingfisher'
     pod 'SwiftyJSON', '~> 4.0'
