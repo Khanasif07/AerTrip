@@ -44,7 +44,7 @@ struct HotelsModel {
         self.photo        = json[APIKeys.photo.rawValue].stringValue
         self.city         = json[APIKeys.city.rawValue].stringValue
         self.preferenceId = json[APIKeys.preference_id.rawValue].stringValue
-        self.isFavourite  = json[APIKeys.is_favourite.rawValue].string == "1" ? true : false
+        self.isFavourite  = json[APIKeys.is_favourite.rawValue].intValue == 1 ? true : false
     }
     
     static func models(json: JSON) -> [HotelsModel] {

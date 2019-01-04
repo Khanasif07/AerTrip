@@ -52,13 +52,17 @@ class HotelSearchVC: BaseVC {
     }
     
     override func bindViewModel() {
-        
+        self.viewModel.delegate = self
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
         self.searchBar.delegate = self
+        
+        self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
     }
     
     //MARK:- Public
@@ -68,6 +72,45 @@ class HotelSearchVC: BaseVC {
     @IBAction func doneButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.hotels.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelCardCollectionViewCell", for: indexPath) as? HotelCardCollectionViewCell else {
+            fatalError("HotelCardCollectionViewCell not found")
+        }
+        
+        cell.populateData(data: self.viewModel.hotels[indexPath.item])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width - 16, height: UIDevice.screenHeight * 0.3)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+}
+
+extension HotelSearchVC: HotelSearchVMDelegate {
+    func willSearchForHotels() {
+        
+    }
+    
+    func searchHotelsSuccess() {
+        self.collectionView.reloadData()
+    }
+    
+    func searchHotelsFail() {
+        
     }
 }
 

@@ -30,4 +30,23 @@ extension APICaller {
         }) { (error) in
         }
     }
+    
+    func callSearchHotelsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsModel])->Void ) {
+        
+        AppNetworking.GET(endPoint: APIEndPoint.searchHotels, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
+                let array =  HotelsModel.models(json: jsonData[APIKeys.data.rawValue])
+                
+                completionBlock(true, [], array)
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors, [])
+            })
+            
+        }) { (error) in
+        }
+    }
 }

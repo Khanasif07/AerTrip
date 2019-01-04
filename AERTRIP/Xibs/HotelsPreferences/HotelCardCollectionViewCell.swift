@@ -44,6 +44,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.hotelNameLabel.text = data.name
         self.starRatingView.rating = data.stars
         self.greenCircleRatingView.rating = data.taRating
+        self.saveButton.isSelected = data.isFavourite
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
             self.hotelImageView.setImageWithUrl(data.photo, placeholder: image, showIndicator: true)

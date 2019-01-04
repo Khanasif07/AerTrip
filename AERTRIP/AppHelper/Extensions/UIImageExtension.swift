@@ -114,7 +114,7 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
-        
+        var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
             return
@@ -128,6 +128,9 @@ extension UIImageView {
         }
         
         self.image = placeholder
+        if imageUrl.hasPrefix("//") {
+            imageUrl = "https:" + imageUrl
+        }
         if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
             setImage(url: url, showIndicator:showIndicator)
         }

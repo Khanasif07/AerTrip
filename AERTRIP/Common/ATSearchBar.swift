@@ -27,7 +27,7 @@ class ATSearchBar: UISearchBar {
         self.backgroundImage = UIImage()
         
         if let textField = self.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = AppColors.themeGray10
+            textField.backgroundColor = AppColors.themeGray04
             textField.font = AppFonts.Regular.withSize(17.0)
             textField.tintColor = AppColors.themeGreen
         }
