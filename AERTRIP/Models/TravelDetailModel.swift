@@ -70,6 +70,20 @@ struct Address {
     var postalCode: String
     var countryName:String
     
+    var jsonDict: [String:Any] {
+        return ["id":self.id,
+                "label":self.label,
+                "line1":self.line1,
+                "line2":self.line2,
+                "line3":self.line3,
+                "city":self.city,
+                "state":self.state,
+                "country":self.country,
+                "postal_code":self.postalCode,
+                "country_name":self.countryName
+                    ]
+    }
+    
     init() {
         let json = JSON()
         self.init(json: json)
@@ -81,10 +95,10 @@ struct Address {
         self.line1 = json["line1"].stringValue
         self.line2 = json["line2"].stringValue
         self.line3 = json["line3"].stringValue
-        self.city = json["ctiy"].stringValue
-        self.state = json["city"].stringValue
+        self.city = json["city"].stringValue
+        self.state = json["state"].stringValue
         self.country = json["country"].stringValue
-        self.postalCode = json["postalCode"].stringValue
+        self.postalCode = json["postal_code"].stringValue
         self.countryName = json["country_name"].stringValue
         
     }
@@ -235,6 +249,7 @@ struct Preferences {
     var seat: Seat
     var meal: Meal
     
+    
     init() {
         let json = JSON()
         self.init(json: json)
@@ -250,6 +265,12 @@ struct Seat {
     var value: String
     var name: String
     
+    var jsonDict: [String:Any] {
+        return ["value":self.value,
+                "name":self.name
+        ]
+    }
+    
     init() {
         let json = JSON()
         self.init(json: json)
@@ -264,6 +285,13 @@ struct Seat {
 struct Meal {
     var value: String
     var name: String
+    
+    var jsonDict: [String:Any] {
+        return ["value":self.value,
+                "name":self.name
+        ]
+    }
+
     
     init() {
         let json = JSON()
@@ -282,6 +310,15 @@ struct FrequentFlyer {
     var airlineCode : String
     var airlineName : String
     var logoUrl : String
+    
+    
+    var jsonDict: [String:Any] {
+        return ["id":self.id,
+                "number":self.number,
+                "airline_code":self.airlineCode,
+                "airline_name":self.airlineName,
+                "logo_url":self.logoUrl]
+    }
     
     init() {
         let json = JSON()

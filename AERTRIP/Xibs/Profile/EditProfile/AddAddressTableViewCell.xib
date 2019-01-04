@@ -100,8 +100,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-97-pxR">
                                         <rect key="frame" x="0.0" y="0.0" width="133" height="43"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Upn-U7-H0G">
-                                                <rect key="frame" x="0.0" y="0.0" width="133" height="43"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Upn-U7-H0G">
+                                                <rect key="frame" x="16" y="0.0" width="117" height="43"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -114,7 +114,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="MxT-0A-VCw" firstAttribute="top" secondItem="Upn-U7-H0G" secondAttribute="bottom" id="0bB-P3-4MC"/>
-                                            <constraint firstItem="Upn-U7-H0G" firstAttribute="leading" secondItem="TEb-97-pxR" secondAttribute="leading" id="6oE-Ya-z9d"/>
+                                            <constraint firstItem="Upn-U7-H0G" firstAttribute="leading" secondItem="TEb-97-pxR" secondAttribute="leading" constant="16" id="6oE-Ya-z9d"/>
                                             <constraint firstAttribute="trailing" secondItem="MxT-0A-VCw" secondAttribute="trailing" id="FGB-OL-mFr"/>
                                             <constraint firstAttribute="bottom" secondItem="MxT-0A-VCw" secondAttribute="bottom" constant="-1" id="H3g-WH-gpP"/>
                                             <constraint firstItem="Upn-U7-H0G" firstAttribute="top" secondItem="TEb-97-pxR" secondAttribute="top" id="XRi-x5-6TC"/>
@@ -126,8 +126,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmK-Pi-ha5">
                                         <rect key="frame" x="133.5" y="0.0" width="133" height="43"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivg-7Q-PdW">
-                                                <rect key="frame" x="0.0" y="0.0" width="133" height="43"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Postal Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivg-7Q-PdW">
+                                                <rect key="frame" x="16" y="0.0" width="117" height="43"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -140,7 +140,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Wfd-0S-Xaf" firstAttribute="top" secondItem="ivg-7Q-PdW" secondAttribute="bottom" id="FOo-Iz-hoC"/>
-                                            <constraint firstItem="ivg-7Q-PdW" firstAttribute="leading" secondItem="EmK-Pi-ha5" secondAttribute="leading" id="GkP-CD-ONp"/>
+                                            <constraint firstItem="ivg-7Q-PdW" firstAttribute="leading" secondItem="EmK-Pi-ha5" secondAttribute="leading" constant="16" id="GkP-CD-ONp"/>
                                             <constraint firstItem="ivg-7Q-PdW" firstAttribute="top" secondItem="EmK-Pi-ha5" secondAttribute="top" id="P3U-VS-5od"/>
                                             <constraint firstAttribute="trailing" secondItem="ivg-7Q-PdW" secondAttribute="trailing" id="Peb-Wh-i07"/>
                                             <constraint firstAttribute="bottom" secondItem="Wfd-0S-Xaf" secondAttribute="bottom" constant="-1" id="UKN-6G-wBb"/>
@@ -207,6 +207,17 @@
                                     <constraint firstAttribute="trailing" secondItem="I4d-qe-2c6" secondAttribute="trailing" id="uTM-ou-8Cp"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-6z-Rdc">
+                                <rect key="frame" x="282" y="132" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="bDz-qX-QMb"/>
+                                    <constraint firstAttribute="height" constant="22" id="vXG-zx-1bG"/>
+                                </constraints>
+                                <state key="normal" image="redMinusButton"/>
+                                <connections>
+                                    <action selector="deleteCellTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Nya-mT-dYE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -237,9 +248,11 @@
                             <constraint firstItem="Sq4-GW-EgE" firstAttribute="top" secondItem="w3N-e2-cIH" secondAttribute="bottom" id="iZq-0C-Fo3"/>
                             <constraint firstItem="tyr-Wf-fX5" firstAttribute="top" secondItem="Kjg-Zr-gZe" secondAttribute="bottom" id="mUw-ua-Mdv"/>
                             <constraint firstItem="aLv-IZ-FCW" firstAttribute="top" secondItem="byy-xE-RXX" secondAttribute="bottom" id="oIe-EB-nhE"/>
+                            <constraint firstItem="Umh-6z-Rdc" firstAttribute="top" secondItem="tyr-Wf-fX5" secondAttribute="top" id="rHp-eV-6Ek"/>
                             <constraint firstItem="w3N-e2-cIH" firstAttribute="top" secondItem="bnX-oS-u73" secondAttribute="bottom" id="wYm-UO-qkA"/>
                             <constraint firstAttribute="trailing" secondItem="zZk-DM-xlE" secondAttribute="trailing" constant="54" id="x5T-Lo-bI2"/>
                             <constraint firstAttribute="trailing" secondItem="tyr-Wf-fX5" secondAttribute="trailing" constant="53.5" id="xTb-mU-7Qk"/>
+                            <constraint firstAttribute="trailing" secondItem="Umh-6z-Rdc" secondAttribute="trailing" constant="16" id="ydI-Ct-HWM"/>
                             <constraint firstItem="i1s-hK-EDN" firstAttribute="leading" secondItem="Cfo-1a-dW3" secondAttribute="leading" constant="16" id="zWz-Y0-Tsd"/>
                         </constraints>
                     </view>
@@ -267,9 +280,12 @@
                 <outlet property="addressLineOneTextField" destination="Sq4-GW-EgE" id="4Vb-Cl-y0B"/>
                 <outlet property="addressLineTwoTextField" destination="21c-IL-jVe" id="Nw5-Tb-eIJ"/>
                 <outlet property="addressTypeLabel" destination="iDz-wV-uFX" id="WTp-To-wUi"/>
+                <outlet property="addressTypeView" destination="bnX-oS-u73" id="pe4-Hz-t1r"/>
                 <outlet property="cellDividerViewHeightConstraint" destination="l9Y-GH-bzf" id="Boc-JD-iwA"/>
                 <outlet property="cityTextField" destination="Upn-U7-H0G" id="hwo-ev-zgS"/>
                 <outlet property="countryLabel" destination="I4d-qe-2c6" id="lSw-9U-ZOQ"/>
+                <outlet property="countryView" destination="aLv-IZ-FCW" id="toR-ca-GTk"/>
+                <outlet property="deleteButton" destination="Umh-6z-Rdc" id="fcv-NT-PBw"/>
                 <outlet property="postalCodeTextField" destination="ivg-7Q-PdW" id="qpG-9f-IwM"/>
                 <outlet property="stateTextField" destination="zZk-DM-xlE" id="FXI-5O-imA"/>
             </connections>
@@ -278,5 +294,6 @@
     </objects>
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
+        <image name="redMinusButton" width="22" height="22"/>
     </resources>
 </document>

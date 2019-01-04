@@ -12,6 +12,7 @@ protocol TwoPartEditTableViewCellDelegate: class {
     func twoPartDeleteCellTapped(_ indexPath: IndexPath)
     func twoPartEditLeftViewTap(_ indexPath:IndexPath,_ gesture: UITapGestureRecognizer)
     func rightViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
+    func twoPartEditTextField(_ indexPath:IndexPath,_ fullString:String)
 }
 
 class TwoPartEditTableViewCell: UITableViewCell {
@@ -49,6 +50,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
             frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
             frequentFlyerLabel.text = flightName
             frequentFlyerLabel.text = flightNo
+            rightTextField.delegate = self
             if indexPath.row == 2 {
                 leftTitleLabel.isHidden = false
                 leftTitleLabel.text = LocalizedString.FrequentFlyer.rawValue
@@ -95,4 +97,24 @@ class TwoPartEditTableViewCell: UITableViewCell {
             delegate?.twoPartDeleteCellTapped(indexPath)
         }
     }
+}
+
+
+// MARK: - UITextFieldDelegate methods
+
+extension TwoPartEditTableViewCell : UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        NSLog("text field text \(textField.text ?? " ")")
+        if let indexPath = indexPath {
+            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
+                let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
+                delegate?.twoPartEditTextField(indexPath, fullString)
+            }
+        }
+        return true
+    }
+    
+    
+    
 }

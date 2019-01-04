@@ -40,11 +40,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.PassportDetails:
             return 3
         case LocalizedString.FlightPreferences:
-            if frequentFlyer.count > 0 {
-                return 2 + frequentFlyer.count
-            } else {
-                return 2
-            }
+                return 3 + frequentFlyer.count
        
         default:
             return 1
@@ -161,8 +157,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addAddressTableViewCellIdentifier, for: indexPath) as? AddAddressTableViewCell else {
                     fatalError("AddAddressTableViewCell not found")
                 }
-                
-                cell.configureCell(addressType: addresses[indexPath.row].label, addressLineOne: addresses[indexPath.row].line1, addressLineTwo: addresses[indexPath.row].line3, cityName:addresses[indexPath.row].city, postalCode: addresses[indexPath.row].postalCode, stateName: addresses[indexPath.row].state, countryName: addresses[indexPath.row].country)
+                cell.delegate = self
+                cell.deleteButton.isHidden = indexPath.row == 0 ? true : false
+                cell.configureCell(indexPath,addressType: addresses[indexPath.row].label, addressLineOne: addresses[indexPath.row].line1, addressLineTwo: addresses[indexPath.row].line2, cityName:addresses[indexPath.row].city, postalCode: addresses[indexPath.row].postalCode, stateName: addresses[indexPath.row].state, countryName: addresses[indexPath.row].countryName)
             
                 
                 return cell
@@ -178,39 +175,47 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.isEnabled = true
             }
             cell.downArrowImageView.isHidden = true
-            if informations[indexPath.row] != "" {
                 cell.configureCell(indexPath, moreInformation[indexPath.row].rawValue, informations[indexPath.row])
+              cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
                 return cell
-            }
-            cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
-            return UITableViewCell()
             
         case LocalizedString.FlightPreferences:
             if indexPath.row >= 2 {
-                if indexPath.row == frequentFlyer.count + 1 {
+                if indexPath.row == frequentFlyer.count + 2 {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                         fatalError("TableViewAddActionCell not found")
                     }
                     cell.configureCell(LocalizedString.AddFrequentFlyer.localized)
                     return cell
                 } else {
+                    
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else {
                         fatalError("TwoPartEditTableViewCell not found")
                     }
                     cell.delegate = self
-                    cell.cofigureCell(indexPath, true, "", "", frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].airlineCode)
-                    cell.deleteButton.isHidden = false
                     
-                    cell.rightTitleLabel.isHidden = true
-                    
-                    if indexPath.row + 1 == frequentFlyer.count {
-//                        cell.leftSeparatorView.isHidden = true
-//                        cell.rightSeparatorView.isHidden = true
-                    } else {
-//                        cell.leftSeparatorView.isHidden = false
-//                        cell.rightSeparatorView.isHidden = false
+                    if indexPath.row == 2 {
+                        cell.cofigureCell(indexPath, true, "", "", "", "", "")
+                        cell.deleteButton.isHidden = true
+                        
+                        cell.rightTitleLabel.isHidden = true
+                        return cell
+                    } else if frequentFlyer.count > 1 {
+                        cell.cofigureCell(indexPath, true, "", "", frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].number)
+                        cell.deleteButton.isHidden = false
+                        
+                        cell.rightTitleLabel.isHidden = true
+                        
+                        if indexPath.row + 1 == frequentFlyer.count {
+                            //                        cell.leftSeparatorView.isHidden = true
+                            //                        cell.rightSeparatorView.isHidden = true
+                        } else {
+                            //                        cell.leftSeparatorView.isHidden = false
+                            //                        cell.rightSeparatorView.isHidden = false
+                        }
+                        return cell
                     }
-                    return cell
+                    
                 }
                 
             } else {
@@ -223,7 +228,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         default:
             return UITableViewCell()
         }
-        
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -297,12 +302,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             self.handlePassportDetailSectionSelection(indexPath)
             
         case LocalizedString.FlightPreferences:
-            if indexPath.row >= 2 {
+            if indexPath.row >= 3 {
                 self.indexPath = indexPath
                 let frequentFlyer = FrequentFlyer()
                 self.frequentFlyer.append(frequentFlyer)
                 tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: self.frequentFlyer.count - 1, section: indexPath.section)
+                let IndexPathOfLastRow = NSIndexPath(row: indexPath.row , section: indexPath.section)
                 self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
                 tableView.endUpdates()
             } else {
@@ -377,7 +382,11 @@ extension EditProfileVC {
         switch textField {
         case self.editProfileImageHeaderView.firstNameTextField:
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""
-            viewModel.firstName = textField.text ?? ""
+            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
+                let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
+                  viewModel.firstName = fullString
+            }
+         
             
         case self.editProfileImageHeaderView.lastNameTextField:
             self.editProfileImageHeaderView.lastNameTextField.text = textField.text ?? ""
@@ -419,7 +428,11 @@ extension EditProfileVC {
         
         // Set photoImageView to display the selected image.
         editProfileImageHeaderView.profileImageView.image = selectedImage
-        
+        let milliSec = getCurrentMillis()
+        let path = compressAndSaveImage(selectedImage, name: "\(milliSec).jpeg")
+        viewModel.filePath = path!
+        viewModel.imageSource = "aertrip"
+
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
@@ -499,7 +512,10 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                     self.mobile.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                 case LocalizedString.FlightPreferences:
-                    self.frequentFlyer.remove(at: indexPath.row - 2)
+                    self.frequentFlyer.remove(at: indexPath.row - 3)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                case LocalizedString.Address:
+                    self.addresses.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                     
                 default:
@@ -657,28 +673,35 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
             cell.editableTextField.text = pickerTitle
-            var seat = Seat()
-            let splits = pickerTitle.split(separator: "-")
-            seat.name = String(splits[0])
-            seat.value = String(splits[1])
-            viewModel.seat = seat
+            viewModel.seat = pickerTitle
             
         case .mealPreference:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
             cell.editableTextField.text = pickerTitle
-            let splits = pickerTitle.split(separator: "-")
-            var meal = Meal()
-            meal.name = String(splits[0])
-            meal.value = String(splits[1])
-            viewModel.meal = meal
+            viewModel.meal = pickerTitle
             
         case .country:
+            if sections[(self.indexPath?.section)!] == LocalizedString.PassportDetails {
+                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
+                cell.editableTextField.text = pickerTitle
+                viewModel.passportCountryName = pickerTitle
+                viewModel.passportCountry = countries.someKey(forValue: pickerTitle)!
+            } else {
+                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
+                cell.countryLabel.text = pickerTitle
+                addresses[indexPath.row].countryName = pickerTitle
+                addresses[indexPath.row].country = countries.someKey(forValue: pickerTitle)!
+            }
+           
+            
+        case .addressTypes:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
-            guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
-            cell.editableTextField.text = pickerTitle
-            viewModel.passportCountryName = pickerTitle
-            viewModel.passportCountry = countries.someKey(forValue: pickerTitle)!
+            guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
+            cell.addressTypeLabel.text = pickerTitle
+            addresses[indexPath.row].label = pickerTitle
             
         default:
             break
@@ -690,6 +713,10 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
 // MARK: - TwoPartEditTableViewCellDelegate methods
 
 extension EditProfileVC: TwoPartEditTableViewCellDelegate {
+    func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String) {
+        frequentFlyer[indexPath.row - 2].number = fullString
+    }
+    
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
         self.deleteCellTapped(indexPath)
@@ -731,6 +758,10 @@ extension EditProfileVC: SearchVCDelegate {
             let strToReplaced = " (\(flyer.iata))"
             let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")
             cell.cofigureCell(indexPath, true, "", "", flyer.logoUrl, replacedString, flyer.value)
+            frequentFlyer[indexPath.row - 2].logoUrl = flyer.logoUrl
+            frequentFlyer[indexPath.row - 2].airlineName = replacedString
+            frequentFlyer[indexPath.row - 2].airlineCode = flyer.iata
+            
         }
     }
 }
@@ -750,4 +781,61 @@ extension EditProfileVC: TextEditableTableViewCellDelegate {
             break
         }
     }
+}
+
+
+// Mark
+
+extension EditProfileVC:AddAddressTableViewCellDelegate {
+    func deleteAddressCellTapped(_ indexPath: IndexPath) {
+        self.indexPath = indexPath
+        deleteCellTapped(indexPath)
+    }
+    
+    func addAddressTextField(_ textfield: UITextField, _ indexPath: IndexPath, _ fullString: String) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell
+        switch textfield {
+        case cell?.addressLineOneTextField :
+            NSLog("addressLineTwoTextField")
+            addresses[indexPath.row].line1 = fullString
+        case cell?.addressLineTwoTextField:
+            NSLog("addressLineTwoTextField")
+            addresses[indexPath.row].line2 = fullString
+        case cell?.cityTextField:
+            NSLog("cityTextField")
+            addresses[indexPath.row].city = fullString
+        case cell?.postalCodeTextField:
+            NSLog("postalCodeTextField")
+            addresses[indexPath.row].postalCode = fullString
+        case cell?.stateTextField:
+            NSLog("stateTextField")
+            addresses[indexPath.row].state = fullString
+        default:
+            break
+        }
+    }
+    
+    func addressTypeViewTapped(_ indexPath: IndexPath) {
+        NSLog("Address view Tapped")
+        self.indexPath = indexPath
+        if addressTypes.count > 0 {
+            pickerType = .addressTypes
+            let addressTypes = self.addressTypes
+            pickerData = addressTypes
+            openPicker()
+        }
+    }
+    
+    func countryViewTapped(_ indexPath: IndexPath) {
+        NSLog("country view tapped")
+        self.indexPath = indexPath
+        if self.countries.count > 0 {
+            pickerType = .country
+            pickerData = Array(self.countries.values)
+            openPicker()
+        }
+    }
+    
+    
 }

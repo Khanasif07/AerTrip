@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -152,7 +152,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
@@ -176,6 +176,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: a01b62be62b6d39a0ca1dfe8532e3d236a9c0537
+PODFILE CHECKSUM: 0310c7d5a87a11c8e081244c5420b2c6d99c2cd5
 
 COCOAPODS: 1.5.3

@@ -16,6 +16,7 @@ enum PickerType {
     case seatPreference
     case mealPreference
     case country
+    case addressTypes
 }
 
 enum ViewType {
@@ -126,6 +127,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.email = self.email
         viewModel.social = self.social
         viewModel.mobile = self.mobile
+        viewModel.addresses = self.addresses
+        viewModel.frequentFlyer = self.frequentFlyer
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -199,19 +202,23 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func getPhotoFromFacebook() {
         let socialModel = SocialLoginVM()
-        socialModel.fbLogin(vc: self) { success in
+        socialModel.fbLogin(vc: self) { [weak self] success in
             if success {
-                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+                self?.viewModel.profilePicture = socialModel.userData.picture
+                self?.viewModel.imageSource = "facebook"
             }
         }
     }
     
     func getPhotoFromGoogle() {
         let socialModel = SocialLoginVM()
-        socialModel.googleLogin(vc: self) { success in
+        socialModel.googleLogin(vc: self) { [weak self] success in
             if success {
                 let placeHolder = UIImage(named: "group")
-                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                self?.viewModel.profilePicture = socialModel.userData.picture
+                self?.viewModel.imageSource = "google"
             } else {}
         }
     }
@@ -237,13 +244,26 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         informations.append(travel.notes)
         
         passportDetails.append(travel.passportNumber)
+        viewModel.passportNumber = travel.passportNumber
+        
         passportDetails.append(travel.passportCountryName)
+        viewModel.passportCountryName = travel.passportCountryName
+        viewModel.passportIssueDate = travel.passportIssueDate
+        viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails)
 
         self.frequentFlyer = travel.frequestFlyer
+        viewModel.frequentFlyer = travel.frequestFlyer
+        let frequentFlyer = FrequentFlyer()
+        self.frequentFlyer.append(frequentFlyer)
         
-        flightDetails.append(travel.preferences.seat.name + "-" + travel.preferences.seat.value)
-        flightDetails.append(travel.preferences.meal.name + "-" + travel.preferences.meal.value)
+        flightDetails.append(travel.preferences.seat.value)
+        flightDetails.append(travel.preferences.meal.value)
+        
+        self.editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+        
+        viewModel.seat = travel.preferences.seat.value
+        viewModel.meal = travel.preferences.meal.value
         
         if travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences)
@@ -256,6 +276,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
         self.addresses = travel.address
+        viewModel.addresses = self.addresses
         
         tableView.reloadData()
     }
@@ -447,4 +468,19 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.tableFooterView = customView
     }
+    
+    func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
+        let imageData = image.jpegData(compressionQuality: 0.2)
+        let docDir = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let imageURL = docDir.appendingPathComponent(name)
+        try! imageData?.write(to: imageURL)
+        
+        return imageURL.absoluteString
+    }
+    
+    func getCurrentMillis() -> Int {
+        return Int(Date().timeIntervalSince1970 * 1000)
+    }
+
+
 }
