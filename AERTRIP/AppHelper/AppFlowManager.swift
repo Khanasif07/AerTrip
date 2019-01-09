@@ -217,6 +217,11 @@ extension AppFlowManager {
         let ob  = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
+    
+    func moveToImportContactVC() {
+        let ob = ImportContactVC.instantiate(fromAppStoryboard: .TravellerList)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Pop Methods

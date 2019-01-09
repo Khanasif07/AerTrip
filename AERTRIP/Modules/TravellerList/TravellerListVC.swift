@@ -70,12 +70,13 @@ class TravellerListVC: BaseVC {
         _ = AKAlertController.actionSheet(nil, message: nil, sourceView: view, buttons: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], tapBlock: { [weak self] _, index in
             
             if index == 0 {
-                NSLog("select traveller")
+                printDebug("select traveller")
             } else if index == 1 {
-                NSLog("preferences  traveller")
+                printDebug("preferences  traveller")
                 AppFlowManager.default.moveToPreferencesVC()
             } else if index == 2 {
-                NSLog("import traveller")
+                printDebug("import traveller")
+                AppFlowManager.default.moveToImportContactVC()
             }
             
         })

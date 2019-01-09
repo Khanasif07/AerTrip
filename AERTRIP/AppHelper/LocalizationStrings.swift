@@ -243,5 +243,17 @@ enum LocalizedString: String {
     case EnterAGroupName = "Enter a Group Name"
     case EnterGroupName = "Enter Group Name"
     
+    //MARK:- Import Contacts
+    //MARK:-
+    case Contacts = "Contacts";
+    case Facebook = "Facebook";
+    case Google = "Google";
+    case ImportContactMessage = "ImportContactMessage";
+    case ImportFacebookMessage = "ImportFacebookMessage";
+    case ImportGoogleMessage = "ImportGoogleMessage";
+    case SelectAll = "SelectAll";
+    case AllowContacts = "AllowContacts";
+    case ConnectWithGoogle = "ConnectWithGoogle";
+    case ConnectWithFB = "ConnectWithFB";
 }
 
