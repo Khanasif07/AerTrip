@@ -17,5 +17,7 @@ class OrderTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.checkIconImageView.isHidden = true
     }
 }

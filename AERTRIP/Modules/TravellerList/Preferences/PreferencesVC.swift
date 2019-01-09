@@ -21,12 +21,13 @@ class PreferencesVC: BaseVC {
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     let sections = [LocalizedString.SortOrder, LocalizedString.DisplayOrder, LocalizedString.Groups]
     let order = [LocalizedString.FirstLast, LocalizedString.LastFirst]
-    var groups: [String] = []
     let orderCellIdentifier = "OrderTableViewCell"
     let categorisedByGroupsCellIdentifier = "CategorisedByGroupsTableViewCell"
     let emptyCellIdentifier = "EmptyTableViewCell"
     let groupCellIdentifier = "GroupTableViewCell"
     let addActionCellIdentifier = "TableViewAddActionCell"
+    let viewModel = PreferencesVM()
+    
     
     // MARK: - View LifeCycle
     
@@ -35,7 +36,7 @@ class PreferencesVC: BaseVC {
         
         doInitialSetUp()
         registerXib()
-        setUpData()
+        self.viewModel.setUpData()
     }
     
     // MARK: - IB Actions
@@ -44,7 +45,9 @@ class PreferencesVC: BaseVC {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func doneButtonTapped(_ sender: Any) {}
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        self.viewModel.callSavePreferencesAPI()
+    }
     
     // MARK: - Helper methods
     
@@ -57,6 +60,8 @@ class PreferencesVC: BaseVC {
         headerTitleLabel.text = LocalizedString.Preferences.localized
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelectionDuringEditing = true
+        tableView.isEditing = true
     }
     
     func registerXib() {
@@ -68,11 +73,7 @@ class PreferencesVC: BaseVC {
         tableView.register(UINib(nibName: addActionCellIdentifier, bundle: nil), forCellReuseIdentifier: addActionCellIdentifier)
     }
     
-    func setUpData() {
-        if let group = UserInfo.loggedInUser?.generalPref?.labels {
-            groups = group
-        }
-    }
+    
     
     func addNewGroupAlertController() {
         let alertController = UIAlertController(title: LocalizedString.EnterAGroupName.localized, message: "", preferredStyle: .alert)
@@ -89,7 +90,7 @@ class PreferencesVC: BaseVC {
         
         let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             print("Current group name: \(alertController.textFields?.first?.text ?? "None")")
-            self.groups.append(alertController.textFields?.first?.text ?? "None")
+            self.viewModel.groups.append(alertController.textFields?.first?.text ?? "None")
             self.tableView.reloadData()
         }
         
@@ -101,6 +102,7 @@ class PreferencesVC: BaseVC {
     
     @objc func setCategorisedByGroupFlag(_ sender: UISwitch) {
         NSLog("\(sender.isOn)")
+        self.viewModel.isCategorizeByGroup =  sender.isOn
         
     }
 }
@@ -119,7 +121,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.DisplayOrder:
             return order.count + 2
         case LocalizedString.Groups:
-            return groups.count + 1
+            return self.viewModel.groups.count + 1
         default:
             return 1
         }
@@ -132,11 +134,23 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[indexPath.section] {
         case LocalizedString.SortOrder:
             orderCell.titleLabel.text = order[indexPath.row].rawValue
+            orderCell.checkIconImageView.isHidden = true
+            if self.viewModel.sortOrder == "FL" && indexPath.row == 0 {
+                orderCell.checkIconImageView.isHidden = false
+            } else if self.viewModel.sortOrder == "LF" && indexPath.row == 1 {
+                orderCell.checkIconImageView.isHidden = false
+            }
             orderCell.separatorView.isHidden = indexPath.row == 1 ? true : false
             return orderCell
         case LocalizedString.DisplayOrder:
             if indexPath.row < 2 {
                 orderCell.titleLabel.text = order[indexPath.row].rawValue
+                orderCell.checkIconImageView.isHidden = true
+                if self.viewModel.displayOrder == "FL" && indexPath.row == 0 {
+                    orderCell.checkIconImageView.isHidden = false
+                } else if self.viewModel.displayOrder == "LF" && indexPath.row == 1 {
+                    orderCell.checkIconImageView.isHidden = false
+                }
                 orderCell.separatorView.isHidden = indexPath.row == 1 ? true : false
                 return orderCell
             } else if indexPath.row == 2 {
@@ -150,12 +164,13 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 }
                
                 categoryGroupCell.groupSwitch.addTarget(self, action: #selector(setCategorisedByGroupFlag(_:)), for: .valueChanged)
+                categoryGroupCell.groupSwitch.isOn = self.viewModel.isCategorizeByGroup
 
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
             
-            if indexPath.row == groups.count {
+            if indexPath.row == self.viewModel.groups.count {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
@@ -167,7 +182,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("GroupTableViewCell not found")
                 }
                 groupCell.delegate = self
-                groupCell.configureCell(indexPath, groups[indexPath.row])
+                groupCell.configureCell(indexPath, self.viewModel.groups[indexPath.row])
                 return groupCell
             }
             
@@ -203,22 +218,36 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
+        case LocalizedString.SortOrder:
+            if indexPath.row == 0 {
+                  self.viewModel.sortOrder = "FL"
+            } else {
+                  self.viewModel.sortOrder = "LF"
+            }
+        case LocalizedString.DisplayOrder:
+            if indexPath.row == 0 {
+                self.viewModel.displayOrder = "FL"
+            } else {
+                self.viewModel.displayOrder = "LF"
+            }
         case LocalizedString.Groups:
-            if indexPath.row == groups.count {
+            if indexPath.row == self.viewModel.groups.count {
                 NSLog("add new group tapped")
                 addNewGroupAlertController()
             }
         default:
             break
         }
+        self.tableView.reloadData()
+       
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case LocalizedString.Groups:
             if editingStyle == .delete {
-                if indexPath.row != groups.count {
-                    groups.remove(at: indexPath.row)
+                if indexPath.row != self.viewModel.groups.count {
+                    self.viewModel.groups.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
@@ -227,6 +256,31 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             break
         }
     }
+    
+     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.viewModel.groups[sourceIndexPath.row]
+        self.viewModel.groups.remove(at: sourceIndexPath.row)
+        self.viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
+    }
+    
+     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if sections[indexPath.section] == LocalizedString.Groups && indexPath.row != self.viewModel.groups.count {
+            return true
+        }
+        
+        return false
+    }
+ 
+    
+     
 }
 
 // MARK: - GroupTableViewCellDelegate methods
@@ -237,7 +291,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
-                    self.groups.remove(at: indexPath.row)
+                    self.viewModel.groups.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                 default:
                     break

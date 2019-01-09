@@ -9,6 +9,7 @@
 import Foundation
 
 import UIKit
+import CoreData
 
 protocol TravellerListVMDelegate: class {
     func willSearchForTraveller()
@@ -20,6 +21,7 @@ class TravellerListVM: NSObject {
     weak var delegate: TravellerListVMDelegate?
     var travellersDict: [String: Any] = [:]
     
+    var traveller:[NSManagedObject] = []
     
     
     struct Objects {
@@ -43,7 +45,6 @@ class TravellerListVM: NSObject {
         APICaller.shared.callTravellerListAPI { isSuccess, _, travellers in
             if isSuccess {
                 self.travellersDict = travellers
-                
                 self.delegate?.searchTravellerSuccess()
             }
             else {

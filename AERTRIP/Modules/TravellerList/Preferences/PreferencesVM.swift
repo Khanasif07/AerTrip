@@ -17,13 +17,31 @@ protocol PreferencesVMDelegate: class {
 class PreferencesVM: NSObject {
     weak var delegate: PreferencesVMDelegate?
     
+    var groups: [String] = []
+    var isCategorizeByGroup : Bool = false
+    var sortOrder:String = ""
+    var displayOrder:String = ""
+
     
+    func setUpData() {
+        if let generalPref = UserInfo.loggedInUser?.generalPref {
+            groups = generalPref.labels
+            isCategorizeByGroup = generalPref.categorizeByGroup
+            sortOrder = generalPref.sortOrder
+            displayOrder = generalPref.displayOrder
+        }
+    }
     
-    
+   
     func callSavePreferencesAPI() {
-        let param = JSONDictionary()
+        var params = JSONDictionary()
         
-        APICaller.shared.callSavePreferencesAPI(params: param) { (success, erroCodes) in
+        params["sort_order"] = self.sortOrder
+        params["display_order"] = self.displayOrder
+        params["categorize_by_group"] = self.isCategorizeByGroup
+        params["labels"] = self.groups
+        
+        APICaller.shared.callSavePreferencesAPI(params: params) { (success, erroCodes) in
             if success {
                 
             } else {
