@@ -37,6 +37,8 @@ enum APIEndPoint : String {
     case searchHotels = "hotels/suggestions-new"
     case favourite = "hotels/favourite"
     case hotelStarPreference = "users/hotel-star-preference"    
+    case travellerList = "users/traveller-list"
+    case saveGeneralPreferences = "users/save-general-preferences"
 }
 
 //MARK: - endpoint extension for url -

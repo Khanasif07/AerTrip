@@ -130,6 +130,39 @@ class UserInfo {
         }
     }
     
+    struct GeneralPref {
+        var sortOrder = ""
+        var displayOrder = ""
+        var categorizeByGroup : Bool = false
+        var labels : [String] = []
+       
+        var jsonDict: [String:Any] {
+            return ["sort_order": self.sortOrder,
+                    "display_order": self.displayOrder,
+                    "categorize_by_group": self.categorizeByGroup,
+                    "labels": self.labels,
+                   ]
+        }
+        
+        init() {
+            
+            let json = JSON()
+            self.init(json: json)
+        }
+        
+        init(json: JSON) {
+            
+            self.sortOrder     = json["sort_order"].stringValue
+            self.displayOrder   = json["display_order"].stringValue
+            self.categorizeByGroup   = json["categorize_by_group"].boolValue
+            self.labels = json["labels"].arrayObject as! [String]
+            
+            
+        }
+        
+        
+    }
+    
     static var loggedInUserId:String?{
         get{
             return UserDefaults.getObject(forKey: UserDefaults.Key.loggedInUserId.rawValue) as? String
@@ -354,6 +387,25 @@ class UserInfo {
         }
     }
     
+    var generalPref: GeneralPref? {
+        get {
+            if let genPref = userData?["general_pref"] as? String {
+                if let dict = AppGlobals.shared.onject(from: genPref) {
+                    return GeneralPref(json: JSON(dict))
+                }
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue?.jsonDict {
+                updateInfo(withData: ["genera_pref": AppGlobals.shared.json(from: vlaue)])
+            }
+            else{
+                UserDefaults.removeObject(forKey: "genera_pref")
+            }
+        }
+    }
+    
     var address: Address? {
         get {
             
@@ -424,6 +476,8 @@ class UserInfo {
         
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
+    
+   
    
 }
 

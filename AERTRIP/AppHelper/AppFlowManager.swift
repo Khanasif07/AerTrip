@@ -207,6 +207,16 @@ extension AppFlowManager {
         ob.viewModel.hotels = forCities
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
+    
+    func moveToTravellerListVC(){
+        let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToPreferencesVC(){
+        let ob  = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Pop Methods

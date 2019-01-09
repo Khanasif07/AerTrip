@@ -37,6 +37,9 @@
 		180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8521C11AE7001A1E6A /* AppToast.swift */; };
 		180FA06921DCC83F003901FF /* AddAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FA06721DCC83F003901FF /* AddAddressTableViewCell.swift */; };
 		180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */; };
+		181025A021E337F40046EED7 /* TravellerListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810259F21E337F40046EED7 /* TravellerListVM.swift */; };
+		181025A221E339B10046EED7 /* TravellerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181025A121E339B10046EED7 /* TravellerModel.swift */; };
+		181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */; };
 		18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB121BA386F00BF342E /* CreateProfileVC.swift */; };
 		18109EB421BA387E00BF342E /* CreateProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB321BA387E00BF342E /* CreateProfileVM.swift */; };
 		18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */; };
@@ -65,6 +68,14 @@
 		187FCE5F21DCF627008E7BA1 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */; };
 		1886378E21D0AD6000D64443 /* EditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886378D21D0AD6000D64443 /* EditProfileVM.swift */; };
 		1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886378F21D0AE5600D64443 /* APICaller+EditProfile.swift */; };
+		1887859721DF4E680061869E /* TravellerList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1887859621DF4E680061869E /* TravellerList.storyboard */; };
+		1887859A21DF53420061869E /* TravellerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887859921DF53420061869E /* TravellerListVC.swift */; };
+		1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887859C21DF745C0061869E /* TravellerListHeaderView.swift */; };
+		1887859F21DF746F0061869E /* TravellerListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1887859E21DF746F0061869E /* TravellerListHeaderView.xib */; };
+		188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188785A021DF79650061869E /* TravellerListTableViewSectionView.swift */; };
+		188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */; };
+		188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188785A421DF7D990061869E /* TravellerListTableViewCell.swift */; };
+		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
 		18930A1821D2B0EF005442C8 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1721D2B0EF005442C8 /* SearchVC.swift */; };
 		18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */; };
 		18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */; };
@@ -76,6 +87,17 @@
 		18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A2821D36761005442C8 /* TextEditableTableViewCell.xib */; };
 		18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A2B21D46E0D005442C8 /* TwoPartEditTableViewCell.swift */; };
 		18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A2C21D46E0D005442C8 /* TwoPartEditTableViewCell.xib */; };
+		18999D8A21E47B1600E66072 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D8921E47B1600E66072 /* PreferencesVC.swift */; };
+		18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D8C21E48D6500E66072 /* OrderTableViewCell.swift */; };
+		18999D8F21E48D6500E66072 /* OrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D8D21E48D6500E66072 /* OrderTableViewCell.xib */; };
+		18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9021E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift */; };
+		18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D9121E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib */; };
+		18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9421E4A69000E66072 /* EmptyTableViewCell.swift */; };
+		18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D9521E4A69000E66072 /* EmptyTableViewCell.xib */; };
+		18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9821E4A8B600E66072 /* GroupTableViewCell.swift */; };
+		18999D9B21E4A8B600E66072 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D9921E4A8B600E66072 /* GroupTableViewCell.xib */; };
+		18999D9D21E4D80A00E66072 /* PreferencesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9C21E4D80A00E66072 /* PreferencesVM.swift */; };
+		18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */; };
 		189D1F4721CE3F8E00746329 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F3B21CE3F8E00746329 /* SourceSansPro-ExtraLight.ttf */; };
 		189D1F4821CE3F8E00746329 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F3C21CE3F8E00746329 /* SourceSansPro-LightItalic.ttf */; };
 		189D1F4921CE3F8E00746329 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F3D21CE3F8E00746329 /* SourceSansPro-Black.ttf */; };
@@ -241,6 +263,9 @@
 		180A3D8521C11AE7001A1E6A /* AppToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToast.swift; sourceTree = "<group>"; };
 		180FA06721DCC83F003901FF /* AddAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressTableViewCell.swift; sourceTree = "<group>"; };
 		180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressTableViewCell.xib; sourceTree = "<group>"; };
+		1810259F21E337F40046EED7 /* TravellerListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListVM.swift; sourceTree = "<group>"; };
+		181025A121E339B10046EED7 /* TravellerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerModel.swift; sourceTree = "<group>"; };
+		181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Travellers.swift"; sourceTree = "<group>"; };
 		18109EB121BA386F00BF342E /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
 		18109EB321BA387E00BF342E /* CreateProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVM.swift; sourceTree = "<group>"; };
 		18109EB621BA758D00BF342E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -269,6 +294,14 @@
 		187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		1886378D21D0AD6000D64443 /* EditProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVM.swift; sourceTree = "<group>"; };
 		1886378F21D0AE5600D64443 /* APICaller+EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+EditProfile.swift"; sourceTree = "<group>"; };
+		1887859621DF4E680061869E /* TravellerList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravellerList.storyboard; sourceTree = "<group>"; };
+		1887859921DF53420061869E /* TravellerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListVC.swift; sourceTree = "<group>"; };
+		1887859C21DF745C0061869E /* TravellerListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListHeaderView.swift; sourceTree = "<group>"; };
+		1887859E21DF746F0061869E /* TravellerListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListHeaderView.xib; sourceTree = "<group>"; };
+		188785A021DF79650061869E /* TravellerListTableViewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListTableViewSectionView.swift; sourceTree = "<group>"; };
+		188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewSectionView.xib; sourceTree = "<group>"; };
+		188785A421DF7D990061869E /* TravellerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListTableViewCell.swift; sourceTree = "<group>"; };
+		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
 		18930A1721D2B0EF005442C8 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
@@ -280,6 +313,17 @@
 		18930A2821D36761005442C8 /* TextEditableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEditableTableViewCell.xib; sourceTree = "<group>"; };
 		18930A2B21D46E0D005442C8 /* TwoPartEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPartEditTableViewCell.swift; sourceTree = "<group>"; };
 		18930A2C21D46E0D005442C8 /* TwoPartEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoPartEditTableViewCell.xib; sourceTree = "<group>"; };
+		18999D8921E47B1600E66072 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
+		18999D8C21E48D6500E66072 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		18999D8D21E48D6500E66072 /* OrderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderTableViewCell.xib; sourceTree = "<group>"; };
+		18999D9021E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorisedByGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		18999D9121E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategorisedByGroupsTableViewCell.xib; sourceTree = "<group>"; };
+		18999D9421E4A69000E66072 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
+		18999D9521E4A69000E66072 /* EmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewCell.xib; sourceTree = "<group>"; };
+		18999D9821E4A8B600E66072 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		18999D9921E4A8B600E66072 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
+		18999D9C21E4D80A00E66072 /* PreferencesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVM.swift; sourceTree = "<group>"; };
+		18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+TravellerPreferences.swift"; sourceTree = "<group>"; };
 		189D1F3B21CE3F8E00746329 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
 		189D1F3C21CE3F8E00746329 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
 		189D1F3D21CE3F8E00746329 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
@@ -481,6 +525,8 @@
 			isa = PBXGroup;
 			children = (
 				848B993221DF6558009A4772 /* EmptyScreens */,
+				18999D8B21E48D0E00E66072 /* Preferences */,
+				1887859B21DF735C0061869E /* TravellerList */,
 				183E3F6521D9F1720032DEBA /* HotelsPreferences */,
 				18930A1921D2B817005442C8 /* Search */,
 				1841AF9021C8BE0F0038111D /* Profile */,
@@ -634,6 +680,29 @@
 			path = EditProfile;
 			sourceTree = "<group>";
 		};
+		1887859821DF52EE0061869E /* TravellerList */ = {
+			isa = PBXGroup;
+			children = (
+				18999D8621E47AC400E66072 /* Preferences */,
+				1887859921DF53420061869E /* TravellerListVC.swift */,
+				1810259F21E337F40046EED7 /* TravellerListVM.swift */,
+			);
+			path = TravellerList;
+			sourceTree = "<group>";
+		};
+		1887859B21DF735C0061869E /* TravellerList */ = {
+			isa = PBXGroup;
+			children = (
+				1887859C21DF745C0061869E /* TravellerListHeaderView.swift */,
+				1887859E21DF746F0061869E /* TravellerListHeaderView.xib */,
+				188785A021DF79650061869E /* TravellerListTableViewSectionView.swift */,
+				188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */,
+				188785A421DF7D990061869E /* TravellerListTableViewCell.swift */,
+				188785A521DF7D990061869E /* TravellerListTableViewCell.xib */,
+			);
+			path = TravellerList;
+			sourceTree = "<group>";
+		};
 		18930A1921D2B817005442C8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -650,6 +719,30 @@
 				18930A2121D34A03005442C8 /* SearchVM.swift */,
 			);
 			path = SearchVC;
+			sourceTree = "<group>";
+		};
+		18999D8621E47AC400E66072 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				18999D8921E47B1600E66072 /* PreferencesVC.swift */,
+				18999D9C21E4D80A00E66072 /* PreferencesVM.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		18999D8B21E48D0E00E66072 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				18999D8C21E48D6500E66072 /* OrderTableViewCell.swift */,
+				18999D8D21E48D6500E66072 /* OrderTableViewCell.xib */,
+				18999D9021E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift */,
+				18999D9121E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib */,
+				18999D9421E4A69000E66072 /* EmptyTableViewCell.swift */,
+				18999D9521E4A69000E66072 /* EmptyTableViewCell.xib */,
+				18999D9821E4A8B600E66072 /* GroupTableViewCell.swift */,
+				18999D9921E4A8B600E66072 /* GroupTableViewCell.xib */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		18A96B8C21B6458E00EA9B3A /* SocialLoginVC */ = {
@@ -928,6 +1021,7 @@
 		84F9837221B51A070018DFED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1887859821DF52EE0061869E /* TravellerList */,
 				84020F1D21B55F5600248A6F /* BaseTabBarController.swift */,
 				84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */,
 				84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */,
@@ -985,6 +1079,7 @@
 				18A01E4121CA1FE40071E772 /* GeneralPrefrenceModel.swift */,
 				1804889721CA8B9000437C81 /* TravelDetailModel.swift */,
 				18930A2321D34B60005442C8 /* FlyerModel.swift */,
+				181025A121E339B10046EED7 /* TravellerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1109,6 +1204,8 @@
 				1886378F21D0AE5600D64443 /* APICaller+EditProfile.swift */,
 				18930A2521D34D16005442C8 /* APICaller+Search.swift */,
 				1808EC6D21DCD3A0006858D6 /* APICaller+Hotels.swift */,
+				181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */,
+				18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -1121,6 +1218,7 @@
 				84D2FB9C21BE767700011000 /* Dashboard.storyboard */,
 				1841AF8A21C8B6A10038111D /* Profile.storyboard */,
 				183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */,
+				1887859621DF4E680061869E /* TravellerList.storyboard */,
 			);
 			path = AppStoryboards;
 			sourceTree = "<group>";
@@ -1208,6 +1306,7 @@
 				189D1F4C21CE3F8E00746329 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				1804889221CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib in Resources */,
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
+				18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */,
 				18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */,
 				84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */,
 				1809A48021CDFE850018AB2F /* EditProfileTwoPartTableViewCell.xib in Resources */,
@@ -1227,17 +1326,22 @@
 				180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */,
 				189D1F4D21CE3F8E00746329 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */,
+				18999D8F21E48D6500E66072 /* OrderTableViewCell.xib in Resources */,
 				18A01E4421CA50ED0071E772 /* GoogleService-Info.plist in Resources */,
 				189D1F5121CE3F8E00746329 /* SourceSansPro-Light.ttf in Resources */,
 				189D1F4F21CE3F8E00746329 /* SourceSansPro-BoldItalic.ttf in Resources */,
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
+				18999D9B21E4A8B600E66072 /* GroupTableViewCell.xib in Resources */,
 				18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */,
+				1887859F21DF746F0061869E /* TravellerListHeaderView.xib in Resources */,
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
 				84F983D221B51A070018DFED /* LICENSE in Resources */,
 				189D1F4721CE3F8E00746329 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				189D1F5021CE3F8E00746329 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				189D1F4B21CE3F8E00746329 /* SourceSansPro-SemiBold.ttf in Resources */,
 				18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */,
+				188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */,
+				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
 				189D1F4821CE3F8E00746329 /* SourceSansPro-LightItalic.ttf in Resources */,
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
@@ -1245,7 +1349,9 @@
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				189D1F4E21CE3F8E00746329 /* SourceSansPro-Italic.ttf in Resources */,
+				1887859721DF4E680061869E /* TravellerList.storyboard in Resources */,
 				189D1F4A21CE3F8E00746329 /* SourceSansPro-Bold.ttf in Resources */,
+				18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1350,12 +1456,14 @@
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
 				84F983BF21B51A070018DFED /* LoginVM.swift in Sources */,
+				181025A221E339B10046EED7 /* TravellerModel.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				1841AF8F21C8BAA30038111D /* ViewProfileVC.swift in Sources */,
 				1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */,
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
+				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
 				84D2FB9F21BE76A900011000 /* MainDashboardVC.swift in Sources */,
 				180FA06921DCC83F003901FF /* AddAddressTableViewCell.swift in Sources */,
 				8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */,
@@ -1383,7 +1491,9 @@
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				18109EB721BA758D00BF342E /* ForgotPasswordVC.swift in Sources */,
 				1851A75A21C3C7AB008DF03F /* SideMenuViewAccountCell.swift in Sources */,
+				18999D8A21E47B1600E66072 /* PreferencesVC.swift in Sources */,
 				1809A47821CD144C0018AB2F /* EditProfileVC+DelegateMethods.swift in Sources */,
+				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
@@ -1402,6 +1512,7 @@
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
 				844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */,
 				84E4CC6C21E368FC0015C306 /* ViewAllHotelsVM.swift in Sources */,
+				181025A021E337F40046EED7 /* TravellerListVM.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18A96B9021B645ED00EA9B3A /* SocialLoginVM.swift in Sources */,
 				1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */,
@@ -1417,6 +1528,7 @@
 				84E4CC7021E36BBA0015C306 /* HotelsListVM.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				8410422021DE3468002B4C1F /* HotelSearchVC.swift in Sources */,
+				188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
 				18930A2421D34B60005442C8 /* FlyerModel.swift in Sources */,
@@ -1426,12 +1538,18 @@
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,
+				18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */,
+				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
 				18F4956321B8176A0003AC16 /* ThankYouRegistrationVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
+				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
+				183E3F7221DA49920032DEBA /* NoFavouriteHotelCell.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
+				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
+				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				1804889821CA8B9000437C81 /* TravelDetailModel.swift in Sources */,
 				180A3D7621C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift in Sources */,
@@ -1445,6 +1563,7 @@
 				183E3F6821D9F1D70032DEBA /* HotelCardCollectionViewCell.swift in Sources */,
 				18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */,
 				183E3F6421D9EA570032DEBA /* HotelPreferencesVM.swift in Sources */,
+				18999D9D21E4D80A00E66072 /* PreferencesVM.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
@@ -1471,6 +1590,7 @@
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				1809A47F21CDFE850018AB2F /* EditProfileTwoPartTableViewCell.swift in Sources */,
 				846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */,
+				1887859A21DF53420061869E /* TravellerListVC.swift in Sources */,
 				183E3F6B21DA00D70032DEBA /* FloatRatingView.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
@@ -1488,6 +1608,7 @@
 				84F983BE21B51A070018DFED /* LoginVC.swift in Sources */,
 				18930A2221D34A03005442C8 /* SearchVM.swift in Sources */,
 				18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */,
+				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
 				18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,

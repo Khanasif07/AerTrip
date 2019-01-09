@@ -10,9 +10,9 @@ import UIKit
 
 protocol TwoPartEditTableViewCellDelegate: class {
     func twoPartDeleteCellTapped(_ indexPath: IndexPath)
-    func twoPartEditLeftViewTap(_ indexPath:IndexPath,_ gesture: UITapGestureRecognizer)
-    func rightViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
-    func twoPartEditTextField(_ indexPath:IndexPath,_ fullString:String)
+    func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
+    func rightViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
+    func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String)
 }
 
 class TwoPartEditTableViewCell: UITableViewCell {
@@ -24,14 +24,14 @@ class TwoPartEditTableViewCell: UITableViewCell {
     @IBOutlet var frequentFlyerLabel: UILabel!
     @IBOutlet var downArrowImageView: UIImageView!
     
-    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet var deleteButton: UIButton!
     @IBOutlet var rightView: UIView!
     @IBOutlet var rightTitleLabel: UILabel!
     @IBOutlet var rightTextField: UITextField!
-    @IBOutlet weak var leftTitleLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var leftTitleLabelHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var leftSeparatorView: UIView!
-    @IBOutlet weak var rightSeparatorView: UIView!
+    @IBOutlet var leftSeparatorView: UIView!
+    @IBOutlet var rightSeparatorView: UIView!
     
     // MARK: - Variables
     
@@ -63,7 +63,6 @@ class TwoPartEditTableViewCell: UITableViewCell {
             rightTextField.text = expiryDate
         }
         
-        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
         leftView.isUserInteractionEnabled = true
@@ -79,17 +78,15 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
         if let indexPath = indexPath {
-             delegate?.twoPartEditLeftViewTap(indexPath,gesture)
+            delegate?.twoPartEditLeftViewTap(indexPath, gesture)
         }
-       
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
         NSLog("middle view tapped")
         if let indexPath = indexPath {
-            delegate?.rightViewTap(indexPath,gesture)
+            delegate?.rightViewTap(indexPath, gesture)
         }
-        
     }
     
     @IBAction func deleteCellTapped(_ sender: Any) {
@@ -99,11 +96,9 @@ class TwoPartEditTableViewCell: UITableViewCell {
     }
 }
 
-
 // MARK: - UITextFieldDelegate methods
 
-extension TwoPartEditTableViewCell : UITextFieldDelegate {
-    
+extension TwoPartEditTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         NSLog("text field text \(textField.text ?? " ")")
         if let indexPath = indexPath {
@@ -114,7 +109,4 @@ extension TwoPartEditTableViewCell : UITextFieldDelegate {
         }
         return true
     }
-    
-    
-    
 }

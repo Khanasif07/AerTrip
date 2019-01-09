@@ -39,6 +39,9 @@ class ViewProfileVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        self.profileImageHeaderView?.delegate = self
         
         self.view.alpha = 0.5
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -117,7 +120,7 @@ class ViewProfileVC: BaseVC {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
-        self.tableView.delegate   = self
+        self.tableView.delegate = self
     }
     
     func setupParallaxHeader() { // Parallax Header
@@ -151,8 +154,7 @@ class ViewProfileVC: BaseVC {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
-extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
-
+extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
     }
@@ -170,10 +172,15 @@ extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileTableViewCell else {
             fatalError("ViewProfileTableViewCell not found")
         }
+        
         switch self.sections[indexPath.section] {
         case "details":
                 cell.separatorView.isHidden = true
@@ -198,14 +205,14 @@ extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch sections[indexPath.section] {
-            
+        switch self.sections[indexPath.section] {
         case "details":
             
             switch indexPath.row {
+            case 0:
+                
+                AppFlowManager.default.moveToTravellerListVC()
                 
             case 1:
                 
@@ -217,7 +224,7 @@ extension ViewProfileVC : UITableViewDataSource, UITableViewDelegate {
             
         case "logOut":
             
-            let _ =   AKAlertController.actionSheet( nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: {(alert,index) in
+            _ = AKAlertController.actionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: { _, index in
                 
                 if index == 0 {
                     UserInfo.loggedInUserId = nil

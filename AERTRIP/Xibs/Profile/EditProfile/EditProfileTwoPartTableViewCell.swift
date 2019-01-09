@@ -12,7 +12,7 @@ protocol EditProfileTwoPartTableViewCellDelegate: class {
     func deleteCellTapped(_ indexPath: IndexPath)
     func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
     func textFieldText(_ indexPath: IndexPath, _ text: String)
-    func textFieldEndEditing(_ indexPath:IndexPath,_ text:String)
+    func textFieldEndEditing(_ indexPath: IndexPath, _ text: String)
 }
 
 class EditProfileTwoPartTableViewCell: UITableViewCell {
@@ -47,13 +47,18 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         leftTitleLabel.text = label
         rightViewTextField.text = value
         
-        leftView.isUserInteractionEnabled = true
-        rightViewTextField.delegate = self
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(leftViewTap(gesture:)))
-        gesture.numberOfTapsRequired = 1
-        leftView.isUserInteractionEnabled = true
-        leftView.tag = indexPath.row
-        leftView.addGestureRecognizer(gesture)
+        if indexPath.row == 0 {
+            rightViewTextField.isEnabled = false
+            deleteButton.isHidden = true
+            leftView.isUserInteractionEnabled = false
+        } else {
+            rightViewTextField.delegate = self
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(leftViewTap(gesture:)))
+            gesture.numberOfTapsRequired = 1
+            leftView.isUserInteractionEnabled = true
+            leftView.tag = indexPath.row
+            leftView.addGestureRecognizer(gesture)
+        }
     }
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
@@ -92,6 +97,6 @@ extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
         if let indexPath = indexPath {
             editProfilTwoPartTableViewCelldelegate?.textFieldEndEditing(indexPath, textField.text!)
         }
-       return true
+        return true
     }
 }

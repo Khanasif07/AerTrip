@@ -67,3 +67,17 @@ extension Copying {
         return Self.init(original: self)
     }
 }
+
+
+
+extension Array where Element: Equatable {
+    mutating func isContainDuplicates() -> Bool {
+        for value in self {
+            if self.contains(value) {
+               return true
+            }
+        }
+        return false
+    }
+
+}

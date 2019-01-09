@@ -124,11 +124,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBAction func saveButtonTapped(_ sender: Any) {
         NSLog("save button tapped")
         view.endEditing(true)
-        viewModel.email = self.email
-        viewModel.social = self.social
-        viewModel.mobile = self.mobile
-        viewModel.addresses = self.addresses
-        viewModel.frequentFlyer = self.frequentFlyer
+        viewModel.email = email
+        viewModel.social = social
+        viewModel.mobile = mobile
+        viewModel.addresses = addresses
+        viewModel.frequentFlyer = frequentFlyer
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -224,18 +224,30 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func setUpData() {
-        
         guard let travel = travelData else {
             return
         }
         
-        self.email = travel.contact.email
-        viewModel.email = self.email
-        self.social = travel.contact.social
+        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile {
+            var email = Email()
+            email.label = "Default"
+            email.type = "Email"
+            email.value = loggedInUserEmail
+            self.email.append(email)
+            self.email.append(contentsOf: travel.contact.email)
+            var mobile = Mobile()
+            mobile.label = "Default"
+            mobile.type = "Mobile"
+            mobile.value = loggedInUserMobile
+            self.mobile.append(mobile)
+            self.mobile.append(contentsOf: travel.contact.mobile)
+        }
+        
+        viewModel.email = email
+        social = travel.contact.social
         viewModel.social = travel.contact.social
         sections.append(LocalizedString.SocialAccounts)
-
-        self.mobile = travel.contact.mobile
+        
         viewModel.mobile = travel.contact.mobile
         
         informations.append(travel.dob)
@@ -251,16 +263,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.passportIssueDate = travel.passportIssueDate
         viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails)
-
+        
         self.frequentFlyer = travel.frequestFlyer
         viewModel.frequentFlyer = travel.frequestFlyer
-//        let frequentFlyer = FrequentFlyer()
-//        self.frequentFlyer.append(frequentFlyer)
+        //        let frequentFlyer = FrequentFlyer()
+        //        self.frequentFlyer.append(frequentFlyer)
         
         flightDetails.append(travel.preferences.seat.value)
         flightDetails.append(travel.preferences.meal.value)
         
-        self.editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+        editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: AppPlaceholderImage.profile, showIndicator: true)
         
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
@@ -268,15 +280,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         if travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences)
         }
-    
+        
         viewModel.salutation = travel.salutation
         editProfileImageHeaderView.salutaionLabel.text = travel.salutation
         editProfileImageHeaderView.firstNameTextField.text = travel.firstName
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
-        self.addresses = travel.address
-        viewModel.addresses = self.addresses
+        addresses = travel.address
+        viewModel.addresses = addresses
         
         tableView.reloadData()
     }
@@ -412,11 +424,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
             cell.editableTextField.text = formatter.string(from: datePicker.date)
             if indexPath.row == 1 {
-                viewModel.dob = formatter.string(from: datePicker.date)
-            } else {
                 viewModel.doa = formatter.string(from: datePicker.date)
+                informations[indexPath.row] = viewModel.doa
+            } else {
+                viewModel.dob = formatter.string(from: datePicker.date)
+                informations[indexPath.row] = viewModel.dob
             }
-            
         case LocalizedString.PassportDetails:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {

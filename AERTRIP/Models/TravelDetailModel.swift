@@ -81,7 +81,7 @@ struct Address {
                 "country":self.country,
                 "postal_code":self.postalCode,
                 "country_name":self.countryName
-                    ]
+        ]
     }
     
     init() {
@@ -106,7 +106,7 @@ struct Address {
     static func retunsAddressArray(jsonArr:[JSON]) -> [Address] {
         var address = [Address]()
         for element in jsonArr {
-        address.append(Address(json: element))
+            address.append(Address(json: element))
         }
         return address
     }
@@ -161,7 +161,7 @@ struct Email {
         var email = [Email]()
         for element in jsonArr {
             email.append(Email(json: element))
-         
+            
         }
         return email
     }
@@ -186,7 +186,7 @@ struct Mobile {
                 "isd":self.isd,
                 "mobileFormatted" : self.mobileFormatted]
     }
-
+    
     init() {
         let json = JSON()
         self.init(json: json)
@@ -222,14 +222,14 @@ struct Social {
                 "label":self.label,
                 "value":self.value]
     }
-
+    
     init () {
         let json = JSON()
         self.init(json:json)
     }
     
     init(json : JSON) {
-//        self.jsonDict = json.dictionaryObject ?? [:]
+        //        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue
         self.label = json["label"].stringValue
@@ -292,7 +292,7 @@ struct Meal {
                 "name":self.name
         ]
     }
-
+    
     
     init() {
         let json = JSON()
@@ -342,7 +342,7 @@ struct FrequentFlyer {
         }
         return frequentFlyer
     }
-
+    
     
     
     
