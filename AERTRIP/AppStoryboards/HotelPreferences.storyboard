@@ -74,13 +74,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Star Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vve-NU-ztR">
-                                                    <rect key="frame" x="16" y="12" width="169.5" height="19"/>
+                                                    <rect key="frame" x="16" y="12" width="161.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 - 4 Stars" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQo-FV-4lL">
-                                                    <rect key="frame" x="293.5" y="13.5" width="65.5" height="16.5"/>
+                                                    <rect key="frame" x="303" y="13.5" width="56" height="18"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -93,19 +93,19 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="2v0-xo-Ay7">
-                                                    <rect key="frame" x="16" y="43" width="343" height="60"/>
+                                                    <rect key="frame" x="16" y="44.5" width="343" height="58.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="0HD-xT-oRR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="67" height="60"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="67" height="58.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avK-30-1Ga">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIn-oZ-BBR">
-                                                                    <rect key="frame" x="0.0" y="21" width="67" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="67" height="36"/>
                                                                     <state key="normal" image="starRatingUnfill"/>
                                                                     <state key="selected" image="starRatingFilled"/>
                                                                     <connections>
@@ -115,16 +115,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="0Qb-uD-OFx">
-                                                            <rect key="frame" x="69" y="0.0" width="67" height="60"/>
+                                                            <rect key="frame" x="69" y="0.0" width="67" height="58.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lte-eg-RkL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rt5-On-OD3">
-                                                                    <rect key="frame" x="0.0" y="21" width="67" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="67" height="36"/>
                                                                     <state key="normal" image="starRatingUnfill"/>
                                                                     <state key="selected" image="starRatingFilled"/>
                                                                     <connections>
@@ -134,16 +134,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ljV-dG-TZ1">
-                                                            <rect key="frame" x="138" y="0.0" width="67" height="60"/>
+                                                            <rect key="frame" x="138" y="0.0" width="67" height="58.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLF-Sb-UKZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bj-ef-YTB">
-                                                                    <rect key="frame" x="0.0" y="21" width="67" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="67" height="36"/>
                                                                     <state key="normal" image="starRatingUnfill"/>
                                                                     <state key="selected" image="starRatingFilled"/>
                                                                     <connections>
@@ -153,16 +153,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Jpz-lT-cR8">
-                                                            <rect key="frame" x="207" y="0.0" width="67" height="60"/>
+                                                            <rect key="frame" x="207" y="0.0" width="67" height="58.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v38-eS-Lxa">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZe-tg-b3u">
-                                                                    <rect key="frame" x="0.0" y="21" width="67" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="67" height="36"/>
                                                                     <state key="normal" image="starRatingUnfill"/>
                                                                     <state key="selected" image="starRatingFilled"/>
                                                                     <connections>
@@ -172,16 +172,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="H7b-rF-E81">
-                                                            <rect key="frame" x="276" y="0.0" width="67" height="60"/>
+                                                            <rect key="frame" x="276" y="0.0" width="67" height="58.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdU-Q8-tzz">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTS-14-ez3">
-                                                                    <rect key="frame" x="0.0" y="21" width="67" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="67" height="36"/>
                                                                     <state key="normal" image="starRatingUnfill"/>
                                                                     <state key="selected" image="starRatingFilled"/>
                                                                     <connections>
@@ -226,7 +226,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Star Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tH0-ce-FgG">
-                                                    <rect key="frame" x="16" y="11" width="161.5" height="30"/>
+                                                    <rect key="frame" x="16" y="11" width="169.5" height="30"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -390,7 +390,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotel Preferences" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOZ-a8-1bQ">
-                                        <rect key="frame" x="119.5" y="10.5" width="136.5" height="23"/>
+                                        <rect key="frame" x="116" y="11.5" width="143.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -496,7 +496,7 @@
     <resources>
         <image name="addHotel" width="27" height="27"/>
         <image name="backGreen" width="27" height="27"/>
-        <image name="starRatingFilled" width="16" height="16"/>
-        <image name="starRatingUnfill" width="16" height="16"/>
+        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingUnfill" width="30" height="30"/>
     </resources>
 </document>

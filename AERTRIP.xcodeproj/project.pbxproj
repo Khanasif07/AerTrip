@@ -148,6 +148,7 @@
 		8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91A21BF9EA6009C208E /* TripsVC.swift */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
 		844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */; };
+		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */; };
 		848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848B993321DF6558009A4772 /* EmptyScreenView.xib */; };
 		848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B993421DF6558009A4772 /* EmptyScreenView.swift */; };
@@ -377,6 +378,7 @@
 		8429C91A21BF9EA6009C208E /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
 		844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginNavigationTransition.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848B993321DF6558009A4772 /* EmptyScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyScreenView.xib; sourceTree = "<group>"; };
@@ -758,6 +760,7 @@
 		18A96B9321B661F900EA9B3A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8452D36C21E614BA00927287 /* CoreData */,
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
 			);
@@ -854,6 +857,14 @@
 				8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */,
 			);
 			path = PKPulseAnimation;
+			sourceTree = "<group>";
+		};
+		8452D36C21E614BA00927287 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8452D37121E6151400927287 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		8469FE8621B513FD0027BB2E = {
@@ -1538,12 +1549,12 @@
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,
+				8452D37221E6151500927287 /* CoreDataManager.swift in Sources */,
 				18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
 				18F4956321B8176A0003AC16 /* ThankYouRegistrationVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
-				183E3F7221DA49920032DEBA /* NoFavouriteHotelCell.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,

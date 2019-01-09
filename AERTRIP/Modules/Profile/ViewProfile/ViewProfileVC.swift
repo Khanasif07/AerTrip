@@ -150,6 +150,14 @@ class ViewProfileVC: BaseVC {
         
         self.view.bringSubviewToFront(self.headerView)
     }
+    
+    func deSetupParallaxHeader() {
+        
+        profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = true
+        profileImageHeaderView?.removeFromSuperview()
+        self.tableView.parallaxHeader.view = nil
+        profileImageHeaderView?.layoutIfNeeded()
+    }
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods

@@ -71,14 +71,22 @@ class EditProfileVM {
                     }
                 }
             }
-        } else if !self.mobile.isEmpty {
+        }
+        if !self.mobile.isEmpty {
+            var isValid = true
             for (index, _) in self.mobile.enumerated() {
+                isValid = self.mobile[index].isValide
                 if index > 0 {
                     if self.mobile[index - 1].value == self.mobile[index].value {
                         AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
                         flag = false
                     }
                 }
+            }
+            
+            if !isValid {
+                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.", vc: vc)
+                flag = false
             }
         }
         

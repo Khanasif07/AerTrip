@@ -84,7 +84,6 @@ class SideMenuVC: BaseVC {
             }
             
             self.profileContainerView.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
-            self.profileContainerView.backgroundColor = UIColor.cyan.withAlphaComponent(0.6)
             self.profileContainerView.emailIdLabel.isHidden = true
             self.profileContainerView.mobileNumberLabel.isHidden = true
             self.profileContainerView.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -98,6 +97,7 @@ class SideMenuVC: BaseVC {
             self.profileContainerView.backgroundImageView.alpha = 0.0
             self.profileContainerView.gradientView.alpha = 0.0
             self.profileContainerView.dividerView.alpha = 0.0
+            self.profileContainerView.translatesAutoresizingMaskIntoConstraints = true
             self.sideMenuTableView.addSubview(self.profileContainerView)
         }
     }

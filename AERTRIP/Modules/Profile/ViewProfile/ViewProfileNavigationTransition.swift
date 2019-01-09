@@ -36,13 +36,22 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
      Required by UIViewControllerAnimatedTransitioning
      */
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        guard let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController, let sideMenu = fromVC.menuViewController as? SideMenuVC else {
-            return duration
-        }
         
-        sideMenu.profileContainerView.isHidden = true
-        self.snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) ?? UIView()
-        sideMenu.profileContainerView.isHidden = false
+        
+        if let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController, let sideMenu = fromVC.menuViewController as? SideMenuVC {
+            
+            sideMenu.profileContainerView.isHidden = true
+            self.snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) ?? UIView()
+            sideMenu.profileContainerView.isHidden = false
+        }
+        if let fromVC = transitionContext?.viewController(forKey: .from) as? ViewProfileVC {
+            
+            fromVC.profileImageHeaderView?.isHidden = true
+            self.snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) ?? UIView()
+            fromVC.profileImageHeaderView?.isHidden = false
+            fromVC.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 100.0
+            fromVC.profileImageHeaderView?.profileImageView.cornerRadius = 50.0
+        }
         
         return duration
     }
@@ -113,7 +122,7 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             fromVC.profileImageHeaderView?.isHidden = true
             profileView.isHidden = false
             
-            containerView.addSubview(fromVC.view)
+            containerView.addSubview(snapshot)
             fromVC.view.removeFromSuperview()
             
             toVC.view.frame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
@@ -123,26 +132,23 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let profileFrame = CGRect(x: sideMenu.sideMenuTableView.x, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
             
-            fromVC.tableView.parallaxHeader.view = nil
-//            profileView.frame
-            AppFlowManager.default.mainNavigationController.view.backgroundColor = AppColors.themeRed.withAlphaComponent(0.3)
+            fromVC.deSetupParallaxHeader()
             AppFlowManager.default.mainNavigationController.view.addSubview(profileView)
-            let viewTrans = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            profileView.gradientView.alpha = 0.0
+            profileView.gradientView.isHidden = true
             UIView.animate(withDuration: duration, animations: {
-                fromVC.view.frame = snapFrame
+                self.snapshot.frame = snapFrame
                 toVC.view.frame = viewFrame
                 profileView.frame = profileFrame
-//                profileView.profileContainerView.transform = viewTrans
                 profileView.emailIdLabel.alpha = 0.0
                 profileView.mobileNumberLabel.alpha = 0.0
                 profileView.backgroundImageView.alpha = 0.0
                 profileView.gradientView.alpha = 0.0
                 profileView.dividerView.alpha = 0.0
+                profileView.layoutIfNeeded()
                 
             }) { (isCompleted) in
                 if isCompleted {
-                    profileView.profileContainerView.transform = viewTrans
-                    profileView.frame = profileFrame
                     profileView.emailIdLabel.isHidden = true
                     profileView.mobileNumberLabel.isHidden = true
                     profileView.backgroundImageView.isHidden = true
