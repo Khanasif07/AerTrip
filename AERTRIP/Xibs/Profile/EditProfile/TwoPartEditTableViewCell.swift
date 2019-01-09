@@ -49,7 +49,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
         if isFrequentFlyer {
             frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
             frequentFlyerLabel.text = flightName
-            frequentFlyerLabel.text = flightNo
+            rightTextField.text = flightNo
             rightTextField.delegate = self
             if indexPath.row == 2 {
                 leftTitleLabel.isHidden = false

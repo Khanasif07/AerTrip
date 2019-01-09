@@ -201,6 +201,27 @@ extension AppFlowManager {
         let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
+    
+    func moveToViewAllHotelsVC(forCities: [CityHotels]) {
+        let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        ob.viewModel.hotels = forCities
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+}
+
+//MARK: - Pop Methods
+extension AppFlowManager {
+    func popViewController(animated: Bool) {
+        self.mainNavigationController.popViewController(animated: animated)
+    }
+    
+    func popToViewController(_ viewController: UIViewController, animated: Bool) {
+        self.mainNavigationController.popToViewController(viewController, animated: animated)
+    }
+    
+    func popToRootViewController(animated: Bool) {
+        self.mainNavigationController.popToRootViewController(animated: animated)
+    }
 }
 
 //MARK: - Animation

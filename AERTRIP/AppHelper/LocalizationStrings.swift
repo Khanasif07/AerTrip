@@ -21,6 +21,7 @@ enum LocalizedString: String {
     case ParsingError = "ParsingError"
     case error = "error"
     case na = "na"
+    case noData = "noData"
     
     // MARK:- TextField validation
     //MARK:-

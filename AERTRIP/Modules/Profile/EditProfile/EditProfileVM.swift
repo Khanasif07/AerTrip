@@ -140,48 +140,35 @@ class EditProfileVM {
      
         params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
         
-        
         var emailDictArr = [String:Any]()
         for (idx, emailObj) in self.email.enumerated() {
             emailDictArr["\(idx)"] = emailObj.jsonDict
         }
-        
+
         var mobileDictArr = [String:Any]()
         for (idx, mobileObj) in self.mobile.enumerated() {
             mobileDictArr["\(idx)"] = mobileObj.jsonDict
         }
-        
+
         var socialDictArr = [String:Any]()
         for (idx, socialObj) in self.social.enumerated() {
             socialDictArr["\(idx)"] = socialObj.jsonDict
         }
-        
+
         var addressDictArr = [String:Any]()
         for (idx, addressObj) in self.addresses.enumerated() {
             addressDictArr["\(idx)"] = addressObj.jsonDict
         }
-        
+
         var frequentFlyerDictArr = [String:Any]()
         for (idx,frequentFlyerObj) in self.frequentFlyer.enumerated(){
             frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
         }
-    
-//        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
-//            emailObj.jsonDict
-//        }
-//
-//        let mobileDictArr = self.mobile.map { (mobileObj) -> [String: Any] in
-//            mobileObj.jsonDict
-//        }
-//
-//        let socialDictArr = self.social.map { (socialObj) -> [String: Any] in
-//            socialObj.jsonDict
-//        }
-        
         let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
         params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
         params[APIKeys.address.rawValue] = addressDictArr
         params[APIKeys.ff.rawValue] = frequentFlyerDictArr
+        
         params[APIKeys.seatPreference.rawValue] = seat
         params[APIKeys.mealPreference.rawValue] = meal
         
@@ -190,27 +177,8 @@ class EditProfileVM {
         }
         params[APIKeys.imageSource.rawValue] = imageSource
         
-        
-        
-//        do {
-//            let jsonData = try JSONSerialization.data(withJSONObject: contact, options: .prettyPrinted)
-//            // here "jsonData" is the dictionary encoded in JSON data
-//              params[APIKeys.contact.rawValue] = jsonData
-//            let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
-//            // here "decoded" is of type `Any`, decoded from JSON data
-//
-//            // you can now cast it with the right type
-//            if let dictFromJSON = decoded as? [String:String] {
-//                // use dictFromJSON
-//
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-        
      self.delegate?.willApiCall()
-        APICaller.shared.callSaveProfileAPI(params: params,filePath: filePath, loader: true, completionBlock: { success, errors in
+        APICaller.shared.callSaveProfileAPI(params: params, filePath: filePath, loader: true, completionBlock: { success, errors in
             
             if success {
                 self.delegate?.getSuccess()

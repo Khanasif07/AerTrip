@@ -22,7 +22,7 @@ struct HotelsModel {
     let photo         : String
     let city          : String
     let preferenceId  : String
-    let isFavourite   : Bool
+    var isFavourite   : Bool
     
     
     init() {

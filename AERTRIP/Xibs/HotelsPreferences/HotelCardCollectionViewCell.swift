@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HotelCardCollectionViewCellDelegate: class {
+    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
+}
+
 class HotelCardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var bgView: UIView!
@@ -21,6 +25,13 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var greenCircleRatingView: FloatRatingView!
     @IBOutlet weak var gradientView: UIView!
     
+    weak var delegate: HotelCardCollectionViewCellDelegate?
+    var hotelData: HotelsModel? {
+        didSet {
+            self.populateData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,24 +42,33 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
         gradientView.layer.addSublayer(gradientLayer)
         gradientView.backgroundColor = AppColors.clear
+        
+        self.saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        self.bgView.cornerRadius = 10
+        self.bgView.cornerRadius = 10.0
+        self.bgView.layer.borderWidth = 1.0
+        self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
     }
 
-    func populateData(data: HotelsModel) {
+    private func populateData() {
         
-        self.hotelNameLabel.text = data.name
-        self.starRatingView.rating = data.stars
-        self.greenCircleRatingView.rating = data.taRating
-        self.saveButton.isSelected = data.isFavourite
+        self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
+        self.starRatingView.rating = self.hotelData?.stars ?? 0
+        self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
+        self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(data.photo, placeholder: image, showIndicator: true)
+            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
         }
-        
+    }
+    
+    @objc func saveButtonTapped(_ sender: UIButton) {
+        if let hotel = self.hotelData {
+            self.delegate?.saveButtonAction(sender, forHotel: hotel)
+        }
     }
 }

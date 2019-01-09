@@ -46,6 +46,23 @@ open class PKCountryPicker: UIView {
         self.openPicker()
     }
     
+    public func getCountryData(forISDCode: String) -> PKCountryModel? {
+        let allCountries = self.getAllCountries()
+        
+        var finalISD = forISDCode
+        
+        if PKCountryPickerSettings.shouldAddPlusInCountryCode, !finalISD.hasPrefix("+") {
+            finalISD = "+\(finalISD)"
+        }
+        else if !PKCountryPickerSettings.shouldAddPlusInCountryCode, finalISD.hasPrefix("+") {
+            finalISD.removeFirst()
+        }
+        
+        return allCountries.filter { (country) -> Bool in
+            country.countryCode == finalISD
+        }.first
+    }
+    
     //MARK:- Private
     private func initialSetup() {
         self.pickerView.delegate = self

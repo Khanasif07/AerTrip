@@ -8,13 +8,16 @@
 
 import UIKit
 
+protocol HotelCardTableViewCellDelegate: class {
+    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
+    func viewAllButtonTapped(_ sender: UIButton)
+}
+
 class HotelCardTableViewCell: UITableViewCell {
 
-    var hotels = [HotelsModel]() {
-        didSet {
-            self.viewAllButton.isHidden = self.hotels.count <= 1
-        }
-    }
+    var hotels = [HotelsModel]()
+    
+    weak var delegate: HotelCardTableViewCellDelegate?
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var viewAllButton: UIButton!
@@ -48,6 +51,12 @@ extension HotelCardTableViewCell {
         self.hotelCollectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.hotelCollectionView.dataSource = self
         self.hotelCollectionView.delegate     = self
+        
+        self.viewAllButton.addTarget(self, action: #selector(viewAllButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+    }
+    
+    @objc func viewAllButtonTapped(_ sender: UIButton) {
+        self.delegate?.viewAllButtonTapped(sender)
     }
 }
 
@@ -65,7 +74,8 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        cell.populateData(data: self.hotels[indexPath.item])
+        cell.delegate = self
+        cell.hotelData = self.hotels[indexPath.item]
         return cell
     }
     
@@ -90,5 +100,11 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
             return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         }
         
+    }
+}
+
+extension HotelCardTableViewCell: HotelCardCollectionViewCellDelegate {
+    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
+        self.delegate?.saveButtonAction(sender, forHotel: forHotel)
     }
 }

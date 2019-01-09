@@ -11,6 +11,7 @@
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
 "na" = "N/A";
+"noData" = "Sorry! You are lonely here.";
 
 // MARK:- TextField validation
 //MARK:-
@@ -156,3 +157,4 @@
 "star" = "Star";
 "searchForHotelsToAdd" = "Search for hotels to add";
 "searchHotelName" = "Search hotel name";
+

@@ -24,6 +24,11 @@ class HotelSearchVC: BaseVC {
     let viewModel = HotelSearchVM()
     
     //MARK:- Private
+    private lazy var emptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .hotelPreferences
+        return newEmptyView
+    }()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -63,6 +68,7 @@ class HotelSearchVC: BaseVC {
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        self.collectionView.backgroundView = self.emptyView
     }
     
     //MARK:- Public
@@ -78,6 +84,7 @@ class HotelSearchVC: BaseVC {
 extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.backgroundView?.isHidden = !self.viewModel.hotels.isEmpty
         return self.viewModel.hotels.count
     }
     
@@ -87,7 +94,8 @@ extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        cell.populateData(data: self.viewModel.hotels[indexPath.item])
+        cell.hotelData = self.viewModel.hotels[indexPath.item]
+        cell.delegate = self
         return cell
     }
     
@@ -100,17 +108,39 @@ extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
 }
 
+extension HotelSearchVC: HotelCardCollectionViewCellDelegate {
+    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
+        self.viewModel.updateFavourite(forHotel: forHotel)
+    }
+}
+
 extension HotelSearchVC: HotelSearchVMDelegate {
+    func willUpdateFavourite() {
+        AppNetworking.showLoader()
+    }
+    
+    func updateFavouriteSuccess(withMessage: String) {
+        AppNetworking.hideLoader()
+        AppToast.default.showToastMessage(message: withMessage, vc: self)
+        self.collectionView.reloadData()
+        self.sendDataChangedNotification(data: nil)
+    }
+    
+    func updateFavouriteFail() {
+        AppNetworking.hideLoader()
+    }
+    
     func willSearchForHotels() {
-        
+        AppNetworking.showLoader()
     }
     
     func searchHotelsSuccess() {
+        AppNetworking.hideLoader()
         self.collectionView.reloadData()
     }
     
     func searchHotelsFail() {
-        
+        AppNetworking.hideLoader()
     }
 }
 

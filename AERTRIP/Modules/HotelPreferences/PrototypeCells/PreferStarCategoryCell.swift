@@ -8,24 +8,19 @@
 
 import UIKit
 
+protocol PreferStarCategoryCellDelegate: class {
+    func starSelectionUpdate(updatedStars: [Int])
+}
+
 class PreferStarCategoryCell: UITableViewCell {
-    
-    //    var swipeGesture  = UISwipeGestureRecognizer()
-    
-    var ratingCount = [Int]()
-    
-    @IBOutlet weak var oneStarButton: UIButton!
-    @IBOutlet weak var twoStarButton: UIButton!
-    @IBOutlet weak var threeStarButton: UIButton!
-    @IBOutlet weak var fiveStarButton: UIButton!
-    @IBOutlet weak var fourStarButton: UIButton!
-    @IBOutlet weak var firstView: UIView!
-    @IBOutlet weak var secondView: UIView!
-    @IBOutlet weak var thirdView: UIView!
-    @IBOutlet weak var fourthView: UIView!
-    @IBOutlet weak var fifthView: UIView!
+        
+    var ratingCount: [Int] = []
+
+    @IBOutlet var starsButton: [UIButton]!
     @IBOutlet weak var starCountLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    weak var delegate: PreferStarCategoryCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,76 +36,25 @@ class PreferStarCategoryCell: UITableViewCell {
     
     
     @IBAction func starButtonAction(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        
-        if sender.isSelected {
-            
-            if sender === self.oneStarButton {
-                
-                if !self.ratingCount.contains(1) {
-                    self.ratingCount.append(1)
-                }
-                
-            } else  if sender === self.twoStarButton {
-                
-                if !self.ratingCount.contains(2) {
-                    self.ratingCount.append(2)
-                }
-                
-            } else  if sender === self.threeStarButton {
-                
-                if !self.ratingCount.contains(3) {
-                    self.ratingCount.append(3)
-                }
-            } else if sender === self.fourStarButton {
-                
-                if !self.ratingCount.contains(4) {
-                    self.ratingCount.append(4)
-                }
-            } else {
-                
-                if !self.ratingCount.contains(5) {
-                    self.ratingCount.append(5)
-                }
+        self.updateStarButtonState(forStar: sender.tag)
+
+        self.starCountLabel.text = self.getStarString(fromArr: self.ratingCount, maxCount: 5)
+        self.delegate?.starSelectionUpdate(updatedStars: self.ratingCount)
+    }
+    
+    private func updateStarButtonState(forStar: Int) {
+        guard 1...5 ~= forStar else {return}
+        if let currentButton = self.starsButton.filter({ (button) -> Bool in
+            button.tag == forStar
+        }).first {
+            currentButton.isSelected = !currentButton.isSelected
+            if self.ratingCount.contains(forStar) {
+                self.ratingCount.remove(at: self.ratingCount.firstIndex(of: forStar)!)
             }
-            
-        } else {
-            
-            
-            if sender === self.oneStarButton {
-                
-                if self.ratingCount.contains(1) {
-                    
-                    self.ratingCount = self.ratingCount.filter{$0 != 1}
-                }
-            } else if sender === self.twoStarButton {
-                
-                if self.ratingCount.contains(2) {
-                    
-                    self.ratingCount = self.ratingCount.filter{$0 != 2}
-                }
-            } else if sender === self.threeStarButton {
-                
-                if self.ratingCount.contains(3) {
-                    
-                    self.ratingCount = self.ratingCount.filter{$0 != 3}
-                }
-            } else if sender === self.fourStarButton {
-                
-                if self.ratingCount.contains(4) {
-                    
-                    self.ratingCount = self.ratingCount.filter{$0 != 4}
-                }
-            } else {
-                
-                if self.ratingCount.contains(5) {
-                    
-                    self.ratingCount = self.ratingCount.filter{$0 != 5}
-                }
+            else {
+                self.ratingCount.append(forStar)
             }
         }
-        self.starCountLabel.text = self.getStarString(fromArr: self.ratingCount, maxCount: 5)
     }
 }
 
@@ -125,112 +69,19 @@ extension PreferStarCategoryCell {
     
     func initialSetups() {
         self.setupText()
+    }
+    
+    func setPreviousStars(stars: [Int]) {
+        //if previously selected then set it.
+        self.ratingCount = stars
+        for star in self.ratingCount {
+            self.updateStarButtonState(forStar: star)
+        }
+        self.ratingCount = stars
         self.starCountLabel.text = self.getStarString(fromArr: self.ratingCount, maxCount: 5)
-        self.setupButtonSelectedState()
-        //        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
-        //        for direction in directions {
-        //
-        //            let firstSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipwFirstView(_:)))
-        //            firstView.addGestureRecognizer(firstSwipeGesture)
-        //            firstSwipeGesture.direction = direction
-        //
-        //           let  secondSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipwSecondView(_:)))
-        //            secondView.addGestureRecognizer(secondSwipeGesture)
-        //            secondSwipeGesture.direction = direction
-        //
-        //            let  thirdSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipwThirdView(_:)))
-        //            thirdView.addGestureRecognizer(thirdSwipeGesture)
-        //            thirdSwipeGesture.direction = direction
-        //
-        //            let  fourthSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipwFourthView(_:)))
-        //            fourthView.addGestureRecognizer(fourthSwipeGesture)
-        //            fourthSwipeGesture.direction = direction
-        //
-        //            let  fifthSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipwFifthView(_:)))
-        //            fifthView.addGestureRecognizer(fifthSwipeGesture)
-        //            fifthSwipeGesture.direction = direction
-        //        }
     }
     
-    func setupButtonSelectedState() {
-        
-        self.oneStarButton.setImage(UIImage(named: "starRatingFilled"), for: .selected)
-        self.oneStarButton.setImage(UIImage(named: "starRatingUnfill"), for: .normal)
-        
-        self.twoStarButton.setImage(UIImage(named: "starRatingFilled"), for: .selected)
-        self.twoStarButton.setImage(UIImage(named: "starRatingUnfill"), for: .normal)
-        
-        self.threeStarButton.setImage(UIImage(named: "starRatingFilled"), for: .selected)
-        self.threeStarButton.setImage(UIImage(named: "starRatingUnfill"), for: .normal)
-        
-        self.fourStarButton.setImage(UIImage(named: "starRatingFilled"), for: .selected)
-        self.fourStarButton.setImage(UIImage(named: "starRatingUnfill"), for: .normal)
-        
-        self.fiveStarButton.setImage(UIImage(named: "starRatingFilled"), for: .selected)
-        self.fiveStarButton.setImage(UIImage(named: "starRatingUnfill"), for: .normal)
-    }
-    
-    //    @objc func swipwFirstView(_ sender : UISwipeGestureRecognizer){
-    //
-    //        UIView.animate(withDuration: 0.5) {
-    //            if sender.direction == .right {
-    //
-    //                self.oneStarButton.isSelected = true
-    //            }else if sender.direction == .left{
-    //                self.oneStarButton.isSelected = false
-    //            }
-    //        }
-    //    }
-    //
-    //    @objc func swipwSecondView(_ sender : UISwipeGestureRecognizer){
-    //
-    //        UIView.animate(withDuration: 0.5) {
-    //            if sender.direction == .right {
-    //
-    //                self.twoStarButton.isSelected = true
-    //            }else if sender.direction == .left{
-    //                self.twoStarButton.isSelected = false
-    //            }
-    //        }
-    //    }
-    //
-    //    @objc func swipwThirdView(_ sender : UISwipeGestureRecognizer){
-    //
-    //        UIView.animate(withDuration: 0.5) {
-    //            if sender.direction == .right {
-    //
-    //                self.threeStarButton.isSelected = true
-    //            }else if sender.direction == .left{
-    //                self.threeStarButton.isSelected = false
-    //            }
-    //        }
-    //    }
-    //
-    //    @objc func swipwFourthView(_ sender : UISwipeGestureRecognizer){
-    //
-    //        UIView.animate(withDuration: 0.5) {
-    //            if sender.direction == .right {
-    //
-    //                self.fourStarButton.isSelected = true
-    //            }else if sender.direction == .left{
-    //                self.fourStarButton.isSelected = false
-    //            }
-    //        }
-    //    }
-    //
-    //    @objc func swipwFifthView(_ sender : UISwipeGestureRecognizer){
-    //
-    //        UIView.animate(withDuration: 0.5) {
-    //            if sender.direction == .right {
-    //
-    //                self.fiveStarButton.isSelected = true
-    //            }else if sender.direction == .left{
-    //                self.fiveStarButton.isSelected = false
-    //            }
-    //        }
-    //    }
-    
-    func getStarString(fromArr: [Int], maxCount: Int) -> String {
+    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
         var final = ""

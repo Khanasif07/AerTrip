@@ -12,6 +12,7 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
     
     //MARK:- Properties
     //MARK:- Private
+    //    private var logoFrameOnSideMenuVC: CGRect = CGRect.zero
     weak private var context: UIViewControllerContextTransitioning?
     
     //MARK:- Public
@@ -35,15 +36,13 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
      Required by UIViewControllerAnimatedTransitioning
      */
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-//        if let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController,
-//            let toVC = transitionContext?.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC {
-//
-////            let ratio = CGFloat(0.71)//sideMenu.profileImage.height / toVC.profileImageHeaderView.profileImageView.height
-////            let tScale = CGAffineTransform(scaleX: ratio, y: ratio)
-////            toVC.profileImageHeaderView.profileImageView.transform = tScale
-//        } else {
-//
-//        }
+        guard let fromVC = transitionContext?.viewController(forKey: .from) as? PKSideMenuController, let sideMenu = fromVC.menuViewController as? SideMenuVC else {
+            return duration
+        }
+        
+        sideMenu.profileContainerView.isHidden = true
+        self.snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) ?? UIView()
+        sideMenu.profileContainerView.isHidden = false
         
         return duration
     }
@@ -59,50 +58,46 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
         if self.transitionMode == .push {
             //handel push animation
             guard let fromVC = transitionContext.viewController(forKey: .from) as? PKSideMenuController,
-                let toVC = transitionContext.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC else {
+                let toVC = transitionContext.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC, let profileView = sideMenu.profileContainerView else {
                     transitionContext.completeTransition(false)
                     return
             }
             
-//            let ratio = sideMenu.profileImage.height / toVC.profileImageHeaderView.profileImageView.height
-//            let tScale = CGAffineTransform(scaleX: ratio, y: ratio)
-//
-//
-//            let tTX = sideMenu.sideMenuTableView.convert(sideMenu.profileImage.frame, to: toVC.view).origin.x - toVC.headerView.convert(toVC.profileImageHeaderView.profileImageView.frame, to: toVC.view).origin.x
-//
-//            let tTY = sideMenu.sideMenuTableView.convert(sideMenu.profileImage.frame, to: toVC.view).origin.y - toVC.headerView.convert(toVC.profileImageHeaderView.profileImageView.frame, to: toVC.view).origin.y
-//            let tTrans = CGAffineTransform(translationX: tTX, y: tTY)
-//            toVC.profileImageHeaderView.profileImageView.transform = tTrans.concatenating(tScale)
+            toVC.profileImageHeaderView?.isHidden = true
+            toVC.profileImageHeaderView = profileView
             
-            containerView.addSubview(fromVC.view)
-            
-//            toVC.profileImageHeaderView.profileContainerView.removeFromSuperview()
-//            toVC.profileImageHeaderView.profileContainerView.frame = CGRect(x: 0.0, y: 20.0, width: UIDevice.screenWidth, height: 100.0)
-//            AppFlowManager.default.mainNavigationController.view.addSubview(toVC.profileImageHeaderView.profileContainerView)
-            
-//            UIView.animate(withDuration: 0.3) {
-//                toVC.profileImageHeaderView.profileContainerView.frame = toVC.headerView.bounds
-//            }
+            containerView.addSubview(snapshot)
+            fromVC.view.removeFromSuperview()
             
             toVC.view.frame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
             
             let snapFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
-            let headerFrame = CGRect(x: toVC.view.frame.origin.x, y: toVC.view.frame.origin.y, width: toVC.view.frame.size.width, height: 319.0)
-            //319 used as in view profile vc
+            let profileFrame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.48)
             
-            UIView.animate(withDuration: 0.6, animations: {
-                [weak self] in
-                fromVC.view.frame = snapFrame
+            profileView.emailIdLabel.isHidden = false
+            profileView.mobileNumberLabel.isHidden = false
+            profileView.backgroundImageView.isHidden = false
+            profileView.gradientView.isHidden = false
+            profileView.dividerView.isHidden = false
+            UIView.animate(withDuration: 0.6, animations: { [weak self] in
+                self?.snapshot.frame = snapFrame
                 toVC.view.frame = viewFrame
-                sideMenu.profileImage.alpha = 0.0
-                sideMenu.userNameLabel.alpha = 0.0
-                toVC.profileImageHeaderView.frame = headerFrame
-            }) { (isDone) in
-                if isDone {
-                    sideMenu.profileImage.isHidden = true
-                    sideMenu.userNameLabel.isHidden = true
+                profileView.frame = profileFrame
+                profileView.profileContainerView.transform = CGAffineTransform.identity
+                profileView.emailIdLabel.alpha = 1.0
+                profileView.mobileNumberLabel.alpha = 1.0
+                profileView.backgroundImageView.alpha = 1.0
+                profileView.gradientView.alpha = 1.0
+                profileView.dividerView.alpha = 1.0
+                profileView.layoutSubviews()
+                
+            }) { (isCompleted) in
+                if isCompleted {
+                    profileView.removeFromSuperview()
+                    profileView.frame.origin = .zero
+                    toVC.setupParallaxHeader()
                     self.context?.completeTransition(true)
                 }
             }
@@ -110,30 +105,47 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
         else {
             //handel pop animation
             guard let fromVC = transitionContext.viewController(forKey: .from) as? ViewProfileVC,
-                let toVC = transitionContext.viewController(forKey: .to) as? PKSideMenuController, let sideMenu = toVC.menuViewController as? SideMenuVC else {
+                let toVC = transitionContext.viewController(forKey: .to) as? PKSideMenuController, let sideMenu = toVC.menuViewController as? SideMenuVC, let profileView = sideMenu.profileContainerView else {
                     transitionContext.completeTransition(false)
                     return
             }
             
+            fromVC.profileImageHeaderView?.isHidden = true
+            profileView.isHidden = false
+            
             containerView.addSubview(fromVC.view)
+            fromVC.view.removeFromSuperview()
             
             toVC.view.frame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
             
             let snapFrame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
-            let headerFrame = CGRect(x: fromVC.view.frame.origin.x, y: fromVC.view.frame.origin.y, width: fromVC.view.frame.size.width, height: 0.0)
-
-            sideMenu.profileImage.isHidden = false
-            sideMenu.userNameLabel.isHidden = false
-            UIView.animate(withDuration: 0.6, animations: {
+            let profileFrame = CGRect(x: sideMenu.sideMenuTableView.x, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+            
+            fromVC.tableView.parallaxHeader.view = nil
+            profileView.frame.origin = CGPoint(x: 0.0, y: 50.0)
+            AppFlowManager.default.mainNavigationController.view.addSubview(profileView)
+            UIView.animate(withDuration: 0.3, animations: {
                 fromVC.view.frame = snapFrame
                 toVC.view.frame = viewFrame
-                sideMenu.profileImage.alpha = 1.0
-                sideMenu.userNameLabel.alpha = 1.0
-                fromVC.profileImageHeaderView.frame = headerFrame
-            }) { (isDone) in
-                if isDone {
+                profileView.frame = profileFrame
+                profileView.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                profileView.emailIdLabel.alpha = 0.0
+                profileView.mobileNumberLabel.alpha = 0.0
+                profileView.backgroundImageView.alpha = 0.0
+                profileView.gradientView.alpha = 0.0
+                profileView.dividerView.alpha = 0.0
+                profileView.layoutSubviews()
+                
+            }) { (isCompleted) in
+                if isCompleted {
+                    profileView.frame = profileFrame
+                    profileView.emailIdLabel.isHidden = true
+                    profileView.mobileNumberLabel.isHidden = true
+                    profileView.backgroundImageView.isHidden = true
+                    profileView.gradientView.isHidden = true
+                    profileView.dividerView.isHidden = true
                     self.context?.completeTransition(true)
                 }
             }

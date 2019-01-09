@@ -98,7 +98,7 @@ class CreateYourAccountVC: BaseVC {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func registerButtonAction(_ sender: ATButton) {

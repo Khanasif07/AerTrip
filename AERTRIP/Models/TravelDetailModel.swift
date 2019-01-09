@@ -175,6 +175,7 @@ struct Mobile {
     var label: String
     var value: String
     var isd: String
+    var isValide: Bool = false
     var mobileFormatted: String
     
     var jsonDict: [String:Any] {

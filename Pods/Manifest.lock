@@ -103,6 +103,12 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PhoneNumberKit (2.5.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.5.0)
+    - PhoneNumberKit/UIKit (= 2.5.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.5.0)
+  - PhoneNumberKit/UIKit (2.5.0):
+    - PhoneNumberKit/PhoneNumberKitCore
   - SkyFloatingLabelTextField (3.6.0)
   - SwiftyJSON (4.2.0)
   - TransitionButton (0.5.2)
@@ -117,6 +123,7 @@ DEPENDENCIES:
   - Kingfisher
   - LinkedinSwift
   - MXParallaxHeader
+  - PhoneNumberKit (~> 2.5)
   - SkyFloatingLabelTextField
   - SwiftyJSON (~> 4.0)
   - TransitionButton
@@ -145,6 +152,7 @@ SPEC REPOS:
     - LinkedinSwift
     - MXParallaxHeader
     - nanopb
+    - PhoneNumberKit
     - SkyFloatingLabelTextField
     - SwiftyJSON
     - TransitionButton
@@ -172,10 +180,11 @@ SPEC CHECKSUMS:
   LinkedinSwift: bab5724c2b18335233d02fa59a2cb3fbbccd9219
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PhoneNumberKit: 32a1cd1e0aa9e950feb01886a22fd7386b8cf903
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 0310c7d5a87a11c8e081244c5420b2c6d99c2cd5
+PODFILE CHECKSUM: bb1f5af327cdeda600317350f3f2710fdbd6e810
 
 COCOAPODS: 1.5.3

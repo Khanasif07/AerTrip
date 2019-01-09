@@ -44,7 +44,7 @@ class ViewProfileDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(self)
+        profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         
         // Api calling
         viewModel.webserviceForGetTravelDetail()
@@ -69,7 +69,7 @@ class ViewProfileDetailVC: BaseVC {
     // MARK: - IB Actions
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {

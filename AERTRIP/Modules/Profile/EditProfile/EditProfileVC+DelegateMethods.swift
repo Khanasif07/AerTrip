@@ -40,7 +40,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.PassportDetails:
             return 3
         case LocalizedString.FlightPreferences:
-                return 3 + frequentFlyer.count
+                return 4 + frequentFlyer.count
        
         default:
             return 1
@@ -181,7 +181,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             
         case LocalizedString.FlightPreferences:
             if indexPath.row >= 2 {
-                if indexPath.row == frequentFlyer.count + 2 {
+                if indexPath.row == frequentFlyer.count + 3 {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                         fatalError("TableViewAddActionCell not found")
                     }
@@ -194,13 +194,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     }
                     cell.delegate = self
                     
-                    if indexPath.row == 2 {
+                    if indexPath.row == (frequentFlyer.count + 2) {
                         cell.cofigureCell(indexPath, true, "", "", "", "", "")
-                        cell.deleteButton.isHidden = true
+                        cell.deleteButton.isHidden = false
                         
                         cell.rightTitleLabel.isHidden = true
                         return cell
-                    } else if frequentFlyer.count > 1 {
+                    } else {
                         cell.cofigureCell(indexPath, true, "", "", frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].number)
                         cell.deleteButton.isHidden = false
                         
@@ -428,8 +428,7 @@ extension EditProfileVC {
         
         // Set photoImageView to display the selected image.
         editProfileImageHeaderView.profileImageView.image = selectedImage
-        let milliSec = getCurrentMillis()
-        let path = compressAndSaveImage(selectedImage, name: "\(milliSec).jpeg")
+        let path = compressAndSaveImage(selectedImage, name: "\(UIApplication.shared.uniqueID).jpeg")
         viewModel.filePath = path!
         viewModel.imageSource = "aertrip"
 
@@ -535,7 +534,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getSuccess() {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     func willApiCall() {
@@ -569,8 +568,9 @@ extension EditProfileVC: EditProfileVMDelegate {
 // MARK: - EditProfileThreePartTableViewCellDelegate
 
 extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
-    func editProfileThreePartTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String) {
+    func editProfileThreePartTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String, isValide: Bool) {
         mobile[indexPath.row].value = text
+        mobile[indexPath.row].isValide = isValide
     }
     
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath) {
@@ -614,6 +614,8 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
+            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
+            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.mobile[indexPath.row].isd = selectedCountry.countryCode
             

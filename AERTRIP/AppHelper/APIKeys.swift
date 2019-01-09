@@ -23,6 +23,7 @@ enum APIKeys: String {
     //MARK:-
     case isLoggedIn
     case data
+    case msg
     case loginid     = "loginid"
     case password    = "password"
     case isGuestUser = "isGuestUser"

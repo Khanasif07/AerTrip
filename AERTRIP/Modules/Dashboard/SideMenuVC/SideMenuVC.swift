@@ -10,13 +10,19 @@ import UIKit
 
 class SideMenuVC: BaseVC {
     // MARK: - Properties
-    weak var profileImage: UIImageView!
-    weak var userNameLabel: UILabel!
     weak private(set) var loginRegistrationButton: ATButton?
     var logoContainerView: SideMenuLogoView! {
         didSet {
             if logoContainerView == nil {
                 logoContainerView.removeFromSuperview()
+            }
+        }
+    }
+    
+    var profileContainerView: SlideMenuProfileImageHeaderView! {
+        didSet {
+            if profileContainerView == nil {
+                profileContainerView.removeFromSuperview()
             }
         }
     }
@@ -57,6 +63,41 @@ class SideMenuVC: BaseVC {
                         
             self.logoContainerView.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
             self.sideMenuTableView.addSubview(self.logoContainerView)
+        }
+        else {
+            //add the profile view only if user is logged in
+            if self.profileContainerView == nil {
+                self.profileContainerView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+                self.profileContainerView.backgroundColor = AppColors.clear
+            }
+            
+            self.profileContainerView.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
+            self.profileContainerView.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
+            self.profileContainerView.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
+            
+            if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+                self.profileContainerView.profileImageView.kf.setImage(with: URL(string: imagePath))
+            }
+            else {
+                profileContainerView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                profileContainerView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            }
+            
+            self.profileContainerView.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+            self.profileContainerView.emailIdLabel.isHidden = true
+            self.profileContainerView.mobileNumberLabel.isHidden = true
+            self.profileContainerView.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            self.profileContainerView.backgroundImageView.isHidden = true
+            self.profileContainerView.gradientView.isHidden = true
+            self.profileContainerView.dividerView.isHidden = true
+            self.profileContainerView.isUserInteractionEnabled = false
+            self.profileContainerView.layoutSubviews()
+            self.profileContainerView.emailIdLabel.alpha = 0.0
+            self.profileContainerView.mobileNumberLabel.alpha = 0.0
+            self.profileContainerView.backgroundImageView.alpha = 0.0
+            self.profileContainerView.gradientView.alpha = 0.0
+            self.profileContainerView.dividerView.alpha = 0.0
+            self.sideMenuTableView.addSubview(self.profileContainerView)
         }
     }
 
@@ -113,6 +154,9 @@ extension SideMenuVC {
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
+        self.profileContainerView.removeFromSuperview()
+        self.profileContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        AppFlowManager.default.mainNavigationController.view.addSubview(self.profileContainerView)
         AppFlowManager.default.moveToViewProfileVC()
     }
 }
@@ -141,8 +185,8 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.populateData()
-                self.profileImage = cell.profileImage
-                self.userNameLabel = cell.userNameLabel
+                cell.profileImage.isHidden = true
+                cell.userNameLabel.isHidden = true
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell

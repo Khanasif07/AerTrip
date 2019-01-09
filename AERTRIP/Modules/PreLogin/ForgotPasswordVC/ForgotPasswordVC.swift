@@ -81,7 +81,7 @@ class ForgotPasswordVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func continueButtonAction(_ sender: ATButton) {

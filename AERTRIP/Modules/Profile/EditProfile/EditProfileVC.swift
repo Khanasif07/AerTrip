@@ -118,7 +118,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - IB Actions
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -254,8 +254,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 
         self.frequentFlyer = travel.frequestFlyer
         viewModel.frequentFlyer = travel.frequestFlyer
-        let frequentFlyer = FrequentFlyer()
-        self.frequentFlyer.append(frequentFlyer)
+//        let frequentFlyer = FrequentFlyer()
+//        self.frequentFlyer.append(frequentFlyer)
         
         flightDetails.append(travel.preferences.seat.value)
         flightDetails.append(travel.preferences.meal.value)
@@ -477,10 +477,4 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         return imageURL.absoluteString
     }
-    
-    func getCurrentMillis() -> Int {
-        return Int(Date().timeIntervalSince1970 * 1000)
-    }
-
-
 }

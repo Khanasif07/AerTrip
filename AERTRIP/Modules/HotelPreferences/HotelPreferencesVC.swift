@@ -14,6 +14,14 @@ class HotelPreferencesVC:  BaseVC {
     //MARK:-
     let viewModel = HotelPreferencesVM()
     
+    private lazy var emptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .hotelPreferences
+        return newEmptyView
+    }()
+    
+    private var shouldBroadCastNewData: Bool = false
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var navigationView: UIView!
@@ -32,16 +40,22 @@ class HotelPreferencesVC:  BaseVC {
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
+    
+    override func dataChanged(_ note: Notification) {
+        if note.object == nil {
+            self.viewModel.webserviceForGetHotelPreferenceList()
+            shouldBroadCastNewData = true
+        }
+    }
+    
     //MARK:- Public
     
     
     //MARK:- Action
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
-    
-    
 }
 
 //MARK:- Extension Initial setups
@@ -89,7 +103,8 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
                 fatalError("PreferStarCategoryCell not found")
             }
             
-            
+            cell.setPreviousStars(stars: self.viewModel.selectedStars)
+            cell.delegate = self
             return cell
             
         case 1:
@@ -102,46 +117,80 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
             
         default:
             
-            if self.viewModel.hotels.isEmpty {
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoFavouriteHotelCell", for: indexPath) as? NoFavouriteHotelCell  else {
-                    fatalError("NoFavouriteHotelCell not found")
-                }
-                
-                return cell
-                
-            } else {
-                
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell", for: indexPath) as? HotelCardTableViewCell  else {
                     fatalError("HotelCardTableViewCell not found")
                 }
                 
-                cell.cityLabel.text = self.viewModel.hotels[indexPath.row - 2].cityName
-                cell.hotels = self.viewModel.hotels[indexPath.row - 2].holetList
-                cell.hotelCollectionView.reloadData()
+                if self.viewModel.hotels.isEmpty {
+                    self.emptyView.frame = CGRect(x: 0.0, y: 20.0, width: UIDevice.screenWidth, height: cell.contentView.height)
+                    cell.cityLabel.isHidden = true
+                    cell.viewAllButton.isHidden = true
+                    cell.contentView.addSubview(self.emptyView)
+                }
+                else {
+                    cell.cityLabel.isHidden = false
+                    cell.viewAllButton.isHidden = false
+                    self.emptyView.removeFromSuperview()
+                    cell.cityLabel.text = self.viewModel.hotels[indexPath.row - 2].cityName
+                    cell.hotels = self.viewModel.hotels[indexPath.row - 2].holetList
+                    cell.hotelCollectionView.reloadData()
+                }
+                cell.delegate = self
                 
                 return cell
-            }
         }
     }
 }
 
+extension HotelPreferencesVC: HotelCardTableViewCellDelegate, PreferStarCategoryCellDelegate {
+    func viewAllButtonTapped(_ sender: UIButton) {
+        AppFlowManager.default.moveToViewAllHotelsVC(forCities: self.viewModel.hotels)
+    }
+    
+    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
+        self.viewModel.updateFavourite(forHotel: forHotel)
+    }
+    
+    func starSelectionUpdate(updatedStars: [Int]) {
+        self.viewModel.getHotelsByStarPreference(stars: updatedStars)
+    }
+}
 
 //MARK:- Extension HotelPreferencesDelegate
 //MARK:-
 extension HotelPreferencesVC : HotelPreferencesDelegate {
+    func willUpdateFavourite() {
+        AppNetworking.showLoader()
+    }
+    
+    func updateFavouriteSuccess(withMessage: String) {
+        AppNetworking.hideLoader()
+        AppToast.default.showToastMessage(message: withMessage, vc: self)
+        self.viewModel.webserviceForGetHotelPreferenceList()
+    }
+    
+    func updateFavouriteFail() {
+        AppNetworking.hideLoader()
+    }
+    
     
     func willCallApi() {
-        
+        if self.viewModel.hotels.isEmpty {
+            AppNetworking.showLoader()
+        }
     }
     
     func getApiSuccess() {
-        
+        AppNetworking.hideLoader()
         self.hotelsTableView.reloadData()
+        if shouldBroadCastNewData {
+            self.sendDataChangedNotification(data: self.viewModel.hotels)
+            shouldBroadCastNewData = false
+        }
     }
     
     func getApiFailure(errors: ErrorCodes) {
-        
+        AppNetworking.hideLoader()
         AppGlobals.shared.showErrorOnToastView(errors: errors, viewController: self)
     }
 }

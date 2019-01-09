@@ -18,4 +18,5 @@ target 'AERTRIP' do
     pod 'Firebase/DynamicLinks'
     pod 'MXParallaxHeader'
     pod 'TransitionButton'
+    pod 'PhoneNumberKit', '~> 2.5'
 end

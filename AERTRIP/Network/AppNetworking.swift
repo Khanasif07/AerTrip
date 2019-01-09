@@ -291,7 +291,7 @@ enum AppNetworking {
                         }
                         if let url = fileUrl{
                             do{
-                                let data = try Data(contentsOf: url, options:NSData.ReadingOptions.alwaysMapped)
+                                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.alwaysMapped)
                                 multipartFormData.append(data, withName: key, fileName: "\(UUID().uuidString).\(fileExtention)", mimeType: mimeType)
                                 
                             }
@@ -304,8 +304,7 @@ enum AppNetworking {
             }
             
             for (ky , value) in addMandatoryParams(toExistingParams: parameters){
-                
-                multipartFormData.append((value as AnyObject).data(using : String.Encoding.utf8.rawValue)!, withName: ky)
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
             }
         },
                          with: url, encodingCompletion: { encodingResult in

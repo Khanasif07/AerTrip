@@ -176,7 +176,7 @@ extension APICaller {
             }
             
         } else {
-            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "png", fileType: AppNetworking.MultiPartFileType.image)], loader: true, success: { (data) in
+            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: true, success: { (data) in
                 print(data)
             }, progress: { (progress) in
                 NSLog("progress is \(progress)")

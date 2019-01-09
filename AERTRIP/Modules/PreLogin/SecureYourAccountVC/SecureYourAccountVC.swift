@@ -117,7 +117,7 @@ class SecureYourAccountVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {

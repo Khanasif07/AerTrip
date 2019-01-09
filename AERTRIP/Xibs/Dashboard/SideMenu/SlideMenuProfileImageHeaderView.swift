@@ -25,6 +25,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
     @IBOutlet weak var profileContainerView: UIView!
+    @IBOutlet weak var dividerView: UIView!
     
     // MARK: - Variable
     private let gradient = CAGradientLayer()
@@ -36,14 +37,12 @@ class SlideMenuProfileImageHeaderView: UIView {
         delegate?.profileHeaderTapped()
     }
     
-    class func instanceFromNib(_ controller: UIViewController) -> SlideMenuProfileImageHeaderView {
+    class func instanceFromNib(isFamily: Bool = false) -> SlideMenuProfileImageHeaderView {
         let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
-        if controller is ViewProfileVC {
-            parentView.familyButton.isHidden = true
-        } else {
-            parentView.emailIdLabel.isHidden = true
-            parentView.mobileNumberLabel.isHidden = true
-        }
+
+        parentView.familyButton.isHidden = !isFamily
+        parentView.emailIdLabel.isHidden = isFamily
+        parentView.mobileNumberLabel.isHidden = isFamily
         
         return parentView
     }
@@ -51,6 +50,8 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        self.backgroundImageView.frame = self.bounds
+        self.gradientView.frame = self.bounds
         gradient.frame = gradientView.bounds
     }
     
