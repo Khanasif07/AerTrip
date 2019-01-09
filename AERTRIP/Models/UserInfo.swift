@@ -396,7 +396,7 @@ class UserInfo {
             }
             return nil
         }
-        set{
+        set {
             if let vlaue = newValue?.jsonDict {
                 updateInfo(withData: ["genera_pref": AppGlobals.shared.json(from: vlaue)])
             }

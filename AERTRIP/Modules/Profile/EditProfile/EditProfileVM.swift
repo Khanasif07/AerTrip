@@ -138,7 +138,12 @@ class EditProfileVM {
     }
     
     func webserviceForSaveProfile() {
+        
         var params = JSONDictionary()
+        
+        // remove default email and mobile
+        email.removeFirst()
+        mobile.removeFirst()
         
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName

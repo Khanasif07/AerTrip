@@ -1543,7 +1543,6 @@
 				18F4956321B8176A0003AC16 /* ThankYouRegistrationVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
-				183E3F7221DA49920032DEBA /* NoFavouriteHotelCell.swift in Sources */,
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
