@@ -17,12 +17,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if sections[indexPath.section] == LocalizedString.Address && indexPath.row != addresses.count {
+        if sections[indexPath.section] == LocalizedString.Address, indexPath.row != addresses.count {
             return 264.0
         } else {
-           return  UITableView.automaticDimension
+            return UITableView.automaticDimension
         }
-       
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,8 +39,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.PassportDetails:
             return 3
         case LocalizedString.FlightPreferences:
-                return 3 + frequentFlyer.count
-       
+            return 3 + frequentFlyer.count
+            
         default:
             return 1
         }
@@ -61,6 +60,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
+                
                 cell.editProfilTwoPartTableViewCelldelegate = self
                 cell.configureCell(indexPath, email[indexPath.row].label, email[indexPath.row].value)
                 if indexPath.row + 1 == email.count {
@@ -159,8 +159,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.delegate = self
                 cell.deleteButton.isHidden = indexPath.row == 0 ? true : false
-                cell.configureCell(indexPath,addressType: addresses[indexPath.row].label, addressLineOne: addresses[indexPath.row].line1, addressLineTwo: addresses[indexPath.row].line2, cityName:addresses[indexPath.row].city, postalCode: addresses[indexPath.row].postalCode, stateName: addresses[indexPath.row].state, countryName: addresses[indexPath.row].countryName)
-            
+                cell.configureCell(indexPath, addressType: addresses[indexPath.row].label, addressLineOne: addresses[indexPath.row].line1, addressLineTwo: addresses[indexPath.row].line2, cityName: addresses[indexPath.row].city, postalCode: addresses[indexPath.row].postalCode, stateName: addresses[indexPath.row].state, countryName: addresses[indexPath.row].countryName)
                 
                 return cell
             }
@@ -175,9 +174,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.isEnabled = true
             }
             cell.downArrowImageView.isHidden = true
-                cell.configureCell(indexPath, moreInformation[indexPath.row].rawValue, informations[indexPath.row])
-              cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
-                return cell
+            cell.configureCell(indexPath, moreInformation[indexPath.row].rawValue, informations[indexPath.row])
+            cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
+            return cell
             
         case LocalizedString.FlightPreferences:
             if indexPath.row >= 2 {
@@ -188,7 +187,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.configureCell(LocalizedString.AddFrequentFlyer.localized)
                     return cell
                 } else {
-                    
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else {
                         fatalError("TwoPartEditTableViewCell not found")
                     }
@@ -215,7 +213,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         }
                         return cell
                     }
-                    
                 }
                 
             } else {
@@ -279,7 +276,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
                 tableView.endUpdates()
             }
-         
+            
         case LocalizedString.MoreInformation:
             self.handleMoreInformationSectionSelection(indexPath)
             break
@@ -290,6 +287,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var mobile = Mobile()
                 mobile.label = "Mobile"
                 mobile.type = "mobile"
+                mobile.isd = "+91"
+                
                 self.mobile.append(mobile)
                 tableView.beginUpdates()
                 let IndexPathOfLastRow = NSIndexPath(row: self.mobile.count - 1, section: indexPath.section)
@@ -307,7 +306,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 let frequentFlyer = FrequentFlyer()
                 self.frequentFlyer.append(frequentFlyer)
                 tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: indexPath.row , section: indexPath.section)
+                let IndexPathOfLastRow = NSIndexPath(row: indexPath.row, section: indexPath.section)
                 self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
                 tableView.endUpdates()
             } else {
@@ -384,9 +383,8 @@ extension EditProfileVC {
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                  viewModel.firstName = fullString
+                viewModel.firstName = fullString
             }
-         
             
         case self.editProfileImageHeaderView.lastNameTextField:
             self.editProfileImageHeaderView.lastNameTextField.text = textField.text ?? ""
@@ -431,8 +429,8 @@ extension EditProfileVC {
         let milliSec = getCurrentMillis()
         let path = compressAndSaveImage(selectedImage, name: "\(milliSec).jpeg")
         viewModel.filePath = path!
-        viewModel.imageSource = "aertrip"
-
+        //  viewModel.imageSource = "aertrip"
+        
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
@@ -695,7 +693,6 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
                 addresses[indexPath.row].countryName = pickerTitle
                 addresses[indexPath.row].country = countries.someKey(forValue: pickerTitle)!
             }
-           
             
         case .addressTypes:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
@@ -761,7 +758,6 @@ extension EditProfileVC: SearchVCDelegate {
             frequentFlyer[indexPath.row - 2].logoUrl = flyer.logoUrl
             frequentFlyer[indexPath.row - 2].airlineName = replacedString
             frequentFlyer[indexPath.row - 2].airlineCode = flyer.iata
-            
         }
     }
 }
@@ -783,20 +779,18 @@ extension EditProfileVC: TextEditableTableViewCellDelegate {
     }
 }
 
-
 // Mark
 
-extension EditProfileVC:AddAddressTableViewCellDelegate {
+extension EditProfileVC: AddAddressTableViewCellDelegate {
     func deleteAddressCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
-        deleteCellTapped(indexPath)
+        self.deleteCellTapped(indexPath)
     }
     
     func addAddressTextField(_ textfield: UITextField, _ indexPath: IndexPath, _ fullString: String) {
-        
         let cell = tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell
         switch textfield {
-        case cell?.addressLineOneTextField :
+        case cell?.addressLineOneTextField:
             NSLog("addressLineTwoTextField")
             addresses[indexPath.row].line1 = fullString
         case cell?.addressLineTwoTextField:
@@ -836,6 +830,4 @@ extension EditProfileVC:AddAddressTableViewCellDelegate {
             openPicker()
         }
     }
-    
-    
 }

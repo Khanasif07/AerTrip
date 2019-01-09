@@ -8,48 +8,47 @@
 
 import UIKit
 
-protocol SearchVCDelegate:class {
-    func frequentFlyerSelected(_ flyer:FlyerModel)
+protocol SearchVCDelegate: class {
+    func frequentFlyerSelected(_ flyer: FlyerModel)
 }
 
 class SearchVC: BaseVC {
-    
     // MARK: - IB Outlets
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     
-    @IBOutlet weak var searchTextField: SearchTextField!
-    @IBOutlet weak var headerTitleLabel: UILabel!
+    @IBOutlet var searchTextField: SearchTextField!
+    @IBOutlet var headerTitleLabel: UILabel!
     
-    @IBOutlet weak var cancelButton: UIButton!
-   
+    @IBOutlet var cancelButton: UIButton!
+    
     // MARK: - Variable
-    let cellIdentifier = "SearchTableViewCell"
-    var searchData : [FlyerModel] = []
-    var defaultAirlines : [FlyerModel] = []
-    let viewModel = SearchVM()
-    weak var delgate:SearchVCDelegate?
     
+    let cellIdentifier = "SearchTableViewCell"
+    var searchData: [FlyerModel] = []
+    var defaultAirlines: [FlyerModel] = []
+    let viewModel = SearchVM()
+    weak var delgate: SearchVCDelegate?
     
     // MARK: - View Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.searchTextField.textFieldButtonTap = { [weak self] (status) in
+        searchTextField.textFieldButtonTap = { [weak self] status in
             if status {
                 print("Cross button tapped")
                 self?.searchTextField.text = nil
                 self?.searchData.removeAll()
-                    self?.searchData = (self?.defaultAirlines)!
+                self?.searchData = (self?.defaultAirlines)!
                 self?.tableView.reloadData()
-                
             }
         }
-        self.searchTextField.rightButton.setImage(nil, for: .normal)
-        self.searchTextField.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-        self.searchTextField.layer.borderColor = UIColor.clear.cgColor
-        self.searchTextField.layer.cornerRadius = 10.0
-        self.searchTextField.delegate = self
+        searchTextField.rightButton.setImage(nil, for: .normal)
+        searchTextField.backgroundColor = UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1.0)
+        searchTextField.layer.borderColor = UIColor.clear.cgColor
+        searchTextField.layer.cornerRadius = 10.0
+        searchTextField.delegate = self
         
         doInitialSetUp()
         registerXib()
@@ -58,17 +57,16 @@ class SearchVC: BaseVC {
     //
     
     override func bindViewModel() {
-      viewModel.delegate = self
+        viewModel.delegate = self
     }
     
-
     // MARK: - Helper Methods
-    func doInitialSetUp(){
-      
+    
+    func doInitialSetUp() {
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.headerTitleLabel.text = LocalizedString.FrequentFlyer.localized
-        self.searchData = self.defaultAirlines
-        self.tableView.reloadData()
+        headerTitleLabel.text = LocalizedString.FrequentFlyer.localized
+        searchData = defaultAirlines
+        tableView.reloadData()
     }
     
     func registerXib() {
@@ -84,7 +82,8 @@ class SearchVC: BaseVC {
     @objc private func performSearchForText(_ searchText: String) {
         if let text: String = searchText as? String {
             searchData.removeAll()
-           viewModel.webserviceForGetTravelDetail(searchText)
+            tableView.reloadData()
+            viewModel.webserviceForGetTravelDetail(text)
         }
     }
     
@@ -93,14 +92,11 @@ class SearchVC: BaseVC {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-
 }
-
 
 // MARK: - UITableViewDataSource methods
 
-extension SearchVC: UITableViewDataSource,UITableViewDelegate{
+extension SearchVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchData.count
     }
@@ -110,23 +106,19 @@ extension SearchVC: UITableViewDataSource,UITableViewDelegate{
             fatalError("SearchTableViewCell not found")
         }
         if searchData.count > 0 {
-                cell.configureCell(searchData[indexPath.row].logoUrl, searchData[indexPath.row].label, searchData[indexPath.row].iata)
+            cell.configureCell(searchData[indexPath.row].logoUrl, searchData[indexPath.row].label, searchData[indexPath.row].iata)
         }
-    
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       self.delgate?.frequentFlyerSelected(searchData[indexPath.row])
-         dismiss(animated: true, completion: nil)
+        delgate?.frequentFlyerSelected(searchData[indexPath.row])
+        dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }
 
-
-extension SearchVC  {
+extension SearchVC {
     internal func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         searchTextField.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
         
@@ -142,21 +134,17 @@ extension SearchVC  {
     }
 }
 
-
-extension SearchVC:SearchVMDelegate {
+extension SearchVC: SearchVMDelegate {
     func willGetDetail() {
         //
     }
     
     func getSuccess(_ data: [FlyerModel]) {
-        self.searchData  = data
-        self.tableView.reloadData()
+        searchData = data
+        tableView.reloadData()
     }
     
     func getFail(errors: ErrorCodes) {
-       //
+        //
     }
-    
-    
 }
-

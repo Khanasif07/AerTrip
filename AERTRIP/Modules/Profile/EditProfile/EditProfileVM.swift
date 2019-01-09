@@ -42,12 +42,11 @@ class EditProfileVM {
     var passportExpiryDate = ""
     var seat = ""
     var meal = ""
-    var frequentFlyer : [FrequentFlyer] = []
-    var filePath:String = ""
-    var imageSource = ""
+    var frequentFlyer: [FrequentFlyer] = []
+    var filePath: String = ""
+//    var imageSource = ""
     
     func isValidateData(vc: UIViewController) -> Bool {
-        
         if self.salutation == LocalizedString.Title.rawValue {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
             return false
@@ -58,14 +57,29 @@ class EditProfileVM {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
             return false
         } else if self.email.isEmpty {
-
             AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
             return false
-
-        } else if self.email.count > 0 {
             
+        } else if self.email.count > 0 {
+            for (index, _) in self.email.enumerated() {
+                if index > 0 {
+                    if self.email[index - 1].value == self.email[index].value {
+                        AppToast.default.showToastMessage(message: "All email should be unique", vc: vc)
+                        return false
+                    }
+                }
+            }
+        } else if self.mobile.count > 0 {
+            for (index, _) in self.mobile.enumerated() {
+                if index > 0 {
+                    if self.mobile[index - 1].value == self.mobile[index].value {
+                        AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
+                        return false
+                    }
+                }
+            }
+            return true
         }
-        
         return true
     }
     
@@ -124,7 +138,6 @@ class EditProfileVM {
     }
     
     func webserviceForSaveProfile() {
-        
         var params = JSONDictionary()
         
         params[APIKeys.salutation.rawValue] = salutation
@@ -137,35 +150,34 @@ class EditProfileVM {
         params[APIKeys.passportCountry.rawValue] = passportCountry
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
-     
+        
         params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
         
-        
-        var emailDictArr = [String:Any]()
+        var emailDictArr = [String: Any]()
         for (idx, emailObj) in self.email.enumerated() {
             emailDictArr["\(idx)"] = emailObj.jsonDict
         }
         
-        var mobileDictArr = [String:Any]()
+        var mobileDictArr = [String: Any]()
         for (idx, mobileObj) in self.mobile.enumerated() {
             mobileDictArr["\(idx)"] = mobileObj.jsonDict
         }
         
-        var socialDictArr = [String:Any]()
+        var socialDictArr = [String: Any]()
         for (idx, socialObj) in self.social.enumerated() {
             socialDictArr["\(idx)"] = socialObj.jsonDict
         }
         
-        var addressDictArr = [String:Any]()
+        var addressDictArr = [String: Any]()
         for (idx, addressObj) in self.addresses.enumerated() {
             addressDictArr["\(idx)"] = addressObj.jsonDict
         }
         
-        var frequentFlyerDictArr = [String:Any]()
-        for (idx,frequentFlyerObj) in self.frequentFlyer.enumerated(){
+        var frequentFlyerDictArr = [String: Any]()
+        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
             frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
         }
-    
+        
 //        let emailDictArr = self.email.map { (emailObj) -> [String: Any] in
 //            emailObj.jsonDict
 //        }
@@ -185,12 +197,10 @@ class EditProfileVM {
         params[APIKeys.seatPreference.rawValue] = seat
         params[APIKeys.mealPreference.rawValue] = meal
         
-        if profilePicture.contains("https://") {
-           params[APIKeys.profileImage.rawValue] = profilePicture
+        if self.profilePicture.contains("https://") {
+            params[APIKeys.profileImage.rawValue] = self.profilePicture
         }
-        params[APIKeys.imageSource.rawValue] = imageSource
-        
-        
+        //  params[APIKeys.imageSource.rawValue] = imageSource
         
 //        do {
 //            let jsonData = try JSONSerialization.data(withJSONObject: contact, options: .prettyPrinted)
@@ -209,8 +219,8 @@ class EditProfileVM {
 //        }
 //
         
-     self.delegate?.willApiCall()
-        APICaller.shared.callSaveProfileAPI(params: params,filePath: filePath, loader: true, completionBlock: { success, errors in
+        self.delegate?.willApiCall()
+        APICaller.shared.callSaveProfileAPI(params: params, filePath: self.filePath, loader: true, completionBlock: { success, errors in
             
             if success {
                 self.delegate?.getSuccess()

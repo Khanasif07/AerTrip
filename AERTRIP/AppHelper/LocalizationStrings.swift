@@ -226,5 +226,21 @@ enum LocalizedString: String {
     case star = "star"
     case searchForHotelsToAdd = "searchForHotelsToAdd"
     case searchHotelName = "searchHotelName"
+    
+    // MARK: - Traveller List VC
+   case Select = "Select"
+   case Preferences = "Preferences"
+   case Import = "Import"
+    
+    // MARK: - PreferencesVC
+    case SortOrder = "SORT ORDER"
+    case DisplayOrder = "DISPLAY ORDER"
+    case Groups = "GROUPS"
+    case FirstLast = "First, Last"
+    case LastFirst = "Last, First"
+    case AddNewGroup = "Add New Group"
+    case EnterAGroupName = "Enter a Group Name"
+    case EnterGroupName = "Enter Group Name"
+    
 }
 
