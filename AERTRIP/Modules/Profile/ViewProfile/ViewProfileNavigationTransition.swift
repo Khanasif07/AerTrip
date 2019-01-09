@@ -81,7 +81,7 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             profileView.backgroundImageView.isHidden = false
             profileView.gradientView.isHidden = false
             profileView.dividerView.isHidden = false
-            UIView.animate(withDuration: 0.6, animations: { [weak self] in
+            UIView.animate(withDuration: duration, animations: { [weak self] in
                 self?.snapshot.frame = snapFrame
                 toVC.view.frame = viewFrame
                 profileView.frame = profileFrame
@@ -124,22 +124,24 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             let profileFrame = CGRect(x: sideMenu.sideMenuTableView.x, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
             
             fromVC.tableView.parallaxHeader.view = nil
-            profileView.frame.origin = CGPoint(x: 0.0, y: 50.0)
+//            profileView.frame
+            AppFlowManager.default.mainNavigationController.view.backgroundColor = AppColors.themeRed.withAlphaComponent(0.3)
             AppFlowManager.default.mainNavigationController.view.addSubview(profileView)
-            UIView.animate(withDuration: 0.3, animations: {
+            let viewTrans = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            UIView.animate(withDuration: duration, animations: {
                 fromVC.view.frame = snapFrame
                 toVC.view.frame = viewFrame
                 profileView.frame = profileFrame
-                profileView.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//                profileView.profileContainerView.transform = viewTrans
                 profileView.emailIdLabel.alpha = 0.0
                 profileView.mobileNumberLabel.alpha = 0.0
                 profileView.backgroundImageView.alpha = 0.0
                 profileView.gradientView.alpha = 0.0
                 profileView.dividerView.alpha = 0.0
-                profileView.layoutSubviews()
                 
             }) { (isCompleted) in
                 if isCompleted {
+                    profileView.profileContainerView.transform = viewTrans
                     profileView.frame = profileFrame
                     profileView.emailIdLabel.isHidden = true
                     profileView.mobileNumberLabel.isHidden = true

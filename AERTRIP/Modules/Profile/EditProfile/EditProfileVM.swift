@@ -47,40 +47,42 @@ class EditProfileVM {
     var imageSource = ""
     
     func isValidateData(vc: UIViewController) -> Bool {
+        var flag = true
+       
         if self.salutation == LocalizedString.Title.rawValue {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
-            return false
+            flag = false
         } else if self.firstName.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized, vc: vc)
-            return false
+            flag = false
         } else if self.lastName.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
-            return false
+            flag = false
         } else if self.email.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
-            return false
+            flag = false
             
-        } else if self.email.count > 0 {
+        } else if !self.email.isEmpty {
             for (index, _) in self.email.enumerated() {
                 if index > 0 {
                     if self.email[index - 1].value == self.email[index].value {
                         AppToast.default.showToastMessage(message: "All email should be unique", vc: vc)
-                        return false
+                        flag = false
                     }
                 }
             }
-        } else if self.mobile.count > 0 {
+        } else if !self.mobile.isEmpty {
             for (index, _) in self.mobile.enumerated() {
                 if index > 0 {
                     if self.mobile[index - 1].value == self.mobile[index].value {
                         AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
-                        return false
+                        flag = false
                     }
                 }
             }
-            return true
         }
-        return true
+        
+        return flag
     }
     
     func webserviceForGetDropDownkeys() {

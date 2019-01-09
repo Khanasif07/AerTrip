@@ -62,12 +62,12 @@ extension HotelsListVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView?.isHidden = !self.viewModel.hotels.isEmpty
-        return self.viewModel.hotels.count + 1
+        return self.viewModel.hotels.count + 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item == self.viewModel.hotels.count {
+        if indexPath.item >= self.viewModel.hotels.count {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelsRemoveAllCollectionViewCell", for: indexPath) as? HotelsRemoveAllCollectionViewCell else {
                 fatalError("HotelCardCollectionViewCell not found")
             }
@@ -75,6 +75,8 @@ extension HotelsListVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
             cell.titleLabel.text = "Remove all from \(self.viewModel.forCity?.cityName ?? "this city")"
             cell.titleLabel.textColor = AppColors.themeRed
             cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
+            cell.contentView.isHidden = indexPath.item >= (self.viewModel.hotels.count+1)
+            
             return cell
         }
         else {
@@ -89,8 +91,9 @@ extension HotelsListVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.item == self.viewModel.hotels.count {
-            return CGSize(width: UIScreen.main.bounds.width - 16, height: 55.0)
+        if indexPath.item >= self.viewModel.hotels.count {
+            let height = indexPath.item >= (self.viewModel.hotels.count+1) ? 65.0 : 55.0
+            return CGSize(width: UIScreen.main.bounds.width - 16, height: CGFloat(height))
         }
         else {
             return CGSize(width: UIScreen.main.bounds.width - 16, height: UIDevice.screenHeight * 0.3)
