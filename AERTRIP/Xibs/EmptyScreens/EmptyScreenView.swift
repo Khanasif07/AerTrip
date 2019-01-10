@@ -59,7 +59,7 @@ class EmptyScreenView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        self.setupView()
     }
     
     private func commonInit(){
@@ -78,7 +78,10 @@ extension EmptyScreenView {
     
     /// - Initial Setup -
     private func initialSetup() {
-        
+        self.setupView()
+    }
+    
+    private func setupView() {
         switch self.vType {
         case .hotelPreferences:
             self.setupForHotelPreferences()
@@ -91,12 +94,10 @@ extension EmptyScreenView {
             
         case .importGoogleContacts:
             self.setupForImportGoogleContacts()
-        
+            
         case .none:
             self.setupForNone()
         }
-        
-        self.layoutIfNeeded()
     }
 
     //MARK: - Tenant My Apartments -
@@ -118,17 +119,14 @@ extension EmptyScreenView {
     
     private func setupForImportPhoneContacts() {
         self.firstButton.isHidden = false
-        self.firstButton.backgroundColor = AppColors.themeGreen
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.firstButton.setImage(nil, for: .normal)
         self.firstButton.setImage(nil, for: .selected)
-        self.firstButton.cornerRadius = self.firstButton.height/2.0
-//        self.firstButton.layer.masksToBounds = true
-        self.firstButton.addCardShadow()
-        
+        self.firstButton.addShadow(cornerRadius: self.firstButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeGreen)
+
         self.mainImageView.image = #imageLiteral(resourceName: "contactsEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -137,17 +135,14 @@ extension EmptyScreenView {
     
     private func setupForImportFacebookContacts() {
         self.firstButton.isHidden = false
-        self.firstButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.firstButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .selected)
-        self.firstButton.cornerRadius = self.firstButton.height/2.0
-//        self.firstButton.layer.masksToBounds = true
-        self.firstButton.addCardShadow()
-        
+        self.firstButton.addShadow(cornerRadius: self.firstButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.fbButtonBackgroundColor)
+
         self.mainImageView.image = #imageLiteral(resourceName: "facebookEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -156,16 +151,13 @@ extension EmptyScreenView {
     
     private func setupForImportGoogleContacts() {
         self.firstButton.isHidden = false
-        self.firstButton.backgroundColor = AppColors.themeWhite
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .selected)
         self.firstButton.setImage(#imageLiteral(resourceName: "google"), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "google"), for: .selected)
-        self.firstButton.cornerRadius = self.firstButton.height/2.0
-//        self.firstButton.layer.masksToBounds = true
-        self.firstButton.addCardShadow()
+        self.firstButton.addShadow(cornerRadius: self.firstButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite)
         
         self.mainImageView.image = #imageLiteral(resourceName: "googleEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)

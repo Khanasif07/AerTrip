@@ -756,6 +756,7 @@ extension EditProfileVC: SearchVCDelegate {
             let strToReplaced = " (\(flyer.iata))"
             let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")
             cell.cofigureCell(indexPath, true, "", "", flyer.logoUrl, replacedString, flyer.value)
+            frequentFlyer.append(FrequentFlyer(json: [:]))
             frequentFlyer[indexPath.row - 2].logoUrl = flyer.logoUrl
             frequentFlyer[indexPath.row - 2].airlineName = replacedString
             frequentFlyer[indexPath.row - 2].airlineCode = flyer.iata
