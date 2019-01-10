@@ -113,7 +113,7 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     func updateFavouriteSuccess() {
         self.viewModel.hotels.remove(at: self.currentIndex)
         self.viewDidLoad()
-        self.sendDataChangedNotification(data: nil)
+        self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteFail() {

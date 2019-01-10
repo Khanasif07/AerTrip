@@ -138,5 +138,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSContactsUsageDescription</key>
+	<string>This app will need the access to your contacts.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app will need the access to your camera.</string>
 </dict>
 </plist>

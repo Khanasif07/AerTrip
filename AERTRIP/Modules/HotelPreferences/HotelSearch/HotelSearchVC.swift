@@ -123,7 +123,7 @@ extension HotelSearchVC: HotelSearchVMDelegate {
         AppNetworking.hideLoader()
         AppToast.default.showToastMessage(message: withMessage, vc: self)
         self.collectionView.reloadData()
-        self.sendDataChangedNotification(data: nil)
+        self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteFail() {

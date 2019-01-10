@@ -22,6 +22,7 @@ enum LocalizedString: String {
     case error = "error"
     case na = "na"
     case noData = "noData"
+    case search = "search"
     
     // MARK:- TextField validation
     //MARK:-
@@ -164,15 +165,14 @@ enum LocalizedString: String {
     case Logout = "Logout"
     
     //MARK: - View Profile
-    
     case Edit = "Edit"
-    case TravellerList = "Travellers List"
-    case HotelPreferences = "Hotel Preferences"
+    case TravellerList = "TravellerList"
+    case HotelPreferences = "HotelPreferences"
     case QuickPay = "QuickPay"
-    case LinkedAccounts = "Linked Accounts"
+    case LinkedAccounts = "LinkedAccounts"
     case NewsLetters = "Newsletters"
     case Notifications  = "Notifications"
-    case LogOut = "Log Out"
+    case LogOut = "LogOut"
     
     // MARK: - ViewProfileDetailVC
     

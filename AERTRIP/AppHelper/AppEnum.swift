@@ -13,7 +13,6 @@ extension Notification.Name {
     static let logOut = Notification.Name("logOut")
     static let dataChanged = Notification.Name("dataChanged")
     static let sessionExpired = Notification.Name("sessionExpired")
-    
 }
 
 //MARK:- Applicaion Response Code From Server

@@ -189,7 +189,7 @@ class DashboardVC: UIViewController {
         self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.8, animations: {
             self.overlayView.transform = tScale.concatenating(tTrans)
         }) { (isDone) in
             if isDone {

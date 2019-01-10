@@ -155,9 +155,9 @@ extension SideMenuVC {
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
-        self.profileContainerView.removeFromSuperview()
-        self.profileContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
-        AppFlowManager.default.mainNavigationController.view.addSubview(self.profileContainerView)
+//        self.profileContainerView.removeFromSuperview()
+//        self.profileContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+//        AppFlowManager.default.mainNavigationController.view.addSubview(self.profileContainerView)
         AppFlowManager.default.moveToViewProfileVC()
     }
 }

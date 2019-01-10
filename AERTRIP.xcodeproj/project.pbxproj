@@ -154,10 +154,10 @@
 		8452D37921E61FB700927287 /* ImportContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37821E61FB700927287 /* ImportContactVC.swift */; };
 		8452D37B21E61FC600927287 /* ContactListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37A21E61FC600927287 /* ContactListVC.swift */; };
 		8452D37D21E61FDD00927287 /* ImportContactVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37C21E61FDD00927287 /* ImportContactVM.swift */; };
-		8452D37F21E61FEC00927287 /* ContactListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37E21E61FEC00927287 /* ContactListVM.swift */; };
 		8452D38221E64A0D00927287 /* SelectedContactCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */; };
 		8452D38421E64A3000927287 /* ContactDetailsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */; };
 		846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */; };
+		846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFECE21E75C4A00AF6062 /* ATContact.swift */; };
 		848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848B993321DF6558009A4772 /* EmptyScreenView.xib */; };
 		848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B993421DF6558009A4772 /* EmptyScreenView.swift */; };
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
@@ -392,11 +392,11 @@
 		8452D37821E61FB700927287 /* ImportContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactVC.swift; sourceTree = "<group>"; };
 		8452D37A21E61FC600927287 /* ContactListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListVC.swift; sourceTree = "<group>"; };
 		8452D37C21E61FDD00927287 /* ImportContactVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactVM.swift; sourceTree = "<group>"; };
-		8452D37E21E61FEC00927287 /* ContactListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListVM.swift; sourceTree = "<group>"; };
 		8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedContactCollectionCell.swift; sourceTree = "<group>"; };
 		8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableCell.swift; sourceTree = "<group>"; };
 		846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginNavigationTransition.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		846CFECE21E75C4A00AF6062 /* ATContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATContact.swift; sourceTree = "<group>"; };
 		848B993321DF6558009A4772 /* EmptyScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyScreenView.xib; sourceTree = "<group>"; };
 		848B993421DF6558009A4772 /* EmptyScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyScreenView.swift; sourceTree = "<group>"; };
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -891,7 +891,6 @@
 				8452D37821E61FB700927287 /* ImportContactVC.swift */,
 				8452D37C21E61FDD00927287 /* ImportContactVM.swift */,
 				8452D37A21E61FC600927287 /* ContactListVC.swift */,
-				8452D37E21E61FEC00927287 /* ContactListVM.swift */,
 			);
 			path = ImportContact;
 			sourceTree = "<group>";
@@ -1131,6 +1130,7 @@
 				1804889721CA8B9000437C81 /* TravelDetailModel.swift */,
 				18930A2321D34B60005442C8 /* FlyerModel.swift */,
 				181025A121E339B10046EED7 /* TravellerModel.swift */,
+				846CFECE21E75C4A00AF6062 /* ATContact.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1578,7 +1578,6 @@
 				8429C91921BF9E96009C208E /* HotelsVC.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
-				8452D37F21E61FEC00927287 /* ContactListVM.swift in Sources */,
 				183E3F7021DA490A0032DEBA /* AddFavouriteHotels.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				84E4CC7021E36BBA0015C306 /* HotelsListVM.swift in Sources */,
@@ -1615,6 +1614,7 @@
 				8452D37521E619CF00927287 /* TravellerData+CoreDataProperties.swift in Sources */,
 				18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
+				846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */,
 				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,

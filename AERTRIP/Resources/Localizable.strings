@@ -12,6 +12,7 @@
 "error" = "Error";
 "na" = "N/A";
 "noData" = "Sorry! You are lonely here.";
+"search" = "Search";
 
 // MARK:- TextField validation
 //MARK:-
@@ -171,3 +172,14 @@
 "AllowContacts" = "Allow Contacts";
 "ConnectWithGoogle" = "Connect with Google";
 "ConnectWithFB" = "Connect with Facebook";
+
+
+//MARK: - View Profile
+"Edit" = "Edit";
+"TravellerList" = "Travellers List";
+"HotelPreferences" = "Favourite Hotels";
+"QuickPay" = "QuickPay";
+"LinkedAccounts" = "Linked Accounts";
+"NewsLetters" = "Newsletters";
+"Notifications"  = "Notifications";
+"LogOut" = "Log Out";

@@ -42,7 +42,11 @@ class HotelPreferencesVC:  BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if note.object == nil {
+        if let _ = note.object as? ViewAllHotelsVC {
+            self.viewModel.webserviceForGetHotelPreferenceList()
+            shouldBroadCastNewData = true
+        }
+        else if let _ = note.object as? HotelsListVC {
             self.viewModel.webserviceForGetHotelPreferenceList()
             shouldBroadCastNewData = true
         }
