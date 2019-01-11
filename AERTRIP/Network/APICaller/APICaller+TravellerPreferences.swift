@@ -13,11 +13,9 @@ extension APICaller {
         AppNetworking.POST(endPoint: APIEndPoint.saveGeneralPreferences, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             
-            sSelf.handleResponse(json, success: { success, jsonData in
+            sSelf.handleResponse(json, success: { _, jsonData in
                 if let data = jsonData[APIKeys.data.rawValue].dictionaryObject {
-                    UserInfo.loggedInUser?.updateInfo(withData: ["genera_pref": AppGlobals.shared.json(from: data) as Any])
-            
-                  
+                    UserInfo.loggedInUser?.updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: data) as! String])
                 }
                 completionBlock(true, [])
                 

@@ -22,6 +22,7 @@ enum LocalizedString: String {
     case error = "error"
     case na = "na"
     case noData = "noData"
+    case noResults = "No Results"
     
     // MARK:- TextField validation
     //MARK:-
@@ -212,7 +213,15 @@ enum LocalizedString: String {
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
     case AddAddress = "Add Address"
+    case PassportIssueDateIsIncorrect = "Passport issue date is incorrect"
+    case PassportExpiryDateIsIncorrect = "Passport expiry date is incorrect"
+    case DateOfBirthIsIncorrect = "Date of birth is incorrect"
+    case DateOfAnniversaryIsIncorrect = "Date of Anniversary is incorrect"
+    case Group = "Group"
+    case SelectMealPreference = "SelectMealPreference"
+    case SelectSeatPreference = "SelectSeatPreference"
     
+
     // Mark: - Salutation
     case Mrs = "Mrs"
     case Ms = "Ms"
@@ -242,6 +251,8 @@ enum LocalizedString: String {
     case AddNewGroup = "Add New Group"
     case EnterAGroupName = "Enter a Group Name"
     case EnterGroupName = "Enter Group Name"
+    case PreferencesSavedSuccessfully
+    
     
 }
 

@@ -58,6 +58,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
             leftView.isUserInteractionEnabled = true
             leftView.tag = indexPath.row
             leftView.addGestureRecognizer(gesture)
+            deleteButton.isHidden = false
         }
     }
     

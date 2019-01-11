@@ -30,6 +30,14 @@ class SearchVC: BaseVC {
     let viewModel = SearchVM()
     weak var delgate: SearchVCDelegate?
     
+    //MARK:- Private
+    private lazy var emptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .frequentFlyer
+        return newEmptyView
+    }()
+    
+    
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -66,12 +74,13 @@ class SearchVC: BaseVC {
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
         headerTitleLabel.text = LocalizedString.FrequentFlyer.localized
         searchData = defaultAirlines
+        tableView.separatorStyle = .none
+        tableView.backgroundView = emptyView
         tableView.reloadData()
     }
     
     func registerXib() {
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
-        tableView.separatorStyle = .none
     }
     
     private func searchForText(_ searchText: String) {
@@ -98,6 +107,7 @@ class SearchVC: BaseVC {
 
 extension SearchVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.backgroundView?.isHidden = !self.searchData.isEmpty
         return searchData.count
     }
     

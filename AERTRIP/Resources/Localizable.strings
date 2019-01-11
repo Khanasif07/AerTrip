@@ -158,3 +158,16 @@
 "searchForHotelsToAdd" = "Search for hotels to add";
 "searchHotelName" = "Search hotel name";
 
+
+//MARK:- PreferencesVC
+//MARK:-
+
+"PreferencesSavedSuccessfully" = "Preferences saved succesfully";
+
+
+//MARK:- Edit profile VC
+//MARK:-
+
+"Group" = "Group";
+"SelectMealPreference" = "Select meal preference";
+"SelectSeatPreference" = "Select seat preference";

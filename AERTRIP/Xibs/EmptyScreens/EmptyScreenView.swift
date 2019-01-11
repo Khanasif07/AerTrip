@@ -16,6 +16,7 @@ class EmptyScreenView: UIView {
     enum EmptyScreenViewType {
         case hotelPreferences
         case none
+        case frequentFlyer
     }
 
     //MARK:- properties -
@@ -31,6 +32,8 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var containerViewCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageLabelTopConstraint: NSLayoutConstraint!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -79,7 +82,12 @@ extension EmptyScreenView {
         
         case .none:
             self.setupForNone()
+         case .frequentFlyer:
+            self.setUpForFrequentFlyer()
         }
+        
+       
+        
         
         self.layoutIfNeeded()
     }
@@ -97,6 +105,17 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
         self.messageLabel.attributedText = self.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "saveHotels"), endText: " to add a hotel to favorite list")//"Tap   to add a hotel to favorite list"
+    }
+    
+    
+    private func setUpForFrequentFlyer(){
+       self.containerViewCenterYConstraint.constant = -125
+        self.messageLabelTopConstraint.constant = 33
+        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.noResults.localized
+        
     }
     
     private func getTextWithImage(startText: String, image: UIImage, endText: String) -> NSMutableAttributedString {

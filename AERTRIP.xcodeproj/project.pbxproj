@@ -122,6 +122,8 @@
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */; };
 		18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */; };
+		18B8C01C21E61D9300A06422 /* TravellerData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8C01B21E61D9300A06422 /* TravellerData+CoreDataClass.swift */; };
+		18B8C01E21E61D9C00A06422 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8C01D21E61D9C00A06422 /* TravellerData+CoreDataProperties.swift */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
 		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */; };
@@ -149,8 +151,6 @@
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
 		844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */; };
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
-		8452D37521E619CF00927287 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37321E619CE00927287 /* TravellerData+CoreDataProperties.swift */; };
-		8452D37621E619CF00927287 /* TravellerData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37421E619CF00927287 /* TravellerData+CoreDataClass.swift */; };
 		846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */; };
 		848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848B993321DF6558009A4772 /* EmptyScreenView.xib */; };
 		848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B993421DF6558009A4772 /* EmptyScreenView.swift */; };
@@ -352,6 +352,8 @@
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextEditTableViewCell.swift; sourceTree = "<group>"; };
 		18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTextEditTableViewCell.xib; sourceTree = "<group>"; };
+		18B8C01B21E61D9300A06422 /* TravellerData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TravellerData+CoreDataClass.swift"; path = "../../../../Downloads/Archive/TravellerData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18B8C01D21E61D9C00A06422 /* TravellerData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TravellerData+CoreDataProperties.swift"; path = "../../../../Downloads/Archive/TravellerData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
 		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18DF45D221BFB48800ADD4DD /* ShowToastMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToastMessageVC.swift; sourceTree = "<group>"; };
@@ -381,8 +383,6 @@
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
 		844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		8452D37321E619CE00927287 /* TravellerData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TravellerData+CoreDataProperties.swift"; path = "/Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Models/TravellerData+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		8452D37421E619CF00927287 /* TravellerData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TravellerData+CoreDataClass.swift"; path = "/Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Models/TravellerData+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginNavigationTransition.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848B993321DF6558009A4772 /* EmptyScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyScreenView.xib; sourceTree = "<group>"; };
@@ -1087,8 +1087,8 @@
 		84F9837921B51A070018DFED /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8452D37421E619CF00927287 /* TravellerData+CoreDataClass.swift */,
-				8452D37321E619CE00927287 /* TravellerData+CoreDataProperties.swift */,
+				18B8C01B21E61D9300A06422 /* TravellerData+CoreDataClass.swift */,
+				18B8C01D21E61D9C00A06422 /* TravellerData+CoreDataProperties.swift */,
 				840062A121DB9DA6000BD3BF /* SocialUserModel.swift */,
 				84F983FA21B545050018DFED /* UserInfo.swift */,
 				1851A75221C39355008DF03F /* AccountModel.swift */,
@@ -1546,7 +1546,6 @@
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				8410422021DE3468002B4C1F /* HotelSearchVC.swift in Sources */,
 				188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */,
-				8452D37621E619CF00927287 /* TravellerData+CoreDataClass.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
 				18930A2421D34B60005442C8 /* FlyerModel.swift in Sources */,
@@ -1565,6 +1564,7 @@
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				18A96B8E21B645CD00EA9B3A /* SocialLoginVC.swift in Sources */,
+				18B8C01E21E61D9C00A06422 /* TravellerData+CoreDataProperties.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
@@ -1572,7 +1572,6 @@
 				1804889821CA8B9000437C81 /* TravelDetailModel.swift in Sources */,
 				180A3D7621C0DB5C001A1E6A /* GuestSideMenuHeaderCell.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
-				8452D37521E619CF00927287 /* TravellerData+CoreDataProperties.swift in Sources */,
 				18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
@@ -1631,6 +1630,7 @@
 				18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,
+				18B8C01C21E61D9300A06422 /* TravellerData+CoreDataClass.swift in Sources */,
 				84F983FB21B545060018DFED /* UserInfo.swift in Sources */,
 				84F983CB21B51A070018DFED /* LocationManager.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,

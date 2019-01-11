@@ -45,10 +45,26 @@ class EditProfileVM {
     var frequentFlyer: [FrequentFlyer] = []
     var filePath: String = ""
     var imageSource = ""
+    var label = "me"
+    var defaultAirlines: [FlyerModel] = []
+    
+    // drop down keys
+    var emailTypes: [String] = []
+    var mobileTypes: [String] = []
+    var addressTypes: [String] = []
+    var salutationTypes: [String] = []
+    var socialTypes: [String] = []
+    
+    // preferences
+    var seatPreferences = [String: String]()
+    var mealPreferences = [String: String]()
+    
+    var countries = [String: String]()
+    var isFromTravellerList: Bool = false
     
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
-       
+        
         if self.salutation == LocalizedString.Title.rawValue {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
             flag = false
@@ -58,9 +74,36 @@ class EditProfileVM {
         } else if self.lastName.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
             flag = false
-        } else if self.email.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
-            flag = false
+        } else if !self.passportIssueDate.isEmpty || !self.passportExpiryDate.isEmpty {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let date = Date()
+            if let currentDate = formatter.date(from: formatter.string(from: date)), let passportIssueDate = formatter.date(from: self.passportIssueDate), let passportExpiryDate = formatter.date(from: self.passportExpiryDate) {
+                if passportIssueDate.compare(currentDate) == .orderedDescending {
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized, vc: vc)
+                    flag = false
+                } else if passportExpiryDate.compare(currentDate) == .orderedAscending {
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportExpiryDateIsIncorrect.localized, vc: vc)
+                    flag = false
+                } else if passportIssueDate.compare(passportExpiryDate) == .orderedDescending {
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized, vc: vc)
+                    flag = false
+                }
+            }
+            
+        } else if !self.dob.isEmpty || !self.doa.isEmpty {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let date = Date()
+            if let currentDate = formatter.date(from: formatter.string(from: date)), let dateOfBirth = formatter.date(from: self.dob), let dateOfAnniversary = formatter.date(from: self.doa) {
+                if dateOfBirth.compare(currentDate) == .orderedDescending {
+                    AppToast.default.showToastMessage(message: LocalizedString.DateOfBirthIsIncorrect.localized, vc: vc)
+                    flag = false
+                } else if dateOfAnniversary.compare(currentDate) == .orderedDescending {
+                    AppToast.default.showToastMessage(message: LocalizedString.DateOfAnniversaryIsIncorrect.localized, vc: vc)
+                    flag = false
+                }
+            }
             
         } else if !self.email.isEmpty {
             for (index, _) in self.email.enumerated() {
@@ -71,8 +114,7 @@ class EditProfileVM {
                     }
                 }
             }
-        }
-        if !self.mobile.isEmpty {
+        } else if !self.mobile.isEmpty {
             var isValid = true
             for (index, _) in self.mobile.enumerated() {
                 isValid = self.mobile[index].isValide
@@ -148,12 +190,18 @@ class EditProfileVM {
     }
     
     func webserviceForSaveProfile() {
-        
         var params = JSONDictionary()
         
         // remove default email and mobile
-        email.removeFirst()
-        mobile.removeFirst()
+        if let email = email.first,email.label == "Default" {
+            self.email.removeFirst()
+        }
+        if let mobile = mobile.first,mobile.label == "Default" {
+            self.mobile.removeFirst()
+        }
+        
+        
+            
         
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName
@@ -165,33 +213,39 @@ class EditProfileVM {
         params[APIKeys.passportCountry.rawValue] = passportCountry
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
+        params[APIKeys.label.rawValue] = self.label
         
-        var emailDictArr = [String:Any]()
+        var emailDictArr = [String: Any]()
         for (idx, emailObj) in self.email.enumerated() {
             emailDictArr["\(idx)"] = emailObj.jsonDict
         }
         
-        var mobileDictArr = [String:Any]()
+        var mobileDictArr = [String: Any]()
         for (idx, mobileObj) in self.mobile.enumerated() {
             mobileDictArr["\(idx)"] = mobileObj.jsonDict
         }
         
-        var socialDictArr = [String:Any]()
+        var socialDictArr = [String: Any]()
         for (idx, socialObj) in self.social.enumerated() {
             socialDictArr["\(idx)"] = socialObj.jsonDict
         }
         
-        var addressDictArr = [String:Any]()
+        var addressDictArr = [String: Any]()
         for (idx, addressObj) in self.addresses.enumerated() {
             addressDictArr["\(idx)"] = addressObj.jsonDict
         }
         
-        var frequentFlyerDictArr = [String:Any]()
-        for (idx,frequentFlyerObj) in self.frequentFlyer.enumerated(){
+        var frequentFlyerDictArr = [String: Any]()
+        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
             frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
         }
         
-        params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
+        if isFromTravellerList {
+             params[APIKeys.id.rawValue] = 0
+        } else {
+             params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
+        }
+       
         
         let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
         params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
@@ -208,7 +262,7 @@ class EditProfileVM {
         params[APIKeys.imageSource.rawValue] = imageSource
         
         self.delegate?.willApiCall()
-        APICaller.shared.callSaveProfileAPI(params: params, filePath: filePath, loader: true, completionBlock: { success, errors in
+        APICaller.shared.callSaveProfileAPI(params: params, filePath: self.filePath, loader: true, completionBlock: { success, errors in
             
             if success {
                 self.delegate?.getSuccess()

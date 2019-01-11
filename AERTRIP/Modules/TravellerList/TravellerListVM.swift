@@ -14,22 +14,26 @@ import CoreData
 protocol TravellerListVMDelegate: class {
     func willSearchForTraveller()
     func searchTravellerSuccess()
-    func searchTravellerFail()
+    func searchTravellerFail(errors:ErrorCodes)
 }
 
 class TravellerListVM: NSObject {
     weak var delegate: TravellerListVMDelegate?
     var travellersDict: [String: Any] = [:]
     
-    var traveller:[NSManagedObject] = []
+    //var traveller:[NSManagedObject] = []
+    var travelData : [TravellerData] = []
     
     
-    struct Objects {
-        var sectionName: String!
-        var sectionObjects: [String]!
-    }
     
-    var objectArray = [Objects]()
+    
+    
+//    struct Objects {
+//        var sectionName: String!
+//        var sectionObjects: [String]!
+//    }
+//    
+//    var objectArray = [Objects]()
     
     func searchTraveller(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -38,17 +42,29 @@ class TravellerListVM: NSObject {
     
     @objc func filterDictArrSearch(_ forText: String) {
         print(forText)
-    }
+        self.travelData.removeAll()
+        if let travelsData = TravellerData.fetch(id: forText) {
+            self.travelData = travelsData
+        }
+        
+         self.delegate?.searchTravellerSuccess()
+        
+        printDebug(self.travelData)
+            }
     
     func callSearchTravellerListAPI() {
         delegate?.willSearchForTraveller()
-        APICaller.shared.callTravellerListAPI { isSuccess, _, travellers in
+        APICaller.shared.callTravellerListAPI { [weak self] isSuccess,errorCodes, travellers in
             if isSuccess {
-                self.travellersDict = travellers
-                self.delegate?.searchTravellerSuccess()
+                //self?.travellersDict = travellers
+                for traveller in travellers {
+                    TravellerData.insert(dataDict: traveller.jsonDict)
+                }
+                self?.delegate?.searchTravellerSuccess()
+               
             }
             else {
-                self.delegate?.searchTravellerFail()
+                self?.delegate?.searchTravellerFail(errors: errorCodes)
             }
         }
     }

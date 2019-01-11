@@ -83,6 +83,7 @@ enum APIKeys: String {
     case mealPreference = "meal_pref"
     case profileImage = "profile_image"
     case imageSource = "image_source"
+    case generalPref = "general_pref"
 }
 
 
