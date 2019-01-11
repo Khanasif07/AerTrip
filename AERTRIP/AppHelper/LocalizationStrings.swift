@@ -255,5 +255,6 @@ enum LocalizedString: String {
     case AllowContacts = "AllowContacts";
     case ConnectWithGoogle = "ConnectWithGoogle";
     case ConnectWithFB = "ConnectWithFB";
+    case ContactsSelected = "ContactsSelected";
 }
 

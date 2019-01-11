@@ -32,7 +32,7 @@ class FacebookController {
             
         }
         
-        let permissions = ["email", "public_profile" ]
+        let permissions = ["email", "public_profile", "user_friends"]
         
         let login = FBSDKLoginManager()
         login.loginBehavior = FBSDKLoginBehavior.native

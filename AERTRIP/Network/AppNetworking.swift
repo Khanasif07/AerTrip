@@ -274,6 +274,7 @@ enum AppNetworking {
         }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
+//        let url = try! URLRequest(url: "https://encryptorapp.000webhostapp.com/test.php", method: httpMethod, headers: header)
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             

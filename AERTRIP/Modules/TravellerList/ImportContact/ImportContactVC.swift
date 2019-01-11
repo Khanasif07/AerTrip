@@ -29,7 +29,11 @@ class ImportContactVC: BaseVC {
     private(set) var viewModel = ImportContactVM.shared
     private var viewPager:PKViewPagerController!
     private var options:PKViewPagerOptions!
-    private var currentIndex: Int = 0
+    private var currentIndex: Int = 0 {
+        didSet {
+            self.updateNavTitle()
+        }
+    }
     private let allTabs: [PKViewPagerTab] = [PKViewPagerTab(title: LocalizedString.Contacts.localized, image: nil), PKViewPagerTab(title: LocalizedString.Facebook.localized, image: nil), PKViewPagerTab(title: LocalizedString.Google.localized, image: nil)]
     
     private var listVCs: [UIViewController] = []
@@ -56,7 +60,7 @@ class ImportContactVC: BaseVC {
         self.importButton.setTitle(LocalizedString.Import.localized, for: .normal)
         self.importButton.setTitle(LocalizedString.Import.localized, for: .selected)
         
-        self.navTitleLabel.text = "Select Contacts"
+        self.navTitleLabel.text = LocalizedString.AllowContacts.localized
     }
     
     override func setupColors() {
@@ -65,6 +69,7 @@ class ImportContactVC: BaseVC {
         
         self.importButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.importButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.importButton.setTitleColor(AppColors.themeGray40, for: .disabled)
         
         self.navTitleLabel.textColor = AppColors.themeBlack
     }
@@ -81,12 +86,29 @@ class ImportContactVC: BaseVC {
             else if obj == .selectionChanged {
                 self.selectionDidChanged()
             }
+            else if obj == .contactSavedFail {
+                self.contactSavedFail()
+            }
+            else if obj == .contactSavedSuccess {
+                self.contactSavedSuccess()
+            }
+            else if obj == .phoneContactSavedFail {
+                self.phoneContactSavedFail()
+            }
         }
+    }
+    
+    deinit {
+        printDebug("deinit")
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
+        self.viewModel.selectedPhoneContacts.removeAll()
+        self.viewModel.selectedFacebookContacts.removeAll()
+        self.viewModel.selectedGoogleContacts.removeAll()
         
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
@@ -103,8 +125,8 @@ class ImportContactVC: BaseVC {
         options.tabType = PKViewPagerTabType.basic
         options.tabViewImageSize = CGSize.zero
         options.tabViewTextFont = AppFonts.Regular.withSize(16.0)
-        options.tabViewPaddingLeft = 20
-        options.tabViewPaddingRight = 20
+        options.tabViewPaddingLeft = 5
+        options.tabViewPaddingRight = 5
         options.isTabHighlightAvailable = true
         options.tabViewBackgroundDefaultColor = AppColors.themeWhite
         options.tabViewBackgroundHighlightColor = AppColors.themeWhite
@@ -112,6 +134,7 @@ class ImportContactVC: BaseVC {
         options.tabViewTextHighlightColor = AppColors.themeBlack
         options.tabIndicatorViewHeight = 2.0
         options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
+        options.fitAllTabsInView = true
         
         viewPager = PKViewPagerController()
         viewPager.options = options
@@ -121,19 +144,45 @@ class ImportContactVC: BaseVC {
         self.addChild(viewPager)
         self.listContainerView.addSubview(viewPager.view)
         viewPager.didMove(toParent: self)
+        
+        self.updateNavTitle()
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         let listVC = self.listVCs[currentIndex] as? ContactListVC
-        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
-            self.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
-            listVC?.containerBottomConstraint.constant = isHidden ? 60.0 : 160.0
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: { [weak self] in
+            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            listVC?.containerBottomConstraint.constant = isHidden ? 10.0 : 110.0
+            self?.view.layoutIfNeeded()
             listVC?.view.layoutIfNeeded()
         }) { (isCompleted) in
-            if !isHidden {
-                self.selectedContactsCollectionView.reloadData()
+        }
+    }
+    
+    private func updateNavTitle() {
+        
+        if self.viewModel.totalContacts <= 0 {
+            self.importButton.isEnabled = false
+            switch self.currentIndex {
+            case 0:
+                //phone
+                self.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                
+            case 1:
+                //facebook
+                self.navTitleLabel.text = LocalizedString.ConnectWithFB.localized
+                
+            case 2:
+                //google
+                self.navTitleLabel.text = LocalizedString.ConnectWithGoogle.localized
+                
+            default:
+                self.navTitleLabel.text = LocalizedString.AllowContacts.localized
             }
+        }
+        else {
+            self.importButton.isEnabled = true
+            self.navTitleLabel.text = "\(self.viewModel.totalContacts) \(LocalizedString.ContactsSelected.localized)"
         }
     }
     
@@ -146,6 +195,7 @@ class ImportContactVC: BaseVC {
     }
     
     @IBAction func importButtonAction(_ sender: UIButton) {
+        self.viewModel.saveContacts()
     }
 }
 
@@ -190,15 +240,25 @@ extension ImportContactVC: PKViewPagerControllerDelegate {
 
 extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.count >= AppConstants.kSearchTextLimit {
-            self.viewModel.search(forText: searchText)
-//        }
+        self.viewModel.search(forText: searchText)
     }
 }
 
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
+    func contactSavedFail() {
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.", vc: self)
+    }
+    
+    func contactSavedSuccess() {
+        self.cancelButtonAction(self.cancelButton)
+    }
+    
+    func phoneContactSavedFail() {
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.", vc: self)
+    }
+    
     func willFetchPhoneContacts() {
         
     }
@@ -208,15 +268,20 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func selectionDidChanged() {
-        let final = (self.viewModel.selectedPhoneContacts.count + self.viewModel.selectedFacebookContacts.count + self.viewModel.selectedGoogleContacts.count)
-        self.selectedContactsSetHidden(isHidden: final <= 0, animated: true)
+        self.updateNavTitle()
+        self.selectedContactsCollectionView.reloadData()
+        self.selectedContactsSetHidden(isHidden: self.viewModel.totalContacts <= 0, animated: true)
     }
 }
 
 extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.viewModel.selectedPhoneContacts.count + self.viewModel.selectedFacebookContacts.count + self.viewModel.selectedGoogleContacts.count)
+        return [self.viewModel.selectedPhoneContacts.count, self.viewModel.selectedFacebookContacts.count, self.viewModel.selectedGoogleContacts.count][section]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -227,16 +292,19 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
         
         cell.delegate = self
         
-        switch indexPath.item {
-        case 0..<self.viewModel.selectedPhoneContacts.count :
+        switch indexPath.section {
+        case 0:
+            //phone
             cell.contact = self.viewModel.selectedPhoneContacts[indexPath.item]
-            
-        case self.viewModel.selectedPhoneContacts.count..<self.viewModel.selectedFacebookContacts.count :
-            cell.contact = self.viewModel.selectedPhoneContacts[indexPath.item]
-            
-        case self.viewModel.selectedFacebookContacts.count..<self.viewModel.selectedGoogleContacts.count :
-            cell.contact = self.viewModel.selectedPhoneContacts[indexPath.item]
-            
+
+        case 1:
+            //facebook
+            cell.contact = self.viewModel.selectedFacebookContacts[indexPath.item]
+
+        case 2:
+            //google
+            cell.contact = self.viewModel.selectedGoogleContacts[indexPath.item]
+
         default:
             cell.contact = nil
         }
@@ -252,24 +320,23 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-    }
 }
 
 extension ImportContactVC: SelectedContactCollectionCellDelegate {
     func crossButtonAction(_ sender: UIButton) {
         if let indexPath = self.selectedContactsCollectionView.indexPath(forItem: sender) {
-            switch indexPath.item {
-            case 0..<self.viewModel.selectedPhoneContacts.count :
+            switch indexPath.section {
+            case 0:
+                //phone
                 self.viewModel.selectedPhoneContacts.remove(at: indexPath.item)
                 
-            case self.viewModel.selectedPhoneContacts.count..<self.viewModel.selectedFacebookContacts.count :
-                self.viewModel.selectedPhoneContacts.remove(at: indexPath.item)
+            case 1:
+                //facebook
+                self.viewModel.selectedFacebookContacts.remove(at: indexPath.item)
                 
-            case self.viewModel.selectedFacebookContacts.count..<self.viewModel.selectedGoogleContacts.count :
-                self.viewModel.selectedPhoneContacts.remove(at: indexPath.item)
+            case 2:
+                //google
+                self.viewModel.selectedGoogleContacts.remove(at: indexPath.item)
                 
             default:
                 printDebug("not a correct index")

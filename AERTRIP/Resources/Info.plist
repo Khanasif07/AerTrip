@@ -21,9 +21,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb2150155951662059</string>
+				<string>fb1080161318756977</string>
 			</array>
 		</dict>
 		<dict>
@@ -70,9 +72,9 @@
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
-	<string>2150155951662059</string>
+	<string>1080161318756977</string>
 	<key>FacebookDisplayName</key>
-	<string>Aertrip</string>
+	<string>AERTRIP</string>
 	<key>LIAppId</key>
 	<string>12426494</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -100,6 +102,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app will need the access to your camera.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app will need the access to your contacts.</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
@@ -138,9 +144,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSContactsUsageDescription</key>
-	<string>This app will need the access to your contacts.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This app will need the access to your camera.</string>
 </dict>
 </plist>

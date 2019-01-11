@@ -204,7 +204,9 @@ struct Mobile {
     static func retunsMobileArray(jsonArr:[JSON]) -> [Mobile] {
         var mobile = [Mobile]()
         for element in jsonArr {
-            mobile.append(Mobile(json: element))
+            var obj = Mobile(json: element)
+            obj.isValide = true
+            mobile.append(obj)
         }
         return mobile
     }

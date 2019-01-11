@@ -172,6 +172,7 @@
 "AllowContacts" = "Allow Contacts";
 "ConnectWithGoogle" = "Connect with Google";
 "ConnectWithFB" = "Connect with Facebook";
+"ContactsSelected" = "Contacts Selected";
 
 
 //MARK: - View Profile

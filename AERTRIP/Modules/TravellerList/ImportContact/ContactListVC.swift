@@ -42,6 +42,8 @@ class ContactListVC: BaseVC {
             newEmptyView.vType = .importGoogleContacts
         }
         
+        newEmptyView.delegate = self
+        
         return newEmptyView
     }()
     
@@ -86,6 +88,10 @@ class ContactListVC: BaseVC {
         }
     }
     
+    deinit {
+        printDebug("deinit")
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
@@ -93,10 +99,6 @@ class ContactListVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        if self.currentlyUsingFor == .contacts {
-            self.viewModel.fetchPhoneContacts(forVC: self)
-        }
     }
     
     //MARK:- Public
@@ -206,7 +208,35 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
 
 //MARK:- ViewModel Delegate
 //MARK:-
+extension ContactListVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: UIButton) {
+        if self.currentlyUsingFor == .contacts {
+            self.viewModel.fetchPhoneContacts(forVC: self)
+        }
+        else if self.currentlyUsingFor == .facebook {
+            self.viewModel.fetchFacebookContacts(forVC: self)
+        }
+        else if self.currentlyUsingFor == .google {
+            self.viewModel.fetchGoogleContacts(forVC: self)
+        }
+    }
+}
+
+//MARK:- ViewModel Delegate
+//MARK:-
 extension ContactListVC: ImportContactVMDelegate {
+    func willSaveContacts() {
+        
+    }
+    
+    func saveContactsSuccess() {
+        
+    }
+    
+    func saveContactsFail() {
+        
+    }
+    
     func willFetchPhoneContacts() {
         
     }

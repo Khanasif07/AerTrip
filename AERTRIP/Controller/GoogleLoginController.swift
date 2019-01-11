@@ -7,6 +7,7 @@
 
 import GoogleSignIn
 import UIKit
+import Alamofire
 
 class GoogleLoginController : NSObject {
     
@@ -98,6 +99,49 @@ extension GoogleLoginController : GIDSignInDelegate, GIDSignInUIDelegate {
         contentViewController.dismiss(animated: true, completion: nil)
         
         self.logout()
+    }
+}
+
+// MARK: - Fetch google contacts
+// MARK: ==============================================
+extension GoogleLoginController {
+    func fetchContacts(fromViewController: UIViewController, success : @escaping(_ data : JSONDictionary) -> (), failure : @escaping(_ error : Error) -> ()) {
+        
+        GIDSignIn.sharedInstance().scopes = ["https://www.google.com/m8/feeds", "https://www.googleapis.com/auth/contacts.readonly"]
+        self.login(fromViewController: fromViewController, success: { (logedinUser) in
+            guard let token = GIDSignIn.sharedInstance().currentUser.authentication.accessToken else {
+                return
+            }
+            let urlString = "https://www.google.com/m8/feeds/contacts/default/full?access_token=\(token)&alt=json"
+            
+            print(GIDSignIn.sharedInstance().scopes)
+            
+            let request = Alamofire.request(urlString, method: .get)
+            request.responseString { (data) in
+                    printDebug(data)
+            }
+            request.responseData { (response:DataResponse<Data>) in
+                
+                switch(response.result) {
+                    
+                case .success(let value):
+                    
+                    do {
+                        if let dict = try JSONSerialization.jsonObject(with: value, options: JSONSerialization.ReadingOptions.allowFragments) as? JSONDictionary {
+                            success(dict)
+                        }
+                    }
+                    catch let err {
+                        failure(err as NSError)
+                    }
+                    
+                case .failure(let e):
+                    failure(e as NSError)
+                }
+            }
+        }, failure: { (error) in
+            failure(error)
+        })
     }
 }
 

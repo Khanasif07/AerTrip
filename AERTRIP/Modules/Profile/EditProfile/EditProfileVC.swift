@@ -240,6 +240,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             mobile.type = "Mobile"
             mobile.isd = isd
             mobile.value = loggedInUserMobile
+            mobile.isValide = true
             self.mobile.append(mobile)
             self.mobile.append(contentsOf: travel.contact.mobile)
         }
