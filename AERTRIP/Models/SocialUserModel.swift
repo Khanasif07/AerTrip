@@ -129,7 +129,7 @@ struct SocialUserModel {
         self.preferredCurrency    = json["preferred_currency"].stringValue
         self.hotels = HotelsModel(json: json["hotels"])
         self.accountData = AccountModel(json: json["account_data"])
-        self.generalPref = GeneralPrefrenceModel(json: json["general_pref"])
+        self.generalPref = GeneralPrefrenceModel(json: json[APIKeys.generalPref.rawValue])
         self.countryCode = json["countryCode"].stringValue
         
         if let gender   = json["gender"].string {

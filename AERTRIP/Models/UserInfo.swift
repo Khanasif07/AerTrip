@@ -143,6 +143,8 @@ class UserInfo {
                     "labels": self.labels,
                    ]
         }
+    
+
         
         init() {
             
@@ -389,7 +391,7 @@ class UserInfo {
     
     var generalPref: GeneralPref? {
         get {
-            if let genPref = userData?["general_pref"] as? String {
+            if let genPref = userData?[APIKeys.generalPref.rawValue] as? String {
                 if let dict = AppGlobals.shared.onject(from: genPref) {
                     return GeneralPref(json: JSON(dict))
                 }
@@ -398,10 +400,10 @@ class UserInfo {
         }
         set {
             if let vlaue = newValue?.jsonDict {
-                updateInfo(withData: ["genera_pref": AppGlobals.shared.json(from: vlaue)])
+                updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: vlaue)])
             }
             else{
-                UserDefaults.removeObject(forKey: "genera_pref")
+                UserDefaults.removeObject(forKey: APIKeys.generalPref.rawValue)
             }
         }
     }

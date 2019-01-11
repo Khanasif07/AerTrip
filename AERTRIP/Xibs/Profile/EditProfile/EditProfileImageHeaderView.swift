@@ -11,6 +11,7 @@ import UIKit
 protocol EditProfileImageHeaderViewDelegate:class {
     func editButtonTapped()
     func salutationViewTapped()
+    func selectGroupTapped()
 }
 
 class EditProfileImageHeaderView: UIView {
@@ -23,6 +24,11 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var salutaionLabel: UILabel!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var groupLabel: UILabel!
+    @IBOutlet weak var groupTitleLabel: UILabel!
+    
+    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectGroupView: UIView!
     
     // MARK: - Variables
     weak var delegate : EditProfileImageHeaderViewDelegate?
@@ -37,8 +43,14 @@ class EditProfileImageHeaderView: UIView {
         salutationView.isUserInteractionEnabled = true
         salutationView.addGestureRecognizer(tap)
         
+        let selectGrouptap = UITapGestureRecognizer(target: self, action: #selector(self.selectGroupTapped(_:)))
+        selectGroupView.isUserInteractionEnabled = true
+        selectGroupView.addGestureRecognizer(selectGrouptap)
+        
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
         self.profileImageView.clipsToBounds = true
+        
+        self.groupTitleLabel.text = LocalizedString.Group.localized
         
     }
     
@@ -57,6 +69,11 @@ class EditProfileImageHeaderView: UIView {
     
     @objc  func salutationView(_ sender: UITapGestureRecognizer) {
         delegate?.salutationViewTapped()
+    }
+    
+    
+    @objc  func selectGroupTapped(_ sender: UITapGestureRecognizer) {
+        delegate?.selectGroupTapped()
     }
     
     

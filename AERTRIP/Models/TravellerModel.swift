@@ -21,6 +21,15 @@ struct TravellerModel {
         self.init(json: json)
     }
     
+    var jsonDict: [String:Any] {
+        return ["id": self.id,
+                "label": self.label,
+                "salutation": self.salutation,
+                "first_name": self.firstName,
+                "last_name": self.lastName,
+                "dob": self.dob]
+    }
+    
     init(json: JSON) {
         self.id = json["id"].stringValue
         self.label = json["label"].stringValue

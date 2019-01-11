@@ -25,7 +25,7 @@ class CoreDataManager {
          */
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let url = urls[urls.count-1]
-        printDebug("Chat Core Data at: \(url)")
+        printDebug("Aertrip Traveller  Data at: \(url)")
         return url
     }()
 
@@ -47,7 +47,7 @@ class CoreDataManager {
         var failureReason = "There was an error creating or loading the Chat saved data."
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
-            printDebug("Chat Core Data at: \(url)")
+            printDebug("Aertrip Core Data at: \(url)")
         }
         catch {
             /// Report any error we got.
@@ -73,7 +73,7 @@ class CoreDataManager {
      */
     private init() {
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        printDebug("Chat module sqlite path: \(paths[0])")
+        printDebug("Aertrip sqlite path: \(paths[0])")
     }
     
     //MARK:- Commit/Save In Coredata
@@ -158,7 +158,7 @@ class CoreDataManager {
     
     //MARK:- Fetch Data From Core Data
     //MARK:-
-    func fetchData(_ modelName: String, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
+    func fetchData(_ modelName: String,_ isCheckingItemExist:Bool = false, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
         
         let cdhObj = inManagedContext!
         
@@ -166,7 +166,16 @@ class CoreDataManager {
         
         //set predicate
         if let prdStr = predicate {
-            fReq.predicate = NSPredicate(format:prdStr)
+           // fReq.predicate = NSPredicate(format:prdStr)
+            if isCheckingItemExist {
+                  fReq.predicate =  NSPredicate(format: "id BEGINSWITH %@", prdStr)
+            } else {
+                 fReq.predicate =  NSPredicate(format: "firstName CONTAINS[c] %@", prdStr)
+            }
+            
+            //fReq.predicate =  NSPredicate(format: "%@ BEGINSWITH %@",key, prdStr)
+           
+           
         }
         
         //set sort descripter

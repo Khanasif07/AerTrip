@@ -20,6 +20,7 @@ class EmptyScreenView: UIView {
         case importFacebookContacts
         case importGoogleContacts
         case none
+        case frequentFlyer
     }
 
     //MARK:- properties -
@@ -41,6 +42,8 @@ class EmptyScreenView: UIView {
             firstButtonContainerView.backgroundColor = AppColors.clear
         }
     }
+    @IBOutlet weak var containerViewCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageLabelTopConstraint: NSLayoutConstraint!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -104,6 +107,8 @@ extension EmptyScreenView {
             
         case .none:
             self.setupForNone()
+         case .frequentFlyer:
+            self.setUpForFrequentFlyer()
         }
     }
 
@@ -176,6 +181,16 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.ImportGoogleMessage.localized
+}
+    
+    private func setUpForFrequentFlyer(){
+       self.containerViewCenterYConstraint.constant = -125
+        self.messageLabelTopConstraint.constant = 33
+        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.noResults.localized
+        
     }
     
     private func getTextWithImage(startText: String, image: UIImage, endText: String) -> NSMutableAttributedString {

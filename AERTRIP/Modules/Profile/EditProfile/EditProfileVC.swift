@@ -17,6 +17,7 @@ enum PickerType {
     case mealPreference
     case country
     case addressTypes
+    case groups
 }
 
 enum ViewType {
@@ -40,18 +41,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
     var imagePicker = UIImagePickerController()
     var travelData: TravelDetailModel?
-    var email: [Email] = []
-    var social: [Social] = []
-    var mobile: [Mobile] = []
-    var addresses: [Address] = []
-    var seatPreferences = [String: String]()
-    var mealPreferences = [String: String]()
-    var countries = [String: String]()
-    var emailTypes: [String] = []
-    var mobileTypes: [String] = []
-    var addressTypes: [String] = []
-    var salutationTypes: [String] = []
-    var socialTypes: [String] = []
+    
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
     var informations: [String] = []
@@ -60,19 +50,23 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
     let flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
-    var frequentFlyer: [FrequentFlyer] = []
-    var flightDetails: [String] = []
-    var defaultAirlines: [FlyerModel] = []
     
+    var flightDetails: [String] = []
+    
+    // picker
     let pickerView: UIPickerView = UIPickerView()
     let pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 180.0)
     var pickerData: [String] = [String]()
     var pickerType: PickerType = .salutation
     
+    // date picker
     let datePickerView: UIView = UIView()
     let datePicker = UIDatePicker()
     
+    
     var viewType: ViewType = .leftView
+    
+    // cell Identifier
     let editTwoPartCellIdentifier = "EditProfileTwoPartTableViewCell"
     let editThreePartCellIdentifier = "EditProfileThreePartTableViewCell"
     let addActionCellIdentifier = "TableViewAddActionCell"
@@ -93,7 +87,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.webserviceForGetDefaultAirlines()
         
         doInitialSetUp()
-        setUpData()
+        if viewModel.isFromTravellerList {
+            setUpForNewTraveller()
+        } else {
+             setUpData()
+        }
+       
         registerXib()
         setupToolBar()
     }
@@ -118,17 +117,21 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - IB Actions
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        AppFlowManager.default.popViewController(animated: true)
+        if viewModel.isFromTravellerList {
+            dismiss(animated: true, completion: nil)
+        } else {
+             AppFlowManager.default.popViewController(animated: true)
+        }
+       
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         NSLog("save button tapped")
         view.endEditing(true)
-        viewModel.email = email
-        viewModel.social = social
-        viewModel.mobile = mobile
-        viewModel.addresses = addresses
-        viewModel.frequentFlyer = frequentFlyer
+        viewModel.dob = formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.doa =  formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportIssueDate = formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+          viewModel.passportExpiryDate = formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -224,7 +227,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func setUpData() {
-        guard let travel = travelData else {
+        guard var travel = travelData else {
             return
         }
         
@@ -233,27 +236,30 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             email.label = "Default"
             email.type = "Email"
             email.value = loggedInUserEmail
-            self.email.append(email)
-            self.email.append(contentsOf: travel.contact.email)
+            self.viewModel.email.append(email)
+            self.viewModel.email.append(contentsOf: travel.contact.email)
             var mobile = Mobile()
             mobile.label = "Default"
             mobile.type = "Mobile"
             mobile.isd = isd
             mobile.value = loggedInUserMobile
             mobile.isValide = true
-            self.mobile.append(mobile)
-            self.mobile.append(contentsOf: travel.contact.mobile)
+            self.viewModel.mobile.append(mobile)
+            self.viewModel.mobile.append(contentsOf: travel.contact.mobile)
         }
         
-        viewModel.email = email
-        social = travel.contact.social
+        //viewModel.email = email
+        self.viewModel.social = travel.contact.social
         viewModel.social = travel.contact.social
         sections.append(LocalizedString.SocialAccounts)
         
         viewModel.mobile = travel.contact.mobile
-        
+        travel.dob = formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.dob)
+        viewModel.dob = travel.dob
+        travel.doa = formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.doa)
+        viewModel.doa = travel.doa
         
         informations.append(travel.notes)
         
@@ -262,12 +268,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         passportDetails.append(travel.passportCountryName)
         viewModel.passportCountryName = travel.passportCountryName
+        viewModel.passportCountry = travel.passportCountry
+        travel.passportIssueDate = formattedDateFromString(dateString: travel.passportIssueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportIssueDate = travel.passportIssueDate
+        travel.passportExpiryDate = formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails)
         
-        self.frequentFlyer = travel.frequestFlyer
-        viewModel.frequentFlyer = travel.frequestFlyer
+        //self.frequentFlyer = travel.frequestFlyer
+        self.viewModel.frequentFlyer = travel.frequestFlyer
         //        let frequentFlyer = FrequentFlyer()
         //        self.frequentFlyer.append(frequentFlyer)
         
@@ -289,10 +298,42 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
-        addresses = travel.address
-        viewModel.addresses = addresses
+        self.viewModel.addresses = travel.address
+        
+        // hide select group view on EditProfileImageHeaderView
+        editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
         
         tableView.reloadData()
+    }
+    
+    private func setUpForNewTraveller(){
+        self.sections.append(contentsOf: [LocalizedString.PassportDetails,LocalizedString.SocialAccounts,LocalizedString.FlightPreferences])
+        self.passportDetails.append(contentsOf: ["",""])
+        self.informations.append(contentsOf: ["",""])
+        self.flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized,LocalizedString.SelectSeatPreference.localized])
+        var email = Email()
+        email.type = "Email"
+        email.label = "Home"
+        self.viewModel.email.append(email)
+        
+        var mobile = Mobile()
+        mobile.type = "Mobile"
+        mobile.label = "Home"
+        if let isd = UserInfo.loggedInUser?.isd {
+            mobile.isd = isd
+        }
+        self.viewModel.mobile.append(mobile)
+        
+        var social = Social()
+        social.type = "Facebook"
+        social.label = "Facebook"
+        self.viewModel.social.append(social)
+        
+        var address = Address()
+        address.label = "Home"
+        address.countryName = "Country"
+        self.viewModel.addresses.append(address)
+        self.tableView.reloadData()
     }
     
     private func setupToolBar() {
@@ -323,7 +364,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func insertRowsAtIndexPaths(indexPaths: [NSIndexPath],
                                 withRowAnimation animation: UITableView.RowAnimation) {
-        let IndexPathOfLastRow = NSIndexPath(row: email.count - 1, section: 0)
+        let IndexPathOfLastRow = NSIndexPath(row: self.viewModel.email.count - 1, section: 0)
         tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
     }
     
@@ -372,9 +413,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         switch indexPath.row {
         case 1:
-            if countries.count > 0 {
+            if self.viewModel.countries.count > 0 {
                 pickerType = .country
-                let countries = Array(self.countries.values)
+                let countries = Array(self.viewModel.countries.values)
                 pickerData = countries
                 openPicker()
             }
@@ -390,16 +431,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.indexPath = indexPath
         switch indexPath.row {
         case 0:
-            if seatPreferences.count > 0 {
+            if self.viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                let seatPreferences = Array(self.seatPreferences.values)
+                let seatPreferences = Array(self.viewModel.seatPreferences.values)
                 pickerData = seatPreferences
                 openPicker()
             }
         case 1:
-            if mealPreferences.count > 0 {
+            if self.viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                let mealPreferences = Array(self.mealPreferences.values)
+                let mealPreferences = Array(self.viewModel.mealPreferences.values)
                 pickerData = mealPreferences
                 openPicker()
             }
@@ -417,7 +458,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @objc func donedatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+     //   formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "dd MMMM yyyy"
         switch sections[(self.indexPath?.section)!] {
         case LocalizedString.MoreInformation:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
@@ -491,5 +533,23 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         try! imageData?.write(to: imageURL)
         
         return imageURL.absoluteString
+    }
+    
+    // convert Date from one format to another
+    
+    func formattedDateFromString(dateString: String,inputFormat iF : String, withFormat outputFormat: String) -> String? {
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = iF
+        
+        if let date = inputFormatter.date(from: dateString) {
+            
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = outputFormat
+            
+            return outputFormatter.string(from: date)
+        }
+        
+        return nil
     }
 }

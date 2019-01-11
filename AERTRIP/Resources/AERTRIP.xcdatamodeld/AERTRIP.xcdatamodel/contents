@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TravellerData" representedClassName="TravellerData" isAbstract="YES" syncable="YES">
         <attribute name="dob" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="165"/>
     </elements>
 </model>

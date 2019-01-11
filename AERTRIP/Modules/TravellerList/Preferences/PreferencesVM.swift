@@ -11,7 +11,7 @@ import Foundation
 protocol PreferencesVMDelegate: class {
     func willSavePreferences()
     func savePreferencesSuccess()
-    func savePreferencesFail()
+    func savePreferencesFail(errors: ErrorCodes)
 }
 
 class PreferencesVM: NSObject {
@@ -40,12 +40,12 @@ class PreferencesVM: NSObject {
         params["display_order"] = self.displayOrder
         params["categorize_by_group"] = self.isCategorizeByGroup
         params["labels"] = self.groups
-        
-        APICaller.shared.callSavePreferencesAPI(params: params) { (success, erroCodes) in
+        delegate?.willSavePreferences()
+        APICaller.shared.callSavePreferencesAPI(params: params) { [weak self] (success, erroCodes) in
             if success {
-                
+                self?.delegate?.savePreferencesSuccess()
             } else {
-                
+                self?.delegate?.savePreferencesFail(errors: erroCodes)
             }
         }
     }

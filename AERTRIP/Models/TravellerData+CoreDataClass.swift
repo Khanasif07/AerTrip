@@ -1,6 +1,6 @@
 //
 //  TravellerData+CoreDataClass.swift
-//  
+//
 //
 //  Created by Admin on 09/01/19.
 //
@@ -19,7 +19,7 @@ public class TravellerData: NSManagedObject {
         var userData: TravellerData?
         
         if let id = dataDict[APIKeys.id.rawValue], !"\(id)".isEmpty {
-            userData = TravellerData.fetch(travId: "\(id)")
+            userData = TravellerData.isItemExistCheck(id: "\(id)")
         }
         
         if (userData == nil) {
@@ -34,16 +34,22 @@ public class TravellerData: NSManagedObject {
             userData!.dob = "\(obj)"
         }
         
-        if let obj = dataDict[APIKeys.firstName.rawValue] {
+        if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
             userData!.firstName = "\(obj)"
+            userData!.firstNameFirstChar = "\(obj.firstCharacter)"
         }
         
-        if let obj = dataDict[APIKeys.label.rawValue] {
-            userData!.label = "\(obj)"
+        if let obj = dataDict[APIKeys.label.rawValue] as? String {
+            if obj == "" {
+                userData!.label = "Others"
+            } else {
+                userData!.label = "\(obj)"
+            }
+            
         }
-        
-        if let obj = dataDict[APIKeys.lastName.rawValue] {
+        if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
             userData!.lastName = "\(obj)"
+            userData!.lastNameFirstChar = "\(obj.firstCharacter)"
         }
         
         if let obj = dataDict[APIKeys.salutation.rawValue] {
@@ -111,14 +117,30 @@ public class TravellerData: NSManagedObject {
     
     //MARK:- Check Whether Value Exist or Not
     //MARK:-
-    class func fetch(travId: String?) -> TravellerData? {
+    class func fetch(id: String?) -> [TravellerData]? {
         
         var predicateStr = ""
-        if let id = travId {
-            predicateStr = "id = '\(id)'"
-        }
+        //        if let id = id {
+        //            predicateStr = "id = '\(id)'"
+        //        }
         
-        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
+        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: id, sort: nil) {
+            if (!fetchResult.isEmpty) {
+                return fetchResult as? [TravellerData]
+            }
+            return nil
+        }
+        return nil
+    }
+    
+    class func isItemExistCheck(id: String?) -> TravellerData? {
+        
+        var predicateStr = ""
+        //        if let id = id {
+        //            predicateStr = "id = '\(id)'"
+        //        }
+        
+        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData",true, predicate: id, sort: nil) {
             if (!fetchResult.isEmpty) {
                 return fetchResult[0] as? TravellerData
             }
@@ -137,7 +159,7 @@ extension TravellerData {
         dict[APIKeys.label.rawValue] = self.label ?? ""
         dict[APIKeys.lastName.rawValue] = self.lastName ?? ""
         dict[APIKeys.salutation.rawValue] = self.salutation ?? ""
-
+        
         return dict
     }
     

@@ -41,8 +41,8 @@ extension APICaller {
                 if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     
                     UserInfo.loggedInUserId = "\(id)"
-                    if let gen = userData["general_pref"] as? JSONDictionary {
-                        userData["general_pref"] = AppGlobals.shared.json(from: gen)
+                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }

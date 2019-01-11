@@ -222,6 +222,12 @@ extension AppFlowManager {
         let ob = ImportContactVC.instantiate(fromAppStoryboard: .TravellerList)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
+    
+    func presentEditProfileVC() {
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isFromTravellerList = true
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Pop Methods

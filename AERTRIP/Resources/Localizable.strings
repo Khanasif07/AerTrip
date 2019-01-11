@@ -184,3 +184,15 @@
 "NewsLetters" = "Newsletters";
 "Notifications"  = "Notifications";
 "LogOut" = "Log Out";
+//MARK:- PreferencesVC
+//MARK:-
+
+"PreferencesSavedSuccessfully" = "Preferences saved succesfully";
+
+
+//MARK:- Edit profile VC
+//MARK:-
+
+"Group" = "Group";
+"SelectMealPreference" = "Select meal preference";
+"SelectSeatPreference" = "Select seat preference";

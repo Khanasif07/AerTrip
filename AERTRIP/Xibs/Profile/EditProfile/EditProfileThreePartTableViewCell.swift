@@ -63,6 +63,12 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
             self.flagImageView.image = countryData.flagImage
         }
         
+        if indexPath.row == 0 {
+            deleteButton.isHidden = true
+        } else {
+            deleteButton.isHidden = false
+        }
+        
         self.rightViewTextField.delegate = self
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
