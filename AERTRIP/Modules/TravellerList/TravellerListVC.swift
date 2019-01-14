@@ -25,15 +25,8 @@ class TravellerListVC: BaseVC {
     let viewModel = TravellerListVM()
     
     var container: NSPersistentContainer!
-    var fetchedResultsController: NSFetchedResultsController<TravellerData>!
-    var predicate: NSPredicate?
-    
-//    struct Objects {
-//        var sectionName: String!
-//        var sectionObjects: [TravellerModel]!
-//    }
-//
-//    var objectArray = [Objects]()
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    var predicateStr: String = "A"
     
     // MARK: - View Life cycle
     
@@ -50,8 +43,16 @@ class TravellerListVC: BaseVC {
             }
         }
         
-        //predicate = NSPredicate(format: "label == 'Others'")
-        predicate = NSPredicate(format: "label BEGINSWITH %@", "Others")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
+        
+        if (UserInfo.loggedInUser?.generalPref?.categorizeByGroup)! {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: true)]
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil)
+        } else {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
+        }
+        
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -131,18 +132,7 @@ class TravellerListVC: BaseVC {
     }
     
     func loadSavedData() {
-        if fetchedResultsController == nil {
-            let request = TravellerData.createFetchRequest()
-            let sort = NSSortDescriptor(key: "label", ascending: false)
-            request.sortDescriptors = [sort]
-            request.fetchBatchSize = 20
-            
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: container.viewContext, sectionNameKeyPath: "label", cacheName: nil)
-            fetchedResultsController.delegate = self
-        }
-        if let prd = predicate {
-            fetchedResultsController.fetchRequest.predicate = prd
-        }
+        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         
         do {
             try fetchedResultsController.performFetch()
@@ -151,12 +141,22 @@ class TravellerListVC: BaseVC {
             print("Fetch failed")
         }
     }
-
+    
+    func searchTraveller(forText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(filterDictArrSearch(_:)), with: forText, afterDelay: 0.5)
+    }
+    
+    @objc func filterDictArrSearch(_ forText: String) {
+        print(forText)
+        
+        predicateStr = forText
+        loadSavedData()
+    }
 }
 
 extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        // return 1
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -164,7 +164,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return self.viewModel.travelData.count
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -172,14 +171,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         return sectionInfo.numberOfObjects
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
             fatalError("TravellerListTableViewCell not found")
         }
         
-        let travelData = self.fetchedResultsController.object(at: indexPath)
-//        cell.configureCell(salutation: self.viewModel.travelData[indexPath.row].salutation ?? "", dob: self.viewModel.travelData[indexPath.row].dob ?? "", userName: self.viewModel.travelData[indexPath.row].firstName ?? "")
-        cell.configureCell(salutation: travelData.salutation ?? "", dob: travelData.dob ?? "", userName: travelData.firstName ?? "")
+        cell.travellerData = fetchedResultsController.object(at: indexPath) as? TravellerData
         
         return cell
     }
@@ -188,8 +189,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-//        print("section is \(Array(viewModel.travellersDict.keys)[section])")
-//        headerView.configureCell(Array(viewModel.travellersDict.keys)[section])
         guard let sections = fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -225,7 +224,7 @@ extension TravellerListVC: TravellerListVMDelegate {
 
 extension TravellerListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchTraveller(forText: searchText)
+        searchTraveller(forText: searchText)
     }
 }
 
@@ -251,7 +250,6 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
         // TODO: - Need to update
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {
-                cell.configureCell(salutation: "", dob: "", userName: "")
             }
             break
             

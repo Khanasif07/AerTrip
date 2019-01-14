@@ -19,22 +19,16 @@ class TravellerListTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    var travellerData: TravellerData? {
+        didSet {
+            self.configureCell()
+        }
+    }
+    
     // MARK: - Helper methods
     
-    func configureCell(salutation salutation: String, dob dob: String, userName userName: String) {
-        switch salutation {
-        case "Mrs":
-            profileImageView.image = #imageLiteral(resourceName: "girl")
-            break
-        case "":
-            profileImageView.image = #imageLiteral(resourceName: "person")
-        case "Mr":
-            profileImageView.image = #imageLiteral(resourceName: "boy")
-        case "Mast":
-            profileImageView.image = #imageLiteral(resourceName: "man")
-        default:
-            break
-        }
-        userNameLabel.text = userName
+    private func configureCell() {
+        profileImageView.image = travellerData?.salutationImage
+        userNameLabel.text = travellerData?.firstName
     }
 }
