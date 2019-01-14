@@ -31,7 +31,5 @@ class ATSearchBar: UISearchBar {
             textField.font = AppFonts.Regular.withSize(17.0)
             textField.tintColor = AppColors.themeGreen
         }
-        
-        //self.placeholder = LocalizedString.searchHotelName.localized
     }
 }

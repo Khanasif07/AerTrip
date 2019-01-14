@@ -146,14 +146,6 @@ extension APICaller {
     //MARK: -
     func callSaveProfileAPI(params: JSONDictionary,filePath:String, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
-        let headers = [
-            "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-            "api-key": "3a457a74be76d6c3603059b559f6addf",
-            ]
-        
-        
-        
-        
         if filePath.isEmpty {
             AppNetworking.POST(endPoint: APIEndPoint.saveProfile, parameters: params, success: { [weak self] (json) in
                 guard let sSelf = self else {return}

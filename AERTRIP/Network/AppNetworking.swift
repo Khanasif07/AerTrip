@@ -305,7 +305,8 @@ enum AppNetworking {
             }
             
             for (ky , value) in addMandatoryParams(toExistingParams: parameters){
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
+//                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
+                multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: ky)
             }
         },
                          with: url, encodingCompletion: { encodingResult in

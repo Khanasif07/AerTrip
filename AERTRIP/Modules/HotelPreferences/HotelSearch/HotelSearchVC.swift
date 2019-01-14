@@ -64,6 +64,7 @@ class HotelSearchVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.searchBar.delegate = self
+        self.searchBar.placeholder = LocalizedString.searchHotelName.localized
         
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.collectionView.dataSource = self

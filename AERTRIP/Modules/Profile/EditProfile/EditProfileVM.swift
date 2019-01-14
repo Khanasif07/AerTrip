@@ -247,7 +247,10 @@ class EditProfileVM {
         }
        
         
-        let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
+//        let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
+
+        let contact: [String: Any] = ["email": AppGlobals.shared.json(from: emailDictArr), "mobile": AppGlobals.shared.json(from: mobileDictArr), "social": AppGlobals.shared.json(from: socialDictArr)]
+
         params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
         params[APIKeys.address.rawValue] = addressDictArr
         params[APIKeys.ff.rawValue] = frequentFlyerDictArr
