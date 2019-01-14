@@ -14,9 +14,9 @@ extension APICaller {
             guard let sSelf = self else { return }
             
             sSelf.handleResponse(json, success: { _, jsonData in
-                   let array =  TravellerModel.models(json: jsonData[APIKeys.data.rawValue])
+                let array = TravellerModel.models(json: jsonData[APIKeys.data.rawValue])
                 
-              //  let array = TravellerModel.filterByGroups(json: jsonData[APIKeys.data.rawValue])
+                //  let array = TravellerModel.filterByGroups(json: jsonData[APIKeys.data.rawValue])
                 completionBlock(true, [], array)
                 
             }, failure: { errors in
@@ -24,6 +24,23 @@ extension APICaller {
             })
             
         }) { _ in
+        }
+    }
+    
+    func callDeleteTravellerAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.deletePaxData, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            
+            sSelf.handleResponse(json, success: { _, _ in
+                
+                completionBlock(true, [])
+                
+            }, failure: { errors in
+                completionBlock(false, errors)
+            })
+            
+        }) { error in
+            print(error)
         }
     }
 }

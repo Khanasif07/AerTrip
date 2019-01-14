@@ -24,6 +24,7 @@ extension TravellerData {
     @NSManaged public var salutation: String?
     @NSManaged public var firstNameFirstChar:String?
     @NSManaged public var lastNameFirstChar:String?
+    @NSManaged public var isChecked:Bool
     
 }
 

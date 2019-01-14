@@ -196,3 +196,10 @@
 "Group" = "Group";
 "SelectMealPreference" = "Select meal preference";
 "SelectSeatPreference" = "Select seat preference";
+
+//MARK:- Traveller VC
+//MARK:-
+
+"AssignGroup" = "AssignGroup";
+"Delete" = "Delete";
+"TheseContactsWillBeDeletedFromTravellersList" = "These contacts will be deleted from Travellers List";

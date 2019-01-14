@@ -12,6 +12,6 @@ class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
     @IBOutlet var headerLabel: UILabel!
 
     func configureCell(_ title: String) {
-        headerLabel.text = title
+        headerLabel.text = title.capitalizedFirst()
     }
 }
