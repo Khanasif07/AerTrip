@@ -149,24 +149,18 @@ extension APICaller {
         if filePath.isEmpty {
             AppNetworking.POST(endPoint: APIEndPoint.saveProfile, parameters: params, success: { [weak self] (json) in
                 guard let sSelf = self else {return}
-                
+
                 sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                    
-                    //                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-                    //                if let userData = userSettings{
-                    //                    AppUserDefaults.save(value: userData, forKey: .userData)
-                    //                }
-                    //                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                     completionBlock(true, [])
-                    
+
                 }, failure: { (errors) in
                     completionBlock(false, errors)
                 })
-                
+
             }) { (error) in
                 print(error)
             }
-            
+
         } else {
             AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: true, success: { (data) in
                 print(data)
