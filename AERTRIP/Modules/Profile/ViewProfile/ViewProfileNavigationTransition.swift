@@ -87,11 +87,6 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
 //            profileView.removeFromSuperview()
             containerView.addSubview(profileView)
             
-            
-            fromVC.view.backgroundColor = .green
-            toVC.view.backgroundColor = .cyan
-            containerView.backgroundColor = .red
-            
             let snapFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let profileFrame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.48)
