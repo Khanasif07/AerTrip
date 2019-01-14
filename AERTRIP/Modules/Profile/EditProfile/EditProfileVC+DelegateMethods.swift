@@ -771,7 +771,8 @@ extension EditProfileVC: SearchVCDelegate {
             }
             let str = flyer.value
             let strToReplaced = " (\(flyer.iata))"
-            let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")
+            let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")            
+            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
             self.viewModel.frequentFlyer[indexPath.row - 2].logoUrl = flyer.logoUrl
             self.viewModel.frequentFlyer[indexPath.row - 2].airlineName = replacedString
             self.viewModel.frequentFlyer[indexPath.row - 2].airlineCode = flyer.iata

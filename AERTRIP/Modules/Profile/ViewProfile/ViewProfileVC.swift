@@ -309,6 +309,8 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     
     func getSuccess(_ data: TravelDetailModel) {
         self.travelData = data
+        self.tableView.reloadData()
+        self.setupParallaxHeader()
     }
     
     func getFail(errors: ErrorCodes) {

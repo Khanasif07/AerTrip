@@ -13,21 +13,21 @@ struct TravelDetailModel {
     var address: [Address]
     var contact: Contact
     var preferences: Preferences
-    var id: String
-    var label: String
-    var salutation: String
-    var firstName: String
-    var lastName: String
-    var dob: String
-    var doa: String
-    var passportNumber: String
-    var passportCountry: String
-    var passportIssueDate: String
-    var passportExpiryDate: String
-    var profileImage: String
-    var imageSource: String
-    var notes: String
-    var passportCountryName: String
+    var id: String = ""
+    var label: String = ""
+    var salutation: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var dob: String = ""
+    var doa: String = ""
+    var passportNumber: String = ""
+    var passportCountry: String = ""
+    var passportIssueDate: String = ""
+    var passportExpiryDate: String = ""
+    var profileImage: String = ""
+    var imageSource: String = ""
+    var notes: String = ""
+    var passportCountryName: String = ""
     var frequestFlyer : [FrequentFlyer]
     
     init() {
@@ -59,16 +59,16 @@ struct TravelDetailModel {
 }
 
 struct Address {
-    var id: Int
-    var label: String
-    var line1: String
-    var line2: String
-    var line3: String
-    var city: String
-    var state: String
-    var country: String
-    var postalCode: String
-    var countryName:String
+    var id: Int = 0
+    var label: String = ""
+    var line1: String = ""
+    var line2: String = ""
+    var line3: String = ""
+    var city: String = ""
+    var state: String = ""
+    var country: String = ""
+    var postalCode: String = ""
+    var countryName:String = ""
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -133,10 +133,10 @@ struct Contact {
 }
 
 struct Email {
-    var id: Int
-    var type: String
-    var label: String
-    var value: String
+    var id: Int = 0
+    var type: String = ""
+    var label: String = ""
+    var value: String = ""
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -170,13 +170,13 @@ struct Email {
 }
 
 struct Mobile {
-    var id: Int
-    var type: String
-    var label: String
-    var value: String
-    var isd: String
+    var id: Int = 0
+    var type: String = ""
+    var label: String = ""
+    var value: String = ""
+    var isd: String = ""
     var isValide: Bool = false
-    var mobileFormatted: String
+    var mobileFormatted: String = ""
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -213,10 +213,10 @@ struct Mobile {
 }
 
 struct Social {
-    var id : Int
-    var type : String
-    var label : String
-    var value : String
+    var id : Int = 0
+    var type : String = ""
+    var label : String = ""
+    var value : String = ""
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -265,8 +265,8 @@ struct Preferences {
 }
 
 struct Seat {
-    var value: String
-    var name: String
+    var value: String = ""
+    var name: String = ""
     
     var jsonDict: [String:Any] {
         return ["value":self.value,
@@ -286,8 +286,8 @@ struct Seat {
 }
 
 struct Meal {
-    var value: String
-    var name: String
+    var value: String = ""
+    var name: String = ""
     
     var jsonDict: [String:Any] {
         return ["value":self.value,
@@ -308,11 +308,11 @@ struct Meal {
 }
 
 struct FrequentFlyer {
-    var id : Int
-    var number :String
-    var airlineCode : String
-    var airlineName : String
-    var logoUrl : String
+    var id : Int = 0
+    var number :String = ""
+    var airlineCode : String = ""
+    var airlineName : String = ""
+    var logoUrl : String = ""
     
     
     var jsonDict: [String:Any] {
@@ -344,11 +344,6 @@ struct FrequentFlyer {
         }
         return frequentFlyer
     }
-    
-    
-    
-    
-    
 }
 
 

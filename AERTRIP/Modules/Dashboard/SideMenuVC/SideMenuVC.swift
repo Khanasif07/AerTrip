@@ -66,40 +66,53 @@ class SideMenuVC: BaseVC {
         }
         else {
             //add the profile view only if user is logged in
-            if self.profileContainerView == nil {
-                self.profileContainerView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-                self.profileContainerView.backgroundColor = AppColors.clear
-            }
-            
-            self.profileContainerView.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
-            self.profileContainerView.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-            self.profileContainerView.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
-            
-            if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-                self.profileContainerView.profileImageView.kf.setImage(with: URL(string: imagePath))
+            if let view = self.profileContainerView {
+                self.updateProfileView(view: view)
             }
             else {
-                profileContainerView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-                profileContainerView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                self.profileContainerView = self.getProfileView()
+                self.sideMenuTableView.addSubview(self.profileContainerView)
             }
-            
-            self.profileContainerView.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
-            self.profileContainerView.emailIdLabel.isHidden = true
-            self.profileContainerView.mobileNumberLabel.isHidden = true
-            self.profileContainerView.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            self.profileContainerView.backgroundImageView.isHidden = true
-            self.profileContainerView.gradientView.isHidden = true
-            self.profileContainerView.dividerView.isHidden = true
-            self.profileContainerView.isUserInteractionEnabled = false
-            self.profileContainerView.layoutSubviews()
-            self.profileContainerView.emailIdLabel.alpha = 0.0
-            self.profileContainerView.mobileNumberLabel.alpha = 0.0
-            self.profileContainerView.backgroundImageView.alpha = 0.0
-            self.profileContainerView.gradientView.alpha = 0.0
-            self.profileContainerView.dividerView.alpha = 0.0
-            self.profileContainerView.translatesAutoresizingMaskIntoConstraints = true
-            self.sideMenuTableView.addSubview(self.profileContainerView)
         }
+    }
+    
+    func getProfileView() -> SlideMenuProfileImageHeaderView {
+        //add the profile view only if user is logged in
+        let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        view.backgroundColor = AppColors.clear
+        self.updateProfileView(view: view)
+        
+        return view
+    }
+    
+    private func updateProfileView(view: SlideMenuProfileImageHeaderView) {
+        view.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
+        view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
+        view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
+        
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            view.profileImageView.kf.setImage(with: URL(string: imagePath))
+        }
+        else {
+            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+        }
+        
+        view.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        view.emailIdLabel.isHidden = true
+        view.mobileNumberLabel.isHidden = true
+        view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        view.backgroundImageView.isHidden = true
+        view.gradientView.isHidden = true
+        view.dividerView.isHidden = true
+        view.isUserInteractionEnabled = false
+        view.layoutSubviews()
+        view.emailIdLabel.alpha = 0.0
+        view.mobileNumberLabel.alpha = 0.0
+        view.backgroundImageView.alpha = 0.0
+        view.gradientView.alpha = 0.0
+        view.dividerView.alpha = 0.0
+        view.translatesAutoresizingMaskIntoConstraints = true
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {

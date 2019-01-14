@@ -67,21 +67,24 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
         if self.transitionMode == .push {
             //handel push animation
             guard let fromVC = transitionContext.viewController(forKey: .from) as? PKSideMenuController,
-                let toVC = transitionContext.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC, let profileView = sideMenu.profileContainerView else {
+                let toVC = transitionContext.viewController(forKey: .to) as? ViewProfileVC, let sideMenu = fromVC.menuViewController as? SideMenuVC else {
                     transitionContext.completeTransition(false)
                     return
             }
             
             toVC.profileImageHeaderView?.isHidden = true
-            toVC.profileImageHeaderView = profileView
+//            toVC.profileImageHeaderView = profileView
             
-            containerView.addSubview(snapshot)
-            fromVC.view.removeFromSuperview()
+            containerView.addSubview(fromVC.view)
+            sideMenu.profileContainerView.isHidden = true
+//            fromVC.view.removeFromSuperview()
             
             toVC.view.frame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
             
-            profileView.removeFromSuperview()
+            let profileView = sideMenu.getProfileView()
+            profileView.frame = CGRect(x: sideMenu.sideMenuTableView.width, y: 50.0, width: profileView.width, height: profileView.height)
+//            profileView.removeFromSuperview()
             containerView.addSubview(profileView)
             
             let snapFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
@@ -97,7 +100,8 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
             UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeLinear, animations: {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: { [weak self] in
-                    self?.snapshot.frame = snapFrame
+//                    self?.snapshot.frame = snapFrame
+                    fromVC.view.frame = snapFrame
                     toVC.view.frame = viewFrame
                 })
                 
@@ -114,8 +118,9 @@ class ViewProfileNavigationTransition: NSObject, UIViewControllerAnimatedTransit
                 
             }, completion: { _ in
                 profileView.removeFromSuperview()
-                profileView.frame.origin = .zero
-                toVC.setupParallaxHeader()
+                toVC.profileImageHeaderView?.isHidden = false
+//                profileView.frame.origin = .zero
+//                toVC.setupParallaxHeader()
                 self.context?.completeTransition(true)
             })
             

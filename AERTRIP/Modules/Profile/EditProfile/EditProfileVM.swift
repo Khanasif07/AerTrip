@@ -200,9 +200,6 @@ class EditProfileVM {
             self.mobile.removeFirst()
         }
         
-        
-            
-        
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName
         params[APIKeys.lastName.rawValue] = lastName
@@ -215,45 +212,74 @@ class EditProfileVM {
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
         
-        var emailDictArr = [String: Any]()
-        for (idx, emailObj) in self.email.enumerated() {
-            emailDictArr["\(idx)"] = emailObj.jsonDict
-        }
-        
-        var mobileDictArr = [String: Any]()
-        for (idx, mobileObj) in self.mobile.enumerated() {
-            mobileDictArr["\(idx)"] = mobileObj.jsonDict
-        }
-        
-        var socialDictArr = [String: Any]()
-        for (idx, socialObj) in self.social.enumerated() {
-            socialDictArr["\(idx)"] = socialObj.jsonDict
-        }
-        
-        var addressDictArr = [String: Any]()
-        for (idx, addressObj) in self.addresses.enumerated() {
-            addressDictArr["\(idx)"] = addressObj.jsonDict
-        }
-        
-        var frequentFlyerDictArr = [String: Any]()
-        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
-            frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
-        }
-        
         if isFromTravellerList {
-             params[APIKeys.id.rawValue] = 0
+            params[APIKeys.id.rawValue] = 0
         } else {
-             params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
+            params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
         }
-       
+        
+//        var emailDictArr = [String: Any]()
+//        for (idx, emailObj) in self.email.enumerated() {
+//            emailDictArr["\(idx)"] = emailObj.jsonDict
+//        }
+//
+//        var mobileDictArr = [String: Any]()
+//        for (idx, mobileObj) in self.mobile.enumerated() {
+//            mobileDictArr["\(idx)"] = mobileObj.jsonDict
+//        }
+//
+//        var socialDictArr = [String: Any]()
+//        for (idx, socialObj) in self.social.enumerated() {
+//            socialDictArr["\(idx)"] = socialObj.jsonDict
+//        }
+//        
+//        var addressDictArr = [String: Any]()
+//        for (idx, addressObj) in self.addresses.enumerated() {
+//            addressDictArr["\(idx)"] = addressObj.jsonDict
+//        }
+//
+//        var frequentFlyerDictArr = [String: Any]()
+//        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
+//            frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
+//        }
         
 //        let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
-
-        let contact: [String: Any] = ["email": AppGlobals.shared.json(from: emailDictArr), "mobile": AppGlobals.shared.json(from: mobileDictArr), "social": AppGlobals.shared.json(from: socialDictArr)]
-
-        params[APIKeys.contact.rawValue] = contact // AppGlobals.shared.json(from: contact)
-        params[APIKeys.address.rawValue] = addressDictArr
-        params[APIKeys.ff.rawValue] = frequentFlyerDictArr
+//
+//
+//        params[APIKeys.contact.rawValue] = contact
+//        params[APIKeys.address.rawValue] = addressDictArr
+//        params[APIKeys.ff.rawValue] = frequentFlyerDictArr
+        
+        
+        for (idx, emailObj) in self.email.enumerated() {
+            for key in Array(emailObj.jsonDict.keys) {
+                params["contact[email][\(idx)][\(key)]"] = emailObj.jsonDict[key]
+            }
+        }
+        
+        for (idx, mobileObj) in self.mobile.enumerated() {
+            for key in Array(mobileObj.jsonDict.keys) {
+                params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
+            }
+        }
+        
+        for (idx, socialObj) in self.social.enumerated() {
+            for key in Array(socialObj.jsonDict.keys) {
+                params["contact[mobile][\(idx)][\(key)]"] = socialObj.jsonDict[key]
+            }
+        }
+        
+        for (idx, addressDictArr) in self.addresses.enumerated() {
+            for key in Array(addressDictArr.jsonDict.keys) {
+                params["address[\(idx)][\(key)]"] = addressDictArr.jsonDict[key]
+            }
+        }
+        
+        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
+            for key in Array(frequentFlyerObj.jsonDict.keys) {
+                params["ff[\(idx)][\(key)]"] = frequentFlyerObj.jsonDict[key]
+            }
+        }
         
         params[APIKeys.seatPreference.rawValue] = seat
         params[APIKeys.mealPreference.rawValue] = meal
@@ -263,6 +289,13 @@ class EditProfileVM {
         }
         
         params[APIKeys.imageSource.rawValue] = imageSource
+        
+        if self.filePath.isEmpty {
+            params[APIKeys.profileImage.rawValue] = UserInfo.loggedInUser?.profileImage ?? ""
+        }
+        else {
+            params[APIKeys.profileImage.rawValue] = ""
+        }
         
         self.delegate?.willApiCall()
         APICaller.shared.callSaveProfileAPI(params: params, filePath: self.filePath, loader: true, completionBlock: { success, errors in
