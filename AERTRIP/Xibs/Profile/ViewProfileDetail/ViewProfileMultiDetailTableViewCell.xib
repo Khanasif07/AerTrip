@@ -62,7 +62,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPA-lN-0Lc">
-                                                        <rect key="frame" x="39" y="0.0" width="41.5" height="23"/>
+                                                        <rect key="frame" x="39" y="0.0" width="89" height="23"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -75,6 +75,7 @@
                                                     <constraint firstItem="hCx-N9-PFO" firstAttribute="top" secondItem="Afx-QT-u4z" secondAttribute="top" id="GlM-5x-F3N"/>
                                                     <constraint firstItem="hCx-N9-PFO" firstAttribute="leading" secondItem="Afx-QT-u4z" secondAttribute="leading" id="LeM-Ip-Kfh"/>
                                                     <constraint firstItem="CPA-lN-0Lc" firstAttribute="leading" secondItem="hCx-N9-PFO" secondAttribute="trailing" constant="16" id="VLO-vh-JWf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CPA-lN-0Lc" secondAttribute="trailing" id="mNj-1f-D2i"/>
                                                     <constraint firstAttribute="bottom" secondItem="hCx-N9-PFO" secondAttribute="bottom" id="w9p-jf-vDp"/>
                                                 </constraints>
                                             </view>

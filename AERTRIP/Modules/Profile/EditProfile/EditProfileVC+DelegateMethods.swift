@@ -39,7 +39,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.PassportDetails:
             return 3
         case LocalizedString.FlightPreferences:
-            return 4 + self.viewModel.frequentFlyer.count
+            return self.ffExtraCount + self.viewModel.frequentFlyer.count
         default:
             return 1
         }
@@ -120,14 +120,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.PassportDetails:
             if indexPath.row == 2 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else { fatalError("TwoPartEditTableViewCell not found") }
+                
                 cell.delegate = self
-                cell.frequentFlyerView.isHidden = true
-                cell.leftTitleLabel.text = LocalizedString.issueDate.rawValue
-                cell.rightTitleLabel.text = LocalizedString.expiryDate.rawValue
-                cell.deleteButton.isHidden = true
-                cell.cofigureCell(indexPath, false, viewModel.passportIssueDate, viewModel.passportExpiryDate, "", "", "")
-                cell.leftTextField.isEnabled = false
-                cell.rightTextField.isEnabled = false
+                cell.issueDate = viewModel.passportIssueDate
+                cell.expiryDate = viewModel.passportExpiryDate
+                cell.ffData = nil
+                cell.indexPath = indexPath
                 
                 return cell
                 
@@ -179,7 +177,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             
         case LocalizedString.FlightPreferences:
             if indexPath.row >= 2 {
-                if indexPath.row == self.viewModel.frequentFlyer.count + 3 {
+                if indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1) {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                         fatalError("TableViewAddActionCell not found")
                     }
@@ -190,28 +188,22 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         fatalError("TwoPartEditTableViewCell not found")
                     }
                     cell.delegate = self
-                    
-                    if indexPath.row == (self.viewModel.frequentFlyer.count + 2) {
-                        cell.cofigureCell(indexPath, true, "", "", "", "", "")
-                        cell.deleteButton.isHidden = false
-                        
-                        cell.rightTitleLabel.isHidden = true
-                        return cell
-                    } else {
-                        cell.cofigureCell(indexPath, true, "", "", self.viewModel.frequentFlyer[indexPath.row - 2].logoUrl, self.viewModel.frequentFlyer[indexPath.row - 2].airlineName, self.viewModel.frequentFlyer[indexPath.row - 2].number)
-                        cell.deleteButton.isHidden = false
-                        
-                        cell.rightTitleLabel.isHidden = true
-                        
-                        if indexPath.row + 1 == self.viewModel.frequentFlyer.count {
-                            //                        cell.leftSeparatorView.isHidden = true
-                            //                        cell.rightSeparatorView.isHidden = true
-                        } else {
-                            //                        cell.leftSeparatorView.isHidden = false
-                            //                        cell.rightSeparatorView.isHidden = false
-                        }
-                        return cell
+                    cell.indexPath = indexPath
+                    if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
+                        //data cells
+                        cell.ffData = self.viewModel.frequentFlyer[indexPath.row - 2]
                     }
+                    else if self.ffExtraCount == 4 {
+                        //blank cell
+                        cell.ffData = FrequentFlyer()
+                    }
+                    cell.deleteButton.isHidden = false
+                    
+                    cell.rightTitleLabel.isHidden = true
+                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + 2
+                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + 2
+        
+                    return cell
                 }
                 
             } else {
@@ -224,7 +216,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         default:
             return UITableViewCell()
         }
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -249,9 +240,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var email = Email()
                 email.type = "email"
                 self.viewModel.email.append(email)
-                tableView.beginUpdates()
-                insertRowsAtIndexPaths(indexPaths: [indexPath as NSIndexPath], withRowAnimation: .bottom)
-                tableView.endUpdates()
+                tableView.reloadData()
             }
             
         case LocalizedString.SocialAccounts:
@@ -259,10 +248,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 self.indexPath = indexPath
                 let social = Social()
                 self.viewModel.social.append(social)
-                tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: self.viewModel.social.count - 1, section: indexPath.section)
-                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-                tableView.endUpdates()
+                tableView.reloadData()
             }
             
         case LocalizedString.Address:
@@ -270,10 +256,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 self.indexPath = indexPath
                 let address = Address()
                 self.viewModel.addresses.append(address)
-                tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: self.viewModel.addresses.count - 1, section: indexPath.section)
-                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-                tableView.endUpdates()
+                tableView.reloadData()
             }
             
         case LocalizedString.MoreInformation:
@@ -289,10 +272,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 mobile.isd = "+91"
                 
                 self.viewModel.mobile.append(mobile)
-                tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: self.viewModel.mobile.count - 1, section: indexPath.section)
-                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-                tableView.endUpdates()
+                tableView.reloadData()
             }
             
             break
@@ -300,16 +280,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             self.handlePassportDetailSectionSelection(indexPath)
             
         case LocalizedString.FlightPreferences:
-            if indexPath.row >= 3 {
-                self.indexPath = indexPath
-                let frequentFlyer = FrequentFlyer()
-                self.viewModel.frequentFlyer.append(frequentFlyer)
-                tableView.beginUpdates()
-                let IndexPathOfLastRow = NSIndexPath(row: indexPath.row, section: indexPath.section)
-                self.tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
-                tableView.endUpdates()
-            } else {
+            if 0...1 ~= indexPath.row {
                 self.handleFlightPreferencesSectionSelection(indexPath)
+            }
+            else if indexPath.row == (self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1)) {
+                self.indexPath = indexPath
+                self.viewModel.frequentFlyer.append(FrequentFlyer())
+                tableView.reloadData()
             }
             
         default:
@@ -346,7 +323,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func selectGroupTapped() {
         printDebug("select group tapped")
-        if let groups = UserInfo.loggedInUser?.generalPref?.labels,groups.count > 0 {
+        if let groups = UserInfo.loggedInUser?.generalPref?.labels, groups.count > 0 {
             pickerType = .groups
             pickerData = groups
             openPicker()
@@ -436,7 +413,7 @@ extension EditProfileVC {
         editProfileImageHeaderView.profileImageView.image = selectedImage
         let path = compressAndSaveImage(selectedImage, name: "\(UIApplication.shared.uniqueID).jpeg")
         viewModel.filePath = path!
-          viewModel.imageSource = "aertrip"
+        viewModel.imageSource = "aertrip"
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
@@ -509,19 +486,26 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.EmailAddress:
                     self.viewModel.email.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.reloadData()
                 case LocalizedString.SocialAccounts:
                     self.viewModel.social.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.reloadData()
                 case LocalizedString.ContactNumber:
                     self.viewModel.mobile.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.reloadData()
                 case LocalizedString.FlightPreferences:
-                    self.viewModel.frequentFlyer.remove(at: indexPath.row - 2)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
+                        //delete ff data from array
+                        self.viewModel.frequentFlyer.remove(at: indexPath.row - 2)
+                    }
+                    else {
+                        //delete blank cell data from array
+                        self.ffExtraCount -= 1
+                    }
+                    self.tableView.reloadData()
                 case LocalizedString.Address:
                     self.viewModel.addresses.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.reloadData()
                     
                 default:
                     break
@@ -545,7 +529,6 @@ extension EditProfileVC: EditProfileVMDelegate {
         } else {
             AppFlowManager.default.popViewController(animated: true)
         }
-      
     }
     
     func willApiCall() {
@@ -697,10 +680,10 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.text = pickerTitle
                 viewModel.passportCountryName = pickerTitle
-                if let countryCode = self.viewModel.countries.someKey(forValue: pickerTitle){
-                      viewModel.passportCountry = countryCode
+                if let countryCode = self.viewModel.countries.someKey(forValue: pickerTitle) {
+                    viewModel.passportCountry = countryCode
                 }
-              
+                
                 passportDetails[self.indexPath?.row ?? 1] = pickerTitle
             } else {
                 let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
@@ -719,7 +702,6 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
-       
         }
         closePicker()
     }
@@ -766,17 +748,17 @@ extension EditProfileVC: SearchVCDelegate {
     func frequentFlyerSelected(_ flyer: FlyerModel) {
         NSLog("flyer model \(flyer)")
         if let indexPath = self.indexPath {
-            guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {
-                fatalError("TwoPartEditTableViewCell not found")
-            }
             let str = flyer.value
             let strToReplaced = " (\(flyer.iata))"
-            let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")            
-            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
-            self.viewModel.frequentFlyer[indexPath.row - 2].logoUrl = flyer.logoUrl
-            self.viewModel.frequentFlyer[indexPath.row - 2].airlineName = replacedString
-            self.viewModel.frequentFlyer[indexPath.row - 2].airlineCode = flyer.iata
-            cell.cofigureCell(indexPath, true, "", "", flyer.logoUrl,replacedString, "")
+            let replacedString = str.replacingOccurrences(of: strToReplaced, with: "")
+            if (indexPath.row - 2) >= self.viewModel.frequentFlyer.count {
+                self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+                self.ffExtraCount -= 1
+            }
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].logoUrl = flyer.logoUrl
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].airlineName = replacedString
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].airlineCode = flyer.iata
+            tableView.reloadData()
         }
     }
 }

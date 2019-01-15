@@ -94,7 +94,7 @@ extension UIImage {
         return img
     }
     
-    convenience init?(text: String, font: UIFont = UIFont.systemFont(ofSize: 20), color: UIColor = UIColor.white, backgroundColor: UIColor = UIColor.gray, size:CGSize = CGSize(width: 100, height: 100), offset: CGPoint = CGPoint(x: 0, y: 0))
+    convenience init?(text: String, font: UIFont = UIFont.systemFont(ofSize: 20), color: UIColor = AppColors.themeGray04, backgroundColor: UIColor = AppColors.themeWhite, size:CGSize = CGSize(width: 100, height: 100), offset: CGPoint = CGPoint(x: 0, y: 0))
     {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         let context = UIGraphicsGetCurrentContext()

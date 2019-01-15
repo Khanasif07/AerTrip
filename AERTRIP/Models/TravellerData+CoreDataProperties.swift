@@ -30,7 +30,7 @@ extension TravellerData {
 
 extension TravellerData {
     var age: Int {
-        return 0
+        return dob?.toDate(dateFormat: "yyyy-MM-dd")?.month ?? 0
     }
     
     var salutationImage : UIImage {

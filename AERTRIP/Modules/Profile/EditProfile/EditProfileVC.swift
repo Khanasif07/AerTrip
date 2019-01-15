@@ -33,8 +33,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     
-    // MARK: - Variables
+    //MARK: - Variables
+    //MARK:- Private
+    var ffExtraCount: Int = 4
     
+    //MARK:- Public
     let viewModel = EditProfileVM()
     var sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.Address, LocalizedString.MoreInformation]
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
@@ -128,10 +131,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBAction func saveButtonTapped(_ sender: Any) {
         NSLog("save button tapped")
         view.endEditing(true)
-        viewModel.dob = formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        viewModel.doa =  formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        viewModel.passportIssueDate = formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-          viewModel.passportExpiryDate = formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.dob = AppGlobals.shared.formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.doa =  AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+          viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -254,10 +257,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         sections.append(LocalizedString.SocialAccounts)
         
         viewModel.mobile = travel.contact.mobile
-        travel.dob = formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.dob)
         viewModel.dob = travel.dob
-        travel.doa = formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        travel.doa = AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.doa)
         viewModel.doa = travel.doa
         
@@ -269,9 +272,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         passportDetails.append(travel.passportCountryName)
         viewModel.passportCountryName = travel.passportCountryName
         viewModel.passportCountry = travel.passportCountry
-        travel.passportIssueDate = formattedDateFromString(dateString: travel.passportIssueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        travel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportIssueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportIssueDate = travel.passportIssueDate
-        travel.passportExpiryDate = formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails)
         
@@ -283,7 +286,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         flightDetails.append(travel.preferences.seat.value)
         flightDetails.append(travel.preferences.meal.value)
         
-        editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+        if travel.profileImage != "" {
+            editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
+        } else {
+            editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+        }
         
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
@@ -535,21 +542,5 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         return imageURL.absoluteString
     }
     
-    // convert Date from one format to another
-    
-    func formattedDateFromString(dateString: String,inputFormat iF : String, withFormat outputFormat: String) -> String? {
-        
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = iF
-        
-        if let date = inputFormatter.date(from: dateString) {
-            
-            let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = outputFormat
-            
-            return outputFormatter.string(from: date)
-        }
-        
-        return nil
-    }
+
 }

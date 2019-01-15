@@ -237,6 +237,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 if index == 0 {
                     UserInfo.loggedInUserId = nil
                     AppFlowManager.default.goToDashboard()
+                    CoreDataManager.shared.deleteCompleteDB()
                 }
             })
             

@@ -157,7 +157,7 @@ class UserInfo {
             self.sortOrder     = json["sort_order"].stringValue
             self.displayOrder   = json["display_order"].stringValue
             self.categorizeByGroup   = json["categorize_by_group"].boolValue
-            self.labels = json["labels"].arrayObject as! [String]
+            self.labels = json["labels"].arrayObject as? [String] ?? []
             
             
         }

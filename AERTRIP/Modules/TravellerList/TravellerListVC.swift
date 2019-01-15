@@ -182,10 +182,23 @@ class TravellerListVC: BaseVC {
         }
         
         if predicateStr == "" {
-            fetchedResultsController.fetchRequest.predicate = nil
+           fetchedResultsController.fetchRequest.predicate = nil
+//            var subPredicates : [NSPredicate] = []
+//            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
+//                subPredicates.append(NSPredicate(format: "label == %@",label))
+//            }
+////            let predicate1 = NSPredicate(format: "label == 'friends'")
+////            let predicate2 = NSPredicate(format: "label == 'facebook'")
+////            let predicate3 = NSPredicate(format:"label == 'ddlsfla'")
+////              let predicate4 = NSPredicate(format:"label == 'd'")
+//            let predicateCompound = NSCompoundPredicate.init(type: .or, subpredicates:subPredicates)
+//           // fetchedResultsController.fetchRequest.predicate =  NSPredicate(format: "label == 'friends'")
+//            fetchedResultsController.fetchRequest.predicate =  predicateCompound
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
+        
+
         
         do {
             try fetchedResultsController.performFetch()
