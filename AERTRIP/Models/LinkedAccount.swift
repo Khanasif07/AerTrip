@@ -147,10 +147,24 @@ struct LinkedAccount {
             temp.append(laObj)
         }
         
-        temp.sort { (la1, la2) -> Bool in
-            la1.socialType.priority < la2.socialType.priority
+        var connected = temp.filter { (la) -> Bool in
+            !la.eid.isEmpty
         }
         
-        return temp
+        var disconnected = temp.filter { (la) -> Bool in
+            la.eid.isEmpty
+        }
+        
+        connected.sort { (la1, la2) -> Bool in
+            return la1.socialType.priority < la2.socialType.priority
+        }
+        
+        disconnected.sort { (la1, la2) -> Bool in
+            return la1.socialType.priority < la2.socialType.priority
+        }
+        
+        var new: [LinkedAccount] = connected
+        new.append(contentsOf: disconnected)
+        return new
     }
 }

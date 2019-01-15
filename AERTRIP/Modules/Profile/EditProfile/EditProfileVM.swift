@@ -61,6 +61,8 @@ class EditProfileVM {
     
     var countries = [String: String]()
     var isFromTravellerList: Bool = false
+    var isFromViewProfile: Bool = false
+    var paxId: String = UserInfo.loggedInUser?.userId ?? ""
     
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
@@ -193,10 +195,10 @@ class EditProfileVM {
         var params = JSONDictionary()
         
         // remove default email and mobile
-        if let email = email.first,email.label == "Default" {
+        if let email = email.first, email.label == "Default" {
             self.email.removeFirst()
         }
-        if let mobile = mobile.first,mobile.label == "Default" {
+        if let mobile = mobile.first, mobile.label == "Default" {
             self.mobile.removeFirst()
         }
         
@@ -212,10 +214,10 @@ class EditProfileVM {
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
         
-        if isFromTravellerList {
-            params[APIKeys.id.rawValue] = 0
+        if self.isFromTravellerList {
+            params[APIKeys.id.rawValue] = self.paxId
         } else {
-            params[APIKeys.id.rawValue] = UserInfo.loggedInUser?.userId
+            params[APIKeys.id.rawValue] = self.paxId
         }
         
 //        var emailDictArr = [String: Any]()
@@ -232,7 +234,7 @@ class EditProfileVM {
 //        for (idx, socialObj) in self.social.enumerated() {
 //            socialDictArr["\(idx)"] = socialObj.jsonDict
 //        }
-//        
+//
 //        var addressDictArr = [String: Any]()
 //        for (idx, addressObj) in self.addresses.enumerated() {
 //            addressDictArr["\(idx)"] = addressObj.jsonDict
@@ -249,7 +251,6 @@ class EditProfileVM {
 //        params[APIKeys.contact.rawValue] = contact
 //        params[APIKeys.address.rawValue] = addressDictArr
 //        params[APIKeys.ff.rawValue] = frequentFlyerDictArr
-        
         
         for (idx, emailObj) in self.email.enumerated() {
             for key in Array(emailObj.jsonDict.keys) {
@@ -292,8 +293,7 @@ class EditProfileVM {
         
         if self.filePath.isEmpty {
             params[APIKeys.profileImage.rawValue] = UserInfo.loggedInUser?.profileImage ?? ""
-        }
-        else {
+        } else {
             params[APIKeys.profileImage.rawValue] = ""
         }
         

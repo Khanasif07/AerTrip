@@ -17,11 +17,13 @@ protocol ViewProfileDetailVMDelegate: class {
 class ViewProfileDetailVM {
     weak var delegate: ViewProfileDetailVMDelegate?
     var travelData: TravelDetailModel?
+    var paxId: String = UserInfo.loggedInUser?.userId ?? ""
+    var isFromTravellerList: Bool = false
     
     func webserviceForGetTravelDetail() {
         var params = JSONDictionary()
         
-        params[APIKeys.paxId.rawValue] = UserInfo.loggedInUser?.userId
+        params[APIKeys.paxId.rawValue] = paxId
         
         self.delegate?.willGetDetail()
         
