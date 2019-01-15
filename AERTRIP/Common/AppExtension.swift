@@ -83,7 +83,7 @@ extension UIView {
         return temp
     }
     
-    func addShadow(cornerRadius: CGFloat, shadowColor: UIColor = .black, backgroundColor: UIColor = .white) {
+    func addShadow(cornerRadius: CGFloat, shadowColor: UIColor = .black, backgroundColor: UIColor = .white, offset: CGSize = CGSize(width: -1.0, height: 8.0)) {
         let newLayer: CAShapeLayer!
         if shadowLayer == nil {
             newLayer = CAShapeLayer()
@@ -102,7 +102,7 @@ extension UIView {
         
         newLayer.shadowColor = shadowColor.cgColor
         newLayer.shadowPath  = newLayer.path
-        newLayer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        newLayer.shadowOffset = offset
         newLayer.shadowOpacity = 0.5
         newLayer.shadowRadius = 4.0
     }

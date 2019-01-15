@@ -444,6 +444,23 @@ class UserInfo {
         }
     }
 
+    var socialLoginType: LinkedAccount.SocialType? {
+        get {
+            
+            if let dict = UserDefaults.getObject(forKey: "socialLoginType") as? String {
+                return LinkedAccount.SocialType(rawValue: dict)
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue?.rawValue {
+                UserDefaults.setObject(vlaue, forKey: "socialLoginType")
+            }
+            else{
+                UserDefaults.removeObject(forKey: "socialLoginType")
+            }
+        }
+    }
 
     init(withData data:JSONDictionary, userId:String) {
         self.userId = userId

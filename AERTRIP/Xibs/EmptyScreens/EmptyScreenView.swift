@@ -22,7 +22,7 @@ class EmptyScreenView: UIView {
         case none
         case frequentFlyer
     }
-
+    
     //MARK:- properties -
     weak var delegate: EmptyScreenViewDelegate?
     var vType: EmptyScreenViewType = .none {
@@ -77,7 +77,7 @@ class EmptyScreenView: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
     }
-
+    
     //MARK:- Private Function -
     @IBAction func firstButtonAction(_ sender: UIButton) {
         self.delegate?.firstButtonAction(sender: sender)
@@ -107,11 +107,11 @@ extension EmptyScreenView {
             
         case .none:
             self.setupForNone()
-         case .frequentFlyer:
+        case .frequentFlyer:
             self.setUpForFrequentFlyer()
         }
     }
-
+    
     //MARK: - Tenant My Apartments -
     private func setupForNone() {
         self.firstButton.isHidden = true
@@ -140,7 +140,7 @@ extension EmptyScreenView {
         self.firstButton.setImage(nil, for: .normal)
         self.firstButton.setImage(nil, for: .selected)
         self.firstButton.cornerRadius = self.firstButton.height / 2.0
-
+        
         self.mainImageView.image = #imageLiteral(resourceName: "contactsEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -158,7 +158,7 @@ extension EmptyScreenView {
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .selected)
         self.firstButton.cornerRadius = self.firstButton.height / 2.0
-
+        
         self.mainImageView.image = #imageLiteral(resourceName: "facebookEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -181,10 +181,10 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.ImportGoogleMessage.localized
-}
+    }
     
     private func setUpForFrequentFlyer(){
-       self.containerViewCenterYConstraint.constant = -125
+        self.containerViewCenterYConstraint.constant = -125
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)

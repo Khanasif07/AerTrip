@@ -168,6 +168,10 @@
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
 		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
+		84BA77C221EDC80800C89352 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C121EDC80800C89352 /* LinkedAccountsVC.swift */; };
+		84BA77C421EDCA6200C89352 /* LinkedAccountsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C321EDCA6200C89352 /* LinkedAccountsVM.swift */; };
+		84BA77C921EDCACE00C89352 /* LinkedAccountsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C821EDCACE00C89352 /* LinkedAccountsTableCell.swift */; };
+		84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */; };
 		84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */; };
 		84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */; };
 		84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB7921BE351E00011000 /* PKCountryView.xib */; };
@@ -412,6 +416,10 @@
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
 		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
+		84BA77C121EDC80800C89352 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
+		84BA77C321EDCA6200C89352 /* LinkedAccountsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVM.swift; sourceTree = "<group>"; };
+		84BA77C821EDCACE00C89352 /* LinkedAccountsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsTableCell.swift; sourceTree = "<group>"; };
+		84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccount.swift; sourceTree = "<group>"; };
 		84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATNotificationButton.swift; sourceTree = "<group>"; };
 		84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATBedgeLabel.swift; sourceTree = "<group>"; };
 		84D2FB7921BE351E00011000 /* PKCountryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKCountryView.xib; sourceTree = "<group>"; };
@@ -1012,6 +1020,24 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		84BA77C021EDC7ED00C89352 /* LinkedAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				84BA77C521EDCA9900C89352 /* Cells */,
+				84BA77C121EDC80800C89352 /* LinkedAccountsVC.swift */,
+				84BA77C321EDCA6200C89352 /* LinkedAccountsVM.swift */,
+			);
+			path = LinkedAccounts;
+			sourceTree = "<group>";
+		};
+		84BA77C521EDCA9900C89352 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				84BA77C821EDCACE00C89352 /* LinkedAccountsTableCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		84D2FB7821BE351E00011000 /* PKCountryPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1104,6 +1130,7 @@
 				84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */,
 				84F9837321B51A070018DFED /* BaseVC.swift */,
 				18A96B9121B646C500EA9B3A /* DemoVC.swift */,
+				84BA77C021EDC7ED00C89352 /* LinkedAccounts */,
 				1887859821DF52EE0061869E /* TravellerList */,
 				183E3F6021D9EA180032DEBA /* HotelPreferences */,
 				18930A2021D349E7005442C8 /* SearchVC */,
@@ -1161,6 +1188,7 @@
 				18930A2321D34B60005442C8 /* FlyerModel.swift */,
 				181025A121E339B10046EED7 /* TravellerModel.swift */,
 				846CFECE21E75C4A00AF6062 /* ATContact.swift */,
+				84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1599,6 +1627,7 @@
 				84E4CC6A21E368280015C306 /* ViewAllHotelsVC.swift in Sources */,
 				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
+				84BA77C221EDC80800C89352 /* LinkedAccountsVC.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
@@ -1654,13 +1683,16 @@
 				84F983BD21B51A070018DFED /* BaseVC.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
 				187FCE5F21DCF627008E7BA1 /* DictionaryExtension.swift in Sources */,
+				84BA77C421EDCA6200C89352 /* LinkedAccountsVM.swift in Sources */,
 				183E3F6821D9F1D70032DEBA /* HotelCardCollectionViewCell.swift in Sources */,
 				18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */,
 				183E3F6421D9EA570032DEBA /* HotelPreferencesVM.swift in Sources */,
 				18999D9D21E4D80A00E66072 /* PreferencesVM.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
+				84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
+				84BA77C921EDCACE00C89352 /* LinkedAccountsTableCell.swift in Sources */,
 				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				1808EC6E21DCD3A0006858D6 /* APICaller+Hotels.swift in Sources */,
 				180A3D7821C0E262001A1E6A /* SideMenuVM.swift in Sources */,

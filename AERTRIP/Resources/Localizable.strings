@@ -165,6 +165,7 @@
 "Contacts" = "Contacts";
 "Facebook" = "Facebook";
 "Google" = "Google";
+"LinkedIn" = "LinkedIn";
 "ImportContactMessage" = "We will show you a list of your contacts to add them as travellers";
 "ImportFacebookMessage" = "Connect with Facebook to import your friends to the travellers list.";
 "ImportGoogleMessage" = "Connect with Google to import your contacts to the travellers list";
@@ -172,6 +173,7 @@
 "AllowContacts" = "Allow Contacts";
 "ConnectWithGoogle" = "Connect with Google";
 "ConnectWithFB" = "Connect with Facebook";
+"ConnectWithLinkedIn" = "Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
 
 
@@ -203,3 +205,8 @@
 "AssignGroup" = "AssignGroup";
 "Delete" = "Delete";
 "TheseContactsWillBeDeletedFromTravellersList" = "These contacts will be deleted from Travellers List";
+
+//MARK:- Linked Accounts
+//MARK:-
+"Disconnect" = "Disconnect";
+"LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";

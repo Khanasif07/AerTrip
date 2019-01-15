@@ -197,6 +197,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToLinkedAccountsVC(){
+        let ob = LinkedAccountsVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     func moveToHotelSearchVC(){
         let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)

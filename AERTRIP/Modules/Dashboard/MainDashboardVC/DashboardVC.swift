@@ -135,7 +135,7 @@ class DashboardVC: UIViewController {
         tripsView.alpha = 0.5
 
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let url = URL(string: imagePath) {
-            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
+            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
         }
         else {
             if let userInfo = UserInfo.loggedInUser {

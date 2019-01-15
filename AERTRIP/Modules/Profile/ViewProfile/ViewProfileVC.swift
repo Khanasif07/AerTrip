@@ -226,6 +226,10 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
                 AppFlowManager.default.moveToHotelPreferencesVC()
                 
+            case 3:
+                
+                AppFlowManager.default.moveToLinkedAccountsVC()
+                
             default:
                 break
             }

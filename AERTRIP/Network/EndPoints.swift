@@ -43,6 +43,8 @@ enum APIEndPoint : String {
     case socialContacts = "social/import"
     case assignGroup = "users/apply-label"
     case deletePaxData = "user-passenger/delete-pax-data"
+    case linkedAccounts = "users/linked-accounts"
+    case unlinkSocialAccount = "users/unlink-social-account"
 }
 
 //MARK: - endpoint extension for url -

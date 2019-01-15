@@ -148,6 +148,20 @@ extension SocialLoginVM {
             
             if success {
                 
+                switch self.userData.service.lowercased() {
+                case "linkedin".lowercased():
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedIn
+                    
+                case "google".lowercased():
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.google
+                    
+                case "facebook".lowercased():
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.facebook
+                    
+                default:
+                    UserInfo.loggedInUser?.socialLoginType = nil
+                }
+                
                 self.delegate?.didLoginSuccess()
             }
             else {

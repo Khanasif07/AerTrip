@@ -8,14 +8,24 @@
 
 import UIKit
 
+protocol LinkedAccountsCellDelegate: class {
+    func connect(_ sender: UIButton, forType: LinkedAccount.SocialType)
+    func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType)
+}
+
 class LinkedAccountsTableCell: UITableViewCell {
 
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var connectedContainerView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var socialTypeLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var disconnectButton: UIButton!
+    
+    @IBOutlet weak var disConnectedContainerView: UIView!
+    @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var buttonBackgroundView: UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -44,7 +54,13 @@ class LinkedAccountsTableCell: UITableViewCell {
     
     @objc private func disconnectButtonAction(_ sender: UIButton) {
         if let type = self.linkedAccount?.socialType {
-            self.delegate?.disConnect(forType: type)
+            self.delegate?.disConnect(sender, forType: type)
+        }
+    }
+    
+    @objc private func connectButtonAction(_ sender: UIButton) {
+        if let type = self.linkedAccount?.socialType {
+            self.delegate?.connect(sender, forType: type)
         }
     }
     
@@ -65,30 +81,82 @@ class LinkedAccountsTableCell: UITableViewCell {
         
         self.disconnectButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.disconnectButton.addTarget(self, action: #selector(disconnectButtonAction(_:)), for: .touchUpInside)
+        
+        self.connectButton.addTarget(self, action: #selector(connectButtonAction(_:)), for: .touchUpInside)
     }
     
     private func configureData() {
-        func socialType() -> String {
+        
+        if let eid = self.linkedAccount?.eid, !eid.isEmpty {
+            //setup for connected
+            self.connectedContainerView.isHidden = false
+            self.disConnectedContainerView.isHidden = true
+            self.emailLabel.text = self.linkedAccount?.email ?? LocalizedString.na.localized
+            self.socialTypeLabel.text = self.linkedAccount?.socialType.socialTitle
+            self.iconImageView.image = self.linkedAccount?.socialType.socialIconImage
+            if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
+                self.disconnectButton.isEnabled = loggedSocial != currentSocial
+            }
+        }
+        else {
+            //setup for disConnected
+            self.connectedContainerView.isHidden = true
+            self.disConnectedContainerView.isHidden = false
             if let type = self.linkedAccount?.socialType {
                 switch type {
                     
                 case .facebook:
-                    return LocalizedString.Facebook.localized
+                    self.setupForFacobook()
                     
                 case .google:
-                    return LocalizedString.Google.localized
+                    self.setupForGoogle()
                     
                 case .linkedIn:
-                    return LocalizedString.LinkedIn.localized
+                    self.setupForLinkedIn()
                     
                 default:
-                    return ""
+                    self.connectButton.isHidden = true
                 }
             }
-            return ""
         }
-        
-        self.emailLabel.text = self.linkedAccount?.email
-        self.socialTypeLabel.text = socialType()
+    }
+    
+    private func setupForFacobook() {
+        self.connectButton.isHidden = false
+        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.fbButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.backgroundColor = AppColors.fbButtonBackgroundColor
+        self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
+        self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
+        self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.cornerRadius = self.connectButton.height / 2.0
+    }
+    
+    private func setupForGoogle() {
+        self.connectButton.isHidden = false
+        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.backgroundColor = AppColors.themeWhite
+        self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
+        self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
+        self.connectButton.setTitleColor(AppColors.themeBlack, for: .normal)
+        self.connectButton.setTitleColor(AppColors.themeBlack, for: .selected)
+        self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.cornerRadius = self.connectButton.height / 2.0
+    }
+    
+    private func setupForLinkedIn() {
+        self.connectButton.isHidden = false
+        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.linkedinButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+        self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .normal)
+        self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .selected)
+        self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.cornerRadius = self.connectButton.height / 2.0
     }
 }

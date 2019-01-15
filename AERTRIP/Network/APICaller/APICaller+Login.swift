@@ -226,3 +226,41 @@ extension APICaller {
         }
     }
 }
+
+extension APICaller {
+
+    func callFetchLinkedAccountsAPI( completionBlock: @escaping(_ success: Bool, _ accounts: [LinkedAccount], _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.GET(endPoint: .linkedAccounts, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                let acc = LinkedAccount.fetchModelsForLinkedAccounts(data: jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
+                completionBlock(true, acc, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, [], errors)
+            })
+            
+        }) { (error) in
+        }
+    }
+    
+    func callDisconnectLinkedAccountsAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.POST(endPoint: .unlinkSocialAccount, parameters: params, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                completionBlock(true, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors)
+            })
+            
+        }) { (error) in
+        }
+    }
+}

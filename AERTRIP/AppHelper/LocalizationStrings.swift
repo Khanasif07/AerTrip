@@ -262,6 +262,7 @@ enum LocalizedString: String {
     case Contacts = "Contacts";
     case Facebook = "Facebook";
     case Google = "Google";
+    case LinkedIn = "LinkedIn";
     case ImportContactMessage = "ImportContactMessage";
     case ImportFacebookMessage = "ImportFacebookMessage";
     case ImportGoogleMessage = "ImportGoogleMessage";
@@ -269,6 +270,13 @@ enum LocalizedString: String {
     case AllowContacts = "AllowContacts";
     case ConnectWithGoogle = "ConnectWithGoogle";
     case ConnectWithFB = "ConnectWithFB";
+    case ConnectWithLinkedIn = "ConnectWithLinkedIn";
     case ContactsSelected = "ContactsSelected";
+    
+    //MARK:- Linked Accounts
+    //MARK:-
+    case Disconnect = "Disconnect";
+    case LinkedAccountsMessage = "LinkedAccountsMessage";
+    
 }
 
