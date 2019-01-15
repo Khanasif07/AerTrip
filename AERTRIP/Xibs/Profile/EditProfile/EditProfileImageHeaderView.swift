@@ -48,6 +48,8 @@ class EditProfileImageHeaderView: UIView {
         selectGroupView.addGestureRecognizer(selectGrouptap)
         
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+        self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+        self.profileImageView.layer.borderWidth = 2.0
         self.profileImageView.clipsToBounds = true
         
         self.groupTitleLabel.text = LocalizedString.Group.localized

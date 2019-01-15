@@ -41,6 +41,8 @@ enum APIEndPoint : String {
     case saveGeneralPreferences = "users/save-general-preferences"
     case phoneContacts = "user-passenger/import-contacts"
     case socialContacts = "social/import"
+    case assignGroup = "users/apply-label"
+    case deletePaxData = "user-passenger/delete-pax-data"
 }
 
 //MARK: - endpoint extension for url -

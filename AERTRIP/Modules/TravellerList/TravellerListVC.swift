@@ -14,8 +14,16 @@ class TravellerListVC: BaseVC {
     
     @IBOutlet var navigationTitleLabel: UILabel!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var bottomView: UIView!
     
+    @IBOutlet var assignGroupButton: UIButton!
+    @IBOutlet var deleteButton: UIButton!
     @IBOutlet var searchBar: ATSearchBar!
+    @IBOutlet var travellerNavigationView: UIView!
+    @IBOutlet var selectView: UIView!
+    @IBOutlet var selectAllButton: UIButton!
+    @IBOutlet var travellerSelectedCountLabel: UILabel!
+    @IBOutlet var doneButton: UIButton!
     
     // MARK: - Variables
     
@@ -23,10 +31,12 @@ class TravellerListVC: BaseVC {
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     let cellIdentifier = "TravellerListTableViewCell"
     let viewModel = TravellerListVM()
+    var isSelectMode: Bool = false
+    private var selectedTravller: [String] = []
     
     var container: NSPersistentContainer!
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
-    var predicateStr: String = "A"
+    var predicateStr: String = ""
     
     // MARK: - View Life cycle
     
@@ -43,21 +53,15 @@ class TravellerListVC: BaseVC {
             }
         }
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
-        
-        if (UserInfo.loggedInUser?.generalPref?.categorizeByGroup)! {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: true)]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil)
-        } else {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
-        }
-        
         loadSavedData()
         doInitialSetUp()
         registerXib()
         setUpTravellerHeader()
         viewModel.callSearchTravellerListAPI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,21 +91,47 @@ class TravellerListVC: BaseVC {
         AppFlowManager.default.presentEditProfileVC()
     }
     
+    @IBAction func selectAllTapped(_ sender: Any) {}
+    
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        setTravellerMode()
+    }
+    
     @IBAction func popOverOptionTapped(_ sender: Any) {
         NSLog("edit buttn tapped")
         _ = AKAlertController.actionSheet(nil, message: nil, sourceView: view, buttons: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], tapBlock: { [weak self] _, index in
             
             if index == 0 {
                 printDebug("select traveller")
+                self?.setSelectMode()
             } else if index == 1 {
                 printDebug("preferences  traveller")
-                AppFlowManager.default.moveToPreferencesVC()
+                AppFlowManager.default.moveToPreferencesVC(self ?? TravellerListVC())
             } else if index == 2 {
                 printDebug("import traveller")
                 AppFlowManager.default.moveToImportContactVC()
             }
             
         })
+    }
+    
+    @IBAction func assignGroupTapped(_ sender: Any) {
+        if selectedTravller.count > 0 {
+            AppFlowManager.default.presentAssignGroupVC(self ?? TravellerListVC(), selectedTravller)
+        }
+    }
+    
+    @IBAction func deleteTravellerTapped(_ sender: Any) {
+        if selectedTravller.count > 0 {
+            let str = selectedTravller.count > 1 ? "Delete \(selectedTravller.count) Contacts" : "Delete this Contact"
+            _ = AKAlertController.actionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, buttons: [str], tapBlock: { _, index in
+                
+                if index == 0 {
+                    self.viewModel.paxIds = self.selectedTravller
+                    self.viewModel.callDeleteTravellerAPI()
+                }
+            })
+        }
     }
     
     // MARK: - Helper methods
@@ -113,7 +143,10 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
         tableView.tableHeaderView = travellerListHeaderView
+        bottomView.isHidden = true
+        addFooterView()
         searchBar.delegate = self
+        selectView.isHidden = true
     }
     
     func registerXib() {
@@ -132,7 +165,40 @@ class TravellerListVC: BaseVC {
     }
     
     func loadSavedData() {
-        fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
+        
+        if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: false)]
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil)
+        } else {
+            if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: false)]
+            } else {
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
+            }
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
+        }
+        
+        if predicateStr == "" {
+           fetchedResultsController.fetchRequest.predicate = nil
+//            var subPredicates : [NSPredicate] = []
+//            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
+//                subPredicates.append(NSPredicate(format: "label == %@",label))
+//            }
+////            let predicate1 = NSPredicate(format: "label == 'friends'")
+////            let predicate2 = NSPredicate(format: "label == 'facebook'")
+////            let predicate3 = NSPredicate(format:"label == 'ddlsfla'")
+////              let predicate4 = NSPredicate(format:"label == 'd'")
+//            let predicateCompound = NSCompoundPredicate.init(type: .or, subpredicates:subPredicates)
+//           // fetchedResultsController.fetchRequest.predicate =  NSPredicate(format: "label == 'friends'")
+//            fetchedResultsController.fetchRequest.predicate =  predicateCompound
+        } else {
+            fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
+        }
+        
+
         
         do {
             try fetchedResultsController.performFetch()
@@ -152,6 +218,31 @@ class TravellerListVC: BaseVC {
         
         predicateStr = forText
         loadSavedData()
+    }
+    
+    func addFooterView() {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
+        customView.backgroundColor = AppColors.themeWhite
+        
+        tableView.tableFooterView = customView
+    }
+    
+    func setTravellerMode() {
+        isSelectMode = false
+        selectView.isHidden = true
+        travellerNavigationView.isHidden = false
+        bottomView.isHidden = true
+        travellerSelectedCountLabel.text = "Select Traveller"
+        selectedTravller.removeAll()
+        tableView.reloadData()
+    }
+    
+    func setSelectMode() {
+        bottomView.isHidden = false
+        travellerNavigationView.isHidden = true
+        selectView.isHidden = false
+        isSelectMode = true
+        tableView.reloadData()
     }
 }
 
@@ -175,12 +266,23 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         return 50.0
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
             fatalError("TravellerListTableViewCell not found")
         }
-        
-        cell.travellerData = fetchedResultsController.object(at: indexPath) as? TravellerData
+        guard let sections = self.fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[indexPath.section]
+        cell.separatorView.isHidden = indexPath.row == sectionInfo.numberOfObjects - 1 ? true : false
+        let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
+        cell.travellerData = tData
+        cell.selectTravellerButton.isHidden = isSelectMode ? false : true
+        cell.selectTravellerButton.isSelected = selectedTravller.contains(tData?.id ?? "")
         
         return cell
     }
@@ -197,13 +299,53 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NSLog("\(indexPath.row) clicked")
+        if isSelectMode {
+            if let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell, let data = cell.travellerData, let pId = data.id, !pId.isEmpty {
+                if selectedTravller.contains(pId) {
+                    selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
+                } else {
+                    selectedTravller.append(pId)
+                }
+                tableView.reloadData()
+                if selectedTravller.count == 0 {
+                    travellerSelectedCountLabel.text = "Select Traveller"
+                } else {
+                    travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
+                }
+            }
+        }
     }
 }
 
 // MARK: - TravellerListVMDelegate methods
 
 extension TravellerListVC: TravellerListVMDelegate {
+    func willCallDeleteTravellerAPI() {
+        //
+    }
+    
+    func deleteTravellerAPISuccess() {
+        selectView.isHidden = true
+        travellerNavigationView.isHidden = false
+        bottomView.isHidden = true
+        isSelectMode = false
+        for travellerId in selectedTravller {
+            let traveller = TravellerData.isItemExistCheck(id: travellerId)
+            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
+        }
+        travellerSelectedCountLabel.text = "Select Traveller"
+        selectedTravller.removeAll()
+        loadSavedData()
+    }
+    
+    func deleteTravellerAPIFailure() {
+        selectView.isHidden = true
+        travellerNavigationView.isHidden = false
+        bottomView.isHidden = true
+        isSelectMode = false
+        tableView.reloadData()
+    }
+    
     func searchTravellerFail(errors: ErrorCodes) {
         printDebug(errors)
     }
@@ -224,8 +366,15 @@ extension TravellerListVC: TravellerListVMDelegate {
 
 extension TravellerListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchTraveller(forText: searchText)
+        if searchText == "" {
+            predicateStr = ""
+            loadSavedData()
+        } else {
+            searchTraveller(forText: searchText)
+        }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {}
 }
 
 // MARK: - NSFetchedResultsControllerDelegate Methods
@@ -249,8 +398,7 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
             
         // TODO: - Need to update
         case .update:
-            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {
-            }
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {}
             break
             
         case .move:
@@ -270,5 +418,24 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+}
+
+extension TravellerListVC: PreferencesVCDelegate {
+    func preferencesUpdated() {
+        loadSavedData()
+    }
+}
+
+extension TravellerListVC: AssignGroupVCDelegate {
+    func groupAssigned() {
+        setTravellerMode()
+        for travellerId in selectedTravller {
+            let traveller = TravellerData.isItemExistCheck(id: travellerId)
+            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
+        }
+        travellerSelectedCountLabel.text = "Select Traveller"
+        selectedTravller.removeAll()
+        viewModel.callSearchTravellerListAPI()
     }
 }

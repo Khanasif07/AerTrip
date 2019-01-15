@@ -5,12 +5,13 @@
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isChecked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="180"/>
     </elements>
 </model>

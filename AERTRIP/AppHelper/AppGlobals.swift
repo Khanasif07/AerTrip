@@ -77,7 +77,7 @@ struct AppGlobals {
     }
     
      func getImageFromText(_ fromText: String) -> UIImage {
-        return UIImage(text: fromText, font: UIFont.boldSystemFont(ofSize: 20), color: UIColor.gray, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
+        return UIImage(text: fromText, font: UIFont.systemFont(ofSize: 20.0), color: AppColors.themeGray40, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
     }
 
     func showErrorOnToastView(errors: ErrorCodes, viewController: UIViewController) {
@@ -92,6 +92,24 @@ struct AppGlobals {
             }
         }
         AppToast.default.showToastMessage(message: message, vc: viewController)
+    }
+    
+    // convert Date from one format to another
+    
+    func formattedDateFromString(dateString: String,inputFormat iF : String, withFormat outputFormat: String) -> String? {
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = iF
+        
+        if let date = inputFormatter.date(from: dateString) {
+            
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = outputFormat
+            
+            return outputFormatter.string(from: date)
+        }
+        
+        return nil
     }
 }
 

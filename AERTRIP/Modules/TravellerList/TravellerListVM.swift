@@ -15,6 +15,9 @@ protocol TravellerListVMDelegate: class {
     func willSearchForTraveller()
     func searchTravellerSuccess()
     func searchTravellerFail(errors: ErrorCodes)
+    func willCallDeleteTravellerAPI()
+    func deleteTravellerAPISuccess()
+    func deleteTravellerAPIFailure()
 }
 
 class TravellerListVM: NSObject {
@@ -23,23 +26,7 @@ class TravellerListVM: NSObject {
     
     // var traveller:[NSManagedObject] = []
     var travelData: [TravellerData] = []
-    
-    func searchTraveller(forText: String) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(self.filterDictArrSearch(_:)), with: forText, afterDelay: 0.5)
-    }
-    
-    @objc func filterDictArrSearch(_ forText: String) {
-        print(forText)
-        self.travelData.removeAll()
-        if let travelsData = TravellerData.fetch(id: forText) {
-            self.travelData = travelsData
-        }
-        
-        self.delegate?.searchTravellerSuccess()
-        
-        printDebug(self.travelData)
-    }
+    var paxIds: [String] = []
     
     func callSearchTravellerListAPI() {
         self.delegate?.willSearchForTraveller()
@@ -50,9 +37,22 @@ class TravellerListVM: NSObject {
                     TravellerData.insert(dataDict: traveller.jsonDict)
                 }
                 self?.delegate?.searchTravellerSuccess()
-            }
-            else {
+            } else {
                 self?.delegate?.searchTravellerFail(errors: errorCodes)
+            }
+        }
+    }
+    
+    func callDeleteTravellerAPI() {
+        var params = JSONDictionary()
+        
+        params["pax_ids"] = self.paxIds
+        delegate?.willCallDeleteTravellerAPI()
+        APICaller.shared.callDeleteTravellerAPI(params: params) { [weak self] success, _ in
+            if success {
+                self?.delegate?.deleteTravellerAPISuccess()
+            } else {
+                self?.delegate?.deleteTravellerAPIFailure()
             }
         }
     }

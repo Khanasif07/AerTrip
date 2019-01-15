@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PreferencesVCDelegate:class {
+    func preferencesUpdated()
+}
+
 class PreferencesVC: BaseVC {
     // MARK: - IB Outlets
     
@@ -26,6 +30,7 @@ class PreferencesVC: BaseVC {
     let emptyCellIdentifier = "EmptyTableViewCell"
     let groupCellIdentifier = "GroupTableViewCell"
     let addActionCellIdentifier = "TableViewAddActionCell"
+    weak var delegate : PreferencesVCDelegate?
     let viewModel = PreferencesVM()
     
     // MARK: - View LifeCycle
@@ -261,11 +266,19 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObject = viewModel.groups[sourceIndexPath.row]
-        viewModel.groups.remove(at: sourceIndexPath.row)
-        viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
+            let movedObject = viewModel.groups[sourceIndexPath.row]
+            viewModel.groups.remove(at: sourceIndexPath.row)
+            viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
+       
     }
     
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == self.viewModel.groups.count {
+            return false
+        }
+        
+        return true
+    }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
@@ -313,6 +326,7 @@ extension PreferencesVC: PreferencesVMDelegate {
         AppNetworking.hideLoader()
          AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized, vc: self)
         dismiss(animated: true, completion: nil)
+        delegate?.preferencesUpdated()
     }
     
     func savePreferencesFail(errors: ErrorCodes) {

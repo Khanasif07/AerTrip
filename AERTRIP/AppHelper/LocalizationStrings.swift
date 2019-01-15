@@ -241,6 +241,8 @@ enum LocalizedString: String {
    case Select = "Select"
    case Preferences = "Preferences"
    case Import = "Import"
+   case AssignGroup = "AssignGroup"
+   case TheseContactsWillBeDeletedFromTravellersList = "TheseContactsWillBeDeletedFromTravellersList"
     
     // MARK: - PreferencesVC
     case SortOrder = "SORT ORDER"
@@ -252,6 +254,7 @@ enum LocalizedString: String {
     case EnterAGroupName = "Enter a Group Name"
     case EnterGroupName = "Enter Group Name"
     case PreferencesSavedSuccessfully
+    
     
     
     //MARK:- Import Contacts

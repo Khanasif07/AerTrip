@@ -213,8 +213,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToPreferencesVC(){
+    func moveToPreferencesVC(_ vc:TravellerListVC){
         let ob  = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.delegate = vc
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -226,6 +227,13 @@ extension AppFlowManager {
     func presentEditProfileVC() {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.isFromTravellerList = true
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
+        let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.viewModel.paxIds = selectedTraveller
+        ob.delegate  = vc
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
 }

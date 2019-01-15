@@ -43,16 +43,13 @@ class SlideMenuProfileImageHeaderView: UIView {
         parentView.familyButton.isHidden = !isFamily
         parentView.emailIdLabel.isHidden = isFamily
         parentView.mobileNumberLabel.isHidden = isFamily
-        
         return parentView
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.backgroundImageView.frame = self.bounds
-        self.gradientView.frame = self.bounds
-        gradient.frame = gradientView.bounds
+       // self.backgroundImageView.frame = self.bounds
     }
     
     // Action
@@ -70,11 +67,13 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 6.0
         
+        doInitialSetup()
+    }
+    
+    override func draw(_ rect: CGRect) {
         gradient.frame = gradientView.bounds
         gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
         gradientView.layer.insertSublayer(gradient, at: 0)
-        
-        doInitialSetup()
     }
     
     // MARK: - Helper Method
