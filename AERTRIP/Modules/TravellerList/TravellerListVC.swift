@@ -117,7 +117,7 @@ class TravellerListVC: BaseVC {
     
     @IBAction func assignGroupTapped(_ sender: Any) {
         if selectedTravller.count > 0 {
-            AppFlowManager.default.presentAssignGroupVC(self ?? TravellerListVC(), selectedTravller)
+            AppFlowManager.default.presentAssignGroupVC(self, selectedTravller)
         }
     }
     
@@ -182,23 +182,21 @@ class TravellerListVC: BaseVC {
         }
         
         if predicateStr == "" {
-           fetchedResultsController.fetchRequest.predicate = nil
+            fetchedResultsController.fetchRequest.predicate = nil
 //            var subPredicates : [NSPredicate] = []
 //            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
 //                subPredicates.append(NSPredicate(format: "label == %@",label))
 //            }
-////            let predicate1 = NSPredicate(format: "label == 'friends'")
-////            let predicate2 = NSPredicate(format: "label == 'facebook'")
-////            let predicate3 = NSPredicate(format:"label == 'ddlsfla'")
-////              let predicate4 = NSPredicate(format:"label == 'd'")
+            ////            let predicate1 = NSPredicate(format: "label == 'friends'")
+            ////            let predicate2 = NSPredicate(format: "label == 'facebook'")
+            ////            let predicate3 = NSPredicate(format:"label == 'ddlsfla'")
+            ////              let predicate4 = NSPredicate(format:"label == 'd'")
 //            let predicateCompound = NSCompoundPredicate.init(type: .or, subpredicates:subPredicates)
 //           // fetchedResultsController.fetchRequest.predicate =  NSPredicate(format: "label == 'friends'")
 //            fetchedResultsController.fetchRequest.predicate =  predicateCompound
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
-        
-
         
         do {
             try fetchedResultsController.performFetch()
@@ -313,6 +311,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                     travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
                 }
             }
+        } else {
+            let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
+            AppFlowManager.default.moveToViewProfileDetailVC(tData?.id ?? "", true)
         }
     }
 }

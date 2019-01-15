@@ -61,7 +61,17 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.editProfilTwoPartTableViewCelldelegate = self
-                cell.configureCell(indexPath, self.viewModel.email[indexPath.row].label, self.viewModel.email[indexPath.row].value)
+                if indexPath.row == 0, !self.viewModel.isFromTravellerList {
+                    cell.rightViewTextField.isEnabled = false
+                    cell.deleteButton.isHidden = true
+                    cell.leftView.isUserInteractionEnabled = false
+                } else {
+                    cell.rightViewTextField.delegate = self
+                }
+                cell.email = self.viewModel.email[indexPath.row]
+                cell.social = nil
+                cell.mobile = nil
+                cell.indexPath = indexPath
                 if indexPath.row + 1 == self.viewModel.email.count {
                     cell.leftSeparatorView.isHidden = true
                     cell.rightSeparatorView.isHidden = true
@@ -106,7 +116,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
                 cell.editProfilTwoPartTableViewCelldelegate = self
-                cell.configureCell(indexPath, self.viewModel.social[indexPath.row].label, self.viewModel.social[indexPath.row].value)
+                cell.social = self.viewModel.social[indexPath.row]
+                cell.indexPath = indexPath
                 if indexPath.row + 1 == self.viewModel.social.count {
                     cell.leftSeparatorView.isHidden = true
                     cell.rightSeparatorView.isHidden = true
@@ -190,11 +201,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.delegate = self
                     cell.indexPath = indexPath
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
-                        //data cells
+                        // data cells
                         cell.ffData = self.viewModel.frequentFlyer[indexPath.row - 2]
-                    }
-                    else if self.ffExtraCount == 4 {
-                        //blank cell
+                    } else if self.ffExtraCount == 4 {
+                        // blank cell
                         cell.ffData = FrequentFlyer()
                     }
                     cell.deleteButton.isHidden = false
@@ -202,7 +212,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightTitleLabel.isHidden = true
                     cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + 2
                     cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + 2
-        
+                    
                     return cell
                 }
                 
@@ -282,8 +292,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.FlightPreferences:
             if 0...1 ~= indexPath.row {
                 self.handleFlightPreferencesSectionSelection(indexPath)
-            }
-            else if indexPath.row == (self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1)) {
+            } else if indexPath.row == (self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1)) {
                 self.indexPath = indexPath
                 self.viewModel.frequentFlyer.append(FrequentFlyer())
                 tableView.reloadData()
@@ -495,11 +504,10 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                     self.tableView.reloadData()
                 case LocalizedString.FlightPreferences:
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
-                        //delete ff data from array
+                        // delete ff data from array
                         self.viewModel.frequentFlyer.remove(at: indexPath.row - 2)
-                    }
-                    else {
-                        //delete blank cell data from array
+                    } else {
+                        // delete blank cell data from array
                         self.ffExtraCount -= 1
                     }
                     self.tableView.reloadData()
@@ -524,7 +532,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getSuccess() {
-        if self.viewModel.isFromTravellerList {
+        if self.viewModel.isFromTravellerList, !self.viewModel.isFromViewProfile {
             dismiss(animated: true, completion: nil)
         } else {
             AppFlowManager.default.popViewController(animated: true)
@@ -755,10 +763,10 @@ extension EditProfileVC: SearchVCDelegate {
                 self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
                 self.ffExtraCount -= 1
             }
-            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].logoUrl = flyer.logoUrl
-            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].airlineName = replacedString
-            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount-1)].airlineCode = flyer.iata
-            tableView.reloadData()
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount - 1)].logoUrl = flyer.logoUrl
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount - 1)].airlineName = replacedString
+            self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount - 1)].airlineCode = flyer.iata
+            self.tableView.reloadData()
         }
     }
 }

@@ -46,8 +46,6 @@ class ViewProfileDetailVC: BaseVC {
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         
-       
-        
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.tableView.origin.x = -200
             self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
@@ -77,6 +75,9 @@ class ViewProfileDetailVC: BaseVC {
     @IBAction func editButtonTapped(_ sender: Any) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.travelData = travelData
+        ob.viewModel.isFromTravellerList = viewModel.isFromTravellerList
+        ob.viewModel.isFromViewProfile = true
+        ob.viewModel.paxId = viewModel.paxId
         navigationController?.pushViewController(ob, animated: true)
     }
     
@@ -127,33 +128,52 @@ class ViewProfileDetailVC: BaseVC {
         if travel.profileImage != "" {
             profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
         } else {
-            profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            if viewModel.isFromTravellerList {
+                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
+                profileImageHeaderView.profileImageView.image = imageFromText
+                profileImageHeaderView.backgroundImageView.image = imageFromText
+            } else {
+                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            }
         }
-        var mobile = Mobile()
-        mobile.label = "Default"
-        mobile.value = UserInfo.loggedInUser?.mobile ?? ""
-        self.mobile = [mobile]
-        self.mobile.append(contentsOf: travel.contact.mobile)
+        mobile.removeAll()
+        if !viewModel.isFromTravellerList {
+            var mobile = Mobile()
+            mobile.label = "Default"
+            mobile.value = UserInfo.loggedInUser?.mobile ?? ""
+            self.mobile = [mobile]
+        }
+        
+        mobile.append(contentsOf: travel.contact.mobile)
         
         if travel.address.count > 0 {
             addresses = travel.address
             sections.append(LocalizedString.Address)
         }
         
-        var email = Email()
-        email.label = "Default"
-        email.value = UserInfo.loggedInUser?.email ?? ""
-        self.email = [email]
-        self.email.append(contentsOf: travel.contact.email)
-        
+        if !viewModel.isFromTravellerList {
+            var email = Email()
+            email.label = "Default"
+            email.value = UserInfo.loggedInUser?.email ?? ""
+            self.email = [email]
+        }
+        email.append(contentsOf: travel.contact.email)
         let social = travel.contact.social
+        
+        sections.removeAll()
+        if email.count > 0 {
+            sections.append(LocalizedString.EmailAddress)
+        }
+        if mobile.count > 0 {
+            sections.append(LocalizedString.ContactNumber)
+        }
         if social.count > 0 {
             self.social = social
             sections.append(LocalizedString.SocialAccounts)
         }
-        sections.removeAll()
-         self.sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.MoreInformation]
+        sections.append(LocalizedString.MoreInformation)
         informations.removeAll()
         if !travel.dob.isEmpty {
             informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
@@ -171,7 +191,7 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.PassportDetails)
         }
         
-        if travel.preferences != nil {
+        if travel.preferences.seat.value != "" || travel.preferences.meal.value != "" {
             sections.append(LocalizedString.FlightPreferences)
         }
         
