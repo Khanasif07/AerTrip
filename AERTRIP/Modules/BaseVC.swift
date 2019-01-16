@@ -10,6 +10,18 @@ import UIKit
 import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
+
+    var statusBarColor: UIColor = AppColors.themeWhite {
+        didSet{
+            UIApplication.shared.statusBarView?.backgroundColor = statusBarColor
+        }
+    }
+    
+    var statusBarStyle: UIStatusBarStyle = .default {
+        didSet{
+            UIApplication.shared.statusBarStyle = statusBarStyle
+        }
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()

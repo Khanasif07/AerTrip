@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
-		1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804322D21B8F6D100E6EE23 /* AKAlertController.swift */; };
 		1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */; };
 		1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */; };
 		1804888321CA192900437C81 /* ViewProfileDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888221CA192900437C81 /* ViewProfileDetailVC.swift */; };
@@ -155,13 +154,13 @@
 		8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91A21BF9EA6009C208E /* TripsVC.swift */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
 		844E61AB21C3B66A00DBB6E2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */; };
+		84520F7B21EF46CF009D9CD1 /* MainHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84520F7A21EF46CF009D9CD1 /* MainHomeVC.swift */; };
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		8452D37921E61FB700927287 /* ImportContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37821E61FB700927287 /* ImportContactVC.swift */; };
 		8452D37B21E61FC600927287 /* ContactListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37A21E61FC600927287 /* ContactListVC.swift */; };
 		8452D37D21E61FDD00927287 /* ImportContactVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37C21E61FDD00927287 /* ImportContactVM.swift */; };
 		8452D38221E64A0D00927287 /* SelectedContactCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */; };
 		8452D38421E64A3000927287 /* ContactDetailsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */; };
-		846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */; };
 		846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFECE21E75C4A00AF6062 /* ATContact.swift */; };
 		84754D8321E8EE3D00317F76 /* TravellerData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */; };
 		84754D8421E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8221E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift */; };
@@ -187,7 +186,6 @@
 		84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7F21BE351E00011000 /* PKCountryPickerSettings.swift */; };
 		84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB8821BE353E00011000 /* PKSideMenuController.swift */; };
 		84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB9C21BE767700011000 /* Dashboard.storyboard */; };
-		84D2FB9F21BE76A900011000 /* MainDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */; };
 		84D2FBA121BE76C900011000 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FBA021BE76C900011000 /* SideMenuVC.swift */; };
 		84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */; };
 		84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */; };
@@ -203,7 +201,6 @@
 		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
 		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
 		84F4957B21DC80D900998E83 /* DefaultNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */; };
-		84F4957D21DCA37200998E83 /* ViewProfileNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F4957C21DCA37200998E83 /* ViewProfileNavigationTransition.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983BD21B51A070018DFED /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837321B51A070018DFED /* BaseVC.swift */; };
 		84F983BE21B51A070018DFED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837621B51A070018DFED /* LoginVC.swift */; };
@@ -257,7 +254,6 @@
 /* Begin PBXFileReference section */
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
-		1804322D21B8F6D100E6EE23 /* AKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertController.swift; sourceTree = "<group>"; };
 		1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
 		1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVC.swift; sourceTree = "<group>"; };
 		1804888221CA192900437C81 /* ViewProfileDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailVC.swift; sourceTree = "<group>"; };
@@ -406,13 +402,13 @@
 		8429C91A21BF9EA6009C208E /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
 		844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		84520F7A21EF46CF009D9CD1 /* MainHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeVC.swift; sourceTree = "<group>"; };
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8452D37821E61FB700927287 /* ImportContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactVC.swift; sourceTree = "<group>"; };
 		8452D37A21E61FC600927287 /* ContactListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListVC.swift; sourceTree = "<group>"; };
 		8452D37C21E61FDD00927287 /* ImportContactVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactVM.swift; sourceTree = "<group>"; };
 		8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedContactCollectionCell.swift; sourceTree = "<group>"; };
 		8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableCell.swift; sourceTree = "<group>"; };
-		846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginNavigationTransition.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846CFECE21E75C4A00AF6062 /* ATContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATContact.swift; sourceTree = "<group>"; };
 		84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TravellerData+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -439,7 +435,6 @@
 		84D2FB7F21BE351E00011000 /* PKCountryPickerSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryPickerSettings.swift; sourceTree = "<group>"; };
 		84D2FB8821BE353E00011000 /* PKSideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKSideMenuController.swift; sourceTree = "<group>"; };
 		84D2FB9C21BE767700011000 /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
-		84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDashboardVC.swift; sourceTree = "<group>"; };
 		84D2FBA021BE76C900011000 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerOptions.swift; sourceTree = "<group>"; };
 		84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerTabView.swift; sourceTree = "<group>"; };
@@ -455,7 +450,6 @@
 		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
 		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
 		84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationTransition.swift; sourceTree = "<group>"; };
-		84F4957C21DCA37200998E83 /* ViewProfileNavigationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileNavigationTransition.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837321B51A070018DFED /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		84F9837621B51A070018DFED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -677,7 +671,6 @@
 				1841AF8E21C8BAA30038111D /* ViewProfileVC.swift */,
 				1804888221CA192900437C81 /* ViewProfileDetailVC.swift */,
 				1804889521CA7CFF00437C81 /* ViewProfileDetailVM.swift */,
-				84F4957C21DCA37200998E83 /* ViewProfileNavigationTransition.swift */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -799,7 +792,6 @@
 			children = (
 				18A96B8D21B645CD00EA9B3A /* SocialLoginVC.swift */,
 				18A96B8F21B645ED00EA9B3A /* SocialLoginVM.swift */,
-				846590EB21D75C97005911C6 /* SocialLoginNavigationTransition.swift */,
 			);
 			path = SocialLoginVC;
 			sourceTree = "<group>";
@@ -922,6 +914,14 @@
 				8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */,
 			);
 			path = PKPulseAnimation;
+			sourceTree = "<group>";
+		};
+		84520F7921EF4581009D9CD1 /* MainHomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				84520F7A21EF46CF009D9CD1 /* MainHomeVC.swift */,
+			);
+			path = MainHomeVC;
 			sourceTree = "<group>";
 		};
 		8452D36C21E614BA00927287 /* CoreData */ = {
@@ -1096,7 +1096,6 @@
 		84D2FB9A21BE764F00011000 /* MainDashboardVC */ = {
 			isa = PBXGroup;
 			children = (
-				84D2FB9E21BE76A900011000 /* MainDashboardVC.swift */,
 				844E61AA21C3B66A00DBB6E2 /* DashboardVC.swift */,
 			);
 			path = MainDashboardVC;
@@ -1144,6 +1143,7 @@
 		84F9837221B51A070018DFED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				84520F7921EF4581009D9CD1 /* MainHomeVC */,
 				84020F1D21B55F5600248A6F /* BaseTabBarController.swift */,
 				84EAABE821D9D18F006B757F /* TransitionCoordinator.swift */,
 				84F4957A21DC80D900998E83 /* DefaultNavigationTransition.swift */,
@@ -1598,7 +1598,6 @@
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
 				84754D8421E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift in Sources */,
-				84D2FB9F21BE76A900011000 /* MainDashboardVC.swift in Sources */,
 				180FA06921DCC83F003901FF /* AddAddressTableViewCell.swift in Sources */,
 				8429C91B21BF9EA6009C208E /* TripsVC.swift in Sources */,
 				18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */,
@@ -1607,7 +1606,6 @@
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
 				18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */,
 				18930A1821D2B0EF005442C8 /* SearchVC.swift in Sources */,
-				84F4957D21DCA37200998E83 /* ViewProfileNavigationTransition.swift in Sources */,
 				18FA223621EC93350024B91E /* AssignGroupVM.swift in Sources */,
 				1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
@@ -1632,6 +1630,7 @@
 				1851A75A21C3C7AB008DF03F /* SideMenuViewAccountCell.swift in Sources */,
 				8452D38221E64A0D00927287 /* SelectedContactCollectionCell.swift in Sources */,
 				18999D8A21E47B1600E66072 /* PreferencesVC.swift in Sources */,
+				84520F7B21EF46CF009D9CD1 /* MainHomeVC.swift in Sources */,
 				1809A47821CD144C0018AB2F /* EditProfileVC+DelegateMethods.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
@@ -1738,7 +1737,6 @@
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				1809A47F21CDFE850018AB2F /* EditProfileTwoPartTableViewCell.swift in Sources */,
-				846590EC21D75C97005911C6 /* SocialLoginNavigationTransition.swift in Sources */,
 				1887859A21DF53420061869E /* TravellerListVC.swift in Sources */,
 				183E3F6B21DA00D70032DEBA /* FloatRatingView.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
