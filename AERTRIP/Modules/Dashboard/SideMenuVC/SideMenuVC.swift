@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol SideMenuVCDelegate: class {
+    func loginRegisterAction(_ sender: ATButton)
+    func viewProfileAction(_ sender: ATButton)
+}
+
 class SideMenuVC: BaseVC {
     // MARK: - Properties
     weak private(set) var loginRegistrationButton: ATButton?
@@ -33,6 +38,8 @@ class SideMenuVC: BaseVC {
     let viewModel = SideMenuVM()
     let socialViewModel = SocialLoginVM()
     
+    weak var delegate: SideMenuVCDelegate?
+    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -55,14 +62,14 @@ class SideMenuVC: BaseVC {
         super.viewDidAppear(animated)
         
         if UserInfo.loggedInUserId == nil {
-            //add the logo view only if user is not logged in 
-            if self.logoContainerView == nil {
-                self.logoContainerView = SideMenuLogoView.instanceFromNib()
-                self.logoContainerView.backgroundColor = AppColors.clear
+            //add the logo view only if user is not logged in
+            if let view = self.logoContainerView {
+                self.updateLogoView(view: view)
             }
-                        
-            self.logoContainerView.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
-            self.sideMenuTableView.addSubview(self.logoContainerView)
+            else {
+                self.logoContainerView = self.getAppLogoView()
+                self.sideMenuTableView.addSubview(self.logoContainerView)
+            }
         }
         else {
             //add the profile view only if user is logged in
@@ -74,6 +81,18 @@ class SideMenuVC: BaseVC {
                 self.sideMenuTableView.addSubview(self.profileContainerView)
             }
         }
+    }
+    
+    func getAppLogoView() -> SideMenuLogoView {
+        let view = SideMenuLogoView.instanceFromNib()
+        view.backgroundColor = AppColors.clear
+        self.updateLogoView(view: view)
+        
+        return view
+    }
+    
+    private func updateLogoView(view: SideMenuLogoView) {
+        view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
     }
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
@@ -160,18 +179,11 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
-        self.loginRegistrationButton = sender
-        self.logoContainerView.removeFromSuperview()
-        self.logoContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
-        AppFlowManager.default.mainNavigationController.view.addSubview(self.logoContainerView)
-        AppFlowManager.default.moveToSocialLoginVC()
+        self.delegate?.loginRegisterAction(sender)
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
-//        self.profileContainerView.removeFromSuperview()
-//        self.profileContainerView.frame = CGRect(x: self.sideMenuTableView.x, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
-//        AppFlowManager.default.mainNavigationController.view.addSubview(self.profileContainerView)
-        AppFlowManager.default.moveToViewProfileVC()
+        self.delegate?.viewProfileAction(sender)
     }
 }
 

@@ -9,6 +9,10 @@
 import MXParallaxHeader
 import UIKit
 
+protocol ViewProfileVCDelegate: class {
+    func backButtonAction(_ sender: UIButton)
+}
+
 class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
@@ -21,7 +25,7 @@ class ViewProfileVC: BaseVC {
     @IBOutlet var drawableHeaderView: UIView!
     
     // MARK: - Variables
-    
+    weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
     var sections = ["details", "accounts", "logOut"]
     var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized, LocalizedString.NewsLetters.localized]
@@ -99,8 +103,8 @@ class ViewProfileVC: BaseVC {
     
     // MARK: - IB Actions
     
-    @IBAction func backButtonTapped(_ sender: Any) {
-        AppFlowManager.default.popViewController(animated: true)
+    @IBAction func backButtonTapped(_ sender: UIButton) {
+        self.delegate?.backButtonAction(sender)
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {

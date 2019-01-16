@@ -17,7 +17,10 @@ class AppFlowManager: NSObject {
     
     static let `default` = AppFlowManager()
     
-    var sideMenuController: PKSideMenuController?
+    var sideMenuController: PKSideMenuController? {
+        return self.mainHomeVC?.sideMenuController
+    }
+    var mainHomeVC: MainHomeVC?
         
     private let urlScheme = "://"
 
@@ -76,17 +79,9 @@ class AppFlowManager: NSObject {
     }
     
     func goToDashboard() {
-        
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
-        PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
-        PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
-
-        let sideMenuVC = PKSideMenuController()
-        sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
-        sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
-        self.sideMenuController = sideMenuVC
-        let nvc = UINavigationController(rootViewController: sideMenuVC)
+        let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
+        self.mainHomeVC = mainHome
+        let nvc = UINavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc

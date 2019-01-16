@@ -8,14 +8,17 @@
 
 import UIKit
 
+protocol SocialLoginVCDelegate: class {
+    func backButtonTapped(_ sender: UIButton)
+}
+
 class SocialLoginVC: BaseVC {
     // MARK: - Properties
     
     // MARK: -
     // used to find the logo view to hide
-    var logoContainerPassedView: SideMenuLogoView?
     let viewModel = SocialLoginVM()
-    
+    weak var delegate: SocialLoginVCDelegate?
     
     //MARK:- IBOutlets
     //MARK:-
@@ -59,13 +62,11 @@ class SocialLoginVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.logoContainerPassedView?.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.logoContainerPassedView?.isHidden = false
         self.backButton.isHidden = false
     }
     
@@ -131,11 +132,7 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
-        delay(seconds: 0.6) {
-            self.logoContainerView.removeFromSuperview()
-            self.view.addSubview(self.logoContainerView)
-        }
+        self.delegate?.backButtonTapped(sender)
     }
 }
 

@@ -66,7 +66,6 @@ class DashboardVC: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
-
         super.viewDidLayoutSubviews()
 
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
@@ -92,7 +91,6 @@ class DashboardVC: UIViewController {
     
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
-
         if selectedOption == .aerin {return}
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
