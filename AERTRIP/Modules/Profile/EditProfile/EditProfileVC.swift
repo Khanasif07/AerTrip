@@ -25,6 +25,10 @@ enum ViewType {
     case rightView
 }
 
+protocol EditProfileVCDelegate:class {
+   func newTravellerCreated()
+}
+
 class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - IB Outlets
     
@@ -42,7 +46,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - Public
     
     let viewModel = EditProfileVM()
-    var sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.Address, LocalizedString.MoreInformation]
+    var sections = [LocalizedString.EmailAddress.localized, LocalizedString.ContactNumber.localized, LocalizedString.Address.localized, LocalizedString.MoreInformation.localized]
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
     var imagePicker = UIImagePickerController()
@@ -79,7 +83,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let twoPartEditTableViewCellIdentifier = "TwoPartEditTableViewCell"
     let addressTextEditTableCellIdentier = "AddressTextEditTableViewCell"
     let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
-    
+    let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -152,8 +156,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         editProfileImageHeaderView.delegate = self
         
-        editProfileImageHeaderView.firstNameTextField.delegate = self
-        editProfileImageHeaderView.lastNameTextField.delegate = self
+
         
         tableView.separatorStyle = .none
         tableView.tableHeaderView = editProfileImageHeaderView
@@ -186,6 +189,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: twoPartEditTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: twoPartEditTableViewCellIdentifier)
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
+        tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier:    addNotesTableViewCellIdentifier)
         tableView.reloadData()
     }
     
@@ -255,7 +259,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         // viewModel.email = email
         viewModel.social = travel.contact.social
         viewModel.social = travel.contact.social
-        sections.append(LocalizedString.SocialAccounts)
+        sections.append(LocalizedString.SocialAccounts.localized)
         
         viewModel.mobile = travel.contact.mobile
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
@@ -277,7 +281,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.passportIssueDate = travel.passportIssueDate
         travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
-        sections.append(LocalizedString.PassportDetails)
+        sections.append(LocalizedString.PassportDetails.localized)
         
         viewModel.frequentFlyer = travel.frequestFlyer
         
@@ -300,7 +304,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.meal = travel.preferences.meal.value
         
         if travelData?.preferences != nil {
-            sections.append(LocalizedString.FlightPreferences)
+            sections.append(LocalizedString.FlightPreferences.localized)
         }
         
         viewModel.salutation = travel.salutation
@@ -318,7 +322,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setUpForNewTraveller() {
-        sections.append(contentsOf: [LocalizedString.PassportDetails, LocalizedString.SocialAccounts, LocalizedString.FlightPreferences])
+        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
         passportDetails.append(contentsOf: ["", ""])
         informations.append(contentsOf: ["", ""])
         flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized, LocalizedString.SelectSeatPreference.localized])
@@ -406,11 +410,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         switch indexPath.row {
         case 0:
             NSLog("date of birth")
-            showDatePicker()
+            showDatePicker(nil, maximumDate: Date())
             
         case 1:
             NSLog("date of aniversary")
-            showDatePicker()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy"
+            formatter.date(from: self.viewModel.dob)
+            showDatePicker(formatter.date(from: self.viewModel.dob), maximumDate: nil)
         case 2:
             NSLog("show notes ")
             
@@ -460,8 +467,29 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func showDatePicker() {
+    func showDatePicker(_ minimumDate: Date?, maximumDate : Date?) {
         // Formate Date
+//        var components = DateComponents()
+//        components.year = -100
+//        if minimumDate == nil {
+//              let minDate = Calendar.current.date(byAdding: components, to: Date())
+//        }
+//
+//
+//        let calendar = Calendar.current
+//        let maxDateComponent = calendar.dateComponents([.day,.month,.year], from: Date())
+        
+        
+        var minDate: Date? = minimumDate
+        if minimumDate == nil {
+            var components = DateComponents()
+            components.year = -100
+            minDate = Calendar.current.date(byAdding: components, to: Date())
+        }
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maximumDate
+        
         datePicker.datePickerMode = .date
         datePicker.setDate(Date(), animated: false)
         openDatePicker()
@@ -469,10 +497,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @objc func donedatePicker() {
         let formatter = DateFormatter()
-        //   formatter.dateFormat = "yyyy-MM-dd"
         formatter.dateFormat = "dd MMMM yyyy"
         switch sections[(self.indexPath?.section)!] {
-        case LocalizedString.MoreInformation:
+        case LocalizedString.MoreInformation.localized:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
                 fatalError("TextEditableTableViewCell not found")
@@ -485,7 +512,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 viewModel.dob = formatter.string(from: datePicker.date)
                 informations[indexPath.row] = viewModel.dob
             }
-        case LocalizedString.PassportDetails:
+        case LocalizedString.PassportDetails.localized:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {
                 fatalError("TextEditableTableViewCell not found")

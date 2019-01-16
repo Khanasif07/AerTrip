@@ -210,3 +210,22 @@
 //MARK:-
 "Disconnect" = "Disconnect";
 "LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
+
+
+//MARK:- Edit Profile VC
+//MARK:-
+
+"EmailAddress" = "EMAIL ADDRESS";
+"ContactNumber" = "CONTACT NUMBER";
+"SocialAccounts" = "SOCIAL ACCOUNTS";
+"Address" = "ADDRESS";
+"MoreInformation" = "MORE INFROMATION";
+"PassportDetails" = "PASSPORT DETAILS";
+"FlightPreferences" = "FLIGHT PREFERENCES";
+"Email" = "Email";
+"Home" = "Home";
+"Facebook" = "Facebook";
+"SocialProfile" = "Social Profile";
+"Phone" = "Phone";
+
+

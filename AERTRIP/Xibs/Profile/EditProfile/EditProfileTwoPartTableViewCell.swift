@@ -42,18 +42,24 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         }
     }
     
-    var mobile: Mobile? {
-        didSet {
-            configureCell()
-        }
-    }
     
     // MARK: - View Life cycle methods
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+       
         addGesture()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        deleteButton.isHidden = false
+        if email != nil {
+            rightViewTextField.placeholder = LocalizedString.Email.localized
+        } else if social != nil {
+             rightViewTextField.placeholder = LocalizedString.SocialProfile.localized
+        }
     }
     
     // MARK: - Helper methods
@@ -62,12 +68,10 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         if let email = self.email {
             leftTitleLabel.text = email.label
             rightViewTextField.text = email.value
+          
         } else if let social = self.social {
             leftTitleLabel.text = social.label
             rightViewTextField.text = social.value
-        } else if let mobile = self.mobile {
-            leftTitleLabel.text = mobile.label
-            rightViewTextField.text = mobile.value
         }
     }
     
