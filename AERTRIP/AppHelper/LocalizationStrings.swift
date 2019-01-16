@@ -179,13 +179,13 @@ enum LocalizedString: String {
     
     // MARK: - ViewProfileDetailVC
     
-    case EmailAddress = "Email address"
-    case ContactNumber = "Contact Number"
-    case SocialAccounts = "Social Accounts"
+    case EmailAddress = "EmailAddress"
+    case ContactNumber = "ContactNumber"
+    case SocialAccounts = "SocialAccounts"
     case Address = "Address"
-    case MoreInformation = "More Information"
-    case PassportDetails = "Passport Details"
-    case FlightPreferences = "Flight Preferences"
+    case MoreInformation = "MoreInformation"
+    case PassportDetails = "PassportDetails"
+    case FlightPreferences = "FlightPreferences"
     case Birthday = "Birthday"
     case Anniversary = "Anniversary"
     case Notes = "Notes"
@@ -222,7 +222,11 @@ enum LocalizedString: String {
     case Group = "Group"
     case SelectMealPreference = "SelectMealPreference"
     case SelectSeatPreference = "SelectSeatPreference"
-    
+    case Email = "Email"
+    case SocialProfile = "SocialProfile"
+    case Home = "Home"
+    case Facebook = "Facebook"
+    case Phone = "Phone"
 
     // Mark: - Salutation
     case Mrs = "Mrs"
@@ -262,7 +266,6 @@ enum LocalizedString: String {
     //MARK:- Import Contacts
     //MARK:-
     case Contacts = "Contacts";
-    case Facebook = "Facebook";
     case Google = "Google";
     case LinkedIn = "LinkedIn";
     case ImportContactMessage = "ImportContactMessage";

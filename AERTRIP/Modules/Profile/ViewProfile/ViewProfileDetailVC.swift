@@ -311,7 +311,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        headerView.headerLabel.text = sections[section].rawValue
+        headerView.headerLabel.text = sections[section].localized
         return headerView
     }
 }

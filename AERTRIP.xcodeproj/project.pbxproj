@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
+		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
+		1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804322D21B8F6D100E6EE23 /* AKAlertController.swift */; };
 		1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */; };
 		1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */; };
 		1804888321CA192900437C81 /* ViewProfileDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888221CA192900437C81 /* ViewProfileDetailVC.swift */; };
@@ -252,6 +255,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
+		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
+		1804322D21B8F6D100E6EE23 /* AKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertController.swift; sourceTree = "<group>"; };
 		1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
 		1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVC.swift; sourceTree = "<group>"; };
 		1804888221CA192900437C81 /* ViewProfileDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailVC.swift; sourceTree = "<group>"; };
@@ -555,6 +561,8 @@
 				18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */,
 				180FA06721DCC83F003901FF /* AddAddressTableViewCell.swift */,
 				180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */,
+				1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */,
+				1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -1469,6 +1477,7 @@
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
+				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				189D1F4E21CE3F8E00746329 /* SourceSansPro-Italic.ttf in Resources */,
 				1887859721DF4E680061869E /* TravellerList.storyboard in Resources */,
@@ -1666,6 +1675,7 @@
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
 				18930A2421D34B60005442C8 /* FlyerModel.swift in Sources */,
+				1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */,
 				18930A2621D34D16005442C8 /* APICaller+Search.swift in Sources */,
 				1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */,
 				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,

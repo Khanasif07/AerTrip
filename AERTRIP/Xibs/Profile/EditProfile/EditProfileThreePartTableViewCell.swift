@@ -45,6 +45,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         leftView.isUserInteractionEnabled = true
+        rightViewTextField.placeholder = LocalizedString.Phone.localized
     }
     
     // MARK : - Helper methods

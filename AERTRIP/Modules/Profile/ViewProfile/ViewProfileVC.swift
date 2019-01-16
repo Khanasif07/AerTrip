@@ -24,7 +24,7 @@ class ViewProfileVC: BaseVC {
     
     let cellIdentifier = "ViewProfileTableViewCell"
     var sections = ["details", "accounts", "logOut"]
-    var details = [LocalizedString.TravellerList, LocalizedString.HotelPreferences, LocalizedString.QuickPay, LocalizedString.LinkedAccounts, LocalizedString.NewsLetters]
+    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized, LocalizedString.NewsLetters.localized]
     var accounts = [LocalizedString.Settings, LocalizedString.Notification]
     var logOut = [LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView? {
@@ -136,7 +136,7 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
-        self.profileImageHeaderView?.userNameLabel.text = UserInfo.loggedInUser?.profileName ?? LocalizedString.na.localized
+        self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
         
@@ -193,7 +193,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         case "details":
                 cell.separatorView.isHidden = true
                 cell.menuOptionLabel.isHidden = false
-                cell.configureCell(self.details[indexPath.row].rawValue)
+                cell.configureCell(self.details[indexPath.row])
 
                 return cell
         case "accounts":
