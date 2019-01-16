@@ -107,7 +107,7 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
                 fatalError("PreferStarCategoryCell not found")
             }
             
-            cell.setPreviousStars(stars: self.viewModel.selectedStars)
+            cell.setPreviousStars(stars: self.viewModel.selectedStars, isSettingFirstTime: true)
             cell.delegate = self
             return cell
             

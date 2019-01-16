@@ -105,7 +105,7 @@ class ImportContactVM: NSObject {
     //MARK:-
     func fetchFacebookContacts(forVC: UIViewController) {
         self.delegate?.willFetchPhoneContacts()
-        FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, success: { [weak self] (friends) in
+        FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegate as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.phoneContactFetched)

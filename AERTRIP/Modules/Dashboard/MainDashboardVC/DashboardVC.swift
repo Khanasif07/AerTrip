@@ -203,7 +203,7 @@ class DashboardVC: UIViewController {
     }
 }
 
-extension DashboardVC : UIScrollViewDelegate{
+extension DashboardVC : UIScrollViewDelegate {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 

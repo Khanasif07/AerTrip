@@ -94,33 +94,33 @@ class ThankYouRegistrationVC: BaseVC {
     
     
     @IBAction func openEmailAppButtonAction(_ sender: UIButton) {
-        
-      let action =   AKAlertController.actionSheet( nil, message: nil, sourceView: self.view, buttons: [LocalizedString.Mail_Default.localized,LocalizedString.Gmail.localized], tapBlock: {(alert,index) in
-        
-        //AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
-        if index == 0 {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {(alert,index) in
             
-            guard let mailURL = URL(string: "message://") else {return}
-            if UIApplication.shared.canOpenURL(mailURL) {
-                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
-            }
-        } else if index == 1 {
-            
-            guard let mailURL = URL(string: "googlegmail://") else {return}
-            if UIApplication.shared.canOpenURL(mailURL) {
-                UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+            //AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+            if index == 0 {
                 
-            } else {
+                guard let mailURL = URL(string: "message://") else {return}
+                if UIApplication.shared.canOpenURL(mailURL) {
+                    UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+                }
+            } else if index == 1 {
                 
-                guard let url = URL(string: "https://gmail.com") else {return}
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let mailURL = URL(string: "googlegmail://") else {return}
+                if UIApplication.shared.canOpenURL(mailURL) {
+                    UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+                    
+                } else {
+                    
+                    guard let url = URL(string: "https://gmail.com") else {return}
+                    let safariVC = SFSafariViewController(url: url)
+                    self.present(safariVC, animated: true, completion: nil)
+                    safariVC.delegate = self
+                }
             }
-        }
             
         })
-    
+        
     }
 }
 

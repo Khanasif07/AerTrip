@@ -103,34 +103,34 @@ struct SocialUserModel {
     
     init(json: JSON) {
         
-        self.id          = json["id"].stringValue
-        self.email       = json["email"].stringValue
-        self.password    = json["password"].stringValue
-        self.firstName   = json["first_name"].stringValue
-        self.lastName     = json["last_name"].stringValue
-        self.mobile      = json["mobile"].stringValue
-        self.isd        = json["isd"].stringValue
-        self.country     = json["country"].stringValue
-        self.salutation   = json["salutation"].stringValue
-        self.country     = json["country"].stringValue
-        self.picture     = json["profile_image"].stringValue
-        self.service     = json["service"].stringValue
-        self.dob       = json["dob"].stringValue
-        self.userName    = json["profile_name"].stringValue
-        self.authKey    = json["authKey"].stringValue
+        self.id          = json["id"].stringValue.removeNull
+        self.email       = json["email"].stringValue.removeNull
+        self.password    = json["password"].stringValue.removeNull
+        self.firstName   = json["first_name"].stringValue.removeNull
+        self.lastName     = json["last_name"].stringValue.removeNull
+        self.mobile      = json["mobile"].stringValue.removeNull
+        self.isd        = json["isd"].stringValue.removeNull
+        self.country     = json["country"].stringValue.removeNull
+        self.salutation   = json["salutation"].stringValue.removeNull
+        self.country     = json["country"].stringValue.removeNull
+        self.picture     = json["profile_image"].stringValue.removeNull
+        self.service     = json["service"].stringValue.removeNull
+        self.dob       = json["dob"].stringValue.removeNull
+        self.userName    = json["profile_name"].stringValue.removeNull
+        self.authKey    = json["authKey"].stringValue.removeNull
         self.paxId      = json["pax_id"].intValue
         self.maxNumberCount = json["Max NSN"].intValue
         self.minNumberCount  = json["Min NSN"].intValue
         
         self.isLoggedIn = json["isLoggedIn"].boolValue
-        self.billingName    = json["billing_name"].stringValue
-        self.creditType      = json["credit_type"].stringValue
+        self.billingName    = json["billing_name"].stringValue.removeNull
+        self.creditType      = json["credit_type"].stringValue.removeNull
         self.points = json["points"].intValue
-        self.preferredCurrency    = json["preferred_currency"].stringValue
+        self.preferredCurrency    = json["preferred_currency"].stringValue.removeNull
         self.hotels = HotelsModel(json: json["hotels"])
         self.accountData = AccountModel(json: json["account_data"])
         self.generalPref = GeneralPrefrenceModel(json: json[APIKeys.generalPref.rawValue])
-        self.countryCode = json["countryCode"].stringValue
+        self.countryCode = json["countryCode"].stringValue.removeNull
         
         if let gender   = json["gender"].string {
             

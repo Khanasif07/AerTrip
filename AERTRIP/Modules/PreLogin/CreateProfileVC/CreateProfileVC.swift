@@ -132,6 +132,21 @@ private extension CreateProfileVC {
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.mobileNumberTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        
+        if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
+            self.setupData(forCountry: currentCountry)
+        }
+    }
+    
+    private func setupData(forCountry: PKCountryModel) {
+        self.countryCodeLabel.text  = forCountry.countryCode
+        self.countryFlagImage.image = forCountry.flagImage
+        self.countryTextField.text = forCountry.countryEnglishName
+        self.viewModel.userData.address?.country = forCountry.countryEnglishName
+        self.viewModel.userData.isd = forCountry.countryCode
+        self.viewModel.userData.address?.countryCode = forCountry.ISOCode
+        self.viewModel.userData.maxContactLimit = forCountry.maxNSN
+        self.viewModel.userData.minContactLimit  = forCountry.minNSN
     }
     
     func setupTextFieldColorTextAndFont () {
@@ -226,24 +241,18 @@ extension CreateProfileVC {
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { (selectedCountry) in
+            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self](selectedCountry) in
                 printDebug("selected country data: \(selectedCountry)")
                 
-                self.countryCodeLabel.text  = selectedCountry.countryCode
-                self.countryFlagImage.image = selectedCountry.flagImage
-                self.countryTextField.text = selectedCountry.countryEnglishName
-                self.viewModel.userData.address?.country = selectedCountry.countryEnglishName
-                self.viewModel.userData.isd = selectedCountry.countryCode
-                self.viewModel.userData.address?.countryCode = selectedCountry.ISOCode
-                self.viewModel.userData.maxContactLimit = selectedCountry.maxNSN
-                self.viewModel.userData.minContactLimit  = selectedCountry.minNSN
+                guard let sSelf = self else {return}
+                sSelf.setupData(forCountry: selectedCountry)
                 
-                if self.viewModel.userData.mobile.count > self.viewModel.userData.minContactLimit  {
+                if sSelf.viewModel.userData.mobile.count > sSelf.viewModel.userData.minContactLimit  {
                     
-                    self.viewModel.userData.mobile  = self.viewModel.userData.mobile.substring(to: self.viewModel.userData.minContactLimit - 1)
-                    self.mobileNumberTextField.text = self.viewModel.userData.mobile
+                    sSelf.viewModel.userData.mobile  = sSelf.viewModel.userData.mobile.substring(to: sSelf.viewModel.userData.maxContactLimit - 1)
+                    sSelf.mobileNumberTextField.text = sSelf.viewModel.userData.mobile
                 }
-                
+                PKCountryPicker.default.closePicker(animated: true)
             }
             return false
         } else {
@@ -262,14 +271,19 @@ extension CreateProfileVC {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-//        var maxLength = 50
         let currentString: NSString = textField.text! as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         
         if textField === self.mobileNumberTextField {
             return newString.length <= self.viewModel.userData.minContactLimit
         }
-       
+        else if textField === self.firstNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
+        else if textField === self.lastNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
+        
         return true
     }
     

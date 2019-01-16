@@ -13,10 +13,13 @@ target 'AERTRIP' do
     pod 'GoogleSignIn'
     pod 'LinkedinSwift'
     pod 'SkyFloatingLabelTextField'
-    pod 'ActiveLabel'
     pod 'Firebase/Core'
     pod 'Firebase/DynamicLinks'
     pod 'MXParallaxHeader'
-    pod 'TransitionButton'
     pod 'PhoneNumberKit', '~> 2.5'
+    pod 'IQKeyboardManager'
+    
+    pod 'ActiveLabel'
+    pod 'TransitionButton'
+
 end

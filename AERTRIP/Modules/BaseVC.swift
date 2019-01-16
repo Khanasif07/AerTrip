@@ -7,6 +7,7 @@
 
 
 import UIKit
+import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
@@ -27,6 +28,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         delay(seconds: 0.1) {
             self.setupLayout()
         }
+        
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
 
     override func viewWillLayoutSubviews() {
@@ -55,6 +59,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.viewWillDisappear(animated);
         
         self.deRegisterLogoutNotification()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        self.view.endEditing(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {

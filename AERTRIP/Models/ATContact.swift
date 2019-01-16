@@ -28,17 +28,6 @@ struct ATContact {
     var emailLabel: String
     var isd: String
     private var _fullName: String
-    
-    //            paramsContacts.put(String.format(Locale.getDefault(), "data[%d][last_name]", i), mLname);
-    //            paramsContacts.put(String.format(Locale.getDefault(), "data[%d][first_name]", i), mFName);
-    //            if (!mSelectedContacts.get(i).getEmail().equalsIgnoreCase("")) {
-    //                paramsContacts.put(String.format(Locale.getDefault(), "data[%d][email][0][contact_label]", i), "internet");
-    //                paramsContacts.put(String.format(Locale.getDefault(), "data[%d][email][0][contact_type]", i), "email");
-    //                paramsContacts.put(String.format(Locale.getDefault(), "data[%d][email][0][contact_value]", i), mSelectedContacts.get(i).getEmail());
-    //            }
-    //            paramsContacts.put(String.format(Locale.getDefault(), "data[%d][mobile][0][contact_label]", i), "cell");
-    //            paramsContacts.put(String.format(Locale.getDefault(), "data[%d][mobile][0][contact_type]", i), "mobile");
-    //            paramsContacts.put(String.format(Locale.getDefault(), "data[%d][mobile][0][contact_value]", i), mSelectedContacts.get(i).getPhoneNumber());
  
     var label: Label {
         return Label(rawValue: self.internalLabel) ?? .phone
@@ -101,23 +90,23 @@ struct ATContact {
             contact.internalLabel = Label.facebook.rawValue
             
             if let picture = dict["picture"] as? JSONDictionary, let data = picture["data"] as? JSONDictionary, let url = data["url"] {
-                contact.image = "\(url)"
+                contact.image = "\(url)".removeNull
             }
             
             if let obj = dict["name"] {
-                contact._fullName = "\(obj)"
+                contact._fullName = "\(obj)".removeNull
             }
             
             if let obj = dict["first_name"] {
-                contact.firstName = "\(obj)"
+                contact.firstName = "\(obj)".removeNull
             }
             
             if let obj = dict["last_name"] {
-                contact.lastName = "\(obj)"
+                contact.lastName = "\(obj)".removeNull
             }
             
             if let obj = dict["id"] {
-                contact.socialId = "\(obj)"
+                contact.socialId = "\(obj)".removeNull
             }
             
             temp.append(contact)

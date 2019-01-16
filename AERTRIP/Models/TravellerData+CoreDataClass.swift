@@ -27,33 +27,33 @@ public class TravellerData: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.id.rawValue] {
-            userData!.id = "\(obj)"
+            userData!.id = "\(obj)".removeNull
         }
         
         if let obj = dataDict[APIKeys.dob.rawValue] {
-            userData!.dob = "\(obj)"
+            userData!.dob = "\(obj)".removeNull
         }
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
-            userData!.firstName = "\(obj)"
-            userData!.firstNameFirstChar = "\(obj.firstCharacter)"
+            userData!.firstName = "\(obj)".removeNull
+            userData!.firstNameFirstChar = userData!.firstName
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
             if obj == "" {
                 userData!.label = "Others"
             } else {
-                userData!.label = "\(obj)"
+                userData!.label = "\(obj)".removeNull
             }
             
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
-            userData!.lastName = "\(obj)"
-            userData!.lastNameFirstChar = "\(obj.firstCharacter)"
+            userData!.lastName = "\(obj)".removeNull
+            userData!.lastNameFirstChar = userData!.lastName
         }
         
         if let obj = dataDict[APIKeys.salutation.rawValue] {
-            userData!.salutation = "\(obj)"
+            userData!.salutation = "\(obj)".removeNull
         }
         
         CoreDataManager.shared.saveContext()

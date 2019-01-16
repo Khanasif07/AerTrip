@@ -28,6 +28,8 @@
 "Continue_with_Facebook"  = "Continue with Facebook";
 "Continue_with_Google"    = "Continue with Google";
 "Continue_with_Linkedin"  = "Continue with Linkedin";
+"AllowEmailInFacebook" = "Please allow the access for email in Facebook";
+"AllowEmailInLinkedIn" = "Please allow the access for email in LinkedIn";
 
 // MARK:- LoginVC
 //MARK:-

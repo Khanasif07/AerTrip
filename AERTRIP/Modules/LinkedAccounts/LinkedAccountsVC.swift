@@ -119,7 +119,7 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
             self.viewModel.fbLogin(vc: self, completionBlock: nil)
             
         case .linkedIn:
-            self.viewModel.linkedLogin()
+            self.viewModel.linkedLogin(vc: self)
             
         case .google:
             self.viewModel.googleLogin(vc: self, completionBlock: nil)

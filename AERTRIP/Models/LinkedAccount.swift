@@ -83,23 +83,23 @@ struct LinkedAccount {
     
     init(json: JSONDictionary) {
         if let obj = json[APIKeys.auto_share.rawValue] {
-            self.autoShare = "\(obj)"
+            self.autoShare = "\(obj)".removeNull
         }
         
         if let obj = json[APIKeys.eid.rawValue] {
-            self.eid = "\(obj)"
+            self.eid = "\(obj)".removeNull
         }
         
         if let obj = json[APIKeys.service.rawValue] {
-            self._socialType = "\(obj)"
+            self._socialType = "\(obj)".removeNull
         }
         
         if let obj = json[APIKeys.email.rawValue] {
-            self.email = "\(obj)"
+            self.email = "\(obj)".removeNull
         }
         
         if let obj = json[APIKeys.photo.rawValue] {
-            self.photo = "\(obj)"
+            self.photo = "\(obj)".removeNull
         }
     }
     

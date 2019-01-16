@@ -164,13 +164,9 @@ private extension SecureYourAccountVC {
         }
         self.passwordTextField.setupTextField(placehoder: placeholder, keyboardType: .default, returnType: .done, isSecureText: true)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-//        let showButton = UIButton(frame: CGRect(x: 0, y: 0, width: 27, height: 27))
-//
-//        showButton.addTarget(self, action: #selector(self.showPasswordAction(_:)), for: .touchUpInside)
-//        let image = UIImage(named: "showPassword")
-//        showButton.setImage(image, for: .normal)
-//        self.passwordTextField.rightView = showButton
-//        self.passwordTextField.rightViewMode = .always
+        
+        self.passwordTextField.rightView = UIView(frame: self.showPasswordButton.bounds)
+        self.passwordTextField.rightViewMode = .always
     }
 }
 

@@ -300,7 +300,9 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
 
 extension PreferencesVC: GroupTableViewCellDelegate {
     func deleteCellTapped(_ indexPath: IndexPath) {
-        _ = AKAlertController.actionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, buttons: [LocalizedString.Delete.localized], tapBlock: { _, index in
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
@@ -310,8 +312,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
                     break
                 }
             }
-            
-        })
+        }
     }
 }
 

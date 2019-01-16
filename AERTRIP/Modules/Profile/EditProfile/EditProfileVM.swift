@@ -195,11 +195,13 @@ class EditProfileVM {
         var params = JSONDictionary()
         
         // remove default email and mobile
-        if let email = email.first, email.label == "Default" {
-            self.email.removeFirst()
+        var _email = self.email
+        var _mobile = self.mobile
+        if let email = _email.first, email.label == "Default" {
+            _email.removeFirst()
         }
-        if let mobile = mobile.first, mobile.label == "Default" {
-            self.mobile.removeFirst()
+        if let mobile = _mobile.first, mobile.label == "Default" {
+            _mobile.removeFirst()
         }
         
         params[APIKeys.salutation.rawValue] = salutation
@@ -220,45 +222,13 @@ class EditProfileVM {
             params[APIKeys.id.rawValue] = self.paxId
         }
         
-//        var emailDictArr = [String: Any]()
-//        for (idx, emailObj) in self.email.enumerated() {
-//            emailDictArr["\(idx)"] = emailObj.jsonDict
-//        }
-//
-//        var mobileDictArr = [String: Any]()
-//        for (idx, mobileObj) in self.mobile.enumerated() {
-//            mobileDictArr["\(idx)"] = mobileObj.jsonDict
-//        }
-//
-//        var socialDictArr = [String: Any]()
-//        for (idx, socialObj) in self.social.enumerated() {
-//            socialDictArr["\(idx)"] = socialObj.jsonDict
-//        }
-//
-//        var addressDictArr = [String: Any]()
-//        for (idx, addressObj) in self.addresses.enumerated() {
-//            addressDictArr["\(idx)"] = addressObj.jsonDict
-//        }
-//
-//        var frequentFlyerDictArr = [String: Any]()
-//        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
-//            frequentFlyerDictArr["\(idx)"] = frequentFlyerObj.jsonDict
-//        }
-        
-//        let contact: [String: Any] = ["email": emailDictArr, "mobile": mobileDictArr, "social": socialDictArr]
-//
-//
-//        params[APIKeys.contact.rawValue] = contact
-//        params[APIKeys.address.rawValue] = addressDictArr
-//        params[APIKeys.ff.rawValue] = frequentFlyerDictArr
-        
-        for (idx, emailObj) in self.email.enumerated() {
+        for (idx, emailObj) in _email.enumerated() {
             for key in Array(emailObj.jsonDict.keys) {
                 params["contact[email][\(idx)][\(key)]"] = emailObj.jsonDict[key]
             }
         }
         
-        for (idx, mobileObj) in self.mobile.enumerated() {
+        for (idx, mobileObj) in _mobile.enumerated() {
             for key in Array(mobileObj.jsonDict.keys) {
                 params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
             }

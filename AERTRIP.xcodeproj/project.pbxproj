@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804322D21B8F6D100E6EE23 /* AKAlertController.swift */; };
 		1804323121B9061C00E6EE23 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */; };
 		1804323321B9063000E6EE23 /* SecureYourAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */; };
 		1804888321CA192900437C81 /* ViewProfileDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888221CA192900437C81 /* ViewProfileDetailVC.swift */; };
@@ -168,6 +167,8 @@
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
 		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
+		849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849621EF0B7C00AA63BA /* PKAlertController.swift */; };
+		849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849821EF0C8600AA63BA /* PKAlertButton.swift */; };
 		84BA77C221EDC80800C89352 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C121EDC80800C89352 /* LinkedAccountsVC.swift */; };
 		84BA77C421EDCA6200C89352 /* LinkedAccountsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C321EDCA6200C89352 /* LinkedAccountsVM.swift */; };
 		84BA77C921EDCACE00C89352 /* LinkedAccountsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77C821EDCACE00C89352 /* LinkedAccountsTableCell.swift */; };
@@ -251,7 +252,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1804322D21B8F6D100E6EE23 /* AKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertController.swift; sourceTree = "<group>"; };
 		1804323021B9061C00E6EE23 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
 		1804323221B9063000E6EE23 /* SecureYourAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVC.swift; sourceTree = "<group>"; };
 		1804888221CA192900437C81 /* ViewProfileDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailVC.swift; sourceTree = "<group>"; };
@@ -416,6 +416,8 @@
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
 		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
+		849B849621EF0B7C00AA63BA /* PKAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertController.swift; sourceTree = "<group>"; };
+		849B849821EF0C8600AA63BA /* PKAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertButton.swift; sourceTree = "<group>"; };
 		84BA77C121EDC80800C89352 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
 		84BA77C321EDCA6200C89352 /* LinkedAccountsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVM.swift; sourceTree = "<group>"; };
 		84BA77C821EDCACE00C89352 /* LinkedAccountsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccountsTableCell.swift; sourceTree = "<group>"; };
@@ -1020,6 +1022,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		849B849521EF0B6800AA63BA /* PKAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				849B849621EF0B7C00AA63BA /* PKAlertController.swift */,
+				849B849821EF0C8600AA63BA /* PKAlertButton.swift */,
+			);
+			path = PKAlertController;
+			sourceTree = "<group>";
+		};
 		84BA77C021EDC7ED00C89352 /* LinkedAccounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1221,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				849B849521EF0B6800AA63BA /* PKAlertController */,
 				18930A1E21D33EFF005442C8 /* SearchTextField.swift */,
 				84E4CC5F21E3679B0015C306 /* PKViewPager */,
 				8429C91C21BFEED9009C208E /* PKPulseAnimation */,
@@ -1233,7 +1245,6 @@
 			isa = PBXGroup;
 			children = (
 				1851A75B21C3E051008DF03F /* AppUserDefaults.swift */,
-				1804322D21B8F6D100E6EE23 /* AKAlertController.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
 				84F9838621B51A070018DFED /* AssetController.swift */,
 				84F9838821B51A070018DFED /* APIKeys.swift */,
@@ -1522,6 +1533,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
@@ -1543,6 +1555,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
@@ -1570,7 +1583,6 @@
 				181025A221E339B10046EED7 /* TravellerModel.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				1841AF8F21C8BAA30038111D /* ViewProfileVC.swift in Sources */,
-				1804322E21B8F6D100E6EE23 /* AKAlertController.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */,
 				8452D38421E64A3000927287 /* ContactDetailsTableCell.swift in Sources */,
@@ -1593,6 +1605,7 @@
 				18DF45D321BFB48800ADD4DD /* ShowToastMessageVC.swift in Sources */,
 				8452D37D21E61FDD00927287 /* ImportContactVM.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
+				849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */,
 				1809A47B21CDFA7E0018AB2F /* TableViewAddActionCell.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
@@ -1735,6 +1748,7 @@
 				18930A2221D34A03005442C8 /* SearchVM.swift in Sources */,
 				18F4955E21B7F4320003AC16 /* CreateYourAccountVC.swift in Sources */,
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
+				849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */,
 				18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18109EB221BA386F00BF342E /* CreateProfileVC.swift in Sources */,

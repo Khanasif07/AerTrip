@@ -475,7 +475,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case LocalizedString.MoreInformation:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
-                fatalError("TextEditableTableViewCell not found")
+                printDebug("TextEditableTableViewCell not found")
+                return
             }
             cell.editableTextField.text = formatter.string(from: datePicker.date)
             if indexPath.row == 1 {

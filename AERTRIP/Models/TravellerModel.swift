@@ -31,12 +31,12 @@ struct TravellerModel {
     }
     
     init(json: JSON) {
-        self.id = json["id"].stringValue
-        self.label = json["label"].stringValue
-        self.salutation = json["salutation"].stringValue
-        self.firstName = json["first_name"].stringValue
-        self.lastName = json["last_name"].stringValue
-        self.dob = json["dob"].stringValue
+        self.id = json["id"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.salutation = json["salutation"].stringValue.removeNull
+        self.firstName = json["first_name"].stringValue.removeNull
+        self.lastName = json["last_name"].stringValue.removeNull
+        self.dob = json["dob"].stringValue.removeNull
     }
     
     static func retunsTravellerArray(jsonArr: [JSON]) -> [TravellerModel] {

@@ -93,6 +93,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.1)
   - IOSLinkedInAPIFix (2.0.4):
     - AFNetworking (>= 2.0.0)
+  - IQKeyboardManager (6.2.0)
   - Kingfisher (4.10.0)
   - LinkedinSwift (1.7.7):
     - AFNetworking (>= 3.1.0)
@@ -120,6 +121,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/DynamicLinks
   - GoogleSignIn
+  - IQKeyboardManager
   - Kingfisher
   - LinkedinSwift
   - MXParallaxHeader
@@ -148,6 +150,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - IOSLinkedInAPIFix
+    - IQKeyboardManager
     - Kingfisher
     - LinkedinSwift
     - MXParallaxHeader
@@ -176,6 +179,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IOSLinkedInAPIFix: a520fd805a03dade35f42904c7d89ded2a84c752
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   LinkedinSwift: bab5724c2b18335233d02fa59a2cb3fbbccd9219
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
@@ -185,6 +189,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: bb1f5af327cdeda600317350f3f2710fdbd6e810
+PODFILE CHECKSUM: 3e6d455f8208ec8cff29f55d2d63caa5b12bdcbe
 
 COCOAPODS: 1.5.3

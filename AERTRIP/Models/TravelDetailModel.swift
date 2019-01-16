@@ -39,21 +39,21 @@ struct TravelDetailModel {
         self.address = Address.retunsAddressArray(jsonArr: json["address"].arrayValue)
         self.contact = Contact(json: json["contact"])
         self.preferences = Preferences(json: json["preferences"])
-        self.id = json["id"].stringValue
-        self.label = json["label"].stringValue
-        self.salutation = json["salutation"].stringValue
-        self.firstName = json["first_name"].stringValue
-        self.lastName = json["last_name"].stringValue
-        self.dob = json["dob"].stringValue
-        self.doa = json["doa"].stringValue
-        self.passportNumber = json["passport_number"].stringValue
-        self.passportCountry = json["passport_country"].stringValue
-        self.passportIssueDate = json["passport_issue_date"].stringValue
-        self.passportExpiryDate = json["passport_expiry_date"].stringValue
-        self.profileImage = json["profile_image"].stringValue
-        self.imageSource = json["image_source"].stringValue
-        self.notes = json["notes"].stringValue
-        self.passportCountryName = json["passport_country_name"].stringValue
+        self.id = json["id"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.salutation = json["salutation"].stringValue.removeNull
+        self.firstName = json["first_name"].stringValue.removeNull
+        self.lastName = json["last_name"].stringValue.removeNull
+        self.dob = json["dob"].stringValue.removeNull
+        self.doa = json["doa"].stringValue.removeNull
+        self.passportNumber = json["passport_number"].stringValue.removeNull
+        self.passportCountry = json["passport_country"].stringValue.removeNull
+        self.passportIssueDate = json["passport_issue_date"].stringValue.removeNull
+        self.passportExpiryDate = json["passport_expiry_date"].stringValue.removeNull
+        self.profileImage = json["profile_image"].stringValue.removeNull
+        self.imageSource = json["image_source"].stringValue.removeNull
+        self.notes = json["notes"].stringValue.removeNull
+        self.passportCountryName = json["passport_country_name"].stringValue.removeNull
         self.frequestFlyer = FrequentFlyer.retunsFrequentFlyerArray(jsonArr: json["ff"].arrayValue)
     }
 }
@@ -91,15 +91,15 @@ struct Address {
     
     init(json:JSON) {
         self.id = json["id"].intValue
-        self.label = json["label"].stringValue
-        self.line1 = json["line1"].stringValue
-        self.line2 = json["line2"].stringValue
-        self.line3 = json["line3"].stringValue
-        self.city = json["city"].stringValue
-        self.state = json["state"].stringValue
-        self.country = json["country"].stringValue
-        self.postalCode = json["postal_code"].stringValue
-        self.countryName = json["country_name"].stringValue
+        self.label = json["label"].stringValue.removeNull
+        self.line1 = json["line1"].stringValue.removeNull
+        self.line2 = json["line2"].stringValue.removeNull
+        self.line3 = json["line3"].stringValue.removeNull
+        self.city = json["city"].stringValue.removeNull
+        self.state = json["state"].stringValue.removeNull
+        self.country = json["country"].stringValue.removeNull
+        self.postalCode = json["postal_code"].stringValue.removeNull
+        self.countryName = json["country_name"].stringValue.removeNull
         
     }
     
@@ -152,9 +152,9 @@ struct Email {
     
     init(json: JSON) {
         self.id = json["id"].intValue
-        self.type = json["type"].stringValue
-        self.label = json["label"].stringValue
-        self.value = json["value"].stringValue
+        self.type = json["type"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.value = json["value"].stringValue.removeNull
     }
     
     static func retunsEmailArray(jsonArr:[JSON]) -> [Email] {
@@ -194,11 +194,11 @@ struct Mobile {
     
     init(json: JSON) {
         self.id = json["id"].intValue
-        self.type = json["type"].stringValue
-        self.label = json["label"].stringValue
-        self.value = json["value"].stringValue
-        self.isd = json["isd"].stringValue
-        self.mobileFormatted = json["mobile_formatted"].stringValue
+        self.type = json["type"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.value = json["value"].stringValue.removeNull
+        self.isd = json["isd"].stringValue.removeNull
+        self.mobileFormatted = json["mobile_formatted"].stringValue.removeNull
     }
     
     static func retunsMobileArray(jsonArr:[JSON]) -> [Mobile] {
@@ -233,9 +233,9 @@ struct Social {
     init(json : JSON) {
         //        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
-        self.type = json["type"].stringValue
-        self.label = json["label"].stringValue
-        self.value = json["value"].stringValue
+        self.type = json["type"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.value = json["value"].stringValue.removeNull
     }
     
     static func retunsSocialArray(jsonArr:[JSON]) -> [Social] {
@@ -280,8 +280,8 @@ struct Seat {
     }
     
     init(json: JSON) {
-        self.value = json["value"].stringValue
-        self.name = json["name"].stringValue
+        self.value = json["value"].stringValue.removeNull
+        self.name = json["name"].stringValue.removeNull
     }
 }
 
@@ -302,8 +302,8 @@ struct Meal {
     }
     
     init(json: JSON) {
-        self.value = json["value"].stringValue
-        self.name = json["name"].stringValue
+        self.value = json["value"].stringValue.removeNull
+        self.name = json["name"].stringValue.removeNull
     }
 }
 
@@ -330,10 +330,10 @@ struct FrequentFlyer {
     
     init(json: JSON) {
         self.id = json["id"].intValue
-        self.number = json["number"].stringValue
-        self.airlineCode = json["airline_code"].stringValue
-        self.airlineName = json["airline_name"].stringValue
-        self.logoUrl = json["logo_url"].stringValue
+        self.number = json["number"].stringValue.removeNull
+        self.airlineCode = json["airline_code"].stringValue.removeNull
+        self.airlineName = json["airline_name"].stringValue.removeNull
+        self.logoUrl = json["logo_url"].stringValue.removeNull
     }
     
     

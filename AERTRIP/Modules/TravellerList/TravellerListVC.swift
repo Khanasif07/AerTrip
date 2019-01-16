@@ -99,7 +99,10 @@ class TravellerListVC: BaseVC {
     
     @IBAction func popOverOptionTapped(_ sender: Any) {
         NSLog("edit buttn tapped")
-        _ = AKAlertController.actionSheet(nil, message: nil, sourceView: view, buttons: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], tapBlock: { [weak self] _, index in
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
                 printDebug("select traveller")
@@ -111,8 +114,7 @@ class TravellerListVC: BaseVC {
                 printDebug("import traveller")
                 AppFlowManager.default.moveToImportContactVC()
             }
-            
-        })
+        }
     }
     
     @IBAction func assignGroupTapped(_ sender: Any) {
@@ -124,13 +126,16 @@ class TravellerListVC: BaseVC {
     @IBAction func deleteTravellerTapped(_ sender: Any) {
         if selectedTravller.count > 0 {
             let str = selectedTravller.count > 1 ? "Delete \(selectedTravller.count) Contacts" : "Delete this Contact"
-            _ = AKAlertController.actionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, buttons: [str], tapBlock: { _, index in
+            
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [str], colors: [AppColors.themeRed])
+            
+            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
                     self.viewModel.paxIds = self.selectedTravller
                     self.viewModel.callDeleteTravellerAPI()
                 }
-            })
+            }
         }
     }
     

@@ -42,12 +42,17 @@ class PreferStarCategoryCell: UITableViewCell {
         self.delegate?.starSelectionUpdate(updatedStars: self.ratingCount)
     }
     
-    private func updateStarButtonState(forStar: Int) {
+    private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
         if let currentButton = self.starsButton.filter({ (button) -> Bool in
             button.tag == forStar
         }).first {
-            currentButton.isSelected = !currentButton.isSelected
+            if isSettingFirstTime {
+                currentButton.isSelected = true
+            }
+            else {
+                currentButton.isSelected = !currentButton.isSelected
+            }
             if self.ratingCount.contains(forStar) {
                 self.ratingCount.remove(at: self.ratingCount.firstIndex(of: forStar)!)
             }
@@ -71,11 +76,11 @@ extension PreferStarCategoryCell {
         self.setupText()
     }
     
-    func setPreviousStars(stars: [Int]) {
+    func setPreviousStars(stars: [Int], isSettingFirstTime: Bool = false) {
         //if previously selected then set it.
         self.ratingCount = stars
         for star in self.ratingCount {
-            self.updateStarButtonState(forStar: star)
+            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingFirstTime)
         }
         self.ratingCount = stars
         self.starCountLabel.text = self.getStarString(fromArr: self.ratingCount, maxCount: 5)

@@ -88,44 +88,44 @@ class UserInfo {
             }
             
             if let obj = dict["profile_name"] {
-                self.profileName = "\(obj)"
+                self.profileName = "\(obj)".removeNull
             }
             
             if let obj = dict["profile_image"] {
-                self.profileImage = "\(obj)"
+                self.profileImage = "\(obj)".removeNull
             }
             
             if let obj = dict["first_name"] {
-                self.firstName = "\(obj)"
+                self.firstName = "\(obj)".removeNull
             }
             
             if let obj = dict["last_name"] {
-                self.lastName = "\(obj)"
+                self.lastName = "\(obj)".removeNull
             }
             
             
             if let obj = dict["city"] {
-                self.city = "\(obj)"
+                self.city = "\(obj)".removeNull
             }
             
             if let obj = dict["state"] {
-                self.state = "\(obj)"
+                self.state = "\(obj)".removeNull
             }
             
             if let obj = dict["postcode"] {
-                self.country = "\(obj)"
+                self.country = "\(obj)".removeNull
             }
             
             if let obj = dict["country"] {
-                self.postcode = "\(obj)"
+                self.postcode = "\(obj)".removeNull
             }
             
             if let obj = dict["email"] {
-                self.email = "\(obj)"
+                self.email = "\(obj)".removeNull
             }
             
             if let obj = dict["mobile"] {
-                self.mobile = "\(obj)"
+                self.mobile = "\(obj)".removeNull
             }
         }
     }
@@ -203,7 +203,7 @@ class UserInfo {
     
     var email: String {
         get{
-            return (userData?["email"] as? String ?? "")
+            return (userData?["email"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["email":newValue])
@@ -212,7 +212,7 @@ class UserInfo {
     
     var password: String {
         get{
-            return (userData?["password"] as? String ?? "")
+            return (userData?["password"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["password":newValue])
@@ -230,7 +230,7 @@ class UserInfo {
     
     var salutation:String{
         get{
-            return (userData?["salutation"] as? String ?? "")
+            return (userData?["salutation"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["salutation":newValue])
@@ -239,7 +239,7 @@ class UserInfo {
     
     var billingName:String{
         get{
-            return (userData?["billing_name"] as? String ?? "")
+            return (userData?["billing_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["billing_name":newValue])
@@ -248,7 +248,7 @@ class UserInfo {
     
     var profileName:String{
         get{
-            return (userData?["profile_name"] as? String ?? "")
+            return (userData?["profile_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["profile_name":newValue])
@@ -257,7 +257,7 @@ class UserInfo {
     
     var firstName:String{
         get{
-            return (userData?["first_name"] as? String ?? "")
+            return (userData?["first_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["first_name":newValue])
@@ -266,7 +266,7 @@ class UserInfo {
     
     var lastName:String{
         get{
-            return (userData?["last_name"] as? String ?? "")
+            return (userData?["last_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["last_name":newValue])
@@ -310,7 +310,7 @@ class UserInfo {
     
     var mobile:String{
         get{
-            return (userData?["mobile"] as? String ?? "")
+            return (userData?["mobile"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["mobile":newValue])
@@ -319,7 +319,7 @@ class UserInfo {
     
     var isd:String{
         get{
-            return (userData?["isd"] as? String ?? "")
+            return (userData?["isd"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["isd":newValue])
@@ -328,7 +328,7 @@ class UserInfo {
     
     var preferredCurrency:String{
         get{
-            return (userData?["preferred_currency"] as? String ?? "")
+            return (userData?["preferred_currency"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["preferred_currency":newValue])
@@ -337,7 +337,7 @@ class UserInfo {
     
     var paxId:String{
         get{
-            return (userData?["pax_id"] as? String ?? "")
+            return (userData?["pax_id"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["pax_id":newValue])
@@ -346,7 +346,7 @@ class UserInfo {
     
     var creditType:String{
         get{
-            return (userData?["credit_type"] as? String ?? "")
+            return (userData?["credit_type"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["credit_type":newValue])
@@ -355,7 +355,7 @@ class UserInfo {
     
     var profileImage:String{
         get{
-            return (userData?["profile_img"] as? String ?? "")
+            return (userData?["profile_img"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["profile_img":newValue])
@@ -364,7 +364,7 @@ class UserInfo {
     
     var accessToken:String{
         get{
-            return (userData?["access_token"] as? String ?? "")
+            return (userData?["access_token"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["access_token":newValue])
@@ -373,7 +373,7 @@ class UserInfo {
     
     var minContactLimit: Int{
         get{
-            return (userData?["minContactLimit"] as? Int ?? 0)
+            return ((userData?["minContactLimit"] as? String)?.toInt ?? 0)
         }
         set{
             updateInfo(withData: ["minContactLimit":newValue])
@@ -382,7 +382,7 @@ class UserInfo {
     
     var maxContactLimit: Int{
         get{
-            return (userData?["maxContactLimit"] as? Int ?? 0)
+            return ((userData?["maxContactLimit"] as? String)?.toInt ?? 0)
         }
         set{
             updateInfo(withData: ["maxContactLimit":newValue])
@@ -400,7 +400,7 @@ class UserInfo {
         }
         set {
             if let vlaue = newValue?.jsonDict {
-                updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: vlaue)])
+                updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: vlaue) ?? ""])
             }
             else{
                 UserDefaults.removeObject(forKey: APIKeys.generalPref.rawValue)

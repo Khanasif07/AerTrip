@@ -111,6 +111,22 @@ struct AppGlobals {
         
         return nil
     }
+    
+    func getPKAlertButtons(forTitles: [String], colors: [UIColor]) -> [PKAlertButton] {
+        guard forTitles.count == colors.count else {
+            fatalError("Please send the titles and colors equally")
+        }
+        var temp = [PKAlertButton]()
+        for (idx, title) in forTitles.enumerated() {
+            temp.append(PKAlertButton(title: title, titleColor: colors[idx]))
+        }
+        
+        return temp
+    }
+    
+    var pKAlertCancelButton: PKAlertButton {
+        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
+    }
 }
 
 

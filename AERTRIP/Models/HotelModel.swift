@@ -35,15 +35,15 @@ struct HotelsModel {
         
         self.hotelMinStar = json[APIKeys.hotel_min_star.rawValue].doubleValue
         self.hotelMaxStar = json[APIKeys.hotel_max_star.rawValue].doubleValue
-        self.hotelId      = json[APIKeys.hid.rawValue].stringValue
-        self.name         = json[APIKeys.name.rawValue].stringValue
-        self.cityId       = json[APIKeys.city_id.rawValue].stringValue
+        self.hotelId      = json[APIKeys.hid.rawValue].stringValue.removeNull
+        self.name         = json[APIKeys.name.rawValue].stringValue.removeNull
+        self.cityId       = json[APIKeys.city_id.rawValue].stringValue.removeNull
         self.stars        = json[APIKeys.stars.rawValue].doubleValue
         self.rating       = json[APIKeys.rating.rawValue].doubleValue
         self.taRating     = json[APIKeys.ta_rating.rawValue].doubleValue
-        self.photo        = json[APIKeys.photo.rawValue].stringValue
-        self.city         = json[APIKeys.city.rawValue].stringValue
-        self.preferenceId = json[APIKeys.preference_id.rawValue].stringValue
+        self.photo        = json[APIKeys.photo.rawValue].stringValue.removeNull
+        self.city         = json[APIKeys.city.rawValue].stringValue.removeNull
+        self.preferenceId = json[APIKeys.preference_id.rawValue].stringValue.removeNull
         self.isFavourite  = json[APIKeys.is_favourite.rawValue].intValue == 1 ? true : false
     }
     

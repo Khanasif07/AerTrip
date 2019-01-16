@@ -33,19 +33,26 @@ class SocialLoginVM {
             
             printDebug(result)
             
-            self.userData.authKey = "\(result.authToken)"
-            self.userData.picture   = "https://graph.facebook.com/\(result.id)/picture?width=200"
-            self.userData.firstName  = result.first_name
-            self.userData.lastName   = result.last_name
-            self.userData.email     = result.email
-            self.userData.service   = "facebook"
-            self.userData.id        = result.id
-            if vc is EditProfileVC {
-             // do nothing
-            } else {
-                 self.webserviceForSocialLogin()
+            if result.email.isEmpty {
+                //show toast
+                AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInFacebook.localized, vc: vc)
+                completionBlock?(false)
             }
-            completionBlock?(true)
+            else {
+                self.userData.authKey = "\(result.authToken)"
+                self.userData.picture   = "https://graph.facebook.com/\(result.id)/picture?width=200"
+                self.userData.firstName  = result.first_name
+                self.userData.lastName   = result.last_name
+                self.userData.email     = result.email
+                self.userData.service   = "facebook"
+                self.userData.id        = result.id
+                if vc is EditProfileVC {
+                    // do nothing
+                } else {
+                    self.webserviceForSocialLogin()
+                }
+                completionBlock?(true)
+            }
             
         }, failure: { (error) in
             printDebug(error?.localizedDescription ?? "")
@@ -82,7 +89,7 @@ class SocialLoginVM {
         }
     }
     
-    func linkedLogin() {
+    func linkedLogin(vc: UIViewController) {
         
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
@@ -96,19 +103,25 @@ class SocialLoginVM {
                 
                 guard let data = response.jsonObject else {return}
                 
-                self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
-                self.userData.firstName  = data["firstName"] as? String ?? ""
-                self.userData.lastName  = data["lastName"]  as? String ?? ""
-                self.userData.id            = data["id"] as? String ?? ""
-                self.userData.service   = "linkedin"
-                self.userData.email      =  data["emailAddress"] as? String ?? ""
-                self.userData.picture   = data["pictureUrl"] as? String ?? ""
-                
-                printDebug(response)
-                
-                self.webserviceForSocialLogin()
-                linkedinHelper.logout()
-                
+                if let email = data["emailAddress"] as? String, email.isEmpty {
+                    //show toast
+                    AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized, vc: vc)
+                    linkedinHelper.logout()
+                }
+                else {
+                    self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
+                    self.userData.firstName  = data["firstName"] as? String ?? ""
+                    self.userData.lastName  = data["lastName"]  as? String ?? ""
+                    self.userData.id            = data["id"] as? String ?? ""
+                    self.userData.service   = "linkedin"
+                    self.userData.email      =  data["emailAddress"] as? String ?? ""
+                    self.userData.picture   = data["pictureUrl"] as? String ?? ""
+                    
+                    printDebug(response)
+                    
+                    self.webserviceForSocialLogin()
+                    linkedinHelper.logout()
+                }
             }) { [unowned self] (error) -> Void in
                 
                 //Encounter error

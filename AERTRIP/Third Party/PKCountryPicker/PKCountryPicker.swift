@@ -63,6 +63,21 @@ open class PKCountryPicker: UIView {
         }.first
     }
     
+    public func getCurrentLocalCountryData() -> PKCountryModel? {
+        if let countryData = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+            return self.getCountryData(forISOCode: countryData)
+        }
+        return nil
+    }
+    
+    public func getCountryData(forISOCode: String) -> PKCountryModel? {
+        let allCountries = self.getAllCountries()
+        
+        return allCountries.filter { (country) -> Bool in
+            country.ISOCode == forISOCode
+            }.first
+    }
+    
     //MARK:- Private
     private func initialSetup() {
         self.pickerView.delegate = self

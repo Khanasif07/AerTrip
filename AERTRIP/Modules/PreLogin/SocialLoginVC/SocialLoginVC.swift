@@ -118,11 +118,10 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func linkedInLoginButtonAction(_ sender: UIButton) {
-        self.viewModel.linkedLogin()
+        self.viewModel.linkedLogin(vc: self)
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
-        
         AppFlowManager.default.moveToCreateYourAccountVC(email: "")
     }
     

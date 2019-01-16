@@ -349,7 +349,9 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     
     func editButtonTapped() {
         printDebug("edit button tapped")
-        let action = AKAlertController.actionSheet(nil, message: nil, sourceView: self.view, buttons: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], tapBlock: { [weak self] _, index in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
                 NSLog("open camera")
@@ -363,8 +365,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
             } else if index == 3 {
                 self?.getPhotoFromGoogle()
             }
-            
-        })
+        }
     }
 }
 
@@ -481,15 +482,9 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
     }
     
     func deleteCellTapped(_ indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) as? EditProfileTwoPartTableViewCell else {
-//            fatalError("EditProfileTwoPartTableViewCell not found")
-//        }
-//        cell.showSwipe(.rightToLeft, animated: true)
-//        let cell = tableView.cellForRow(at: indexPath) as! MGSwipeTableCell
-//        cell.showSwipe(.leftToRight, animated: true)
-//        tableView.reloadData()
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
         
-        _ = AKAlertController.actionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, buttons: [LocalizedString.Delete.localized], tapBlock: { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             
             if index == 0 {
                 switch self.sections[indexPath.section] {
@@ -519,8 +514,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                     break
                 }
             }
-            
-        })
+        }
     }
 }
 
@@ -604,9 +598,9 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             guard let indexPathRow = gesture.view?.tag else {
                 return
             }
-            print(indexPathRow)
+            printDebug(indexPathRow)
             guard indexPathRow >= 0 else {
-                print("Array index must be greater than zero. Going to  return")
+                printDebug("Array index must be greater than zero. Going to  return")
                 return
             }
             let indexPath = IndexPath(row: indexPathRow, section: 1)

@@ -24,7 +24,7 @@ class FacebookController {
     
     // MARK:- FACEBOOK LOGIN
     //=========================
-    func loginWithFacebook(fromViewController viewController: UIViewController, completion: @escaping FBSDKLoginManagerRequestTokenHandler) {
+    func loginWithFacebook(fromViewController viewController: UIViewController, shouldFetchFriends: Bool = false, completion: @escaping FBSDKLoginManagerRequestTokenHandler) {
         
         if let _ = FBSDKAccessToken.current() {
             
@@ -32,7 +32,11 @@ class FacebookController {
             
         }
         
-        let permissions = ["email", "public_profile", "user_friends"]
+        var permissions = ["email", "public_profile"]
+        
+        if shouldFetchFriends {
+            permissions.append("user_friends")
+        }
         
         let login = FBSDKLoginManager()
         login.loginBehavior = FBSDKLoginBehavior.native
@@ -227,10 +231,10 @@ class FacebookController {
     
     // MARK:- FACEBOOK FRIENDS
     //==========================
-    func fetchFacebookFriendsUsingThisAPP(withViewController vc: UIViewController,success: @escaping (([String:Any]) -> Void),
+    func fetchFacebookFriendsUsingThisAPP(withViewController vc: UIViewController, shouldFetchFriends: Bool = false, success: @escaping (([String:Any]) -> Void),
                               failure: @escaping ((Error?) -> Void)){
         
-            self.loginWithFacebook(fromViewController: vc, completion: { (result, err) in
+            self.loginWithFacebook(fromViewController: vc, shouldFetchFriends: shouldFetchFriends, completion: { (result, err) in
                 
                 self.fetchFriends(success: { (result) in
                     

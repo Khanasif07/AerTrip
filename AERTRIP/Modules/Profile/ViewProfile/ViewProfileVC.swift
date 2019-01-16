@@ -236,14 +236,15 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             
         case "logOut":
             
-            _ = AKAlertController.actionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, buttons: [LocalizedString.Logout.localized], tapBlock: { _, index in
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
+            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
                     UserInfo.loggedInUserId = nil
                     AppFlowManager.default.goToDashboard()
                     CoreDataManager.shared.deleteCompleteDB()
                 }
-            })
+            }
             
         default:
             break

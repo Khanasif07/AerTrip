@@ -145,7 +145,8 @@ extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
 
 extension ViewAllHotelsVC: HotelsListVCDelegate {
     func removeAllForCurrentPage() {
-        _ = AKAlertController.actionSheet("Title", message: "Do you wish to remove all hotels from \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, buttons: ["OK"]) { (alert, index) in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: ["OK"], colors: [AppColors.themeGreen])
+        _ = PKAlertController.default.presentActionSheet("Title", message: "Do you wish to remove all hotels from \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
             if index == 0 {
                 self.viewModel.updateFavourite(forHotels: self.viewModel.hotels[self.currentIndex].holetList)
             }
