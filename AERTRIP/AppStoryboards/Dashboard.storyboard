@@ -87,13 +87,13 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="91.5" height="102.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerin" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                <rect key="frame" x="5" y="0.0" width="81" height="81"/>
+                                                                                <rect key="frame" x="4.5" y="0.0" width="82.5" height="82.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="hKG-lk-EnP" secondAttribute="height" multiplier="1:1" id="DHW-qt-SDU"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-                                                                                <rect key="frame" x="0.0" y="81" width="91.5" height="21.5"/>
+                                                                                <rect key="frame" x="0.0" y="82.5" width="91.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -125,13 +125,13 @@
                                                                         <rect key="frame" x="91.5" y="0.0" width="91" height="102.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flights" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                <rect key="frame" x="5" y="0.0" width="81" height="81"/>
+                                                                                <rect key="frame" x="4" y="0.0" width="82.5" height="82.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="KsZ-Ga-z3J" secondAttribute="height" multiplier="1:1" id="8Hy-dr-IoG"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-                                                                                <rect key="frame" x="0.0" y="81" width="91" height="21.5"/>
+                                                                                <rect key="frame" x="0.0" y="82.5" width="91" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -163,13 +163,13 @@
                                                                         <rect key="frame" x="182.5" y="0.0" width="91.5" height="102.5"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                <rect key="frame" x="5" y="0.0" width="81" height="81"/>
+                                                                                <rect key="frame" x="4.5" y="0.0" width="82.5" height="82.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="BKX-kN-nNl" secondAttribute="height" multiplier="1:1" id="fdI-Wu-z9g"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-                                                                                <rect key="frame" x="0.0" y="81" width="91.5" height="21.5"/>
+                                                                                <rect key="frame" x="0.0" y="82.5" width="91.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -201,13 +201,13 @@
                                                                         <rect key="frame" x="274" y="0.0" width="91" height="102.5"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trips" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                <rect key="frame" x="5" y="0.0" width="81" height="81"/>
+                                                                                <rect key="frame" x="4" y="0.0" width="82.5" height="82.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="ncO-p1-Aoc" secondAttribute="height" multiplier="1:1" id="H1h-j1-Qqa"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-                                                                                <rect key="frame" x="0.0" y="81" width="91" height="21.5"/>
+                                                                                <rect key="frame" x="0.0" y="82.5" width="91" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1078,38 +1078,40 @@ travel experience</string>
         <!--Main HomeVC-->
         <scene sceneID="LiC-vf-QgS">
             <objects>
-                <viewController storyboardIdentifier="MainHomeVC" id="fkC-9D-wiO" customClass="MainHomeVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainHomeVC" automaticallyAdjustsScrollViewInsets="NO" id="fkC-9D-wiO" customClass="MainHomeVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zvn-X6-00j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNJ-Bl-1rD">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8A-fz-WR4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGm-MM-mgh">
+                                    <scrollView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urm-vA-FHu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </scrollView>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="VGm-MM-mgh" firstAttribute="leading" secondItem="eNJ-Bl-1rD" secondAttribute="leading" id="8Cw-SQ-pyn"/>
-                                    <constraint firstItem="VGm-MM-mgh" firstAttribute="top" secondItem="eNJ-Bl-1rD" secondAttribute="top" id="E8F-af-Bl5"/>
-                                    <constraint firstAttribute="bottom" secondItem="VGm-MM-mgh" secondAttribute="bottom" id="RFo-08-zfM"/>
-                                    <constraint firstAttribute="trailing" secondItem="VGm-MM-mgh" secondAttribute="trailing" id="d5z-4q-h6p"/>
+                                    <constraint firstItem="urm-vA-FHu" firstAttribute="top" secondItem="g8A-fz-WR4" secondAttribute="top" id="3xo-Nm-gqM"/>
+                                    <constraint firstItem="urm-vA-FHu" firstAttribute="trailing" secondItem="BUh-Ia-eDe" secondAttribute="trailing" id="5qN-rK-Ds7"/>
+                                    <constraint firstItem="urm-vA-FHu" firstAttribute="leading" secondItem="BUh-Ia-eDe" secondAttribute="leading" id="enz-4L-99p"/>
+                                    <constraint firstItem="urm-vA-FHu" firstAttribute="bottom" secondItem="BUh-Ia-eDe" secondAttribute="bottom" id="jmt-SH-bEp"/>
                                 </constraints>
+                                <viewLayoutGuide key="safeArea" id="BUh-Ia-eDe"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="eNJ-Bl-1rD" firstAttribute="top" secondItem="Zvn-X6-00j" secondAttribute="top" id="YLB-J9-GVF"/>
-                            <constraint firstItem="7Lt-Eu-xxm" firstAttribute="trailing" secondItem="eNJ-Bl-1rD" secondAttribute="trailing" id="aTn-aT-8nM"/>
-                            <constraint firstItem="7Lt-Eu-xxm" firstAttribute="bottom" secondItem="eNJ-Bl-1rD" secondAttribute="bottom" id="cFg-t9-p74"/>
-                            <constraint firstItem="eNJ-Bl-1rD" firstAttribute="leading" secondItem="7Lt-Eu-xxm" secondAttribute="leading" id="e9S-HP-l9P"/>
+                            <constraint firstItem="g8A-fz-WR4" firstAttribute="bottom" secondItem="7Lt-Eu-xxm" secondAttribute="bottom" id="6Id-Pp-aXa"/>
+                            <constraint firstItem="g8A-fz-WR4" firstAttribute="trailing" secondItem="7Lt-Eu-xxm" secondAttribute="trailing" id="6pW-RN-enU"/>
+                            <constraint firstItem="g8A-fz-WR4" firstAttribute="top" secondItem="Zvn-X6-00j" secondAttribute="top" id="eMN-xb-Xir"/>
+                            <constraint firstItem="g8A-fz-WR4" firstAttribute="leading" secondItem="7Lt-Eu-xxm" secondAttribute="leading" id="tVn-US-mgH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Lt-Eu-xxm"/>
                     </view>
                     <connections>
-                        <outlet property="mainContainerView" destination="eNJ-Bl-1rD" id="KLn-ed-q0B"/>
-                        <outlet property="scrollView" destination="VGm-MM-mgh" id="0Tv-WZ-SZK"/>
+                        <outlet property="mainContainerView" destination="g8A-fz-WR4" id="nrX-gJ-4eW"/>
+                        <outlet property="scrollView" destination="urm-vA-FHu" id="KBB-J8-7TK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Pm-ka-FVK" userLabel="First Responder" sceneMemberID="firstResponder"/>

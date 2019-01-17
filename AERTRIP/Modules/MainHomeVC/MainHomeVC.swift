@@ -15,7 +15,6 @@ class MainHomeVC: BaseVC {
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
     //MARK:- Properties
     //MARK:- Public
     private(set) var sideMenuController: PKSideMenuController?
@@ -85,9 +84,8 @@ class MainHomeVC: BaseVC {
     private func initialSetups() {
         //setup scroll view
         self.scrollViewSetup()
-        
+
         delay(seconds: 0.2) {[weak self] in
-            self?.mainContainerView.addGredient()
             self?.setupProfileView()
             self?.setupLogoView()
         }

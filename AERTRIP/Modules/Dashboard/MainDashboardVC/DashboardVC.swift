@@ -210,7 +210,7 @@ extension DashboardVC : UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if scrollView == mainScrollView{
+        if scrollView == mainScrollView {
 
             var transform : CGFloat = 0.0
 

@@ -83,6 +83,10 @@ class ViewAllHotelsVC: BaseVC {
         options.tabIndicatorViewHeight = 2.0
         options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
         
+        if let obj = viewPager {
+            obj.removeFromParentVC
+            viewPager = nil
+        }
         viewPager = PKViewPagerController()
         viewPager.options = options
         viewPager.dataSource = self

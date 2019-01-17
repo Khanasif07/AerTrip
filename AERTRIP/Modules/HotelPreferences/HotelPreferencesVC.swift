@@ -50,6 +50,10 @@ class HotelPreferencesVC:  BaseVC {
             self.viewModel.webserviceForGetHotelPreferenceList()
             shouldBroadCastNewData = true
         }
+        else if let _ = note.object as? HotelSearchVC {
+            self.viewModel.webserviceForGetHotelPreferenceList()
+            shouldBroadCastNewData = true
+        }
     }
     
     //MARK:- Public
