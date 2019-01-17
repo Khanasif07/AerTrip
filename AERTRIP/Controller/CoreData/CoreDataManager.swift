@@ -196,4 +196,31 @@ class CoreDataManager {
             return nil
         }
     }
+    
+    func getCount(fromEntity: String, forAttribute: String) -> [JSONDictionary] {
+        let keypathExp = NSExpression(forKeyPath: forAttribute)
+        let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
+        
+        let countDesc = NSExpressionDescription()
+        countDesc.expression = expression
+        countDesc.name = "count"
+        countDesc.expressionResultType = .decimalAttributeType
+        
+        let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: fromEntity)
+        
+        request.returnsObjectsAsFaults = false
+        request.propertiesToGroupBy = [forAttribute]
+        request.propertiesToFetch = [forAttribute, countDesc]
+        request.resultType = .dictionaryResultType
+        
+        //final fetch data
+        do {
+            let result = try CoreDataManager.shared.managedObjectContext.fetch(request) as? [JSONDictionary]
+            return result ?? [[:]]
+        }
+        catch let error {
+            printDebug("Problem in fetching data from core data is: \(error.localizedDescription)")
+            return [[:]]
+        }
+    }
 }

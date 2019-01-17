@@ -33,6 +33,8 @@ class PreferencesVC: BaseVC {
     weak var delegate : PreferencesVCDelegate?
     let viewModel = PreferencesVM()
     
+    var labelsCountDict: [JSONDictionary] = []
+    
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -41,6 +43,8 @@ class PreferencesVC: BaseVC {
         doInitialSetUp()
         registerXib()
         viewModel.setUpData()
+        
+        labelsCountDict = CoreDataManager.shared.getCount(fromEntity: "TravellerData", forAttribute: "label")
     }
     
     // MARK: - IB Actions
@@ -119,7 +123,17 @@ class PreferencesVC: BaseVC {
         addNewGroupAlertController()
     }
     
-    
+    private func getCount(forLabel: String) -> Int {
+        var finalCount = 0
+        for dict in self.labelsCountDict {
+            if let obj = dict["label"], "\(obj)".lowercased() == forLabel.lowercased(), let count = dict["count"] {
+                finalCount = "\(count)".toInt ?? 0
+                break
+            }
+        }
+        
+        return finalCount
+    }
 }
 
 // MARK: - UITableViewDataSource AND UITableViewDelegate methods
@@ -199,7 +213,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 groupCell.delegate = self
                 
-                let totalCount = (TravellerData.fetch(forLabel: viewModel.groups[indexPath.row].lowercased()) ?? []).count
+                let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])
                 groupCell.configureCell(indexPath, viewModel.groups[indexPath.row], totalCount)
                 return groupCell
             

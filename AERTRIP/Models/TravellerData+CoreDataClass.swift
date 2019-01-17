@@ -145,22 +145,6 @@ public class TravellerData: NSManagedObject {
         }
         return nil
     }
-    
-//    class func isItemExistCheck(id: String?) -> TravellerData? {
-//
-//        var predicateStr = ""
-//        //        if let id = id {
-//        //            predicateStr = "id = '\(id)'"
-//        //        }
-//
-//        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData",true, predicate: id, sort: nil) {
-//            if (!fetchResult.isEmpty) {
-//                return fetchResult[0] as? TravellerData
-//            }
-//            return nil
-//        }
-//        return nil
-//    }
 }
 
 extension TravellerData {
