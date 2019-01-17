@@ -32,40 +32,22 @@ class TravellerListTableViewCell: UITableViewCell {
     private func configureCell() {
         profileImageView.image = travellerData?.salutationImage
         if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName,let salutation = travellerData?.salutation {
+            
             if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-                if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                    let attributedString = NSMutableAttributedString(string: "\(salutation) \(lastName) \(firstName)", attributes: [
-                        .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
-                        .foregroundColor: UIColor.black
-                    ])
-                    attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!, range: NSRange(location: salutation.count + 1, length: lastName.count))
-                    userNameLabel.attributedText = attributedString
-                } else {
-                    let attributedString = NSMutableAttributedString(string: "\(salutation) \(lastName) \(firstName)", attributes: [
-                        .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
-                        .foregroundColor: UIColor.black
-                    ])
-                    attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!, range: NSRange(location: salutation.count + 1, length: lastName.count))
-                    userNameLabel.attributedText = attributedString
-                }
+                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+                userNameLabel.attributedText = self.getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
                 
             } else {
-                if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                    let attributedString = NSMutableAttributedString(string: "\(salutation) \(firstName) \(lastName)", attributes: [
-                        .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
-                        .foregroundColor: UIColor.black
-                    ])
-                    attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!, range: NSRange(location: salutation.count + 1, length: firstName.count))
-                    userNameLabel.attributedText = attributedString
-                } else {
-                    let attributedString = NSMutableAttributedString(string: "\(salutation) \(firstName) \(lastName)", attributes: [
-                        .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
-                        .foregroundColor: UIColor.black
-                    ])
-                    attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Semibold", size: 18.0)!, range: NSRange(location: firstName.count + 1, length: lastName.count))
-                    userNameLabel.attributedText = attributedString
-                }
+                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+                userNameLabel.attributedText = self.getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
         }
+    }
+    
+    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), .foregroundColor: UIColor.black])
+        
+        attString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (text as NSString).range(of: boldText))
+        return attString
     }
 }

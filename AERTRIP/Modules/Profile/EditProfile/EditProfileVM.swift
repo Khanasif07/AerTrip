@@ -217,7 +217,7 @@ class EditProfileVM {
         params[APIKeys.label.rawValue] = self.label
         
         if self.isFromTravellerList {
-            params[APIKeys.id.rawValue] = self.paxId
+            params[APIKeys.id.rawValue] = ""
         } else {
             params[APIKeys.id.rawValue] = self.paxId
         }
