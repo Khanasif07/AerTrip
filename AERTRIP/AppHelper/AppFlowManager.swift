@@ -210,9 +210,10 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func moveToViewAllHotelsVC(forCities: [CityHotels]) {
+    func moveToViewAllHotelsVC(forCities: [CityHotels],indexPathRow:Int) {
         let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         ob.viewModel.hotels = forCities
+        ob.selectedIndex = indexPathRow
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

@@ -72,6 +72,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     cell.rightViewTextField.delegate = self
                 }
+                cell.rightViewTextField.placeholder = LocalizedString.Email.localized
                 cell.email = self.viewModel.email[indexPath.row]
                 cell.social = nil
                 cell.indexPath = indexPath
@@ -119,9 +120,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
                 cell.editProfilTwoPartTableViewCelldelegate = self
+                 cell.rightViewTextField.placeholder = LocalizedString.SocialProfile.localized
                 cell.social = self.viewModel.social[indexPath.row]
                 cell.email = nil
                 cell.indexPath = indexPath
+                
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
                 return cell
@@ -132,6 +135,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else { fatalError("TwoPartEditTableViewCell not found") }
                 
                 cell.delegate = self
+                cell.leftTextField.placeholder = LocalizedString.SelectDate.localized
+                cell.rightTextField.placeholder = LocalizedString.SelectDate.localized
                 cell.issueDate = viewModel.passportIssueDate
                 cell.expiryDate = viewModel.passportExpiryDate
                 cell.ffData = nil
@@ -206,6 +211,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     }
                     cell.delegate = self
                     cell.indexPath = indexPath
+                    cell.rightTextField.placeholder = LocalizedString.Number.localized
+                    cell.frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
                         // data cells
                         cell.ffData = self.viewModel.frequentFlyer[indexPath.row - 2]
@@ -225,7 +232,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
-                cell.configureCell(indexPath, flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
+                cell.configureCell(indexPath, flightPreferencesTitle[indexPath.row],indexPath.row == 0 ? viewModel.seat:viewModel.meal)
                 return cell
             }
             
@@ -257,7 +264,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 email.type = "email"
                 email.label = LocalizedString.Home.localized
                 self.viewModel.email.append(email)
-                tableView.reloadSection(section: indexPath.section, with: .none)
+             //   tableView.reloadSection(section: indexPath.section, with: .none)
+                tableView.reloadData()
             }
             
         case LocalizedString.SocialAccounts.localized:
@@ -266,7 +274,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var social = Social()
                 social.label = LocalizedString.Facebook.localized
                 self.viewModel.social.append(social)
-                tableView.reloadSection(section: indexPath.section, with: .none)
+               // tableView.reloadSection(section: indexPath.section, with: .none)
+                tableView.reloadData()
             }
             
         case LocalizedString.Address.localized:
@@ -357,6 +366,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         switch textfield {
         case editProfileImageHeaderView.firstNameTextField:
             editProfileImageHeaderView.firstNameTextField.text = textfield.text
+            
             self.viewModel.firstName = textfield.text ?? ""
         case editProfileImageHeaderView.lastNameTextField:
             editProfileImageHeaderView.lastNameTextField.text = textfield.text ?? ""
@@ -364,6 +374,28 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         default:
             break
         }
+        var imageFromText: UIImage = UIImage()
+        if viewModel.firstName != "" {
+            let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)"
+            imageFromText =  AppGlobals.shared.getImageFromText(string)
+            
+        } else if viewModel.lastName != "" {
+            let string = "\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
+            imageFromText =  AppGlobals.shared.getImageFromText(string)
+        }
+        
+        if viewModel.firstName != "" && viewModel.lastName != "" {
+            let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter) \("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
+            imageFromText =  AppGlobals.shared.getImageFromText(string)
+        }
+        
+        if viewModel.firstName == "" && viewModel.lastName == "" {
+            editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+        } else {
+              editProfileImageHeaderView.profileImageView.image = imageFromText
+        }
+      
+      
     }
     
     func selectGroupTapped() {

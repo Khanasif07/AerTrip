@@ -283,10 +283,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         sections.append(LocalizedString.PassportDetails.localized)
         
         viewModel.frequentFlyer = travel.frequestFlyer
-        
-        flightDetails.append(travel.preferences.seat.value)
-        flightDetails.append(travel.preferences.meal.value)
-        
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
         } else {
@@ -306,13 +302,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             sections.append(LocalizedString.FlightPreferences.localized)
         }
         
-        viewModel.salutation = travel.salutation
-        editProfileImageHeaderView.salutaionLabel.text = travel.salutation
+        viewModel.salutation = travel.salutation.isEmpty ? LocalizedString.Title.localized   : travel.salutation
+        editProfileImageHeaderView.salutaionLabel.text = viewModel.salutation
         editProfileImageHeaderView.firstNameTextField.text = travel.firstName
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
         viewModel.addresses = travel.address
+        viewModel.label = travel.label
         
         // hide select group view on EditProfileImageHeaderView
         editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
@@ -321,6 +318,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setUpForNewTraveller() {
+        
+        guard let travel = travelData else {
+            return
+        }
         sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
         passportDetails.append(contentsOf: ["", ""])
         informations.append(contentsOf: ["", ""])
@@ -329,6 +330,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         email.type = "Email"
         email.label = "Home"
         viewModel.email.append(email)
+        
+        if travel.firstName != " " && travelData?.lastName != " "{
+            let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+            let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
+            editProfileImageHeaderView.profileImageView.image = imageFromText
+        } else {
+            editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+        }
+       
         
         var mobile = Mobile()
         mobile.type = "Mobile"

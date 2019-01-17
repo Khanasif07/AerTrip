@@ -371,13 +371,19 @@ extension UIViewController {
         func retrieveContactsWithStore(_ store: CNContactStore) {
             do {
                 let groups = try store.groups(matching: nil)
-                let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
-                //let predicate = CNContact.predicateForContactsMatchingName("John")
-                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey] as [Any]
-                
-                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-                
-                complition(contacts)
+                if groups.isEmpty {
+                    complition([])
+                   
+                }
+                else {
+                    let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
+                    //let predicate = CNContact.predicateForContactsMatchingName("John")
+                    let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey] as [Any]
+                    
+                    let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    
+                    complition(contacts)
+                }
             } catch {
                 printDebug("Error in fetching contacts: \(error)")
             }

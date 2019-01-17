@@ -47,19 +47,13 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-       
         addGesture()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         deleteButton.isHidden = false
-        if email != nil {
-            rightViewTextField.placeholder = LocalizedString.Email.localized
-        } else if social != nil {
-             rightViewTextField.placeholder = LocalizedString.SocialProfile.localized
-        }
+        rightViewTextField.placeholder = ""
     }
     
     // MARK: - Helper methods

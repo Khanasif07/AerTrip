@@ -103,7 +103,7 @@ extension UIView {
         newLayer.shadowColor = shadowColor.cgColor
         newLayer.shadowPath  = newLayer.path
         newLayer.shadowOffset = offset
-        newLayer.shadowOpacity = 0.5
-        newLayer.shadowRadius = 4.0
+        newLayer.shadowOpacity = 0.16
+        newLayer.shadowRadius = 10
     }
 }

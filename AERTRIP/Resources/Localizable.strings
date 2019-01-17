@@ -149,7 +149,7 @@
 //MARK:- ViewProfileVC
 //MARK:-
 "ALERT"  = "ALERT";
-"DoYouWantToLogout" = "Are you sure, Do you want to logout?";
+"DoYouWantToLogout" = "Are you sure, Do you want to log out?";
 "Logout" = "Logout";
 
 //MARK:- Hotel Search
@@ -229,5 +229,14 @@
 "Facebook" = "Facebook";
 "SocialProfile" = "Social Profile";
 "Phone" = "Phone";
+"SelectAirline" = "Select Airline";
+"SelectDate" = "Select Date";
+"AddNotes" = "Add notes";
+"NoContactsFetched" = "No contacts";
+
+//MARK:- Favourite Hotels
+//MARK:-
+"Remover" = "Remove";
+"DoYouWishToRemoveAllHotelsFrom" = "Do you wish to remove all hotels from";
 
 

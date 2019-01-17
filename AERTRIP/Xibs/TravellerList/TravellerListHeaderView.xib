@@ -45,6 +45,7 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="gAP-JF-PeG" firstAttribute="leading" secondItem="F5x-Tb-XGw" secondAttribute="trailing" constant="16" id="6et-G0-wOI"/>
                         <constraint firstItem="qEB-Pr-RQX" firstAttribute="centerY" secondItem="gAP-JF-PeG" secondAttribute="centerY" id="ARx-pl-O6R"/>
@@ -54,6 +55,9 @@
                         <constraint firstItem="F5x-Tb-XGw" firstAttribute="leading" secondItem="mnu-CP-o4A" secondAttribute="leading" constant="16" id="aFn-Dp-rVM"/>
                         <constraint firstItem="F5x-Tb-XGw" firstAttribute="top" secondItem="mnu-CP-o4A" secondAttribute="top" constant="12" id="oM5-42-YQs"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="sLT-lV-4MD" appends="YES" id="FUY-eR-Peb"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,6 +76,11 @@
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="48.575712143928037"/>
         </view>
+        <tapGestureRecognizer id="sLT-lV-4MD">
+            <connections>
+                <action selector="headerViewTapped:" destination="iN0-l3-epB" id="Tvl-nS-Y1T"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>

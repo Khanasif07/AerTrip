@@ -53,15 +53,19 @@ class TravellerListVC: BaseVC {
             }
         }
         
+       
+        
         loadSavedData()
         doInitialSetUp()
         registerXib()
         setUpTravellerHeader()
-        viewModel.callSearchTravellerListAPI()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+         viewModel.callSearchTravellerListAPI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -75,6 +79,12 @@ class TravellerListVC: BaseVC {
             tableView.tableHeaderView = headerView
             tableView.layoutIfNeeded()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        CoreDataManager.shared.deleteCompleteDB()
     }
     
     override func bindViewModel() {
@@ -147,6 +157,7 @@ class TravellerListVC: BaseVC {
         tableView.separatorStyle = .none
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
+        travellerListHeaderView.delegate = self
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
         addFooterView()
@@ -171,11 +182,14 @@ class TravellerListVC: BaseVC {
     
     func loadSavedData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
-        
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: false)]
-            
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil)
+            if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
+                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: false))
+            } else {
+                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))
+            }
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: false)]
@@ -186,8 +200,9 @@ class TravellerListVC: BaseVC {
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         
+        fetchedResultsController.delegate = self
         if predicateStr == "" {
-            fetchedResultsController.fetchRequest.predicate = nil
+             fetchedResultsController.fetchRequest.predicate = nil
 //            var subPredicates : [NSPredicate] = []
 //            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
 //                subPredicates.append(NSPredicate(format: "label == %@",label))
@@ -198,7 +213,7 @@ class TravellerListVC: BaseVC {
             ////              let predicate4 = NSPredicate(format:"label == 'd'")
 //            let predicateCompound = NSCompoundPredicate.init(type: .or, subpredicates:subPredicates)
 //           // fetchedResultsController.fetchRequest.predicate =  NSPredicate(format: "label == 'friends'")
-//            fetchedResultsController.fetchRequest.predicate =  predicateCompound
+//            fetchedResultsController.fetchRequest.predicate =  predicateCompou
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
@@ -288,6 +303,14 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectTravellerButton.isSelected = selectedTravller.contains(tData?.id ?? "")
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let traveller = fetchedResultsController.object(at: indexPath)
+            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
+            CoreDataManager.shared.saveContext()
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -398,25 +421,7 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
             }
             break
         case .delete:
-            if let indexPath = newIndexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-        // TODO: - Need to update
-        case .update:
-            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {}
-            break
-            
-        case .move:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-            break
-            
+            tableView.deleteRows(at: [indexPath ?? IndexPath()], with: .fade)
         default:
             break
         }
@@ -444,4 +449,15 @@ extension TravellerListVC: AssignGroupVCDelegate {
         selectedTravller.removeAll()
         viewModel.callSearchTravellerListAPI()
     }
+}
+
+
+// MARK:- TravellerListHeaderViewDelegate Methods
+
+extension TravellerListVC : TravellerListHeaderViewDelegate {
+    func headerViewTapped() {
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.paxId ?? "", true)
+    }
+    
+    
 }

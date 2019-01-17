@@ -20,7 +20,7 @@ class EmptyScreenView: UIView {
         case importFacebookContacts
         case importGoogleContacts
         case none
-        case frequentFlyer
+        case noResult
     }
     
     //MARK:- properties -
@@ -107,8 +107,8 @@ extension EmptyScreenView {
             
         case .none:
             self.setupForNone()
-        case .frequentFlyer:
-            self.setUpForFrequentFlyer()
+        case .noResult:
+            self.setUpNoResult()
         }
     }
     
@@ -183,7 +183,7 @@ extension EmptyScreenView {
         self.messageLabel.text = LocalizedString.ImportGoogleMessage.localized
     }
     
-    private func setUpForFrequentFlyer(){
+    private func setUpNoResult(){
         self.containerViewCenterYConstraint.constant = -125
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
@@ -210,4 +210,5 @@ extension EmptyScreenView {
         
         return fullString
     }
+    
 }

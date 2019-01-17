@@ -36,7 +36,7 @@ public class TravellerData: NSManagedObject {
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
             userData!.firstName = "\(obj)".removeNull
-            userData!.firstNameFirstChar = userData!.firstName
+            userData!.firstNameFirstChar = "\(userData!.firstName?.firstCharacter ?? "N")"
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
@@ -49,7 +49,7 @@ public class TravellerData: NSManagedObject {
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
             userData!.lastName = "\(obj)".removeNull
-            userData!.lastNameFirstChar = userData!.lastName
+            userData!.lastNameFirstChar = "\(userData!.lastName?.firstCharacter ?? "N")"
         }
         
         if let obj = dataDict[APIKeys.salutation.rawValue] {

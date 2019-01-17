@@ -30,6 +30,15 @@ class HotelSearchVC: BaseVC {
         return newEmptyView
     }()
     
+    private lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    var isFirstTime:Bool = true
+
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -137,6 +146,7 @@ extension HotelSearchVC: HotelSearchVMDelegate {
     
     func searchHotelsSuccess() {
         AppNetworking.hideLoader()
+        self.collectionView.backgroundView = noResultemptyView
         self.collectionView.reloadData()
     }
     
@@ -147,7 +157,10 @@ extension HotelSearchVC: HotelSearchVMDelegate {
 
 extension HotelSearchVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count >= AppConstants.kSearchTextLimit {
+        if searchText == "" {
+            self.viewModel.hotels.removeAll()
+            self.collectionView.reloadData()
+        } else if searchText.count >= AppConstants.kSearchTextLimit {
             self.viewModel.searchHotel(forText: searchText)
         }
     }

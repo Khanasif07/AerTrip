@@ -33,7 +33,7 @@ class SearchVC: BaseVC {
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
-        newEmptyView.vType = .frequentFlyer
+        newEmptyView.vType = .noResult
         return newEmptyView
     }()
     

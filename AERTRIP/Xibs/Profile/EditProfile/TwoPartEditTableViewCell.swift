@@ -62,6 +62,9 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.leftTextField.placeholder = ""
+        self.rightTextField.placeholder = ""
+        self.frequentFlyerLabel.text = ""
         self.downArrowImageView.isHidden = false
     }
     
