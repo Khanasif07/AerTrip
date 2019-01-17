@@ -57,6 +57,7 @@ class EditProfileImageHeaderView: UIView {
         profileImageView.clipsToBounds = true
         
         groupTitleLabel.text = LocalizedString.Group.localized
+        groupLabel.text = LocalizedString.Select.localized
         
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -91,6 +92,15 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        
+        if textField === self.firstNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
+        else if textField === self.lastNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
         
         return true
     }

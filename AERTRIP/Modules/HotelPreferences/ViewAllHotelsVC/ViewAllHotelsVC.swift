@@ -23,6 +23,7 @@ class ViewAllHotelsVC: BaseVC {
     private var viewPager:PKViewPagerController!
     private var options:PKViewPagerOptions!
     private var currentIndex: Int = 0
+    var selectedIndex:Int = 0
     
     //MARK:- Private
     
@@ -94,6 +95,7 @@ class ViewAllHotelsVC: BaseVC {
         
         self.addChild(viewPager)
         self.dataContainerView.addSubview(viewPager.view)
+        willMoveToControllerAtIndex(index: selectedIndex)
         viewPager.didMove(toParent: self)
     }
     
@@ -143,14 +145,14 @@ extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
     }
     
     func startViewPagerAtIndex() -> Int {
-        return 0
+        return selectedIndex 
     }
 }
 
 extension ViewAllHotelsVC: HotelsListVCDelegate {
     func removeAllForCurrentPage() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: ["OK"], colors: [AppColors.themeGreen])
-        _ = PKAlertController.default.presentActionSheet("Title", message: "Do you wish to remove all hotels from \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Remove.localized], colors: [AppColors.themeRed])
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.ALERT.localized, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
             if index == 0 {
                 self.viewModel.updateFavourite(forHotels: self.viewModel.hotels[self.currentIndex].holetList)
             }
@@ -162,6 +164,7 @@ extension ViewAllHotelsVC: PKViewPagerControllerDelegate {
     
     func willMoveToControllerAtIndex(index:Int) {
         print("Moving to page \(index)")
+        
     }
     
     func didMoveToControllerAtIndex(index: Int) {

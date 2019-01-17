@@ -8,12 +8,20 @@
 
 import UIKit
 
+protocol TravellerListHeaderViewDelegate : class {
+    func headerViewTapped()
+}
+
 class TravellerListHeaderView: UIView {
     // MARK: - IB Outlet
     
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var userTypeLbel: UILabel!
+    
+    
+    // MARK: - Variables
+    weak var delegate : TravellerListHeaderViewDelegate?
     
     // MARK: - View Life cycle
     
@@ -28,4 +36,10 @@ class TravellerListHeaderView: UIView {
     class func instanceFromNib() -> TravellerListHeaderView {
         return UINib(nibName: "TravellerListHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! TravellerListHeaderView
     }
+    
+    @IBAction func headerViewTapped(_ sender: Any) {
+        printDebug("Header view tapped")
+        delegate?.headerViewTapped()
+    }
+    
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 enum ViewPresnetEnum {
     case push, present, popup
@@ -205,9 +206,10 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func moveToViewAllHotelsVC(forCities: [CityHotels]) {
+    func moveToViewAllHotelsVC(forCities: [CityHotels],indexPathRow:Int) {
         let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         ob.viewModel.hotels = forCities
+        ob.selectedIndex = indexPathRow
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
@@ -216,9 +218,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToPreferencesVC(_ vc:TravellerListVC){
-        let ob  = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
-        ob.delegate = vc
+    func moveToPreferencesVC(_ delegate: PreferencesVCDelegate){
+        let ob = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.delegate = delegate
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     

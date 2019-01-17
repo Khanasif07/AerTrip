@@ -36,12 +36,12 @@ public class TravellerData: NSManagedObject {
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
             userData!.firstName = "\(obj)".removeNull
-            userData!.firstNameFirstChar = userData!.firstName
+            userData!.firstNameFirstChar = "\(userData!.firstName?.firstCharacter ?? "N")"
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
             if obj == "" {
-                userData!.label = "Others"
+                userData!.label = "others"
             } else {
                 userData!.label = "\(obj)".removeNull
             }
@@ -49,7 +49,7 @@ public class TravellerData: NSManagedObject {
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
             userData!.lastName = "\(obj)".removeNull
-            userData!.lastNameFirstChar = userData!.lastName
+            userData!.lastNameFirstChar = "\(userData!.lastName?.firstCharacter ?? "N")"
         }
         
         if let obj = dataDict[APIKeys.salutation.rawValue] {
@@ -127,6 +127,19 @@ public class TravellerData: NSManagedObject {
         if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
             if (!fetchResult.isEmpty) {
                 return fetchResult[0] as? TravellerData
+            }
+            return nil
+        }
+        return nil
+    }
+    
+    class func fetch(forLabel: String) -> [TravellerData]? {
+        
+        let predicateStr = "label LIKE '\(forLabel)'"
+
+        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
+            if (!fetchResult.isEmpty) {
+                return fetchResult as? [TravellerData]
             }
             return nil
         }

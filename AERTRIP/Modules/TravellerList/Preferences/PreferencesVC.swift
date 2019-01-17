@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol PreferencesVCDelegate:class {
     func preferencesUpdated()
@@ -21,7 +22,6 @@ class PreferencesVC: BaseVC {
     @IBOutlet var tableView: UITableView!
     
     // MARK: - Variables
-    
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     let sections = [LocalizedString.SortOrder, LocalizedString.DisplayOrder, LocalizedString.Groups]
     let order = [LocalizedString.FirstLast, LocalizedString.LastFirst]
@@ -114,6 +114,12 @@ class PreferencesVC: BaseVC {
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
+    
+    @IBAction func addNewGroupButtonTapped(_ sender: Any) {
+        addNewGroupAlertController()
+    }
+    
+    
 }
 
 // MARK: - UITableViewDataSource AND UITableViewDelegate methods
@@ -130,7 +136,8 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.DisplayOrder:
             return order.count + 2
         case LocalizedString.Groups:
-            return viewModel.groups.count + 1
+//            return viewModel.groups.count + 1
+             return viewModel.groups.count
         default:
             return 1
         }
@@ -179,21 +186,22 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             }
         case LocalizedString.Groups:
             
-            if indexPath.row == viewModel.groups.count {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
-                    fatalError("TableViewAddActionCell not found")
-                }
-                cell.cellBackgroundView.backgroundColor = UIColor.white
-                cell.configureCell(LocalizedString.AddNewGroup.localized)
-                return cell
-            } else {
+//            if indexPath.row == viewModel.groups.count {
+////                guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
+////                    fatalError("TableViewAddActionCell not found")
+////                }
+////                cell.cellBackgroundView.backgroundColor = UIColor.white
+////                cell.configureCell(LocalizedString.AddNewGroup.localized)
+////                return cell
+//            } else {
                 guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
                     fatalError("GroupTableViewCell not found")
                 }
                 groupCell.delegate = self
-                groupCell.configureCell(indexPath, viewModel.groups[indexPath.row])
+                
+                let totalCount = (TravellerData.fetch(forLabel: viewModel.groups[indexPath.row].lowercased()) ?? []).count
+                groupCell.configureCell(indexPath, viewModel.groups[indexPath.row], totalCount)
                 return groupCell
-            }
             
         default:
             break
@@ -238,11 +246,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 viewModel.displayOrder = "FL"
             } else {
                 viewModel.displayOrder = "LF"
-            }
-        case LocalizedString.Groups:
-            if indexPath.row == viewModel.groups.count {
-                NSLog("add new group tapped")
-                addNewGroupAlertController()
             }
         default:
             break

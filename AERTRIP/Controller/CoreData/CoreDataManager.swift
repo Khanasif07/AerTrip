@@ -167,11 +167,6 @@ class CoreDataManager {
         //set predicate
         if let prdStr = predicate {
             fReq.predicate = NSPredicate(format:prdStr)
-//            if isCheckingItemExist {
-//                  fReq.predicate =  NSPredicate(format: "id BEGINSWITH %@", prdStr)
-//            } else {
-//                 fReq.predicate =  NSPredicate(format: "firstName CONTAINS[c] %@", prdStr)
-//            }
         }
         
         //set sort descripter

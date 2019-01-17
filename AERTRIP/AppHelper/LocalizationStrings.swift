@@ -227,7 +227,10 @@ enum LocalizedString: String {
     case Home = "Home"
     case Facebook = "Facebook"
     case Phone = "Phone"
-
+    case SelectAirline = "SelectAirline"
+    case SelectDate = "SelectDate"
+    case AddNotes = "AddNotes"
+    
     // Mark: - Salutation
     case Mrs = "Mrs"
     case Ms = "Ms"
@@ -277,11 +280,17 @@ enum LocalizedString: String {
     case ConnectWithFB = "ConnectWithFB";
     case ConnectWithLinkedIn = "ConnectWithLinkedIn";
     case ContactsSelected = "ContactsSelected";
+    case NoContactsFetched = "NoContactsFetched"
     
     //MARK:- Linked Accounts
     //MARK:-
     case Disconnect = "Disconnect";
     case LinkedAccountsMessage = "LinkedAccountsMessage";
+    
+    //MARK:- Favourite Hotels
+    //MARK:-
+    case Remove = "Remove"
+    case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
     
 }
 

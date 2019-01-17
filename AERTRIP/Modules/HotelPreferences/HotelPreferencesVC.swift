@@ -151,7 +151,8 @@ extension HotelPreferencesVC : UITableViewDataSource, UITableViewDelegate {
 
 extension HotelPreferencesVC: HotelCardTableViewCellDelegate, PreferStarCategoryCellDelegate {
     func viewAllButtonTapped(_ sender: UIButton) {
-        AppFlowManager.default.moveToViewAllHotelsVC(forCities: self.viewModel.hotels)
+        let indexPathRow = hotelsTableView.indexPath(forItem: sender)?.row
+        AppFlowManager.default.moveToViewAllHotelsVC(forCities: self.viewModel.hotels,indexPathRow:(indexPathRow ?? 0) - 2)
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {

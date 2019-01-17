@@ -33,9 +33,10 @@ class GroupTableViewCell: UITableViewCell {
     
     // MARK: - Helper methods
     
-    func configureCell(_ indexPath:IndexPath,_ groupName:String) {
+    func configureCell(_ indexPath:IndexPath,_ groupName: String, _ totalContactsCount: Int) {
         self.indexPath = indexPath
         groupNameTextField.text = groupName
+        groupCountLabel.text = "\(totalContactsCount)"
     }
     
     
