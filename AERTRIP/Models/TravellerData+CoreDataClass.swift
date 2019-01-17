@@ -64,7 +64,7 @@ public class TravellerData: NSManagedObject {
     
     //MARK:- Insert Bulk Data
     //MARK:-
-    class func insert(dataDictArray: JSONDictionaryArray, completionBlock:@escaping ([TravellerData]) -> Void) {
+    class func insert(dataDictArray: [TravellerModel], completionBlock:@escaping ([TravellerData]) -> Void) {
         
         var dataArr = [TravellerData]()
         var tempDataArr = [TravellerData]()
@@ -81,8 +81,10 @@ public class TravellerData: NSManagedObject {
                     
                     // insert new entity object
                     for dataDict in dataDictArray {
-                        let dataTemp = TravellerData.insert(dataDict: dataDict)
-                        dataArr.append(dataTemp)
+                        if dataDict.label != "me" {
+                            let dataTemp = TravellerData.insert(dataDict: dataDict.jsonDict)
+                            dataArr.append(dataTemp)
+                        }
                     }
                 }
                 

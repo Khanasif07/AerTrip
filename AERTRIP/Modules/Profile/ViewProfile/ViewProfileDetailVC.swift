@@ -122,7 +122,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView.emailIdLabel.text = ""
         profileImageHeaderView.mobileNumberLabel.text = ""
         profileImageHeaderView.familyButton.isHidden = false
-        profileImageHeaderView.familyButton.setTitle(travel.label, for: .normal)
+        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label, for: .normal)
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.profileImageView.image = UIImage(named: "profilePlaceholder")
         if travel.profileImage != "" {

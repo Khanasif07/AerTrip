@@ -93,7 +93,9 @@ class EditProfileVM {
                 }
             }
             
-        } else if !self.dob.isEmpty || !self.doa.isEmpty {
+        }
+        
+        if !self.dob.isEmpty || !self.doa.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let date = Date()
@@ -107,7 +109,9 @@ class EditProfileVM {
                 }
             }
             
-        } else if !self.email.isEmpty {
+        }
+        
+        if !self.email.isEmpty {
             for (index, _) in self.email.enumerated() {
                 if index > 0 {
                     if self.email[index - 1].value == self.email[index].value {
@@ -116,12 +120,14 @@ class EditProfileVM {
                     }
                 }
             }
-        } else if !self.mobile.isEmpty {
+        }
+        
+        if !self.mobile.isEmpty {
             var isValid = true
             for (index, _) in self.mobile.enumerated() {
                 isValid = self.mobile[index].isValide
                 if index > 0 {
-                    if self.mobile[index - 1].value == self.mobile[index].value {
+                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
                         AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
                         flag = false
                     }
@@ -131,6 +137,20 @@ class EditProfileVM {
             if !isValid {
                 AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.", vc: vc)
                 flag = false
+            }
+        }
+        if !self.frequentFlyer.isEmpty {
+            for (index, _) in self.frequentFlyer.enumerated() {
+                if self.frequentFlyer[index].number == "" {
+                    AppToast.default.showToastMessage(message: "Please enter frequent flyer number", vc: vc)
+                    flag = false
+                }
+                if index > 0 {
+                      if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
+                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique", vc: vc)
+                        flag = false
+                    }
+                }
             }
         }
         
@@ -216,7 +236,7 @@ class EditProfileVM {
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
         
-        if self.isFromTravellerList {
+        if self.isFromTravellerList && !isFromViewProfile {
             params[APIKeys.id.rawValue] = ""
         } else {
             params[APIKeys.id.rawValue] = self.paxId

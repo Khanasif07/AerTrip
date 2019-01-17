@@ -149,7 +149,7 @@
 //MARK:- ViewProfileVC
 //MARK:-
 "ALERT"  = "ALERT";
-"DoYouWantToLogout" = "Are you sure, Do you want to log out?";
+"DoYouWantToLogout" = "Are you sure you want to log out?";
 "Logout" = "Logout";
 
 //MARK:- Hotel Search
