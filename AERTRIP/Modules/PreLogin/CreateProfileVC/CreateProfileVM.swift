@@ -19,7 +19,7 @@ class CreateProfileVM {
     
     weak var delegate: CreateProfileVMDelegate?
     var salutation = [String]()
-    var userData   = UserInfo(withData: [:], userId: "")
+    var userData: UserInfo!
     var isFirstTime = true
     var isValidateForButtonEnable : Bool {
         
@@ -63,6 +63,11 @@ class CreateProfileVM {
             return false
         }
         return true
+    }
+    
+    init() {
+        self.userData = UserInfo(withData: [:], userId: "")
+        self.userData.address = UserInfo.Address(dict: [:])
     }
 }
 
