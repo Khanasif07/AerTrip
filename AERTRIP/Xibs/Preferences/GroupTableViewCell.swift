@@ -20,6 +20,7 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var groupNameTextField: UITextField!
     @IBOutlet weak var groupCountLabel: UILabel!
     @IBOutlet weak var reorderButton: UIButton!
+    @IBOutlet weak var dividerView: UIView!
     
     // MARK: - Variables
     var indexPath : IndexPath?

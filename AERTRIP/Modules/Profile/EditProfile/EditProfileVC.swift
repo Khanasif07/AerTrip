@@ -260,7 +260,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.social = travel.contact.social
         sections.append(LocalizedString.SocialAccounts.localized)
         
-        viewModel.mobile = travel.contact.mobile
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.dob)
         viewModel.dob = travel.dob
