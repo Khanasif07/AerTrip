@@ -335,13 +335,16 @@ extension TravellerListVC: TravellerListVMDelegate {
         travellerNavigationView.isHidden = false
         bottomView.isHidden = true
         isSelectMode = false
-        for travellerId in selectedTravller {
-            let traveller = TravellerData.isItemExistCheck(id: travellerId)
-            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
-        }
+        self.deleteAllSelectedTravllers()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         loadSavedData()
+    }
+    
+    private func deleteAllSelectedTravllers() {
+        for travellerId in selectedTravller {
+            _ = CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(travellerId)'")
+        }
     }
     
     func deleteTravellerAPIFailure() {
@@ -404,7 +407,7 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
             
         // TODO: - Need to update
         case .update:
-            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {}
+//            if let indexPath = indexPath, let _ = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell {}
             break
             
         case .move:
@@ -436,10 +439,7 @@ extension TravellerListVC: PreferencesVCDelegate {
 extension TravellerListVC: AssignGroupVCDelegate {
     func groupAssigned() {
         setTravellerMode()
-        for travellerId in selectedTravller {
-            let traveller = TravellerData.isItemExistCheck(id: travellerId)
-            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
-        }
+        self.deleteAllSelectedTravllers()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         viewModel.callSearchTravellerListAPI()

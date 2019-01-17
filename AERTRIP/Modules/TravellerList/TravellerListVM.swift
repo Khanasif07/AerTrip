@@ -34,7 +34,7 @@ class TravellerListVM: NSObject {
             if isSuccess {
                 // self?.travellersDict = travellers
                 for traveller in travellers {
-                    TravellerData.insert(dataDict: traveller.jsonDict)
+                    _ = TravellerData.insert(dataDict: traveller.jsonDict)
                 }
                 self?.delegate?.searchTravellerSuccess()
             } else {

@@ -19,7 +19,7 @@ public class TravellerData: NSManagedObject {
         var userData: TravellerData?
         
         if let id = dataDict[APIKeys.id.rawValue], !"\(id)".isEmpty {
-            userData = TravellerData.isItemExistCheck(id: "\(id)")
+            userData = TravellerData.fetch(id: "\(id)")
         }
         
         if (userData == nil) {
@@ -117,30 +117,14 @@ public class TravellerData: NSManagedObject {
     
     //MARK:- Check Whether Value Exist or Not
     //MARK:-
-    class func fetch(id: String?) -> [TravellerData]? {
+    class func fetch(id: String?) -> TravellerData? {
         
         var predicateStr = ""
-        //        if let id = id {
-        //            predicateStr = "id = '\(id)'"
-        //        }
-        
-        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: id, sort: nil) {
-            if (!fetchResult.isEmpty) {
-                return fetchResult as? [TravellerData]
-            }
-            return nil
+        if let id = id {
+            predicateStr = "id BEGINSWITH '\(id)'"
         }
-        return nil
-    }
-    
-    class func isItemExistCheck(id: String?) -> TravellerData? {
         
-        var predicateStr = ""
-        //        if let id = id {
-        //            predicateStr = "id = '\(id)'"
-        //        }
-        
-        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData",true, predicate: id, sort: nil) {
+        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
             if (!fetchResult.isEmpty) {
                 return fetchResult[0] as? TravellerData
             }
@@ -148,6 +132,22 @@ public class TravellerData: NSManagedObject {
         }
         return nil
     }
+    
+//    class func isItemExistCheck(id: String?) -> TravellerData? {
+//
+//        var predicateStr = ""
+//        //        if let id = id {
+//        //            predicateStr = "id = '\(id)'"
+//        //        }
+//
+//        if let fetchResult = CoreDataManager.shared.fetchData("TravellerData",true, predicate: id, sort: nil) {
+//            if (!fetchResult.isEmpty) {
+//                return fetchResult[0] as? TravellerData
+//            }
+//            return nil
+//        }
+//        return nil
+//    }
 }
 
 extension TravellerData {

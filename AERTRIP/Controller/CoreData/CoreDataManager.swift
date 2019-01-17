@@ -158,7 +158,7 @@ class CoreDataManager {
     
     //MARK:- Fetch Data From Core Data
     //MARK:-
-    func fetchData(_ modelName: String,_ isCheckingItemExist:Bool = false, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
+    func fetchData(_ modelName: String, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
         
         let cdhObj = inManagedContext!
         
@@ -166,16 +166,12 @@ class CoreDataManager {
         
         //set predicate
         if let prdStr = predicate {
-           // fReq.predicate = NSPredicate(format:prdStr)
-            if isCheckingItemExist {
-                  fReq.predicate =  NSPredicate(format: "id BEGINSWITH %@", prdStr)
-            } else {
-                 fReq.predicate =  NSPredicate(format: "firstName CONTAINS[c] %@", prdStr)
-            }
-            
-            //fReq.predicate =  NSPredicate(format: "%@ BEGINSWITH %@",key, prdStr)
-           
-           
+            fReq.predicate = NSPredicate(format:prdStr)
+//            if isCheckingItemExist {
+//                  fReq.predicate =  NSPredicate(format: "id BEGINSWITH %@", prdStr)
+//            } else {
+//                 fReq.predicate =  NSPredicate(format: "firstName CONTAINS[c] %@", prdStr)
+//            }
         }
         
         //set sort descripter
