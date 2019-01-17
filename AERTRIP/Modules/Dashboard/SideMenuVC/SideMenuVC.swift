@@ -104,7 +104,7 @@ class SideMenuVC: BaseVC {
         return view
     }
     
-    private func updateProfileView(view: SlideMenuProfileImageHeaderView) {
+    func updateProfileView(view: SlideMenuProfileImageHeaderView) {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized

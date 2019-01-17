@@ -181,6 +181,10 @@ class MainHomeVC: BaseVC {
     
     private func pushProfileAnimation() {
         
+        if let profile = self.profileView {
+            self.sideMenuVC?.updateProfileView(view: profile)
+        }
+        
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
@@ -218,6 +222,10 @@ class MainHomeVC: BaseVC {
     }
     
     private func popProfileAnimation() {
+        
+        if let profile = self.profileView {
+            self.sideMenuVC?.updateProfileView(view: profile)
+        }
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
