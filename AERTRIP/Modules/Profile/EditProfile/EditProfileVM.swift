@@ -255,11 +255,11 @@ class EditProfileVM {
         params[APIKeys.seatPreference.rawValue] = seat
         params[APIKeys.mealPreference.rawValue] = meal
         
+        params[APIKeys.imageSource.rawValue] = imageSource
         if self.profilePicture.contains("https://") {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
+            params[APIKeys.imageSource.rawValue] = "aertrip"
         }
-        
-        params[APIKeys.imageSource.rawValue] = imageSource
         
         if self.filePath.isEmpty {
             params[APIKeys.profileImage.rawValue] = UserInfo.loggedInUser?.profileImage ?? ""
