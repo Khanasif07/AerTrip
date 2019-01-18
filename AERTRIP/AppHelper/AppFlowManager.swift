@@ -177,7 +177,7 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToViewProfileDetailVC(_ paxId:String = UserInfo.loggedInUser?.userId ?? "", _ isFromTravellerList:Bool = false) {
+    func moveToViewProfileDetailVC(_ paxId:String, _ isFromTravellerList:Bool = false) {
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.paxId = paxId
         ob.viewModel.isFromTravellerList = isFromTravellerList

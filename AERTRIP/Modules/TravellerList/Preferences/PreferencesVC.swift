@@ -211,6 +211,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
                     fatalError("GroupTableViewCell not found")
                 }
+                groupCell.dividerView.isHidden = indexPath.row == self.viewModel.groups.count - 1
                 groupCell.delegate = self
                 
                 let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])

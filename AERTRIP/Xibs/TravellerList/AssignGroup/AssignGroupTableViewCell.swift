@@ -10,7 +10,8 @@ import UIKit
 
 class AssignGroupTableViewCell: UITableViewCell {
     @IBOutlet var groupNameLabel: UILabel!
-
+    @IBOutlet weak var groupCountLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,7 +23,8 @@ class AssignGroupTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configureCell(_ groupName: String) {
+    func configureCell(_ groupName: String,_ totalCount:Int) {
         groupNameLabel.text = groupName
+        groupCountLabel.text = "\(totalCount)"
     }
 }

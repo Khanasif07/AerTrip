@@ -26,7 +26,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet var doneButton: UIButton!
     
     // MARK: - Variables
-    
+    private var shouldHitAPI: Bool = true
     var travellerListHeaderView: TravellerListHeaderView = TravellerListHeaderView()
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     let cellIdentifier = "TravellerListTableViewCell"
@@ -64,8 +64,9 @@ class TravellerListVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-         viewModel.callSearchTravellerListAPI()
+        if self.shouldHitAPI {
+            viewModel.callSearchTravellerListAPI()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -82,7 +83,7 @@ class TravellerListVC: BaseVC {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewDidDisappear(animated)
         
         CoreDataManager.shared.deleteCompleteDB()
     }
@@ -246,14 +247,16 @@ class TravellerListVC: BaseVC {
         tableView.tableFooterView = customView
     }
     
-    func setTravellerMode() {
+    func setTravellerMode(shouldReload: Bool = true) {
         isSelectMode = false
         selectView.isHidden = true
         travellerNavigationView.isHidden = false
         bottomView.isHidden = true
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
-        tableView.reloadData()
+        if shouldReload {
+            tableView.reloadData()
+        }
     }
     
     func setSelectMode() {
@@ -386,11 +389,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     func willSearchForTraveller() {}
     
     func searchTravellerSuccess() {
-        for (key, value) in viewModel.travellersDict {
-            print("\(key) -> \(value)")
-            // objectArray.append(Objects(sectionName: key, sectionObjects: (value as! [TravellerModel])))
-        }
-        
+        self.shouldHitAPI = true
         loadSavedData()
     }
 }
@@ -445,12 +444,20 @@ extension TravellerListVC: PreferencesVCDelegate {
 }
 
 extension TravellerListVC: AssignGroupVCDelegate {
-    func groupAssigned() {
-        setTravellerMode()
-        self.deleteAllSelectedTravllers()
+    func cancelTapped() {
+        self.shouldHitAPI = false
+        viewModel.callSearchTravellerListAPI()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
+        setTravellerMode(shouldReload: false)
+    }
+    
+    func groupAssigned() {
+        self.shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
+        travellerSelectedCountLabel.text = "Select Traveller"
+        selectedTravller.removeAll()
+        setTravellerMode(shouldReload: false)
     }
 }
 

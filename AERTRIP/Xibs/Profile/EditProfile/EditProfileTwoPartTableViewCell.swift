@@ -47,6 +47,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+       
         addGesture()
     }
     
@@ -54,11 +55,13 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         super.prepareForReuse()
         deleteButton.isHidden = false
         rightViewTextField.placeholder = ""
+       
     }
     
     // MARK: - Helper methods
     
     private func configureCell() {
+        rightViewTextField.delegate = self
         if let email = self.email {
             leftTitleLabel.text = email.label
             rightViewTextField.text = email.value

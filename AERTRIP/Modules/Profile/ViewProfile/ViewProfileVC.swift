@@ -308,7 +308,7 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     
     func profileImageTapped() {
         NSLog("profile Image Tapped View ProfileVc")
-        AppFlowManager.default.moveToViewProfileDetailVC()
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.paxId ?? "", false)
     }
 }
 

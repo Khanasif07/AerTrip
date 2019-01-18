@@ -238,13 +238,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             return
         }
         
-        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, viewModel.isFromTravellerList == false {
+        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id  == UserInfo.loggedInUser?.paxId {
             var email = Email()
             email.label = "Default"
             email.type = "Email"
             email.value = loggedInUserEmail
             self.viewModel.email.append(email)
-            self.viewModel.email.append(contentsOf: travel.contact.email)
+          
             var mobile = Mobile()
             mobile.label = "Default"
             mobile.type = "Mobile"
@@ -252,15 +252,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             mobile.value = loggedInUserMobile
             mobile.isValide = true
             self.viewModel.mobile.append(mobile)
-            self.viewModel.mobile.append(contentsOf: travel.contact.mobile)
+           
         }
         
         // viewModel.email = email
+          self.viewModel.email.append(contentsOf: travel.contact.email)
+         self.viewModel.mobile.append(contentsOf: travel.contact.mobile)
         viewModel.social = travel.contact.social
         viewModel.social = travel.contact.social
         sections.append(LocalizedString.SocialAccounts.localized)
         
-        viewModel.mobile = travel.contact.mobile
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         informations.append(travel.dob)
         viewModel.dob = travel.dob
@@ -285,6 +286,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.frequentFlyer = travel.frequestFlyer
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
+            viewModel.profilePicture = travel.profileImage
         } else {
             if viewModel.isFromTravellerList {
                 let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
@@ -319,25 +321,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     private func setUpForNewTraveller() {
         
-        guard let travel = travelData else {
-            return
-        }
         sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
         passportDetails.append(contentsOf: ["", ""])
-        informations.append(contentsOf: ["", ""])
+        informations.append(contentsOf: ["", "",""])
         flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized, LocalizedString.SelectSeatPreference.localized])
         var email = Email()
         email.type = "Email"
         email.label = "Home"
         viewModel.email.append(email)
         
-        if travel.firstName != " " && travelData?.lastName != " "{
-            let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
-            let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
-            editProfileImageHeaderView.profileImageView.image = imageFromText
-        } else {
-            editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
-        }
+       
        
         
         var mobile = Mobile()
@@ -426,7 +419,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
             formatter.date(from: self.viewModel.dob)
-            showDatePicker(formatter.date(from: self.viewModel.dob), maximumDate: nil)
+            showDatePicker(formatter.date(from: self.viewModel.dob), maximumDate: Date())
         case 2:
             NSLog("show notes ")
             

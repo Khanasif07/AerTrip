@@ -63,6 +63,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.editProfilTwoPartTableViewCelldelegate = self
+                cell.indexPath = indexPath
                 if indexPath.row == 0, !self.viewModel.isFromTravellerList {
                     cell.rightViewTextField.isEnabled = false
                     cell.deleteButton.isHidden = true
@@ -73,6 +74,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightViewTextField.delegate = self
                 }
                 cell.rightViewTextField.placeholder = LocalizedString.Email.localized
+                cell.rightViewTextField.keyboardType = .emailAddress
                 cell.email = self.viewModel.email[indexPath.row]
                 cell.social = nil
                 cell.indexPath = indexPath
@@ -347,6 +349,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
             return indexPath.row == 0 && !viewModel.isFromTravellerList ? false : true
+    
+        case LocalizedString.SocialProfile.localized:
+            return indexPath.row == self.viewModel.social.count ? false : true
             
         default: break
         }
@@ -375,25 +380,28 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
             break
         }
         var imageFromText: UIImage = UIImage()
-        if viewModel.firstName != "" {
-            let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)"
-            imageFromText =  AppGlobals.shared.getImageFromText(string)
+        if viewModel.profilePicture == "" {
+            if viewModel.firstName != "" {
+                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)"
+                imageFromText =  AppGlobals.shared.getImageFromText(string)
+                
+            } else if viewModel.lastName != "" {
+                let string = "\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
+                imageFromText =  AppGlobals.shared.getImageFromText(string)
+            }
             
-        } else if viewModel.lastName != "" {
-            let string = "\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
-            imageFromText =  AppGlobals.shared.getImageFromText(string)
+            if viewModel.firstName != "" && viewModel.lastName != "" {
+                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter) \("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
+                imageFromText =  AppGlobals.shared.getImageFromText(string)
+            }
+            
+            if viewModel.firstName == "" && viewModel.lastName == "" {
+                editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+            } else {
+                editProfileImageHeaderView.profileImageView.image = imageFromText
+            }
         }
         
-        if viewModel.firstName != "" && viewModel.lastName != "" {
-            let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter) \("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
-            imageFromText =  AppGlobals.shared.getImageFromText(string)
-        }
-        
-        if viewModel.firstName == "" && viewModel.lastName == "" {
-            editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
-        } else {
-              editProfileImageHeaderView.profileImageView.image = imageFromText
-        }
       
       
     }
@@ -403,6 +411,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         if let groups = UserInfo.loggedInUser?.generalPref?.labels, groups.count > 0 {
             pickerType = .groups
             pickerData = groups
+            self.view.endEditing(true)
             openPicker()
         }
     }
@@ -503,9 +512,15 @@ extension EditProfileVC {
 extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
     func textFieldEndEditing(_ indexPath: IndexPath, _ text: String) {
         self.view.endEditing(true)
-        if !text.checkValidity(.Email) {
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.rawValue, vc: self)
+        switch sections[indexPath.section] {
+        case LocalizedString.EmailAddress.localized:
+            if !text.checkValidity(.Email) {
+                AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: self)
+            }
+        default:
+            break
         }
+        
     }
     
     func textFieldText(_ indexPath: IndexPath, _ text: String) {

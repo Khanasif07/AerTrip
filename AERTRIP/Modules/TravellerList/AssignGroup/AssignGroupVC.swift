@@ -10,6 +10,7 @@ import UIKit
 
 protocol AssignGroupVCDelegate: class {
     func groupAssigned()
+    func cancelTapped()
 }
 
 class AssignGroupVC: BaseVC {
@@ -25,6 +26,7 @@ class AssignGroupVC: BaseVC {
     var cellIdentifier = "AssignGroupTableViewCell"
     let viewModel = AssignGroupVM()
     weak var delegate: AssignGroupVCDelegate?
+    var labelsCountDict: [JSONDictionary] = []
     
     // MARK: - View Life cycle
     
@@ -34,6 +36,8 @@ class AssignGroupVC: BaseVC {
         viewModel.setUpData()
         doInitialSetUp()
         registerXib()
+        
+        labelsCountDict = CoreDataManager.shared.getCount(fromEntity: "TravellerData", forAttribute: "label")
     }
     
     override func bindViewModel() {
@@ -91,7 +95,21 @@ class AssignGroupVC: BaseVC {
         tableView.tableFooterView = customView
     }
     
+    
+    private func getCount(forLabel: String) -> Int {
+        var finalCount = 0
+        for dict in self.labelsCountDict {
+            if let obj = dict["label"], "\(obj)".lowercased() == forLabel.lowercased(), let count = dict["count"] {
+                finalCount = "\(count)".toInt ?? 0
+                break
+            }
+        }
+        
+        return finalCount
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        delegate?.cancelTapped()
         dismiss(animated: true, completion: nil)
     }
     
@@ -140,7 +158,8 @@ extension AssignGroupVC: UITableViewDataSource, UITableViewDelegate {
         guard let groupCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AssignGroupTableViewCell else {
             fatalError("GroupTableViewCell not found")
         }
-        groupCell.configureCell(viewModel.groups[indexPath.row])
+         let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])
+        groupCell.configureCell(viewModel.groups[indexPath.row],totalCount)
         return groupCell
     }
     
