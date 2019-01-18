@@ -441,6 +441,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
                 self?.getPhotoFromFacebook()
             } else if index == 3 {
                 self?.getPhotoFromGoogle()
+            } else if index == 4 {
+                printDebug("Remove Photo")
+                self?.editProfileImageHeaderView.profileImageView.image = nil
+                self?.viewModel.profilePicture = ""
             }
         }
     }
