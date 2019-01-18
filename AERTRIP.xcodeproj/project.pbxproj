@@ -50,8 +50,6 @@
 		182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */; };
 		182E8ED321DB6AAC0089C02D /* HotelCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */; };
 		183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */; };
-		183E3F6221D9EA490032DEBA /* HotelPreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3F6121D9EA490032DEBA /* HotelPreferencesVC.swift */; };
-		183E3F6421D9EA570032DEBA /* HotelPreferencesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3F6321D9EA570032DEBA /* HotelPreferencesVM.swift */; };
 		183E3F6821D9F1D70032DEBA /* HotelCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3F6621D9F1D70032DEBA /* HotelCardCollectionViewCell.swift */; };
 		183E3F6921D9F1D70032DEBA /* HotelCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183E3F6721D9F1D70032DEBA /* HotelCardCollectionViewCell.xib */; };
 		183E3F6B21DA00D70032DEBA /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3F6A21DA00D70032DEBA /* FloatRatingView.swift */; };
@@ -295,8 +293,6 @@
 		182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCardTableViewCell.swift; sourceTree = "<group>"; };
 		182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelCardTableViewCell.xib; sourceTree = "<group>"; };
 		183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelPreferences.storyboard; sourceTree = "<group>"; };
-		183E3F6121D9EA490032DEBA /* HotelPreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelPreferencesVC.swift; sourceTree = "<group>"; };
-		183E3F6321D9EA570032DEBA /* HotelPreferencesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelPreferencesVM.swift; sourceTree = "<group>"; };
 		183E3F6621D9F1D70032DEBA /* HotelCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		183E3F6721D9F1D70032DEBA /* HotelCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		183E3F6A21DA00D70032DEBA /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
@@ -628,8 +624,6 @@
 				84E4CC6821E367DF0015C306 /* ViewAllHotelsVC */,
 				8410421E21DE3450002B4C1F /* HotelSearch */,
 				183E3F6C21DA15350032DEBA /* PrototypeCells */,
-				183E3F6121D9EA490032DEBA /* HotelPreferencesVC.swift */,
-				183E3F6321D9EA570032DEBA /* HotelPreferencesVM.swift */,
 			);
 			path = HotelPreferences;
 			sourceTree = "<group>";
@@ -1708,7 +1702,6 @@
 				84BA77C421EDCA6200C89352 /* LinkedAccountsVM.swift in Sources */,
 				183E3F6821D9F1D70032DEBA /* HotelCardCollectionViewCell.swift in Sources */,
 				18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */,
-				183E3F6421D9EA570032DEBA /* HotelPreferencesVM.swift in Sources */,
 				18999D9D21E4D80A00E66072 /* PreferencesVM.swift in Sources */,
 				18109EB921BA75A300BF342E /* ForgotPasswordVM.swift in Sources */,
 				84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */,
@@ -1765,7 +1758,6 @@
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
 				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
-				183E3F6221D9EA490032DEBA /* HotelPreferencesVC.swift in Sources */,
 				18F4956021B7F4710003AC16 /* CreateYourAccountVM.swift in Sources */,
 				1804889121CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift in Sources */,
 				18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */,

@@ -228,7 +228,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 1:
                 
-                AppFlowManager.default.moveToHotelPreferencesVC()
+                AppFlowManager.default.moveToViewAllHotelsVC()
                 
             case 3:
                 

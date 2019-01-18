@@ -23,7 +23,13 @@ class ViewAllHotelsVC: BaseVC {
     private var viewPager:PKViewPagerController!
     private var options:PKViewPagerOptions!
     private var currentIndex: Int = 0
-    var selectedIndex:Int = 0
+    private let selectedIndex:Int = 0
+    
+    private lazy var emptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .hotelPreferences
+        return newEmptyView
+    }()
     
     //MARK:- Private
     
@@ -39,7 +45,7 @@ class ViewAllHotelsVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        options.viewPagerFrame = self.view.bounds
+        options?.viewPagerFrame = self.view.bounds
     }
     
     override func setupFonts() {
@@ -59,9 +65,8 @@ class ViewAllHotelsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let data = note.object as? [CityHotels] {
-            self.viewModel.hotels = data
-            self.viewDidLoad()
+        if let _ = note.object as? HotelSearchVC {
+            self.initialSetups()
         }
     }
     
@@ -70,33 +75,45 @@ class ViewAllHotelsVC: BaseVC {
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         
-        options = PKViewPagerOptions(viewPagerWithFrame: dataContainerView.bounds)
-        options.tabType = PKViewPagerTabType.basic
-        options.tabViewImageSize = CGSize.zero
-        options.tabViewTextFont = AppFonts.Regular.withSize(16.0)
-        options.tabViewPaddingLeft = 20
-        options.tabViewPaddingRight = 20
-        options.isTabHighlightAvailable = true
-        options.tabViewBackgroundDefaultColor = AppColors.themeWhite
-        options.tabViewBackgroundHighlightColor = AppColors.themeWhite
-        options.tabViewTextDefaultColor = AppColors.themeBlack
-        options.tabViewTextHighlightColor = AppColors.themeBlack
-        options.tabIndicatorViewHeight = 2.0
-        options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
-        
-        if let obj = viewPager {
-            obj.removeFromParentVC
-            viewPager = nil
+        self.setupPagerView()
+        self.viewModel.webserviceForGetHotelPreferenceList()
+    }
+    
+    private func setupPagerView() {
+        if self.viewModel.hotels.isEmpty {
+            self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
+            self.dataContainerView.addSubview(self.emptyView)
         }
-        viewPager = PKViewPagerController()
-        viewPager.options = options
-        viewPager.dataSource = self
-        viewPager.delegate = self
-        
-        self.addChild(viewPager)
-        self.dataContainerView.addSubview(viewPager.view)
-        willMoveToControllerAtIndex(index: selectedIndex)
-        viewPager.didMove(toParent: self)
+        else {
+            self.emptyView.removeFromSuperview()
+            options = PKViewPagerOptions(viewPagerWithFrame: dataContainerView.bounds)
+            options.tabType = PKViewPagerTabType.basic
+            options.tabViewImageSize = CGSize.zero
+            options.tabViewTextFont = AppFonts.Regular.withSize(16.0)
+            options.tabViewPaddingLeft = 20
+            options.tabViewPaddingRight = 20
+            options.isTabHighlightAvailable = true
+            options.tabViewBackgroundDefaultColor = AppColors.themeWhite
+            options.tabViewBackgroundHighlightColor = AppColors.themeWhite
+            options.tabViewTextDefaultColor = AppColors.themeBlack
+            options.tabViewTextHighlightColor = AppColors.themeBlack
+            options.tabIndicatorViewHeight = 2.0
+            options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
+            
+            if let obj = viewPager {
+                obj.removeFromParentVC
+                viewPager = nil
+            }
+            viewPager = PKViewPagerController()
+            viewPager.options = options
+            viewPager.dataSource = self
+            viewPager.delegate = self
+            
+            self.addChild(viewPager)
+            self.dataContainerView.addSubview(viewPager.view)
+            willMoveToControllerAtIndex(index: selectedIndex)
+            viewPager.didMove(toParent: self)
+        }
     }
     
     //MARK:- Public
@@ -112,6 +129,18 @@ class ViewAllHotelsVC: BaseVC {
 }
 
 extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
+    func willGetHotelPreferenceList() {
+        
+    }
+    
+    func getHotelPreferenceListSuccess() {
+        self.setupPagerView()
+    }
+    
+    func getHotelPreferenceListFail() {
+        
+    }
+    
     func willUpdateFavourite() {
         
     }

@@ -191,11 +191,6 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToHotelPreferencesVC(){
-        let ob = HotelPreferencesVC.instantiate(fromAppStoryboard: .HotelPreferences)
-        self.mainNavigationController.pushViewController(ob, animated: true)
-    }
-    
     func moveToLinkedAccountsVC(){
         let ob = LinkedAccountsVC.instantiate(fromAppStoryboard: .Profile)
         self.mainNavigationController.pushViewController(ob, animated: true)
@@ -206,10 +201,8 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func moveToViewAllHotelsVC(forCities: [CityHotels],indexPathRow:Int) {
+    func moveToViewAllHotelsVC() {
         let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
-        ob.viewModel.hotels = forCities
-        ob.selectedIndex = indexPathRow
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
