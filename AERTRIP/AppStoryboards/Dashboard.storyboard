@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -62,14 +62,23 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNz-s2-v33">
+                                                        <rect key="frame" x="161" y="15" width="159" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="5KX-bs-S52" firstAttribute="top" secondItem="x1e-WT-TPs" secondAttribute="top" constant="10" id="6a3-8w-zgT"/>
+                                                    <constraint firstItem="wNz-s2-v33" firstAttribute="centerY" secondItem="wPI-AZ-Ls2" secondAttribute="centerY" id="9kk-VI-fkN"/>
                                                     <constraint firstItem="wPI-AZ-Ls2" firstAttribute="leading" secondItem="5KX-bs-S52" secondAttribute="trailing" constant="10" id="JJ5-qc-8Hb"/>
                                                     <constraint firstItem="5KX-bs-S52" firstAttribute="leading" secondItem="x1e-WT-TPs" secondAttribute="leading" constant="15" id="RsZ-0f-WLW"/>
                                                     <constraint firstItem="wPI-AZ-Ls2" firstAttribute="centerY" secondItem="5KX-bs-S52" secondAttribute="centerY" id="Sj3-nN-RW8"/>
                                                     <constraint firstAttribute="trailing" secondItem="k6A-oH-74k" secondAttribute="trailing" constant="15" id="m84-ih-4zz"/>
+                                                    <constraint firstItem="wNz-s2-v33" firstAttribute="leading" secondItem="wPI-AZ-Ls2" secondAttribute="trailing" constant="16" id="qpb-In-6pg"/>
+                                                    <constraint firstItem="k6A-oH-74k" firstAttribute="leading" secondItem="wNz-s2-v33" secondAttribute="trailing" constant="10" id="sXl-gh-4sK"/>
                                                     <constraint firstItem="k6A-oH-74k" firstAttribute="centerY" secondItem="wPI-AZ-Ls2" secondAttribute="centerY" id="thz-qV-aHQ"/>
                                                     <constraint firstAttribute="bottom" secondItem="5KX-bs-S52" secondAttribute="bottom" constant="10" id="z9z-XW-qjd"/>
                                                 </constraints>
@@ -389,6 +398,7 @@
                     <connections>
                         <outlet property="aerinLabel" destination="CMz-6r-Sru" id="HVT-56-aP9"/>
                         <outlet property="aerinView" destination="Wjk-Vp-DEf" id="YYh-Oi-CK7"/>
+                        <outlet property="buildVersionLabel" destination="wNz-s2-v33" id="wDu-Mj-a5x"/>
                         <outlet property="flightsLabel" destination="bmS-2d-CXq" id="9dL-7b-RMQ"/>
                         <outlet property="flightsView" destination="M6D-EY-y2X" id="gU9-oL-6zw"/>
                         <outlet property="headerTopConstraint" destination="Ymh-y5-rUR" id="yiZ-zd-bG1"/>
@@ -406,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYU-xq-zhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1383" y="-981"/>
+            <point key="canvasLocation" x="1381.5999999999999" y="-981.85907046476768"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Iy5-DN-zdi">
@@ -678,7 +688,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVy-zL-Whs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="22"/>
+            <point key="canvasLocation" x="-26.399999999999999" y="21.139430284857571"/>
         </scene>
         <!--AerinVC-->
         <scene sceneID="iwf-5a-7Bj">

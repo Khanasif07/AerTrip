@@ -240,3 +240,7 @@
 "DoYouWishToRemoveAllHotelsFrom" = "Do you wish to remove all hotels from";
 
 
+//MARK:- Preferences VC
+"GroupAlreadyExist" = "Group already exist.";
+
+

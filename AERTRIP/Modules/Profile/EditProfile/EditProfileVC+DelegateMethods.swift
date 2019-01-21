@@ -406,6 +406,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func selectGroupTapped() {
+        dismissKeyboard()
         printDebug("select group tapped")
         if let groups = UserInfo.loggedInUser?.generalPref?.labels, groups.count > 0 {
             pickerType = .groups
@@ -416,6 +417,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func salutationViewTapped() {
+       dismissKeyboard()
         if self.viewModel.salutationTypes.count > 0 {
             pickerType = .salutation
             pickerData = self.viewModel.salutationTypes
@@ -424,6 +426,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func editButtonTapped() {
+        dismissKeyboard()
         printDebug("edit button tapped")
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
         
@@ -440,6 +443,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
                 self?.getPhotoFromFacebook()
             } else if index == 3 {
                 self?.getPhotoFromGoogle()
+            } else if index == 4 {
+                printDebug("Remove Photo")
+                self?.editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+                self?.viewModel.profilePicture = ""
             }
         }
     }

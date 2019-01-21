@@ -100,6 +100,8 @@ class PreferencesVC: BaseVC {
             
             if !self.viewModel.groups.contains(groupName) {
                 self.viewModel.groups.append(groupName)
+            } else {
+                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
             }
             self.tableView.reloadData()
         }
