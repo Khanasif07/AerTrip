@@ -16,6 +16,7 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         let animation = DefaultNavigationTransition()
+        animation.duration = AppConstants.kAnimationDuration
         animation.transitionMode = operation == .pop ? .pop : .push
         return animation
     }

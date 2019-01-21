@@ -40,4 +40,5 @@ enum AppConstants {
     
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 20
+    static let kAnimationDuration = 0.4
 }

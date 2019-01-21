@@ -15,7 +15,7 @@ protocol SearchVCDelegate: class {
 class SearchVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     
     @IBOutlet var searchTextField: SearchTextField!
     @IBOutlet var headerTitleLabel: UILabel!

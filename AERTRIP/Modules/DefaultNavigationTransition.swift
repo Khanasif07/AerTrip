@@ -62,7 +62,7 @@ class DefaultNavigationTransition: NSObject, UIViewControllerAnimatedTransitioni
             let snapFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             
-            UIView.animate(withDuration: 0.6, animations: {
+            UIView.animate(withDuration: self.duration, animations: {
                 snapshot.frame = snapFrame
                 toVC.view.frame = viewFrame
                 
@@ -89,7 +89,7 @@ class DefaultNavigationTransition: NSObject, UIViewControllerAnimatedTransitioni
             let snapFrame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
 
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: self.duration, animations: {
                 snapshot.frame = snapFrame
                 toVC.view.frame = viewFrame
                 

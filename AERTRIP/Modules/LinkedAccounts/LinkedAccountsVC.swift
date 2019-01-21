@@ -14,7 +14,7 @@ class LinkedAccountsVC: BaseVC {
     //MARK:-
     @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet weak var tableView: ATTableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self

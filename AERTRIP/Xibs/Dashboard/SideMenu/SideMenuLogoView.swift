@@ -18,8 +18,6 @@ class SideMenuLogoView: UIView {
     class func instanceFromNib() -> SideMenuLogoView {
         
         return UINib(nibName: "SideMenuLogoView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SideMenuLogoView
-        
-//        Bundle.main.loadNibNamed("SideMenuLogoView", owner: self, options: nil)
     }
     
     override func awakeFromNib() {
@@ -29,6 +27,11 @@ class SideMenuLogoView: UIView {
     }
     
     private func initialSetup() {
-        
+        self.setupTextAndFont()
+    }
+    
+    private func setupTextAndFont() {
+        self.messageLabel.font = AppFonts.Regular.withSize(16.0)
+        self.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
     }
 }

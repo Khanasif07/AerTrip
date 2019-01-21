@@ -18,7 +18,7 @@ class ContactListVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var selectAllButton: UIButton!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     
@@ -242,6 +242,9 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
+        if self.viewModel.phoneContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this phone.")
+        }
         self.tableView.reloadData()
     }
     

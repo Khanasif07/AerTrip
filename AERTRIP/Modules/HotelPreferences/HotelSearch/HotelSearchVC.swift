@@ -16,7 +16,7 @@ class HotelSearchVC: BaseVC {
     @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: ATCollectionView!
     
     
     //MARK:- Properties

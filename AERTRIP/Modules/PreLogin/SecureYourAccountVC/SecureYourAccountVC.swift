@@ -359,29 +359,26 @@ extension SecureYourAccountVC {
     
     func setupViewDidLoadAnimation() {
         
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.headerImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.headerImage.transform          = .identity
+            })
             
-            self.secureAccountLabel.transform      = .identity
-            self.setPasswordLabel.transform      = .identity
-        }
-        
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.secureAccountLabel.transform      = .identity
+                self.setPasswordLabel.transform      = .identity
+            })
             
-            self.passwordTextField.transform    = .identity
-            self.passwordConditionLabel.transform = .identity
-            self.validationStackView.transform    = .identity
-            self.nextButton.transform    = .identity
-            self.showPasswordButton.transform    = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.passwordTextField.transform    = .identity
+                self.passwordConditionLabel.transform = .identity
+                self.validationStackView.transform    = .identity
+                self.nextButton.transform    = .identity
+                self.showPasswordButton.transform    = .identity
+            })
             
         }) { (success) in
-            
             self.passwordTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }

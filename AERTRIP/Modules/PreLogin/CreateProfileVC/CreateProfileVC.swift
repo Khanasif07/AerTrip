@@ -391,7 +391,7 @@ extension CreateProfileVC {
         myLayer.contents = #imageLiteral(resourceName: "Checkmark").cgImage
         self.letsStartedButton.layer.addSublayer(myLayer)
 
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
             self.letsStartedButton.frame = reScaleFrame
             self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
             self.whiteBackgroundView.alpha = 0.5
@@ -404,7 +404,7 @@ extension CreateProfileVC {
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY)
 
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
                 self.letsStartedButton.transform = t
                 self.whiteBackgroundView.alpha = 1.0
             }) { (isCompleted) in
@@ -436,32 +436,30 @@ extension CreateProfileVC {
     
     func setupViewDidLoadAnimation() {
         
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.logoImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.logoImage.transform          = .identity
+            })
             
-            self.createProfileTitleLabel.transform      = .identity
-            self.createProfileSubTitleLabel.transform      = .identity
-            self.nameTitleTextField.transform      = .identity
-            self.titleDropDownImage.transform      = .identity
-            self.countryFlagImage.transform      = .identity
-            self.countryCodeLabel.transform      = .identity
-            self.countryCodeTextField.transform      = .identity
-        }
-        
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.createProfileTitleLabel.transform      = .identity
+                self.createProfileSubTitleLabel.transform      = .identity
+                self.nameTitleTextField.transform      = .identity
+                self.titleDropDownImage.transform      = .identity
+                self.countryFlagImage.transform      = .identity
+                self.countryCodeLabel.transform      = .identity
+                self.countryCodeTextField.transform      = .identity
+            })
             
-            self.firstNameTextField.transform    = .identity
-            self.lastNameTextField.transform = .identity
-            self.countryTextField.transform    = .identity
-            self.countryDropdownImage.transform      = .identity
-            self.mobileNumberTextField.transform  = .identity
-            self.letsStartedButton.transform = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.firstNameTextField.transform    = .identity
+                self.lastNameTextField.transform = .identity
+                self.countryTextField.transform    = .identity
+                self.countryDropdownImage.transform      = .identity
+                self.mobileNumberTextField.transform  = .identity
+                self.letsStartedButton.transform = .identity
+            })
             
         }) { (success) in
             self.viewModel.isFirstTime = false

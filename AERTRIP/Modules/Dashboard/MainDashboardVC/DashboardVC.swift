@@ -187,12 +187,12 @@ class DashboardVC: UIViewController {
         self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
-        UIView.animate(withDuration: 0.8, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, animations: {
             self.overlayView.transform = tScale.concatenating(tTrans)
         }) { (isDone) in
             if isDone {
                 self.overlayView.isHidden = true
-                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
+                UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, delay: 0.0, options: [.curveEaseOut], animations: {
                     self.headerView.transform = CGAffineTransform.identity
                     self.segmentContainerView.transform = CGAffineTransform.identity
                 }, completion: nil)

@@ -80,17 +80,16 @@ class ATButton: UIButton {
             layer.insertSublayer(shadowLayer, at: 0)
         }
         
-        shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: self.cornerRadius).cgPath
+        let shadowFrame = CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
+        shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = UIColor.white.cgColor
-        
-//        shadowLayer.shadowColor = self.isEnabled ? shadowColor.cgColor : disabledShadowColor.cgColor
         if self.isEnabled {
             
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-            shadowLayer.shadowOpacity = 0.4
-            shadowLayer.shadowRadius = 5.0
+            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 12.0)
+            shadowLayer.shadowOpacity = 0.3
+            shadowLayer.shadowRadius = 8.0
         } else {
             shadowLayer.shadowColor = UIColor.clear.cgColor
         }
@@ -126,7 +125,6 @@ class ATButton: UIButton {
     
     private func addRequiredAction() {
         self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
-        self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
     }
     
     private func setupLoader() {
@@ -151,15 +149,19 @@ class ATButton: UIButton {
     private func stopLoading() {
         self.isUserInteractionEnabled = true
         self.setTitle(self.titleDuringLoading, for: UIControl.State.normal)
-//        self.titleDuringLoading = ""
         self.loaderIndicator.stopAnimating()
     }
     
     @objc private func buttonPressed(_ sender: UIButton) {
-        self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-    }
-    
-    @objc private func buttonReleased(_ sender: UIButton) {
-        self.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
+        }
+        delay(seconds: 0.1) {
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.transform = CGAffineTransform.identity
+                self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
+            }
+        }
     }
 }

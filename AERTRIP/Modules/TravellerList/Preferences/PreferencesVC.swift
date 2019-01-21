@@ -19,7 +19,7 @@ class PreferencesVC: BaseVC {
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var headerTitleLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     
     // MARK: - Variables
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"

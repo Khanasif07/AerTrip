@@ -165,15 +165,16 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         
         self.logoView?.isHidden = true
+//        self.logoView?.translatesAutoresizingMaskIntoConstraints = true
+//        self.logoView?.backgroundColor = .red
+        self.logoView?.frame.origin.x = sideMenu.sideMenuTableView.x
         self.mainContainerView.addSubview(self.logoView!)
     }
     
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
-        self.profileView?.frame = CGRect(x: sideMenu.sideMenuTableView.x, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
-        
-        self.profileView?.translatesAutoresizingMaskIntoConstraints = true
+        self.profileView?.frame = CGRect(x: sideMenu.sideMenuTableView.width, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
         
         self.profileView?.isHidden = true
         self.mainContainerView.addSubview(self.profileView!)
@@ -199,7 +200,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.gradientView.isHidden = true
         self.profileView?.dividerView.isHidden = false
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
             self.profileView?.frame = finalFrame
@@ -237,7 +238,7 @@ class MainHomeVC: BaseVC {
         
         let trans = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.profileView?.frame = finalFrame
             
@@ -271,12 +272,13 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 110.0)
+        let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 110.0)
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
             self.logoView?.frame = finalFrame
+            self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
             
@@ -296,9 +298,10 @@ class MainHomeVC: BaseVC {
 
         let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
 
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.logoView?.frame = finalFrame
+            self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
             

@@ -32,7 +32,7 @@ protocol EditProfileVCDelegate:class {
 class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var headerView: UIView!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
@@ -390,7 +390,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.pickerView.frame = visibleFrame
             self.view.addSubview(self.pickerView)
         }) { _ in
@@ -400,7 +400,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func closePicker() {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.pickerView.frame = hiddenFrame
         }) { _ in
             self.pickerView.removeFromSuperview()
@@ -543,7 +543,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func openDatePicker() {
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = visibleFrame
             self.view.addSubview(self.datePickerView)
         }) { _ in
@@ -553,7 +553,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func closeDatePicker() {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = hiddenFrame
         }) { _ in
             self.datePickerView.removeFromSuperview()

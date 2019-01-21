@@ -44,7 +44,7 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var sideMenuTableView: UITableView!
+    @IBOutlet var sideMenuTableView: ATTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

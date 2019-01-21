@@ -22,12 +22,9 @@ class SocialLoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var logoImage: UIImageView!
-    @IBOutlet weak var topImage: UIImageView!
-    @IBOutlet weak var centerTitleLabel: UILabel!
-    @IBOutlet weak var fbButton: SocialButton!
-    @IBOutlet weak var googleButton: SocialButton!
-    @IBOutlet weak var linkedInButton: SocialButton!
+    @IBOutlet weak var fbButton: ATButton!
+    @IBOutlet weak var googleButton: ATButton!
+    @IBOutlet weak var linkedInButton: ATButton!
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
     @IBOutlet weak var sepratorLineImage: UIImageView!
@@ -83,17 +80,19 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.centerTitleLabel.font = AppFonts.Regular.withSize(16)
         self.fbButton.titleLabel?.font = AppFonts.Regular.withSize(16)
         self.googleButton.titleLabel?.font = AppFonts.Regular.withSize(16)
         self.linkedInButton.titleLabel?.font = AppFonts.Regular.withSize(16)
     }
     
     override func setupColors() {
-        self.centerTitleLabel.textColor = AppColors.themeBlack
-        self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
-        self.googleButton.backgroundColor = AppColors.themeWhite
-        self.linkedInButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+        self.fbButton.shadowColor = AppColors.themeBlack
+        self.googleButton.shadowColor = AppColors.themeBlack
+        self.linkedInButton.shadowColor = AppColors.themeBlack
+        
+        self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
+        self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
     }
     
     override func setupTexts() {
@@ -146,6 +145,16 @@ private extension SocialLoginVC {
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
         self.linkedInButton.addRequiredActionToShowAnimation()
+        
+        self.addAppLogoView()
+    }
+    
+    private func addAppLogoView() {
+        let view = SideMenuLogoView.instanceFromNib()
+        view.backgroundColor = AppColors.clear
+        view.frame = self.logoContainerView.bounds
+        
+        self.logoContainerView.addSubview(view)
     }
     
     func setupsFonts() {
@@ -231,61 +240,59 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.linkedInButton.alpha = 0
 
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.fbButton.transform = .identity
-            self.fbButton.alpha = 1.0
-        })
-        
-        UIView.animate(withDuration: 0.65, animations:{
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.fbButton.transform = .identity
+                self.fbButton.alpha = 1.0
+            })
             
-            self.googleButton.transform     = .identity
-            self.googleButton.alpha = 1.0
-        })
-        
-        UIView.animate(withDuration: 0.75, animations:{
+            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.googleButton.transform = .identity
+                self.googleButton.alpha = 1.0
+            })
             
-            self.bottomStackView.transform    = .identity
-            self.sepratorLineImage.transform  = .identity
+            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 2.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.bottomStackView.transform    = .identity
+                self.sepratorLineImage.transform  = .identity
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 3.0), relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.linkedInButton.transform     = .identity
+                self.linkedInButton.alpha = 1.0
+            })
+            
         }) { (success) in
-            
             self.viewModel.isFirstTime = false
         }
-        
-        UIView.animate(withDuration: 0.8, animations:{
-            
-            self.linkedInButton.transform     = .identity
-            self.linkedInButton.alpha = 1.0
-        })
     }
     
     func animateContentOnPop() {
 
-        UIView.animate(withDuration: 0.05, animations:{
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.linkedInButton.alpha = 0.0
-        })
-        
-        UIView.animate(withDuration: 0.10, animations:{
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.linkedInButton.alpha = 0.0
+            })
             
-            self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-            self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+                self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 2.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.googleButton.alpha = 0.0
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 3.0), relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.fbButton.alpha = 0.0
+            })
+            
         }) { (success) in
-            
             self.viewModel.isFirstTime = true
         }
-        
-        UIView.animate(withDuration: 0.20, animations:{
-            
-            self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.googleButton.alpha = 0.0
-        })
-
-        UIView.animate(withDuration: 0.35, animations: {
-            
-            self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-            self.fbButton.alpha = 0.0
-        })
     }
 }

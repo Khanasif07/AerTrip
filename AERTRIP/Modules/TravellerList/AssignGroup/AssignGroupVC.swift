@@ -18,7 +18,7 @@ class AssignGroupVC: BaseVC {
     
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var headerTitleLabel: UILabel!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var addNewGroupButton: UIButton!
     
     // MARK: - Variables

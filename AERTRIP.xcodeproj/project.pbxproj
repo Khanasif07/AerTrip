@@ -159,6 +159,8 @@
 		8452D37D21E61FDD00927287 /* ImportContactVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37C21E61FDD00927287 /* ImportContactVM.swift */; };
 		8452D38221E64A0D00927287 /* SelectedContactCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */; };
 		8452D38421E64A3000927287 /* ContactDetailsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */; };
+		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
+		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
 		846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFECE21E75C4A00AF6062 /* ATContact.swift */; };
 		84754D8321E8EE3D00317F76 /* TravellerData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */; };
 		84754D8421E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8221E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift */; };
@@ -405,6 +407,8 @@
 		8452D37C21E61FDD00927287 /* ImportContactVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactVM.swift; sourceTree = "<group>"; };
 		8452D38121E64A0D00927287 /* SelectedContactCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedContactCollectionCell.swift; sourceTree = "<group>"; };
 		8452D38321E64A3000927287 /* ContactDetailsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableCell.swift; sourceTree = "<group>"; };
+		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
+		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846CFECE21E75C4A00AF6062 /* ATContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATContact.swift; sourceTree = "<group>"; };
 		84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TravellerData+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1020,6 +1024,8 @@
 				84956FBE21B667D200BF1183 /* ATButton.swift */,
 				18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */,
 				8410421C21DE33B7002B4C1F /* ATSearchBar.swift */,
+				8460C0C321F34A38007768CC /* ATTableView.swift */,
+				8460C0C521F34D56007768CC /* ATCollectionView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1662,6 +1668,7 @@
 				183E3F7021DA490A0032DEBA /* AddFavouriteHotels.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				84E4CC7021E36BBA0015C306 /* HotelsListVM.swift in Sources */,
+				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				8410422021DE3468002B4C1F /* HotelSearchVC.swift in Sources */,
 				188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */,
@@ -1744,6 +1751,7 @@
 				8410422221DE3481002B4C1F /* HotelSearchVM.swift in Sources */,
 				84F983DC21B51A070018DFED /* UIDeviceExtension.swift in Sources */,
 				18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */,
+				8460C0C421F34A38007768CC /* ATTableView.swift in Sources */,
 				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
 				84F983BE21B51A070018DFED /* LoginVC.swift in Sources */,
 				18930A2221D34A03005442C8 /* SearchVM.swift in Sources */,

@@ -17,7 +17,7 @@ class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet var headerView: UIView!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var editButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var headerLabel: UILabel!
@@ -48,7 +48,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.delegate = self
         
         self.view.alpha = 0.5
-        UIView.animate(withDuration: 0.5) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
             self?.view.alpha = 1.0
         }
@@ -63,7 +63,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.profileImageHeaderView?.isHidden = false
-        UIView.animate(withDuration: 0.5) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121
             self?.profileImageHeaderView?.layoutIfNeeded()
         }
@@ -146,6 +146,7 @@ class ViewProfileVC: BaseVC {
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
+            self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
         }
         else {
             profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
@@ -267,7 +268,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         }
         
         if parallaxHeader.progress <= 0.5 {
-            UIView.animate(withDuration: 0.5) { [weak self] in
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 // self?.view.bringSubviewToFront((self?.headerView)!)
                 
                 self?.headerView.backgroundColor = UIColor.white

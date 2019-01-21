@@ -150,7 +150,7 @@ class ImportContactVC: BaseVC {
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         let listVC = self.listVCs[currentIndex] as? ContactListVC
-        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: { [weak self] in
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
             listVC?.containerBottomConstraint.constant = isHidden ? 10.0 : 110.0
             self?.view.layoutIfNeeded()

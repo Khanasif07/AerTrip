@@ -15,7 +15,7 @@ class HotelsListVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: ATCollectionView!
     
     
     //MARK:- Properties

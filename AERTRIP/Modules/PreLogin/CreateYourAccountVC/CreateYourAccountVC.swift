@@ -225,25 +225,23 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     func setupViewDidLoadAnimation() {
         
         
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.headerImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.headerImage.transform          = .identity
+            })
             
-            self.headerTitleLabel.transform      = .identity
-        }
-        
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.headerTitleLabel.transform      = .identity
+            })
             
-            self.emailTextField.transform    = .identity
-            self.registerButton.transform    = .identity
-            self.privacyPolicyLabel.transform = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.emailTextField.transform    = .identity
+                self.registerButton.transform    = .identity
+                self.privacyPolicyLabel.transform = .identity
+            })
             
         }) { (success) in
-            
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }

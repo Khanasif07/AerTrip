@@ -14,7 +14,7 @@ class ViewProfileDetailVC: BaseVC {
     
     @IBOutlet var headerView: UIView!
     @IBOutlet var backButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var editButton: UIButton!
     @IBOutlet var headerLabel: UILabel!
     
@@ -46,7 +46,7 @@ class ViewProfileDetailVC: BaseVC {
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         
-        UIView.animate(withDuration: 0.5) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
             self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
             self?.profileImageHeaderView.layoutIfNeeded()
@@ -327,7 +327,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         
         if parallaxHeader.progress <= 0.5 {
-            UIView.animate(withDuration: 0.5) { [weak self] in
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 // self?.view.bringSubviewToFront((self?.headerView)!)
                 
                 self?.headerView.backgroundColor = UIColor.white

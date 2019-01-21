@@ -13,7 +13,7 @@ class TravellerListVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet var navigationTitleLabel: UILabel!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var bottomView: UIView!
     
     @IBOutlet var assignGroupButton: UIButton!

@@ -122,7 +122,7 @@ class AerinVC: BaseVC {
         self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
         self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: [.curveEaseOut], animations: {
             self.bottomCollectionView.transform = CGAffineTransform.identity
             self.bottomSecondView.transform = CGAffineTransform.identity
             self.bottomFirstView.transform = CGAffineTransform.identity

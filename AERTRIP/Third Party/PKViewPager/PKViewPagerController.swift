@@ -178,7 +178,7 @@ public class PKViewPagerController:UIViewController {
             
             self.tabsViewList[previousIndex].removeHighlight(options: self.options)
             
-            UIView.animate(withDuration: 0.8, animations: {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 
                 self.tabsViewList[currentIndex].addHighlight(options: self.options)
             })
@@ -210,7 +210,7 @@ public class PKViewPagerController:UIViewController {
             
             self.tabContainer.bringSubviewToFront(tabIndicator)
             
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 
                 self.tabContainer.scrollRectToVisible(tabIndicatorFrame, animated: false)
                 self.tabIndicator.frame = tabIndicatorFrame
@@ -221,7 +221,7 @@ public class PKViewPagerController:UIViewController {
         }
         
         // Just animate the scrolling if indicator is not available
-        UIView.animate(withDuration: 0.5) { 
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             
             self.tabContainer.scrollRectToVisible(currentTabFrame, animated: false)
         }

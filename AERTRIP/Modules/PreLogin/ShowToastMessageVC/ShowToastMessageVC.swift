@@ -31,7 +31,7 @@ class ShowToastMessageVC: BaseVC {
         self.view.backgroundColor = .clear
         self.rightViewButtonWidth.constant = 0
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             
             self.toastView.transform  = CGAffineTransform(translationX: 0, y: -(self.toastView.y + 64))
         }
@@ -39,7 +39,7 @@ class ShowToastMessageVC: BaseVC {
     
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
 
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
 
                 self.toastView.transform  = CGAffineTransform(translationX: 0, y: self.toastView.y + 64)
             }
@@ -90,7 +90,7 @@ class ShowToastMessageVC: BaseVC {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        UIView.animate(withDuration: 0.35) {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
 
             self.toastView.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
             self.view.removeFromSuperview()

@@ -54,7 +54,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
-                
                 cell.configureCell(LocalizedString.AddEmail.localized)
                 return cell
             } else {
