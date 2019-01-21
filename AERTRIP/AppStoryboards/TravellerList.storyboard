@@ -249,25 +249,27 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="rBF-Ue-X3N" secondAttribute="height" multiplier="1:1" id="3EV-44-Cwt"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="doneButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="l1T-fq-yal"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cog-vI-XgO">
-                                        <rect key="frame" x="16" y="0.0" width="50" height="44"/>
+                                        <rect key="frame" x="16" y="0.0" width="60" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="kkZ-3R-3CT"/>
+                                            <constraint firstAttribute="width" constant="60" id="kkZ-3R-3CT"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="OsA-R7-2t3"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFM-Xa-8wG">
-                                        <rect key="frame" x="71" y="10.5" width="239" height="23"/>
+                                        <rect key="frame" x="81" y="10.5" width="229" height="23"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

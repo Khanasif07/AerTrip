@@ -126,6 +126,10 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.view.endEditing(true)
     }
     
+    func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
     final func showLoaderOnView(view:UIView, show:Bool) {
         let indicator = UIActivityIndicatorView(style: .gray)
         if show {

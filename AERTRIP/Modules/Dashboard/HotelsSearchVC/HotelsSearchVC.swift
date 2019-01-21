@@ -1,5 +1,5 @@
 //
-//  HotelsVC.swift
+//  HotelsSearchVC.swift
 //  AERTRIP
 //
 //  Created by Admin on 11/12/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HotelsVC: BaseVC {
+class HotelsSearchVC: BaseVC {
     
     //MARK:- Properties
     //MARK:-

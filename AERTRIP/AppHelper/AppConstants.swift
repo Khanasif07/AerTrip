@@ -12,7 +12,7 @@ enum AppConstants {
     
     static let kCurrency = ""
 
-    static let kAppName                     = "AERTRIP"
+    static let kAppName                     = "Aertrip"
     static let kGoogleClientID              = ""
     static let kGoogleUrlScheme             = ""
     static let kGoogleApiKey                = ""
