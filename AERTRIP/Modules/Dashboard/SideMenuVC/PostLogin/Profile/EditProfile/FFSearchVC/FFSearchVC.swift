@@ -12,7 +12,7 @@ protocol SearchVCDelegate: class {
     func frequentFlyerSelected(_ flyer: FlyerModel)
 }
 
-class SearchVC: BaseVC {
+class FFSearchVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet var tableView: ATTableView!
@@ -27,7 +27,7 @@ class SearchVC: BaseVC {
     let cellIdentifier = "SearchTableViewCell"
     var searchData: [FlyerModel] = []
     var defaultAirlines: [FlyerModel] = []
-    let viewModel = SearchVM()
+    let viewModel = FFSearchVM()
     weak var delgate: SearchVCDelegate?
     
     //MARK:- Private
@@ -105,7 +105,7 @@ class SearchVC: BaseVC {
 
 // MARK: - UITableViewDataSource methods
 
-extension SearchVC: UITableViewDataSource, UITableViewDelegate {
+extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableView.backgroundView?.isHidden = !self.searchData.isEmpty
         return searchData.count
@@ -128,7 +128,7 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension SearchVC {
+extension FFSearchVC {
     internal func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         searchTextField.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
         
@@ -144,7 +144,7 @@ extension SearchVC {
     }
 }
 
-extension SearchVC: SearchVMDelegate {
+extension FFSearchVC: SearchVMDelegate {
     func willGetDetail() {
         //
     }

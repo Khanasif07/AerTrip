@@ -817,7 +817,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            let controller = SearchVC.instantiate(fromAppStoryboard: .Profile)
+            let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
             controller.delgate = self
             controller.defaultAirlines = self.viewModel.defaultAirlines
             self.present(controller, animated: true, completion: nil)

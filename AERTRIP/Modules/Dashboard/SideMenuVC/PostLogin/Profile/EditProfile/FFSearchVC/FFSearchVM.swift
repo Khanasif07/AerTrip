@@ -15,7 +15,7 @@ protocol SearchVMDelegate: class {
     func getFail(errors: ErrorCodes)
 }
 
-class SearchVM {
+class FFSearchVM {
     weak var delegate: SearchVMDelegate?
     var flyer: FlyerModel?
     
