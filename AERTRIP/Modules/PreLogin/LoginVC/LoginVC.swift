@@ -106,7 +106,7 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToForgotPasswordVC(email: self.viewModel.email)
@@ -165,16 +165,7 @@ extension LoginVC: LoginVMDelegate {
     func didLoginFail(errors: ErrorCodes) {
         
         self.loginButton.isLoading = false
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: self)
+        AppGlobals.shared.showErrorOnToastView(errors: errors, viewController: self)
     }
 }
 
@@ -233,27 +224,25 @@ extension LoginVC {
     
     func setupViewDidLoadAnimation() {
         
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.topImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.topImage.transform          = .identity
+            })
             
-            self.welcomeLabel.transform      = .identity
-        }
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.welcomeLabel.transform          = .identity
+            })
             
-            self.emailTextField.transform     = .identity
-            self.passwordTextField.transform   = .identity
-            self.showPasswordButton.transform  = .identity
-            self.loginButton.transform       = .identity
-            self.forgotPasswordButton.transform = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.emailTextField.transform     = .identity
+                self.passwordTextField.transform   = .identity
+                self.showPasswordButton.transform  = .identity
+                self.loginButton.transform       = .identity
+                self.forgotPasswordButton.transform = .identity
+            })
             
         }) { (success) in
-            
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }

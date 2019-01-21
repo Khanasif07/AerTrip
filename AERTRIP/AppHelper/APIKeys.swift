@@ -23,6 +23,7 @@ enum APIKeys: String {
     //MARK:-
     case isLoggedIn
     case data
+    case msg
     case loginid     = "loginid"
     case password    = "password"
     case isGuestUser = "isGuestUser"
@@ -58,7 +59,33 @@ enum APIKeys: String {
     case ff = "ff"
     case label = "label"
     case hash_key
+    case hotel_min_star
+    case hotel_max_star
+    case hotels
+    case hid
+    case name
+    case city_id
+    case stars
+    case rating
+    case ta_rating
+    case photo
+    case city
+    case preference_id
+    case is_favourite
     
+    case passportCountryName = "passport_country_name"
+    case passportCountry = "passport_country"
+    case passportIssueDate = "passport_issue_date"
+    case passportExpiryDate = "passport_expiry_date"
+    case passportNumber = "passport_number"
+    case doa = "doa"
+    case seatPreference = "seat_pref"
+    case mealPreference = "meal_pref"
+    case profileImage = "profile_image"
+    case imageSource = "image_source"
+    case generalPref = "general_pref"
+    case auto_share = "auto_share"
+    case eid = "eid"
 }
 
 

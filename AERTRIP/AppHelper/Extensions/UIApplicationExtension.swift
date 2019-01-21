@@ -43,6 +43,11 @@ extension UIApplication {
         }
     }
     
+    ///A unique string that can be used for giving the name for any file
+    var uniqueID: String {
+        return UUID().uuidString
+    }
+    
     ///Can get application status bar background view
     var statusBarView: UIView? {
         return value(forKey: "statusBar") as? UIView

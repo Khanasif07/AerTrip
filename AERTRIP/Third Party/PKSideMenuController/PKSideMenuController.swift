@@ -35,14 +35,20 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     //MARK:- Properties
     //MARK:- Public
     public var isOpen: Bool {
-        let fMain : CGRect = self.mainContainer!.frame
-        return (fMain.minX == self.distanceOpenMenu)
+//        let fMain : CGRect = self.mainContainer!.frame
+//        return (fMain.minX == self.distanceOpenMenu)
+        
+        if let menu = menuContainer {
+            return menu.frame.origin.x <= CGFloat(0.0)
+        }
+        return false
     }
     
+    private(set) var menuContainer : UIView?
+    private(set) var menuViewController : UIViewController?
+
     //MARK:- Private
     private var mainContainer : UIView?
-    private var menuContainer : UIView?
-    private var menuViewController : UIViewController?
     private var mainViewController : UIViewController?
     private var shadowLayer: CAShapeLayer!
     private let animationTime: TimeInterval = 0.4

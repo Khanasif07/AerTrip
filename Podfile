@@ -6,7 +6,6 @@ target 'AERTRIP' do
   use_frameworks!
 
   # Pods for AERTRIP
-
     pod 'Alamofire'
     pod 'Kingfisher'
     pod 'SwiftyJSON', '~> 4.0'
@@ -14,9 +13,13 @@ target 'AERTRIP' do
     pod 'GoogleSignIn'
     pod 'LinkedinSwift'
     pod 'SkyFloatingLabelTextField'
-    pod 'ActiveLabel'
     pod 'Firebase/Core'
     pod 'Firebase/DynamicLinks'
     pod 'MXParallaxHeader'
+    pod 'PhoneNumberKit', '~> 2.5'
+    pod 'IQKeyboardManager'
+    
+    pod 'ActiveLabel'
     pod 'TransitionButton'
+
 end

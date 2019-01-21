@@ -94,7 +94,7 @@ extension UIImage {
         return img
     }
     
-    convenience init?(text: String, font: UIFont = UIFont.systemFont(ofSize: 20), color: UIColor = UIColor.white, backgroundColor: UIColor = UIColor.gray, size:CGSize = CGSize(width: 100, height: 100), offset: CGPoint = CGPoint(x: 0, y: 0))
+    convenience init?(text: String, font: UIFont = UIFont.systemFont(ofSize: 20), color: UIColor = AppColors.themeGray04, backgroundColor: UIColor = AppColors.themeWhite, size:CGSize = CGSize(width: 100, height: 100), offset: CGPoint = CGPoint(x: 0, y: 0))
     {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         let context = UIGraphicsGetCurrentContext()
@@ -114,7 +114,7 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
-        
+        var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
             return
@@ -128,6 +128,9 @@ extension UIImageView {
         }
         
         self.image = placeholder
+        if imageUrl.hasPrefix("//") {
+            imageUrl = "https:" + imageUrl
+        }
         if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
             setImage(url: url, showIndicator:showIndicator)
         }

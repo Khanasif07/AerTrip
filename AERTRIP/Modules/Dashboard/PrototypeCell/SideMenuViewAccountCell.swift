@@ -52,8 +52,7 @@ extension SideMenuViewAccountCell {
         
     }
     
-    func populateData(data: UserModel) {
-        
-        self.amountLabel.text = "\(data.accountData.statements.amountDue)"
+    func populateData() {
+        self.amountLabel.text = "\(UserInfo.loggedInUser?.accountData?.statements.amountDue ?? 0.0)"
     }
 }

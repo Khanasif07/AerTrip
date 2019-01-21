@@ -16,6 +16,8 @@ enum PickerType {
     case seatPreference
     case mealPreference
     case country
+    case addressTypes
+    case groups
 }
 
 enum ViewType {
@@ -23,34 +25,32 @@ enum ViewType {
     case rightView
 }
 
+protocol EditProfileVCDelegate:class {
+   func newTravellerCreated()
+}
+
 class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var headerView: UIView!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     
     // MARK: - Variables
     
+    // MARK: - Private
+    var ffExtraCount: Int = 4
+    
+    // MARK: - Public
+    
     let viewModel = EditProfileVM()
-    var sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.Address, LocalizedString.MoreInformation]
+    var sections = [LocalizedString.EmailAddress.localized, LocalizedString.ContactNumber.localized, LocalizedString.Address.localized, LocalizedString.MoreInformation.localized]
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
     var imagePicker = UIImagePickerController()
     var travelData: TravelDetailModel?
-    var email: [Email] = []
-    var social: [Social] = []
-    var mobile: [Mobile] = []
-    var addresses: [Address] = []
-    var seatPreferences = [String: String]()
-    var mealPreferences = [String: String]()
-    var countries = [String: String]()
-    var emailTypes: [String] = []
-    var mobileTypes: [String] = []
-    var addressTypes: [String] = []
-    var salutationTypes: [String] = []
-    var socialTypes: [String] = []
+    
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
     var informations: [String] = []
@@ -59,26 +59,30 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
     let flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
-    var frequentFlyer: [FrequentFlyer] = []
-    var flightDetails: [String] = []
-    var defaultAirlines: [FlyerModel] = []
     
+    var flightDetails: [String] = []
+    
+    // picker
     let pickerView: UIPickerView = UIPickerView()
     let pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 180.0)
     var pickerData: [String] = [String]()
     var pickerType: PickerType = .salutation
     
+    // date picker
     let datePickerView: UIView = UIView()
     let datePicker = UIDatePicker()
     
     var viewType: ViewType = .leftView
+    
+    // cell Identifier
     let editTwoPartCellIdentifier = "EditProfileTwoPartTableViewCell"
     let editThreePartCellIdentifier = "EditProfileThreePartTableViewCell"
     let addActionCellIdentifier = "TableViewAddActionCell"
     let textEditableCellIdentifier = "TextEditableTableViewCell"
     let twoPartEditTableViewCellIdentifier = "TwoPartEditTableViewCell"
     let addressTextEditTableCellIdentier = "AddressTextEditTableViewCell"
-    
+    let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
+    let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -91,7 +95,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.webserviceForGetDefaultAirlines()
         
         doInitialSetUp()
-        setUpData()
+        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
+            setUpForNewTraveller()
+        } else {
+            setUpData()
+        }
+        
         registerXib()
         setupToolBar()
     }
@@ -116,13 +125,20 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - IB Actions
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
+            dismiss(animated: true, completion: nil)
+        } else {
+            AppFlowManager.default.popViewController(animated: true)
+        }
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         NSLog("save button tapped")
         view.endEditing(true)
-        
+        viewModel.dob = AppGlobals.shared.formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         }
@@ -139,8 +155,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         editProfileImageHeaderView.delegate = self
         
-        editProfileImageHeaderView.firstNameTextField.delegate = self
-        editProfileImageHeaderView.lastNameTextField.delegate = self
+
         
         tableView.separatorStyle = .none
         tableView.tableHeaderView = editProfileImageHeaderView
@@ -172,6 +187,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.register(UINib(nibName: twoPartEditTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: twoPartEditTableViewCellIdentifier)
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
+        tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
+        tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier:    addNotesTableViewCellIdentifier)
         tableView.reloadData()
     }
     
@@ -195,71 +212,144 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func getPhotoFromFacebook() {
         let socialModel = SocialLoginVM()
-        socialModel.fbLogin(vc: self) { success in
+        socialModel.fbLogin(vc: self) { [weak self] success in
             if success {
-                let placeHolder = UIImage(named: "group")
-                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
-            } else {}
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: AppPlaceholderImage.profile, showIndicator: true)
+                self?.viewModel.profilePicture = socialModel.userData.picture
+                self?.viewModel.imageSource = "facebook"
+            }
         }
     }
     
     func getPhotoFromGoogle() {
         let socialModel = SocialLoginVM()
-        socialModel.googleLogin(vc: self) { success in
+        socialModel.googleLogin(vc: self) { [weak self] success in
             if success {
                 let placeHolder = UIImage(named: "group")
-                self.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                self?.viewModel.profilePicture = socialModel.userData.picture
+                self?.viewModel.imageSource = "google"
             } else {}
         }
     }
     
     func setUpData() {
-        if let email = travelData?.contact.email {
-            self.email = email
+        guard var travel = travelData else {
+            return
         }
         
-        if let social = travelData?.contact.social {
-            self.social = social
-            viewModel.social = social
-            sections.append(LocalizedString.SocialAccounts)
+        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id  == UserInfo.loggedInUser?.paxId {
+            var email = Email()
+            email.label = "Default"
+            email.type = "Email"
+            email.value = loggedInUserEmail
+            self.viewModel.email.append(email)
+          
+            var mobile = Mobile()
+            mobile.label = "Default"
+            mobile.type = "Mobile"
+            mobile.isd = isd
+            mobile.value = loggedInUserMobile
+            mobile.isValide = true
+            self.viewModel.mobile.append(mobile)
+           
         }
         
-        if let mobile = travelData?.contact.mobile {
-            self.mobile = mobile
-            viewModel.mobile = mobile
-        }
-        if let travelData = travelData {
-            informations.append((travelData.dob))
-            informations.append((travelData.doa))
+        // viewModel.email = email
+          self.viewModel.email.append(contentsOf: travel.contact.email)
+         self.viewModel.mobile.append(contentsOf: travel.contact.mobile)
+        viewModel.social = travel.contact.social
+        viewModel.social = travel.contact.social
+        sections.append(LocalizedString.SocialAccounts.localized)
+        
+        travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        informations.append(travel.dob)
+        viewModel.dob = travel.dob
+        travel.doa = AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        informations.append(travel.doa)
+        viewModel.doa = travel.doa
+        
+        informations.append(travel.notes)
+        
+        passportDetails.append(travel.passportNumber)
+        viewModel.passportNumber = travel.passportNumber
+        
+        passportDetails.append(travel.passportCountryName)
+        viewModel.passportCountryName = travel.passportCountryName
+        viewModel.passportCountry = travel.passportCountry
+        travel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportIssueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        viewModel.passportIssueDate = travel.passportIssueDate
+        travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
+        viewModel.passportExpiryDate = travel.passportExpiryDate
+        sections.append(LocalizedString.PassportDetails.localized)
+        
+        viewModel.frequentFlyer = travel.frequestFlyer
+        if travel.profileImage != "" {
+            editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
+            viewModel.profilePicture = travel.profileImage
+        } else {
+            if viewModel.isFromTravellerList {
+                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
+                editProfileImageHeaderView.profileImageView.image = imageFromText
+            } else {
+                editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            }
         }
         
-        if travelData?.notes != "" {
-            informations.append((travelData?.notes)!)
-        }
-        
-        if travelData?.passportNumber != "" {
-            passportDetails.append((travelData?.passportNumber)!)
-            passportDetails.append((travelData?.passportCountryName)!)
-            sections.append(LocalizedString.PassportDetails)
-        }
-        
-        if let frequentFlyer = travelData?.frequestFlyer, frequentFlyer.count > 0 {
-            self.frequentFlyer = frequentFlyer
-        }
-        
-        let seatPreference = (travelData?.preferences.seat.name)! + "-" + (travelData?.preferences.seat.value)!
-        let mealPreference = (travelData?.preferences.meal.name)! + "-" + (travelData?.preferences.meal.value)!
-        flightDetails.append(seatPreference)
-        flightDetails.append(mealPreference)
+        viewModel.seat = travel.preferences.seat.value
+        viewModel.meal = travel.preferences.meal.value
         
         if travelData?.preferences != nil {
-            sections.append(LocalizedString.FlightPreferences)
+            sections.append(LocalizedString.FlightPreferences.localized)
         }
         
-        if let addresses = travelData?.address {
-            self.addresses = addresses
-        }
+        viewModel.salutation = travel.salutation.isEmpty ? LocalizedString.Title.localized   : travel.salutation
+        editProfileImageHeaderView.salutaionLabel.text = viewModel.salutation
+        editProfileImageHeaderView.firstNameTextField.text = travel.firstName
+        viewModel.firstName = travel.firstName
+        editProfileImageHeaderView.lastNameTextField.text = travel.lastName
+        viewModel.lastName = travel.lastName
+        viewModel.addresses = travel.address
+        viewModel.label = travel.label
         
+        // hide select group view on EditProfileImageHeaderView
+        editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
+        
+        tableView.reloadData()
+    }
+    
+    private func setUpForNewTraveller() {
+        
+        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
+        passportDetails.append(contentsOf: ["", ""])
+        informations.append(contentsOf: ["", "",""])
+        flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized, LocalizedString.SelectSeatPreference.localized])
+        var email = Email()
+        email.type = "Email"
+        email.label = "Home"
+        viewModel.email.append(email)
+        
+       
+       
+        
+        var mobile = Mobile()
+        mobile.type = "Mobile"
+        mobile.label = "Home"
+        if let isd = UserInfo.loggedInUser?.isd {
+            mobile.isd = isd
+        }
+        viewModel.mobile.append(mobile)
+        
+        var social = Social()
+        social.type = "Facebook"
+        social.label = "Facebook"
+        viewModel.social.append(social)
+        
+        var address = Address()
+        address.label = "Home"
+        address.countryName = "Country"
+        viewModel.addresses.append(address)
         tableView.reloadData()
     }
     
@@ -291,7 +381,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func insertRowsAtIndexPaths(indexPaths: [NSIndexPath],
                                 withRowAnimation animation: UITableView.RowAnimation) {
-        let IndexPathOfLastRow = NSIndexPath(row: email.count - 1, section: 0)
+        let IndexPathOfLastRow = NSIndexPath(row: viewModel.email.count - 1, section: 0)
         tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
     }
     
@@ -300,7 +390,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.pickerView.frame = visibleFrame
             self.view.addSubview(self.pickerView)
         }) { _ in
@@ -310,7 +400,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func closePicker() {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.pickerView.frame = hiddenFrame
         }) { _ in
             self.pickerView.removeFromSuperview()
@@ -322,11 +412,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         switch indexPath.row {
         case 0:
             NSLog("date of birth")
-            showDatePicker()
+            showDatePicker(nil, maximumDate: Date())
             
         case 1:
             NSLog("date of aniversary")
-            showDatePicker()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy"
+            formatter.date(from: self.viewModel.dob)
+            showDatePicker(formatter.date(from: self.viewModel.dob), maximumDate: Date())
         case 2:
             NSLog("show notes ")
             
@@ -340,9 +433,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         switch indexPath.row {
         case 1:
-            if countries.count > 0 {
+            if viewModel.countries.count > 0 {
                 pickerType = .country
-                let countries = Array(self.countries.values)
+                let countries = Array(viewModel.countries.values)
                 pickerData = countries
                 openPicker()
             }
@@ -358,16 +451,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.indexPath = indexPath
         switch indexPath.row {
         case 0:
-            if seatPreferences.count > 0 {
+            if viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                let seatPreferences = Array(self.seatPreferences.values)
+                let seatPreferences = Array(viewModel.seatPreferences.values)
                 pickerData = seatPreferences
                 openPicker()
             }
         case 1:
-            if mealPreferences.count > 0 {
+            if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                let mealPreferences = Array(self.mealPreferences.values)
+                let mealPreferences = Array(viewModel.mealPreferences.values)
                 pickerData = mealPreferences
                 openPicker()
             }
@@ -376,8 +469,29 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func showDatePicker() {
+    func showDatePicker(_ minimumDate: Date?, maximumDate : Date?) {
         // Formate Date
+//        var components = DateComponents()
+//        components.year = -100
+//        if minimumDate == nil {
+//              let minDate = Calendar.current.date(byAdding: components, to: Date())
+//        }
+//
+//
+//        let calendar = Calendar.current
+//        let maxDateComponent = calendar.dateComponents([.day,.month,.year], from: Date())
+        
+        
+        var minDate: Date? = minimumDate
+        if minimumDate == nil {
+            var components = DateComponents()
+            components.year = -100
+            minDate = Calendar.current.date(byAdding: components, to: Date())
+        }
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maximumDate
+        
         datePicker.datePickerMode = .date
         datePicker.setDate(Date(), animated: false)
         openDatePicker()
@@ -385,21 +499,23 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @objc func donedatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy"
+        formatter.dateFormat = "dd MMMM yyyy"
         switch sections[(self.indexPath?.section)!] {
-        case LocalizedString.MoreInformation:
+        case LocalizedString.MoreInformation.localized:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
-                fatalError("TextEditableTableViewCell not found")
+                printDebug("TextEditableTableViewCell not found")
+                return
             }
             cell.editableTextField.text = formatter.string(from: datePicker.date)
             if indexPath.row == 1 {
-                viewModel.dob = formatter.string(from: datePicker.date)
-            } else {
                 viewModel.doa = formatter.string(from: datePicker.date)
+                informations[indexPath.row] = viewModel.doa
+            } else {
+                viewModel.dob = formatter.string(from: datePicker.date)
+                informations[indexPath.row] = viewModel.dob
             }
-            
-        case LocalizedString.PassportDetails:
+        case LocalizedString.PassportDetails.localized:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
             guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {
                 fatalError("TextEditableTableViewCell not found")
@@ -427,7 +543,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func openDatePicker() {
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = visibleFrame
             self.view.addSubview(self.datePickerView)
         }) { _ in
@@ -437,7 +553,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func closeDatePicker() {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = hiddenFrame
         }) { _ in
             self.datePickerView.removeFromSuperview()
@@ -449,5 +565,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         customView.backgroundColor = AppColors.themeGray04
         
         tableView.tableFooterView = customView
+    }
+    
+    func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
+        let imageData = image.jpegData(compressionQuality: 0.2)
+        let docDir = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let imageURL = docDir.appendingPathComponent(name)
+        try! imageData?.write(to: imageURL)
+        
+        return imageURL.absoluteString
     }
 }

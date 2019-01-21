@@ -38,11 +38,14 @@ extension APICaller {
 
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 
-                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-                if let userData = userSettings{
-                    AppUserDefaults.save(value: userData, forKey: .userData)
+                if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                    
+                    UserInfo.loggedInUserId = "\(id)"
+                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
+                    }
+                    _ = UserInfo(withData: userData, userId: "\(id)")
                 }
-                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -62,11 +65,11 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-                if let userData = userSettings{
-                    AppUserDefaults.save(value: userData, forKey: .userData)
+                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                    
+                    UserInfo.loggedInUserId = "\(id)"
+                    _ = UserInfo(withData: userData, userId: "\(id)")
                 }
-                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -148,13 +151,18 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-                if let userData = userSettings{
-                   var  newUserData = userData
-                    newUserData["points"] = "0"
-                    AppUserDefaults.save(value: newUserData, forKey: .userData)
+//                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
+//                if let userData = userSettings{
+//                   var  newUserData = userData
+//                    newUserData["points"] = "0"
+//                    AppUserDefaults.save(value: newUserData, forKey: .userData)
+//                }
+//                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
+                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                    
+                    UserInfo.loggedInUserId = "\(id)"
+                    _ = UserInfo(withData: userData, userId: "\(id)")
                 }
-                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -212,6 +220,44 @@ extension APICaller {
                 
             }, failure: { (errors) in
                 completionBlock(false, [""], errors)
+            })
+            
+        }) { (error) in
+        }
+    }
+}
+
+extension APICaller {
+
+    func callFetchLinkedAccountsAPI( completionBlock: @escaping(_ success: Bool, _ accounts: [LinkedAccount], _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.GET(endPoint: .linkedAccounts, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                let acc = LinkedAccount.fetchModelsForLinkedAccounts(data: jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
+                completionBlock(true, acc, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, [], errors)
+            })
+            
+        }) { (error) in
+        }
+    }
+    
+    func callDisconnectLinkedAccountsAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.POST(endPoint: .unlinkSocialAccount, parameters: params, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                completionBlock(true, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors)
             })
             
         }) { (error) in

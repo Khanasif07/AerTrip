@@ -12,7 +12,7 @@ protocol EditProfileTwoPartTableViewCellDelegate: class {
     func deleteCellTapped(_ indexPath: IndexPath)
     func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
     func textFieldText(_ indexPath: IndexPath, _ text: String)
-    func textFieldEndEditing(_ indexPath:IndexPath,_ text:String)
+    func textFieldEndEditing(_ indexPath: IndexPath, _ text: String)
 }
 
 class EditProfileTwoPartTableViewCell: UITableViewCell {
@@ -30,30 +30,54 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     weak var editProfilTwoPartTableViewCelldelegate: EditProfileTwoPartTableViewCellDelegate?
     var indexPath: IndexPath?
-    var didPressEdit: Bool = false
+    var email: Email? {
+        didSet {
+            configureCell()
+        }
+    }
+    
+    var social: Social? {
+        didSet {
+            configureCell()
+        }
+    }
+    
     
     // MARK: - View Life cycle methods
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        leftView.isUserInteractionEnabled = true
+       
+        addGesture()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        deleteButton.isHidden = false
+        rightViewTextField.placeholder = ""
+       
     }
     
     // MARK: - Helper methods
     
-    func configureCell(_ indexPath: IndexPath, _ label: String, _ value: String) {
-        self.indexPath = indexPath
-        leftTitleLabel.text = label
-        rightViewTextField.text = value
-        
-        leftView.isUserInteractionEnabled = true
+    private func configureCell() {
         rightViewTextField.delegate = self
+        if let email = self.email {
+            leftTitleLabel.text = email.label
+            rightViewTextField.text = email.value
+          
+        } else if let social = self.social {
+            leftTitleLabel.text = social.label
+            rightViewTextField.text = social.value
+        }
+    }
+    
+    private func addGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
         leftView.isUserInteractionEnabled = true
-        leftView.tag = indexPath.row
         leftView.addGestureRecognizer(gesture)
+        deleteButton.isHidden = false
     }
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
@@ -92,6 +116,6 @@ extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
         if let indexPath = indexPath {
             editProfilTwoPartTableViewCelldelegate?.textFieldEndEditing(indexPath, textField.text!)
         }
-       return true
+        return true
     }
 }

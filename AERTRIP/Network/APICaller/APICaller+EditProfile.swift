@@ -144,50 +144,35 @@ extension APICaller {
     
     //MARK: - Api for Save Edit profile user
     //MARK: -
-    func callSaveProfileAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func callSaveProfileAPI(params: JSONDictionary,filePath:String, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
-        let headers = [
-            "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-            "api-key": "3a457a74be76d6c3603059b559f6addf",
-        ]
-     
-        
-        
-//        AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_picture", filePath: "", fileExtention: ".jpeg", fileType: AppNetworking.MultiPartFileType.image)], headers: headers, loader: true, success: { (data) in
-//            print(data)
-//        }, progress: { (progress) in
-//            NSLog("progress is \(progress)")
-//        }) { (error) in
-//            print(error)
-//        }
-        
-        AppNetworking.POST(endPoint: APIEndPoint.saveProfile, parameters: params, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
-            
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                
-//                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-//                if let userData = userSettings{
-//                    AppUserDefaults.save(value: userData, forKey: .userData)
-//                }
-//                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
-                completionBlock(true, [])
-                
-            }, failure: { (errors) in
-                completionBlock(false, errors)
-            })
-            
-        }) { (error) in
-            print(error)
-        }
-       
-    }
-    
-    
-    
-    
-    
+        if filePath.isEmpty {
+            AppNetworking.POST(endPoint: APIEndPoint.saveProfile, parameters: params, success: { [weak self] (json) in
+                guard let sSelf = self else {return}
 
+                sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                    completionBlock(true, [])
+
+                }, failure: { (errors) in
+                    completionBlock(false, errors)
+                })
+
+            }) { (error) in
+                print(error)
+            }
+
+        } else {
+            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: true, success: { (data) in
+                print(data)
+                completionBlock(true,[])
+            }, progress: { (progress) in
+                NSLog("progress is \(progress)")
+            }) { (error) in
+                completionBlock(false,[])
+                print(error)
+            }
+        }
+    }
 }
 
 

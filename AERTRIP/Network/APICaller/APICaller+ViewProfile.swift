@@ -11,7 +11,7 @@ import Foundation
 extension APICaller {
     //MARK: - Api for travel detail
     
-    func getTravelDetail(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: TravelDetailModel, _ errorCodes: ErrorCodes)->Void ) {
+    func getTravelDetail(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ data: TravelDetailModel?, _ errorCodes: ErrorCodes)->Void ) {
         
         
         AppNetworking.GET(endPoint: .getTravellerDetail, parameters: params, loader: loader, success: { [weak self] (data) in
@@ -25,10 +25,11 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
-               print(errors)
+                completionBlock(false, nil, [])
             })
             
         }) { (error) in
+            completionBlock(false, nil, [])
         }
     }
     

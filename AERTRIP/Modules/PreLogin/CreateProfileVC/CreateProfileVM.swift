@@ -19,7 +19,7 @@ class CreateProfileVM {
     
     weak var delegate: CreateProfileVMDelegate?
     var salutation = [String]()
-    var userData   = UserModel()
+    var userData: UserInfo!
     var isFirstTime = true
     var isValidateForButtonEnable : Bool {
         
@@ -29,11 +29,11 @@ class CreateProfileVM {
             return false
         } else if self.userData.lastName.isEmpty {
             return false
-        } else if self.userData.country.isEmpty {
+        } else if (self.userData.address?.country ?? "").isEmpty {
             return false
         } else if self.userData.mobile.isEmpty {
             return false
-        } else if self.userData.mobile.count < self.userData.minNumberCount {
+        } else if self.userData.mobile.count < self.userData.minContactLimit {
             return false
         }
         return true
@@ -53,7 +53,7 @@ class CreateProfileVM {
             
             AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterLastName.localized)
             return false
-        } else if self.userData.country.isEmpty {
+        } else if (self.userData.address?.country ?? "").isEmpty {
             
             AppGlobals.shared.showWarning(message: LocalizedString.PleaseSelectCountry.localized)
             return false
@@ -63,6 +63,11 @@ class CreateProfileVM {
             return false
         }
         return true
+    }
+    
+    init() {
+        self.userData = UserInfo(withData: [:], userId: "")
+        self.userData.address = UserInfo.Address(dict: [:])
     }
 }
 
@@ -74,13 +79,13 @@ extension CreateProfileVM {
         
         var params = JSONDictionary()
         
-        params[APIKeys.ref.rawValue]        = self.userData.id
+        params[APIKeys.ref.rawValue]        = self.userData.paxId
         params[APIKeys.email.rawValue]      = self.userData.email
         params[APIKeys.password.rawValue]   = self.userData.password
         params[APIKeys.firstName.rawValue]  = self.userData.firstName
         params[APIKeys.lastName.rawValue]   = self.userData.lastName
         params[APIKeys.isd.rawValue]        = self.userData.isd
-        params[APIKeys.country.rawValue]    = self.userData.countryCode
+        params[APIKeys.country.rawValue]    = self.userData.address?.country
         params[APIKeys.salutation.rawValue] = self.userData.salutation
          params[APIKeys.mobile.rawValue]  = self.userData.mobile
         

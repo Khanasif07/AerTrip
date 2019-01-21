@@ -20,6 +20,10 @@ enum LocalizedString: String {
     case NoInternet = "NoInternet"
     case ParsingError = "ParsingError"
     case error = "error"
+    case na = "na"
+    case noData = "noData"
+    case search = "search"
+    case noResults = "No Results"
     
     // MARK:- TextField validation
     //MARK:-
@@ -36,6 +40,8 @@ enum LocalizedString: String {
     case Continue_with_Facebook  = "Continue_with_Facebook"
     case Continue_with_Google    = "Continue_with_Google"
     case Continue_with_Linkedin  = "Continue_with_Linkedin"
+    case AllowEmailInFacebook = "AllowEmailInFacebook"
+    case AllowEmailInLinkedIn = "AllowEmailInLinkedIn"
     
     // MARK:- LoginVC
     //MARK:-
@@ -152,6 +158,8 @@ enum LocalizedString: String {
     case PleaseEnterLastName    = "PleaseEnterLastName"
     case PleaseSelectCountry    = "PleaseSelectCountry"
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
+    case selectedCountryCode    = "selectedCountryCode"
+    case selectedCountry        = "selectedCountry"
 
     //MARK:- ViewProfileVC
     //MARK:-
@@ -160,25 +168,24 @@ enum LocalizedString: String {
     case Logout = "Logout"
     
     //MARK: - View Profile
-    
     case Edit = "Edit"
-    case TravellerList = "Travellers List"
-    case HotelPreferences = "Hotel Preferences"
+    case TravellerList = "TravellerList"
+    case HotelPreferences = "HotelPreferences"
     case QuickPay = "QuickPay"
-    case LinkedAccounts = "Linked Accounts"
+    case LinkedAccounts = "LinkedAccounts"
     case NewsLetters = "Newsletters"
     case Notifications  = "Notifications"
-    case LogOut = "Log Out"
+    case LogOut = "LogOut"
     
     // MARK: - ViewProfileDetailVC
     
-    case EmailAddress = "Email address"
-    case ContactNumber = "Contact Number"
-    case SocialAccounts = "Social Accounts"
+    case EmailAddress = "EmailAddress"
+    case ContactNumber = "ContactNumber"
+    case SocialAccounts = "SocialAccounts"
     case Address = "Address"
-    case MoreInformation = "More Information"
-    case PassportDetails = "Passport Details"
-    case FlightPreferences = "Flight Preferences"
+    case MoreInformation = "MoreInformation"
+    case PassportDetails = "PassportDetails"
+    case FlightPreferences = "FlightPreferences"
     case Birthday = "Birthday"
     case Anniversary = "Anniversary"
     case Notes = "Notes"
@@ -207,12 +214,83 @@ enum LocalizedString: String {
     case Delete = "Delete"
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
+    case AddAddress = "Add Address"
+    case PassportIssueDateIsIncorrect = "Passport issue date is incorrect"
+    case PassportExpiryDateIsIncorrect = "Passport expiry date is incorrect"
+    case DateOfBirthIsIncorrect = "Date of birth is incorrect"
+    case DateOfAnniversaryIsIncorrect = "Date of Anniversary is incorrect"
+    case Group = "Group"
+    case SelectMealPreference = "SelectMealPreference"
+    case SelectSeatPreference = "SelectSeatPreference"
+    case Email = "Email"
+    case SocialProfile = "SocialProfile"
+    case Home = "Home"
+    case Facebook = "Facebook"
+    case Phone = "Phone"
+    case SelectAirline = "SelectAirline"
+    case SelectDate = "SelectDate"
+    case AddNotes = "AddNotes"
     
     // Mark: - Salutation
     case Mrs = "Mrs"
     case Ms = "Ms"
     case Miss = "Miss"
     case Mast = "Mast"
-
+    
+    //MARK:- Hotel Search
+    //MARK:-
+    case PreferredStarCategory = "PreferredStarCategory"
+    case FavouriteHotels = "FavouriteHotels"
+    case stars = "stars"
+    case star = "star"
+    case searchForHotelsToAdd = "searchForHotelsToAdd"
+    case searchHotelName = "searchHotelName"
+    
+    // MARK: - Traveller List VC
+   case Select = "Select"
+   case Preferences = "Preferences"
+   case Import = "Import"
+   case AssignGroup = "AssignGroup"
+   case TheseContactsWillBeDeletedFromTravellersList = "TheseContactsWillBeDeletedFromTravellersList"
+    
+    // MARK: - PreferencesVC
+    case SortOrder = "SORT ORDER"
+    case DisplayOrder = "DISPLAY ORDER"
+    case Groups = "GROUPS"
+    case FirstLast = "First, Last"
+    case LastFirst = "Last, First"
+    case AddNewGroup = "Add New Group"
+    case EnterAGroupName = "Enter a Group Name"
+    case EnterGroupName = "Enter Group Name"
+    case PreferencesSavedSuccessfully
+    
+    
+    
+    //MARK:- Import Contacts
+    //MARK:-
+    case Contacts = "Contacts";
+    case Google = "Google";
+    case LinkedIn = "LinkedIn";
+    case ImportContactMessage = "ImportContactMessage";
+    case ImportFacebookMessage = "ImportFacebookMessage";
+    case ImportGoogleMessage = "ImportGoogleMessage";
+    case SelectAll = "SelectAll";
+    case AllowContacts = "AllowContacts";
+    case ConnectWithGoogle = "ConnectWithGoogle";
+    case ConnectWithFB = "ConnectWithFB";
+    case ConnectWithLinkedIn = "ConnectWithLinkedIn";
+    case ContactsSelected = "ContactsSelected";
+    case NoContactsFetched = "NoContactsFetched"
+    
+    //MARK:- Linked Accounts
+    //MARK:-
+    case Disconnect = "Disconnect";
+    case LinkedAccountsMessage = "LinkedAccountsMessage";
+    
+    //MARK:- Favourite Hotels
+    //MARK:-
+    case Remove = "Remove"
+    case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
+    
 }
 

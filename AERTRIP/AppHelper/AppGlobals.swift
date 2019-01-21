@@ -59,6 +59,14 @@ struct AppGlobals {
         return String(data: data, encoding: String.Encoding.utf8)
     }
     
+    func onject(from json:String) -> Any? {
+        
+        if let data = json.data(using: .utf8) {
+            return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+        }
+        return nil
+    }
+    
     static func retunsStringArray(jsonArr:[JSON]) -> [String] {
         var labels = [String]()
         for element in jsonArr {
@@ -68,10 +76,57 @@ struct AppGlobals {
         return labels
     }
     
-     func getTextFromImage(_ fromText: String) -> UIImage {
-        return UIImage(text: fromText, font: UIFont.boldSystemFont(ofSize: 20), color: UIColor.gray, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
+     func getImageFromText(_ fromText: String) -> UIImage {
+        return UIImage(text: fromText, font: UIFont.systemFont(ofSize: 20.0), color: AppColors.themeGray40, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
     }
 
+    func showErrorOnToastView(errors: ErrorCodes, viewController: UIViewController) {
+        
+        var message = ""
+        for index in 0..<errors.count {
+            if index == 0 {
+                
+                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
+            } else {
+                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
+            }
+        }
+        AppToast.default.showToastMessage(message: message, vc: viewController)
+    }
+    
+    // convert Date from one format to another
+    
+    func formattedDateFromString(dateString: String,inputFormat iF : String, withFormat outputFormat: String) -> String? {
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = iF
+        
+        if let date = inputFormatter.date(from: dateString) {
+            
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = outputFormat
+            
+            return outputFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+    
+    func getPKAlertButtons(forTitles: [String], colors: [UIColor]) -> [PKAlertButton] {
+        guard forTitles.count == colors.count else {
+            fatalError("Please send the titles and colors equally")
+        }
+        var temp = [PKAlertButton]()
+        for (idx, title) in forTitles.enumerated() {
+            temp.append(PKAlertButton(title: title, titleColor: colors[idx]))
+        }
+        
+        return temp
+    }
+    
+    var pKAlertCancelButton: PKAlertButton {
+        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
+    }
 }
 
 

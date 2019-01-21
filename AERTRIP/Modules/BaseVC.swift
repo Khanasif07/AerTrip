@@ -7,8 +7,21 @@
 
 
 import UIKit
+import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
+
+    var statusBarColor: UIColor = AppColors.themeWhite {
+        didSet{
+            UIApplication.shared.statusBarView?.backgroundColor = statusBarColor
+        }
+    }
+    
+    var statusBarStyle: UIStatusBarStyle = .default {
+        didSet{
+            UIApplication.shared.statusBarStyle = statusBarStyle
+        }
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +40,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         delay(seconds: 0.1) {
             self.setupLayout()
         }
+        IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
 
     override func viewWillLayoutSubviews() {
@@ -55,6 +71,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.viewWillDisappear(animated);
         
         self.deRegisterLogoutNotification()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        self.view.endEditing(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {

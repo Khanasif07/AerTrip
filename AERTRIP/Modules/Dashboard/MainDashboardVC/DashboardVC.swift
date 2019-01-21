@@ -29,6 +29,7 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     
+    private var overlayView = UIView()
     private var previousOffset = CGPoint.zero
     private var mainScrollViewOffset = CGPoint.zero
 
@@ -60,10 +61,11 @@ class DashboardVC: UIViewController {
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
+        
+        self.addOverlayView()
     }
 
     override func viewDidLayoutSubviews() {
-
         super.viewDidLayoutSubviews()
 
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
@@ -81,13 +83,14 @@ class DashboardVC: UIViewController {
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
-
-//        self.setupInitialAnimation()
+        
+        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
+            self.setupInitialAnimation()
+        }
     }
     
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
-
         if selectedOption == .aerin {return}
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
@@ -113,7 +116,6 @@ class DashboardVC: UIViewController {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        
         AppFlowManager.default.sideMenuController?.toggleMenu()
     }
     
@@ -129,39 +131,77 @@ class DashboardVC: UIViewController {
         hotelsView.alpha = 0.5
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
-        
-        let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
-        
-        if let url = URL(string: userData.picture) {
-            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal)
+
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let url = URL(string: imagePath) {
+            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
         }
-        
-        if userData.picture.isEmpty && !userData.firstName.isEmpty {
-            
-            let string = "\(userData.firstName.firstCharacter)" + "\(userData.lastName.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            self.profileButton.setImage(image, for: .normal)
-            self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
-            self.profileButton.layer.borderWidth = 2.0
+        else {
+            if let userInfo = UserInfo.loggedInUser {
+                self.profileButton.setImage(userInfo.profileImagePlaceholder, for: .normal)
+                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+                self.profileButton.layer.borderWidth = 2.0
+            }
+            else {
+                self.profileButton.setImage(AppPlaceholderImage.user, for: .normal)
+                self.profileButton.layer.borderColor = AppColors.clear.cgColor
+                self.profileButton.layer.borderWidth = 0.0
+            }
+
         }
     }
     
-    func setupInitialAnimation() {
+    private func addOverlayView() {
+        overlayView.frame = self.view.bounds
+        overlayView.alpha = 1.0
+        overlayView.backgroundColor = AppColors.themeWhite
+        self.view.addSubview(overlayView)
         
-        let originalCenter = self.view.center
-        self.view.alpha = 0.0
-        self.view.center = self.view.center
-        self.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        let maskLayer = CAShapeLayer()
         
-        UIView.animate(withDuration: 0.25, delay: 0.1, options: [.curveEaseOut], animations: {
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.view.center = originalCenter
-            self.view.alpha = 1.0
-        }, completion: nil)
+        // Create a path with the rectangle in it.
+        let path = CGMutablePath()
+        
+        let radius : CGFloat = 50.0
+        let xOffset : CGFloat = view.frame.midX
+        let yOffset : CGFloat = view.frame.midY + 50.0
+        
+        path.addArc(center: CGPoint(x: xOffset, y: yOffset), radius: radius, startAngle: 0.0, endAngle: 2 * 3.14, clockwise: false)
+        path.addRect(CGRect(x: 0, y: 0, width: overlayView.frame.width, height: overlayView.frame.height))
+        
+        maskLayer.backgroundColor = AppColors.themeWhite.cgColor
+        
+        maskLayer.path = path
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        
+        // Release the path since it's not covered by ARC.
+        overlayView.layer.mask = maskLayer
+        overlayView.clipsToBounds = true
+    }
+    
+    private func setupInitialAnimation() {
+        
+        let tScale = CGAffineTransform(scaleX: 12.0, y: 12.0)
+        let tTrans = CGAffineTransform(translationX: 0.0, y: -(self.view.height))
+        
+        self.overlayView.isHidden = false
+        self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
+        self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, animations: {
+            self.overlayView.transform = tScale.concatenating(tTrans)
+        }) { (isDone) in
+            if isDone {
+                self.overlayView.isHidden = true
+                UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, delay: 0.0, options: [.curveEaseOut], animations: {
+                    self.headerView.transform = CGAffineTransform.identity
+                    self.segmentContainerView.transform = CGAffineTransform.identity
+                }, completion: nil)
+            }
+        }
     }
 }
 
-extension DashboardVC : UIScrollViewDelegate{
+extension DashboardVC : UIScrollViewDelegate {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 
@@ -170,7 +210,7 @@ extension DashboardVC : UIScrollViewDelegate{
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if scrollView == mainScrollView{
+        if scrollView == mainScrollView {
 
             var transform : CGFloat = 0.0
 

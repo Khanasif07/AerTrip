@@ -13,7 +13,6 @@ extension Notification.Name {
     static let logOut = Notification.Name("logOut")
     static let dataChanged = Notification.Name("dataChanged")
     static let sessionExpired = Notification.Name("sessionExpired")
-    
 }
 
 //MARK:- Applicaion Response Code From Server
@@ -263,4 +262,10 @@ enum AppErrorCodeFor: Int {
 //Navigation
 public enum ATTransitionMode: Int {
     case present, dismiss, push, pop
+}
+
+enum AppPlaceholderImage {
+    static let user: UIImage = #imageLiteral(resourceName: "userPlaceholder")
+    static let profile: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
+    static let hotelCard: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
 }

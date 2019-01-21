@@ -20,10 +20,10 @@ struct FlyerModel {
     }
     
     init(json:JSON) {
-        self.iata = json["iata"].stringValue
-        self.label = json["label"].stringValue
-        self.logoUrl = json["logo_url"].stringValue
-        self.value = json["value"].stringValue
+        self.iata = json["iata"].stringValue.removeNull
+        self.label = json["label"].stringValue.removeNull
+        self.logoUrl = json["logo_url"].stringValue.removeNull
+        self.value = json["value"].stringValue.removeNull
         
       
         

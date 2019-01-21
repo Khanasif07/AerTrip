@@ -46,6 +46,38 @@ open class PKCountryPicker: UIView {
         self.openPicker()
     }
     
+    public func getCountryData(forISDCode: String) -> PKCountryModel? {
+        let allCountries = self.getAllCountries()
+        
+        var finalISD = forISDCode
+        
+        if PKCountryPickerSettings.shouldAddPlusInCountryCode, !finalISD.hasPrefix("+") {
+            finalISD = "+\(finalISD)"
+        }
+        else if !PKCountryPickerSettings.shouldAddPlusInCountryCode, finalISD.hasPrefix("+") {
+            finalISD.removeFirst()
+        }
+        
+        return allCountries.filter { (country) -> Bool in
+            country.countryCode == finalISD
+        }.first
+    }
+    
+    public func getCurrentLocalCountryData() -> PKCountryModel? {
+        if let countryData = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+            return self.getCountryData(forISOCode: countryData)
+        }
+        return nil
+    }
+    
+    public func getCountryData(forISOCode: String) -> PKCountryModel? {
+        let allCountries = self.getAllCountries()
+        
+        return allCountries.filter { (country) -> Bool in
+            country.ISOCode == forISOCode
+            }.first
+    }
+    
     //MARK:- Private
     private func initialSetup() {
         self.pickerView.delegate = self
@@ -123,7 +155,7 @@ open class PKCountryPicker: UIView {
         
         let visibleFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: (UIScreen.main.bounds.size.height-(PKCountryPickerSettings.pickerSize.height+PKCountryPickerSettings.toolbarHeight)), width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
         
-        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = visibleFrame
         }) { (isCompleted) in
             
@@ -134,7 +166,7 @@ open class PKCountryPicker: UIView {
         
         let hiddenFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
         
-        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = hiddenFrame
         }) { (isCompleted) in
             self.removeFromSuperview()

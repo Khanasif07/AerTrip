@@ -9,11 +9,11 @@
 import UIKit
 
 class TableViewAddActionCell: UITableViewCell {
-    
     // MARK: - IB Outlets
-    
-    @IBOutlet weak var actionLabel: UILabel!
-    
+
+    @IBOutlet var cellBackgroundView: UIView!
+    @IBOutlet var actionLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,8 +21,7 @@ class TableViewAddActionCell: UITableViewCell {
 
     // MARK: - Helper Methods
 
-    func configureCell( _ title: String) {
+    func configureCell(_ title: String) {
         actionLabel.text = title
     }
-    
 }

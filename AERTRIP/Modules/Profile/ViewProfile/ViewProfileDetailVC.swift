@@ -14,14 +14,14 @@ class ViewProfileDetailVC: BaseVC {
     
     @IBOutlet var headerView: UIView!
     @IBOutlet var backButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: ATTableView!
     @IBOutlet var editButton: UIButton!
     @IBOutlet var headerLabel: UILabel!
     
     // MARK: - Variables
     
     let viewModel = ViewProfileDetailVM()
-    var sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.Address, LocalizedString.MoreInformation]
+    var sections = [LocalizedString.EmailAddress, LocalizedString.ContactNumber, LocalizedString.MoreInformation]
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let contactNumber = [LocalizedString.Mobile]
     let address = [LocalizedString.Address]
@@ -44,12 +44,9 @@ class ViewProfileDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(self)
+        profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         
-        // Api calling
-        viewModel.webserviceForGetTravelDetail()
-        
-        UIView.animate(withDuration: 0.5) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
             self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
             self?.profileImageHeaderView.layoutIfNeeded()
@@ -60,6 +57,9 @@ class ViewProfileDetailVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Api calling
+        viewModel.webserviceForGetTravelDetail()
     }
     
     override func bindViewModel() {
@@ -69,12 +69,15 @@ class ViewProfileDetailVC: BaseVC {
     // MARK: - IB Actions
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.travelData = travelData
+        ob.viewModel.isFromTravellerList = viewModel.isFromTravellerList
+        ob.viewModel.isFromViewProfile = true
+        ob.viewModel.paxId = viewModel.paxId
         navigationController?.pushViewController(ob, animated: true)
     }
     
@@ -106,79 +109,99 @@ class ViewProfileDetailVC: BaseVC {
         let gradient = CAGradientLayer()
         gradient.frame = profileImageHeaderView.gradientView.bounds
         gradient.colors = [AppColors.viewProfileDetailTopGradientColor.cgColor, AppColors.viewProfileDetailBottomGradientColor.cgColor]
-//        gradient.colors = [AppColors.themeRed.cgColor, AppColors.themeBlue.cgColor]
-//        profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
+        profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
         
         view.bringSubviewToFront(headerView)
     }
     
     private func setUpDataFromApi() {
-        profileImageHeaderView.userNameLabel.text = (travelData?.firstName)! + " " + (travelData?.lastName)!
-        profileImageHeaderView.familyButton.setTitle(travelData?.label, for: .normal)
+        guard let travel = travelData else {
+            return
+        }
+        profileImageHeaderView.userNameLabel.text = (travel.firstName) + " " + (travel.lastName)
+        profileImageHeaderView.emailIdLabel.text = ""
+        profileImageHeaderView.mobileNumberLabel.text = ""
+        profileImageHeaderView.familyButton.isHidden = false
+        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label, for: .normal)
         profileImageHeaderView.layoutIfNeeded()
-        
-        if travelData?.profileImage != "" {
-            profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travelData?.profileImage)!))
+        profileImageHeaderView.profileImageView.image = UIImage(named: "profilePlaceholder")
+        if travel.profileImage != "" {
+            profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
         } else {
-            let string = "\((travelData?.firstName)!.firstCharacter)" + "\((travelData?.lastName)!.firstCharacter)"
-            let image = AppGlobals.shared.getTextFromImage(string)
-            profileImageHeaderView.profileImageView.image = image
-            profileImageHeaderView.backgroundImageView.image = image
-        }
-        
-        if let mobile = travelData?.contact.mobile {
-            if mobile.count > 0 {
-                self.mobile = mobile
+            if viewModel.isFromTravellerList {
+                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
+                profileImageHeaderView.profileImageView.image = imageFromText
+                profileImageHeaderView.backgroundImageView.image = imageFromText
             } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
-                var mobile = Mobile()
-                mobile.label = "Default"
-                mobile.value = userData.mobile
-                self.mobile.append(mobile)
+                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
             }
         }
-        if let address = travelData?.address {
-            addresses = address
+        mobile.removeAll()
+        if !viewModel.isFromTravellerList {
+            var mobile = Mobile()
+            mobile.label = "Default"
+            mobile.value = UserInfo.loggedInUser?.mobile ?? ""
+            self.mobile = [mobile]
         }
         
-        if let email = travelData?.contact.email {
-            if email.count > 0 {
-                self.email = email
-            } else {
-                let userData = UserModel(json: AppUserDefaults.value(forKey: .userData))
-                var email = Email()
-                email.label = "Default"
-                email.value = userData.email
-                self.email.append(email)
-            }
+        mobile.append(contentsOf: travel.contact.mobile)
+        
+        if travel.address.count > 0 {
+            addresses = travel.address
+            sections.append(LocalizedString.Address)
         }
-        if let social = travelData?.contact.social, social.count > 0 {
+        
+        if !viewModel.isFromTravellerList {
+            var email = Email()
+            email.label = "Default"
+            email.value = UserInfo.loggedInUser?.email ?? ""
+            self.email = [email]
+        }
+        email.append(contentsOf: travel.contact.email)
+        let social = travel.contact.social
+        
+        sections.removeAll()
+        if email.count > 0 {
+            sections.append(LocalizedString.EmailAddress)
+        }
+        if mobile.count > 0 {
+            sections.append(LocalizedString.ContactNumber)
+        }
+        if social.count > 0 {
             self.social = social
             sections.append(LocalizedString.SocialAccounts)
         }
-        informations.append(((travelData?.dob)!))
-        informations.append((travelData?.doa)!)
-        
-        if travelData?.notes != "" {
-            informations.append((travelData?.notes)!)
+        sections.append(LocalizedString.MoreInformation)
+        informations.removeAll()
+        if !travel.dob.isEmpty {
+            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
         }
-        
-        if travelData?.passportNumber != "" {
-            passportDetails.append((travelData?.passportNumber)!)
-            passportDetails.append((travelData?.passportCountryName)!)
+        if !travel.doa.isEmpty {
+            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
+        }
+        if !travel.notes.isEmpty {
+            informations.append(travel.notes)
+        }
+        passportDetails.removeAll()
+        if travel.passportNumber != "" {
+            passportDetails.append((travel.passportNumber))
+            passportDetails.append((travel.passportCountryName))
             sections.append(LocalizedString.PassportDetails)
         }
         
-        if travelData?.preferences != nil {
+        if travel.preferences.seat.value != "" || travel.preferences.meal.value != "" {
             sections.append(LocalizedString.FlightPreferences)
         }
         
-        if let frequentFlyer = travelData?.frequestFlyer, frequentFlyer.count > 0 {
+        let frequentFlyer = travel.frequestFlyer
+        if frequentFlyer.count > 0 {
             self.frequentFlyer = frequentFlyer
         }
         
-        let seatPreference = (travelData?.preferences.seat.name)! + "-" + (travelData?.preferences.seat.value)!
-        let mealPreference = (travelData?.preferences.meal.name)! + "-" + (travelData?.preferences.meal.value)!
+        let seatPreference = (travel.preferences.seat.value)
+        let mealPreference = (travel.preferences.meal.value)
         flightDetails.append(seatPreference)
         flightDetails.append(mealPreference)
         
@@ -200,7 +223,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.MoreInformation:
             return informations.count
         case LocalizedString.ContactNumber:
-            return contactNumber.count
+            return mobile.count
         case LocalizedString.SocialAccounts:
             return social.count
         case LocalizedString.Address:
@@ -229,21 +252,13 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == email.count) ? true : false
             return cell
         case LocalizedString.MoreInformation:
-            if informations[indexPath.row] != "" {
-                cell.configureCell(moreInformation[indexPath.row].rawValue, informations[indexPath.row])
-                return cell
-            }
-            cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
-            return UITableViewCell()
-            
+            cell.configureCell(moreInformation[indexPath.row].rawValue, informations[indexPath.row])
+            cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
+            return cell
         case LocalizedString.ContactNumber:
-            for mobile in mobile {
-                cell.configureCell(mobile.label, mobile.value)
-                return cell
-            }
-            cell.separatorView.isHidden = (indexPath.row + 1 == contactNumber.count) ? true : false
-            return UITableViewCell()
-            
+            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].value)
+            cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
+            return cell
         case LocalizedString.SocialAccounts:
             cell.configureCell(social[indexPath.row].label, social[indexPath.row].value)
             cell.separatorView.isHidden = (indexPath.row + 1 == social.count) ? true : false
@@ -260,7 +275,10 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
                 }
                 viewProfileMultiDetailcell.frequentFlyerView.isHidden = true
-                viewProfileMultiDetailcell.cofigureCell((travelData?.passportIssueDate)!, (travelData?.passportExpiryDate)!)
+                if let issueDate = travelData?.passportIssueDate, let expiryDate = travelData?.passportExpiryDate {
+                    viewProfileMultiDetailcell.cofigureCell(AppGlobals.shared.formattedDateFromString(dateString: issueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "", AppGlobals.shared.formattedDateFromString(dateString: expiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
+                }
+                viewProfileMultiDetailcell.separatorView.isHidden = true
                 return viewProfileMultiDetailcell
                 
             } else {
@@ -273,7 +291,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
                 }
                 viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
-                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].airlineCode)
+                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].number)
                 return viewProfileMultiDetailcell
                 
             } else {
@@ -293,7 +311,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        headerView.headerLabel.text = sections[section].rawValue
+        headerView.headerLabel.text = sections[section].localized
         return headerView
     }
 }
@@ -309,7 +327,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         
         if parallaxHeader.progress <= 0.5 {
-            UIView.animate(withDuration: 0.5) { [weak self] in
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 // self?.view.bringSubviewToFront((self?.headerView)!)
                 
                 self?.headerView.backgroundColor = UIColor.white

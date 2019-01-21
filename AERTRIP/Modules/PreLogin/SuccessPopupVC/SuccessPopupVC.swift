@@ -61,7 +61,7 @@ class SuccessPopupVC: BaseVC {
     @IBAction func loginButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        UIView.animate(withDuration: 0.35) {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             
             AppFlowManager.default.moveToLoginVC(email: "")
         }

@@ -274,6 +274,7 @@ enum AppNetworking {
         }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
+//        let url = try! URLRequest(url: "https://encryptorapp.000webhostapp.com/test.php", method: httpMethod, headers: header)
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
@@ -291,7 +292,7 @@ enum AppNetworking {
                         }
                         if let url = fileUrl{
                             do{
-                                let data = try Data(contentsOf: url, options:NSData.ReadingOptions.alwaysMapped)
+                                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.alwaysMapped)
                                 multipartFormData.append(data, withName: key, fileName: "\(UUID().uuidString).\(fileExtention)", mimeType: mimeType)
                                 
                             }
@@ -304,8 +305,7 @@ enum AppNetworking {
             }
             
             for (ky , value) in addMandatoryParams(toExistingParams: parameters){
-                
-                multipartFormData.append((value as AnyObject).data(using : String.Encoding.utf8.rawValue)!, withName: ky)
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
             }
         },
                          with: url, encodingCompletion: { encodingResult in
@@ -327,6 +327,7 @@ enum AppNetworking {
                                         }
                                         
                                         printDebug("response: \(value)\nresponse url: \(URLString)")
+                                        print(String(bytes: value, encoding: String.Encoding.utf8))
                                         success(JSON(value))
                                         
                                     case .failure(let e):

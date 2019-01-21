@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 enum ViewPresnetEnum {
     case push, present, popup
@@ -17,8 +18,11 @@ class AppFlowManager: NSObject {
     
     static let `default` = AppFlowManager()
     
-    var sideMenuController: PKSideMenuController?
-    
+    var sideMenuController: PKSideMenuController? {
+        return self.mainHomeVC?.sideMenuController
+    }
+    var mainHomeVC: MainHomeVC?
+        
     private let urlScheme = "://"
 
     private override init() {
@@ -76,17 +80,10 @@ class AppFlowManager: NSObject {
     }
     
     func goToDashboard() {
-        
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
-        PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
-        PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
-
-        let sideMenuVC = PKSideMenuController()
-        sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
-        sideMenuVC.menuViewController(SideMenuVC.instantiate(fromAppStoryboard: .Dashboard))
-        self.sideMenuController = sideMenuVC
-        let nvc = UINavigationController(rootViewController: sideMenuVC)
+        let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
+        self.mainHomeVC = mainHome
+        let nvc = UINavigationController(rootViewController: mainHome)
+        nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
@@ -103,11 +100,7 @@ extension AppFlowManager {
     
     func moveToSocialLoginVC() {
         let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-//        ob.modalPresentationStyle = .custom
-//        ob.transitioningDelegate = self
-        self.mainNavigationController.delegate = self
-//        self.mainNavigationController.transitioningDelegate = self
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToLoginVC(email: String) {
@@ -161,7 +154,7 @@ extension AppFlowManager {
         
         let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         
-        ob.viewModel.userData.id = refId
+        ob.viewModel.userData.paxId = refId
         ob.viewModel.userData.email    = email
         ob.viewModel.userData.password = password
         self.mainNavigationController.pushViewController(ob, animated: true)
@@ -181,18 +174,80 @@ extension AppFlowManager {
     
     func moveToViewProfileVC() {
         let ob = ViewProfileVC.instantiate(fromAppStoryboard: .Profile)
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToViewProfileDetailVC() {
+    func moveToViewProfileDetailVC(_ paxId:String, _ isFromTravellerList:Bool = false) {
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.paxId = paxId
+        ob.viewModel.isFromTravellerList = isFromTravellerList
         self.mainNavigationController.pushViewController(ob, animated: true)
 
     }
     
     func moveToEditProfileVC(){
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isFromViewProfile = true
         self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToLinkedAccountsVC(){
+        let ob = LinkedAccountsVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToHotelSearchVC(){
+        let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func moveToViewAllHotelsVC() {
+        let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToTravellerListVC(){
+        let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToPreferencesVC(_ delegate: PreferencesVCDelegate){
+        let ob = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.delegate = delegate
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func moveToImportContactVC() {
+        let ob = ImportContactVC.instantiate(fromAppStoryboard: .TravellerList)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentEditProfileVC() {
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isFromTravellerList = true
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
+        let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.viewModel.paxIds = selectedTraveller
+        ob.delegate  = vc
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+}
+
+//MARK: - Pop Methods
+extension AppFlowManager {
+    func popViewController(animated: Bool) {
+        self.mainNavigationController.popViewController(animated: animated)
+    }
+    
+    func popToViewController(_ viewController: UIViewController, animated: Bool) {
+        self.mainNavigationController.popToViewController(viewController, animated: animated)
+    }
+    
+    func popToRootViewController(animated: Bool) {
+        self.mainNavigationController.popToRootViewController(animated: animated)
     }
 }
 
@@ -204,45 +259,5 @@ extension AppFlowManager {
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         transition.type = CATransitionType.push
         onNavigationController?.view.layer.add(transition, forKey: nil)
-    }
-}
-
-
-//MARK:- Navigation Transitioning Animation
-extension AppFlowManager: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .present
-        return transition
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .dismiss
-        return transition
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return nil
-    }
-}
-
-extension AppFlowManager: UINavigationControllerDelegate {
-    
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        print("will show")
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        print("didShow")
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        let transition = SocialLoginNavigationTransition()
-        transition.transitionMode = .dismiss
-        return nil
     }
 }

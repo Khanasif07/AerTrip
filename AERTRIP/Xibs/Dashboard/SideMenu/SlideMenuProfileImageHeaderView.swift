@@ -24,6 +24,8 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var familyButton: UIButton!
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
+    @IBOutlet weak var profileContainerView: UIView!
+    @IBOutlet weak var dividerView: UIView!
     
     // MARK: - Variable
     private let gradient = CAGradientLayer()
@@ -35,22 +37,19 @@ class SlideMenuProfileImageHeaderView: UIView {
         delegate?.profileHeaderTapped()
     }
     
-    class func instanceFromNib(_ controller: UIViewController) -> SlideMenuProfileImageHeaderView {
+    class func instanceFromNib(isFamily: Bool = false) -> SlideMenuProfileImageHeaderView {
         let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
-        if controller is ViewProfileVC {
-            parentView.familyButton.isHidden = true
-        } else {
-            parentView.emailIdLabel.isHidden = true
-            parentView.mobileNumberLabel.isHidden = true
-        }
-        
+
+        parentView.familyButton.isHidden = !isFamily
+        parentView.emailIdLabel.isHidden = isFamily
+        parentView.mobileNumberLabel.isHidden = isFamily
         return parentView
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        gradient.frame = gradientView.bounds
+       // self.backgroundImageView.frame = self.bounds
     }
     
     // Action
@@ -68,11 +67,13 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 6.0
         
+        doInitialSetup()
+    }
+    
+    override func draw(_ rect: CGRect) {
         gradient.frame = gradientView.bounds
         gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
         gradientView.layer.insertSublayer(gradient, at: 0)
-        
-        doInitialSetup()
     }
     
     // MARK: - Helper Method

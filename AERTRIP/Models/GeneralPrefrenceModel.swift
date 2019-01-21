@@ -23,8 +23,8 @@ struct GeneralPrefrenceModel {
     
     init(json: JSON) {
         
-        self.sortOrder     = json["sort_order"].stringValue
-        self.displayOrder   = json["display_order"].stringValue
+        self.sortOrder     = json["sort_order"].stringValue.removeNull
+        self.displayOrder   = json["display_order"].stringValue.removeNull
         self.categorizeByGroup = json["categorize_by_group"].boolValue
         self.labels      = AppGlobals.retunsStringArray(jsonArr: json["labels"].arrayValue)
     }

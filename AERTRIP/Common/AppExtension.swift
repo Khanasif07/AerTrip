@@ -59,4 +59,51 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         layer.shouldRasterize = true
     }
+    
+    func addCardShadow(withColor color: UIColor = AppColors.themeBlack) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = 0.8
+        layer.shadowOffset = CGSize.zero
+        layer.shadowRadius = 5
+    }
+}
+
+
+extension UIView {
+    private var shadowLayer: CAShapeLayer? {
+        var temp: CAShapeLayer? = nil
+        if let allLayers = self.layer.sublayers {
+            for obj in allLayers {
+                if let lay = obj as? CAShapeLayer, lay.name == "shadowWithCorner" {
+                    temp = lay
+                    break
+                }
+            }
+        }
+        return temp
+    }
+    
+    func addShadow(cornerRadius: CGFloat, shadowColor: UIColor = .black, backgroundColor: UIColor = .white, offset: CGSize = CGSize(width: -1.0, height: 8.0)) {
+        let newLayer: CAShapeLayer!
+        if shadowLayer == nil {
+            newLayer = CAShapeLayer()
+            newLayer.name = "shadowWithCorner"
+            layer.insertSublayer(newLayer, at: 0)
+        }
+        else {
+            newLayer = shadowLayer
+        }
+        
+        guard let _ = newLayer else {return}
+        
+        self.backgroundColor = UIColor.clear
+        newLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+        newLayer.fillColor = backgroundColor.cgColor
+        
+        newLayer.shadowColor = shadowColor.cgColor
+        newLayer.shadowPath  = newLayer.path
+        newLayer.shadowOffset = offset
+        newLayer.shadowOpacity = 0.16
+        newLayer.shadowRadius = 10
+    }
 }

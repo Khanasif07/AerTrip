@@ -33,8 +33,18 @@ enum APIEndPoint : String {
     case countryList = "country/list"
     case saveProfile =  "user-passenger/save-new"
     case defaultAirlines = "airlines/get-default-airlines"
-
-
+    case hotelPreferenceList = "users/hotel-pref-list-new"
+    case searchHotels = "hotels/suggestions-new"
+    case favourite = "hotels/favourite"
+    case hotelStarPreference = "users/hotel-star-preference"    
+    case travellerList = "users/traveller-list"
+    case saveGeneralPreferences = "users/save-general-preferences"
+    case phoneContacts = "user-passenger/import-contacts"
+    case socialContacts = "social/import"
+    case assignGroup = "users/apply-label"
+    case deletePaxData = "user-passenger/delete-pax-data"
+    case linkedAccounts = "users/linked-accounts"
+    case unlinkSocialAccount = "users/unlink-social-account"
 }
 
 //MARK: - endpoint extension for url -

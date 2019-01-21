@@ -43,6 +43,9 @@ class AerinVC: BaseVC {
         
         self.pulsAnimation.start()
 
+        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
+            self.setupInitialAnimation()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -112,6 +115,21 @@ class AerinVC: BaseVC {
         self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
     }
 
+    func setupInitialAnimation() {
+        
+        self.bottomCollectionView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: [.curveEaseOut], animations: {
+            self.bottomCollectionView.transform = CGAffineTransform.identity
+            self.bottomSecondView.transform = CGAffineTransform.identity
+            self.bottomFirstView.transform = CGAffineTransform.identity
+            self.weekendMessageLabel.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         //dont do anything if bouncing

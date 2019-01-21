@@ -87,12 +87,10 @@ class CreateProfileSuccessVC: BaseVC {
     @IBAction func successButtonAction(_ sender: TransitionButton) {
         
         sender.startAnimation()
-        UIView.animate(withDuration: 10, animations: {
-        }, completion: { animation in
+        delay(seconds: 10.0) {
             sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 0, completion: {
-                
                 AppFlowManager.default.goToDashboard()
             })
-        })
+        }
     }
 }

@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -93,6 +93,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.1)
   - IOSLinkedInAPIFix (2.0.4):
     - AFNetworking (>= 2.0.0)
+  - IQKeyboardManager (6.2.0)
   - Kingfisher (4.10.0)
   - LinkedinSwift (1.7.7):
     - AFNetworking (>= 3.1.0)
@@ -103,6 +104,12 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PhoneNumberKit (2.5.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.5.0)
+    - PhoneNumberKit/UIKit (= 2.5.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.5.0)
+  - PhoneNumberKit/UIKit (2.5.0):
+    - PhoneNumberKit/PhoneNumberKitCore
   - SkyFloatingLabelTextField (3.6.0)
   - SwiftyJSON (4.2.0)
   - TransitionButton (0.5.2)
@@ -114,9 +121,11 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/DynamicLinks
   - GoogleSignIn
+  - IQKeyboardManager
   - Kingfisher
   - LinkedinSwift
   - MXParallaxHeader
+  - PhoneNumberKit (~> 2.5)
   - SkyFloatingLabelTextField
   - SwiftyJSON (~> 4.0)
   - TransitionButton
@@ -141,10 +150,12 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - IOSLinkedInAPIFix
+    - IQKeyboardManager
     - Kingfisher
     - LinkedinSwift
     - MXParallaxHeader
     - nanopb
+    - PhoneNumberKit
     - SkyFloatingLabelTextField
     - SwiftyJSON
     - TransitionButton
@@ -152,7 +163,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
@@ -168,14 +179,16 @@ SPEC CHECKSUMS:
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IOSLinkedInAPIFix: a520fd805a03dade35f42904c7d89ded2a84c752
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   LinkedinSwift: bab5724c2b18335233d02fa59a2cb3fbbccd9219
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PhoneNumberKit: 32a1cd1e0aa9e950feb01886a22fd7386b8cf903
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: a01b62be62b6d39a0ca1dfe8532e3d236a9c0537
+PODFILE CHECKSUM: 3e6d455f8208ec8cff29f55d2d63caa5b12bdcbe
 
 COCOAPODS: 1.5.3

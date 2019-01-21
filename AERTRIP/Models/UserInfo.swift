@@ -5,7 +5,7 @@
 //  Copyright © 2016 Pramod Kumar. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //MARK:- Custom Notification for Notification Center
 //MARK:-
@@ -20,7 +20,7 @@ class UserInfo {
         case female = 1
     }
 
-    struct address {
+    struct Address {
         
         var isLoggedIn: Bool = false
         var profileName: String = ""
@@ -29,6 +29,7 @@ class UserInfo {
         var city: String = ""
         var state: String = ""
         var country: String = ""
+        var countryCode: String = ""
         var postcode: String = ""
         var email: String = ""
         var mobile: String = ""
@@ -38,22 +39,23 @@ class UserInfo {
         var preferredCurrency: String = ""
         var isd: String = ""
         
-        var dict: JSONDictionary {
+        var jsonDict: JSONDictionary {
             
             return ["isLoggedIn": self.isLoggedIn,
-                "profile_name": self.profileName,
+                    "profile_name": self.profileName,
                     "first_name": self.firstName,
                     "last_name": self.lastName,
                     "city": self.city,
                     "state": self.state,
                     "postcode": self.postcode,
                     "country": self.country,
+                    "countryCode": self.countryCode,
                     "email": self.email,
                     "mobile": self.mobile,
-                "billing_name": self.billingName,
-                "credit_type": self.creditType,
-                "profile_img": self.profileImage,
-                "preferred_currency": self.preferredCurrency]
+                    "billing_name": self.billingName,
+                    "credit_type": self.creditType,
+                    "profile_img": self.profileImage,
+                    "preferred_currency": self.preferredCurrency]
         }
         
         var full: String {
@@ -86,46 +88,81 @@ class UserInfo {
             }
             
             if let obj = dict["profile_name"] {
-                self.profileName = "\(obj)"
+                self.profileName = "\(obj)".removeNull
             }
             
             if let obj = dict["profile_image"] {
-                self.profileImage = "\(obj)"
+                self.profileImage = "\(obj)".removeNull
             }
             
             if let obj = dict["first_name"] {
-                self.firstName = "\(obj)"
+                self.firstName = "\(obj)".removeNull
             }
             
             if let obj = dict["last_name"] {
-                self.lastName = "\(obj)"
+                self.lastName = "\(obj)".removeNull
             }
             
             
             if let obj = dict["city"] {
-                self.city = "\(obj)"
+                self.city = "\(obj)".removeNull
             }
             
             if let obj = dict["state"] {
-                self.state = "\(obj)"
+                self.state = "\(obj)".removeNull
             }
             
             if let obj = dict["postcode"] {
-                self.country = "\(obj)"
+                self.country = "\(obj)".removeNull
             }
             
             if let obj = dict["country"] {
-                self.postcode = "\(obj)"
+                self.postcode = "\(obj)".removeNull
             }
             
             if let obj = dict["email"] {
-                self.email = "\(obj)"
+                self.email = "\(obj)".removeNull
             }
             
             if let obj = dict["mobile"] {
-                self.mobile = "\(obj)"
+                self.mobile = "\(obj)".removeNull
             }
         }
+    }
+    
+    struct GeneralPref {
+        var sortOrder = ""
+        var displayOrder = ""
+        var categorizeByGroup : Bool = false
+        var labels : [String] = []
+       
+        var jsonDict: [String:Any] {
+            return ["sort_order": self.sortOrder,
+                    "display_order": self.displayOrder,
+                    "categorize_by_group": self.categorizeByGroup,
+                    "labels": self.labels,
+                   ]
+        }
+    
+
+        
+        init() {
+            
+            let json = JSON()
+            self.init(json: json)
+        }
+        
+        init(json: JSON) {
+            
+            self.sortOrder     = json["sort_order"].stringValue
+            self.displayOrder   = json["display_order"].stringValue
+            self.categorizeByGroup   = json["categorize_by_group"].boolValue
+            self.labels = json["labels"].arrayObject as? [String] ?? []
+            
+            
+        }
+        
+        
     }
     
     static var loggedInUserId:String?{
@@ -159,12 +196,26 @@ class UserInfo {
     
     var userId:String = ""
     
+    var profileImagePlaceholder: UIImage {
+        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter) \("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
+        return AppGlobals.shared.getImageFromText(string)
+    }
+    
     var email: String {
         get{
-            return (userData?["user_email"] as? String ?? "")
+            return (userData?["email"] as? String ?? "").removeNull
         }
         set{
-            updateInfo(withData: ["user_email":newValue])
+            updateInfo(withData: ["email":newValue])
+        }
+    }
+    
+    var password: String {
+        get{
+            return (userData?["password"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["password":newValue])
         }
     }
     
@@ -177,27 +228,36 @@ class UserInfo {
         }
     }
     
-    var userNicename:String{
+    var salutation:String{
         get{
-            return (userData?["user_nicename"] as? String ?? "")
+            return (userData?["salutation"] as? String ?? "").removeNull
         }
         set{
-            updateInfo(withData: ["user_nicename":newValue])
+            updateInfo(withData: ["salutation":newValue])
         }
     }
     
-    var userDisplayName:String{
+    var billingName:String{
         get{
-            return (userData?["user_display_name"] as? String ?? "")
+            return (userData?["billing_name"] as? String ?? "").removeNull
         }
         set{
-            updateInfo(withData: ["user_display_name":newValue])
+            updateInfo(withData: ["billing_name":newValue])
+        }
+    }
+    
+    var profileName:String{
+        get{
+            return (userData?["profile_name"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["profile_name":newValue])
         }
     }
     
     var firstName:String{
         get{
-            return (userData?["first_name"] as? String ?? "")
+            return (userData?["first_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["first_name":newValue])
@@ -206,7 +266,7 @@ class UserInfo {
     
     var lastName:String{
         get{
-            return (userData?["last_name"] as? String ?? "")
+            return (userData?["last_name"] as? String ?? "").removeNull
         }
         set{
             updateInfo(withData: ["last_name":newValue])
@@ -233,7 +293,8 @@ class UserInfo {
             updateInfo(withData: ["dob":""])
         }
     }
-    var gender: Gender?{
+    
+    var gender: Gender? {
         get{
             return Gender(rawValue: (userData?["gender"] as? Int ?? 0))
         }
@@ -246,31 +307,158 @@ class UserInfo {
             }
         }
     }
+    
+    var mobile:String{
+        get{
+            return (userData?["mobile"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["mobile":newValue])
+        }
+    }
+    
+    var isd:String{
+        get{
+            return (userData?["isd"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["isd":newValue])
+        }
+    }
+    
+    var preferredCurrency:String{
+        get{
+            return (userData?["preferred_currency"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["preferred_currency":newValue])
+        }
+    }
+    
+    var paxId:String{
+        get{
+            return (userData?["pax_id"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["pax_id":newValue])
+        }
+    }
+    
+    var creditType:String{
+        get{
+            return (userData?["credit_type"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["credit_type":newValue])
+        }
+    }
+    
+    var profileImage:String{
+        get{
+            return (userData?["profile_img"] as? String ?? "").removeNull
+        }
+        set{
+            updateInfo(withData: ["profile_img":newValue])
+        }
+    }
+    
     var accessToken:String{
         get{
-            return (userData?["token"] as? String ?? "")
+            return (userData?["access_token"] as? String ?? "").removeNull
         }
         set{
-            updateInfo(withData: ["token":newValue])
+            updateInfo(withData: ["access_token":newValue])
         }
     }
     
-    var device_id:String{
+    var minContactLimit: Int{
         get{
-            return (userData?["device_id"] as? String ?? "")
+            return ((userData?["minContactLimit"] as? String)?.toInt ?? 0)
         }
         set{
-            updateInfo(withData: ["device_id":newValue])
+            updateInfo(withData: ["minContactLimit":newValue])
         }
     }
     
-    var notificationCount: Int {
+    var maxContactLimit: Int{
         get{
-            return UserDefaults.getObject(forKey: "\(UserInfo.loggedInUserId ?? "biker")_user_notificationCount") as? Int ?? 0
+            return ((userData?["maxContactLimit"] as? String)?.toInt ?? 0)
         }
         set{
-            UserDefaults.setObject(newValue, forKey: "\(UserInfo.loggedInUserId ?? "biker")_user_notificationCount")
-            NotificationCenter.default.post(name: Notification.notificationCountDidChanged, object: nil)
+            updateInfo(withData: ["maxContactLimit":newValue])
+        }
+    }
+    
+    var generalPref: GeneralPref? {
+        get {
+            if let genPref = userData?[APIKeys.generalPref.rawValue] as? String {
+                if let dict = AppGlobals.shared.onject(from: genPref) {
+                    return GeneralPref(json: JSON(dict))
+                }
+            }
+            return nil
+        }
+        set {
+            if let vlaue = newValue?.jsonDict {
+                updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: vlaue) ?? ""])
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.generalPref.rawValue)
+            }
+        }
+    }
+    
+    var address: Address? {
+        get {
+            
+            if let dict = UserDefaults.getObject(forKey: "address") as? JSONDictionary {
+                return Address(dict: dict)
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue?.jsonDict {
+                UserDefaults.setObject(vlaue, forKey: "address")
+            }
+            else{
+                UserDefaults.removeObject(forKey: "address")
+            }
+        }
+    }
+    
+    var accountData: AccountModel? {
+        get {
+            
+            if let dict = UserDefaults.getObject(forKey: "account_data") {
+                return AccountModel(json: JSON(dict))
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue?.jsonDict {
+                UserDefaults.setObject(vlaue, forKey: "account_data")
+            }
+            else{
+                UserDefaults.removeObject(forKey: "account_data")
+            }
+        }
+    }
+
+    var socialLoginType: LinkedAccount.SocialType? {
+        get {
+            
+            if let dict = UserDefaults.getObject(forKey: "socialLoginType") as? String {
+                return LinkedAccount.SocialType(rawValue: dict)
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue?.rawValue {
+                UserDefaults.setObject(vlaue, forKey: "socialLoginType")
+            }
+            else{
+                UserDefaults.removeObject(forKey: "socialLoginType")
+            }
         }
     }
 
@@ -307,6 +495,8 @@ class UserInfo {
         
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
+    
+   
    
 }
 

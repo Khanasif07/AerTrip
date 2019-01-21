@@ -74,7 +74,7 @@ enum AppColors {
     static let viewProfileGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2180622799)
     
     // RGB - 175,175,170
-    static let profileImageBorderColor =  #colorLiteral(red: 0.6862745098, green: 0.6862745098, blue: 0.6666666667, alpha: 1)
+    static let profileImageBorderColor =  #colorLiteral(red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1)
     
       // RGB - 0,0,0 , 0.05
     static let viewProfileDetailTopGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.176193882)

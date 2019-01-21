@@ -23,6 +23,4 @@ class ViewProfileTableViewCell: UITableViewCell {
     func configureCell(_ title: String) {
         menuOptionLabel.text  = title
     }
-
-   
 }

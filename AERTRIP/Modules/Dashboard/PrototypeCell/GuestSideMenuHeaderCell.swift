@@ -17,6 +17,7 @@ class GuestSideMenuHeaderCell: UITableViewCell {
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var loginAndRegisterButton: ATButton!
     @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var logoContainerView: UIView!
     
     
     //MARK:- TableViewLifeCycle

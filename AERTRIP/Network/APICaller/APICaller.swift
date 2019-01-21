@@ -29,4 +29,17 @@ class APICaller {
             failure(response[APIKeys.errors.rawValue].arrayObject as? ErrorCodes ?? [])
         }
     }
+    
+    // handler for dictionary response
+    func handleDicitionaryResponse(_ response: JSON, success: complitionClosure, failure: failureClosure) {
+        
+        if response[APIKeys.success.rawValue].boolValue {
+            //Success Handling
+            success(response[APIKeys.success.rawValue].boolValue, response)
+        }
+        else {
+            failure(response[APIKeys.errors.rawValue].arrayObject as? ErrorCodes ?? [])
+        }
+    }
+    
 }

@@ -12,6 +12,7 @@ import AssetsLibrary
 import AVFoundation
 import Photos
 import PhotosUI
+import Contacts
 
 extension UIViewController{
     
@@ -326,3 +327,82 @@ extension UIViewController{
     }
 }
 
+
+//MARK:- Contacts Fetching
+extension UIViewController {
+    var isContactsAuthorized: Bool {
+        var flag: Bool = true
+        
+        if CNContactStore.authorizationStatus(for: .contacts) == .denied {
+            flag = false
+            let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to Contacts", preferredStyle: UIAlertController.Style.alert)
+            
+            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                UIApplication.openSettingsApp
+            }
+            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            }
+            alertController.addAction(alertActionSettings)
+            alertController.addAction(alertActionCancel)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else if CNContactStore.authorizationStatus(for: .contacts) == .restricted {
+            flag = false
+            let alertController = UIAlertController(title: "", message: "You have been restricted from accessing the contacts on this device without contacts access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+            
+            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                UIApplication.openSettingsApp
+            }
+            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            }
+            alertController.addAction(alertActionSettings)
+            alertController.addAction(alertActionCancel)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
+            flag = false
+        }
+        
+        return flag
+    }
+    
+    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void)) {
+        
+        func retrieveContactsWithStore(_ store: CNContactStore) {
+            do {
+                let groups = try store.groups(matching: nil)
+                if groups.isEmpty {
+                    complition([])
+                   
+                }
+                else {
+                    let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
+                    //let predicate = CNContact.predicateForContactsMatchingName("John")
+                    let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey] as [Any]
+                    
+                    let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    
+                    complition(contacts)
+                }
+            } catch {
+                printDebug("Error in fetching contacts: \(error)")
+            }
+        }
+        
+        let store = CNContactStore()
+        
+        if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
+
+            store.requestAccess(for: .contacts) { (authorized, error) in
+                if authorized {
+                    retrieveContactsWithStore(store)
+                }
+                else {
+                    printDebug("Error in fetching contacts: \(error)")
+                }
+            }
+        } else if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+            retrieveContactsWithStore(store)
+        }
+    }
+}

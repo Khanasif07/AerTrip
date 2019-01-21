@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TravellerListHeaderView" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnu-CP-o4A">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="F5x-Tb-XGw">
+                            <rect key="frame" x="16" y="12" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="a8i-Sw-5i1"/>
+                                <constraint firstAttribute="height" constant="20" id="eF6-nl-KE6"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAP-JF-PeG">
+                            <rect key="frame" x="52" y="10.5" width="118.5" height="23"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEB-Pr-RQX">
+                            <rect key="frame" x="335" y="12" width="24" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="gAP-JF-PeG" firstAttribute="leading" secondItem="F5x-Tb-XGw" secondAttribute="trailing" constant="16" id="6et-G0-wOI"/>
+                        <constraint firstItem="qEB-Pr-RQX" firstAttribute="centerY" secondItem="gAP-JF-PeG" secondAttribute="centerY" id="ARx-pl-O6R"/>
+                        <constraint firstAttribute="height" constant="44" id="H3S-fK-fZK"/>
+                        <constraint firstAttribute="trailing" secondItem="qEB-Pr-RQX" secondAttribute="trailing" constant="16" id="Knu-uC-hq2"/>
+                        <constraint firstItem="gAP-JF-PeG" firstAttribute="centerY" secondItem="mnu-CP-o4A" secondAttribute="centerY" id="Va7-bz-7RM"/>
+                        <constraint firstItem="F5x-Tb-XGw" firstAttribute="leading" secondItem="mnu-CP-o4A" secondAttribute="leading" constant="16" id="aFn-Dp-rVM"/>
+                        <constraint firstItem="F5x-Tb-XGw" firstAttribute="top" secondItem="mnu-CP-o4A" secondAttribute="top" constant="12" id="oM5-42-YQs"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="sLT-lV-4MD" appends="YES" id="FUY-eR-Peb"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="mnu-CP-o4A" secondAttribute="bottom" id="9Cm-0r-ccE"/>
+                <constraint firstItem="mnu-CP-o4A" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="die-6a-I1p"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mnu-CP-o4A" secondAttribute="trailing" id="lVq-zc-EoV"/>
+                <constraint firstItem="mnu-CP-o4A" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="w4w-7Z-EmG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="profileImageView" destination="F5x-Tb-XGw" id="cZC-Wl-PFS"/>
+                <outlet property="userNameLabel" destination="gAP-JF-PeG" id="bn9-Za-x8e"/>
+                <outlet property="userTypeLbel" destination="qEB-Pr-RQX" id="UTr-eh-xKK"/>
+            </connections>
+            <point key="canvasLocation" x="53.600000000000001" y="48.575712143928037"/>
+        </view>
+        <tapGestureRecognizer id="sLT-lV-4MD">
+            <connections>
+                <action selector="headerViewTapped:" destination="iN0-l3-epB" id="Tvl-nS-Y1T"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
+    </resources>
+</document>

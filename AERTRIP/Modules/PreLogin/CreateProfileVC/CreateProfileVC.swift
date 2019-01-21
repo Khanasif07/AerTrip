@@ -105,17 +105,16 @@ class CreateProfileVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        
+
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
         }
-
     }
 }
 
@@ -125,12 +124,29 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
-        self.viewModel.userData.maxNumberCount = 10
-        self.viewModel.userData.minNumberCount  = 10
+        self.viewModel.userData.maxContactLimit = 10
+        self.viewModel.userData.minContactLimit  = 10
+        self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
+        self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.mobileNumberTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        
+        if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
+            self.setupData(forCountry: currentCountry)
+        }
+    }
+    
+    private func setupData(forCountry: PKCountryModel) {
+        self.countryCodeLabel.text  = forCountry.countryCode
+        self.countryFlagImage.image = forCountry.flagImage
+        self.countryTextField.text = forCountry.countryEnglishName
+        self.viewModel.userData.address?.country = forCountry.countryEnglishName
+        self.viewModel.userData.isd = forCountry.countryCode
+        self.viewModel.userData.address?.countryCode = forCountry.ISOCode
+        self.viewModel.userData.maxContactLimit = forCountry.maxNSN
+        self.viewModel.userData.minContactLimit  = forCountry.minNSN
     }
     
     func setupTextFieldColorTextAndFont () {
@@ -225,24 +241,18 @@ extension CreateProfileVC {
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { (selectedCountry) in
+            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self](selectedCountry) in
                 printDebug("selected country data: \(selectedCountry)")
                 
-                self.countryCodeLabel.text  = selectedCountry.countryCode
-                self.countryFlagImage.image = selectedCountry.flagImage
-                self.countryTextField.text = selectedCountry.countryEnglishName
-                self.viewModel.userData.country = selectedCountry.countryEnglishName
-                self.viewModel.userData.isd = selectedCountry.countryCode
-                self.viewModel.userData.countryCode = selectedCountry.ISOCode
-                self.viewModel.userData.maxNumberCount = selectedCountry.maxNSN
-                self.viewModel.userData.minNumberCount  = selectedCountry.minNSN
+                guard let sSelf = self else {return}
+                sSelf.setupData(forCountry: selectedCountry)
                 
-                if self.viewModel.userData.mobile.count > self.viewModel.userData.maxNumberCount  {
+                if sSelf.viewModel.userData.mobile.count > sSelf.viewModel.userData.minContactLimit  {
                     
-                    self.viewModel.userData.mobile  = self.viewModel.userData.mobile.substring(to: self.viewModel.userData.maxNumberCount - 1)
-                    self.mobileNumberTextField.text = self.viewModel.userData.mobile
+                    sSelf.viewModel.userData.mobile  = sSelf.viewModel.userData.mobile.substring(to: sSelf.viewModel.userData.maxContactLimit - 1)
+                    sSelf.mobileNumberTextField.text = sSelf.viewModel.userData.mobile
                 }
-                
+                PKCountryPicker.default.closePicker(animated: true)
             }
             return false
         } else {
@@ -261,14 +271,19 @@ extension CreateProfileVC {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-//        var maxLength = 50
         let currentString: NSString = textField.text! as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         
         if textField === self.mobileNumberTextField {
-            return newString.length <= self.viewModel.userData.maxNumberCount
+            return newString.length <= self.viewModel.userData.minContactLimit
         }
-       
+        else if textField === self.firstNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
+        else if textField === self.lastNameTextField {
+            return newString.length <= AppConstants.kNameTextLimit
+        }
+        
         return true
     }
     
@@ -363,81 +378,42 @@ extension CreateProfileVC {
     
     func setupViewForSuccessAnimation() {
         
-//        self.letsStartedButton.setTitle("", for: .normal)
-//
-////        let myLayer = CALayer()
-////        myLayer.backgroundColor = UIColor.clear.cgColor
-////        let myImage = UIImage(named: "Checkmark")?.cgImage
-////        myLayer.frame = CGRect(x: 27, y: 27, width: 20, height: 20)
-////        myLayer.contents = myImage
-////        self.letsStartedButton.layer.addSublayer(myLayer)
-////
-////        self.viewModel.isSuccessView = true
-////
-////        let scale = CGAffineTransform(scaleX: 0.41, y: 1.48)
-////        let y = (self.whiteBackgroundView.height - 74.0) / 2.0
-////        let translate = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y) )
-////
-////        UIView.animate(withDuration: 1.0, animations: {
-////            self.letsStartedButton.transform = scale.concatenating(translate)
-////            self.whiteBackgroundView.alpha = 1.0
-////            self.letsStartedButton.layer.cornerRadius = 37.0
-////        }) { (isCompleted) in
-////            if isCompleted {
-////                self.whiteBackgroundView.isUserInteractionEnabled = true
-////            }
-////        }
-//
-//        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
-//
-//        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
-//        UIView.animate(withDuration: 0.2, animations: {
-//            self.letsStartedButton.frame = reScaleFrame
-//            self.whiteBackgroundView.alpha = 0.5
-//
-//            self.view.layoutIfNeeded()
-//        }) { (isCompleted) in
-////            let repositionFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: (self.whiteBackgroundView.height - 74.0) / 2.0, width: 74.0, height: 74.0)
-////            UIView.animate(withDuration: 0.3, animations: {
-////                self.letsStartedButton.frame = repositionFrame
-////                self.whiteBackgroundView.alpha = 1.0
-////            }) { (isCompleted) in
-////                if isCompleted {
-////                    self.whiteBackgroundView.isUserInteractionEnabled = true
-////                }
-////            }
-//        }
-    
-        UIView.animate(withDuration: 0.5, animations: {
+        self.letsStartedButton.setTitle("", for: .normal)
 
+        self.letsStartedButton.layer.masksToBounds = true
+        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
-            self.letsStartedButton.setTitle("", for: .normal)
+        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
+        
+        let myLayer = CALayer()
+        myLayer.backgroundColor = UIColor.clear.cgColor
+        myLayer.frame = CGRect(x: (reScaleFrame.width - 20.0) / 2.0, y: (reScaleFrame.height - 20.0) / 2.0, width: 20.0, height: 20.0)
+        myLayer.contents = #imageLiteral(resourceName: "Checkmark").cgImage
+        self.letsStartedButton.layer.addSublayer(myLayer)
 
-            let myLayer = CALayer()
-            myLayer.backgroundColor = UIColor.clear.cgColor
-            let myImage = UIImage(named: "Checkmark")?.cgImage
-            myLayer.frame = CGRect(x: 27, y: 27, width: 20, height: 20)
-            myLayer.contents = myImage
-            self.letsStartedButton.layer.addSublayer(myLayer)
-
-            self.letStartButtonHeight.constant   = 74
-            self.letsStartButtonWidth.constant   = 74
-
-            self.letsStartedButton.layer.cornerRadius = 37
-            let y = UIScreen.main.bounds.height/2 - 37
-            self.setViewAlphaZero()
-            self.letsStartedButton.transform = CGAffineTransform(translationX: 0, y: -(self.letsStartedButton.y - y))
-
-
-            DispatchQueue.main.async {
-
-                self.letsStartedButton.bounds = self.letsStartedButton.layer.bounds
-                self.letsStartedButton.layoutIfNeeded()
-            }
-        }, completion: { (success) in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            self.letsStartedButton.frame = reScaleFrame
+            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            self.whiteBackgroundView.alpha = 0.5
+            self.view.layoutIfNeeded()
             
-            AppFlowManager.default.goToDashboard()
-        })
+        }) { (isCompleted) in
+            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+
+            let tY = ((UIDevice.screenHeight - reScaleFrame.height) / 2.0) - self.letsStartedButton.y
+            var t = CGAffineTransform.identity
+            t = t.translatedBy(x: 0.0, y: tY)
+
+            UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+                self.letsStartedButton.transform = t
+                self.whiteBackgroundView.alpha = 1.0
+            }) { (isCompleted) in
+                if isCompleted {
+                    self.whiteBackgroundView.isUserInteractionEnabled = true
+                    AppFlowManager.default.goToDashboard()
+                }
+            }
+        }
     }
     
     func setupInitialAnimation() {
@@ -460,32 +436,30 @@ extension CreateProfileVC {
     
     func setupViewDidLoadAnimation() {
         
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.logoImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.logoImage.transform          = .identity
+            })
             
-            self.createProfileTitleLabel.transform      = .identity
-            self.createProfileSubTitleLabel.transform      = .identity
-            self.nameTitleTextField.transform      = .identity
-            self.titleDropDownImage.transform      = .identity
-            self.countryFlagImage.transform      = .identity
-            self.countryCodeLabel.transform      = .identity
-            self.countryCodeTextField.transform      = .identity
-        }
-        
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.createProfileTitleLabel.transform      = .identity
+                self.createProfileSubTitleLabel.transform      = .identity
+                self.nameTitleTextField.transform      = .identity
+                self.titleDropDownImage.transform      = .identity
+                self.countryFlagImage.transform      = .identity
+                self.countryCodeLabel.transform      = .identity
+                self.countryCodeTextField.transform      = .identity
+            })
             
-            self.firstNameTextField.transform    = .identity
-            self.lastNameTextField.transform = .identity
-            self.countryTextField.transform    = .identity
-            self.countryDropdownImage.transform      = .identity
-            self.mobileNumberTextField.transform  = .identity
-            self.letsStartedButton.transform = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.firstNameTextField.transform    = .identity
+                self.lastNameTextField.transform = .identity
+                self.countryTextField.transform    = .identity
+                self.countryDropdownImage.transform      = .identity
+                self.mobileNumberTextField.transform  = .identity
+                self.letsStartedButton.transform = .identity
+            })
             
         }) { (success) in
             self.viewModel.isFirstTime = false

@@ -81,7 +81,7 @@ class ForgotPasswordVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func continueButtonAction(_ sender: ATButton) {
@@ -172,26 +172,23 @@ extension ForgotPasswordVC {
     
     func setupViewDidLoadAnimation() {
         
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            self.logoImage.transform          = .identity
-        }
-        
-        UIView.animate(withDuration: 0.3) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.logoImage.transform          = .identity
+            })
             
-            self.forgotPasswordLabel.transform      = .identity
-        }
-        
-        
-        UIView.animate(withDuration: 0.35, animations:{
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.forgotPasswordLabel.transform      = .identity
+            })
             
-            self.intructionLabel.transform    = .identity
-            self.emailTextField.transform = .identity
-            self.continueButton.transform    = .identity
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+                self.intructionLabel.transform    = .identity
+                self.emailTextField.transform = .identity
+                self.continueButton.transform    = .identity
+            })
             
         }) { (success) in
-            
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }

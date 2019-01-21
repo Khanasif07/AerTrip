@@ -10,6 +10,9 @@
 "NoInternet" = "There is no internet.";
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
+"na" = "N/A";
+"noData" = "Sorry! You are lonely here.";
+"search" = "Search";
 
 // MARK:- TextField validation
 //MARK:-
@@ -25,6 +28,8 @@
 "Continue_with_Facebook"  = "Continue with Facebook";
 "Continue_with_Google"    = "Continue with Google";
 "Continue_with_Linkedin"  = "Continue with Linkedin";
+"AllowEmailInFacebook" = "Please allow the access for email in Facebook";
+"AllowEmailInLinkedIn" = "Please allow the access for email in LinkedIn";
 
 // MARK:- LoginVC
 //MARK:-
@@ -94,6 +99,8 @@
 "Mobile_Number"      = "Mobile Number";
 "Lets_Get_Started"    = "Lets Get Started!";
 "Done"            = "Done";
+"selectedCountryCode"    = "+91";
+"selectedCountry"        = "India";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -142,6 +149,94 @@
 //MARK:- ViewProfileVC
 //MARK:-
 "ALERT"  = "ALERT";
-"DoYouWantToLogout" = "Are you sure, Do you want to logout?";
+"DoYouWantToLogout" = "Are you sure you want to log out?";
 "Logout" = "Logout";
+
+//MARK:- Hotel Search
+//MARK:-
+"PreferredStarCategory" = "Preferred Star Category";
+"FavouriteHotels" = "Favourite Hotels";
+"stars" = "Stars";
+"star" = "Star";
+"searchForHotelsToAdd" = "Search for hotels to add";
+"searchHotelName" = "Search hotel name";
+
+
+//MARK:- Import Contacts
+//MARK:-
+"Contacts" = "Contacts";
+"Facebook" = "Facebook";
+"Google" = "Google";
+"LinkedIn" = "LinkedIn";
+"ImportContactMessage" = "We will show you a list of your contacts to add them as travellers";
+"ImportFacebookMessage" = "Connect with Facebook to import your friends to the travellers list.";
+"ImportGoogleMessage" = "Connect with Google to import your contacts to the travellers list";
+"SelectAll" = "Select All";
+"AllowContacts" = "Allow Contacts";
+"ConnectWithGoogle" = "Connect with Google";
+"ConnectWithFB" = "Connect with Facebook";
+"ConnectWithLinkedIn" = "Connect with LinkedIn";
+"ContactsSelected" = "Contacts Selected";
+
+
+//MARK: - View Profile
+"Edit" = "Edit";
+"TravellerList" = "Travellers List";
+"HotelPreferences" = "Favourite Hotels";
+"QuickPay" = "QuickPay";
+"LinkedAccounts" = "Linked Accounts";
+"NewsLetters" = "Newsletters";
+"Notifications"  = "Notifications";
+"LogOut" = "Log Out";
+//MARK:- PreferencesVC
+//MARK:-
+
+"PreferencesSavedSuccessfully" = "Preferences saved succesfully";
+
+
+//MARK:- Edit profile VC
+//MARK:-
+
+"Group" = "Group";
+"SelectMealPreference" = "Select meal preference";
+"SelectSeatPreference" = "Select seat preference";
+
+//MARK:- Traveller VC
+//MARK:-
+
+"AssignGroup" = "AssignGroup";
+"Delete" = "Delete";
+"TheseContactsWillBeDeletedFromTravellersList" = "These contacts will be deleted from Travellers List";
+
+//MARK:- Linked Accounts
+//MARK:-
+"Disconnect" = "Disconnect";
+"LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
+
+
+//MARK:- Edit Profile VC
+//MARK:-
+
+"EmailAddress" = "EMAIL ADDRESS";
+"ContactNumber" = "CONTACT NUMBER";
+"SocialAccounts" = "SOCIAL ACCOUNTS";
+"Address" = "ADDRESS";
+"MoreInformation" = "MORE INFROMATION";
+"PassportDetails" = "PASSPORT DETAILS";
+"FlightPreferences" = "FLIGHT PREFERENCES";
+"Email" = "Email";
+"Home" = "Home";
+"Facebook" = "Facebook";
+"SocialProfile" = "Social Profile";
+"Phone" = "Phone";
+"SelectAirline" = "Select Airline";
+"SelectDate" = "Select Date";
+"AddNotes" = "Add notes";
+"NoContactsFetched" = "No contacts";
+
+//MARK:- Favourite Hotels
+//MARK:-
+"Remover" = "Remove";
+"DoYouWishToRemoveAllHotelsFrom" = "Do you wish to remove all hotels from";
+
 

@@ -366,7 +366,7 @@ extension String {
         return nil
     }
     
-    var unitFormattedString: String{
+    var unitFormattedString: String {
         
         if let value = self.toInt{
             
@@ -381,6 +381,13 @@ extension String {
             }
         }
         return ""
+    }
+    
+    var removeNull: String {
+        if self == "null" || self == "<null>" || self == "nil" {
+            return LocalizedString.na.localized
+        }
+        return self
     }
     
     var htmlToAttributedString: NSAttributedString{
