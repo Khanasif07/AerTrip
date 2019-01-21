@@ -175,7 +175,7 @@ enum LocalizedString: String {
     case LinkedAccounts = "LinkedAccounts"
     case NewsLetters = "Newsletters"
     case Notifications  = "Notifications"
-    case LogOut = "LogOut"
+    case LogOut = "Log Out"
     
     // MARK: - ViewProfileDetailVC
     
@@ -263,6 +263,7 @@ enum LocalizedString: String {
     case EnterAGroupName = "Enter a Group Name"
     case EnterGroupName = "Enter Group Name"
     case PreferencesSavedSuccessfully
+    case GroupAlreadyExist = "GroupAlreadyExist"
     
     
     

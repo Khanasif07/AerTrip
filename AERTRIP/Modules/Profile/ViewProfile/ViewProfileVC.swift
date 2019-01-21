@@ -25,6 +25,7 @@ class ViewProfileVC: BaseVC {
     @IBOutlet var drawableHeaderView: UIView!
     
     // MARK: - Variables
+    
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
     var sections = ["details", "accounts", "logOut"]
@@ -33,9 +34,10 @@ class ViewProfileVC: BaseVC {
     var logOut = [LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView? {
         didSet {
-            profileImageHeaderView?.delegate = self
+            self.profileImageHeaderView?.delegate = self
         }
     }
+    
     let viewModel = ViewProfileDetailVM()
     var travelData: TravelDetailModel?
     
@@ -43,7 +45,7 @@ class ViewProfileVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.delegate = self
         
@@ -63,29 +65,12 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.profileImageHeaderView?.isHidden = false
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121
-            self?.profileImageHeaderView?.layoutIfNeeded()
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.profileImageHeaderView?.isHidden = true
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        guard let headerView = tableView.tableHeaderView else {
-//            return
-//        }
-//
-//        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//        if headerView.frame.size.height != size.height {
-//            headerView.frame.size.height = size.height
-//            self.tableView.tableHeaderView = headerView
-//            self.tableView.layoutIfNeeded()
-//        }
-//    }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
@@ -128,7 +113,7 @@ class ViewProfileVC: BaseVC {
     }
     
     func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(UIDevice.screenHeight*0.45) // UIScreen.width * 9 / 16 + 55
+        let parallexHeaderHeight = CGFloat(UIDevice.screenHeight * 0.45) // UIScreen.width * 9 / 16 + 55
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
@@ -140,27 +125,25 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
-        self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
+        self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
-        }
-        else {
-            profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+        } else {
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
         
         self.view.bringSubviewToFront(self.headerView)
     }
     
     func deSetupParallaxHeader() {
-        
-        profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = true
-        profileImageHeaderView?.removeFromSuperview()
+        self.profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = true
+        self.profileImageHeaderView?.removeFromSuperview()
         self.tableView.parallaxHeader.view = nil
-        profileImageHeaderView?.layoutIfNeeded()
+        self.profileImageHeaderView?.layoutIfNeeded()
     }
 }
 
@@ -195,11 +178,11 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         
         switch self.sections[indexPath.section] {
         case "details":
-                cell.separatorView.isHidden = true
-                cell.menuOptionLabel.isHidden = false
-                cell.configureCell(self.details[indexPath.row])
-
-                return cell
+            cell.separatorView.isHidden = true
+            cell.menuOptionLabel.isHidden = false
+            cell.configureCell(self.details[indexPath.row])
+            
+            return cell
         case "accounts":
             if self.accounts[indexPath.row].rawValue == "Settings" {
                 cell.separatorView.isHidden = false

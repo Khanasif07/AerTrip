@@ -137,7 +137,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotel Preferences" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCc-43-VDT">
-                                        <rect key="frame" x="54" y="11.666666666666664" width="267" height="21"/>
+                                        <rect key="frame" x="54" y="10.666666666666666" width="267" height="22.666666666666671"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -518,7 +518,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dc-lq-ZQA">
-                                                <rect key="frame" x="11" y="30" width="56" height="40"/>
+                                                <rect key="frame" x="11" y="30" width="51" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="f4y-Il-ITd"/>
                                                 </constraints>
