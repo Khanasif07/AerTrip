@@ -49,10 +49,9 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.delegate = self
         
-        self.view.alpha = 0.5
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.view.alpha = 1.0
+            
         }
         self.doInitialSetup()
     }
@@ -76,11 +75,7 @@ class ViewProfileVC: BaseVC {
         self.viewModel.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        tableView.parallaxHeader.minimumHeight = topLayoutGuide.length
-    }
+   
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -127,8 +122,9 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
-        
+        if let mobileNumber = UserInfo.loggedInUser?.mobile ,let isd = UserInfo.loggedInUser?.isd {
+             self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
+        }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
             self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
@@ -170,7 +166,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65.0
+        return 75.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -248,21 +244,13 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         NSLog("progress %f", parallaxHeader.progress)
         
         if parallaxHeader.progress >= 0.6 {
-            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 120 * parallaxHeader.progress
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress
         }
         
         if parallaxHeader.progress <= 0.5 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                // self?.view.bringSubviewToFront((self?.headerView)!)
-                
                 self?.headerView.backgroundColor = UIColor.white
-//                self?.drawableHeaderViewHeightConstraint.constant = 44
-//                self?.drawableHeaderView.backgroundColor = UIColor.white
-                
                 self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
-                
-                // self?.view.bringSubviewToFront((self?.drawableHeaderView)!)
-                
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 self?.backButton.setImage(tintedImage, for: .normal)

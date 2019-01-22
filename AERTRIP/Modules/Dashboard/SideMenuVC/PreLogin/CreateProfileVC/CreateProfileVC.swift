@@ -105,7 +105,7 @@ class CreateProfileVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {

@@ -147,6 +147,7 @@ private extension SocialLoginVC {
         self.linkedInButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
+        statusBarStyle = .default
     }
     
     private func addAppLogoView() {

@@ -64,7 +64,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(singleTap)
         
-        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 6.0
         
         doInitialSetup()

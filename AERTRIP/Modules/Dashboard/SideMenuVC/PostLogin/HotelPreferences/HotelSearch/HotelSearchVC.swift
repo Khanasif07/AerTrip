@@ -48,6 +48,13 @@ class HotelSearchVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.searchBar.becomeFirstResponder()
+    }
+    
+    
     override func setupFonts() {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
@@ -79,6 +86,7 @@ class HotelSearchVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundView = self.emptyView
+       
     }
     
     //MARK:- Public

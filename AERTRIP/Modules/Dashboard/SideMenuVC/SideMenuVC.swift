@@ -33,6 +33,8 @@ class SideMenuVC: BaseVC {
     }
     
     
+    
+    
     // MARK: -
     
     let viewModel = SideMenuVM()
@@ -161,6 +163,7 @@ class SideMenuVC: BaseVC {
 
 private extension SideMenuVC {
     func initialSetups() {
+      
         self.registerXibs()
     }
     

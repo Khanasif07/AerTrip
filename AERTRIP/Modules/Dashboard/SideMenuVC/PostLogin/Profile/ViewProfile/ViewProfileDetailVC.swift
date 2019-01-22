@@ -45,11 +45,11 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        
+
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
-            self?.profileImageHeaderView.layoutIfNeeded()
+//            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
+//            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
