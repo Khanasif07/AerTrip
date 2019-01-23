@@ -177,14 +177,12 @@ class MainHomeVC: BaseVC {
         self.profileView?.frame = CGRect(x: sideMenu.sideMenuTableView.width, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
         
         self.profileView?.isHidden = true
+        self.profileView?.gradientView.isHidden = true
+        self.profileView?.gradientView.alpha = 0
         self.mainContainerView.addSubview(self.profileView!)
     }
     
     private func pushProfileAnimation() {
-        
-        if let profile = self.profileView {
-            self.sideMenuVC?.updateProfileView(view: profile)
-        }
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         
@@ -192,12 +190,12 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.45)
+        let finalFrame = self.viewProfileVC?.profileImageHeaderView?.bounds ?? CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.45)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false
         self.profileView?.backgroundImageView.isHidden = false
-        self.profileView?.gradientView.isHidden = true
+        //self.profileView?.gradientView.alpha = 1.0
         self.profileView?.dividerView.isHidden = false
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -211,7 +209,6 @@ class MainHomeVC: BaseVC {
             self.profileView?.gradientView.alpha = 1.0
             self.profileView?.dividerView.alpha = 1.0
             self.profileView?.profileContainerView.transform = CGAffineTransform.identity
-            
             self.profileView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
@@ -234,7 +231,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 50.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
         
         let trans = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
@@ -245,7 +242,6 @@ class MainHomeVC: BaseVC {
             self.profileView?.emailIdLabel.alpha = 0.0
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
-            self.profileView?.gradientView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
             self.profileView?.profileContainerView.transform = trans
             
@@ -254,8 +250,8 @@ class MainHomeVC: BaseVC {
             
             self.profileView?.emailIdLabel.isHidden = true
             self.profileView?.mobileNumberLabel.isHidden = true
+
             self.profileView?.backgroundImageView.isHidden = true
-            self.profileView?.gradientView.isHidden = true
             self.profileView?.dividerView.isHidden = true
             
             self.viewProfileVC?.profileImageHeaderView?.isHidden = true

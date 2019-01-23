@@ -889,10 +889,10 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="131.5" y="0.0" width="243.5" height="667"/>
+                                <rect key="frame" x="109" y="0.0" width="266" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="mEQ-BN-39k">
-                                    <rect key="frame" x="0.0" y="347" width="243.5" height="45"/>
+                                    <rect key="frame" x="0.0" y="347" width="266" height="45"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-30" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
@@ -933,10 +933,10 @@ on Christmas”</string>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="243.5" height="257"/>
+                                        <rect key="frame" x="0.0" y="28" width="266" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
-                                            <rect key="frame" x="0.0" y="0.0" width="243.5" height="257"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="266" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sr-St-Vaq">
@@ -1009,10 +1009,10 @@ travel experience</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuViewAccountCell" rowHeight="62" id="jo2-Cw-Idk" customClass="SideMenuViewAccountCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="285" width="243.5" height="62"/>
+                                        <rect key="frame" x="0.0" y="285" width="266" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jo2-Cw-Idk" id="TmU-Fr-dt0">
-                                            <rect key="frame" x="0.0" y="0.0" width="243.5" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="266" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
@@ -1069,7 +1069,7 @@ travel experience</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="bottom" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="NtU-XG-gff"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="width" secondItem="y8S-Y4-E4n" secondAttribute="width" multiplier="0.65" id="ZPa-oV-JPv"/>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="width" secondItem="y8S-Y4-E4n" secondAttribute="width" multiplier="0.71" id="ZPa-oV-JPv"/>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="y8S-Y4-E4n" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
                         </constraints>

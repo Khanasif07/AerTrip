@@ -194,7 +194,7 @@ class TravellerListVC: BaseVC {
             }
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: false)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
             } else {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
             }

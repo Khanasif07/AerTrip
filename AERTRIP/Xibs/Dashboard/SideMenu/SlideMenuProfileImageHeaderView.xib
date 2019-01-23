@@ -35,26 +35,26 @@
                     <rect key="frame" x="0.0" y="0.0" width="531" height="255"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="205" y="13" width="121" height="121"/>
+                            <rect key="frame" x="205" y="18" width="121" height="121"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
+                            <rect key="frame" x="180" y="147" width="171.5" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="149" width="491" height="81"/>
+                            <rect key="frame" x="20" y="188" width="491" height="42"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                                    <rect key="frame" x="0.0" y="0.0" width="491" height="33"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
-                                    <rect key="frame" x="0.0" y="39" width="491" height="18"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="491" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="Bmj-uE-WfO"/>
                                     </constraints>
@@ -63,7 +63,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 97827328723" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqV-cI-FPs">
-                                    <rect key="frame" x="0.0" y="63" width="491" height="18"/>
+                                    <rect key="frame" x="0.0" y="24" width="491" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="WHq-Vd-F3o"/>
                                     </constraints>
@@ -77,10 +77,12 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ARz-1y-xpA" firstAttribute="centerX" secondItem="LRw-xr-uiF" secondAttribute="centerX" id="14r-wC-AMq"/>
+                        <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="8" id="8ey-9o-wNj"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="20" id="FfI-l5-TGP"/>
+                        <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="8" id="LrI-tj-Fwj"/>
                         <constraint firstAttribute="trailing" secondItem="LRw-xr-uiF" secondAttribute="trailing" constant="20" id="ZVh-Ac-mw3"/>
                         <constraint firstAttribute="bottom" secondItem="LRw-xr-uiF" secondAttribute="bottom" constant="25" id="aVT-X6-x1Z"/>
-                        <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="15" id="yr5-pd-I1E"/>
+                        <constraint firstItem="eAE-bT-BMd" firstAttribute="centerX" secondItem="LRw-xr-uiF" secondAttribute="centerX" id="w6D-El-hdd"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp">

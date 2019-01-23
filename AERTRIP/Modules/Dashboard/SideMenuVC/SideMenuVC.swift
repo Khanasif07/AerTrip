@@ -109,10 +109,13 @@ class SideMenuVC: BaseVC {
     func updateProfileView(view: SlideMenuProfileImageHeaderView) {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobile ?? LocalizedString.na.localized
+        if let mobileNumber = UserInfo.loggedInUser?.mobile ,let isd = UserInfo.loggedInUser?.isd {
+              view.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
+        }
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             view.profileImageView.kf.setImage(with: URL(string: imagePath))
+            view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
         }
         else {
             view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
@@ -134,6 +137,7 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
+        
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {

@@ -101,7 +101,7 @@ class ViewProfileVC: BaseVC {
         self.editButton.setTitle(LocalizedString.Edit.rawValue, for: .normal)
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -128,6 +128,7 @@ class ViewProfileVC: BaseVC {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
             self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            //addBlurToImage()
         }
         else {
             profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
@@ -143,6 +144,25 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.view = nil
         self.profileImageHeaderView?.layoutIfNeeded()
     }
+    
+    func addBlurToImage() {
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            self.view.backgroundColor = .clear
+            
+            let blurEffect = UIBlurEffect(style: .light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            //always fill the view
+            blurEffectView.frame = self.view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            profileImageHeaderView?.backgroundImageView.addSubview(blurEffectView)
+        } else {
+            self.view.backgroundColor = .black
+        }
+    }
+    
+    
+   
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
