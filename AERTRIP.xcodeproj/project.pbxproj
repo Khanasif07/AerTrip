@@ -188,6 +188,10 @@
 		84956FB621B6579F00BF1183 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84956FB521B6579F00BF1183 /* Localizable.strings */; };
 		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
+		84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84981CD621F74EC9002E68C7 /* AddRoomPictureCell.swift */; };
+		84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */; };
+		84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84981CDA21F759A1002E68C7 /* AddRoomCell.swift */; };
+		84981CDD21F759A1002E68C7 /* AddRoomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CDB21F759A1002E68C7 /* AddRoomCell.xib */; };
 		849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849621EF0B7C00AA63BA /* PKAlertController.swift */; };
 		849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849821EF0C8600AA63BA /* PKAlertButton.swift */; };
 		84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */; };
@@ -443,6 +447,10 @@
 		84956FB521B6579F00BF1183 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
 		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
+		84981CD621F74EC9002E68C7 /* AddRoomPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomPictureCell.swift; sourceTree = "<group>"; };
+		84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomPictureCell.xib; sourceTree = "<group>"; };
+		84981CDA21F759A1002E68C7 /* AddRoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomCell.swift; sourceTree = "<group>"; };
+		84981CDB21F759A1002E68C7 /* AddRoomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomCell.xib; sourceTree = "<group>"; };
 		849B849621EF0B7C00AA63BA /* PKAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertController.swift; sourceTree = "<group>"; };
 		849B849821EF0C8600AA63BA /* PKAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertButton.swift; sourceTree = "<group>"; };
 		84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccount.swift; sourceTree = "<group>"; };
@@ -698,6 +706,10 @@
 			children = (
 				1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */,
 				1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */,
+				84981CD621F74EC9002E68C7 /* AddRoomPictureCell.swift */,
+				84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */,
+				84981CDA21F759A1002E68C7 /* AddRoomCell.swift */,
+				84981CDB21F759A1002E68C7 /* AddRoomCell.xib */,
 			);
 			path = HotelSearchView;
 			sourceTree = "<group>";
@@ -1477,9 +1489,11 @@
 				1809A47421CD053B0018AB2F /* EditProfileImageHeaderView.xib in Resources */,
 				84085D1E21F5A10300F1E844 /* HotelsSearch.storyboard in Resources */,
 				189D1F4C21CE3F8E00746329 /* SourceSansPro-BlackItalic.ttf in Resources */,
+				84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */,
 				1804889221CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib in Resources */,
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
 				18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */,
+				84981CDD21F759A1002E68C7 /* AddRoomCell.xib in Resources */,
 				18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */,
 				84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */,
 				1809A48021CDFE850018AB2F /* EditProfileTwoPartTableViewCell.xib in Resources */,
@@ -1692,6 +1706,7 @@
 				84085CFD21F59C0E00F1E844 /* HotelsListVC.swift in Sources */,
 				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
+				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
@@ -1762,6 +1777,7 @@
 				84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */,
 				84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
+				84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
 				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				1808EC6E21DCD3A0006858D6 /* APICaller+Hotels.swift in Sources */,
