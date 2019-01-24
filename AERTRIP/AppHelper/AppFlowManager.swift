@@ -222,6 +222,39 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
+    func showRoomGuestSelectionVC(selectedAdults: Int, selectedChildren: Int, selectedAges: [Int], delegate: RoomGuestSelectionVCDelegate) {
+        if let mVC = self.mainHomeVC {
+            let ob = RoomGuestSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            ob.viewModel.selectedChilds = selectedChildren
+            ob.viewModel.selectedAdults = max(1, selectedAdults)
+            
+            var ages = selectedAges
+            if selectedAges.count < 4 {
+                for _ in 0..<(4-selectedAges.count) {
+                    ages.append(0)
+                }
+            }
+            ob.viewModel.childrenAge = ages
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    func showSelectDestinationVC(delegate: SelectDestinationVCDelegate) {
+        if let mVC = self.mainHomeVC {
+            let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    func showBulkBookingVC() {
+        if let mVC = self.mainHomeVC {
+            let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     func presentEditProfileVC() {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.isFromTravellerList = true
@@ -233,6 +266,11 @@ extension AppFlowManager {
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate  = vc
         self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func moveToSettingsVC() {
+        let obj = SettingsVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

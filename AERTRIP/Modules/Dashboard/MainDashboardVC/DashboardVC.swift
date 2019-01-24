@@ -16,7 +16,6 @@ class DashboardVC: UIViewController {
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentContainerView: UIView!
-    @IBOutlet weak var buildVersionLabel: UILabel!
     
     //segment views
     @IBOutlet weak var aerinView: UIView!
@@ -63,7 +62,6 @@ class DashboardVC: UIViewController {
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         self.addOverlayView()
-        self.addBuildVersion()
     }
 
     override func viewDidLayoutSubviews() {
@@ -198,13 +196,6 @@ class DashboardVC: UIViewController {
                     self.segmentContainerView.transform = CGAffineTransform.identity
                 }, completion: nil)
             }
-        }
-    }
-    
-    private func addBuildVersion(){
-        if let info = Bundle.main.infoDictionary {
-            let version: String = info["CFBundleShortVersionString"] as? String ?? ""
-             self.buildVersionLabel.text = "Build version : \(version)"
         }
     }
 }

@@ -88,4 +88,15 @@ extension UIApplication {
         UIApplication.topViewController()?.present(safariVC, animated: true, completion: completion)
         safariVC.delegate = delegate
     }
+    
+    func makeStatusBatBlur() {
+//        let blurEffect = UIBlurEffect(style: .regular)
+//        let blurredStatusBar = UIVisualEffectView(effect: blurEffect)
+//        blurredStatusBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let view = UIView()
+        view.frame = self.statusBarView?.bounds ?? CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 20.0)
+        view.backgroundColor = .red
+        self.statusBarView?.insertSubview(view, at: 0)
+    }
 }

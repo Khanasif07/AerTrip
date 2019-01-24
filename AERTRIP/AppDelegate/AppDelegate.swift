@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         GoogleLoginController.shared.configure()
         AppFlowManager.default.setupInitialFlow()
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
@@ -81,21 +82,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         if url.scheme?.lowercased() == AppConstants.fbUrl {
-            
-            FBSDKApplicationDelegate.sharedInstance().application(application,open: url,sourceApplication: sourceApplication,
-                                                                  annotation: annotation)
+            return FBSDKApplicationDelegate.sharedInstance().application(application,open: url,sourceApplication: sourceApplication, annotation: annotation)
         }
-        
-        if url.scheme?.lowercased() == AppConstants.googleUrl {
-            
-            GIDSignIn.sharedInstance().handle(url,sourceApplication: sourceApplication,annotation: annotation)
+        else if url.scheme?.lowercased() == AppConstants.googleUrl {
+            return GIDSignIn.sharedInstance().handle(url,sourceApplication: sourceApplication,annotation: annotation)
         }
-        
-        if LinkedinSwiftHelper.shouldHandle(url) {
-            return LinkedinSwiftHelper.application(application,
-                                                   open: url,
-                                                   sourceApplication: sourceApplication,
-                                                   annotation: annotation
+        else if LinkedinSwiftHelper.shouldHandle(url) {
+            return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation
             )
         }
         

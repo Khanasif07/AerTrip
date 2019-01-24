@@ -35,4 +35,27 @@ class HotelsSearchVC: BaseVC {
     
     
     //MARK:- Action
+    @IBAction func tapOnMeAction(_ sender: UIButton) {
+//        AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 2, selectedChildren: 3, selectedAges: [2, 3, 10], delegate: self)
+        
+        AppFlowManager.default.showSelectDestinationVC(delegate: self)
+        
+//        AppFlowManager.default.showBulkBookingVC()
+    }
+}
+
+//MARK:- RoomGuestSelectionVCDelegate
+//MARK:-
+extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
+    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int]) {
+        printDebug("adults: \(adults), children: \(children), ages: \(childrenAges)")
+    }
+}
+
+//MARK:- SelectDestinationVCDelegate
+//MARK:-
+extension HotelsSearchVC: SelectDestinationVCDelegate {
+    func didSelectedDestination(hotel: SearchedDestination) {
+        printDebug("selected: \(hotel)")
+    }
 }

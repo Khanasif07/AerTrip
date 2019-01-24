@@ -21,7 +21,7 @@ extension UIViewController{
         
         self.addChild(childViewController)
         let frame = self.view.bounds
-        //        frame.size.height -= UIDevice.bottomPaddingFromSafeArea
+
         childViewController.view.frame = frame
         self.view.addSubview(childViewController.view)
         
@@ -324,6 +324,22 @@ extension UIViewController{
             alert.addAction(alertAction)
         }
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func addBlurViewOnStatusBar() {
+        
+        let blurView = UIView()
+        let height = UIDevice.isIPhoneX ? 44.0 : 20.0
+        blurView.frame = CGRect(x: 0.0, y: 0.0, width: Double(UIDevice.screenWidth), height: height)
+        blurView.backgroundColor = AppColors.clear
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = blurView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0.6
+        blurView.addSubview(blurEffectView)
+        
+        self.view.addSubview(blurView)
     }
 }
 

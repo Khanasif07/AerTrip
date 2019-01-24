@@ -244,3 +244,26 @@
 "GroupAlreadyExist" = "Group already exist.";
 
 
+//MARK:- Room Guest Selection
+"Room" = "Room";
+"Adults" = "Adults";
+"Children" = "Children";
+"Adult" = "Adult";
+"Child" = "Child";
+"and" = "and";
+"Age" = "Age";
+"Ages" = "Ages";
+"AdultsAges" = "Ages 12+";
+"ChildAges" = "Ages 1 - 12";
+"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
+"ageInYrs" = "Age in yrs";
+
+//MARK:- Destination Selection
+"CityAreaOrHotels" = "City, Area or Hotels";
+"HotelsNearMe" = "Hotels near me";
+"RecentlySearchedDestinations" = "Recently Searched Destinations";
+"PopularDestinations" = "Popular Destinations";
+
+
+//MARK:- Bulk Booking
+"BulkBooking" = "Bulk Booking";

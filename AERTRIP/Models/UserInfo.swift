@@ -461,7 +461,7 @@ class UserInfo {
             }
         }
     }
-
+    
     init(withData data:JSONDictionary, userId:String) {
         self.userId = userId
         self.updateInfo(withData: data)

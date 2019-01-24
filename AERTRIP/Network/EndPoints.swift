@@ -45,6 +45,7 @@ enum APIEndPoint : String {
     case deletePaxData = "user-passenger/delete-pax-data"
     case linkedAccounts = "users/linked-accounts"
     case unlinkSocialAccount = "users/unlink-social-account"
+    case searchDestinationHotels = "hotels/places"
 }
 
 //MARK: - endpoint extension for url -

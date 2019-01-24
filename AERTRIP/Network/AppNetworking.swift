@@ -53,30 +53,30 @@ enum AppNetworking {
     
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
-        return params
-        //        var temp = params
-        //        temp["device_type"] = UIDevice.deviceOSType
-        //        if let remotePushToken = UIDevice.remotePushToken{
-        //            temp["device_token"] = remotePushToken
-        //        }
-        //        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-        //            temp["app_version"] = "\(version)"
-        //        }
-        //        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
-        //            temp["user_id"] = "\(user_id)"
-        //        }
-        //
-        //        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
-        //        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
-        //            temp["device_id"] = "\(deviceId)"
-        //        }
-        //        else {
-        //            let uuid = UUID().uuidString
-        //            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
-        //            temp["device_id"] = "\(uuid)"
-        //        }
-        //
-        //        return temp
+        var temp = params
+        temp["_"] = Int(Date().timeIntervalSince1970)
+//        temp["device_type"] = UIDevice.deviceOSType
+//        if let remotePushToken = UIDevice.remotePushToken{
+//            temp["device_token"] = remotePushToken
+//        }
+//        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
+//            temp["app_version"] = "\(version)"
+//        }
+//        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
+//            temp["user_id"] = "\(user_id)"
+//        }
+//
+//        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
+//        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
+//            temp["device_id"] = "\(deviceId)"
+//        }
+//        else {
+//            let uuid = UUID().uuidString
+//            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
+//            temp["device_id"] = "\(uuid)"
+//        }
+        
+        return temp
     }
     
     
