@@ -23,13 +23,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="163" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-kE-3uo">
-                                <rect key="frame" x="51" y="30.5" width="75.5" height="19.5"/>
+                                <rect key="frame" x="55" y="30.5" width="75.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-Oi-NfB">
-                                <rect key="frame" x="16" y="27.5" width="25" height="25"/>
+                                <rect key="frame" x="20" y="27.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="E3E-Ii-Wa3"/>
                                     <constraint firstAttribute="width" secondItem="WS3-Oi-NfB" secondAttribute="height" multiplier="1:1" id="rUc-q8-51F"/>
@@ -42,7 +42,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="mn6-kE-3uo" secondAttribute="trailing" multiplier="1.29" id="FDV-Zx-xgC"/>
+                            <constraint firstAttribute="trailing" secondItem="mn6-kE-3uo" secondAttribute="trailing" multiplier="1.25" id="FDV-Zx-xgC"/>
                             <constraint firstItem="mn6-kE-3uo" firstAttribute="leading" secondItem="WS3-Oi-NfB" secondAttribute="trailing" constant="10" id="cu9-hm-s2T"/>
                             <constraint firstItem="mn6-kE-3uo" firstAttribute="centerY" secondItem="WS3-Oi-NfB" secondAttribute="centerY" id="lfx-G4-0OQ"/>
                             <constraint firstItem="WS3-Oi-NfB" firstAttribute="centerY" secondItem="UgJ-4O-Khy" secondAttribute="centerY" id="qTP-20-gFy"/>

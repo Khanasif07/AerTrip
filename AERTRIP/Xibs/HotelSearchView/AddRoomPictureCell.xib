@@ -23,16 +23,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="163" height="86"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awd-4e-MbC">
-                                <rect key="frame" x="45" y="16" width="56.5" height="19.5"/>
+                                <rect key="frame" x="40" y="16" width="56.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnM-Mz-4VH">
-                                <rect key="frame" x="117" y="28" width="30" height="30"/>
+                                <rect key="frame" x="124" y="31.5" width="23" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YnM-Mz-4VH" secondAttribute="height" multiplier="1:1" id="1WA-AA-Ghj"/>
-                                    <constraint firstAttribute="height" constant="30" id="aWo-j3-OJF"/>
+                                    <constraint firstAttribute="height" constant="23" id="aWo-j3-OJF"/>
                                 </constraints>
                                 <state key="normal" image="cross_icon"/>
                                 <connections>
@@ -47,7 +47,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mFE-4N-cF5">
-                                <rect key="frame" x="41" y="48" width="65" height="25"/>
+                                <rect key="frame" x="36" y="48" width="65" height="25"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="-8" translatesAutoresizingMaskIntoConstraints="NO" id="eYH-Q6-zdL">
                                         <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -102,7 +102,7 @@
                             <constraint firstItem="mFE-4N-cF5" firstAttribute="centerX" secondItem="awd-4e-MbC" secondAttribute="centerX" id="AUo-L0-Cle"/>
                             <constraint firstItem="awd-4e-MbC" firstAttribute="centerY" secondItem="Act-7h-mSu" secondAttribute="centerY" multiplier="0.6" id="FAS-MD-1my"/>
                             <constraint firstAttribute="trailing" secondItem="1g1-VD-6eb" secondAttribute="trailing" constant="16" id="MEm-Ro-4Rg"/>
-                            <constraint firstItem="awd-4e-MbC" firstAttribute="leading" secondItem="Act-7h-mSu" secondAttribute="leading" constant="45" id="UeI-S4-ZaV"/>
+                            <constraint firstItem="awd-4e-MbC" firstAttribute="leading" secondItem="Act-7h-mSu" secondAttribute="leading" constant="40" id="UeI-S4-ZaV"/>
                             <constraint firstItem="1g1-VD-6eb" firstAttribute="leading" secondItem="Act-7h-mSu" secondAttribute="leading" constant="16" id="UsB-69-Zs7"/>
                             <constraint firstAttribute="trailing" secondItem="YnM-Mz-4VH" secondAttribute="trailing" constant="16" id="Yvb-vx-a6k"/>
                             <constraint firstItem="mFE-4N-cF5" firstAttribute="top" secondItem="awd-4e-MbC" secondAttribute="bottom" constant="12.5" id="aSY-o8-c5o"/>

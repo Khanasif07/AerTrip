@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RoomDataDelegate: class {
-    func adultAndChildData(adultCount: Int , child: Int)
+    func adultAndChildData(adultCount: Int , childCount: Int)
 }
 
 class AddRoomPictureCell: UICollectionViewCell {
@@ -48,7 +48,11 @@ class AddRoomPictureCell: UICollectionViewCell {
     
     @IBAction func cancelBtnAction(_ sender: UIButton) {
         if let delegate = self.delegate{
-            delegate.cancelButtonTouched(indexPath: indexPath)
+            sender.alpha = 0.5
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+                delegate.cancelButtonTouched(indexPath: self.indexPath)
+                sender.alpha = 1
+            }
         }
     }
     
@@ -56,6 +60,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     //================
     //Mark:- Private
     //==============
+    ///Configure UI
     private func configureUI() {
         self.lineView.backgroundColor = AppColors.divider.color
         self.lineView.isHidden = true
@@ -64,5 +69,17 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.roomCountLabel.textColor = AppColors.themeGray40
         self.adultCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.adultCountLabel.textColor = AppColors.textFieldTextColor51
+    }
+}
+
+//Mark:- Room Data Delegate
+//=========================
+extension AddRoomPictureCell: RoomDataDelegate {
+    func adultAndChildData(adultCount: Int, childCount: Int) {
+        self.adultCountLabel.text = "\(adultCount)"
+        self.childCountLabel.text = "\(childCount)"
+        if let parent = self.parentViewController as? HotelsSearchVC {
+            parent.addRoomCollectionView.reloadData()
+        }
     }
 }

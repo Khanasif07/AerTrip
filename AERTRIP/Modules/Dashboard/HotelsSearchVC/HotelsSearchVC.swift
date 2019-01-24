@@ -13,6 +13,7 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Properties
     //=================
     
+    internal var isRated: [Bool] = []
     internal var checkInOutView: CheckInOutView?
     private var previousOffSet = CGPoint.zero
     internal var roomData: [String] = ["Room 1","add room"]
@@ -88,6 +89,7 @@ class HotelsSearchVC: BaseVC {
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
+        //self.containerView.roundCorners(corners: [.topRight, .topLeft, .bottomRight, .bottomLeft], radius: 10.0)
     }
     
     override func bindViewModel() {
@@ -165,13 +167,14 @@ class HotelsSearchVC: BaseVC {
     private func initialSetups() {
         self.cityNameLabel.isHidden = true
         self.stateNameLabel.isHidden = true
-        self.containerView.layer.cornerRadius = 10.0
-        //self.containerView.layer.masksToBounds = true
+//        self.scrollView.layer.cornerRadius = 10.0
+//        self.scrollView.layer.masksToBounds = true
         //self.containerView.clipsToBounds = true
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
+        self.isRated = Array(repeating: false, count: 5)
     }
     
     ///ConfigureCheckInOutView
@@ -197,23 +200,24 @@ class HotelsSearchVC: BaseVC {
     ///UpdateCollectionViewFrame
     private func updateCollectionViewFrame() {
         let expandMultiPlier: CGFloat = (86.0 / 544.0)
-        //let frame = self.containerView.frame
         if self.roomData.count == 3 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
-                //self.view.frame.size.height = UIScreen.main.bounds.height + self.collectionViewHeight
                 self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier * 2.0)
                 self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
-            }
+            }, completion: { (isDone) in
+                self.view.layoutIfNeeded()
+            })
         } else if self.roomData.count == 2 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.containerView.frame.size.height = self.containerViewHeight
-                //self.view.frame.size.height = UIScreen.main.bounds.height
                 self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier)
                 self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
-            }
+            }, completion: { (isDone) in
+                self.view.layoutIfNeeded()
+            })
         }
         self.view.layoutIfNeeded()
     }
@@ -225,21 +229,92 @@ class HotelsSearchVC: BaseVC {
         }
     }
     
+    ///ChangeRatingToFalse
+    private func changeRatingToFalse(index: Int) {
+        for i in index...(self.isRated.count - 1) {
+            self.isRated[i] = false
+        }
+    }
+    
+    ///ChangeRatingValue
+    private func changeRateToTrue(index: Int) {
+        for i in 0...index{
+            self.isRated[i] = true
+        }
+    }
+    
     //MARK:- Public
     
     //MARK:- IBAction
     //===============
     @IBAction func firstStarBtnAction(_ sender: UIButton) {
-    }
-    @IBAction func secondStarBtnAction(_ sender: UIButton) {
-    }
-    @IBAction func thirdStarBtnAction(_ sender: UIButton) {
-    }
-    @IBAction func fourthStarBtnAction(_ sender: UIButton) {
-    }
-    @IBAction func fiveStarBtnAction(_ sender: UIButton) {
+        self.isRated[0] = !isRated[0]
+        self.changeRatingToFalse(index: 1)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.isRated[0] == true {
+                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            }
+            self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        }
     }
     
+    @IBAction func secondStarBtnAction(_ sender: UIButton) {
+        self.changeRateToTrue(index: 1)
+        self.changeRatingToFalse(index: 2)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.isRated[1] == true {
+                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            }
+            self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        }
+    }
+    
+    @IBAction func thirdStarBtnAction(_ sender: UIButton) {
+        self.changeRateToTrue(index: 2)
+        self.changeRatingToFalse(index: 3)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.isRated[2] == true {
+                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            }
+            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        }
+    }
+    
+    @IBAction func fourthStarBtnAction(_ sender: UIButton) {
+        self.changeRateToTrue(index: 3)
+        self.changeRatingToFalse(index: 4)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.isRated[3] == true {
+                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            }
+            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        }
+    }
+    
+    @IBAction func fiveStarBtnAction(_ sender: UIButton) {
+        self.changeRateToTrue(index: 4)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.isRated[4] == true {
+                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            }
+        }
+    }
 }
 
 //Mark:- UICollectionView Delegate and Datasource
@@ -264,7 +339,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             if self.roomData.count == 2 {
                 addRoomPicCell.cancelBtnOutlet.isHidden = true
                 addRoomPicCell.lineView.isHidden = true
-                addRoomPicCell.childStackView.isHidden = true
+                //addRoomPicCell.childStackView.isHidden = true
             } else{
                 if indexPath.item == 0 || indexPath.item == 1 {
                     addRoomPicCell.childStackView.isHidden = false
@@ -308,7 +383,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     func plusButtonTouched(indexPath: IndexPath) {
         self.roomData.append("Room \(self.roomData.count - 1)")
         if self.roomData.count < 5 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                     self.addRoomCollectionView.insertItems(at: [indexPath])
@@ -327,7 +402,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
             if self.roomData.count == 4 {
                 self.reloadCollectionView()
             } else {
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                     self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                         self.updateCollectionViewFrame()
                         self.addRoomCollectionView.deleteItems(at: [indexPath])
@@ -340,9 +415,3 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     }
 }
 
-//Mark:- Room Data Delegate
-//=========================
-extension HotelsSearchVC: RoomDataDelegate {
-    func adultAndChildData(adultCount: Int, child: Int) {
-    }
-}
