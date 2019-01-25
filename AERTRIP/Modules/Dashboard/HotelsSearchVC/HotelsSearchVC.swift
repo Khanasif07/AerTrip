@@ -364,6 +364,8 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView.cellForItem(at: indexPath) as? AddRoomCell) != nil {
             self.plusButtonTouched(indexPath: indexPath)
+        } else if (collectionView.cell(forItem: indexPath as? AddRoomPictureCell) != nil) {
+            
         }
     }
     

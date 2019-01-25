@@ -60,7 +60,7 @@
                                                 </constraints>
                                                 <state key="normal" image="adult_icon"/>
                                                 <connections>
-                                                    <action selector="roomPopUpAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Pi1-nm-vgi"/>
+                                                    <action selector="adultPopUpAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Pi1-nm-vgi"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzJ-XO-jlz">
@@ -82,7 +82,7 @@
                                                 </constraints>
                                                 <state key="normal" image="child_icon"/>
                                                 <connections>
-                                                    <action selector="roomPopUpAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="J6H-rw-V4z"/>
+                                                    <action selector="adultPopUpAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="J6H-rw-V4z"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAW-Ln-k68">

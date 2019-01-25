@@ -18,6 +18,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     //================
     internal weak var delegate: ExpandedCellDelegate?
     internal var indexPath:IndexPath!
+    internal weak var roomGuestDelegate: RoomGuestSelectionVCDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -43,7 +44,7 @@ class AddRoomPictureCell: UICollectionViewCell {
 
     //Mark:- IBActions
     //================
-    @IBAction func roomPopUpAction(_ sender: UIButton) {
+    @IBAction func adultPopUpAction(_ sender: UIButton) {
     }
     
     @IBAction func cancelBtnAction(_ sender: UIButton) {
