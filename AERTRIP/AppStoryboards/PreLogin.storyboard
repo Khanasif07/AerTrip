@@ -459,6 +459,7 @@
                         <viewLayoutGuide key="safeArea" id="hGy-N8-L8G"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="rtR-15-wkb" id="7SX-os-WM7"/>
                         <outlet property="emailTextField" destination="vBZ-BY-zXq" id="xh2-FC-n1P"/>
                         <outlet property="headerImage" destination="c0R-YW-wXW" id="fyj-wx-e6o"/>
                         <outlet property="headerTitleLabel" destination="W31-w0-Pb4" id="9qD-AO-esp"/>

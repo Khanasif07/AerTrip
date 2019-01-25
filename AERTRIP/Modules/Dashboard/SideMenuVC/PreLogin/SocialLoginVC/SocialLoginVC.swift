@@ -117,6 +117,7 @@ class SocialLoginVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
+       
         self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
@@ -272,6 +273,7 @@ extension SocialLoginVC {
             
         }) { (success) in
             self.viewModel.isFirstTime = false
+            
         }
     }
     
@@ -284,10 +286,10 @@ extension SocialLoginVC {
                 self.linkedInButton.alpha = 0.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0) {
                 self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
                 self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-            })
+            }
             
             UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 2.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
                 self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)

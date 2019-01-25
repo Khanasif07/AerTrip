@@ -41,7 +41,7 @@ public class TravellerData: NSManagedObject {
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
             if obj == "" {
-                userData!.label = "others"
+                userData!.label = "Others"
             } else {
                 userData!.label = "\(obj)".removeNull
             }

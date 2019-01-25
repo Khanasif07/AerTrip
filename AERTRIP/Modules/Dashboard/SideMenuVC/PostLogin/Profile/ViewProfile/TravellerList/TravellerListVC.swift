@@ -24,8 +24,10 @@ class TravellerListVC: BaseVC {
     @IBOutlet var selectAllButton: UIButton!
     @IBOutlet var travellerSelectedCountLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
+    @IBOutlet var headerDividerView: UIView!
     
     // MARK: - Variables
+    
     private var shouldHitAPI: Bool = true
     var travellerListHeaderView: TravellerListHeaderView = TravellerListHeaderView()
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
@@ -53,18 +55,15 @@ class TravellerListVC: BaseVC {
             }
         }
         
-       
-        
         loadSavedData()
         doInitialSetUp()
         registerXib()
         setUpTravellerHeader()
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.shouldHitAPI {
+        if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
         }
     }
@@ -92,6 +91,27 @@ class TravellerListVC: BaseVC {
         viewModel.delegate = self
     }
     
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                if let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell, let data = cell.travellerData, let pId = data.id, !pId.isEmpty {
+                    if selectedTravller.contains(pId) {
+                        selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
+                    } else {
+                        selectedTravller.append(pId)
+                    }
+                    if selectedTravller.count == 0 {
+                        travellerSelectedCountLabel.text = "Select Traveller"
+                    } else {
+                        travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
+                    }
+                }
+            }
+            setSelectMode()
+        }
+    }
+    
     // MARK: - IB Action
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -113,9 +133,9 @@ class TravellerListVC: BaseVC {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
-            guard let sSelf = self else {return}
+            guard let sSelf = self else { return }
             if index == 0 {
                 printDebug("select traveller")
                 sSelf.setSelectMode()
@@ -141,7 +161,7 @@ class TravellerListVC: BaseVC {
             
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [str], colors: [AppColors.themeRed])
             
-            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
                     self.viewModel.paxIds = self.selectedTravller
@@ -165,6 +185,7 @@ class TravellerListVC: BaseVC {
         addFooterView()
         searchBar.delegate = self
         selectView.isHidden = true
+        addLongPressOnTableView()
     }
     
     func registerXib() {
@@ -172,16 +193,23 @@ class TravellerListVC: BaseVC {
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
     
+    func addLongPressOnTableView() {
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(TravellerListVC.handleLongPress(_:)))
+        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.delegate = self
+        tableView.addGestureRecognizer(longPressGesture)
+    }
+    
     func setUpTravellerHeader() {
 //        let string = "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")"
 //        travellerListHeaderView.userNameLabel.text = string
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
-            travellerListHeaderView.userNameLabel.attributedText = self.getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.lastName ?? "A")") \("\(UserInfo.loggedInUser?.firstName ?? "N")")", boldText: boldText)
+            travellerListHeaderView.userNameLabel.attributedText = getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.lastName ?? "A")") \("\(UserInfo.loggedInUser?.firstName ?? "N")")", boldText: boldText)
             
         } else {
-           let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
-             travellerListHeaderView.userNameLabel.attributedText = self.getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")", boldText: boldText)
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
+            travellerListHeaderView.userNameLabel.attributedText = getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")", boldText: boldText)
         }
         if UserInfo.loggedInUser?.profileImage != "" {
             travellerListHeaderView.profileImageView.kf.setImage(with: URL(string: UserInfo.loggedInUser?.profileImage ?? ""))
@@ -219,7 +247,7 @@ class TravellerListVC: BaseVC {
         }
         fetchedResultsController.delegate = self
         if predicateStr == "" {
-             fetchedResultsController.fetchRequest.predicate = nil
+            fetchedResultsController.fetchRequest.predicate = nil
 //            var subPredicates : [NSPredicate] = []
 //            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
 //                subPredicates.append(NSPredicate(format: "label == %@",label))
@@ -316,6 +344,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         let sectionInfo = sections[indexPath.section]
         cell.separatorView.isHidden = indexPath.row == sectionInfo.numberOfObjects - 1 ? true : false
+        cell.edgeToEdgeBottomSeparatorView.isHidden = indexPath.row == sectionInfo.numberOfObjects ? false : true
+        cell.edgeToEdgeTopSeparatorView.isHidden = indexPath.row == 0 ? false : true
         let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
         cell.travellerData = tData
         cell.selectTravellerButton.isHidden = isSelectMode ? false : true
@@ -364,13 +394,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        printDebug("header has been scroller \(scrollView.contentOffset.y)")
-        if scrollView.contentOffset.y == 44.0 {
-            printDebug("header has been scroller \(scrollView.contentOffset.y)")
-            
-        } else {
-            
-        }
+        printDebug("content scroll offset \(scrollView.contentOffset.y)")
+        headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0 ? true : false
     }
 }
 
@@ -386,7 +411,7 @@ extension TravellerListVC: TravellerListVMDelegate {
         travellerNavigationView.isHidden = false
         bottomView.isHidden = true
         isSelectMode = false
-        self.deleteAllSelectedTravllers()
+        deleteAllSelectedTravllers()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         loadSavedData()
@@ -413,7 +438,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     func willSearchForTraveller() {}
     
     func searchTravellerSuccess() {
-        self.shouldHitAPI = true
+        shouldHitAPI = true
         loadSavedData()
     }
 }
@@ -448,9 +473,9 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
             }
             break
         case .delete:
-
+            
             tableView.deleteRows(at: [indexPath ?? IndexPath()], with: .fade)
-
+            
         default:
             break
         }
@@ -470,7 +495,7 @@ extension TravellerListVC: PreferencesVCDelegate {
 
 extension TravellerListVC: AssignGroupVCDelegate {
     func cancelTapped() {
-        self.shouldHitAPI = false
+        shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
@@ -478,7 +503,7 @@ extension TravellerListVC: AssignGroupVCDelegate {
     }
     
     func groupAssigned() {
-        self.shouldHitAPI = false
+        shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
         travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
@@ -486,12 +511,10 @@ extension TravellerListVC: AssignGroupVCDelegate {
     }
 }
 
+// MARK: - TravellerListHeaderViewDelegate Methods
 
-// MARK:- TravellerListHeaderViewDelegate Methods
-
-extension TravellerListVC : TravellerListHeaderViewDelegate {
+extension TravellerListVC: TravellerListHeaderViewDelegate {
     func headerViewTapped() {
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), true)
     }
-    
 }

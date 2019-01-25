@@ -136,6 +136,7 @@ private extension LoginVC {
         self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
         self.setupFontsAndText()
+        self.backButton.isHidden = true
     }
     
     func setupFontsAndText() {
@@ -221,15 +222,16 @@ extension LoginVC {
         
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.topImage.transform          = .identity
+                self.backButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: 2, animations: {
                 self.welcomeLabel.transform          = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: 3, animations: {
                 self.emailTextField.transform     = .identity
                 self.passwordTextField.transform   = .identity
                 self.showPasswordButton.transform  = .identity

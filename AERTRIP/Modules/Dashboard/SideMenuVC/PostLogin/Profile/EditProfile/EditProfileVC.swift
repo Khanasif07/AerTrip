@@ -266,7 +266,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             var mobile = Mobile()
             mobile.label = "Default"
             mobile.type = "Mobile"
-            mobile.isd = isd
+            mobile.isd = isd.isEmpty ? "+91" : isd
             mobile.value = loggedInUserMobile
             mobile.isValide = true
             viewModel.mobile.append(mobile)
