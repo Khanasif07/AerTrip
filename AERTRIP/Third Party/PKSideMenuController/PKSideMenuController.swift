@@ -195,16 +195,28 @@ open class PKSideMenuController: UIViewController {
     }
     
     private func addEdgeSwipeGesture() {
-        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeAction(_:)))
-        gesture.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
-        gesture.delegate = self
+        let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeOpenAction(_:)))
+        openGesture.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
+        openGesture.delegate = self
         
-        self.view.addGestureRecognizer(gesture)
+        self.view.addGestureRecognizer(openGesture)
+        
+        let closeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeCloseAction(_:)))
+        closeGesture.edges = (PKSideMenuOptions.currentOpeningSide == .right) ? .right : .left
+        closeGesture.delegate = self
+        
+        self.view.addGestureRecognizer(closeGesture)
     }
     
-    @objc private func edgeSwipeAction(_ sender: UIGestureRecognizer) {
+    @objc private func edgeSwipeOpenAction(_ sender: UIGestureRecognizer) {
         if sender.state == .began, !self.isOpen {
             self.openMenu()
+        }
+    }
+    
+    @objc private func edgeSwipeCloseAction(_ sender: UIGestureRecognizer) {
+        if sender.state == .began, self.isOpen {
+            self.closeMenu()
         }
     }
     

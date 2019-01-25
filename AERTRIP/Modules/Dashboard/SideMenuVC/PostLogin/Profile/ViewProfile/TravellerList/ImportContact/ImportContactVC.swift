@@ -26,17 +26,29 @@ class ImportContactVC: BaseVC {
     //MARK:- Public
     
     //MARK:- Private
+    fileprivate weak var categoryView: ATCategoryView!
+    
     private(set) var viewModel = ImportContactVM.shared
-    private var viewPager:PKViewPagerController!
-    private var options:PKViewPagerOptions!
     private var currentIndex: Int = 0 {
         didSet {
             self.updateNavTitle()
         }
     }
-    private let allTabs: [PKViewPagerTab] = [PKViewPagerTab(title: LocalizedString.Contacts.localized, image: nil), PKViewPagerTab(title: LocalizedString.Facebook.localized, image: nil), PKViewPagerTab(title: LocalizedString.Google.localized, image: nil)]
     
-    private var listVCs: [UIViewController] = []
+    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+    private var allTabs: [ATCategoryItem] {
+        var temp = [ATCategoryItem]()
+        
+        for title in allTabsStr {
+            var obj = ATCategoryItem()
+            obj.title = title
+            temp.append(obj)
+        }
+        
+        return temp
+    }
+
+    private var allChildVCs: [ContactListVC] = [ContactListVC]()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -113,48 +125,50 @@ class ImportContactVC: BaseVC {
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
         
-        self.listVCs = Array(repeating: UIViewController(), count: self.allTabs.count)
-        
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
-        self.selectedContactsSetHidden(isHidden: true, animated: false)
         
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
+        for idx in 0..<allTabsStr.count {
+            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
+            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
+            self.allChildVCs.append(vc)
+        }
         
-        options = PKViewPagerOptions(viewPagerWithFrame: listContainerView.bounds)
-        options.tabType = PKViewPagerTabType.basic
-        options.tabViewImageSize = CGSize.zero
-        options.tabViewTextFont = AppFonts.Regular.withSize(16.0)
-        options.tabViewPaddingLeft = 5
-        options.tabViewPaddingRight = 5
-        options.isTabHighlightAvailable = true
-        options.tabViewBackgroundDefaultColor = AppColors.themeWhite
-        options.tabViewBackgroundHighlightColor = AppColors.themeWhite
-        options.tabViewTextDefaultColor = AppColors.themeBlack
-        options.tabViewTextHighlightColor = AppColors.themeBlack
-        options.tabIndicatorViewHeight = 2.0
-        options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
-        options.fitAllTabsInView = true
-        
-        viewPager = PKViewPagerController()
-        viewPager.options = options
-        viewPager.dataSource = self
-        viewPager.delegate = self
-        
-        self.addChild(viewPager)
-        self.listContainerView.addSubview(viewPager.view)
-        viewPager.didMove(toParent: self)
-        
+        self.setupPagerView()
         self.updateNavTitle()
     }
     
+    
+    private func setupPagerView() {
+
+        var style = ATCategoryNavBarStyle()
+        style.height = 45.0
+        style.interItemSpace = 5.0
+        style.itemPadding = 8.0
+        style.isScrollable = false
+        style.layoutAlignment = .center
+        style.isEmbeddedToView = true
+        style.showBottomSeparator = true
+        style.bottomSeparatorColor = AppColors.themeGray40
+        style.defaultFont = AppFonts.Regular.withSize(16.0)
+        style.selectedFont = AppFonts.Regular.withSize(16.0)
+        style.indicatorColor = AppColors.themeGreen
+        style.normalColor = AppColors.themeBlack
+        style.selectedColor = AppColors.themeBlack
+        
+        let categoryView = ATCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+        categoryView.interControllerSpacing = 0.0
+        self.listContainerView.addSubview(categoryView)
+        self.categoryView = categoryView
+    }
+    
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
-        let listVC = self.listVCs[currentIndex] as? ContactListVC
+        let listVC = self.allChildVCs[currentIndex]
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
-            listVC?.containerBottomConstraint.constant = isHidden ? 10.0 : 110.0
+            listVC.containerBottomConstraint.constant = isHidden ? 10.0 : 110.0
             self?.view.layoutIfNeeded()
-            listVC?.view.layoutIfNeeded()
+            listVC.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
@@ -196,45 +210,6 @@ class ImportContactVC: BaseVC {
     
     @IBAction func importButtonAction(_ sender: UIButton) {
         self.viewModel.saveContacts()
-    }
-}
-
-extension ImportContactVC: PKViewPagerControllerDataSource {
-    
-    func numberOfPages() -> Int {
-        return self.allTabs.count
-    }
-    
-    func viewControllerAtPosition(position: Int) -> UIViewController {
-        if let obj = self.listVCs[position] as? ContactListVC {
-            return obj
-        }
-        else {
-            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
-            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: position) ?? .contacts
-            self.listVCs[position] = vc
-            return vc
-        }
-    }
-    
-    func tabsForPages() -> [PKViewPagerTab] {
-        return self.allTabs
-    }
-    
-    func startViewPagerAtIndex() -> Int {
-        return 0
-    }
-}
-
-extension ImportContactVC: PKViewPagerControllerDelegate {
-    
-    func willMoveToControllerAtIndex(index:Int) {
-        print("Moving to page \(index)")
-    }
-    
-    func didMoveToControllerAtIndex(index: Int) {
-        self.currentIndex = index
-        print("Moved to page \(index)")
     }
 }
 

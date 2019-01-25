@@ -28,8 +28,8 @@ public struct ATCategoryNavBarStyle {
     
     public var isScrollable = false
     
-    public var fontSize: CGFloat = 15.0
-    public var selectedFontSize: CGFloat = 17.0
+    public var defaultFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    public var selectedFont: UIFont = UIFont.systemFont(ofSize: 17.0)
     public var showTransitionAnimation = true
     public var showBarSelectionAnimation = true
     
@@ -45,6 +45,7 @@ public struct ATCategoryNavBarStyle {
     
 
     public var showBottomSeparator = true
+    public var bottomSeparatorColor = UIColor.lightGray
     
     /// The 'underscore' indicator following AHCategoryItems.
     public var showIndicator = true

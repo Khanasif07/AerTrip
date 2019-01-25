@@ -42,7 +42,7 @@ public class ATCategoryNavBar: UIView {
     
     fileprivate lazy var buttonHeight: CGFloat = self.bounds.height
     
-    fileprivate lazy var buttonFont: UIFont = UIFont.systemFont(ofSize: self.barStyle.fontSize)
+    fileprivate lazy var buttonFont: UIFont = self.barStyle.defaultFont
     
     /// Is the UI setup
     fileprivate var isSetup = false
@@ -61,7 +61,7 @@ public class ATCategoryNavBar: UIView {
         let maskView = UIView()
         maskView.backgroundColor = self.barStyle.bgMaskViewColor
         maskView.layer.masksToBounds = true
-        maskView.layer.cornerRadius = (self.barStyle.fontSize + edgeMargin) * 0.5
+        maskView.layer.cornerRadius = (self.barStyle.defaultFont.pointSize + edgeMargin) * 0.5
         return maskView
     }()
     
@@ -229,7 +229,7 @@ fileprivate extension ATCategoryNavBar {
         let separator = UIView()
         let height: CGFloat = 0.5
         separator.frame = CGRect(x: 0, y: self.bounds.height - height, width: self.bounds.width, height: height)
-        separator.backgroundColor = UIColor.lightGray
+        separator.backgroundColor = barStyle.bottomSeparatorColor
         self.addSubview(separator)
     }
     func setupScrollView(){
@@ -345,7 +345,7 @@ fileprivate extension ATCategoryNavBar {
         scrollView.insertSubview(bgMaskView, at: 0)
         
         bgMaskView.frame.size.width = width + 2 * edgeMargin
-        bgMaskView.frame.size.height = barStyle.fontSize + 2 * edgeMargin
+        bgMaskView.frame.size.height = barStyle.defaultFont.pointSize + 2 * edgeMargin
         bgMaskView.center.x = defaultBtn.center.x
         bgMaskView.frame.origin.y = (self.bounds.height - bgMaskView.frame.size.height) * 0.5 + 1.0 // the 1.0 is just a little adjustment
     }
@@ -354,7 +354,7 @@ fileprivate extension ATCategoryNavBar {
     /// Use view.intrinsicContentSize
     func getTextWidth(for label: UILabel) -> CGFloat {
         
-        let font = UIFont.systemFont(ofSize: barStyle.fontSize)
+        let font = barStyle.defaultFont
         let height: CGFloat = self.bounds.height // certain
         let boundSize = CGSize(width: CGFloat(Float.greatestFiniteMagnitude), height: height)
         let textWidth = (label.text! as NSString).boundingRect(with: boundSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil).width
