@@ -276,6 +276,7 @@ enum LocalizedString: String {
     case ImportFacebookMessage = "ImportFacebookMessage";
     case ImportGoogleMessage = "ImportGoogleMessage";
     case SelectAll = "SelectAll";
+    case DeselectAll = "DeselectAll";
     case AllowContacts = "AllowContacts";
     case ConnectWithGoogle = "ConnectWithGoogle";
     case ConnectWithFB = "ConnectWithFB";

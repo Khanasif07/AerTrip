@@ -20,8 +20,8 @@ class ViewAllHotelsVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     private(set) var viewModel = ViewAllHotelsVM()
-    private var viewPager:PKViewPagerController!
-    private var options:PKViewPagerOptions!
+//    private var viewPager:PKViewPagerController!
+//    private var options:PKViewPagerOptions!
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
@@ -30,6 +30,10 @@ class ViewAllHotelsVC: BaseVC {
         newEmptyView.vType = .hotelPreferences
         return newEmptyView
     }()
+    
+    fileprivate weak var categoryView: ATCategoryView!
+    
+    private var allChildVCs: [HotelsListVC] = [HotelsListVC]()
     
     //MARK:- Private
     
@@ -45,7 +49,8 @@ class ViewAllHotelsVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        options?.viewPagerFrame = self.view.bounds
+        self.categoryView?.frame = self.dataContainerView.bounds
+        self.categoryView?.layoutIfNeeded()
     }
     
     override func setupFonts() {
@@ -86,33 +91,39 @@ class ViewAllHotelsVC: BaseVC {
         }
         else {
             self.emptyView.removeFromSuperview()
-            options = PKViewPagerOptions(viewPagerWithFrame: dataContainerView.bounds)
-            options.tabType = PKViewPagerTabType.basic
-            options.tabViewImageSize = CGSize.zero
-            options.tabViewTextFont = AppFonts.Regular.withSize(16.0)
-            options.tabViewPaddingLeft = 20
-            options.tabViewPaddingRight = 20
-            options.isTabHighlightAvailable = true
-            options.tabViewBackgroundDefaultColor = AppColors.themeWhite
-            options.tabViewBackgroundHighlightColor = AppColors.themeWhite
-            options.tabViewTextDefaultColor = AppColors.themeBlack
-            options.tabViewTextHighlightColor = AppColors.themeBlack
-            options.tabIndicatorViewHeight = 2.0
-            options.tabIndicatorViewBackgroundColor = AppColors.themeGreen
+            var style = ATCategoryNavBarStyle()
+            style.height = 45.0
+            style.interItemSpace = 5.0
+            style.itemPadding = 8.0
+            style.isScrollable = true
+            style.layoutAlignment = .left
+            style.isEmbeddedToView = true
+            style.showBottomSeparator = true
+            style.bottomSeparatorColor = AppColors.themeGray40
+            style.defaultFont = AppFonts.Regular.withSize(16.0)
+            style.selectedFont = AppFonts.Regular.withSize(16.0)
+            style.indicatorColor = AppColors.themeGreen
+            style.normalColor = AppColors.themeBlack
+            style.selectedColor = AppColors.themeBlack
             
-            if let obj = viewPager {
-                obj.removeFromParentVC
-                viewPager = nil
+            self.allChildVCs.removeAll()
+            for idx in 0..<self.viewModel.allTabs.count {
+                let vc = HotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+                vc.delegate = self
+                vc.viewModel.forCity = self.viewModel.hotels[idx]
+                
+                self.allChildVCs.append(vc)
             }
-            viewPager = PKViewPagerController()
-            viewPager.options = options
-            viewPager.dataSource = self
-            viewPager.delegate = self
             
-            self.addChild(viewPager)
-            self.dataContainerView.addSubview(viewPager.view)
-            willMoveToControllerAtIndex(index: selectedIndex)
-            viewPager.didMove(toParent: self)
+            if let _ = self.categoryView {
+                self.categoryView.removeFromSuperview()
+                self.categoryView = nil
+            }
+            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+            categoryView.interControllerSpacing = 0.0
+            categoryView.navBar.delegate = self
+            self.dataContainerView.addSubview(categoryView)
+            self.categoryView = categoryView
         }
     }
     
@@ -125,6 +136,12 @@ class ViewAllHotelsVC: BaseVC {
     }
     @IBAction func addNewButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToHotelSearchVC()
+    }
+}
+
+extension ViewAllHotelsVC: ATCategoryNavBarDelegate {
+    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+        self.currentIndex = toIndex
     }
 }
 
@@ -156,27 +173,27 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
 }
 
-extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
-    
-    func numberOfPages() -> Int {
-        return self.viewModel.allTabs.count
-    }
-    
-    func viewControllerAtPosition(position: Int) -> UIViewController {
-        let vc = HotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-        vc.delegate = self
-        vc.viewModel.forCity = self.viewModel.hotels[position]
-        return vc
-    }
-    
-    func tabsForPages() -> [PKViewPagerTab] {
-        return self.viewModel.allTabs
-    }
-    
-    func startViewPagerAtIndex() -> Int {
-        return selectedIndex 
-    }
-}
+//extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
+//
+//    func numberOfPages() -> Int {
+//        return self.viewModel.allTabs.count
+//    }
+//
+//    func viewControllerAtPosition(position: Int) -> UIViewController {
+//        let vc = HotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+//        vc.delegate = self
+//        vc.viewModel.forCity = self.viewModel.hotels[position]
+//        return vc
+//    }
+//
+//    func tabsForPages() -> [PKViewPagerTab] {
+//        return self.viewModel.allTabs
+//    }
+//
+//    func startViewPagerAtIndex() -> Int {
+//        return selectedIndex
+//    }
+//}
 
 extension ViewAllHotelsVC: HotelsListVCDelegate {
     func removeAllForCurrentPage() {
@@ -189,16 +206,16 @@ extension ViewAllHotelsVC: HotelsListVCDelegate {
     }
 }
 
-extension ViewAllHotelsVC: PKViewPagerControllerDelegate {
-    
-    func willMoveToControllerAtIndex(index:Int) {
-        print("Moving to page \(index)")
-        
-    }
-    
-    func didMoveToControllerAtIndex(index: Int) {
-        self.currentIndex = index
-        print("Moved to page \(index)")
-    }
-}
+//extension ViewAllHotelsVC: PKViewPagerControllerDelegate {
+//
+//    func willMoveToControllerAtIndex(index:Int) {
+//        print("Moving to page \(index)")
+//
+//    }
+//
+//    func didMoveToControllerAtIndex(index: Int) {
+//        self.currentIndex = index
+//        print("Moved to page \(index)")
+//    }
+//}
 

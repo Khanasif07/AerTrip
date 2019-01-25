@@ -20,6 +20,7 @@ private class BadgeInfo {
 
 public class ATCategoryNavBar: UIView {
     public weak var delegate: ATCategoryNavBarDelegate?
+    public weak var internalDelegate: ATCategoryNavBarDelegate?
     
     fileprivate var barStyle: ATCategoryNavBarStyle
     
@@ -379,11 +380,13 @@ private extension ATCategoryNavBar {
         
         
         delegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
+        internalDelegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
         
         handleBtnSwitching(currentBtn: btn)
         handleIndicator(currentBtn: btn)
         handleBgMaskView(currentBtn: btn)
         delegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
+        internalDelegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
     }
     
     func handleBtnSwitching(currentBtn: UIButton) {

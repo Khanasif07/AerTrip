@@ -14,8 +14,9 @@ class ATButton: UIButton {
     //MARK:- Private
     private var shadowLayer: CAShapeLayer!
     private var gradientLayer: CAGradientLayer!
+    private var loaderContainer:UIView!
     private var loaderIndicator:UIActivityIndicatorView!
-    private var titleDuringLoading: String = ""
+    private var loaderGradientLayer: CAGradientLayer!
     
     //MARK:- Public
     var shadowColor: UIColor = AppColors.themeGreen {
@@ -69,6 +70,7 @@ class ATButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        self.titleLabel?.font = AppFonts.SemiBold.withSize(15)
         self.addShadowLayer()
         self.addGradientLayer()
         self.setupLoader()
@@ -95,6 +97,36 @@ class ATButton: UIButton {
         }
     }
     
+    private func getGradientLayer() -> CAGradientLayer {
+        
+        let gLayer = CAGradientLayer()
+        self.layer.insertSublayer(gLayer, at: 1)
+        
+        self.updateGradientLayer(gLayer: gLayer)
+        
+        return gLayer
+    }
+    
+    private func updateGradientLayer(gLayer: CAGradientLayer) {
+        gLayer.frame = self.bounds
+        gLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        
+        gLayer.cornerRadius = self.cornerRadius
+        gLayer.masksToBounds = true
+        
+        if self.isEnabled {
+            gLayer.colors = gradientColors.map { (clr) -> CGColor in
+                clr.cgColor
+            }
+        }
+        else {
+            gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
+                clr.cgColor
+            }
+        }
+    }
+    
     private func addGradientLayer() {
         if gradientLayer == nil {
             
@@ -102,66 +134,63 @@ class ATButton: UIButton {
             self.layer.insertSublayer(gradientLayer, at: 1)
         }
         
-        gradientLayer.frame = self.bounds
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        
-        gradientLayer.cornerRadius = self.cornerRadius
-        gradientLayer.masksToBounds = true
-        
-        if self.isEnabled {
-            gradientLayer.colors = gradientColors.map { (clr) -> CGColor in
-                clr.cgColor
-            }
-        }
-        else {
-            gradientLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                clr.cgColor
-            }
-        }
-        
-        self.titleLabel?.font = AppFonts.SemiBold.withSize(15)
+        self.updateGradientLayer(gLayer: self.gradientLayer)
     }
     
     private func addRequiredAction() {
         self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
+        self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
+        self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpOutside)
     }
     
     private func setupLoader() {
         if self.loaderIndicator == nil {
+            
+            self.loaderContainer = UIView(frame: self.bounds)
+            self.loaderContainer.isUserInteractionEnabled = false
+            self.loaderContainer.isHidden = true
+            self.loaderGradientLayer = self.getGradientLayer()
+            self.loaderContainer.layer.addSublayer(self.loaderGradientLayer)
+            
             let size = min(self.frame.size.width, self.frame.size.height)
             self.loaderIndicator = UIActivityIndicatorView(frame: CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size))
             self.loaderIndicator.style = .white
             
-            self.addSubview(self.loaderIndicator)
+            self.loaderContainer.addSubview(self.loaderIndicator)
+            self.addSubview(self.loaderContainer)
         }
+        
+        self.loaderContainer.layer.cornerRadius = self.cornerRadius
+        self.loaderContainer.layer.masksToBounds = true
+        self.updateGradientLayer(gLayer: self.loaderGradientLayer)
+        
         self.loaderIndicator.hidesWhenStopped = true
         self.loaderIndicator.color = self.titleLabel?.textColor ?? AppColors.themeWhite
     }
     
     private func startLoading() {
-        self.titleDuringLoading = self.titleLabel?.text ?? ""
-        self.setTitle(nil, for: UIControl.State.normal)
+        self.loaderContainer.isHidden = false
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
     }
     
     private func stopLoading() {
+        self.loaderContainer.isHidden = true
         self.isUserInteractionEnabled = true
-        self.setTitle(self.titleDuringLoading, for: UIControl.State.normal)
         self.loaderIndicator.stopAnimating()
     }
     
     @objc private func buttonPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }
-        delay(seconds: 0.1) {
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.transform = CGAffineTransform.identity
-                self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
-            }
+    }
+    
+    @objc private func buttonReleased(_ sender: UIButton) {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+            self?.transform = CGAffineTransform.identity
+            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
         }
     }
 }

@@ -58,13 +58,14 @@ class ContactListVC: BaseVC {
     }
     
     override func setupColors() {
+        self.selectAllButton.tintColor = AppColors.clear
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     override func setupTexts() {
         self.selectAllButton.setTitle(LocalizedString.SelectAll.localized, for: .normal)
-        self.selectAllButton.setTitle(LocalizedString.SelectAll.localized, for: .selected)
+        self.selectAllButton.setTitle(LocalizedString.DeselectAll.localized, for: .selected)
     }
     
     override func setupFonts() {
@@ -109,14 +110,36 @@ class ContactListVC: BaseVC {
     //MARK:- Action
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         if self.currentlyUsingFor == .contacts {
-            self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+            if sender.isSelected {
+                //remove all
+                self.viewModel.selectedPhoneContacts.removeAll()
+            }
+            else {
+                //add all
+                self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+            }
         }
         else if self.currentlyUsingFor == .facebook {
-            self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+            if sender.isSelected {
+                //remove all
+                self.viewModel.selectedFacebookContacts.removeAll()
+            }
+            else {
+                //add all
+                self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+            }
         }
         else if self.currentlyUsingFor == .google {
-            self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
-        }        
+            if sender.isSelected {
+                //remove all
+                self.viewModel.selectedGoogleContacts.removeAll()
+            }
+            else {
+                //add all
+                self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
+            }
+        }
+        sender.isSelected = !sender.isSelected
     }
 }
 
@@ -183,9 +206,13 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.phoneContacts[indexPath.row].id
             }) {
                 self.viewModel.selectedPhoneContacts.remove(at: index)
+                self.selectAllButton.isSelected = false
             }
             else {
                 self.viewModel.selectedPhoneContacts.append(self.viewModel.phoneContacts[indexPath.row])
+                if self.viewModel.selectedPhoneContacts.count >= self.viewModel.phoneContacts.count {
+                    self.selectAllButtonAction(self.selectAllButton)
+                }
             }
         }
         else if self.currentlyUsingFor == .facebook {
@@ -193,9 +220,13 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.facebookContacts[indexPath.row].id
             }) {
                 self.viewModel.selectedFacebookContacts.remove(at: index)
+                self.selectAllButton.isSelected = false
             }
             else {
                 self.viewModel.selectedFacebookContacts.append(self.viewModel.facebookContacts[indexPath.row])
+                if self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookContacts.count {
+                    self.selectAllButtonAction(self.selectAllButton)
+                }
             }
         }
         else if self.currentlyUsingFor == .google {
@@ -203,9 +234,13 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.googleContacts[indexPath.row].id
             }) {
                 self.viewModel.selectedGoogleContacts.remove(at: index)
+                self.selectAllButton.isSelected = false
             }
             else {
                 self.viewModel.selectedGoogleContacts.append(self.viewModel.googleContacts[indexPath.row])
+                if self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleContacts.count {
+                    self.selectAllButtonAction(self.selectAllButton)
+                }
             }
         }
     }

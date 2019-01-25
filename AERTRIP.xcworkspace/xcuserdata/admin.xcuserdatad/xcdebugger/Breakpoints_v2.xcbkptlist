@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Controller/FacebookController.swift"
-            timestampString = "570024942.8077919"
+            filePath = "AERTRIP/Common/ATCategoryView/ATPageContainerView.swift"
+            timestampString = "570105266.8672431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "loginWithFacebook(fromViewController:shouldFetchFriends:completion:)"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "categoryNavBar(_:didSwitchIndexTo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

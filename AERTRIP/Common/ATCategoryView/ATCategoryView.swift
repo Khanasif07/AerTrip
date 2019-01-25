@@ -16,7 +16,7 @@ public protocol ATCategoryNavBarDelegate: class {
 
 // Default implementation
 extension ATCategoryNavBarDelegate{
-    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {}
+    public func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {}
 }
 
 
@@ -60,6 +60,13 @@ open class ATCategoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setupNavBar()
+        setupContainerVC()
+    }
+    
     public func set(item: ATCategoryItem, at index: Int) {
         navBar.setItem(item: item, for: index)
     }
@@ -92,15 +99,19 @@ private extension ATCategoryView {
     }
     
     func setupNavBar() {
-        var barFrame: CGRect?
+        var barFrame = CGRect.zero
         if barStyle.isEmbeddedToView {
             barFrame = CGRect(x: 0, y: 0, width: bounds.width, height: barStyle.height)
-        }else{
-            barFrame = CGRect.zero
         }
         
-        navBar = ATCategoryNavBar(frame: barFrame!, categories: categories, barStyle: barStyle)
-        addSubview(navBar)
+        if navBar == nil {
+            navBar = ATCategoryNavBar(frame: barFrame, categories: categories, barStyle: barStyle)
+            navBar.internalDelegate = self
+            addSubview(navBar)
+        }
+        else {
+            navBar.frame = barFrame
+        }
     }
     
     func setupContainerVC() {
@@ -108,9 +119,22 @@ private extension ATCategoryView {
         let containerHeight: CGFloat = barStyle.isEmbeddedToView ? bounds.height - barStyle.height : bounds.height
         let frame = CGRect(x: 0, y: containerY, width: bounds.width, height: containerHeight)
         
-        containerView = ATPageContainerView(frame: frame, childVCs: childVCs, parentVC: parentVC)
-        addSubview(containerView)
-        
+        if containerView == nil {
+            containerView = ATPageContainerView(frame: frame, childVCs: childVCs, parentVC: parentVC)
+            addSubview(containerView)
+        }
+        else {
+            containerView.frame = frame
+        }
+    }
+}
+
+extension ATCategoryView: ATCategoryNavBarDelegate {
+    public func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+    }
+    
+    public func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+        containerView.selectPage(atIndex: toIndex)
     }
 }
 

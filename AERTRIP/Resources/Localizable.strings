@@ -172,6 +172,7 @@
 "ImportFacebookMessage" = "Connect with Facebook to import your friends to the travellers list.";
 "ImportGoogleMessage" = "Connect with Google to import your contacts to the travellers list";
 "SelectAll" = "Select All";
+"DeselectAll" = "Deselect All";
 "AllowContacts" = "Allow Contacts";
 "ConnectWithGoogle" = "Connect with Google";
 "ConnectWithFB" = "Connect with Facebook";
