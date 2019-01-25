@@ -24,10 +24,11 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var familyButton: UIButton!
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
-    @IBOutlet weak var profileContainerView: UIView!
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet var profileContainerView: UIView!
+    @IBOutlet var dividerView: UIView!
     
     // MARK: - Variable
+    
     private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
     
@@ -39,7 +40,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     class func instanceFromNib(isFamily: Bool = false) -> SlideMenuProfileImageHeaderView {
         let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
-
+        
         parentView.familyButton.isHidden = !isFamily
         parentView.emailIdLabel.isHidden = isFamily
         parentView.mobileNumberLabel.isHidden = isFamily
@@ -49,7 +50,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-       // self.backgroundImageView.frame = self.bounds
+        // self.backgroundImageView.frame = self.bounds
     }
     
     // Action
@@ -64,11 +65,35 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(singleTap)
         
-        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 6.0
-        
+        addBlurToImage()
         doInitialSetup()
     }
+    
+    func addGradient() {
+        gradient.frame = gradientView.bounds
+        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
+        gradientView.layer.insertSublayer(gradient, at: 0)
+    }
+    
+    func addBlurToImage() {
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            self.backgroundColor = .clear
+            
+            let blurEffect = UIBlurEffect(style: .light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            //always fill the view
+            blurEffectView.frame = self.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            backgroundImageView.addSubview(blurEffectView)
+        } else {
+            self.backgroundColor = .black
+        }
+    }
+    
+    
     
     override func draw(_ rect: CGRect) {
         gradient.frame = gradientView.bounds

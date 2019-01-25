@@ -141,10 +141,6 @@ class EditProfileVM {
         }
         if !self.frequentFlyer.isEmpty {
             for (index, _) in self.frequentFlyer.enumerated() {
-                if self.frequentFlyer[index].number == "" {
-                    AppToast.default.showToastMessage(message: "Please enter frequent flyer number", vc: vc)
-                    flag = false
-                }
                 if index > 0 {
                       if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
                         AppToast.default.showToastMessage(message: "All frequent flyer  should be unique", vc: vc)
@@ -216,14 +212,10 @@ class EditProfileVM {
         
         // remove default email and mobile
         var _email = self.email
-        var _mobile = self.mobile
+        let _mobile = self.mobile
         if let email = _email.first, email.label == "Default" {
             _email.removeFirst()
         }
-        if let mobile = _mobile.first, mobile.label == "Default" {
-            _mobile.removeFirst()
-        }
-        
         params[APIKeys.salutation.rawValue] = salutation
         params[APIKeys.firstName.rawValue] = firstName
         params[APIKeys.lastName.rawValue] = lastName

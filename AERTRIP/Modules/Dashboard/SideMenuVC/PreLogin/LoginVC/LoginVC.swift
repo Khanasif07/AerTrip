@@ -106,7 +106,7 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToForgotPasswordVC(email: self.viewModel.email)
@@ -182,12 +182,7 @@ extension LoginVC {
             
             self.viewModel.password = textField.text ?? ""
         }
-        
-        if self.viewModel.isLoginButtonEnable {
-            self.loginButton.isEnabled = true
-        } else {
-            self.loginButton.isEnabled = false
-        }
+         self.loginButton.isEnabled = self.viewModel.email.count > 0 && self.viewModel.password.count > 0 
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

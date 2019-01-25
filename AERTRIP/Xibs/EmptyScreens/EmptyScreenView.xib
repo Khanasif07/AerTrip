@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyScreenView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
@@ -19,8 +23,10 @@
                 <outlet property="firstButton" destination="6BF-Ab-CFI" id="Hra-1i-ObX"/>
                 <outlet property="firstButtonContainerView" destination="ggg-Pf-b7E" id="FxJ-Sh-xQi"/>
                 <outlet property="mainImageView" destination="HIw-8B-ngR" id="Ppe-Gu-32n"/>
+                <outlet property="mainImageViewTopConstraint" destination="wLA-fY-b7H" id="pPQ-CK-8Z9"/>
                 <outlet property="messageLabel" destination="FQ9-WX-qb2" id="JI0-Eb-Czm"/>
                 <outlet property="messageLabelTopConstraint" destination="Wbf-sn-vWb" id="KrV-DG-UCH"/>
+                <outlet property="searchTextLabel" destination="uVs-tg-3tw" id="mcd-Z4-Mie"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,14 +37,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6e-Wt-Gf4">
                     <rect key="frame" x="0.0" y="166.5" width="375" height="334"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contactsEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="HIw-8B-ngR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQ9-WX-qb2">
                             <rect key="frame" x="0.0" y="185" width="375" height="84"/>
                             <string key="text">Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label </string>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVs-tg-3tw">
+                            <rect key="frame" x="10" y="278" width="355" height="23"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hoh-1u-nT9">
@@ -68,14 +77,20 @@
                                 </view>
                             </subviews>
                         </stackView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contactsEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="HIw-8B-ngR">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Hoh-1u-nT9" secondAttribute="bottom" id="AIP-lJ-urO"/>
+                        <constraint firstItem="uVs-tg-3tw" firstAttribute="leading" secondItem="k6e-Wt-Gf4" secondAttribute="leading" constant="10" id="MIX-XJ-K97"/>
                         <constraint firstItem="FQ9-WX-qb2" firstAttribute="top" secondItem="HIw-8B-ngR" secondAttribute="bottom" constant="20" id="Wbf-sn-vWb"/>
                         <constraint firstAttribute="trailing" secondItem="FQ9-WX-qb2" secondAttribute="trailing" id="YDt-0Y-aYU"/>
+                        <constraint firstAttribute="trailing" secondItem="uVs-tg-3tw" secondAttribute="trailing" constant="10" id="YbQ-pO-m1E"/>
                         <constraint firstAttribute="trailing" secondItem="Hoh-1u-nT9" secondAttribute="trailing" constant="30" id="aC4-ua-oqv"/>
                         <constraint firstItem="HIw-8B-ngR" firstAttribute="leading" secondItem="k6e-Wt-Gf4" secondAttribute="leading" id="lls-uc-m6X"/>
+                        <constraint firstItem="uVs-tg-3tw" firstAttribute="top" secondItem="FQ9-WX-qb2" secondAttribute="bottom" constant="9" id="pd7-Gl-wAW"/>
                         <constraint firstItem="Hoh-1u-nT9" firstAttribute="top" secondItem="FQ9-WX-qb2" secondAttribute="bottom" constant="20" id="vBM-CE-w8x"/>
                         <constraint firstAttribute="trailing" secondItem="HIw-8B-ngR" secondAttribute="trailing" id="vqN-KY-tof"/>
                         <constraint firstItem="FQ9-WX-qb2" firstAttribute="leading" secondItem="k6e-Wt-Gf4" secondAttribute="leading" id="wGY-7x-zwf"/>

@@ -66,7 +66,7 @@ struct AppToast {
             ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
             }) { (success) in

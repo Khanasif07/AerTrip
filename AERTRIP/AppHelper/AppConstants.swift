@@ -10,6 +10,8 @@ import Foundation
 
 enum AppConstants {
     
+    static let isReleasingToClient: Bool = true
+    
     static let kCurrency = ""
 
     static let kAppName                     = "Aertrip"
@@ -17,6 +19,7 @@ enum AppConstants {
     static let kGoogleUrlScheme             = ""
     static let kGoogleApiKey                = ""
     static let kFacebookAppID               = ""
+    static let kMe = "Me"
     
     static let kOtpLength                   =         6
     static let kMinTextFieldCharLength               =         2
@@ -28,7 +31,7 @@ enum AppConstants {
     static let kOtpTimeOutSeconds          =         60
     static let kMaxDescriptionLength       =         250
     
-    static let fbUrl = "fb2150155951662059"
+    static let fbUrl = "fb1080161318756977"
     static let googleUrl = "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
     static let linkedIn_Client_Id = "81zznun7zyml11"
     static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"

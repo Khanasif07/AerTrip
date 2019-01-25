@@ -37,7 +37,7 @@ class ToastView: UIView {
         self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite
-        self.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.82)
+        self.backgroundColor = AppColors.toastBackgroundBlur
         self.viewRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         self.viewRightButton.titleLabel?.textColor = AppColors.themeYellow
     }

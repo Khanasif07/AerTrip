@@ -415,3 +415,19 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     }
 }
 
+//MARK:- RoomGuestSelectionVCDelegate
+//MARK:-
+extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
+    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int]) {
+        printDebug("adults: \(adults), children: \(children), ages: \(childrenAges)")
+    }
+}
+
+//MARK:- SelectDestinationVCDelegate
+//MARK:-
+extension HotelsSearchVC: SelectDestinationVCDelegate {
+    func didSelectedDestination(hotel: SearchedDestination) {
+        printDebug("selected: \(hotel)")
+    }
+}
+

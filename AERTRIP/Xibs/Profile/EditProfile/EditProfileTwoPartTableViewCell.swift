@@ -54,7 +54,12 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         deleteButton.isHidden = false
-        rightViewTextField.placeholder = ""
+        rightViewTextField.isEnabled = true
+        leftView.isUserInteractionEnabled = true
+        leftTitleLabel.textColor = AppColors.textFieldTextColor51
+        rightViewTextField.textColor = AppColors.textFieldTextColor51
+        blackDownImageView.isHidden = false
+        
        
     }
     

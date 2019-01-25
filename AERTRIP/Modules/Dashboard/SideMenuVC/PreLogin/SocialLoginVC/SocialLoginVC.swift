@@ -99,6 +99,13 @@ class SocialLoginVC: BaseVC {
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
+        self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
+        self.fbButton.setImage(AppImage.facebookLogoImage, for: .highlighted)
+        self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
+        self.googleButton.setImage(AppImage.googleLogoImage, for: .highlighted)
+        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
+        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .highlighted)
+        
     }
     
     override func bindViewModel() {
@@ -147,6 +154,7 @@ private extension SocialLoginVC {
         self.linkedInButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
+        statusBarStyle = .default
     }
     
     private func addAppLogoView() {

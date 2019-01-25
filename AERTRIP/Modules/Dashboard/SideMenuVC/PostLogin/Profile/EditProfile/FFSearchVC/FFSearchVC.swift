@@ -47,6 +47,7 @@ class FFSearchVC: BaseVC {
             if status {
                 print("Cross button tapped")
                 self?.searchTextField.text = nil
+                self?.searchTextField.rightButton.isHidden = true
                 self?.searchData.removeAll()
                 self?.searchData = (self?.defaultAirlines)!
                 self?.tableView.reloadData()
@@ -131,10 +132,17 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
 extension FFSearchVC {
     internal func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         searchTextField.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
-        
+        searchTextField.rightButton.isHidden = false
         let newTextToSearch = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
         NSLog("Search for this text after delay \(newTextToSearch)")
-        searchForText(newTextToSearch)
+              searchForText(newTextToSearch)
+            emptyView.searchTextLabel.isHidden = false
+            emptyView.searchTextLabel.text = "for \(newTextToSearch.quoted)"
+        if newTextToSearch == "" {
+            tableView.backgroundView = nil
+        } else {
+            tableView.backgroundView = emptyView
+        }
         return true
     }
     
@@ -142,6 +150,8 @@ extension FFSearchVC {
         view.endEditing(true)
         return false
     }
+    
+    
 }
 
 extension FFSearchVC: SearchVMDelegate {
@@ -155,6 +165,5 @@ extension FFSearchVC: SearchVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-        //
     }
 }

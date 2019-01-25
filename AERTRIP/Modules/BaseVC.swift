@@ -43,6 +43,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override func viewWillLayoutSubviews() {
@@ -177,6 +180,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     deinit {
         NotificationCenter.default.removeObserver(self, name: .dataChanged, object: nil)
     }
+    
+    
 }
 
 
@@ -204,6 +209,12 @@ extension BaseVC {
     /// Setup Layout
     @objc func setupLayout() {
         
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
     }
 }
 

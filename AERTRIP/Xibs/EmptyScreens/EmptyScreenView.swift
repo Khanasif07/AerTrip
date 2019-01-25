@@ -44,6 +44,9 @@ class EmptyScreenView: UIView {
     }
     @IBOutlet weak var containerViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainImageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchTextLabel: UILabel!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

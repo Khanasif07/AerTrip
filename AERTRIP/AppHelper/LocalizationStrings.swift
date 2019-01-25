@@ -293,5 +293,27 @@ enum LocalizedString: String {
     case Remove = "Remove"
     case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
     
+    //MARK:- Room Guest Selection
+    case Room = "Room"
+    case Adults = "Adults"
+    case Children = "Children"
+    case Adult = "Adult"
+    case Child = "Child"
+    case and = "and"
+    case Age = "Age"
+    case Ages = "Ages"
+    case AdultsAges = "AdultsAges"
+    case ChildAges = "ChildAges"
+    case MostHotelsTypicallyAllow = "MostHotelsTypicallyAllow"
+    case ageInYrs = "ageInYrs"
+    
+    //MARK:- Destination Selection
+    case CityAreaOrHotels = "CityAreaOrHotels"
+    case HotelsNearMe = "HotelsNearMe"
+    case RecentlySearchedDestinations = "RecentlySearchedDestinations"
+    case PopularDestinations = "PopularDestinations"
+    
+    //MARK:- Bulk Booking
+    case BulkBooking = "BulkBooking"
 }
 

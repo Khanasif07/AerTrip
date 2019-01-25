@@ -31,6 +31,7 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var countryLabel:UILabel!
     @IBOutlet weak var cellDividerViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cellDividerView: UIView!
     @IBOutlet weak var addressTypeView: UIView!
     @IBOutlet weak var countryView: UIView!
     
@@ -42,8 +43,14 @@ class AddAddressTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+      
     }
+    
+    
+    
+    
+   
 
     
     // MARK: - Helper methods

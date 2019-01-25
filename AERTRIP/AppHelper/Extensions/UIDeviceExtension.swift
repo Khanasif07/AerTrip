@@ -77,6 +77,10 @@ extension UIDevice{
         completion(false, device)
     }
     
+    static var isIPhoneX: Bool {
+        return UIDevice.current.modelName == "iPhone X"
+    }
+    
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)

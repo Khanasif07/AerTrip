@@ -87,7 +87,7 @@ extension APICaller {
         }
     }
     
-    func callUpdateFavouriteAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
+    func callUpdateFavouriteAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.favourite, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}

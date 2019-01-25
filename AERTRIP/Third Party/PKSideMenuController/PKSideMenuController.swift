@@ -30,7 +30,7 @@ public struct PKSideMenuOptions {
     public static var currentAnimation: PKSideMenuAnimation = .curve3D
 }
 
-open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
+open class PKSideMenuController: UIViewController {
     
     //MARK:- Properties
     //MARK:- Public
@@ -62,8 +62,7 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        setUp()
-        // Do any additional setup after loading the view, typically from a nib.
+        initialSetup()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -87,7 +86,7 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK:- Methods
     //MARK:- Private
-    private func setUp(){
+    private func initialSetup(){
         self.view.backgroundColor = UIColor.white
         self.menuContainer = UIView()
         
@@ -106,6 +105,8 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         if PKSideMenuOptions.currentAnimation == .curve3D {
             self.setup3DShadowLayer(withCornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, shadowWidthFrom: 0.0, shadowWidthTo: PKSideMenuOptions.mainViewShadowWidth)
         }
+        
+        self.addEdgeSwipeGesture()
     }
     
     private func addDropOffShadow() {
@@ -191,6 +192,32 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
         shadowLayer.shadowOffset = CGSize(width: shadowWidthTo, height: 0.0)
         shadowLayer.shadowOpacity = 0.0
         shadowLayer.shadowRadius = 0.0
+    }
+    
+    private func addEdgeSwipeGesture() {
+        let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeOpenAction(_:)))
+        openGesture.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
+        openGesture.delegate = self
+        
+        self.view.addGestureRecognizer(openGesture)
+        
+        let closeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeCloseAction(_:)))
+        closeGesture.edges = (PKSideMenuOptions.currentOpeningSide == .right) ? .right : .left
+        closeGesture.delegate = self
+        
+        self.view.addGestureRecognizer(closeGesture)
+    }
+    
+    @objc private func edgeSwipeOpenAction(_ sender: UIGestureRecognizer) {
+        if sender.state == .began, !self.isOpen {
+            self.openMenu()
+        }
+    }
+    
+    @objc private func edgeSwipeCloseAction(_ sender: UIGestureRecognizer) {
+        if sender.state == .began, self.isOpen {
+            self.closeMenu()
+        }
     }
     
     //MARK:- Public
@@ -284,6 +311,19 @@ open class PKSideMenuController: UIViewController,UIGestureRecognizerDelegate {
     }
 }
 
+
+extension PKSideMenuController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        otherGestureRecognizer.require(toFail: gestureRecognizer)
+        return true
+    }
+    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchedView = touch.view, touchedView.isDescendant(of: self.view) {
+            return false
+        }
+        return true
+    }
+}
 
 //MARK:- Animation Funstions
 //MARK:-

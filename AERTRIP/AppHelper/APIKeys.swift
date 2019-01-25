@@ -86,6 +86,13 @@ enum APIKeys: String {
     case generalPref = "general_pref"
     case auto_share = "auto_share"
     case eid = "eid"
+    
+    case dest_id = "dest_id"
+    case dest_type = "dest_type"
+    case category = "category"
+    case dest_name = "dest_name"
+    case latitude = "latitude"
+    case longitude = "longitude"
 }
 
 

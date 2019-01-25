@@ -22,6 +22,7 @@ class ContactListVC: BaseVC {
     @IBOutlet weak var selectAllButton: UIButton!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomHeaderTopDiverView: UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -99,6 +100,7 @@ class ContactListVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+    //    self.bottomHeaderTopDiverView.isHidden = true
     }
     
     //MARK:- Public
@@ -125,16 +127,19 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
         if self.currentlyUsingFor == .contacts {
             tableView.backgroundView?.isHidden = !self.viewModel.phoneContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.phoneContacts.isEmpty
+            self.bottomHeaderTopDiverView.isHidden = self.viewModel.phoneContacts.isEmpty
             return self.viewModel.phoneContacts.count
         }
         else if self.currentlyUsingFor == .facebook {
             tableView.backgroundView?.isHidden = !self.viewModel.facebookContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.facebookContacts.isEmpty
+             self.bottomHeaderTopDiverView.isHidden = self.viewModel.facebookContacts.isEmpty
             return self.viewModel.facebookContacts.count
         }
         else if self.currentlyUsingFor == .google {
             tableView.backgroundView?.isHidden = !self.viewModel.googleContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.googleContacts.isEmpty
+            self.bottomHeaderTopDiverView.isHidden = self.viewModel.googleContacts.isEmpty
             return self.viewModel.googleContacts.count
         }
         tableView.backgroundView?.isHidden = false

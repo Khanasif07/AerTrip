@@ -97,8 +97,14 @@ class CreateYourAccountVC: BaseVC {
     //MARK:-
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+//        for controller in self.navigationController?.viewControllers ?? [UIViewController()] {
+//            if controller is SocialLoginVC {
+//                 AppFlowManager.default.popViewController(animated: true)
+//            }
+//
+//        }
+          AppFlowManager.default.popToRootViewController(animated: true)
         
-        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func registerButtonAction(_ sender: ATButton) {
@@ -168,7 +174,7 @@ extension CreateYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
-        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+        self.registerButton.isEnabled = self.viewModel.email.count > 0
         
     }
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

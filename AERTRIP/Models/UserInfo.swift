@@ -58,6 +58,7 @@ class UserInfo {
                     "preferred_currency": self.preferredCurrency]
         }
         
+        
         var full: String {
             var fullAdd = ""
             
@@ -460,6 +461,16 @@ class UserInfo {
                 UserDefaults.removeObject(forKey: "socialLoginType")
             }
         }
+    }
+    
+    var travellerDetailModel: TravelDetailModel {
+        var temp = TravelDetailModel(json: JSON([:]))
+        temp.id = self.paxId
+        temp.firstName = self.firstName
+        temp.dob = self.birthDate
+        temp.lastName = self.lastName
+        temp.salutation = self.salutation
+        return temp
     }
 
     init(withData data:JSONDictionary, userId:String) {
