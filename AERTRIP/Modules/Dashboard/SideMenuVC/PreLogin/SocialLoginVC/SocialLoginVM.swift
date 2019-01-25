@@ -65,9 +65,10 @@ class SocialLoginVM {
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
             printDebug(model.name)
-            
+            let fullNameArr = model.name.components(separatedBy: " ")
             self.userData.authKey        = model.accessToken
-            self.userData.firstName       = model.name
+            self.userData.firstName       = fullNameArr[0]
+            self.userData.lastName        = fullNameArr[1]
             self.userData.email          = model.email
             self.userData.service         = "google"
             self.userData.id            = model.id

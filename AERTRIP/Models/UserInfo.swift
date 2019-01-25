@@ -253,6 +253,7 @@ class UserInfo {
         }
         set{
             updateInfo(withData: ["profile_name":newValue])
+            
         }
     }
     

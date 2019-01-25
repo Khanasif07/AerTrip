@@ -18,7 +18,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
-           return  indexPath.row + 1 == self.viewModel.addresses.count ? 262 : 270
+            return indexPath.row + 1 == self.viewModel.addresses.count ? 262 : 270
         } else if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
             return 80
         } else {
@@ -242,7 +242,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
                 cell.downArrowImageView.isHidden = false
-                cell.configureCell(indexPath, flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized :viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
+                cell.configureCell(indexPath, flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell
             }
             
@@ -257,15 +257,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             return 40.0
         }
-       
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized  || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true
-        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized  || sections[section].localized == LocalizedString.SocialAccounts.localized  ? 1 : 0
+        headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true
+        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? 1 : 0
         headerView.headerLabel.text = sections[section].localized
         return headerView
     }
@@ -279,14 +278,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 email.type = "email"
                 var label = LocalizedString.Home.localized
                 if self.viewModel.emailTypes.count > 0 {
-                    if (self.viewModel.email.count == 1) {
-                        label = self.viewModel.emailTypes[2]
-                    }
-                    else if (self.viewModel.email.count == 2) {
-                        label = self.viewModel.emailTypes[1]
-                    }
-                    else {
+                    if self.viewModel.email.count == 1 {
                         label = self.viewModel.emailTypes[0]
+                    } else if self.viewModel.email.count == 2 {
+                        label = self.viewModel.emailTypes[2]
+                    } else {
+                        label = self.viewModel.emailTypes[1]
                     }
                 }
                 email.label = label
@@ -379,7 +376,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             return (indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.mobile.count ? false : true
         case LocalizedString.SocialAccounts.localized:
             return indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1 ? false : true
-          case LocalizedString.FlightPreferences.localized:
+        case LocalizedString.FlightPreferences.localized:
             return indexPath.row < 2 || indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1) ? false : true
         case LocalizedString.Address.localized:
             return indexPath.row == self.viewModel.addresses.count ? false : true
@@ -527,7 +524,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         self.view.endEditing(true)
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            if !text.checkValidity(.Email) {
+            if !text.isEmpty && !text.checkValidity(.Email) {
                 AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: self)
             }
         default:
@@ -581,6 +578,24 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         
         closePicker()
         closeDatePicker()
+        
+        switch self.sections[indexPath.section] {
+        case LocalizedString.EmailAddress.localized:
+            if self.viewModel.email[indexPath.row].value == "" {
+                self.viewModel.email.remove(at: indexPath.row)
+                self.tableView.reloadData()
+                return
+            }
+           
+        case LocalizedString.SocialAccounts.localized:
+            if self.viewModel.social[indexPath.row].value == "" {
+                self.viewModel.social.remove(at: indexPath.row)
+                self.tableView.reloadData()
+                return
+            }
+        default:
+            break
+        }
         
         _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             
@@ -669,7 +684,12 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
-        self.deleteCellTapped(indexPath)
+        if self.viewModel.mobile[indexPath.row].value == "" {
+            self.viewModel.mobile.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        } else {
+            self.deleteCellTapped(indexPath)
+        }
     }
     
     func threePartLeftViewTap(_ gesture: UITapGestureRecognizer) {
@@ -728,12 +748,13 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.pickerTitle = pickerData[row]
         return pickerData[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         NSLog("selected data \(pickerData[row])")
-         pickerTitle = pickerData[row]
+        pickerTitle = pickerData[row]
     }
 }
 
@@ -746,7 +767,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
-        self.deleteCellTapped(indexPath)
+       self.deleteCellTapped(indexPath)
     }
     
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
@@ -861,12 +882,11 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
         if self.viewModel.countries.count > 0 {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
-            //openPicker()
+            // openPicker()
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
             
             PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
                 printDebug("selected country data: \(selectedCountry)")
-                
                 
                 guard let cell = self?.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else {
                     fatalError("AddAddressTableViewCell not found")

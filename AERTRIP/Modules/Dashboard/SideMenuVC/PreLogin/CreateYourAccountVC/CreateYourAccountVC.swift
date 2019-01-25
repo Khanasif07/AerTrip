@@ -25,6 +25,8 @@ class CreateYourAccountVC: BaseVC {
     @IBOutlet weak var privacyPolicyLabel: ActiveLabel!
     @IBOutlet weak var notRegisterYetLabel: UILabel!
     @IBOutlet weak var loginHereButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    
     
     
     //MARK:- ViewLifeCycle
@@ -131,6 +133,7 @@ private extension CreateYourAccountVC {
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        self.backButton.isHidden = true
     }
     
     func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
@@ -232,15 +235,16 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
         
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.headerImage.transform          = .identity
+                self.backButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: 2, animations: {
                 self.headerTitleLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: 3, animations: {
                 self.emailTextField.transform    = .identity
                 self.registerButton.transform    = .identity
                 self.privacyPolicyLabel.transform = .identity
@@ -249,6 +253,8 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
         }) { (success) in
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
+            
+            
         }
     }
     

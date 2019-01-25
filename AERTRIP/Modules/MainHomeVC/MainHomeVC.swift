@@ -84,7 +84,7 @@ class MainHomeVC: BaseVC {
     private func initialSetups() {
         //setup scroll view
         self.scrollViewSetup()
-
+        self.socialLoginVC?.backButton.isHidden = true
         delay(seconds: 0.2) {[weak self] in
             self?.setupProfileView()
             self?.setupLogoView()
@@ -265,7 +265,7 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
-        
+        self.socialLoginVC?.backButton.isHidden = true
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 110.0)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -275,7 +275,7 @@ class MainHomeVC: BaseVC {
             self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
-            
+            self.socialLoginVC?.backButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
             self.logoView?.isHidden = true
             self.sideMenuVC?.logoContainerView.isHidden = true

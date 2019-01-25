@@ -61,6 +61,13 @@
                             <constraint firstAttribute="trailing" secondItem="Vyb-oR-ryc" secondAttribute="trailing" constant="5" id="poW-gv-4vE"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWp-ot-mwn">
+                        <rect key="frame" x="0.0" y="42.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="wje-br-bMU"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoA-rc-X5j">
                         <rect key="frame" x="66" y="42.5" width="249" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -68,11 +75,24 @@
                             <constraint firstAttribute="height" constant="1" id="oZU-8u-xrW"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbP-qW-Kd9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="6oB-PX-n0H"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="SWp-ot-mwn" secondAttribute="trailing" id="1om-X9-X5o"/>
+                    <constraint firstItem="wbP-qW-Kd9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5VV-Hd-hED"/>
+                    <constraint firstAttribute="bottom" secondItem="SWp-ot-mwn" secondAttribute="bottom" id="8zB-XC-OCm"/>
                     <constraint firstItem="aoA-rc-X5j" firstAttribute="leading" secondItem="sE5-Hs-Glv" secondAttribute="leading" id="Dvw-UA-Ccf"/>
+                    <constraint firstItem="wbP-qW-Kd9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FlB-2z-VH2"/>
                     <constraint firstAttribute="bottom" secondItem="aoA-rc-X5j" secondAttribute="bottom" id="KTx-cv-oCq"/>
+                    <constraint firstAttribute="trailing" secondItem="wbP-qW-Kd9" secondAttribute="trailing" id="Mmm-nL-hvw"/>
                     <constraint firstAttribute="trailing" secondItem="sgg-ds-Ycr" secondAttribute="trailing" id="Ye1-Ty-56Y"/>
+                    <constraint firstItem="SWp-ot-mwn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gEk-33-Z49"/>
                     <constraint firstItem="aoA-rc-X5j" firstAttribute="trailing" secondItem="sE5-Hs-Glv" secondAttribute="trailing" id="jci-h3-i02"/>
                     <constraint firstItem="sgg-ds-Ycr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jnj-mJ-bgy"/>
                     <constraint firstItem="sgg-ds-Ycr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="m2b-53-qgt"/>
@@ -82,6 +102,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="leadingConstraint" destination="Ktp-fV-eng" id="wnn-BP-yPb"/>
+                <outlet property="edgeToEdgeBottomSeparatorView" destination="SWp-ot-mwn" id="joy-gP-h9p"/>
+                <outlet property="edgeToEdgeTopSeparatorView" destination="wbP-qW-Kd9" id="bkP-zR-V3b"/>
                 <outlet property="profileImageView" destination="TEE-Gv-sA4" id="T4V-2W-JJy"/>
                 <outlet property="selectTravellerButton" destination="3R5-Zm-uB8" id="PKH-lp-f1I"/>
                 <outlet property="separatorView" destination="aoA-rc-X5j" id="J5g-GA-tLR"/>

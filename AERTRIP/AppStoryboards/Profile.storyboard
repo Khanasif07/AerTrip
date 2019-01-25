@@ -37,31 +37,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYy-rh-rzr">
-                                        <rect key="frame" x="8" y="25" width="35" height="35"/>
+                                        <rect key="frame" x="0.0" y="20" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="8CD-Tz-iAo"/>
-                                            <constraint firstAttribute="width" secondItem="gYy-rh-rzr" secondAttribute="height" multiplier="1:1" id="HLM-fg-pQk"/>
-                                            <constraint firstAttribute="height" constant="35" id="cnW-dN-q7t"/>
+                                            <constraint firstAttribute="width" secondItem="gYy-rh-rzr" secondAttribute="height" multiplier="1:1" id="Iry-Ip-hPV"/>
                                         </constraints>
                                         <state key="normal" image="Back">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="Xjj-X5-8mW" eventType="touchUpInside" id="0L7-l1-88J"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGM-Tv-V7R">
-                                        <rect key="frame" x="63" y="27.5" width="232" height="30"/>
+                                        <rect key="frame" x="57" y="29.5" width="261" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0j9-ut-I8w">
-                                        <rect key="frame" x="315" y="20.5" width="44" height="44"/>
+                                        <rect key="frame" x="323" y="20" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="0j9-ut-I8w" secondAttribute="height" multiplier="1:1" id="7xP-uR-w2c"/>
-                                            <constraint firstAttribute="height" constant="44" id="QQE-Zh-H99"/>
-                                            <constraint firstAttribute="width" constant="44" id="SRx-ou-NMA"/>
+                                            <constraint firstAttribute="width" secondItem="0j9-ut-I8w" secondAttribute="height" multiplier="1:1" id="bcN-zw-UZb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Button">
@@ -82,16 +78,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dai-mW-p4v" secondAttribute="trailing" id="5Qf-jw-AbR"/>
+                                    <constraint firstItem="BGM-Tv-V7R" firstAttribute="leading" secondItem="gYy-rh-rzr" secondAttribute="trailing" constant="13" id="9ZQ-tJ-vs4"/>
                                     <constraint firstItem="dai-mW-p4v" firstAttribute="leading" secondItem="fov-BW-QqB" secondAttribute="leading" id="9uZ-9z-DMb"/>
                                     <constraint firstAttribute="bottom" secondItem="dai-mW-p4v" secondAttribute="bottom" id="Fgc-kq-kPs"/>
-                                    <constraint firstItem="0j9-ut-I8w" firstAttribute="leading" secondItem="BGM-Tv-V7R" secondAttribute="trailing" constant="20" id="PZ5-yN-4WV"/>
-                                    <constraint firstItem="BGM-Tv-V7R" firstAttribute="leading" secondItem="gYy-rh-rzr" secondAttribute="trailing" constant="20" id="RWH-zA-aqm"/>
-                                    <constraint firstAttribute="trailing" secondItem="0j9-ut-I8w" secondAttribute="trailing" constant="16" id="Wp7-mT-aEM"/>
-                                    <constraint firstItem="gYy-rh-rzr" firstAttribute="top" secondItem="fov-BW-QqB" secondAttribute="top" constant="25" id="YJx-b4-rDm"/>
-                                    <constraint firstItem="0j9-ut-I8w" firstAttribute="centerY" secondItem="gYy-rh-rzr" secondAttribute="centerY" id="caD-6J-zbE"/>
-                                    <constraint firstAttribute="bottom" secondItem="BGM-Tv-V7R" secondAttribute="bottom" constant="7.5" id="eO2-2V-nJx"/>
-                                    <constraint firstItem="BGM-Tv-V7R" firstAttribute="centerY" secondItem="gYy-rh-rzr" secondAttribute="centerY" id="pKY-DE-Vve"/>
-                                    <constraint firstItem="gYy-rh-rzr" firstAttribute="leading" secondItem="fov-BW-QqB" secondAttribute="leading" constant="8" id="uhp-sS-epc"/>
+                                    <constraint firstItem="gYy-rh-rzr" firstAttribute="leading" secondItem="fov-BW-QqB" secondAttribute="leading" id="NzR-uM-kdW"/>
+                                    <constraint firstItem="dai-mW-p4v" firstAttribute="top" secondItem="gYy-rh-rzr" secondAttribute="bottom" id="QAc-dJ-gDk"/>
+                                    <constraint firstItem="0j9-ut-I8w" firstAttribute="bottom" secondItem="gYy-rh-rzr" secondAttribute="bottom" id="Uv1-ZL-brc"/>
+                                    <constraint firstItem="BGM-Tv-V7R" firstAttribute="centerY" secondItem="gYy-rh-rzr" secondAttribute="centerY" id="aVM-um-6dB"/>
+                                    <constraint firstItem="0j9-ut-I8w" firstAttribute="leading" secondItem="BGM-Tv-V7R" secondAttribute="trailing" constant="5" id="iI3-nl-701"/>
+                                    <constraint firstItem="gYy-rh-rzr" firstAttribute="top" secondItem="fov-BW-QqB" secondAttribute="top" constant="20" id="nxg-Tn-6EG"/>
+                                    <constraint firstAttribute="trailing" secondItem="0j9-ut-I8w" secondAttribute="trailing" constant="8" id="u6K-GQ-ECk"/>
+                                    <constraint firstItem="0j9-ut-I8w" firstAttribute="top" secondItem="gYy-rh-rzr" secondAttribute="top" id="uG9-Gs-THU"/>
                                     <constraint firstAttribute="height" constant="65" id="zPa-le-v5r"/>
                                 </constraints>
                             </view>

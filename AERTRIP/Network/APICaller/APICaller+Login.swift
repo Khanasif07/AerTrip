@@ -65,7 +65,14 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id =
+                    jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                    
+                    if let profileName = userData["profile_name"] as? String {
+                        let fullNameArr = profileName.components(separatedBy: " ")
+                        userData[APIKeys.firstName.rawValue] = fullNameArr[0]
+                        userData[APIKeys.lastName.rawValue] = fullNameArr[1]
+                    }
                     
                     UserInfo.loggedInUserId = "\(id)"
                     _ = UserInfo(withData: userData, userId: "\(id)")
