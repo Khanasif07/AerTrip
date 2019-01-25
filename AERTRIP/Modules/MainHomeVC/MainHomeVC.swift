@@ -165,8 +165,6 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         
         self.logoView?.isHidden = true
-//        self.logoView?.translatesAutoresizingMaskIntoConstraints = true
-//        self.logoView?.backgroundColor = .red
         self.logoView?.frame.origin.x = sideMenu.sideMenuTableView.x
         self.mainContainerView.addSubview(self.logoView!)
     }
@@ -174,7 +172,7 @@ class MainHomeVC: BaseVC {
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
-        self.profileView?.frame = CGRect(x: sideMenu.sideMenuTableView.width, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        self.profileView?.frame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
         
         self.profileView?.isHidden = true
         self.profileView?.gradientView.isHidden = true
@@ -190,7 +188,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = self.viewProfileVC?.profileImageHeaderView?.bounds ?? CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.45)
+        let finalFrame = CGRect(x: 0.0, y: -20.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.49)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false

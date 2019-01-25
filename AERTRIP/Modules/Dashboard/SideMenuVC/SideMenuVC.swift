@@ -214,7 +214,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuProfileImageCell", for: indexPath) as? SideMenuProfileImageCell else {
-                    fatalError("SideMenuProfileImageCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.populateData()
@@ -226,7 +226,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
-                    fatalError("GuestSideMenuHeaderCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.logoContainerView.isHidden = true
@@ -239,7 +239,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuViewAccountCell", for: indexPath) as? SideMenuViewAccountCell else {
-                    fatalError("SideMenuViewAccountCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.populateData()
@@ -247,7 +247,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
-                    fatalError("SideMenuOptionsLabelCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
@@ -257,7 +257,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         default:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
-                fatalError("SideMenuOptionsLabelCell not found")
+                return UITableViewCell()
             }
             
             if let _ = UserInfo.loggedInUserId {
@@ -283,6 +283,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch indexPath.row {
+        case 0:
+            return (UserInfo.loggedInUserId == nil) ? 267.0 : UIDevice.screenHeight * 0.3
+            
+        case 1:
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : UIDevice.screenHeight * 0.09
+            
+        default:
+            return (UserInfo.loggedInUserId == nil) ? UIDevice.screenHeight * 0.09 : UIDevice.screenHeight * 0.1
+        }
     }
 }

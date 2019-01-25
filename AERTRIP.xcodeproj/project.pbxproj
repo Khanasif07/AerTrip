@@ -96,7 +96,6 @@
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
 		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
-		18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */; };
 		18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */; };
 		18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */; };
 		18FA223021EC7C7C0024B91E /* AssignGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */; };
@@ -187,6 +186,8 @@
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
 		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
+		84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84698FD021FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift */; };
+		84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84698FD121FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift */; };
 		846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFECE21E75C4A00AF6062 /* ATContact.swift */; };
 		84754D8321E8EE3D00317F76 /* TravellerData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */; };
 		84754D8421E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84754D8221E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift */; };
@@ -365,7 +366,6 @@
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
 		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
-		18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldExtension.swift; sourceTree = "<group>"; };
 		18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileThreePartTableViewCell.swift; sourceTree = "<group>"; };
 		18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileThreePartTableViewCell.xib; sourceTree = "<group>"; };
 		18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignGroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -457,6 +457,8 @@
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
 		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
+		84698FD021FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKFloatLabelTextField.swift; sourceTree = "<group>"; };
+		84698FD121FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKFloatLabelTextView.swift; sourceTree = "<group>"; };
 		8469FE8F21B513FD0027BB2E /* AERTRIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AERTRIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846CFECE21E75C4A00AF6062 /* ATContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATContact.swift; sourceTree = "<group>"; };
 		84754D8121E8EE3D00317F76 /* TravellerData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TravellerData+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1158,6 +1160,15 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */ = {
+			isa = PBXGroup;
+			children = (
+				84698FD021FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift */,
+				84698FD121FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift */,
+			);
+			path = PKFloatLabelFields;
+			sourceTree = "<group>";
+		};
 		8469FE8621B513FD0027BB2E = {
 			isa = PBXGroup;
 			children = (
@@ -1337,6 +1348,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */,
 				849B849521EF0B6800AA63BA /* PKAlertController */,
 				18930A1E21D33EFF005442C8 /* SearchTextField.swift */,
 				84E4CC5F21E3679B0015C306 /* PKViewPager */,
@@ -1414,7 +1426,6 @@
 				84F983A321B51A070018DFED /* UserDefaultsExtension.swift */,
 				84F983A421B51A070018DFED /* DateExtension.swift */,
 				18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */,
-				18F4955A21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift */,
 				187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */,
 			);
 			path = Extensions;
@@ -1683,7 +1694,6 @@
 				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1705,7 +1715,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -1731,7 +1740,6 @@
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
-				18F4955B21B7CA370003AC16 /* SkyFloatingLabelTextFieldExtension.swift in Sources */,
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
@@ -1840,6 +1848,7 @@
 				84085D0921F59C0E00F1E844 /* PreferencesVC.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */,
+				84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */,
 				84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
@@ -1906,6 +1915,7 @@
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
 				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
+				84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */,
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
 				849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */,
 				18A01E4021CA0B180071E772 /* HotelModel.swift in Sources */,

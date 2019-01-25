@@ -110,7 +110,6 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (2.5.0)
   - PhoneNumberKit/UIKit (2.5.0):
     - PhoneNumberKit/PhoneNumberKitCore
-  - SkyFloatingLabelTextField (3.6.0)
   - SwiftyJSON (4.2.0)
   - TransitionButton (0.5.2)
 
@@ -126,7 +125,6 @@ DEPENDENCIES:
   - LinkedinSwift
   - MXParallaxHeader
   - PhoneNumberKit (~> 2.5)
-  - SkyFloatingLabelTextField
   - SwiftyJSON (~> 4.0)
   - TransitionButton
 
@@ -156,7 +154,6 @@ SPEC REPOS:
     - MXParallaxHeader
     - nanopb
     - PhoneNumberKit
-    - SkyFloatingLabelTextField
     - SwiftyJSON
     - TransitionButton
 
@@ -185,10 +182,9 @@ SPEC CHECKSUMS:
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PhoneNumberKit: 32a1cd1e0aa9e950feb01886a22fd7386b8cf903
-  SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 3e6d455f8208ec8cff29f55d2d63caa5b12bdcbe
+PODFILE CHECKSUM: 3e8da6adbabb80dc089fdf0d7f7654ab58359525
 
 COCOAPODS: 1.5.3

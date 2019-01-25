@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class ForgotPasswordVC: BaseVC {
     
@@ -20,7 +19,7 @@ class ForgotPasswordVC: BaseVC {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var forgotPasswordLabel: UILabel!
     @IBOutlet weak var intructionLabel: UILabel!
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var continueButton: ATButton!
     
     //MARK:- ViewLifeCycle

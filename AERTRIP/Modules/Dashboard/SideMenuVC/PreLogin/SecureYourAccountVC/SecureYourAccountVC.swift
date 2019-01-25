@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class SecureYourAccountVC: BaseVC {
     
@@ -21,7 +20,7 @@ class SecureYourAccountVC: BaseVC {
     @IBOutlet weak var secureAccountLabel: UILabel!
     @IBOutlet weak var setPasswordLabel: UILabel!
     @IBOutlet weak var passwordConditionLabel: UILabel!
-    @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var passwordTextField: PKFloatLabelTextField!
     @IBOutlet weak var oneLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var smallALabel: UILabel!

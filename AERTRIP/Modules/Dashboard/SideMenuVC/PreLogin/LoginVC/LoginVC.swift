@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class LoginVC: BaseVC {
     
@@ -20,8 +19,8 @@ class LoginVC: BaseVC {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak private var topImage: UIImageView!
     @IBOutlet weak private var welcomeLabel: UILabel!
-    @IBOutlet weak private var emailTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak private var passwordTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak private var emailTextField: PKFloatLabelTextField!
+    @IBOutlet weak private var passwordTextField: PKFloatLabelTextField!
     @IBOutlet weak private var loginButton: ATButton!
     @IBOutlet weak private var forgotPasswordButton: UIButton!
     @IBOutlet weak private var registerHereLabel: UILabel!

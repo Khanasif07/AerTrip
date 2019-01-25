@@ -161,9 +161,6 @@ class ViewProfileVC: BaseVC {
             self.view.backgroundColor = .black
         }
     }
-    
-    
-   
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -262,7 +259,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        NSLog("progress %f", parallaxHeader.progress)
+        printDebug("progress \(parallaxHeader.progress)")
         
         if parallaxHeader.progress >= 0.6 {
             self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress

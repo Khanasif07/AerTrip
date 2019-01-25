@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class CreateProfileVC: BaseVC {
     
@@ -21,13 +20,13 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var createProfileTitleLabel: UILabel!
     @IBOutlet weak var createProfileSubTitleLabel: UILabel!
-    @IBOutlet weak var nameTitleTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var firstNameTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var lastNameTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var countryTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var mobileNumberTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var nameTitleTextField: PKFloatLabelTextField!
+    @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var countryTextField: PKFloatLabelTextField!
+    @IBOutlet weak var mobileNumberTextField: PKFloatLabelTextField!
     @IBOutlet weak var letsStartedButton: ATButton!
-    @IBOutlet weak var countryCodeTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var countryCodeTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var countryFlagImage: UIImageView!
     @IBOutlet weak var titleDropDownImage: UIImageView!
@@ -157,8 +156,8 @@ private extension CreateProfileVC {
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
-        self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self

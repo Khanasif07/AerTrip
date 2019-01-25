@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 import ActiveLabel
 import SafariServices
 
@@ -21,7 +20,7 @@ class CreateYourAccountVC: BaseVC {
     //MARK:-
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var headerTitleLabel: UILabel!
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var registerButton: ATButton!
     @IBOutlet weak var privacyPolicyLabel: ActiveLabel!
     @IBOutlet weak var notRegisterYetLabel: UILabel!

@@ -12,7 +12,6 @@ target 'AERTRIP' do
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
     pod 'LinkedinSwift'
-    pod 'SkyFloatingLabelTextField'
     pod 'Firebase/Core'
     pod 'Firebase/DynamicLinks'
     pod 'MXParallaxHeader'

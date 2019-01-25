@@ -319,6 +319,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
         cell.travellerData = tData
         cell.selectTravellerButton.isHidden = isSelectMode ? false : true
+        cell.leadingConstraint.constant = isSelectMode ? 10.0 : 16.0
         cell.selectTravellerButton.isSelected = selectedTravller.contains(tData?.id ?? "")
         
         return cell

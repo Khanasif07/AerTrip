@@ -12,9 +12,6 @@ class GuestSideMenuHeaderCell: UITableViewCell {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var logoImage: UIImageView!
-    @IBOutlet weak var logoTextImage: UIImageView!
-    @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var loginAndRegisterButton: ATButton!
     @IBOutlet weak var sepratorView: UIView!
     @IBOutlet weak var logoContainerView: UIView!
@@ -54,9 +51,6 @@ private extension GuestSideMenuHeaderCell {
     func setupFontColorAndText() {
         
         self.loginAndRegisterButton.layer.cornerRadius = self.loginAndRegisterButton.height/2
-        self.headerTitleLabel.font      = AppFonts.Regular.withSize(16)
-        self.headerTitleLabel.textColor  = AppColors.themeBlack
-        self.headerTitleLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
         self.loginAndRegisterButton.setTitle(LocalizedString.LoginOrRegister.localized, for: .normal)
     }
 }

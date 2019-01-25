@@ -15,6 +15,7 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var separatorView: UIView!
     @IBOutlet var selectTravellerButton: UIButton!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
