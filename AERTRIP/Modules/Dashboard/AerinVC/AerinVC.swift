@@ -105,7 +105,19 @@ class AerinVC: BaseVC {
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Mumbai"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Delhi"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Christmas"))
-        self.commandHintLabel.attributedText = commandAttrTxt
+        
+        let attributedString = NSMutableAttributedString(string: "Try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
+            .font: AppFonts.Regular.withSize(16.0),
+            .foregroundColor: AppColors.themeTextColor
+            ])
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        paragraphStyle.alignment = .center
+        
+        attributedString.addAttribute(.font, value:AppFonts.Regular.withSize(14.0), range: NSRange(location: 0, length: 14))
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+    
+        self.commandHintLabel.attributedText = attributedString
         
         self.weekendMessageLabel.text = LocalizedString.weekendGetaway.localized
     }

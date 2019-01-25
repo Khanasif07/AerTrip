@@ -52,7 +52,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUr-ge-mTc">
-                        <rect key="frame" x="8" y="58.5" width="312" height="1"/>
+                        <rect key="frame" x="16" y="58.5" width="304" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="idr-13-Aqe"/>
@@ -60,8 +60,8 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="eUr-ge-mTc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="3L7-xE-qDJ"/>
                     <constraint firstItem="jLF-N7-OLP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mcx-ud-29S"/>
+                    <constraint firstItem="eUr-ge-mTc" firstAttribute="leading" secondItem="803-rH-vVN" secondAttribute="leading" id="N0Z-hq-7GR"/>
                     <constraint firstAttribute="bottom" secondItem="eUr-ge-mTc" secondAttribute="bottom" id="SMd-U8-U8Z"/>
                     <constraint firstAttribute="trailing" secondItem="jLF-N7-OLP" secondAttribute="trailing" id="cvN-h5-onG"/>
                     <constraint firstAttribute="trailing" secondItem="eUr-ge-mTc" secondAttribute="trailing" id="mKB-pT-omj"/>

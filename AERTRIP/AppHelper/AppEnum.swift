@@ -172,13 +172,13 @@ enum AppErrorCodeFor: Int {
             return "Invalid user data"
             
         case .userAlreadyRegisterdWithThisEmailId:
-            return "user already registerd with this email id"
+            return "User already registered with this email address"
             
         case .emailActiveAsSocialUser:
-            return "User already registerd with this email id"
+            return "User already registered with this email address"
             
         case .userWithNoPasswordAndNotInSocial:
-            return "User already registerd with this email id"
+            return "User already registered with this email address"
             
         case .userAlreadyLoggedIn:
             return "user already logged in"
@@ -268,4 +268,12 @@ enum AppPlaceholderImage {
     static let user: UIImage = #imageLiteral(resourceName: "userPlaceholder")
     static let profile: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
     static let hotelCard: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+}
+
+// Images
+
+enum AppImage {
+    static let linkedInLogoImage: UIImage = #imageLiteral(resourceName: "linkedInIcon")
+    static let facebookLogoImage: UIImage = #imageLiteral(resourceName: "facebook")
+    static let googleLogoImage: UIImage = #imageLiteral(resourceName: "google")
 }

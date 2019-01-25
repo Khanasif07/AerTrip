@@ -98,7 +98,7 @@ class PreferencesVC: BaseVC {
             let groupName = alertController.textFields?.first?.text ?? "None"
             printDebug("Current group name: \(groupName)")
             
-            if !self.viewModel.groups.contains(groupName) {
+            if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
                 self.viewModel.groups.append(groupName)
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
@@ -276,7 +276,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             if editingStyle == .delete {
                 if indexPath.row != viewModel.groups.count {
                     viewModel.groups.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.reloadData()
                 }
             }
             
@@ -327,7 +327,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
                     self.viewModel.groups.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.reloadData()
                 default:
                     break
                 }

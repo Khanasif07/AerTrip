@@ -1,17 +1,15 @@
 //
+import CoreData
+import Foundation
 //  TravellerData+CoreDataProperties.swift
 //
 //
 //  Created by Admin on 09/01/19.
 //
 //
-import  UIKit
-import Foundation
-import CoreData
-
+import UIKit
 
 extension TravellerData {
-    
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<TravellerData> {
         return NSFetchRequest<TravellerData>(entityName: "TravellerData")
     }
@@ -22,10 +20,9 @@ extension TravellerData {
     @NSManaged public var label: String?
     @NSManaged public var lastName: String?
     @NSManaged public var salutation: String?
-    @NSManaged public var firstNameFirstChar:String?
-    @NSManaged public var lastNameFirstChar:String?
-    @NSManaged public var isChecked:Bool
-    
+    @NSManaged public var firstNameFirstChar: String?
+    @NSManaged public var lastNameFirstChar: String?
+    @NSManaged public var isChecked: Bool
 }
 
 extension TravellerData {
@@ -33,14 +30,31 @@ extension TravellerData {
         return dob?.toDate(dateFormat: "yyyy-MM-dd")?.month ?? 0
     }
     
-    var salutationImage : UIImage {
+    var travellerDetailModel: TravelDetailModel {
+        var temp = TravelDetailModel(json: JSON([:]))
+        temp.id = self.id ?? ""
+        temp.firstName = self.firstName ?? ""
+        temp.dob = self.dob ?? ""
+        temp.label = self.label ?? ""
+        temp.lastName = self.lastName ?? ""
+        temp.salutation = self.salutation ?? ""
+        return temp
+    }
+    
+    var salutationImage: UIImage {
         switch salutation {
         case "Mrs":
-            return #imageLiteral(resourceName: "girl")
+            return #imageLiteral(resourceName: "woman")
         case "Mr":
-            return #imageLiteral(resourceName: "boy")
+            return #imageLiteral(resourceName: "man")
         case "Mast":
             return #imageLiteral(resourceName: "man")
+        case "Miss":
+            return #imageLiteral(resourceName: "girl")
+        case "Ms":
+            return #imageLiteral(resourceName: "woman")
+        case "Mast":
+            return #imageLiteral(resourceName: "boy")
         default:
             return #imageLiteral(resourceName: "person")
         }

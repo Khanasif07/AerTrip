@@ -186,17 +186,35 @@ class DashboardVC: UIViewController {
         self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
-        UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, animations: {
-            self.overlayView.transform = tScale.concatenating(tTrans)
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration * 2.0, delay: 0.0, options: .calculationModeLinear, animations: {
+
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5, animations: {
+                self.overlayView.transform = tScale.concatenating(tTrans)
+            })
+
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1.0, animations: {
+                self.headerView.transform = CGAffineTransform.identity
+                self.segmentContainerView.transform = CGAffineTransform.identity
+            })
+
         }) { (isDone) in
-            if isDone {
-                self.overlayView.isHidden = true
-                UIView.animate(withDuration: AppConstants.kAnimationDuration/2.0, delay: 0.0, options: [.curveEaseOut], animations: {
-                    self.headerView.transform = CGAffineTransform.identity
-                    self.segmentContainerView.transform = CGAffineTransform.identity
-                }, completion: nil)
-            }
+            self.overlayView.isHidden = true
         }
+
+        
+//
+//        UIView.animate(withDuration: 0.4, animations: {
+//            self.overlayView.transform = tScale.concatenating(tTrans)
+//        }) { (isDone) in
+//            if isDone {
+//                self.overlayView.isHidden = true
+//                UIView.animate(withDuration: AppConstants.kAnimationDuration / 2, delay: 0.0, options: [.curveEaseOut], animations: {
+//                    self.headerView.transform = CGAffineTransform.identity
+//                    self.segmentContainerView.transform = CGAffineTransform.identity
+//                }, completion: nil)
+//            }
+//        }
     }
 }
 

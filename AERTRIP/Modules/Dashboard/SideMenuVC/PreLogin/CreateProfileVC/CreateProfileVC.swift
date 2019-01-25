@@ -105,7 +105,7 @@ class CreateProfileVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
@@ -142,7 +142,7 @@ private extension CreateProfileVC {
         self.countryCodeLabel.text  = forCountry.countryCode
         self.countryFlagImage.image = forCountry.flagImage
         self.countryTextField.text = forCountry.countryEnglishName
-        self.viewModel.userData.address?.country = forCountry.countryEnglishName
+        self.viewModel.userData.address?.country = forCountry.ISOCode
         self.viewModel.userData.isd = forCountry.countryCode
         self.viewModel.userData.address?.countryCode = forCountry.ISOCode
         self.viewModel.userData.maxContactLimit = forCountry.maxNSN

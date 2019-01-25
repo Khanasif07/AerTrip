@@ -10,6 +10,8 @@ import Foundation
 
 enum AppConstants {
     
+    static let isReleasingToClient: Bool = true
+    
     static let kCurrency = ""
 
     static let kAppName                     = "Aertrip"
@@ -17,6 +19,7 @@ enum AppConstants {
     static let kGoogleUrlScheme             = ""
     static let kGoogleApiKey                = ""
     static let kFacebookAppID               = ""
+    static let kMe = "Me"
     
     static let kOtpLength                   =         6
     static let kMinTextFieldCharLength               =         2

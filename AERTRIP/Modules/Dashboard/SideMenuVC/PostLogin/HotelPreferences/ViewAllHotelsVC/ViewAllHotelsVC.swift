@@ -181,7 +181,7 @@ extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
 extension ViewAllHotelsVC: HotelsListVCDelegate {
     func removeAllForCurrentPage() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Remove.localized], colors: [AppColors.themeRed])
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.ALERT.localized, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
+        _ = PKAlertController.default.presentActionSheet(nil, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
             if index == 0 {
                 self.viewModel.updateFavourite(forHotels: self.viewModel.hotels[self.currentIndex].holetList)
             }

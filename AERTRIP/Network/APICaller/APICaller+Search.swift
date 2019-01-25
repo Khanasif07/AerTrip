@@ -23,10 +23,12 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
+                 completionBlock(false,[],errors)
                 print(errors)
             })
             
         }) { (error) in
+           
         }
     }
 }

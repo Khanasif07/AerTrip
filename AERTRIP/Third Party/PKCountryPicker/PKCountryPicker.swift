@@ -24,6 +24,7 @@ open class PKCountryPicker: UIView {
     private var selectionHandler: ((PKCountryModel)->Void)?
     private weak var parantVC: UIViewController? = nil
     private var currentSelectedIndex: Int = 0
+    let selection = UISelectionFeedbackGenerator()
     
     //MARK:- Picker Life Cycle
     //MARK:-
@@ -45,6 +46,7 @@ open class PKCountryPicker: UIView {
         self.parantVC = onViewController
         self.openPicker()
     }
+    
     
     public func getCountryData(forISDCode: String) -> PKCountryModel? {
         let allCountries = self.getAllCountries()
@@ -88,7 +90,7 @@ open class PKCountryPicker: UIView {
         self.addSubview(self.pickerView)
         self.countries = self.getAllCountries()
         
-       // self.setupToolBar()
+        self.setupToolBar()
         self.setupAppearance()
     }
     
@@ -108,9 +110,10 @@ open class PKCountryPicker: UIView {
             doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         }
         else {
-            toolbar.barTintColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
-            cancelButton.tintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            doneButton.tintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            toolbar.backgroundColor = AppColors.themeGray40
+            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+            cancelButton.tintColor = AppColors.themeGreen
+            doneButton.tintColor = AppColors.themeGreen
         }
         
         let array = [cancelButton, spaceButton, doneButton]
@@ -125,8 +128,8 @@ open class PKCountryPicker: UIView {
             self.pickerView.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
         }
         else {
-            self.pickerView.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            self.pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
+            self.pickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+            self.pickerView.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
         }
     }
     
@@ -213,7 +216,7 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentSelectedIndex = row
-        
+        selection.selectionChanged()
         if let handler = self.selectionHandler {
             handler(self.countries[self.currentSelectedIndex])
             

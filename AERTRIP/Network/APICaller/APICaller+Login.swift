@@ -150,19 +150,19 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                
-//                let userSettings = jsonData[APIKeys.data.rawValue].dictionaryObject
-//                if let userData = userSettings{
-//                   var  newUserData = userData
-//                    newUserData["points"] = "0"
-//                    AppUserDefaults.save(value: newUserData, forKey: .userData)
-//                }
-//                AppUserDefaults.save(value: jsonData[APIKeys.data.rawValue]["pax_id"].stringValue, forKey: .userId)
-                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     
                     UserInfo.loggedInUserId = "\(id)"
+                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
+                    }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }
+//                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+//
+//                    UserInfo.loggedInUserId = "\(id)"
+//                    _ = UserInfo(withData: userData, userId: "\(id)")
+//                }
                 completionBlock(true, [])
                 
             }, failure: { (errors) in

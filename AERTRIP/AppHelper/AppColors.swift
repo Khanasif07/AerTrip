@@ -81,6 +81,9 @@ enum AppColors {
     
     // RGB - 0,0,0, 0.0
      static let viewProfileDetailBottomGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+    
+    // RGB - 126,126,126, 1.0
+    static let toastBackgroundBlur = #colorLiteral(red: 0.4941176471, green: 0.4941176471, blue: 0.4941176471, alpha: 1)
 
     case headlines
     case body

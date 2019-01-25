@@ -45,11 +45,11 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        
+
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
-            self?.profileImageHeaderView.layoutIfNeeded()
+//            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
+//            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -91,14 +91,17 @@ class ViewProfileDetailVC: BaseVC {
         setupParallaxHeader()
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2))
+        tableView.tableFooterView = footerView
+        setUpDataFromApi()
     }
     
     private func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(319) // UIScreen.width * 9 / 16 + 55
+       let parallexHeaderHeight = CGFloat(UIDevice.screenHeight * 0.45) // UIScreen.width * 9 / 16 + 55
         
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
-        profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: parallexHeaderHeight)
+        profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
         
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
@@ -110,6 +113,7 @@ class ViewProfileDetailVC: BaseVC {
         gradient.frame = profileImageHeaderView.gradientView.bounds
         gradient.colors = [AppColors.viewProfileDetailTopGradientColor.cgColor, AppColors.viewProfileDetailBottomGradientColor.cgColor]
         profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
+        profileImageHeaderView.dividerView.isHidden = true
         
         view.bringSubviewToFront(headerView)
     }
@@ -122,11 +126,13 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView.emailIdLabel.text = ""
         profileImageHeaderView.mobileNumberLabel.text = ""
         profileImageHeaderView.familyButton.isHidden = false
-        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label, for: .normal)
+        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst(), for: .normal)
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.profileImageView.image = UIImage(named: "profilePlaceholder")
         if travel.profileImage != "" {
             profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
+          self.profileImageHeaderView.backgroundImageView.kf.setImage(with: URL(string: travel.profileImage))
+            
         } else {
             if viewModel.isFromTravellerList {
                 let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
@@ -139,10 +145,10 @@ class ViewProfileDetailVC: BaseVC {
             }
         }
         mobile.removeAll()
-        if !viewModel.isFromTravellerList {
+        if travel.id == UserInfo.loggedInUser?.paxId ?? ""{
             var mobile = Mobile()
             mobile.label = "Default"
-            mobile.value = UserInfo.loggedInUser?.mobile ?? ""
+            mobile.value = "\(UserInfo.loggedInUser?.isd ?? "") \(UserInfo.loggedInUser?.mobile ?? "")"
             self.mobile = [mobile]
         }
         
@@ -153,7 +159,7 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.Address)
         }
         
-        if !viewModel.isFromTravellerList {
+        if travel.id == UserInfo.loggedInUser?.paxId ?? "" {
             var email = Email()
             email.label = "Default"
             email.value = UserInfo.loggedInUser?.email ?? ""
@@ -173,10 +179,11 @@ class ViewProfileDetailVC: BaseVC {
             self.social = social
             sections.append(LocalizedString.SocialAccounts)
         }
-        sections.append(LocalizedString.MoreInformation)
+      
         informations.removeAll()
         if !travel.dob.isEmpty {
             informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
+              sections.append(LocalizedString.MoreInformation)
         }
         if !travel.doa.isEmpty {
             informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
@@ -256,7 +263,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
             return cell
         case LocalizedString.ContactNumber:
-            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].value)
+            cell.configureCell(mobile[indexPath.row].label, "\(mobile[indexPath.row].isd) \(mobile[indexPath.row].value)")
             cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
             return cell
         case LocalizedString.SocialAccounts:

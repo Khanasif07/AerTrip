@@ -173,13 +173,28 @@ class TravellerListVC: BaseVC {
     }
     
     func setUpTravellerHeader() {
-        let string = "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")"
-        travellerListHeaderView.userNameLabel.text = string
+//        let string = "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")"
+//        travellerListHeaderView.userNameLabel.text = string
+        if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
+            travellerListHeaderView.userNameLabel.attributedText = self.getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.lastName ?? "A")") \("\(UserInfo.loggedInUser?.firstName ?? "N")")", boldText: boldText)
+            
+        } else {
+           let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
+             travellerListHeaderView.userNameLabel.attributedText = self.getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")", boldText: boldText)
+        }
         if UserInfo.loggedInUser?.profileImage != "" {
             travellerListHeaderView.profileImageView.kf.setImage(with: URL(string: UserInfo.loggedInUser?.profileImage ?? ""))
         } else {
             travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
         }
+    }
+    
+    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), .foregroundColor: UIColor.black])
+        
+        attString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (text as NSString).range(of: boldText))
+        return attString
     }
     
     func loadSavedData() {
@@ -189,19 +204,19 @@ class TravellerListVC: BaseVC {
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil)
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
                 fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: false))
+                
             } else {
                 fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))
             }
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: false)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
             } else {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
             }
             
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
-        
         fetchedResultsController.delegate = self
         if predicateStr == "" {
              fetchedResultsController.fetchRequest.predicate = nil
@@ -343,9 +358,18 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                     travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
                 }
             }
+        } else if let tData = fetchedResultsController.object(at: indexPath) as? TravellerData {
+            AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, true)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug("header has been scroller \(scrollView.contentOffset.y)")
+        if scrollView.contentOffset.y == 44.0 {
+            printDebug("header has been scroller \(scrollView.contentOffset.y)")
+            
         } else {
-            let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
-            AppFlowManager.default.moveToViewProfileDetailVC(tData?.id ?? "", true)
+            
         }
     }
 }
@@ -440,6 +464,7 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
 extension TravellerListVC: PreferencesVCDelegate {
     func preferencesUpdated() {
         loadSavedData()
+        setUpTravellerHeader()
     }
 }
 
@@ -466,8 +491,7 @@ extension TravellerListVC: AssignGroupVCDelegate {
 
 extension TravellerListVC : TravellerListHeaderViewDelegate {
     func headerViewTapped() {
-        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.paxId ?? "", true)
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), true)
     }
-    
     
 }

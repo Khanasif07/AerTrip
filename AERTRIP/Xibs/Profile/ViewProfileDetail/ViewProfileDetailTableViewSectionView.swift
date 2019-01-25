@@ -12,7 +12,7 @@ class ViewProfileDetailTableViewSectionView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var topSeparatorView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
-    
+    @IBOutlet weak var topDividerHeightConstraint: NSLayoutConstraint!
     
 
 }

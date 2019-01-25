@@ -44,7 +44,7 @@ class PKCountryView: UIView {
         self.countryCodeLabel.textColor = PKCountryPickerSettings.countryCodeColor
         
         self.countryNameLabel.text = self.countryData?.countryEnglishName
-        self.countryCodeLabel.text = self.countryData?.countryCode
+        self.countryCodeLabel.text = PKCountryPickerSettings.shouldShowCountryCode ? self.countryData?.countryCode : ""
         if let imgName = self.countryData?.countryFlag, let img = UIImage(named: "\(imgName)") {
             self.flagImageView.image = img
         }

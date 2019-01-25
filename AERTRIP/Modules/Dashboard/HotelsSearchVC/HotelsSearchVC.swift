@@ -12,6 +12,7 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- Properties
     //MARK:-
+    @IBOutlet weak var tapMeButton: UIButton!
     
     //MARK:- IBOutlets
     //MARK:-
@@ -28,7 +29,7 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        
+        self.tapMeButton.isHidden = AppConstants.isReleasingToClient
     }
     
     //MARK:- Public
