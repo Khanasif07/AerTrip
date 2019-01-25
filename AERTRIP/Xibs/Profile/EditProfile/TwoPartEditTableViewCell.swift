@@ -30,6 +30,8 @@ class TwoPartEditTableViewCell: UITableViewCell {
     @IBOutlet var rightTextField: UITextField!
     @IBOutlet var leftTitleLabelHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet var frequentFyerImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var frequentFlyerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var leftSeparatorView: UIView!
     @IBOutlet var rightSeparatorView: UIView!
     
@@ -39,15 +41,16 @@ class TwoPartEditTableViewCell: UITableViewCell {
     var indexPath: IndexPath?
     var ffData: FrequentFlyer? {
         didSet {
-            self.configureCell()
+            configureCell()
         }
     }
     
     var issueDate: String = "" {
         didSet {
-            self.configureCell()
+            configureCell()
         }
     }
+    
     var expiryDate: String = "" {
         didSet {
             self.configureCell()
@@ -57,42 +60,48 @@ class TwoPartEditTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.addGesture()
+        frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
+        addGesture()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.leftTextField.placeholder = ""
-        self.rightTextField.placeholder = ""
-        self.frequentFlyerLabel.text = ""
-        self.downArrowImageView.isHidden = false
+        leftTextField.placeholder = ""
+        rightTextField.placeholder = ""
+        downArrowImageView.isHidden = false
     }
     
     private func configureCell() {
-
         if let ff = self.ffData {
             frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
-            frequentFlyerLabel.text = ff.airlineName
+            if ff.airlineName == LocalizedString.SelectAirline.localized {
+                frequentFlyerLabel.text = ff.airlineName
+                frequentFlyerLabelLeadingConstraint.constant = 0
+                frequentFyerImageViewWidthConstraint.constant = 0
+            } else {
+                frequentFlyerLabel.text = ff.airlineName
+                frequentFlyerLabelLeadingConstraint.constant = 16
+                frequentFyerImageViewWidthConstraint.constant = 23
+            }
             rightTextField.text = ff.number
             rightTextField.delegate = self
             leftTitleLabel.isHidden = false
             leftTitleLabel.text = LocalizedString.FrequentFlyer.rawValue
             
-            self.frequentFlyerView.isHidden = false
-            self.deleteButton.isHidden = false
-            self.leftTextField.isEnabled = false
-            self.rightTextField.isEnabled = true
-        }
-        else {
+            frequentFlyerView.isHidden = false
+            deleteButton.isHidden = false
+            leftTextField.isEnabled = false
+            rightTextField.isEnabled = true
+        } else {
             leftTextField.text = issueDate
             rightTextField.text = expiryDate
             
-            self.frequentFlyerView.isHidden = true
-            self.leftTitleLabel.text = LocalizedString.issueDate.rawValue
-            self.rightTitleLabel.text = LocalizedString.expiryDate.rawValue
-            self.deleteButton.isHidden = true
-            self.leftTextField.isEnabled = false
-            self.rightTextField.isEnabled = false
+            frequentFlyerView.isHidden = true
+            leftTitleLabel.text = LocalizedString.issueDate.rawValue
+            rightTitleLabel.text = LocalizedString.expiryDate.rawValue
+            deleteButton.isHidden = true
+            leftTextField.isEnabled = false
+            rightTextField.isEnabled = false
         }
     }
     

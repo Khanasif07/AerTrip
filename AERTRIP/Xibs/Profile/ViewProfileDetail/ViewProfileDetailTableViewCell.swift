@@ -23,7 +23,7 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
 
     
     func configureCell(_ title:String,_ content:String) {
-        headerTitleLabel.text = title
+        headerTitleLabel.text = title.capitalizedFirst()
         contentLabel.text = content
         
     }

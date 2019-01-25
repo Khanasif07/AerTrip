@@ -29,6 +29,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var middleView: UIView!
+    @IBOutlet weak var middleSeparatorView: UIView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryCodeLabel: UILabel!
     
@@ -52,7 +53,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     func configureCell(_ indexPath:IndexPath,_ isd:String,_ label : String, _ value: String) {
         self.indexPath = indexPath
-        self.leftTitleLabel.text = label
+        self.leftTitleLabel.text = label.capitalizedFirst()
         self.rightViewTextField.text = value
         
         self.countryCodeLabel.text = isd
@@ -63,18 +64,10 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
             self.countryCodeLabel.text = isd
             self.flagImageView.image = countryData.flagImage
         }
-        
-        if indexPath.row == 0 {
-            deleteButton.isHidden = true
-        } else {
-            deleteButton.isHidden = false
-        }
-        
         self.rightViewTextField.delegate = self
         self.rightViewTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
-        leftView.isUserInteractionEnabled = true
         leftView.tag = indexPath.row
         leftView.addGestureRecognizer(gesture)
         

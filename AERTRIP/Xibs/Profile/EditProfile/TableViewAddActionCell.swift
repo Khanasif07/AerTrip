@@ -14,9 +14,16 @@ class TableViewAddActionCell: UITableViewCell {
     @IBOutlet var cellBackgroundView: UIView!
     @IBOutlet var actionLabel: UILabel!
 
+    @IBOutlet weak var topDividerView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        topDividerView.isHidden = false
     }
 
     // MARK: - Helper Methods

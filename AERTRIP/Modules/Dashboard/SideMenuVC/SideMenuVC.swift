@@ -261,9 +261,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let _ = UserInfo.loggedInUserId {
-                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
+                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 1])
                 
-                if indexPath.row == 6 {
+                if indexPath.row == 5 {
                     cell.sepratorView.isHidden = false
                 }
                 
@@ -276,7 +276,18 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        switch indexPath.row {
+        case 0:
+            break
+        case 1:
+            break
+        case 5:
+            printDebug("setting tapped")
+            
+            
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

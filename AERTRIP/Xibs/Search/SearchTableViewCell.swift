@@ -9,29 +9,29 @@
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
-    
     // MARK: - IB Outlets
-  
-    @IBOutlet weak var searchImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var searchCodeLabel: UILabel!
-    @IBOutlet weak var separatorView: UIView!
+    
+    @IBOutlet var searchImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var searchCodeLabel: UILabel!
+    @IBOutlet var separatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
-    func configureCell(_ imageUrl:String,_ title:String, _ code : String) {
+    func configureCell(_ imageUrl: String, _ title: String, _ code: String) {
+        let result = title.replacingOccurrences(of: "(\(code))", with: "",
+                                              options: NSString.CompareOptions.literal, range: nil)
         self.searchImageView.kf.setImage(with: URL(string: imageUrl))
-        titleLabel.text = title
+        titleLabel.text = result
         searchCodeLabel.text = code
     }
-    
 }

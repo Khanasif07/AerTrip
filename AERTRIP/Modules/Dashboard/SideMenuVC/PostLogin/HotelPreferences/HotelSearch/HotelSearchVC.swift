@@ -76,6 +76,24 @@ class HotelSearchVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            printDebug("notification: Keyboard will show")
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+                emptyView.mainImageViewTopConstraint.constant = -keyboardSize.height
+            }
+        }
+    }
+    
+    override func keyboardWillHide(notification: Notification) {
+        if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            printDebug("notificatin:Keyboard will hide")
+             emptyView.mainImageViewTopConstraint.constant =  UIScreen.main.bounds.origin.y
+           
+        }
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
@@ -134,12 +152,12 @@ extension HotelSearchVC: HotelCardCollectionViewCellDelegate {
 
 extension HotelSearchVC: HotelSearchVMDelegate {
     func willUpdateFavourite() {
-        AppNetworking.showLoader()
+    //    AppNetworking.showLoader()
     }
     
     func updateFavouriteSuccess(withMessage: String) {
         AppNetworking.hideLoader()
-        AppToast.default.showToastMessage(message: withMessage, vc: self)
+     //   AppToast.default.showToastMessage(message: withMessage, vc: self)
         self.collectionView.reloadData()
         self.sendDataChangedNotification(data: self)
     }
@@ -169,7 +187,22 @@ extension HotelSearchVC: UISearchBarDelegate {
             self.viewModel.hotels.removeAll()
             self.collectionView.reloadData()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
+            noResultemptyView.searchTextLabel.isHidden = false
+            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchHotel(forText: searchText)
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchBar.text ?? ""
+        if searchText == "" {
+            self.viewModel.hotels.removeAll()
+            self.collectionView.reloadData()
+        } else if searchText.count >= AppConstants.kSearchTextLimit {
+            noResultemptyView.searchTextLabel.isHidden = false
+            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
+            self.viewModel.searchHotel(forText: searchText)
+        }
+         searchBar.resignFirstResponder()
     }
 }

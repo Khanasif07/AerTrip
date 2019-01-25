@@ -88,8 +88,8 @@ class ATButton: UIButton {
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: 12.0)
-            shadowLayer.shadowOpacity = 0.3
-            shadowLayer.shadowRadius = 8.0
+            shadowLayer.shadowOpacity = 0.1
+            shadowLayer.shadowRadius = 30.0
         } else {
             shadowLayer.shadowColor = UIColor.clear.cgColor
         }

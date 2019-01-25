@@ -23,6 +23,7 @@ class ViewProfileVC: BaseVC {
     @IBOutlet var headerLabel: UILabel!
     @IBOutlet var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var drawableHeaderView: UIView!
+    @IBOutlet weak var dividerView: UIView!
     
     // MARK: - Variables
     
@@ -105,6 +106,7 @@ class ViewProfileVC: BaseVC {
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.dividerView.isHidden = true
     }
     
     func setupParallaxHeader() { // Parallax Header
@@ -128,7 +130,6 @@ class ViewProfileVC: BaseVC {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
             self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            //addBlurToImage()
         }
         else {
             profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
@@ -274,6 +275,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 self?.backButton.setImage(tintedImage, for: .normal)
+                 self?.dividerView.isHidden = false
                 self?.backButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
@@ -283,6 +285,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             self.drawableHeaderView.backgroundColor = UIColor.clear
             self.drawableHeaderViewHeightConstraint.constant = 0
             self.headerView.backgroundColor = UIColor.clear
+            self.dividerView.isHidden = true
             self.editButton.setTitleColor(UIColor.white, for: .normal)
             self.backButton.tintColor = UIColor.white
             self.headerLabel.text = ""
@@ -301,7 +304,7 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     
     func profileImageTapped() {
         NSLog("profile Image Tapped View ProfileVc")
-        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.paxId ?? "", false)
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), false)
     }
 }
 

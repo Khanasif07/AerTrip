@@ -22,7 +22,7 @@ struct PKCountryPickerSettings {
     /* pickerSize
      * - used to give the size for the picker view.
      */
-    static var pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 240.0)
+    static var pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 216.0)
     
     /* rowHeight
      * - used to give the height of the each row in picker view.
@@ -56,4 +56,9 @@ struct PKCountryPickerSettings {
      * - used to set the color of country code text.
      */
     static var countryCodeColor: UIColor = .black
+    
+    /* should show country code label
+     * - used check if we have to show country code or not
+     */
+    static var shouldShowCountryCode:Bool = true
 }

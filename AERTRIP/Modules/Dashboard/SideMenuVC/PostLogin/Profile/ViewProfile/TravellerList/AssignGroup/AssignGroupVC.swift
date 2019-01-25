@@ -75,10 +75,10 @@ class AssignGroupVC: BaseVC {
             let groupName = alertController.textFields?.first?.text ?? "None"
             printDebug("Current group name: \(groupName)")
             
-            if !self.viewModel.groups.contains(groupName) {
+            if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
                 self.viewModel.groups.append(groupName)
             } else {
-                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
+                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
             }
             self.tableView.reloadData()
             self.viewModel.callSavePreferencesAPI()

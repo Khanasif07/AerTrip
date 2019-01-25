@@ -99,7 +99,13 @@ class SocialLoginVC: BaseVC {
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
-            self.linkedInButton.setImage(UIImage(named: "linkedInIcon")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
+        self.fbButton.setImage(AppImage.facebookLogoImage, for: .highlighted)
+        self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
+        self.googleButton.setImage(AppImage.googleLogoImage, for: .highlighted)
+        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
+        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .highlighted)
+        
     }
     
     override func bindViewModel() {
@@ -111,8 +117,6 @@ class SocialLoginVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-          self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .highlighted)
-          self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     

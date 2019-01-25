@@ -53,7 +53,8 @@ extension SideMenuViewAccountCell {
     }
     
     func populateData() {
-        let amount = (UserInfo.loggedInUser?.accountData?.statements.amountDue ?? 0.0)
-        self.amountLabel.text = "\u{20B9} "+"\(amount)"
+        // FIXME:  Amount would be in double ,doing it for temporary as per QA
+        let amount = (UserInfo.loggedInUser?.accountData?.statements.amountDue ?? 0)
+        self.amountLabel.text = "\u{20B9} "+"\(Int(amount))"
     }
 }
