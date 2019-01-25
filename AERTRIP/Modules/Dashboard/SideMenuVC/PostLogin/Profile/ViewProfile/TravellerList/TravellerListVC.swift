@@ -362,6 +362,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, true)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug("header has been scroller \(scrollView.contentOffset.y)")
+        if scrollView.contentOffset.y == 44.0 {
+            printDebug("header has been scroller \(scrollView.contentOffset.y)")
+            
+        } else {
+            
+        }
+    }
 }
 
 // MARK: - TravellerListVMDelegate methods
@@ -483,6 +493,5 @@ extension TravellerListVC : TravellerListHeaderViewDelegate {
     func headerViewTapped() {
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), true)
     }
-    
     
 }
