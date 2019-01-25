@@ -223,6 +223,7 @@ class RoomGuestSelectionVC: BaseVC {
     @objc func tappedOnBackgroundView(_ sender: UIGestureRecognizer) {
         self.hide(animated: true, shouldRemove: true)
     }
+    
     @IBAction func doneButtonAction(_ sender: UIButton) {
         self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge)
         self.hide(animated: true, shouldRemove: true)

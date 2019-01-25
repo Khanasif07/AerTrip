@@ -70,6 +70,37 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.roomCountLabel.textColor = AppColors.themeGray40
         self.adultCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.adultCountLabel.textColor = AppColors.textFieldTextColor51
+        self.adultPopUpBtn.isUserInteractionEnabled = false
+        self.childPopUpBtn.isUserInteractionEnabled = false
+    }
+    
+    ///Configure Cell
+    internal func configureCell(viewModel: HotelsSearchVM ,roomData: [String]) {
+        self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(indexPath.item + 1)"
+        if roomData.count == 2 {
+            self.cancelBtnOutlet.isHidden = true
+            self.lineView.isHidden = true
+            //self.childStackView.isHidden = true
+        } else{
+            if indexPath.item == 0 || indexPath.item == 1 {
+                //self.childStackView.isHidden = false
+                self.lineView.isHidden = false
+                if indexPath.item == 0 {
+                    self.lineViewLeadingConstraint.constant = 16.0
+                    self.lineViewTrailingConstraint.constant = 0.0
+                } else {
+                    self.lineViewLeadingConstraint.constant = 0.0
+                    self.lineViewTrailingConstraint.constant = 16.0
+                }
+            } else {
+                self.lineView.isHidden = true
+                self.lineViewLeadingConstraint.constant = 0.0
+            }
+            self.cancelBtnOutlet.isHidden = false
+        }
+        self.childStackView.isHidden = viewModel.childrenCounts[indexPath.item] == 0 ? true : false
+        self.adultCountLabel.text = "\(viewModel.adultCounts[indexPath.item])"
+        self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
     }
 }
 

@@ -293,6 +293,18 @@ enum LocalizedString: String {
     case Remove = "Remove"
     case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
     
+    //Mark:- Hotels Search
+    //Mark:-
+    case WhereButton = "WhereButton"
+    case CheckIn = "CheckIn"
+    case CheckOut = "CheckOut"
+    case Nights = "Nights"
+    case AddRoom = "AddRoom"
+    case StarRating = "StarRating"
+    case AllStars = "AllStars"
+    case WantMoreRooms = "WantMoreRooms?"
+    case RequestBulkBooking = "RequestBulkBooking"
+    
     //MARK:- Room Guest Selection
     case Room = "Room"
     case Adults = "Adults"

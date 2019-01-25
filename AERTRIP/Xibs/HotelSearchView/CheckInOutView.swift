@@ -63,5 +63,8 @@ class CheckInOutView: UIView {
         self.checkOutDateLabel.textColor = AppColors.textFieldTextColor51
         self.totalNightsLabel.font = UIFont(name: AppFonts.SemiBold.rawValue, size: 14.0)
         self.totalNightsLabel.textColor = AppColors.themeGray40
+        self.checkInLabel.text = LocalizedString.CheckIn.localized
+        self.checkOutLabel.text = LocalizedString.CheckOut.localized
+        self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
     }
 }

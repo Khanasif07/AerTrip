@@ -12,15 +12,16 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- Properties
     //=================
-    
+    internal var roomData: [String] = ["Room 1","add room"]
     internal var isRated: [Bool] = []
     internal var checkInOutView: CheckInOutView?
     private var previousOffSet = CGPoint.zero
-    internal var roomData: [String] = ["Room 1","add room"]
     private var collectionViewHeight: CGFloat = 0.0
     private var searchViewHeight: CGFloat = 0.0
     private var containerViewHeight: CGFloat = 0.0
     private var scrollViewContentSize: CGSize = CGSize.zero
+    private var addRoomPicIndex: IndexPath?
+    private(set) var viewModel = HotelsSearchVM()
     
     //Computed Properties
     private var cellHeight: CGFloat{
@@ -93,10 +94,8 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func bindViewModel() {
-        let AddRoomNib = UINib(nibName: "AddRoomCell", bundle: nil)
-        self.addRoomCollectionView.register(AddRoomNib, forCellWithReuseIdentifier: "AddRoomCell")
-        let AddRoomPicNib = UINib(nibName: "AddRoomPictureCell", bundle: nil)
-        self.addRoomCollectionView.register(AddRoomPicNib, forCellWithReuseIdentifier: "AddRoomPictureCell")
+        self.addRoomCollectionView.registerCell(nibName: "AddRoomCell")
+        self.addRoomCollectionView.registerCell(nibName: "AddRoomPictureCell")
     }
     
     override func setupFonts() {
@@ -129,6 +128,13 @@ class HotelsSearchVC: BaseVC {
         self.fourStarLabel.textColor = AppColors.themeGray40
         self.fiveStarLabel.textColor = AppColors.themeGray40
         self.attributeLabelSetUp()
+    }
+    
+    override func setupTexts() {
+        self.whereBtnOutlet.setTitle(LocalizedString.WhereButton.localized, for: .normal)
+        self.starRatingLabel.text = LocalizedString.StarRating.localized
+        self.allStarLabel.text = LocalizedString.AllStars.localized
+        self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
     }
     
     //ScrollViewDidScroll
@@ -167,8 +173,8 @@ class HotelsSearchVC: BaseVC {
     private func initialSetups() {
         self.cityNameLabel.isHidden = true
         self.stateNameLabel.isHidden = true
-//        self.scrollView.layer.cornerRadius = 10.0
-//        self.scrollView.layer.masksToBounds = true
+        //        self.scrollView.layer.cornerRadius = 10.0
+        //        self.scrollView.layer.masksToBounds = true
         //self.containerView.clipsToBounds = true
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.scrollView.delegate = self
@@ -190,8 +196,8 @@ class HotelsSearchVC: BaseVC {
         let attributedString = NSMutableAttributedString()
         let grayAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40] as [NSAttributedString.Key : Any]
         let greenAtrribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen]
-        let greyAttributedString = NSAttributedString(string: "Want more rooms?", attributes: grayAttribute)
-        let greenAttributedString = NSAttributedString(string: " Request Bulk Booking", attributes: greenAtrribute)
+        let greyAttributedString = NSAttributedString(string: LocalizedString.WantMoreRooms.localized, attributes: grayAttribute)
+        let greenAttributedString = NSAttributedString(string: " " + LocalizedString.RequestBulkBooking.localized, attributes: greenAtrribute)
         attributedString.append(greyAttributedString)
         attributedString.append(greenAttributedString)
         self.bulkBookingsLbl.attributedText = attributedString
@@ -240,6 +246,21 @@ class HotelsSearchVC: BaseVC {
     private func changeRateToTrue(index: Int) {
         for i in 0...index{
             self.isRated[i] = true
+        }
+    }
+    
+    ///DataSwapping
+    private func dataSwapping(indexPath: IndexPath) {
+        for index in indexPath.item...(self.viewModel.adultCounts.count - 1) {
+            if index != (self.viewModel.adultCounts.count - 1) {
+                self.viewModel.adultCounts[index] = self.viewModel.adultCounts[index + 1]
+                self.viewModel.childrenCounts[index] = self.viewModel.childrenCounts[index + 1]
+                //self.viewModel.childrenAge[index] = self.viewModel.childrenAge[index + 1]
+            } else {
+                self.viewModel.adultCounts[index] = 1
+                self.viewModel.childrenCounts[index] = 0
+                //self.viewModel.childrenAge[index] = [0,0,0,0]
+            }
         }
     }
     
@@ -315,6 +336,14 @@ class HotelsSearchVC: BaseVC {
             }
         }
     }
+    
+    @IBAction func whereButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.showSelectDestinationVC(delegate: self)
+    }
+    
+    @IBAction func searchButtonAction(_ sender: ATButton) {
+    }
+    
 }
 
 //Mark:- UICollectionView Delegate and Datasource
@@ -327,36 +356,19 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if self.roomData.count < 5 && self.roomData.count - 1 == indexPath.item {
-            guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else { fatalError("Add Room Picture Cell Not Found") }
+            guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else {
+                return UICollectionViewCell()
+            }
             addRoomCell.indexPath = indexPath
             addRoomCell.delegate = self
             return addRoomCell
         } else {
-            guard let addRoomPicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomPictureCell", for: indexPath) as? AddRoomPictureCell else { fatalError("Add Room Picture Cell Not Found") }
+            guard let addRoomPicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomPictureCell", for: indexPath) as? AddRoomPictureCell else {
+                return UICollectionViewCell()
+            }
             addRoomPicCell.indexPath = indexPath
             addRoomPicCell.delegate = self
-            addRoomPicCell.roomCountLabel.text = "Room \(indexPath.item + 1)"
-            if self.roomData.count == 2 {
-                addRoomPicCell.cancelBtnOutlet.isHidden = true
-                addRoomPicCell.lineView.isHidden = true
-                //addRoomPicCell.childStackView.isHidden = true
-            } else{
-                if indexPath.item == 0 || indexPath.item == 1 {
-                    addRoomPicCell.childStackView.isHidden = false
-                    addRoomPicCell.lineView.isHidden = false
-                    if indexPath.item == 0 {
-                        addRoomPicCell.lineViewLeadingConstraint.constant = 16.0
-                        addRoomPicCell.lineViewTrailingConstraint.constant = 0.0
-                    } else {
-                        addRoomPicCell.lineViewLeadingConstraint.constant = 0.0
-                        addRoomPicCell.lineViewTrailingConstraint.constant = 16.0
-                    }
-                } else {
-                    addRoomPicCell.lineView.isHidden = true
-                    addRoomPicCell.lineViewLeadingConstraint.constant = 0.0
-                }
-                addRoomPicCell.cancelBtnOutlet.isHidden = false
-            }
+            addRoomPicCell.configureCell(viewModel: self.viewModel, roomData: self.roomData)
             return addRoomPicCell
         }
     }
@@ -364,8 +376,9 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView.cellForItem(at: indexPath) as? AddRoomCell) != nil {
             self.plusButtonTouched(indexPath: indexPath)
-        } else if (collectionView.cell(forItem: indexPath as? AddRoomPictureCell) != nil) {
-            
+        } else if (collectionView.cellForItem(at: indexPath) as? AddRoomPictureCell) != nil {
+            self.addRoomPicIndex = indexPath
+            AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 1, selectedChildren: 0, selectedAges: [0], delegate: self)
         }
     }
     
@@ -383,7 +396,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
 extension HotelsSearchVC: ExpandedCellDelegate {
     
     func plusButtonTouched(indexPath: IndexPath) {
-        self.roomData.append("Room \(self.roomData.count - 1)")
+        self.roomData.append("\(LocalizedString.Room.localized) \(self.roomData.count - 1)")
         if self.roomData.count < 5 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
@@ -414,6 +427,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 }
             }
         }
+        self.dataSwapping(indexPath: indexPath)
     }
 }
 
@@ -421,6 +435,12 @@ extension HotelsSearchVC: ExpandedCellDelegate {
 //MARK:-
 extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
     func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int]) {
+        if let indexPath = addRoomPicIndex {
+            viewModel.adultCounts[indexPath.item] = adults
+            viewModel.childrenCounts[indexPath.item]  = children
+            viewModel.childrenAge[indexPath.item] = childrenAges
+        }
+        self.addRoomCollectionView.reloadData()
         printDebug("adults: \(adults), children: \(children), ages: \(childrenAges)")
     }
 }

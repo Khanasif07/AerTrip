@@ -224,35 +224,41 @@ extension AppFlowManager {
     }
     
     func showRoomGuestSelectionVC(selectedAdults: Int, selectedChildren: Int, selectedAges: [Int], delegate: RoomGuestSelectionVCDelegate) {
-        if let mVC = self.mainHomeVC {
-            let ob = RoomGuestSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
-            ob.delegate = delegate
-            ob.viewModel.selectedChilds = selectedChildren
-            ob.viewModel.selectedAdults = max(1, selectedAdults)
-            
-            var ages = selectedAges
-            if selectedAges.count < 4 {
-                for _ in 0..<(4-selectedAges.count) {
-                    ages.append(0)
+        delay(seconds: 0.1) { [weak self] in
+            if let mVC = self?.mainHomeVC {
+                let ob = RoomGuestSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
+                ob.delegate = delegate
+                ob.viewModel.selectedChilds = selectedChildren
+                ob.viewModel.selectedAdults = max(1, selectedAdults)
+                
+                var ages = selectedAges
+                if selectedAges.count < 4 {
+                    for _ in 0..<(4-selectedAges.count) {
+                        ages.append(0)
+                    }
                 }
+                ob.viewModel.childrenAge = ages
+                mVC.add(childViewController: ob)
             }
-            ob.viewModel.childrenAge = ages
-            mVC.add(childViewController: ob)
         }
     }
     
     func showSelectDestinationVC(delegate: SelectDestinationVCDelegate) {
-        if let mVC = self.mainHomeVC {
-            let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
-            ob.delegate = delegate
-            mVC.add(childViewController: ob)
+        delay(seconds: 0.1) { [weak self] in
+            if let mVC = self?.mainHomeVC {
+                let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
+                ob.delegate = delegate
+                mVC.add(childViewController: ob)
+            }
         }
     }
     
     func showBulkBookingVC() {
-        if let mVC = self.mainHomeVC {
-            let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
-            mVC.add(childViewController: ob)
+        delay(seconds: 0.1) { [weak self] in
+            if let mVC = self?.mainHomeVC {
+                let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
+                mVC.add(childViewController: ob)
+            }
         }
     }
     

@@ -49,5 +49,6 @@ class AddRoomCell: UICollectionViewCell {
         self.addRoomBtnOutlet.isUserInteractionEnabled = false
         self.addRoomLabel.font = AppFonts.Regular.withSize(14.0)
         self.addRoomLabel.textColor = AppColors.textFieldTextColor51
+        self.addRoomLabel.text = LocalizedString.AddRoom.localized
     }
 }

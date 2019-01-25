@@ -46,6 +46,7 @@ enum APIEndPoint : String {
     case linkedAccounts = "users/linked-accounts"
     case unlinkSocialAccount = "users/unlink-social-account"
     case searchDestinationHotels = "hotels/places"
+    case hotelsNearByMe = "hotels/get-nearby-hotels"
 }
 
 //MARK: - endpoint extension for url -

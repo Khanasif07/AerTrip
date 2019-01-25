@@ -67,4 +67,34 @@ extension APICaller {
             completionBlock(false, [], [])
         }
     }
+    
+    func getHotelsNearByMe(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: JSONDictionary)->Void ) {
+        
+        AppNetworking.GET(endPoint: APIEndPoint.hotelsNearByMe, parameters: params, success: { [weak self] (json) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
+                    let (hotels, types) =  SearchedDestination.models(jsonArr: arr)
+                    
+                    var dict: JSONDictionary = JSONDictionary()
+                    
+                    for type in types {
+                        dict[type] = hotels.filter() {$0.dest_type == type}
+                    }
+                    
+                    completionBlock(true, [], dict)
+                }
+                else {
+                    completionBlock(false, [], [:])
+                }
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors, [:])
+            })
+        }) { (error) in
+            completionBlock(false, [], [:])
+        }
+    }
 }

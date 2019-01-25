@@ -243,6 +243,17 @@
 //MARK:- Preferences VC
 "GroupAlreadyExist" = "Group already exist.";
 
+//Mark:- Hotels Search
+//Mark:-
+"WhereButton" = "Where";
+"CheckIn" = "Check-in";
+"CheckOut" = "Check-out";
+"Nights" = "Nights";
+"AddRoom" = "Add Room";
+"StarRating" = "Star Rating";
+"AllStars" = "All Stars";
+"WantMoreRooms" = "Want more rooms?";
+"RequestBulkBooking" = "Request Bulk Booking";
 
 //MARK:- Room Guest Selection
 "Room" = "Room";

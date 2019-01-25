@@ -27,7 +27,7 @@ class SelectDestinationVM: NSObject {
     var popularDestinationLimit: Int {
         return min(_popularDestinationLimit, self.popularHotels.count)
     }
-
+    
     var searchedHotels = JSONDictionary()
     var allTypes: [String] {
         return Array(searchedHotels.keys)
@@ -132,4 +132,19 @@ class SelectDestinationVM: NSObject {
             self._recentSearches = [hotel]
         }
     }
+    
+//    func hotelsNearByMe() {
+//        APICaller.shared.getHotelsNearByMe(params: [:]) { [weak self] (success, error, hotels) in
+//
+//            guard let sSelf = self else {return}
+//
+//            if success {
+//                sSelf.popularHotels = hotels
+//                sSelf.delegate?.getAllPopularHotelsSuccess()
+//            }
+//            else {
+//                sSelf.delegate?.getAllPopularHotelsFail()
+//            }
+//        }
+//    }
 }
