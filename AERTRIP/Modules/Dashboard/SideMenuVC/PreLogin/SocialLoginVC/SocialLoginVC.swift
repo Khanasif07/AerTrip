@@ -31,7 +31,6 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var socialButtonsStackView: UIStackView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var logoContainerView: UIView!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var newRegistrationContainerView: UIView!
     
     init() {
@@ -157,10 +156,6 @@ private extension SocialLoginVC {
         self.linkedInButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
-        
-        if !UIDevice.isIPhoneX {
-            self.bottomConstraint.constant = 30.0
-        }
     }
     
     private func addAppLogoView() {

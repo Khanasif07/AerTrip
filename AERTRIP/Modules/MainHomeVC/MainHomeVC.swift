@@ -14,6 +14,7 @@ class MainHomeVC: BaseVC {
     //MARK:-
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -73,6 +74,9 @@ class MainHomeVC: BaseVC {
         self.sideMenuController?.viewDidLayoutSubviews()
         self.viewProfileVC?.viewDidLayoutSubviews()
         self.socialLoginVC?.viewDidLayoutSubviews()
+        
+        self.viewProfileVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        self.socialLoginVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -94,13 +98,13 @@ class MainHomeVC: BaseVC {
     private func scrollViewSetup() {
         
         //set content size
-        self.scrollView.contentSize = CGSize(width: UIDevice.screenWidth * 2.0, height: UIDevice.screenHeight)
+//        self.scrollView.contentSize = CGSize(width: UIDevice.screenWidth * 2.0, height: UIDevice.screenHeight)
         
         //setup side menu controller
         let sideVC = self.createSideMenu()
         sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
         
-        self.scrollView.addSubview(sideVC.view)
+        self.contentView.addSubview(sideVC.view)
         self.addChild(sideVC)
         sideVC.didMove(toParent: self)
         
@@ -109,16 +113,16 @@ class MainHomeVC: BaseVC {
             let viewProfile = self.createViewProfile()
             viewProfile.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
             
-            self.scrollView.addSubview(viewProfile.view)
+            self.contentView.addSubview(viewProfile.view)
             self.addChild(viewProfile)
             viewProfile.didMove(toParent: self)
         }
         else {
             //setup social login vc
             let social = self.createSocialLoginVC()
-            social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+            social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight-44.0)
             
-            self.scrollView.addSubview(social.view)
+            self.contentView.addSubview(social.view)
             self.addChild(social)
             social.didMove(toParent: self)
         }

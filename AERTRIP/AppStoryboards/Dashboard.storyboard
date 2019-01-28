@@ -1061,6 +1061,20 @@ on Christmas”</string>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urm-vA-FHu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8wy-VH-oZS">
+                                                <rect key="frame" x="0.0" y="0.0" width="750" height="667"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="8wy-VH-oZS" firstAttribute="width" secondItem="urm-vA-FHu" secondAttribute="width" multiplier="2" id="88X-Jw-5Cl"/>
+                                            <constraint firstItem="8wy-VH-oZS" firstAttribute="leading" secondItem="urm-vA-FHu" secondAttribute="leading" id="MoI-B5-LZh"/>
+                                            <constraint firstAttribute="trailing" secondItem="8wy-VH-oZS" secondAttribute="trailing" id="P30-5T-gwh"/>
+                                            <constraint firstAttribute="bottom" secondItem="8wy-VH-oZS" secondAttribute="bottom" id="TgS-Hc-2yw"/>
+                                            <constraint firstItem="8wy-VH-oZS" firstAttribute="top" secondItem="urm-vA-FHu" secondAttribute="top" id="Vjz-4O-m0K"/>
+                                            <constraint firstItem="8wy-VH-oZS" firstAttribute="height" secondItem="urm-vA-FHu" secondAttribute="height" id="k6j-9M-jC5"/>
+                                        </constraints>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1083,6 +1097,7 @@ on Christmas”</string>
                         <viewLayoutGuide key="safeArea" id="7Lt-Eu-xxm"/>
                     </view>
                     <connections>
+                        <outlet property="contentView" destination="8wy-VH-oZS" id="7Ld-gF-Gsz"/>
                         <outlet property="mainContainerView" destination="g8A-fz-WR4" id="nrX-gJ-4eW"/>
                         <outlet property="scrollView" destination="urm-vA-FHu" id="KBB-J8-7TK"/>
                     </connections>
