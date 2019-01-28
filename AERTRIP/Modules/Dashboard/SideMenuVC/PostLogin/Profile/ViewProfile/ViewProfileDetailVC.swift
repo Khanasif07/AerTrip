@@ -135,7 +135,7 @@ class ViewProfileDetailVC: BaseVC {
           self.profileImageHeaderView.blurEffectView.alpha = 1.0
         } else {
             if viewModel.isFromTravellerList {
-                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
                 let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 profileImageHeaderView.profileImageView.image = imageFromText
                 profileImageHeaderView.backgroundImageView.image = imageFromText

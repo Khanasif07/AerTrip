@@ -201,8 +201,6 @@ class TravellerListVC: BaseVC {
     }
     
     func setUpTravellerHeader() {
-//        let string = "\("\(UserInfo.loggedInUser?.firstName ?? "N")") \("\(UserInfo.loggedInUser?.lastName ?? "A")")"
-//        travellerListHeaderView.userNameLabel.text = string
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? UserInfo.loggedInUser?.lastName ?? "A" : UserInfo.loggedInUser?.firstName ?? "N"
             travellerListHeaderView.userNameLabel.attributedText = getAttributedBoldText(text: "\("\(UserInfo.loggedInUser?.lastName ?? "A")") \("\(UserInfo.loggedInUser?.firstName ?? "N")")", boldText: boldText)
@@ -248,17 +246,7 @@ class TravellerListVC: BaseVC {
         fetchedResultsController.delegate = self
         if predicateStr == "" {
             fetchedResultsController.fetchRequest.predicate = nil
-//            var subPredicates : [NSPredicate] = []
-//            for label in UserInfo.loggedInUser?.generalPref?.labels ?? [] {
-//                subPredicates.append(NSPredicate(format: "label == %@",label))
-//            }
-            ////            let predicate1 = NSPredicate(format: "label == 'friends'")
-            ////            let predicate2 = NSPredicate(format: "label == 'facebook'")
-            ////            let predicate3 = NSPredicate(format:"label == 'ddlsfla'")
-            ////              let predicate4 = NSPredicate(format:"label == 'd'")
-//            let predicateCompound = NSCompoundPredicate.init(type: .or, subpredicates:subPredicates)
-//           // fetchedResultsController.fetchRequest.predicate =  NSPredicate(format: "label == 'friends'")
-//            fetchedResultsController.fetchRequest.predicate =  predicateCompou
+
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
@@ -272,16 +260,11 @@ class TravellerListVC: BaseVC {
     }
     
     func searchTraveller(forText: String) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(filterDictArrSearch(_:)), with: forText, afterDelay: 0.5)
-    }
-    
-    @objc func filterDictArrSearch(_ forText: String) {
-        print(forText)
-        
+        printDebug("searching text is \(forText)")
         predicateStr = forText
         loadSavedData()
     }
+    
     
     func addFooterView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))

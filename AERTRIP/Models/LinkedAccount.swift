@@ -11,7 +11,7 @@ import UIKit
 struct LinkedAccount {
     
     enum SocialType: String {
-        case linkedIn = "linkedin_oauth2"
+        case linkedin = "linkedin_oauth2"
         case facebook = "facebook"
         case google = "google"
         case none = "none"
@@ -25,7 +25,7 @@ struct LinkedAccount {
             case .google:
                 return 2
                 
-            case .linkedIn:
+            case .linkedin:
                 return 3
                 
             default:
@@ -42,7 +42,7 @@ struct LinkedAccount {
             case .google:
                 return LocalizedString.Google.localized
                 
-            case .linkedIn:
+            case .linkedin:
                 return LocalizedString.LinkedIn.localized
                 
             default:
@@ -59,7 +59,7 @@ struct LinkedAccount {
             case .google:
                 return #imageLiteral(resourceName: "linkGoogle")
                 
-            case .linkedIn:
+            case .linkedin:
                 return #imageLiteral(resourceName: "linkLinkedIn")
 
             default:
@@ -118,7 +118,7 @@ struct LinkedAccount {
                 case .google:
                     isGLDone = true
                     
-                case .linkedIn:
+                case .linkedin:
                     isLIDone = true
                     
                 default:
@@ -143,7 +143,7 @@ struct LinkedAccount {
         
         if !isLIDone {
             var laObj = LinkedAccount(json: [:])
-            laObj._socialType = SocialType.linkedIn.rawValue
+            laObj._socialType = SocialType.linkedin.rawValue
             temp.append(laObj)
         }
         

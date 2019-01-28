@@ -111,7 +111,7 @@ class LinkedAccountsTableCell: UITableViewCell {
                 case .google:
                     self.setupForGoogle()
                     
-                case .linkedIn:
+                case .linkedin:
                     self.setupForLinkedIn()
                     
                 default:

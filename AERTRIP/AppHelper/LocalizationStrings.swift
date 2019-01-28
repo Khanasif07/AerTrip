@@ -230,6 +230,7 @@ enum LocalizedString: String {
     case SelectAirline = "SelectAirline"
     case SelectDate = "SelectDate"
     case AddNotes = "AddNotes"
+    case DeleteFromTraveller = "DeleteFromTraveller"
     
     // Mark: - Salutation
     case Mrs = "Mrs"

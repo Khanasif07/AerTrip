@@ -36,7 +36,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet var headerView: UIView!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
-    
+
     // MARK: - Variables
     
     // MARK: - Private
@@ -157,6 +157,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
+    
+    @IBAction func deleteFromTravellerButtonTapped(_ sender: Any) {
+        
+    }
+    
     // MARK: - Helper Methods
     
     func doInitialSetUp() {
@@ -183,7 +188,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker.frame = CGRect(x: 0.0, y: 0, width: pickerSize.width, height: pickerSize.height)
         
         datePickerView.addSubview(datePicker)
-       // self.pickerView.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         genericPickerView.addSubview(pickerView)
         
         pickerView.delegate = self
@@ -192,6 +196,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
        
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
         imagePicker.delegate = self
+        
         
         addFooterView()
     }
@@ -310,7 +315,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             viewModel.profilePicture = travel.profileImage
         } else {
             if viewModel.isFromTravellerList {
-                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
                 let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             } else {
@@ -719,7 +724,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
             
             if self.viewModel.firstName != "", self.viewModel.lastName != "" {
-                let string = "\("\(self.viewModel.firstName.capitalizedFirst() )".firstCharacter) \("\(self.viewModel.lastName.capitalizedFirst() )".firstCharacter)"
+                let string = "\("\(self.viewModel.firstName.capitalizedFirst() )".firstCharacter)\("\(self.viewModel.lastName.capitalizedFirst() )".firstCharacter)"
                 imageFromText = AppGlobals.shared.getImageFromText(string)
             }
             

@@ -164,7 +164,7 @@ extension SocialLoginVM {
                 
                 switch self.userData.service.lowercased() {
                 case "linkedin".lowercased():
-                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedIn
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedin
                     
                 case "google".lowercased():
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.google
