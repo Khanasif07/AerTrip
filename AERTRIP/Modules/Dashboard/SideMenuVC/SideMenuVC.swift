@@ -100,6 +100,7 @@ class SideMenuVC: BaseVC {
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        view.profileImageView.layer.borderWidth = 3.0
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
         

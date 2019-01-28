@@ -76,7 +76,7 @@ class MainHomeVC: BaseVC {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     //MARK:- Methods

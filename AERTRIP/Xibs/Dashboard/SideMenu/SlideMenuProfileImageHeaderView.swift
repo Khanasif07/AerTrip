@@ -31,6 +31,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
+    var blurEffectView :UIVisualEffectView = UIVisualEffectView()
     
     // MARK: - IBAction
     
@@ -82,7 +83,7 @@ class SlideMenuProfileImageHeaderView: UIView {
             self.backgroundColor = .clear
             
             let blurEffect = UIBlurEffect(style: .light)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
             //always fill the view
             blurEffectView.frame = self.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -98,6 +99,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func draw(_ rect: CGRect) {
         gradient.frame = gradientView.bounds
         gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
+         // gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
         gradientView.layer.insertSublayer(gradient, at: 0)
     }
     

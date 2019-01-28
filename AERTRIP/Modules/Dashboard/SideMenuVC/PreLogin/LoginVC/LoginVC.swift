@@ -143,7 +143,6 @@ private extension LoginVC {
         
         self.emailTextField.delegate    = self
         self.passwordTextField.delegate = self
-        
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
        
