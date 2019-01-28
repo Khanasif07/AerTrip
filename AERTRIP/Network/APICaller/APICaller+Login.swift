@@ -12,20 +12,20 @@ extension APICaller {
     
     //MARK: - Api for Active user
     //MARK: -
-    func callActiveUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callActiveUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.GET(endPoint: APIEndPoint.isActiveUser, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
+                completionBlock(true, [])
                 
             }, failure: { (error) in
-                completionBlock(false, "")
+                completionBlock(false, error)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -53,6 +53,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -87,7 +88,7 @@ extension APICaller {
             })
             
         }) { (error) in
-            
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -108,7 +109,7 @@ extension APICaller {
             })
             
         }) { (error) in
-            
+           completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -129,6 +130,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -149,6 +151,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -168,11 +171,6 @@ extension APICaller {
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }
-//                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
-//
-//                    UserInfo.loggedInUserId = "\(id)"
-//                    _ = UserInfo(withData: userData, userId: "\(id)")
-//                }
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -180,6 +178,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -204,6 +203,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -233,6 +233,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }
@@ -254,6 +255,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -271,6 +273,7 @@ extension APICaller {
             })
             
         }) { (error) in
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }

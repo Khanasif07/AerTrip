@@ -24,11 +24,10 @@ extension APICaller {
                 
             }, failure: { (errors) in
                  completionBlock(false,[],errors)
-                print(errors)
             })
             
         }) { (error) in
-           
+           completionBlock(false,[],[ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }

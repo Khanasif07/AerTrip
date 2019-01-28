@@ -22,7 +22,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }

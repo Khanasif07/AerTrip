@@ -24,6 +24,7 @@ extension APICaller {
             })
             
         }) { _ in
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
         }
     }
     
@@ -40,7 +41,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }

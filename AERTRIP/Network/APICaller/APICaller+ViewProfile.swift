@@ -25,11 +25,11 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
-                completionBlock(false, nil, [])
+                completionBlock(false, nil, errors)
             })
             
         }) { (error) in
-            completionBlock(false, nil, [])
+            completionBlock(false, nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     

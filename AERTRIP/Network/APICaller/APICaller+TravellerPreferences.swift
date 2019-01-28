@@ -15,7 +15,7 @@ extension APICaller {
             
             sSelf.handleResponse(json, success: { _, jsonData in
                 if let data = jsonData[APIKeys.data.rawValue].dictionaryObject {
-                    UserInfo.loggedInUser?.updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: data) as! String])
+                    UserInfo.loggedInUser?.updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: data) ?? ""])
                 }
                 completionBlock(true, [])
                 
@@ -24,7 +24,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -41,7 +41,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
     
@@ -58,7 +58,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
         }
     }
 }

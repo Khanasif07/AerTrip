@@ -201,6 +201,9 @@
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
 		849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849621EF0B7C00AA63BA /* PKAlertController.swift */; };
 		849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B849821EF0C8600AA63BA /* PKAlertButton.swift */; };
+		849F31EF21FF1AC60076BB3D /* profile.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31ED21FF1AC60076BB3D /* profile.csv */; };
+		849F31F021FF1AC60076BB3D /* login.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31EE21FF1AC60076BB3D /* login.csv */; };
+		849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F31F121FF1AD70076BB3D /* ATErrorManager.swift */; };
 		84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */; };
 		84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */; };
 		84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */; };
@@ -473,6 +476,9 @@
 		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
 		849B849621EF0B7C00AA63BA /* PKAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertController.swift; sourceTree = "<group>"; };
 		849B849821EF0C8600AA63BA /* PKAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlertButton.swift; sourceTree = "<group>"; };
+		849F31ED21FF1AC60076BB3D /* profile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = profile.csv; sourceTree = "<group>"; };
+		849F31EE21FF1AC60076BB3D /* login.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = login.csv; sourceTree = "<group>"; };
+		849F31F121FF1AD70076BB3D /* ATErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATErrorManager.swift; sourceTree = "<group>"; };
 		84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccount.swift; sourceTree = "<group>"; };
 		84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATNotificationButton.swift; sourceTree = "<group>"; };
 		84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATBedgeLabel.swift; sourceTree = "<group>"; };
@@ -1246,6 +1252,7 @@
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				849F31EB21FF1AC60076BB3D /* ATError */,
 				84FFDFA821F9F67B005CA257 /* ATCategoryView */,
 				84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */,
 				84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */,
@@ -1267,6 +1274,24 @@
 				849B849821EF0C8600AA63BA /* PKAlertButton.swift */,
 			);
 			path = PKAlertController;
+			sourceTree = "<group>";
+		};
+		849F31EB21FF1AC60076BB3D /* ATError */ = {
+			isa = PBXGroup;
+			children = (
+				849F31EC21FF1AC60076BB3D /* ErrorFiles */,
+				849F31F121FF1AD70076BB3D /* ATErrorManager.swift */,
+			);
+			path = ATError;
+			sourceTree = "<group>";
+		};
+		849F31EC21FF1AC60076BB3D /* ErrorFiles */ = {
+			isa = PBXGroup;
+			children = (
+				849F31ED21FF1AC60076BB3D /* profile.csv */,
+				849F31EE21FF1AC60076BB3D /* login.csv */,
+			);
+			path = ErrorFiles;
 			sourceTree = "<group>";
 		};
 		84D2FB7821BE351E00011000 /* PKCountryPicker */ = {
@@ -1577,6 +1602,7 @@
 				1809A47421CD053B0018AB2F /* EditProfileImageHeaderView.xib in Resources */,
 				84085D1E21F5A10300F1E844 /* HotelsSearch.storyboard in Resources */,
 				189D1F4C21CE3F8E00746329 /* SourceSansPro-BlackItalic.ttf in Resources */,
+				849F31F021FF1AC60076BB3D /* login.csv in Resources */,
 				1804889221CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib in Resources */,
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
 				18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */,
@@ -1621,6 +1647,7 @@
 				189D1F4821CE3F8E00746329 /* SourceSansPro-LightItalic.ttf in Resources */,
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
+				849F31EF21FF1AC60076BB3D /* profile.csv in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
@@ -1837,6 +1864,7 @@
 				84085CE921F59C0E00F1E844 /* CreateYourAccountVM.swift in Sources */,
 				84FFDFAF21F9F67B005CA257 /* ATPageContainerView.swift in Sources */,
 				18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */,
+				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */,
 				8495482921F9AC3000E612D6 /* BulkBookingVM.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,

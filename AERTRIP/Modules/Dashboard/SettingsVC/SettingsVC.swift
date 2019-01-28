@@ -53,7 +53,7 @@ class SettingsVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        
+        ATErrorManager.default.error(forCode: 5, module: .profile)
     }
     
     //MARK:- Public
