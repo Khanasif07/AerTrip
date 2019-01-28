@@ -15,9 +15,10 @@ class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        let animation = DefaultNavigationTransition()
-        animation.duration = AppConstants.kAnimationDuration
-        animation.transitionMode = operation == .pop ? .pop : .push
-        return animation
+//        let animation = DefaultNavigationTransition()
+//        animation.duration = AppConstants.kAnimationDuration
+//        animation.transitionMode = operation == .pop ? .pop : .push
+//        return animation
+        return nil
     }
 }

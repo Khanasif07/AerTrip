@@ -12,7 +12,49 @@ import UIKit
 @IBDesignable class PKFloatLabelTextField: UITextField {
 	let animationDuration = 0.3
 	var title = UILabel()
-	
+
+    // MARK: View components
+    
+    /// The internal `UIView` to display the line below the text input.
+    open var lineView = UIView()
+    
+    /// A Boolean value that determines whether the textfield is being edited or is selected.
+    open var editingOrSelected: Bool {
+        return super.isEditing || isSelected
+    }
+    
+    /// A UIColor value that determines the color of the bottom line when in the normal state
+    @IBInspectable dynamic open var lineColor: UIColor = .lightGray {
+        didSet {
+            updateLineView()
+        }
+    }
+    
+    /// A UIColor value that determines the color of the bottom line when in the normal state
+    @IBInspectable dynamic open var selectedLineColor: UIColor = .lightGray {
+        didSet {
+            updateLineView()
+        }
+    }
+    
+    // MARK: Line height
+    
+    /// A CGFloat value that determines the height for the bottom line when the control is in the normal state
+    @IBInspectable dynamic open var lineHeight: CGFloat = 1.0 {
+        didSet {
+            updateLineView()
+            setNeedsDisplay()
+        }
+    }
+    
+    /// A CGFloat value that determines the height for the bottom line when the control is in a selected state
+    @IBInspectable dynamic open var selectedLineHeight: CGFloat = 1.0 {
+        didSet {
+            updateLineView()
+            setNeedsDisplay()
+        }
+    }
+    
 	// MARK:- Properties
 	override var accessibilityLabel:String? {
 		get {
@@ -77,12 +119,12 @@ import UIKit
 	// MARK:- Init
 	required init?(coder aDecoder:NSCoder) {
 		super.init(coder:aDecoder)
-		setup()
+		setupSubviews()
 	}
 	
 	override init(frame:CGRect) {
 		super.init(frame:frame)
-		setup()
+		setupSubviews()
 	}
 	
 	// MARK:- Overrides
@@ -92,8 +134,10 @@ import UIKit
 		let isResp = isFirstResponder
 		if let txt = text , !txt.isEmpty && isResp {
 			title.textColor = titleActiveTextColour
+            lineView.backgroundColor = selectedLineColor
 		} else {
 			title.textColor = titleTextColour
+            lineView.backgroundColor = lineColor
 		}
 		// Should we show or hide the title label?
 		if let txt = text , txt.isEmpty {
@@ -138,7 +182,7 @@ import UIKit
 	// MARK:- Public Methods
 	
 	// MARK:- Private Methods
-	fileprivate func setup() {
+	fileprivate func setupSubviews() {
         borderStyle = UITextField.BorderStyle.none
 		titleActiveTextColour = tintColor
 		// Set up title label
@@ -149,6 +193,9 @@ import UIKit
 			title.text = str.uppercased()
 			title.sizeToFit()
 		}
+        
+        self.createLineView()
+        
 		self.addSubview(title)
 	}
 
@@ -191,6 +238,36 @@ import UIKit
 			self.title.frame = r
 			}, completion:nil)
 	}
+    
+    fileprivate func createLineView() {
+        
+        lineView.isUserInteractionEnabled = false
+        
+        updateLineView()
+        setNeedsDisplay()
+        
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        addSubview(lineView)
+    }
+    
+    fileprivate func updateLineView() {
+        lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
+        lineView.backgroundColor = self.lineColor
+    }
+    
+
+    /**
+     Calculate the bounds for the bottom line of the control.
+     Override to create a custom size bottom line in the textbox.
+     - parameter bounds: The current bounds of the line
+     - parameter editing: True if the control is selected or highlighted
+     - returns: The rectangle that the line bar should render in
+     */
+    fileprivate func lineViewRectForBounds(_ bounds: CGRect, editing: Bool) -> CGRect {
+        let height = editing ? selectedLineHeight : lineHeight
+        return CGRect(x: 0, y: bounds.size.height - height, width: bounds.size.width, height: height)
+    }
+
 }
 
 extension PKFloatLabelTextField {

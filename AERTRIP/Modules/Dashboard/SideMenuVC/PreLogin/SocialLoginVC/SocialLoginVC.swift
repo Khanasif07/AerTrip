@@ -60,6 +60,7 @@ class SocialLoginVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+         self.backButton.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -254,24 +255,25 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.linkedInButton.alpha = 0
 
+        let rDuration = 1.0 / 4.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.fbButton.transform = .identity
                 self.fbButton.alpha = 1.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.googleButton.transform = .identity
                 self.googleButton.alpha = 1.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 2.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
               //  self.bottomStackView.transform    = .identity
                 self.sepratorLineImage.transform  = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 3.0), relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
                 self.linkedInButton.transform     = .identity
                 self.linkedInButton.alpha = 1.0
             })
@@ -283,25 +285,26 @@ extension SocialLoginVC {
     }
     
     func animateContentOnPop() {
-
+       
+        let rDuration = 1.0 / 4.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
                 self.linkedInButton.alpha = 0.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 4.0, relativeDuration: AppConstants.kAnimationDuration / 4.0) {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0)) {
                // self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
                 self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
             }
             
-            UIView.addKeyframe(withRelativeStartTime: AppConstants.kAnimationDuration / 2.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
                 self.googleButton.alpha = 0.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 3.0), relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
                 self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
                 self.fbButton.alpha = 0.0
             })

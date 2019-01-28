@@ -54,6 +54,12 @@ class CreateYourAccountVC: BaseVC {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        backButton.isHidden = true
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -104,6 +110,7 @@ class CreateYourAccountVC: BaseVC {
 //            }
 //
 //        }
+        backButton.isHidden = true
           AppFlowManager.default.popToRootViewController(animated: true)
         
     }
@@ -233,18 +240,19 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     func setupViewDidLoadAnimation() {
         
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
                 self.backButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: 2, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.headerTitleLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: 3, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.emailTextField.transform    = .identity
                 self.registerButton.transform    = .identity
                 self.privacyPolicyLabel.transform = .identity

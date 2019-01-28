@@ -186,14 +186,15 @@ class DashboardVC: UIViewController {
         self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
+        let rDuration = 1.0 / 2.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration * 2.0, delay: 0.0, options: .calculationModeLinear, animations: {
 
 
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.overlayView.transform = tScale.concatenating(tTrans)
             })
 
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.headerView.transform = CGAffineTransform.identity
                 self.segmentContainerView.transform = CGAffineTransform.identity
             })

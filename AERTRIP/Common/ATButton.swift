@@ -181,14 +181,14 @@ class ATButton: UIButton {
     }
     
     @objc private func buttonPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0) { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }
     }
     
     @objc private func buttonReleased(_ sender: UIButton) {
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0) { [weak self] in
             self?.transform = CGAffineTransform.identity
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
         }

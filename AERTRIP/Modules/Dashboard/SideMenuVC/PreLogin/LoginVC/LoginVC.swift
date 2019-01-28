@@ -105,6 +105,7 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        self.backButton.isHidden = true
         AppFlowManager.default.popToRootViewController(animated: true)
     }
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
@@ -219,25 +220,26 @@ extension LoginVC {
     
     func setupViewDidLoadAnimation() {
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.topImage.transform          = .identity
                 self.backButton.isHidden = false
             })
-            
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: 2, animations: {
+
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.welcomeLabel.transform          = .identity
             })
-            
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: 3, animations: {
+
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.emailTextField.transform     = .identity
                 self.passwordTextField.transform   = .identity
                 self.showPasswordButton.transform  = .identity
                 self.loginButton.transform       = .identity
                 self.forgotPasswordButton.transform = .identity
             })
-            
+
         }) { (success) in
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false

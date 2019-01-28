@@ -21,6 +21,7 @@ class ForgotPasswordVC: BaseVC {
     @IBOutlet weak var intructionLabel: UILabel!
     @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var continueButton: ATButton!
+    @IBOutlet weak var backButton: UIButton!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -104,6 +105,7 @@ private extension ForgotPasswordVC {
         self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        backButton.isHidden = true
     }
 }
 
@@ -171,17 +173,19 @@ extension ForgotPasswordVC {
     
     func setupViewDidLoadAnimation() {
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.logoImage.transform          = .identity
+                self.backButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.forgotPasswordLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.intructionLabel.transform    = .identity
                 self.emailTextField.transform = .identity
                 self.continueButton.transform    = .identity
