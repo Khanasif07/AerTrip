@@ -1109,6 +1109,7 @@ activation link on</string>
                         <viewLayoutGuide key="safeArea" id="HtV-OL-0GE"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="zcw-fl-QsH" id="XhU-qk-bqJ"/>
                         <outlet property="continueButton" destination="mi3-9l-y7s" id="LhV-0B-Eac"/>
                         <outlet property="emailTextField" destination="ogJ-fi-jDI" id="Ov1-yX-yww"/>
                         <outlet property="forgotPasswordLabel" destination="PKa-qm-OCL" id="c7X-5v-Way"/>

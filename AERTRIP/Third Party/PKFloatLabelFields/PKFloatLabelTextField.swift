@@ -12,7 +12,42 @@ import UIKit
 @IBDesignable class PKFloatLabelTextField: UITextField {
 	let animationDuration = 0.3
 	var title = UILabel()
-	
+
+    // MARK: View components
+    
+    /// The internal `UIView` to display the line below the text input.
+    open var lineView: UIView!
+    
+    /// A Boolean value that determines whether the textfield is being edited or is selected.
+    open var editingOrSelected: Bool {
+        return super.isEditing || isSelected
+    }
+    
+    /// A UIColor value that determines the color of the bottom line when in the normal state
+    @IBInspectable dynamic open var lineColor: UIColor = .lightGray {
+        didSet {
+            updateLineView()
+        }
+    }
+    
+    // MARK: Line height
+    
+    /// A CGFloat value that determines the height for the bottom line when the control is in the normal state
+    @IBInspectable dynamic open var lineHeight: CGFloat = 0.5 {
+        didSet {
+            updateLineView()
+            setNeedsDisplay()
+        }
+    }
+    
+    /// A CGFloat value that determines the height for the bottom line when the control is in a selected state
+    @IBInspectable dynamic open var selectedLineHeight: CGFloat = 1.0 {
+        didSet {
+            updateLineView()
+            setNeedsDisplay()
+        }
+    }
+    
 	// MARK:- Properties
 	override var accessibilityLabel:String? {
 		get {
@@ -78,11 +113,13 @@ import UIKit
 	required init?(coder aDecoder:NSCoder) {
 		super.init(coder:aDecoder)
 		setup()
+        createLineView()
 	}
 	
 	override init(frame:CGRect) {
 		super.init(frame:frame)
 		setup()
+          createLineView()
 	}
 	
 	// MARK:- Overrides
@@ -191,6 +228,48 @@ import UIKit
 			self.title.frame = r
 			}, completion:nil)
 	}
+    
+    fileprivate func createLineView() {
+        
+        if lineView == nil {
+            let lineView = UIView()
+            lineView.isUserInteractionEnabled = false
+            self.lineView = lineView
+            configureDefaultLineHeight()
+        }
+        
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        addSubview(lineView)
+    }
+    
+    fileprivate func configureDefaultLineHeight() {
+        let onePixel: CGFloat = 1.0 / UIScreen.main.scale
+        lineHeight = 2.0 * onePixel
+        selectedLineHeight = 2.0 * self.lineHeight
+    }
+    
+    fileprivate func updateLineView() {
+        guard let lineView = lineView else {
+            return
+        }
+        
+        lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
+        lineView.backgroundColor = AppColors.themeGray20
+    }
+    
+
+    /**
+     Calculate the bounds for the bottom line of the control.
+     Override to create a custom size bottom line in the textbox.
+     - parameter bounds: The current bounds of the line
+     - parameter editing: True if the control is selected or highlighted
+     - returns: The rectangle that the line bar should render in
+     */
+    open func lineViewRectForBounds(_ bounds: CGRect, editing: Bool) -> CGRect {
+        let height = editing ? selectedLineHeight : lineHeight
+        return CGRect(x: 0, y: bounds.size.height - height, width: bounds.size.width, height: height)
+    }
+
 }
 
 extension PKFloatLabelTextField {

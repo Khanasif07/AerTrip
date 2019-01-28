@@ -285,7 +285,7 @@ class MainHomeVC: BaseVC {
     private func popLogoAnimation() {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
-        
+        self.socialLoginVC?.backButton.isHidden = true
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true

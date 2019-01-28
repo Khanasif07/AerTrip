@@ -54,6 +54,12 @@ class CreateYourAccountVC: BaseVC {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        backButton.isHidden = true
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -104,6 +110,7 @@ class CreateYourAccountVC: BaseVC {
 //            }
 //
 //        }
+        backButton.isHidden = true
           AppFlowManager.default.popToRootViewController(animated: true)
         
     }

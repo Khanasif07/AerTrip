@@ -60,6 +60,7 @@ class SocialLoginVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+         self.backButton.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -283,7 +284,7 @@ extension SocialLoginVC {
     }
     
     func animateContentOnPop() {
-
+       
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 4.0, animations: {
