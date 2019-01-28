@@ -75,6 +75,9 @@ extension APICaller {
                     }
                     
                     UserInfo.loggedInUserId = "\(id)"
+                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
+                    }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }
                 completionBlock(true, [])

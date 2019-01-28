@@ -157,7 +157,6 @@ private extension SocialLoginVC {
         self.linkedInButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
-        statusBarStyle = .default
         
         if !UIDevice.isIPhoneX {
             self.bottomConstraint.constant = 30.0

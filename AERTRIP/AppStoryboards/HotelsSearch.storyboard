@@ -74,10 +74,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-vo-2rF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KpS-Gf-cI2">
                                 <rect key="frame" x="0.0" y="297" width="375" height="370"/>
                                 <subviews>
@@ -431,12 +427,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="btP-Oo-2B0" firstAttribute="bottom" secondItem="KpS-Gf-cI2" secondAttribute="bottom" id="3Gw-XA-7Oc"/>
-                            <constraint firstItem="btP-Oo-2B0" firstAttribute="bottom" secondItem="VPV-vo-2rF" secondAttribute="bottom" id="5dO-jv-LHG"/>
-                            <constraint firstItem="btP-Oo-2B0" firstAttribute="trailing" secondItem="VPV-vo-2rF" secondAttribute="trailing" id="6bI-La-bVd"/>
                             <constraint firstItem="KpS-Gf-cI2" firstAttribute="leading" secondItem="btP-Oo-2B0" secondAttribute="leading" id="P0b-l7-yd7"/>
-                            <constraint firstItem="VPV-vo-2rF" firstAttribute="leading" secondItem="btP-Oo-2B0" secondAttribute="leading" id="SjH-fy-61K"/>
                             <constraint firstItem="btP-Oo-2B0" firstAttribute="trailing" secondItem="KpS-Gf-cI2" secondAttribute="trailing" id="hpH-V4-mcj"/>
-                            <constraint firstItem="VPV-vo-2rF" firstAttribute="top" secondItem="wQ8-vH-tRF" secondAttribute="top" id="kee-sz-PFC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="btP-Oo-2B0"/>
                     </view>
@@ -445,7 +437,6 @@
                         <outlet property="adultsTitleLabel" destination="yjK-WQ-Je6" id="bi0-jZ-bVD"/>
                         <outlet property="ageSelectionLabel" destination="0xE-Fl-E9z" id="YLk-nu-fr4"/>
                         <outlet property="agesContainerView" destination="HUI-0p-4mT" id="zGm-oi-5mH"/>
-                        <outlet property="backgroundView" destination="VPV-vo-2rF" id="CzD-jt-Q5m"/>
                         <outlet property="childAgeLabel" destination="g1S-qw-9R4" id="7jB-vi-gcd"/>
                         <outlet property="childTitleLabel" destination="a4T-Rh-pJz" id="2i9-7h-4dG"/>
                         <outlet property="doneButton" destination="SIx-my-o63" id="vXd-2r-hWL"/>

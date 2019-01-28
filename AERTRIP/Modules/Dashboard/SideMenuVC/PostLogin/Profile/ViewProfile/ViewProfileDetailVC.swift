@@ -132,16 +132,18 @@ class ViewProfileDetailVC: BaseVC {
         if travel.profileImage != "" {
             profileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
           self.profileImageHeaderView.backgroundImageView.kf.setImage(with: URL(string: travel.profileImage))
-            
+          self.profileImageHeaderView.blurEffectView.alpha = 1.0
         } else {
             if viewModel.isFromTravellerList {
                 let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
                 let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 profileImageHeaderView.profileImageView.image = imageFromText
                 profileImageHeaderView.backgroundImageView.image = imageFromText
+                 profileImageHeaderView.blurEffectView.alpha = 0.4
             } else {
                 profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
                 profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                profileImageHeaderView.blurEffectView.alpha = 0.4
             }
         }
         mobile.removeAll()
@@ -199,6 +201,10 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         if travel.preferences.seat.value != "" || travel.preferences.meal.value != "" {
+            let seatPreference = (travel.preferences.seat.value)
+            let mealPreference = (travel.preferences.meal.value)
+            flightDetails.append(seatPreference)
+            flightDetails.append(mealPreference)
             sections.append(LocalizedString.FlightPreferences)
         }
         
@@ -206,12 +212,6 @@ class ViewProfileDetailVC: BaseVC {
         if frequentFlyer.count > 0 {
             self.frequentFlyer = frequentFlyer
         }
-        
-        let seatPreference = (travel.preferences.seat.value)
-        let mealPreference = (travel.preferences.meal.value)
-        flightDetails.append(seatPreference)
-        flightDetails.append(mealPreference)
-        
         tableView.reloadData()
     }
 }

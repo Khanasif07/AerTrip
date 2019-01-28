@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DashboardVC: UIViewController {
+class DashboardVC: BaseVC {
 
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var innerScrollView: UIScrollView!
@@ -88,6 +88,11 @@ class DashboardVC: UIViewController {
         }
     }
     
+    override func dataChanged(_ note: Notification) {
+        printDebug("data changed notfication received")
+        resetItems()
+    }
+    
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
         if selectedOption == .aerin {return}
@@ -121,7 +126,7 @@ class DashboardVC: UIViewController {
 
     //MARK:- Private
     private func resetItems(){
-
+        
         aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         aerinView.alpha = 0.5
         flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -130,7 +135,7 @@ class DashboardVC: UIViewController {
         hotelsView.alpha = 0.5
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
-
+        statusBarStyle = .lightContent
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let url = URL(string: imagePath) {
             self.profileButton.kf.setImage(with: url, for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
         }
@@ -218,7 +223,7 @@ class DashboardVC: UIViewController {
     }
 }
 
-extension DashboardVC : UIScrollViewDelegate {
+extension DashboardVC  {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 

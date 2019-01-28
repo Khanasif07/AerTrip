@@ -57,7 +57,6 @@ class CreateYourAccountVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        backButton.isHidden = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -104,19 +103,12 @@ class CreateYourAccountVC: BaseVC {
     //MARK:-
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-//        for controller in self.navigationController?.viewControllers ?? [UIViewController()] {
-//            if controller is SocialLoginVC {
-//                 AppFlowManager.default.popViewController(animated: true)
-//            }
-//
-//        }
         backButton.isHidden = true
-          AppFlowManager.default.popToRootViewController(animated: true)
+        AppFlowManager.default.popToRootViewController(animated: true)
         
     }
     
     @IBAction func registerButtonAction(_ sender: ATButton) {
-        
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForCreateAccount()
