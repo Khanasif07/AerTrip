@@ -135,7 +135,7 @@ class ViewProfileDetailVC: BaseVC {
           self.profileImageHeaderView.blurEffectView.alpha = 1.0
         } else {
             if viewModel.isFromTravellerList {
-                let string = "\("\(travel.firstName)".firstCharacter) \("\(travel.lastName)".firstCharacter)"
+                let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
                 let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 profileImageHeaderView.profileImageView.image = imageFromText
                 profileImageHeaderView.backgroundImageView.image = imageFromText
@@ -150,7 +150,8 @@ class ViewProfileDetailVC: BaseVC {
         if travel.id == UserInfo.loggedInUser?.paxId ?? ""{
             var mobile = Mobile()
             mobile.label = "Default"
-            mobile.value = "\(UserInfo.loggedInUser?.isd ?? "") \(UserInfo.loggedInUser?.mobile ?? "")"
+            let isd = UserInfo.loggedInUser?.isd ?? ""
+            mobile.value = "\(isd.contains("+") ? isd : "+\(isd)" ) \(UserInfo.loggedInUser?.mobile ?? "")"
             self.mobile = [mobile]
         }
         
@@ -365,6 +366,18 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
 }
 
 extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
+    func willLogOut() {
+        //
+    }
+    
+    func didLogOutSuccess() {
+        //
+    }
+    
+    func didLogOutFail(errors: ErrorCodes) {
+        //
+    }
+    
     func willGetDetail() {
         //
     }

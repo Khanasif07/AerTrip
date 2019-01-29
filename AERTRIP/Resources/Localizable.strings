@@ -159,7 +159,7 @@
 "stars" = "Stars";
 "star" = "Star";
 "searchForHotelsToAdd" = "Search for hotels to add";
-"searchHotelName" = "Search hotel name";
+"searchHotelName" = "Search";
 
 
 //MARK:- Import Contacts
@@ -234,6 +234,7 @@
 "SelectDate" = "Select Date";
 "AddNotes" = "Add notes";
 "NoContactsFetched" = "No contacts";
+"DeleteFromTraveller" = "Delete from Travellers List";
 
 //MARK:- Favourite Hotels
 //MARK:-

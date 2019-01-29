@@ -483,18 +483,58 @@
                                     <constraint firstItem="5Z1-mf-vN3" firstAttribute="top" secondItem="s0p-Ak-SKz" secondAttribute="top" id="vK7-kO-hfg"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TY-jX-cxe">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9">
                                 <rect key="frame" x="0.0" y="55" width="375" height="612"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="arZ-2I-Bsv">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAQ-s4-0cr" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="WQV-PH-ocg"/>
+                                            </constraints>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPE-jP-pvv">
+                                            <rect key="frame" x="16" y="1" width="359" height="42"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="deleteTravellButtonTapped:" destination="ud7-3X-EQa" eventType="touchUpInside" id="VwN-N2-PpR"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOy-7U-cSd" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="43" width="375" height="1"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="9eu-Xb-hfW"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="ZOy-7U-cSd" secondAttribute="trailing" id="3dK-EL-OIF"/>
+                                        <constraint firstItem="zPE-jP-pvv" firstAttribute="leading" secondItem="arZ-2I-Bsv" secondAttribute="leading" constant="16" id="4kW-XA-zSe"/>
+                                        <constraint firstItem="WAQ-s4-0cr" firstAttribute="top" secondItem="arZ-2I-Bsv" secondAttribute="top" id="86N-EO-XCV"/>
+                                        <constraint firstItem="zPE-jP-pvv" firstAttribute="top" secondItem="WAQ-s4-0cr" secondAttribute="bottom" id="8Q0-SA-gLj"/>
+                                        <constraint firstItem="ZOy-7U-cSd" firstAttribute="leading" secondItem="arZ-2I-Bsv" secondAttribute="leading" id="bBQ-z8-NA8"/>
+                                        <constraint firstAttribute="trailing" secondItem="zPE-jP-pvv" secondAttribute="trailing" id="bzQ-h4-olR"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZOy-7U-cSd" secondAttribute="bottom" id="gUC-TS-xcL"/>
+                                        <constraint firstItem="ZOy-7U-cSd" firstAttribute="top" secondItem="zPE-jP-pvv" secondAttribute="bottom" id="oNo-j3-oT8"/>
+                                        <constraint firstItem="WAQ-s4-0cr" firstAttribute="leading" secondItem="arZ-2I-Bsv" secondAttribute="leading" id="rZM-eh-q6f"/>
+                                        <constraint firstAttribute="trailing" secondItem="WAQ-s4-0cr" secondAttribute="trailing" id="ynj-nx-Faw"/>
+                                    </constraints>
+                                </view>
                                 <connections>
                                     <outlet property="dataSource" destination="ud7-3X-EQa" id="KK4-LI-las"/>
                                     <outlet property="delegate" destination="ud7-3X-EQa" id="nSQ-wm-vXG"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TY-jX-cxe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -514,6 +554,8 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="5Z1-mf-vN3" id="YvS-2b-pIZ"/>
+                        <outlet property="deleteButton" destination="zPE-jP-pvv" id="U8M-Sp-Ocp"/>
+                        <outlet property="deleteTravellerView" destination="arZ-2I-Bsv" id="d7b-mf-7DE"/>
                         <outlet property="headerView" destination="s0p-Ak-SKz" id="Ev5-bp-yDY"/>
                         <outlet property="saveButton" destination="C7H-YC-IE8" id="L14-l9-FxS"/>
                         <outlet property="tableView" destination="rvP-JD-Bu9" id="9Oc-Ez-e8y"/>

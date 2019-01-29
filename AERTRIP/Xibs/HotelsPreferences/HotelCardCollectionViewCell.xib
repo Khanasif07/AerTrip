@@ -165,8 +165,8 @@
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
         <image name="saveHotels" width="27" height="27"/>
         <image name="saveHotelsSelected" width="27" height="27"/>
-        <image name="starRatingFilled" width="16" height="16"/>
-        <image name="starRatingUnfill" width="16" height="16"/>
+        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviser" width="32" height="24"/>
     </resources>
 </document>

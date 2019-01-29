@@ -198,7 +198,7 @@ class UserInfo {
     var userId:String = ""
     
     var profileImagePlaceholder: UIImage {
-        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter) \("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
+        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
         return AppGlobals.shared.getImageFromText(string)
     }
     

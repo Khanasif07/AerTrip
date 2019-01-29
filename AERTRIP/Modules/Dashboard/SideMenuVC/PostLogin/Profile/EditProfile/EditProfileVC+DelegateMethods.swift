@@ -634,6 +634,23 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
 // MARK: - EditProfileVMDelegate + methods
 
 extension EditProfileVC: EditProfileVMDelegate {
+    func willCallDeleteTravellerAPI() {
+        //
+    }
+    
+    func deleteTravellerAPISuccess() {
+        for viewController in self.navigationController?.viewControllers ?? [] {
+            if viewController is TravellerListVC {
+                  AppFlowManager.default.popToViewController(viewController, animated: true)
+            }
+        }
+      
+    }
+    
+    func deleteTravellerAPIFailure() {
+        //
+    }
+    
     func getDefaultAirlineSuccess(_ data: [FlyerModel]) {
         self.viewModel.defaultAirlines = data
     }
@@ -692,7 +709,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         }
     }
     
-    func threePartLeftViewTap(_ gesture: UITapGestureRecognizer) {
+    func threePartLeftViewTap(_ indexPath:IndexPath,_ gesture: UITapGestureRecognizer) {
         guard let indexPathRow = gesture.view?.tag else {
             return
         }
@@ -702,6 +719,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             return
         }
         self.indexPathRow = indexPathRow
+        self.indexPath = indexPath
         if self.viewModel.mobileTypes.count > 0 {
             pickerData = self.viewModel.mobileTypes
             pickerType = .contactNumber

@@ -35,7 +35,7 @@ public class TravellerData: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
-            userData!.firstName = "\(obj)".removeNull
+            userData!.firstName = "\(obj.capitalizedFirst())".removeNull
             userData!.firstNameFirstChar = "\(userData!.firstName?.firstCharacter ?? "N")"
         }
         

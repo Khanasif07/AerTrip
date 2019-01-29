@@ -15,6 +15,7 @@ class ViewAllHotelsVC: BaseVC {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var dataContainerView: UIView!
+    @IBOutlet var shimmerView: UIView!
     
     
     //MARK:- Properties
@@ -86,9 +87,11 @@ class ViewAllHotelsVC: BaseVC {
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
             self.dataContainerView.addSubview(self.emptyView)
+           
         }
         else {
             self.emptyView.removeFromSuperview()
+            self.shimmerView.removeFromSuperview()
             var style = ATCategoryNavBarStyle()
             style.height = 45.0
             style.interItemSpace = 5.0
@@ -149,11 +152,12 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func getHotelPreferenceListSuccess() {
+        self.shimmerView.removeFromSuperview()
         self.setupPagerView()
     }
     
     func getHotelPreferenceListFail() {
-        
+         self.shimmerView.removeFromSuperview()
     }
     
     func willUpdateFavourite() {

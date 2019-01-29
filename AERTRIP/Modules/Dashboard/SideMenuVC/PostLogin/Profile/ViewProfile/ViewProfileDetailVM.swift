@@ -12,6 +12,9 @@ protocol ViewProfileDetailVMDelegate: class {
     func willGetDetail()
     func getSuccess(_ data: TravelDetailModel)
     func getFail(errors: ErrorCodes)
+    func willLogOut()
+    func didLogOutSuccess()
+    func didLogOutFail(errors: ErrorCodes)
 }
 
 class ViewProfileDetailVM {
@@ -56,4 +59,21 @@ class ViewProfileDetailVM {
             }
         })
     }
+    
+    func webserviceForLogOut() {
+        var params = JSONDictionary()
+        
+        
+        self.delegate?.willLogOut()
+        APICaller.shared.callLogOutAPI(params: [:], completionBlock: { success, errors in
+            if success {
+                self.delegate?.didLogOutSuccess()
+            }
+            else {
+                self.delegate?.didLogOutFail(errors: errors)
+            }
+        })
+    }
+    
+    
 }
