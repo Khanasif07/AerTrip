@@ -20,8 +20,6 @@ class ViewAllHotelsVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     private(set) var viewModel = ViewAllHotelsVM()
-//    private var viewPager:PKViewPagerController!
-//    private var options:PKViewPagerOptions!
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
@@ -163,7 +161,7 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func updateFavouriteSuccess() {
-        self.viewModel.hotels.remove(at: self.currentIndex)
+        self.viewModel.removeHotels(fromIndex: self.currentIndex)
         self.viewDidLoad()
         self.sendDataChangedNotification(data: self)
     }

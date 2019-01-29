@@ -72,6 +72,7 @@ class LoginVM {
                 self.delegate?.didLoginSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didLoginFail(errors: errors)
             }
         })

@@ -96,6 +96,7 @@ extension CreateProfileVM {
                 self.delegate?.getSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.getFail(errors: errors)
             }
         })
@@ -110,6 +111,7 @@ extension CreateProfileVM {
                 self.delegate?.getSalutationResponse(salutations: data)
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.getFail(errors: errors)
             }
         })

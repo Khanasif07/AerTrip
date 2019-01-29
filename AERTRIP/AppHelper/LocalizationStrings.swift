@@ -316,5 +316,8 @@ enum LocalizedString: String {
     
     //MARK:- Bulk Booking
     case BulkBooking = "BulkBooking"
+    
+    //MARK:- FF Search
+    case SearchAirlines = "SearchAirlines"
 }
 

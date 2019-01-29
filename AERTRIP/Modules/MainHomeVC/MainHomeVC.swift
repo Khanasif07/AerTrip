@@ -233,7 +233,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 179.0, height: UIDevice.screenHeight*0.22)
         
         let trans = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
@@ -270,7 +270,7 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
         self.socialLoginVC?.backButton.isHidden = true
-        let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 110.0)
+        let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             

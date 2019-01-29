@@ -32,6 +32,7 @@ class SideMenuVC: BaseVC {
         }
     }
     
+    var profileSuperView: UIView!
     
     
     
@@ -94,7 +95,7 @@ class SideMenuVC: BaseVC {
     }
     
     private func updateLogoView(view: SideMenuLogoView) {
-        view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
+        view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
@@ -218,9 +219,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.populateData()
-                cell.profileImage.isHidden = true
-                cell.userNameLabel.isHidden = true
+                self.profileSuperView = cell.profileSuperView
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell

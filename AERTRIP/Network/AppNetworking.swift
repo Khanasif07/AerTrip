@@ -30,6 +30,8 @@ enum AppNetworking {
     internal typealias Failure = ((_ error : NSError) -> Void) //failure response clouser
     internal typealias Progress = ((Double) -> Void) //shows the upload progress
     
+    static let noInternetError = NSError(code: -4531, localizedDescription: "No Internet Connection")
+    
     //check device has internet connection or not
     static var isConnectedToNetwork : Bool {
         
@@ -188,6 +190,11 @@ enum AppNetworking {
             printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
         }
         
+        guard self.isConnectedToNetwork else {
+            failure(self.noInternetError)
+            return
+        }
+        
        let request = Alamofire.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
@@ -276,6 +283,11 @@ enum AppNetworking {
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
 //        let url = try! URLRequest(url: "https://encryptorapp.000webhostapp.com/test.php", method: httpMethod, headers: header)
         
+        guard self.isConnectedToNetwork else {
+            failure(self.noInternetError)
+            return
+        }
+        
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
             if let mltiprtData = multipartData {
@@ -327,7 +339,6 @@ enum AppNetworking {
                                         }
                                         
                                         printDebug("response: \(value)\nresponse url: \(URLString)")
-                                        print(String(bytes: value, encoding: String.Encoding.utf8))
                                         success(JSON(value))
                                         
                                     case .failure(let e):

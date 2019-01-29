@@ -36,6 +36,7 @@ class LinkedAccountsVM {
                 self.delegate?.fetchLinkedAccountSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
                 self.delegate?.fetchLinkedAccountFail()
             }
         }
@@ -52,6 +53,7 @@ class LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
             }
         }
     }
@@ -199,6 +201,7 @@ extension LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
             }
         })
     }

@@ -55,6 +55,8 @@ class TravellerListVC: BaseVC {
             }
         }
         
+        tableView.sectionIndexColor = AppColors.themeGreen
+        
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -195,7 +197,6 @@ class TravellerListVC: BaseVC {
     
     func addLongPressOnTableView() {
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(TravellerListVC.handleLongPress(_:)))
-        longPressGesture.minimumPressDuration = 1.0 // 1 second press
         longPressGesture.delegate = self
         tableView.addGestureRecognizer(longPressGesture)
     }
@@ -362,13 +363,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             CoreDataManager.shared.saveContext()
         }
     }
+        
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+
+//        guard let sections = fetchedResultsController.sections else {
+//            return nil
+//        }
+//
+//        return sections.map { (info) -> String in
+//            info.name
+//        }
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
-            fatalError("ViewProfileDetailTableViewSectionView not found")
+            return nil
         }
         guard let sections = fetchedResultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
+            return nil
         }
         headerView.configureCell(sections[section].name)
         return headerView

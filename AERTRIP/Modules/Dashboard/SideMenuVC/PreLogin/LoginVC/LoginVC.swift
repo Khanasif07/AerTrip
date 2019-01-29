@@ -165,7 +165,6 @@ extension LoginVC: LoginVMDelegate {
     func didLoginFail(errors: ErrorCodes) {
         
         self.loginButton.isLoading = false
-        AppGlobals.shared.showErrorOnToastView(errors: errors, viewController: self)
     }
 }
 

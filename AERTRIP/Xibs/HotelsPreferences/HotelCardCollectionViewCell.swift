@@ -25,6 +25,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var greenCircleRatingView: FloatRatingView!
     @IBOutlet weak var gradientView: UIView!
     
+    private var gradientLayer: CAGradientLayer!
+    
     weak var delegate: HotelCardCollectionViewCellDelegate?
     var hotelData: HotelsModel? {
         didSet {
@@ -36,14 +38,19 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        let gradientLayer:CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame.size = self.gradientView.frame.size
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.gradientView.bounds
         gradientLayer.colors =
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
         gradientView.layer.addSublayer(gradientLayer)
         gradientView.backgroundColor = AppColors.clear
         
         self.saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = self.gradientView.bounds
     }
     
     override func draw(_ rect: CGRect) {

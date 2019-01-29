@@ -49,6 +49,7 @@ extension SecureYourAccountVM {
                 self.delegate?.getSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.getFail(errors: errors)
             }
         })

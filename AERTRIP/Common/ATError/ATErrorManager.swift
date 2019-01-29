@@ -15,6 +15,7 @@ class ATErrorManager {
     enum Module: String {
         case profile
         case login
+        case hotelSearch
     }
     
     enum LocalError: Int {
@@ -98,15 +99,24 @@ class ATErrorManager {
         error.code = "\(forCode)"
         error.module = module.rawValue
         
-        let row = self.getErrorRow(forCode: "\(forCode)", module: module)
-        
-        let allCol = row.components(separatedBy: ",")
-        if allCol.count > 4, !allCol[4].isEmpty {
-            error.message = allCol[4].isEmpty ? LocalError.default.message : "\(allCol[4])"
+        if (-4563)...(-4561) ~= forCode {
+            let err = LocalError(rawValue: forCode) ?? .default
+            
+            error.message = err.message
+            error.hint = ""
         }
-        
-        if allCol.count > 3, !allCol[3].isEmpty {
-            error.hint = allCol[3].isEmpty ? LocalError.default.message : "\(allCol[3])"
+        else {
+            
+            let row = self.getErrorRow(forCode: "\(forCode)", module: module)
+            
+            let allCol = row.components(separatedBy: ",")
+            if allCol.count > 4, !allCol[4].isEmpty {
+                error.message = allCol[4].isEmpty ? LocalError.default.message : "\(allCol[4])"
+            }
+            
+            if allCol.count > 3, !allCol[3].isEmpty {
+                error.hint = allCol[3].isEmpty ? LocalError.default.message : "\(allCol[3])"
+            }
         }
         
         return error

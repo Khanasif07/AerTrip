@@ -74,5 +74,14 @@ class ViewAllHotelsVM {
         }
     }
     
+    func removeHotels(fromIndex: Int) {
+        self.hotels.remove(at: fromIndex)
+        self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
+            var item = ATCategoryItem()
+            item.title = city.cityName
+            return item
+        }
+    }
+    
     //MARK:- Action
 }

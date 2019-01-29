@@ -49,7 +49,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var sections = [LocalizedString.EmailAddress.localized, LocalizedString.ContactNumber.localized, LocalizedString.Address.localized, LocalizedString.MoreInformation.localized]
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
-    var imagePicker = UIImagePickerController()
     var travelData: TravelDetailModel?
     
     var indexPath: IndexPath?
@@ -191,7 +190,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
        
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
-        imagePicker.delegate = self
         
         addFooterView()
     }
@@ -212,9 +210,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            imagePicker.allowsEditing = true
-            present(imagePicker, animated: true, completion: nil)
+            self.checkAndOpenCamera(delegate: self)
         } else {
             let alert = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -223,9 +219,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func openGallery() {
-        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        self.checkAndOpenLibrary(delegate: self)
     }
     
     func getPhotoFromFacebook() {

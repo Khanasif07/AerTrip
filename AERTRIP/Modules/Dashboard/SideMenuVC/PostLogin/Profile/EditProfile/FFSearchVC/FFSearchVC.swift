@@ -17,9 +17,8 @@ class FFSearchVC: BaseVC {
     
     @IBOutlet var tableView: ATTableView!
     
-    @IBOutlet var searchTextField: SearchTextField!
+    @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet var headerTitleLabel: UILabel!
-    
     @IBOutlet var cancelButton: UIButton!
     
     // MARK: - Variable
@@ -42,22 +41,9 @@ class FFSearchVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchTextField.textFieldButtonTap = { [weak self] status in
-            if status {
-                print("Cross button tapped")
-                self?.searchTextField.text = nil
-                self?.searchTextField.rightButton.isHidden = true
-                self?.searchData.removeAll()
-                self?.searchData = (self?.defaultAirlines)!
-                self?.tableView.reloadData()
-            }
-        }
-        searchTextField.rightButton.setImage(nil, for: .normal)
-        searchTextField.backgroundColor = UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1.0)
-        searchTextField.layer.borderColor = UIColor.clear.cgColor
-        searchTextField.layer.cornerRadius = 10.0
-        searchTextField.delegate = self
+ 
+        searchBar.placeholder = LocalizedString.SearchAirlines.localized
+        searchBar.delegate = self
         
         doInitialSetUp()
         registerXib()
@@ -129,29 +115,15 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension FFSearchVC {
-    internal func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        searchTextField.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
-        searchTextField.rightButton.isHidden = false
-        let newTextToSearch = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
-        NSLog("Search for this text after delay \(newTextToSearch)")
-              searchForText(newTextToSearch)
-            emptyView.searchTextLabel.isHidden = false
-            emptyView.searchTextLabel.text = "for \(newTextToSearch.quoted)"
-        if newTextToSearch == "" {
-            tableView.backgroundView = nil
-        } else {
-            tableView.backgroundView = emptyView
-        }
-        return true
+extension FFSearchVC: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchForText(searchText)
+        emptyView.searchTextLabel.isHidden = false
+        emptyView.searchTextLabel.text = "for \(searchText.quoted)"
+        
+        tableView.backgroundView = searchText.isEmpty ? nil : emptyView
     }
-    
-    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return false
-    }
-    
-    
 }
 
 extension FFSearchVC: SearchVMDelegate {

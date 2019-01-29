@@ -24,21 +24,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="363" height="219.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="VFU-wI-OLs">
-                        <rect key="frame" x="138.5" y="38" width="86" height="86"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="86" id="Q1L-kk-8wr"/>
-                            <constraint firstAttribute="width" constant="86" id="t7y-Hn-djv"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHz-eW-pQ5">
-                        <rect key="frame" x="20" y="129" width="323" height="24"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-X0-LeG">
-                        <rect key="frame" x="147" y="153" width="69" height="40"/>
+                        <rect key="frame" x="147" y="163" width="69" height="30"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                         <state key="normal" title="View Profile">
                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -51,32 +38,30 @@
                             <constraint firstAttribute="height" constant="0.40000000000000002" id="KI4-dq-Z4L"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8J-Ql-xam">
+                        <rect key="frame" x="0.0" y="0.0" width="363" height="153"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GHz-eW-pQ5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="2L4-ed-yXD"/>
-                    <constraint firstItem="VFU-wI-OLs" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="3yo-kF-bRf"/>
                     <constraint firstAttribute="trailing" secondItem="nFt-pL-jYQ" secondAttribute="trailing" constant="20" id="8Sr-Cj-pZC"/>
-                    <constraint firstItem="2T7-X0-LeG" firstAttribute="centerX" secondItem="GHz-eW-pQ5" secondAttribute="centerX" id="8ve-VW-Ltp"/>
-                    <constraint firstItem="VFU-wI-OLs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="38" id="HPN-6E-F9y"/>
+                    <constraint firstItem="2T7-X0-LeG" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CZw-kM-jQ9"/>
                     <constraint firstItem="nFt-pL-jYQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Y3u-pG-bXo"/>
                     <constraint firstAttribute="bottom" secondItem="nFt-pL-jYQ" secondAttribute="bottom" id="afy-Hv-GkC"/>
+                    <constraint firstAttribute="trailing" secondItem="s8J-Ql-xam" secondAttribute="trailing" id="apI-0B-lkA"/>
                     <constraint firstItem="nFt-pL-jYQ" firstAttribute="top" secondItem="2T7-X0-LeG" secondAttribute="bottom" constant="26" id="cY3-jq-BsU"/>
-                    <constraint firstAttribute="trailing" secondItem="GHz-eW-pQ5" secondAttribute="trailing" constant="20" id="caJ-SJ-H73"/>
-                    <constraint firstItem="GHz-eW-pQ5" firstAttribute="top" secondItem="VFU-wI-OLs" secondAttribute="bottom" constant="5" id="k1K-Nd-D6E"/>
-                    <constraint firstItem="2T7-X0-LeG" firstAttribute="top" secondItem="GHz-eW-pQ5" secondAttribute="bottom" id="vXF-aU-lch"/>
+                    <constraint firstItem="2T7-X0-LeG" firstAttribute="top" secondItem="s8J-Ql-xam" secondAttribute="bottom" constant="10" id="lcP-oG-gvu"/>
+                    <constraint firstItem="s8J-Ql-xam" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lo8-Jc-yCL"/>
+                    <constraint firstItem="s8J-Ql-xam" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="v0W-p2-c4Y"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="profileImage" destination="VFU-wI-OLs" id="ifD-Pj-Rkt"/>
+                <outlet property="profileSuperView" destination="s8J-Ql-xam" id="FYk-9R-VFL"/>
                 <outlet property="sepratorView" destination="nFt-pL-jYQ" id="Men-Lg-vTE"/>
-                <outlet property="userNameLabel" destination="GHz-eW-pQ5" id="yVJ-CW-kmz"/>
                 <outlet property="viewProfileButton" destination="2T7-X0-LeG" id="ZdD-dV-Wxz"/>
             </connections>
             <point key="canvasLocation" x="-24.800000000000001" y="58.47076461769116"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="group" width="93" height="93"/>
-    </resources>
 </document>

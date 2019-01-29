@@ -29,7 +29,12 @@ extension APICaller {
             })
             
         }) { (error) in
-            completionBlock(false, nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, nil, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     

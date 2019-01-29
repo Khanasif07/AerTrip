@@ -80,18 +80,10 @@ struct AppGlobals {
         return UIImage(text: fromText, font: UIFont.systemFont(ofSize: 20.0), color: AppColors.themeGray40, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
     }
 
-    func showErrorOnToastView(errors: ErrorCodes, viewController: UIViewController) {
+    func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: viewController)
+        let (_, message) = ATErrorManager.default.error(forCodes: errors, module: module)
+        AppToast.default.showToastMessage(message: message)
     }
     
     // convert Date from one format to another

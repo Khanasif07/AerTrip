@@ -268,3 +268,6 @@
 
 //MARK:- Bulk Booking
 "BulkBooking" = "Bulk Booking";
+
+//MARK:- FF Search
+"SearchAirlines" = "Search Airlines";

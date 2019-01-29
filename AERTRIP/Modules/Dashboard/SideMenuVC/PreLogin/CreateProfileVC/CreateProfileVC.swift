@@ -355,18 +355,6 @@ extension CreateProfileVC: CreateProfileVMDelegate {
     func getFail(errors: ErrorCodes) {
         
         self.letsStartedButton.isLoading = false
-        
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        
-        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }
 

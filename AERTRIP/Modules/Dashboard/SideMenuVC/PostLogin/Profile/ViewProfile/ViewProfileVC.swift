@@ -21,11 +21,17 @@ class ViewProfileVC: BaseVC {
     @IBOutlet var editButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var drawableHeaderView: UIView!
-    @IBOutlet var dividerView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var drawableHeaderView: UIView!
+    @IBOutlet weak var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
+    
+    private var headerViewHeight: CGFloat {
+        return UIDevice.isIPhoneX ? 84.0 : 64.0
+    }
+    
+    private let headerHeightToAnimate: CGFloat = 30.0
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
@@ -94,6 +100,14 @@ class ViewProfileVC: BaseVC {
     // MARK: - Helper Methods
     
     func doInitialSetup() {
+        
+        self.headerView.backgroundColor = AppColors.clear
+        self.headerViewHeightConstraint.constant = headerViewHeight
+        
+        self.drawableHeaderView.backgroundColor = AppColors.themeWhite
+        self.drawableHeaderView.isHidden = true
+        self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
+        
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         self.editButton.setTitle(LocalizedString.Edit.rawValue, for: .normal)
@@ -103,7 +117,6 @@ class ViewProfileVC: BaseVC {
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.dividerView.isHidden = true
     }
     
     func setupParallaxHeader() { // Parallax Header
@@ -133,10 +146,9 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.blurEffectView.alpha = 0.4
         }
         
+        self.view.bringSubviewToFront(self.drawableHeaderView)
         self.view.bringSubviewToFront(self.headerView)
     }
-
-    
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -242,29 +254,40 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         }
         
         if parallaxHeader.progress <= 0.5 {
+            
+            self.drawableHeaderView.isHidden = false
+            self.drawableHeaderView.alpha = (1.0 - parallaxHeader.progress)
+            
+            let old = headerViewHeight - headerHeightToAnimate
+            self.drawableHeaderViewHeightConstraint.constant = (old + self.getProgressiveHeight(forProgress: parallaxHeader.progress))
+            
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.headerView.backgroundColor = UIColor.white
+//                self?.headerView.backgroundColor = UIColor.white
                 self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 self?.backButton.setImage(tintedImage, for: .normal)
-                self?.dividerView.isHidden = false
                 self?.backButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
                 self?.headerLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
-            self.drawableHeaderView.backgroundColor = UIColor.clear
-            self.drawableHeaderViewHeightConstraint.constant = 0
-            self.headerView.backgroundColor = UIColor.clear
-            self.dividerView.isHidden = true
+            //            self.headerView.backgroundColor = UIColor.clear
+            self.drawableHeaderView.alpha = 0.5
+            self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
+            self.drawableHeaderView.isHidden = true
             self.editButton.setTitleColor(UIColor.white, for: .normal)
             self.backButton.tintColor = UIColor.white
             self.headerLabel.text = ""
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
+    }
+    
+    func getProgressiveHeight(forProgress: CGFloat) -> CGFloat {
+        let ratio: CGFloat = headerHeightToAnimate / CGFloat(0.5)
+        return headerHeightToAnimate - (forProgress * ratio)
     }
 }
 
