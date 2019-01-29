@@ -33,6 +33,8 @@
 		180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */; };
 		181025A221E339B10046EED7 /* TravellerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181025A121E339B10046EED7 /* TravellerModel.swift */; };
 		181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */; };
+		1819D3D621FF4900006A367E /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819D3D421FF4900006A367E /* CustomView.swift */; };
+		1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */; };
 		182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */; };
 		182E8ED321DB6AAC0089C02D /* HotelCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */; };
 		183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */; };
@@ -138,9 +140,6 @@
 		84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */; };
 		84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */; };
 		84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */; };
-		84085CF921F59C0E00F1E844 /* Packaging.log in Resources */ = {isa = PBXBuildFile; fileRef = 84085CAA21F59C0D00F1E844 /* Packaging.log */; };
-		84085CFA21F59C0E00F1E844 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84085CAB21F59C0D00F1E844 /* ExportOptions.plist */; };
-		84085CFB21F59C0E00F1E844 /* DistributionSummary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84085CAC21F59C0D00F1E844 /* DistributionSummary.plist */; };
 		84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAE21F59C0D00F1E844 /* ViewAllHotelsVC.swift */; };
 		84085CFD21F59C0E00F1E844 /* HotelsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAF21F59C0D00F1E844 /* HotelsListVC.swift */; };
 		84085CFE21F59C0E00F1E844 /* HotelsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB021F59C0D00F1E844 /* HotelsListVM.swift */; };
@@ -301,6 +300,8 @@
 		180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressTableViewCell.xib; sourceTree = "<group>"; };
 		181025A121E339B10046EED7 /* TravellerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerModel.swift; sourceTree = "<group>"; };
 		181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Travellers.swift"; sourceTree = "<group>"; };
+		1819D3D421FF4900006A367E /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShimmerSetup.swift; sourceTree = "<group>"; };
 		182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCardTableViewCell.swift; sourceTree = "<group>"; };
 		182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelCardTableViewCell.xib; sourceTree = "<group>"; };
 		183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelPreferences.storyboard; sourceTree = "<group>"; };
@@ -409,9 +410,6 @@
 		84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
 		84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferStarCategoryCell.swift; sourceTree = "<group>"; };
 		84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavouriteHotels.swift; sourceTree = "<group>"; };
-		84085CAA21F59C0D00F1E844 /* Packaging.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Packaging.log; sourceTree = "<group>"; };
-		84085CAB21F59C0D00F1E844 /* ExportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
-		84085CAC21F59C0D00F1E844 /* DistributionSummary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DistributionSummary.plist; sourceTree = "<group>"; };
 		84085CAE21F59C0D00F1E844 /* ViewAllHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAllHotelsVC.swift; sourceTree = "<group>"; };
 		84085CAF21F59C0D00F1E844 /* HotelsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsListVC.swift; sourceTree = "<group>"; };
 		84085CB021F59C0D00F1E844 /* HotelsListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsListVM.swift; sourceTree = "<group>"; };
@@ -620,6 +618,15 @@
 				180A3D8321C1098E001A1E6A /* ToastView.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		1819D3D321FF4900006A367E /* Custom Shimmer Files */ = {
+			isa = PBXGroup;
+			children = (
+				1819D3D421FF4900006A367E /* CustomView.swift */,
+				1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */,
+			);
+			path = "Custom Shimmer Files";
 			sourceTree = "<group>";
 		};
 		183E3F6521D9F1720032DEBA /* HotelsPreferences */ = {
@@ -971,19 +978,8 @@
 			children = (
 				84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */,
 				84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */,
-				84085CA921F59C0D00F1E844 /* AERTRIP 2018-12-31 18-53-04 */,
 			);
 			path = PrototypeCells;
-			sourceTree = "<group>";
-		};
-		84085CA921F59C0D00F1E844 /* AERTRIP 2018-12-31 18-53-04 */ = {
-			isa = PBXGroup;
-			children = (
-				84085CAA21F59C0D00F1E844 /* Packaging.log */,
-				84085CAB21F59C0D00F1E844 /* ExportOptions.plist */,
-				84085CAC21F59C0D00F1E844 /* DistributionSummary.plist */,
-			);
-			path = "AERTRIP 2018-12-31 18-53-04";
 			sourceTree = "<group>";
 		};
 		84085CAD21F59C0D00F1E844 /* ViewAllHotelsVC */ = {
@@ -1348,6 +1344,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				1819D3D321FF4900006A367E /* Custom Shimmer Files */,
 				84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */,
 				849B849521EF0B6800AA63BA /* PKAlertController */,
 				18930A1E21D33EFF005442C8 /* SearchTextField.swift */,
@@ -1589,10 +1586,8 @@
 				183E3F6921D9F1D70032DEBA /* HotelCardCollectionViewCell.xib in Resources */,
 				18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */,
 				18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */,
-				84085CFA21F59C0E00F1E844 /* ExportOptions.plist in Resources */,
 				84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */,
 				1809A47C21CDFA7E0018AB2F /* TableViewAddActionCell.xib in Resources */,
-				84085CF921F59C0E00F1E844 /* Packaging.log in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				189D1F4921CE3F8E00746329 /* SourceSansPro-Black.ttf in Resources */,
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
@@ -1627,7 +1622,6 @@
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				189D1F4E21CE3F8E00746329 /* SourceSansPro-Italic.ttf in Resources */,
 				1887859721DF4E680061869E /* TravellerList.storyboard in Resources */,
-				84085CFB21F59C0E00F1E844 /* DistributionSummary.plist in Resources */,
 				189D1F4A21CE3F8E00746329 /* SourceSansPro-Bold.ttf in Resources */,
 				18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */,
 			);
@@ -1731,6 +1725,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */,
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
 				84085CDC21F59C0E00F1E844 /* DashboardVC.swift in Sources */,
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
@@ -1741,6 +1736,7 @@
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
+				1819D3D621FF4900006A367E /* CustomView.swift in Sources */,
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
 				84754D8421E8EE3D00317F76 /* TravellerData+CoreDataProperties.swift in Sources */,

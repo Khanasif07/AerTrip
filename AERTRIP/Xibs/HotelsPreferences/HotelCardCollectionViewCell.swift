@@ -45,7 +45,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         
         self.saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
     }
-    
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -55,7 +55,6 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     }
 
     private func populateData() {
-        
         self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
         self.starRatingView.rating = self.hotelData?.stars ?? 0
         self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
