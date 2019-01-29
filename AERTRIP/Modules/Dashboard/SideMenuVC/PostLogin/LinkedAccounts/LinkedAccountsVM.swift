@@ -106,7 +106,7 @@ extension LinkedAccountsVM {
             self.userData.authKey        = model.accessToken
             self.userData.firstName       = model.name
             self.userData.email          = model.email
-            self.userData.service         = "google"
+            self.userData.service         = "google_oauth"
             self.userData.id            = model.id
             
             if let imageURl = model.image {
@@ -150,7 +150,7 @@ extension LinkedAccountsVM {
                     self.userData.firstName  = data["firstName"] as? String ?? ""
                     self.userData.lastName  = data["lastName"]  as? String ?? ""
                     self.userData.id            = data["id"] as? String ?? ""
-                    self.userData.service   = "linkedin"
+                    self.userData.service   = "linkedin_oauth2"
                     self.userData.email      =  data["emailAddress"] as? String ?? ""
                     self.userData.picture   = data["pictureUrl"] as? String ?? ""
                     

@@ -18,6 +18,9 @@ protocol EditProfileVMDelegate: class {
     func getSuccess()
     func getDefaultAirlineSuccess(_ data: [FlyerModel])
     func willApiCall()
+    func willCallDeleteTravellerAPI()
+    func deleteTravellerAPISuccess()
+    func deleteTravellerAPIFailure()
 }
 
 class EditProfileVM {
@@ -288,5 +291,19 @@ class EditProfileVM {
                 self.delegate?.getFail(errors: errors)
             }
         })
+    }
+    
+    func callDeleteTravellerAPI() {
+        var params = JSONDictionary()
+        
+        params["pax_ids"] = self.paxId
+        delegate?.willCallDeleteTravellerAPI()
+        APICaller.shared.callDeleteTravellerAPI(params: params) { [weak self] success, _ in
+            if success {
+                self?.delegate?.deleteTravellerAPISuccess()
+            } else {
+                self?.delegate?.deleteTravellerAPIFailure()
+            }
+        }
     }
 }

@@ -22,6 +22,9 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
   - FBSDKCoreKit (4.38.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.38.1):
@@ -116,6 +119,8 @@ PODS:
 DEPENDENCIES:
   - ActiveLabel
   - Alamofire
+  - Crashlytics
+  - Fabric
   - FBSDKLoginKit
   - Firebase/Core
   - Firebase/DynamicLinks
@@ -134,6 +139,8 @@ SPEC REPOS:
     - AFNetworking
     - Alamofire
     - Bolts
+    - Crashlytics
+    - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -162,6 +169,8 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
   Firebase: 6df9a6114bc9f106a98fe83d5438d4d9833c2019
@@ -185,6 +194,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 3e8da6adbabb80dc089fdf0d7f7654ab58359525
+PODFILE CHECKSUM: 700648a499d2636e27c1f5226e3123876828ee77
 
 COCOAPODS: 1.5.3

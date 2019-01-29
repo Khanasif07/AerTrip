@@ -121,7 +121,8 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         if let mobileNumber = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd {
-            self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
+            let tempIsd = isd.contains("+") ? isd : "+\(isd)"
+            self.profileImageHeaderView?.mobileNumberLabel.text = "\(tempIsd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
@@ -218,10 +219,13 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
+                
                 if index == 0 {
-                    UserInfo.loggedInUserId = nil
-                    AppFlowManager.default.goToDashboard()
-                    CoreDataManager.shared.deleteCompleteDB()
+//                    UserInfo.loggedInUserId = nil
+//                    AppFlowManager.default.goToDashboard()
+//                    CoreDataManager.shared.deleteCompleteDB()
+                    self.viewModel.webserviceForLogOut()
+                  
                 }
             }
             
@@ -282,6 +286,21 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
 }
 
 extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willLogOut() {
+        //
+    }
+    
+    func didLogOutSuccess() {
+        //
+        UserInfo.loggedInUserId = nil
+        AppFlowManager.default.goToDashboard()
+        CoreDataManager.shared.deleteCompleteDB()
+    }
+    
+    func didLogOutFail(errors: ErrorCodes) {
+        //
+    }
+    
     func willGetDetail() {
         //
     }

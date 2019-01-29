@@ -104,6 +104,7 @@
 		18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */; };
 		18FA223221EC91670024B91E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F4621CE3F8E00746329 /* SourceSansPro-Regular.ttf */; };
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
+		18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEC8602200683600C64042 /* ViewProfileVM.swift */; };
 		840062A221DB9DA6000BD3BF /* SocialUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840062A121DB9DA6000BD3BF /* SocialUserModel.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */; };
@@ -372,6 +373,7 @@
 		18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignGroupTableViewCell.swift; sourceTree = "<group>"; };
 		18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignGroupTableViewCell.xib; sourceTree = "<group>"; };
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
+		18FEC8602200683600C64042 /* ViewProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileVM.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840062A121DB9DA6000BD3BF /* SocialUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserModel.swift; sourceTree = "<group>"; };
@@ -1038,6 +1040,7 @@
 				84085CBF21F59C0D00F1E844 /* ViewProfileDetailVC.swift */,
 				84085CC021F59C0D00F1E844 /* TravellerList */,
 				84085CD021F59C0D00F1E844 /* ViewProfileDetailVM.swift */,
+				18FEC8602200683600C64042 /* ViewProfileVM.swift */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				8469FE8D21B513FD0027BB2E /* Resources */,
 				4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */,
 				1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */,
+				18FEC85F2200300400C64042 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1647,6 +1651,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		18FEC85F2200300400C64042 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b1d76909c3f911405604adaed9943a3612918dcf 29130d7ad56d8563cac9817934b81940dd44e94e986d09e047fe078330cceb4d\n";
 		};
 		1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1802,6 +1824,7 @@
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
+				18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */,
 				84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */,
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
 				84085CF221F59C0E00F1E844 /* SocialLoginVC.swift in Sources */,

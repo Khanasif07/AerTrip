@@ -150,7 +150,8 @@ class ViewProfileDetailVC: BaseVC {
         if travel.id == UserInfo.loggedInUser?.paxId ?? ""{
             var mobile = Mobile()
             mobile.label = "Default"
-            mobile.value = "\(UserInfo.loggedInUser?.isd ?? "") \(UserInfo.loggedInUser?.mobile ?? "")"
+            let isd = UserInfo.loggedInUser?.isd ?? ""
+            mobile.value = "\(isd.contains("+") ? isd : "+\(isd)" ) \(UserInfo.loggedInUser?.mobile ?? "")"
             self.mobile = [mobile]
         }
         
@@ -365,6 +366,18 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
 }
 
 extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
+    func willLogOut() {
+        //
+    }
+    
+    func didLogOutSuccess() {
+        //
+    }
+    
+    func didLogOutFail(errors: ErrorCodes) {
+        //
+    }
+    
     func willGetDetail() {
         //
     }

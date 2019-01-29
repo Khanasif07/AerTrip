@@ -11,7 +11,7 @@ import PhoneNumberKit
 
 protocol EditProfileThreePartTableViewCellDelegate:class {
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath)
-    func threePartLeftViewTap(_ gesture: UITapGestureRecognizer)
+    func threePartLeftViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
     func middleViewTap(_ gesture: UITapGestureRecognizer)
     func editProfileThreePartTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String, isValide: Bool)
     
@@ -81,7 +81,10 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     
     @objc  func leftViewTap(gesture: UITapGestureRecognizer) {
-        delegate?.threePartLeftViewTap(gesture)
+        if let indexPath = indexPath {
+             delegate?.threePartLeftViewTap(indexPath,gesture)
+        }
+       
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {

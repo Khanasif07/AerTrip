@@ -88,11 +88,11 @@ class ViewAllHotelsVC: BaseVC {
     private func setupPagerView() {
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
-          //  self.dataContainerView.addSubview(self.emptyView)
-            self.dataContainerView.addSubview(shimmerView)
+            self.dataContainerView.addSubview(self.emptyView)
+           
         }
         else {
-            //self.emptyView.removeFromSuperview()
+            self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
             var style = ATCategoryNavBarStyle()
             style.height = 45.0
@@ -154,11 +154,12 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func getHotelPreferenceListSuccess() {
+        self.shimmerView.removeFromSuperview()
         self.setupPagerView()
     }
     
     func getHotelPreferenceListFail() {
-        
+         self.shimmerView.removeFromSuperview()
     }
     
     func willUpdateFavourite() {

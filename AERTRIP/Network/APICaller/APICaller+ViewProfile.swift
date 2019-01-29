@@ -33,4 +33,21 @@ extension APICaller {
         }
     }
     
+    func callLogOutAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.logout, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            
+            sSelf.handleResponse(json, success: { _, jsonData in
+                
+                completionBlock(true, [])
+                
+            }, failure: { errors in
+                completionBlock(false, errors)
+            })
+            
+        }) { error in
+            print(error)
+        }
+    }
+    
 }

@@ -36,7 +36,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet var headerView: UIView!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
-
+    @IBOutlet var deleteTravellerView: UIView!
+    @IBOutlet var deleteButton: UIButton!
+    
     // MARK: - Variables
     
     // MARK: - Private
@@ -77,7 +79,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var viewType: ViewType = .leftView
     
     // GenericPickerView
-    let genericPickerView : UIView = UIView()
+    let genericPickerView: UIView = UIView()
     
     // cell Identifier
     let editTwoPartCellIdentifier = "EditProfileTwoPartTableViewCell"
@@ -157,10 +159,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    
-    @IBAction func deleteFromTravellerButtonTapped(_ sender: Any) {
-        
+    @IBAction func deleteTravellButtonTapped(_ sender: Any) {
+          printDebug("delete from Traveller")
+          viewModel.callDeleteTravellerAPI()
     }
+    
+    
     
     // MARK: - Helper Methods
     
@@ -169,6 +173,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         saveButton.setTitle(LocalizedString.Save.rawValue, for: .normal)
         saveButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        
+//        deleteTravellerView.isHidden = self.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
+        deleteTravellerView.isHidden = true
+        deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
+        deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
+        deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         editProfileImageHeaderView.delegate = self
@@ -193,12 +203,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         pickerView.delegate = self
         pickerView.dataSource = self
         datePicker.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-       
+        
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
         imagePicker.delegate = self
         
-        
-        addFooterView()
+        //  addFooterView()
     }
     
     func registerXib() {
@@ -271,7 +280,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             var mobile = Mobile()
             mobile.label = "Default"
             mobile.type = "Mobile"
-            mobile.isd = isd.isEmpty ? "+91" : isd
+            mobile.isd = isd.isEmpty ? "+91" : isd.contains("+") ? isd : "+\(isd)"
             mobile.value = loggedInUserMobile
             mobile.isValide = true
             viewModel.mobile.append(mobile)
@@ -283,9 +292,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         if travel.contact.social.isEmpty {
             var social = Social()
             social.label = LocalizedString.Facebook.localized
-            self.viewModel.social.append(social)
+            viewModel.social.append(social)
         }
-        self.viewModel.social.append(contentsOf: travel.contact.social)
+        viewModel.social.append(contentsOf: travel.contact.social)
         sections.append(LocalizedString.SocialAccounts.localized)
         
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
@@ -347,8 +356,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     private func setUpForNewTraveller() {
         sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
-        passportDetails.append(contentsOf: ["",LocalizedString.selectedCountry.localized])
-        informations.append(contentsOf: [LocalizedString.SelectDate.localized,LocalizedString.SelectDate.localized, ""])
+        passportDetails.append(contentsOf: ["", LocalizedString.selectedCountry.localized])
+        informations.append(contentsOf: [LocalizedString.SelectDate.localized, LocalizedString.SelectDate.localized, ""])
         flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized, LocalizedString.SelectSeatPreference.localized])
         var email = Email()
         email.type = "Email"
@@ -377,7 +386,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     private func setupToolBar() {
         let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: -10 , width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
+        toolbar.frame = CGRect(x: 0.0, y: -10, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
         
@@ -398,7 +407,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     private func setUpToolBarForGenericPickerView() {
         let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: -10 , width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
+        toolbar.frame = CGRect(x: 0.0, y: -10, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelGenericPicker))
         
@@ -461,15 +470,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
                 cell.leftTitleLabel.text = pickerTitle
-                self.viewModel.email[indexPath.row].label = pickerTitle
+                viewModel.email[indexPath.row].label = pickerTitle
             }
-       
-        case .contactNumber :
+            
+        case .contactNumber:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                     fatalError("EditProfileThreePartTableViewCell not found")
                 }
-                self.viewModel.mobile[indexPath.row].type = pickerTitle
+                viewModel.mobile[indexPath.row].type = pickerTitle
                 cell.leftTitleLabel.text = pickerTitle
             }
             
@@ -478,7 +487,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? EditProfileTwoPartTableViewCell else {
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
-                self.viewModel.social[indexPath.row].label = pickerTitle
+                viewModel.social[indexPath.row].label = pickerTitle
                 cell.leftTitleLabel.text = pickerTitle
             }
         case .seatPreference:
@@ -487,16 +496,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 cell.editableTextField.text = pickerTitle
                 viewModel.seat = pickerTitle
             }
-           
             
         case .mealPreference:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.text = pickerTitle
                 viewModel.meal = pickerTitle
-                
             }
-         
+            
         case .country:
             if sections[(self.indexPath?.section)!] == LocalizedString.PassportDetails.localized {
                 let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
@@ -512,15 +519,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
                 cell.countryLabel.text = pickerTitle
-                self.viewModel.addresses[indexPath.row].countryName = pickerTitle
-                self.viewModel.addresses[indexPath.row].country = self.viewModel.countries.someKey(forValue: pickerTitle)!
+                viewModel.addresses[indexPath.row].countryName = pickerTitle
+                viewModel.addresses[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
             }
             
         case .addressTypes:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
                 cell.addressTypeLabel.text = pickerTitle
-                self.viewModel.addresses[indexPath.row].label = pickerTitle
+                viewModel.addresses[indexPath.row].label = pickerTitle
             }
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
@@ -713,26 +720,28 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func setUpProfilePhotoInitials() {
         var imageFromText: UIImage = UIImage()
-        if self.viewModel.profilePicture == "" {
-            if self.viewModel.firstName != "" {
-                let string = "\("\(self.viewModel.firstName.capitalizedFirst() )".firstCharacter)"
+        if viewModel.profilePicture == "" {
+            if viewModel.firstName != "" {
+                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)"
                 imageFromText = AppGlobals.shared.getImageFromText(string)
                 
-            } else if self.viewModel.lastName != "" {
-                let string = "\("\(self.viewModel.lastName.capitalizedFirst() )".firstCharacter)"
+            } else if viewModel.lastName != "" {
+                let string = "\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
                 imageFromText = AppGlobals.shared.getImageFromText(string)
             }
             
-            if self.viewModel.firstName != "", self.viewModel.lastName != "" {
-                let string = "\("\(self.viewModel.firstName.capitalizedFirst() )".firstCharacter)\("\(self.viewModel.lastName.capitalizedFirst() )".firstCharacter)"
+            if viewModel.firstName != "", viewModel.lastName != "" {
+                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
                 imageFromText = AppGlobals.shared.getImageFromText(string)
             }
             
-            if self.viewModel.firstName == "", self.viewModel.lastName == "" {
-                self.editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+            if viewModel.firstName == "", viewModel.lastName == "" {
+                editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
             } else {
-                self.editProfileImageHeaderView.profileImageView.image = imageFromText
+                editProfileImageHeaderView.profileImageView.image = imageFromText
             }
         }
     }
+    
+    
 }

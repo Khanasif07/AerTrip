@@ -12,6 +12,8 @@ import FBSDKLoginKit
 import GoogleSignIn
 import LinkedinSwift
 import Firebase
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GoogleLoginController.shared.configure()
         AppFlowManager.default.setupInitialFlow()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        Fabric.with([Crashlytics.self])
         return true
     }
     

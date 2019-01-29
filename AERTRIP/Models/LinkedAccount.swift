@@ -13,7 +13,7 @@ struct LinkedAccount {
     enum SocialType: String {
         case linkedin = "linkedin_oauth2"
         case facebook = "facebook"
-        case google = "google"
+        case google = "google_oauth"
         case none = "none"
         
         var priority: Int {

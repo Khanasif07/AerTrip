@@ -185,7 +185,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hm-BH-JLq" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="8" y="10" width="359" height="193"/>
+                            <rect key="frame" x="8" y="30" width="359" height="193"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMH-Pl-vly" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -302,7 +302,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OP-j5-a1s" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="8" y="211" width="359" height="193"/>
+                            <rect key="frame" x="8" y="231" width="359" height="193"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJa-wG-Du4" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -419,7 +419,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGt-OV-he0" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="8" y="412" width="359" height="193"/>
+                            <rect key="frame" x="8" y="432" width="359" height="193"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOJ-GK-hKH" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -538,10 +538,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="wGt-OV-he0" secondAttribute="bottom" constant="62" id="3CA-D9-bWm"/>
+                        <constraint firstAttribute="bottom" secondItem="wGt-OV-he0" secondAttribute="bottom" constant="42" id="3CA-D9-bWm"/>
                         <constraint firstItem="2hm-BH-JLq" firstAttribute="leading" secondItem="yIM-fy-RCQ" secondAttribute="leading" constant="8" id="4EN-RF-X8L"/>
                         <constraint firstItem="9OP-j5-a1s" firstAttribute="leading" secondItem="yIM-fy-RCQ" secondAttribute="leading" constant="8" id="Cvm-xR-7sV"/>
-                        <constraint firstItem="2hm-BH-JLq" firstAttribute="top" secondItem="yIM-fy-RCQ" secondAttribute="top" constant="10" id="Ndr-Pz-nJh"/>
+                        <constraint firstItem="2hm-BH-JLq" firstAttribute="top" secondItem="yIM-fy-RCQ" secondAttribute="top" constant="30" id="Ndr-Pz-nJh"/>
                         <constraint firstItem="9OP-j5-a1s" firstAttribute="top" secondItem="2hm-BH-JLq" secondAttribute="bottom" constant="8" id="Pmg-n1-BRD"/>
                         <constraint firstAttribute="trailing" secondItem="9OP-j5-a1s" secondAttribute="trailing" constant="8" id="csc-yk-Xfo"/>
                         <constraint firstAttribute="trailing" secondItem="wGt-OV-he0" secondAttribute="trailing" constant="8" id="eFs-4a-igo"/>
