@@ -120,6 +120,28 @@ struct AppGlobals {
     var pKAlertCancelButton: PKAlertButton {
         return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
     }
+    
+    
+    func saveImage(data: Data) -> String {
+        // get the documents directory url
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "\(UIDevice.uuidString).jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        
+        FileManager.removeFile(atPath: fileURL.path)
+        do {
+            // writes the image data to disk
+            try data.write(to: fileURL)
+            return fileURL.path
+            printDebug("file saved")
+        } catch {
+            printDebug("error saving file:")
+            return ""
+        }
+    }
 }
 
 

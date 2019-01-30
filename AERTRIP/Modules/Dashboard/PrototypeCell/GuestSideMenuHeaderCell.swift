@@ -52,5 +52,6 @@ private extension GuestSideMenuHeaderCell {
         
         self.loginAndRegisterButton.layer.cornerRadius = self.loginAndRegisterButton.height/2
         self.loginAndRegisterButton.setTitle(LocalizedString.LoginOrRegister.localized, for: .normal)
+        self.loginAndRegisterButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
 }

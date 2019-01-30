@@ -49,6 +49,12 @@ class ATButton: UIButton {
         }
     }
     
+    var isSocial: Bool = false {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
     var isLoading: Bool = false {
         didSet {
             isLoading ? self.startLoading() : self.stopLoading()
@@ -84,14 +90,14 @@ class ATButton: UIButton {
         
         let shadowFrame = CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
         shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
-        shadowLayer.fillColor = UIColor.white.cgColor
+        shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: 12.0)
-            shadowLayer.shadowOpacity = 0.1
-            shadowLayer.shadowRadius = 30.0
+            shadowLayer.shadowOpacity = self.isSocial ? 0.1 : 0.5
+            shadowLayer.shadowRadius = self.isSocial ? 30.0 : 15.0
         } else {
             shadowLayer.shadowColor = UIColor.clear.cgColor
         }
@@ -137,7 +143,24 @@ class ATButton: UIButton {
         self.updateGradientLayer(gLayer: self.gradientLayer)
     }
     
+    override func setImage(_ image: UIImage?, for state: UIControl.State) {
+        super.setImage(image, for: .normal)
+        super.setImage(image, for: .highlighted)
+    }
+    
+    override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
+        super.setTitleColor(color, for: .normal)
+        super.setTitleColor(color, for: .highlighted)
+    }
+    
+    override func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: .normal)
+        super.setTitle(title, for: .highlighted)
+    }
+    
     private func addRequiredAction() {
+        self.adjustsImageWhenHighlighted = false
+        
         self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpOutside)
@@ -165,7 +188,11 @@ class ATButton: UIButton {
         self.updateGradientLayer(gLayer: self.loaderGradientLayer)
         
         self.loaderIndicator.hidesWhenStopped = true
-        self.loaderIndicator.color = self.titleLabel?.textColor ?? AppColors.themeWhite
+        
+        self.loaderIndicator.color = AppColors.themeGray40
+        if let clr = self.titleLabel?.textColor {
+            self.loaderIndicator.color = (clr == AppColors.themeBlack) ? AppColors.themeGray40 : AppColors.themeWhite
+        }
     }
     
     private func startLoading() {

@@ -231,10 +231,10 @@ extension DashboardVC  {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if scrollView == mainScrollView {
-
+            
             var transform : CGFloat = 0.0
 
-            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0{
+            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
@@ -247,7 +247,7 @@ extension DashboardVC  {
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
             }
-
+        
             switch selectedOption{
                 case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
                 case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp)

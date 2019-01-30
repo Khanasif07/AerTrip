@@ -90,8 +90,12 @@ class MainHomeVC: BaseVC {
         self.scrollViewSetup()
         self.socialLoginVC?.backButton.isHidden = true
         delay(seconds: 0.2) {[weak self] in
-            self?.setupProfileView()
-            self?.setupLogoView()
+            if UserInfo.loggedInUserId == nil {
+                self?.setupLogoView()
+            }
+            else {
+                self?.setupProfileView()
+            }
         }
     }
     
@@ -176,7 +180,11 @@ class MainHomeVC: BaseVC {
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
-        self.profileView?.frame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
+        
+        let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        
+        self.profileView?.frame = finalFrame
         
         self.profileView?.isHidden = true
         self.profileView?.gradientView.isHidden = true
@@ -192,12 +200,11 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: 0.0, y: -20.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.49)
+        let finalFrame = CGRect(x: 0.0, y: -(UIDevice.isIPhoneX ? 0.0 : 0.0), width: UIDevice.screenWidth, height: self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false
         self.profileView?.backgroundImageView.isHidden = false
-        //self.profileView?.gradientView.alpha = 1.0
         self.profileView?.dividerView.isHidden = false
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -233,9 +240,8 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 179.0, height: UIDevice.screenHeight*0.22)
-        
-        let trans = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 50.0, width: newFrame.size.width, height: newFrame.size.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
@@ -245,7 +251,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
-            self.profileView?.profileContainerView.transform = trans
+            self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             
             self.profileView?.layoutIfNeeded()
         }, completion: { (isDone) in

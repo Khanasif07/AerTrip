@@ -88,8 +88,11 @@ class SocialLoginVC: BaseVC {
     
     override func setupColors() {
         self.fbButton.shadowColor = AppColors.themeBlack
+        self.fbButton.isSocial = true
         self.googleButton.shadowColor = AppColors.themeBlack
+        self.googleButton.isSocial = true
         self.linkedInButton.shadowColor = AppColors.themeBlack
+        self.linkedInButton.isSocial = true
         
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
@@ -100,13 +103,10 @@ class SocialLoginVC: BaseVC {
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
-        self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
-        self.fbButton.setImage(AppImage.facebookLogoImage, for: .highlighted)
-        self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
-        self.googleButton.setImage(AppImage.googleLogoImage, for: .highlighted)
-        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
-        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .highlighted)
         
+        self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
+        self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
+        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
     }
     
     override func bindViewModel() {

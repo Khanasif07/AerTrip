@@ -166,10 +166,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-ol-Nff">
-                                        <rect key="frame" x="314" y="10" width="45" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="R2g-ht-XBw"/>
-                                        </constraints>
+                                        <rect key="frame" x="310" y="10" width="49" height="23"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>

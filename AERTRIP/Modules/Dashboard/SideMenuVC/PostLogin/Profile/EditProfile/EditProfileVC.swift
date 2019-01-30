@@ -360,8 +360,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.label = travel.label
         
         // hide select group view on EditProfileImageHeaderView
-        editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
-        
+        if viewModel.paxId == UserInfo.loggedInUser?.paxId  {
+              editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
+        }
         tableView.reloadData()
     }
     

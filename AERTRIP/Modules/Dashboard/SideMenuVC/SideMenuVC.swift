@@ -32,16 +32,14 @@ class SideMenuVC: BaseVC {
         }
     }
     
-    var profileSuperView: UIView!
-    
-    
-    
     // MARK: -
     
     let viewModel = SideMenuVM()
     let socialViewModel = SocialLoginVM()
     
     weak var delegate: SideMenuVCDelegate?
+    
+    var profileSuperView: UIView!
     
     // MARK: - IBOutlets
     
@@ -81,9 +79,15 @@ class SideMenuVC: BaseVC {
             }
             else {
                 self.profileContainerView = self.getProfileView()
-                self.sideMenuTableView.addSubview(self.profileContainerView)
+                self.profileContainerView.delegate = self
+                self.profileContainerView.isUserInteractionEnabled = true
+                self.profileSuperView.addSubview(self.profileContainerView)
             }
         }
+    }
+    
+    @objc func profileTapped() {
+        print("dfasdfasdf")
     }
     
     func getAppLogoView() -> SideMenuLogoView {
@@ -124,7 +128,7 @@ class SideMenuVC: BaseVC {
             view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
         }
         
-        view.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        view.frame = CGRect(x: 0.0, y: 50.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
         view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -139,7 +143,6 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
-        
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -166,8 +169,17 @@ class SideMenuVC: BaseVC {
 }
 
 // MARK: - Extension SetupView
-
 // MARK: -
+
+extension SideMenuVC: SlideMenuProfileImageHeaderViewDelegate {
+    func profileHeaderTapped() {
+        
+    }
+    
+    func profileImageTapped() {
+        self.delegate?.viewProfileAction(ATButton())
+    }
+}
 
 private extension SideMenuVC {
     func initialSetups() {
