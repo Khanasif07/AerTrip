@@ -329,15 +329,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails.localized)
-        
+        let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
+        let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
         viewModel.frequentFlyer = travel.frequestFlyer
         if travel.profileImage != "" {
-            editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
+            editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: imageFromText, showIndicator: false)
+          //  editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
             viewModel.profilePicture = travel.profileImage
         } else {
             if viewModel.isFromTravellerList {
-                let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
-                let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             } else {
                 editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
@@ -352,7 +352,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         viewModel.salutation = travel.salutation.isEmpty ? LocalizedString.Title.localized : travel.salutation
-        editProfileImageHeaderView.salutaionLabel.text = "\(viewModel.salutation)."
+        editProfileImageHeaderView.salutaionLabel.text = "\(viewModel.salutation)"
         editProfileImageHeaderView.firstNameTextField.text = travel.firstName
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
@@ -518,8 +518,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                     fatalError("EditProfileThreePartTableViewCell not found")
                 }
-                viewModel.mobile[indexPath.row].type = pickerTitle
                 cell.leftTitleLabel.text = pickerTitle
+                viewModel.mobile[indexPath.row].label = pickerTitle
             }
             
         case .social:

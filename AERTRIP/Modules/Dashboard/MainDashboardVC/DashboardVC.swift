@@ -88,7 +88,8 @@ class DashboardVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         printDebug("data changed notfication received")
-       // resetItems()
+//        resetItems()
+        updateProfileButton()
     }
     
     //MARK:- IBAction
@@ -133,22 +134,9 @@ class DashboardVC: BaseVC {
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
         statusBarStyle = .lightContent
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let url = URL(string: imagePath) {
-            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
-        }
-        else {
-            if let userInfo = UserInfo.loggedInUser {
-                self.profileButton.setImage(userInfo.profileImagePlaceholder(), for: .normal)
-                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
-                self.profileButton.layer.borderWidth = 2.0
-            }
-            else {
-                self.profileButton.setImage(AppPlaceholderImage.user, for: .normal)
-                self.profileButton.layer.borderColor = AppColors.clear.cgColor
-                self.profileButton.layer.borderWidth = 0.0
-            }
-
-        }
+       
+//        aerinView.transform = CGAffineTransform.identity
+//        aerinView.alpha = 1.0
     }
     
     private func addOverlayView() {
@@ -218,6 +206,25 @@ class DashboardVC: BaseVC {
 //                }, completion: nil)
 //            }
 //        }
+    }
+    
+    private func updateProfileButton() {
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
+            //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
+        } else {
+            if let userInfo = UserInfo.loggedInUser {
+                self.profileButton.setImage(userInfo.profileImagePlaceholder(), for: .normal)
+                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+                self.profileButton.layer.borderWidth = 2.0
+            }
+            else {
+                self.profileButton.setImage(AppPlaceholderImage.user, for: .normal)
+                self.profileButton.layer.borderColor = AppColors.clear.cgColor
+                self.profileButton.layer.borderWidth = 0.0
+            }
+            
+        }
     }
 }
 

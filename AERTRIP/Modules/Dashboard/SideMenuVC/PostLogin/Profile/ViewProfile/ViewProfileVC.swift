@@ -138,8 +138,10 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.mobileNumberLabel.text = "\(tempIsd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
-            self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+          //  self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
+         //   self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             
@@ -234,9 +236,6 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
                 
                 if index == 0 {
-//                    UserInfo.loggedInUserId = nil
-//                    AppFlowManager.default.goToDashboard()
-//                    CoreDataManager.shared.deleteCompleteDB()
                     self.viewModel.webserviceForLogOut()
                   
                 }
@@ -278,7 +277,6 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 self?.headerLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
-            //            self.headerView.backgroundColor = UIColor.clear
             self.drawableHeaderView.alpha = 0.5
             self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
             self.drawableHeaderView.isHidden = true

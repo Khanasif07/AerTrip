@@ -268,6 +268,7 @@ enum AppPlaceholderImage {
     static let user: UIImage = #imageLiteral(resourceName: "userPlaceholder")
     static let profile: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
     static let hotelCard: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+    static let frequentFlyer: UIImage = #imageLiteral(resourceName: "userPlaceholder")
 }
 
 // Images

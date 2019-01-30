@@ -435,6 +435,36 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func editButtonTapped() {
         dismissKeyboard()
         printDebug("edit button tapped")
+        
+        if travelData?.id == UserInfo.loggedInUser?.paxId {
+            editLoggedInUserProfilePhoto()
+        } else {
+            editProfilePhotoForTraveller()
+        }
+        
+    }
+    
+    
+    func editProfilePhotoForTraveller() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            
+            if index == 0 {
+                NSLog("open camera")
+                self?.openCamera()
+            } else if index == 1 {
+                NSLog("Open gallery")
+                self?.openGallery()
+            } else if index == 2 {
+                printDebug("Remove Photo")
+                self?.viewModel.profilePicture = ""
+                self?.setUpProfilePhotoInitials()
+            }
+        }
+    }
+    
+    func editLoggedInUserProfilePhoto(){
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
@@ -689,7 +719,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-        //
+         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }
 
@@ -922,6 +952,6 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
     func textViewText(_ text: String) {
-        viewModel.notes = text
+        self.viewModel.notes = text
     }
 }
