@@ -284,6 +284,10 @@ extension ContactListVC: ImportContactVMDelegate {
     func fetchPhoneContactsSuccess() {
         if self.viewModel.phoneContacts.isEmpty {
             AppToast.default.showToastMessage(message: "No contacts in this phone.")
+        } else if self.viewModel.facebookContacts.isEmpty {
+             AppToast.default.showToastMessage(message: "No contacts in this facebook.")
+        } else if self.viewModel.googleContacts.isEmpty {
+             AppToast.default.showToastMessage(message: "No contacts in this google.")
         }
         self.tableView.reloadData()
     }

@@ -57,7 +57,6 @@ class DashboardVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
-        
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
@@ -66,7 +65,6 @@ class DashboardVC: BaseVC {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
 
@@ -90,7 +88,7 @@ class DashboardVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         printDebug("data changed notfication received")
-        resetItems()
+       // resetItems()
     }
     
     //MARK:- IBAction
@@ -126,7 +124,6 @@ class DashboardVC: BaseVC {
 
     //MARK:- Private
     private func resetItems(){
-        
         aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         aerinView.alpha = 0.5
         flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)

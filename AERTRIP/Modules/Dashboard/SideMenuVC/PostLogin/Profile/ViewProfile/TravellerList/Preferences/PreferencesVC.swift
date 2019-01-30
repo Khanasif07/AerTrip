@@ -11,6 +11,7 @@ import CoreData
 
 protocol PreferencesVCDelegate:class {
     func preferencesUpdated()
+    func cancelButtonTapped()
 }
 
 class PreferencesVC: BaseVC {
@@ -50,6 +51,7 @@ class PreferencesVC: BaseVC {
     // MARK: - IB Actions
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        delegate?.cancelButtonTapped()
         dismiss(animated: true, completion: nil)
     }
     

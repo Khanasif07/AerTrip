@@ -266,21 +266,31 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id == UserInfo.loggedInUser?.paxId {
             var email = Email()
-            email.label = "Default"
-            email.type = "Email"
+            email.label = LocalizedString.Default.localized
+            email.type = LocalizedString.Email.localized
             email.value = loggedInUserEmail
             viewModel.email.append(email)
             
             var mobile = Mobile()
-            mobile.label = "Default"
-            mobile.type = "Mobile"
+            mobile.label = LocalizedString.Default.localized
+            mobile.type = LocalizedString.Mobile.localized
             mobile.isd = isd.isEmpty ? "+91" : isd.contains("+") ? isd : "+\(isd)"
             mobile.value = loggedInUserMobile
             mobile.isValide = true
             viewModel.mobile.append(mobile)
         }
-        
+        if travel.contact.email.isEmpty {
+            var email = Email()
+            email.label = LocalizedString.Home.localized
+            viewModel.email.append(email)
+        }
         viewModel.email.append(contentsOf: travel.contact.email)
+        if travel.contact.mobile.isEmpty {
+            var mobile = Mobile()
+            mobile.label = LocalizedString.Home.localized
+            mobile.isd = LocalizedString.IndiaIsdCode.localized
+            viewModel.mobile.append(mobile)
+        }
         viewModel.mobile.append(contentsOf: travel.contact.mobile)
         
         if travel.contact.social.isEmpty {
@@ -288,6 +298,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             social.label = LocalizedString.Facebook.localized
             viewModel.social.append(social)
         }
+        
+        if travel.address.isEmpty {
+            var address = Address()
+            address.label = "Home"
+            address.countryName = LocalizedString.selectedCountry.localized
+            viewModel.addresses.append(address)
+        }
+        viewModel.addresses.append(contentsOf: travel.address)
         viewModel.social.append(contentsOf: travel.contact.social)
         sections.append(LocalizedString.SocialAccounts.localized)
         
@@ -339,7 +357,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
-        viewModel.addresses = travel.address
         viewModel.label = travel.label
         
         // hide select group view on EditProfileImageHeaderView
@@ -456,7 +473,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @objc func doneGenericPicker() {
         switch pickerType {
         case .salutation:
-            editProfileImageHeaderView.salutaionLabel.text = "\(pickerTitle)."
+            editProfileImageHeaderView.salutaionLabel.text = "\(pickerTitle)"
             viewModel.salutation = pickerTitle
         case .email:
             if let indexPath = self.indexPath {

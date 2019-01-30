@@ -493,7 +493,7 @@
                         <constraints>
                             <constraint firstItem="qDC-RZ-EQS" firstAttribute="leading" secondItem="x6P-ye-djb" secondAttribute="leading" id="1Ix-BR-ax9"/>
                             <constraint firstItem="pSC-o5-Fq1" firstAttribute="top" secondItem="cLq-4d-SPC" secondAttribute="bottom" id="1Ll-1p-tfV"/>
-                            <constraint firstItem="x6P-ye-djb" firstAttribute="bottom" secondItem="qDC-RZ-EQS" secondAttribute="bottom" id="20s-wB-Am9"/>
+                            <constraint firstAttribute="bottom" secondItem="qDC-RZ-EQS" secondAttribute="bottom" id="20s-wB-Am9"/>
                             <constraint firstItem="cLq-4d-SPC" firstAttribute="top" secondItem="xQM-TK-Qur" secondAttribute="bottom" id="5Fc-cC-4lL"/>
                             <constraint firstItem="xQM-TK-Qur" firstAttribute="top" secondItem="x6P-ye-djb" secondAttribute="top" id="ESf-Lp-ype"/>
                             <constraint firstItem="x6P-ye-djb" firstAttribute="trailing" secondItem="cLq-4d-SPC" secondAttribute="trailing" constant="10" id="FFr-EZ-Z8f"/>
