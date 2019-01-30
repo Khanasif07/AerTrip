@@ -225,12 +225,14 @@ enum LocalizedString: String {
     case Email = "Email"
     case SocialProfile = "SocialProfile"
     case Home = "Home"
+    case IndiaIsdCode = "IndianIsdCode"
     case Facebook = "Facebook"
     case Phone = "Phone"
     case SelectAirline = "SelectAirline"
     case SelectDate = "SelectDate"
     case AddNotes = "AddNotes"
     case DeleteFromTraveller = "DeleteFromTraveller"
+    case Default = "Default"
     
     // Mark: - Salutation
     case Mrs = "Mrs"

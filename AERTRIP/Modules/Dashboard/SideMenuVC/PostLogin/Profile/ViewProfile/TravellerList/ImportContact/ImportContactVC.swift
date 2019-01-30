@@ -165,7 +165,7 @@ class ImportContactVC: BaseVC {
         
         let categoryView = ATCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.delegate = self
+        categoryView.navBar.internalDelegate = self
         self.listContainerView.addSubview(categoryView)
         self.categoryView = categoryView
     }

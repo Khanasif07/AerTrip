@@ -65,6 +65,7 @@ class TravellerListVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
         }
@@ -293,6 +294,13 @@ class TravellerListVC: BaseVC {
         isSelectMode = true
         tableView.reloadData()
     }
+    
+    func resetAllItem() {
+        searchBar.endEditing(true)
+        predicateStr = ""
+        searchBar.text = ""
+        loadSavedData()
+    }
 }
 
 extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
@@ -484,9 +492,14 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
 }
 
 extension TravellerListVC: PreferencesVCDelegate {
+    func cancelButtonTapped() {
+        resetAllItem()
+    }
+    
     func preferencesUpdated() {
-        loadSavedData()
+        resetAllItem()
         setUpTravellerHeader()
+        
     }
 }
 
@@ -500,6 +513,7 @@ extension TravellerListVC: AssignGroupVCDelegate {
     }
     
     func groupAssigned() {
+        predicateStr = ""
         shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
         travellerSelectedCountLabel.text = "Select Traveller"

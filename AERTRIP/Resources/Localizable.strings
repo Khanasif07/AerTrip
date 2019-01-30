@@ -235,6 +235,10 @@
 "AddNotes" = "Add notes";
 "NoContactsFetched" = "No contacts";
 "DeleteFromTraveller" = "Delete from Travellers List";
+"IndianIsdCode" = "+91";
+"Mobile" = "Mobile";
+"Default" = "Default";
+"Email" = "Email";
 
 //MARK:- Favourite Hotels
 //MARK:-
