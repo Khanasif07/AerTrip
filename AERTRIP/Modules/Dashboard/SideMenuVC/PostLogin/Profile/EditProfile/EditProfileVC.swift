@@ -274,7 +274,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             var mobile = Mobile()
             mobile.label = LocalizedString.Default.localized
             mobile.type = LocalizedString.Mobile.localized
-            mobile.isd = isd.isEmpty ? "+91" : isd.contains("+") ? isd : "+\(isd)"
+            mobile.isd = isd
             mobile.value = loggedInUserMobile
             mobile.isValide = true
             viewModel.mobile.append(mobile)

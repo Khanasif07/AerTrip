@@ -319,7 +319,10 @@ class UserInfo {
             return (userData?["isd"] as? String ?? "").removeNull
         }
         set{
-            updateInfo(withData: ["isd":newValue])
+            let val = newValue.removeNull
+            if !val.isEmpty {
+                updateInfo(withData: ["isd": val.contains("+") ? val : "+\(val)"])
+            }
         }
     }
     

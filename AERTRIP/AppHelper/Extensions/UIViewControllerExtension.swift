@@ -389,20 +389,35 @@ extension UIViewController {
                 let groups = try store.groups(matching: nil)
                 if groups.isEmpty {
                     complition([])
-                   
                 }
                 else {
                     let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
                     //let predicate = CNContact.predicateForContactsMatchingName("John")
                     let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey] as [Any]
-                    
+
                     let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-                    
+
                     complition(contacts)
                 }
             } catch {
                 printDebug("Error in fetching contacts: \(error)")
             }
+            
+//            var contacts = [CNContact]()
+//            let keys = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
+//            let request = CNContactFetchRequest(keysToFetch: keys)
+//
+//            do {
+//                try store.enumerateContacts(with: request) {
+//                    (contact, stop) in
+//                    // Array containing all unified contacts from everywhere
+//                    contacts.append(contact)
+//                }
+//                complition(contacts)
+//            }
+//            catch {
+//                printDebug("Error in fetching contacts: \(error)")
+//            }
         }
         
         let store = CNContactStore()

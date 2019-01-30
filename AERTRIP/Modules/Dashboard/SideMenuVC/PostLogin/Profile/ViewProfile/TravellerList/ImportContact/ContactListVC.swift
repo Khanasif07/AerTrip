@@ -282,11 +282,12 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
-        if self.viewModel.phoneContacts.isEmpty {
+        
+        if self.currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
             AppToast.default.showToastMessage(message: "No contacts in this phone.")
-        } else if self.viewModel.facebookContacts.isEmpty {
+        } else if self.currentlyUsingFor == .facebook, self.viewModel.facebookContacts.isEmpty {
              AppToast.default.showToastMessage(message: "No contacts in this facebook.")
-        } else if self.viewModel.googleContacts.isEmpty {
+        } else if self.currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
              AppToast.default.showToastMessage(message: "No contacts in this google.")
         }
         self.tableView.reloadData()

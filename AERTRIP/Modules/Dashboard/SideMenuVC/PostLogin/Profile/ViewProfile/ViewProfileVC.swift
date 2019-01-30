@@ -133,9 +133,8 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        if let mobileNumber = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd {
-            let tempIsd = isd.contains("+") ? isd : "+\(isd)"
-            self.profileImageHeaderView?.mobileNumberLabel.text = "\(tempIsd) \(mobileNumber)"
+        if let mobileNumber = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, !isd.isEmpty {
+            self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))

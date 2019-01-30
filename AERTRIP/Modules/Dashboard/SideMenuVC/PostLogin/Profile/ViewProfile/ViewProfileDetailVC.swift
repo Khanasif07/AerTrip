@@ -150,7 +150,7 @@ class ViewProfileDetailVC: BaseVC {
             var mobile = Mobile()
             mobile.label = "Default"
             let isd = UserInfo.loggedInUser?.isd ?? ""
-            mobile.value = "\(isd.contains("+") ? isd : "+\(isd)" ) \(UserInfo.loggedInUser?.mobile ?? "")"
+            mobile.value = "\(isd) \(UserInfo.loggedInUser?.mobile ?? "")"
             self.mobile = [mobile]
         }
         
