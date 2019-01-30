@@ -195,7 +195,7 @@ extension LinkedAccountsVM {
         let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
         params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
         
-        APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, errors) in
+        APICaller.shared.callSocialLinkAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
                 self.fetchLinkedAccounts()
