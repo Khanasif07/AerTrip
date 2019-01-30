@@ -310,10 +310,9 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if sections[indexPath.section] == LocalizedString.Groups, indexPath.row != viewModel.groups.count {
+        if sections[indexPath.section] == LocalizedString.Groups {
             return true
         }
-        
         return false
     }
 }

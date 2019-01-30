@@ -185,6 +185,8 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView.delegate = self
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
+        deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
+        deleteButton.titleLabel?.textColor  = AppColors.themeGreen
         addFooterView()
         searchBar.delegate = self
         selectView.isHidden = true
@@ -349,9 +351,10 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let traveller = fetchedResultsController.object(at: indexPath)
-            CoreDataManager.shared.managedObjectContext.delete(traveller as! TravellerData)
-            CoreDataManager.shared.saveContext()
+            let traveller = fetchedResultsController.object(at: indexPath) as? TravellerData
+            self.viewModel.paxIds.append(traveller?.id ?? "")
+            self.selectedTravller.append(traveller?.id ?? "")
+            self.viewModel.callDeleteTravellerAPI()
         }
     }
         
