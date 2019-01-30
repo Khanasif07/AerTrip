@@ -141,7 +141,7 @@ class DashboardVC: BaseVC {
         }
         else {
             if let userInfo = UserInfo.loggedInUser {
-                self.profileButton.setImage(userInfo.profileImagePlaceholder, for: .normal)
+                self.profileButton.setImage(userInfo.profileImagePlaceholder(), for: .normal)
                 self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
                 self.profileButton.layer.borderWidth = 2.0
             }

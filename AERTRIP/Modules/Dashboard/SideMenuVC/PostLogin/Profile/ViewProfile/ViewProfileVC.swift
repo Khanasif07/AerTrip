@@ -142,9 +142,10 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
-            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            self.profileImageHeaderView?.blurEffectView.alpha = 0.4
+            
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur
+            self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
         
         self.view.bringSubviewToFront(self.drawableHeaderView)

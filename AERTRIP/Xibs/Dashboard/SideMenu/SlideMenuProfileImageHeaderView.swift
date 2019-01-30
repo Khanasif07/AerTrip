@@ -31,7 +31,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
-    var blurEffectView :UIVisualEffectView = UIVisualEffectView()
+    var blurEffectView: UIVisualEffectView!
     
     // MARK: - IBAction
     
@@ -71,26 +71,20 @@ class SlideMenuProfileImageHeaderView: UIView {
         addBlurToImage()
         doInitialSetup()
     }
-    
-    func addGradient() {
-        gradient.frame = gradientView.bounds
-        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
-        gradientView.layer.insertSublayer(gradient, at: 0)
-    }
-    
+
     func addBlurToImage() {
         if !UIAccessibility.isReduceTransparencyEnabled {
-            self.backgroundColor = .clear
+//            self.backgroundColor = .clear
             
             let blurEffect = UIBlurEffect(style: .light)
             blurEffectView = UIVisualEffectView(effect: blurEffect)
             //always fill the view
-            blurEffectView.frame = self.bounds
+            blurEffectView.frame = self.backgroundImageView.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             backgroundImageView.addSubview(blurEffectView)
         } else {
-            self.backgroundColor = .black
+//            self.backgroundColor = .black
         }
     }
     
@@ -98,8 +92,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     override func draw(_ rect: CGRect) {
         gradient.frame = gradientView.bounds
-        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
-         // gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, UIColor.white.cgColor]
+        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, AppColors.themeWhite]
         gradientView.layer.insertSublayer(gradient, at: 0)
     }
     

@@ -131,8 +131,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     override func keyboardWillShow(notification: Notification) {
-        closePicker()
-        closeDatePicker()
+        closePicker(completion: nil)
+        closeDatePicker(completion: nil)
         PKCountryPicker.default.closePicker()
     }
     
@@ -322,7 +322,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             } else {
-                editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+                editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             }
         }
         
@@ -430,6 +430,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         dismissKeyboard()
         pickerView.reloadAllComponents()
         
+        self.closeDatePicker(completion: nil)
+        PKCountryPicker.default.closePicker()
+        
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -439,18 +442,43 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func closePicker() {
+    func closePicker(completion: ((Bool) -> Void)?) {
+        
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.genericPickerView.frame = hiddenFrame
-        }) { _ in
+        }) { (isDone) in
             self.genericPickerView.removeFromSuperview()
+            completion?(isDone)
         }
     }
     
+    func closeGenricAndDatePicker(completion: ((Bool) -> Void)?) {
+        
+        let genricFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+        
+        let dateFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.genericPickerView.frame = genricFrame
+            self.datePickerView.frame = dateFrame
+
+        }) { (isDone) in
+            self.genericPickerView.removeFromSuperview()
+            self.datePickerView.removeFromSuperview()
+            completion?(isDone)
+        }
+    }
+    
+    func closeAllPicker(completion: ((Bool) -> Void)?) {
+        dismissKeyboard()
+        PKCountryPicker.default.closePicker()
+        self.closeGenricAndDatePicker(completion: nil)
+    }
+    
     @objc func cancelGenericPicker() {
-        closePicker()
+        closePicker(completion: nil)
     }
     
     @objc func doneGenericPicker() {
@@ -527,7 +555,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
         }
-        closePicker()
+        closePicker(completion: nil)
     }
     
     func handleMoreInformationSectionSelection(_ indexPath: IndexPath) {
@@ -668,15 +696,18 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             break
         }
         
-        closeDatePicker()
+        closeDatePicker(completion: nil)
     }
     
     @objc func cancelDatePicker() {
-        closeDatePicker()
+        closeDatePicker(completion: nil)
     }
     
     func openDatePicker() {
         dismissKeyboard()
+        self.closePicker(completion: nil)
+        PKCountryPicker.default.closePicker()
+        
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -686,13 +717,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func closeDatePicker() {
+    func closeDatePicker(completion: ((Bool) -> Void)?) {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = hiddenFrame
-        }) { _ in
+        }) { (isDone) in
             self.datePickerView.removeFromSuperview()
+            completion?(isDone)
         }
     }
     

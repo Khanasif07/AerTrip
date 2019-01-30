@@ -197,11 +197,6 @@ class UserInfo {
     
     var userId:String = ""
     
-    var profileImagePlaceholder: UIImage {
-        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
-        return AppGlobals.shared.getImageFromText(string)
-    }
-    
     var email: String {
         get{
             return (userData?["email"] as? String ?? "").removeNull
@@ -508,7 +503,9 @@ class UserInfo {
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
     
-   
-   
+    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
+        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
+        return AppGlobals.shared.getImageFromText(string, font: font, textColor: textColor)
+    }
 }
 

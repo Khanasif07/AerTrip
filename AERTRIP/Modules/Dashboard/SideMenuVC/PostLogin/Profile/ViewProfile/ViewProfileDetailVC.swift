@@ -136,14 +136,13 @@ class ViewProfileDetailVC: BaseVC {
         } else {
             if viewModel.isFromTravellerList {
                 let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
-                let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
-                profileImageHeaderView.profileImageView.image = imageFromText
-                profileImageHeaderView.backgroundImageView.image = imageFromText
-                 profileImageHeaderView.blurEffectView.alpha = 0.4
+                profileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(string)
+                profileImageHeaderView.backgroundImageView.image = AppGlobals.shared.getImageFromText(string, textColor: AppColors.themeBlack)
+                 profileImageHeaderView.blurEffectView.alpha = 1.0
             } else {
-                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-                profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-                profileImageHeaderView.blurEffectView.alpha = 0.4
+                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+                profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
+                profileImageHeaderView.blurEffectView.alpha = 0.0
             }
         }
         mobile.removeAll()

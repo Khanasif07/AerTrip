@@ -168,7 +168,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
-                cell.topDividerView.isHidden = false
+
                 cell.configureCell(LocalizedString.AddAddress.localized)
                 return cell
             } else {
@@ -177,6 +177,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.delegate = self
                 cell.configureCell(indexPath, addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName)
+                
+                cell.deleteButton.isHidden = self.viewModel.addresses.count <= 1
                 
                 return cell
             }
@@ -234,6 +236,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightTitleLabel.isHidden = true
                     cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    
+                    cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
                     
                     return cell
                 }
@@ -371,23 +375,22 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            return (indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.email.count ? false : true
+            return !((indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.email.count)
         case LocalizedString.ContactNumber.localized:
-            return (indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.mobile.count ? false : true
+            return !((indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.mobile.count)
         case LocalizedString.SocialAccounts.localized:
-            return indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1 ? false : true
+            return !(indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1)
         case LocalizedString.FlightPreferences.localized:
-            return indexPath.row < 2 || indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1) ? false : true
+            return !((indexPath.row < 2) || (indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1)) || (self.viewModel.frequentFlyer.count <= 1))
         case LocalizedString.Address.localized:
-            return indexPath.row == self.viewModel.addresses.count ? false : true
+            return !(indexPath.row == self.viewModel.addresses.count || self.viewModel.addresses.count <= 1)
         default: break
         }
         return true
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        closePicker()
-        closeDatePicker()
+        self.closeAllPicker(completion: nil)
     }
 }
 
@@ -576,8 +579,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
     func deleteCellTapped(_ indexPath: IndexPath) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
         
-        closePicker()
-        closeDatePicker()
+        self.closeAllPicker(completion: nil)
         
         switch self.sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
@@ -728,7 +730,9 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func middleViewTap(_ gesture: UITapGestureRecognizer) {
-        UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
+
+        self.closeGenricAndDatePicker(completion: nil)
+        
         PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
             printDebug("selected country data: \(selectedCountry)")
             guard let indexPathRow = gesture.view?.tag else {
@@ -900,9 +904,8 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
         if self.viewModel.countries.count > 0 {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
-            // openPicker()
-            UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
             
+            self.closeGenricAndDatePicker(completion: nil)
             PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
                 printDebug("selected country data: \(selectedCountry)")
                 

@@ -271,15 +271,17 @@ class EditProfileVM {
         params[APIKeys.mealPreference.rawValue] = meal
         
         params[APIKeys.imageSource.rawValue] = imageSource
-        if self.profilePicture.contains("https://") {
-            params[APIKeys.profileImage.rawValue] = self.profilePicture
-            params[APIKeys.imageSource.rawValue] = "aertrip"
-        }
         
         if self.filePath.isEmpty {
             params[APIKeys.profileImage.rawValue] = UserInfo.loggedInUser?.profileImage ?? ""
+            params[APIKeys.imageSource.rawValue] = "aertrip"
         } else {
             params[APIKeys.profileImage.rawValue] = ""
+        }
+        
+        if self.isFromTravellerList, self.profilePicture.contains("https://") {
+            params[APIKeys.profileImage.rawValue] = self.profilePicture
+            params[APIKeys.imageSource.rawValue] = "aertrip"
         }
         
         self.delegate?.willApiCall()

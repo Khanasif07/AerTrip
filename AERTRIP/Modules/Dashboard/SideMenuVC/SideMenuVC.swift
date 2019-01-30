@@ -120,8 +120,8 @@ class SideMenuVC: BaseVC {
             view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
         }
         else {
-            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
         }
         
         view.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)

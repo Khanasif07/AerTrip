@@ -213,7 +213,7 @@ class TravellerListVC: BaseVC {
         if UserInfo.loggedInUser?.profileImage != "" {
             travellerListHeaderView.profileImageView.kf.setImage(with: URL(string: UserInfo.loggedInUser?.profileImage ?? ""))
         } else {
-            travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
         }
     }
     

@@ -154,6 +154,7 @@ open class PKCountryPicker: UIView {
     private func openPicker(animated: Bool = true) {
         guard let parent = self.parantVC else {return}
         self.pickerView.reloadAllComponents()
+        parent.view.endEditing(true)
         parent.view.addSubview(self)
         
         let visibleFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: (UIScreen.main.bounds.size.height-(PKCountryPickerSettings.pickerSize.height+PKCountryPickerSettings.toolbarHeight)), width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
@@ -165,7 +166,7 @@ open class PKCountryPicker: UIView {
         }
     }
     
-     func closePicker(animated: Bool = true) {
+     func closePicker(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
         
         let hiddenFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
         
@@ -173,6 +174,7 @@ open class PKCountryPicker: UIView {
             self.frame = hiddenFrame
         }) { (isCompleted) in
             self.removeFromSuperview()
+            completion?(isCompleted)
         }
     }
     

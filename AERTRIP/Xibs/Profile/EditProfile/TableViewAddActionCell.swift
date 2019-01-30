@@ -23,7 +23,6 @@ class TableViewAddActionCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        topDividerView.isHidden = false
     }
 
     // MARK: - Helper Methods

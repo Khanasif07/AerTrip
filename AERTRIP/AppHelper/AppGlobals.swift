@@ -76,8 +76,9 @@ struct AppGlobals {
         return labels
     }
     
-     func getImageFromText(_ fromText: String) -> UIImage {
-        return UIImage(text: fromText, font:AppFonts.Regular.withSize(20.0), color: AppColors.themeGray40, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
+        let size = 75.0
+        return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: CGPoint(x: 0, y: 12))!
     }
 
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
