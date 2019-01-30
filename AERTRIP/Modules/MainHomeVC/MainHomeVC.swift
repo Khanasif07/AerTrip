@@ -241,7 +241,7 @@ class MainHomeVC: BaseVC {
         self.sideMenuVC?.profileContainerView.isHidden = true
         
         let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 50.0, width: newFrame.size.width, height: newFrame.size.height)
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint

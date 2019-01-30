@@ -30,7 +30,7 @@ class SearchTableViewCell: UITableViewCell {
     func configureCell(_ imageUrl: String, _ title: String, _ code: String) {
         let result = title.replacingOccurrences(of: "(\(code))", with: "",
                                               options: NSString.CompareOptions.literal, range: nil)
-        self.searchImageView.kf.setImage(with: URL(string: imageUrl))
+        self.searchImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)
         titleLabel.text = result
         searchCodeLabel.text = code
     }

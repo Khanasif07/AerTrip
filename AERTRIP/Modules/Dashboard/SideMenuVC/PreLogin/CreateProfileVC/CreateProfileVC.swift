@@ -127,6 +127,7 @@ private extension CreateProfileVC {
         self.viewModel.userData.minContactLimit  = 10
         self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
         self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
+        self.viewModel.userData.salutation = ""
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -149,7 +150,7 @@ private extension CreateProfileVC {
     }
     
     func setupTextFieldColorTextAndFont () {
-        
+        self.viewModel.userData.salutation = ""
         self.salutationPicker.delegate = self
         self.nameTitleTextField.delegate = self
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
@@ -220,7 +221,7 @@ extension CreateProfileVC {
         switch textField {
             
         case self.firstNameTextField:
-            self.viewModel.userData.firstName = textField.text ?? ""
+           self.viewModel.userData.firstName = textField.text ?? ""
             
         case self.lastNameTextField:
             self.viewModel.userData.lastName = textField.text ?? ""
@@ -329,7 +330,7 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        self.viewModel.userData.salutation = self.viewModel.salutation[row]
     }
 }
 

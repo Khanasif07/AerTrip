@@ -115,42 +115,42 @@ class EditProfileVM {
         }
         
         if !self.email.isEmpty {
-            for (index, _) in self.email.enumerated() {
-                if index > 0 {
-                    if self.email[index - 1].value == self.email[index].value {
-                        AppToast.default.showToastMessage(message: "All email should be unique", vc: vc)
-                        flag = false
-                    }
-                }
-            }
+//            for (index, _) in self.email.enumerated() {
+//                if index > 0 {
+//                    if self.email[index - 1].value == self.email[index].value {
+//                        AppToast.default.showToastMessage(message: "All email should be unique", vc: vc)
+//                        flag = false
+//                    }
+//                }
+//            }
         }
         
         if !self.mobile.isEmpty {
-            var isValid = true
-            for (index, _) in self.mobile.enumerated() {
-                isValid = self.mobile[index].isValide
-                if index > 0 {
-                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-                        AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
-                        flag = false
-                    }
-                }
-            }
+//            var isValid = true
+//            for (index, _) in self.mobile.enumerated() {
+//                isValid = self.mobile[index].isValide
+//                if index > 0 {
+//                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
+//                        AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
+//                        flag = false
+//                    }
+//                }
+//            }
             
-            if !isValid {
-                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.", vc: vc)
-                flag = false
-            }
+//            if !isValid {
+//                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.", vc: vc)
+//                flag = false
+//            }
         }
         if !self.frequentFlyer.isEmpty {
-            for (index, _) in self.frequentFlyer.enumerated() {
-                if index > 0 {
-                      if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
-                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique", vc: vc)
-                        flag = false
-                    }
-                }
-            }
+//            for (index, _) in self.frequentFlyer.enumerated() {
+//                if index > 0 {
+//                      if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
+//                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique", vc: vc)
+//                        flag = false
+//                    }
+//                }
+//            }
         }
         
         return flag
@@ -269,17 +269,17 @@ class EditProfileVM {
         
         params[APIKeys.seatPreference.rawValue] = seat
         params[APIKeys.mealPreference.rawValue] = meal
-        
+        params[APIKeys.notes.rawValue] = notes
         params[APIKeys.imageSource.rawValue] = imageSource
         
         if self.filePath.isEmpty {
-            params[APIKeys.profileImage.rawValue] = UserInfo.loggedInUser?.profileImage ?? ""
-            params[APIKeys.imageSource.rawValue] = "aertrip"
+            params[APIKeys.profileImage.rawValue] = self.profilePicture
         } else {
             params[APIKeys.profileImage.rawValue] = ""
+             params[APIKeys.imageSource.rawValue] = "aertrip"
         }
         
-        if self.isFromTravellerList, self.profilePicture.contains("https://") {
+        if self.profilePicture.contains("https://") {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
             params[APIKeys.imageSource.rawValue] = "aertrip"
         }

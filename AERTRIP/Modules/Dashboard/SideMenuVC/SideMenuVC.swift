@@ -120,15 +120,17 @@ class SideMenuVC: BaseVC {
         }
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            view.profileImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
+            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+          //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
         }
         else {
             view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
         }
         
-        view.frame = CGRect(x: 0.0, y: 50.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
+        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
         view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -299,13 +301,13 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return (UserInfo.loggedInUserId == nil) ? 267.0 : UIDevice.screenHeight * 0.3
+            return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
             
         case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : UIDevice.screenHeight * 0.09
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : 60.03
             
         default:
-            return (UserInfo.loggedInUserId == nil) ? UIDevice.screenHeight * 0.09 : UIDevice.screenHeight * 0.1
+            return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7
         }
     }
 }

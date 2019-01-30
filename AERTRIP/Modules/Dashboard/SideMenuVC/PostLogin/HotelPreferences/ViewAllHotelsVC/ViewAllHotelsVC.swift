@@ -86,7 +86,7 @@ class ViewAllHotelsVC: BaseVC {
     private func setupPagerView() {
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
-            self.dataContainerView.addSubview(self.emptyView)
+                self.dataContainerView.addSubview(self.emptyView)
            
         }
         else {
