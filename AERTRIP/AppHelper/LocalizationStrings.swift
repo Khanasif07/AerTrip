@@ -338,5 +338,9 @@ enum LocalizedString: String {
     case StarRating = "Star Rating"
     case Distance = "Distance"
     
+    
+    //MARK: - RangeVC
+    case SearchResultsRange = "SearchResultsRange"
+    
 }
 

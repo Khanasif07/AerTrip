@@ -22,6 +22,7 @@ class AppFlowManager: NSObject {
         return self.mainHomeVC?.sideMenuController
     }
     var mainHomeVC: MainHomeVC?
+    var hotelResultVC: HotelResultVC?
         
     private let urlScheme = "://"
 
@@ -251,7 +252,8 @@ extension AppFlowManager {
     
     func moveToHotelsResultVc() {
 //        let obj = HotelsResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
-        let obj = ResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        self.hotelResultVC = obj
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -285,9 +287,9 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     func showFilterVC() {
-        if let mVC = self.mainHomeVC {
+        if let hotelResultVC = self.hotelResultVC {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
-            mVC.add(childViewController: ob)
+            hotelResultVC.add(childViewController: ob)
         }
     }
 }

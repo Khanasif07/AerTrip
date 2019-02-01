@@ -90,7 +90,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="5E7-et-eDD"/>
                             <constraint firstItem="e2I-lS-6Bs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="404:667" id="84b-iL-w0d"/>
@@ -143,6 +143,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZC5-mA-BHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--RangeVC-->
+        <scene sceneID="jY0-mm-Jyf">
+            <objects>
+                <viewController storyboardIdentifier="RangeVC" id="Gbn-Sv-vsw" customClass="RangeVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Go1-xl-lbR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxM-Qk-1fu">
+                                <rect key="frame" x="16" y="36" width="158.5" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yc4-Rx-GhG">
+                                <rect key="frame" x="257" y="73" width="102" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5U-Ru-ge6">
+                                        <rect key="frame" x="0.0" y="0.0" width="102" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="f5U-Ru-ge6" secondAttribute="bottom" id="9t6-d9-uGh"/>
+                                    <constraint firstAttribute="trailing" secondItem="f5U-Ru-ge6" secondAttribute="trailing" id="CaF-ha-CPV"/>
+                                    <constraint firstAttribute="height" constant="31" id="Gd8-wC-BfD"/>
+                                    <constraint firstItem="f5U-Ru-ge6" firstAttribute="top" secondItem="Yc4-Rx-GhG" secondAttribute="top" id="ehH-pz-PTg"/>
+                                    <constraint firstItem="f5U-Ru-ge6" firstAttribute="leading" secondItem="Yc4-Rx-GhG" secondAttribute="leading" id="it8-vV-GA9"/>
+                                    <constraint firstAttribute="width" constant="102" id="mqE-At-L7P"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DxM-Qk-1fu" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="16" id="F6j-hk-CBF"/>
+                            <constraint firstAttribute="trailing" secondItem="Yc4-Rx-GhG" secondAttribute="trailing" constant="16" id="Y5d-xx-4Kv"/>
+                            <constraint firstItem="DxM-Qk-1fu" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="16" id="bXf-Yf-w6A"/>
+                            <constraint firstItem="Yc4-Rx-GhG" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="53" id="fQk-6v-cZM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Eok-Mn-bfI"/>
+                    </view>
+                    <connections>
+                        <outlet property="rangeLabel" destination="f5U-Ru-ge6" id="MLv-JM-jJJ"/>
+                        <outlet property="rangeView" destination="Yc4-Rx-GhG" id="xmm-mt-kQw"/>
+                        <outlet property="searchResultRangeLabel" destination="DxM-Qk-1fu" id="Tib-F6-Tlm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xbm-hI-RRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669.60000000000002" y="-671.51424287856082"/>
         </scene>
     </scenes>
 </document>
