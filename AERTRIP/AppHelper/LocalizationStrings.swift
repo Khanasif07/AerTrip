@@ -302,7 +302,7 @@ enum LocalizedString: String {
     case AddRoom = "AddRoom"
     case StarRating = "StarRating"
     case AllStars = "AllStars"
-    case WantMoreRooms = "WantMoreRooms?"
+    case WantMoreRooms = "Want More Rooms?"
     case RequestBulkBooking = "RequestBulkBooking"
     
     //MARK:- Room Guest Selection

@@ -9,6 +9,12 @@
 import UIKit
 
 class DestinationMyLocationTableCell: UITableViewCell {
+    
+    //Mark:- Variables
+    //================
+    
+    //Mark:- IBOutlets
+    //===============
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     
@@ -33,5 +39,5 @@ class DestinationMyLocationTableCell: UITableViewCell {
     
     func configure(title: String) {
         self.messageLabel.text = title
-    }
+    }    
 }

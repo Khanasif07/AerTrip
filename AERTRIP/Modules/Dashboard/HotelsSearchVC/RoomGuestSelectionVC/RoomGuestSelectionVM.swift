@@ -14,9 +14,9 @@ class RoomGuestSelectionVM {
     //MARK:- Public
     var roomNumber: Int = 1
     var selectedAdults: Int = 1
-    var selectedChilds: Int = 0
+    var selectedChilds: Int = 2
     let maxGuest: Int = 6
-    var childrenAge: [Int] = [0, 0, 0, 0]
+    var childrenAge: [Int] = [3, 10, 0, 0]
     
     var selectionString: String {
         var temp = ""

@@ -69,7 +69,7 @@ class SelectDestinationVC: BaseVC {
     override func setupColors() {
         cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         cancelButton.setTitleColor(AppColors.themeGreen, for: .selected)
-
+        
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
     }
     
@@ -139,6 +139,7 @@ class SelectDestinationVC: BaseVC {
 //MARK:- View Model Delegate
 //MARK:-
 extension SelectDestinationVC: SelectDestinationVMDelegate {
+    
     func getAllPopularHotelsSuccess() {
         self.reloadData()
     }
@@ -154,6 +155,17 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
     func searchDestinationFail() {
         self.reloadData()
     }
+    
+    func getMyLocationSuccess(selected: SearchedDestination) {
+        self.view.endEditing(true)
+        self.hide(animated: true, shouldRemove: true)
+        self.delegate?.didSelectedDestination(hotel: selected)
+    }
+    
+    func getMyLocationFail() {
+        printDebug("Error in searching Location")
+    }
+    
 }
 
 //MARK:- Search bar delegate
@@ -293,9 +305,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: myLocationCellId) as? DestinationMyLocationTableCell else {
                     return UITableViewCell()
                 }
-                
                 cell.configure(title: LocalizedString.HotelsNearMe.localized)
-                
                 return cell
                 
             case 1, 2:
@@ -325,24 +335,26 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var selected = SearchedDestination(json: [:])
-        if isInSearchMode {
-            
-            let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section]] as? [SearchedDestination] ?? []
-
-            selected = hotelsForSection[indexPath.row]
-        }
-        else {
-            
-            if (self.viewModel.recentSearchLimit > 0), indexPath.section == 1 {
-                selected = self.viewModel.recentSearches[indexPath.row]
+        if indexPath.section == 0 && !isInSearchMode {
+            self.viewModel.hotelsNearByMe()
+        } else {
+            var selected = SearchedDestination(json: [:])
+            if isInSearchMode {
+                let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section]] as? [SearchedDestination] ?? []
+                selected = hotelsForSection[indexPath.row]
             }
             else {
-                selected = self.viewModel.popularHotels[indexPath.row]
+                if (self.viewModel.recentSearchLimit > 0), indexPath.section == 1 {
+                    selected = self.viewModel.recentSearches[indexPath.row]
+                }
+                else {
+                    selected = self.viewModel.popularHotels[indexPath.row]
+                }
             }
+            self.viewModel.updateRecentSearch(hotel: selected)
+            self.view.endEditing(true)
+            self.hide(animated: true, shouldRemove: true)
+            self.delegate?.didSelectedDestination(hotel: selected)
         }
-        
-        self.viewModel.updateRecentSearch(hotel: selected)
-        self.delegate?.didSelectedDestination(hotel: selected)
     }
 }

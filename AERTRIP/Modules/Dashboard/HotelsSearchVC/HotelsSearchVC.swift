@@ -12,13 +12,12 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- Properties
     //=================
-    internal var roomData: [String] = ["Room 1","add room"]
-    internal var isRated: [Bool] = []
     internal var checkInOutView: CheckInOutView?
     private var previousOffSet = CGPoint.zero
     private var collectionViewHeight: CGFloat = 0.0
     private var searchViewHeight: CGFloat = 0.0
     private var containerViewHeight: CGFloat = 0.0
+    private var yPositionOfBottomView: CGFloat = 0.0
     private var scrollViewContentSize: CGSize = CGSize.zero
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
@@ -33,7 +32,11 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    
+    @IBOutlet weak var cornerTopView: UIView!
+    @IBOutlet weak var cornerBottomView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var whereContainerView: UIView!
     @IBOutlet weak var datePickerView: UIView!
@@ -54,16 +57,11 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var threeStarLabel: UILabel!
     @IBOutlet weak var fourStarLabel: UILabel!
     @IBOutlet weak var fiveStarLabel: UILabel!
-    @IBOutlet weak var firstStarBtn: UIButton!
-    @IBOutlet weak var secondStarBtn: UIButton!
-    @IBOutlet weak var thirdStarBtn: UIButton!
-    @IBOutlet weak var fourStarBtn: UIButton!
-    @IBOutlet weak var fiveStarBtn: UIButton!
+    @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
     @IBOutlet weak var addRoomHeightMultiplier: NSLayoutConstraint!
-    @IBOutlet weak var searchViewHeightMultiplier: NSLayoutConstraint!
-    
+    @IBOutlet weak var searchViewHeightMultiplier: NSLayoutConstraint!    
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
         didSet {
             self.addRoomCollectionView.delegate = self
@@ -84,18 +82,22 @@ class HotelsSearchVC: BaseVC {
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
         self.scrollViewContentSize = self.scrollView.contentSize
+        self.yPositionOfBottomView = self.cornerBottomView.frame.origin.y
     }
     
     override func viewDidLayoutSubviews() {
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
-        //self.containerView.roundCorners(corners: [.topRight, .topLeft, .bottomRight, .bottomLeft], radius: 10.0)
+        //self.updateContainerViewFrame()
     }
     
     override func bindViewModel() {
         self.addRoomCollectionView.registerCell(nibName: "AddRoomCell")
         self.addRoomCollectionView.registerCell(nibName: "AddRoomPictureCell")
+        let destinationVC = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        destinationVC.delegate = self
+        self.viewModel.delegate = self
     }
     
     override func setupFonts() {
@@ -142,27 +144,24 @@ class HotelsSearchVC: BaseVC {
         
         //dont do anything if bouncing
         let difference = scrollView.contentOffset.y - previousOffSet.y
-        
         if let parent = parent as? DashboardVC{
-            if difference > 0{
+            if difference > 0 {
                 //check if reached bottom
                 if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
-                    if scrollView.contentOffset.y > 0.0{
+                    if scrollView.contentOffset.y > 0.0 {
                         parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
                         scrollView.contentOffset = CGPoint.zero
                     }
                 }
-            }else{
-                if parent.mainScrollView.contentOffset.y > 0.0{
-                    if scrollView.contentOffset.y <= 0.0{
+            } else {
+                if parent.mainScrollView.contentOffset.y > 0.0 {
+                    if scrollView.contentOffset.y <= 0.0 {
                         parent.mainScrollView.contentOffset.y = max(parent.mainScrollView.contentOffset.y + difference, 0.0)
                     }
                 }
             }
         }
-        
         previousOffSet = scrollView.contentOffset
-        
     }
     
     //MARK:- Methods
@@ -173,14 +172,16 @@ class HotelsSearchVC: BaseVC {
     private func initialSetups() {
         self.cityNameLabel.isHidden = true
         self.stateNameLabel.isHidden = true
-        //        self.scrollView.layer.cornerRadius = 10.0
-        //        self.scrollView.layer.masksToBounds = true
-        //self.containerView.clipsToBounds = true
-        self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        self.cornerTopView.layer.cornerRadius = 10.0
+//        self.cornerTopView.layer.masksToBounds = true
+//        self.cornerBottomView.layer.cornerRadius = 10.0
+//        self.cornerBottomView.layer.masksToBounds = true
+        self.cornerTopView.roundCorners(corners: [.topLeft,.topRight], radius: 10.0)
+        self.cornerBottomView.roundCorners(corners: [.bottomLeft,.bottomRight], radius: 10.0)
+        self.rectangleView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
-        self.isRated = Array(repeating: false, count: 5)
     }
     
     ///ConfigureCheckInOutView
@@ -201,24 +202,34 @@ class HotelsSearchVC: BaseVC {
         attributedString.append(greyAttributedString)
         attributedString.append(greenAttributedString)
         self.bulkBookingsLbl.attributedText = attributedString
+        let tapGestureOnText = UITapGestureRecognizer(target: self, action: #selector(self.tapLabel))
+        self.bulkBookingsLbl.addGestureRecognizer(tapGestureOnText)
     }
     
     ///UpdateCollectionViewFrame
     private func updateCollectionViewFrame() {
         let expandMultiPlier: CGFloat = (86.0 / 544.0)
-        if self.roomData.count == 3 {
+        if self.viewModel.adultsCount.count == 2 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                self.containerView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
+                //self.containerView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
+                //self.rectangleView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
+                self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight + self.collectionViewHeight)
+                self.cornerBottomView.frame.origin.y = self.yPositionOfBottomView + self.collectionViewHeight
+                self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight + self.collectionViewHeight)
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier * 2.0)
                 self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
             }, completion: { (isDone) in
                 self.view.layoutIfNeeded()
             })
-        } else if self.roomData.count == 2 {
+        } else if self.viewModel.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                //self.containerView.frame.size.height = self.containerViewHeight
+                //self.rectangleView.frame.size.height = self.containerViewHeight
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height
-                self.containerView.frame.size.height = self.containerViewHeight
+                self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight)
+                self.cornerBottomView.frame.origin.y = self.yPositionOfBottomView
+                self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight)
                 self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier)
                 self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
             }, completion: { (isDone) in
@@ -228,6 +239,19 @@ class HotelsSearchVC: BaseVC {
         self.view.layoutIfNeeded()
     }
     
+    ///UpdateContainerViewFrame
+    private func updateContainerViewFrame() {
+        if self.viewModel.adultsCount.count == 2 {
+            self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight + collectionViewHeight)
+            self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight + collectionViewHeight)
+            self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+        } else if self.viewModel.adultsCount.count == 1 {
+            self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight)
+            self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight)
+            self.scrollView.contentSize.height = self.scrollViewContentSize.height
+        }
+    }
+    
     ///ReloadCollectionView
     private func reloadCollectionView() {
         UIView.performWithoutAnimation {
@@ -235,106 +259,124 @@ class HotelsSearchVC: BaseVC {
         }
     }
     
-    ///ChangeRatingToFalse
-    private func changeRatingToFalse(index: Int) {
-        for i in index...(self.isRated.count - 1) {
-            self.isRated[i] = false
-        }
-    }
-    
-    ///ChangeRatingValue
-    private func changeRateToTrue(index: Int) {
-        for i in 0...index{
-            self.isRated[i] = true
-        }
-    }
-    
-    ///DataSwapping
+    ///Data Swapping
     private func dataSwapping(indexPath: IndexPath) {
-        for index in indexPath.item...(self.viewModel.adultCounts.count - 1) {
-            if index != (self.viewModel.adultCounts.count - 1) {
-                self.viewModel.adultCounts[index] = self.viewModel.adultCounts[index + 1]
+        for index in indexPath.item...(self.viewModel.adultsCount.count - 1) {
+            if index != (self.viewModel.adultsCount.count - 1) {
+                self.viewModel.adultsCount[index] = self.viewModel.adultsCount[index + 1]
                 self.viewModel.childrenCounts[index] = self.viewModel.childrenCounts[index + 1]
-                //self.viewModel.childrenAge[index] = self.viewModel.childrenAge[index + 1]
+                self.viewModel.childrenAge[index] = self.viewModel.childrenAge[index + 1]
             } else {
-                self.viewModel.adultCounts[index] = 1
+                self.viewModel.adultsCount[index] = 1
                 self.viewModel.childrenCounts[index] = 0
-                //self.viewModel.childrenAge[index] = [0,0,0,0]
+                self.viewModel.childrenAge[index] = []
             }
         }
+    }
+    
+    ///Star Button State
+    private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
+        guard 1...5 ~= forStar else {return}
+        if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
+            button.tag == forStar
+        }).first {
+            if isSettingFirstTime {
+                currentButton.isSelected = true
+            }
+            else {
+                currentButton.isSelected = !currentButton.isSelected
+            }
+            if self.viewModel.ratingCount.contains(forStar) {
+                self.viewModel.ratingCount.remove(at: self.viewModel.ratingCount.firstIndex(of: forStar)!)
+            }
+            else {
+                self.viewModel.ratingCount.append(forStar)
+                
+            }
+        }
+    }
+    
+    ///Get Star Rating
+    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+        var arr = Array(Set(fromArr))
+        arr.sort()
+        var final = ""
+        var start: Int?
+        var end: Int?
+        var prev: Int?
+        
+        if arr.isEmpty {
+            final = "0 \(LocalizedString.stars.localized)"
+            return final
+        }
+        else if arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)"
+            return final
+        }
+        else if arr.count == 1 {
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            return final
+        }
+        
+        for (idx,value) in arr.enumerated() {
+            let diff = value - (prev ?? 0)
+            if diff == 1 {
+                //number is successor
+                if start == nil {
+                    start = prev
+                }
+                end = value
+            }
+            else if diff > 1 {
+                //number is not successor
+                if start == nil {
+                    
+                    if let p = prev {
+                        final += "\(p), "
+                    }
+                    
+                    if idx == (arr.count - 1) {
+                        final += "\(value), "
+                    }
+                }
+                else {
+                    if let s = start, let e = end {
+                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        start = nil
+                        end = nil
+                        prev = nil
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                    else {
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                }
+            }
+            prev = value
+        }
+        
+        if let s = start, let e = end {
+            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            start = nil
+            end = nil
+        }
+        final.removeLast(2)
+        return final + " \(LocalizedString.stars.localized)"
     }
     
     //MARK:- Public
     
     //MARK:- IBAction
     //===============
-    @IBAction func firstStarBtnAction(_ sender: UIButton) {
-        self.isRated[0] = !isRated[0]
-        self.changeRatingToFalse(index: 1)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            if self.isRated[0] == true {
-                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-            }
-            self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        }
-    }
-    
-    @IBAction func secondStarBtnAction(_ sender: UIButton) {
-        self.changeRateToTrue(index: 1)
-        self.changeRatingToFalse(index: 2)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            if self.isRated[1] == true {
-                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-            }
-            self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        }
-    }
-    
-    @IBAction func thirdStarBtnAction(_ sender: UIButton) {
-        self.changeRateToTrue(index: 2)
-        self.changeRatingToFalse(index: 3)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            if self.isRated[2] == true {
-                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-            }
-            self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        }
-    }
-    
-    @IBAction func fourthStarBtnAction(_ sender: UIButton) {
-        self.changeRateToTrue(index: 3)
-        self.changeRatingToFalse(index: 4)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            if self.isRated[3] == true {
-                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-            }
-            self.fiveStarBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        }
-    }
-    
-    @IBAction func fiveStarBtnAction(_ sender: UIButton) {
-        self.changeRateToTrue(index: 4)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            if self.isRated[4] == true {
-                sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.secondStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.thirdStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.fourStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-                self.firstStarBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
-            }
-        }
+    @IBAction func starButtonsAction(_ sender: UIButton) {
+        self.updateStarButtonState(forStar: sender.tag)
+        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
+        sender.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
@@ -342,8 +384,22 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
+        sender.isLoading = true
+        self.viewModel.hotelListOnPreferencesApi()
     }
     
+    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+        let string = "\(self.bulkBookingsLbl.text ?? "")"
+        let text = LocalizedString.RequestBulkBooking.localized
+        if let range = string.range(of: text) {
+            if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
+                printDebug("Tapped BulkBookings")
+                AppFlowManager.default.showBulkBookingVC()
+            } else {
+                printDebug("This is not bulk bookings text")
+            }
+        }
+    }
 }
 
 //Mark:- UICollectionView Delegate and Datasource
@@ -351,11 +407,12 @@ class HotelsSearchVC: BaseVC {
 extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.roomData.count < 5) ? (self.roomData.count) : (self.roomData.count - 1)
+        return self.viewModel.adultsCount.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if self.roomData.count < 5 && self.roomData.count - 1 == indexPath.item {
+        
+        if self.viewModel.adultsCount.count < 4 && self.viewModel.adultsCount.count == indexPath.item{
             guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else {
                 return UICollectionViewCell()
             }
@@ -368,7 +425,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             }
             addRoomPicCell.indexPath = indexPath
             addRoomPicCell.delegate = self
-            addRoomPicCell.configureCell(viewModel: self.viewModel, roomData: self.roomData)
+            addRoomPicCell.configureCell(viewModel: self.viewModel)
             return addRoomPicCell
         }
     }
@@ -396,8 +453,10 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
 extension HotelsSearchVC: ExpandedCellDelegate {
     
     func plusButtonTouched(indexPath: IndexPath) {
-        self.roomData.append("\(LocalizedString.Room.localized) \(self.roomData.count - 1)")
-        if self.roomData.count < 5 {
+        self.viewModel.adultsCount.append(1)
+        self.viewModel.childrenCounts.append(0)
+        self.viewModel.childrenAge.append([])
+        if self.viewModel.adultsCount.count < 4 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
@@ -412,9 +471,14 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     }
     
     func cancelButtonTouched(indexPath: IndexPath) {
-        if self.roomData.count <= 5 {
-            self.roomData.removeLast()
-            if self.roomData.count == 4 {
+        
+        if self.viewModel.adultsCount.count <= 4 {
+            self.viewModel.adultsCount.remove(at: indexPath.item)
+            self.viewModel.childrenCounts.remove(at: indexPath.item)
+            if !(self.viewModel.childrenAge.isEmpty) && (indexPath.item <= self.viewModel.childrenAge.count) {
+                self.viewModel.childrenAge.remove(at: indexPath.item)
+            }
+            if  self.viewModel.adultsCount.count == 3 {
                 self.reloadCollectionView()
             } else {
                 UIView.animate(withDuration: AppConstants.kAnimationDuration) {
@@ -427,7 +491,12 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 }
             }
         }
-        self.dataSwapping(indexPath: indexPath)
+    }
+    
+    private func dataForApi(hotel: SearchedDestination) {
+        self.viewModel.destType = hotel.dest_type
+        self.viewModel.destName = hotel.dest_name
+        self.viewModel.destId = hotel.dest_id
     }
 }
 
@@ -436,9 +505,9 @@ extension HotelsSearchVC: ExpandedCellDelegate {
 extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
     func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int]) {
         if let indexPath = addRoomPicIndex {
-            viewModel.adultCounts[indexPath.item] = adults
-            viewModel.childrenCounts[indexPath.item]  = children
-            viewModel.childrenAge[indexPath.item] = childrenAges
+            self.viewModel.adultsCount[indexPath.item] = adults
+            self.viewModel.childrenCounts[indexPath.item]  = children
+            self.viewModel.childrenAge[indexPath.item] = childrenAges
         }
         self.addRoomCollectionView.reloadData()
         printDebug("adults: \(adults), children: \(children), ages: \(childrenAges)")
@@ -450,6 +519,39 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
+        if !hotel.city.isEmpty {
+            self.cityNameLabel.text = hotel.city
+        } else {
+            let newValue = hotel.value.split(separator: " ")
+            printDebug(newValue.first)
+            self.cityNameLabel.text = "\(newValue.first ?? "")"
+        }
+        self.stateNameLabel.text = hotel.value
+        self.cityNameLabel.isHidden = false
+        self.stateNameLabel.isHidden = false
+        self.dataForApi(hotel: hotel)
+    }
+}
+
+extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
+    
+    func getAllHotelsOnPreferenceSuccess() {
+        self.viewModel.hotelListOnPreferenceResult()
+    }
+    
+    func getAllHotelsOnPreferenceFail() {
+        printDebug("getAllHotelsOnPreferenceFail")
+        self.searchBtnOutlet.isLoading = false
+    }
+    
+    func getAllHotelsOnPreferenceResultSuccess() {
+        printDebug("data")
+        self.searchBtnOutlet.isLoading = false
+    }
+    
+    func getAllHotelsOnPreferenceResultFail() {
+        printDebug("getAllHotelsOnPreferenceResultFail")
+        self.searchBtnOutlet.isLoading = false
     }
 }
 

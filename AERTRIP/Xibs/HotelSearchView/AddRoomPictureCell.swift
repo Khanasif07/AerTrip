@@ -75,15 +75,15 @@ class AddRoomPictureCell: UICollectionViewCell {
     }
     
     ///Configure Cell
-    internal func configureCell(viewModel: HotelsSearchVM ,roomData: [String]) {
+    internal func configureCell(viewModel: HotelsSearchVM) {
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(indexPath.item + 1)"
-        if roomData.count == 2 {
+        //roomData.count == 2
+        if viewModel.adultsCount.count == 1 {
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
             //self.childStackView.isHidden = true
         } else{
             if indexPath.item == 0 || indexPath.item == 1 {
-                //self.childStackView.isHidden = false
                 self.lineView.isHidden = false
                 if indexPath.item == 0 {
                     self.lineViewLeadingConstraint.constant = 16.0
@@ -99,7 +99,7 @@ class AddRoomPictureCell: UICollectionViewCell {
             self.cancelBtnOutlet.isHidden = false
         }
         self.childStackView.isHidden = viewModel.childrenCounts[indexPath.item] == 0 ? true : false
-        self.adultCountLabel.text = "\(viewModel.adultCounts[indexPath.item])"
+        self.adultCountLabel.text = "\(viewModel.adultsCount[indexPath.item])"
         self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
     }
 }

@@ -3,7 +3,7 @@
 //  
 //
 //  Created by Pramod Kumar on 15/05/18.
-//  Copyright © 2018 Pramod Kumar. All rights reserved.
+//  Copyright © 2108 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
@@ -93,6 +93,38 @@ enum APIKeys: String {
     case dest_name = "dest_name"
     case latitude = "latitude"
     case longitude = "longitude"
+    case check_in = "check_in"
+    case check_out = "check_out"
+    case isPageRefereshed = "isPageRefereshed"
+    case filter = "filter"
+    case star = "star"
+    case vcodes = "vcodes"
+    case sid = "sid"
+    
+    case facilities = "facilities"
+    case city_code = "city_code"
+    case acc_type = "acc_type"
+    case temp_price = "temp_price"
+    case price = "price"
+    case at_hotel_fares = "at_hotel_fares"
+    case no_of_nights = "no_of_nights"
+    case num_rooms = "num_rooms"
+    case list_price = "list_price"
+    case tax = "tax"
+    case discount = "discount"
+    case vid = "vid"
+    case hname = "hname"
+    case locid = "locid"
+    case bc = "bc"
+    case fav = "fav"
+    case distance = "distance"
+    case thumbnail = "thumbnail"
+    case ta_reviews  = "ta_reviews"
+    case ta_web_url = "ta_web_url"
+    case per_night_price = "per_night_price"
+    case per_night_list_price = "per_night_list_price"
+    case lat = "lat"
+    case long = "long"
 }
 
 
