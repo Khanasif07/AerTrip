@@ -39,9 +39,9 @@ class HotelsSearchVC: BaseVC {
     @IBAction func tapOnMeAction(_ sender: UIButton) {
 //        AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 2, selectedChildren: 3, selectedAges: [2, 3, 10], delegate: self)
         
-        AppFlowManager.default.showSelectDestinationVC(delegate: self)
+//        AppFlowManager.default.showSelectDestinationVC(delegate: self)
         
-//        AppFlowManager.default.showBulkBookingVC()
+        AppFlowManager.default.moveToHotelsResultVc()
     }
 }
 

@@ -425,7 +425,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBZ-BY-zXq" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="20" y="220" width="335" height="50"/>
+                                <rect key="frame" x="16" y="220" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4hH-Fw-3me"/>
                                 </constraints>
@@ -483,10 +483,10 @@
                             <constraint firstItem="rtR-15-wkb" firstAttribute="top" secondItem="hGy-N8-L8G" secondAttribute="top" constant="8" id="dEc-aM-469"/>
                             <constraint firstItem="DsZ-Jg-wIe" firstAttribute="top" secondItem="vBZ-BY-zXq" secondAttribute="bottom" constant="26" id="jH1-9l-T7M"/>
                             <constraint firstItem="c0R-YW-wXW" firstAttribute="top" secondItem="hGy-N8-L8G" secondAttribute="top" constant="41" id="kx7-Ae-Jvt"/>
-                            <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="vBZ-BY-zXq" secondAttribute="trailing" constant="20" id="myN-UT-vj8"/>
+                            <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="vBZ-BY-zXq" secondAttribute="trailing" constant="16" id="myN-UT-vj8"/>
                             <constraint firstItem="VeF-rv-nfP" firstAttribute="centerX" secondItem="hGy-N8-L8G" secondAttribute="centerX" multiplier="0.75" id="pB2-pt-zhn"/>
                             <constraint firstItem="knd-x8-mi8" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pH4-H8-Hck"/>
-                            <constraint firstItem="vBZ-BY-zXq" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pp4-nq-WBE"/>
+                            <constraint firstItem="vBZ-BY-zXq" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="16" id="pp4-nq-WBE"/>
                             <constraint firstItem="W31-w0-Pb4" firstAttribute="top" secondItem="c0R-YW-wXW" secondAttribute="bottom" constant="13" id="sKa-uR-WwU"/>
                             <constraint firstAttribute="bottom" secondItem="VeF-rv-nfP" secondAttribute="bottom" constant="26" id="xPs-fO-ywd"/>
                             <constraint firstItem="W31-w0-Pb4" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="yjI-Eb-5Pg"/>

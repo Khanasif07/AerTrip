@@ -322,5 +322,8 @@ enum LocalizedString: String {
     
     //MARK:- FF Search
     case SearchAirlines = "SearchAirlines"
+    
+    //MARK:- Search Result
+    case SearchHotelsOrLandmark = "SearchHotelsOrLandmark"
 }
 

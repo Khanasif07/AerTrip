@@ -156,6 +156,7 @@ private extension SocialLoginVC {
         self.linkedInButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
+        self.kickContentOutToScreen()
     }
     
     private func addAppLogoView() {
@@ -226,19 +227,22 @@ extension SocialLoginVC: SocialLoginVMDelegate {
 
 extension SocialLoginVC {
 
-    
-    func animateContentOnLoad() {
-        
+    func kickContentOutToScreen() {
         self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-     //   self.bottomStackView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.newRegistrationContainerView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
         self.fbButton.alpha = 0
         self.googleButton.alpha = 0
         self.linkedInButton.alpha = 0
-
+    }
+    
+    func animateContentOnLoad() {
+        
+        self.kickContentOutToScreen()
+        
         let rDuration = 1.0 / 4.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
@@ -253,7 +257,7 @@ extension SocialLoginVC {
             })
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
-              //  self.bottomStackView.transform    = .identity
+                self.newRegistrationContainerView.transform    = .identity
                 self.sepratorLineImage.transform  = .identity
             })
             
@@ -274,12 +278,12 @@ extension SocialLoginVC {
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+                self.newRegistrationContainerView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
                 self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
                 self.linkedInButton.alpha = 0.0
             })
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0)) {
-               // self.bottomStackView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
                 self.sepratorLineImage.transform  = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
             }
             

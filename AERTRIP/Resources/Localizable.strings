@@ -276,3 +276,6 @@
 
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
+
+//MARK:- Search Result
+"SearchHotelsOrLandmark" = "Search hotels or landmark";
