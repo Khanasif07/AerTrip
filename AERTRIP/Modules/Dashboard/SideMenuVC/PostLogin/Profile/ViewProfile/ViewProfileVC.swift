@@ -128,7 +128,7 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         self.tableView.parallaxHeader.height = parallexHeaderHeight
-        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.topFill
         self.tableView.parallaxHeader.delegate = self
         
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"

@@ -143,8 +143,8 @@ class HotelFilterVC: BaseVC {
         style.defaultFont = AppFonts.Regular.withSize(16.0)
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.textFieldTextColor51
-        style.selectedColor = AppColors.textFieldTextColor51
+        style.normalColor = AppColors.textFieldTextColor
+        style.selectedColor = AppColors.textFieldTextColor
         
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0

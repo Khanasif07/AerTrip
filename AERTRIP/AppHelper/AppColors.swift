@@ -59,7 +59,7 @@ enum AppColors {
     static let themeGreenishWhite  = #colorLiteral(red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
     
     /// RGB - 51, 51, 51
-    static let textFieldTextColor51  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    static let textFieldTextColor  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 66, 97, 168
     static let fbButtonBackgroundColor  = #colorLiteral(red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
