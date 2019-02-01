@@ -293,3 +293,7 @@
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
 
+// MARK:- Range VC
+"SearchResultsRange" = "Search Results Range";
+
+

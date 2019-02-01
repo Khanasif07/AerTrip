@@ -9,7 +9,7 @@
 import UIKit
 import MXParallaxHeader
 
-class ResultVC: BaseVC {
+class HotelResultVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
@@ -87,11 +87,15 @@ class ResultVC: BaseVC {
     @IBAction func backButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
+    
+    @IBAction func filterButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.showFilterVC()
+    }
 }
 
 //MARK:- Collection view datasource and delegate methods
 //MARK:-
-extension ResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -122,7 +126,7 @@ extension ResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
 }
 
 //MARK:- MXParallaxHeaderDelegate methods
-extension ResultVC: MXParallaxHeaderDelegate {
+extension HotelResultVC: MXParallaxHeaderDelegate {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
         printDebug("progress \(parallaxHeader.progress)")
     }

@@ -49,7 +49,7 @@ class HotelFilterVC: BaseVC {
     }
     
    
-    private var allChildVCs: [SortVC] = [SortVC]()
+    private var allChildVCs: [UIViewController] = [UIViewController]()
 
     // MARK: - View Life cycle
     
@@ -92,10 +92,17 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Helper methods
     func initialSetups() {
+        self.mainContainerView.layer.cornerRadius = 10.0
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 4)
-        for _ in 0..<allTabsStr.count {
-            let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
-            self.allChildVCs.append(vc)
+        for i in 0..<allTabsStr.count {
+            if i != 1 {
+                let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else {
+                let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            }
+            
         }
         
         let height = UIDevice.isIPhoneX ? 44.0 : 20.0
@@ -132,11 +139,11 @@ class HotelFilterVC: BaseVC {
     private func setupPagerView() {
         
         var style = ATCategoryNavBarStyle()
-        style.height = 45.0
-        style.interItemSpace = 5.0
+        style.height = 50.0
+        style.interItemSpace = 15.0
         style.itemPadding = 8.0
-        style.isScrollable = false
-        style.layoutAlignment = .center
+        style.isScrollable = true
+        style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
         style.bottomSeparatorColor = AppColors.themeGray40
