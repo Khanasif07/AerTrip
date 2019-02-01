@@ -16,7 +16,7 @@ class LoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak private var topImage: UIImageView!
     @IBOutlet weak private var welcomeLabel: UILabel!
     @IBOutlet weak private var emailTextField: PKFloatLabelTextField!
@@ -43,6 +43,10 @@ class LoginVC: BaseVC {
             
             self.setupInitialAnimation()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -103,11 +107,7 @@ class LoginVC: BaseVC {
             sender.setImage(image, for: .normal)
         }
     }
-    
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        self.backButton.isHidden = true
-        AppFlowManager.default.popToRootViewController(animated: true)
-    }
+ 
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToForgotPasswordVC(email: self.viewModel.email)
     }
@@ -136,7 +136,9 @@ private extension LoginVC {
         self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
         self.setupFontsAndText()
-        self.backButton.isHidden = true
+        
+        self.topNavBar.delegate = self
+        self.topNavBar.leftButton.isHidden = true
     }
     
     func setupFontsAndText() {
@@ -146,6 +148,13 @@ private extension LoginVC {
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
        
+    }
+}
+
+extension LoginVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.topNavBar.leftButton.isHidden = true
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
 }
 
@@ -223,7 +232,7 @@ extension LoginVC {
 
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.topImage.transform          = .identity
-                self.backButton.isHidden = false
+                self.topNavBar.leftButton.isHidden = false
             })
 
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {

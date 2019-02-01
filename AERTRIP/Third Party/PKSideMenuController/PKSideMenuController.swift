@@ -30,6 +30,11 @@ public struct PKSideMenuOptions {
     public static var currentAnimation: PKSideMenuAnimation = .curve3D
 }
 
+public protocol PKSideMenuControllerDelegate: class {
+    func willOpenSideMenu()
+    func willCloseSideMenu()
+}
+
 open class PKSideMenuController: UIViewController {
     
     //MARK:- Properties
@@ -43,6 +48,8 @@ open class PKSideMenuController: UIViewController {
         }
         return false
     }
+    
+    public weak var delegate: PKSideMenuControllerDelegate?
     
     private(set) var menuContainer : UIView?
     private(set) var menuViewController : UIViewController?
@@ -261,6 +268,7 @@ open class PKSideMenuController: UIViewController {
         var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = self.distanceOpenMenu
         
+        self.delegate?.willOpenSideMenu()
         switch PKSideMenuOptions.currentAnimation {
         case .curve3D:
             self.openWith3DAnimation(mainFrame: fMain)
@@ -274,6 +282,7 @@ open class PKSideMenuController: UIViewController {
         var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = 0
         
+        self.delegate?.willCloseSideMenu()
         switch PKSideMenuOptions.currentAnimation {
         case .curve3D:
             self.closeWith3DAnimation()

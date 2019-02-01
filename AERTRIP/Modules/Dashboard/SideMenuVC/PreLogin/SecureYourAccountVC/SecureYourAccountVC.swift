@@ -36,6 +36,7 @@ class SecureYourAccountVC: BaseVC {
     @IBOutlet weak var nextButtonTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var showPasswordButton: UIButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -115,9 +116,6 @@ class SecureYourAccountVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
-    }
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         
@@ -155,6 +153,7 @@ private extension SecureYourAccountVC {
     
     func initialSetups() {
         
+       self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
         self.nextButton.isEnabled = false
         var placeholder = LocalizedString.Password.localized
@@ -166,6 +165,12 @@ private extension SecureYourAccountVC {
         
         self.passwordTextField.rightView = UIView(frame: self.showPasswordButton.bounds)
         self.passwordTextField.rightViewMode = .always
+    }
+}
+
+extension SecureYourAccountVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
     }
 }
 

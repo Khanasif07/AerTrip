@@ -76,7 +76,7 @@ class ResultVC: BaseVC {
         self.collectionView.parallaxHeader.view = header
         self.collectionView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.collectionView.parallaxHeader.height = parallexHeaderHeight
-        self.collectionView.parallaxHeader.mode = MXParallaxHeaderMode.topFill
+        self.collectionView.parallaxHeader.mode = MXParallaxHeaderMode.center
         self.collectionView.parallaxHeader.delegate = self
     }
     

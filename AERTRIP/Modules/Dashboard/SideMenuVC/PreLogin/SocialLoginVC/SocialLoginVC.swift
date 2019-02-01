@@ -29,9 +29,9 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var existingUserLabel: UILabel!
     @IBOutlet weak var sepratorLineImage: UIImageView!
     @IBOutlet weak var socialButtonsStackView: UIStackView!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var logoContainerView: UIView!
     @IBOutlet weak var newRegistrationContainerView: UIView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -52,20 +52,20 @@ class SocialLoginVC: BaseVC {
         super.viewWillAppear(animated)
         
         if self.viewModel.isFirstTime {
-            self.backButton.isHidden  = true
+            self.topNavView.leftButton.isHidden  = true
             self.view.backgroundColor = .clear
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-         self.backButton.isHidden = true
+         self.topNavView.leftButton.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.backButton.isHidden = false
+        self.topNavView.leftButton.isHidden = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -138,10 +138,6 @@ class SocialLoginVC: BaseVC {
         
         AppFlowManager.default.moveToLoginVC(email: "")
     }
-    
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        self.delegate?.backButtonTapped(sender)
-    }
 }
 
 // MARK: - Extension Initialsetups
@@ -157,6 +153,7 @@ private extension SocialLoginVC {
         
         self.addAppLogoView()
         self.kickContentOutToScreen()
+        self.topNavView.delegate = self
     }
     
     private func addAppLogoView() {
@@ -181,6 +178,12 @@ private extension SocialLoginVC {
         ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
+    }
+}
+
+extension SocialLoginVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.delegate?.backButtonTapped(sender)
     }
 }
 

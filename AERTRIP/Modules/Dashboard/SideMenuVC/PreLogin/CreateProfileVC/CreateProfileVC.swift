@@ -33,9 +33,9 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var countryDropdownImage: UIImageView!
     @IBOutlet weak var letsStartButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var letStartButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var letStartButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var whiteBackgroundView: UIView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -103,9 +103,6 @@ class CreateProfileVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popToRootViewController(animated: true)
-    }
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
@@ -123,6 +120,7 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
+        self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
         self.viewModel.userData.minContactLimit  = 10
         self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
@@ -209,6 +207,12 @@ private extension CreateProfileVC {
     
     @objc func cancleButtonAction(_ sender: UITextField) {
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
+    }
+}
+
+extension CreateProfileVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
 }
 
@@ -465,7 +469,7 @@ extension CreateProfileVC {
         self.lastNameTextField.alpha = 0
         self.countryTextField.alpha = 0
         self.mobileNumberTextField.alpha = 0
-        self.backButton.alpha = 0
+        self.topNavBar.leftButton.alpha = 0
         self.countryCodeTextField.alpha = 0
         self.countryCodeLabel.alpha = 0
         self.countryFlagImage.alpha = 0

@@ -25,7 +25,7 @@ class CreateYourAccountVC: BaseVC {
     @IBOutlet weak var privacyPolicyLabel: ActiveLabel!
     @IBOutlet weak var notRegisterYetLabel: UILabel!
     @IBOutlet weak var loginHereButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     
     
@@ -102,12 +102,6 @@ class CreateYourAccountVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        backButton.isHidden = true
-        AppFlowManager.default.popToRootViewController(animated: true)
-        
-    }
-    
     @IBAction func registerButtonAction(_ sender: ATButton) {
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
@@ -132,7 +126,9 @@ private extension CreateYourAccountVC {
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        self.backButton.isHidden = true
+        
+        topNavBar.leftButton.isHidden = true
+        topNavBar.delegate = self
     }
     
     func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
@@ -206,6 +202,14 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
     }
 }
 
+extension CreateYourAccountVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        topNavBar.leftButton.isHidden = true
+        AppFlowManager.default.popToRootViewController(animated: true)
+        
+    }
+}
+
 //MARK:- Extension InitialAnimation
 //MARK:-
 extension CreateYourAccountVC: SFSafariViewControllerDelegate {
@@ -227,7 +231,7 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
-                self.backButton.isHidden = false
+                self.topNavBar.leftButton.isHidden = false
             })
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {

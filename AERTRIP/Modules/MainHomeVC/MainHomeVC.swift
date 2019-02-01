@@ -79,16 +79,14 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.statusBarStyle = .lightContent
+        
         //setup scroll view
         self.scrollViewSetup()
-        self.socialLoginVC?.backButton.isHidden = true
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
         delay(seconds: 0.2) {[weak self] in
             if UserInfo.loggedInUserId == nil {
                 self?.setupLogoView()
@@ -138,6 +136,7 @@ class MainHomeVC: BaseVC {
         PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         let sideMenuVC = PKSideMenuController()
+        sideMenuVC.delegate = self
         sideMenuVC.view.frame = UIScreen.main.bounds
     
         sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
@@ -275,7 +274,7 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
-        self.socialLoginVC?.backButton.isHidden = true
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
         self.socialLoginVC?.animateContentOnLoad()
@@ -286,7 +285,7 @@ class MainHomeVC: BaseVC {
             self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
-            self.socialLoginVC?.backButton.isHidden = false
+            self.socialLoginVC?.topNavView.leftButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
             self.logoView?.isHidden = true
             self.sideMenuVC?.logoContainerView.isHidden = true
@@ -296,7 +295,7 @@ class MainHomeVC: BaseVC {
     private func popLogoAnimation() {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
-        self.socialLoginVC?.backButton.isHidden = true
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
@@ -333,6 +332,18 @@ extension MainHomeVC: SideMenuVCDelegate {
     
     func viewProfileAction(_ sender: ATButton) {
         self.pushProfileAnimation()
+    }
+}
+
+//MARK:- PKSideMenuController delegate methods
+//MARK:-
+extension MainHomeVC: PKSideMenuControllerDelegate {
+    func willCloseSideMenu() {
+        self.statusBarStyle = .lightContent
+    }
+    
+    func willOpenSideMenu() {
+        self.statusBarStyle = .default
     }
 }
 

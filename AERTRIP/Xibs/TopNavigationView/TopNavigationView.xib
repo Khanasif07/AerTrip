@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                    <real key="value" value="0.5"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                    <size key="value" width="0.0" height="5"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                    <color key="value" red="0.60784313729999995" green="0.65098039220000004" blue="0.69411764710000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
+                <outlet property="firstRightButton" destination="Wb6-dI-jbo" id="MbJ-Xa-GbV"/>
+                <outlet property="leftButton" destination="DSO-Ke-hNP" id="tYM-tv-4kU"/>
+                <outlet property="navTitleLabel" destination="7uz-9U-A8C" id="3VI-7O-C07"/>
+                <outlet property="secondRightButton" destination="D4F-Bu-HSK" id="ggX-wo-I1u"/>
+                <outlet property="titleLeadingConstraint" destination="kVb-z1-G5g" id="Izw-Ls-NXJ"/>
+                <outlet property="titleTrailingConstraint" destination="vY6-47-vFE" id="JXH-by-dkx"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="5iQ-SE-VF1">
+            <rect key="frame" x="0.0" y="0.0" width="370" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSO-Ke-hNP">
+                    <rect key="frame" x="0.0" y="0.0" width="43" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                    <state key="normal" image="backGreen"/>
+                    <connections>
+                        <action selector="leftBtnTapped:" destination="-1" eventType="touchUpInside" id="YcK-I5-jlm"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigation Bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uz-9U-A8C">
+                    <rect key="frame" x="44" y="19.5" width="282" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wb6-dI-jbo">
+                    <rect key="frame" x="284" y="0.0" width="43" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                    <state key="normal" image="ic_hotel_filter"/>
+                    <connections>
+                        <action selector="right1BtnTapped:" destination="-1" eventType="touchUpInside" id="CEK-F5-xP9"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4F-Bu-HSK">
+                    <rect key="frame" x="327" y="0.0" width="43" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                    <state key="normal" image="ic_map_view"/>
+                    <connections>
+                        <action selector="right2BtnTapped:" destination="-1" eventType="touchUpInside" id="pFh-nk-1qv"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="D4F-Bu-HSK" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="4Az-6w-Ij0"/>
+                <constraint firstAttribute="bottom" secondItem="Wb6-dI-jbo" secondAttribute="bottom" id="GWF-oA-Exq"/>
+                <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="D4F-Bu-HSK" secondAttribute="trailing" id="N9p-Mc-gep"/>
+                <constraint firstItem="7uz-9U-A8C" firstAttribute="centerY" secondItem="zxX-KT-F33" secondAttribute="centerY" id="ShQ-2l-S3C"/>
+                <constraint firstItem="DSO-Ke-hNP" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="Tbg-tK-nup"/>
+                <constraint firstItem="Wb6-dI-jbo" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="VQA-Gm-bb7"/>
+                <constraint firstItem="DSO-Ke-hNP" firstAttribute="bottom" secondItem="zxX-KT-F33" secondAttribute="bottom" id="Yc8-kR-JTT"/>
+                <constraint firstItem="D4F-Bu-HSK" firstAttribute="leading" secondItem="Wb6-dI-jbo" secondAttribute="trailing" id="gCG-Xm-iOP"/>
+                <constraint firstItem="7uz-9U-A8C" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" constant="44" id="kVb-z1-G5g"/>
+                <constraint firstItem="DSO-Ke-hNP" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="lPM-ii-VL6"/>
+                <constraint firstAttribute="bottom" secondItem="D4F-Bu-HSK" secondAttribute="bottom" id="v1V-Xf-AT5"/>
+                <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="7uz-9U-A8C" secondAttribute="trailing" constant="44" id="vY6-47-vFE"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="zxX-KT-F33"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                    <size key="value" width="0.0" height="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                    <real key="value" value="0.5"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                    <color key="value" red="0.60784313729999995" green="0.65098039220000004" blue="0.69411764710000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="34" y="-132"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="backGreen" width="27" height="27"/>
+        <image name="ic_hotel_filter" width="27" height="27"/>
+        <image name="ic_map_view" width="27" height="27"/>
+    </resources>
+</document>
