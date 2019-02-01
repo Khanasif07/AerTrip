@@ -57,6 +57,8 @@
 		188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */; };
 		188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188785A421DF7D990061869E /* TravellerListTableViewCell.swift */; };
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
+		188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB42203378F00B4C315 /* GameKit.framework */; };
+		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
 		18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */; };
 		18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */; };
 		18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1E21D33EFF005442C8 /* SearchTextField.swift */; };
@@ -93,6 +95,11 @@
 		18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
+		18B435612202C59F000C5E31 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B435602202C59F000C5E31 /* Filter.storyboard */; };
+		18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B435632202C9D9000C5E31 /* HotelFilterVC.swift */; };
+		18B435662202DBD3000C5E31 /* SortVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B435652202DBD3000C5E31 /* SortVC.swift */; };
+		18B4356A2202DCA6000C5E31 /* SortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B435682202DCA6000C5E31 /* SortTableViewCell.swift */; };
+		18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B435692202DCA6000C5E31 /* SortTableViewCell.xib */; };
 		18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */; };
 		18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
@@ -328,6 +335,8 @@
 		188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewSectionView.xib; sourceTree = "<group>"; };
 		188785A421DF7D990061869E /* TravellerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListTableViewCell.swift; sourceTree = "<group>"; };
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
+		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		18930A1E21D33EFF005442C8 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
@@ -366,6 +375,11 @@
 		18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlideMenuProfileImageHeaderView.xib; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
+		18B435602202C59F000C5E31 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
+		18B435632202C9D9000C5E31 /* HotelFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilterVC.swift; sourceTree = "<group>"; };
+		18B435652202DBD3000C5E31 /* SortVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortVC.swift; sourceTree = "<group>"; };
+		18B435682202DCA6000C5E31 /* SortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewCell.swift; sourceTree = "<group>"; };
+		18B435692202DCA6000C5E31 /* SortTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortTableViewCell.xib; sourceTree = "<group>"; };
 		18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextEditTableViewCell.swift; sourceTree = "<group>"; };
 		18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTextEditTableViewCell.xib; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
@@ -559,7 +573,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */,
 				F7B6F40D28A1A6D63450BF00 /* Pods_AERTRIP.framework in Frameworks */,
+				188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +623,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				18B435672202DC89000C5E31 /* HotelFilter */,
 				848B993221DF6558009A4772 /* EmptyScreens */,
 				18999D8B21E48D0E00E66072 /* Preferences */,
 				1887859B21DF735C0061869E /* TravellerList */,
@@ -732,6 +749,24 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		18B435622202C9AA000C5E31 /* HotelFilter */ = {
+			isa = PBXGroup;
+			children = (
+				18B435632202C9D9000C5E31 /* HotelFilterVC.swift */,
+				18B435652202DBD3000C5E31 /* SortVC.swift */,
+			);
+			path = HotelFilter;
+			sourceTree = "<group>";
+		};
+		18B435672202DC89000C5E31 /* HotelFilter */ = {
+			isa = PBXGroup;
+			children = (
+				18B435682202DCA6000C5E31 /* SortTableViewCell.swift */,
+				18B435692202DCA6000C5E31 /* SortTableViewCell.xib */,
+			);
+			path = HotelFilter;
+			sourceTree = "<group>";
+		};
 		18FA222D21EC7C400024B91E /* AssignGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +796,7 @@
 		84085C6C21F59C0C00F1E844 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				18B435622202C9AA000C5E31 /* HotelFilter */,
 				84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */,
 				84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */,
 				84085C6F21F59C0C00F1E844 /* BaseTabBarController.swift */,
@@ -1495,6 +1531,7 @@
 				183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */,
 				1887859621DF4E680061869E /* TravellerList.storyboard */,
 				84FFDFA321F9DBD8005CA257 /* Settings.storyboard */,
+				18B435602202C59F000C5E31 /* Filter.storyboard */,
 			);
 			path = AppStoryboards;
 			sourceTree = "<group>";
@@ -1521,6 +1558,8 @@
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188BFBB62203379700B4C315 /* StoreKit.framework */,
+				188BFBB42203378F00B4C315 /* GameKit.framework */,
 				57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */,
 			);
 			name = Frameworks;
@@ -1563,8 +1602,14 @@
 					8469FE8E21B513FD0027BB2E = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
-							com.apple.SafariKeychain = {
+							com.apple.GameCenter.iOS = {
 								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
 							};
 						};
 					};
@@ -1622,6 +1667,7 @@
 				189D1F4921CE3F8E00746329 /* SourceSansPro-Black.ttf in Resources */,
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
 				848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */,
+				18B435612202C59F000C5E31 /* Filter.storyboard in Resources */,
 				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
 				180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */,
 				189D1F4D21CE3F8E00746329 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
@@ -1641,6 +1687,7 @@
 				189D1F5021CE3F8E00746329 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				189D1F4B21CE3F8E00746329 /* SourceSansPro-SemiBold.ttf in Resources */,
 				18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */,
+				18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */,
 				188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */,
 				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
 				189D1F4821CE3F8E00746329 /* SourceSansPro-LightItalic.ttf in Resources */,
@@ -1838,6 +1885,7 @@
 				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
+				18B4356A2202DCA6000C5E31 /* SortTableViewCell.swift in Sources */,
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
@@ -1856,11 +1904,13 @@
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
 				84085CF221F59C0E00F1E844 /* SocialLoginVC.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
+				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
+				18B435662202DBD3000C5E31 /* SortVC.swift in Sources */,
 				188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */,
@@ -2107,10 +2157,10 @@
 			baseConfigurationReference = E0F38BF1D204A4F56D91BDD2 /* Pods-AERTRIP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Z3688DX2N9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2132,10 +2182,10 @@
 			baseConfigurationReference = 251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Z3688DX2N9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

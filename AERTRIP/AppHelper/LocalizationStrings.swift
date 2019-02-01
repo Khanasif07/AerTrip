@@ -322,5 +322,19 @@ enum LocalizedString: String {
     
     //MARK:- FF Search
     case SearchAirlines = "SearchAirlines"
+    
+    //MARK: - Hotel Filters
+    case ClearAll = "ClearAll"
+    case Sort = "Sort"
+    case Range = "Range"
+    case Price = "Price"
+    case Ratings = "Ratings"
+    case Amenities = "Amenities"
+    
+    case BestSellers = "BestSellers"
+    case TripAdvisor = "TripAdvisorRating"
+    case StarRating = "Star Rating"
+    case Distance = "Distance"
+    
 }
 

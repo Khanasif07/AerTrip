@@ -96,8 +96,8 @@ class ViewAllHotelsVC: BaseVC {
             style.height = 45.0
             style.interItemSpace = 5.0
             style.itemPadding = 8.0
-            style.isScrollable = true
-            style.layoutAlignment = .left
+            style.isScrollable = false
+            style.layoutAlignment = .center
             style.isEmbeddedToView = true
             style.showBottomSeparator = true
             style.bottomSeparatorColor = AppColors.themeGray40

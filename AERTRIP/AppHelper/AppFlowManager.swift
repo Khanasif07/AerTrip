@@ -273,6 +273,17 @@ extension AppFlowManager {
         let obj = SettingsVC.instantiate(fromAppStoryboard: .Settings)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    func moverToFilterVC(){
+        let obj = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
+        self.mainNavigationController.present(obj, animated:true , completion: nil)
+    }
+    func showFilterVC() {
+        if let mVC = self.mainHomeVC {
+            let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
+            mVC.add(childViewController: ob)
+        }
+    }
 }
 
 //MARK: - Pop Methods

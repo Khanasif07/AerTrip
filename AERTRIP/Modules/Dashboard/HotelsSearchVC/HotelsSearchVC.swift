@@ -14,6 +14,7 @@ class HotelsSearchVC: BaseVC {
     //MARK:-
     @IBOutlet weak var tapMeButton: UIButton!
     
+    @IBOutlet weak var hotelFilterButton: UIButton!
     //MARK:- IBOutlets
     //MARK:-
     
@@ -30,6 +31,7 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.tapMeButton.isHidden = AppConstants.isReleasingToClient
+        self.hotelFilterButton.isHidden = AppConstants.isReleasingToClient
     }
     
     //MARK:- Public
@@ -43,6 +45,14 @@ class HotelsSearchVC: BaseVC {
         
 //        AppFlowManager.default.showBulkBookingVC()
     }
+    
+    @IBAction func hotelFilterTapped(_ sender: Any) {
+      //  AppFlowManager.default.moverToFilterVC()
+        AppFlowManager.default.showFilterVC()
+    }
+    
+    
+    
 }
 
 //MARK:- RoomGuestSelectionVCDelegate
