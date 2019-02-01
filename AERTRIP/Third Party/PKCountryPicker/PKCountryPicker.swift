@@ -88,8 +88,9 @@ open class PKCountryPicker: UIView {
         
         self.pickerView.frame = CGRect(x: 0.0, y: PKCountryPickerSettings.toolbarHeight, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.pickerSize.height)
         self.addSubview(self.pickerView)
-        self.countries = self.getAllCountries()
-        
+        let sortedArray = self.getAllCountries().sorted(by: { $0.countryEnglishName < $1.countryEnglishName })
+       // self.countries = self.getAllCountries()
+        self.countries = sortedArray
         self.setupToolBar()
         self.setupAppearance()
     }

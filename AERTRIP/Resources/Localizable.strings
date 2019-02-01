@@ -277,5 +277,19 @@
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
 
+
 //MARK:- Search Result
 "SearchHotelsOrLandmark" = "Search hotels or landmark";
+
+//MARK:- Hotel Filters
+"ClearAll" = "Clear All";
+"Sort" = "Sort";
+"Range" = "Range";
+"Price" = "Price";
+"Ratings" = "Ratings";
+"Amenities" = "Amenities";
+"BestSellers" = "Best Sellers";
+"TripAdvisorRating" = "TripAdvisor Rating";
+"StarRating" = "Star Rating";
+"Distance" = "Distance";
+

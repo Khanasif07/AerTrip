@@ -46,25 +46,38 @@
                                     <action selector="tapOnMeAction:" destination="epQ-be-B7O" eventType="touchUpInside" id="ECy-2V-Bcd"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wz-Bg-S14">
+                                <rect key="frame" x="10" y="396" width="355" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Hotel Filters"/>
+                                <connections>
+                                    <action selector="hotelFilterTapped:" destination="epQ-be-B7O" eventType="touchUpInside" id="iuW-ed-omN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jbB-Bu-6oD" firstAttribute="centerX" secondItem="asq-dl-pBl" secondAttribute="centerX" id="78J-qj-dex"/>
+                            <constraint firstItem="asq-dl-pBl" firstAttribute="bottom" secondItem="9wz-Bg-S14" secondAttribute="bottom" constant="236" id="9bR-Bp-kYW"/>
                             <constraint firstItem="57M-Pn-sXN" firstAttribute="centerY" secondItem="asq-dl-pBl" secondAttribute="centerY" id="AhC-jD-Dyl"/>
                             <constraint firstItem="pTf-DZ-l7C" firstAttribute="centerX" secondItem="jbB-Bu-6oD" secondAttribute="centerX" id="YJr-zH-aO7"/>
+                            <constraint firstItem="9wz-Bg-S14" firstAttribute="leading" secondItem="asq-dl-pBl" secondAttribute="leading" constant="10" id="YQ3-9d-4oZ"/>
+                            <constraint firstItem="9wz-Bg-S14" firstAttribute="centerX" secondItem="57M-Pn-sXN" secondAttribute="centerX" id="f7a-gS-dgj"/>
                             <constraint firstItem="jbB-Bu-6oD" firstAttribute="centerY" secondItem="asq-dl-pBl" secondAttribute="centerY" id="fiC-qF-UOd"/>
                             <constraint firstItem="pTf-DZ-l7C" firstAttribute="top" secondItem="jbB-Bu-6oD" secondAttribute="bottom" constant="15" id="mAy-Dg-8fL"/>
+                            <constraint firstItem="asq-dl-pBl" firstAttribute="trailing" secondItem="9wz-Bg-S14" secondAttribute="trailing" constant="10" id="qv7-Kp-hIt"/>
                             <constraint firstItem="57M-Pn-sXN" firstAttribute="centerX" secondItem="asq-dl-pBl" secondAttribute="centerX" id="w8s-vZ-PfZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="asq-dl-pBl"/>
                     </view>
                     <connections>
+                        <outlet property="hotelFilterButton" destination="9wz-Bg-S14" id="aIG-hO-Xn6"/>
                         <outlet property="tapMeButton" destination="57M-Pn-sXN" id="N3r-zI-cvf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Gp-13-qTx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="-222"/>
+            <point key="canvasLocation" x="2908" y="-222.63868065967017"/>
         </scene>
         <!--Room Guest SelectionVC-->
         <scene sceneID="Nd8-Mo-0b1">
