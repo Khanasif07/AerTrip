@@ -92,7 +92,7 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Helper methods
     func initialSetups() {
-        self.mainContainerView.layer.cornerRadius = 10.0
+        self.mainContainerView.roundCorners(corners: [.bottomLeft,.bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 4)
         for i in 0..<allTabsStr.count {
             if i != 1 {
@@ -170,6 +170,8 @@ class HotelFilterVC: BaseVC {
     @IBAction func doneButtonTapped(_ sender:Any) {
       self.hide(animated: true, shouldRemove: true)
     }
+    
+ 
     
     
     

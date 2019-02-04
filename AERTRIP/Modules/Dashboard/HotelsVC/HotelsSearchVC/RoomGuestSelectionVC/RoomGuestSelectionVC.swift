@@ -28,6 +28,7 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var childTitleLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
     @IBOutlet var adultsButtons: [UIButton]!
+    @IBOutlet weak var adultATBtnOutlet: ATGuestButton!
     @IBOutlet var childrenButtons: [UIButton]!
     @IBOutlet weak var ageSelectionLabel: UILabel!
     @IBOutlet var agePickers: [UIPickerView]!
@@ -42,13 +43,13 @@ class RoomGuestSelectionVC: BaseVC {
     private var containerHeight: CGFloat {
         return UIDevice.screenHeight * 0.56
     }
+    var count = 0
     //MARK:- Private
     
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
@@ -74,7 +75,10 @@ class RoomGuestSelectionVC: BaseVC {
         self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.selected)
         
         self.roomNumberLabel.text = "\(LocalizedString.Room.localized) \(self.viewModel.roomNumber)"
-        self.updateSelection(animated: false)
+        delay(seconds: 0.1) {
+            self.updateSelection(animated: false)
+        }
+        
         self.messageLabel.text = LocalizedString.MostHotelsTypicallyAllow.localized
         
         self.adultsTitleLabel.text = LocalizedString.Adults.localized
@@ -202,7 +206,7 @@ class RoomGuestSelectionVC: BaseVC {
     
     private func hideAgesPicker(animated: Bool) {
         self.enableAgePicker()
-        guard self.mainContainerHeightConstraint.constant == self.containerHeight else {
+        guard self.mainContainerHeightConstraint.constant <= self.containerHeight else {
             return
         }
         
@@ -223,6 +227,7 @@ class RoomGuestSelectionVC: BaseVC {
     @objc func tappedOnBackgroundView(_ sender: UIGestureRecognizer) {
         self.hide(animated: true, shouldRemove: true)
     }
+    
     @IBAction func doneButtonAction(_ sender: UIButton) {
         self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge)
         self.hide(animated: true, shouldRemove: true)
@@ -243,7 +248,28 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
+        if sender.isSelected {
+            sender.dumpingButtonSelectionAnimation()
+        } else {
+            self.removeImage(sender)
+            //sender.dumbingButtonDeselctionAnimation()
+        }
+        //sender.removeImageBtn()
     }
+    
+    @IBAction func adultAtBtnAction(_ sender: ATGuestButton) {
+        //sender.
+        if count%2 == 0 {
+            sender.selectedState()
+            sender.setImage(#imageLiteral(resourceName: "adult_selected"), for: .selected)
+        } else {
+            sender.isSpringLoaded = true
+            sender.setImage(nil, for: .normal)
+            //sender.deselectedState()
+        }
+        self.count += 1
+    }
+    
     
     @IBAction func childrenButtonsAction(_ sender: UIButton) {
 
@@ -253,6 +279,23 @@ class RoomGuestSelectionVC: BaseVC {
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection()
+        
+        if sender.isSelected {
+            sender.dumpingButtonSelectionAnimation()
+        } else {
+            sender.dumbingButtonDeselctionAnimation()
+        }
+    }
+    
+    private func removeImage(_ sender: UIButton) {
+        sender.transform = .identity
+        sender.setImage(#imageLiteral(resourceName: "adult_selected"), for: .normal)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1.0, options: .allowAnimatedContent, animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        }) { (true) in
+            sender.transform = .identity
+            sender.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
+        }
     }
 }
 
@@ -285,3 +328,5 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         self.viewModel.childrenAge[pickerView.tag] = row + 1
     }
 }
+
+

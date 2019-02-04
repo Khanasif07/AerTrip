@@ -72,4 +72,65 @@ extension APICaller {
             completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
         }
     }
+    
+    func getHotelsNearByMe(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: SearchedDestination?)->Void ) {
+        
+        AppNetworking.GET(endPoint: APIEndPoint.hotelsNearByMeLocations, parameters: params, success: { [weak self] (json) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
+                    let (hotels, _) =  SearchedDestination.models(jsonArr: arr)
+                    completionBlock(true, [], hotels.first)
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            completionBlock(false, [], nil)
+        }
+    }
+    
+    func getHotelsListOnPreference(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ sid: String,_ vCodes: [String])->Void)  {
+        AppNetworking.GET(endPoint: APIEndPoint.hotelListOnPreferenceL, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let reponse = jsonData[APIKeys.data.rawValue].arrayObject, let first = reponse.first as? JSONDictionary, let sid = first["sid"] as? String, let vCodes = first["vcodes"] as? [String] {
+                    
+                    completionBlock(true, [], sid, vCodes)
+                } else {
+                    completionBlock(true, [],  "" , [""])
+                }
+            }, failure:  { (errors) in
+                completionBlock(false, errors,  "" , [""])
+            })
+        }) { (error) in
+            completionBlock(false, [], "" , [""])
+        }
+    }
+    
+    func getHotelsListOnPreferenceResult ( params: JSONDictionary, loader: Bool = true , completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsSearched]) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.hotelListOnPreferenceResult, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject , let hotels = response["results"] as? [JSONDictionary]   {
+                    let hotelsInfo = HotelsSearched.models(jsonArr: hotels)
+                    completionBlock(true, [], hotelsInfo)
+                } else {
+                    completionBlock(false , [], [])
+                }
+            }, failure: { (errors) in
+                completionBlock(false , [] , [])
+            })
+        }) { (error) in
+            completionBlock(false, [], [])
+        }
+    }
 }

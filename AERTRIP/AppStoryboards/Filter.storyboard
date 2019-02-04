@@ -66,6 +66,7 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="ni6-VP-icC" firstAttribute="leading" secondItem="We1-vK-Fq2" secondAttribute="leading" constant="16" id="4rL-o4-K5t"/>
                                             <constraint firstAttribute="trailing" secondItem="yTY-5z-BDT" secondAttribute="trailing" constant="16" id="652-bg-8JU"/>
@@ -91,6 +92,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="5E7-et-eDD"/>
                             <constraint firstItem="e2I-lS-6Bs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="404:667" id="84b-iL-w0d"/>

@@ -15,6 +15,7 @@ protocol BulkBookingVMDelegate: class {
 class BulkBookingVM {
     
     //MARK:- Properties
+    var ratingCount: [Int] = []
     //MARK:- Public
     weak var delegate: BulkBookingVMDelegate?
     
