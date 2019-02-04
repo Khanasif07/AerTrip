@@ -13,7 +13,7 @@ protocol RoomDataDelegate: class {
 }
 
 class AddRoomPictureCell: UICollectionViewCell {
-
+    
     //Mark:- Variables
     //================
     internal weak var delegate: ExpandedCellDelegate?
@@ -41,7 +41,7 @@ class AddRoomPictureCell: UICollectionViewCell {
         // Initialization code
         self.configureUI()
     }
-
+    
     //Mark:- IBActions
     //================
     @IBAction func adultPopUpAction(_ sender: UIButton) {
@@ -98,9 +98,11 @@ class AddRoomPictureCell: UICollectionViewCell {
             }
             self.cancelBtnOutlet.isHidden = false
         }
-        self.childStackView.isHidden = viewModel.childrenCounts[indexPath.item] == 0 ? true : false
-        self.adultCountLabel.text = "\(viewModel.adultsCount[indexPath.item])"
-        self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
+        if indexPath.item < 4 {
+            self.childStackView.isHidden = viewModel.childrenCounts[indexPath.item] == 0 ? true : false
+            self.adultCountLabel.text = "\(viewModel.adultsCount[indexPath.item])"
+            self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
+        }
     }
 }
 

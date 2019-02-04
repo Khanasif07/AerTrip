@@ -30,13 +30,11 @@ class HotelsSearchVC: BaseVC {
         return self.addRoomCollectionView.frame.size.width / 2.0
     }
     
+    
     //MARK:- IBOutlets
     //MARK:-
     
-    @IBOutlet weak var cornerTopView: UIView!
-    @IBOutlet weak var cornerBottomView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var whereContainerView: UIView!
     @IBOutlet weak var datePickerView: UIView!
@@ -61,13 +59,15 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
     @IBOutlet weak var addRoomHeightMultiplier: NSLayoutConstraint!
-    @IBOutlet weak var searchViewHeightMultiplier: NSLayoutConstraint!    
+    
+    @IBOutlet weak var addRoomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
         didSet {
             self.addRoomCollectionView.delegate = self
             self.addRoomCollectionView.dataSource = self
         }
     }
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     
     
     //MARK:- ViewLifeCycle
@@ -82,14 +82,12 @@ class HotelsSearchVC: BaseVC {
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
         self.scrollViewContentSize = self.scrollView.contentSize
-        self.yPositionOfBottomView = self.cornerBottomView.frame.origin.y
     }
     
     override func viewDidLayoutSubviews() {
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
-        //self.updateContainerViewFrame()
     }
     
     override func bindViewModel() {
@@ -172,13 +170,9 @@ class HotelsSearchVC: BaseVC {
     private func initialSetups() {
         self.cityNameLabel.isHidden = true
         self.stateNameLabel.isHidden = true
-//        self.cornerTopView.layer.cornerRadius = 10.0
-//        self.cornerTopView.layer.masksToBounds = true
-//        self.cornerBottomView.layer.cornerRadius = 10.0
-//        self.cornerBottomView.layer.masksToBounds = true
-        self.cornerTopView.roundCorners(corners: [.topLeft,.topRight], radius: 10.0)
-        self.cornerBottomView.roundCorners(corners: [.bottomLeft,.bottomRight], radius: 10.0)
-        self.rectangleView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.containerView.cornerRadius = 10.0
+        self.containerView.clipsToBounds = true
+        self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
@@ -208,47 +202,18 @@ class HotelsSearchVC: BaseVC {
     
     ///UpdateCollectionViewFrame
     private func updateCollectionViewFrame() {
-        let expandMultiPlier: CGFloat = (86.0 / 544.0)
         if self.viewModel.adultsCount.count == 2 {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                //self.containerView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
-                //self.rectangleView.frame.size.height = self.containerViewHeight + self.collectionViewHeight
-                self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight + self.collectionViewHeight)
-                self.cornerBottomView.frame.origin.y = self.yPositionOfBottomView + self.collectionViewHeight
-                self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight + self.collectionViewHeight)
-                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
-                self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier * 2.0)
-                self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
-            }, completion: { (isDone) in
-                self.view.layoutIfNeeded()
-            })
-        } else if self.viewModel.adultsCount.count == 1 {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                //self.containerView.frame.size.height = self.containerViewHeight
-                //self.rectangleView.frame.size.height = self.containerViewHeight
-                self.scrollView.contentSize.height = self.scrollViewContentSize.height
-                self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight)
-                self.cornerBottomView.frame.origin.y = self.yPositionOfBottomView
-                self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: self.containerViewHeight)
-                self.addRoomHeightMultiplier = self.addRoomHeightMultiplier.setMultiplier(multiplier: expandMultiPlier)
-                self.searchViewHeightMultiplier = self.searchViewHeightMultiplier.setMultiplier(multiplier: 129.0 / 544.0)
-            }, completion: { (isDone) in
-                self.view.layoutIfNeeded()
-            })
-        }
-        self.view.layoutIfNeeded()
-    }
-    
-    ///UpdateContainerViewFrame
-    private func updateContainerViewFrame() {
-        if self.viewModel.adultsCount.count == 2 {
-            self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight + collectionViewHeight)
-            self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight + collectionViewHeight)
             self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+            self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+                self.view.layoutIfNeeded()
+            }
         } else if self.viewModel.adultsCount.count == 1 {
-            self.containerView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight)
-            self.rectangleView.frame = CGRect(x: 16, y: 0, width: UIScreen.main.bounds.width - 16, height: containerViewHeight)
+            self.containerViewHeightConstraint.constant =  self.containerViewHeight
             self.scrollView.contentSize.height = self.scrollViewContentSize.height
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -256,21 +221,6 @@ class HotelsSearchVC: BaseVC {
     private func reloadCollectionView() {
         UIView.performWithoutAnimation {
             self.addRoomCollectionView.reloadData()
-        }
-    }
-    
-    ///Data Swapping
-    private func dataSwapping(indexPath: IndexPath) {
-        for index in indexPath.item...(self.viewModel.adultsCount.count - 1) {
-            if index != (self.viewModel.adultsCount.count - 1) {
-                self.viewModel.adultsCount[index] = self.viewModel.adultsCount[index + 1]
-                self.viewModel.childrenCounts[index] = self.viewModel.childrenCounts[index + 1]
-                self.viewModel.childrenAge[index] = self.viewModel.childrenAge[index + 1]
-            } else {
-                self.viewModel.adultsCount[index] = 1
-                self.viewModel.childrenCounts[index] = 0
-                self.viewModel.childrenAge[index] = []
-            }
         }
     }
     
@@ -554,4 +504,5 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         self.searchBtnOutlet.isLoading = false
     }
 }
+
 
