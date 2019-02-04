@@ -56,8 +56,8 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         deleteButton.isHidden = false
         rightViewTextField.isEnabled = true
         leftView.isUserInteractionEnabled = true
-        leftTitleLabel.textColor = AppColors.textFieldTextColor
-        rightViewTextField.textColor = AppColors.textFieldTextColor
+        leftTitleLabel.textColor = AppColors.textFieldTextColor51
+        rightViewTextField.textColor = AppColors.textFieldTextColor51
         blackDownImageView.isHidden = false
         
        

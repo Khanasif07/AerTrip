@@ -62,7 +62,7 @@ extension SortVC : UITableViewDataSource,UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SortTableViewCell else {
            return UITableViewCell()
         }
-        cell.leftTitleLabel.textColor = indexPath.row == 0 ? AppColors.themeGreen : AppColors.textFieldTextColor
+        cell.leftTitleLabel.textColor = indexPath.row == 0 ? AppColors.themeGreen : AppColors.textFieldTextColor51
         cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "will change")
         return cell
     }

@@ -33,7 +33,7 @@ class AddNotesTableViewCell: UITableViewCell {
     func configureCell(_ note: String) {
         titleLabel.text = LocalizedString.Notes.localized
         if !note.isEmpty {
-            addNoteTextView.textColor = AppColors.textFieldTextColor
+            addNoteTextView.textColor = AppColors.textFieldTextColor51
             addNoteTextView.text = note
         }
     }
@@ -47,7 +47,7 @@ extension AddNotesTableViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if addNoteTextView.text == LocalizedString.AddNotes.localized {
             addNoteTextView.text = nil
-            addNoteTextView.textColor = AppColors.textFieldTextColor
+            addNoteTextView.textColor = AppColors.textFieldTextColor51
         }
     }
 

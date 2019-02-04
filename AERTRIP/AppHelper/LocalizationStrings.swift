@@ -347,7 +347,6 @@ enum LocalizedString: String {
     
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
-    case StarRating = "Star Rating"
     case Distance = "Distance"
     
     

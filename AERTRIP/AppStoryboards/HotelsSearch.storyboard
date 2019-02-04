@@ -18,10 +18,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Hotels SearchVC-->
+        <!--Hotels SearchV Cfdsafds-->
         <scene sceneID="mJj-aD-Euu">
             <objects>
-                <viewController storyboardIdentifier="HotelsSearchVC" id="epQ-be-B7O" customClass="HotelsSearchVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HotelsSearchVCfdsafjas" id="epQ-be-B7O" customClass="HotelsSearchVCfdsafds" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lR3-C8-zwl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,9 +80,8 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Gp-13-qTx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="-222.63868065967017"/>
+            <point key="canvasLocation" x="2967" y="-199"/>
         </scene>
-
         <!--Room Guest SelectionVC-->
         <scene sceneID="Nd8-Mo-0b1">
             <objects>
@@ -454,6 +453,7 @@
                         <outlet property="adultsTitleLabel" destination="yjK-WQ-Je6" id="bi0-jZ-bVD"/>
                         <outlet property="ageSelectionLabel" destination="0xE-Fl-E9z" id="YLk-nu-fr4"/>
                         <outlet property="agesContainerView" destination="HUI-0p-4mT" id="zGm-oi-5mH"/>
+                        <outlet property="backgroundView" destination="wQ8-vH-tRF" id="Qfb-EO-4LU"/>
                         <outlet property="childAgeLabel" destination="g1S-qw-9R4" id="7jB-vi-gcd"/>
                         <outlet property="childTitleLabel" destination="a4T-Rh-pJz" id="2i9-7h-4dG"/>
                         <outlet property="doneButton" destination="SIx-my-o63" id="vXd-2r-hWL"/>
@@ -478,7 +478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecs-xr-Ivg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3204" y="-261"/>
+            <point key="canvasLocation" x="3602" y="-242"/>
         </scene>
         <!--Bulk BookingVC-->
         <scene sceneID="V0g-uA-2Iv">

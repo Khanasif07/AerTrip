@@ -47,7 +47,7 @@ class RangeVC: BaseVC {
     
     override func setupColors() {
         self.rangeView.backgroundColor = AppColors.themeGray10
-        self.rangeLabel.textColor = AppColors.textFieldTextColor
+        self.rangeLabel.textColor = AppColors.textFieldTextColor51
     }
     
     
