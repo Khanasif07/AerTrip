@@ -36,6 +36,7 @@ class LinkedAccountsVM {
                 self.delegate?.fetchLinkedAccountSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
                 self.delegate?.fetchLinkedAccountFail()
             }
         }
@@ -52,6 +53,7 @@ class LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
             }
         }
     }
@@ -106,7 +108,7 @@ extension LinkedAccountsVM {
             self.userData.authKey        = model.accessToken
             self.userData.firstName       = model.name
             self.userData.email          = model.email
-            self.userData.service         = "google"
+            self.userData.service         = "google_oauth"
             self.userData.id            = model.id
             
             if let imageURl = model.image {
@@ -150,7 +152,7 @@ extension LinkedAccountsVM {
                     self.userData.firstName  = data["firstName"] as? String ?? ""
                     self.userData.lastName  = data["lastName"]  as? String ?? ""
                     self.userData.id            = data["id"] as? String ?? ""
-                    self.userData.service   = "linkedin"
+                    self.userData.service   = "linkedin_oauth2"
                     self.userData.email      =  data["emailAddress"] as? String ?? ""
                     self.userData.picture   = data["pictureUrl"] as? String ?? ""
                     
@@ -193,12 +195,13 @@ extension LinkedAccountsVM {
         let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
         params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
         
-        APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, errors) in
+        APICaller.shared.callSocialLinkAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
                 self.fetchLinkedAccounts()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
             }
         })
     }

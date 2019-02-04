@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,19 +28,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAJ-1W-iho">
-                                <rect key="frame" x="46" y="10" width="41.5" height="22.5"/>
+                                <rect key="frame" x="16" y="10" width="41.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VvP-9C-2C8">
-                                <rect key="frame" x="260.5" y="11" width="43.5" height="22.5"/>
+                                <rect key="frame" x="230.5" y="11" width="73.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sA-q3-lMG">
-                                <rect key="frame" x="46" y="42.5" width="274" height="1"/>
+                                <rect key="frame" x="16" y="42.5" width="304" height="1"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="zWl-Y8-Znc"/>
@@ -56,7 +56,7 @@
                             <constraint firstAttribute="bottom" secondItem="dAJ-1W-iho" secondAttribute="bottom" constant="11" id="fbg-pJ-LtL"/>
                             <constraint firstItem="VvP-9C-2C8" firstAttribute="top" secondItem="1Ji-20-EO0" secondAttribute="top" constant="11" id="gWH-5S-hPZ"/>
                             <constraint firstAttribute="bottom" secondItem="VvP-9C-2C8" secondAttribute="bottom" constant="10" id="kZh-VZ-rDd"/>
-                            <constraint firstItem="dAJ-1W-iho" firstAttribute="leading" secondItem="1Ji-20-EO0" secondAttribute="leading" constant="46" id="nV3-bc-R8a"/>
+                            <constraint firstItem="dAJ-1W-iho" firstAttribute="leading" secondItem="1Ji-20-EO0" secondAttribute="leading" constant="16" id="nV3-bc-R8a"/>
                             <constraint firstAttribute="trailing" secondItem="VvP-9C-2C8" secondAttribute="trailing" constant="16" id="vJO-4N-3pp"/>
                             <constraint firstItem="dAJ-1W-iho" firstAttribute="top" secondItem="1Ji-20-EO0" secondAttribute="top" constant="10" id="xLK-97-twI"/>
                         </constraints>

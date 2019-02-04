@@ -19,6 +19,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     var statusBarStyle: UIStatusBarStyle = .default {
         didSet{
+            /*HINT:
+             Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
+            */
             UIApplication.shared.statusBarStyle = statusBarStyle
         }
     }

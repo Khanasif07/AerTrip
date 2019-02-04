@@ -385,24 +385,37 @@ extension UIViewController {
     func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void)) {
         
         func retrieveContactsWithStore(_ store: CNContactStore) {
+
+            let contactStore = CNContactStore()
+            let keysToFetch = [
+                CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
+                CNContactEmailAddressesKey,
+                CNContactPhoneNumbersKey,
+                CNContactImageDataKey] as [Any]
+            
+            // Get all the containers
+            var allContainers: [CNContainer] = []
             do {
-                let groups = try store.groups(matching: nil)
-                if groups.isEmpty {
-                    complition([])
-                   
-                }
-                else {
-                    let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
-                    //let predicate = CNContact.predicateForContactsMatchingName("John")
-                    let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey] as [Any]
-                    
-                    let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-                    
-                    complition(contacts)
-                }
+                allContainers = try contactStore.containers(matching: nil)
             } catch {
-                printDebug("Error in fetching contacts: \(error)")
+                print("Error fetching containers")
             }
+            
+            var results: [CNContact] = []
+            
+            // Iterate all containers and append their contacts to our results array
+            for container in allContainers {
+                let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
+                
+                do {
+                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    results.append(contentsOf: containerResults)
+                } catch {
+                    print("Error fetching results for container")
+                }
+            }
+            
+            complition(results)
         }
         
         let store = CNContactStore()

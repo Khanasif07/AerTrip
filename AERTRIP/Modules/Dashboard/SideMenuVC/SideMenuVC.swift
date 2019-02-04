@@ -32,15 +32,14 @@ class SideMenuVC: BaseVC {
         }
     }
     
-    
-    
-    
     // MARK: -
     
     let viewModel = SideMenuVM()
     let socialViewModel = SocialLoginVM()
     
     weak var delegate: SideMenuVCDelegate?
+    
+    var profileSuperView: UIView!
     
     // MARK: - IBOutlets
     
@@ -80,9 +79,15 @@ class SideMenuVC: BaseVC {
             }
             else {
                 self.profileContainerView = self.getProfileView()
-                self.sideMenuTableView.addSubview(self.profileContainerView)
+                self.profileContainerView.delegate = self
+                self.profileContainerView.isUserInteractionEnabled = true
+                self.profileSuperView.addSubview(self.profileContainerView)
             }
         }
+    }
+    
+    @objc func profileTapped() {
+        print("dfasdfasdf")
     }
     
     func getAppLogoView() -> SideMenuLogoView {
@@ -94,12 +99,13 @@ class SideMenuVC: BaseVC {
     }
     
     private func updateLogoView(view: SideMenuLogoView) {
-        view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 150.0)
+        view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        view.profileImageView.layer.borderWidth = 3.0
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
         
@@ -114,15 +120,17 @@ class SideMenuVC: BaseVC {
         }
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            view.profileImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
+            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+          //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
         }
         else {
-            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
         }
         
-        view.frame = CGRect(x: 0.0, y: 50.0, width: self.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
         view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -137,12 +145,13 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
-        
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .default
     }
+    
+  
     
     // MARK: - IBAction
     
@@ -162,8 +171,17 @@ class SideMenuVC: BaseVC {
 }
 
 // MARK: - Extension SetupView
-
 // MARK: -
+
+extension SideMenuVC: SlideMenuProfileImageHeaderViewDelegate {
+    func profileHeaderTapped() {
+        
+    }
+    
+    func profileImageTapped() {
+        self.delegate?.viewProfileAction(ATButton())
+    }
+}
 
 private extension SideMenuVC {
     func initialSetups() {
@@ -214,19 +232,17 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuProfileImageCell", for: indexPath) as? SideMenuProfileImageCell else {
-                    fatalError("SideMenuProfileImageCell not found")
+                    return UITableViewCell()
                 }
                 
-                cell.populateData()
-                cell.profileImage.isHidden = true
-                cell.userNameLabel.isHidden = true
+                self.profileSuperView = cell.profileSuperView
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell
                 
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "GuestSideMenuHeaderCell", for: indexPath) as? GuestSideMenuHeaderCell else {
-                    fatalError("GuestSideMenuHeaderCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.logoContainerView.isHidden = true
@@ -239,7 +255,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuViewAccountCell", for: indexPath) as? SideMenuViewAccountCell else {
-                    fatalError("SideMenuViewAccountCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.populateData()
@@ -247,7 +263,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
-                    fatalError("SideMenuOptionsLabelCell not found")
+                    return UITableViewCell()
                 }
                 
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
@@ -257,7 +273,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         default:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
-                fatalError("SideMenuOptionsLabelCell not found")
+                return UITableViewCell()
             }
             
             if let _ = UserInfo.loggedInUserId {
@@ -283,6 +299,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch indexPath.row {
+        case 0:
+            return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
+            
+        case 1:
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : 60.03
+            
+        default:
+            return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7
+        }
     }
 }

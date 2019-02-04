@@ -48,23 +48,22 @@ class DefaultNavigationTransition: NSObject, UIViewControllerAnimatedTransitioni
         if self.transitionMode == .push {
             //handel push animation
             guard let fromVC = transitionContext.viewController(forKey: .from),
-                let toVC = transitionContext.viewController(forKey: .to), let snapshot = fromVC.view.snapshotView(afterScreenUpdates: false) else {
+                let toVC = transitionContext.viewController(forKey: .to) else {
                     transitionContext.completeTransition(false)
                     return
             }
             
-            containerView.addSubview(snapshot)
-            fromVC.view.removeFromSuperview()
+            containerView.addSubview(fromVC.view)
             
             toVC.view.frame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
             
-            let snapFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
-            let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
+            let fromFrame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: fromVC.view.width, height: fromVC.view.height)
+            let toFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             
             UIView.animate(withDuration: self.duration, animations: {
-                snapshot.frame = snapFrame
-                toVC.view.frame = viewFrame
+                fromVC.view.frame = fromFrame
+                toVC.view.frame = toFrame
                 
             }) { (isCompleted) in
                 if isCompleted {
@@ -74,24 +73,25 @@ class DefaultNavigationTransition: NSObject, UIViewControllerAnimatedTransitioni
         }
         else {
             //handel pop animation
+            
             guard let fromVC = transitionContext.viewController(forKey: .from),
-                let toVC = transitionContext.viewController(forKey: .to), let snapshot = fromVC.view.snapshotView(afterScreenUpdates: false) else {
+                let toVC = transitionContext.viewController(forKey: .to) else {
                     transitionContext.completeTransition(false)
                     return
             }
             
-            containerView.addSubview(snapshot)
-            fromVC.view.removeFromSuperview()
+            fromVC.view.frame = CGRect(x: 0.0, y: 0.0, width: fromVC.view.width, height: fromVC.view.height)
+            containerView.addSubview(fromVC.view)
             
             toVC.view.frame = CGRect(x: -UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
             containerView.addSubview(toVC.view)
             
-            let snapFrame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: toVC.view.width, height: toVC.view.height)
-            let viewFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
+            let fromFrame = CGRect(x: UIDevice.screenWidth, y: 0.0, width: fromVC.view.width, height: fromVC.view.height)
+            let toFrame = CGRect(x: 0.0, y: 0.0, width: toVC.view.width, height: toVC.view.height)
 
             UIView.animate(withDuration: self.duration, animations: {
-                snapshot.frame = snapFrame
-                toVC.view.frame = viewFrame
+                fromVC.view.frame = fromFrame
+                toVC.view.frame = toFrame
                 
             }) { (isCompleted) in
                 if isCompleted {

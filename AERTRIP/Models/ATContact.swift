@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import PhoneNumberKit
 
 struct ATContact {
     
@@ -72,12 +73,44 @@ struct ATContact {
         for obj in phoneContactsArr {
             var contact = ATContact()
             contact.internalLabel = Label.phone.rawValue
-            contact.firstName = obj.givenName
-            contact.lastName = obj.familyName
+            if obj.givenName.contains(" ") {
+                let arr = obj.givenName.components(separatedBy: " ")
+                if arr.count > 1 {
+                    contact.firstName = arr[0]
+                    contact.lastName = arr[1]
+                }
+                else if arr.count == 1{
+                    contact.firstName = arr[0]
+                }
+            }
+            else {
+                contact.firstName = obj.givenName
+                contact.lastName = obj.familyName
+            }
+
             if let email = obj.emailAddresses.first {
                 contact.email = email.value as String
                 contact.emailLabel = "internet"
             }
+            
+            if let phone = obj.phoneNumbers.first {
+                let tempNumber = phone.value.stringValue
+                contact.contact = phone.value.stringValue
+                do {
+                    let temp = try PhoneNumberKit().parse(tempNumber)
+                    contact.contact = "\(temp.nationalNumber)"
+                    contact.isd = "+\(temp.countryCode)"
+                }
+                catch {
+                    printDebug("not able to parse the number")
+                    contact.contact = ""
+                }
+            }
+            
+            if let imgData = obj.imageData {
+                contact.image = AppGlobals.shared.saveImage(data: imgData)
+            }
+            
             temp.append(contact)
         }
         return temp

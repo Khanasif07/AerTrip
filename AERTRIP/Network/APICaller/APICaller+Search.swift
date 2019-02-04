@@ -24,11 +24,15 @@ extension APICaller {
                 
             }, failure: { (errors) in
                  completionBlock(false,[],errors)
-                print(errors)
             })
             
         }) { (error) in
-           
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
 }

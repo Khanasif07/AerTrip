@@ -60,6 +60,7 @@ extension ForgotPasswordVM {
                 self.delegate?.didLoginSuccess(email: email)
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didLoginFail(errors: errors)
             }
         })

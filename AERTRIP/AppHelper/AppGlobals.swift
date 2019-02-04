@@ -76,22 +76,15 @@ struct AppGlobals {
         return labels
     }
     
-     func getImageFromText(_ fromText: String) -> UIImage {
-        return UIImage(text: fromText, font: UIFont.systemFont(ofSize: 20.0), color: AppColors.themeGray40, backgroundColor: UIColor.white, size: CGSize(width: 50, height: 50), offset: CGPoint(x: 0, y: 12))!
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
+        let size = 75.0
+        return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: CGPoint(x: 0, y: 12))!
     }
 
-    func showErrorOnToastView(errors: ErrorCodes, viewController: UIViewController) {
+    func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: viewController)
+        let (_, message) = ATErrorManager.default.error(forCodes: errors, module: module)
+        AppToast.default.showToastMessage(message: message)
     }
     
     // convert Date from one format to another
@@ -126,6 +119,28 @@ struct AppGlobals {
     
     var pKAlertCancelButton: PKAlertButton {
         return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
+    }
+    
+    
+    func saveImage(data: Data) -> String {
+        // get the documents directory url
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "\(UIDevice.uuidString).jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        
+        FileManager.removeFile(atPath: fileURL.path)
+        do {
+            // writes the image data to disk
+            try data.write(to: fileURL)
+            return fileURL.path
+            printDebug("file saved")
+        } catch {
+            printDebug("error saving file:")
+            return ""
+        }
     }
 }
 

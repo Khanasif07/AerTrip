@@ -185,6 +185,7 @@ extension HotelSearchVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             self.viewModel.hotels.removeAll()
+            self.collectionView.backgroundView = self.emptyView
             self.collectionView.reloadData()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
@@ -197,6 +198,7 @@ extension HotelSearchVC: UISearchBarDelegate {
         let searchText = searchBar.text ?? ""
         if searchText == "" {
             self.viewModel.hotels.removeAll()
+            self.collectionView.backgroundView = self.emptyView
             self.collectionView.reloadData()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false

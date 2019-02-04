@@ -20,6 +20,7 @@ private class BadgeInfo {
 
 public class ATCategoryNavBar: UIView {
     public weak var delegate: ATCategoryNavBarDelegate?
+    public weak var internalDelegate: ATCategoryNavBarDelegate?
     
     fileprivate var barStyle: ATCategoryNavBarStyle
     
@@ -379,11 +380,13 @@ private extension ATCategoryNavBar {
         
         
         delegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
+        internalDelegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
         
         handleBtnSwitching(currentBtn: btn)
         handleIndicator(currentBtn: btn)
         handleBgMaskView(currentBtn: btn)
         delegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
+        internalDelegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
     }
     
     func handleBtnSwitching(currentBtn: UIButton) {
@@ -439,7 +442,7 @@ private extension ATCategoryNavBar {
         guard barStyle.isScrollable else {
             return
         }
-        
+    
         var centerX = currentBtn.center.x - scrollView.bounds.width * 0.5
         if centerX < 0.0 {
             // for labels positioned on the left side of scrollView.bounds.width * 0.5
@@ -448,9 +451,14 @@ private extension ATCategoryNavBar {
         }
         
         // the x position for the last screen of the scroll
-        let maxLeftEdge = scrollView.contentSize.width - bounds.width
-        if centerX > maxLeftEdge{
-            centerX = maxLeftEdge
+        if self.barStyle.layoutAlignment == .left, scrollView.contentSize.width < bounds.width {
+            centerX = 0.0
+        }
+        else {
+            let maxLeftEdge = scrollView.contentSize.width - bounds.width
+            if centerX > maxLeftEdge{
+                centerX = maxLeftEdge
+            }
         }
         
         scrollView.setContentOffset(CGPoint(x: centerX, y: 0.0), animated: true)

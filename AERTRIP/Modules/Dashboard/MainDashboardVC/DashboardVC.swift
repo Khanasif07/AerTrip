@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DashboardVC: UIViewController {
+class DashboardVC: BaseVC {
 
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var innerScrollView: UIScrollView!
@@ -57,7 +57,6 @@ class DashboardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
-        
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
@@ -66,7 +65,6 @@ class DashboardVC: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
 
@@ -86,6 +84,12 @@ class DashboardVC: UIViewController {
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
             self.setupInitialAnimation()
         }
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        printDebug("data changed notfication received")
+//        resetItems()
+        updateProfileButton()
     }
     
     //MARK:- IBAction
@@ -121,7 +125,6 @@ class DashboardVC: UIViewController {
 
     //MARK:- Private
     private func resetItems(){
-
         aerinView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         aerinView.alpha = 0.5
         flightsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -130,23 +133,10 @@ class DashboardVC: UIViewController {
         hotelsView.alpha = 0.5
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
-
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let url = URL(string: imagePath) {
-            self.profileButton.kf.setImage(with: url, for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
-        }
-        else {
-            if let userInfo = UserInfo.loggedInUser {
-                self.profileButton.setImage(userInfo.profileImagePlaceholder, for: .normal)
-                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
-                self.profileButton.layer.borderWidth = 2.0
-            }
-            else {
-                self.profileButton.setImage(AppPlaceholderImage.user, for: .normal)
-                self.profileButton.layer.borderColor = AppColors.clear.cgColor
-                self.profileButton.layer.borderWidth = 0.0
-            }
-
-        }
+        statusBarStyle = .lightContent
+       
+//        aerinView.transform = CGAffineTransform.identity
+//        aerinView.alpha = 1.0
     }
     
     private func addOverlayView() {
@@ -186,14 +176,15 @@ class DashboardVC: UIViewController {
         self.headerView.transform = CGAffineTransform(translationX: 0.0, y: -60.0)
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
+        let rDuration = 1.0 / 2.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration * 2.0, delay: 0.0, options: .calculationModeLinear, animations: {
 
 
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.overlayView.transform = tScale.concatenating(tTrans)
             })
 
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.headerView.transform = CGAffineTransform.identity
                 self.segmentContainerView.transform = CGAffineTransform.identity
             })
@@ -216,9 +207,28 @@ class DashboardVC: UIViewController {
 //            }
 //        }
     }
+    
+    private func updateProfileButton() {
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
+            //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
+        } else {
+            if let userInfo = UserInfo.loggedInUser {
+                self.profileButton.setImage(userInfo.profileImagePlaceholder(), for: .normal)
+                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+                self.profileButton.layer.borderWidth = 2.0
+            }
+            else {
+                self.profileButton.setImage(AppPlaceholderImage.user, for: .normal)
+                self.profileButton.layer.borderColor = AppColors.clear.cgColor
+                self.profileButton.layer.borderWidth = 0.0
+            }
+            
+        }
+    }
 }
 
-extension DashboardVC : UIScrollViewDelegate {
+extension DashboardVC  {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 
@@ -228,10 +238,10 @@ extension DashboardVC : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if scrollView == mainScrollView {
-
+            
             var transform : CGFloat = 0.0
 
-            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0{
+            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
@@ -244,7 +254,7 @@ extension DashboardVC : UIScrollViewDelegate {
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
             }
-
+        
             switch selectedOption{
                 case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
                 case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp)

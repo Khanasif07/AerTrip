@@ -11,6 +11,7 @@ import CoreData
 
 protocol PreferencesVCDelegate:class {
     func preferencesUpdated()
+    func cancelButtonTapped()
 }
 
 class PreferencesVC: BaseVC {
@@ -50,6 +51,7 @@ class PreferencesVC: BaseVC {
     // MARK: - IB Actions
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        delegate?.cancelButtonTapped()
         dismiss(animated: true, completion: nil)
     }
     
@@ -308,10 +310,9 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if sections[indexPath.section] == LocalizedString.Groups, indexPath.row != viewModel.groups.count {
+        if sections[indexPath.section] == LocalizedString.Groups {
             return true
         }
-        
         return false
     }
 }

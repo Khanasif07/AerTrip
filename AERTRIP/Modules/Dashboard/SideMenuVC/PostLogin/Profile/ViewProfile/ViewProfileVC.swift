@@ -21,11 +21,17 @@ class ViewProfileVC: BaseVC {
     @IBOutlet var editButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var drawableHeaderView: UIView!
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var drawableHeaderView: UIView!
+    @IBOutlet weak var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
+    
+    private var headerViewHeight: CGFloat {
+        return UIDevice.isIPhoneX ? 84.0 : 64.0
+    }
+    
+    private let headerHeightToAnimate: CGFloat = 30.0
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
@@ -52,7 +58,6 @@ class ViewProfileVC: BaseVC {
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            
         }
         self.doInitialSetup()
     }
@@ -76,8 +81,6 @@ class ViewProfileVC: BaseVC {
         self.viewModel.delegate = self
     }
     
-   
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -97,16 +100,23 @@ class ViewProfileVC: BaseVC {
     // MARK: - Helper Methods
     
     func doInitialSetup() {
+        
+        self.headerView.backgroundColor = AppColors.clear
+        self.headerViewHeightConstraint.constant = headerViewHeight
+        
+        self.drawableHeaderView.backgroundColor = AppColors.themeWhite
+        self.drawableHeaderView.isHidden = true
+        self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
+        
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         self.editButton.setTitle(LocalizedString.Edit.rawValue, for: .normal)
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.dividerView.isHidden = true
     }
     
     func setupParallaxHeader() { // Parallax Header
@@ -115,55 +125,33 @@ class ViewProfileVC: BaseVC {
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
         profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
-        
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         self.tableView.parallaxHeader.height = parallexHeaderHeight
-        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.bottom
         self.tableView.parallaxHeader.delegate = self
         
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        if let mobileNumber = UserInfo.loggedInUser?.mobile ,let isd = UserInfo.loggedInUser?.isd {
-             self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
+        if let mobileNumber = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, !isd.isEmpty {
+            self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
-            self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-        }
-        else {
-            profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
-            profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder
+          //  self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
+         //   self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.blurEffectView.alpha = 1.0
+        } else {
+            
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur
+            self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
         
+        self.view.bringSubviewToFront(self.drawableHeaderView)
         self.view.bringSubviewToFront(self.headerView)
     }
-    
-    func deSetupParallaxHeader() {
-        self.profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = true
-        self.profileImageHeaderView?.removeFromSuperview()
-        self.tableView.parallaxHeader.view = nil
-        self.profileImageHeaderView?.layoutIfNeeded()
-    }
-    
-    func addBlurToImage() {
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            self.view.backgroundColor = .clear
-            
-            let blurEffect = UIBlurEffect(style: .light)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //always fill the view
-            blurEffectView.frame = self.view.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            profileImageHeaderView?.backgroundImageView.addSubview(blurEffectView)
-        } else {
-            self.view.backgroundColor = .black
-        }
-    }
-    
-    
-   
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -187,7 +175,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
+        return 80.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -245,10 +233,10 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
+                
                 if index == 0 {
-                    UserInfo.loggedInUserId = nil
-                    AppFlowManager.default.goToDashboard()
-                    CoreDataManager.shared.deleteCompleteDB()
+                    self.viewModel.webserviceForLogOut()
+                  
                 }
             }
             
@@ -262,36 +250,46 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        NSLog("progress %f", parallaxHeader.progress)
+        printDebug("progress \(parallaxHeader.progress)")
         
         if parallaxHeader.progress >= 0.6 {
             self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress
         }
         
         if parallaxHeader.progress <= 0.5 {
+            
+            self.drawableHeaderView.isHidden = false
+            self.drawableHeaderView.alpha = (1.0 - parallaxHeader.progress)
+            
+            let old = headerViewHeight - headerHeightToAnimate
+            self.drawableHeaderViewHeightConstraint.constant = (old + self.getProgressiveHeight(forProgress: parallaxHeader.progress))
+            
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.headerView.backgroundColor = UIColor.white
+//                self?.headerView.backgroundColor = UIColor.white
                 self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 self?.backButton.setImage(tintedImage, for: .normal)
-                 self?.dividerView.isHidden = false
                 self?.backButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
                 self?.headerLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
-            self.drawableHeaderView.backgroundColor = UIColor.clear
-            self.drawableHeaderViewHeightConstraint.constant = 0
-            self.headerView.backgroundColor = UIColor.clear
-            self.dividerView.isHidden = true
+            self.drawableHeaderView.alpha = 0.5
+            self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
+            self.drawableHeaderView.isHidden = true
             self.editButton.setTitleColor(UIColor.white, for: .normal)
             self.backButton.tintColor = UIColor.white
             self.headerLabel.text = ""
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
+    }
+    
+    func getProgressiveHeight(forProgress: CGFloat) -> CGFloat {
+        let ratio: CGFloat = headerHeightToAnimate / CGFloat(0.5)
+        return headerHeightToAnimate - (forProgress * ratio)
     }
 }
 
@@ -309,6 +307,21 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
 }
 
 extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willLogOut() {
+        //
+    }
+    
+    func didLogOutSuccess() {
+        //
+        UserInfo.loggedInUserId = nil
+        AppFlowManager.default.goToDashboard()
+        CoreDataManager.shared.deleteCompleteDB()
+    }
+    
+    func didLogOutFail(errors: ErrorCodes) {
+        //
+    }
+    
     func willGetDetail() {
         //
     }
@@ -316,6 +329,8 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     func getSuccess(_ data: TravelDetailModel) {
         self.travelData = data
         self.tableView.reloadData()
+        
+        NotificationCenter.default.post(name: .dataChanged, object: nil)
         self.setupParallaxHeader()
     }
     

@@ -1,0 +1,75 @@
+1,Service Name,Error Code,Error Description,Error Message
+2,,,,
+3,users/login,-1,Not Logged In,
+4,,1,email required,Email ID is required
+5,,2,invalid email format,Kindly provide a valid email ID
+6,,3,password is required,Password is required
+7,,4,Multiple user accounts with this email id,Multiple user accounts with this email id
+8,,5,No user account with this email id,The email ID and / or password you have entered is incorrect.
+9,,6,user type not matched,The email ID and / or password you have entered is incorrect.
+10,,7,Invalid Password,The email ID and / or password you have entered is incorrect.
+11,,8,user not found,The email ID and / or password you have entered is incorrect.
+12,,9,Link has been expired,Link has been expired
+13,,10,Link already used to create a user,Link already used to create a user
+14,,11,user id required,User not found
+15,,12,Account master id required,Invalid user data
+16,,13,user type id required,Invalid user data
+17,,14,user group id required,Invalid user data
+18,,15,user type code required,Invalid user data
+19,,16,user member id required,Invalid user data
+20,,17,membership number required,Invalid user data
+21,,18,Hash key is required,Please provide valid hash key
+22,,19,passenger id required,Invalid user data
+23,,20,contact source id required,Invalid user data
+24,,21,billing name required,Invalid user data
+25,,22,billing address id required,Invalid user data
+26,,23,credit type required,Invalid user data
+27,,24,default country required,Invalid user data
+28,,25,preferred currency required,Invalid user data
+29,,26,refund mode required,Invalid user data
+30,,27,user already registerd with this email id,User already registerd with this email id
+31,,28,email active as social user,User already registerd with this email id
+32,,29,user with no password and not in social,User already registerd with this email id
+33,,30,user already logged in,User already logged in
+34,,31,capcha atempts limit over,Capcha atempts limit over
+35,,32,guest login is not permitted for this user,guest login is not permitted for this user
+36,,33,something went wrong. please try again,something went wrong. please try again
+37,,34,For Mobile App only,For Mobile App only
+38,,35,Failed to register Email Change Request,Failed to register Email Change Request
+39,,117,No user account with this email id,No user account with this email id
+40,,,,
+41,users/initial-details,9,Link has been expired,Link has been expired
+42,,36,Token has been expired,Token has been expired
+43,,37,User already created using this link,User already created using this link
+44,,38,Failed to create Account master,Failed to create user
+45,,39,Failed to create user,Failed to create user
+46,,, ,
+47,,,,
+48,users/set-password,40,Password is weak. Please set a stronger password.,Password is weak. Please set a stronger password.
+49,,41,new password is required,Please provide a valid new password
+50,,42,Unable to set new password,Unable to set new password
+51,,,,
+52,,,,
+53,users/reset-password,115,user type not matched,The email ID provided is incorrect
+54,,116,user not found,The email ID provided is incorrect
+55,,106,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.
+56,,,,
+57,,,,
+58,users/update-password,18,Hash key is required,Please provide valid hash key
+59,,43,Token is required,Please provide valid token
+60,,3,password is required,Please provide a valid password
+61,,40,Password is weak. Please set a stronger password.,Password is weak. Please set a stronger password.
+62,,44,Invalid token,Please provide valid token
+63,,8,user not found,The email ID and / or password you have entered is incorrect.
+64,,45,Passowrd has already been reset using this link,Password has already been reset using this link
+65,,9,Link has been expired,Link has been expired
+66,,46,Failed to reset password,Failed to reset password
+67,,,,
+68,user/register,27,user already registerd with this email id,User already registerd with this email id
+69,,88,The previous enquiry for this email id was REJECTED BY CSR,The previous enquiry for this email id was REJECTED BY CSR
+70,,89,Failed to update status of Corp Enquiry,Failed to update status of Corp Enquiry
+71,,90,Something went wrong. Please try again after some time,Something went wrong. Please try again after some time
+72,,91,Failed to send registration email,Failed to send registration email
+73,,,,
+74,users/update-refund-mode,58,mode is required,Refund mode is required
+75,,59,Failed to update refund mode,Failed to update refund mode

@@ -65,9 +65,10 @@ class SocialLoginVM {
         GoogleLoginController.shared.login(success: { (model :  GoogleUser) in
             
             printDebug(model.name)
-            
+            let fullNameArr = model.name.components(separatedBy: " ")
             self.userData.authKey        = model.accessToken
-            self.userData.firstName       = model.name
+            self.userData.firstName       = fullNameArr[0]
+            self.userData.lastName        = fullNameArr[1]
             self.userData.email          = model.email
             self.userData.service         = "google"
             self.userData.id            = model.id
@@ -163,7 +164,7 @@ extension SocialLoginVM {
                 
                 switch self.userData.service.lowercased() {
                 case "linkedin".lowercased():
-                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedIn
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedin
                     
                 case "google".lowercased():
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.google
@@ -178,6 +179,7 @@ extension SocialLoginVM {
                 self.delegate?.didLoginSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didLoginFail(errors: errors)
             }
         })

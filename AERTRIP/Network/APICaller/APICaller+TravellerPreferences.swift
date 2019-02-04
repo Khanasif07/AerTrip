@@ -15,7 +15,7 @@ extension APICaller {
             
             sSelf.handleResponse(json, success: { _, jsonData in
                 if let data = jsonData[APIKeys.data.rawValue].dictionaryObject {
-                    UserInfo.loggedInUser?.updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: data) as! String])
+                    UserInfo.loggedInUser?.updateInfo(withData: [APIKeys.generalPref.rawValue: AppGlobals.shared.json(from: data) ?? ""])
                 }
                 completionBlock(true, [])
                 
@@ -23,8 +23,13 @@ extension APICaller {
                 completionBlock(false, errors)
             })
             
-        }) { error in
-            print(error)
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -40,8 +45,13 @@ extension APICaller {
                 completionBlock(false, errors)
             })
             
-        }) { error in
-            print(error)
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -57,8 +67,13 @@ extension APICaller {
                 completionBlock(false, errors)
             })
             
-        }) { error in
-            print(error)
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
 }

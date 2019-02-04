@@ -12,20 +12,25 @@ extension APICaller {
     
     //MARK: - Api for Active user
     //MARK: -
-    func callActiveUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ message: String)->Void ) {
+    func callActiveUserAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
         AppNetworking.GET(endPoint: APIEndPoint.isActiveUser, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, "")
+                completionBlock(true, [])
                 
             }, failure: { (error) in
-                completionBlock(false, "")
+                completionBlock(false, error)
             })
             
         }) { (error) in
-            completionBlock(false, error.localizedDescription)
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -53,6 +58,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -65,9 +76,19 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 
-                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id =
+                    jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+                    
+                    if let profileName = userData["profile_name"] as? String {
+                        let fullNameArr = profileName.components(separatedBy: " ")
+                        userData[APIKeys.firstName.rawValue] = fullNameArr[0]
+                        userData[APIKeys.lastName.rawValue] = fullNameArr[1]
+                    }
                     
                     UserInfo.loggedInUserId = "\(id)"
+                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
+                    }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }
                 completionBlock(true, [])
@@ -77,7 +98,52 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
+    
+    //MARK: - Api for Social login
+    //MARK: -
+    func callSocialLinkAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,  _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.POST(endPoint: APIEndPoint.socialLink, parameters: params, loader: loader, success: { [weak self] (data) in
+            guard let sSelf = self else {return}
             
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                
+//                if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id =
+//                    jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
+//
+//                    if let profileName = userData["profile_name"] as? String {
+//                        let fullNameArr = profileName.components(separatedBy: " ")
+//                        userData[APIKeys.firstName.rawValue] = fullNameArr[0]
+//                        userData[APIKeys.lastName.rawValue] = fullNameArr[1]
+//                    }
+//
+//                    UserInfo.loggedInUserId = "\(id)"
+//                    if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
+//                        userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
+//                    }
+//                    _ = UserInfo(withData: userData, userId: "\(id)")
+//                }
+                completionBlock(sucess, [])
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors)
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -98,7 +164,12 @@ extension APICaller {
             })
             
         }) { (error) in
-            
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, "", [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -119,6 +190,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, "", [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -139,6 +216,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, "", [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -158,11 +241,6 @@ extension APICaller {
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
                 }
-//                if let userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
-//
-//                    UserInfo.loggedInUserId = "\(id)"
-//                    _ = UserInfo(withData: userData, userId: "\(id)")
-//                }
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
@@ -170,6 +248,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -194,6 +278,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -222,7 +312,13 @@ extension APICaller {
                 completionBlock(false, [""], errors)
             })
             
-        }) { (error) in
+       }) { (error) in
+        if error.code == AppNetworking.noInternetError.code {
+            completionBlock(false, [""], [ATErrorManager.LocalError.noInternet.rawValue])
+        }
+        else {
+            completionBlock(false, [""], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+        }
         }
     }
 }
@@ -244,6 +340,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -261,6 +363,12 @@ extension APICaller {
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
 }

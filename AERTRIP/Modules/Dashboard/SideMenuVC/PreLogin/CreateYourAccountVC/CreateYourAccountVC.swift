@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 import ActiveLabel
 import SafariServices
 
@@ -21,11 +20,13 @@ class CreateYourAccountVC: BaseVC {
     //MARK:-
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var headerTitleLabel: UILabel!
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var registerButton: ATButton!
     @IBOutlet weak var privacyPolicyLabel: ActiveLabel!
     @IBOutlet weak var notRegisterYetLabel: UILabel!
     @IBOutlet weak var loginHereButton: UIButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    
     
     
     //MARK:- ViewLifeCycle
@@ -51,6 +52,11 @@ class CreateYourAccountVC: BaseVC {
         if self.viewModel.isFirstTime {
             self.setupViewDidLoadAnimation()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -96,19 +102,7 @@ class CreateYourAccountVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
-//        for controller in self.navigationController?.viewControllers ?? [UIViewController()] {
-//            if controller is SocialLoginVC {
-//                 AppFlowManager.default.popViewController(animated: true)
-//            }
-//
-//        }
-          AppFlowManager.default.popToRootViewController(animated: true)
-        
-    }
-    
     @IBAction func registerButtonAction(_ sender: ATButton) {
-        
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForCreateAccount()
@@ -132,6 +126,9 @@ private extension CreateYourAccountVC {
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        
+        topNavBar.leftButton.isHidden = true
+        topNavBar.delegate = self
     }
     
     func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
@@ -202,16 +199,14 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
     func didRegisterFail(errors: ErrorCodes) {
         
         self.registerButton.isLoading = false
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: self)
+    }
+}
+
+extension CreateYourAccountVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        topNavBar.leftButton.isHidden = true
+        AppFlowManager.default.popToRootViewController(animated: true)
+        
     }
 }
 
@@ -231,17 +226,19 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     func setupViewDidLoadAnimation() {
         
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
+                self.topNavBar.leftButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.headerTitleLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.emailTextField.transform    = .identity
                 self.registerButton.transform    = .identity
                 self.privacyPolicyLabel.transform = .identity
@@ -250,6 +247,8 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
         }) { (success) in
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
+            
+            
         }
     }
     

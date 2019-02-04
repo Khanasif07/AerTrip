@@ -14,6 +14,7 @@ class MainHomeVC: BaseVC {
     //MARK:-
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -73,34 +74,39 @@ class MainHomeVC: BaseVC {
         self.sideMenuController?.viewDidLayoutSubviews()
         self.viewProfileVC?.viewDidLayoutSubviews()
         self.socialLoginVC?.viewDidLayoutSubviews()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        
+        self.viewProfileVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        self.socialLoginVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.statusBarStyle = .lightContent
+        
         //setup scroll view
         self.scrollViewSetup()
-
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
         delay(seconds: 0.2) {[weak self] in
-            self?.setupProfileView()
-            self?.setupLogoView()
+            if UserInfo.loggedInUserId == nil {
+                self?.setupLogoView()
+            }
+            else {
+                self?.setupProfileView()
+            }
         }
     }
     
     private func scrollViewSetup() {
         
         //set content size
-        self.scrollView.contentSize = CGSize(width: UIDevice.screenWidth * 2.0, height: UIDevice.screenHeight)
+//        self.scrollView.contentSize = CGSize(width: UIDevice.screenWidth * 2.0, height: UIDevice.screenHeight)
         
         //setup side menu controller
         let sideVC = self.createSideMenu()
         sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
         
-        self.scrollView.addSubview(sideVC.view)
+        self.contentView.addSubview(sideVC.view)
         self.addChild(sideVC)
         sideVC.didMove(toParent: self)
         
@@ -109,16 +115,16 @@ class MainHomeVC: BaseVC {
             let viewProfile = self.createViewProfile()
             viewProfile.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
             
-            self.scrollView.addSubview(viewProfile.view)
+            self.contentView.addSubview(viewProfile.view)
             self.addChild(viewProfile)
             viewProfile.didMove(toParent: self)
         }
         else {
             //setup social login vc
             let social = self.createSocialLoginVC()
-            social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+            social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight-44.0)
             
-            self.scrollView.addSubview(social.view)
+            self.contentView.addSubview(social.view)
             self.addChild(social)
             social.didMove(toParent: self)
         }
@@ -130,6 +136,7 @@ class MainHomeVC: BaseVC {
         PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         let sideMenuVC = PKSideMenuController()
+        sideMenuVC.delegate = self
         sideMenuVC.view.frame = UIScreen.main.bounds
     
         sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
@@ -165,8 +172,6 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         
         self.logoView?.isHidden = true
-//        self.logoView?.translatesAutoresizingMaskIntoConstraints = true
-//        self.logoView?.backgroundColor = .red
         self.logoView?.frame.origin.x = sideMenu.sideMenuTableView.x
         self.mainContainerView.addSubview(self.logoView!)
     }
@@ -174,7 +179,11 @@ class MainHomeVC: BaseVC {
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
-        self.profileView?.frame = CGRect(x: sideMenu.sideMenuTableView.width, y: 50.0, width: sideMenu.sideMenuTableView.width, height: UIDevice.screenHeight*0.22)
+        
+        let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        
+        self.profileView?.frame = finalFrame
         
         self.profileView?.isHidden = true
         self.profileView?.gradientView.isHidden = true
@@ -190,12 +199,11 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = self.viewProfileVC?.profileImageHeaderView?.bounds ?? CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight*0.45)
+        let finalFrame = CGRect(x: 0.0, y: -(UIDevice.isIPhoneX ? 0.0 : 0.0), width: UIDevice.screenWidth, height: self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false
         self.profileView?.backgroundImageView.isHidden = false
-        //self.profileView?.gradientView.alpha = 1.0
         self.profileView?.dividerView.isHidden = false
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -231,9 +239,8 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: 70.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 100.0, height: UIDevice.screenHeight*0.22)
-        
-        let trans = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
@@ -243,7 +250,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
-            self.profileView?.profileContainerView.transform = trans
+            self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             
             self.profileView?.layoutIfNeeded()
         }, completion: { (isDone) in
@@ -267,9 +274,10 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
+        let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
-        let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 110.0)
-        
+        self.socialLoginVC?.animateContentOnLoad()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
@@ -277,7 +285,7 @@ class MainHomeVC: BaseVC {
             self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
-            
+            self.socialLoginVC?.topNavView.leftButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
             self.logoView?.isHidden = true
             self.sideMenuVC?.logoContainerView.isHidden = true
@@ -287,13 +295,14 @@ class MainHomeVC: BaseVC {
     private func popLogoAnimation() {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
-        
+        self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
 
         let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
 
+        self.socialLoginVC?.animateContentOnPop()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.logoView?.frame = finalFrame
@@ -323,6 +332,18 @@ extension MainHomeVC: SideMenuVCDelegate {
     
     func viewProfileAction(_ sender: ATButton) {
         self.pushProfileAnimation()
+    }
+}
+
+//MARK:- PKSideMenuController delegate methods
+//MARK:-
+extension MainHomeVC: PKSideMenuControllerDelegate {
+    func willCloseSideMenu() {
+        self.statusBarStyle = .lightContent
+    }
+    
+    func willOpenSideMenu() {
+        self.statusBarStyle = .default
     }
 }
 

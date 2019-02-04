@@ -60,6 +60,7 @@ extension CreateYourAccountVM {
                 self.delegate?.didRegisterSuccess(email: email)
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didRegisterFail(errors: errors)
             }
         })

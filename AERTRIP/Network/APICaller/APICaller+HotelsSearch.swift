@@ -31,14 +31,19 @@ extension APICaller {
                     completionBlock(true, [], dict)
                 }
                 else {
-                    completionBlock(false, [], [:])
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [:])
                 }
                 
             }, failure: { (errors) in
                 completionBlock(false, errors, [:])
             })
         }) { (error) in
-            completionBlock(false, [], [:])
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [:])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [:])
+            }
         }
     }
     
@@ -54,17 +59,17 @@ extension APICaller {
             if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? JSONDictionary {
                 
                 if let arr = jsonObjects[APIKeys.data.rawValue] as? [JSONDictionary] {
-                    let (hotels, types) =  SearchedDestination.models(jsonArr: arr)
+                    let (hotels, _) =  SearchedDestination.models(jsonArr: arr)
                     
                     completionBlock(true, [], hotels)
                 }
                 else {
-                    completionBlock(false, [], [])
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
                 }
             }
         }
         catch {
-            completionBlock(false, [], [])
+            completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
         }
     }
     

@@ -17,8 +17,9 @@ enum APIEndPoint : String {
     //MARK: - Account URLs -
     case isActiveUser       = "users/is-active-user"
     case login              = "users/login"
-    case logout             = "users/logout/"
+    case logout             = "users/logout"
     case socialLogin        = "social/app-social-login"
+    case socialLink        = "social/app-social-link"
     case register           = "users/register"
     case emailAvailability  = "users/email-availability"
     case forgotPassword     = "users/reset-password"

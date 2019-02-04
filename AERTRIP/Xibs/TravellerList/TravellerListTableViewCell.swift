@@ -15,7 +15,10 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var separatorView: UIView!
     @IBOutlet var selectTravellerButton: UIButton!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet var edgeToEdgeBottomSeparatorView: UIView!
     
+    @IBOutlet var edgeToEdgeTopSeparatorView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,15 +34,14 @@ class TravellerListTableViewCell: UITableViewCell {
     
     private func configureCell() {
         profileImageView.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName,let salutation = travellerData?.salutation {
-            
+        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation {
             if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = self.getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
                 
             } else {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = self.getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
+                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
         }
     }

@@ -110,6 +110,13 @@ class ImportContactVC: BaseVC {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.categoryView?.frame = self.listContainerView.bounds
+        self.categoryView?.layoutIfNeeded()
+    }
+    
     deinit {
         printDebug("deinit")
     }
@@ -158,6 +165,7 @@ class ImportContactVC: BaseVC {
         
         let categoryView = ATCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
+        categoryView.navBar.internalDelegate = self
         self.listContainerView.addSubview(categoryView)
         self.categoryView = categoryView
     }
@@ -166,7 +174,7 @@ class ImportContactVC: BaseVC {
         let listVC = self.allChildVCs[currentIndex]
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
-            listVC.containerBottomConstraint.constant = isHidden ? 10.0 : 110.0
+//            listVC.containerBottomConstraint.constant = isHidden ? 0.0 : 110.0
             self?.view.layoutIfNeeded()
             listVC.view.layoutIfNeeded()
         }) { (isCompleted) in
@@ -210,6 +218,12 @@ class ImportContactVC: BaseVC {
     
     @IBAction func importButtonAction(_ sender: UIButton) {
         self.viewModel.saveContacts()
+    }
+}
+
+extension ImportContactVC: ATCategoryNavBarDelegate {
+    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+        self.currentIndex = toIndex
     }
 }
 

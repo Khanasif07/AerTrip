@@ -22,6 +22,7 @@ class AppFlowManager: NSObject {
         return self.mainHomeVC?.sideMenuController
     }
     var mainHomeVC: MainHomeVC?
+    var hotelResultVC: HotelResultVC?
         
     private let urlScheme = "://"
 
@@ -253,6 +254,13 @@ extension AppFlowManager {
         }
     }
     
+    func moveToHotelsResultVc() {
+//        let obj = HotelsResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        self.hotelResultVC = obj
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func showBulkBookingVC() {
         delay(seconds: 0.1) { [weak self] in
             if let mVC = self?.mainHomeVC {
@@ -278,6 +286,17 @@ extension AppFlowManager {
     func moveToSettingsVC() {
         let obj = SettingsVC.instantiate(fromAppStoryboard: .Settings)
         self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moverToFilterVC(){
+        let obj = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
+        self.mainNavigationController.present(obj, animated:true , completion: nil)
+    }
+    func showFilterVC() {
+        if let hotelResultVC = self.hotelResultVC {
+            let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
+            hotelResultVC.add(childViewController: ob)
+        }
     }
 }
 

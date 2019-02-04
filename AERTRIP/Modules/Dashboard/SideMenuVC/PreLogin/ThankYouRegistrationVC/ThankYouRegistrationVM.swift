@@ -52,6 +52,7 @@ extension ThankYouRegistrationVM {
                 self.delegate?.didGetSuccess()
             }
             else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didGetFail(errors: errors)
             }
         })

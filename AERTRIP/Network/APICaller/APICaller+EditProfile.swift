@@ -66,7 +66,13 @@ extension APICaller {
                 completionBlock(false, [""], [], [], [], [], errors)
             })
             
-        }) { _ in
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [""], [], [], [], [], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [""], [], [], [], [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -91,7 +97,13 @@ extension APICaller {
                 completionBlock(false, [:], [:], errors)
             })
             
-        }) { _ in
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [:], [:], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [:], [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -113,7 +125,13 @@ extension APICaller {
                 completionBlock(false, [:], errors)
             })
             
-        }) { _ in
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [:], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -133,10 +151,16 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
-                print(errors)
+                completionBlock(true, [], errors)
             })
             
         }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [], [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     
@@ -158,7 +182,12 @@ extension APICaller {
                 })
 
             }) { (error) in
-                print(error)
+                if error.code == AppNetworking.noInternetError.code {
+                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                }
+                else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                }
             }
 
         } else {
@@ -166,10 +195,13 @@ extension APICaller {
                 print(data)
                 completionBlock(true,[])
             }, progress: { (progress) in
-                NSLog("progress is \(progress)")
             }) { (error) in
-                completionBlock(false,[])
-                print(error)
+                if error.code == AppNetworking.noInternetError.code {
+                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                }
+                else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                }
             }
         }
     }

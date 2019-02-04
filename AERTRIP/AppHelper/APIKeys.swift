@@ -85,6 +85,7 @@ enum APIKeys: String {
     case imageSource = "image_source"
     case generalPref = "general_pref"
     case auto_share = "auto_share"
+    case notes = "notes"
     case eid = "eid"
     
     case dest_id = "dest_id"

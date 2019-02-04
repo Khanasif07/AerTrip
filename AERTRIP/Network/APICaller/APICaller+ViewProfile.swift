@@ -25,11 +25,33 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
-                completionBlock(false, nil, [])
+                completionBlock(false, nil, errors)
             })
             
         }) { (error) in
-            completionBlock(false, nil, [])
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, nil, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
+    
+    func callLogOutAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.logout, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            
+            sSelf.handleResponse(json, success: { _, jsonData in
+                
+                completionBlock(true, [])
+                
+            }, failure: { errors in
+                completionBlock(false, errors)
+            })
+            
+        }) { error in
+            print(error)
         }
     }
     

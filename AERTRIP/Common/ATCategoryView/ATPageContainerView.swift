@@ -46,7 +46,6 @@ class ATPageContainerView: UIView {
         super.init(frame: frame)
         
         setupPageVC()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,7 +54,6 @@ class ATPageContainerView: UIView {
 
     
     func setupPageVC(){
-        
         
         pageVC.delegate = self
         pageVC.dataSource = self
@@ -82,6 +80,18 @@ class ATPageContainerView: UIView {
         pageVC.setViewControllers([childVCs.first!], direction: .forward, animated: false, completion: nil)
         
         
+    }
+    
+    func selectPage(atIndex: Int) {
+        guard atIndex >= 0 && atIndex < childVCs.count else { return }
+        guard atIndex != currentIndex else { return }
+        
+        let direction: UIPageViewController.NavigationDirection = (atIndex > currentIndex) ? .forward : .reverse
+        
+        let vc = childVCs[atIndex]
+        pageVC.setViewControllers([vc], direction: direction, animated: true) { (_) in
+            self.currentIndex = atIndex
+        }
     }
     
     override func layoutSubviews() {
@@ -228,16 +238,7 @@ extension ATPageContainerView: UIPageViewControllerDataSource {
 
 extension ATPageContainerView: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        guard toIndex >= 0 && toIndex < childVCs.count else { return }
-        guard toIndex != currentIndex else { return }
-        
-        let direction: UIPageViewController.NavigationDirection = (toIndex > currentIndex) ? .forward : .reverse
-        
-        let vc = childVCs[toIndex]
-        pageVC.setViewControllers([vc], direction: direction, animated: true) { (_) in
-            self.currentIndex = toIndex
-        }
-
+        self.selectPage(atIndex: toIndex)
     }
 }
 

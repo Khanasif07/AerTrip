@@ -225,11 +225,14 @@ enum LocalizedString: String {
     case Email = "Email"
     case SocialProfile = "SocialProfile"
     case Home = "Home"
+    case IndiaIsdCode = "IndianIsdCode"
     case Facebook = "Facebook"
     case Phone = "Phone"
     case SelectAirline = "SelectAirline"
     case SelectDate = "SelectDate"
     case AddNotes = "AddNotes"
+    case DeleteFromTraveller = "DeleteFromTraveller"
+    case Default = "Default"
     
     // Mark: - Salutation
     case Mrs = "Mrs"
@@ -276,6 +279,7 @@ enum LocalizedString: String {
     case ImportFacebookMessage = "ImportFacebookMessage";
     case ImportGoogleMessage = "ImportGoogleMessage";
     case SelectAll = "SelectAll";
+    case DeselectAll = "DeselectAll";
     case AllowContacts = "AllowContacts";
     case ConnectWithGoogle = "ConnectWithGoogle";
     case ConnectWithFB = "ConnectWithFB";
@@ -327,5 +331,27 @@ enum LocalizedString: String {
     
     //MARK:- Bulk Booking
     case BulkBooking = "BulkBooking"
+    
+    //MARK:- FF Search
+    case SearchAirlines = "SearchAirlines"
+    
+    //MARK:- Search Result
+    case SearchHotelsOrLandmark = "SearchHotelsOrLandmark"
+    //MARK: - Hotel Filters
+    case ClearAll = "ClearAll"
+    case Sort = "Sort"
+    case Range = "Range"
+    case Price = "Price"
+    case Ratings = "Ratings"
+    case Amenities = "Amenities"
+    
+    case BestSellers = "BestSellers"
+    case TripAdvisor = "TripAdvisorRating"
+    case Distance = "Distance"
+    
+    
+    //MARK: - RangeVC
+    case SearchResultsRange = "SearchResultsRange"
+    
 }
 

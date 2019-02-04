@@ -28,6 +28,8 @@ open class PKAlertController {
         return presentedVC
     }
     
+    private var alertController: UIAlertController!
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     private init() {}
@@ -39,11 +41,11 @@ open class PKAlertController {
     //MARK:- Public
     func presentActionSheet(_ title: String?, message: String?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
-            print(alert.title)
+            print(alert.title ?? "")
             if let handel = tapBlock, let idx = alertButtons.firstIndex(where: { (button) -> Bool in
                 (alert.title ?? "") == button.title
             }) {
@@ -54,7 +56,7 @@ open class PKAlertController {
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
             alertAction.setValue(button.titleColor, forKey: "titleTextColor")
-            alert.addAction(alertAction)
+            alertController.addAction(alertAction)
         }
         
         //add cancel button
@@ -62,16 +64,16 @@ open class PKAlertController {
             self.dismissActionSheet()
         }
         cancelAction.setValue(cancelButton.titleColor, forKey: "titleTextColor")
-        alert.addAction(cancelAction)
+        alertController.addAction(cancelAction)
         
-        alert.popoverPresentationController?.sourceView = sourceView
-        alert.popoverPresentationController?.sourceRect = sourceView.bounds
-        self.topMostController?.present(alert, animated: true, completion: nil)
-        return alert
+        alertController.popoverPresentationController?.sourceView = sourceView
+        alertController.popoverPresentationController?.sourceRect = sourceView.bounds
+        self.topMostController?.present(alertController, animated: true, completion: nil)
+        return alertController
     }
     
     public func dismissActionSheet() {
-        self.topMostController?.dismiss(animated: true, completion: nil)
+        self.alertController.dismiss(animated: true, completion: nil)
     }
     
     //MARK:- Action

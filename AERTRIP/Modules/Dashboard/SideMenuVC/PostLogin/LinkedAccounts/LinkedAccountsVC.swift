@@ -20,6 +20,7 @@ class LinkedAccountsVC: BaseVC {
             tableView.dataSource = self
         }
     }
+    @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var backButton: UIButton!
     
     //MARK:- Properties
@@ -44,6 +45,7 @@ class LinkedAccountsVC: BaseVC {
     
     override func setupTexts() {
         self.navTitleLabel.text = LocalizedString.LinkedAccounts.localized
+        self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
         self.messageLabel.text = LocalizedString.LinkedAccountsMessage.localized
     }
     
@@ -59,6 +61,7 @@ class LinkedAccountsVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        topNavigationView.delegate = self
         self.viewModel.fetchLinkedAccounts()
     }
     
@@ -118,7 +121,7 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
         case .facebook:
             self.viewModel.fbLogin(vc: self, completionBlock: nil)
             
-        case .linkedIn:
+        case .linkedin:
             self.viewModel.linkedLogin(vc: self)
             
         case .google:
@@ -134,4 +137,14 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
             self.viewModel.disConnect(account: self.viewModel.linkedAccounts[indexPath.row])
         }
     }
+}
+
+// MARK: - Top navigation view Delegate methods
+
+extension LinkedAccountsVC : TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+     self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }

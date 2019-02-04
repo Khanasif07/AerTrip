@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class SecureYourAccountVC: BaseVC {
     
@@ -21,7 +20,7 @@ class SecureYourAccountVC: BaseVC {
     @IBOutlet weak var secureAccountLabel: UILabel!
     @IBOutlet weak var setPasswordLabel: UILabel!
     @IBOutlet weak var passwordConditionLabel: UILabel!
-    @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var passwordTextField: PKFloatLabelTextField!
     @IBOutlet weak var oneLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var smallALabel: UILabel!
@@ -37,6 +36,7 @@ class SecureYourAccountVC: BaseVC {
     @IBOutlet weak var nextButtonTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var showPasswordButton: UIButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -116,9 +116,6 @@ class SecureYourAccountVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
-    }
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         
@@ -156,6 +153,7 @@ private extension SecureYourAccountVC {
     
     func initialSetups() {
         
+       self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
         self.nextButton.isEnabled = false
         var placeholder = LocalizedString.Password.localized
@@ -167,6 +165,12 @@ private extension SecureYourAccountVC {
         
         self.passwordTextField.rightView = UIView(frame: self.showPasswordButton.bounds)
         self.passwordTextField.rightViewMode = .always
+    }
+}
+
+extension SecureYourAccountVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
     }
 }
 
@@ -328,16 +332,6 @@ extension SecureYourAccountVC: SecureYourAccountVMDelegate {
     func getFail(errors: ErrorCodes) {
         
         self.nextButton.isLoading = false
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }
 
@@ -359,18 +353,19 @@ extension SecureYourAccountVC {
     
     func setupViewDidLoadAnimation() {
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.secureAccountLabel.transform      = .identity
                 self.setPasswordLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.passwordTextField.transform    = .identity
                 self.passwordConditionLabel.transform = .identity
                 self.validationStackView.transform    = .identity

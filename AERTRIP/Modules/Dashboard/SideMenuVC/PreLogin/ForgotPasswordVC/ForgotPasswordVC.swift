@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class ForgotPasswordVC: BaseVC {
     
@@ -20,8 +19,9 @@ class ForgotPasswordVC: BaseVC {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var forgotPasswordLabel: UILabel!
     @IBOutlet weak var intructionLabel: UILabel!
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var continueButton: ATButton!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -80,9 +80,6 @@ class ForgotPasswordVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
-    }
     
     @IBAction func continueButtonAction(_ sender: ATButton) {
         
@@ -99,12 +96,21 @@ private extension ForgotPasswordVC {
     
     func initialSetups() {
         
+        self.topNavBar.delegate = self
+        
         self.continueButton.isEnabled = false
         self.emailTextField.delegate = self
         self.emailTextField.text = self.viewModel.email
         self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        topNavBar.leftButton.isHidden = true
+    }
+}
+
+extension ForgotPasswordVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
     }
 }
 
@@ -143,16 +149,6 @@ extension ForgotPasswordVC: ForgotPasswordVMDelegate {
     func didLoginFail(errors: ErrorCodes) {
         
         self.continueButton.isLoading = false
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }
 
@@ -172,17 +168,19 @@ extension ForgotPasswordVC {
     
     func setupViewDidLoadAnimation() {
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.logoImage.transform          = .identity
+                self.topNavBar.leftButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.forgotPasswordLabel.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.intructionLabel.transform    = .identity
                 self.emailTextField.transform = .identity
                 self.continueButton.transform    = .identity

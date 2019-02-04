@@ -385,7 +385,7 @@ extension String {
     
     var removeNull: String {
         if self == "null" || self == "<null>" || self == "nil" {
-            return LocalizedString.na.localized
+            return ""
         }
         return self
     }

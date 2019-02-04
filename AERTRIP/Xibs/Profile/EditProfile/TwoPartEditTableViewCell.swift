@@ -73,7 +73,8 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     private func configureCell() {
         if let ff = self.ffData {
-            frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
+           // frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
+            frequentFlyerImageView.setImageWithUrl(ff.logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)
             if ff.airlineName == LocalizedString.SelectAirline.localized {
                 frequentFlyerLabel.text = ff.airlineName
                 frequentFlyerLabelLeadingConstraint.constant = 0

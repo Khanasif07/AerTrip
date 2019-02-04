@@ -24,11 +24,7 @@ class ViewAllHotelsVM {
     //MARK:- Public
     var hotels = [CityHotels]()
 
-    var allTabs: [PKViewPagerTab] {
-        return self.hotels.map { (city) -> PKViewPagerTab in
-            PKViewPagerTab(title: city.cityName, image: nil)
-        }
-    }
+    var allTabs: [ATCategoryItem] = []
     
     weak var delegate: ViewAllHotelsVMDelegate?
     
@@ -47,6 +43,12 @@ class ViewAllHotelsVM {
             if success {
                 
                 self.hotels = cities
+                
+                self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
+                    var item = ATCategoryItem()
+                    item.title = city.cityName
+                    return item
+                }
                 self.delegate?.getHotelPreferenceListSuccess()
             }
             else {
@@ -69,6 +71,15 @@ class ViewAllHotelsVM {
             else {
                 self.delegate?.updateFavouriteFail()
             }
+        }
+    }
+    
+    func removeHotels(fromIndex: Int) {
+        self.hotels.remove(at: fromIndex)
+        self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
+            var item = ATCategoryItem()
+            item.title = city.cityName
+            return item
         }
     }
     

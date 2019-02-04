@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class CreateProfileVC: BaseVC {
     
@@ -21,22 +20,22 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var createProfileTitleLabel: UILabel!
     @IBOutlet weak var createProfileSubTitleLabel: UILabel!
-    @IBOutlet weak var nameTitleTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var firstNameTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var lastNameTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var countryTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var mobileNumberTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var nameTitleTextField: PKFloatLabelTextField!
+    @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var countryTextField: PKFloatLabelTextField!
+    @IBOutlet weak var mobileNumberTextField: PKFloatLabelTextField!
     @IBOutlet weak var letsStartedButton: ATButton!
-    @IBOutlet weak var countryCodeTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var countryCodeTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var countryFlagImage: UIImageView!
     @IBOutlet weak var titleDropDownImage: UIImageView!
     @IBOutlet weak var countryDropdownImage: UIImageView!
     @IBOutlet weak var letsStartButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var letStartButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var letStartButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var whiteBackgroundView: UIView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -104,9 +103,6 @@ class CreateProfileVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popToRootViewController(animated: true)
-    }
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
@@ -124,10 +120,12 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
+        self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
         self.viewModel.userData.minContactLimit  = 10
         self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
         self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
+        self.viewModel.userData.salutation = ""
         self.letsStartedButton.isEnabled = false
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -150,15 +148,15 @@ private extension CreateProfileVC {
     }
     
     func setupTextFieldColorTextAndFont () {
-        
+        self.viewModel.userData.salutation = ""
         self.salutationPicker.delegate = self
         self.nameTitleTextField.delegate = self
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
-        self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51,selectedTitleColor: UIColor.clear, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self
@@ -212,6 +210,12 @@ private extension CreateProfileVC {
     }
 }
 
+extension CreateProfileVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popToRootViewController(animated: true)
+    }
+}
+
 //MARK:- Extension UITextFieldDelegateMethods
 //MARK:-
 extension CreateProfileVC {
@@ -221,7 +225,7 @@ extension CreateProfileVC {
         switch textField {
             
         case self.firstNameTextField:
-            self.viewModel.userData.firstName = textField.text ?? ""
+           self.viewModel.userData.firstName = textField.text ?? ""
             
         case self.lastNameTextField:
             self.viewModel.userData.lastName = textField.text ?? ""
@@ -330,7 +334,7 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        self.viewModel.userData.salutation = self.viewModel.salutation[row]
     }
 }
 
@@ -356,18 +360,6 @@ extension CreateProfileVC: CreateProfileVMDelegate {
     func getFail(errors: ErrorCodes) {
         
         self.letsStartedButton.isLoading = false
-        
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        
-        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }
 
@@ -436,13 +428,14 @@ extension CreateProfileVC {
     
     func setupViewDidLoadAnimation() {
         
+        let rDuration = 1.0 / 3.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.logoImage.transform          = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 4.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
                 self.createProfileTitleLabel.transform      = .identity
                 self.createProfileSubTitleLabel.transform      = .identity
                 self.nameTitleTextField.transform      = .identity
@@ -452,7 +445,7 @@ extension CreateProfileVC {
                 self.countryCodeTextField.transform      = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: ((AppConstants.kAnimationDuration / 2.0) * 1.0), relativeDuration: AppConstants.kAnimationDuration / 3.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
                 self.firstNameTextField.transform    = .identity
                 self.lastNameTextField.transform = .identity
                 self.countryTextField.transform    = .identity
@@ -476,7 +469,7 @@ extension CreateProfileVC {
         self.lastNameTextField.alpha = 0
         self.countryTextField.alpha = 0
         self.mobileNumberTextField.alpha = 0
-        self.backButton.alpha = 0
+        self.topNavBar.leftButton.alpha = 0
         self.countryCodeTextField.alpha = 0
         self.countryCodeLabel.alpha = 0
         self.countryFlagImage.alpha = 0

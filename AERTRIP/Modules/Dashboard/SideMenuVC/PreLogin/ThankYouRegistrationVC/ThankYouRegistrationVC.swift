@@ -25,6 +25,7 @@ class ThankYouRegistrationVC: BaseVC {
     @IBOutlet weak var checkEmailLabel: UILabel!
     @IBOutlet weak var openEmailAppButton: UIButton!
     @IBOutlet weak var noReplyLabel: ActiveLabel!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -88,9 +89,6 @@ class ThankYouRegistrationVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
-    }
     
     
     @IBAction func openEmailAppButtonAction(_ sender: UIButton) {
@@ -132,6 +130,8 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
         
         self.emailLabel.text = self.viewModel.email
         self.linkSetupForTermsAndCondition(withLabel: self.noReplyLabel)
+        
+        topNavBar.delegate = self
     }
     
     private func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
@@ -157,6 +157,12 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
     }
 }
 
+extension ThankYouRegistrationVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
+    }
+}
+
 //MARK:- Extension Initialsetups
 //MARK:-
 extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
@@ -179,15 +185,5 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
     
     func didGetFail(errors: ErrorCodes) {
         
-        var message = ""
-        for index in 0..<errors.count {
-            if index == 0 {
-                
-                message = AppErrorCodeFor(rawValue: errors[index])?.message ?? ""
-            } else {
-                message += ", " + (AppErrorCodeFor(rawValue: errors[index])?.message ?? "")
-            }
-        }
-        AppToast.default.showToastMessage(message: message, vc: self)
     }
 }

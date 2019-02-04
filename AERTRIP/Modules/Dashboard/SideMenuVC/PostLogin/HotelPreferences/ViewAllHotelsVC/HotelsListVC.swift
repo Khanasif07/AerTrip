@@ -93,10 +93,10 @@ extension HotelsListVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item >= self.viewModel.hotels.count {
             let height = indexPath.item >= (self.viewModel.hotels.count+1) ? 65.0 : 55.0
-            return CGSize(width: UIScreen.main.bounds.width - 16, height: CGFloat(height))
+            return CGSize(width: UIDevice.screenWidth - 16, height: CGFloat(height))
         }
         else {
-            return CGSize(width: UIScreen.main.bounds.width - 16, height: UIDevice.screenHeight * 0.3)
+            return CGSize(width: UIDevice.screenWidth - 16, height: 200.0)
         }
     }
     

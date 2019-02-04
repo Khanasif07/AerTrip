@@ -159,7 +159,7 @@
 "stars" = "Stars";
 "star" = "Star";
 "searchForHotelsToAdd" = "Search for hotels to add";
-"searchHotelName" = "Search hotel name";
+"searchHotelName" = "Search";
 
 
 //MARK:- Import Contacts
@@ -172,6 +172,7 @@
 "ImportFacebookMessage" = "Connect with Facebook to import your friends to the travellers list.";
 "ImportGoogleMessage" = "Connect with Google to import your contacts to the travellers list";
 "SelectAll" = "Select All";
+"DeselectAll" = "Deselect All";
 "AllowContacts" = "Allow Contacts";
 "ConnectWithGoogle" = "Connect with Google";
 "ConnectWithFB" = "Connect with Facebook";
@@ -191,7 +192,7 @@
 //MARK:- PreferencesVC
 //MARK:-
 
-"PreferencesSavedSuccessfully" = "Preferences saved succesfully";
+"PreferencesSavedSuccessfully" = "Preferences saved successfully";
 
 
 //MARK:- Edit profile VC
@@ -233,6 +234,11 @@
 "SelectDate" = "Select Date";
 "AddNotes" = "Add notes";
 "NoContactsFetched" = "No contacts";
+"DeleteFromTraveller" = "Delete from Travellers List";
+"IndianIsdCode" = "+91";
+"Mobile" = "Mobile";
+"Default" = "Default";
+"Email" = "Email";
 
 //MARK:- Favourite Hotels
 //MARK:-
@@ -278,3 +284,27 @@
 
 //MARK:- Bulk Booking
 "BulkBooking" = "Bulk Booking";
+
+//MARK:- FF Search
+"SearchAirlines" = "Search Airlines";
+
+
+//MARK:- Search Result
+"SearchHotelsOrLandmark" = "Search hotels or landmark";
+
+//MARK:- Hotel Filters
+"ClearAll" = "Clear All";
+"Sort" = "Sort";
+"Range" = "Range";
+"Price" = "Price";
+"Ratings" = "Ratings";
+"Amenities" = "Amenities";
+"BestSellers" = "Best Sellers";
+"TripAdvisorRating" = "TripAdvisor Rating";
+"StarRating" = "Star Rating";
+"Distance" = "Distance";
+
+// MARK:- Range VC
+"SearchResultsRange" = "Search Results Range";
+
+

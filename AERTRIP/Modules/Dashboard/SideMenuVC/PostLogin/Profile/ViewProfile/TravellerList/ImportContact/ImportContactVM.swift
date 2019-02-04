@@ -113,7 +113,7 @@ class ImportContactVM: NSObject {
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
         }, failure: { (error) in
-            print(error)
+            printDebug(error)
         })
     }
     
