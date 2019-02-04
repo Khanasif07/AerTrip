@@ -52,7 +52,8 @@ class TopNavigationView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
+        self.updateTitleFrames()
     }
     
     //MARK:- Methods
@@ -69,17 +70,10 @@ class TopNavigationView: UIView {
     
     private func updateTitleFrames() {
         
-        self.titleLeadingConstraint.constant = self.leftButton.width
+        let trail = (!self.firstRightButton.isHidden && !self.secondRightButton.isHidden) ? CGFloat(self.firstRightButton.width + self.secondRightButton.width) : CGFloat(self.leftButton.width)
         
-        var trail = CGFloat(10.0)
-        if !self.firstRightButton.isHidden {
-            trail += self.firstRightButton.width
-        }
-        if !self.secondRightButton.isHidden {
-            trail += self.secondRightButton.width
-        }
-
         self.titleTrailingConstraint.constant = trail
+        self.titleLeadingConstraint.constant = trail
     }
     
     //MARK:- Public
@@ -91,7 +85,8 @@ class TopNavigationView: UIView {
         self.firstRightButton.isHidden = !isFirstRightButton
         self.secondRightButton.isHidden = !isSecondRightButton
         
-        self.updateTitleFrames()
+        self.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
     func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil) {
