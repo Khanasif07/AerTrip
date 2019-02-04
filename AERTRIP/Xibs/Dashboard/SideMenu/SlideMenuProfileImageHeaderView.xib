@@ -42,7 +42,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="172" y="147" width="187.5" height="33"/>
+                            <rect key="frame" x="180" y="147" width="171.5" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -93,7 +93,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224" y="196" width="83" height="25"/>
+                    <rect key="frame" x="224.5" y="196" width="82" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -121,7 +121,7 @@
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="iDi-J4-ZHk"/>
                 <constraint firstItem="cbl-xr-PpX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="kAi-3t-AQb"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kKO-o2-q7e"/>
-                <constraint firstItem="Ojo-QA-iad" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pSG-Cm-jrZ"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pSG-Cm-jrZ"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wCJ-bF-R1h"/>
                 <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="x2n-dX-FxW" secondAttribute="centerX" id="weq-Xh-dZR"/>
             </constraints>

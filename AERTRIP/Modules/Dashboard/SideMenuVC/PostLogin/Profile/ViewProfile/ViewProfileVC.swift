@@ -32,6 +32,7 @@ class ViewProfileVC: BaseVC {
     }
     
     private let headerHeightToAnimate: CGFloat = 30.0
+    private var isHeaderAnimating: Bool = false
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
@@ -249,7 +250,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) 
+    {
         printDebug("progress \(parallaxHeader.progress)")
         
         if parallaxHeader.progress >= 0.6 {
@@ -265,7 +267,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             self.drawableHeaderViewHeightConstraint.constant = (old + self.getProgressiveHeight(forProgress: parallaxHeader.progress))
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-//                self?.headerView.backgroundColor = UIColor.white
+                //                self?.headerView.backgroundColor = UIColor.white
                 self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
@@ -285,6 +287,59 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
+    }
+
+    /*{
+        printDebug("progress \(parallaxHeader.progress)")
+        
+        if parallaxHeader.progress >= 0.6 {
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress
+        }
+        
+        if parallaxHeader.progress <= 0.5 {
+            
+            self.animateHeaderBack(isHidding: false)
+            
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+                //                self?.headerView.backgroundColor = UIColor.white
+                self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
+                let backImage = UIImage(named: "Back")
+                let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                self?.backButton.setImage(tintedImage, for: .normal)
+                self?.backButton.tintColor = AppColors.themeGreen
+                print(parallaxHeader.progress)
+                
+                self?.headerLabel.text = self?.profileImageHeaderView?.userNameLabel.text
+            }
+        } else {
+            self.animateHeaderBack(isHidding: true)
+            self.drawableHeaderView.isHidden = true
+            self.editButton.setTitleColor(UIColor.white, for: .normal)
+            self.backButton.tintColor = UIColor.white
+            self.headerLabel.text = ""
+        }
+        self.profileImageHeaderView?.layoutIfNeeded()
+        self.profileImageHeaderView?.doInitialSetup()
+    }*/
+    
+    func animateHeaderBack(isHidding: Bool) {
+        if !self.isHeaderAnimating {
+            self.isHeaderAnimating = true
+            if !isHidding {
+                self.drawableHeaderView.isHidden = false
+            }
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                
+                self.drawableHeaderView.alpha = isHidding ? 0.3 : 1.0
+                self.drawableHeaderViewHeightConstraint.constant = isHidding ? (self.headerViewHeight - self.headerHeightToAnimate) : self.headerViewHeight
+                self.view.layoutIfNeeded()
+            }, completion: { (isDone) in
+                if isHidding {
+                    self.drawableHeaderView.isHidden = true
+                }
+                self.isHeaderAnimating = false
+            })
+        }
     }
     
     func getProgressiveHeight(forProgress: CGFloat) -> CGFloat {
