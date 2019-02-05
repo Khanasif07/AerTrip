@@ -37,8 +37,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.setupColors()
     
         self.bindViewModel()
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         delay(seconds: 0.1) {
             self.setupLayout()

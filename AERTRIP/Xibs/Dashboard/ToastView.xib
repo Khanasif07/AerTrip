@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,38 +16,50 @@
             <rect key="frame" x="0.0" y="0.0" width="384" height="79"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ass" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af8-5d-Bif">
-                    <rect key="frame" x="16" y="12" width="307" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gn8-UY-jtY">
-                    <rect key="frame" x="323" y="24.5" width="45" height="30"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6K-N5-RTX">
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="79"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ass" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af8-5d-Bif">
+                            <rect key="frame" x="16" y="10" width="302" height="59"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gn8-UY-jtY">
+                            <rect key="frame" x="328" y="10" width="40" height="59"/>
+                            <state key="normal" title="Apply">
+                                <color key="titleColor" red="0.97254901960784312" green="0.72549019607843135" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="viewRightButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="SMq-Gt-Zah"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45" id="lbK-ZN-hV9"/>
+                        <constraint firstItem="Af8-5d-Bif" firstAttribute="top" secondItem="d6K-N5-RTX" secondAttribute="top" constant="10" id="1vH-rD-aod"/>
+                        <constraint firstItem="Gn8-UY-jtY" firstAttribute="top" secondItem="d6K-N5-RTX" secondAttribute="top" constant="10" id="3uQ-et-Z4l"/>
+                        <constraint firstItem="Gn8-UY-jtY" firstAttribute="top" secondItem="Af8-5d-Bif" secondAttribute="top" id="KdI-qg-2od"/>
+                        <constraint firstItem="Gn8-UY-jtY" firstAttribute="leading" secondItem="Af8-5d-Bif" secondAttribute="trailing" constant="10" id="VMv-vY-jDW"/>
+                        <constraint firstItem="Gn8-UY-jtY" firstAttribute="bottom" secondItem="Af8-5d-Bif" secondAttribute="bottom" id="eqh-Zv-825"/>
+                        <constraint firstItem="Af8-5d-Bif" firstAttribute="leading" secondItem="d6K-N5-RTX" secondAttribute="leading" constant="16" id="pAP-3g-psB"/>
+                        <constraint firstAttribute="bottom" secondItem="Gn8-UY-jtY" secondAttribute="bottom" constant="10" id="pfz-zM-7H4"/>
+                        <constraint firstAttribute="bottom" secondItem="Af8-5d-Bif" secondAttribute="bottom" constant="10" id="qNk-W9-1uA"/>
+                        <constraint firstAttribute="trailing" secondItem="Gn8-UY-jtY" secondAttribute="trailing" constant="16" id="w6D-al-ZKW"/>
                     </constraints>
-                    <state key="normal">
-                        <color key="titleColor" red="0.97254901960784312" green="0.72549019607843135" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="viewRightButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="SMq-Gt-Zah"/>
-                    </connections>
-                </button>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.81999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Gn8-UY-jtY" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Jlk-hU-yH7"/>
-                <constraint firstItem="Af8-5d-Bif" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="MDe-H2-H1F"/>
-                <constraint firstItem="Gn8-UY-jtY" firstAttribute="leading" secondItem="Af8-5d-Bif" secondAttribute="trailing" id="cW1-R2-XsE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gn8-UY-jtY" secondAttribute="trailing" constant="16" id="sD0-w3-5Vz"/>
-                <constraint firstItem="Af8-5d-Bif" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="tZf-WA-2If"/>
+                <constraint firstAttribute="bottom" secondItem="d6K-N5-RTX" secondAttribute="bottom" id="76M-gj-uT4"/>
+                <constraint firstAttribute="trailing" secondItem="d6K-N5-RTX" secondAttribute="trailing" id="ALm-7X-xcQ"/>
+                <constraint firstItem="d6K-N5-RTX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UTb-Tv-hEF"/>
+                <constraint firstItem="d6K-N5-RTX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="f6r-Me-YgC"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="messageLabel" destination="Af8-5d-Bif" id="Y9e-Dc-fO3"/>
-                <outlet property="rightViewButtonWidth" destination="lbK-ZN-hV9" id="jzO-Uj-osJ"/>
                 <outlet property="viewRightButton" destination="Gn8-UY-jtY" id="T33-zo-raa"/>
             </connections>
             <point key="canvasLocation" x="164.80000000000001" y="-379.16041979010498"/>

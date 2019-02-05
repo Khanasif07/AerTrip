@@ -11,62 +11,49 @@ import UIKit
 
 struct AppToast {
     
+    enum ButtonIcon {
+        case cross
+        
+        var image: UIImage {
+            switch self {
+            case .cross:
+                return #imageLiteral(resourceName: "ic_toast_cross").withRenderingMode(.alwaysOriginal)
+            }
+        }
+        
+    }
+    
     static let `default` = AppToast()
     private init() {}
     static private var isPreviousView = false
     
-    func showToastMessage(message: String, vc: UIViewController? = UIApplication.topViewController()) {
+    func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil) {
         
         if !AppToast.isPreviousView {
             
             AppToast.isPreviousView = true
             let ob  = ToastView.instanceFromNib()
             
-            ob.showToastMessage(message: message)
+            if message.lowercased() == LocalizedString.Deleted.localized.lowercased() {
+                ob.setupToastForDelete(buttonAction: buttonAction)
+            }
+            else {
+                ob.setupToastMessage(title: title, message: message, buttonTitle: buttonTitle, buttonImage: buttonImage, buttonAction: buttonAction)
+            }
             let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
-            self.showToast(vc: vc!, ob: ob, height: height)
+            self.showToast(vc: onViewController!, ob: ob, height: height, duration: duration)
         }
     }
     
-    
-    
-    func showToastMessageWithRightButtonTitle(vc: UIViewController? = UIApplication.topViewController(), message: String, buttonTitle: String, delegate: ToastDelegate) {
-        
-        if !AppToast.isPreviousView {
-            
-            AppToast.isPreviousView = true
-            let ob  = ToastView.instanceFromNib()
-            
-            ob.delegate = delegate
-            ob.showToastMessageWithRightButtonTitle(message: message, buttonTitle: buttonTitle)
-            let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
-            self.showToast(vc: vc!, ob: ob, height: height)
-        }
-    }
-    
-    func showToastMessageWithRightButtonImage(vc: UIViewController? = UIApplication.topViewController(), message: String, delegate: ToastDelegate) {
-        
-        if !AppToast.isPreviousView {
-            
-            AppToast.isPreviousView = true
-            let ob  = ToastView.instanceFromNib()
-            
-            ob.delegate = delegate
-            ob.showToastMessageWithRightButtonImage(message: message)
-            let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
-            self.showToast(vc: vc!, ob: ob, height: height)
-        }
-    }
-    
-    func showToast(vc: UIViewController, ob: UIView, height: Int) {
+    private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double) {
         
         vc.view.addSubview(ob)
         ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + 20) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + (UIDevice.isIPhoneX ? 54.0 : 20.0)) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+        delay(seconds: duration) {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
             }) { (success) in

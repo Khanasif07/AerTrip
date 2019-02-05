@@ -30,7 +30,7 @@ class AppFlowManager: NSObject {
         super.init()
     }
     
-    var mainNavigationController = UINavigationController() {
+    var mainNavigationController: SwipeNavigationController! {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
@@ -83,7 +83,7 @@ class AppFlowManager: NSObject {
     func goToDashboard() {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
-        let nvc = UINavigationController(rootViewController: mainHome)
+        let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
@@ -133,7 +133,7 @@ extension AppFlowManager {
         ob.viewModel.refId = refId
         ob.viewModel.token = token
         
-        let nvc = UINavigationController(rootViewController: ob)
+        let nvc = SwipeNavigationController(rootViewController: ob)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()

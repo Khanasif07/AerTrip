@@ -24,6 +24,8 @@ enum LocalizedString: String {
     case noData = "noData"
     case search = "search"
     case noResults = "No Results"
+    case Undo = "Undo"
+    case apply = "Apply"
     
     // MARK:- TextField validation
     //MARK:-
@@ -212,6 +214,7 @@ enum LocalizedString: String {
     case AddContactNumber = "Add Contact Number"
     case WouldYouLikeToDelete = "Would you like to delete this?"
     case Delete = "Delete"
+    case Deleted = "Deleted"
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
     case AddAddress = "Add Address"

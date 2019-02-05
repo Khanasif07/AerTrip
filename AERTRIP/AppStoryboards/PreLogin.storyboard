@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -201,63 +202,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOw-Dj-N4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="85.599999999999994" y="68.815592203898049"/>
-        </scene>
-        <!--Show Toast MessageVC-->
-        <scene sceneID="p3P-rM-toX">
-            <objects>
-                <viewController storyboardIdentifier="ShowToastMessageVC" id="BbN-Rj-U6n" customClass="ShowToastMessageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MrR-ic-h9r">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7FR-EF-UTB">
-                                <rect key="frame" x="10" y="584" width="355" height="63"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The email ID and / or password you have entered is incorrect." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbv-1P-gNB">
-                                        <rect key="frame" x="16" y="11" width="268" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p52-JO-FIn">
-                                        <rect key="frame" x="289" y="14.5" width="50" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="KzU-Pe-xqz"/>
-                                        </constraints>
-                                        <state key="normal" title="Apply"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="p52-JO-FIn" secondAttribute="trailing" constant="16" id="0Mm-yA-DRf"/>
-                                    <constraint firstItem="zbv-1P-gNB" firstAttribute="leading" secondItem="7FR-EF-UTB" secondAttribute="leading" constant="16" id="3vj-gD-2hc"/>
-                                    <constraint firstItem="p52-JO-FIn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7FR-EF-UTB" secondAttribute="top" constant="12" id="9hG-t1-fpp"/>
-                                    <constraint firstAttribute="bottom" secondItem="zbv-1P-gNB" secondAttribute="bottom" constant="11" id="EDp-GI-Ong"/>
-                                    <constraint firstItem="p52-JO-FIn" firstAttribute="centerY" secondItem="7FR-EF-UTB" secondAttribute="centerY" id="H5n-8t-N2F"/>
-                                    <constraint firstItem="zbv-1P-gNB" firstAttribute="top" secondItem="7FR-EF-UTB" secondAttribute="top" constant="11" id="OtK-dH-uB1"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p52-JO-FIn" secondAttribute="bottom" constant="12" id="cNF-ld-91T"/>
-                                    <constraint firstItem="p52-JO-FIn" firstAttribute="leading" secondItem="zbv-1P-gNB" secondAttribute="trailing" constant="5" id="v1q-WR-e5s"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="7FR-EF-UTB" firstAttribute="leading" secondItem="cBC-RN-LqA" secondAttribute="leading" constant="10" id="IP8-KD-eB0"/>
-                            <constraint firstItem="cBC-RN-LqA" firstAttribute="bottom" secondItem="7FR-EF-UTB" secondAttribute="bottom" constant="20" id="O0k-5q-5kK"/>
-                            <constraint firstItem="cBC-RN-LqA" firstAttribute="trailing" secondItem="7FR-EF-UTB" secondAttribute="trailing" constant="10" id="qyW-bZ-Tg0"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cBC-RN-LqA"/>
-                    </view>
-                    <connections>
-                        <outlet property="messageLabel" destination="zbv-1P-gNB" id="7O0-M8-j3Z"/>
-                        <outlet property="rightViewButton" destination="p52-JO-FIn" id="xss-Fe-8HH"/>
-                        <outlet property="rightViewButtonWidth" destination="KzU-Pe-xqz" id="hS2-iS-7di"/>
-                        <outlet property="toastView" destination="7FR-EF-UTB" id="Uc6-B9-SZS"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="exf-9n-14q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="86" y="747"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
@@ -1242,15 +1186,15 @@ activation link on</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Checkmark" width="23" height="18.5"/>
+        <image name="Checkmark" width="23" height="18"/>
         <image name="downArrow" width="9" height="6"/>
         <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
-        <image name="greenCheckMark" width="31.5" height="24.5"/>
-        <image name="greenCircleShadow" width="94.5" height="95.5"/>
+        <image name="greenCheckMark" width="31" height="24"/>
+        <image name="greenCircleShadow" width="94" height="95"/>
         <image name="greenOvLogin" width="62" height="62"/>
         <image name="in" width="100" height="67"/>
-        <image name="line" width="1" height="60.5"/>
+        <image name="line" width="1" height="60"/>
         <image name="linkedInIcon" width="24" height="24"/>
         <image name="logoImage" width="28" height="25"/>
         <image name="showPassword" width="27" height="17"/>
