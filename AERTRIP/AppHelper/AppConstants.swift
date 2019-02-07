@@ -44,4 +44,6 @@ enum AppConstants {
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 20
     static let kAnimationDuration = 0.4
+    
+    static let kGoogleAPIKey = "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
 }

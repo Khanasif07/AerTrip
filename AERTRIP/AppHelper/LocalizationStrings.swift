@@ -353,5 +353,43 @@ enum LocalizedString: String {
     //MARK: - RangeVC
     case SearchResultsRange = "SearchResultsRange"
     
+    
+    //MARK: - PriceVC
+    case PricePerNight = "PricePerNight"
+    
+    // MARK: - RatingVC
+    
+    
+    // MARK: - AmentitiesVC
+    case Wifi = "Wifi"
+    case RoomService = "RoomService"
+    case Internet = "Internet"
+    case AirConditioner = "AirConditioner"
+    case RestaurantBar = "RestaurantBar"
+    case Gym = "Gym";
+    case BusinessCenter = "Business Center"
+    case Pool = "Pool"
+    case Spa = "Spa"
+    
+    // MARK: - RoomVC
+    
+    // Meal
+    case NoMeal = "NoMeal"
+    case Breakfast = "Breakfast"
+    case HalfBoard = "HalfBoard"
+    case FullBoard = "FullBoard"
+    case Others = "Others"
+    
+    // Cancellation policy
+    case Refundable = "Refundable"
+    case PartRefundable = "PartRefundable"
+    case NonRefundable = "Nonrefundable"
+    
+    // Others
+    case FreeWifi = "FreeWifi"
+    case TransferInclusive = "TransferInclusive"
+    
+       
+    
 }
 

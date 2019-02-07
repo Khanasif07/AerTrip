@@ -307,4 +307,36 @@
 // MARK:- Range VC
 "SearchResultsRange" = "Search Results Range";
 
+// MARK: - Price VC
+"PricePerNight" = "Price per night";
+
+
+// MARK: - Amenties VC
+"Wifi" = "Wifi";
+"RoomService" = "Room Service";
+"Internet" = "Internet";
+"AirConditioner" = "Air Conditioner";
+"RestaurantBar" = "Restaurant Bar";
+"Gym" = "Gym";
+"BusinessCenter" = "Business Center";
+"Pool" = "Pool";
+"Spa" = "Spa";
+
+// MARK: - RoomVC
+
+// Meal
+"NoMeal" = "No Meal";
+"Breakfast" = "Breakfast";
+"HalfBoard" = "Half Board";
+"FullBoard" = "Full Board";
+"Others" = "Others";
+
+// Cancellation policy
+"Refundable" = "Refundable";
+"PartRefundable" = "Part Refundable";
+"NonRefundable" = "Non-refundable";
+
+// Others
+"FreeWifi" = "Free Wifi";
+"TransferInclusive" = "Transfer Inclusive";
 

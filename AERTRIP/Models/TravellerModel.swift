@@ -71,7 +71,7 @@ struct TravellerModel {
     }
     
     static func filterByLetters(json:JSON) -> [String:Any] {
-          var travellers : [String:Any] = [:]
+        let travellers : [String:Any] = [:]
         
         return travellers
     }

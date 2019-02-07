@@ -24,8 +24,8 @@ class HotelsSearchVM: NSObject{
     var adultsCount: [Int] = [1]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = Date().toString(dateFormat: "YYYY-MM-DD")
-    var checkOutDate = "2019-02-02"
+    var checkInDate = "2019-02-10"
+    var checkOutDate = "2019-02-20"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""
@@ -81,6 +81,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
                 sSelf.delegate?.getAllHotelsOnPreferenceFail()
             }
         }
@@ -96,6 +97,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getAllHotelsOnPreferenceResultSuccess()
             } else {
                 printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
                 sSelf.delegate?.getAllHotelsOnPreferenceResultFail()
             }
         }

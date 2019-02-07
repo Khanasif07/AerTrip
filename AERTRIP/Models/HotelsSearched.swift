@@ -27,13 +27,13 @@ struct HotelsSearched: Codable {
     var hname: String = ""
     var lat: String = ""
     var long: String = ""
-    var star: String = ""
-    var rating: String = ""
+    var star: Double = 0.0
+    var rating: Double = 0.0
     var locid: String = ""
     var bc: String = ""
     var fav: String = ""
     var distance: String = ""
-    var thumbnail: String = ""
+    var thumbnail: [String] = [String]()
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
     var per_night_price: String = ""
@@ -133,11 +133,11 @@ struct HotelsSearched: Codable {
         if let obj = json[APIKeys.country.rawValue] {
             self.country = "\(obj)".removeNull
         }
-        if let obj = json[APIKeys.star.rawValue] {
-            self.star = "\(obj)".removeNull
+        if let obj = json[APIKeys.star.rawValue] as? String {
+            self.rating = Double(obj.removeNull) ?? 0.0
         }
-        if let obj = json[APIKeys.rating.rawValue] {
-            self.rating = "\(obj)".removeNull
+        if let obj = json[APIKeys.rating.rawValue] as? String {
+            self.rating =   Double(obj.removeNull) ?? 0.0
         }
         if let obj = json[APIKeys.locid.rawValue] {
             self.locid = "\(obj)".removeNull
@@ -151,8 +151,8 @@ struct HotelsSearched: Codable {
         if let obj = json[APIKeys.distance.rawValue] {
             self.distance = "\(obj)".removeNull
         }
-        if let obj = json[APIKeys.thumbnail.rawValue] {
-            self.thumbnail = "\(obj)".removeNull
+        if let obj = json[APIKeys.thumbnail.rawValue] as? [String] {
+            self.thumbnail = obj
         }
         if let obj = json[APIKeys.ta_reviews.rawValue] {
             self.ta_reviews = "\(obj)".removeNull

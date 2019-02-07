@@ -10,6 +10,8 @@ import UIKit
 
 class HotelsResultVM: NSObject {
     
+    var hotelListResult = [HotelsSearched]()
+    
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(callSearchHotel(_:)), with: forText, afterDelay: 0.5)

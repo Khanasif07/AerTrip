@@ -34,6 +34,12 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    var hotelListData: HotelsSearched? {
+        didSet {
+            self.populateHotelData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -69,6 +75,17 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
             self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+        }
+    }
+    
+    private func populateHotelData() {
+        self.hotelNameLabel.text = self.hotelListData?.hname ?? LocalizedString.na.localized
+        self.starRatingView.rating = self.hotelListData?.star  ?? 0.0
+        self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
+//       self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
+        
+        if let image = UIImage(named: "hotelCardPlaceHolder") {
+            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail.first ?? "", placeholder: image, showIndicator: true)
         }
     }
     

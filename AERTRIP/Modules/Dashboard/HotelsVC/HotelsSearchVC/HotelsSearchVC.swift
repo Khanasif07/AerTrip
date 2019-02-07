@@ -491,16 +491,19 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
         self.searchBtnOutlet.isLoading = false
     }
     
     func getAllHotelsOnPreferenceResultSuccess() {
         printDebug("data")
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
         self.searchBtnOutlet.isLoading = false
     }
     
     func getAllHotelsOnPreferenceResultFail() {
         printDebug("getAllHotelsOnPreferenceResultFail")
+         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
         self.searchBtnOutlet.isLoading = false
     }
 }

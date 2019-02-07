@@ -254,10 +254,11 @@ extension AppFlowManager {
         }
     }
     
-    func moveToHotelsResultVc() {
+    func moveToHotelsResultVc(_ hotels: [HotelsSearched]) {
 //        let obj = HotelsResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         self.hotelResultVC = obj
+        obj.viewModel.hotelListResult = hotels
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -292,9 +293,10 @@ extension AppFlowManager {
         let obj = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
-    func showFilterVC() {
+    func showFilterVC(_ vc : HotelResultVC ) {
         if let hotelResultVC = self.hotelResultVC {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
+            ob.delegate = vc
             hotelResultVC.add(childViewController: ob)
         }
     }

@@ -9,15 +9,13 @@ import Foundation
 import UIKit
 
 extension UnicodeScalar {
-    
     var isEmoji: Bool {
-        
         switch value {
         case 0x3030, 0x00AE, 0x00A9, // Special Characters
-        0x1D000 ... 0x1F77F, // Emoticons
-        0x2100 ... 0x27BF, // Misc symbols and Dingbats
-        0xFE00 ... 0xFE0F, // Variation Selectors
-        0x1F900 ... 0x1F9FF: // Supplemental Symbols and Pictographs
+             0x1D000...0x1F77F, // Emoticons
+             0x2100...0x27BF, // Misc symbols and Dingbats
+             0xFE00...0xFE0F, // Variation Selectors
+             0x1F900...0x1F9FF: // Supplemental Symbols and Pictographs
             return true
             
         default: return false
@@ -25,15 +23,15 @@ extension UnicodeScalar {
     }
     
     var isZeroWidthJoiner: Bool {
-        
         return value == 8205
     }
 }
 
-//MARK:- glyphCount
+// MARK: - glyphCount
+
 extension String {
     var encodeUrl: String {
-        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
+        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
     }
     
     var decodeUrl: String {
@@ -41,7 +39,6 @@ extension String {
     }
     
     var utf8Decoded: String {
-        
 //        let jsonString = (self as NSString).utf8String
 //        if jsonString == nil{
 //            return self
@@ -54,35 +51,32 @@ extension String {
 //            return self
 //        }
         
-        let data = self.data(using: String.Encoding.utf8);
+        let data = self.data(using: String.Encoding.utf8)
         let decodedStr = NSString(data: data!, encoding: String.Encoding.nonLossyASCII.rawValue)
-        if let str = decodedStr{
+        if let str = decodedStr {
             return str as String
         }
         return self
     }
     
     var utf8Encoded: String {
-        
 //        let uniText: NSString = NSString(utf8String: (self as NSString).utf8String!)!
 //        let msgData: Data = uniText.data(using: String.Encoding.nonLossyASCII.rawValue)!
 //        let goodMsg: NSString = NSString(data: msgData, encoding: String.Encoding.utf8.rawValue)!
 //        return goodMsg as String
-        if let encodeStr = NSString(cString: self.cString(using: .nonLossyASCII)!, encoding: String.Encoding.utf8.rawValue){
+        if let encodeStr = NSString(cString: self.cString(using: .nonLossyASCII)!, encoding: String.Encoding.utf8.rawValue) {
             return encodeStr as String
         }
         return self
     }
-
-    ///Returns the base64Encoded string
-    var base64Encoded:String {
-        
+    
+    /// Returns the base64Encoded string
+    var base64Encoded: String {
         return Data(self.utf8).base64EncodedString()
     }
     
-    ///Returns the string decoded from base64Encoded string
-    var base64Decoded:String? {
-        
+    /// Returns the string decoded from base64Encoded string
+    var base64Decoded: String? {
         guard let data = Data(base64Encoded: self) else {
             return nil
         }
@@ -116,7 +110,7 @@ extension String {
         }
         return String(self.split(separator: " ").last ?? Substring(""))
     }
-
+    
     var glyphCount: Int {
         let richText = NSAttributedString(string: self)
         let line = CTLineCreateWithAttributedString(richText)
@@ -124,48 +118,39 @@ extension String {
     }
     
     var isSingleEmoji: Bool {
-        
-        return glyphCount == 1 && containsEmoji
+        return self.glyphCount == 1 && self.containsEmoji
     }
     
     var containsEmoji: Bool {
-        
         return !unicodeScalars.filter { $0.isEmoji }.isEmpty
     }
     
     var containsOnlyEmoji: Bool {
-        
         return unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
     }
     
-   
     // The next tricks are mostly to demonstrate how tricky it can be to determine emoji's
     // If anyone has suggestions how to improve this, please let me know
     var emojiString: String {
-        
-        return emojiScalars.map { String($0) }.reduce("", +)
+        return self.emojiScalars.map { String($0) }.reduce("", +)
     }
     
     var removeEmojis: String {
-        
         var newString = self
         let emojisArr = newString.emojis
-        for emoji in emojisArr{
+        for emoji in emojisArr {
             newString = newString.replacingOccurrences(of: emoji, with: "")
         }
         return newString
     }
     
     var emojis: [String] {
-        
         var scalars: [[UnicodeScalar]] = []
         var currentScalarSet: [UnicodeScalar] = []
         var previousScalar: UnicodeScalar?
         
-        for scalar in emojiScalars {
-            
-            if let prev = previousScalar, !prev.isZeroWidthJoiner && !scalar.isZeroWidthJoiner {
-                
+        for scalar in self.emojiScalars {
+            if let prev = previousScalar, !prev.isZeroWidthJoiner, !scalar.isZeroWidthJoiner {
                 scalars.append(currentScalarSet)
                 currentScalarSet = []
             }
@@ -176,17 +161,15 @@ extension String {
         
         scalars.append(currentScalarSet)
         
-        return scalars.map { $0.map{ String($0) } .reduce("", +) }
+        return scalars.map { $0.map { String($0) }.reduce("", +) }
     }
     
-    
     func hilightAsterisk(withFont font: UIFont, textColor: UIColor = .black, asteriskColor: UIColor = .red) -> NSMutableAttributedString {
-
         guard self.hasSuffix("*") else {
             return NSMutableAttributedString(string: self)
         }
         
-        let subTxt1 = self.substring(to: self.count-2)
+        let subTxt1 = self.substring(to: self.count - 2)
         let subTxt2 = "*"
         
         let attributedStr1 = NSMutableAttributedString(string: subTxt1)
@@ -199,12 +182,10 @@ extension String {
     }
     
     fileprivate var emojiScalars: [UnicodeScalar] {
-        
         var chars: [UnicodeScalar] = []
         var previous: UnicodeScalar?
         for cur in unicodeScalars {
-            
-            if let previous = previous, previous.isZeroWidthJoiner && cur.isEmoji {
+            if let previous = previous, previous.isZeroWidthJoiner, cur.isEmoji {
                 chars.append(previous)
                 chars.append(cur)
                 
@@ -218,10 +199,9 @@ extension String {
         return chars
     }
     
-
-    var isEmail: Bool{
+    var isEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
     
@@ -242,24 +222,22 @@ extension String {
     var isURL: Bool {
         let types: NSTextCheckingResult.CheckingType = [.link]
         let detector = try? NSDataDetector(types: types.rawValue)
-        guard (detector != nil && self.count > 0) else { return false }
+        guard detector != nil, self.count > 0 else { return false }
         if detector!.numberOfMatches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)) > 0 {
             return true
         }
         return false
     }
     
-    var isAnyUrl:Bool{
-        return (URL(string:self) != nil)
+    var isAnyUrl: Bool {
+        return (URL(string: self) != nil)
     }
     
     var hasVideoFileExtension: Bool {
-        
         let arr = self.components(separatedBy: ".")
-        if arr.count > 1{
-            
+        if arr.count > 1 {
             switch arr.last! {
-            case "mp4","m4a","m4v","mov","wav","mp3":
+            case "mp4", "m4a", "m4v", "mov", "wav", "mp3":
                 return true
             default:
                 return false
@@ -274,8 +252,7 @@ extension String {
         return components.filter { !$0.isEmpty }.joined(separator: " ")
     }
     
-    var removeLeadingTrailingWhitespaces:String{
-        
+    var removeLeadingTrailingWhitespaces: String {
         let spaceSet = CharacterSet.whitespacesAndNewlines
         return self.trimmingCharacters(in: spaceSet)
     }
@@ -285,7 +262,6 @@ extension String {
         return components(separatedBy: .whitespaces).joined()
     }
     
-    
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
@@ -294,8 +270,7 @@ extension String {
     var toUrl: URL? {
         if self.hasPrefix("https://") || self.hasPrefix("http://") {
             return URL(string: self)
-        }
-        else {
+        } else {
             return URL(fileURLWithPath: self)
         }
     }
@@ -308,18 +283,21 @@ extension String {
             return nil
         }
     }
+    
     var toInt32: Int32? {
-        if let int = self.toInt{
+        if let int = self.toInt {
             return Int32(int)
         }
         return nil
     }
+    
     var toInt64: Int64? {
-        if let int = self.toInt{
+        if let int = self.toInt {
             return Int64(int)
         }
         return nil
     }
+    
     /// EZSE: Converts String to Double
     var toDouble: Double? {
         if let num = NumberFormatter().number(from: self) {
@@ -337,25 +315,29 @@ extension String {
             return nil
         }
     }
+    
     var toFloat32: Float32? {
-        if let float = self.toFloat{
+        if let float = self.toFloat {
             return Float32(float)
         }
         return nil
     }
+    
     var toFloat64: Float64? {
-        if let float = self.toFloat{
+        if let float = self.toFloat {
             return Float64(float)
         }
         return nil
     }
+    
     var toCGFloat: CGFloat? {
-        if let float = self.toFloat{
+        if let float = self.toFloat {
             return CGFloat(float)
         }
         return nil
     }
-    var toJSONObject:Any? {
+    
+    var toJSONObject: Any? {
         if let data = self.data(using: .utf8) {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: [])
@@ -367,15 +349,12 @@ extension String {
     }
     
     var unitFormattedString: String {
-        
-        if let value = self.toInt{
-            
-            switch value{
-                
+        if let value = self.toInt {
+            switch value {
             case 1000..<1000000:
-                return "\(value/1000)K"
+                return "\(value / 1000)K"
             case 1000000..<1000000000:
-                return "\(value/1000000)M"
+                return "\(value / 1000000)M"
             default:
                 return self
             }
@@ -390,20 +369,20 @@ extension String {
         return self
     }
     
-    var htmlToAttributedString: NSAttributedString{
+    var htmlToAttributedString: NSAttributedString {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
-        do{
+        do {
             return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        }catch{
+        } catch {
             return NSAttributedString()
         }
     }
     
-    func contains(_ find: String) -> Bool{
+    func contains(_ find: String) -> Bool {
         return self.range(of: find) != nil
     }
     
-    func containsIgnoringCase(_ find: String) -> Bool{
+    func containsIgnoringCase(_ find: String) -> Bool {
         return self.range(of: find, options: .caseInsensitive) != nil
     }
     
@@ -440,7 +419,7 @@ extension String {
             endIndex = self.endIndex
         }
         
-        return String(self[startIndex ..< endIndex])
+        return String(self[startIndex..<endIndex])
     }
     
     func substring(from: Int) -> String {
@@ -505,34 +484,31 @@ extension String {
         return result
     }
     
-  
-    func heighLightHashTags(hashTagsFont: UIFont, hashTagsColor: UIColor) -> NSMutableAttributedString{
-        
-        let stringWithTags : NSString  = self as NSString
+    func heighLightHashTags(hashTagsFont: UIFont, hashTagsColor: UIColor) -> NSMutableAttributedString {
+        let stringWithTags: NSString = self as NSString
         let regex: NSRegularExpression = try! NSRegularExpression(pattern: "[#](\\w+)", options: NSRegularExpression.Options.caseInsensitive)
         
         let matches: [NSTextCheckingResult] = regex.matches(in: stringWithTags as String, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSMakeRange(0, stringWithTags.length))
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: self, attributes: [NSAttributedString.Key.font: hashTagsFont])
         for match: NSTextCheckingResult in matches {
             let wordRange: NSRange = match.range(at: 0)
-            //Set Font
+            // Set Font
             attString.addAttribute(NSAttributedString.Key.font, value: hashTagsFont, range: NSMakeRange(0, stringWithTags.length))
-            //Set Foreground Color
+            // Set Foreground Color
             attString.addAttribute(NSAttributedString.Key.foregroundColor, value: hashTagsColor, range: wordRange)
         }
         return attString
     }
     
     func allWords(startWith: String) -> [String] {
-        
         var tags = [String]()
-        let stringWithTags : NSString  = self as NSString
+        let stringWithTags: NSString = self as NSString
         let regex: NSRegularExpression = try! NSRegularExpression(pattern: "[\(startWith)](\\w+)", options: NSRegularExpression.Options.caseInsensitive)
         
         let matches: [NSTextCheckingResult] = regex.matches(in: stringWithTags as String, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSMakeRange(0, stringWithTags.length))
         
         let nsString = NSString(string: self)
-
+        
         for match in matches {
             let wordRange: NSRange = match.range(at: 0)
             let wordText = nsString.substring(with: wordRange)
@@ -552,10 +528,9 @@ extension String {
     }
     
     func sizeCount(withFont font: UIFont, bundingSize size: CGSize) -> CGSize {
-        
         let mutableParagraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         mutableParagraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
+        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
         let tempStr = NSString(string: self)
         
         let rect: CGRect = tempStr.boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
@@ -564,47 +539,39 @@ extension String {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
     
-    ///Converts the string into 'Date' if possible, based on the given date format and timezone. otherwise returns nil
-    func toDate(dateFormat:String,timeZone:TimeZone = TimeZone.current)->Date?{
-        
+    /// Converts the string into 'Date' if possible, based on the given date format and timezone. otherwise returns nil
+    func toDate(dateFormat: String, timeZone: TimeZone = TimeZone.current) -> Date? {
         let frmtr = DateFormatter()
         frmtr.locale = Locale(identifier: "en_US_POSIX")
         frmtr.dateFormat = dateFormat
         frmtr.timeZone = timeZone
         return frmtr.date(from: self)
     }
-    
-   
 }
 
 extension String {
-    
-    var containsWhitespace : Bool {
-        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
+    var containsWhitespace: Bool {
+        return (self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
     }
     
-    func checkValidity(_ ValidityExpression : ValidityExpression) -> Bool {
-        
+    func checkValidity(_ ValidityExpression: ValidityExpression) -> Bool {
         let regEx = ValidityExpression.rawValue
         
-        let test = NSPredicate(format:"SELF MATCHES %@", regEx)
+        let test = NSPredicate(format: "SELF MATCHES %@", regEx)
         
         return test.evaluate(with: self)
     }
     
-    func checkInvalidity(_ ValidityExpression : ValidityExpression) -> Bool {
-        
+    func checkInvalidity(_ ValidityExpression: ValidityExpression) -> Bool {
         return !self.checkValidity(ValidityExpression)
     }
     
     func stringByAppendingPathComponent(path: String) -> String {
-        
         let nsSt = self as NSString
         return nsSt.appendingPathComponent(path)
     }
     
     func convertUtcToCurrent() -> String {
-        
         let inDateFormatter: DateFormatter = DateFormatter()
         inDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         inDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -620,34 +587,30 @@ extension String {
     }
     
     func containsNumbers() -> Bool {
-        let numberRegEx  = ".*[0-9]+.*"
-        let testCase     = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+        let numberRegEx = ".*[0-9]+.*"
+        let testCase = NSPredicate(format: "SELF MATCHES %@", numberRegEx)
         return testCase.evaluate(with: self)
     }
     
     func containsUpperCase() -> Bool {
-        
-        let capitalLetterRegEx  = ".*[A-Z]+.*"
-        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        let capitalLetterRegEx = ".*[A-Z]+.*"
+        let texttest = NSPredicate(format: "SELF MATCHES %@", capitalLetterRegEx)
         return texttest.evaluate(with: self)
     }
     
     func containsLowerCase() -> Bool {
-        
-        let capitalLetterRegEx  = ".*[a-z]+.*"
-        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        let capitalLetterRegEx = ".*[a-z]+.*"
+        let texttest = NSPredicate(format: "SELF MATCHES %@", capitalLetterRegEx)
         return texttest.evaluate(with: self)
     }
     
     func containsSpecialCharacters() -> Bool {
-        
-        let capitalLetterRegEx  = ".*[!&^%$#@()/]+.*"
-        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+        let capitalLetterRegEx = ".*[!&^%$#@()/]+.*"
+        let texttest = NSPredicate(format: "SELF MATCHES %@", capitalLetterRegEx)
         return texttest.evaluate(with: self)
     }
     
     func slice(from: String, to: String) -> String? {
-        
         return (range(of: from)?.upperBound).flatMap { substringFrom in
             (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
                 String(self[substringFrom..<substringTo])
@@ -659,7 +622,7 @@ extension String {
         guard
             let bQuote = Locale.current.quotationBeginDelimiter,
             let eQuote = Locale.current.quotationEndDelimiter
-            else { return ("\"", "\"") }
+        else { return ("\"", "\"") }
         
         return (bQuote, eQuote)
     }
@@ -668,16 +631,35 @@ extension String {
         let (bQuote, eQuote) = String.quotes
         return bQuote + self + eQuote
     }
-    
 }
 
-enum ValidityExpression : String {
-    
-    case Username     = "^[a-zA-z]{1,}+[a-zA-z0-9!@#$%&*]{2,15}"
-    case Email        = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+enum ValidityExpression: String {
+    case Username = "^[a-zA-z]{1,}+[a-zA-z0-9!@#$%&*]{2,15}"
+    case Email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
     case MobileNumber = "^[+0-9]{0,16}$"
-    case Password     = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/])[A-Za-z\\dd$@$!%*?&#]{8,}"
-    case Name         = "^[a-zA-Z ]{2,50}"
-    case Url          = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-    case Price        = "^([0-9]{0,0}((.)[0-9]{0,0}))$"
+    case Password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/])[A-Za-z\\dd$@$!%*?&#]{8,}"
+    case Name = "^[a-zA-Z ]{2,50}"
+    case Url = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+    case Price = "^([0-9]{0,0}((.)[0-9]{0,0}))$"
+}
+
+// Stylish
+
+extension String {
+    func asStylizedPrice(using font: UIFont) -> NSMutableAttributedString {
+        let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
+        
+        guard var changeRange = self.range(of: ".")?.asNSRange() else {
+            return stylizedPrice
+        }
+        
+        changeRange.length = self.count - changeRange.location
+        // forgive the force unwrapping
+        let changeFont = UIFont(name: font.fontName, size: (font.pointSize / 1.5))!
+       // let offset = font.capHeight - changeFont.capHeight
+        let offset = 6.2
+        stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
+        stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
+        return stylizedPrice
+    }
 }

@@ -130,7 +130,7 @@ extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        cell.hotelData = self.viewModel.hotels[indexPath.item]
+        cell.hotelData = self.viewModel.hotels[indexPath.row]
         cell.delegate = self
         return cell
     }

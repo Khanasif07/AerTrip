@@ -43,6 +43,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="mapImageView" destination="qv3-rM-Uz5" id="UdS-KJ-3wn"/>
+                <outlet property="mapView" destination="jml-0E-9cI" id="u4b-e5-ukI"/>
             </connections>
             <point key="canvasLocation" x="239.19999999999999" y="333.28335832083962"/>
         </view>
