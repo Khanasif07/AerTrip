@@ -31,7 +31,7 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var countryLabel:UILabel!
     @IBOutlet weak var cellDividerViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var cellDividerView: UIView!
+    @IBOutlet weak var cellDividerView: ATDividerView!
     @IBOutlet weak var addressTypeView: UIView!
     @IBOutlet weak var countryView: UIView!
     
@@ -44,7 +44,7 @@ class AddAddressTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-      
+      self.cellDividerView.defaultHeight = 8.0
     }
     
     

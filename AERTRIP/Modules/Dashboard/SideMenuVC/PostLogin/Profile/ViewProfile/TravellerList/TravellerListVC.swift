@@ -24,7 +24,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet var selectAllButton: UIButton!
     @IBOutlet var travellerSelectedCountLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
-    @IBOutlet var headerDividerView: UIView!
+    @IBOutlet var headerDividerView: ATDividerView!
     
     // MARK: - Variables
     

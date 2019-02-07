@@ -14,7 +14,7 @@ class TableViewAddActionCell: UITableViewCell {
     @IBOutlet var cellBackgroundView: UIView!
     @IBOutlet var actionLabel: UILabel!
 
-    @IBOutlet weak var topDividerView: UIView!
+    @IBOutlet weak var topDividerView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

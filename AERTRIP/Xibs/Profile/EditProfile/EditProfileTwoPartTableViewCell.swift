@@ -23,7 +23,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     @IBOutlet var blackDownImageView: UIImageView!
     @IBOutlet var leftSeparatorView: UIView!
     @IBOutlet var rightViewTextField: UITextField!
-    @IBOutlet var rightSeparatorView: UIView!
+    @IBOutlet var rightSeparatorView: ATDividerView!
     @IBOutlet var deleteButton: UIButton!
     
     // MARK: - Variables

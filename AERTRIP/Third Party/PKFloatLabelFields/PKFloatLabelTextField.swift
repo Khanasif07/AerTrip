@@ -24,14 +24,14 @@ import UIKit
     }
     
     /// A UIColor value that determines the color of the bottom line when in the normal state
-    @IBInspectable dynamic open var lineColor: UIColor = .lightGray {
+    @IBInspectable dynamic open var lineColor: UIColor = AppColors.divider.color {
         didSet {
             updateLineView()
         }
     }
     
     /// A UIColor value that determines the color of the bottom line when in the normal state
-    @IBInspectable dynamic open var selectedLineColor: UIColor = .lightGray {
+    @IBInspectable dynamic open var selectedLineColor: UIColor = AppColors.divider.color {
         didSet {
             updateLineView()
         }

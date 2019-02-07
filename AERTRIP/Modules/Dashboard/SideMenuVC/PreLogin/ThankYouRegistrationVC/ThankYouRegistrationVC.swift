@@ -24,7 +24,7 @@ class ThankYouRegistrationVC: BaseVC {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var checkEmailLabel: UILabel!
     @IBOutlet weak var openEmailAppButton: UIButton!
-    @IBOutlet weak var noReplyLabel: ActiveLabel!
+    @IBOutlet weak var noReplyLabel: UILabel!
     @IBOutlet weak var topNavBar: TopNavigationView!
     
     //MARK:- ViewLifeCycle
@@ -33,11 +33,6 @@ class ThankYouRegistrationVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {
-            
-            self.viewModel.webserviceForGetRegistrationData()
-        }
         self.initialSetups()
     }
     
@@ -53,12 +48,6 @@ class ThankYouRegistrationVC: BaseVC {
         self.checkEmailLabel.font = AppFonts.Regular.withSize(16)
         self.openEmailAppButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         
-        let attributedString = NSMutableAttributedString(string: LocalizedString.No_Reply_Email_Text.localized, attributes: [
-            .font: AppFonts.Regular.withSize(14),
-            .foregroundColor: AppColors.themeGray60
-            ])
-        attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(14), range: NSRange(location: 128, length: 19))
-        self.noReplyLabel.attributedText = attributedString
     }
     
     override func setupTexts() {
@@ -68,12 +57,31 @@ class ThankYouRegistrationVC: BaseVC {
             self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
             self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
             self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized
+            
+            let attributedString = NSMutableAttributedString(string: LocalizedString.password_redset_link_message.localized, attributes: [
+                .font: AppFonts.Regular.withSize(14),
+                .foregroundColor: AppColors.themeGray60
+                ])
+            
+            let range = (LocalizedString.password_redset_link_message.localized as NSString).range(of: LocalizedString.noreply_aertrip_com.localized)
+            attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(14), range: range)
+            
+            self.noReplyLabel.attributedText = attributedString
         } else {
             
             self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
             self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
             self.checkEmailLabel.text = LocalizedString.Check_your_email_to_activate_your_account.localized
-            self.noReplyLabel.text = LocalizedString.No_Reply_Email_Text.localized
+            
+            let attributedString = NSMutableAttributedString(string: LocalizedString.No_Reply_Email_Text.localized, attributes: [
+                .font: AppFonts.Regular.withSize(14),
+                .foregroundColor: AppColors.themeGray60
+                ])
+            
+            let range = (LocalizedString.No_Reply_Email_Text.localized as NSString).range(of: LocalizedString.noreply_aertrip_com.localized)
+            attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(14), range: range)
+            
+            self.noReplyLabel.attributedText = attributedString
         }
     }
     
@@ -82,7 +90,6 @@ class ThankYouRegistrationVC: BaseVC {
         self.headerTitleLabel.textColor     = AppColors.themeBlack
         self.sentAccountLinkLabel.textColor  = AppColors.themeBlack
         self.checkEmailLabel.textColor      = AppColors.themeBlack
-        self.noReplyLabel.textColor        = AppColors.themeBlack
         self.emailLabel.textColor         = AppColors.themeOrange
         self.openEmailAppButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
@@ -95,7 +102,8 @@ class ThankYouRegistrationVC: BaseVC {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {(alert,index) in
             
-            //AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+//            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)
+//            return
             if index == 0 {
                 
                 guard let mailURL = URL(string: "message://") else {return}
@@ -127,9 +135,14 @@ class ThankYouRegistrationVC: BaseVC {
 extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
     
     private func initialSetups() {
+        self.view.backgroundColor = AppColors.screensBackground.color
+        
+        if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {
+            
+            self.viewModel.webserviceForGetRegistrationData()
+        }
         
         self.emailLabel.text = self.viewModel.email
-        self.linkSetupForTermsAndCondition(withLabel: self.noReplyLabel)
         
         topNavBar.delegate = self
     }

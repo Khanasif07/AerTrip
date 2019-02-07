@@ -25,7 +25,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
     @IBOutlet var profileContainerView: UIView!
-    @IBOutlet var dividerView: UIView!
+    @IBOutlet var dividerView: ATDividerView!
     
     // MARK: - Variable
     

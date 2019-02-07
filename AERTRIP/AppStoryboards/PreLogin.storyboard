@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,18 +27,19 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VH1-Zd-UoS">
                                 <rect key="frame" x="20" y="68" width="335" height="179"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="179" id="BlO-hE-r66"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaD-gk-V9Y">
-                                <rect key="frame" x="0.0" y="258.5" width="375" height="230"/>
+                                <rect key="frame" x="0.0" y="274.5" width="375" height="198"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KAq-60-Ls3">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="230"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="198"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-Yf-Sii" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="60.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -49,7 +49,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqA-K7-akV" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="84.5" width="343" height="61"/>
+                                                <rect key="frame" x="0.0" y="74" width="343" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="18" maxY="0.0"/>
@@ -61,7 +61,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="169.5" width="343" height="60.5"/>
+                                                <rect key="frame" x="0.0" y="148" width="343" height="50"/>
                                                 <color key="backgroundColor" red="0.0" green="0.4431372549" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
@@ -75,9 +75,10 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="KAq-60-Ls3" secondAttribute="trailing" constant="16" id="DbQ-Ur-dSG"/>
-                                    <constraint firstAttribute="height" constant="230" id="SD7-cc-ZX9"/>
+                                    <constraint firstAttribute="height" constant="198" id="SD7-cc-ZX9"/>
                                     <constraint firstAttribute="bottom" secondItem="KAq-60-Ls3" secondAttribute="bottom" id="fsR-5G-Jhf"/>
                                     <constraint firstItem="KAq-60-Ls3" firstAttribute="top" secondItem="UaD-gk-V9Y" secondAttribute="top" id="mw4-nq-wcp"/>
                                     <constraint firstItem="KAq-60-Ls3" firstAttribute="leading" secondItem="UaD-gk-V9Y" secondAttribute="leading" constant="16" id="pW6-Kn-j7U"/>
@@ -106,7 +107,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Bvt-bN-fe0" secondAttribute="bottom" id="5sQ-9n-vD2"/>
                                                     <constraint firstItem="aXb-zd-SJ2" firstAttribute="leading" secondItem="VGS-6a-NQO" secondAttribute="leading" id="725-JO-Ssg"/>
@@ -135,7 +136,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="joQ-u7-ebo" secondAttribute="trailing" id="8gf-CW-mY2"/>
                                                     <constraint firstItem="HEu-aC-9RY" firstAttribute="top" secondItem="vbX-1Y-OU3" secondAttribute="top" id="KeF-2j-sFF"/>
@@ -156,7 +157,7 @@
                                         <rect key="frame" x="171" y="0.0" width="1" height="50"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="AKK-Lw-N8e" secondAttribute="bottom" id="5ay-wz-3sE"/>
                                     <constraint firstItem="tgC-3v-ig4" firstAttribute="top" secondItem="AKK-Lw-N8e" secondAttribute="top" id="G4f-ne-BpD"/>
@@ -169,7 +170,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="moM-Cd-hz7" firstAttribute="leading" secondItem="hCX-v0-Jq7" secondAttribute="leadingMargin" id="4dV-fW-ghW"/>
                             <constraint firstItem="UaD-gk-V9Y" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" id="6Id-Jo-yph"/>
@@ -256,7 +257,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4x-KU-Ehx">
                                 <rect key="frame" x="324" y="305" width="35" height="27"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="POh-wS-rdh"/>
                                     <constraint firstAttribute="height" constant="27" id="i7q-Tc-Ge2"/>
@@ -499,13 +500,13 @@ activation link on</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4Y-d1-c3L">
-                                <rect key="frame" x="132.5" y="414.5" width="110" height="30"/>
+                                <rect key="frame" x="132.5" y="431.5" width="110" height="30"/>
                                 <state key="normal" title="Open Email App"/>
                                 <connections>
                                     <action selector="openEmailAppButtonAction:" destination="hRn-6u-x9p" eventType="touchUpInside" id="SDj-UH-aKg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC4-D6-RSH" customClass="ActiveLabel" customModule="ActiveLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC4-D6-RSH">
                                 <rect key="frame" x="20" y="580" width="335" height="61"/>
                                 <string key="text">The activation email will expire in 7 days. If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -526,7 +527,7 @@ activation link on</string>
                             <constraint firstItem="Yt1-12-Cox" firstAttribute="top" secondItem="2J5-Vp-fou" secondAttribute="bottom" id="R4X-ft-IRk"/>
                             <constraint firstItem="2J5-Vp-fou" firstAttribute="leading" secondItem="iad-Aw-MzD" secondAttribute="leading" id="Xlb-Sb-Lb9"/>
                             <constraint firstItem="b1t-up-yBu" firstAttribute="trailing" secondItem="JEY-36-ZvV" secondAttribute="trailing" id="YAA-fJ-07g"/>
-                            <constraint firstItem="a4Y-d1-c3L" firstAttribute="centerY" secondItem="iad-Aw-MzD" secondAttribute="centerY" multiplier="1.25" id="bsQ-8T-Zpk"/>
+                            <constraint firstItem="a4Y-d1-c3L" firstAttribute="centerY" secondItem="iad-Aw-MzD" secondAttribute="centerY" multiplier="1.3" id="bsQ-8T-Zpk"/>
                             <constraint firstItem="2J5-Vp-fou" firstAttribute="top" secondItem="iad-Aw-MzD" secondAttribute="top" id="fhW-2Y-P77"/>
                             <constraint firstItem="msy-WE-wC6" firstAttribute="top" secondItem="Yt1-12-Cox" secondAttribute="bottom" constant="13" id="g64-EE-SSj"/>
                             <constraint firstItem="b1t-up-yBu" firstAttribute="top" secondItem="JEY-36-ZvV" secondAttribute="bottom" constant="16" id="g6Y-HP-S6l"/>
@@ -599,7 +600,7 @@ activation link on</string>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUd-Ow-hk8">
                                 <rect key="frame" x="324" y="279.5" width="35" height="27"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="ITd-R7-rC7"/>
                                     <constraint firstAttribute="width" constant="35" id="JvJ-Fh-klf"/>
@@ -1186,15 +1187,15 @@ activation link on</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Checkmark" width="23" height="18"/>
+        <image name="Checkmark" width="23" height="18.5"/>
         <image name="downArrow" width="9" height="6"/>
         <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
-        <image name="greenCheckMark" width="31" height="24"/>
-        <image name="greenCircleShadow" width="94" height="95"/>
+        <image name="greenCheckMark" width="31.5" height="24.5"/>
+        <image name="greenCircleShadow" width="94.5" height="95.5"/>
         <image name="greenOvLogin" width="62" height="62"/>
         <image name="in" width="100" height="67"/>
-        <image name="line" width="1" height="60"/>
+        <image name="line" width="1" height="60.5"/>
         <image name="linkedInIcon" width="24" height="24"/>
         <image name="logoImage" width="28" height="25"/>
         <image name="showPassword" width="27" height="17"/>

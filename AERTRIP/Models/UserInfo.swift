@@ -507,7 +507,7 @@ class UserInfo {
     }
     
     func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)"
+        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)".uppercased()
         return AppGlobals.shared.getImageFromText(string, font: font, textColor: textColor)
     }
 }

@@ -18,7 +18,7 @@ class TextEditableTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var editableTextField: UITextField!
-    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var downArrowImageView: UIImageView!
     
     

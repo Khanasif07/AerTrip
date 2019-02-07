@@ -120,8 +120,8 @@ class ViewProfileVC: BaseVC {
         self.tableView.delegate = self
     }
     
-    func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(UIDevice.screenHeight * 0.45) // UIScreen.width * 9 / 16 + 55
+    func setupParallaxHeader() {
+        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
@@ -138,8 +138,6 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-          //  self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
-         //   self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0

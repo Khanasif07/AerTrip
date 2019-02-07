@@ -73,6 +73,7 @@ enum LocalizedString: String {
     case Open_Email_App = "Open_Email_App"
     case No_Reply_Email_Text = "No_Reply_Email_Text"
     case noreply_aertrip_com = "noreply_aertrip_com"
+    case password_redset_link_message = "password_redset_link_message"
     case Cancel = "Cancel"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"

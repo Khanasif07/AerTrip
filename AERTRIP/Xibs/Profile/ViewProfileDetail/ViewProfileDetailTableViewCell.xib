@@ -51,7 +51,7 @@
                             <constraint firstItem="8KF-AW-RMc" firstAttribute="top" secondItem="jLF-N7-OLP" secondAttribute="top" constant="8" id="yRJ-vd-7WU"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUr-ge-mTc">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUr-ge-mTc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="58.5" width="304" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>

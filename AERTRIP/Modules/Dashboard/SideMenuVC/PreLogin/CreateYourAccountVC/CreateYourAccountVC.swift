@@ -9,6 +9,7 @@
 import UIKit
 import ActiveLabel
 import SafariServices
+import IQKeyboardManager
 
 class CreateYourAccountVC: BaseVC {
 
@@ -40,18 +41,18 @@ class CreateYourAccountVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-        }
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        let button = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
+        button.isEnabled = false
         
-        if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
-        }
+        self.emailTextField.keyboardToolbar.doneBarButton.isEnabled = false
+//        self.emailTextField.keyboardToolbar.doneBarButton.title = "sd"
+        IQKeyboardManager.shared().toolbarDoneBarButtonItemText = ""
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,7 +70,7 @@ class CreateYourAccountVC: BaseVC {
         
         self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
         self.loginHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
-        self.notRegisterYetLabel.font = AppFonts.Regular.withSize(16)
+        self.notRegisterYetLabel.font = AppFonts.SemiBold.withSize(16)
         
         let attributedString = NSMutableAttributedString(string: LocalizedString.By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use.localized, attributes: [
             .font: AppFonts.Regular.withSize(14),
@@ -119,16 +120,21 @@ class CreateYourAccountVC: BaseVC {
 private extension CreateYourAccountVC {
     
     func initialSetups() {
+
+        topNavBar.leftButton.isHidden = true
+        topNavBar.delegate = self
         
+        self.view.backgroundColor = AppColors.screensBackground.color
         self.registerButton.isEnabled = false
         self.emailTextField.delegate  = self
         self.emailTextField.text = self.viewModel.email
+        self.emailTextField.autocorrectionType = .no
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         
-        topNavBar.leftButton.isHidden = true
-        topNavBar.delegate = self
+        self.setupInitialAnimation()
+        self.setupViewDidLoadAnimation()
     }
     
     func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
@@ -225,9 +231,8 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     
     func setupViewDidLoadAnimation() {
         
-        
         let rDuration = 1.0 / 3.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration*2.0, delay: 0.0, options: .calculationModeLinear, animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
@@ -247,8 +252,6 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
         }) { (success) in
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
-            
-            
         }
     }
     

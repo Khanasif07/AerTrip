@@ -12,7 +12,7 @@ class DestinationSearchedTableCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

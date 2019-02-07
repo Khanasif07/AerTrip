@@ -82,7 +82,7 @@
                                             <constraint firstItem="gUp-WT-i5m" firstAttribute="centerY" secondItem="pep-Om-AFu" secondAttribute="centerY" id="r4e-8V-izN"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0u-Rl-NQf" userLabel="leftSeparatorView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0u-Rl-NQf" userLabel="leftSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="58.5" width="144" height="1"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -134,7 +134,7 @@
                                             <action selector="deleteCellTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QQk-z8-9Zi"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7r-Fx-cdQ" userLabel="rightSeparatorView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7r-Fx-cdQ" userLabel="rightSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="58.5" width="144" height="1"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>

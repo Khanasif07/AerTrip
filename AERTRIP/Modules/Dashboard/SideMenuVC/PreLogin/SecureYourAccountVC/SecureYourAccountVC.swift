@@ -152,8 +152,8 @@ class SecureYourAccountVC: BaseVC {
 private extension SecureYourAccountVC {
     
     func initialSetups() {
-        
-       self.topNavBar.delegate = self
+        self.view.backgroundColor = AppColors.screensBackground.color
+        self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
         self.nextButton.isEnabled = false
         var placeholder = LocalizedString.Password.localized

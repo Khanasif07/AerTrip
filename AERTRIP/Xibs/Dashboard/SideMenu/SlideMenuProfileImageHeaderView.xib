@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="531" height="256"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
                     <rect key="frame" x="0.0" y="0.0" width="531" height="256"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW">
@@ -85,7 +85,7 @@
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="centerX" secondItem="LRw-xr-uiF" secondAttribute="centerX" id="w6D-El-hdd"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="255" width="531" height="1"/>
                     <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -105,7 +105,7 @@
                     </state>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="top" secondItem="cbl-xr-PpX" secondAttribute="bottom" id="2CZ-T1-zTe"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="9ws-vz-w8g"/>

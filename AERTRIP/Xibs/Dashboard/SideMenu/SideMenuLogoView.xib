@@ -45,7 +45,7 @@ travel experience</string>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SJD-h8-ZWh" secondAttribute="trailing" id="6ic-Ef-BUP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SJD-h8-ZWh" secondAttribute="bottom" id="Zyo-IU-Sa8"/>

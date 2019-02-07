@@ -14,7 +14,7 @@ class AddressTextEditTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var downArrow: UIImageView!
-    @IBOutlet weak var separatorArrow: UIView!
+    @IBOutlet weak var separatorArrow: ATDividerView!
     @IBOutlet weak var deleteButton: UIButton!
     
     

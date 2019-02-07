@@ -10,8 +10,10 @@ import UIKit
 
 open class ATDividerView: UIView {
     
+    //MARK:- View Life Cycle
+    //MARK:-
     init() {
-        super.init(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 1.0))
+        super.init(frame: CGRect.zero)
         self.initialSetup()
     }
     
@@ -20,13 +22,41 @@ open class ATDividerView: UIView {
         self.initialSetup()
     }
     
-    override open func draw(_ rect: CGRect) {
-        super.draw(CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: 1.0))
-        
-        self.initialSetup()
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        self.updatedFrame()
     }
     
-    func initialSetup() {
-        self.backgroundColor = AppColors.themeGray20        
+    //MARK:- Properties
+    //MARK:- Private
+    
+    //MARK:- Public
+    var defaultHeight: CGFloat = 1.0 {
+        didSet {
+            self.updatedFrame()
+        }
+    }
+    
+    var defaultBackgroundColor: UIColor = AppColors.divider.color {
+        didSet {
+            self.updatedBackgroundColor()
+        }
+    }
+    
+    
+    //MARK:- Methods
+    //MARK:- Private
+    private func initialSetup() {
+        
+        self.updatedFrame()
+        self.updatedBackgroundColor()
+    }
+    
+    private func updatedBackgroundColor() {
+        self.backgroundColor = defaultBackgroundColor
+    }
+    
+    private func updatedFrame() {
+        self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: defaultHeight)
     }
 }

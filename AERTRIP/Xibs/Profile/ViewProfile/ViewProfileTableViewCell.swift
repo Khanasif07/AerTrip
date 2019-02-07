@@ -12,7 +12,7 @@ class ViewProfileTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
     @IBOutlet weak var menuOptionLabel: UILabel!
-    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorView: ATDividerView!
     
 
     override func awakeFromNib() {

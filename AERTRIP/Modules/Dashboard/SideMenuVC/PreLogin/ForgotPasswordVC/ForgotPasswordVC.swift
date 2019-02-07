@@ -84,6 +84,7 @@ class ForgotPasswordVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
+
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForForgotPassword(sender)
         }
@@ -95,6 +96,7 @@ class ForgotPasswordVC: BaseVC {
 private extension ForgotPasswordVC {
     
     func initialSetups() {
+        self.view.backgroundColor = AppColors.screensBackground.color
         
         self.topNavBar.delegate = self
         

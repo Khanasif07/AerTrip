@@ -32,8 +32,8 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     @IBOutlet var frequentFyerImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var frequentFlyerLabelLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var leftSeparatorView: UIView!
-    @IBOutlet var rightSeparatorView: UIView!
+    @IBOutlet var leftSeparatorView: ATDividerView!
+    @IBOutlet var rightSeparatorView: ATDividerView!
     
     // MARK: - Variables
     
