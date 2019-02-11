@@ -61,6 +61,14 @@ class ATButton: UIButton {
         }
     }
     
+    var myCornerRadius: CGFloat = 0.0 {
+        didSet {
+            self.layer.cornerRadius = self.myCornerRadius
+            self.addShadowLayer()
+            self.addGradientLayer()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -146,6 +154,9 @@ class ATButton: UIButton {
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: .normal)
         super.setImage(image, for: .highlighted)
+        if let img = self.imageView {
+            self.bringSubviewToFront(img)
+        }
     }
     
     override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {

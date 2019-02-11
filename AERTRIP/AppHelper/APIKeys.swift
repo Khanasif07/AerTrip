@@ -126,6 +126,18 @@ enum APIKeys: String {
     case per_night_list_price = "per_night_list_price"
     case lat = "lat"
     case long = "long"
+    
+    //BulkBookings
+    case source = "source"
+    case from_date = "from_date"
+    case to_date = "to_date"
+    case destination = "destination"
+    case room_count = "room_count"
+    case adt = "adt"
+    case chd = "chd"
+    case preferred = "preferred"
+    case special_request = "special_request"
+    case pType = "pType"
 }
 
 

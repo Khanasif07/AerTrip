@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HotelFilterResultHeaderView" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButtonLabel" destination="iDw-s7-ZLX" id="VqD-1M-gWw"/>
+                <outlet property="containerView" destination="sPL-mb-MxB" id="t3a-tT-Obe"/>
+                <outlet property="hotelNameLabel" destination="OmA-p8-VE9" id="EO2-eD-SGh"/>
+                <outlet property="saveButtonOutlet" destination="N0X-aa-Jdc" id="ShX-0r-8jF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPL-mb-MxB">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grand Hyatt Mumbai" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OmA-p8-VE9">
+                            <rect key="frame" x="54" y="14.5" width="267" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0X-aa-Jdc">
+                            <rect key="frame" x="0.0" y="3" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="N0X-aa-Jdc" secondAttribute="height" multiplier="1:1" id="AEg-fn-ux4"/>
+                                <constraint firstAttribute="height" constant="44" id="ilv-60-Omt"/>
+                            </constraints>
+                            <state key="normal" image="saveHotels"/>
+                            <state key="selected" image="saveHotelsSelected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDw-s7-ZLX">
+                            <rect key="frame" x="331" y="3" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="iDw-s7-ZLX" secondAttribute="height" multiplier="1:1" id="FTr-WL-TC1"/>
+                                <constraint firstAttribute="height" constant="44" id="z6r-Dk-Fe6"/>
+                            </constraints>
+                            <state key="normal" image="CancelButtonWhite"/>
+                            <state key="selected" image="saveHotelsSelected"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="iDw-s7-ZLX" firstAttribute="centerY" secondItem="sPL-mb-MxB" secondAttribute="centerY" id="9sf-iT-VIv"/>
+                        <constraint firstItem="N0X-aa-Jdc" firstAttribute="leading" secondItem="sPL-mb-MxB" secondAttribute="leading" id="HcB-ih-bB0"/>
+                        <constraint firstItem="OmA-p8-VE9" firstAttribute="centerY" secondItem="sPL-mb-MxB" secondAttribute="centerY" id="Sd4-Az-i3t"/>
+                        <constraint firstItem="iDw-s7-ZLX" firstAttribute="leading" secondItem="OmA-p8-VE9" secondAttribute="trailing" constant="10" id="Uze-fZ-uVA"/>
+                        <constraint firstItem="OmA-p8-VE9" firstAttribute="leading" secondItem="N0X-aa-Jdc" secondAttribute="trailing" constant="10" id="mTj-IR-AYP"/>
+                        <constraint firstItem="N0X-aa-Jdc" firstAttribute="centerY" secondItem="sPL-mb-MxB" secondAttribute="centerY" id="t4r-xZ-39t"/>
+                        <constraint firstAttribute="trailing" secondItem="iDw-s7-ZLX" secondAttribute="trailing" id="xAW-SB-h4i"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="sPL-mb-MxB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BOF-SS-wcy"/>
+                <constraint firstAttribute="bottom" secondItem="sPL-mb-MxB" secondAttribute="bottom" id="kF9-et-CfA"/>
+                <constraint firstItem="sPL-mb-MxB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ueh-rg-wf1"/>
+                <constraint firstAttribute="trailing" secondItem="sPL-mb-MxB" secondAttribute="trailing" id="y6i-Z6-ntM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="132.80000000000001" y="-45.877061469265371"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="CancelButtonWhite" width="24" height="24"/>
+        <image name="saveHotels" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="27"/>
+    </resources>
+</document>

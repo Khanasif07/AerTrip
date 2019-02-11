@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HotelFilterResultFooterView" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="9Q0-oZ-Z0T" id="gbC-9Q-rDg"/>
+                <outlet property="fromLabel" destination="hzy-pH-XGh" id="uHb-1F-brb"/>
+                <outlet property="hotelFeesLabel" destination="HQo-Mf-9nN" id="lZl-33-DQa"/>
+                <outlet property="selectRoomLabel" destination="r6f-Lp-2jB" id="jPd-aB-Cn3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Q0-oZ-Z0T">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzy-pH-XGh">
+                            <rect key="frame" x="16" y="16.5" width="33" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="33" id="9A0-gO-dxB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="₹ 35,500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQo-Mf-9nN">
+                            <rect key="frame" x="57" y="13" width="84" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6f-Lp-2jB">
+                            <rect key="frame" x="161" y="13" width="198" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="r6f-Lp-2jB" secondAttribute="trailing" constant="16" id="Ck9-jp-bNo"/>
+                        <constraint firstItem="hzy-pH-XGh" firstAttribute="centerY" secondItem="9Q0-oZ-Z0T" secondAttribute="centerY" id="D5S-n7-46H"/>
+                        <constraint firstItem="r6f-Lp-2jB" firstAttribute="centerY" secondItem="9Q0-oZ-Z0T" secondAttribute="centerY" id="aoQ-uP-Mv4"/>
+                        <constraint firstItem="HQo-Mf-9nN" firstAttribute="centerY" secondItem="hzy-pH-XGh" secondAttribute="centerY" id="cKg-vB-9Pp"/>
+                        <constraint firstItem="hzy-pH-XGh" firstAttribute="leading" secondItem="9Q0-oZ-Z0T" secondAttribute="leading" constant="16" id="dIZ-cN-6yW"/>
+                        <constraint firstItem="HQo-Mf-9nN" firstAttribute="leading" secondItem="hzy-pH-XGh" secondAttribute="trailing" constant="8" id="m7V-n4-TOG"/>
+                        <constraint firstItem="r6f-Lp-2jB" firstAttribute="leading" secondItem="HQo-Mf-9nN" secondAttribute="trailing" constant="20" id="vKe-fC-pZG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="9Q0-oZ-Z0T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FZe-Ip-ABI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9Q0-oZ-Z0T" secondAttribute="trailing" id="KoM-M8-2a0"/>
+                <constraint firstAttribute="bottom" secondItem="9Q0-oZ-Z0T" secondAttribute="bottom" id="LHL-T0-8bD"/>
+                <constraint firstItem="9Q0-oZ-Z0T" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WuF-jL-Fen"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

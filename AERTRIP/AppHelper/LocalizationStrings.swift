@@ -308,6 +308,7 @@ enum LocalizedString: String {
     case AllStars = "AllStars"
     case WantMoreRooms = "Want More Rooms?"
     case RequestBulkBooking = "RequestBulkBooking"
+    case LoginAndSubmit = "Login & Submit"
     
     //MARK:- Room Guest Selection
     case Room = "Room"
@@ -331,6 +332,13 @@ enum LocalizedString: String {
     
     //MARK:- Bulk Booking
     case BulkBooking = "BulkBooking"
+    case PreferredHotels = "PreferredHotels"
+    case SpecialRequest = "SpecialRequest"
+    case IfAny = "IfAny"
+    case Rooms = "Rooms"
+    case BulkEnquirySent = "BulkEnquirySent"
+    case CustomerServicesShallConnect = "CustomerServicesShallConnect"
+    case Submit = "Submit"
     
     //MARK:- FF Search
     case SearchAirlines = "SearchAirlines"
@@ -352,6 +360,13 @@ enum LocalizedString: String {
     
     //MARK: - RangeVC
     case SearchResultsRange = "SearchResultsRange"
+    
+    
+    //MARK:- HotelFilterResultsVC
+    case From = "From"
+    case SelectRoom = "SelectRoom"
+    case Maps = "Maps"
+    case AddressSmallLaters = "AddressSmallLaters"
     
 }
 

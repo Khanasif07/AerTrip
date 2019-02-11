@@ -32,6 +32,8 @@ class SelectDestinationVC: BaseVC {
         }
     }
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rectangleView: UIView!
+    
     
     //MARK:- Properties
     //MARK:- Public
@@ -85,8 +87,9 @@ class SelectDestinationVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         
-        self.mainContainerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        
+        //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
+        self.rectangleView.cornerRadius = 15.0
+        self.rectangleView.layer.masksToBounds = true
         self.hide(animated: false)
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
@@ -113,7 +116,7 @@ class SelectDestinationVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height)
+            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             if shouldRemove {

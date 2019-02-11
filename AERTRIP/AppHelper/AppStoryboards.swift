@@ -17,6 +17,7 @@ enum AppStoryboard : String {
     case HotelPreferences
     case TravellerList
     case HotelsSearch
+    case HotelResults
     case Settings
     case Filter
 }

@@ -9,16 +9,17 @@
 import UIKit
 
 protocol RoomGuestSelectionVCDelegate: class {
-    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int])
+    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int], roomNumber: Int)
 }
 
 class RoomGuestSelectionVC: BaseVC {
     
     //MARK:- IBOutlets
-    //MARK:-
+    //================
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var mainContainerBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var roomNumberLabel: UILabel!
     @IBOutlet weak var guestSelectionLabel: UILabel!
@@ -27,30 +28,31 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var adultsAgeLabel: UILabel!
     @IBOutlet weak var childTitleLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
-    @IBOutlet var adultsButtons: [UIButton]!
-    @IBOutlet weak var adultATBtnOutlet: ATGuestButton!
+    @IBOutlet var adultsButtons: [ATGuestButton]!
     @IBOutlet var childrenButtons: [UIButton]!
     @IBOutlet weak var ageSelectionLabel: UILabel!
     @IBOutlet var agePickers: [UIPickerView]!
     @IBOutlet weak var agesContainerView: UIStackView!
     @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var firstLineView: UIView!
+    @IBOutlet weak var secondLineView: UIView!
+    @IBOutlet weak var rectangleView: UIView!
     
     
     //MARK:- Properties
-    //MARK:- Public
+    //================
     private(set) var viewModel = RoomGuestSelectionVM()
     weak var delegate: RoomGuestSelectionVCDelegate?
     private var containerHeight: CGFloat {
-        return UIDevice.screenHeight * 0.56
+        //return UIDevice.screenHeight * 0.56
+        return 370.0
     }
-    var count = 0
-    //MARK:- Private
+    private var mainContainerHeight: CGFloat = 0.0
     
     //MARK:- ViewLifeCycle
-    //MARK:-
+    //====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.initialSetups()
     }
     
@@ -116,13 +118,13 @@ class RoomGuestSelectionVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         
-        self.mainContainerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        
+        //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
+        self.rectangleView.cornerRadius = 15.0
+        self.rectangleView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         
         self.setOldAges()
-        
         self.hide(animated: false)
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
@@ -140,9 +142,10 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        
+        self.mainContainerHeight = self.mainContainerHeightConstraint.constant
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
+            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant - self.agesContainerView.frame.height//280.0
             self.view.layoutIfNeeded()
         })
     }
@@ -196,6 +199,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
         let mainH = self.containerHeight
+        // - self.agesContainerView.frame.height
+        //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 1.0
@@ -210,7 +215,8 @@ class RoomGuestSelectionVC: BaseVC {
             return
         }
         
-        let mainH = self.containerHeight - 90.0
+        //let mainH = self.containerHeight - 90.0
+        let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 0.0
@@ -229,11 +235,11 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     @IBAction func doneButtonAction(_ sender: UIButton) {
-        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge)
+        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
         self.hide(animated: true, shouldRemove: true)
     }
     
-    @IBAction func adultsButtonsAction(_ sender: UIButton) {
+    @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
 
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
@@ -248,28 +254,14 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
-        if sender.isSelected {
-            sender.dumpingButtonSelectionAnimation()
-        } else {
-            self.removeImage(sender)
-            //sender.dumbingButtonDeselctionAnimation()
+        for sender in self.adultsButtons {
+            if sender.isSelected {
+                sender.selectedState()
+            } else {
+                sender.deselectedState()
+            }
         }
-        //sender.removeImageBtn()
     }
-    
-    @IBAction func adultAtBtnAction(_ sender: ATGuestButton) {
-        //sender.
-        if count%2 == 0 {
-            sender.selectedState()
-            sender.setImage(#imageLiteral(resourceName: "adult_selected"), for: .selected)
-        } else {
-            sender.isSpringLoaded = true
-            sender.setImage(nil, for: .normal)
-            //sender.deselectedState()
-        }
-        self.count += 1
-    }
-    
     
     @IBAction func childrenButtonsAction(_ sender: UIButton) {
 
@@ -286,17 +278,6 @@ class RoomGuestSelectionVC: BaseVC {
             sender.dumbingButtonDeselctionAnimation()
         }
     }
-    
-    private func removeImage(_ sender: UIButton) {
-        sender.transform = .identity
-        sender.setImage(#imageLiteral(resourceName: "adult_selected"), for: .normal)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1.0, options: .allowAnimatedContent, animations: {
-            sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        }) { (true) in
-            sender.transform = .identity
-            sender.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
-        }
-    }
 }
 
 //MARK:- UIPicker View data source and delegate
@@ -311,7 +292,6 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
@@ -320,7 +300,6 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         pickerLabel?.text = "\(row + 1)"
         pickerLabel?.textColor = AppColors.themeBlack
-        
         return pickerLabel!
     }
     
