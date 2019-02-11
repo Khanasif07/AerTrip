@@ -34,6 +34,10 @@ class HotelFilterResultsVC: BaseVC {
         self.registerNibs()
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
 //    override func updateViewConstraints() {
 //        super.updateViewConstraints()
 //        self.hotelTableViewHeightConstraint.constant = self.hotelTableView.contentSize.height
@@ -191,13 +195,4 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return CGFloat.leastNonzeroMagnitude
         }
     }
-}
-
-
-extension HotelFilterResultsVC: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        <#code#>
-    }
-    
 }
