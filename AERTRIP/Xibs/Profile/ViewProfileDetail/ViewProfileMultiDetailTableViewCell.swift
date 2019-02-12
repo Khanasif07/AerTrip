@@ -32,6 +32,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     }
 
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
+        self.firstTitleLabel.text = LocalizedString.IssueDate.localized
+        self.secondTitleLabel.text = LocalizedString.ExpiryDate.localized
         self.firstSubtTitleLabel.text = issueDate
         self.secondSubTitleLabel.text = expiryDate
     }

@@ -98,8 +98,8 @@ class TwoPartEditTableViewCell: UITableViewCell {
             rightTextField.text = expiryDate
             
             frequentFlyerView.isHidden = true
-            leftTitleLabel.text = LocalizedString.issueDate.rawValue
-            rightTitleLabel.text = LocalizedString.expiryDate.rawValue
+            leftTitleLabel.text = LocalizedString.IssueDate.localized
+            rightTitleLabel.text = LocalizedString.ExpiryDate.localized
             deleteButton.isHidden = true
             leftTextField.isEnabled = false
             rightTextField.isEnabled = false

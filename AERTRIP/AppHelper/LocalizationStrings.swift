@@ -192,8 +192,8 @@ enum LocalizedString: String {
     case Mobile = "Mobile"
     case passportNo = "Passport No."
     case issueCountry = "Issue Country"
-    case issueDate = "Issue Date"
-    case expiryDate = "Expiry Date"
+    case IssueDate = "IssueDate"
+    case ExpiryDate = "ExpiryDate"
     case seatPreference = "Seat Preference"
     case mealPreference = "Meal Preference"
     
