@@ -12,14 +12,9 @@ import UIKit
 class ViewProfileDetailVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var headerView: UIView!
-    @IBOutlet var backButton: UIButton!
+    @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
-    @IBOutlet var editButton: UIButton!
-    @IBOutlet var headerLabel: UILabel!
      @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var drawableHeaderView: UIView!
-    @IBOutlet weak var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     
     let viewModel = ViewProfileDetailVM()
@@ -74,34 +69,16 @@ class ViewProfileDetailVC: BaseVC {
         viewModel.delegate = self
     }
     
-    // MARK: - IB Actions
-    
-    @IBAction func backButtonTapped(_ sender: Any) {
-        AppFlowManager.default.popViewController(animated: true)
-    }
-    
-    @IBAction func editButtonTapped(_ sender: Any) {
-        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
-        ob.travelData = travelData
-        ob.viewModel.isFromTravellerList = viewModel.isFromTravellerList
-        ob.viewModel.isFromViewProfile = true
-        ob.viewModel.paxId = viewModel.paxId
-        navigationController?.pushViewController(ob, animated: true)
-    }
-    
     // MARK: - Helper method
     
     func doInitialSetUp() {
-        self.headerView.backgroundColor = AppColors.clear
-        self.headerViewHeightConstraint.constant = headerViewHeight
-        
-        self.drawableHeaderView.backgroundColor = AppColors.themeWhite
-        self.drawableHeaderView.isHidden = true
-        self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
-        
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
-        editButton.setTitle(LocalizedString.Edit.rawValue, for: .normal)
+
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+
         setupParallaxHeader()
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
@@ -112,8 +89,8 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     private func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(UIDevice.screenHeight * 0.45) // UIScreen.width * 9 / 16 + 55
-        
+        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
         profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
@@ -121,7 +98,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         tableView.parallaxHeader.height = parallexHeaderHeight
-        tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        tableView.parallaxHeader.mode = MXParallaxHeaderMode.bottom
         tableView.parallaxHeader.delegate = self
         
         let gradient = CAGradientLayer()
@@ -130,8 +107,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView.gradientView.layer.insertSublayer(gradient, at: 0)
       //  profileImageHeaderView.dividerView.isHidden = true
         
-        self.view.bringSubviewToFront(self.drawableHeaderView)
-        self.view.bringSubviewToFront(self.headerView)
+        self.view.bringSubviewToFront(self.topNavView)
     }
     
     private func setUpDataFromApi() {
@@ -149,7 +125,7 @@ class ViewProfileDetailVC: BaseVC {
         let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
         
         if !string.isEmpty {
-            placeImage = AppGlobals.shared.getImageFromText(string)
+            placeImage = AppGlobals.shared.getImageFromText(string, font: AppFonts.Regular.withSize(35.0))
         }
         if travel.profileImage != "" {
             profileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
@@ -158,11 +134,11 @@ class ViewProfileDetailVC: BaseVC {
         } else {
             if viewModel.isFromTravellerList {
                 let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
-                profileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(string)
+                profileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(string, font: AppFonts.Regular.withSize(35.0))
                 profileImageHeaderView.backgroundImageView.image = AppGlobals.shared.getImageFromText(string, textColor: AppColors.themeBlack)
                 profileImageHeaderView.blurEffectView.alpha = 1.0
             } else {
-                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
                 profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
                 profileImageHeaderView.blurEffectView.alpha = 0.0
             }
@@ -249,6 +225,21 @@ class ViewProfileDetailVC: BaseVC {
         return headerHeightToAnimate - (forProgress * ratio)
     }
     
+}
+
+extension ViewProfileDetailVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = travelData
+        ob.viewModel.isFromTravellerList = viewModel.isFromTravellerList
+        ob.viewModel.isFromViewProfile = true
+        ob.viewModel.paxId = viewModel.paxId
+        navigationController?.pushViewController(ob, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource and Delegate methods
@@ -370,12 +361,6 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         
         if parallaxHeader.progress <= 0.5 {
             
-            self.drawableHeaderView.isHidden = false
-            self.drawableHeaderView.alpha = (1.0 - parallaxHeader.progress)
-            
-            let old = headerViewHeight - headerHeightToAnimate
-            self.drawableHeaderViewHeightConstraint.constant = (old + self.getProgressiveHeight(forProgress: parallaxHeader.progress))
-            
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 // self?.view.bringSubviewToFront((self?.headerView)!)
                 
@@ -383,25 +368,22 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 //                self?.drawableHeaderViewHeightConstraint.constant = 44
                 //                self?.drawableHeaderView.backgroundColor = UIColor.white
                 
-                self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
+                self?.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 
                 // self?.view.bringSubviewToFront((self?.drawableHeaderView)!)
                 
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                self?.backButton.setImage(tintedImage, for: .normal)
-                self?.backButton.tintColor = AppColors.themeGreen
+                self?.topNavView.leftButton.setImage(tintedImage, for: .normal)
+                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
-                self?.headerLabel.text = self?.profileImageHeaderView.userNameLabel.text
+                self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
         } else {
-            self.drawableHeaderView.alpha = 0.5
-            self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
-            self.drawableHeaderView.isHidden = true
-            editButton.setTitleColor(UIColor.white, for: .normal)
-            backButton.tintColor = UIColor.white
-            headerLabel.text = ""
+            self.topNavView.firstRightButton.setTitleColor(UIColor.white, for: .normal)
+            self.topNavView.leftButton.tintColor = UIColor.white
+            self.topNavView.navTitleLabel.text = ""
         }
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.doInitialSetup()

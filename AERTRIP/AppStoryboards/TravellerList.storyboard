@@ -13,9 +13,6 @@
         <array key="SourceSansPro-Regular.ttf">
             <string>SourceSansPro-Regular</string>
         </array>
-        <array key="SourceSansPro-SemiBold.ttf">
-            <string>SourceSansPro-SemiBold</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Traveller ListVC-->
@@ -26,104 +23,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fap-KZ-xGW">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fap-KZ-xGW" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMc-Al-Qfc">
-                                        <rect key="frame" x="8" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="DMc-Al-Qfc" secondAttribute="height" multiplier="1:1" id="RmA-DT-JiM"/>
-                                        </constraints>
-                                        <state key="normal" image="backGreen"/>
-                                        <connections>
-                                            <action selector="backButtonTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="Hoi-Xy-ikl"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Traveller List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-uc-W7G">
-                                        <rect key="frame" x="138" y="10.5" width="99.5" height="23"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-4A-hhu">
-                                        <rect key="frame" x="291" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="KgD-iP-0wL"/>
-                                            <constraint firstAttribute="width" constant="44" id="Nlc-vP-2dv"/>
-                                        </constraints>
-                                        <state key="normal" image="plusButton"/>
-                                        <connections>
-                                            <action selector="addTravellerTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="8Rs-zr-wfq"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qH-Hd-QJH">
-                                        <rect key="frame" x="335" y="2" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Orx-nh-Dj8"/>
-                                            <constraint firstAttribute="width" constant="40" id="w6f-Lh-6WJ"/>
-                                        </constraints>
-                                        <state key="normal" image="greenPopOverButton">
-                                            <color key="titleColor" red="0.3428386578" green="0.89365664779999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="popOverOptionTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="q9K-mY-Jq4"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="22O-Pz-VX3"/>
-                                    <constraint firstAttribute="bottom" secondItem="DMc-Al-Qfc" secondAttribute="bottom" id="4PP-R3-0EV"/>
-                                    <constraint firstItem="DMc-Al-Qfc" firstAttribute="centerY" secondItem="AUe-uc-W7G" secondAttribute="centerY" id="8XG-Jr-27g"/>
-                                    <constraint firstItem="Mcb-4A-hhu" firstAttribute="centerY" secondItem="AUe-uc-W7G" secondAttribute="centerY" id="EIl-Wa-YCE"/>
-                                    <constraint firstItem="DMc-Al-Qfc" firstAttribute="leading" secondItem="fap-KZ-xGW" secondAttribute="leading" constant="8" id="EXP-bY-VuB"/>
-                                    <constraint firstItem="DMc-Al-Qfc" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="top" id="FbP-bh-Ut2"/>
-                                    <constraint firstItem="Mcb-4A-hhu" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="top" id="MLt-AY-Uux"/>
-                                    <constraint firstItem="8qH-Hd-QJH" firstAttribute="leading" secondItem="Mcb-4A-hhu" secondAttribute="trailing" id="OQS-Mi-xgs"/>
-                                    <constraint firstAttribute="bottom" secondItem="Mcb-4A-hhu" secondAttribute="bottom" id="TRn-a9-QTO"/>
-                                    <constraint firstItem="AUe-uc-W7G" firstAttribute="centerX" secondItem="fap-KZ-xGW" secondAttribute="centerX" id="V1v-IC-x5Z"/>
-                                    <constraint firstAttribute="trailing" secondItem="8qH-Hd-QJH" secondAttribute="trailing" id="fTC-8Q-hfS"/>
-                                    <constraint firstItem="AUe-uc-W7G" firstAttribute="centerY" secondItem="fap-KZ-xGW" secondAttribute="centerY" id="nPT-UF-gaI"/>
-                                    <constraint firstItem="8qH-Hd-QJH" firstAttribute="centerY" secondItem="AUe-uc-W7G" secondAttribute="centerY" id="uNc-bm-Rcy"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37y-gr-mTu">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIC-Og-gRv">
-                                        <rect key="frame" x="8" y="5" width="76" height="34"/>
-                                        <state key="normal" title="Select All">
-                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="selectAllTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="oyC-gY-WXh"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Traveller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mh5-Yz-hsU">
-                                        <rect key="frame" x="128" y="10.5" width="119.5" height="23"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMN-ZE-Cul">
-                                        <rect key="frame" x="320" y="5" width="39" height="34"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
-                                        <state key="normal" title="Done">
-                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="doneButtonTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="w5r-CF-vOY"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="JMN-ZE-Cul" secondAttribute="trailing" constant="16" id="Ex0-hf-QWL"/>
-                                    <constraint firstItem="zIC-Og-gRv" firstAttribute="leading" secondItem="37y-gr-mTu" secondAttribute="leading" constant="8" id="GSt-po-WRB"/>
-                                    <constraint firstItem="mh5-Yz-hsU" firstAttribute="centerX" secondItem="37y-gr-mTu" secondAttribute="centerX" id="I9D-f7-3yu"/>
-                                    <constraint firstItem="mh5-Yz-hsU" firstAttribute="centerY" secondItem="37y-gr-mTu" secondAttribute="centerY" id="cTq-bg-dAp"/>
-                                    <constraint firstItem="JMN-ZE-Cul" firstAttribute="centerY" secondItem="mh5-Yz-hsU" secondAttribute="centerY" id="vQ3-b7-G0b"/>
-                                    <constraint firstItem="zIC-Og-gRv" firstAttribute="centerY" secondItem="mh5-Yz-hsU" secondAttribute="centerY" id="wAi-P6-wbS"/>
                                 </constraints>
                             </view>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="O3S-Ag-QUk" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
@@ -201,9 +105,6 @@
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="bottom" id="GKI-FF-yvb"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="HT3-KF-2fP"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
-                            <constraint firstItem="37y-gr-mTu" firstAttribute="height" secondItem="fap-KZ-xGW" secondAttribute="height" id="MYS-Bu-Zvb"/>
-                            <constraint firstItem="37y-gr-mTu" firstAttribute="leading" secondItem="fap-KZ-xGW" secondAttribute="leading" id="THO-W6-aJk"/>
-                            <constraint firstItem="37y-gr-mTu" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="top" id="UTp-DK-Dav"/>
                             <constraint firstItem="Dd0-fb-cBb" firstAttribute="leading" secondItem="foV-YG-f1J" secondAttribute="leading" id="V09-d1-R5W"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="ayy-IG-Mnv" secondAttribute="trailing" id="Vvb-rf-f28"/>
                             <constraint firstAttribute="trailing" secondItem="Dd0-fb-cBb" secondAttribute="trailing" id="cgT-X6-Caq"/>
@@ -212,7 +113,6 @@
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="ijs-1I-y9R"/>
                             <constraint firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="nlz-PB-waf"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="oTC-sf-XEg"/>
-                            <constraint firstItem="37y-gr-mTu" firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="u4o-As-xqn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lLE-bn-tID"/>
                     </view>
@@ -220,15 +120,10 @@
                         <outlet property="assignGroupButton" destination="fdo-f8-8XG" id="dQ6-XR-Zpk"/>
                         <outlet property="bottomView" destination="ayy-IG-Mnv" id="q5Q-Mi-kFQ"/>
                         <outlet property="deleteButton" destination="lF6-ol-Nff" id="MkT-Sh-XXd"/>
-                        <outlet property="doneButton" destination="JMN-ZE-Cul" id="9QQ-V3-es7"/>
                         <outlet property="headerDividerView" destination="Dd0-fb-cBb" id="8gh-5P-aen"/>
-                        <outlet property="navigationTitleLabel" destination="AUe-uc-W7G" id="RVU-nx-ZlC"/>
                         <outlet property="searchBar" destination="O3S-Ag-QUk" id="9hS-tb-kry"/>
-                        <outlet property="selectAllButton" destination="zIC-Og-gRv" id="LQI-U3-seW"/>
-                        <outlet property="selectView" destination="37y-gr-mTu" id="6J7-zP-mqZ"/>
                         <outlet property="tableView" destination="X8Q-9M-K7z" id="H40-OI-yQB"/>
-                        <outlet property="travellerNavigationView" destination="fap-KZ-xGW" id="POg-MO-n0t"/>
-                        <outlet property="travellerSelectedCountLabel" destination="mh5-Yz-hsU" id="43p-Oa-Cbk"/>
+                        <outlet property="topNavView" destination="fap-KZ-xGW" id="DEq-eN-MDW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2c-CJ-RBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,50 +138,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-An-eba">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-An-eba" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBF-Ue-X3N">
-                                        <rect key="frame" x="315" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="rBF-Ue-X3N" secondAttribute="height" multiplier="1:1" id="3EV-44-Cwt"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <state key="normal" title="Done"/>
-                                        <connections>
-                                            <action selector="doneButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="l1T-fq-yal"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cog-vI-XgO">
-                                        <rect key="frame" x="16" y="0.0" width="60" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="kkZ-3R-3CT"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="cancelButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="OsA-R7-2t3"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFM-Xa-8wG">
-                                        <rect key="frame" x="81" y="10.5" width="229" height="23"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="rBF-Ue-X3N" firstAttribute="leading" secondItem="LFM-Xa-8wG" secondAttribute="trailing" constant="5" id="12R-eo-q9V"/>
-                                    <constraint firstItem="rBF-Ue-X3N" firstAttribute="top" secondItem="nwc-An-eba" secondAttribute="top" id="2Ie-QL-w0V"/>
-                                    <constraint firstItem="LFM-Xa-8wG" firstAttribute="centerY" secondItem="cog-vI-XgO" secondAttribute="centerY" id="6x7-AA-xww"/>
-                                    <constraint firstItem="cog-vI-XgO" firstAttribute="top" secondItem="nwc-An-eba" secondAttribute="top" id="7xP-cu-erx"/>
-                                    <constraint firstAttribute="trailing" secondItem="rBF-Ue-X3N" secondAttribute="trailing" constant="16" id="9me-gl-cWb"/>
-                                    <constraint firstItem="LFM-Xa-8wG" firstAttribute="leading" secondItem="cog-vI-XgO" secondAttribute="trailing" constant="5" id="UhV-Sx-rD7"/>
-                                    <constraint firstItem="cog-vI-XgO" firstAttribute="leading" secondItem="nwc-An-eba" secondAttribute="leading" constant="16" id="qnB-m3-NCA"/>
-                                    <constraint firstAttribute="bottom" secondItem="rBF-Ue-X3N" secondAttribute="bottom" id="tmd-CJ-xV3"/>
                                     <constraint firstAttribute="height" constant="44" id="vEv-FB-9ad"/>
-                                    <constraint firstAttribute="bottom" secondItem="cog-vI-XgO" secondAttribute="bottom" id="wgt-i6-3Xn"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="qdC-Cp-sbt" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
@@ -330,10 +186,8 @@
                         <viewLayoutGuide key="safeArea" id="R0j-KS-kbu"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="cog-vI-XgO" id="s7x-R2-YJv"/>
-                        <outlet property="doneButton" destination="rBF-Ue-X3N" id="ZMo-hC-8c7"/>
-                        <outlet property="headerTitleLabel" destination="LFM-Xa-8wG" id="smW-PN-3hF"/>
                         <outlet property="tableView" destination="qdC-Cp-sbt" id="td3-Fl-KqR"/>
+                        <outlet property="topNavView" destination="nwc-An-eba" id="9qK-cb-sJJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NR4-bF-Syu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -348,49 +202,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-TK-Qur">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-TK-Qur" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4KV-ic-ysL">
-                                        <rect key="frame" x="295" y="0.0" width="70" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="vrM-Zd-hFO"/>
-                                        </constraints>
-                                        <state key="normal" title="Done"/>
-                                        <connections>
-                                            <action selector="doneButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="K4d-3F-7hM"/>
-                                            <action selector="importButtonAction:" destination="aw8-VZ-RdQ" eventType="touchUpInside" id="3F4-Yr-l2C"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvP-9Z-rHe">
-                                        <rect key="frame" x="85" y="10.5" width="205" height="23"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cv-Mw-4Is">
-                                        <rect key="frame" x="10" y="0.0" width="70" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="wz6-r2-gUE"/>
-                                        </constraints>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="cancelButtonAction:" destination="aw8-VZ-RdQ" eventType="touchUpInside" id="uUf-Mm-ivx"/>
-                                            <action selector="cancelButtonTapped:" destination="kn7-iy-d77" eventType="touchUpInside" id="pzf-FV-5il"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="gvP-9Z-rHe" firstAttribute="leading" secondItem="0cv-Mw-4Is" secondAttribute="trailing" constant="5" id="Bz9-TA-uWH"/>
-                                    <constraint firstAttribute="trailing" secondItem="4KV-ic-ysL" secondAttribute="trailing" constant="10" id="UAw-DY-Nae"/>
-                                    <constraint firstItem="4KV-ic-ysL" firstAttribute="leading" secondItem="gvP-9Z-rHe" secondAttribute="trailing" constant="5" id="UgX-MR-aSY"/>
-                                    <constraint firstItem="4KV-ic-ysL" firstAttribute="top" secondItem="xQM-TK-Qur" secondAttribute="top" id="ffP-l0-2OS"/>
-                                    <constraint firstItem="0cv-Mw-4Is" firstAttribute="leading" secondItem="xQM-TK-Qur" secondAttribute="leading" constant="10" id="mHT-XD-YVW"/>
-                                    <constraint firstAttribute="bottom" secondItem="0cv-Mw-4Is" secondAttribute="bottom" id="ssM-pn-uTE"/>
-                                    <constraint firstItem="0cv-Mw-4Is" firstAttribute="top" secondItem="xQM-TK-Qur" secondAttribute="top" id="ueE-rD-eEk"/>
-                                    <constraint firstItem="gvP-9Z-rHe" firstAttribute="centerY" secondItem="0cv-Mw-4Is" secondAttribute="centerY" id="wPH-SI-eEF"/>
-                                    <constraint firstAttribute="bottom" secondItem="4KV-ic-ysL" secondAttribute="bottom" id="xSC-Pu-9le"/>
                                     <constraint firstAttribute="height" constant="44" id="yma-PI-xfH"/>
                                 </constraints>
                             </view>
@@ -506,14 +321,12 @@
                         <viewLayoutGuide key="safeArea" id="x6P-ye-djb"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="0cv-Mw-4Is" id="2D9-vF-B8d"/>
-                        <outlet property="importButton" destination="4KV-ic-ysL" id="9uH-xL-Oqg"/>
                         <outlet property="listContainerView" destination="qDC-RZ-EQS" id="euj-1t-g5w"/>
-                        <outlet property="navTitleLabel" destination="gvP-9Z-rHe" id="1aw-eB-05a"/>
                         <outlet property="searchBar" destination="Yfi-TI-HEB" id="ifH-s6-2RQ"/>
                         <outlet property="selectedContactsCollectionView" destination="tua-VA-01g" id="nFn-fs-RQb"/>
                         <outlet property="selectedContactsContainerHeightConstraint" destination="htN-Qq-Mjd" id="2XY-CF-yRk"/>
                         <outlet property="selectedContactsContainerView" destination="cLq-4d-SPC" id="RU5-Cg-BBO"/>
+                        <outlet property="topNavView" destination="xQM-TK-Qur" id="D5J-EB-8Tk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zk-RK-imf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -662,45 +475,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9q6-NO-IqM">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9q6-NO-IqM" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyx-rK-BjX">
-                                        <rect key="frame" x="16" y="11" width="51" height="22"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonTapped:" destination="0jI-xM-fCP" eventType="touchUpInside" id="1Dl-52-CqK"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assign Group" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuH-rc-P2R">
-                                        <rect key="frame" x="30" y="10.5" width="315" height="23"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kj6-IL-XJI" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="43" width="375" height="1"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Nfr-ab-UJ5"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="fyx-rK-BjX" firstAttribute="leading" secondItem="9q6-NO-IqM" secondAttribute="leading" constant="16" id="6Ma-7v-a2k"/>
-                                    <constraint firstAttribute="bottom" secondItem="fyx-rK-BjX" secondAttribute="bottom" constant="11" id="9he-p5-sfS"/>
-                                    <constraint firstItem="VuH-rc-P2R" firstAttribute="centerX" secondItem="9q6-NO-IqM" secondAttribute="centerX" id="PiW-mZ-vR1"/>
-                                    <constraint firstAttribute="bottom" secondItem="kj6-IL-XJI" secondAttribute="bottom" id="Qky-Gs-gbx"/>
                                     <constraint firstAttribute="height" constant="44" id="bS5-FH-III"/>
-                                    <constraint firstAttribute="trailing" secondItem="VuH-rc-P2R" secondAttribute="trailing" constant="30" id="bv7-tT-cgO"/>
-                                    <constraint firstAttribute="trailing" secondItem="kj6-IL-XJI" secondAttribute="trailing" id="eIX-o3-N8e"/>
-                                    <constraint firstItem="VuH-rc-P2R" firstAttribute="centerY" secondItem="9q6-NO-IqM" secondAttribute="centerY" id="eZ0-Ql-1hY"/>
-                                    <constraint firstItem="kj6-IL-XJI" firstAttribute="leading" secondItem="9q6-NO-IqM" secondAttribute="leading" id="o6y-2Q-nII"/>
-                                    <constraint firstItem="fyx-rK-BjX" firstAttribute="centerY" secondItem="VuH-rc-P2R" secondAttribute="centerY" id="oBg-ZN-7UF"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bs6-7a-iS5" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
@@ -758,9 +537,8 @@
                     </view>
                     <connections>
                         <outlet property="addNewGroupButton" destination="bm0-Su-7h0" id="Lds-74-5cu"/>
-                        <outlet property="cancelButton" destination="fyx-rK-BjX" id="tHP-Mi-rhc"/>
-                        <outlet property="headerTitleLabel" destination="VuH-rc-P2R" id="aNw-m6-hSt"/>
                         <outlet property="tableView" destination="bs6-7a-iS5" id="ade-l8-ZpK"/>
+                        <outlet property="topNavView" destination="9q6-NO-IqM" id="jrm-KG-Nk8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g5b-gl-Luc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -769,11 +547,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="backGreen" width="27" height="27"/>
         <image name="black_cross" width="24" height="24"/>
         <image name="greenButton" width="22" height="22"/>
-        <image name="greenPopOverButton" width="27" height="27"/>
-        <image name="plusButton" width="27" height="27"/>
         <image name="tick" width="22" height="22"/>
         <image name="untick" width="22" height="22"/>
     </resources>

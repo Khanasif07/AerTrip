@@ -206,8 +206,8 @@ class DashboardVC: BaseVC {
     }
     
     private func updateProfileButton() {
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty, let place = UserInfo.loggedInUser?.profileImagePlaceholder() {
-            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: place)
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: UserInfo.loggedInUser?.profilePlaceholder ?? AppPlaceholderImage.profile)
             //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
         } else {
             if let userInfo = UserInfo.loggedInUser {

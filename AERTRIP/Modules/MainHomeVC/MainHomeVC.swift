@@ -387,6 +387,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     }
     
     func willOpenSideMenu() {
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
     }
 }

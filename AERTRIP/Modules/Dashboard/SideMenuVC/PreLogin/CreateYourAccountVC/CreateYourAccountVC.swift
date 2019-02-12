@@ -9,7 +9,6 @@
 import UIKit
 import ActiveLabel
 import SafariServices
-import IQKeyboardManager
 
 class CreateYourAccountVC: BaseVC {
 
@@ -47,12 +46,6 @@ class CreateYourAccountVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let button = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
-        button.isEnabled = false
-        
-        self.emailTextField.keyboardToolbar.doneBarButton.isEnabled = false
-//        self.emailTextField.keyboardToolbar.doneBarButton.title = "sd"
-        IQKeyboardManager.shared().toolbarDoneBarButtonItemText = ""
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,6 +116,8 @@ private extension CreateYourAccountVC {
 
         topNavBar.leftButton.isHidden = true
         topNavBar.delegate = self
+        
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.view.backgroundColor = AppColors.screensBackground.color
         self.registerButton.isEnabled = false

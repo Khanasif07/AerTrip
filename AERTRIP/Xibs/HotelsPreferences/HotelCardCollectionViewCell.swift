@@ -26,6 +26,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var gradientView: UIView!
     
     private var gradientLayer: CAGradientLayer!
+    private var shadowLayer: CAShapeLayer!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     var hotelData: HotelsModel? {
@@ -57,8 +58,6 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
         
         self.bgView.cornerRadius = 10.0
-        self.bgView.layer.borderWidth = 1.0
-        self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
     }
 
     private func populateData() {

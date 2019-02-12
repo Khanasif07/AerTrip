@@ -12,9 +12,8 @@ class ImportContactVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var importButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var navTitleLabel: UILabel!
+    
+    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var selectedContactsContainerView: UIView!
     @IBOutlet weak var selectedContactsContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBar: ATSearchBar!
@@ -58,34 +57,7 @@ class ImportContactVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
-    
-    override func setupFonts() {
-        self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
-        self.importButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
-    }
-    
-    override func setupTexts() {
-        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
-        
-        self.importButton.setTitle(LocalizedString.Import.localized, for: .normal)
-        self.importButton.setTitle(LocalizedString.Import.localized, for: .selected)
-        
-        self.navTitleLabel.text = LocalizedString.AllowContacts.localized
-    }
-    
-    override func setupColors() {
-        self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.cancelButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        
-        self.importButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.importButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.importButton.setTitleColor(AppColors.themeGray40, for: .disabled)
-        
-        self.navTitleLabel.textColor = AppColors.themeBlack
-    }
-    
+
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -124,6 +96,14 @@ class ImportContactVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
         
         self.viewModel.selectedPhoneContacts.removeAll()
         self.viewModel.selectedFacebookContacts.removeAll()
@@ -184,27 +164,27 @@ class ImportContactVC: BaseVC {
     private func updateNavTitle() {
         
         if self.viewModel.totalContacts <= 0 {
-            self.importButton.isEnabled = false
+            self.topNavView.firstRightButton.isEnabled = false
             switch self.currentIndex {
             case 0:
                 //phone
-                self.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
                 
             case 1:
                 //facebook
-                self.navTitleLabel.text = LocalizedString.ConnectWithFB.localized
+                self.topNavView.navTitleLabel.text = LocalizedString.ConnectWithFB.localized
                 
             case 2:
                 //google
-                self.navTitleLabel.text = LocalizedString.ConnectWithGoogle.localized
+                self.topNavView.navTitleLabel.text = LocalizedString.ConnectWithGoogle.localized
                 
             default:
-                self.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
             }
         }
         else {
-            self.importButton.isEnabled = true
-            self.navTitleLabel.text = "\(self.viewModel.totalContacts) \(LocalizedString.ContactsSelected.localized)"
+            self.topNavView.firstRightButton.isEnabled = true
+            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalContacts) \(LocalizedString.ContactsSelected.localized)"
         }
     }
     
@@ -233,6 +213,16 @@ extension ImportContactVC: UISearchBarDelegate {
     }
 }
 
+extension ImportContactVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.cancelButtonAction(sender)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.importButtonAction(sender)
+    }
+}
+
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
@@ -241,7 +231,7 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func contactSavedSuccess() {
-        self.cancelButtonAction(self.cancelButton)
+        self.cancelButtonAction(self.topNavView.leftButton)
     }
     
     func phoneContactSavedFail() {

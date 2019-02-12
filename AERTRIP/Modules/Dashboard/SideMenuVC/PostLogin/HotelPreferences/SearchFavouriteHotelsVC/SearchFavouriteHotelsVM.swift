@@ -1,5 +1,5 @@
 //
-//  HotelSearchVM.swift
+//  SearchFavouriteHotelsVM.swift
 //  AERTRIP
 //
 //  Created by Admin on 03/01/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol HotelSearchVMDelegate: class {
+protocol SearchFavouriteHotelsVMDelegate: class {
     func willSearchForHotels()
     func searchHotelsSuccess()
     func searchHotelsFail()
@@ -18,9 +18,9 @@ protocol HotelSearchVMDelegate: class {
     func updateFavouriteFail()
 }
 
-class HotelSearchVM: NSObject {
+class SearchFavouriteHotelsVM: NSObject {
     
-    weak var delegate: HotelSearchVMDelegate?
+    weak var delegate: SearchFavouriteHotelsVMDelegate?
     var hotels: [HotelsModel] = []
     
     //MARK:- Hotel Search API

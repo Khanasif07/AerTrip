@@ -58,7 +58,7 @@ extension SwipeNavigationController: UINavigationControllerDelegate {
     }
     
     func navigationControllerPreferredInterfaceOrientationForPresentation(_ navigationController: UINavigationController) -> UIInterfaceOrientation {
-        return externalDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? self.preferredInterfaceOrientationForPresentation
+        return externalDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? UIInterfaceOrientation.portrait
     }
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

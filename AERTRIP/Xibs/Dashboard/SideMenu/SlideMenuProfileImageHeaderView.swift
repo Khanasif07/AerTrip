@@ -100,6 +100,6 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     func doInitialSetup() {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-        familyButton.layer.cornerRadius = 14.0
+        familyButton.layer.cornerRadius = familyButton.height / 2.0
     }
 }

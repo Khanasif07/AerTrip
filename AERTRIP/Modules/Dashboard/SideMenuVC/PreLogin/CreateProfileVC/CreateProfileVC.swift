@@ -119,6 +119,8 @@ private extension CreateProfileVC {
     
     func initialSetups() {
         
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
+        
         self.view.backgroundColor = AppColors.screensBackground.color
         self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
         

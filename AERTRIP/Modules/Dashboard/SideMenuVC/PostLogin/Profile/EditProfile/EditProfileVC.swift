@@ -33,9 +33,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - IB Outlets
     
     @IBOutlet var tableView: ATTableView!
-    @IBOutlet var headerView: UIView!
-    @IBOutlet var cancelButton: UIButton!
-    @IBOutlet var saveButton: UIButton!
+    @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var deleteTravellerView: UIView!
     @IBOutlet var deleteButton: UIButton!
     
@@ -138,26 +136,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // MARK: - IB Actions
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
-            dismiss(animated: true, completion: nil)
-        } else {
-            AppFlowManager.default.popViewController(animated: true)
-        }
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        NSLog("save button tapped")
-        view.endEditing(true)
-        viewModel.dob = AppGlobals.shared.formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        if viewModel.isValidateData(vc: self) {
-            viewModel.webserviceForSaveProfile()
-        }
-    }
-    
     @IBAction func deleteTravellButtonTapped(_ sender: Any) {
           printDebug("delete from Traveller")
           viewModel.callDeleteTravellerAPI()
@@ -168,10 +146,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - Helper Methods
     
     func doInitialSetUp() {
-        cancelButton.setTitle(LocalizedString.Cancel.rawValue, for: .normal)
-        cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        saveButton.setTitle(LocalizedString.Save.rawValue, for: .normal)
-        saveButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Save.rawValue, selectedTitle: LocalizedString.Save.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
 //        deleteTravellerView.isHidden = self.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
         deleteTravellerView.isHidden = true
@@ -788,4 +767,26 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     
+}
+
+extension EditProfileVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
+            dismiss(animated: true, completion: nil)
+        } else {
+            AppFlowManager.default.popViewController(animated: true)
+        }
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        NSLog("save button tapped")
+        view.endEditing(true)
+        viewModel.dob = AppGlobals.shared.formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        if viewModel.isValidateData(vc: self) {
+            viewModel.webserviceForSaveProfile()
+        }
+    }
 }

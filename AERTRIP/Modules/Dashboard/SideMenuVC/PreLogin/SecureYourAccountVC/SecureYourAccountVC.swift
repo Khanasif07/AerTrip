@@ -152,6 +152,7 @@ class SecureYourAccountVC: BaseVC {
 private extension SecureYourAccountVC {
     
     func initialSetups() {
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         self.view.backgroundColor = AppColors.screensBackground.color
         self.topNavBar.delegate = self
         self.passwordTextField.delegate = self

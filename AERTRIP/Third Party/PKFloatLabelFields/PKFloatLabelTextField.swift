@@ -147,6 +147,8 @@ import UIKit
 			// Show
 			showTitle(isResp)
 		}
+        
+        autocapitalizationType = (keyboardType == .emailAddress) ? .none : .sentences
 	}
 	
 	override func textRect(forBounds bounds:CGRect) -> CGRect {
@@ -183,6 +185,7 @@ import UIKit
 	
 	// MARK:- Private Methods
 	fileprivate func setupSubviews() {
+        
         borderStyle = UITextField.BorderStyle.none
 		titleActiveTextColour = tintColor
 		// Set up title label

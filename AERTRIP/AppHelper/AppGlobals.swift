@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 func printDebug<T>(_ obj : T) {
     print(obj)
@@ -76,8 +77,13 @@ struct AppGlobals {
         return labels
     }
     
+    func updateIQToolBarDoneButton(isEnabled: Bool, onView: UIView? = nil) {
+        onView?.keyboardToolbar.doneBarButton.isEnabled = isEnabled
+        IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
+    }
+    
     func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        let size = 75.0
+        let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: CGPoint(x: 0, y: 12))!
     }
 

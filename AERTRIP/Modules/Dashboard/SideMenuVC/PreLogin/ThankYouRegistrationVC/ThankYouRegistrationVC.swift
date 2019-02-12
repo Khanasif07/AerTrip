@@ -135,6 +135,7 @@ class ThankYouRegistrationVC: BaseVC {
 extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
     
     private func initialSetups() {
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         self.view.backgroundColor = AppColors.screensBackground.color
         
         if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {

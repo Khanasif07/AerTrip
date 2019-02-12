@@ -136,6 +136,8 @@ private extension LoginVC {
         
         self.view.backgroundColor = AppColors.screensBackground.color
         
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
+        
         self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
         self.setupFontsAndText()
@@ -171,7 +173,9 @@ extension LoginVC: LoginVMDelegate {
     
     func didLoginSuccess() {
         self.loginButton.isLoading = false
-        AppFlowManager.default.goToDashboard()
+        delay(seconds: 0.3) {
+            AppFlowManager.default.goToDashboard()
+        }
     }
     
     func didLoginFail(errors: ErrorCodes) {

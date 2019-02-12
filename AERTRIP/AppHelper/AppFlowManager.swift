@@ -140,7 +140,11 @@ extension AppFlowManager {
         self.window.makeKeyAndVisible()
     }
     
-    
+    func moveToEditProfileVC(travelData: TravelDetailModel?) {
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = travelData
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
     
     func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", key: String = "", token:String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
@@ -199,12 +203,12 @@ extension AppFlowManager {
     }
     
     func moveToHotelSearchVC(){
-        let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func moveToViewAllHotelsVC() {
-        let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        let ob = FavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

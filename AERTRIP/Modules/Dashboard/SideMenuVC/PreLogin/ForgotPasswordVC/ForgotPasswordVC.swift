@@ -96,6 +96,9 @@ class ForgotPasswordVC: BaseVC {
 private extension ForgotPasswordVC {
     
     func initialSetups() {
+        
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
+        
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.topNavBar.delegate = self

@@ -51,6 +51,7 @@ public struct ATCategoryNavBarStyle {
     public var showIndicator = true
     
     public var indicatorHeight:CGFloat = 2.0
+    public var indicatorCornerRadius:CGFloat = 1.0
     public var indicatorColor:UIColor = UIColor(red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
     
     

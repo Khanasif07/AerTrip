@@ -16,8 +16,7 @@ protocol AssignGroupVCDelegate: class {
 class AssignGroupVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var cancelButton: UIButton!
-    @IBOutlet var headerTitleLabel: UILabel!
+    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
     @IBOutlet var addNewGroupButton: UIButton!
     
@@ -48,7 +47,11 @@ class AssignGroupVC: BaseVC {
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none
-        cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.AssignGroup.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        
         addFooterView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -110,7 +113,7 @@ class AssignGroupVC: BaseVC {
         return finalCount
     }
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    func cancelButtonTapped(_ sender: Any) {
         delegate?.cancelTapped()
         dismiss(animated: true, completion: nil)
     }
@@ -120,6 +123,12 @@ class AssignGroupVC: BaseVC {
     }
 }
 
+
+extension AssignGroupVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        cancelButtonTapped(sender)
+    }
+}
 // MARK: - AssignGroupVMDelegat methods
 
 extension AssignGroupVC: AssignGroupVMDelegate {

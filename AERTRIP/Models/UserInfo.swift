@@ -462,6 +462,24 @@ class UserInfo {
         }
     }
     
+    var profilePlaceholder: UIImage? {
+        get {
+
+            if let data = UserDefaults.getObject(forKey: "profilePlaceholder") as? Data {
+                return UIImage(data: data)
+            }
+            return nil
+        }
+        set{
+            if let vlaue = newValue, let data = vlaue.jpegData(compressionQuality: 1.0) {
+                UserDefaults.setObject(data, forKey: "profilePlaceholder")
+            }
+            else{
+                UserDefaults.removeObject(forKey: "profilePlaceholder")
+            }
+        }
+    }
+    
     var travellerDetailModel: TravelDetailModel {
         var temp = TravelDetailModel(json: JSON([:]))
         temp.id = self.paxId
@@ -506,7 +524,7 @@ class UserInfo {
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
     
-    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
+    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
         let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)".uppercased()
         return AppGlobals.shared.getImageFromText(string, font: font, textColor: textColor)
     }

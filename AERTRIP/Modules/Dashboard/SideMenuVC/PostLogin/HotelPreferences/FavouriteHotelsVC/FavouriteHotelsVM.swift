@@ -18,7 +18,7 @@ protocol ViewAllHotelsVMDelegate: class {
     func updateFavouriteFail()
 }
 
-class ViewAllHotelsVM {
+class FavouriteHotelsVM {
     
     //MARK:- Properties
     //MARK:- Public
@@ -74,12 +74,25 @@ class ViewAllHotelsVM {
         }
     }
     
-    func removeHotels(fromIndex: Int) {
-        self.hotels.remove(at: fromIndex)
+    func removeAllHotels(forCityIndex: Int) {
+        self.hotels.remove(at: forCityIndex)
         self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
             var item = ATCategoryItem()
             item.title = city.cityName
             return item
+        }
+    }
+    
+    func removeHotel(forCity: CityHotels, cityIndex: Int, forHotelAtIndex: Int) {
+        var currentCity = forCity
+        if !forCity.holetList[forHotelAtIndex].isFavourite {
+            if forCity.holetList.count > 1 {
+                currentCity.holetList.remove(at: forHotelAtIndex)
+                self.hotels[cityIndex] = currentCity
+            }
+            else {
+                self.removeAllHotels(forCityIndex: cityIndex)
+            }
         }
     }
     

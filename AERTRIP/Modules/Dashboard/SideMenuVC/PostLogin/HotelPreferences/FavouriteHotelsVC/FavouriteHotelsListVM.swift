@@ -1,5 +1,5 @@
 //
-//  HotelsListVM.swift
+//  FavouriteHotelsListVM.swift
 //  AERTRIP
 //
 //  Created by Admin on 07/01/19.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol HotelsListVMDelegate: class {
+protocol FavouriteHotelsListVMDelegate: class {
     func willUpdateFavourite()
-    func updateFavouriteSuccess(withMessage: String)
+    func updateFavouriteSuccess(atIndex: Int, withMessage: String)
     func updateFavouriteFail()
 }
 
-class HotelsListVM {
+class FavouriteHotelsListVM {
     
     //MARK:- Properties
     //MARK:- Public
@@ -23,7 +23,7 @@ class HotelsListVM {
         return self.forCity?.holetList ?? []
     }
     
-    weak var delegate: HotelsListVMDelegate?
+    weak var delegate: FavouriteHotelsListVMDelegate?
     //MARK:- Private
     
     
@@ -42,9 +42,9 @@ class HotelsListVM {
                 }) {
                     var updated = forHotel
                     updated.isFavourite = !updated.isFavourite
-//                    self.hotels[index] = updated
+                    self.forCity?.holetList[index] = updated
+                    self.delegate?.updateFavouriteSuccess(atIndex: index, withMessage: successMessage)
                 }
-                self.delegate?.updateFavouriteSuccess(withMessage: successMessage)
             }
             else {
                 self.delegate?.updateFavouriteFail()
