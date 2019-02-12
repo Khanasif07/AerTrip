@@ -49,7 +49,21 @@ struct ATGalleryViewConfiguration {
      */
     static var isStatusBarHidden: Bool = true
     
+    /* imageContentMode
+     * - used to set the filling mode of image view
+     */
     static var imageContentMode: UIView.ContentMode = .scaleToFill
+    
+    /* minimumZoomScale
+     * - used to set the minimum zoom scale
+     */
+    static var minimumZoomScale: CGFloat = 0.1
+    
+    /* maximumZoomScale
+     * - used to set the maximum zoom scale
+     */
+    static var maximumZoomScale: CGFloat = 4.0
+    
 }
 
 

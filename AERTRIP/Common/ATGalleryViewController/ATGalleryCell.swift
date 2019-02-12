@@ -41,6 +41,7 @@ class ATGalleryCell: UICollectionViewCell {
         self.imageView.contentMode = ATGalleryViewConfiguration.imageContentMode
         
         self.imageView.image = ATGalleryViewConfiguration.placeholderImage
+        
         if let img = imgD.image {
             self.imageView.image = img
         }
