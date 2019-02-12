@@ -31,8 +31,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" bounces="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
-                                <rect key="frame" x="16" y="46.5" width="343" height="75"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
+                                <rect key="frame" x="17" y="46.5" width="342" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="AXB-KS-DLX"/>
@@ -40,8 +40,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cje-PF-AVP">
+                                <rect key="frame" x="299" y="97.5" width="60" height="20"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mco-ua-tSk">
+                                        <rect key="frame" x="15" y="0.0" width="45" height="20"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="more"/>
+                                        <connections>
+                                            <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aW4-Gt-y6I"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Mco-ua-tSk" firstAttribute="leading" secondItem="cje-PF-AVP" secondAttribute="leading" constant="15" id="CyZ-iz-5Gb"/>
+                                    <constraint firstAttribute="width" constant="60" id="KES-gh-DyD"/>
+                                    <constraint firstAttribute="height" constant="20" id="N91-cO-kyK"/>
+                                    <constraint firstItem="Mco-ua-tSk" firstAttribute="top" secondItem="cje-PF-AVP" secondAttribute="top" id="Ndz-tN-VRJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mco-ua-tSk" secondAttribute="trailing" id="VkQ-Wp-5g4"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mco-ua-tSk" secondAttribute="bottom" id="kZq-zB-Nud"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwB-o5-ujX">
-                                <rect key="frame" x="0.0" y="135.5" width="375" height="1"/>
+                                <rect key="frame" x="16" y="135.5" width="343" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="74J-v7-mfz"/>
@@ -51,14 +74,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="top" secondItem="ehA-12-5xn" secondAttribute="top" constant="20" id="1sx-m3-DpS"/>
-                            <constraint firstAttribute="trailing" secondItem="iwB-o5-ujX" secondAttribute="trailing" id="3gw-GD-PyD"/>
+                            <constraint firstAttribute="trailing" secondItem="iwB-o5-ujX" secondAttribute="trailing" constant="16" id="3gw-GD-PyD"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="top" secondItem="NmD-Tk-S8D" secondAttribute="bottom" constant="7" id="Cdm-Qj-mAD"/>
-                            <constraint firstItem="iwB-o5-ujX" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" id="FZ8-qR-Cbl"/>
-                            <constraint firstItem="KCf-ml-acK" firstAttribute="leading" secondItem="NmD-Tk-S8D" secondAttribute="leading" id="HET-OI-lMM"/>
+                            <constraint firstItem="iwB-o5-ujX" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="FZ8-qR-Cbl"/>
+                            <constraint firstItem="KCf-ml-acK" firstAttribute="leading" secondItem="NmD-Tk-S8D" secondAttribute="leading" constant="1" id="HET-OI-lMM"/>
                             <constraint firstAttribute="bottom" secondItem="iwB-o5-ujX" secondAttribute="bottom" id="Hpd-9y-jjF"/>
                             <constraint firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" constant="16" id="Mz5-Ow-31t"/>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="UKK-uM-fkx"/>
+                            <constraint firstItem="cje-PF-AVP" firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="-4" id="VHr-Ha-IsQ"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
+                            <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -75,6 +100,9 @@
                 <outlet property="addressLabel" destination="NmD-Tk-S8D" id="eri-bL-iZN"/>
                 <outlet property="containerView" destination="ehA-12-5xn" id="OKf-oi-y3m"/>
                 <outlet property="deviderView" destination="iwB-o5-ujX" id="KeD-lx-OP8"/>
+                <outlet property="infoTextViewTrailingConstraint" destination="n8C-35-Br4" id="ocA-jQ-QHF"/>
+                <outlet property="moreBtnContainerView" destination="cje-PF-AVP" id="CC9-yD-HwU"/>
+                <outlet property="moreBtnOutlet" destination="Mco-ua-tSk" id="GH9-V6-CFA"/>
             </connections>
             <point key="canvasLocation" x="108" y="98.50074962518741"/>
         </tableViewCell>

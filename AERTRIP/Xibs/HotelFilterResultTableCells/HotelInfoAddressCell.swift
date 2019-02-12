@@ -21,6 +21,13 @@ class HotelInfoAddressCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressInfoTextView: UITextView!
     @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var moreBtnOutlet: UIButton!
+    @IBOutlet weak var moreBtnContainerView: UIView!
+    @IBOutlet weak var infoTextViewTrailingConstraint: NSLayoutConstraint! {
+        didSet {
+            self.infoTextViewTrailingConstraint.constant = 0.0
+        }
+    }
     
     //Mark:- LifeCycle
     //================
@@ -38,14 +45,24 @@ class HotelInfoAddressCell: UITableViewCell {
         self.configureUI()
     }
     
+    ///COnfigure UI
     private func configureUI() {
+        //SetUps
+        self.moreBtnContainerView.addGradientWithColor(color: AppColors.themeWhite)
+        self.moreBtnContainerView.isHidden = true
+        
         //Color
         self.addressLabel.textColor = AppColors.themeBlack
         self.deviderView.backgroundColor = AppColors.divider.color
+        self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
         //Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
+        self.moreBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        
+        //Text
+        self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
     }
     
     ///AttributeLabelSetup
@@ -53,11 +70,9 @@ class HotelInfoAddressCell: UITableViewCell {
         let attributedString = NSMutableAttributedString()
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
         let blackAttributedString = NSAttributedString(string: self.overview, attributes: blackAttribute)
-        let greenAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen]
-        let greenAttributedString = NSAttributedString(string: " " + LocalizedString.More.localized, attributes: greenAtrribute)
         attributedString.append(blackAttributedString)
-        attributedString.append(greenAttributedString)
         self.addressInfoTextView.attributedText = attributedString
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() == 3 ) ? false : true
     }
 
     
@@ -67,6 +82,8 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureOverviewCell() {
+        //self.infoTextViewTrailingConstraint.constant = -self.moreBtnOutlet.frame.origin.y
+        self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         self.attributeLabelSetUp()
     }
@@ -75,8 +92,12 @@ class HotelInfoAddressCell: UITableViewCell {
     
     //Mark:- IBActions
     //================
-    @IBAction func mapButtonAction(_ sender: Any) {
-        printDebug("maps")
+    @IBAction func mapButtonAction(_ sender: UIButton) {
+        printDebug("Go To Maps")
+    }
+    
+    @IBAction func moreButtonAction(_ sender: UIButton) {
+        printDebug("More")
     }
     
 }

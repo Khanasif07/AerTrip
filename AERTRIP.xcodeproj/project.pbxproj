@@ -207,6 +207,13 @@
 		8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438C17B22045E4B001D510B /* TopNavigationView.swift */; };
 		843ACE4421F893B900D87BA8 /* SearchedDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4321F893B900D87BA8 /* SearchedDestination.swift */; };
 		843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */; };
+		84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D502212BB07002C1374 /* UITextViewExtensions.swift */; };
+		84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */; };
+		84504D552212E436002C1374 /* TripAdvisorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */; };
+		84504D572212F375002C1374 /* SearchBarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D562212F375002C1374 /* SearchBarHeaderView.swift */; };
+		84504D592212F382002C1374 /* SearchBarHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84504D582212F382002C1374 /* SearchBarHeaderView.xib */; };
+		84504D5C22130697002C1374 /* HotelResultCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D5A22130697002C1374 /* HotelResultCardTableViewCell.swift */; };
+		84504D5D22130697002C1374 /* HotelResultCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84504D5B22130697002C1374 /* HotelResultCardTableViewCell.xib */; };
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		8457347B2200936A004F1E97 /* HotelsSearched.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8457347A2200936A004F1E97 /* HotelsSearched.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
@@ -530,6 +537,13 @@
 		8438C17B22045E4B001D510B /* TopNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationView.swift; sourceTree = "<group>"; };
 		843ACE4321F893B900D87BA8 /* SearchedDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDestination.swift; sourceTree = "<group>"; };
 		843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+HotelsSearch.swift"; sourceTree = "<group>"; };
+		84504D502212BB07002C1374 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
+		84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorTableViewCell.swift; sourceTree = "<group>"; };
+		84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdvisorTableViewCell.xib; sourceTree = "<group>"; };
+		84504D562212F375002C1374 /* SearchBarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarHeaderView.swift; sourceTree = "<group>"; };
+		84504D582212F382002C1374 /* SearchBarHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarHeaderView.xib; sourceTree = "<group>"; };
+		84504D5A22130697002C1374 /* HotelResultCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelResultCardTableViewCell.swift; sourceTree = "<group>"; };
+		84504D5B22130697002C1374 /* HotelResultCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelResultCardTableViewCell.xib; sourceTree = "<group>"; };
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8457347A2200936A004F1E97 /* HotelsSearched.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsSearched.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
@@ -1271,6 +1285,12 @@
 				84BF46C12211E611000AA6E3 /* AmenitiesTableViewCell.xib */,
 				84BF46BC2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift */,
 				84BF46BD2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib */,
+				84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */,
+				84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */,
+				84504D562212F375002C1374 /* SearchBarHeaderView.swift */,
+				84504D582212F382002C1374 /* SearchBarHeaderView.xib */,
+				84504D5A22130697002C1374 /* HotelResultCardTableViewCell.swift */,
+				84504D5B22130697002C1374 /* HotelResultCardTableViewCell.xib */,
 			);
 			path = HotelFilterResultTableCells;
 			sourceTree = "<group>";
@@ -1653,6 +1673,7 @@
 				18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */,
 				187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */,
 				8402210B2202E23A00A95CAA /* UITapGestureRecogniser.swift */,
+				84504D502212BB07002C1374 /* UITextViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1827,6 +1848,7 @@
 				84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */,
 				1809A48021CDFE850018AB2F /* EditProfileTwoPartTableViewCell.xib in Resources */,
 				84D2FB8421BE351E00011000 /* PKCountryFlag.xcassets in Resources */,
+				84504D552212E436002C1374 /* TripAdvisorTableViewCell.xib in Resources */,
 				84E4CC7621E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib in Resources */,
 				1841AF8B21C8B6A10038111D /* Profile.storyboard in Resources */,
 				183E3F6921D9F1D70032DEBA /* HotelCardCollectionViewCell.xib in Resources */,
@@ -1847,6 +1869,8 @@
 				840DDE8D220D764800F8BA92 /* HotelFilterImgSlideCell.xib in Resources */,
 				189D1F4D21CE3F8E00746329 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
+				84504D5D22130697002C1374 /* HotelResultCardTableViewCell.xib in Resources */,
+				84504D592212F382002C1374 /* SearchBarHeaderView.xib in Resources */,
 				18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */,
 				84BF46C32211E611000AA6E3 /* AmenitiesTableViewCell.xib in Resources */,
 				848F1A5E2203281C002BDA39 /* HotelsResultHeaderView.xib in Resources */,
@@ -2135,6 +2159,7 @@
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
+				84504D572212F375002C1374 /* SearchBarHeaderView.swift in Sources */,
 				841DD1E52202DC690055FEBB /* HotelsSearchVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
@@ -2148,6 +2173,7 @@
 				84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
+				84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */,
 				1804889821CA8B9000437C81 /* TravelDetailModel.swift in Sources */,
@@ -2184,6 +2210,7 @@
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
 				8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */,
+				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
 				1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
 				840DDE8C220D764800F8BA92 /* HotelFilterImgSlideCell.swift in Sources */,
@@ -2216,6 +2243,7 @@
 				84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
+				84504D5C22130697002C1374 /* HotelResultCardTableViewCell.swift in Sources */,
 				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
 				84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */,
 				841DD1E92202DC690055FEBB /* SelectDestinationVC.swift in Sources */,

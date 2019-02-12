@@ -370,6 +370,8 @@ enum LocalizedString: String {
     case Overview = "Overview"
     case More = "More"
     case ViewAll = "ViewAll"
-    
+    case CheckTripAdvisor = "CheckTripAdvisor"
+    case Breakfast = "Breakfast"
+    case Refundable = "Refundable"
+    case hotelFilterSearchBar = "hotelFilterSearchBar"
 }
-

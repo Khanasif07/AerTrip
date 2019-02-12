@@ -164,8 +164,8 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextField.textColor = AppColors.textFieldTextColor51
         self.preferredTextField.textColor = AppColors.textFieldTextColor51
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.specialReqTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40,NSAttributedString.Key.font: regularFontSize16])
-        self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40,NSAttributedString.Key.font: regularFontSize16])
+        self.specialReqTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.veryLightPink,NSAttributedString.Key.font: regularFontSize16])
+        self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.veryLightPink,NSAttributedString.Key.font: regularFontSize16])
     }
     
     

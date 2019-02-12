@@ -36,6 +36,14 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    func addGradientWithColor(color: UIColor) {
+        let gradient = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = [color.cgColor, color.cgColor]
+        gradient.opacity = 0.1
+        self.layer.insertSublayer(gradient, at: 0)
+    }
+    
     func addShadow(withColor color: UIColor = AppColors.themeGreen, scale: Bool = true) {
         layer.masksToBounds = false
         layer.shadowColor = color.cgColor

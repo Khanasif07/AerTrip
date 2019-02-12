@@ -37,6 +37,7 @@ class HotelRatingInfoCell: UITableViewCell {
         //Color
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.distanceLabel.textColor = AppColors.themeGray60
+        self.deviderView.backgroundColor = AppColors.divider.color
         
         //Size
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)

@@ -264,13 +264,6 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
-//        for sender in self.adultsButtons {
-//            if sender.isSelected {
-//                sender.selectedState()
-//            } else {
-//                sender.deselectedState()
-//            }
-//        }
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
@@ -281,12 +274,6 @@ class RoomGuestSelectionVC: BaseVC {
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection()
-        
-//        if sender.isSelected {
-//            sender.dumpingButtonSelectionAnimation()
-//        } else {
-//            sender.dumbingButtonDeselctionAnimation()
-//        }
     }
 }
 

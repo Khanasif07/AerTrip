@@ -27,13 +27,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbB-Bu-6oD">
-                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
+                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-DZ-l7C">
-                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -951,7 +951,7 @@
                                                 <rect key="frame" x="0.0" y="495.5" width="375" height="95.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFS-IG-md6" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="112.5" y="23" width="150" height="50"/>
+                                                        <rect key="frame" x="112.5" y="18" width="150" height="50"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="A4O-dZ-oYn"/>
@@ -967,7 +967,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="mFS-IG-md6" firstAttribute="centerX" secondItem="rBR-uV-aSB" secondAttribute="centerX" id="cTV-ju-38L"/>
-                                                    <constraint firstItem="mFS-IG-md6" firstAttribute="centerY" secondItem="rBR-uV-aSB" secondAttribute="centerY" id="wNg-MY-Oky"/>
+                                                    <constraint firstItem="mFS-IG-md6" firstAttribute="centerY" secondItem="rBR-uV-aSB" secondAttribute="centerY" multiplier="0.9" id="wNg-MY-Oky"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

@@ -321,5 +321,9 @@
 "Maps" = "Maps";
 "AddressSmallLaters" = "Address";
 "Overview" = "Overview";
-"More" = "More";
+"More" = "more";
 "ViewAll" = "View all";
+"CheckTripAdvisor" = "Check TripAdvisor Traveler Rating";
+"Breakfast" = "Breakfast";
+"Refundable" = "Refundable";
+"hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";

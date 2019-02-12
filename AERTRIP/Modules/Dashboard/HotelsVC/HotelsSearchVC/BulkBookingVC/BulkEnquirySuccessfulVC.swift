@@ -109,6 +109,26 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }
     }
     
+    private func finalTransFormation(reScaleFrame: CGRect) {
+        
+        let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: reScaleFrame.origin.y, width: 62.0, height: 62.0)
+        
+        UIView.animateKeyframes(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), delay: 0.0, options: .calculationModeCubic, animations: {
+            
+            self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
+            let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + 26.0 + self.view.safeAreaInsets.bottom
+            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y - yPerSafeArea
+            var t = CGAffineTransform.identity
+            t = t.translatedBy(x: 0.0, y: tY )
+            
+            UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+                self.searchBtnOutlet.transform = t
+                self.containerView.alpha = 1.0
+            }, completion: nil)
+            
+        }, completion: nil)
+    }
+    
     //Mark:- IBActions
     //================
     

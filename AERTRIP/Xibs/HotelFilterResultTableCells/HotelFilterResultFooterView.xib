@@ -63,12 +63,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="9Q0-oZ-Z0T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FZe-Ip-ABI"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9Q0-oZ-Z0T" secondAttribute="trailing" id="KoM-M8-2a0"/>
+                <constraint firstAttribute="trailing" secondItem="9Q0-oZ-Z0T" secondAttribute="trailing" id="KoM-M8-2a0"/>
                 <constraint firstAttribute="bottom" secondItem="9Q0-oZ-Z0T" secondAttribute="bottom" id="LHL-T0-8bD"/>
-                <constraint firstItem="9Q0-oZ-Z0T" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WuF-jL-Fen"/>
+                <constraint firstItem="9Q0-oZ-Z0T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WuF-jL-Fen"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="cou-26-Bz9"/>
         </view>
     </objects>
 </document>

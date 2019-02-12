@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripAdvisorTableViewCell" id="KGk-i7-Jjw" customClass="TripAdvisorTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="49"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="386" height="48.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="6jo-8X-gyF">
+                        <rect key="frame" x="16" y="14" width="32" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Xrl-fb-95s"/>
+                            <constraint firstAttribute="width" constant="32" id="mH6-ls-VpY"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check TripAdvisor Traveler Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-9e-MnP">
+                        <rect key="frame" x="56" y="14" width="290" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="fpT-xa-ZZi">
+                        <rect key="frame" x="346" y="2.5" width="40" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="XC3-RA-teM"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcV-jY-hti" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="47.5" width="386" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hs4-GQ-szx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gpi-9e-MnP" firstAttribute="leading" secondItem="6jo-8X-gyF" secondAttribute="trailing" constant="8" id="5lV-fZ-QIY"/>
+                    <constraint firstItem="fpT-xa-ZZi" firstAttribute="leading" secondItem="gpi-9e-MnP" secondAttribute="trailing" id="E1E-ru-x4R"/>
+                    <constraint firstItem="fpT-xa-ZZi" firstAttribute="centerY" secondItem="gpi-9e-MnP" secondAttribute="centerY" id="JCF-j9-Ep1"/>
+                    <constraint firstItem="6jo-8X-gyF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="aXh-UR-nIM"/>
+                    <constraint firstAttribute="bottom" secondItem="DcV-jY-hti" secondAttribute="bottom" id="dSo-Lg-MuS"/>
+                    <constraint firstAttribute="trailing" secondItem="fpT-xa-ZZi" secondAttribute="trailing" id="eAD-cs-xjx"/>
+                    <constraint firstItem="DcV-jY-hti" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jo2-HF-azi"/>
+                    <constraint firstAttribute="trailing" secondItem="DcV-jY-hti" secondAttribute="trailing" id="k3a-8f-uWS"/>
+                    <constraint firstItem="gpi-9e-MnP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sgf-5l-Eed"/>
+                    <constraint firstItem="6jo-8X-gyF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vDe-LO-6U0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="checkTripAdvisorLabel" destination="gpi-9e-MnP" id="2xR-FI-VmV"/>
+                <outlet property="dividerView" destination="DcV-jY-hti" id="GPS-04-Shg"/>
+                <outlet property="rightArrowImgView" destination="fpT-xa-ZZi" id="4H7-ww-lvP"/>
+                <outlet property="tripAdviserImgView" destination="6jo-8X-gyF" id="d98-tK-FvQ"/>
+            </connections>
+            <point key="canvasLocation" x="129.59999999999999" y="125.93703148425789"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="rightArrow" width="40" height="44"/>
+        <image name="tripAdviser" width="32" height="24"/>
+    </resources>
+</document>

@@ -13,27 +13,27 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AmenitiesCollectionCell" id="gTV-IL-0wX" customClass="AmenitiesCollectionCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="57" height="40"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="57" height="40"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YJ-en-OhD">
-                        <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="57" height="40"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="meA-D5-heo">
-                                <rect key="frame" x="18.5" y="15" width="20" height="20"/>
+                                <rect key="frame" x="15" y="6.5" width="27" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="meA-D5-heo" secondAttribute="height" multiplier="1:1" id="MmL-z5-P8z"/>
-                                    <constraint firstAttribute="height" constant="20" id="gib-sv-pdA"/>
+                                    <constraint firstAttribute="height" constant="27" id="gib-sv-pdA"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="meA-D5-heo" firstAttribute="centerX" secondItem="4YJ-en-OhD" secondAttribute="centerX" id="Idy-AW-W3h"/>
-                            <constraint firstItem="meA-D5-heo" firstAttribute="centerY" secondItem="4YJ-en-OhD" secondAttribute="centerY" id="uem-9l-eO0"/>
+                            <constraint firstItem="meA-D5-heo" firstAttribute="top" secondItem="4YJ-en-OhD" secondAttribute="top" constant="6.5" id="jz2-Md-KIx"/>
+                            <constraint firstItem="meA-D5-heo" firstAttribute="centerX" secondItem="4YJ-en-OhD" secondAttribute="centerX" id="rbp-K5-Nkv"/>
                         </constraints>
                     </view>
                 </subviews>

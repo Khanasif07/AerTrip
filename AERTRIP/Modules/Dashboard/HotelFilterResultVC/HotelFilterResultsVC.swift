@@ -22,7 +22,6 @@ class HotelFilterResultsVC: BaseVC {
             self.hotelTableView.dataSource = self
         }
     }
-    @IBOutlet weak var hotelTableViewHeightConstraint: NSLayoutConstraint!
 
     //Mark:- LifeCycle
     //================
@@ -35,7 +34,6 @@ class HotelFilterResultsVC: BaseVC {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        scrollView.transform = CGAffineTransform(translationX: 0.0, y: scrollView.contentOffset.y)
     }
     
 //    override func updateViewConstraints() {
@@ -58,6 +56,9 @@ class HotelFilterResultsVC: BaseVC {
         self.hotelTableView.register(HotelFilterResultFooterView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultFooterView")
         let amenitiesNib = UINib(nibName: "AmenitiesTableViewCell", bundle: nil)
         self.hotelTableView.register(amenitiesNib, forCellReuseIdentifier: "AmenitiesTableViewCell")
+        let tripAdvisorNib = UINib(nibName: "TripAdvisorTableViewCell", bundle: nil)
+        self.hotelTableView.register(tripAdvisorNib, forCellReuseIdentifier: "TripAdvisorTableViewCell")
+        self.hotelTableView.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: "SearchBarHeaderView")
     }
     
     //Mark:- IBOActions
@@ -69,17 +70,17 @@ class HotelFilterResultsVC: BaseVC {
 extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-//        switch section {
-//        case 0:
-//            return 4
-//        default:
-//            return 0
-//        }
+        
+        switch section {
+        case 0:
+            return 6
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,6 +113,11 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "AmenitiesTableViewCell", for: indexPath) as? AmenitiesTableViewCell  else { return UITableViewCell() }
                 return cell
+               
+            case 5:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+                return cell
                 
             default:
                 return UITableViewCell()
@@ -124,12 +130,11 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0:
-            
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultHeaderView") as? HotelFilterResultHeaderView  else { return UITableViewHeaderFooterView() }
-            
+        case 1:
+
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchBarHeaderView") as? SearchBarHeaderView  else { return UITableViewHeaderFooterView() }
             return headerView
-            
+
         default:
             return nil
         }
@@ -160,6 +165,8 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 137.0
         case IndexPath(row: 4, section: 0):
             return 144.0
+        case IndexPath(row: 5, section: 0):
+            return 49.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -177,24 +184,28 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 137.0
         case IndexPath(row: 4, section: 0):
             return 144.0
+        case IndexPath(row: 5, section: 0):
+            return 49.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        //return CGFloat.leastNonzeroMagnitude
         switch section {
-        case 0:
-            return 50.0
+        case 1:
+            return 112.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //return CGFloat.leastNonzeroMagnitude
         switch section {
-        case 0:
-            return 50.0
+        case 1:
+            return 112.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }

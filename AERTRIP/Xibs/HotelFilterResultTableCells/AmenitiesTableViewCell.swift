@@ -21,12 +21,15 @@ class AmenitiesTableViewCell: UITableViewCell {
         didSet {
             self.amenitiesCollectionView.delegate = self
             self.amenitiesCollectionView.dataSource = self
-            self.amenitiesCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
         }
     }
     @IBOutlet weak var amenitiesLabel: UILabel!
     @IBOutlet weak var viewAllButtonOutlet: UIButton!
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var dividerView: UIView! {
+        didSet {
+            self.dividerView.backgroundColor = AppColors.divider.color
+        }
+    }
     
     
     //Mark:- LifeCycle
@@ -63,6 +66,8 @@ class AmenitiesTableViewCell: UITableViewCell {
     }
 }
 
+//Mark:- UICollectionView Delegate and DataSource
+//===============================================
 extension AmenitiesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -79,15 +84,19 @@ extension AmenitiesTableViewCell: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = CGSize(width: (80.5), height: (collectionView.frame.height)/2)
+        let itemSize = CGSize(width: (collectionView.frame.width)/5 , height: (collectionView.frame.height)/2.1)
         return itemSize
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        <#code#>
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
 }
