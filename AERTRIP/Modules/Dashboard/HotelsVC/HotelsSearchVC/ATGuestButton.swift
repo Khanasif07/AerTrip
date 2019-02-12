@@ -14,6 +14,7 @@ enum GuestButtonType{
 }
 
 class ATGuestButton: UIButton {
+    private var isStateAnimating: Bool = false
     let placeholderImage = UIImageView()
     var btnType = GuestButtonType.adult
     
@@ -54,8 +55,11 @@ class ATGuestButton: UIButton {
     
     
     public func selectedState() {
+        guard !self.isStateAnimating else {return}
+        
+        self.isStateAnimating = true
         self.placeholderImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 3.0,
@@ -63,21 +67,26 @@ class ATGuestButton: UIButton {
                        animations: { [weak self] in
                         self?.placeholderImage.image = #imageLiteral(resourceName: "adult_selected")
                         self?.placeholderImage.transform = .identity
-            },
-                       completion: nil)
+        }){ (isDone) in
+            self.isStateAnimating = false
+        }
     }
     
     public func deselectedState() {
+        guard !self.isStateAnimating else {return}
+
+        self.isStateAnimating = true
         self.placeholderImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.placeholderImage.transform = .identity
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 1.0,
                        options: .allowAnimatedContent,
                        animations: { [weak self] in
                         self?.placeholderImage.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        }) { (true) in
+        }) { (isDone) in
+            self.isStateAnimating = false
             self.placeholderImage.image = nil
             self.placeholderImage.transform = .identity
         }

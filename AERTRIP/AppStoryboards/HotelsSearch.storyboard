@@ -248,7 +248,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="D4D-MH-SWN">
                                                                 <rect key="frame" x="120" y="0.0" width="255" height="50.5"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM5-DH-haL">
+                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM5-DH-haL" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="50.5"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
@@ -256,7 +256,7 @@
                                                                             <action selector="childrenButtonsAction:" destination="uhn-Uf-7Qz" eventType="touchUpInside" id="FJc-nI-P5R"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdu-bn-rWy">
+                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdu-bn-rWy" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
                                                                         <rect key="frame" x="64" y="0.0" width="63.5" height="50.5"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
@@ -264,7 +264,7 @@
                                                                             <action selector="childrenButtonsAction:" destination="uhn-Uf-7Qz" eventType="touchUpInside" id="qyj-uz-mIe"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EO1-vC-Omr">
+                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EO1-vC-Omr" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
                                                                         <rect key="frame" x="127.5" y="0.0" width="64" height="50.5"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
@@ -272,7 +272,7 @@
                                                                             <action selector="childrenButtonsAction:" destination="uhn-Uf-7Qz" eventType="touchUpInside" id="6hq-Zb-N0e"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Muk-NU-e6b">
+                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Muk-NU-e6b" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
                                                                         <rect key="frame" x="191.5" y="0.0" width="63.5" height="50.5"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>

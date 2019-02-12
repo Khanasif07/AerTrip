@@ -29,7 +29,7 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var childTitleLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
     @IBOutlet var adultsButtons: [ATGuestButton]!
-    @IBOutlet var childrenButtons: [UIButton]!
+    @IBOutlet var childrenButtons: [ATGuestButton]!
     @IBOutlet weak var ageSelectionLabel: UILabel!
     @IBOutlet var agePickers: [UIPickerView]!
     @IBOutlet weak var agesContainerView: UIStackView!
@@ -173,12 +173,22 @@ class RoomGuestSelectionVC: BaseVC {
         
         //update adults buttons
         for button in self.adultsButtons {
+            let oldState = button.isSelected
             button.isSelected = button.tag <= self.viewModel.selectedAdults
+            
+            if oldState != button.isSelected {
+                button.isSelected ? button.selectedState() : button.deselectedState()
+            }
         }
         
         //update children buttons
         for button in self.childrenButtons {
+            let oldState = button.isSelected
             button.isSelected = button.tag <= self.viewModel.selectedChilds
+            
+            if oldState != button.isSelected {
+                button.isSelected ? button.selectedState() : button.deselectedState()
+            }
         }
         self.guestSelectionLabel.text = self.viewModel.selectionString
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
@@ -254,16 +264,16 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
-        for sender in self.adultsButtons {
-            if sender.isSelected {
-                sender.selectedState()
-            } else {
-                sender.deselectedState()
-            }
-        }
+//        for sender in self.adultsButtons {
+//            if sender.isSelected {
+//                sender.selectedState()
+//            } else {
+//                sender.deselectedState()
+//            }
+//        }
     }
     
-    @IBAction func childrenButtonsAction(_ sender: UIButton) {
+    @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
 
         var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
@@ -272,11 +282,11 @@ class RoomGuestSelectionVC: BaseVC {
         self.viewModel.selectedChilds = tag
         self.updateSelection()
         
-        if sender.isSelected {
-            sender.dumpingButtonSelectionAnimation()
-        } else {
-            sender.dumbingButtonDeselctionAnimation()
-        }
+//        if sender.isSelected {
+//            sender.dumpingButtonSelectionAnimation()
+//        } else {
+//            sender.dumbingButtonDeselctionAnimation()
+//        }
     }
 }
 

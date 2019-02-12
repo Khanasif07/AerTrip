@@ -43,7 +43,7 @@ public extension UIBarButtonItem {
 extension UIButton {
     func dumpingButtonSelectionAnimation() {
         self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 3.0,
@@ -57,7 +57,7 @@ extension UIButton {
     func dumbingButtonDeselctionAnimation() {
         self.transform = .identity
         
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 3.0,
