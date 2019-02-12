@@ -44,6 +44,8 @@ class HotelFilterResultHeaderView: UITableViewHeaderFooterView {
     
     ///ConfigureUI
     private func configureUI() {
+        //self.containerView.layer.cornerRadius = 10.0
+        //self.containerView.layer.masksToBounds = true
         self.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.hotelNameLabel.textColor = AppColors.textFieldTextColor51

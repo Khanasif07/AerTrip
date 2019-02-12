@@ -13,6 +13,7 @@ class HotelInfoAddressCell: UITableViewCell {
     //Mark:- Variables
     //================
     let address = "Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087"
+    let overview = "With a stay at Le Sutra, you'll be centrally located in Mumbai, convenient to Lilavati Hospital and Mt. Mary Church. This spacing"
     
     //Mark:- IBOutlets
     //================
@@ -45,11 +46,31 @@ class HotelInfoAddressCell: UITableViewCell {
         //Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
-        
-        //Text
+    }
+    
+    ///AttributeLabelSetup
+    private func attributeLabelSetUp() {
+        let attributedString = NSMutableAttributedString()
+        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let blackAttributedString = NSAttributedString(string: self.overview, attributes: blackAttribute)
+        let greenAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen]
+        let greenAttributedString = NSAttributedString(string: " " + LocalizedString.More.localized, attributes: greenAtrribute)
+        attributedString.append(blackAttributedString)
+        attributedString.append(greenAttributedString)
+        self.addressInfoTextView.attributedText = attributedString
+    }
+
+    
+    internal func configureAddressCell() {
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
         self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
+    
+    internal func configureOverviewCell() {
+        self.addressLabel.text = LocalizedString.Overview.localized
+        self.attributeLabelSetUp()
+    }
+    
     
     
     //Mark:- IBActions

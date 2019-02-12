@@ -367,6 +367,9 @@ enum LocalizedString: String {
     case SelectRoom = "SelectRoom"
     case Maps = "Maps"
     case AddressSmallLaters = "AddressSmallLaters"
+    case Overview = "Overview"
+    case More = "More"
+    case ViewAll = "ViewAll"
     
 }
 

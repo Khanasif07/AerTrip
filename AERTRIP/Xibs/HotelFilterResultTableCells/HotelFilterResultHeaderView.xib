@@ -38,7 +38,7 @@
                                 <constraint firstAttribute="width" secondItem="N0X-aa-Jdc" secondAttribute="height" multiplier="1:1" id="AEg-fn-ux4"/>
                                 <constraint firstAttribute="height" constant="44" id="ilv-60-Omt"/>
                             </constraints>
-                            <state key="normal" image="saveHotels"/>
+                            <state key="normal" image="save_icon_green"/>
                             <state key="selected" image="saveHotelsSelected"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDw-s7-ZLX">
@@ -77,7 +77,7 @@
     </objects>
     <resources>
         <image name="CancelButtonWhite" width="24" height="24"/>
-        <image name="saveHotels" width="27" height="27"/>
         <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="save_icon_green" width="27" height="27"/>
     </resources>
 </document>

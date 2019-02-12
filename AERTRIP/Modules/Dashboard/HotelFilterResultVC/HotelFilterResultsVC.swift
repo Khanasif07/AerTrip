@@ -35,7 +35,7 @@ class HotelFilterResultsVC: BaseVC {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+//        scrollView.transform = CGAffineTransform(translationX: 0.0, y: scrollView.contentOffset.y)
     }
     
 //    override func updateViewConstraints() {
@@ -50,10 +50,14 @@ class HotelFilterResultsVC: BaseVC {
         self.hotelTableView.register(nib, forCellReuseIdentifier: "HotelFilterImgSlideCell")
         let hotelInfoNib = UINib(nibName: "HotelRatingInfoCell", bundle: nil)
         self.hotelTableView.register(hotelInfoNib, forCellReuseIdentifier: "HotelRatingInfoCell")
+        let loaderNib = UINib(nibName: "LoaderTableViewCell", bundle: nil)
+        self.hotelTableView.register(loaderNib, forCellReuseIdentifier: "LoaderTableViewCell")
         let hotelInfoAddressNib = UINib(nibName: "HotelInfoAddressCell", bundle: nil)
         self.hotelTableView.register(hotelInfoAddressNib, forCellReuseIdentifier: "HotelInfoAddressCell")
         self.hotelTableView.register(HotelFilterResultHeaderView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultHeaderView")
         self.hotelTableView.register(HotelFilterResultFooterView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultFooterView")
+        let amenitiesNib = UINib(nibName: "AmenitiesTableViewCell", bundle: nil)
+        self.hotelTableView.register(amenitiesNib, forCellReuseIdentifier: "AmenitiesTableViewCell")
     }
     
     //Mark:- IBOActions
@@ -69,42 +73,50 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 6
-        default:
-            return 0
-        }
+        return 5
+//        switch section {
+//        case 0:
+//            return 4
+//        default:
+//            return 0
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            
-        }
-        
-        switch indexPath {
-        case IndexPath(row: 0, section: 0):
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelFilterImgSlideCell", for: indexPath) as? HotelFilterImgSlideCell  else { return UITableViewCell() }
-            return cell
-            
-        case IndexPath(row: 1, section: 0):
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-            return cell
-            
-        case IndexPath(row: 2, section: 0):
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-            return cell
-            
-        case IndexPath(row: 3, section: 0):
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-            return cell
-            
-        default:
+            switch indexPath.row {
+            case 0:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelFilterImgSlideCell", for: indexPath) as? HotelFilterImgSlideCell  else { return UITableViewCell() }
+                return cell
+                
+            case 1:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+                return cell
+                
+            case 2:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+                cell.configureAddressCell()
+                return cell
+                
+            case 3:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+                cell.configureOverviewCell()
+                return cell
+               
+            case 4:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "AmenitiesTableViewCell", for: indexPath) as? AmenitiesTableViewCell  else { return UITableViewCell() }
+                return cell
+                
+            default:
+                return UITableViewCell()
+            }
+        } else {
             return UITableViewCell()
         }
 
@@ -115,6 +127,7 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
         case 0:
             
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultHeaderView") as? HotelFilterResultHeaderView  else { return UITableViewHeaderFooterView() }
+            
             return headerView
             
         default:
@@ -126,7 +139,8 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
         switch section {
         case 0:
             
-            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView() }
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView()
+            }
             return footerView
 
         default:
@@ -142,6 +156,10 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 126.5
         case IndexPath(row: 2, section: 0):
             return 137.0
+        case IndexPath(row: 3, section: 0):
+            return 137.0
+        case IndexPath(row: 4, section: 0):
+            return 144.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -155,6 +173,10 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 126.5
         case IndexPath(row: 2, section: 0):
             return 137.0
+        case IndexPath(row: 3, section: 0):
+            return 137.0
+        case IndexPath(row: 4, section: 0):
+            return 144.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
