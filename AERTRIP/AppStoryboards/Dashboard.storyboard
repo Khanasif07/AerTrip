@@ -413,7 +413,7 @@
             <objects>
                 <viewController storyboardIdentifier="AerinVC" id="bYL-Ms-OZy" customClass="AerinVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAo-x2-gd7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="504.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-LR-LWt">
