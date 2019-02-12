@@ -32,10 +32,25 @@ class HotelResultVC: BaseVC {
     // MARK: - Properties
     
     var container: NSPersistentContainer!
-    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var predicateStr: String = ""
     let maxTime: Float = 10.0
     var currentTime: Float = 0.0
+    
+    fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
+        let fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "distance", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "distance", cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        }
+        catch let error {
+            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+        }
+        return fetchedResultsController
+    }()
     
     // MARK: - Public
     
@@ -66,7 +81,6 @@ class HotelResultVC: BaseVC {
         self.initialSetups()
         self.registerXib()
         self.setupMapView()
-        self.loadSavedData()
        // self.startProgress()
 //       let  filteDistance = CoreDataManager.shared.filterData(fromEntity: "HotelSearched", forAttribute: "distance")
         
@@ -87,6 +101,8 @@ class HotelResultVC: BaseVC {
         self.collectionView.delegate = self
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 2)
+        
+        self.reloadHotelList()
     }
     
     override func setupFonts() {
@@ -144,32 +160,14 @@ class HotelResultVC: BaseVC {
         marker.map = mapView
     }
     
-    private func loadSavedData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HotelSearched")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "distance", ascending: false)]
-        //  fetchRequest.sortDescriptors = [(NSSortDescriptor(key: "hotelName", ascending: false))]
-       fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "distance", cacheName: nil)
-//          fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        if self.predicateStr == "" {
-            self.fetchedResultsController.fetchRequest.predicate = nil
-            
-        } else {
-            self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
-        }
-        
-        do {
-            try self.fetchedResultsController.performFetch()
-            self.collectionView.reloadData()
-        } catch {
-            print("Fetch failed")
-        }
+    private func reloadHotelList() {
+        self.collectionView.reloadData()
     }
     
     private func searchHotels(forText: String) {
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
-        self.loadSavedData()
+        self.reloadHotelList()
     }
     
     private func registerXib() {
@@ -213,6 +211,11 @@ class HotelResultVC: BaseVC {
 // MARK: -
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.fetchedResultsController.sections?.count ?? 0
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = self.fetchedResultsController.sections else {
             printDebug("No sections in fetchedResultsController")
@@ -310,7 +313,7 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             self.predicateStr = ""
-            self.loadSavedData()
+            self.reloadHotelList()
         } else {
             self.searchHotels(forText: searchText)
         }
