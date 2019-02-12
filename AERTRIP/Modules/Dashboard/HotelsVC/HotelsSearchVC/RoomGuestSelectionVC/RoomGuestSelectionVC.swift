@@ -177,7 +177,7 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-                button.isSelected ? button.selectedState() : button.deselectedState()
+                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "adult_selected")) : button.deselectedState()
             }
         }
         
@@ -187,7 +187,7 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-                button.isSelected ? button.selectedState() : button.deselectedState()
+                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "child_selected")) : button.deselectedState()
             }
         }
         self.guestSelectionLabel.text = self.viewModel.selectionString

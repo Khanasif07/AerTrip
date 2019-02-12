@@ -12,7 +12,12 @@ class LoaderTableViewCell: UITableViewCell {
 
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            self.activityIndicator.style = .whiteLarge
+            self.activityIndicator.tintColor = .gray
+        }
+    }
     
     //Mark:- LifeCycle
     //================

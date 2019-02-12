@@ -29,32 +29,15 @@ class ATGuestButton: UIButton {
     }
     
     private func configButton() {
-        self.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
+        //self.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
         placeholderImage.frame = self.bounds
         placeholderImage.image = nil
         placeholderImage.contentMode = .scaleAspectFit
         placeholderImage.clipsToBounds = true
         self.addSubview(placeholderImage)
-        //self.addRequiredAction()
     }
     
-//    private func addRequiredAction() {
-//        self.adjustsImageWhenHighlighted = false
-//        self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
-//        self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
-//        self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpOutside)
-//    }
-//
-//    @objc private func buttonPressed(_ sender: UIButton) {
-//        //sender.isSelected ? self.selectedState() : self.deselectedState()
-//    }
-//
-//    @objc private func buttonReleased(_ sender: UIButton) {
-//        //sender.isSelected ? self.selectedState() : self.deselectedState()
-//    }
-    
-    
-    public func selectedState() {
+    public func selectedState(selectedImage: UIImage) {
         guard !self.isStateAnimating else {return}
         
         self.isStateAnimating = true
@@ -65,7 +48,8 @@ class ATGuestButton: UIButton {
                        initialSpringVelocity: 3.0,
                        options: .allowAnimatedContent,
                        animations: { [weak self] in
-                        self?.placeholderImage.image = #imageLiteral(resourceName: "adult_selected")
+                        self?.placeholderImage.image = selectedImage
+                        //self?.placeholderImage.image = #imageLiteral(resourceName: "adult_selected")
                         self?.placeholderImage.transform = .identity
         }){ (isDone) in
             self.isStateAnimating = false
