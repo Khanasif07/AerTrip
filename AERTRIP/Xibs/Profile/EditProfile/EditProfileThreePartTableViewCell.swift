@@ -23,13 +23,13 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var blackDownImageView: UIImageView!
-    @IBOutlet weak var leftSeparatorView: UIView!
+    @IBOutlet weak var leftSeparatorView: ATDividerView!
     @IBOutlet weak var rightViewTextField: PhoneNumberTextField!
-    @IBOutlet weak var rightSeparatorView: UIView!
+    @IBOutlet weak var rightSeparatorView: ATDividerView!
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var middleView: UIView!
-    @IBOutlet weak var middleSeparatorView: UIView!
+    @IBOutlet weak var middleSeparatorView: ATDividerView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryCodeLabel: UILabel!
     

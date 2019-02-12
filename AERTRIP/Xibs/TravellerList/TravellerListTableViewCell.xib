@@ -61,21 +61,21 @@
                             <constraint firstAttribute="trailing" secondItem="Vyb-oR-ryc" secondAttribute="trailing" constant="5" id="poW-gv-4vE"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWp-ot-mwn">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWp-ot-mwn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="42.5" width="320" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="wje-br-bMU"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoA-rc-X5j">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoA-rc-X5j" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="66" y="42.5" width="249" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="oZU-8u-xrW"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbP-qW-Kd9">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbP-qW-Kd9" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -101,9 +101,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="leadingConstraint" destination="Ktp-fV-eng" id="wnn-BP-yPb"/>
                 <outlet property="edgeToEdgeBottomSeparatorView" destination="SWp-ot-mwn" id="joy-gP-h9p"/>
                 <outlet property="edgeToEdgeTopSeparatorView" destination="wbP-qW-Kd9" id="bkP-zR-V3b"/>
+                <outlet property="leadingConstraint" destination="Ktp-fV-eng" id="wnn-BP-yPb"/>
                 <outlet property="profileImageView" destination="TEE-Gv-sA4" id="T4V-2W-JJy"/>
                 <outlet property="selectTravellerButton" destination="3R5-Zm-uB8" id="PKH-lp-f1I"/>
                 <outlet property="separatorView" destination="aoA-rc-X5j" id="J5g-GA-tLR"/>

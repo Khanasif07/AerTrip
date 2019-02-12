@@ -71,13 +71,13 @@ class EditProfileVM {
         var flag = true
         
         if self.salutation == LocalizedString.Title.rawValue {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             flag = false
         } else if self.firstName.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
         } else if self.lastName.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
             flag = false
         } else if !self.passportIssueDate.isEmpty || !self.passportExpiryDate.isEmpty {
             let formatter = DateFormatter()
@@ -85,13 +85,13 @@ class EditProfileVM {
             let date = Date()
             if let currentDate = formatter.date(from: formatter.string(from: date)), let passportIssueDate = formatter.date(from: self.passportIssueDate), let passportExpiryDate = formatter.date(from: self.passportExpiryDate) {
                 if passportIssueDate.compare(currentDate) == .orderedDescending {
-                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized)
                     flag = false
                 } else if passportExpiryDate.compare(currentDate) == .orderedAscending {
-                    AppToast.default.showToastMessage(message: LocalizedString.PassportExpiryDateIsIncorrect.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportExpiryDateIsIncorrect.localized)
                     flag = false
                 } else if passportIssueDate.compare(passportExpiryDate) == .orderedDescending {
-                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.PassportIssueDateIsIncorrect.localized)
                     flag = false
                 }
             }
@@ -104,10 +104,10 @@ class EditProfileVM {
             let date = Date()
             if let currentDate = formatter.date(from: formatter.string(from: date)), let dateOfBirth = formatter.date(from: self.dob), let dateOfAnniversary = formatter.date(from: self.doa) {
                 if dateOfBirth.compare(currentDate) == .orderedDescending {
-                    AppToast.default.showToastMessage(message: LocalizedString.DateOfBirthIsIncorrect.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.DateOfBirthIsIncorrect.localized)
                     flag = false
                 } else if dateOfAnniversary.compare(currentDate) == .orderedDescending {
-                    AppToast.default.showToastMessage(message: LocalizedString.DateOfAnniversaryIsIncorrect.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.DateOfAnniversaryIsIncorrect.localized)
                     flag = false
                 }
             }
@@ -118,7 +118,7 @@ class EditProfileVM {
 //            for (index, _) in self.email.enumerated() {
 //                if index > 0 {
 //                    if self.email[index - 1].value == self.email[index].value {
-//                        AppToast.default.showToastMessage(message: "All email should be unique", vc: vc)
+//                        AppToast.default.showToastMessage(message: "All email should be unique")
 //                        flag = false
 //                    }
 //                }
@@ -131,14 +131,14 @@ class EditProfileVM {
 //                isValid = self.mobile[index].isValide
 //                if index > 0 {
 //                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-//                        AppToast.default.showToastMessage(message: "All mobile should be unique", vc: vc)
+//                        AppToast.default.showToastMessage(message: "All mobile should be unique")
 //                        flag = false
 //                    }
 //                }
 //            }
             
 //            if !isValid {
-//                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.", vc: vc)
+//                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.")
 //                flag = false
 //            }
         }
@@ -146,7 +146,7 @@ class EditProfileVM {
 //            for (index, _) in self.frequentFlyer.enumerated() {
 //                if index > 0 {
 //                      if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
-//                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique", vc: vc)
+//                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique")
 //                        flag = false
 //                    }
 //                }

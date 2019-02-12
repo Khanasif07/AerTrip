@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 func printDebug<T>(_ obj : T) {
     print(obj)
@@ -76,8 +77,13 @@ struct AppGlobals {
         return labels
     }
     
+    func updateIQToolBarDoneButton(isEnabled: Bool, onView: UIView? = nil) {
+        onView?.keyboardToolbar.doneBarButton.isEnabled = isEnabled
+        IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
+    }
+    
     func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        let size = 75.0
+        let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: CGPoint(x: 0, y: 12))!
     }
 
@@ -141,6 +147,26 @@ struct AppGlobals {
             printDebug("error saving file:")
             return ""
         }
+    }
+    
+    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont) -> NSMutableAttributedString {
+        // create an NSMutableAttributedString that we'll append everything to
+        let fullString = NSMutableAttributedString(string: startText)
+        // create our NSTextAttachment
+        let image1Attachment = NSTextAttachment()
+//        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
+        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.image = image
+        
+        // wrap the attachment in its own attributed string so we can append it
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        
+        // add the NSTextAttachment wrapper to our full string, then add some more text.
+        fullString.append(image1String)
+        fullString.append(NSAttributedString(string: endText))
+        fullString.addAttributes([NSAttributedString.Key.font: font], range: NSRange(location: 0, length: fullString.length))
+        
+        return fullString
     }
 }
 

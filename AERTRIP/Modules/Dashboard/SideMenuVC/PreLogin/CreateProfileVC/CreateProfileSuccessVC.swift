@@ -42,7 +42,7 @@ class CreateProfileSuccessVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        
+        self.view.backgroundColor = AppColors.screensBackground.color
 //        self.addShadowLayer()
 //        self.addGradientLayer()
 //        self.successButton.setImage(UIImage(named: "Checkmark"), for: .normal)

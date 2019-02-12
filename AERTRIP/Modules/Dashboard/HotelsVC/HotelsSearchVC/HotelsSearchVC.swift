@@ -13,7 +13,6 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Properties
     //MARK:-
     @IBOutlet weak var tapMeButton: UIButton!
-    
     @IBOutlet weak var hotelFilterButton: UIButton!
     //MARK:- IBOutlets
     //MARK:-

@@ -134,9 +134,6 @@ class DashboardVC: BaseVC {
         tripsView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         tripsView.alpha = 0.5
         statusBarStyle = .lightContent
-       
-//        aerinView.transform = CGAffineTransform.identity
-//        aerinView.alpha = 1.0
     }
     
     private func addOverlayView() {
@@ -209,8 +206,8 @@ class DashboardVC: BaseVC {
     }
     
     private func updateProfileButton() {
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: AppPlaceholderImage.user)
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: UserInfo.loggedInUser?.profilePlaceholder ?? AppPlaceholderImage.profile)
             //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
         } else {
             if let userInfo = UserInfo.loggedInUser {

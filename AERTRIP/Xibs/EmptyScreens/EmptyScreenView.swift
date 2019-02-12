@@ -129,7 +129,7 @@ extension EmptyScreenView {
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
-        self.messageLabel.attributedText = self.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "saveHotels"), endText: " to add a hotel to favorite list")//"Tap   to add a hotel to favorite list"
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "ic_fav_hotel_text"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {
@@ -195,23 +195,4 @@ extension EmptyScreenView {
         self.messageLabel.text = LocalizedString.noResults.localized
         
     }
-    
-    private func getTextWithImage(startText: String, image: UIImage, endText: String) -> NSMutableAttributedString {
-        // create an NSMutableAttributedString that we'll append everything to
-        let fullString = NSMutableAttributedString(string: startText)
-        
-        // create our NSTextAttachment
-        let image1Attachment = NSTextAttachment()
-        image1Attachment.image = image
-        
-        // wrap the attachment in its own attributed string so we can append it
-        let image1String = NSAttributedString(attachment: image1Attachment)
-        
-        // add the NSTextAttachment wrapper to our full string, then add some more text.
-        fullString.append(image1String)
-        fullString.append(NSAttributedString(string: endText))
-        
-        return fullString
-    }
-    
 }

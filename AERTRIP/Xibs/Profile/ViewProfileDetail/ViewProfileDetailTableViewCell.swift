@@ -13,7 +13,7 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

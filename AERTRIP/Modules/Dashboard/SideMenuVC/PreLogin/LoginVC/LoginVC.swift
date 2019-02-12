@@ -69,6 +69,7 @@ class LoginVC: BaseVC {
         self.welcomeLabel.font = AppFonts.Bold.withSize(38)
         self.forgotPasswordButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
+        self.registerHereLabel.font = AppFonts.SemiBold.withSize(16)
     }
     
     override func setupTexts() {
@@ -115,9 +116,9 @@ class LoginVC: BaseVC {
     @IBAction func loginButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        
+
         if self.viewModel.isValidateData(vc: self) {
-            
+
             self.viewModel.webserviceForLogin()
         }
     }
@@ -132,6 +133,10 @@ class LoginVC: BaseVC {
 private extension LoginVC {
     
     func initialSetups() {
+        
+        self.view.backgroundColor = AppColors.screensBackground.color
+        
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
@@ -168,7 +173,9 @@ extension LoginVC: LoginVMDelegate {
     
     func didLoginSuccess() {
         self.loginButton.isLoading = false
-        AppFlowManager.default.goToDashboard()
+        delay(seconds: 0.3) {
+            AppFlowManager.default.goToDashboard()
+        }
     }
     
     func didLoginFail(errors: ErrorCodes) {
@@ -228,7 +235,7 @@ extension LoginVC {
     func setupViewDidLoadAnimation() {
         
         let rDuration = 1.0 / 3.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration*2.0, delay: 0.0, options: .calculationModeLinear, animations: {
 
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.topImage.transform          = .identity

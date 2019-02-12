@@ -1,5 +1,5 @@
 //
-//  ViewAllHotelsVC.swift
+//  FavouriteHotelsVC.swift
 //  AERTRIP
 //
 //  Created by Admin on 07/01/19.
@@ -8,19 +8,19 @@
 
 import UIKit
 
-class ViewAllHotelsVC: BaseVC {
+class FavouriteHotelsVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var navTitleLabel: UILabel!
+
     @IBOutlet weak var dataContainerView: UIView!
     @IBOutlet var shimmerView: UIView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     
     //MARK:- Properties
     //MARK:- Public
-    private(set) var viewModel = ViewAllHotelsVM()
+    private(set) var viewModel = FavouriteHotelsVM()
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
@@ -32,7 +32,7 @@ class ViewAllHotelsVC: BaseVC {
     
     fileprivate weak var categoryView: ATCategoryView!
     
-    private var allChildVCs: [HotelsListVC] = [HotelsListVC]()
+    private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
     //MARK:- Private
     
@@ -52,24 +52,12 @@ class ViewAllHotelsVC: BaseVC {
         self.categoryView?.layoutIfNeeded()
     }
     
-    override func setupFonts() {
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(17.0)
-    }
-    
-    override func setupTexts() {
-        self.navTitleLabel.text = LocalizedString.FavouriteHotels.localized
-    }
-    
-    override func setupColors() {
-        self.navTitleLabel.textColor = AppColors.themeBlack
-    }
-    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
     
     override func dataChanged(_ note: Notification) {
-        if let _ = note.object as? HotelSearchVC {
+        if let _ = note.object as? SearchFavouriteHotelsVC {
             self.initialSetups()
         }
     }
@@ -79,24 +67,27 @@ class ViewAllHotelsVC: BaseVC {
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
+        
         self.setupPagerView()
         self.viewModel.webserviceForGetHotelPreferenceList()
     }
     
     private func setupPagerView() {
         if self.viewModel.hotels.isEmpty {
-            self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
+            self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
                 self.dataContainerView.addSubview(self.emptyView)
-           
         }
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
             var style = ATCategoryNavBarStyle()
-            style.height = 45.0
+            style.height = 51.0
             style.interItemSpace = 5.0
             style.itemPadding = 8.0
-            style.isScrollable = false
+            style.isScrollable = true
             style.layoutAlignment = .center
             style.isEmbeddedToView = true
             style.showBottomSeparator = true
@@ -104,12 +95,14 @@ class ViewAllHotelsVC: BaseVC {
             style.defaultFont = AppFonts.Regular.withSize(16.0)
             style.selectedFont = AppFonts.Regular.withSize(16.0)
             style.indicatorColor = AppColors.themeGreen
+            style.indicatorHeight = 2.0
+            style.indicatorCornerRadius = 2.0
             style.normalColor = AppColors.themeBlack
             style.selectedColor = AppColors.themeBlack
             
             self.allChildVCs.removeAll()
             for idx in 0..<self.viewModel.allTabs.count {
-                let vc = HotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+                let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
                 vc.delegate = self
                 vc.viewModel.forCity = self.viewModel.hotels[idx]
                 
@@ -129,24 +122,27 @@ class ViewAllHotelsVC: BaseVC {
     }
     
     //MARK:- Public
-    
-    
-    //MARK:- Action
-    @IBAction func backButtonAction(_ sender: UIButton) {
+}
+
+
+extension FavouriteHotelsVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
-    @IBAction func addNewButtonAction(_ sender: UIButton) {
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToHotelSearchVC()
     }
 }
 
-extension ViewAllHotelsVC: ATCategoryNavBarDelegate {
+extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
+        self.allChildVCs[toIndex].delegate = self
     }
 }
 
-extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
+extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     func willGetHotelPreferenceList() {
         
     }
@@ -165,7 +161,7 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func updateFavouriteSuccess() {
-        self.viewModel.removeHotels(fromIndex: self.currentIndex)
+        self.viewModel.removeAllHotels(forCityIndex: self.currentIndex)
         self.viewDidLoad()
         self.sendDataChangedNotification(data: self)
     }
@@ -175,29 +171,22 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
 }
 
-//extension ViewAllHotelsVC: PKViewPagerControllerDataSource {
-//
-//    func numberOfPages() -> Int {
-//        return self.viewModel.allTabs.count
-//    }
-//
-//    func viewControllerAtPosition(position: Int) -> UIViewController {
-//        let vc = HotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-//        vc.delegate = self
-//        vc.viewModel.forCity = self.viewModel.hotels[position]
-//        return vc
-//    }
-//
-//    func tabsForPages() -> [PKViewPagerTab] {
-//        return self.viewModel.allTabs
-//    }
-//
-//    func startViewPagerAtIndex() -> Int {
-//        return selectedIndex
-//    }
-//}
-
-extension ViewAllHotelsVC: HotelsListVCDelegate {
+extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
+    func updatedFavourite(forCity: CityHotels, forHotelAtIndex: Int) {
+        
+        self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
+        if forCity.holetList.count > 1 {
+            //reload list at current city index
+            self.allChildVCs[self.currentIndex].viewModel.forCity = self.viewModel.hotels[self.currentIndex]
+            self.allChildVCs[self.currentIndex].collectionView.reloadData()
+        }
+        else {
+            //reload complete list
+            self.viewDidLoad()
+            self.sendDataChangedNotification(data: self)
+        }
+    }
+    
     func removeAllForCurrentPage() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Remove.localized], colors: [AppColors.themeRed])
         _ = PKAlertController.default.presentActionSheet(nil, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
@@ -207,17 +196,3 @@ extension ViewAllHotelsVC: HotelsListVCDelegate {
         }
     }
 }
-
-//extension ViewAllHotelsVC: PKViewPagerControllerDelegate {
-//
-//    func willMoveToControllerAtIndex(index:Int) {
-//        print("Moving to page \(index)")
-//
-//    }
-//
-//    func didMoveToControllerAtIndex(index: Int) {
-//        self.currentIndex = index
-//        print("Moved to page \(index)")
-//    }
-//}
-

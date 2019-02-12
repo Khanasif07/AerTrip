@@ -11,7 +11,7 @@ import UIKit
 class SideMenuOptionsLabelCell: UITableViewCell {
 
     @IBOutlet weak var displayTextLabel: UILabel!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

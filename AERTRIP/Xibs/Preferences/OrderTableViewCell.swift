@@ -13,7 +13,7 @@ class OrderTableViewCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var checkIconImageView: UIImageView!
-    @IBOutlet var separatorView: UIView!
+    @IBOutlet var separatorView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -22,7 +22,7 @@ class ContactListVC: BaseVC {
     @IBOutlet weak var selectAllButton: UIButton!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var bottomHeaderTopDiverView: UIView!
+    @IBOutlet weak var bottomHeaderTopDiverView: ATDividerView!
     
     //MARK:- Properties
     //MARK:- Public

@@ -24,8 +24,11 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tripLogoImage: UIImageView!
     @IBOutlet weak var greenCircleRatingView: FloatRatingView!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     
     private var gradientLayer: CAGradientLayer!
+    private var shadowLayer: CAShapeLayer!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     var hotelData: HotelsModel? {
@@ -57,14 +60,25 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
         
         self.bgView.cornerRadius = 10.0
-        self.bgView.layer.borderWidth = 1.0
-        self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
     }
 
     private func populateData() {
         self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelData?.stars ?? 0
-        self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
+        
+        self.starRatingView.isHidden = true
+        if let stars = self.hotelData?.stars, stars > 0 {
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = stars
+        }
+        
+        self.greenCircleRatingView.isHidden = true
+        self.tripLogoImage.isHidden = true
+        if let taRating = self.hotelData?.taRating, taRating > 0 {
+            self.greenCircleRatingView.isHidden = false
+            self.tripLogoImage.isHidden = false
+            self.greenCircleRatingView.rating = taRating
+        }
+        
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {

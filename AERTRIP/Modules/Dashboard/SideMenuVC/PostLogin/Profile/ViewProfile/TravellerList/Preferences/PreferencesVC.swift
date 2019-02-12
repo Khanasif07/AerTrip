@@ -17,9 +17,7 @@ protocol PreferencesVCDelegate:class {
 class PreferencesVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var cancelButton: UIButton!
-    @IBOutlet var headerTitleLabel: UILabel!
-    @IBOutlet var doneButton: UIButton!
+    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
     
     // MARK: - Variables
@@ -50,24 +48,16 @@ class PreferencesVC: BaseVC {
     
     // MARK: - IB Actions
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        delegate?.cancelButtonTapped()
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func doneButtonTapped(_ sender: Any) {
-        viewModel.callSavePreferencesAPI()
-    }
-    
     // MARK: - Helper methods
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none
-        cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        headerTitleLabel.text = LocalizedString.Preferences.localized
+
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
+        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
@@ -103,7 +93,7 @@ class PreferencesVC: BaseVC {
             if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
                 self.viewModel.groups.append(groupName)
             } else {
-                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
+                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
             }
             self.tableView.reloadData()
         }
@@ -137,6 +127,17 @@ class PreferencesVC: BaseVC {
         }
         
         return finalCount
+    }
+}
+
+extension PreferencesVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        delegate?.cancelButtonTapped()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        viewModel.callSavePreferencesAPI()
     }
 }
 
@@ -346,7 +347,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     
     func savePreferencesSuccess() {
         AppNetworking.hideLoader()
-         AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized, vc: self)
+         AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized)
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
     }

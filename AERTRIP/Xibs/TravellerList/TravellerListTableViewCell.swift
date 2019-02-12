@@ -13,12 +13,12 @@ class TravellerListTableViewCell: UITableViewCell {
     
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
-    @IBOutlet var separatorView: UIView!
+    @IBOutlet var separatorView: ATDividerView!
     @IBOutlet var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet var edgeToEdgeBottomSeparatorView: UIView!
+    @IBOutlet var edgeToEdgeBottomSeparatorView: ATDividerView!
     
-    @IBOutlet var edgeToEdgeTopSeparatorView: UIView!
+    @IBOutlet var edgeToEdgeTopSeparatorView: ATDividerView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

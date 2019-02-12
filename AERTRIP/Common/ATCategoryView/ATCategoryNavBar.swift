@@ -57,6 +57,27 @@ public class ATCategoryNavBar: UIView {
         return view
     }()
     
+    func addTopRoundedCornerToView(targetView:UIView?, desiredCurve:CGFloat?)
+    {
+        let offset:CGFloat =  targetView!.frame.width/desiredCurve!
+        let bounds: CGRect = targetView!.bounds
+        
+        let rectBounds: CGRect = CGRect(x: bounds.origin.x, y: bounds.origin.y+bounds.size.height / 2, width: bounds.size.width, height: bounds.size.height / 2)
+        
+        let rectPath: UIBezierPath = UIBezierPath(rect: rectBounds)
+        let ovalBounds: CGRect = CGRect(x: bounds.origin.x - offset / 2, y: bounds.origin.y, width: bounds.size.width + offset, height: bounds.size.height)
+        
+        let ovalPath: UIBezierPath = UIBezierPath(ovalIn: ovalBounds)
+        rectPath.append(ovalPath)
+        
+        // Create the shape layer and set its path
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        maskLayer.path = rectPath.cgPath
+        
+        // Set the newly created shape layer as the mask for the view's layer
+        targetView!.layer.mask = maskLayer
+    }
     
     fileprivate lazy var bgMaskView: UIView = {
         let maskView = UIView()
@@ -396,11 +417,12 @@ private extension ATCategoryNavBar {
         previousBtn.setTitleColor(barStyle.normalColor, for: .normal)
         currentBtn.setTitleColor(barStyle.selectedColor, for: .normal)
         currentButtonTag = currentBtn.tag
+        delegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
+        internalDelegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
         
-        if barStyle.isScrollable {
+        if barStyle.isScrollable, self.scrollView.contentSize.width > self.scrollView.frame.width {
             scrollToCenter(currentBtn: currentBtn)
         }
-        
     }
     
     func handleIndicator(currentBtn: UIButton) {
@@ -410,7 +432,7 @@ private extension ATCategoryNavBar {
         
         let width = currentBtn.intrinsicContentSize.width
         if barStyle.showBarSelectionAnimation {
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.1) {
                 self.indicator.frame.size.width = width
                 self.indicator.center.x = currentBtn.center.x
             }

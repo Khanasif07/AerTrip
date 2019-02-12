@@ -51,10 +51,10 @@ class SideMenuVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-
+        
         self.initialSetups()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -116,13 +116,13 @@ class SideMenuVC: BaseVC {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         if let mobileNumber = UserInfo.loggedInUser?.mobile ,let isd = UserInfo.loggedInUser?.isd {
-              view.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
+            view.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
         }
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             //view.profileImageView.kf.setImage(with: URL(string: imagePath))
             view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
-          //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
             view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
         }
         else {
@@ -146,27 +146,27 @@ class SideMenuVC: BaseVC {
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
     }
-
+    
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .default
     }
     
-  
+    
     
     // MARK: - IBAction
     
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-//       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+        //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-//        self.socialViewModel.googleLogin()
+        //        self.socialViewModel.googleLogin()
     }
     
     @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-//        self.socialViewModel.linkedLogin()
+        //        self.socialViewModel.linkedLogin()
     }
 }
 
@@ -185,7 +185,7 @@ extension SideMenuVC: SlideMenuProfileImageHeaderViewDelegate {
 
 private extension SideMenuVC {
     func initialSetups() {
-      
+        self.view.backgroundColor = AppColors.screensBackground.color
         self.registerXibs()
     }
     

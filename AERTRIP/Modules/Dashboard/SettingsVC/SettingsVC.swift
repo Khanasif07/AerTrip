@@ -12,9 +12,8 @@ class SettingsVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     
     //MARK:- Properties
@@ -32,12 +31,10 @@ class SettingsVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.appVersionLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupTexts() {
-        self.navTitleLabel.text = LocalizedString.Settings.localized
         
         self.appVersionLabel.text = "Build Version N/A"
         if let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String, let bundelVersion = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
@@ -46,21 +43,24 @@ class SettingsVC: BaseVC {
     }
     
     override func setupColors() {
-        self.navTitleLabel.textColor = AppColors.themeBlack
         self.appVersionLabel.textColor = AppColors.themeBlack
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        ATErrorManager.default.error(forCode: 5, module: .profile)
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
     }
     
     //MARK:- Public
     
     
     //MARK:- Action
-    @IBAction func backButtonAction(_ sender: UIButton) {
+}
+
+extension SettingsVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
 }

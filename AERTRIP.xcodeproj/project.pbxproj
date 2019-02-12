@@ -139,7 +139,6 @@
 		84085CEB21F59C0E00F1E844 /* SecureYourAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9221F59C0D00F1E844 /* SecureYourAccountVM.swift */; };
 		84085CEC21F59C0E00F1E844 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9421F59C0D00F1E844 /* ForgotPasswordVC.swift */; };
 		84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9521F59C0D00F1E844 /* ForgotPasswordVM.swift */; };
-		84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9721F59C0D00F1E844 /* ShowToastMessageVC.swift */; };
 		84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9921F59C0D00F1E844 /* ThankYouRegistrationVC.swift */; };
 		84085CF021F59C0E00F1E844 /* ThankYouRegistrationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9A21F59C0D00F1E844 /* ThankYouRegistrationVM.swift */; };
 		84085CF121F59C0E00F1E844 /* SocialLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C9C21F59C0D00F1E844 /* SocialLoginVM.swift */; };
@@ -149,12 +148,12 @@
 		84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */; };
 		84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */; };
 		84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */; };
-		84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAE21F59C0D00F1E844 /* ViewAllHotelsVC.swift */; };
-		84085CFD21F59C0E00F1E844 /* HotelsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAF21F59C0D00F1E844 /* HotelsListVC.swift */; };
-		84085CFE21F59C0E00F1E844 /* HotelsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB021F59C0D00F1E844 /* HotelsListVM.swift */; };
-		84085CFF21F59C0E00F1E844 /* ViewAllHotelsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB121F59C0D00F1E844 /* ViewAllHotelsVM.swift */; };
-		84085D0021F59C0E00F1E844 /* HotelSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB321F59C0D00F1E844 /* HotelSearchVC.swift */; };
-		84085D0121F59C0E00F1E844 /* HotelSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB421F59C0D00F1E844 /* HotelSearchVM.swift */; };
+		84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */; };
+		84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */; };
+		84085CFE21F59C0E00F1E844 /* FavouriteHotelsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB021F59C0D00F1E844 /* FavouriteHotelsListVM.swift */; };
+		84085CFF21F59C0E00F1E844 /* FavouriteHotelsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB121F59C0D00F1E844 /* FavouriteHotelsVM.swift */; };
+		84085D0021F59C0E00F1E844 /* SearchFavouriteHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB321F59C0D00F1E844 /* SearchFavouriteHotelsVC.swift */; };
+		84085D0121F59C0E00F1E844 /* SearchFavouriteHotelsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB421F59C0D00F1E844 /* SearchFavouriteHotelsVM.swift */; };
 		84085D0221F59C0E00F1E844 /* EditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB721F59C0D00F1E844 /* EditProfileVM.swift */; };
 		84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB821F59C0D00F1E844 /* EditProfileVC.swift */; };
 		84085D0421F59C0E00F1E844 /* EditProfileVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CB921F59C0D00F1E844 /* EditProfileVC+DelegateMethods.swift */; };
@@ -190,12 +189,17 @@
 		841DD1EA2202DC690055FEBB /* BulkBookingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1DF2202DC690055FEBB /* BulkBookingVM.swift */; };
 		841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1E02202DC690055FEBB /* BulkBookingVC.swift */; };
 		841DD1F02202DCFD0055FEBB /* HotelsResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1EF2202DCFD0055FEBB /* HotelsResultVM.swift */; };
+		8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422727622115DEC00D4F065 /* ATGalleryViewConfiguration.swift */; };
+		8422727D2211631D00D4F065 /* ATGalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422727C2211631D00D4F065 /* ATGalleryImage.swift */; };
+		8422728422118C6C00D4F065 /* ATGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422728222118C6C00D4F065 /* ATGalleryViewController.swift */; };
+		842272882211A5BF00D4F065 /* ATGalleryScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842272862211A5BF00D4F065 /* ATGalleryScrollCell.swift */; };
 		8429C90F21BF918C009C208E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8429C90E21BF918C009C208E /* Assets.xcassets */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
 		8438C17C22045E4C001D510B /* TopNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8438C17A22045E4B001D510B /* TopNavigationView.xib */; };
 		8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438C17B22045E4B001D510B /* TopNavigationView.swift */; };
 		843ACE4421F893B900D87BA8 /* SearchedDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4321F893B900D87BA8 /* SearchedDestination.swift */; };
 		843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */; };
+		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
 		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
@@ -218,7 +222,11 @@
 		849F31EF21FF1AC60076BB3D /* profile.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31ED21FF1AC60076BB3D /* profile.csv */; };
 		849F31F021FF1AC60076BB3D /* login.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31EE21FF1AC60076BB3D /* login.csv */; };
 		849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F31F121FF1AD70076BB3D /* ATErrorManager.swift */; };
+		84AB8FC52212934A002C0A66 /* ATGalleryScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */; };
+		84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */; };
+		84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */; };
 		84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */; };
+		84C47735220D98BE00B75FA0 /* ATCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C47734220D98BE00B75FA0 /* ATCardView.swift */; };
 		84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */; };
 		84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */; };
 		84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB7921BE351E00011000 /* PKCountryView.xib */; };
@@ -427,7 +435,6 @@
 		84085C9221F59C0D00F1E844 /* SecureYourAccountVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureYourAccountVM.swift; sourceTree = "<group>"; };
 		84085C9421F59C0D00F1E844 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		84085C9521F59C0D00F1E844 /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
-		84085C9721F59C0D00F1E844 /* ShowToastMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowToastMessageVC.swift; sourceTree = "<group>"; };
 		84085C9921F59C0D00F1E844 /* ThankYouRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThankYouRegistrationVC.swift; sourceTree = "<group>"; };
 		84085C9A21F59C0D00F1E844 /* ThankYouRegistrationVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThankYouRegistrationVM.swift; sourceTree = "<group>"; };
 		84085C9C21F59C0D00F1E844 /* SocialLoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialLoginVM.swift; sourceTree = "<group>"; };
@@ -437,12 +444,12 @@
 		84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
 		84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferStarCategoryCell.swift; sourceTree = "<group>"; };
 		84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavouriteHotels.swift; sourceTree = "<group>"; };
-		84085CAE21F59C0D00F1E844 /* ViewAllHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAllHotelsVC.swift; sourceTree = "<group>"; };
-		84085CAF21F59C0D00F1E844 /* HotelsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsListVC.swift; sourceTree = "<group>"; };
-		84085CB021F59C0D00F1E844 /* HotelsListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsListVM.swift; sourceTree = "<group>"; };
-		84085CB121F59C0D00F1E844 /* ViewAllHotelsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAllHotelsVM.swift; sourceTree = "<group>"; };
-		84085CB321F59C0D00F1E844 /* HotelSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelSearchVC.swift; sourceTree = "<group>"; };
-		84085CB421F59C0D00F1E844 /* HotelSearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelSearchVM.swift; sourceTree = "<group>"; };
+		84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsVC.swift; sourceTree = "<group>"; };
+		84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsListVC.swift; sourceTree = "<group>"; };
+		84085CB021F59C0D00F1E844 /* FavouriteHotelsListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsListVM.swift; sourceTree = "<group>"; };
+		84085CB121F59C0D00F1E844 /* FavouriteHotelsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsVM.swift; sourceTree = "<group>"; };
+		84085CB321F59C0D00F1E844 /* SearchFavouriteHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFavouriteHotelsVC.swift; sourceTree = "<group>"; };
+		84085CB421F59C0D00F1E844 /* SearchFavouriteHotelsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFavouriteHotelsVM.swift; sourceTree = "<group>"; };
 		84085CB721F59C0D00F1E844 /* EditProfileVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVM.swift; sourceTree = "<group>"; };
 		84085CB821F59C0D00F1E844 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		84085CB921F59C0D00F1E844 /* EditProfileVC+DelegateMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditProfileVC+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -478,12 +485,17 @@
 		841DD1DF2202DC690055FEBB /* BulkBookingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulkBookingVM.swift; sourceTree = "<group>"; };
 		841DD1E02202DC690055FEBB /* BulkBookingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulkBookingVC.swift; sourceTree = "<group>"; };
 		841DD1EF2202DCFD0055FEBB /* HotelsResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsResultVM.swift; sourceTree = "<group>"; };
+		8422727622115DEC00D4F065 /* ATGalleryViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryViewConfiguration.swift; sourceTree = "<group>"; };
+		8422727C2211631D00D4F065 /* ATGalleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryImage.swift; sourceTree = "<group>"; };
+		8422728222118C6C00D4F065 /* ATGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryViewController.swift; sourceTree = "<group>"; };
+		842272862211A5BF00D4F065 /* ATGalleryScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryScrollCell.swift; sourceTree = "<group>"; };
 		8429C90E21BF918C009C208E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
 		8438C17A22045E4B001D510B /* TopNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopNavigationView.xib; sourceTree = "<group>"; };
 		8438C17B22045E4B001D510B /* TopNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationView.swift; sourceTree = "<group>"; };
 		843ACE4321F893B900D87BA8 /* SearchedDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDestination.swift; sourceTree = "<group>"; };
 		843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+HotelsSearch.swift"; sourceTree = "<group>"; };
+		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
 		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
@@ -507,7 +519,11 @@
 		849F31ED21FF1AC60076BB3D /* profile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = profile.csv; sourceTree = "<group>"; };
 		849F31EE21FF1AC60076BB3D /* login.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = login.csv; sourceTree = "<group>"; };
 		849F31F121FF1AD70076BB3D /* ATErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATErrorManager.swift; sourceTree = "<group>"; };
+		84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryScrollCell.xib; sourceTree = "<group>"; };
+		84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATGalleryCell.swift; sourceTree = "<group>"; };
+		84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryCell.xib; sourceTree = "<group>"; };
 		84BA77CA21EDCDF000C89352 /* LinkedAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAccount.swift; sourceTree = "<group>"; };
+		84C47734220D98BE00B75FA0 /* ATCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCardView.swift; sourceTree = "<group>"; };
 		84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATNotificationButton.swift; sourceTree = "<group>"; };
 		84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATBedgeLabel.swift; sourceTree = "<group>"; };
 		84D2FB7921BE351E00011000 /* PKCountryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKCountryView.xib; sourceTree = "<group>"; };
@@ -883,9 +899,9 @@
 			isa = PBXGroup;
 			children = (
 				84085C8021F59C0C00F1E844 /* SideMenuVC.swift */,
+				84085CD121F59C0D00F1E844 /* SideMenuVM.swift */,
 				84085C8121F59C0C00F1E844 /* PreLogin */,
 				84085C9E21F59C0D00F1E844 /* PostLogin */,
-				84085CD121F59C0D00F1E844 /* SideMenuVM.swift */,
 			);
 			path = SideMenuVC;
 			sourceTree = "<group>";
@@ -900,7 +916,6 @@
 				84085C8D21F59C0D00F1E844 /* CreateYourAccountVC */,
 				84085C9021F59C0D00F1E844 /* SecureYourAccountVC */,
 				84085C9321F59C0D00F1E844 /* ForgotPasswordVC */,
-				84085C9621F59C0D00F1E844 /* ShowToastMessageVC */,
 				84085C9821F59C0D00F1E844 /* ThankYouRegistrationVC */,
 				84085C9B21F59C0D00F1E844 /* SocialLoginVC */,
 			);
@@ -969,14 +984,6 @@
 			path = ForgotPasswordVC;
 			sourceTree = "<group>";
 		};
-		84085C9621F59C0D00F1E844 /* ShowToastMessageVC */ = {
-			isa = PBXGroup;
-			children = (
-				84085C9721F59C0D00F1E844 /* ShowToastMessageVC.swift */,
-			);
-			path = ShowToastMessageVC;
-			sourceTree = "<group>";
-		};
 		84085C9821F59C0D00F1E844 /* ThankYouRegistrationVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,8 +1034,8 @@
 			isa = PBXGroup;
 			children = (
 				84085CA621F59C0D00F1E844 /* PrototypeCells */,
-				84085CAD21F59C0D00F1E844 /* ViewAllHotelsVC */,
-				84085CB221F59C0D00F1E844 /* HotelSearch */,
+				84085CAD21F59C0D00F1E844 /* FavouriteHotelsVC */,
+				84085CB221F59C0D00F1E844 /* SearchFavouriteHotelsVC */,
 			);
 			path = HotelPreferences;
 			sourceTree = "<group>";
@@ -1042,24 +1049,24 @@
 			path = PrototypeCells;
 			sourceTree = "<group>";
 		};
-		84085CAD21F59C0D00F1E844 /* ViewAllHotelsVC */ = {
+		84085CAD21F59C0D00F1E844 /* FavouriteHotelsVC */ = {
 			isa = PBXGroup;
 			children = (
-				84085CAE21F59C0D00F1E844 /* ViewAllHotelsVC.swift */,
-				84085CAF21F59C0D00F1E844 /* HotelsListVC.swift */,
-				84085CB021F59C0D00F1E844 /* HotelsListVM.swift */,
-				84085CB121F59C0D00F1E844 /* ViewAllHotelsVM.swift */,
+				84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */,
+				84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */,
+				84085CB021F59C0D00F1E844 /* FavouriteHotelsListVM.swift */,
+				84085CB121F59C0D00F1E844 /* FavouriteHotelsVM.swift */,
 			);
-			path = ViewAllHotelsVC;
+			path = FavouriteHotelsVC;
 			sourceTree = "<group>";
 		};
-		84085CB221F59C0D00F1E844 /* HotelSearch */ = {
+		84085CB221F59C0D00F1E844 /* SearchFavouriteHotelsVC */ = {
 			isa = PBXGroup;
 			children = (
-				84085CB321F59C0D00F1E844 /* HotelSearchVC.swift */,
-				84085CB421F59C0D00F1E844 /* HotelSearchVM.swift */,
+				84085CB321F59C0D00F1E844 /* SearchFavouriteHotelsVC.swift */,
+				84085CB421F59C0D00F1E844 /* SearchFavouriteHotelsVM.swift */,
 			);
-			path = HotelSearch;
+			path = SearchFavouriteHotelsVC;
 			sourceTree = "<group>";
 		};
 		84085CB521F59C0D00F1E844 /* Profile */ = {
@@ -1230,6 +1237,20 @@
 			path = HotelsResultVC;
 			sourceTree = "<group>";
 		};
+		8422727122115B7E00D4F065 /* ATGalleryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */,
+				84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */,
+				84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */,
+				8422727622115DEC00D4F065 /* ATGalleryViewConfiguration.swift */,
+				8422727C2211631D00D4F065 /* ATGalleryImage.swift */,
+				8422728222118C6C00D4F065 /* ATGalleryViewController.swift */,
+				842272862211A5BF00D4F065 /* ATGalleryScrollCell.swift */,
+			);
+			path = ATGalleryViewController;
+			sourceTree = "<group>";
+		};
 		8429C91C21BFEED9009C208E /* PKPulseAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,6 +1266,14 @@
 				8438C17B22045E4B001D510B /* TopNavigationView.swift */,
 			);
 			path = TopNavigationView;
+			sourceTree = "<group>";
+		};
+		843D17172208268D00072BAE /* SwipeNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				843D17182208268D00072BAE /* SwipeNavigationController.swift */,
+			);
+			path = SwipeNavigationController;
 			sourceTree = "<group>";
 		};
 		8452D36C21E614BA00927287 /* CoreData */ = {
@@ -1332,11 +1361,14 @@
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8422727122115B7E00D4F065 /* ATGalleryViewController */,
+				843D17172208268D00072BAE /* SwipeNavigationController */,
 				849F31EB21FF1AC60076BB3D /* ATError */,
 				84FFDFA821F9F67B005CA257 /* ATCategoryView */,
 				84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */,
 				84CF4E3921BE8C5500B8EC47 /* ATNotificationButton.swift */,
 				84956FBC21B65DA600BF1183 /* AppExtension.swift */,
+				84C47734220D98BE00B75FA0 /* ATCardView.swift */,
 				84956FBE21B667D200BF1183 /* ATButton.swift */,
 				18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */,
 				8410421C21DE33B7002B4C1F /* ATSearchBar.swift */,
@@ -1707,6 +1739,7 @@
 				18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */,
 				18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */,
 				84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */,
+				84AB8FC52212934A002C0A66 /* ATGalleryScrollCell.xib in Resources */,
 				1809A47C21CDFA7E0018AB2F /* TableViewAddActionCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				189D1F4921CE3F8E00746329 /* SourceSansPro-Black.ttf in Resources */,
@@ -1741,6 +1774,7 @@
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				849F31EF21FF1AC60076BB3D /* profile.csv in Resources */,
+				84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
@@ -1894,6 +1928,7 @@
 				84085D1121F59C0E00F1E844 /* ImportContactVC.swift in Sources */,
 				18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
+				84C47735220D98BE00B75FA0 /* ATCardView.swift in Sources */,
 				84FFDFAD21F9F67B005CA257 /* ATCategoryNavBar.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */,
@@ -1914,13 +1949,15 @@
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				84085D1321F59C0E00F1E844 /* TravellerListVC.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
+				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84085D0D21F59C0E00F1E844 /* SelectedContactCollectionCell.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
-				84085CFF21F59C0E00F1E844 /* ViewAllHotelsVM.swift in Sources */,
+				84085CFF21F59C0E00F1E844 /* FavouriteHotelsVM.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
+				8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */,
 				848F1A5A220326ED002BDA39 /* HotelResultVC.swift in Sources */,
 				18FA223021EC7C7C0024B91E /* AssignGroupTableViewCell.swift in Sources */,
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
@@ -1930,9 +1967,10 @@
 				84085CDF21F59C0E00F1E844 /* TripsVC.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
+				8422728422118C6C00D4F065 /* ATGalleryViewController.swift in Sources */,
 				84085CE721F59C0E00F1E844 /* CreateProfileSuccessVC.swift in Sources */,
 				84085CF521F59C0E00F1E844 /* LinkedAccountsTableCell.swift in Sources */,
-				84085CFD21F59C0E00F1E844 /* HotelsListVC.swift in Sources */,
+				84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */,
 				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
@@ -1952,6 +1990,7 @@
 				18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */,
 				84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */,
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
+				842272882211A5BF00D4F065 /* ATGalleryScrollCell.swift in Sources */,
 				84085CF221F59C0E00F1E844 /* SocialLoginVC.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
@@ -1987,7 +2026,7 @@
 				84FFDFAF21F9F67B005CA257 /* ATPageContainerView.swift in Sources */,
 				18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */,
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
-				84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */,
+				84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
 				841DD1E52202DC690055FEBB /* HotelsSearchVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
@@ -1996,10 +2035,10 @@
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				84085D0921F59C0E00F1E844 /* PreferencesVC.swift in Sources */,
+				8422727D2211631D00D4F065 /* ATGalleryImage.swift in Sources */,
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */,
 				84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */,
-				84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
@@ -2010,7 +2049,8 @@
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				84085CE221F59C0E00F1E844 /* LoginVM.swift in Sources */,
 				846CFECF21E75C4A00AF6062 /* ATContact.swift in Sources */,
-				84085D0021F59C0E00F1E844 /* HotelSearchVC.swift in Sources */,
+				84085D0021F59C0E00F1E844 /* SearchFavouriteHotelsVC.swift in Sources */,
+				843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */,
 				1851A75321C39355008DF03F /* AccountModel.swift in Sources */,
 				84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
@@ -2076,11 +2116,11 @@
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
 				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
-				84085D0121F59C0E00F1E844 /* HotelSearchVM.swift in Sources */,
+				84085D0121F59C0E00F1E844 /* SearchFavouriteHotelsVM.swift in Sources */,
 				1804889121CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift in Sources */,
 				84085D0421F59C0E00F1E844 /* EditProfileVC+DelegateMethods.swift in Sources */,
 				18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */,
-				84085CFE21F59C0E00F1E844 /* HotelsListVM.swift in Sources */,
+				84085CFE21F59C0E00F1E844 /* FavouriteHotelsListVM.swift in Sources */,
 				1809A47621CD057D0018AB2F /* EditProfileImageHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

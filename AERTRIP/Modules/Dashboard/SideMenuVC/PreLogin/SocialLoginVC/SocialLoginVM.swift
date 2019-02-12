@@ -35,7 +35,7 @@ class SocialLoginVM {
             
             if result.email.isEmpty {
                 //show toast
-                AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInFacebook.localized, vc: vc)
+                AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInFacebook.localized)
                 completionBlock?(false)
             }
             else {
@@ -106,7 +106,7 @@ class SocialLoginVM {
                 
                 if let email = data["emailAddress"] as? String, email.isEmpty {
                     //show toast
-                    AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized, vc: vc)
+                    AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
                     linkedinHelper.logout()
                 }
                 else {

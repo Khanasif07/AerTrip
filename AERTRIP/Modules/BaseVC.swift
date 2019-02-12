@@ -37,8 +37,17 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.setupColors()
     
         self.bindViewModel()
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        if !AppConstants.isStatusBarBlured, let backV = UIApplication.shared.statusBarView {
+            AppConstants.isStatusBarBlured = true
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = backV.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurEffectView.alpha = 0.9
+            backV.insertSubview(blurEffectView, at: 0)
+            backV.sendSubviewToBack(blurEffectView)
+        }
         
         delay(seconds: 0.1) {
             self.setupLayout()

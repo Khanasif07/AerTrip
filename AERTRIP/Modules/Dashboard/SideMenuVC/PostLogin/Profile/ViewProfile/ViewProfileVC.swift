@@ -16,14 +16,9 @@ protocol ViewProfileVCDelegate: class {
 class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var headerView: UIView!
+    @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
-    @IBOutlet var editButton: UIButton!
-    @IBOutlet var backButton: UIButton!
-    @IBOutlet var headerLabel: UILabel!
-    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var drawableHeaderView: UIView!
-    @IBOutlet weak var drawableHeaderViewHeightConstraint: NSLayoutConstraint!
+   @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -32,6 +27,7 @@ class ViewProfileVC: BaseVC {
     }
     
     private let headerHeightToAnimate: CGFloat = 30.0
+    private var isHeaderAnimating: Bool = false
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
@@ -85,32 +81,19 @@ class ViewProfileVC: BaseVC {
         return .lightContent
     }
     
-    // MARK: - IB Actions
-    
-    @IBAction func backButtonTapped(_ sender: UIButton) {
-        self.delegate?.backButtonAction(sender)
-    }
-    
-    @IBAction func editButtonTapped(_ sender: Any) {
-        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
-        ob.travelData = self.travelData
-        self.navigationController?.pushViewController(ob, animated: true)
-    }
-    
     // MARK: - Helper Methods
     
     func doInitialSetup() {
         
-        self.headerView.backgroundColor = AppColors.clear
+        self.topNavView.backgroundColor = AppColors.clear
         self.headerViewHeightConstraint.constant = headerViewHeight
-        
-        self.drawableHeaderView.backgroundColor = AppColors.themeWhite
-        self.drawableHeaderView.isHidden = true
-        self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
-        
+
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
-        self.editButton.setTitle(LocalizedString.Edit.rawValue, for: .normal)
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
@@ -119,8 +102,8 @@ class ViewProfileVC: BaseVC {
         self.tableView.delegate = self
     }
     
-    func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(UIDevice.screenHeight * 0.45) // UIScreen.width * 9 / 16 + 55
+    func setupParallaxHeader() {
+        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
@@ -137,23 +120,29 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
         }
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-          //  self.profileImageHeaderView?.profileImageView.kf.setImage(with: URL(string: imagePath))
-         //   self.profileImageHeaderView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
-            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(50.0), textColor: AppColors.themeGray60).blur
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
         
-        self.view.bringSubviewToFront(self.drawableHeaderView)
-        self.view.bringSubviewToFront(self.headerView)
+        self.view.bringSubviewToFront(self.topNavView)
     }
 }
 
+extension ViewProfileVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.delegate?.backButtonAction(sender)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.moveToEditProfileVC(travelData: self.travelData)
+    }
+}
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
 extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
@@ -175,7 +164,15 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        if indexPath.row == 0 {
+            return 80.0
+        }
+        else if indexPath.row == 1 {
+            return 57.0
+        }
+        else {
+            return 65.0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -249,7 +246,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) 
+    {
         printDebug("progress \(parallaxHeader.progress)")
         
         if parallaxHeader.progress >= 0.6 {
@@ -257,39 +255,25 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         }
         
         if parallaxHeader.progress <= 0.5 {
-            
-            self.drawableHeaderView.isHidden = false
-            self.drawableHeaderView.alpha = (1.0 - parallaxHeader.progress)
-            
-            let old = headerViewHeight - headerHeightToAnimate
-            self.drawableHeaderViewHeightConstraint.constant = (old + self.getProgressiveHeight(forProgress: parallaxHeader.progress))
-            
+            self.topNavView.animateBackView(isHidden: false)
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-//                self?.headerView.backgroundColor = UIColor.white
-                self?.editButton.setTitleColor(AppColors.themeGreen, for: .normal)
+                self?.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                self?.backButton.setImage(tintedImage, for: .normal)
-                self?.backButton.tintColor = AppColors.themeGreen
+                self?.topNavView.leftButton.setImage(tintedImage, for: .normal)
+                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
                 print(parallaxHeader.progress)
                 
-                self?.headerLabel.text = self?.profileImageHeaderView?.userNameLabel.text
+                self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
-            self.drawableHeaderView.alpha = 0.5
-            self.drawableHeaderViewHeightConstraint.constant = headerViewHeight - headerHeightToAnimate
-            self.drawableHeaderView.isHidden = true
-            self.editButton.setTitleColor(UIColor.white, for: .normal)
-            self.backButton.tintColor = UIColor.white
-            self.headerLabel.text = ""
+            self.topNavView.animateBackView(isHidden: true)
+            self.topNavView.firstRightButton.setTitleColor(UIColor.white, for: .normal)
+            self.topNavView.leftButton.tintColor = UIColor.white
+            self.topNavView.navTitleLabel.text = ""
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
-    }
-    
-    func getProgressiveHeight(forProgress: CGFloat) -> CGFloat {
-        let ratio: CGFloat = headerHeightToAnimate / CGFloat(0.5)
-        return headerHeightToAnimate - (forProgress * ratio)
     }
 }
 
@@ -335,6 +319,8 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-        //
+
     }
 }
+
+

@@ -53,7 +53,6 @@ class SocialLoginVC: BaseVC {
         
         if self.viewModel.isFirstTime {
             self.topNavView.leftButton.isHidden  = true
-            self.view.backgroundColor = .clear
         }
     }
     
@@ -71,13 +70,9 @@ class SocialLoginVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.fbButton.cornerRadius = self.fbButton.height / 2
-        self.googleButton.cornerRadius = self.googleButton.height / 2
-        self.linkedInButton.cornerRadius = self.linkedInButton.height / 2
-        
-        self.fbButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
-        self.googleButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
-        self.linkedInButton.addShadowWith(shadowRadius: 5, shadowOpacity: 0.3)
+        self.fbButton.layer.cornerRadius = self.fbButton.height / 2
+        self.googleButton.layer.cornerRadius = self.googleButton.height / 2
+        self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
     }
     
     override func setupFonts() {
@@ -87,16 +82,17 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupColors() {
+    
+        self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
+        self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
+        
         self.fbButton.shadowColor = AppColors.themeBlack
         self.fbButton.isSocial = true
         self.googleButton.shadowColor = AppColors.themeBlack
         self.googleButton.isSocial = true
         self.linkedInButton.shadowColor = AppColors.themeBlack
         self.linkedInButton.isSocial = true
-        
-        self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
-        self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
-        self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
     }
     
     override func setupTexts() {
@@ -146,6 +142,9 @@ class SocialLoginVC: BaseVC {
 
 private extension SocialLoginVC {
     func initialSetups() {
+        
+        self.view.backgroundColor = AppColors.screensBackground.color
+        
         self.setupsFonts()
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
@@ -158,7 +157,6 @@ private extension SocialLoginVC {
     
     private func addAppLogoView() {
         let view = SideMenuLogoView.instanceFromNib()
-        view.backgroundColor = AppColors.clear
         view.frame = self.logoContainerView.bounds
         
         self.logoContainerView.addSubview(view)

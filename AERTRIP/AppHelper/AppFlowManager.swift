@@ -30,7 +30,7 @@ class AppFlowManager: NSObject {
         super.init()
     }
     
-    var mainNavigationController = UINavigationController() {
+    var mainNavigationController: SwipeNavigationController! {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
@@ -83,7 +83,7 @@ class AppFlowManager: NSObject {
     func goToDashboard() {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
-        let nvc = UINavigationController(rootViewController: mainHome)
+        let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
@@ -133,14 +133,18 @@ extension AppFlowManager {
         ob.viewModel.refId = refId
         ob.viewModel.token = token
         
-        let nvc = UINavigationController(rootViewController: ob)
+        let nvc = SwipeNavigationController(rootViewController: ob)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
         self.window.makeKeyAndVisible()
     }
     
-    
+    func moveToEditProfileVC(travelData: TravelDetailModel?) {
+        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.travelData = travelData
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
     
     func moveToSecureAccountVC(isPasswordType: SecureYourAccountVM.SecureAccount, email: String = "", key: String = "", token:String = "") {
         let ob = SecureYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
@@ -199,12 +203,12 @@ extension AppFlowManager {
     }
     
     func moveToHotelSearchVC(){
-        let ob = HotelSearchVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func moveToViewAllHotelsVC() {
-        let ob = ViewAllHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        let ob = FavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

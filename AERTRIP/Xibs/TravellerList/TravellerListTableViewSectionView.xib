@@ -24,14 +24,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ii-he-1zG">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="28"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOK-TY-ldP" userLabel="TopSeparatorView">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOK-TY-ldP" userLabel="TopSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="kiR-ms-fyl"/>
                             </constraints>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmT-lr-20b" userLabel="BottomSeparatorView">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmT-lr-20b" userLabel="BottomSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="27" width="375" height="1"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>

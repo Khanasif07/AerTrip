@@ -24,6 +24,8 @@ enum LocalizedString: String {
     case noData = "noData"
     case search = "search"
     case noResults = "No Results"
+    case Undo = "Undo"
+    case apply = "Apply"
     
     // MARK:- TextField validation
     //MARK:-
@@ -71,6 +73,7 @@ enum LocalizedString: String {
     case Open_Email_App = "Open_Email_App"
     case No_Reply_Email_Text = "No_Reply_Email_Text"
     case noreply_aertrip_com = "noreply_aertrip_com"
+    case password_redset_link_message = "password_redset_link_message"
     case Cancel = "Cancel"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
@@ -212,6 +215,7 @@ enum LocalizedString: String {
     case AddContactNumber = "Add Contact Number"
     case WouldYouLikeToDelete = "Would you like to delete this?"
     case Delete = "Delete"
+    case Deleted = "Deleted"
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
     case AddAddress = "Add Address"

@@ -13,6 +13,9 @@
 "na" = "N/A";
 "noData" = "Sorry! You are lonely here.";
 "search" = "Search";
+"Undo" = "Undo";
+"apply" = "Apply";
+
 
 // MARK:- TextField validation
 //MARK:-
@@ -59,6 +62,7 @@
 "Open_Email_App" = "Open Email App";
 "No_Reply_Email_Text" = "The activation email will expire in 7 days. If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com";
 "noreply_aertrip_com" = "noreply@aertrip.com";
+"password_redset_link_message" = "If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com";
 "Mail_Default" = "Mail (Default)";
 "Gmail"      = "Gmail";
 
@@ -212,6 +216,7 @@
 
 "AssignGroup" = "AssignGroup";
 "Delete" = "Delete";
+"Deleted" = "Deleted";
 "TheseContactsWillBeDeletedFromTravellersList" = "These contacts will be deleted from Travellers List";
 
 //MARK:- Linked Accounts

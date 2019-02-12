@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qz-Pn-CCn">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qz-Pn-CCn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="0.0" width="288" height="1"/>
                         <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>

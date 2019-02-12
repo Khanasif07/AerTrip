@@ -31,7 +31,7 @@
                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFt-pL-jYQ">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFt-pL-jYQ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="20" y="219" width="323" height="0.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -40,9 +40,10 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8J-Ql-xam">
                         <rect key="frame" x="0.0" y="0.0" width="363" height="153"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="nFt-pL-jYQ" secondAttribute="trailing" constant="20" id="8Sr-Cj-pZC"/>
                     <constraint firstItem="2T7-X0-LeG" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CZw-kM-jQ9"/>
@@ -55,6 +56,7 @@
                     <constraint firstItem="s8J-Ql-xam" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="v0W-p2-c4Y"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="profileSuperView" destination="s8J-Ql-xam" id="FYk-9R-VFL"/>

@@ -27,6 +27,9 @@ class MainHomeVC: BaseVC {
     private var profileView: SlideMenuProfileImageHeaderView?
     private var logoView: SideMenuLogoView?
     
+    var transitionAnimator: UIViewPropertyAnimator?
+    var animationProgress: CGFloat = 0
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -84,6 +87,9 @@ class MainHomeVC: BaseVC {
     private func initialSetups() {
         self.statusBarStyle = .lightContent
         
+        self.view.backgroundColor = AppColors.screensBackground.color
+        self.contentView.backgroundColor = AppColors.screensBackground.color
+        
         //setup scroll view
         self.scrollViewSetup()
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
@@ -95,6 +101,8 @@ class MainHomeVC: BaseVC {
                 self?.setupProfileView()
             }
         }
+        
+        self.addEdgeSwipeGesture()
     }
     
     private func scrollViewSetup() {
@@ -130,6 +138,36 @@ class MainHomeVC: BaseVC {
         }
     }
     
+    private func addEdgeSwipeGesture() {
+        let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeAction(_:)))
+        openGesture.edges = .left
+        openGesture.delegate = self
+        
+        self.view.addGestureRecognizer(openGesture)
+    }
+    
+    @objc private func edgeSwipeAction(_ sender: UIPanGestureRecognizer) {
+        if UserInfo.loggedInUserId == nil {
+            self.popLogoAnimation()
+        }
+        else {
+            self.popProfileAnimation()
+        }
+//        switch sender.state {
+//        case .began:
+//            self.startAnimation()
+//
+//        case .changed:
+//            self.animationInProgress(sender)
+//
+//        case .ended:
+//            self.animationComplete(sender)
+//
+//        default:
+//            break
+//        }
+    }
+    
     private func createSideMenu() -> PKSideMenuController {
         PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
         PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
@@ -138,6 +176,7 @@ class MainHomeVC: BaseVC {
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.delegate = self
         sideMenuVC.view.frame = UIScreen.main.bounds
+        sideMenuVC.view.backgroundColor = AppColors.screensBackground.color
     
         sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
         
@@ -162,6 +201,7 @@ class MainHomeVC: BaseVC {
     private func createSocialLoginVC() -> SocialLoginVC {
         let obj = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
         obj.delegate = self
+        obj.view.backgroundColor = AppColors.screensBackground.color
         self.socialLoginVC = obj
         
         return obj
@@ -172,7 +212,8 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         
         self.logoView?.isHidden = true
-        self.logoView?.frame.origin.x = sideMenu.sideMenuTableView.x
+        
+        self.logoView?.frame.origin = CGPoint(x: sideMenu.sideMenuTableView.x, y: 18.0)
         self.mainContainerView.addSubview(self.logoView!)
     }
     
@@ -232,39 +273,42 @@ class MainHomeVC: BaseVC {
         if let profile = self.profileView {
             self.sideMenuVC?.updateProfileView(view: profile)
         }
-        
+
         let popPoint = CGPoint(x: 0.0, y: 0.0)
-        
+
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
-        
+
         let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
         let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             self.scrollView.contentOffset = popPoint
             self.profileView?.frame = finalFrame
-            
+
             self.profileView?.emailIdLabel.alpha = 0.0
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
             self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            
+
             self.profileView?.layoutIfNeeded()
-        }, completion: { (isDone) in
-            
+        }
+        
+        animator.addCompletion { (position) in
             self.profileView?.emailIdLabel.isHidden = true
             self.profileView?.mobileNumberLabel.isHidden = true
 
             self.profileView?.backgroundImageView.isHidden = true
             self.profileView?.dividerView.isHidden = true
-            
+
             self.viewProfileVC?.profileImageHeaderView?.isHidden = true
             self.profileView?.isHidden = true
             self.sideMenuVC?.profileContainerView.isHidden = false
-        })
+        }
+        
+        animator.startAnimation()
     }
     
     private func pushLogoAnimation() {
@@ -300,7 +344,7 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
 
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 18.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
 
         self.socialLoginVC?.animateContentOnPop()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -343,6 +387,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     }
     
     func willOpenSideMenu() {
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
     }
 }
@@ -360,5 +405,125 @@ extension MainHomeVC: ViewProfileVCDelegate {
 extension MainHomeVC: SocialLoginVCDelegate {
     func backButtonTapped(_ sender: UIButton) {
         self.popLogoAnimation()
+    }
+}
+
+
+extension MainHomeVC {
+    func startAnimation() {
+        func setupForProfilePop() {
+            if self.transitionAnimator == nil {
+                if let profile = self.profileView {
+                    self.sideMenuVC?.updateProfileView(view: profile)
+                }
+                
+                let popPoint = CGPoint(x: 0.0, y: 0.0)
+                
+                self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+                self.profileView?.isHidden = false
+                self.sideMenuVC?.profileContainerView.isHidden = true
+                
+                let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
+                let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+                
+                self.transitionAnimator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                    self.scrollView.contentOffset = popPoint
+                    self.profileView?.frame = finalFrame
+                    
+                    self.profileView?.emailIdLabel.alpha = 0.0
+                    self.profileView?.mobileNumberLabel.alpha = 0.0
+                    self.profileView?.backgroundImageView.alpha = 0.0
+                    self.profileView?.dividerView.alpha = 0.0
+                    self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                    
+                    self.profileView?.layoutIfNeeded()
+                }
+                
+                self.addComplition()
+            }
+            self.transitionAnimator?.startAnimation()
+            self.transitionAnimator?.pauseAnimation()
+        }
+        
+        func setupForLogoPop() {
+            
+            let popPoint = CGPoint(x: 0.0, y: 0.0)
+            self.socialLoginVC?.topNavView.leftButton.isHidden = true
+            self.socialLoginVC?.logoContainerView.isHidden = true
+            self.logoView?.isHidden = false
+            self.sideMenuVC?.logoContainerView.isHidden = true
+            
+            let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
+            
+            self.socialLoginVC?.animateContentOnPop()
+            
+            self.transitionAnimator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                
+                self.scrollView.contentOffset = popPoint
+                self.logoView?.frame = finalFrame
+                self.logoView?.layoutIfNeeded()
+            }
+            
+            self.addComplition()
+        }
+        
+        if UserInfo.loggedInUserId == nil {
+            setupForLogoPop()
+        }
+        else {
+            setupForProfilePop()
+        }
+        
+        self.animationProgress = self.transitionAnimator?.fractionComplete ?? 0.0
+    }
+    
+    func animationInProgress(_ recognizer: UIPanGestureRecognizer) {
+        let position = recognizer.translation(in: self.view)
+        var fraction = position.x / self.scrollView.width
+        print("animationInProgress: \(position.x / self.scrollView.width)")
+        
+        
+        if self.transitionAnimator?.isReversed == true { fraction *= -1}
+        
+        self.transitionAnimator?.fractionComplete = fraction + self.animationProgress
+    }
+    
+    func addComplition() {
+        self.transitionAnimator?.addCompletion { (position) in
+            
+            if UserInfo.loggedInUserId == nil {
+                self.socialLoginVC?.logoContainerView.isHidden = false
+                self.logoView?.isHidden = true
+                self.sideMenuVC?.logoContainerView.isHidden = false
+            }
+            else {
+                self.profileView?.emailIdLabel.isHidden = true
+                self.profileView?.mobileNumberLabel.isHidden = true
+                
+                self.profileView?.backgroundImageView.isHidden = true
+                self.profileView?.dividerView.isHidden = true
+                
+                self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+                self.profileView?.isHidden = true
+                self.sideMenuVC?.profileContainerView.isHidden = false
+            }
+            self.transitionAnimator?.pauseAnimation()
+            self.transitionAnimator = nil
+        }
+    }
+    
+    func animationComplete(_ recognizer: UIPanGestureRecognizer) {
+        print("animationComplete")
+        self.transitionAnimator?.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+
+        let position = recognizer.translation(in: self.view)
+        let fraction = position.x / self.scrollView.width
+        
+        if fraction > 0.5 {
+            self.popProfileAnimation()
+        }
+        else {
+            self.pushProfileAnimation()
+        }
     }
 }

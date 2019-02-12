@@ -18,8 +18,7 @@ class FFSearchVC: BaseVC {
     @IBOutlet var tableView: ATTableView!
     
     @IBOutlet weak var searchBar: ATSearchBar!
-    @IBOutlet var headerTitleLabel: UILabel!
-    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // MARK: - Variable
     
@@ -58,8 +57,10 @@ class FFSearchVC: BaseVC {
     // MARK: - Helper Methods
     
     func doInitialSetUp() {
-        cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        headerTitleLabel.text = LocalizedString.FrequentFlyer.localized
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.FrequentFlyer.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureLeftButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         searchData = defaultAirlines
         tableView.separatorStyle = .none
         tableView.backgroundView = emptyView
@@ -81,12 +82,6 @@ class FFSearchVC: BaseVC {
             tableView.reloadData()
             viewModel.webserviceForGetTravelDetail(text)
         }
-    }
-    
-    // MARK: - IB Actions
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -111,6 +106,12 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delgate?.frequentFlyerSelected(searchData[indexPath.row])
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension FFSearchVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  HotelSearchVC.swift
+//  SearchFavouriteHotelsVC.swift
 //  AERTRIP
 //
 //  Created by Admin on 03/01/19.
@@ -8,20 +8,19 @@
 
 import UIKit
 
-class HotelSearchVC: BaseVC {
+class SearchFavouriteHotelsVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var navigationView: UIView!
-    @IBOutlet weak var navTitleLabel: UILabel!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var collectionView: ATCollectionView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     
     //MARK:- Properties
     //MARK:- Public
-    let viewModel = HotelSearchVM()
+    let viewModel = SearchFavouriteHotelsVM()
     
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
@@ -54,24 +53,6 @@ class HotelSearchVC: BaseVC {
         self.searchBar.becomeFirstResponder()
     }
     
-    
-    override func setupFonts() {
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
-    }
-    
-    override func setupColors() {
-        self.navTitleLabel.textColor = AppColors.themeBlack
-        self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
-    }
-    
-    override func setupTexts() {
-        self.navTitleLabel.text = LocalizedString.searchForHotelsToAdd.localized
-        self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        self.doneButton.setTitle(LocalizedString.Done.localized, for: .selected)
-    }
-    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -97,6 +78,11 @@ class HotelSearchVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.searchForHotelsToAdd.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.searchHotelName.localized
         
@@ -104,20 +90,37 @@ class HotelSearchVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundView = self.emptyView
-       
+        
+        //setup indicator view
+        indicatorView.tintColor = AppColors.themeGreen
+        self.stopLoading()
+    }
+    
+    private func startLoading() {
+        indicatorView.isHidden = false
+    }
+    
+    private func stopLoading() {
+        indicatorView.isHidden = true
     }
     
     //MARK:- Public
     
     
     //MARK:- Action
-    @IBAction func doneButtonAction(_ sender: UIButton) {
+}
+
+extension SearchFavouriteHotelsVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView?.isHidden = !self.viewModel.hotels.isEmpty
@@ -131,57 +134,60 @@ extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         }
         
         cell.hotelData = self.viewModel.hotels[indexPath.item]
+        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 10.0 : 5.0
+        cell.containerBottomConstraint.constant = 5.0
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 16, height: UIDevice.screenHeight * 0.3)
+        let height = (indexPath.item == 0) ? 208.0 : 203.0
+        return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets.zero
     }
 }
 
-extension HotelSearchVC: HotelCardCollectionViewCellDelegate {
+extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         self.viewModel.updateFavourite(forHotel: forHotel)
     }
 }
 
-extension HotelSearchVC: HotelSearchVMDelegate {
+extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
-    //    AppNetworking.showLoader()
+        self.startLoading()
     }
     
     func updateFavouriteSuccess(withMessage: String) {
-        AppNetworking.hideLoader()
+        self.stopLoading()
      //   AppToast.default.showToastMessage(message: withMessage, vc: self)
         self.collectionView.reloadData()
         self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteFail() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
     }
     
     func willSearchForHotels() {
-        AppNetworking.showLoader()
+        self.startLoading()
     }
     
     func searchHotelsSuccess() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
         self.collectionView.backgroundView = noResultemptyView
         self.collectionView.reloadData()
     }
     
     func searchHotelsFail() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
     }
 }
 
-extension HotelSearchVC: UISearchBarDelegate {
+extension SearchFavouriteHotelsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             self.viewModel.hotels.removeAll()

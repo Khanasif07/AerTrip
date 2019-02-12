@@ -88,25 +88,27 @@ class ATButton: UIButton {
             layer.insertSublayer(shadowLayer, at: 0)
         }
         
-        let shadowFrame = CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
+        let shadowFrame = self.isSocial ? self.bounds : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
         shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 12.0)
-            shadowLayer.shadowOpacity = self.isSocial ? 0.1 : 0.5
-            shadowLayer.shadowRadius = self.isSocial ? 30.0 : 15.0
+            shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 1.0 : 12.0)
+            shadowLayer.shadowOpacity = self.isSocial ? 0.2 : 0.5
+            shadowLayer.shadowRadius = self.isSocial ? 2.0 : 15.0
         } else {
-            shadowLayer.shadowColor = UIColor.clear.cgColor
+            shadowLayer.shadowColor = AppColors.clear.cgColor
+            shadowLayer.shadowOffset = CGSize.zero
+            shadowLayer.shadowOpacity = 0.0
+            shadowLayer.shadowRadius = 0.0
         }
     }
     
     private func getGradientLayer() -> CAGradientLayer {
         
         let gLayer = CAGradientLayer()
-        self.layer.insertSublayer(gLayer, at: 1)
         
         self.updateGradientLayer(gLayer: gLayer)
         
@@ -144,8 +146,9 @@ class ATButton: UIButton {
     }
     
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
-        super.setImage(image, for: .normal)
-        super.setImage(image, for: .highlighted)
+        super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.bringSubviewToFront(self.imageView!)
     }
     
     override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {

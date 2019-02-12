@@ -73,6 +73,6 @@ class SuccessPopupVC: BaseVC {
 private extension SuccessPopupVC {
     
     func initialSetups() {
-        
+        self.view.backgroundColor = AppColors.screensBackground.color
     }
 }

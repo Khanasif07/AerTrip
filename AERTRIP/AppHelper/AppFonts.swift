@@ -82,9 +82,9 @@ extension AppFonts{
         
         switch deviceType {
         case .iPhone5:
-            return fontSize
+            return fontSize * CGFloat(0.94)
         case .iPhone6:
-            return fontSize + CGFloat(1)
+            return fontSize
         case .iPhonePlusSize:
             return fontSize + CGFloat(2)
         case .iPadMini:
@@ -92,7 +92,7 @@ extension AppFonts{
         case .iPad_10inch:
             return fontSize + fontSize * CGFloat(0.6)
         case .iPad_12inch:
-            return fontSize + fontSize * CGFloat(1)
+            return fontSize + fontSize
         }
     }
 }

@@ -25,7 +25,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var gradientView: UIView!
     @IBOutlet var profileContainerView: UIView!
-    @IBOutlet var dividerView: UIView!
+    @IBOutlet var dividerView: ATDividerView!
     
     // MARK: - Variable
     
@@ -63,8 +63,8 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.awakeFromNib()
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
-        profileImageView.isUserInteractionEnabled = true
-        profileImageView.addGestureRecognizer(singleTap)
+        profileContainerView.isUserInteractionEnabled = true
+        profileContainerView.addGestureRecognizer(singleTap)
         
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 6.0
@@ -100,6 +100,6 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     func doInitialSetup() {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-        familyButton.layer.cornerRadius = 14.0
+        familyButton.layer.cornerRadius = familyButton.height / 2.0
     }
 }

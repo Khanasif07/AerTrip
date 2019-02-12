@@ -43,7 +43,6 @@ class CreateProfileVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.viewModel.webserviceForGetSalutations()
         self.initialSetups()
     }
     
@@ -107,10 +106,10 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-
-        if self.viewModel.isValidateData {
-            self.viewModel.webserviceForUpdateProfile()
-        }
+        self.getSuccess()
+//        if self.viewModel.isValidateData {
+//            self.viewModel.webserviceForUpdateProfile()
+//        }
     }
 }
 
@@ -119,6 +118,13 @@ class CreateProfileVC: BaseVC {
 private extension CreateProfileVC {
     
     func initialSetups() {
+        
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
+        
+        self.view.backgroundColor = AppColors.screensBackground.color
+        self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
+        
+        self.viewModel.webserviceForGetSalutations()
         
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
@@ -371,17 +377,12 @@ extension CreateProfileVC {
     func setupViewForSuccessAnimation() {
         
         self.letsStartedButton.setTitle("", for: .normal)
+        self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
 
         self.letsStartedButton.layer.masksToBounds = true
         let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
         self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
-        
-        let myLayer = CALayer()
-        myLayer.backgroundColor = UIColor.clear.cgColor
-        myLayer.frame = CGRect(x: (reScaleFrame.width - 20.0) / 2.0, y: (reScaleFrame.height - 20.0) / 2.0, width: 20.0, height: 20.0)
-        myLayer.contents = #imageLiteral(resourceName: "Checkmark").cgImage
-        self.letsStartedButton.layer.addSublayer(myLayer)
 
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
             self.letsStartedButton.frame = reScaleFrame

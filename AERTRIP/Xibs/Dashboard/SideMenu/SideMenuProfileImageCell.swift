@@ -13,7 +13,7 @@ class SideMenuProfileImageCell: UITableViewCell {
 
     @IBOutlet weak var profileSuperView: UIView!
     @IBOutlet weak var viewProfileButton: UIButton!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     
     override func awakeFromNib() {

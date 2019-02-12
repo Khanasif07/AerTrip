@@ -12,19 +12,14 @@ import UIKit
 class TravellerListVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var navigationTitleLabel: UILabel!
     @IBOutlet var tableView: ATTableView!
     @IBOutlet var bottomView: UIView!
     
     @IBOutlet var assignGroupButton: UIButton!
     @IBOutlet var deleteButton: UIButton!
     @IBOutlet var searchBar: ATSearchBar!
-    @IBOutlet var travellerNavigationView: UIView!
-    @IBOutlet var selectView: UIView!
-    @IBOutlet var selectAllButton: UIButton!
-    @IBOutlet var travellerSelectedCountLabel: UILabel!
-    @IBOutlet var doneButton: UIButton!
-    @IBOutlet var headerDividerView: UIView!
+    @IBOutlet var headerDividerView: ATDividerView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // MARK: - Variables
     
@@ -104,34 +99,48 @@ class TravellerListVC: BaseVC {
                     } else {
                         selectedTravller.append(pId)
                     }
-                    if selectedTravller.count == 0 {
-                        travellerSelectedCountLabel.text = "Select Traveller"
-                    } else {
-                        travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
-                    }
                 }
             }
             setSelectMode()
         }
     }
     
+    private func updateNavView() {
+        if self.isSelectMode {
+            var title = "Select Traveller"
+            if selectedTravller.count == 0 {
+                title = "Select Traveller"
+            } else {
+                title = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
+            }
+            self.topNavView.configureNavBar(title: title, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+            self.topNavView.configureLeftButton(normalTitle: LocalizedString.SelectAll.localized, selectedTitle: LocalizedString.SelectAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+            self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        }
+        else {
+            self.topNavView.configureNavBar(title: LocalizedString.TravellerList.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
+            self.topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
+            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "plusButton"), selectedImage: #imageLiteral(resourceName: "plusButton"))
+            self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        }
+    }
     // MARK: - IB Action
     
-    @IBAction func backButtonTapped(_ sender: Any) {
+    func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func addTravellerTapped(_ sender: Any) {
+    func addTravellerTapped() {
         AppFlowManager.default.presentEditProfileVC()
     }
     
-    @IBAction func selectAllTapped(_ sender: Any) {}
+    func selectAllTapped() {}
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    func doneButtonTapped() {
         setTravellerMode()
     }
     
-    @IBAction func popOverOptionTapped(_ sender: Any) {
+    func popOverOptionTapped() {
         NSLog("edit buttn tapped")
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
@@ -177,8 +186,6 @@ class TravellerListVC: BaseVC {
     // MARK: - Helper methods
     
     func doInitialSetUp() {
-        navigationTitleLabel.text = LocalizedString.TravellerList.localized
-        
         tableView.separatorStyle = .none
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
@@ -189,8 +196,9 @@ class TravellerListVC: BaseVC {
         deleteButton.titleLabel?.textColor  = AppColors.themeGreen
         addFooterView()
         searchBar.delegate = self
-        selectView.isHidden = true
         addLongPressOnTableView()
+        self.topNavView.delegate = self
+        self.updateNavView()
     }
     
     func registerXib() {
@@ -279,22 +287,19 @@ class TravellerListVC: BaseVC {
     
     func setTravellerMode(shouldReload: Bool = true) {
         isSelectMode = false
-        selectView.isHidden = true
-        travellerNavigationView.isHidden = false
         bottomView.isHidden = true
-        travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         if shouldReload {
             tableView.reloadData()
         }
+        self.updateNavView()
     }
     
     func setSelectMode() {
         bottomView.isHidden = false
-        travellerNavigationView.isHidden = true
-        selectView.isHidden = false
         isSelectMode = true
         tableView.reloadData()
+        self.updateNavView()
     }
     
     func resetAllItem() {
@@ -302,6 +307,40 @@ class TravellerListVC: BaseVC {
         predicateStr = ""
         searchBar.text = ""
         loadSavedData()
+    }
+}
+
+extension TravellerListVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        if self.isSelectMode {
+            //select all
+            self.selectAllTapped()
+        }
+        else {
+            //back button
+            self.backButtonTapped()
+        }
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        if self.isSelectMode {
+            //done action
+            self.doneButtonTapped()
+        }
+        else {
+            //add new
+            self.addTravellerTapped()
+        }
+    }
+    
+    func topNavBarSecondRightButtonAction(_ sender: UIButton) {
+        if self.isSelectMode {
+            //no action needed
+        }
+        else {
+            //pop more
+            self.popOverOptionTapped()
+        }
     }
 }
 
@@ -390,11 +429,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                     selectedTravller.append(pId)
                 }
                 tableView.reloadData()
-                if selectedTravller.count == 0 {
-                    travellerSelectedCountLabel.text = "Select Traveller"
-                } else {
-                    travellerSelectedCountLabel.text = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
-                }
+                self.updateNavView()
             }
         } else if let tData = fetchedResultsController.object(at: indexPath) as? TravellerData {
             AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, true)
@@ -415,14 +450,12 @@ extension TravellerListVC: TravellerListVMDelegate {
     }
     
     func deleteTravellerAPISuccess() {
-        selectView.isHidden = true
-        travellerNavigationView.isHidden = false
         bottomView.isHidden = true
         isSelectMode = false
         deleteAllSelectedTravllers()
-        travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         loadSavedData()
+        updateNavView()
     }
     
     private func deleteAllSelectedTravllers() {
@@ -432,11 +465,10 @@ extension TravellerListVC: TravellerListVMDelegate {
     }
     
     func deleteTravellerAPIFailure() {
-        selectView.isHidden = true
-        travellerNavigationView.isHidden = false
         bottomView.isHidden = true
         isSelectMode = false
         tableView.reloadData()
+        updateNavView()
     }
     
     func searchTravellerFail(errors: ErrorCodes) {
@@ -510,18 +542,18 @@ extension TravellerListVC: AssignGroupVCDelegate {
     func cancelTapped() {
         shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
-        travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         setTravellerMode(shouldReload: false)
+        self.updateNavView()
     }
     
     func groupAssigned() {
         predicateStr = ""
         shouldHitAPI = false
         viewModel.callSearchTravellerListAPI()
-        travellerSelectedCountLabel.text = "Select Traveller"
         selectedTravller.removeAll()
         setTravellerMode(shouldReload: false)
+        self.updateNavView()
     }
 }
 
