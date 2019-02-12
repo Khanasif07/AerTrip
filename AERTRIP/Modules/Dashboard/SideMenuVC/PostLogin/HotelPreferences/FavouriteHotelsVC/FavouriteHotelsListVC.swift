@@ -93,6 +93,8 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
             }
             
             cell.hotelData = self.viewModel.hotels[indexPath.item]
+            cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+            cell.containerBottomConstraint.constant = 5.0
             cell.delegate = self
             return cell
         }
@@ -104,12 +106,13 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
             return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
         }
         else {
-            return CGSize(width: UIDevice.screenWidth, height: 200.0)
+            let height = (indexPath.item == 0) ? 214.0 : 203.0
+            return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero//(section == 0) ? UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0) : UIEdgeInsets.zero
+        return UIEdgeInsets.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

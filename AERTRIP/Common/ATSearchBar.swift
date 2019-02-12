@@ -41,7 +41,7 @@ class ATSearchBar: UISearchBar {
             self.delegate = self.mDelegate
         }
     }
-    
+
     private func initialSetup() {
         self.backgroundImage = UIImage()
         
@@ -60,10 +60,6 @@ class ATSearchBar: UISearchBar {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
-        
-        //        NotificationCenter.default.addObserver(self, selector: #selector(didBeganEditing), name: UITextField.textDidBeginEditingNotification, object: nil)
-        //
-        //        NotificationCenter.default.addObserver(self, selector: #selector(didEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
     }
     
     @objc private func micButtonAction(_ sender: UIButton) {

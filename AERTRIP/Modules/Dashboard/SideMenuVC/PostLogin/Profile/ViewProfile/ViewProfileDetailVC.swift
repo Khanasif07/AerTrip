@@ -289,7 +289,14 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
             return cell
         case LocalizedString.ContactNumber:
-            cell.configureCell(mobile[indexPath.row].label, "\(mobile[indexPath.row].isd) \(mobile[indexPath.row].value)")
+            var contact = ""
+            if !mobile[indexPath.row].isd.isEmpty {
+                contact = "\(mobile[indexPath.row].isd) \(mobile[indexPath.row].value)"
+            }
+            else {
+                contact = mobile[indexPath.row].value
+            }
+            cell.configureCell(mobile[indexPath.row].label, contact.removeAllWhiteSpacesAndNewLines)
             cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
             return cell
         case LocalizedString.SocialAccounts:
@@ -361,16 +368,10 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         
         if parallaxHeader.progress <= 0.5 {
             
+            self.topNavView.animateBackView(isHidden: false)
+
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                // self?.view.bringSubviewToFront((self?.headerView)!)
-                
-              //  self?.headerView.backgroundColor = UIColor.white
-                //                self?.drawableHeaderViewHeightConstraint.constant = 44
-                //                self?.drawableHeaderView.backgroundColor = UIColor.white
-                
                 self?.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
-                
-                // self?.view.bringSubviewToFront((self?.drawableHeaderView)!)
                 
                 let backImage = UIImage(named: "Back")
                 let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
@@ -381,6 +382,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
         } else {
+            self.topNavView.animateBackView(isHidden: true)
             self.topNavView.firstRightButton.setTitleColor(UIColor.white, for: .normal)
             self.topNavView.leftButton.tintColor = UIColor.white
             self.topNavView.navTitleLabel.text = ""

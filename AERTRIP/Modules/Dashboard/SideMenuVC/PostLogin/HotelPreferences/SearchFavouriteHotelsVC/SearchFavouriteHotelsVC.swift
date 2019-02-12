@@ -15,6 +15,7 @@ class SearchFavouriteHotelsVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var collectionView: ATCollectionView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     
     //MARK:- Properties
@@ -89,7 +90,18 @@ class SearchFavouriteHotelsVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundView = self.emptyView
-       
+        
+        //setup indicator view
+        indicatorView.tintColor = AppColors.themeGreen
+        self.stopLoading()
+    }
+    
+    private func startLoading() {
+        indicatorView.isHidden = false
+    }
+    
+    private func stopLoading() {
+        indicatorView.isHidden = true
     }
     
     //MARK:- Public
@@ -122,16 +134,19 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.hotelData = self.viewModel.hotels[indexPath.item]
+        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 10.0 : 5.0
+        cell.containerBottomConstraint.constant = 5.0
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 16, height: UIDevice.screenHeight * 0.3)
+        let height = (indexPath.item == 0) ? 208.0 : 203.0
+        return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets.zero
     }
 }
 
@@ -143,32 +158,32 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
 
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
-    //    AppNetworking.showLoader()
+        self.startLoading()
     }
     
     func updateFavouriteSuccess(withMessage: String) {
-        AppNetworking.hideLoader()
+        self.stopLoading()
      //   AppToast.default.showToastMessage(message: withMessage, vc: self)
         self.collectionView.reloadData()
         self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteFail() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
     }
     
     func willSearchForHotels() {
-        AppNetworking.showLoader()
+        self.startLoading()
     }
     
     func searchHotelsSuccess() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
         self.collectionView.backgroundView = noResultemptyView
         self.collectionView.reloadData()
     }
     
     func searchHotelsFail() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
     }
 }
 

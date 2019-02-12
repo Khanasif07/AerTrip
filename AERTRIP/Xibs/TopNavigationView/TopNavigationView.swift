@@ -105,6 +105,7 @@ class TopNavigationView: UIView {
         self.firstRightButton.isHidden = !isFirstRightButton
         self.secondRightButton.isHidden = !isSecondRightButton
         self.dividerView.isHidden = !isDivider
+        self.backView.isHidden = true
         
         self.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)

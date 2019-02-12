@@ -25,6 +25,9 @@
                                     <constraint firstAttribute="height" constant="44" id="Rc4-pM-vu4"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FEn-mr-M2H">
+                                <rect key="frame" x="16" y="32" width="20" height="20"/>
+                            </activityIndicatorView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="PMQ-7B-S9O" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -37,9 +40,9 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fny-rl-jUw" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128.5" width="375" height="538.5"/>
+                                <rect key="frame" x="0.0" y="120.5" width="375" height="546.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yny-Jh-abQ">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yny-Jh-abQ">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -50,12 +53,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FEn-mr-M2H" firstAttribute="leading" secondItem="FBE-Q9-fvO" secondAttribute="leading" constant="16" id="1wo-rb-Ra1"/>
                             <constraint firstItem="DKf-fc-5ep" firstAttribute="trailing" secondItem="fny-rl-jUw" secondAttribute="trailing" id="BRi-4D-7oD"/>
                             <constraint firstItem="PMQ-7B-S9O" firstAttribute="leading" secondItem="DKf-fc-5ep" secondAttribute="leading" id="D0O-GR-Xbr"/>
                             <constraint firstItem="PMQ-7B-S9O" firstAttribute="trailing" secondItem="DKf-fc-5ep" secondAttribute="trailing" id="GwL-n9-bBk"/>
                             <constraint firstItem="FBE-Q9-fvO" firstAttribute="top" secondItem="DKf-fc-5ep" secondAttribute="top" id="KNL-s7-jbh"/>
-                            <constraint firstItem="fny-rl-jUw" firstAttribute="top" secondItem="jOV-Tf-t8z" secondAttribute="bottom" constant="8" id="RuS-MM-GzM"/>
+                            <constraint firstItem="fny-rl-jUw" firstAttribute="top" secondItem="jOV-Tf-t8z" secondAttribute="bottom" id="RuS-MM-GzM"/>
                             <constraint firstItem="DKf-fc-5ep" firstAttribute="bottom" secondItem="fny-rl-jUw" secondAttribute="bottom" id="SR4-6n-vff"/>
+                            <constraint firstItem="FEn-mr-M2H" firstAttribute="centerY" secondItem="FBE-Q9-fvO" secondAttribute="centerY" id="alk-gD-0ha"/>
                             <constraint firstItem="PMQ-7B-S9O" firstAttribute="top" secondItem="FBE-Q9-fvO" secondAttribute="bottom" id="bOC-8x-0dL"/>
                             <constraint firstItem="FBE-Q9-fvO" firstAttribute="leading" secondItem="DKf-fc-5ep" secondAttribute="leading" id="cBz-wi-jxt"/>
                             <constraint firstItem="jOV-Tf-t8z" firstAttribute="top" secondItem="PMQ-7B-S9O" secondAttribute="bottom" id="gxP-dS-icy"/>
@@ -68,6 +73,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="fny-rl-jUw" id="GIN-qe-S0q"/>
+                        <outlet property="indicatorView" destination="FEn-mr-M2H" id="cBq-Su-N9I"/>
                         <outlet property="searchBar" destination="PMQ-7B-S9O" id="SNC-ol-rEk"/>
                         <outlet property="topNavView" destination="FBE-Q9-fvO" id="14A-HY-GFh"/>
                     </connections>
@@ -506,7 +512,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4y1-R9-Lyk" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hjT-mg-sBL">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="hjT-mg-sBL">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>

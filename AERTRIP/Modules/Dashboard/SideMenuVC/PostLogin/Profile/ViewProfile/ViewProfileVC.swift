@@ -164,7 +164,15 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        if indexPath.row == 0 {
+            return 80.0
+        }
+        else if indexPath.row == 1 {
+            return 57.0
+        }
+        else {
+            return 65.0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

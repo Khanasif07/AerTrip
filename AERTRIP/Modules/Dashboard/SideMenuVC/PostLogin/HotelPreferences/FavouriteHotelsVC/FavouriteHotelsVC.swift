@@ -77,15 +77,14 @@ class FavouriteHotelsVC: BaseVC {
     
     private func setupPagerView() {
         if self.viewModel.hotels.isEmpty {
-            self.emptyView.frame = CGRect(x: 0.0, y: -30.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
+            self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
                 self.dataContainerView.addSubview(self.emptyView)
-           
         }
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
             var style = ATCategoryNavBarStyle()
-            style.height = 45.0
+            style.height = 51.0
             style.interItemSpace = 5.0
             style.itemPadding = 8.0
             style.isScrollable = true

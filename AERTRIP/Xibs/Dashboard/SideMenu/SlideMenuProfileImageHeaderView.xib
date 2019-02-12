@@ -35,14 +35,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="531" height="255"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="205" y="18" width="121" height="121"/>
+                            <rect key="frame" x="205" y="23" width="121" height="121"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="180" y="147" width="171.5" height="33"/>
+                            <rect key="frame" x="172" y="152" width="187.5" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -50,8 +50,8 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="188" width="491" height="42"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
+                            <rect key="frame" x="20" y="193" width="491" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
                                     <rect key="frame" x="0.0" y="0.0" width="491" height="18"/>
@@ -63,7 +63,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 97827328723" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqV-cI-FPs">
-                                    <rect key="frame" x="0.0" y="24" width="491" height="18"/>
+                                    <rect key="frame" x="0.0" y="19" width="491" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="WHq-Vd-F3o"/>
                                     </constraints>
@@ -93,7 +93,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224.5" y="196" width="82" height="25"/>
+                    <rect key="frame" x="224" y="196" width="83" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>

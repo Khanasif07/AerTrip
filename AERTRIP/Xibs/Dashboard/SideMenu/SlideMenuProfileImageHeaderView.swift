@@ -63,8 +63,8 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.awakeFromNib()
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
-        profileImageView.isUserInteractionEnabled = true
-        profileImageView.addGestureRecognizer(singleTap)
+        profileContainerView.isUserInteractionEnabled = true
+        profileContainerView.addGestureRecognizer(singleTap)
         
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 6.0
