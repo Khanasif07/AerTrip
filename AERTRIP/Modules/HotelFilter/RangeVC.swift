@@ -50,6 +50,11 @@ class RangeVC: BaseVC {
         self.rangeLabel.textColor = AppColors.textFieldTextColor51
     }
     
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        
+        rangeLabel.text = "Within " + "\((sender as AnyObject).index ?? 0)" + "Km"
+        
+    }
     
     
     

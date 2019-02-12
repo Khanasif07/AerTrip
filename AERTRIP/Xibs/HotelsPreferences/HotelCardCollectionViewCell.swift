@@ -34,7 +34,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var hotelListData: HotelsSearched? {
+    var hotelListData: HotelSearched? {
         didSet {
             self.populateHotelData()
         }
@@ -79,14 +79,14 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     }
     
     private func populateHotelData() {
-        self.hotelNameLabel.text = self.hotelListData?.hname ?? LocalizedString.na.localized
+        self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
         self.starRatingView.rating = self.hotelListData?.star  ?? 0.0
         self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
 //       self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail.first ?? "", placeholder: image, showIndicator: true)
-        }
+            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail ?? "", placeholder: image, showIndicator: true)
+     }
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {

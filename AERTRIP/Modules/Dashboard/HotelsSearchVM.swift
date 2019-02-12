@@ -24,8 +24,8 @@ class HotelsSearchVM: NSObject{
     var adultsCount: [Int] = [1]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-02-10"
-    var checkOutDate = "2019-02-20"
+    var checkInDate = "2019-02-28"
+    var checkOutDate = "2019-03-2"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""
@@ -94,6 +94,10 @@ class HotelsSearchVM: NSObject{
             guard let sSelf = self else {return}
             if success {
                 sSelf.hotelListResult = hotels
+                for hotel in hotels {
+                   _ =  HotelSearched.insert(dataDict: hotel.jsonDict)
+                }
+                
                 sSelf.delegate?.getAllHotelsOnPreferenceResultSuccess()
             } else {
                 printDebug(errors)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HotelSearched" representedClassName="HotelSearched" syncable="YES" codeGenerationType="class">
+    <entity name="HotelSearched" representedClassName="HotelSearched" syncable="YES">
         <attribute name="accountType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="atHotelFares" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="atHotelFares" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="bc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,7 +28,7 @@
         <attribute name="taWebUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tempPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String" customClassName="[String]" syncable="YES"/>
         <attribute name="vid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TravellerData" representedClassName="TravellerData" isAbstract="YES" syncable="YES">
@@ -43,7 +43,7 @@
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="180"/>
         <element name="HotelSearched" positionX="-54" positionY="63" width="128" height="480"/>
+        <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="180"/>
     </elements>
 </model>

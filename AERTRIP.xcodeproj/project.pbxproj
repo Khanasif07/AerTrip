@@ -59,6 +59,8 @@
 		1870AD20220C769400FB32C8 /* LinkedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD10220C769400FB32C8 /* LinkedAccount.swift */; };
 		1870AD21220C769400FB32C8 /* SocialUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD11220C769400FB32C8 /* SocialUserModel.swift */; };
 		1870AD22220C769400FB32C8 /* TravellerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD12220C769400FB32C8 /* TravellerModel.swift */; };
+		1870AD32220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD30220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift */; };
+		1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD31220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift */; };
 		1871B672220823E30066636E /* ATGuestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871B671220823E30066636E /* ATGuestButton.swift */; };
 		1871B674220823F00066636E /* HotelsSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871B673220823F00066636E /* HotelsSearchVM.swift */; };
 		1871B67822084B580066636E /* PriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871B67722084B580066636E /* PriceVC.swift */; };
@@ -120,6 +122,7 @@
 		18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B435692202DCA6000C5E31 /* SortTableViewCell.xib */; };
 		18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */; };
 		18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */; };
+		18BF0AB7221293C500950A17 /* StepSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BF0AB5221293C500950A17 /* StepSlider.m */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
 		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18D4C40E220AB061005E1E37 /* AmenitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */; };
@@ -137,6 +140,8 @@
 		18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */; };
 		18FA223221EC91670024B91E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F4621CE3F8E00746329 /* SourceSansPro-Regular.ttf */; };
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
+		18FAA502220DB907001454DE /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FAA500220DB907001454DE /* SectionHeader.swift */; };
+		18FAA503220DB907001454DE /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FAA501220DB907001454DE /* SectionHeader.xib */; };
 		18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEC8602200683600C64042 /* ViewProfileVM.swift */; };
 		1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */; };
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
@@ -369,6 +374,8 @@
 		1870AD10220C769400FB32C8 /* LinkedAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccount.swift; sourceTree = "<group>"; };
 		1870AD11220C769400FB32C8 /* SocialUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserModel.swift; sourceTree = "<group>"; };
 		1870AD12220C769400FB32C8 /* TravellerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellerModel.swift; sourceTree = "<group>"; };
+		1870AD30220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelSearched+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1870AD31220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelSearched+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1871B671220823E30066636E /* ATGuestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATGuestButton.swift; sourceTree = "<group>"; };
 		1871B673220823F00066636E /* HotelsSearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsSearchVM.swift; sourceTree = "<group>"; };
 		1871B67722084B580066636E /* PriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceVC.swift; sourceTree = "<group>"; };
@@ -432,6 +439,8 @@
 		18B435692202DCA6000C5E31 /* SortTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortTableViewCell.xib; sourceTree = "<group>"; };
 		18B4596521D4DD380001C21D /* AddressTextEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextEditTableViewCell.swift; sourceTree = "<group>"; };
 		18B4596621D4DD380001C21D /* AddressTextEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTextEditTableViewCell.xib; sourceTree = "<group>"; };
+		18BF0AB5221293C500950A17 /* StepSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepSlider.m; sourceTree = "<group>"; };
+		18BF0AB6221293C500950A17 /* StepSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepSlider.h; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
 		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesVC.swift; sourceTree = "<group>"; };
@@ -448,6 +457,8 @@
 		18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignGroupTableViewCell.swift; sourceTree = "<group>"; };
 		18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignGroupTableViewCell.xib; sourceTree = "<group>"; };
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
+		18FAA500220DB907001454DE /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		18FAA501220DB907001454DE /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
 		18FEC8602200683600C64042 /* ViewProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileVM.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
@@ -697,6 +708,8 @@
 				18930A1921D2B817005442C8 /* Search */,
 				1841AF9021C8BE0F0038111D /* Profile */,
 				180A3D6F21C0DA13001A1E6A /* Dashboard */,
+				18FAA500220DB907001454DE /* SectionHeader.swift */,
+				18FAA501220DB907001454DE /* SectionHeader.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -770,6 +783,8 @@
 		1870AD03220C769400FB32C8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1870AD30220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift */,
+				1870AD31220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift */,
 				1870AD04220C769400FB32C8 /* UserInfo.swift */,
 				1870AD05220C769400FB32C8 /* ATContact.swift */,
 				1870AD06220C769400FB32C8 /* FlyerModel.swift */,
@@ -878,6 +893,15 @@
 				18D4C40F220AB546005E1E37 /* Amentities */,
 			);
 			path = HotelFilter;
+			sourceTree = "<group>";
+		};
+		18BF0AB4221293C500950A17 /* StepSlider */ = {
+			isa = PBXGroup;
+			children = (
+				18BF0AB5221293C500950A17 /* StepSlider.m */,
+				18BF0AB6221293C500950A17 /* StepSlider.h */,
+			);
+			path = StepSlider;
 			sourceTree = "<group>";
 		};
 		18D4C40F220AB546005E1E37 /* Amentities */ = {
@@ -1581,6 +1605,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				18BF0AB4221293C500950A17 /* StepSlider */,
 				1896D58E22095371003FC2B6 /* Multi Slider */,
 				1819D3D321FF4900006A367E /* Custom Shimmer Files */,
 				84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */,
@@ -1846,6 +1871,7 @@
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
 				18D4C41E220ACD06005E1E37 /* RoomTableViewCell.xib in Resources */,
 				848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */,
+				18FAA503220DB907001454DE /* SectionHeader.xib in Resources */,
 				18B435612202C59F000C5E31 /* Filter.storyboard in Resources */,
 				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
 				180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */,
@@ -2055,6 +2081,7 @@
 				18930A2921D36761005442C8 /* TextEditableTableViewCell.swift in Sources */,
 				84085CE421F59C0E00F1E844 /* SuccessPopupVM.swift in Sources */,
 				84085D0621F59C0E00F1E844 /* FFSearchVC.swift in Sources */,
+				1870AD32220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift in Sources */,
 				18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */,
 				841DD1E72202DC690055FEBB /* DestinationMyLocationTableCell.swift in Sources */,
 				84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */,
@@ -2157,6 +2184,7 @@
 				84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */,
 				84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */,
 				84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */,
+				18FAA502220DB907001454DE /* SectionHeader.swift in Sources */,
 				84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
@@ -2186,6 +2214,7 @@
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
+				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
@@ -2225,6 +2254,7 @@
 				84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
+				18BF0AB7221293C500950A17 /* StepSlider.m in Sources */,
 				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
 				84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */,
 				1870AD21220C769400FB32C8 /* SocialUserModel.swift in Sources */,

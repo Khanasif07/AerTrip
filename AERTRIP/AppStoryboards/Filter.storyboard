@@ -156,17 +156,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxM-Qk-1fu">
-                                <rect key="frame" x="16" y="36" width="158.5" height="19"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <rect key="frame" x="16" y="32" width="142.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yc4-Rx-GhG">
-                                <rect key="frame" x="257" y="73" width="102" height="31"/>
+                                <rect key="frame" x="257" y="65" width="102" height="31"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5U-Ru-ge6">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Within 2 Km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5U-Ru-ge6">
                                         <rect key="frame" x="0.0" y="0.0" width="102" height="31"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -181,13 +181,56 @@
                                     <constraint firstAttribute="width" constant="102" id="mqE-At-L7P"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jU1-4c-SMd" customClass="StepSlider">
+                                <rect key="frame" x="10" y="100" width="355" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="mrl-EP-QwP"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxCount">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackHeight">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackCircleRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sliderCircleRadius">
+                                        <real key="value" value="11"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="dotsInteractionEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="enableHapticFeedback" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="index">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
+                                        <color key="value" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="labelOffset">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderCircleColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="sliderCircleImage" value="thumbImage"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="Gbn-Sv-vsw" eventType="valueChanged" id="IKk-2A-VVT"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="jU1-4c-SMd" firstAttribute="top" secondItem="f5U-Ru-ge6" secondAttribute="bottom" constant="4" id="4ag-90-cbQ"/>
+                            <constraint firstItem="Eok-Mn-bfI" firstAttribute="trailing" secondItem="jU1-4c-SMd" secondAttribute="trailing" constant="10" id="AHy-Cc-5jZ"/>
                             <constraint firstItem="DxM-Qk-1fu" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="16" id="F6j-hk-CBF"/>
+                            <constraint firstItem="jU1-4c-SMd" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="10" id="Fxp-b5-tAj"/>
                             <constraint firstAttribute="trailing" secondItem="Yc4-Rx-GhG" secondAttribute="trailing" constant="16" id="Y5d-xx-4Kv"/>
-                            <constraint firstItem="DxM-Qk-1fu" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="16" id="bXf-Yf-w6A"/>
-                            <constraint firstItem="Yc4-Rx-GhG" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="53" id="fQk-6v-cZM"/>
+                            <constraint firstItem="DxM-Qk-1fu" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="12" id="bXf-Yf-w6A"/>
+                            <constraint firstItem="Yc4-Rx-GhG" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="45" id="fQk-6v-cZM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Eok-Mn-bfI"/>
                     </view>
@@ -567,7 +610,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-KN-MfJ">
-                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
+                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <connections>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="f6o-Wb-79g"/>
@@ -766,6 +809,7 @@
         <image name="buttonCheckIcon" width="20" height="20"/>
         <image name="deselectedAdvisorRating" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
+        <image name="thumbImage" width="31" height="32"/>
         <image name="untick" width="22" height="22"/>
     </resources>
 </document>

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+import CoreData
 import GoogleMaps
 import MXParallaxHeader
 import UIKit
@@ -17,7 +18,6 @@ class HotelResultVC: BaseVC {
     
     @IBOutlet var headerContainerView: UIView!
     @IBOutlet var navContainerView: UIView!
-    @IBOutlet var progressView: UIView!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
@@ -27,8 +27,15 @@ class HotelResultVC: BaseVC {
     @IBOutlet var dividerView: ATDividerView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var headerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var progressView: UIProgressView!
     
     // MARK: - Properties
+    
+    var container: NSPersistentContainer!
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    var predicateStr: String = ""
+    let maxTime: Float = 10.0
+    var currentTime: Float = 0.0
     
     // MARK: - Public
     
@@ -46,11 +53,27 @@ class HotelResultVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        self.container = NSPersistentContainer(name: "AERTRIP")
+        
+        self.container.loadPersistentStores { _, error in
+            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
+            if let error = error {
+                print("Unresolved error \(error.localizedDescription)")
+            }
+        }
+        
         self.initialSetups()
+        self.registerXib()
         self.setupMapView()
-        printDebug(self.viewModel.hotelListResult)
+        self.loadSavedData()
+       // self.startProgress()
+//       let  filteDistance = CoreDataManager.shared.filterData(fromEntity: "HotelSearched", forAttribute: "distance")
+        
+        //  printDebug(self.viewModel.hotelListResult)
     }
+    
+   
     
     // MARK: - Methods
     
@@ -62,6 +85,8 @@ class HotelResultVC: BaseVC {
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        self.searchBar.delegate = self
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 2)
     }
     
     override func setupFonts() {
@@ -97,8 +122,7 @@ class HotelResultVC: BaseVC {
     private func setupMapView() {
         self.locManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
-        }
+            CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
         let camera = GMSCameraPosition.camera(withLatitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: UIDevice.screenWidth, height: 200), camera: camera)
@@ -120,6 +144,57 @@ class HotelResultVC: BaseVC {
         marker.map = mapView
     }
     
+    private func loadSavedData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HotelSearched")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "distance", ascending: false)]
+        //  fetchRequest.sortDescriptors = [(NSSortDescriptor(key: "hotelName", ascending: false))]
+       fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "distance", cacheName: nil)
+//          fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        if self.predicateStr == "" {
+            self.fetchedResultsController.fetchRequest.predicate = nil
+            
+        } else {
+            self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
+        }
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+            self.collectionView.reloadData()
+        } catch {
+            print("Fetch failed")
+        }
+    }
+    
+    private func searchHotels(forText: String) {
+        printDebug("searching text is \(forText)")
+        self.predicateStr = forText
+        self.loadSavedData()
+    }
+    
+    private func registerXib() {
+        self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+    }
+    
+    private func startProgress() {
+        self.progressView.setProgress(self.currentTime, animated: true)
+        perform(#selector(self.updateProgress), with: nil, afterDelay: 1.0)
+    }
+    
+    @objc func updateProgress() {
+        self.progressView.progress = self.currentTime / maxTime
+        
+        if self.maxTime / 3 < self.progressView.progress {
+            self.currentTime = self.currentTime + 0.05
+            perform(#selector(self.updateProgress), with: nil, afterDelay: 0.20)
+        } else {
+            print("stop")
+            perform(#selector(self.updateProgress), with: nil, afterDelay: 0.01)
+            self.currentTime = self.currentTime + 0.20
+            return
+        }
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -139,7 +214,13 @@ class HotelResultVC: BaseVC {
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.hotelListResult.count
+        guard let sections = self.fetchedResultsController.sections else {
+            printDebug("No sections in fetchedResultsController")
+            return 0
+        }
+        let sectionInfo = sections[section]
+        // return self.viewModel.hotelListResult.count
+        return sectionInfo.numberOfObjects
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -147,8 +228,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        cell.hotelData = nil
-        cell.hotelListData = self.viewModel.hotelListResult[indexPath.row]
+        let hData = fetchedResultsController.object(at: indexPath) as? HotelSearched
+        
+//        cell.hotelListData = self.viewModel.hotelListResult[indexPath.row]
+        cell.hotelListData = hData
+        
         return cell
     }
     
@@ -158,6 +242,26 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIDevice.screenWidth, height: 20.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("section not found")
+        }
+
+        if kind == "UICollectionElementKindSectionHeader" {
+            if let sectionHeader = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SectionHeader {
+                sectionHeader.backgroundColor = .red
+                sectionHeader.sectionHeaderLabel.text = sections[indexPath.section].name
+                return sectionHeader
+            }
+        }
+
+        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
@@ -192,11 +296,23 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 }
 
-
-extension HotelResultVC : CLLocationManagerDelegate {
+extension HotelResultVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         printDebug("location \(String(describing: locations.last))")
         self.currentLocation = locations.last
         self.setupMapView()
+    }
+}
+
+// MARK: - Search bar delegate methods
+
+extension HotelResultVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            self.predicateStr = ""
+            self.loadSavedData()
+        } else {
+            self.searchHotels(forText: searchText)
+        }
     }
 }
