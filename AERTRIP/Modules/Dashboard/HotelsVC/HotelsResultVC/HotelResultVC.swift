@@ -29,28 +29,30 @@ class HotelResultVC: BaseVC {
     @IBOutlet var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var progressView: UIProgressView!
     
+    @IBOutlet var collectionViewTopConstraint: NSLayoutConstraint!
+    
     // MARK: - Properties
     
     var container: NSPersistentContainer!
     var predicateStr: String = ""
-    let maxTime: Float = 10.0
-    var currentTime: Float = 0.0
-    
+    var time: Float = 0.0
+    var timer: Timer?
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         let fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "distance", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "distance", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
-        }
-        catch let error {
+        } catch {
             printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
         }
         return fetchedResultsController
     }()
+    
+    let parallexHeaderHeight = CGFloat(200.0)
     
     // MARK: - Public
     
@@ -81,13 +83,11 @@ class HotelResultVC: BaseVC {
         self.initialSetups()
         self.registerXib()
         self.setupMapView()
-       // self.startProgress()
+        self.startProgress()
 //       let  filteDistance = CoreDataManager.shared.filterData(fromEntity: "HotelSearched", forAttribute: "distance")
         
         //  printDebug(self.viewModel.hotelListResult)
     }
-    
-   
     
     // MARK: - Methods
     
@@ -96,11 +96,14 @@ class HotelResultVC: BaseVC {
     private func initialSetups() {
         self.setupParallaxHeader()
         
+        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout // casting is required because UICollectionViewLayout doesn't offer header pin. Its feature of UICollectionViewFlowLayout
+        layout?.sectionHeadersPinToVisibleBounds = true
+        
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.searchBar.delegate = self
-        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 2)
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         
         self.reloadHotelList()
     }
@@ -122,8 +125,6 @@ class HotelResultVC: BaseVC {
     }
     
     private func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(200.0)
-        
         let parallexHeaderMinHeight = CGFloat(0.0)
         
         // header = HotelsResultHeaderView.instanceFromNib()
@@ -167,6 +168,7 @@ class HotelResultVC: BaseVC {
     private func searchHotels(forText: String) {
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
+        self.loadSaveData()
         self.reloadHotelList()
     }
     
@@ -175,21 +177,42 @@ class HotelResultVC: BaseVC {
     }
     
     private func startProgress() {
-        self.progressView.setProgress(self.currentTime, animated: true)
-        perform(#selector(self.updateProgress), with: nil, afterDelay: 1.0)
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
-    @objc func updateProgress() {
-        self.progressView.progress = self.currentTime / maxTime
+    // MARK: Show progress
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView.setProgress(self.time / 10, animated: true)
         
-        if self.maxTime / 3 < self.progressView.progress {
-            self.currentTime = self.currentTime + 0.05
-            perform(#selector(self.updateProgress), with: nil, afterDelay: 0.20)
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        printDebug("timer\(self.timer!)")
+        if self.time >= 10 {
+            self.timer!.invalidate()
+        }
+    }
+    
+    private func loadSaveData() {
+        if self.predicateStr == "" {
+            self.fetchedResultsController.fetchRequest.predicate = nil
+            
         } else {
-            print("stop")
-            perform(#selector(self.updateProgress), with: nil, afterDelay: 0.01)
-            self.currentTime = self.currentTime + 0.20
-            return
+            self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
         }
     }
     
@@ -211,7 +234,6 @@ class HotelResultVC: BaseVC {
 // MARK: -
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.fetchedResultsController.sections?.count ?? 0
     }
@@ -248,26 +270,41 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth, height: 20.0)
+        return CGSize(width: UIDevice.screenWidth, height: 53.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let sections = fetchedResultsController.sections else {
             fatalError("section not found")
         }
-
+        
         if kind == "UICollectionElementKindSectionHeader" {
             if let sectionHeader = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SectionHeader {
-                sectionHeader.backgroundColor = .red
-                sectionHeader.sectionHeaderLabel.text = sections[indexPath.section].name
+                sectionHeader.backgroundColor = .clear
+                var removeFirstChar = sections[indexPath.section].name
+                _ = removeFirstChar.removeFirst()
+                sectionHeader.sectionHeaderLabel.text = removeFirstChar + " kms"
                 return sectionHeader
             }
         }
-
+        
         return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        headerViewTopConstraint.constant = max(-scrollView.contentOffset.y,100)
+        // collectionViewTopConstraint.constant  = -200
+        
+        // let newHeaderHeight =
+        printDebug(scrollView.contentOffset.y)
+        let newHeight = parallexHeaderHeight - scrollView.contentOffset.y
+        printDebug("newHeight is \(newHeight)")
+        if 0...200 ~= newHeight {
+            self.collectionView.parallaxHeader.height = newHeight
+        } 
+    }
 }
 
 // MARK: - MXParallaxHeaderDelegate methods

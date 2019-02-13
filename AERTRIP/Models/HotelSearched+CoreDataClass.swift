@@ -56,8 +56,22 @@ public class HotelSearched: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.distance.rawValue] as? String {
-            hotelSearched!.distance = Double(obj)?.roundTo(places: 2) ?? 0.0
+            let distance = Double(obj)?.roundTo(places: 2) ?? 0.0
+            hotelSearched!.distance = distance
+            switch distance {
+            case 2...4 :
+                hotelSearched?.sectionTitle = "a2 to 4"
+            case 5...10:
+                hotelSearched?.sectionTitle = "b5 to 10"
+            case 11...15:
+                hotelSearched?.sectionTitle = "c11 to 15"
+            case 16...20:
+                hotelSearched?.sectionTitle = "d16 to 20"
+            default:
+                hotelSearched?.sectionTitle = "e20 above"
+            }
         }
+        
         
         if let obj = dataDict[APIKeys.facilities.rawValue] {
             hotelSearched!.facilities = "\(obj)".removeNull

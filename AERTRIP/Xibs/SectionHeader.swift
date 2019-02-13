@@ -11,9 +11,14 @@ import UIKit
 class SectionHeader: UICollectionReusableView {
 
     @IBOutlet weak var sectionHeaderLabel: UILabel!
+    @IBOutlet weak var labelBackgroundView: UIView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.labelBackgroundView.layer.cornerRadius = self.labelBackgroundView.frame.size.height / 2
+        
     }
     
 }

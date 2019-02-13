@@ -23,6 +23,7 @@
         <attribute name="perNightPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="star" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="taReviews" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="taWebUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,7 +44,7 @@
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HotelSearched" positionX="-54" positionY="63" width="128" height="480"/>
+        <element name="HotelSearched" positionX="-54" positionY="63" width="128" height="495"/>
         <element name="TravellerData" positionX="-54" positionY="-9" width="128" height="180"/>
     </elements>
 </model>
