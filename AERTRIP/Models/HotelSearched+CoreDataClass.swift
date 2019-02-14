@@ -35,7 +35,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.address = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.at_hotel_fares.rawValue] as? Double {
+        if let obj = dataDict[APIKeys.at_hotel_fares.rawValue] as? [Double] {
             hotelSearched!.atHotelFares = obj
         }
         
@@ -89,7 +89,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.hotelName = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.lat.rawValue] {
+      if let obj = dataDict[APIKeys.lat.rawValue] {
             hotelSearched!.lat = "\(obj)".removeNull
         }
         
@@ -108,16 +108,16 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.numberOfNight = Int16(obj as! Int)
         }
         
-        if let obj = dataDict[APIKeys.num_rooms.rawValue] {
-            hotelSearched!.numberOfRooms = Int16(obj as! Int)
+        if let obj = dataDict[APIKeys.num_rooms.rawValue] as? Int {
+            hotelSearched!.numberOfRooms = Int16(obj)
         }
         
-        if let obj = dataDict[APIKeys.per_night_list_price.rawValue] {
-            hotelSearched!.perNightListPrice = "\(obj)".removeNull
+        if let obj = dataDict[APIKeys.per_night_list_price.rawValue] as? String {
+            hotelSearched!.perNightListPrice = Double(obj) ?? 0.0
         }
         
-        if let obj = dataDict[APIKeys.price.rawValue] {
-            hotelSearched!.price = obj as! Double
+        if let obj = dataDict[APIKeys.price.rawValue] as? String {
+            hotelSearched!.price = Double(obj) ?? 0.0
         }
         
         if let obj = dataDict[APIKeys.rating.rawValue] {
@@ -143,12 +143,18 @@ public class HotelSearched: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.thumbnail.rawValue] as? [String] {
-            hotelSearched!.thumbnail = "\(String(describing: obj.first))".removeNull
+            hotelSearched!.thumbnail = obj
         }
         
         if let obj = dataDict[APIKeys.vid.rawValue] {
             hotelSearched!.vid = "\(obj)".removeNull
         }
+        
+        if let obj = dataDict[APIKeys.amentities.rawValue] as? [Int] {
+            hotelSearched!.amentities = obj
+        }
+        
+        
         
         CoreDataManager.shared.saveContext()
         

@@ -18,6 +18,7 @@ class SortVC: UIViewController {
     // MARK:- Variables
     let cellIdentifier = "SortTableViewCell"
     private  let titles: [String] = [LocalizedString.BestSellers.localized,LocalizedString.Price.localized,LocalizedString.TripAdvisor.localized,LocalizedString.StarRating.localized,LocalizedString.Distance.localized]
+    private let subTitles: [String] = [LocalizedString.Recommended.localized,LocalizedString.LowToHigh.localized,LocalizedString.FiveToOne.localized,LocalizedString.FiveToOne.localized,LocalizedString.NearestFirst.localized]
     
     // MARK:- View Life cycle
     
@@ -63,7 +64,7 @@ extension SortVC : UITableViewDataSource,UITableViewDelegate {
            return UITableViewCell()
         }
         cell.leftTitleLabel.textColor = indexPath.row == 0 ? AppColors.themeGreen : AppColors.textFieldTextColor51
-        cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "will change")
+        cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: subTitles[indexPath.row])
         return cell
     }
     

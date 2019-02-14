@@ -19,7 +19,7 @@ extension HotelSearched {
 
     @NSManaged public var accountType: String?
     @NSManaged public var address: String?
-    @NSManaged public var atHotelFares: Double
+    @NSManaged public var atHotelFares: [Double]
     @NSManaged public var bc: String?
     @NSManaged public var cityCode: String?
     @NSManaged public var country: String?
@@ -35,8 +35,8 @@ extension HotelSearched {
     @NSManaged public var long: String?
     @NSManaged public var numberOfNight: Int16
     @NSManaged public var numberOfRooms: Int16
-    @NSManaged public var perNightListPrice: String?
-    @NSManaged public var perNightPrice: String?
+    @NSManaged public var perNightListPrice: Double
+    @NSManaged public var perNightPrice: Double
     @NSManaged public var price: Double
     @NSManaged public var rating: Double
     @NSManaged public var star: Double
@@ -44,8 +44,9 @@ extension HotelSearched {
     @NSManaged public var taWebUrl: String?
     @NSManaged public var tax: Double
     @NSManaged public var tempPrice: Double
-    @NSManaged public var thumbnail: String?
+    @NSManaged public var thumbnail: [String]?
     @NSManaged public var vid: String?
     @NSManaged public var sectionTitle:String?
+    @NSManaged public var amentities:[Int]?
 
 }

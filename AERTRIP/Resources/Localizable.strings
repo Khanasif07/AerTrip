@@ -303,6 +303,10 @@
 "TripAdvisorRating" = "TripAdvisor Rating";
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
+"Recommended" = "Reccommended";
+"LowToHigh" = "Low to high";
+"FiveToOne" = "5 to 1";
+"NearestFirst" = "Nearest first";
 
 // MARK:- Range VC
 "SearchResultsRange" = "Search Results Range";

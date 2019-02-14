@@ -348,6 +348,12 @@ enum LocalizedString: String {
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
     case Distance = "Distance"
+    case Recommended = "Reccommended"
+    case LowToHigh = "LowToHigh"
+    case FiveToOne = "FiveToOne"
+    case NearestFirst = "NearestFirst"
+    
+    
     
     
     //MARK: - RangeVC

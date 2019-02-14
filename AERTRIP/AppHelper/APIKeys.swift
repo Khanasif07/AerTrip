@@ -126,6 +126,7 @@ enum APIKeys: String {
     case per_night_list_price = "per_night_list_price"
     case lat = "lat"
     case long = "long"
+    case amentities = "amenities"
 }
 
 

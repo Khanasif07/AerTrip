@@ -16,7 +16,7 @@ class AmenitiesVC: BaseVC {
     // MARK: - Variables
     
     let cellIdentifier = "AmenitiesTableViewCell"
-    let amentiesDetails: [(amenititesImage: UIImage, amentitiesTitle: String, status: Int)] = [(amenititesImage: UIImage(named: "wifiIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Wifi.localized, status: 0), (amenititesImage: UIImage(named: "roomServiceIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.RoomService.localized, status: 0), (amenititesImage: UIImage(named: "internetIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Internet.localized, status: 0), (amenititesImage: UIImage(named: "airConditionerIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.AirConditioner.localized, status: 0), (amenititesImage: UIImage(named: "restaurantBarIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.RestaurantBar.localized, status: 0),(amenititesImage: UIImage(named: "gymIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Gym.localized, status: 0),(amenititesImage: UIImage(named: "businessIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.BusinessCenter.localized, status: 0),(amenititesImage: UIImage(named: "poolIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Pool.localized, status: 0),(amenititesImage: UIImage(named: "spaIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Spa.localized, status: 0)]
+    let amentiesDetails: [(amenititesImage: UIImage, amentitiesTitle: String, amenitiesId: Int)] = [(amenititesImage: UIImage(named: "wifiIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Wifi.localized, amenitiesId: 10), (amenititesImage: UIImage(named: "roomServiceIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.RoomService.localized, amenitiesId: 8), (amenititesImage: UIImage(named: "internetIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Internet.localized, amenitiesId: 5), (amenititesImage: UIImage(named: "airConditionerIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.AirConditioner.localized, amenitiesId: 1), (amenititesImage: UIImage(named: "restaurantBarIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.RestaurantBar.localized, amenitiesId: 7),(amenititesImage: UIImage(named: "gymIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Gym.localized, amenitiesId: 4),(amenititesImage: UIImage(named: "businessIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.BusinessCenter.localized, amenitiesId: 2),(amenititesImage: UIImage(named: "poolIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Pool.localized, amenitiesId: 6),(amenititesImage: UIImage(named: "spaIcon") ?? AppPlaceholderImage.frequentFlyer, amentitiesTitle: LocalizedString.Spa.localized, amenitiesId: 9)]
     
     // MARK: - View Lifecycle
     
@@ -53,10 +53,20 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.amenitie = amentiesDetails[indexPath.row]
+          cell.statusButton.isSelected = HotelFilterVM.shared.amenitites.contains(amentiesDetails[indexPath.row].amenitiesId)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if HotelFilterVM.shared.amenitites.contains(amentiesDetails[indexPath.row].amenitiesId) {
+            HotelFilterVM.shared.amenitites.remove(at: HotelFilterVM.shared.amenitites.firstIndex(of: amentiesDetails[indexPath.row].amenitiesId)!)
+        } else {
+            HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].amenitiesId)
+        }
+        self.tableView.reloadData()
     }
 }

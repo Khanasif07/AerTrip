@@ -17,7 +17,7 @@ class AmenitiesTableViewCell: UITableViewCell {
     @IBOutlet weak var statusButton: UIButton!
     
     
-    var amenitie : (amenititesImage: UIImage, amentitiesTitle: String,status:Int)? {
+    var amenitie : (amenititesImage: UIImage, amentitiesTitle: String,amenitiesId:Int)? {
         didSet {
             self.populateData()
         }
@@ -34,7 +34,6 @@ class AmenitiesTableViewCell: UITableViewCell {
     private func populateData() {
         self.amenityImageView.image = amenitie?.amenititesImage
         self.amentityTitleLabel.text = amenitie?.amentitiesTitle
-        self.statusButton.isSelected = amenitie?.status.toBool ?? false
     }
 
     

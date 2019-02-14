@@ -51,8 +51,8 @@ class RangeVC: BaseVC {
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
-        
         rangeLabel.text = "Within " + "\((sender as AnyObject).index ?? 0)" + "Km"
+        HotelFilterVM.shared.distanceRange = (sender as AnyObject).index ?? 0
         
     }
     

@@ -1519,6 +1519,9 @@
                                                 </constraints>
                                                 <state key="normal" image="ic_map_view"/>
                                                 <state key="selected" image="ic_list_view"/>
+                                                <connections>
+                                                    <action selector="mapButtonAction:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="Sj2-aj-gPm"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

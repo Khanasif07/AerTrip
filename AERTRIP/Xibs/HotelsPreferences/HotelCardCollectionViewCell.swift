@@ -85,7 +85,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
 //       self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail ?? "", placeholder: image, showIndicator: true)
+            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
      }
     }
     

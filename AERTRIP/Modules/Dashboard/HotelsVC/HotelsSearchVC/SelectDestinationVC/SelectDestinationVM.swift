@@ -106,7 +106,10 @@ class SelectDestinationVM: NSObject {
     
     func getAllPopularHotels() {
         
-        APICaller.shared.getPopularHotels(params: [:]) { [weak self] (success, error, hotels) in
+        var params = JSONDictionary()
+        params["popular_destination"] = 1
+        
+        APICaller.shared.getPopularHotels(params: params) { [weak self] (success, error, hotels) in
             
             guard let sSelf = self else {return}
             

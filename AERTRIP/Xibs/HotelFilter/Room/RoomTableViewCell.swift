@@ -12,8 +12,10 @@ class RoomTableViewCell: UITableViewCell  {
     
     // MARK : - IB Outlets
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var statusButton: UIButton!
     
-    var room : (title: String,status:Int)? {
+    
+    var room : (title: String,id:Int)? {
         didSet {
             self.populateData()
         }

@@ -86,6 +86,8 @@ class PriceVC: BaseVC {
         print("\(slider.value)")
         //"\u{20B9} " +
         minimumPriceLabel.attributedText = ("\u{20B9} " + String(format: "%.2f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        HotelFilterVM.shared.minimumPrice = Float(slider.value.first ?? 0.0).roundTo(places: 2)
+        HotelFilterVM.shared.maximumPrice = Float(slider.value.last ?? 0.0).roundTo(places: 2)
         maximumPriceLabel.attributedText =  ("\u{20B9} " + String(format: "%.2f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
 

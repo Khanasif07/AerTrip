@@ -84,10 +84,8 @@ class HotelResultVC: BaseVC {
         self.registerXib()
         self.setupMapView()
         self.startProgress()
-//       let  filteDistance = CoreDataManager.shared.filterData(fromEntity: "HotelSearched", forAttribute: "distance")
-        
-        //  printDebug(self.viewModel.hotelListResult)
     }
+
     
     // MARK: - Methods
     
@@ -132,7 +130,7 @@ class HotelResultVC: BaseVC {
         self.collectionView.parallaxHeader.view = header
         self.collectionView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.collectionView.parallaxHeader.height = parallexHeaderHeight
-        self.collectionView.parallaxHeader.mode = MXParallaxHeaderMode.center
+        self.collectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.collectionView.parallaxHeader.delegate = self
     }
     
@@ -149,9 +147,9 @@ class HotelResultVC: BaseVC {
         self.locManager.delegate = self
         self.locManager.startUpdatingLocation()
         mapView.backgroundColor = .red
-//        header.mapView = mapView
         
-        self.header.addSubview(mapView)
+        //self.header.addSubview(mapView)
+        self.header.mapImageView.addSubview(mapView)
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
@@ -227,6 +225,13 @@ class HotelResultVC: BaseVC {
     @IBAction func filterButtonAction(_ sender: UIButton) {
         AppFlowManager.default.showFilterVC(self)
     }
+    
+    @IBAction func mapButtonAction(_ sender: Any) {
+        self.header.height = UIDevice.screenHeight
+        self.header.layoutIfNeeded()
+
+    }
+    
 }
 
 // MARK: - Collection view datasource and delegate methods
@@ -300,10 +305,10 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         // let newHeaderHeight =
         printDebug(scrollView.contentOffset.y)
         let newHeight = parallexHeaderHeight - scrollView.contentOffset.y
-        printDebug("newHeight is \(newHeight)")
-        if 0...200 ~= newHeight {
-            self.collectionView.parallaxHeader.height = newHeight
-        } 
+//        printDebug("newHeight is \(newHeight)")
+//        if 0...200 ~= newHeight {
+//            self.collectionView.parallaxHeader.height = newHeight
+//        }
     }
 }
 
