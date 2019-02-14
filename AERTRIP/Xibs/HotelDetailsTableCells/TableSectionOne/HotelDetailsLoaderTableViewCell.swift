@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoaderTableViewCell: UITableViewCell {
+class HotelDetailsLoaderTableViewCell: UITableViewCell {
 
     //Mark:- IBOutlets
     //================
@@ -21,10 +21,8 @@ class LoaderTableViewCell: UITableViewCell {
     
     //Mark:- LifeCycle
     //================
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
 

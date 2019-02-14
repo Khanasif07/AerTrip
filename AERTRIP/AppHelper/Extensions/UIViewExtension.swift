@@ -139,6 +139,43 @@ extension UIView {
         self.layer.mask = mask
     }
     
+    //MARK:- set round corners by clips to bounds
+    func roundCornersByClipsToBounds(cornerRadius: Double) {
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    ///SHOW VIEW
+    func showViewWithFade(){
+        self.alpha = 0.0
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.alpha = 0.0
+        }, completion: { (completeFadein: Bool) -> Void in
+            self.alpha = 1.0
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.fade
+            self.layer.add(transition, forKey: nil)
+            self.isHidden = false
+        })
+    }
+    
+    ///HIDE VIEW
+    func hideViewWithFade(){
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.alpha = 1.0
+        }, completion: { (completeFadein: Bool) -> Void in
+            self.alpha = 0.0
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.fade
+            self.layer.add(transition, forKey: nil)
+            self.isHidden = true
+        })
+    }
     
     public func addGrayShadow(ofColor color: UIColor = UIColor.black, radius: CGFloat = 3, offset: CGSize = .zero, opacity: Float = 0.2, cornerRadius: CGFloat? = nil) {
         layer.shadowColor = color.cgColor

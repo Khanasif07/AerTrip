@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-Ld-2w1">
-                        <rect key="frame" x="0.0" y="57" width="375" height="71"/>
+                        <rect key="frame" x="0.0" y="43.5" width="375" height="80"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="71" id="iG9-gt-8cg"/>
+                            <constraint firstAttribute="height" constant="80" id="eDa-6s-Tjl"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="60d-zz-g4f">
                             <size key="itemSize" width="50" height="50"/>
@@ -58,13 +58,13 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="y4j-Ld-2w1" firstAttribute="top" secondItem="3Ka-1i-QHg" secondAttribute="bottom" constant="12" id="0fb-NV-yed"/>
                     <constraint firstAttribute="trailing" secondItem="3Ka-1i-QHg" secondAttribute="trailing" constant="7" id="2RK-R2-8z6"/>
                     <constraint firstItem="3Ka-1i-QHg" firstAttribute="leading" secondItem="8LL-W6-Lte" secondAttribute="trailing" constant="10" id="2jd-yN-w4f"/>
                     <constraint firstItem="8LL-W6-Lte" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3Bq-Pv-kME"/>
                     <constraint firstAttribute="bottom" secondItem="V8b-P2-zTO" secondAttribute="bottom" id="FPI-5y-6aH"/>
                     <constraint firstAttribute="trailing" secondItem="y4j-Ld-2w1" secondAttribute="trailing" id="Hmz-E1-Yne"/>
                     <constraint firstItem="3Ka-1i-QHg" firstAttribute="centerY" secondItem="8LL-W6-Lte" secondAttribute="centerY" id="J8e-Ry-YOd"/>
+                    <constraint firstItem="y4j-Ld-2w1" firstAttribute="top" secondItem="8LL-W6-Lte" secondAttribute="bottom" constant="4" id="Os0-pM-B9C"/>
                     <constraint firstItem="y4j-Ld-2w1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YBx-GR-MCX"/>
                     <constraint firstAttribute="trailing" secondItem="V8b-P2-zTO" secondAttribute="trailing" constant="16" id="ixR-9r-Hc4"/>
                     <constraint firstItem="V8b-P2-zTO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="oxh-5g-IeY"/>

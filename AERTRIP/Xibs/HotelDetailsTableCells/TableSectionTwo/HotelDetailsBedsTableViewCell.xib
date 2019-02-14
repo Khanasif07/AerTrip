@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HotelDetailsBedsTableViewCell" id="DaD-df-j56" customClass="HotelDetailsBedsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DaD-df-j56" id="0y0-hK-j0h">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxL-7U-xbJ">
+                        <rect key="frame" x="16" y="0.0" width="343" height="117.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier King Bed Ocean View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMX-kz-73G">
+                                <rect key="frame" x="16" y="10" width="280" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="s5x-Zb-TjA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDh-gF-vY8">
+                                <rect key="frame" x="306" y="10" width="27" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="V5x-aO-xoQ"/>
+                                    <constraint firstAttribute="width" secondItem="SDh-gF-vY8" secondAttribute="height" multiplier="1:1" id="ozc-HD-z0m"/>
+                                </constraints>
+                                <state key="normal" image="bookmark_hotel-icon"/>
+                                <connections>
+                                    <action selector="bookmarkButtonAction:" destination="DaD-df-j56" eventType="touchUpInside" id="a8l-dr-ZON"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EER-A0-JfG">
+                                <rect key="frame" x="16" y="40" width="311" height="33.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33.5" id="9Qy-td-WDN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjZ-51-vuU">
+                                <rect key="frame" x="16" y="80.5" width="50" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19.5" id="Tqc-3w-vWf"/>
+                                    <constraint firstAttribute="width" constant="50" id="umJ-cE-6kr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zko-wU-s3o">
+                                <rect key="frame" x="229" y="80.5" width="99" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="GIB-j9-QxO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="2 Single Beds"/>
+                                <connections>
+                                    <action selector="bedsDropDownButtonAction:" destination="DaD-df-j56" eventType="touchUpInside" id="cMl-je-jN5"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSR-lc-Kpb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="8" y="116.5" width="327" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5hn-JZ-3vW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zko-wU-s3o" secondAttribute="trailing" constant="15" id="6Ui-nF-1or"/>
+                            <constraint firstItem="EER-A0-JfG" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="leading" id="HrJ-J8-3XV"/>
+                            <constraint firstItem="qSR-lc-Kpb" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="8" id="ITb-OU-Vja"/>
+                            <constraint firstItem="rjZ-51-vuU" firstAttribute="top" secondItem="EER-A0-JfG" secondAttribute="bottom" constant="7" id="QwX-vV-NiT"/>
+                            <constraint firstAttribute="trailing" secondItem="qSR-lc-Kpb" secondAttribute="trailing" constant="8" id="UvJ-5A-7hB"/>
+                            <constraint firstItem="PMX-kz-73G" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="16" id="V25-30-HT1"/>
+                            <constraint firstAttribute="bottom" secondItem="qSR-lc-Kpb" secondAttribute="bottom" id="WnZ-mR-6HE"/>
+                            <constraint firstItem="zko-wU-s3o" firstAttribute="centerY" secondItem="rjZ-51-vuU" secondAttribute="centerY" id="ad9-k9-eoW"/>
+                            <constraint firstItem="SDh-gF-vY8" firstAttribute="top" secondItem="QxL-7U-xbJ" secondAttribute="top" constant="10" id="adp-Ly-Bad"/>
+                            <constraint firstItem="EER-A0-JfG" firstAttribute="top" secondItem="PMX-kz-73G" secondAttribute="bottom" constant="9" id="mde-VY-LzC"/>
+                            <constraint firstItem="SDh-gF-vY8" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="trailing" constant="10" id="nXc-Dr-Q6a"/>
+                            <constraint firstAttribute="trailing" secondItem="EER-A0-JfG" secondAttribute="trailing" constant="16" id="vmb-AT-80n"/>
+                            <constraint firstItem="rjZ-51-vuU" firstAttribute="leading" secondItem="EER-A0-JfG" secondAttribute="leading" id="yFe-aS-y1B"/>
+                            <constraint firstItem="PMX-kz-73G" firstAttribute="top" secondItem="QxL-7U-xbJ" secondAttribute="top" constant="10" id="yPR-GO-0sG"/>
+                            <constraint firstAttribute="trailing" secondItem="SDh-gF-vY8" secondAttribute="trailing" constant="10" id="ySY-2f-4m9"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QxL-7U-xbJ" firstAttribute="top" secondItem="0y0-hK-j0h" secondAttribute="top" id="1Tq-h4-Sec"/>
+                    <constraint firstItem="QxL-7U-xbJ" firstAttribute="leading" secondItem="0y0-hK-j0h" secondAttribute="leading" constant="16" id="DGp-zJ-Ng3"/>
+                    <constraint firstAttribute="trailing" secondItem="QxL-7U-xbJ" secondAttribute="trailing" constant="16" id="Kgg-5J-wen"/>
+                    <constraint firstAttribute="bottom" secondItem="QxL-7U-xbJ" secondAttribute="bottom" id="pcO-iH-7uh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bedDiscriptionLabel" destination="EER-A0-JfG" id="rhK-rF-Yip"/>
+                <outlet property="bedSelectionDropDown" destination="zko-wU-s3o" id="2Lm-fy-don"/>
+                <outlet property="bedTypeLabel" destination="PMX-kz-73G" id="fWi-Xx-P4F"/>
+                <outlet property="bedsLabel" destination="rjZ-51-vuU" id="SVa-UT-PYm"/>
+                <outlet property="bookmarkButtonOutlet" destination="SDh-gF-vY8" id="ov1-r9-tgO"/>
+                <outlet property="containerView" destination="QxL-7U-xbJ" id="dHk-y8-oLZ"/>
+                <outlet property="deviderView" destination="qSR-lc-Kpb" id="iMT-D7-Pqq"/>
+            </connections>
+            <point key="canvasLocation" x="833" y="1011"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bookmark_hotel-icon" width="27" height="27"/>
+    </resources>
+</document>

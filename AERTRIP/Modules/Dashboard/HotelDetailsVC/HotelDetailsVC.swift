@@ -8,10 +8,11 @@
 
 import UIKit
 
-class HotelFilterResultsVC: BaseVC {
-
+class HotelDetailsVC: BaseVC {
+    
     //Mark:- Variables
     //================
+    private var oldOffset: CGPoint = .zero
     
     //Mark:- IBOutlets
     //================
@@ -22,7 +23,12 @@ class HotelFilterResultsVC: BaseVC {
             self.hotelTableView.dataSource = self
         }
     }
-
+    @IBOutlet weak var headerView: TopNavigationView! {
+        didSet{
+            self.headerView.roundCornersByClipsToBounds(cornerRadius: 10.0)
+        }
+    }
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -30,35 +36,58 @@ class HotelFilterResultsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.configUI()
         self.registerNibs()
     }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
     
-//    override func updateViewConstraints() {
-//        super.updateViewConstraints()
-//        self.hotelTableViewHeightConstraint.constant = self.hotelTableView.contentSize.height
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        guard 105...211 ~= yOffset else {return}
+
+        if yOffset > oldOffset.y {
+            //show
+            self.headerView.animateBackView(isHidden: false)
+            self.headerView.leftButton.setImage(#imageLiteral(resourceName: "save_icon_green"), for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+        }
+        else {
+            //hide
+            self.headerView.animateBackView(isHidden: true)
+            self.headerView.leftButton.setImage(#imageLiteral(resourceName: "saveHotels"), for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+        }
+        self.oldOffset = scrollView.contentOffset
+    }
     
     //Mark:- Methods
     //==============
+    private func configUI() {
+        self.view.backgroundColor = .clear
+        self.headerView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.headerView.configureLeftButton(normalImage: #imageLiteral(resourceName: "saveHotels"), selectedImage: #imageLiteral(resourceName: "save_icon_green"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        
+    }
+    
     private func registerNibs() {
-        let nib = UINib(nibName: "HotelFilterImgSlideCell", bundle: nil)
-        self.hotelTableView.register(nib, forCellReuseIdentifier: "HotelFilterImgSlideCell")
+        let nib = UINib(nibName: "HotelDetailsImgSlideCell", bundle: nil)
+        self.hotelTableView.register(nib, forCellReuseIdentifier: "HotelDetailsImgSlideCell")
         let hotelInfoNib = UINib(nibName: "HotelRatingInfoCell", bundle: nil)
         self.hotelTableView.register(hotelInfoNib, forCellReuseIdentifier: "HotelRatingInfoCell")
         let loaderNib = UINib(nibName: "LoaderTableViewCell", bundle: nil)
         self.hotelTableView.register(loaderNib, forCellReuseIdentifier: "LoaderTableViewCell")
         let hotelInfoAddressNib = UINib(nibName: "HotelInfoAddressCell", bundle: nil)
         self.hotelTableView.register(hotelInfoAddressNib, forCellReuseIdentifier: "HotelInfoAddressCell")
-        self.hotelTableView.register(HotelFilterResultHeaderView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultHeaderView")
         self.hotelTableView.register(HotelFilterResultFooterView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultFooterView")
         let amenitiesNib = UINib(nibName: "AmenitiesTableViewCell", bundle: nil)
         self.hotelTableView.register(amenitiesNib, forCellReuseIdentifier: "AmenitiesTableViewCell")
         let tripAdvisorNib = UINib(nibName: "TripAdvisorTableViewCell", bundle: nil)
         self.hotelTableView.register(tripAdvisorNib, forCellReuseIdentifier: "TripAdvisorTableViewCell")
         self.hotelTableView.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: "SearchBarHeaderView")
+        let hotelBedsNib = UINib(nibName: "HotelDetailsBedsTableViewCell", bundle: nil)
+        self.hotelTableView.register(hotelBedsNib, forCellReuseIdentifier: "HotelDetailsBedsTableViewCell")
+        let inclusionNib = UINib(nibName: "HotelDetailsInclusionTableViewCell", bundle: nil)
+        self.hotelTableView.register(inclusionNib, forCellReuseIdentifier: "HotelDetailsInclusionTableViewCell")
     }
     
     //Mark:- IBOActions
@@ -67,7 +96,7 @@ class HotelFilterResultsVC: BaseVC {
 
 //Mark:- UITableView Delegate And Datasource
 //==========================================
-extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
+extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -78,6 +107,8 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
         switch section {
         case 0:
             return 6
+        case 1:
+            return 2
         default:
             return 0
         }
@@ -89,7 +120,7 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelFilterImgSlideCell", for: indexPath) as? HotelFilterImgSlideCell  else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
                 return cell
                 
             case 1:
@@ -108,12 +139,12 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
                 cell.configureOverviewCell()
                 return cell
-               
+                
             case 4:
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "AmenitiesTableViewCell", for: indexPath) as? AmenitiesTableViewCell  else { return UITableViewCell() }
                 return cell
-               
+                
             case 5:
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
@@ -122,19 +153,30 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return UITableViewCell()
             }
+        } else if indexPath.section == 1 {
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return UITableViewCell() }
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return UITableViewCell() }
+                return cell
+            default:
+                return UITableViewCell()
+            }
         } else {
             return UITableViewCell()
         }
-
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 1:
-
+            
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchBarHeaderView") as? SearchBarHeaderView  else { return UITableViewHeaderFooterView() }
             return headerView
-
+            
         default:
             return nil
         }
@@ -147,7 +189,7 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView()
             }
             return footerView
-
+            
         default:
             return nil
         }
@@ -167,6 +209,10 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 144.0
         case IndexPath(row: 5, section: 0):
             return 49.0
+        case IndexPath(row: 0, section: 1):
+            return 118.0
+        case IndexPath(row: 1, section: 1):
+            return 60.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -186,6 +232,10 @@ extension HotelFilterResultsVC: UITableViewDelegate , UITableViewDataSource {
             return 144.0
         case IndexPath(row: 5, section: 0):
             return 49.0
+        case IndexPath(row: 0, section: 1):
+            return 118.0
+        case IndexPath(row: 1, section: 1):
+            return 60.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }

@@ -1,14 +1,14 @@
 //
-//  HotelResultCardTableViewCell.swift
+//  HotelDetailsFeeTableViewCell.swift
 //  AERTRIP
 //
-//  Created by Admin on 12/02/19.
+//  Created by Admin on 13/02/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class HotelResultCardTableViewCell: UITableViewCell {
+class HotelDetailsFeeTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -293,9 +293,9 @@ extension AppFlowManager {
         }
     }
     
-    func showHotelFilterResultVC() {
+    func showHotelDetailsVC() {
         if let mVC = self.mainHomeVC {
-            let ob = HotelFilterResultsVC.instantiate(fromAppStoryboard: .HotelResults)
+            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
             mVC.add(childViewController: ob)
         }
 

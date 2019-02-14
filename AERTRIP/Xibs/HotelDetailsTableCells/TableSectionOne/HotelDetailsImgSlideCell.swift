@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HotelFilterImgSlideCell: UITableViewCell {
+class HotelDetailsImgSlideCell: UITableViewCell {
 
     //Mark:- Variables
     //================
@@ -22,8 +22,6 @@ class HotelFilterImgSlideCell: UITableViewCell {
             self.imageCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var saveButtonOutlet: UIButton!
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet{
             self.pageControl.isHidden = !(self.numberOfImages.count > 1)
@@ -43,30 +41,26 @@ class HotelFilterImgSlideCell: UITableViewCell {
     //Mark:- Methods
     //==============
     private func initialSetUps() {
-        let nib = UINib(nibName: "HotelFilterImageCell", bundle: nil)
-        self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelFilterImageCell")
+        let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
+        self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
+        
     }
     
     //Mark:- IBOActions
     //=================
-    @IBAction func saveButtonAction(_ sender: UIButton) {
-    }
-    
-    @IBAction func cancelButtonAction(_ sender: UIButton) {
-    }
-    
+
 }
 
 //Mark:- UICollectionView Delegate And Datasource
 //===============================================
-extension HotelFilterImgSlideCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.numberOfImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelFilterImageCell", for: indexPath) as? HotelFilterImageCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelDetailsImageCollectionCell", for: indexPath) as? HotelDetailsImageCollectionCell else {
             return UICollectionViewCell()
         }
         return cell
@@ -78,7 +72,7 @@ extension HotelFilterImgSlideCell: UICollectionViewDelegate , UICollectionViewDa
     }
 }
 
-extension HotelFilterImgSlideCell: UIScrollViewDelegate {
+extension HotelDetailsImgSlideCell: UIScrollViewDelegate {
     
     /*func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
