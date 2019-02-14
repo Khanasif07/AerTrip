@@ -51,6 +51,7 @@ enum APIEndPoint : String {
     case hotelsNearByMeLocations = "hotels/location"
     case hotelListOnPreferenceL = "hotels/search"
     case hotelListOnPreferenceResult = "hotels/results"
+    case hotelBulkBooking = "enquiry/bulk-booking-enquiry"
 }
 
 //MARK: - endpoint extension for url -

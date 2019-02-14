@@ -83,32 +83,3 @@ struct CityHotels {
         return hotels
     }
 }
-
-//struct LocationsNearMe {
-//    let dest_id       : String
-//    let dest_type     : String
-//    let dest_name     : String
-//    let city          : String
-//    let country       : String
-//    let latitude      : String
-//    let longitude     : String
-//    let label         : String
-//    let value         : String
-//
-//    init() {
-//        let json = JSON()
-//        self.init(json: json)
-//    }
-//
-//    init(json: JSON) {
-//        self.dest_id      = json[APIKeys.dest_id.rawValue].stringValue.removeNull
-//        self.dest_type    = json[APIKeys.dest_type.rawValue].stringValue.removeNull
-//        self.dest_name    = json[APIKeys.dest_name.rawValue].stringValue.removeNull
-//        self.city         = json[APIKeys.city.rawValue].stringValue.removeNull
-//        self.country      = json[APIKeys.country.rawValue].stringValue.removeNull
-//        self.latitude     = json[APIKeys.latitude.rawValue].stringValue.removeNull
-//        self.longitude    = json[APIKeys.longitude.rawValue].stringValue.removeNull
-//        self.label        = json[APIKeys.label.rawValue].stringValue.removeNull
-//        self.value        = json[APIKeys.value.rawValue].stringValue.removeNull
-//    }
-//}

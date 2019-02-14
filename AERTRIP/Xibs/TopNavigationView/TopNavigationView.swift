@@ -26,6 +26,9 @@ class TopNavigationView: UIView {
     //MARK:- Public
     weak var delegate: TopNavigationViewDelegate?
     
+    //MARK:- Private
+    private var isHidingBackView: Bool = false
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var containerView: UIView!
@@ -35,6 +38,9 @@ class TopNavigationView: UIView {
     @IBOutlet weak var secondRightButton: UIButton!
     @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var backViewHeightConstraint: NSLayoutConstraint!
     
     
     //MARK:- View Life Cycle
@@ -77,19 +83,35 @@ class TopNavigationView: UIView {
     }
     
     //MARK:- Public
-    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false) {
+    func animateBackView(isHidden: Bool) {
+        guard !self.isHidingBackView else {return}
+        self.isHidingBackView = true
+        self.backView.isHidden = false
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.backViewHeightConstraint.constant = isHidden ? 0.0 : self.height
+            self.backView.alpha = isHidden ? 0.0 : 1.0
+            self.layoutIfNeeded()
+        }) { (idDone) in
+            self.isHidingBackView = false
+            self.backView.isHidden = isHidden
+        }
+    }
+    
+    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true) {
         
         self.navTitleLabel.text = title
         
         self.leftButton.isHidden = !isLeftButton
         self.firstRightButton.isHidden = !isFirstRightButton
         self.secondRightButton.isHidden = !isSecondRightButton
+        self.dividerView.isHidden = !isDivider
+        self.backView.isHidden = true
         
         self.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
-    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil) {
+    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
         
         self.leftButton.setTitle(normalTitle, for: .normal)
         self.leftButton.setTitle(selectedTitle, for: .selected)
@@ -100,10 +122,15 @@ class TopNavigationView: UIView {
         self.leftButton.setImage(normalImage, for: .normal)
         self.leftButton.setImage(selectedImage, for: .selected)
         
+        self.leftButton.titleLabel?.font = font
+        
+        self.backView.isHidden = true
+        self.backView.alpha = 0.0
+        
         self.updateTitleFrames()
     }
     
-    func configureFirstRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil) {
+    func configureFirstRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
         
         self.firstRightButton.setTitle(normalTitle, for: .normal)
         self.firstRightButton.setTitle(selectedTitle, for: .selected)
@@ -114,10 +141,12 @@ class TopNavigationView: UIView {
         self.firstRightButton.setImage(normalImage, for: .normal)
         self.firstRightButton.setImage(selectedImage, for: .selected)
         
+        self.firstRightButton.titleLabel?.font = font
+        
         self.updateTitleFrames()
     }
     
-    func configureSecondRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil) {
+    func configureSecondRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
         
         self.secondRightButton.setTitle(normalTitle, for: .normal)
         self.secondRightButton.setTitle(selectedTitle, for: .selected)
@@ -128,8 +157,11 @@ class TopNavigationView: UIView {
         self.secondRightButton.setImage(normalImage, for: .normal)
         self.secondRightButton.setImage(selectedImage, for: .selected)
         
+        self.secondRightButton.titleLabel?.font = font
+        
         self.updateTitleFrames()
     }
+    
     
     //MARK:- Actions
     @IBAction private func leftBtnTapped(_ sender: UIButton) {

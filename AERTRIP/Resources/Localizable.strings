@@ -260,6 +260,7 @@
 "AllStars" = "All Stars";
 "WantMoreRooms" = "Want more rooms?";
 "RequestBulkBooking" = "Request Bulk Booking";
+"LoginAndSubmit" = "Login & Submit";
 
 //MARK:- Room Guest Selection
 "Room" = "Room";
@@ -284,6 +285,13 @@
 
 //MARK:- Bulk Booking
 "BulkBooking" = "Bulk Booking";
+"PreferredHotels" = "Preferred Hotels";
+"SpecialRequest" = "Special Request";
+"IfAny" = "(If Any)";
+"Rooms" = "Rooms";
+"BulkEnquirySent" = "Bulk enquiry has been sent";
+"CustomerServicesShallConnect" = "Our Customer service team shall contact you soon regarding this enquiry.";
+"Submit" = "Submit";
 
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
@@ -344,3 +352,15 @@
 "FreeWifi" = "Free Wifi";
 "TransferInclusive" = "Transfer Inclusive";
 
+//MARK:- HotelFilterResultsVC
+"From" = "From";
+"SelectRoom" = "Select Room";
+"Maps" = "Maps";
+"AddressSmallLaters" = "Address";
+"Overview" = "Overview";
+"More" = "more";
+"ViewAll" = "View all";
+"CheckTripAdvisor" = "Check TripAdvisor Traveler Rating";
+//"Breakfast" = "Breakfast";
+//"Refundable" = "Refundable";
+"hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";

@@ -21,7 +21,7 @@ class HotelsSearchVM: NSObject{
     //MARK:- Properties
     //MARK:- Public
     var roomNumber: Int = 1
-    var adultsCount: [Int] = [1]
+    var adultsCount: [Int] = [2]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
     var checkInDate = "2019-02-24"

@@ -15,14 +15,12 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     private var previousOffSet = CGPoint.zero
     private var collectionViewHeight: CGFloat = 0.0
-    private var searchViewHeight: CGFloat = 0.0
     private var containerViewHeight: CGFloat = 0.0
-    private var yPositionOfBottomView: CGFloat = 0.0
     private var scrollViewContentSize: CGSize = CGSize.zero
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     
-    //Computed Properties
+    ///Computed Properties
     private var cellHeight: CGFloat{
         return self.addRoomCollectionView.frame.size.height
     }
@@ -30,10 +28,8 @@ class HotelsSearchVC: BaseVC {
         return self.addRoomCollectionView.frame.size.width / 2.0
     }
     
-    
     //MARK:- IBOutlets
-    //MARK:-
-    
+    //================
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var whereContainerView: UIView!
@@ -58,9 +54,6 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
-    @IBOutlet weak var addRoomHeightMultiplier: NSLayoutConstraint!
-    
-    @IBOutlet weak var addRoomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
         didSet {
             self.addRoomCollectionView.delegate = self
@@ -68,7 +61,7 @@ class HotelsSearchVC: BaseVC {
         }
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var whereLabel: UILabel!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -78,7 +71,6 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.searchViewHeight = self.searchView.frame.size.height
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
         self.scrollViewContentSize = self.scrollView.contentSize
@@ -93,14 +85,12 @@ class HotelsSearchVC: BaseVC {
     override func bindViewModel() {
         self.addRoomCollectionView.registerCell(nibName: "AddRoomCell")
         self.addRoomCollectionView.registerCell(nibName: "AddRoomPictureCell")
-        let destinationVC = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
-        destinationVC.delegate = self
         self.viewModel.delegate = self
     }
     
     override func setupFonts() {
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.whereBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(20.0)
+        self.whereLabel.font = AppFonts.Regular.withSize(20.0)
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
         self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
         self.starRatingLabel.font = regularFontSize16
@@ -113,7 +103,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func setupColors() {
-        self.whereBtnOutlet.setTitleColor(AppColors.themeGray40, for: .normal)
+        self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
         self.firstLineView.backgroundColor = AppColors.themeGray10
@@ -131,7 +121,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.whereBtnOutlet.setTitle(LocalizedString.WhereButton.localized, for: .normal)
+        self.whereLabel.text = LocalizedString.WhereButton.localized
         self.starRatingLabel.text = LocalizedString.StarRating.localized
         self.allStarLabel.text = LocalizedString.AllStars.localized
         self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
@@ -338,6 +328,7 @@ class HotelsSearchVC: BaseVC {
         self.viewModel.hotelListOnPreferencesApi()
     }
     
+    ///Tap Label Action
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
         let string = "\(self.bulkBookingsLbl.text ?? "")"
         let text = LocalizedString.RequestBulkBooking.localized
@@ -385,7 +376,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             self.plusButtonTouched(indexPath: indexPath)
         } else if (collectionView.cellForItem(at: indexPath) as? AddRoomPictureCell) != nil {
             self.addRoomPicIndex = indexPath
-            AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 1, selectedChildren: 0, selectedAges: [0], delegate: self)
+            AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 1, selectedChildren: 0, selectedAges: [0], roomNumber: (indexPath.row + 1) , delegate: self)
         }
     }
     
@@ -402,6 +393,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
 //=============================
 extension HotelsSearchVC: ExpandedCellDelegate {
     
+    ///Plus Button Tapped
     func plusButtonTouched(indexPath: IndexPath) {
         self.viewModel.adultsCount.append(1)
         self.viewModel.childrenCounts.append(0)
@@ -420,6 +412,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         }
     }
     
+    ///Cancel Button Tapped
     func cancelButtonTouched(indexPath: IndexPath) {
         
         if self.viewModel.adultsCount.count <= 4 {
@@ -443,6 +436,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         }
     }
     
+    ///Data For Api
     private func dataForApi(hotel: SearchedDestination) {
         self.viewModel.destType = hotel.dest_type
         self.viewModel.destName = hotel.dest_name
@@ -451,21 +445,23 @@ extension HotelsSearchVC: ExpandedCellDelegate {
 }
 
 //MARK:- RoomGuestSelectionVCDelegate
-//MARK:-
+//===================================
 extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
-    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int]) {
+    
+    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int], roomNumber: Int) {
         if let indexPath = addRoomPicIndex {
             self.viewModel.adultsCount[indexPath.item] = adults
             self.viewModel.childrenCounts[indexPath.item]  = children
             self.viewModel.childrenAge[indexPath.item] = childrenAges
+            self.viewModel.roomNumber = roomNumber
         }
         self.addRoomCollectionView.reloadData()
-        printDebug("adults: \(adults), children: \(children), ages: \(childrenAges)")
+        printDebug("adults: \(adults), children: \(children), ages: \(childrenAges), roomNumber: \(roomNumber)")
     }
 }
 
 //MARK:- SelectDestinationVCDelegate
-//MARK:-
+//==================================
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
@@ -476,6 +472,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
         }
+        self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
         self.cityNameLabel.isHidden = false
         self.stateNameLabel.isHidden = false
@@ -483,6 +480,8 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
     }
 }
 
+//MARK:- SearchHoteslOnPreferencesDelegate
+//========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {

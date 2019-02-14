@@ -23,9 +23,9 @@ class AppFlowManager: NSObject {
     }
     var mainHomeVC: MainHomeVC?
     var hotelResultVC: HotelResultVC?
-        
+    
     private let urlScheme = "://"
-
+    
     private override init() {
         super.init()
     }
@@ -43,19 +43,19 @@ class AppFlowManager: NSObject {
             currentTabbarNavigationController.isNavigationBarHidden = true
         }
     }
-
+    
     func setCurrentTabbarNavigationController(navigation: UINavigationController) {
         currentTabbarNavigationController = navigation
     }
-
+    
     private var tabBarController: BaseTabBarController!
-
+    
     func setTabbarController(controller: BaseTabBarController) {
         tabBarController = controller
     }
     
     private var window : UIWindow {
-
+        
         if let window = AppDelegate.shared.window {
             return window
         } else {
@@ -63,7 +63,7 @@ class AppFlowManager: NSObject {
             return AppDelegate.shared.window!
         }
     }
-
+    
     func openSideMenu() {
         
     }
@@ -72,9 +72,9 @@ class AppFlowManager: NSObject {
         
     }
     
-//    func openCamera(ctx: UIViewController.ImagePickerDelegateController, sender: UIView) {
-//        self.mainNavigationController.captureImage(delegate: ctx, sender: sender)
-//    }
+    //    func openCamera(ctx: UIViewController.ImagePickerDelegateController, sender: UIView) {
+    //        self.mainNavigationController.captureImage(delegate: ctx, sender: sender)
+    //    }
     
     func setupInitialFlow() {
         self.goToDashboard()
@@ -99,9 +99,21 @@ extension AppFlowManager {
         
     }
     
-    func moveToSocialLoginVC() {
-        let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-        self.mainNavigationController.pushViewController(ob, animated: true)
+    func moveToSocialLoginVC(usingFor: SocialLoginVC.UsingFor, completion:  (() -> Void)? = nil) {
+        if usingFor == .loginVerification {
+            if let _ = self.mainHomeVC {
+                let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+                ob.currentlyUsingFrom = usingFor
+                ob.completion = completion
+                delay(seconds: 0.2) {
+                    ob.animateContentOnLoad()
+                }
+                self.mainNavigationController.present(ob, animated: true, completion: nil)
+            }
+        } else {
+            let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+            self.mainNavigationController.pushViewController(ob, animated: true)
+        }
     }
     
     func moveToLoginVC(email: String) {
@@ -115,7 +127,7 @@ extension AppFlowManager {
         ob.viewModel.email = email
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
-
+    
     func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
         let ob = ThankYouRegistrationVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.type  = type
@@ -168,7 +180,7 @@ extension AppFlowManager {
     }
     
     func moveResetSuccessFullyPopup(vc: UIViewController) {
-
+        
         let ob = SuccessPopupVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
@@ -184,7 +196,7 @@ extension AppFlowManager {
         ob.travelData = travellerDetails
         ob.viewModel.isFromTravellerList = isFromTravellerList
         self.mainNavigationController.pushViewController(ob, animated: true)
-
+        
     }
     
     func moveToEditProfileVC(){
@@ -224,38 +236,33 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func showRoomGuestSelectionVC(selectedAdults: Int, selectedChildren: Int, selectedAges: [Int], delegate: RoomGuestSelectionVCDelegate) {
-        delay(seconds: 0.1) { [weak self] in
-            if let mVC = self?.mainHomeVC {
-                let ob = RoomGuestSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
-                ob.delegate = delegate
-                ob.viewModel.selectedChilds = selectedChildren
-                ob.viewModel.selectedAdults = max(1, selectedAdults)
-                
-                var ages = selectedAges
-                if selectedAges.count < 4 {
-                    for _ in 0..<(4-selectedAges.count) {
-                        ages.append(0)
-                    }
+    func showRoomGuestSelectionVC(selectedAdults: Int, selectedChildren: Int, selectedAges: [Int], roomNumber: Int, delegate: RoomGuestSelectionVCDelegate) {
+        if let mVC = self.mainHomeVC {
+            let ob = RoomGuestSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            ob.viewModel.selectedChilds = selectedChildren
+            ob.viewModel.selectedAdults = max(1, selectedAdults)
+            ob.viewModel.roomNumber = roomNumber
+            var ages = selectedAges
+            if selectedAges.count < 4 {
+                for _ in 0..<(4-selectedAges.count) {
+                    ages.append(0)
                 }
-                ob.viewModel.childrenAge = ages
-                mVC.add(childViewController: ob)
             }
+            ob.viewModel.childrenAge = ages
+            mVC.add(childViewController: ob)
         }
     }
     
     func showSelectDestinationVC(delegate: SelectDestinationVCDelegate) {
-        delay(seconds: 0.1) { [weak self] in
-            if let mVC = self?.mainHomeVC {
-                let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
-                ob.delegate = delegate
-                mVC.add(childViewController: ob)
-            }
+        if let mVC = self.mainHomeVC {
+            let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            mVC.add(childViewController: ob)
         }
     }
     
     func moveToHotelsResultVc(_ hotels: [HotelsSearched]) {
-//        let obj = HotelsResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         self.hotelResultVC = obj
         obj.viewModel.hotelListResult = hotels
@@ -263,12 +270,36 @@ extension AppFlowManager {
     }
     
     func showBulkBookingVC() {
-        delay(seconds: 0.1) { [weak self] in
-            if let mVC = self?.mainHomeVC {
-                let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
-                mVC.add(childViewController: ob)
-            }
+        if let mVC = self.mainHomeVC {
+            let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            mVC.add(childViewController: ob)
         }
+    }
+    
+    func showBulkRoomSelectionVC(rooms: Int, adults: Int, children: Int, delegate: BulkRoomSelectionVCDelegate) {
+        if let mVC = self.mainHomeVC {
+            let ob = BulkRoomSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            ob.viewModel.roomCount = rooms
+            ob.viewModel.adultCount = adults
+            ob.viewModel.childrenCounts = children
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    func showBulkEnquiryVC() {
+        if let mVC = self.mainHomeVC {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    func showHotelDetailsVC() {
+        if let mVC = self.mainHomeVC {
+            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+            mVC.add(childViewController: ob)
+        }
+
     }
     
     func presentEditProfileVC() {
