@@ -55,12 +55,12 @@ class TravellerListVC: BaseVC {
         loadSavedData()
         doInitialSetUp()
         registerXib()
-        setUpTravellerHeader()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
+        setUpTravellerHeader()
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
         }
@@ -91,17 +91,12 @@ class TravellerListVC: BaseVC {
     
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            setSelectMode()
             let touchPoint = longPressGestureRecognizer.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                if let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell, let data = cell.travellerData, let pId = data.id, !pId.isEmpty {
-                    if selectedTravller.contains(pId) {
-                        selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
-                    } else {
-                        selectedTravller.append(pId)
-                    }
-                }
+                self.tableView(self.tableView, didSelectRowAt: indexPath)
+                self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
             }
-            setSelectMode()
         }
     }
     
@@ -120,8 +115,8 @@ class TravellerListVC: BaseVC {
         else {
             self.topNavView.configureNavBar(title: LocalizedString.TravellerList.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
             self.topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "plusButton"), selectedImage: #imageLiteral(resourceName: "plusButton"))
-            self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+            self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "plusButton"), selectedImage: #imageLiteral(resourceName: "plusButton"))
         }
     }
     // MARK: - IB Action
@@ -131,7 +126,7 @@ class TravellerListVC: BaseVC {
     }
     
     func addTravellerTapped() {
-        AppFlowManager.default.presentEditProfileVC()
+        AppFlowManager.default.showEditProfileVC(travelData: nil, usingFor: .travellerList)
     }
     
     func selectAllTapped() {}
@@ -163,7 +158,7 @@ class TravellerListVC: BaseVC {
     
     @IBAction func assignGroupTapped(_ sender: Any) {
         if selectedTravller.count > 0 {
-            AppFlowManager.default.presentAssignGroupVC(self, selectedTravller)
+            AppFlowManager.default.showAssignGroupVC(self, selectedTravller)
         }
     }
     
@@ -186,7 +181,10 @@ class TravellerListVC: BaseVC {
     // MARK: - Helper methods
     
     func doInitialSetUp() {
-        tableView.separatorStyle = .none
+        
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.separatorStyle = .singleLine
+        
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
         travellerListHeaderView.delegate = self
@@ -290,7 +288,7 @@ class TravellerListVC: BaseVC {
         bottomView.isHidden = true
         selectedTravller.removeAll()
         if shouldReload {
-            tableView.reloadData()
+            tableView.setEditing(false, animated: true)
         }
         self.updateNavView()
     }
@@ -298,7 +296,7 @@ class TravellerListVC: BaseVC {
     func setSelectMode() {
         bottomView.isHidden = false
         isSelectMode = true
-        tableView.reloadData()
+        tableView.setEditing(true, animated: true)
         self.updateNavView()
     }
     
@@ -328,8 +326,8 @@ extension TravellerListVC: TopNavigationViewDelegate {
             self.doneButtonTapped()
         }
         else {
-            //add new
-            self.addTravellerTapped()
+            //pop more
+            self.popOverOptionTapped()
         }
     }
     
@@ -338,8 +336,8 @@ extension TravellerListVC: TopNavigationViewDelegate {
             //no action needed
         }
         else {
-            //pop more
-            self.popOverOptionTapped()
+            //add new
+            self.addTravellerTapped()
         }
     }
 }
@@ -369,23 +367,29 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
-            fatalError("TravellerListTableViewCell not found")
-        }
-        guard let sections = self.fetchedResultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        let sectionInfo = sections[indexPath.section]
-        cell.separatorView.isHidden = indexPath.row == sectionInfo.numberOfObjects - 1 ? true : false
-        cell.edgeToEdgeBottomSeparatorView.isHidden = indexPath.row == sectionInfo.numberOfObjects ? false : true
-        cell.edgeToEdgeTopSeparatorView.isHidden = indexPath.row == 0 ? false : true
-        let tData = fetchedResultsController.object(at: indexPath) as? TravellerData
-        cell.travellerData = tData
-        cell.selectTravellerButton.isHidden = isSelectMode ? false : true
-        cell.leadingConstraint.constant = isSelectMode ? 10.0 : 16.0
-        cell.selectTravellerButton.isSelected = selectedTravller.contains(tData?.id ?? "")
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
+//            fatalError("TravellerListTableViewCell not found")
+//        }
+        
+        let cell = UITableViewCell()
+        self.configureCell(cell: cell, travellerData: fetchedResultsController.object(at: indexPath) as? TravellerData)
+        cell.tintColor = AppColors.themeGreen
         
         return cell
+    }
+    
+    private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
+        cell.imageView?.image = travellerData?.salutationImage
+        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation {
+            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+                cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+                
+            } else {
+                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+                cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -398,15 +402,13 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
         
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
-
-//        guard let sections = fetchedResultsController.sections else {
-//            return nil
-//        }
-//
-//        return sections.map { (info) -> String in
-//            info.name
-//        }
+        
+        if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            return []
+        }
+        else {
+            return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -422,23 +424,38 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isSelectMode {
-            if let cell = tableView.cellForRow(at: indexPath) as? TravellerListTableViewCell, let data = cell.travellerData, let pId = data.id, !pId.isEmpty {
-                if selectedTravller.contains(pId) {
-                    selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
-                } else {
+            if let data = fetchedResultsController.object(at: indexPath) as? TravellerData, let pId = data.id, !pId.isEmpty {
+                if !selectedTravller.contains(pId) {
                     selectedTravller.append(pId)
                 }
-                tableView.reloadData()
                 self.updateNavView()
             }
         } else if let tData = fetchedResultsController.object(at: indexPath) as? TravellerData {
-            AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, true)
+            AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, usingFor: .travellerList)
         }
+        
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.contentView.backgroundColor = AppColors.themeWhite
+//        cell?.backgroundColor = AppColors.themeWhite
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if isSelectMode {
+            if let data = fetchedResultsController.object(at: indexPath) as? TravellerData, let pId = data.id, !pId.isEmpty {
+                if selectedTravller.contains(pId) {
+                    selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
+                }
+                self.updateNavView()
+            }
+        }
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.contentView.backgroundColor = AppColors.themeWhite
+//        cell?.backgroundColor = AppColors.themeWhite
+    }
+//
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         printDebug("content scroll offset \(scrollView.contentOffset.y)")
-        headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0 ? true : false
+        headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0
     }
 }
 
@@ -561,6 +578,6 @@ extension TravellerListVC: AssignGroupVCDelegate {
 
 extension TravellerListVC: TravellerListHeaderViewDelegate {
     func headerViewTapped() {
-        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), true)
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .travellerList)
     }
 }

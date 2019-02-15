@@ -19,6 +19,7 @@ class PreferencesVC: BaseVC {
     
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
@@ -62,6 +63,10 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
+        
+        indicatorView.color = AppColors.themeGreen
+        
+        stopLoading()
     }
     
     func registerXib() {
@@ -127,6 +132,18 @@ class PreferencesVC: BaseVC {
         }
         
         return finalCount
+    }
+    
+    func startLoading() {
+        self.indicatorView.isHidden = false
+        self.indicatorView.startAnimating()
+        self.topNavView.firstRightButton.isHidden = true
+    }
+    
+    func stopLoading() {
+        self.indicatorView.isHidden = true
+        self.indicatorView.stopAnimating()
+        self.topNavView.firstRightButton.isHidden = false
     }
 }
 
@@ -342,17 +359,17 @@ extension PreferencesVC: GroupTableViewCellDelegate {
 
 extension PreferencesVC: PreferencesVMDelegate {
     func willSavePreferences() {
-        AppNetworking.showLoader()
+        self.startLoading()
     }
     
     func savePreferencesSuccess() {
-        AppNetworking.hideLoader()
+        self.stopLoading()
          AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized)
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
     }
     
     func savePreferencesFail(errors: ErrorCodes) {
-        AppNetworking.hideLoader()
+        self.stopLoading()
     }
 }

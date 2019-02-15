@@ -25,6 +25,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var frequentFlyerImageView: UIImageView!
     @IBOutlet weak var frequentFlyerLabel: UILabel!
     @IBOutlet weak var separatorView: ATDividerView!
+    @IBOutlet weak var separatorLeadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

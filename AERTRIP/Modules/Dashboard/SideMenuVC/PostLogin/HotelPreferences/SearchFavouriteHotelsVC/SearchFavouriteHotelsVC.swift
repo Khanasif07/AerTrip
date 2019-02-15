@@ -92,7 +92,7 @@ class SearchFavouriteHotelsVC: BaseVC {
         self.collectionView.backgroundView = self.emptyView
         
         //setup indicator view
-        indicatorView.tintColor = AppColors.themeGreen
+        indicatorView.color = AppColors.themeGreen
         self.stopLoading()
     }
     

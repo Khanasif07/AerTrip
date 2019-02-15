@@ -16,7 +16,8 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var crossButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var containerView: UIView!
+
     weak var delegate: SelectedContactCollectionCellDelegate?
 
     var contact: ATContact? {
@@ -55,10 +56,26 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     
     private func populateData() {
         self.nameLabel.text = self.contact?.firstName ?? ""
-        self.profileImageView.setImageWithUrl(self.contact?.image ?? "", placeholder: AppPlaceholderImage.profile, showIndicator: false)
+        
+        let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
+        self.profileImageView.image = placeholder
+        if let img = self.contact?.image, !img.isEmpty {
+            self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
+        }
+        self.profileImageView.setImageWithUrl(self.contact?.image ?? "", placeholder: placeholder, showIndicator: false)
+        
+        self.animateContent(isHidden: true, animated: false)
     }
     
     @objc func crossButtonAction(_ sender: UIButton) {
         self.delegate?.crossButtonAction(sender)
+    }
+    
+    func animateContent(isHidden: Bool, animated: Bool = true) {
+//        let hiddenScale = CGAffineTransform(scaleX: 0.001, y: 0.001)
+//        let shownScale = CGAffineTransform.identity
+//        UIView.animate(withDuration: animated ? 0.3 : 0.0) {
+//            self.containerView.transform = isHidden ? hiddenScale : shownScale
+//        }
     }
 }

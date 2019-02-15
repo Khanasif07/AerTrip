@@ -158,6 +158,7 @@
                 <outlet property="frequentFlyerView" destination="Afx-QT-u4z" id="ixU-2T-kLz"/>
                 <outlet property="secondSubTitleLabel" destination="sll-WL-wUf" id="loC-nD-NDi"/>
                 <outlet property="secondTitleLabel" destination="uHU-oq-P1s" id="XjP-Be-dEG"/>
+                <outlet property="separatorLeadingConstraint" destination="EDi-Nd-VuL" id="dnJ-iz-AIo"/>
                 <outlet property="separatorView" destination="eVC-si-FGl" id="M1b-pr-yWu"/>
             </connections>
             <point key="canvasLocation" x="108.8" y="48.575712143928037"/>

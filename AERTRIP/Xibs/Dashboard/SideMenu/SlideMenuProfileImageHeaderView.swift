@@ -61,7 +61,8 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        setupDefaultData()
+
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
         profileContainerView.isUserInteractionEnabled = true
         profileContainerView.addGestureRecognizer(singleTap)
@@ -91,12 +92,19 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     
     override func draw(_ rect: CGRect) {
+        super.draw(rect)
         gradient.frame = gradientView.bounds
         gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, AppColors.themeWhite]
         gradientView.layer.insertSublayer(gradient, at: 0)
     }
     
     // MARK: - Helper Method
+    private func setupDefaultData() {
+        self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
+        self.userNameLabel.text = ""
+        self.emailIdLabel.text = ""
+        self.mobileNumberLabel.text = ""
+    }
     
     func doInitialSetup() {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2

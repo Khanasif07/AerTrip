@@ -50,7 +50,7 @@ struct AppToast {
         vc.view.addSubview(ob)
         ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + (UIDevice.isIPhoneX ? 54.0 : 20.0)) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + UIApplication.shared.statusBarFrame.height) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
         }
         
         delay(seconds: duration) {

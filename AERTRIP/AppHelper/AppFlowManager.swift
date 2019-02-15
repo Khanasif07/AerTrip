@@ -30,6 +30,10 @@ class AppFlowManager: NSObject {
         super.init()
     }
     
+    var safeAreaInsets: UIEdgeInsets {
+        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+    }
+    
     var mainNavigationController: SwipeNavigationController! {
         didSet {
             mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -140,9 +144,10 @@ extension AppFlowManager {
         self.window.makeKeyAndVisible()
     }
     
-    func moveToEditProfileVC(travelData: TravelDetailModel?) {
+    func moveToEditProfileVC(travelData: TravelDetailModel?, usingFor: EditProfileVM.UsingFor) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
-        ob.travelData = travelData
+        ob.viewModel.travelData = travelData
+        ob.viewModel.currentlyUsinfFor = usingFor
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
@@ -182,19 +187,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToViewProfileDetailVC(_ travellerDetails: TravelDetailModel, _ isFromTravellerList:Bool = false) {
+    func moveToViewProfileDetailVC(_ travellerDetails: TravelDetailModel, usingFor: EditProfileVM.UsingFor) {
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
-        ob.viewModel.paxId = travellerDetails.id
-        ob.travelData = travellerDetails
-        ob.viewModel.isFromTravellerList = isFromTravellerList
+        ob.viewModel.travelData = travellerDetails
+        ob.viewModel.currentlyUsingFor = usingFor
         self.mainNavigationController.pushViewController(ob, animated: true)
 
-    }
-    
-    func moveToEditProfileVC(){
-        let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
-        ob.viewModel.isFromViewProfile = true
-        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToLinkedAccountsVC(){
@@ -268,13 +266,14 @@ extension AppFlowManager {
         }
     }
     
-    func presentEditProfileVC() {
+    func showEditProfileVC(travelData: TravelDetailModel?, usingFor: EditProfileVM.UsingFor) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
-        ob.viewModel.isFromTravellerList = true
+        ob.viewModel.travelData = travelData
+        ob.viewModel.currentlyUsinfFor = usingFor
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func presentAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
+    func showAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate  = vc
@@ -286,10 +285,6 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moverToFilterVC(){
-        let obj = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
-        self.mainNavigationController.present(obj, animated:true , completion: nil)
-    }
     func showFilterVC() {
         if let hotelResultVC = self.hotelResultVC {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)

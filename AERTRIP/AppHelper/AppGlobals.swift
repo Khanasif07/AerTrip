@@ -82,9 +82,15 @@ struct AppGlobals {
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
     }
     
-    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
+    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12)) -> UIImage {
+        
+        let string = "\((firstName ?? "F").firstCharacter)\((lastName ?? "L").firstCharacter)".uppercased()
+        return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet)
+    }
+    
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12)) -> UIImage {
         let size = 70.0
-        return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: CGPoint(x: 0, y: 12))!
+        return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: offSet)!
     }
 
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {

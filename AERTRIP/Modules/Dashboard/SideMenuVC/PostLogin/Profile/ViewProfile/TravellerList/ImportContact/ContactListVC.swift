@@ -57,6 +57,11 @@ class ContactListVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+    }
+    
     override func setupColors() {
         self.selectAllButton.tintColor = AppColors.clear
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -73,7 +78,7 @@ class ContactListVC: BaseVC {
     }
     
     override func bindViewModel() {
-        self.viewModel.delegate = self
+        self.viewModel.delegateList = self
     }
     
     override func dataChanged(_ note: Notification) {
@@ -82,7 +87,7 @@ class ContactListVC: BaseVC {
                 self.fetchPhoneContactsSuccess()
             }
             else if obj == .selectionChanged {
-                self.selectionDidChanged()
+                self.tableView.reloadData()
             }
             else if obj == .searchDone {
                 self.tableView.reloadData()
@@ -97,6 +102,7 @@ class ContactListVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
         self.tableView.backgroundView = self.emptyView
         
         self.tableView.delegate = self
@@ -113,30 +119,36 @@ class ContactListVC: BaseVC {
             if sender.isSelected {
                 //remove all
                 self.viewModel.selectedPhoneContacts.removeAll()
+                self.viewModel.removeAll(for: .contacts)
             }
             else {
                 //add all
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+                self.viewModel.addAll(for: .contacts)
             }
         }
         else if self.currentlyUsingFor == .facebook {
             if sender.isSelected {
                 //remove all
                 self.viewModel.selectedFacebookContacts.removeAll()
+                self.viewModel.removeAll(for: .facebook)
             }
             else {
                 //add all
                 self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+                self.viewModel.addAll(for: .facebook)
             }
         }
         else if self.currentlyUsingFor == .google {
             if sender.isSelected {
                 //remove all
                 self.viewModel.selectedGoogleContacts.removeAll()
+                self.viewModel.removeAll(for: .google)
             }
             else {
                 //add all
                 self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
+                self.viewModel.addAll(for: .google)
             }
         }
         sender.isSelected = !sender.isSelected
@@ -183,6 +195,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.phoneContacts[indexPath.row].id
             })
+            cell.dividerView.isHidden = indexPath.row == (self.viewModel.phoneContacts.count - 1)
         }
         else if self.currentlyUsingFor == .facebook {
             cell.contact = self.viewModel.facebookContacts[indexPath.row]
@@ -207,9 +220,11 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             }) {
                 self.viewModel.selectedPhoneContacts.remove(at: index)
                 self.selectAllButton.isSelected = false
+                self.viewModel.remove(fromIndex: index, for: .contacts)
             }
             else {
                 self.viewModel.selectedPhoneContacts.append(self.viewModel.phoneContacts[indexPath.row])
+                self.viewModel.add(for: .contacts)
                 if self.viewModel.selectedPhoneContacts.count >= self.viewModel.phoneContacts.count {
                     self.selectAllButtonAction(self.selectAllButton)
                 }
@@ -221,9 +236,11 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             }) {
                 self.viewModel.selectedFacebookContacts.remove(at: index)
                 self.selectAllButton.isSelected = false
+                self.viewModel.remove(fromIndex: index, for: .facebook)
             }
             else {
                 self.viewModel.selectedFacebookContacts.append(self.viewModel.facebookContacts[indexPath.row])
+                self.viewModel.add(for: .facebook)
                 if self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookContacts.count {
                     self.selectAllButtonAction(self.selectAllButton)
                 }
@@ -235,9 +252,11 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             }) {
                 self.viewModel.selectedGoogleContacts.remove(at: index)
                 self.selectAllButton.isSelected = false
+                self.viewModel.remove(fromIndex: index, for: .google)
             }
             else {
                 self.viewModel.selectedGoogleContacts.append(self.viewModel.googleContacts[indexPath.row])
+                self.viewModel.add(for: .google)
                 if self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleContacts.count {
                     self.selectAllButtonAction(self.selectAllButton)
                 }
@@ -265,6 +284,22 @@ extension ContactListVC: EmptyScreenViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ContactListVC: ImportContactVMDelegate {
+    func add(for usingFor: ContactListVC.UsingFor) {
+        self.tableView.reloadData()
+    }
+    
+    func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
+        self.tableView.reloadData()
+    }
+    
+    func addAll(for usingFor: ContactListVC.UsingFor) {
+        self.tableView.reloadData()
+    }
+    
+    func removeAll(for usingFor: ContactListVC.UsingFor) {
+        self.tableView.reloadData()
+    }
+    
     func willSaveContacts() {
         
     }
@@ -290,10 +325,6 @@ extension ContactListVC: ImportContactVMDelegate {
         } else if self.currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
              AppToast.default.showToastMessage(message: "No contacts in this google.")
         }
-        self.tableView.reloadData()
-    }
-    
-    func selectionDidChanged() {
         self.tableView.reloadData()
     }
 }

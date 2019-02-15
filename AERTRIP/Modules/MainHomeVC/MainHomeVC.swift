@@ -247,6 +247,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.backgroundImageView.isHidden = false
         self.profileView?.dividerView.isHidden = false
         
+        self.viewProfileVC?.viewModel.webserviceForGetTravelDetail()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint

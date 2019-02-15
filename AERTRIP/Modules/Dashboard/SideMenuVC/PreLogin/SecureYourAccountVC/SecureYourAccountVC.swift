@@ -154,6 +154,8 @@ private extension SecureYourAccountVC {
     func initialSetups() {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         self.view.backgroundColor = AppColors.screensBackground.color
+        
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
         self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
         self.nextButton.isEnabled = false

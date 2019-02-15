@@ -57,6 +57,12 @@ class TwoPartEditTableViewCell: UITableViewCell {
         }
     }
     
+    var isFFTitleHidden: Bool = false {
+        didSet {
+            self.updateFFTitle()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -71,7 +77,13 @@ class TwoPartEditTableViewCell: UITableViewCell {
         downArrowImageView.isHidden = false
     }
     
+    private func updateFFTitle() {
+        leftTitleLabel.isHidden = self.isFFTitleHidden
+        leftTitleLabelHeightConstraint.constant = self.isFFTitleHidden ?  0.0 : 18.0
+    }
+    
     private func configureCell() {
+        self.updateFFTitle()
         if let ff = self.ffData {
            // frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
             frequentFlyerImageView.setImageWithUrl(ff.logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)
@@ -86,7 +98,6 @@ class TwoPartEditTableViewCell: UITableViewCell {
             }
             rightTextField.text = ff.number
             rightTextField.delegate = self
-            leftTitleLabel.isHidden = false
             leftTitleLabel.text = LocalizedString.FrequentFlyer.rawValue
             
             frequentFlyerView.isHidden = false

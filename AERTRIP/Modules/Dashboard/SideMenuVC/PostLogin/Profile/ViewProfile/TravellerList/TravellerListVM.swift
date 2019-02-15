@@ -35,7 +35,7 @@ class TravellerListVM: NSObject {
                 // self?.travellersDict = travellers
                 for traveller in travellers {
                     if traveller.label.lowercased() != AppConstants.kMe.lowercased() {
-                         TravellerData.insert(dataDict: traveller.jsonDict)
+                         _ = TravellerData.insert(dataDict: traveller.jsonDict)
                     }
                 }
                 self?.delegate?.searchTravellerSuccess()

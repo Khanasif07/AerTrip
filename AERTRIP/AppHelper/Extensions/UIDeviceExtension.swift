@@ -78,7 +78,7 @@ extension UIDevice{
     }
     
     static var isIPhoneX: Bool {
-        return UIDevice.current.modelName == "iPhone X"
+        return UIApplication.shared.statusBarFrame.height != 20.0
     }
     
     var modelName: String {

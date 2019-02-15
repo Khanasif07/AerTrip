@@ -52,7 +52,7 @@ class EditProfileImageHeaderView: UIView {
         selectGroupView.addGestureRecognizer(selectGrouptap)
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-        profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+        profileImageView.layer.borderColor = AppColors.themeGray10.cgColor
         profileImageView.layer.borderWidth = 2.0
         profileImageView.clipsToBounds = true
         

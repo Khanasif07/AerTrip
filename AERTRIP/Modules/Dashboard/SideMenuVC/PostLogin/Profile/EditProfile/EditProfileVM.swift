@@ -24,6 +24,11 @@ protocol EditProfileVMDelegate: class {
 }
 
 class EditProfileVM {
+    
+    enum UsingFor {
+        case travellerList
+        case viewProfile
+    }
     weak var delegate: EditProfileVMDelegate?
     
     var profilePicture = ""
@@ -57,15 +62,17 @@ class EditProfileVM {
     var addressTypes: [String] = []
     var salutationTypes: [String] = []
     var socialTypes: [String] = []
+    var travelData: TravelDetailModel?
     
     // preferences
     var seatPreferences = [String: String]()
     var mealPreferences = [String: String]()
     
     var countries = [String: String]()
-    var isFromTravellerList: Bool = false
-    var isFromViewProfile: Bool = false
-    var paxId: String = UserInfo.loggedInUser?.userId ?? ""
+    var currentlyUsinfFor: UsingFor = .viewProfile
+    var paxId: String {
+        return self.travelData?.id ?? ""
+    }
     
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
@@ -231,7 +238,7 @@ class EditProfileVM {
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
         
-        if self.isFromTravellerList && !isFromViewProfile {
+        if self.currentlyUsinfFor == .travellerList {
             params[APIKeys.id.rawValue] = ""
         } else {
             params[APIKeys.id.rawValue] = self.paxId

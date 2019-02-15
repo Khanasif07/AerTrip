@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+enum ATNotification {
+    case profileChanged
+}
+
 extension Notification.Name {
     static let logOut = Notification.Name("logOut")
     static let dataChanged = Notification.Name("dataChanged")

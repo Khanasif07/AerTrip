@@ -114,6 +114,7 @@ private extension CreateYourAccountVC {
     
     func initialSetups() {
 
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
         topNavBar.leftButton.isHidden = true
         topNavBar.delegate = self
         

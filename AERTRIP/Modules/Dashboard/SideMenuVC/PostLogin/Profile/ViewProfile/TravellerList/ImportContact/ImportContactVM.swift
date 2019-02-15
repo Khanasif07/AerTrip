@@ -13,7 +13,11 @@ protocol ImportContactVMDelegate: class {
     func willFetchPhoneContacts()
     func fetchPhoneContactsSuccess()
     
-    func selectionDidChanged()
+    func add(for usingFor: ContactListVC.UsingFor)
+    func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor)
+    
+    func addAll(for usingFor: ContactListVC.UsingFor)
+    func removeAll(for usingFor: ContactListVC.UsingFor)
 }
 
 class ImportContactVM: NSObject {
@@ -51,35 +55,18 @@ class ImportContactVM: NSObject {
     var facebookContacts: [ATContact] = []
     var googleContacts: [ATContact] = []
     
-    var selectedPhoneContacts: [ATContact] = [] {
-        didSet {
-            if let obj = self.delegate as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.selectionChanged)
-            }
-        }
-    }
+    var selectedPhoneContacts: [ATContact] = []
     
-    var selectedFacebookContacts: [ATContact] = []{
-        didSet {
-            if let obj = self.delegate as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.selectionChanged)
-            }
-        }
-    }
+    var selectedFacebookContacts: [ATContact] = []
     
-    var selectedGoogleContacts: [ATContact] = []{
-        didSet {
-            if let obj = self.delegate as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.selectionChanged)
-            }
-        }
-    }
+    var selectedGoogleContacts: [ATContact] = []
     
     var totalContacts: Int {
         return (self.selectedPhoneContacts.count + self.selectedFacebookContacts.count + self.selectedGoogleContacts.count)
     }
     
-    weak var delegate: ImportContactVMDelegate?
+    weak var delegateList: ImportContactVMDelegate?
+    weak var delegateCollection: ImportContactVMDelegate?
     
     //MARK:- Methods
     //MARK:- Public
@@ -87,13 +74,46 @@ class ImportContactVM: NSObject {
         super.init()
     }
     
+    func add(for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.add(for: usingFor)
+        self.delegateCollection?.add(for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+
+    func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.remove(fromIndex: fromIndex, for: usingFor)
+        self.delegateCollection?.remove(fromIndex: fromIndex, for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func addAll(for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.addAll(for: usingFor)
+        self.delegateCollection?.addAll(for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func removeAll(for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.removeAll(for: usingFor)
+        self.delegateCollection?.removeAll(for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
     //MARK:- Fetch Phone Contacts
     //MARK:-
     func fetchPhoneContacts(forVC: UIViewController) {
-        self.delegate?.willFetchPhoneContacts()
+        self.delegateList?.willFetchPhoneContacts()
+        self.delegateCollection?.willFetchPhoneContacts()
         forVC.fetchContacts { [weak self] (contacts) in
             DispatchQueue.mainAsync {
-                if let obj = self?.delegate as? BaseVC {
+                if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
                 }
                 self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
@@ -104,10 +124,11 @@ class ImportContactVM: NSObject {
     //MARK:- Fetch Facebook Contacts
     //MARK:-
     func fetchFacebookContacts(forVC: UIViewController) {
-        self.delegate?.willFetchPhoneContacts()
+        self.delegateList?.willFetchPhoneContacts()
+        self.delegateCollection?.willFetchPhoneContacts()
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
-                if let obj = self?.delegate as? BaseVC {
+                if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
                 }
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
@@ -120,9 +141,10 @@ class ImportContactVM: NSObject {
     //MARK:- Fetch Google Contacts
     //MARK:-
     func fetchGoogleContacts(forVC: UIViewController) {
-        self.delegate?.willFetchPhoneContacts()
+        self.delegateList?.willFetchPhoneContacts()
+        self.delegateCollection?.willFetchPhoneContacts()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
-            if let obj = self?.delegate as? BaseVC {
+            if let obj = self?.delegateCollection as? BaseVC {
                 obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
             }
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
@@ -139,7 +161,7 @@ class ImportContactVM: NSObject {
     }
     
     @objc private func callSearch(_ forText: String) {
-        if let obj = self.delegate as? BaseVC {
+        if let obj = self.delegateCollection as? BaseVC {
             guard !forText.isEmpty else {
                 self.phoneContacts = self._phoneContacts
                 self.facebookContacts = self._facebookContacts
@@ -187,7 +209,7 @@ class ImportContactVM: NSObject {
             
             APICaller.shared.callSaveSocialContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 guard let sSelf = self else {return}
-                if let obj = sSelf.delegate as? BaseVC {
+                if let obj = sSelf.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.contactSavedFail)
                 }
             }
@@ -207,13 +229,14 @@ class ImportContactVM: NSObject {
                 params["data[\(idx)][mobile][0][contact_label]"] = "cell"
                 params["data[\(idx)][mobile][0][contact_type]"] = contact.label.rawValue
                 params["data[\(idx)][mobile][0][contact_value]"] = contact.contact
+                params["data[\(idx)][mobile][0][isd]"] = contact.isd
             }
             
             APICaller.shared.callSavePhoneContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 printDebug("phone contact saved")
                 guard let sSelf = self else {return}
                 if sSelf.selectedFacebookContacts.isEmpty, sSelf.selectedGoogleContacts.isEmpty {
-                    if let obj = sSelf.delegate as? BaseVC {
+                    if let obj = sSelf.delegateCollection as? BaseVC {
                         obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.phoneContactSavedFail)
                     }
                     return

@@ -42,6 +42,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - Private
     
     var ffExtraCount: Int = 4
+    private var defaultPlaceHolder: UIImage = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
     
     // MARK: - Public
     
@@ -49,7 +50,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var sections = [LocalizedString.EmailAddress.localized, LocalizedString.ContactNumber.localized, LocalizedString.Address.localized, LocalizedString.MoreInformation.localized]
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
-    var travelData: TravelDetailModel?
     
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
@@ -100,7 +100,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.webserviceForGetDefaultAirlines()
         
         doInitialSetUp()
-        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
+        if viewModel.currentlyUsinfFor == .travellerList {
             setUpForNewTraveller()
         } else {
             setUpData()
@@ -172,6 +172,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         genericPickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
         
         pickerView.frame = CGRect(x: 0.0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        pickerView.selectRow(0, inComponent: 0, animated: true)
         
         datePicker.frame = CGRect(x: 0.0, y: 0, width: pickerSize.width, height: pickerSize.height)
         
@@ -218,10 +219,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func getPhotoFromFacebook() {
         let socialModel = SocialLoginVM()
         socialModel.fbLogin(vc: self) { [weak self] success in
+            guard let sSelf = self else {return}
             if success {
-                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: AppPlaceholderImage.profile, showIndicator: true)
-                self?.viewModel.profilePicture = socialModel.userData.picture
-                self?.viewModel.imageSource = "facebook"
+                sSelf.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: sSelf.defaultPlaceHolder, showIndicator: true)
+                sSelf.viewModel.profilePicture = socialModel.userData.picture
+                sSelf.viewModel.imageSource = "facebook"
             }
         }
     }
@@ -239,25 +241,25 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func setUpData() {
-        guard var travel = travelData else {
+        guard var travel = self.viewModel.travelData else {
             return
         }
         
-        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id == UserInfo.loggedInUser?.paxId {
-            var email = Email()
-            email.label = LocalizedString.Default.localized
-            email.type = LocalizedString.Email.localized
-            email.value = loggedInUserEmail
-            viewModel.email.append(email)
-            
-            var mobile = Mobile()
-            mobile.label = LocalizedString.Default.localized
-            mobile.type = LocalizedString.Mobile.localized
-            mobile.isd = isd
-            mobile.value = loggedInUserMobile
-            mobile.isValide = true
-            viewModel.mobile.append(mobile)
-        }
+//        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id == UserInfo.loggedInUser?.paxId {
+//            var email = Email()
+//            email.label = LocalizedString.Default.localized
+//            email.type = LocalizedString.Email.localized
+//            email.value = loggedInUserEmail
+//            viewModel.email.append(email)
+//
+//            var mobile = Mobile()
+//            mobile.label = LocalizedString.Default.localized
+//            mobile.type = LocalizedString.Mobile.localized
+//            mobile.isd = isd
+//            mobile.value = loggedInUserMobile
+//            mobile.isValide = true
+//            viewModel.mobile.append(mobile)
+//        }
         if travel.contact.email.isEmpty {
             var email = Email()
             email.label = LocalizedString.Home.localized
@@ -308,15 +310,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
         sections.append(LocalizedString.PassportDetails.localized)
-        let string = "\("\(travel.firstName)".firstCharacter)\("\(travel.lastName)".firstCharacter)"
-        let imageFromText: UIImage = AppGlobals.shared.getImageFromText(string)
+        let imageFromText: UIImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         viewModel.frequentFlyer = travel.frequestFlyer
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: imageFromText, showIndicator: false)
           //  editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
             viewModel.profilePicture = travel.profileImage
         } else {
-            if viewModel.isFromTravellerList {
+            if viewModel.currentlyUsinfFor == .travellerList {
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             } else {
                 editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
@@ -326,7 +327,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
         
-        if travelData?.preferences != nil {
+        if self.viewModel.travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences.localized)
         }
         
@@ -372,6 +373,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         address.label = "Home"
         address.countryName = LocalizedString.selectedCountry.localized
         viewModel.addresses.append(address)
+        
+        setUpProfilePhotoInitials()
         tableView.reloadData()
     }
     
@@ -745,21 +748,18 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         var imageFromText: UIImage = UIImage()
         if viewModel.profilePicture == "" {
             if viewModel.firstName != "" {
-                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)"
-                imageFromText = AppGlobals.shared.getImageFromText(string)
+                imageFromText = AppGlobals.shared.getImageFor(firstName: viewModel.firstName, lastName: "", offSet: CGPoint(x: 0.0, y: 9.0))
                 
             } else if viewModel.lastName != "" {
-                let string = "\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
-                imageFromText = AppGlobals.shared.getImageFromText(string)
+                imageFromText = AppGlobals.shared.getImageFor(firstName: "", lastName: viewModel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
             }
             
             if viewModel.firstName != "", viewModel.lastName != "" {
-                let string = "\("\(viewModel.firstName.capitalizedFirst())".firstCharacter)\("\(viewModel.lastName.capitalizedFirst())".firstCharacter)"
-                imageFromText = AppGlobals.shared.getImageFromText(string)
+                imageFromText = AppGlobals.shared.getImageFor(firstName: viewModel.firstName, lastName: viewModel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
             }
             
             if viewModel.firstName == "", viewModel.lastName == "" {
-                editProfileImageHeaderView.profileImageView.image = AppPlaceholderImage.profile
+                editProfileImageHeaderView.profileImageView.image = defaultPlaceHolder
             } else {
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             }
@@ -771,7 +771,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 
 extension EditProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        if viewModel.isFromTravellerList, !viewModel.isFromViewProfile {
+        if viewModel.currentlyUsinfFor == .travellerList {
             dismiss(animated: true, completion: nil)
         } else {
             AppFlowManager.default.popViewController(animated: true)

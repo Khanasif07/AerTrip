@@ -112,7 +112,6 @@
 		18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */; };
 		18FA223221EC91670024B91E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D1F4621CE3F8E00746329 /* SourceSansPro-Regular.ttf */; };
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
-		18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEC8602200683600C64042 /* ViewProfileVM.swift */; };
 		840062A221DB9DA6000BD3BF /* SocialUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840062A121DB9DA6000BD3BF /* SocialUserModel.swift */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */; };
@@ -406,7 +405,6 @@
 		18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignGroupTableViewCell.swift; sourceTree = "<group>"; };
 		18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignGroupTableViewCell.xib; sourceTree = "<group>"; };
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
-		18FEC8602200683600C64042 /* ViewProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileVM.swift; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840062A121DB9DA6000BD3BF /* SocialUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialUserModel.swift; sourceTree = "<group>"; };
@@ -1105,7 +1103,6 @@
 				84085CBF21F59C0D00F1E844 /* ViewProfileDetailVC.swift */,
 				84085CC021F59C0D00F1E844 /* TravellerList */,
 				84085CD021F59C0D00F1E844 /* ViewProfileDetailVM.swift */,
-				18FEC8602200683600C64042 /* ViewProfileVM.swift */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -1987,7 +1984,6 @@
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
-				18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */,
 				84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */,
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
 				842272882211A5BF00D4F065 /* ATGalleryScrollCell.swift in Sources */,

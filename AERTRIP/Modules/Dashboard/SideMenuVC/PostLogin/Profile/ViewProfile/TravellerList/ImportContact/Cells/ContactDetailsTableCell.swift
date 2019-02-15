@@ -12,6 +12,7 @@ class ContactDetailsTableCell: UITableViewCell {
     
     @IBOutlet weak var selectionButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     var contact: ATContact? {
         didSet {

@@ -63,7 +63,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.editProfilTwoPartTableViewCelldelegate = self
                 cell.indexPath = indexPath
-                if indexPath.row == 0, !self.viewModel.isFromTravellerList {
+                if indexPath.row == 0, self.viewModel.currentlyUsinfFor != .travellerList {
                     cell.rightViewTextField.isEnabled = false
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
@@ -96,7 +96,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(LocalizedString.AddContactNumber.localized)
                 return cell
             } else {
-                if indexPath.row == 0, !self.viewModel.isFromTravellerList {
+                if indexPath.row == 0, self.viewModel.currentlyUsinfFor != .travellerList {
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
                     cell.leftTitleLabel.textColor = AppColors.themeGray40
@@ -238,6 +238,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
+                    cell.isFFTitleHidden = !(indexPath.row == 2)
                     
                     return cell
                 }
@@ -375,9 +376,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            return !((indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.email.count)
+            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor != .travellerList) || indexPath.row == self.viewModel.email.count)
         case LocalizedString.ContactNumber.localized:
-            return !((indexPath.row == 0 && !viewModel.isFromTravellerList) || indexPath.row == self.viewModel.mobile.count)
+            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor != .travellerList) || indexPath.row == self.viewModel.mobile.count)
         case LocalizedString.SocialAccounts.localized:
             return !(indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1)
         case LocalizedString.FlightPreferences.localized:
@@ -436,7 +437,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         dismissKeyboard()
         printDebug("edit button tapped")
         
-        if travelData?.id == UserInfo.loggedInUser?.paxId {
+        if self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId {
             editLoggedInUserProfilePhoto()
         } else {
             editProfilePhotoForTraveller()
@@ -688,7 +689,8 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getSuccess() {
-        if self.viewModel.isFromTravellerList, !self.viewModel.isFromViewProfile {
+        self.sendDataChangedNotification(data: ATNotification.profileChanged)
+        if self.viewModel.currentlyUsinfFor == .travellerList {
             dismiss(animated: true, completion: nil)
         } else {
             AppFlowManager.default.popViewController(animated: true)

@@ -61,12 +61,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="jLF-N7-OLP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mcx-ud-29S"/>
-                    <constraint firstItem="eUr-ge-mTc" firstAttribute="leading" secondItem="803-rH-vVN" secondAttribute="leading" id="N0Z-hq-7GR"/>
                     <constraint firstAttribute="bottom" secondItem="eUr-ge-mTc" secondAttribute="bottom" id="SMd-U8-U8Z"/>
                     <constraint firstAttribute="trailing" secondItem="jLF-N7-OLP" secondAttribute="trailing" id="cvN-h5-onG"/>
                     <constraint firstAttribute="trailing" secondItem="eUr-ge-mTc" secondAttribute="trailing" id="mKB-pT-omj"/>
                     <constraint firstItem="jLF-N7-OLP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pex-ah-7qP"/>
                     <constraint firstAttribute="bottom" secondItem="jLF-N7-OLP" secondAttribute="bottom" id="sR4-4F-1Wc"/>
+                    <constraint firstItem="eUr-ge-mTc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vwd-1D-qsj"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -74,6 +74,7 @@
                 <outlet property="contentLabel" destination="803-rH-vVN" id="VsU-m0-8gn"/>
                 <outlet property="headerTitleLabel" destination="8KF-AW-RMc" id="vWR-Ts-zkJ"/>
                 <outlet property="separatorView" destination="eUr-ge-mTc" id="my2-sh-dSY"/>
+                <outlet property="sepratorLeadingConstraint" destination="vwd-1D-qsj" id="tPs-7u-o5I"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>

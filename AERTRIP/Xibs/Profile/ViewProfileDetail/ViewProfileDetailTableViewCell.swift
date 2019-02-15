@@ -14,6 +14,7 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var separatorView: ATDividerView!
+    @IBOutlet weak var sepratorLeadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +26,5 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
     func configureCell(_ title:String,_ content:String) {
         headerTitleLabel.text = title.capitalizedFirst()
         contentLabel.text = content
-        
     }
-    
 }

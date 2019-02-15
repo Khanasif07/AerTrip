@@ -16,9 +16,9 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet var separatorView: ATDividerView!
     @IBOutlet var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet var edgeToEdgeBottomSeparatorView: ATDividerView!
+//    @IBOutlet var edgeToEdgeBottomSeparatorView: ATDividerView!
     
-    @IBOutlet var edgeToEdgeTopSeparatorView: ATDividerView!
+//    @IBOutlet var edgeToEdgeTopSeparatorView: ATDividerView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

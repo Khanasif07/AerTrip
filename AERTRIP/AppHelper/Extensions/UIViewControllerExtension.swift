@@ -329,8 +329,8 @@ extension UIViewController{
     func addBlurViewOnStatusBar() {
         
         let blurView = UIView()
-        let height = UIDevice.isIPhoneX ? 44.0 : 20.0
-        blurView.frame = CGRect(x: 0.0, y: 0.0, width: Double(UIDevice.screenWidth), height: height)
+        let height = UIApplication.shared.statusBarFrame.height
+        blurView.frame = CGRect(x: 0.0, y: 0.0, width: Double(UIDevice.screenWidth), height: Double(height))
         blurView.backgroundColor = AppColors.clear
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

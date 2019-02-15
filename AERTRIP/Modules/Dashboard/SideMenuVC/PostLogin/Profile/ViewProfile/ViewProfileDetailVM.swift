@@ -18,21 +18,21 @@ protocol ViewProfileDetailVMDelegate: class {
 }
 
 class ViewProfileDetailVM {
+
     weak var delegate: ViewProfileDetailVMDelegate?
     var travelData: TravelDetailModel?
-    var paxId: String = UserInfo.loggedInUser?.userId ?? ""
-    var isFromTravellerList: Bool = false
+    var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
     
     func webserviceForGetTravelDetail() {
         var params = JSONDictionary()
         
-        params[APIKeys.paxId.rawValue] = paxId
+        params[APIKeys.paxId.rawValue] = self.travelData?.id ?? ""
         
         self.delegate?.willGetDetail()
         
         APICaller.shared.getTravelDetail(params: params, completionBlock: { success, data, errorCode in
             
-            if success, let trav = data {
+            if success, var trav = data {
                 if let uId = UserInfo.loggedInUserId, uId == trav.id {
                     UserInfo.loggedInUser?.firstName = trav.firstName
                     UserInfo.loggedInUser?.lastName = trav.lastName
@@ -52,6 +52,23 @@ class ViewProfileDetailVM {
                         }
                     }
                 }
+                
+                if let oldTrav = self.travelData {
+                    
+                    if let obj = oldTrav.contact.email.first {
+                        trav.contact.add(email: obj)
+                    }
+                    
+                    if let obj = oldTrav.contact.mobile.first {
+                        trav.contact.add(mobile: obj)
+                    }
+                    
+                    if let obj = oldTrav.contact.social.first {
+                        trav.contact.add(social: obj)
+                    }
+                    
+                    self.travelData = trav
+                }
                 self.delegate?.getSuccess(trav)
             } else {
                 self.delegate?.getFail(errors: errorCode)
@@ -61,8 +78,6 @@ class ViewProfileDetailVM {
     }
     
     func webserviceForLogOut() {
-        var params = JSONDictionary()
-        
         
         self.delegate?.willLogOut()
         APICaller.shared.callLogOutAPI(params: [:], completionBlock: { success, errors in

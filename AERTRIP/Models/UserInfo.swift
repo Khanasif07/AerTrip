@@ -487,6 +487,26 @@ class UserInfo {
         temp.dob = self.birthDate
         temp.lastName = self.lastName
         temp.salutation = self.salutation
+        temp.profileImage = self.profileImage
+        
+        var cont = Contact(json: [:])
+        
+        if !self.mobile.isEmpty {
+            var mobile = Mobile(json: [:])
+            mobile.isd = self.isd
+            mobile.value = self.mobile
+            mobile.label = LocalizedString.Default.localized
+            cont.add(mobile: mobile)
+        }
+        
+        if !self.email.isEmpty {
+            var email = Email(json: [:])
+            email.label = LocalizedString.Default.localized
+            email.value = self.email
+            cont.add(email: email)
+        }
+        
+        temp.contact = cont
         return temp
     }
 
@@ -525,8 +545,7 @@ class UserInfo {
     }
     
     func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        let string = "\("\(UserInfo.loggedInUser?.firstName.capitalizedFirst() ?? "N")".firstCharacter)\("\(UserInfo.loggedInUser?.lastName.capitalizedFirst() ?? "A")".firstCharacter)".uppercased()
-        return AppGlobals.shared.getImageFromText(string, font: font, textColor: textColor)
+        return AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName, font: font, textColor: textColor)
     }
 }
 

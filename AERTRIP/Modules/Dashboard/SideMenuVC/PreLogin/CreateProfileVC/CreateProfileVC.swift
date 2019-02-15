@@ -126,6 +126,7 @@ private extension CreateProfileVC {
         
         self.viewModel.webserviceForGetSalutations()
         
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
         self.viewModel.userData.minContactLimit  = 10

@@ -16,6 +16,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentContainerView: UIView!
+    @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
     
     //segment views
     @IBOutlet weak var aerinView: UIView!
@@ -58,6 +59,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
+        segmentCenterYConstraint.constant = 0.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         self.addOverlayView()
@@ -68,7 +70,8 @@ class DashboardVC: BaseVC {
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
 
-        innerScrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        let temp = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        innerScrollViewHeightConstraint.constant = temp
         self.profileButton.cornerRadius = self.profileButton.height/2
     }
 
@@ -207,11 +210,13 @@ class DashboardVC: BaseVC {
     
     private func updateProfileButton() {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
-            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: UserInfo.loggedInUser?.profilePlaceholder ?? AppPlaceholderImage.profile)
+            let image = UserInfo.loggedInUser?.profilePlaceholder ?? AppGlobals.shared.getImageFor(firstName: nil, lastName: nil)
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: image)
             //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
         } else {
             if let userInfo = UserInfo.loggedInUser {
-                self.profileButton.setImage(userInfo.profileImagePlaceholder(), for: .normal)
+                let image = userInfo.profileImagePlaceholder()
+                self.profileButton.setImage(image, for: .normal)
                 self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
                 self.profileButton.layer.borderWidth = 2.0
             }
@@ -251,6 +256,8 @@ extension DashboardVC  {
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
             }
+            
+            updateSegmentYPosition(for: scrollView.contentOffset.y)
         
             switch selectedOption{
                 case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
@@ -292,6 +299,14 @@ extension DashboardVC  {
 
             previousOffset = scrollView.contentOffset
         }
+    }
+    
+    private func updateSegmentYPosition(for scrolledY: CGFloat) {
+        let valueToBe: CGFloat = UIDevice.isIPhoneX ? 8.0 : -3.0
+        
+        let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
+        
+        segmentCenterYConstraint.constant = ratio * scrolledY
     }
 
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){

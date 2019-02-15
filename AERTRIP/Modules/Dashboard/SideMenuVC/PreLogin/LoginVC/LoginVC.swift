@@ -142,6 +142,7 @@ private extension LoginVC {
         self.loginButton.isEnabled = false
         self.setupFontsAndText()
         
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
         self.topNavBar.delegate = self
         self.topNavBar.leftButton.isHidden = true
     }

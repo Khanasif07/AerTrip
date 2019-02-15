@@ -42,13 +42,14 @@ class ViewProfileVC: BaseVC {
     }
     
     let viewModel = ViewProfileDetailVM()
-    var travelData: TravelDetailModel?
     
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
+
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.delegate = self
         
@@ -81,6 +82,12 @@ class ViewProfileVC: BaseVC {
         return .lightContent
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .profileChanged {
+            self.viewModel.webserviceForGetTravelDetail()
+        }
+    }
+    
     // MARK: - Helper Methods
     
     func doInitialSetup() {
@@ -94,6 +101,17 @@ class ViewProfileVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        
+        let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        self.topNavView.leftButton.setImage(tintedImage, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.topNavView.leftButton.isSelected = false
+        
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.topNavView.firstRightButton.isSelected = false
+        
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
@@ -111,7 +129,7 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         self.tableView.parallaxHeader.height = parallexHeaderHeight
-        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.bottom
+        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
@@ -140,7 +158,10 @@ extension ViewProfileVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToEditProfileVC(travelData: self.travelData)
+        if self.viewModel.travelData == nil {
+            self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
+        }
+        AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
     }
 }
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -257,19 +278,17 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         if parallaxHeader.progress <= 0.5 {
             self.topNavView.animateBackView(isHidden: false)
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
-                let backImage = UIImage(named: "Back")
-                let tintedImage = backImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                self?.topNavView.leftButton.setImage(tintedImage, for: .normal)
+                self?.topNavView.firstRightButton.isSelected = true
+                self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                print(parallaxHeader.progress)
-                
+                printDebug(parallaxHeader.progress)
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
             self.topNavView.animateBackView(isHidden: true)
-            self.topNavView.firstRightButton.setTitleColor(UIColor.white, for: .normal)
-            self.topNavView.leftButton.tintColor = UIColor.white
+            self.topNavView.firstRightButton.isSelected = false
+            self.topNavView.leftButton.isSelected = false
+            self.topNavView.leftButton.tintColor = AppColors.themeWhite
             self.topNavView.navTitleLabel.text = ""
         }
         self.profileImageHeaderView?.layoutIfNeeded()
@@ -286,7 +305,7 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     
     func profileImageTapped() {
         NSLog("profile Image Tapped View ProfileVc")
-        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), false)
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
     }
 }
 
@@ -311,7 +330,9 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
     
     func getSuccess(_ data: TravelDetailModel) {
-        self.travelData = data
+        
+        self.viewModel.travelData = data
+        
         self.tableView.reloadData()
         
         NotificationCenter.default.post(name: .dataChanged, object: nil)

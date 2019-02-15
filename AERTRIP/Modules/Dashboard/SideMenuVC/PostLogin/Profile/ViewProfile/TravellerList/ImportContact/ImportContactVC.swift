@@ -25,7 +25,9 @@ class ImportContactVC: BaseVC {
     //MARK:- Public
     
     //MARK:- Private
+    private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
     fileprivate weak var categoryView: ATCategoryView!
+    private var itemsCounts: [Int] = [0, 0, 0]
     
     private(set) var viewModel = ImportContactVM.shared
     private var currentIndex: Int = 0 {
@@ -59,16 +61,13 @@ class ImportContactVC: BaseVC {
     }
 
     override func bindViewModel() {
-        self.viewModel.delegate = self
+        self.viewModel.delegateCollection = self
     }
     
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? ImportContactVM.Notification {
             if obj == .phoneContactFetched {
                 self.fetchPhoneContactsSuccess()
-            }
-            else if obj == .selectionChanged {
-                self.selectionDidChanged()
             }
             else if obj == .contactSavedFail {
                 self.contactSavedFail()
@@ -97,6 +96,8 @@ class ImportContactVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
+        selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
+
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
@@ -123,6 +124,8 @@ class ImportContactVC: BaseVC {
         
         self.setupPagerView()
         self.updateNavTitle()
+        
+        self.selectedContactsSetHidden(isHidden: true, animated: false)
     }
     
     
@@ -151,12 +154,9 @@ class ImportContactVC: BaseVC {
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
-        let listVC = self.allChildVCs[currentIndex]
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
-//            listVC.containerBottomConstraint.constant = isHidden ? 0.0 : 110.0
             self?.view.layoutIfNeeded()
-            listVC.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
@@ -226,6 +226,7 @@ extension ImportContactVC: TopNavigationViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
+    
     func contactSavedFail() {
         AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
     }
@@ -246,9 +247,87 @@ extension ImportContactVC: ImportContactVMDelegate {
 
     }
     
+    
+    func add(for usingFor: ContactListVC.UsingFor) {
+        self.selectionDidChanged()
+        var item = 0
+        switch usingFor {
+        case .contacts:
+            item = self.viewModel.selectedPhoneContacts.count - 1
+            
+        case .facebook:
+            item = self.viewModel.selectedFacebookContacts.count - 1
+            
+        case .google:
+            item = self.viewModel.selectedGoogleContacts.count - 1
+        }
+        self.selectedContactsCollectionView.performBatchUpdates({
+            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
+            self.itemsCounts[usingFor.rawValue] += 1
+        }, completion: nil)
+    }
+    
+    func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
+        
+        self.selectedContactsCollectionView.performBatchUpdates({
+            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
+            self.itemsCounts[usingFor.rawValue] -= 1
+        }, completion: { (isDone) in
+            self.selectionDidChanged()
+        })
+    }
+    
+    func addAll(for usingFor: ContactListVC.UsingFor) {
+        self.selectionDidChanged()
+
+        var item = 0
+        switch usingFor {
+        case .contacts:
+            item = self.viewModel.selectedPhoneContacts.count
+
+        case .facebook:
+            item = self.viewModel.selectedFacebookContacts.count
+
+        case .google:
+            item = self.viewModel.selectedGoogleContacts.count
+        }
+
+        self.selectedContactsCollectionView.performBatchUpdates({
+            for idx in 0..<item {
+                self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
+                self.itemsCounts[usingFor.rawValue] += 1
+            }
+        }, completion: nil)
+    }
+    
+    func removeAll(for usingFor: ContactListVC.UsingFor) {
+
+        var item = 0
+        switch usingFor {
+        case .contacts:
+            item = self.viewModel.selectedPhoneContacts.count
+
+        case .facebook:
+            item = self.viewModel.selectedFacebookContacts.count
+
+        case .google:
+            item = self.viewModel.selectedGoogleContacts.count
+        }
+
+        self.selectedContactsCollectionView.performBatchUpdates({
+            for idx in 0..<item {
+                self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
+                self.itemsCounts[usingFor.rawValue] -= 1
+            }
+        }, completion: { (isDone) in
+            self.itemsCounts = [0, 0, 0]
+            self.selectedContactsCollectionView.reloadData()
+            self.selectionDidChanged()
+        })
+    }
+    
     func selectionDidChanged() {
         self.updateNavTitle()
-        self.selectedContactsCollectionView.reloadData()
         self.selectedContactsSetHidden(isHidden: self.viewModel.totalContacts <= 0, animated: true)
     }
 }
@@ -256,11 +335,11 @@ extension ImportContactVC: ImportContactVMDelegate {
 extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return self.itemsCounts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return [self.viewModel.selectedPhoneContacts.count, self.viewModel.selectedFacebookContacts.count, self.viewModel.selectedGoogleContacts.count][section]
+        return self.itemsCounts[section]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -299,6 +378,12 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let myCell = cell as? SelectedContactCollectionCell {
+            myCell.animateContent(isHidden: false, animated: true)
+        }
+    }
 }
 
 extension ImportContactVC: SelectedContactCollectionCellDelegate {
@@ -308,18 +393,79 @@ extension ImportContactVC: SelectedContactCollectionCellDelegate {
             case 0:
                 //phone
                 self.viewModel.selectedPhoneContacts.remove(at: indexPath.item)
+                self.viewModel.remove(fromIndex: indexPath.item, for: .contacts)
                 
             case 1:
                 //facebook
                 self.viewModel.selectedFacebookContacts.remove(at: indexPath.item)
+                self.viewModel.remove(fromIndex: indexPath.item, for: .facebook)
                 
             case 2:
                 //google
                 self.viewModel.selectedGoogleContacts.remove(at: indexPath.item)
+                self.viewModel.remove(fromIndex: indexPath.item, for: .google)
                 
             default:
                 printDebug("not a correct index")
             }
         }
+    }
+}
+
+
+
+//MARK:- Collection View Custom Flow Layout
+//MARK:-
+class ContactListCollectionFlowLayout : UICollectionViewFlowLayout {
+
+    var insertingIndexPaths = [IndexPath]()
+
+    override init() {
+        super.init()
+
+        self.initialSetup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        self.initialSetup()
+    }
+
+    private func initialSetup() {
+        self.scrollDirection = .horizontal
+    }
+
+    override func prepare() {
+        super.prepare()
+
+    }
+
+    override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
+        super.prepare(forCollectionViewUpdates: updateItems)
+
+        insertingIndexPaths.removeAll()
+
+        for update in updateItems {
+            if let indexPath = update.indexPathAfterUpdate,
+                update.updateAction == .insert {
+                insertingIndexPaths.append(indexPath)
+            }
+        }
+    }
+
+    override func finalizeCollectionViewUpdates() {
+        super.finalizeCollectionViewUpdates()
+
+        insertingIndexPaths.removeAll()
+    }
+
+    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
+
+        attributes?.alpha = 0.0
+        attributes?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+
+        return attributes
     }
 }

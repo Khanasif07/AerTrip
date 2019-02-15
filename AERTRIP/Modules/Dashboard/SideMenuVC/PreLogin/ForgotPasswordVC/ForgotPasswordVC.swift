@@ -101,6 +101,7 @@ private extension ForgotPasswordVC {
         
         self.view.backgroundColor = AppColors.screensBackground.color
         
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
         self.topNavBar.delegate = self
         
         self.continueButton.isEnabled = false

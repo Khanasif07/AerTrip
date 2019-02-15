@@ -105,7 +105,7 @@ class HotelFilterVC: BaseVC {
             
         }
         
-        let height = UIDevice.isIPhoneX ? 44.0 : 20.0
+        let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
        self.setupPagerView()
        self.hide(animated: false)

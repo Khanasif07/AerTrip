@@ -219,7 +219,7 @@ extension SideMenuVC {
 extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let _ = UserInfo.loggedInUserId {
-            return self.viewModel.cellForLoginUser.count + 1
+            return self.viewModel.cellForLoginUser.count + 2
             
         } else {
             return self.viewModel.displayCellsForGuest.count + 1
@@ -277,7 +277,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let _ = UserInfo.loggedInUserId {
-                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 1])
+                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
                 
                 if indexPath.row == 5 {
                     cell.sepratorView.isHidden = false

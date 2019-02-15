@@ -129,7 +129,38 @@ struct Contact {
         self.social = Social.retunsSocialArray(jsonArr: json["social"].arrayValue)
     }
     
+    mutating func add(email: Email) {
+        if !self.email.contains(where: { (eml) -> Bool in
+            eml.value.lowercased() == email.value.lowercased()
+        }) {
+            
+            if email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
+                self.email.insert(email, at: 0)
+            }
+            else {
+                self.email.append(email)
+            }
+        }
+    }
     
+    mutating func add(mobile: Mobile) {
+        if !self.mobile.contains(where: { (mbl) -> Bool in
+            mbl.value.lowercased() == mobile.value.lowercased()
+        }) {
+            
+            if mobile.label.lowercased() == LocalizedString.Default.localized.lowercased() {
+                self.mobile.insert(mobile, at: 0)
+            }
+            else {
+                self.mobile.append(mobile)
+            }
+        }
+    }
+    
+    mutating func add(social: Social) {
+        
+        self.social.append(social)
+    }
 }
 
 struct Email {
