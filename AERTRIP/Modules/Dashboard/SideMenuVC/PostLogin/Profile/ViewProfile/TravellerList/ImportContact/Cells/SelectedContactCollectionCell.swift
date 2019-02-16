@@ -59,23 +59,15 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         
         let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         self.profileImageView.image = placeholder
-        if let img = self.contact?.image, !img.isEmpty {
-            self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
+        if let imgData = self.contact?.imageData {
+            self.profileImageView.image = UIImage(data: imgData)
         }
-        self.profileImageView.setImageWithUrl(self.contact?.image ?? "", placeholder: placeholder, showIndicator: false)
-        
-        self.animateContent(isHidden: true, animated: false)
+        else if let img = self.contact?.image, !img.isEmpty {
+            self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
+        }        
     }
     
     @objc func crossButtonAction(_ sender: UIButton) {
         self.delegate?.crossButtonAction(sender)
-    }
-    
-    func animateContent(isHidden: Bool, animated: Bool = true) {
-//        let hiddenScale = CGAffineTransform(scaleX: 0.001, y: 0.001)
-//        let shownScale = CGAffineTransform.identity
-//        UIView.animate(withDuration: animated ? 0.3 : 0.0) {
-//            self.containerView.transform = isHidden ? hiddenScale : shownScale
-//        }
     }
 }

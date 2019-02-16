@@ -30,6 +30,10 @@ class MainHomeVC: BaseVC {
     var transitionAnimator: UIViewPropertyAnimator?
     var animationProgress: CGFloat = 0
     
+    private var isPushedToNext: Bool {
+        return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
+    }
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -108,7 +112,6 @@ class MainHomeVC: BaseVC {
     private func scrollViewSetup() {
         
         //set content size
-//        self.scrollView.contentSize = CGSize(width: UIDevice.screenWidth * 2.0, height: UIDevice.screenHeight)
         
         //setup side menu controller
         let sideVC = self.createSideMenu()
@@ -147,11 +150,13 @@ class MainHomeVC: BaseVC {
     }
     
     @objc private func edgeSwipeAction(_ sender: UIPanGestureRecognizer) {
-        if UserInfo.loggedInUserId == nil {
-            self.popLogoAnimation()
-        }
-        else {
-            self.popProfileAnimation()
+        if sender.state == .began, self.isPushedToNext {
+            if UserInfo.loggedInUserId == nil {
+                self.popLogoAnimation()
+            }
+            else {
+                self.popProfileAnimation()
+            }
         }
 //        switch sender.state {
 //        case .began:
@@ -307,6 +312,7 @@ class MainHomeVC: BaseVC {
             self.viewProfileVC?.profileImageHeaderView?.isHidden = true
             self.profileView?.isHidden = true
             self.sideMenuVC?.profileContainerView.isHidden = false
+            self.sideMenuVC?.profileContainerView.isUserInteractionEnabled = true
         }
         
         animator.startAnimation()

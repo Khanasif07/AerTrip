@@ -165,11 +165,11 @@ extension ForgotPasswordVC {
     
     func setupInitialAnimation() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.forgotPasswordLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.intructionLabel.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.emailTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.continueButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.logoImage.transform         = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.forgotPasswordLabel.transform  = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.intructionLabel.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.emailTextField.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.continueButton.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
     }
     
     func setupViewDidLoadAnimation() {

@@ -14,7 +14,7 @@ class ViewProfileDetailVC: BaseVC {
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
-     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+
     // MARK: - Variables
     
     let viewModel = ViewProfileDetailVM()
@@ -52,8 +52,8 @@ class ViewProfileDetailVC: BaseVC {
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-//            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
-//            self?.profileImageHeaderView.layoutIfNeeded()
+            //            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
+            //            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -81,7 +81,7 @@ class ViewProfileDetailVC: BaseVC {
     func doInitialSetUp() {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
-
+        
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -107,7 +107,7 @@ class ViewProfileDetailVC: BaseVC {
     
     private func setupParallaxHeader() { // Parallax Header
         let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
-
+        
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
         profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
@@ -119,7 +119,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.parallaxHeader.delegate = self
         
         
-      //  profileImageHeaderView.dividerView.isHidden = true
+        //  profileImageHeaderView.dividerView.isHidden = true
         
         self.view.bringSubviewToFront(self.topNavView)
     }
@@ -153,7 +153,7 @@ class ViewProfileDetailVC: BaseVC {
                 profileImageHeaderView.blurEffectView.alpha = 0.0
             }
         }
-
+        
         mobile.removeAll()
         let tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
             !mbl.value.isEmpty
@@ -360,22 +360,25 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        printDebug("progress %f \(parallaxHeader.progress)")
+    func updateForParallexProgress() {
         
-        if parallaxHeader.progress >= 0.6 {
-            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress
+        let prallexProgress = self.tableView.parallaxHeader.progress
+        
+        printDebug("progress %f \(prallexProgress)")
+        
+        if prallexProgress >= 0.6 {
+            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * prallexProgress
         }
         
-        if parallaxHeader.progress <= 0.5 {
+        if prallexProgress <= 0.5 {
             
             self.topNavView.animateBackView(isHidden: false)
-
+            
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                printDebug(parallaxHeader.progress)
+                printDebug(prallexProgress)
                 
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
@@ -388,6 +391,18 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.doInitialSetup()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
     }
 }
 

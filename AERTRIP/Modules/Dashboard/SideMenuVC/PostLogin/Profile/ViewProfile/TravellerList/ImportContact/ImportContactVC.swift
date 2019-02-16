@@ -247,6 +247,12 @@ extension ImportContactVC: ImportContactVMDelegate {
 
     }
     
+    private func scrollCollectionToEnd() {
+        let newOffsetX = self.selectedContactsCollectionView.contentSize.width - self.selectedContactsCollectionView.width
+        guard newOffsetX > 0 else {return}
+        
+        self.selectedContactsCollectionView.setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: true)
+    }
     
     func add(for usingFor: ContactListVC.UsingFor) {
         self.selectionDidChanged()
@@ -264,7 +270,9 @@ extension ImportContactVC: ImportContactVMDelegate {
         self.selectedContactsCollectionView.performBatchUpdates({
             self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
             self.itemsCounts[usingFor.rawValue] += 1
-        }, completion: nil)
+        }, completion: { (isDone) in
+                self.scrollCollectionToEnd()
+        })
     }
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
@@ -377,12 +385,6 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let myCell = cell as? SelectedContactCollectionCell {
-            myCell.animateContent(isHidden: false, animated: true)
-        }
     }
 }
 

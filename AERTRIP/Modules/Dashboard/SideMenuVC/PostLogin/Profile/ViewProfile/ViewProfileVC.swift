@@ -114,7 +114,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -267,21 +267,23 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) 
-    {
-        printDebug("progress \(parallaxHeader.progress)")
+    func updateForParallexProgress() {
         
-        if parallaxHeader.progress >= 0.6 {
-            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * parallaxHeader.progress
+        let prallexProgress = self.tableView.parallaxHeader.progress
+        
+        printDebug("progress %f \(prallexProgress)")
+        
+        if prallexProgress >= 0.6 {
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * prallexProgress
         }
         
-        if parallaxHeader.progress <= 0.5 {
+        if prallexProgress <= 0.5 {
             self.topNavView.animateBackView(isHidden: false)
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                printDebug(parallaxHeader.progress)
+                printDebug(prallexProgress)
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
@@ -293,6 +295,18 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
     }
 }
 

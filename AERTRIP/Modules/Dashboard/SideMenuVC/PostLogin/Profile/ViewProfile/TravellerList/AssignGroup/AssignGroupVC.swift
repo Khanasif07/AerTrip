@@ -94,7 +94,7 @@ class AssignGroupVC: BaseVC {
     }
     
     func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100.0))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 100.0))
         customView.backgroundColor = AppColors.themeWhite
         
         tableView.tableFooterView = customView

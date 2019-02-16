@@ -35,7 +35,27 @@ class CreateYourAccountVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.initialSetups()
+    }
+    
+    override func initialSetup() {
+        
+        self.setupInitialAnimation()
+        self.setupViewDidLoadAnimation()
+        
+        self.topNavBar.configureNavBar(title: "", isDivider: false)
+        topNavBar.leftButton.isHidden = true
+        topNavBar.delegate = self
+        
+        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
+        
+        self.view.backgroundColor = AppColors.screensBackground.color
+        self.registerButton.isEnabled = false
+        self.emailTextField.delegate  = self
+        self.emailTextField.text = self.viewModel.email
+        self.emailTextField.autocorrectionType = .no
+        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+        self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
+        self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,27 +131,6 @@ class CreateYourAccountVC: BaseVC {
 //MARK:- Extension Initialsetups
 //MARK:-
 private extension CreateYourAccountVC {
-    
-    func initialSetups() {
-
-        self.topNavBar.configureNavBar(title: "", isDivider: false)
-        topNavBar.leftButton.isHidden = true
-        topNavBar.delegate = self
-        
-        AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
-        
-        self.view.backgroundColor = AppColors.screensBackground.color
-        self.registerButton.isEnabled = false
-        self.emailTextField.delegate  = self
-        self.emailTextField.text = self.viewModel.email
-        self.emailTextField.autocorrectionType = .no
-        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
-        self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
-        self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        
-        self.setupInitialAnimation()
-        self.setupViewDidLoadAnimation()
-    }
     
     func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
         
@@ -218,11 +217,11 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
     
     func setupInitialAnimation() {
         
-        self.headerImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.headerTitleLabel.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.emailTextField.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.registerButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.privacyPolicyLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.headerImage.transform         = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.headerTitleLabel.transform  = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.emailTextField.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.registerButton.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.privacyPolicyLabel.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
     }
     
     func setupViewDidLoadAnimation() {
@@ -232,10 +231,9 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.headerImage.transform          = .identity
-                self.topNavBar.leftButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.4), relativeDuration: (rDuration * 2.0), animations: {
                 self.headerTitleLabel.transform      = .identity
             })
             
@@ -246,6 +244,7 @@ extension CreateYourAccountVC: SFSafariViewControllerDelegate {
             })
             
         }) { (success) in
+            self.topNavBar.leftButton.isHidden = false
             self.emailTextField.becomeFirstResponder()
             self.viewModel.isFirstTime = false
         }

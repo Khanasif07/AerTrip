@@ -344,14 +344,14 @@ extension SecureYourAccountVC {
     
     func setupInitialAnimation() {
         
-        self.headerImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.secureAccountLabel.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.setPasswordLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.passwordConditionLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.passwordTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.validationStackView.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.nextButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.showPasswordButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.headerImage.transform         = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.secureAccountLabel.transform   = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.setPasswordLabel.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.passwordConditionLabel.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.passwordTextField.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.validationStackView.transform   = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.nextButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.showPasswordButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
     }
     
     func setupViewDidLoadAnimation() {

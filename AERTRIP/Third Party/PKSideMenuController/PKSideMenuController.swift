@@ -391,7 +391,7 @@ extension PKSideMenuController {
             layerTemp.transform = tScale
             layerTemp.transform = CATransform3DConcat(tRotate, tScale)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
-            self.mainContainer!.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.mainContainer!.frame = CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: UIScreen.main.bounds.height)
             
             self.menuContainer?.transform = CGAffineTransform.identity
 

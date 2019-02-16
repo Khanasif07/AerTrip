@@ -54,6 +54,21 @@ class SlideMenuProfileImageHeaderView: UIView {
         // self.backgroundImageView.frame = self.bounds
     }
     
+    private func addTapGesture() {
+        
+//        var tapView = profileContainerView
+////        if let superView = self.superview, superView.width < (UIDevice.screenHeight*0.6) {
+////            tapView = superView
+////        }
+//        if let superView = tapView?.superview {
+//            tapView = superView
+//        }
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(singleTap)
+        self.backgroundColor = .red
+    }
+    
     // Action
     @objc func profileImageClicked() {
         delegate?.profileImageTapped()
@@ -62,15 +77,15 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupDefaultData()
-
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
-        profileContainerView.isUserInteractionEnabled = true
-        profileContainerView.addGestureRecognizer(singleTap)
         
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 6.0
         addBlurToImage()
         doInitialSetup()
+        
+//        delay(seconds: 0.3) { [weak self] in
+            self.addTapGesture()
+//        }
     }
 
     func addBlurToImage() {

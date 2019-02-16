@@ -729,7 +729,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60))
         customView.backgroundColor = AppColors.themeGray04
         
         tableView.tableFooterView = customView

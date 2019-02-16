@@ -277,7 +277,7 @@ class TravellerListVC: BaseVC {
     
     
     func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
         customView.backgroundColor = AppColors.themeWhite
         
         tableView.tableFooterView = customView
@@ -435,7 +435,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         
 //        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.contentView.backgroundColor = AppColors.themeWhite
 //        cell?.backgroundColor = AppColors.themeWhite
     }
     
@@ -449,10 +448,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
 //        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.contentView.backgroundColor = AppColors.themeWhite
 //        cell?.backgroundColor = AppColors.themeWhite
     }
-//
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         printDebug("content scroll offset \(scrollView.contentOffset.y)")
         headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0

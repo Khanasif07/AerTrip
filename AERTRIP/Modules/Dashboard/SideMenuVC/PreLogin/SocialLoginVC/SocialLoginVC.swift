@@ -231,9 +231,9 @@ extension SocialLoginVC: SocialLoginVMDelegate {
 extension SocialLoginVC {
 
     func kickContentOutToScreen() {
-        self.fbButton.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.googleButton.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.linkedInButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.fbButton.transform          = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.googleButton.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.linkedInButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.newRegistrationContainerView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
@@ -282,7 +282,7 @@ extension SocialLoginVC {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.newRegistrationContainerView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-                self.linkedInButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.linkedInButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
                 self.linkedInButton.alpha = 0.0
             })
             
@@ -291,12 +291,12 @@ extension SocialLoginVC {
             }
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
-                self.googleButton.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.googleButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
                 self.googleButton.alpha = 0.0
             })
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
-                self.fbButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+                self.fbButton.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
                 self.fbButton.alpha = 0.0
             })
             

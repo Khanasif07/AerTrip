@@ -302,7 +302,7 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = UIDevice.isIPhoneX ? 8.0 : -3.0
+        let valueToBe: CGFloat = 20.0
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         

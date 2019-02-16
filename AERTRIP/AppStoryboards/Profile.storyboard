@@ -320,7 +320,6 @@
                         <viewLayoutGuide key="safeArea" id="cqR-sc-79e"/>
                     </view>
                     <connections>
-                        <outlet property="headerViewHeightConstraint" destination="SiJ-Al-J1d" id="v8O-Ur-EDn"/>
                         <outlet property="tableView" destination="if8-RQ-AKh" id="RgC-d9-Q56"/>
                         <outlet property="topNavView" destination="pmu-gY-Hco" id="oC6-gF-lk9"/>
                     </connections>

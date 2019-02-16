@@ -83,10 +83,10 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
         
         if self.hotels.count > 1 {
             
-            return CGSize(width: (UIScreen.main.bounds.width - 26)/1.3, height: self.hotelCollectionView.height)
+            return CGSize(width: (UIDevice.screenWidth - 26)/1.3, height: self.hotelCollectionView.height)
         } else {
             
-            return CGSize(width: UIScreen.main.bounds.width - 16, height: self.hotelCollectionView.height)
+            return CGSize(width: UIDevice.screenWidth - 16, height: self.hotelCollectionView.height)
         }
     }
     

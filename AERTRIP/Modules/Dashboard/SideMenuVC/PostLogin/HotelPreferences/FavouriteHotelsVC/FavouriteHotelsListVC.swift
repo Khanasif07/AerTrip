@@ -102,7 +102,7 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1 {
-            let height = indexPath.item == 0 ? 50.0 : 10.0
+            let height = indexPath.item == 0 ? 70.0 : 20.0
             return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
         }
         else {

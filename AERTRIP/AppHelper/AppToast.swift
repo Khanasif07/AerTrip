@@ -48,14 +48,14 @@ struct AppToast {
     private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double) {
         
         vc.view.addSubview(ob)
-        ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+        ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + UIApplication.shared.statusBarFrame.height) , width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + UIApplication.shared.statusBarFrame.height) , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         }
         
         delay(seconds: duration) {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width - 20, height: CGFloat(height))
+                ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height, width: UIDevice.screenWidth - 20, height: CGFloat(height))
             }) { (success) in
                 
                 AppToast.isPreviousView = false

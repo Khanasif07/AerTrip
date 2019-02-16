@@ -33,7 +33,7 @@ extension AppFonts{
     
     func withSize(_ fontSize: CGFloat) -> UIFont {
 
-        switch UIScreen.main.bounds.width {
+        switch UIDevice.screenWidth {
             
         case let x where x < 321 :
             // For iPhone  5, 5s, 5c i.e. 320

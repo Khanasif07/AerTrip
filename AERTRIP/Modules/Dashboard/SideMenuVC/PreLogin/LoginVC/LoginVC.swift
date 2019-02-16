@@ -224,13 +224,13 @@ extension LoginVC {
     
     func setupInitialAnimation() {
         
-        self.topImage.transform          = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.welcomeLabel.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.emailTextField.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.passwordTextField.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.showPasswordButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.loginButton.transform       = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.forgotPasswordButton.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.topImage.transform          = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.welcomeLabel.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.emailTextField.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.passwordTextField.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.showPasswordButton.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.loginButton.transform       = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.forgotPasswordButton.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
     }
     
     func setupViewDidLoadAnimation() {

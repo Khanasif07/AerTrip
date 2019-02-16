@@ -97,10 +97,12 @@ class SearchFavouriteHotelsVC: BaseVC {
     }
     
     private func startLoading() {
+        self.searchBar.isUserInteractionEnabled = false
         indicatorView.isHidden = false
     }
     
     private func stopLoading() {
+        self.searchBar.isUserInteractionEnabled = true
         indicatorView.isHidden = true
     }
     

@@ -225,9 +225,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 self.viewModel.selectedPhoneContacts.append(self.viewModel.phoneContacts[indexPath.row])
                 self.viewModel.add(for: .contacts)
-                if self.viewModel.selectedPhoneContacts.count >= self.viewModel.phoneContacts.count {
-                    self.selectAllButtonAction(self.selectAllButton)
-                }
+                self.selectAllButton.isSelected = self.viewModel.selectedPhoneContacts.count >= self.viewModel.phoneContacts.count
             }
         }
         else if self.currentlyUsingFor == .facebook {
@@ -241,9 +239,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 self.viewModel.selectedFacebookContacts.append(self.viewModel.facebookContacts[indexPath.row])
                 self.viewModel.add(for: .facebook)
-                if self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookContacts.count {
-                    self.selectAllButtonAction(self.selectAllButton)
-                }
+                self.selectAllButton.isSelected = self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookContacts.count
             }
         }
         else if self.currentlyUsingFor == .google {
@@ -257,9 +253,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 self.viewModel.selectedGoogleContacts.append(self.viewModel.googleContacts[indexPath.row])
                 self.viewModel.add(for: .google)
-                if self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleContacts.count {
-                    self.selectAllButtonAction(self.selectAllButton)
-                }
+                self.selectAllButton.isSelected = self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleContacts.count
             }
         }
     }

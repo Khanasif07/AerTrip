@@ -24,6 +24,7 @@ struct ATContact {
     var firstName: String
     var lastName: String
     var image: String
+    var imageData: Data?
     var contact: String
     var email: String
     var emailLabel: String
@@ -107,9 +108,7 @@ struct ATContact {
                 }
             }
             
-            if let imgData = obj.imageData {
-                contact.image = AppGlobals.shared.saveImage(data: imgData)
-            }
+            contact.imageData = obj.imageData
             
             temp.append(contact)
         }

@@ -172,7 +172,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.DisplayOrder:
             return order.count + 2
         case LocalizedString.Groups:
-//            return viewModel.groups.count + 1
              return viewModel.groups.count
         default:
             return 1
@@ -180,11 +179,12 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let orderCell = tableView.dequeueReusableCell(withIdentifier: orderCellIdentifier, for: indexPath) as? OrderTableViewCell else {
-            fatalError("OrderTableViewCell not found")
-        }
+
         switch sections[indexPath.section] {
         case LocalizedString.SortOrder:
+            guard let orderCell = tableView.dequeueReusableCell(withIdentifier: orderCellIdentifier, for: indexPath) as? OrderTableViewCell else {
+                fatalError("OrderTableViewCell not found")
+            }
             orderCell.titleLabel.text = order[indexPath.row].rawValue
             orderCell.checkIconImageView.isHidden = true
             if viewModel.sortOrder == "FL", indexPath.row == 0 {
@@ -192,10 +192,13 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             } else if viewModel.sortOrder == "LF", indexPath.row == 1 {
                 orderCell.checkIconImageView.isHidden = false
             }
-            orderCell.separatorView.isHidden = indexPath.row == 1 ? true : false
+            orderCell.separatorView.isHidden = indexPath.row == (order.count-1)
             return orderCell
         case LocalizedString.DisplayOrder:
             if indexPath.row < 2 {
+                guard let orderCell = tableView.dequeueReusableCell(withIdentifier: orderCellIdentifier, for: indexPath) as? OrderTableViewCell else {
+                    fatalError("OrderTableViewCell not found")
+                }
                 orderCell.titleLabel.text = order[indexPath.row].rawValue
                 orderCell.checkIconImageView.isHidden = true
                 if viewModel.displayOrder == "FL", indexPath.row == 0 {
@@ -203,7 +206,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 } else if viewModel.displayOrder == "LF", indexPath.row == 1 {
                     orderCell.checkIconImageView.isHidden = false
                 }
-                orderCell.separatorView.isHidden = indexPath.row == 1 ? true : false
+                orderCell.separatorView.isHidden = indexPath.row == (order.count-1)
                 return orderCell
             } else if indexPath.row == 2 {
                 guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyTableViewCell else {
@@ -221,15 +224,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
-            
-//            if indexPath.row == viewModel.groups.count {
-////                guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
-////                    fatalError("TableViewAddActionCell not found")
-////                }
-////                cell.cellBackgroundView.backgroundColor = UIColor.white
-////                cell.configureCell(LocalizedString.AddNewGroup.localized)
-////                return cell
-//            } else {
                 guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
                     fatalError("GroupTableViewCell not found")
                 }
@@ -246,17 +240,12 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//       switch sections[indexPath.section] {
-//        case LocalizedString.DisplayOrder:
-//            if indexPath.row == 2 {
-//                return 35
-//            }
-//        default:
-//            return 44.0
-//        }
-//        return 44.0
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1, indexPath.row == 2 {
+            return 35.0
+        }
+        return 44.0
+    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60.0

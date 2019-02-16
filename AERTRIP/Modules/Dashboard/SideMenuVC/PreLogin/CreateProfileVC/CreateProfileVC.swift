@@ -412,20 +412,20 @@ extension CreateProfileVC {
     
     func setupInitialAnimation() {
         
-        self.logoImage.transform         = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.createProfileTitleLabel.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.createProfileSubTitleLabel.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.nameTitleTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.firstNameTextField.transform      = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.lastNameTextField.transform   = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.countryTextField.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.mobileNumberTextField.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.letsStartedButton.transform    = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.countryCodeTextField.transform  = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.countryCodeLabel.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.countryFlagImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.titleDropDownImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        self.countryDropdownImage.transform     = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+        self.logoImage.transform         = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.createProfileTitleLabel.transform   = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.createProfileSubTitleLabel.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.nameTitleTextField.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.firstNameTextField.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.lastNameTextField.transform   = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.countryTextField.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.mobileNumberTextField.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.letsStartedButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.countryCodeTextField.transform  = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.countryCodeLabel.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.countryFlagImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.titleDropDownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.countryDropdownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
     }
     
     func setupViewDidLoadAnimation() {
@@ -437,7 +437,7 @@ extension CreateProfileVC {
                 self.logoImage.transform          = .identity
             })
             
-            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.1), relativeDuration: (rDuration * 2.0), animations: {
                 self.createProfileTitleLabel.transform      = .identity
                 self.createProfileSubTitleLabel.transform      = .identity
                 self.nameTitleTextField.transform      = .identity

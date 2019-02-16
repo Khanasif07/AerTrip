@@ -46,13 +46,12 @@ class SideMenuVC: BaseVC {
     // MARK: -
     
     @IBOutlet var sideMenuTableView: ATTableView!
+    @IBOutlet var socialOptionView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        self.initialSetups()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +83,14 @@ class SideMenuVC: BaseVC {
                 self.profileSuperView.addSubview(self.profileContainerView)
             }
         }
+    }
+    
+    override func initialSetup() {
+        self.view.backgroundColor = AppColors.screensBackground.color
+        
+        self.socialOptionView.frame = CGRect(x: 0.0, y: 0.0, width: self.sideMenuTableView.width, height: (75.0))
+        self.sideMenuTableView.tableFooterView = self.socialOptionView
+        self.registerXibs()
     }
     
     @objc func profileTapped() {
@@ -184,10 +191,6 @@ extension SideMenuVC: SlideMenuProfileImageHeaderViewDelegate {
 }
 
 private extension SideMenuVC {
-    func initialSetups() {
-        self.view.backgroundColor = AppColors.screensBackground.color
-        self.registerXibs()
-    }
     
     func registerXibs() {
         self.sideMenuTableView.register(UINib(nibName: "SideMenuOptionsLabelCell", bundle: nil), forCellReuseIdentifier: "SideMenuOptionsLabelCell")
@@ -279,7 +282,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             if let _ = UserInfo.loggedInUserId {
                 cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
                 
-                if indexPath.row == 5 {
+                if indexPath.row == 6 {
                     cell.sepratorView.isHidden = false
                 }
                 
@@ -290,6 +293,14 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
+    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 75.0 //+ AppFlowManager.default.safeAreaInsets.bottom
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return self.socialOptionView
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 5 {
@@ -304,7 +315,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
             
         case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : 60.03
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : 70.03
             
         default:
             return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7

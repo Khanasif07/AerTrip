@@ -20,14 +20,17 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zul-2R-w6l" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="283" height="0.5"/>
+                        <rect key="frame" x="0.0" y="4" width="283" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="lVz-HB-G2f"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBC-qf-0wx">
-                        <rect key="frame" x="20" y="17" width="243" height="21"/>
+                        <rect key="frame" x="20" y="4.5" width="243" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="1Re-mU-x8B"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,12 +47,12 @@
             <constraints>
                 <constraint firstItem="zul-2R-w6l" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3mm-lR-zaY"/>
                 <constraint firstItem="BBC-qf-0wx" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="20" id="7Wk-gO-kOH"/>
-                <constraint firstItem="zul-2R-w6l" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Au8-za-8b6"/>
                 <constraint firstAttribute="bottom" secondItem="npn-FB-5ab" secondAttribute="bottom" id="Frd-RI-Z2A"/>
+                <constraint firstItem="npn-FB-5ab" firstAttribute="top" secondItem="BBC-qf-0wx" secondAttribute="bottom" id="Gut-Gi-b32"/>
+                <constraint firstItem="BBC-qf-0wx" firstAttribute="top" secondItem="zul-2R-w6l" secondAttribute="bottom" id="IcC-J2-IQg"/>
                 <constraint firstAttribute="trailing" secondItem="zul-2R-w6l" secondAttribute="trailing" id="J66-yL-lGE"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="BBC-qf-0wx" secondAttribute="trailing" constant="20" id="NZT-8q-Qna"/>
                 <constraint firstItem="npn-FB-5ab" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Rlt-Ye-3bs"/>
-                <constraint firstItem="BBC-qf-0wx" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="qes-z8-8SB"/>
                 <constraint firstAttribute="trailing" secondItem="npn-FB-5ab" secondAttribute="trailing" id="rxK-UN-VHo"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
