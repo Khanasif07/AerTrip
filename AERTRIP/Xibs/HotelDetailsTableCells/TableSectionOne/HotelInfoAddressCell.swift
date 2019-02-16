@@ -12,8 +12,6 @@ class HotelInfoAddressCell: UITableViewCell {
     
     //Mark:- Variables
     //================
-    let address = "Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087"
-    let overview = "With a stay at Le Sutra, you'll be centrally located in Mumbai, convenient to Lilavati Hospital and Mt. Mary Church. This spacing"
     
     //Mark:- IBOutlets
     //================
@@ -66,26 +64,26 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     ///AttributeLabelSetup
-    private func attributeLabelSetUp() {
+    private func attributeLabelSetUp(overview: String) {
         let attributedString = NSMutableAttributedString()
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let blackAttributedString = NSAttributedString(string: self.overview, attributes: blackAttribute)
+        let blackAttributedString = NSAttributedString(string: overview, attributes: blackAttribute)
         attributedString.append(blackAttributedString)
         self.addressInfoTextView.attributedText = attributedString
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() == 3 ) ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() >= 3 ) ? false : true
     }
 
     
-    internal func configureAddressCell() {
+    internal func configureAddressCell(hotelData: HotelDetails) {
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
-        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
-    internal func configureOverviewCell() {
+    internal func configureOverviewCell(hotelData: HotelDetails) {
         //self.infoTextViewTrailingConstraint.constant = -self.moreBtnOutlet.frame.origin.y
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
-        self.attributeLabelSetUp()
+        self.attributeLabelSetUp(overview: hotelData.info)
     }
     
     

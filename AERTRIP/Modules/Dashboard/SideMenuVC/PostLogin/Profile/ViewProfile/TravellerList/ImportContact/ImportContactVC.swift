@@ -237,7 +237,7 @@ extension ImportContactVC: UISearchBarDelegate {
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
     func contactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.", vc: self)
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
     }
     
     func contactSavedSuccess() {
@@ -245,7 +245,7 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func phoneContactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.", vc: self)
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
     }
     
     func willFetchPhoneContacts() {

@@ -490,19 +490,17 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
         self.searchBtnOutlet.isLoading = false
     }
     
-    func getAllHotelsOnPreferenceResultSuccess() {
+    func getAllHotelsListResultSuccess() {
         printDebug("data")
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid)
         self.searchBtnOutlet.isLoading = false
     }
     
-    func getAllHotelsOnPreferenceResultFail() {
-        printDebug("getAllHotelsOnPreferenceResultFail")
-         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult)
+    func getAllHotelsListResultFail() {
+        printDebug("getAllHotelsListResultFail")
         self.searchBtnOutlet.isLoading = false
     }
 }

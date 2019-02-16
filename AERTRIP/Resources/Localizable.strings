@@ -364,3 +364,12 @@
 //"Breakfast" = "Breakfast";
 //"Refundable" = "Refundable";
 "hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";
+"Undo" = "Undo";
+"Deleted" = "Deleted";
+"InformationUnavailable" = "Information unavailable";
+"ReloadResults" = "Reload results";
+"main" = "main";
+"basic" = "basic";
+"other" = "other";
+"available" = "available";
+"classType" = "classType";

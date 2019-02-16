@@ -32,7 +32,6 @@ class HotelResultVC: BaseVC {
     @IBOutlet var collectionViewTopConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
-    
     var container: NSPersistentContainer!
     var predicateStr: String = ""
     var time: Float = 0.0
@@ -121,6 +120,7 @@ class HotelResultVC: BaseVC {
         self.titleLabel.textColor = AppColors.themeBlack
         self.descriptionLabel.textColor = AppColors.themeBlack
     }
+    
     
     private func setupParallaxHeader() {
         let parallexHeaderMinHeight = CGFloat(0.0)
@@ -258,7 +258,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        let hData = fetchedResultsController.object(at: indexPath) as? HotelSearched
+        let hData = fetchedResultsController.object(at: indexPath)
         
 //        cell.hotelListData = self.viewModel.hotelListResult[indexPath.row]
         cell.hotelListData = hData
@@ -296,7 +296,12 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let hData = fetchedResultsController.object(at: indexPath)
+        AppFlowManager.default.showHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid)
+//        self.viewModel.vid = "\(hData.vid ?? "")"
+//        self.viewModel.hid = "\(hData.hid ?? "")"
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        headerViewTopConstraint.constant = max(-scrollView.contentOffset.y,100)
@@ -361,3 +366,4 @@ extension HotelResultVC: UISearchBarDelegate {
         }
     }
 }
+

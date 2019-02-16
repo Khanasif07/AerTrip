@@ -558,7 +558,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
             if !text.isEmpty && !text.checkValidity(.Email) {
-                AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: self)
+                AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             }
         default:
             break

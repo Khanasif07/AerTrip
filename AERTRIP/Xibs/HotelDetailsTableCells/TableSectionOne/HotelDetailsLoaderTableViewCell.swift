@@ -12,12 +12,7 @@ class HotelDetailsLoaderTableViewCell: UITableViewCell {
 
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
-        didSet {
-            self.activityIndicator.style = .whiteLarge
-            self.activityIndicator.tintColor = .gray
-        }
-    }
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //Mark:- LifeCycle
     //================

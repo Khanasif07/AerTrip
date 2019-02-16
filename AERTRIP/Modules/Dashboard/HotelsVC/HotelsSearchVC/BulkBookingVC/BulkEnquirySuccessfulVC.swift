@@ -12,12 +12,14 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     //Mark:- Variables
     //================
-    
+    private var bulkLabelBottom: CGFloat = .leastNonzeroMagnitude
+    private var customerLabelBottom: CGFloat = .leastNonzeroMagnitude
+    private var doneBtnBottom: CGFloat = .leastNonzeroMagnitude
     
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var textContainerView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var bulkEnquiryLabel: UILabel!
     @IBOutlet weak var customerServiceLabel: UILabel!
@@ -30,8 +32,11 @@ class BulkEnquirySuccessfulVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
+        self.bulkLabelBottom = self.bulkEnquiryLabel.bottom
+        self.customerLabelBottom = self.customerServiceLabel.bottom
+        self.doneBtnBottom = self.doneBtnOutlet.bottom
         delay(seconds: 0.2) {
             self.setupViewForSuccessAnimation()
         }
@@ -61,8 +66,16 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        self.headerView.cornerRadius = 15.0
-        self.headerView.layer.masksToBounds = true
+        //self.headerView.cornerRadius = 15.0
+        self.containerView.roundCornersByClipsToBounds(cornerRadius: 15.0)
+        self.bulkEnquiryLabel.alpha = 0.0
+        self.customerServiceLabel.alpha = 0.0
+        self.doneBtnOutlet.alpha = 0.0
+        //        self.headerView.layer.masksToBounds = true
+        self.bulkEnquiryLabel.isHidden = true
+        self.customerServiceLabel.isHidden = true
+        self.doneBtnOutlet.isHidden = true
+        
     }
     //Mark:- Methods
     //==============
@@ -81,7 +94,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     ///SetUpViewForSuccess
     private func setupViewForSuccessAnimation() {
         self.searchBtnOutlet.setTitle(nil, for: .normal)
-        self.searchBtnOutlet.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+        self.searchBtnOutlet.setImage(nil, for: .normal)
         let reScaleFrame = CGRect(x: (self.containerView.width - 74.0) / 2.0, y: self.searchBtnOutlet.y, width: 74.0, height: 74.0)
         self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         
@@ -97,36 +110,77 @@ class BulkEnquirySuccessfulVC: BaseVC {
             
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
-            let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + 26.0 + self.view.safeAreaInsets.bottom
-            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y - yPerSafeArea
+            let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + self.view.safeAreaInsets.bottom //+ 26.0
+            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY )
-            
             UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
                 self.searchBtnOutlet.transform = t
                 self.containerView.alpha = 1.0
-            }, completion: nil)
+            }) { (isCompleted) in
+                self.bulkEnquiryLabel.bottom = self.searchBtnOutlet.bottom + 26.0
+                self.customerServiceLabel.bottom = self.bulkEnquiryLabel.bottom + 16.0
+                self.doneBtnOutlet.bottom = self.customerServiceLabel.bottom + 120.0
+                self.animatingCheckMark()
+                delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
+                    self.finalTransFormation(tY: tY - yPerSafeArea)
+                })
+            }
         }
     }
     
-    private func finalTransFormation(reScaleFrame: CGRect) {
+    private func finalTransFormation(tY: CGFloat) {
         
-        let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: reScaleFrame.origin.y, width: 62.0, height: 62.0)
-        
-        UIView.animateKeyframes(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), delay: 0.0, options: .calculationModeCubic, animations: {
-            
-            self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
-            let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + 26.0 + self.view.safeAreaInsets.bottom
-            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y - yPerSafeArea
-            var t = CGAffineTransform.identity
-            t = t.translatedBy(x: 0.0, y: tY )
-            
-            UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
-                self.searchBtnOutlet.transform = t
-                self.containerView.alpha = 1.0
-            }, completion: nil)
-            
+        let newReScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
+        var t = CGAffineTransform.identity
+        t = t.translatedBy(x: 0.0, y: tY )
+        self.bulkEnquiryLabel.isHidden = false
+        self.customerServiceLabel.isHidden = false
+        self.doneBtnOutlet.isHidden = false
+        UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+            self.searchBtnOutlet.frame = newReScaleFrame
+            self.searchBtnOutlet.myCornerRadius = newReScaleFrame.height / 2.0
+            self.searchBtnOutlet.transform = t
+            self.bulkEnquiryLabel.bottom = self.bulkLabelBottom
+            self.customerServiceLabel.bottom = self.customerLabelBottom
+            self.doneBtnOutlet.bottom = self.doneBtnBottom
+            self.bulkEnquiryLabel.alpha = 1.0
+            self.customerServiceLabel.alpha = 1.0
+            self.doneBtnOutlet.alpha = 1.0
+            self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    private func animatingCheckMark() {
+        
+        // Scaling
+        let frame = self.searchBtnOutlet.frame
+        let scale = frame.width / 100
+        let centerX = frame.size.width / 2
+        let centerY = frame.size.height / 2
+        let sixOclock = CGFloat(Double.pi / 2)
+        
+        // Check mark
+        let checkmarkPath = UIBezierPath(arcCenter: CGPoint(x: centerX, y: centerY), radius: centerX, startAngle:  sixOclock, endAngle: sixOclock * 5, clockwise: false)
+        checkmarkPath.move(to: CGPoint(x: centerX - 23 * scale, y: centerY - 1 * scale))
+        checkmarkPath.addLine(to: CGPoint(x: centerX - 6 * scale, y: centerY + 15.9 * scale))
+        checkmarkPath.addLine(to: CGPoint(x: centerX + 22.8 * scale, y: centerY - 13.4 * scale))
+        
+        // Shape layer for Check mark path
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.fillColor = AppColors.clear.cgColor
+        shapeLayer.strokeColor = AppColors.themeWhite.cgColor
+        shapeLayer.lineWidth = 4
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.path = checkmarkPath.cgPath
+        
+        // Animation
+        self.searchBtnOutlet.layer.addSublayer(shapeLayer)
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.duration = AppConstants.kAnimationDuration
+        shapeLayer.add(animation, forKey: "MyAnimation")
     }
     
     //Mark:- IBActions

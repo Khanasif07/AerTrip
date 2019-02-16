@@ -18,16 +18,19 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     //================
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var hotelImageView: UIImageView!
-    @IBOutlet weak var gradientView: UIView!
     
     
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.bgView.roundCornersByClipsToBounds(cornerRadius: 10.0)
     }
     
     //Mark:- Methods
     //==============
+    internal func configCell(imgUrl: String) {
+        self.hotelImageView.setImageWithUrl(imgUrl, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: true)
+    }
     
 }

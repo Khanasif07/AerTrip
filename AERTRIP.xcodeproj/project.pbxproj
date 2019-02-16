@@ -147,6 +147,9 @@
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		8402210C2202E23A00A95CAA /* UITapGestureRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402210B2202E23A00A95CAA /* UITapGestureRecogniser.swift */; };
+		840404FC2215A94C00FCE19E /* HotelDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840404FB2215A94C00FCE19E /* HotelDetailsVM.swift */; };
+		840404FE2215AF5500FCE19E /* APICaller+HotelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840404FD2215AF5500FCE19E /* APICaller+HotelInfo.swift */; };
+		840405002215D91A00FCE19E /* HotelDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840404FF2215D91A00FCE19E /* HotelDetails.swift */; };
 		84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */; };
 		84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */; };
 		84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085C6F21F59C0C00F1E844 /* BaseTabBarController.swift */; };
@@ -506,6 +509,9 @@
 		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		8402210B2202E23A00A95CAA /* UITapGestureRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecogniser.swift; sourceTree = "<group>"; };
+		840404FB2215A94C00FCE19E /* HotelDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsVM.swift; sourceTree = "<group>"; };
+		840404FD2215AF5500FCE19E /* APICaller+HotelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+HotelInfo.swift"; sourceTree = "<group>"; };
+		840404FF2215D91A00FCE19E /* HotelDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetails.swift; sourceTree = "<group>"; };
 		84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
 		84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNavigationTransition.swift; sourceTree = "<group>"; };
 		84085C6F21F59C0C00F1E844 /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
@@ -1415,6 +1421,8 @@
 			children = (
 				840DDE87220D735A00F8BA92 /* HotelDetailsVC.swift */,
 				84BF46B62211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift */,
+				840404FB2215A94C00FCE19E /* HotelDetailsVM.swift */,
+				840404FF2215D91A00FCE19E /* HotelDetails.swift */,
 			);
 			path = HotelDetailsVC;
 			sourceTree = "<group>";
@@ -1442,7 +1450,6 @@
 			children = (
 				841DD1D42202DC680055FEBB /* RoomGuestSelectionVC */,
 				841DD1D72202DC680055FEBB /* HotelsSearchVC.swift */,
-				1871B671220823E30066636E /* ATGuestButton.swift */,
 				1871B673220823F00066636E /* HotelsSearchVM.swift */,
 				841DD1D82202DC680055FEBB /* SelectDestinationVC */,
 				841DD1DE2202DC690055FEBB /* BulkBookingVC */,
@@ -1462,8 +1469,8 @@
 		841DD1D82202DC680055FEBB /* SelectDestinationVC */ = {
 			isa = PBXGroup;
 			children = (
-				841DD1D92202DC680055FEBB /* SelectDestinationVM.swift */,
 				841DD1DA2202DC690055FEBB /* Cells */,
+				841DD1D92202DC680055FEBB /* SelectDestinationVM.swift */,
 				841DD1DD2202DC690055FEBB /* SelectDestinationVC.swift */,
 			);
 			path = SelectDestinationVC;
@@ -1483,6 +1490,7 @@
 			children = (
 				841DD1DF2202DC690055FEBB /* BulkBookingVM.swift */,
 				841DD1E02202DC690055FEBB /* BulkBookingVC.swift */,
+				1871B671220823E30066636E /* ATGuestButton.swift */,
 				84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */,
 				8480683422099CC800CBF362 /* BulkRoomSelectionVM.swift */,
 				84DD0D1C220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift */,
@@ -1860,6 +1868,7 @@
 				18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */,
 				18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */,
 				843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */,
+				840404FD2215AF5500FCE19E /* APICaller+HotelInfo.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -2263,6 +2272,7 @@
 				84085CFF21F59C0E00F1E844 /* ViewAllHotelsVM.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
 				848F1A5A220326ED002BDA39 /* HotelResultVC.swift in Sources */,
+				840404FE2215AF5500FCE19E /* APICaller+HotelInfo.swift in Sources */,
 				18FA223021EC7C7C0024B91E /* AssignGroupTableViewCell.swift in Sources */,
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
@@ -2344,6 +2354,7 @@
 				84FFDFAF21F9F67B005CA257 /* ATPageContainerView.swift in Sources */,
 				1870AD19220C769400FB32C8 /* AccountModel.swift in Sources */,
 				18999D9621E4A69000E66072 /* EmptyTableViewCell.swift in Sources */,
+				840404FC2215A94C00FCE19E /* HotelDetailsVM.swift in Sources */,
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* ViewAllHotelsVC.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
@@ -2453,6 +2464,7 @@
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
 				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
+				840405002215D91A00FCE19E /* HotelDetails.swift in Sources */,
 				84085D0121F59C0E00F1E844 /* HotelSearchVM.swift in Sources */,
 				1804889121CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift in Sources */,
 				84085D0421F59C0E00F1E844 /* EditProfileVC+DelegateMethods.swift in Sources */,
