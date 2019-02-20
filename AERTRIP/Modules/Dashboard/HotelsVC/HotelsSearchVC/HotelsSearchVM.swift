@@ -93,6 +93,8 @@ class HotelsSearchVM: NSObject{
         APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels) in
             guard let sSelf = self else {return}
             if success {
+                CoreDataManager.shared.deleteCompleteDB()
+                
                 sSelf.hotelListResult = hotels
                 for hotel in hotels {
                    _ =  HotelSearched.insert(dataDict: hotel.jsonDict)

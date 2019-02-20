@@ -138,6 +138,9 @@ extension APICaller {
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotels = response["results"] as? [JSONDictionary] {
                     let hotelsInfo = HotelsSearched.models(jsonArr: hotels)
+                    let filters = response["filters"] as? JSONDictionary
+                    HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
+                    HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
                     completionBlock(true, [], hotelsInfo)
                 }
                 else {

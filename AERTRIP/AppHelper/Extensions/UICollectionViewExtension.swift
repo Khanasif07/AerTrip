@@ -106,5 +106,6 @@ extension UICollectionView {
         let cellPosition: CGPoint = cell.convert(CGPoint.zero, to: self)
         return self.indexPathForItem(at: cellPosition)
     }
+    
 }
 

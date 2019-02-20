@@ -59,16 +59,18 @@ public class HotelSearched: NSManagedObject {
             let distance = Double(obj)?.roundTo(places: 2) ?? 0.0
             hotelSearched!.distance = distance
             switch distance {
-            case 2...4 :
-                hotelSearched?.sectionTitle = "a2 to 4"
-            case 5...10:
-                hotelSearched?.sectionTitle = "b5 to 10"
-            case 11...15:
-                hotelSearched?.sectionTitle = "c11 to 15"
-            case 16...20:
-                hotelSearched?.sectionTitle = "d16 to 20"
+            case 0..<2:
+                 hotelSearched?.sectionTitle = "a0 to 2"
+            case 2..<5 :
+                hotelSearched?.sectionTitle = "b2 to 4"
+            case 5..<10:
+                hotelSearched?.sectionTitle = "c5 to 10"
+            case 10..<15:
+                hotelSearched?.sectionTitle = "d11 to 15"
+            case 15..<20:
+                hotelSearched?.sectionTitle = "e16 to 20"
             default:
-                hotelSearched?.sectionTitle = "e20 above"
+                hotelSearched?.sectionTitle = "f20 above"
             }
         }
         
@@ -116,8 +118,8 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.perNightListPrice = Double(obj) ?? 0.0
         }
         
-        if let obj = dataDict[APIKeys.price.rawValue] as? String {
-            hotelSearched!.price = Double(obj) ?? 0.0
+        if let obj = dataDict[APIKeys.price.rawValue]  {
+            hotelSearched!.price = obj as! Double
         }
         
         if let obj = dataDict[APIKeys.rating.rawValue] {
@@ -150,7 +152,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.vid = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.amentities.rawValue] as? [Int] {
+        if let obj = dataDict[APIKeys.amentities.rawValue] as? [String] {
             hotelSearched!.amentities = obj
         }
         

@@ -279,6 +279,18 @@ extension Double{
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }
+    
+    private static var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter
+    }()
+    
+    var delimiter: String {
+        return Double.numberFormatter.string(from: NSNumber(value: self)) ?? ""
+    }
+    
 }
 
 extension CGFloat{

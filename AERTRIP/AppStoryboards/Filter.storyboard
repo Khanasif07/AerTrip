@@ -610,7 +610,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-KN-MfJ">
-                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
+                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <connections>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="f6o-Wb-79g"/>

@@ -11,6 +11,11 @@ import GoogleMaps
 import MXParallaxHeader
 import UIKit
 
+enum FetchRequestType {
+    case FilterApplied
+    case Searching
+}
+
 class HotelResultVC: BaseVC {
     // MARK: - IBOutlets
     
@@ -37,8 +42,9 @@ class HotelResultVC: BaseVC {
     var predicateStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
+    
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
-        let fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
+        var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
         
@@ -53,6 +59,7 @@ class HotelResultVC: BaseVC {
     }()
     
     let parallexHeaderHeight = CGFloat(200.0)
+    var fetchRequestType: FetchRequestType = .Searching
     
     // MARK: - Public
     
@@ -85,7 +92,6 @@ class HotelResultVC: BaseVC {
         self.setupMapView()
         self.startProgress()
     }
-
     
     // MARK: - Methods
     
@@ -148,7 +154,7 @@ class HotelResultVC: BaseVC {
         self.locManager.startUpdatingLocation()
         mapView.backgroundColor = .red
         
-        //self.header.addSubview(mapView)
+        // self.header.addSubview(mapView)
         self.header.mapImageView.addSubview(mapView)
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
@@ -164,6 +170,7 @@ class HotelResultVC: BaseVC {
     }
     
     private func searchHotels(forText: String) {
+        self.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
         self.loadSaveData()
@@ -206,11 +213,47 @@ class HotelResultVC: BaseVC {
     }
     
     private func loadSaveData() {
-        if self.predicateStr == "" {
-            self.fetchedResultsController.fetchRequest.predicate = nil
+        if self.fetchRequestType == .FilterApplied {
+            let distancePredicate = NSPredicate(format: "distance <= \(HotelFilterVM.shared.distanceRange)")
+            self.fetchedResultsController.fetchRequest.sortDescriptors?.removeAll()
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
+            switch HotelFilterVM.shared.sortUsing {
+            case .BestSellers:
+                self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "bc", ascending: true))
+            case .PriceLowToHigh:
+                self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "price", ascending: true))
+            case .TripAdvisorRatingHighToLow:
+                self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "rating", ascending: false))
+            case .StartRatingHighToLow:
+                self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "star", ascending: false))
+            case .DistanceNearestFirst:
+                self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "distance", ascending: true))
+            }
             
+            let minimumPricePredicate = NSPredicate(format: "price >= \(HotelFilterVM.shared.minimumPrice)")
+//            let maximumPricePredicate = NSPredicate(format: "price <= \(HotelFilterVM.shared.maximumPrice)")
+//
+            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
+            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
+            
+//            let amentitiesPredicate = NSPredicate(format: "amenities CONTAINS %@", HotelFilterVM.shared.amenitites)
+            
+        //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate,starPredicate,tripAdvisorPredicate])
+          //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate])
+            self.fetchedResultsController.fetchRequest.predicate = distancePredicate
         } else {
-            self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
+            if self.predicateStr == "" {
+                self.fetchedResultsController.fetchRequest.predicate = nil
+                
+            } else {
+                self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
+            }
+        }
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            print("Fetch failed")
         }
     }
     
@@ -227,11 +270,10 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        self.header.height = UIDevice.screenHeight
-        self.header.layoutIfNeeded()
-
+//        self.header.height = UIDevice.screenHeight
+//        self.header.layoutIfNeeded()
+        AppFlowManager.default.moveToMapVC()
     }
-    
 }
 
 // MARK: - Collection view datasource and delegate methods
@@ -249,7 +291,6 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             return 0
         }
         let sectionInfo = sections[section]
-        // return self.viewModel.hotelListResult.count
         return sectionInfo.numberOfObjects
     }
     
@@ -258,9 +299,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-        let hData = fetchedResultsController.object(at: indexPath) as? HotelSearched
-        
-//        cell.hotelListData = self.viewModel.hotelListResult[indexPath.row]
+        let hData = fetchedResultsController.object(at: indexPath)
         cell.hotelListData = hData
         
         return cell
@@ -337,7 +376,10 @@ extension HotelResultVC: MXParallaxHeaderDelegate {
 
 extension HotelResultVC: HotelFilteVCDelegate {
     func doneButtonTapped() {
+        self.fetchRequestType = .FilterApplied
         printDebug("done button tapped")
+        self.loadSaveData()
+        self.reloadHotelList()
     }
 }
 
@@ -354,10 +396,15 @@ extension HotelResultVC: CLLocationManagerDelegate {
 extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
+            self.fetchRequestType = .Searching
             self.predicateStr = ""
+            self.loadSaveData()
             self.reloadHotelList()
         } else {
             self.searchHotels(forText: searchText)
         }
     }
 }
+
+
+

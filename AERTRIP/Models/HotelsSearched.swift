@@ -39,6 +39,7 @@ struct HotelsSearched: Codable {
     var per_night_price: String = ""
     var per_night_list_price: String = ""
     var country: String = ""
+    var amenities : [String] = [String]()
     
     init() {
         self.init(json: [:])
@@ -134,7 +135,7 @@ struct HotelsSearched: Codable {
             self.country = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.star.rawValue] as? String {
-            self.rating = Double(obj.removeNull) ?? 0.0
+            self.star = Double(obj.removeNull) ?? 0.0
         }
         if let obj = json[APIKeys.rating.rawValue] as? String {
             self.rating =   Double(obj.removeNull) ?? 0.0
@@ -165,6 +166,9 @@ struct HotelsSearched: Codable {
         }
         if let obj = json[APIKeys.per_night_list_price.rawValue] {
             self.per_night_list_price = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.amentities.rawValue] as? [String] {
+            self.amenities = obj
         }
     }
     

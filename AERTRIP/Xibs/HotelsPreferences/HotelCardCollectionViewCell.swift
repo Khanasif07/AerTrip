@@ -82,7 +82,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
         self.starRatingView.rating = self.hotelListData?.star  ?? 0.0
         self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
-//       self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
+        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
+        self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
             self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)

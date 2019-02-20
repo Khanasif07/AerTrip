@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/HotelFilter/PriceVC.swift"
-            timestampString = "571838371.346174"
+            filePath = "AERTRIP/Modules/HotelResults/HotelMapVC.swift"
+            timestampString = "572277106.160177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "sliderChanged(_:)"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "updateMarker(coordinates:degrees:duration:hid:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/HotelFilter/PriceVC.swift"
-            timestampString = "571838371.346513"
+            filePath = "AERTRIP/Modules/HotelResults/HotelMapVC.swift"
+            timestampString = "572277106.1606801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "sliderChanged(_:)"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "switcherDidChangeValue(switcher:value:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,30 +41,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/HotelFilter/HotelFilterVC.swift"
-            timestampString = "571822248.527769"
+            filePath = "AERTRIP/Modules/HotelResults/HotelMapVC.swift"
+            timestampString = "572277106.161028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "doneButtonTapped(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Xibs/HotelsPreferences/HotelCardCollectionViewCell.swift"
-            timestampString = "571838503.367709"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "populateHotelData()"
-            landmarkType = "7">
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

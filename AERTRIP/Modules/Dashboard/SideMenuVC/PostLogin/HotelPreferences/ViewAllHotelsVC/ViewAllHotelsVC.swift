@@ -78,7 +78,6 @@ class ViewAllHotelsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
         self.setupPagerView()
         self.viewModel.webserviceForGetHotelPreferenceList()
     }
@@ -148,7 +147,7 @@ extension ViewAllHotelsVC: ATCategoryNavBarDelegate {
 
 extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     func willGetHotelPreferenceList() {
-        
+        self.dataContainerView.addSubview(shimmerView)
     }
     
     func getHotelPreferenceListSuccess() {
@@ -157,7 +156,7 @@ extension ViewAllHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func getHotelPreferenceListFail() {
-         self.shimmerView.removeFromSuperview()
+       //  self.shimmerView.removeFromSuperview()
     }
     
     func willUpdateFavourite() {

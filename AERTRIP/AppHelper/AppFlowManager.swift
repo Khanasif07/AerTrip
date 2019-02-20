@@ -331,6 +331,11 @@ extension AppFlowManager {
             hotelResultVC.add(childViewController: ob)
         }
     }
+    
+    func moveToMapVC() {
+        let obj = HotelMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
 }
 
 //MARK: - Pop Methods
