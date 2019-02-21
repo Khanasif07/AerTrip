@@ -287,7 +287,7 @@ class HotelResultVC: BaseVC {
     @IBAction func mapButtonAction(_ sender: Any) {
 //        self.header.height = UIDevice.screenHeight
 //        self.header.layoutIfNeeded()
-        AppFlowManager.default.moveToMapVC(self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel())
+//        AppFlowManager.default.moveToMapVC(self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel())
     }
 }
 
@@ -351,7 +351,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AppFlowManager.default.showHotelDetailsVC()
+      //  AppFlowManager.default.showHotelDetailsVC()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

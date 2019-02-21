@@ -152,7 +152,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.vid = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.amentities.rawValue] as? [String] {
+        if let obj = dataDict[APIKeys.amenities.rawValue] as? [String] {
             hotelSearched!.amentities = obj
         }
         
