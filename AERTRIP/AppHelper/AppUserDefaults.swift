@@ -66,6 +66,7 @@ extension AppUserDefaults {
         AppUserDefaults.save(value: tutorial, forKey: .tutorialDisplayed)
     }
     
+    
 }
 
 
@@ -80,3 +81,6 @@ extension AppUserDefaults {
         case userId
     }
 }
+
+
+
