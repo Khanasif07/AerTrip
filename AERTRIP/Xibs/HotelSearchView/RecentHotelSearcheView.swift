@@ -17,7 +17,14 @@ class RecentHotelSearcheView: UIView {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var recentCollectionView: UICollectionView!
+    @IBOutlet weak var recentCollectionView: UICollectionView! {
+        didSet {
+            self.recentCollectionView.delegate = self
+            self.recentCollectionView.dataSource = self
+            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 0.0)
+        }
+    }
+    @IBOutlet weak var recentSearchLabel: UILabel!
     
     //Mark:- LifeCycle
     //================
@@ -34,7 +41,20 @@ class RecentHotelSearcheView: UIView {
     //Mark:- Function
     //===============
     private func initialSetUp() {
+        //.InitialSetUp
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: "RecentHotelSearcheView", bundle: bundle)
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+        view.frame = bounds
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.addSubview(view)
+        self.configureUI()
         self.registerNib()
+    }
+    
+    private func configureUI() {
+        self.recentSearchLabel.textColor =  AppColors.themeWhite
+        self.recentSearchLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
     private func registerNib() {
@@ -56,4 +76,16 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemSize = CGSize(width: 278.0 , height: collectionView.frame.height)
+        return itemSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0//CGFloat.leastNonzeroMagnitude
+    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 10.0
+//    }
 }

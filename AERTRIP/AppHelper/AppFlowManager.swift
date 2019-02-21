@@ -262,11 +262,11 @@ extension AppFlowManager {
         }
     }
     
-    func moveToHotelsResultVc(_ hotels: [HotelsSearched],_ hotelSearchRequest: HotelSearchRequestModel) {
+    func moveToHotelsResultVc(_ hotels: [HotelsSearched] , sid: String) {
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         self.hotelResultVC = obj
+        obj.viewModel.sid = sid
         obj.viewModel.hotelListResult = hotels
-        obj.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -295,12 +295,18 @@ extension AppFlowManager {
         }
     }
     
-    func showHotelDetailsVC() {
-        if let mVC = self.hotelResultVC {
-            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            mVC.add(childViewController: ob)
-        }
-
+    func presentHotelDetailsVC(hotelInfo: HotelSearched , sid: String) {
+        let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.hotelInfo = hotelInfo
+        ob.viewModel.sid = sid
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func showHotelDetailAmenitiesVC(hotelDetails: HotelDetails) {
+        let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.hotelDetails = hotelDetails
+//        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentEditProfileVC() {
@@ -331,12 +337,6 @@ extension AppFlowManager {
             ob.delegate = vc
             hotelResultVC.add(childViewController: ob)
         }
-    }
-    
-    func moveToMapVC(_ hotelSearchRequest:HotelSearchRequestModel) {
-        let obj = HotelMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
-        obj.hotelSearchRequest = hotelSearchRequest
-        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

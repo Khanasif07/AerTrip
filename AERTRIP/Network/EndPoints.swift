@@ -52,6 +52,8 @@ enum APIEndPoint : String {
     case hotelListOnPreferenceL = "hotels/search"
     case hotelListOnPreferenceResult = "hotels/results"
     case hotelBulkBooking = "enquiry/bulk-booking-enquiry"
+    case hotelInfo = "hotels/details"
+    case hotelDistanceAndTravelTime = "https://maps.googleapis.com/maps/api/"
 }
 
 //MARK: - endpoint extension for url -

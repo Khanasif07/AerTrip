@@ -100,6 +100,8 @@ enum LocalizedString: String {
     case Reset_Password  = "Reset_Password"
     case Please_enter_new_Password = "Please_enter_new_Password"
     case New_Password = "New_Password"
+    case Undo = "Undo"
+    case Deleted = "Deleted"
 
     // MARK:- CreateProfileVC
     //MARK:-
@@ -384,6 +386,8 @@ enum LocalizedString: String {
     case BusinessCenter = "Business Center"
     case Pool = "Pool"
     case Spa = "Spa"
+    case Wi_Fi = "Wi-Fi"
+    case Coffee_Shop = "Coffee Shop"
     
     // MARK: - RoomVC
     
@@ -415,4 +419,6 @@ enum LocalizedString: String {
 //    case Breakfast = "Breakfast"
 //    case Refundable = "Refundable"
     case hotelFilterSearchBar = "hotelFilterSearchBar"
+    case InformationUnavailable = "Information unavailable"
+    case  ReloadResults = "Reload results"
 }

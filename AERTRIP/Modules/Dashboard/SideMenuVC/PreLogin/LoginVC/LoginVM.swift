@@ -38,22 +38,22 @@ class LoginVM {
         
         if self.email.isEmpty {
             
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized)
             return false
             
         } else if self.email.checkInvalidity(.Email) {
             
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             return false
             
         } else if self.password.isEmpty {
             
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized)
             return false
             
         } else if self.password.checkInvalidity(.Password) {
             
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized, vc: vc)
+            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized)
             return false
         }
         return true

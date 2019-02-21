@@ -103,7 +103,7 @@ class PreferencesVC: BaseVC {
             if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
                 self.viewModel.groups.append(groupName)
             } else {
-                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized, vc: self)
+                AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
             }
             self.tableView.reloadData()
         }
@@ -346,7 +346,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     
     func savePreferencesSuccess() {
         AppNetworking.hideLoader()
-         AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized, vc: self)
+         AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized)
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
     }

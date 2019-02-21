@@ -134,7 +134,7 @@ enum APIKeys: String {
     case per_night_list_price = "per_night_list_price"
     case lat = "lat"
     case long = "long"
-    case amentities = "amenities"
+    case amenities = "amenities"
     
     //BulkBookings
     case source = "source"
@@ -147,6 +147,59 @@ enum APIKeys: String {
     case preferred = "preferred"
     case special_request = "special_request"
     case pType = "pType"
+    
+    //HotelDetails
+    case photos = "photos"
+    //case amenities = "amenities"
+    case amenities_group = "amenities_group"
+    case checkin_time = "checkin_time"
+    case checkout_time = "checkout_time"
+    case checkin = "checkin"
+    case checkout = "checkout"
+    case rates = "rates"
+    case combine_rates = "combine_rates"
+    case info = "info"
+    case is_refetch_cp = "is_refetch_cp"
+    case occupant = "occupant"
+    case main = "main"
+    case basic = "basic"
+    case other = "other"
+    case available = "available"
+    case classType = "classType"
+    case qid = "qid"
+    case can_combine = "can_combine"
+    case hotel_code = "hotel_code"
+    case rooms = "rooms"
+    case terms = "terms"
+    case cancellation_penalty = "cancellation_penalty"
+    case penalty_array = "penalty_array"
+    case group_rooms = "group_rooms"
+    case inclusion_array = "inclusion_array"
+    case payment_info = "payment_info"
+    case part_payment_last_date = "part_payment_last_date"
+    case rid = "rid"
+    case type = "type"
+    case bed_types = "bed_types"
+    case desc = "desc"
+    case max_adult = "max_adult"
+    case max_child = "max_child"
+    case room_reference = "room_reference"
+    case meals = "meals"
+    case cancellation = "cancellation"
+    case is_refundable = "is_refundable"
+    case to = "to"
+    case penalty = "penalty"
+    case tz = "tz"
+    case from = "from"
+    case boardType = "Board Type";
+    case internet = "Internet";
+    case other_inclusions = "Other Inclusions";
+    case notes_inclusion = "Notes";
+    case transfers = "Transfers";
+    case about_Property = "About the Property";
+    case internet_Business_Services = "Internet & Business Services";
+    case food_Drinks = "Food and drinks";
+    case things_To_Do = "Things to do";
+    case Services = "Services";
+
 }
-
-

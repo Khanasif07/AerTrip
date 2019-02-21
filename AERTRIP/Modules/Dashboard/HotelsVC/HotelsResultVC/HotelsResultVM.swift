@@ -10,7 +10,8 @@ import UIKit
 
 class HotelsResultVM: NSObject {
     
-    var hotelListResult = [HotelsSearched]()
+    var sid: String = ""
+    internal var hotelListResult = [HotelsSearched]()
     var hotelSearchRequest : HotelSearchRequestModel?
     
     func searchHotel(forText: String) {

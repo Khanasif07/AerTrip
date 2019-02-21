@@ -38,17 +38,27 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.backgroundColor = AppColors.screensBackground.color
         self.containerView.roundCornersByClipsToBounds(cornerRadius: 10.0)
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        self.hotelNameLabel.textColor = AppColors.themeBlack
-//        self.distanceLabel.textColor = AppColors.themeGray60
-//        self.deviderView.backgroundColor = AppColors.divider.color
-//        
-//        //Size
-//        self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
-//        self.distanceLabel.font = AppFonts.Regular.withSize(16.0)
-//
+        self.bedTypeLabel.textColor = AppColors.themeBlack
+        self.bedDiscriptionLabel.textColor = AppColors.themeBlack
+        self.bedsLabel.textColor = AppColors.themeBlack
+        self.bedSelectionDropDown.setTitleColor(AppColors.themeGreen, for: .normal)
+
+       //Size
+        self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
+        self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
+        self.bedSelectionDropDown.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        
+
 //        //Text
 //        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
 //        self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
+    }
+    
+    private func bedSelectionTitleImgSetUp() {
+        self.bedSelectionDropDown.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        self.bedSelectionDropDown.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        self.bedSelectionDropDown.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }
     
     //Mark:- IBActions

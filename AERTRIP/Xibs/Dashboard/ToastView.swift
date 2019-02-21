@@ -8,17 +8,13 @@
 
 import UIKit
 
-protocol ToastDelegate: NSObjectProtocol {
-    func toastRightButtoAction()
-}
-
 class ToastView: UIView {
-
-    weak var delegate: ToastDelegate?
+    
+    internal var buttonAction: (()->Void)? = nil
+    private var isSettingForDelete: Bool = false
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var viewRightButton: UIButton!
-    @IBOutlet weak var rightViewButtonWidth: NSLayoutConstraint!
     
     class func instanceFromNib() -> ToastView {
         
@@ -37,37 +33,65 @@ class ToastView: UIView {
         self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite
-        self.backgroundColor = AppColors.toastBackgroundBlur
+        self.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.82)
         self.viewRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         self.viewRightButton.titleLabel?.textColor = AppColors.themeYellow
     }
     
     @IBAction func viewRightButtonTapped(_ sender: UIButton) {
-        
-        self.delegate?.toastRightButtoAction()
-        printDebug("Tapped")
+        if let handel = self.buttonAction {
+            handel()
+        }
     }
 }
 
 extension ToastView {
     
-    func showToastMessage(message: String) {
-        
-        self.rightViewButtonWidth.constant = 0
-        self.messageLabel.text = message
+    func setupToastForDelete(buttonAction: (()->Void)? = nil) {
+        self.isSettingForDelete = true
+        self.setupToastMessage(title: "", message: "", buttonTitle: LocalizedString.Undo.localized, buttonImage: nil, buttonAction: buttonAction)
+        self.isSettingForDelete = false
     }
     
-    func showToastMessageWithRightButtonTitle(message: String, buttonTitle: String) {
+    func setupToastMessage(title: String = "", message: String, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil) {
         
-        self.rightViewButtonWidth.constant = 45
+        self.messageLabel.attributedText = self.getAttrText(title: title, message: message)
+        
+        self.buttonAction = buttonAction
+        
         self.viewRightButton.setTitle(buttonTitle, for: .normal)
-        self.messageLabel.text = message
+        self.viewRightButton.setTitle(buttonTitle, for: .selected)
+        
+        self.viewRightButton.setImage(buttonImage, for: .normal)
+        self.viewRightButton.setImage(buttonImage, for: .selected)
+        
+        if buttonTitle.isEmpty, buttonImage == nil {
+            //hide button
+            self.viewRightButton.isHidden = true
+        }
+        else {
+            //showButton
+            self.viewRightButton.isHidden = false
+        }
     }
     
-    func showToastMessageWithRightButtonImage(message: String) {
-        
-        self.rightViewButtonWidth.constant = 25
-        self.viewRightButton.setImage(UIImage(named: "cancelButton"), for: .normal)
-        self.messageLabel.text = message
+    private func getAttrText(title: String, message: String) -> NSMutableAttributedString {
+        if self.isSettingForDelete {
+            return AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_delete_toast"), endText: "  \(LocalizedString.Deleted.localized.lowercased())", font: AppFonts.Regular.withSize(16))
+        }
+        else {
+            
+            var finalText = title
+            if !title.isEmpty {
+                finalText += "\n"
+            }
+            finalText += "\(message)"
+            
+            let attString: NSMutableAttributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16)])
+            
+            attString.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(14)], range: (finalText as NSString).range(of: title))
+            
+            return attString
+        }
     }
 }

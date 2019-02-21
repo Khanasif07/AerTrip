@@ -12,7 +12,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    private var numberOfImages = ["one","two","three","four","five"]
+    internal var imageUrls: [String] = []
     
     //Mark:- IBOutlets
     //================
@@ -22,13 +22,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             self.imageCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var pageControl: UIPageControl! {
-        didSet{
-            self.pageControl.isHidden = !(self.numberOfImages.count > 1)
-            self.pageControl.numberOfPages = self.numberOfImages.count
-        }
-    }
-    
+    @IBOutlet weak var pageControl: UIPageControl!
     
     
     //Mark:- LifeCycle
@@ -43,8 +37,25 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     private func initialSetUps() {
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
-        
+        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+        self.pageControl.numberOfPages = self.imageUrls.count
     }
+    
+    internal func configCell(hotelData: HotelSearched) {
+        if let safeHotelData = hotelData.thumbnail {
+            self.imageUrls = safeHotelData
+            self.pageControl.isHidden = !(self.imageUrls.count > 1)
+            self.pageControl.numberOfPages = self.imageUrls.count
+            self.imageCollectionView.reloadData()
+        }
+    }
+    
+//    internal func configCellForHotelDetail(hotelData: HotelDetails) {
+//        self.imageUrls = hotelData.photos
+//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+//        self.pageControl.numberOfPages = self.imageUrls.count
+//        self.imageCollectionView.reloadData()
+//    }
     
     //Mark:- IBOActions
     //=================
@@ -56,13 +67,16 @@ class HotelDetailsImgSlideCell: UITableViewCell {
 extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numberOfImages.count
+        return self.imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelDetailsImageCollectionCell", for: indexPath) as? HotelDetailsImageCollectionCell else {
             return UICollectionViewCell()
         }
+        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+        self.pageControl.numberOfPages = self.imageUrls.count
+        cell.configCell(imgUrl: imageUrls[indexPath.item])
         return cell
     }
     

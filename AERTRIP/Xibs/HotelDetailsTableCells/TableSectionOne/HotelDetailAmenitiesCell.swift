@@ -63,6 +63,9 @@ class HotelDetailAmenitiesCell: UITableViewCell {
     
     
     @IBAction func viewAllBtnAction(_ sender: UIButton) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC , let hotelData = parentVC.viewModel.hotelData {
+            AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
+        }
     }
 }
 
@@ -78,7 +81,6 @@ extension HotelDetailAmenitiesCell: UICollectionViewDelegate, UICollectionViewDa
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmenitiesCollectionCell", for: indexPath) as? AmenitiesCollectionCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = .red
         cell.configureCell(amenitiesItem: self.amenitiesItems[indexPath.item])
         return cell
     }

@@ -13,19 +13,23 @@
         <!--Hotel DetailsVC-->
         <scene sceneID="Khj-Vt-MAy">
             <objects>
-                <viewController storyboardIdentifier="HotelDetailsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4ua-7j-9Zr" customClass="HotelDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HotelDetailsVC" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4ua-7j-9Zr" customClass="HotelDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="78m-1T-7vc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2p-7E-QIw">
-                                <rect key="frame" x="0.0" y="30" width="375" height="637"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-Qa-Qei">
-                                <rect key="frame" x="0.0" y="30" width="375" height="637"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-Nu-HFX">
+                                <rect key="frame" x="169.5" y="26" width="36" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="4me-Jw-g6K"/>
+                                    <constraint firstAttribute="height" constant="4" id="QUM-cH-pes"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-wn-tNY" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,26 +43,158 @@
                             <constraint firstItem="iuD-wn-tNY" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="1SO-o1-uiy"/>
                             <constraint firstItem="iuD-wn-tNY" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="7X0-4v-YJu"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="iuD-wn-tNY" secondAttribute="trailing" id="7gm-Mh-Ee0"/>
+                            <constraint firstItem="9ab-Nu-HFX" firstAttribute="centerX" secondItem="78m-1T-7vc" secondAttribute="centerX" id="FSt-BG-9hW"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="HAc-Yw-jJT"/>
-                            <constraint firstItem="U2p-7E-QIw" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="Hur-xg-uxH"/>
-                            <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="U2p-7E-QIw" secondAttribute="trailing" id="NTy-GO-vp4"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="bsY-hq-LLI"/>
+                            <constraint firstItem="9ab-Nu-HFX" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" constant="6" id="dhg-ox-GBO"/>
                             <constraint firstAttribute="bottom" secondItem="5kb-Qa-Qei" secondAttribute="bottom" id="j40-dD-0tG"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="5kb-Qa-Qei" secondAttribute="trailing" id="oNd-9w-az9"/>
-                            <constraint firstItem="U2p-7E-QIw" firstAttribute="bottom" secondItem="5kb-Qa-Qei" secondAttribute="bottom" id="pOP-oR-y0v"/>
-                            <constraint firstItem="U2p-7E-QIw" firstAttribute="top" secondItem="5kb-Qa-Qei" secondAttribute="top" id="peC-uF-NMg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9fY-5w-aem"/>
                     </view>
                     <connections>
-                        <outlet property="backgroundView" destination="U2p-7E-QIw" id="Z59-8t-uhj"/>
                         <outlet property="headerView" destination="iuD-wn-tNY" id="PAa-0b-0wu"/>
                         <outlet property="hotelTableView" destination="5kb-Qa-Qei" id="jcD-h6-X3e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MC6-g8-4aL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="99"/>
+            <point key="canvasLocation" x="224.80000000000001" y="98.50074962518741"/>
+        </scene>
+        <!--Trip Advisor DetailsVC-->
+        <scene sceneID="Ag7-yx-b6c">
+            <objects>
+                <viewController storyboardIdentifier="TripAdvisorDetailsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ohS-bF-ocD" customClass="TripAdvisorDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ski-uc-AQa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raL-0a-HO9">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nd6-Od-8H4">
+                                        <rect key="frame" x="16" y="0.0" width="289" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOB-IL-ZA6">
+                                        <rect key="frame" x="315" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="cOB-IL-ZA6" secondAttribute="height" multiplier="1:1" id="82i-th-8qG"/>
+                                            <constraint firstAttribute="height" constant="44" id="xSx-11-Qae"/>
+                                        </constraints>
+                                        <state key="normal" image="black_cross"/>
+                                        <state key="selected" image="saveHotelsSelected"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Nd6-Od-8H4" secondAttribute="bottom" id="Gd0-s2-160"/>
+                                    <constraint firstItem="Nd6-Od-8H4" firstAttribute="leading" secondItem="raL-0a-HO9" secondAttribute="leading" constant="16" id="IvX-m2-EMe"/>
+                                    <constraint firstItem="cOB-IL-ZA6" firstAttribute="top" secondItem="raL-0a-HO9" secondAttribute="top" id="Q2Q-ly-l1e"/>
+                                    <constraint firstItem="cOB-IL-ZA6" firstAttribute="leading" secondItem="Nd6-Od-8H4" secondAttribute="trailing" constant="10" id="Z0c-Mt-sbg"/>
+                                    <constraint firstItem="Nd6-Od-8H4" firstAttribute="top" secondItem="raL-0a-HO9" secondAttribute="top" id="ZF5-tz-vaN"/>
+                                    <constraint firstAttribute="bottom" secondItem="cOB-IL-ZA6" secondAttribute="bottom" id="nNg-he-OKJ"/>
+                                    <constraint firstAttribute="height" constant="44" id="qSd-nJ-GVL"/>
+                                    <constraint firstAttribute="trailing" secondItem="cOB-IL-ZA6" secondAttribute="trailing" constant="16" id="tY0-o6-MXV"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a7d-jG-g27">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="raL-0a-HO9" firstAttribute="top" secondItem="jKg-tC-l7g" secondAttribute="top" id="4cT-oq-81e"/>
+                            <constraint firstAttribute="bottom" secondItem="a7d-jG-g27" secondAttribute="bottom" id="7z4-IT-69d"/>
+                            <constraint firstAttribute="trailing" secondItem="raL-0a-HO9" secondAttribute="trailing" id="DpR-QF-fqa"/>
+                            <constraint firstItem="a7d-jG-g27" firstAttribute="leading" secondItem="Ski-uc-AQa" secondAttribute="leading" id="S1s-xC-j2F"/>
+                            <constraint firstItem="raL-0a-HO9" firstAttribute="leading" secondItem="Ski-uc-AQa" secondAttribute="leading" id="Sj6-ME-mOy"/>
+                            <constraint firstAttribute="trailing" secondItem="a7d-jG-g27" secondAttribute="trailing" id="ham-JZ-7xj"/>
+                            <constraint firstItem="a7d-jG-g27" firstAttribute="top" secondItem="raL-0a-HO9" secondAttribute="bottom" id="uBq-ur-kib"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jKg-tC-l7g"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Bc-Z7-Lbx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="856.79999999999995" y="92.203898050974516"/>
+        </scene>
+        <!--Hotel Details AmenitiesVC-->
+        <scene sceneID="jXB-wP-mAG">
+            <objects>
+                <viewController storyboardIdentifier="HotelDetailsAmenitiesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="z4J-Kx-o7h" customClass="HotelDetailsAmenitiesVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e0V-LH-3H9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QQZ-E2-wSV">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBr-Zc-DAq">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amenities" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNM-LJ-kwP">
+                                        <rect key="frame" x="16" y="0.0" width="289" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRR-x2-M1Y">
+                                        <rect key="frame" x="315" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="vRR-x2-M1Y" secondAttribute="height" multiplier="1:1" id="2XR-gx-1BZ"/>
+                                            <constraint firstAttribute="height" constant="44" id="SNh-9v-Ih2"/>
+                                        </constraints>
+                                        <state key="normal" image="black_cross"/>
+                                        <state key="selected" image="saveHotelsSelected"/>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="z4J-Kx-o7h" eventType="touchUpInside" id="kub-xA-M5o"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="vRR-x2-M1Y" secondAttribute="bottom" id="80p-yK-7IC"/>
+                                    <constraint firstItem="vRR-x2-M1Y" firstAttribute="leading" secondItem="HNM-LJ-kwP" secondAttribute="trailing" constant="10" id="JEu-Vy-qd4"/>
+                                    <constraint firstItem="HNM-LJ-kwP" firstAttribute="leading" secondItem="gBr-Zc-DAq" secondAttribute="leading" constant="16" id="OKK-FQ-YUo"/>
+                                    <constraint firstItem="vRR-x2-M1Y" firstAttribute="top" secondItem="gBr-Zc-DAq" secondAttribute="top" id="Zdc-qA-avN"/>
+                                    <constraint firstAttribute="trailing" secondItem="vRR-x2-M1Y" secondAttribute="trailing" constant="16" id="fyH-sm-UhY"/>
+                                    <constraint firstAttribute="bottom" secondItem="HNM-LJ-kwP" secondAttribute="bottom" id="uGk-GE-vjB"/>
+                                    <constraint firstAttribute="height" constant="44" id="vPU-zZ-cIi"/>
+                                    <constraint firstItem="HNM-LJ-kwP" firstAttribute="top" secondItem="gBr-Zc-DAq" secondAttribute="top" id="yQY-cN-eW2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QQZ-E2-wSV" firstAttribute="leading" secondItem="e0V-LH-3H9" secondAttribute="leading" id="7P4-9T-qwP"/>
+                            <constraint firstItem="gBr-Zc-DAq" firstAttribute="trailing" secondItem="Fc5-JP-dOh" secondAttribute="trailing" id="CcE-q2-2e2"/>
+                            <constraint firstItem="gBr-Zc-DAq" firstAttribute="leading" secondItem="Fc5-JP-dOh" secondAttribute="leading" id="K2Y-wP-4je"/>
+                            <constraint firstItem="QQZ-E2-wSV" firstAttribute="top" secondItem="gBr-Zc-DAq" secondAttribute="bottom" id="VFo-pz-OXv"/>
+                            <constraint firstAttribute="trailing" secondItem="QQZ-E2-wSV" secondAttribute="trailing" id="aEL-WR-23Z"/>
+                            <constraint firstItem="gBr-Zc-DAq" firstAttribute="top" secondItem="Fc5-JP-dOh" secondAttribute="top" id="taU-IY-UZl"/>
+                            <constraint firstAttribute="bottom" secondItem="QQZ-E2-wSV" secondAttribute="bottom" id="wOk-wH-qvI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fc5-JP-dOh"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="amenitiesLabel" destination="HNM-LJ-kwP" id="MPL-fA-Jvq"/>
+                        <outlet property="amenitiesTblView" destination="QQZ-E2-wSV" id="nIh-GY-MbC"/>
+                        <outlet property="cancelButtonOutlet" destination="vRR-x2-M1Y" id="0VY-Dc-3dO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JuX-28-fKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1505" y="92"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="black_cross" width="24" height="24"/>
+        <image name="saveHotelsSelected" width="27" height="27"/>
+    </resources>
 </document>

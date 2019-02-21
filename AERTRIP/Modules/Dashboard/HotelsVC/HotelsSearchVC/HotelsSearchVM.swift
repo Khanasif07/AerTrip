@@ -12,8 +12,8 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
     
-    func getAllHotelsOnPreferenceResultSuccess()
-    func getAllHotelsOnPreferenceResultFail()
+    func getAllHotelsListResultSuccess()
+    func getAllHotelsListResultFail()
 }
 
 class HotelsSearchVM: NSObject{
@@ -21,11 +21,11 @@ class HotelsSearchVM: NSObject{
     //MARK:- Properties
     //MARK:- Public
     var roomNumber: Int = 1
-    var adultsCount: [Int] = [2]
+    var adultsCount: [Int] = [1]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-02-24"
-    var checkOutDate = "2019-03-03"
+    var checkInDate = "2019-03-13"
+    var checkOutDate = "2019-03-15"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""
@@ -102,11 +102,11 @@ class HotelsSearchVM: NSObject{
                    _ =  HotelSearched.insert(dataDict: hotel.jsonDict)
                 }
                 
-                sSelf.delegate?.getAllHotelsOnPreferenceResultSuccess()
+                sSelf.delegate?.getAllHotelsListResultSuccess()
             } else {
                 printDebug(errors)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
-                sSelf.delegate?.getAllHotelsOnPreferenceResultFail()
+                sSelf.delegate?.getAllHotelsListResultFail()
             }
         }
     }

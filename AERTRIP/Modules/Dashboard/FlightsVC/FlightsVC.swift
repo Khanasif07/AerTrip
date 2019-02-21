@@ -36,6 +36,6 @@ class FlightsVC: BaseVC {
     
     //MARK:- Action
     @IBAction func ShowHotelResultsVC(_ sender: UIButton) {
-        AppFlowManager.default.showHotelDetailsVC()
+        //AppFlowManager.default.showHotelDetailsVC(hotelInfo: <#HotelSearched#>)
     }
 }

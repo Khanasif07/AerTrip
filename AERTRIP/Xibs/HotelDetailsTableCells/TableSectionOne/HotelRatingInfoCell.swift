@@ -44,12 +44,21 @@ class HotelRatingInfoCell: UITableViewCell {
         self.distanceLabel.font = AppFonts.Regular.withSize(16.0)
         
         //Text
-        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
         self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
+    }
+    
+    internal func configureCell(hotelData: HotelSearched) {
+        self.hotelNameLabel.text = hotelData.hotelName
+        self.distanceLabel.text = "\(hotelData.distance) km •🚶🏻 4 min"
+        self.hotelRatingView.rating = hotelData.star
+        self.hotelDotsView.rating = hotelData.rating
     }
     
     //Mark:- IBActions
     //================
     @IBAction func shareButtonAction(_ sender: UIButton) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC , shareData: "sdd")
+        }
     }
 }
