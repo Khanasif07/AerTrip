@@ -145,8 +145,6 @@ class UserInfo {
                    ]
         }
     
-
-        
         init() {
             
             let json = JSON()
@@ -159,12 +157,93 @@ class UserInfo {
             self.displayOrder   = json["display_order"].stringValue
             self.categorizeByGroup   = json["categorize_by_group"].boolValue
             self.labels = json["labels"].arrayObject as? [String] ?? []
+        }
+    }
+    
+    
+    struct HotelFilter : Codable {
+        var ratingCount: [Int] = []
+        var tripAdvisorRatingCount: [Int] = []
+        var isIncludeUnrated: Bool = false
+        var distanceRange : Double = 0.0
+        var minimumPrice : Double = 0.0
+        var maximumPrice : Double = 0.0
+        var amentities : [Int] = []
+        var roomMeal : [Int] = []
+        var roomCancelation : [Int] = []
+        var roomOther : [Int] = []
+        //var sortUsing : SortUsing = .bes
+        
+        
+        init() {
+            ratingCount =  []
+            tripAdvisorRatingCount  = []
+            isIncludeUnrated  = false
+            distanceRange  = 0.0
+            minimumPrice  = 0.0
+            maximumPrice  = 0.0
+            amentities  = []
+            roomMeal  = []
+            roomCancelation  = []
+            roomOther  = []
+           // sortUsing  = .BestSellers
+        }
+        
+        
+        private enum CodingKeys: String, CodingKey {
+            case ratingCount
+            case tripAdvisorRatingCount
+            case isIncludeUnrated
+            case distanceRange
+            case minimumPrice
+            case maximumPrice
+            case amentities
+            case roomMeal
+            case roomCancelation
+            case roomOther
+           // case sortUsing
+        }
+//
+//        init(publication: Publication?, indexPath: [Int]) {
+//            self.publication = publication
+//            self.indexPath = indexPath
+//        }
+        
+        init(ratingCount: [Int], tripAdvisorRatingCount: [Int],isIncludeUnRated:Bool,distanceRange:Double,minimumPrice:Double,maximumPrice:Double,amentities: [Int],roomMeal:[Int],roomCancelation:[Int],roomOther:[Int],sortUsing:SortUsing) {
+            self.ratingCount =   ratingCount
+            self.tripAdvisorRatingCount = tripAdvisorRatingCount
+            self.isIncludeUnrated = isIncludeUnRated
+            self.distanceRange = distanceRange
+            self.minimumPrice = minimumPrice
+            self.maximumPrice = maximumPrice
+            self.amentities = amentities
+            self.roomMeal = roomMeal
+            self.roomCancelation = roomCancelation
+            self.roomOther = roomOther
+          //  self.sortUsing = sortUsing
+        }
+        
+         init(from decoder:Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            ratingCount = try values.decode([Int].self, forKey: .ratingCount)
+            tripAdvisorRatingCount = try values.decode([Int].self, forKey: .tripAdvisorRatingCount)
+            isIncludeUnrated  = try values.decode(Bool.self, forKey: .isIncludeUnrated)
+            distanceRange = try values.decode(Double.self, forKey: .distanceRange)
+            minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
+            maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
+            amentities = try values.decode([Int].self, forKey: .amentities)
+            roomMeal = try values.decode([Int].self, forKey: .roomMeal)
+            roomCancelation = try values.decode([Int].self, forKey: .roomCancelation)
+            roomOther = try values.decode([Int].self, forKey: .roomOther)
+          //  sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             
             
         }
         
         
+        
     }
+    
     
     static var loggedInUserId:String?{
         get{
@@ -182,6 +261,7 @@ class UserInfo {
             }
         }
     }
+
     
     static var loggedInUser:UserInfo? {
         
@@ -190,6 +270,7 @@ class UserInfo {
         }
         return nil
     }
+
 
     private var userData:JSONDictionary?{
         return UserDefaults.getObject(forKey: "userProfileData_\(userId)") as? JSONDictionary
@@ -404,6 +485,24 @@ class UserInfo {
             }
             else{
                 UserDefaults.removeObject(forKey: APIKeys.generalPref.rawValue)
+            }
+        }
+    }
+    
+    var hotelFilter: HotelFilter? {
+        get {
+            if let data = UserDefaults.getObject(forKey: APIKeys.hotelFilter.rawValue) as? Data, let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? HotelFilter {
+                return obj
+            }
+            return nil
+        }
+        set {
+            if let vlaue = newValue {
+                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: vlaue)
+                UserDefaults.setObject(encodedData, forKey: APIKeys.hotelFilter.rawValue)
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.hotelFilter.rawValue)
             }
         }
     }

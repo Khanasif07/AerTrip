@@ -112,22 +112,23 @@ extension APICaller {
         }
     }
     
-    func getHotelsListOnPreference(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ sid: String, _ vCodes: [String]) -> Void) {
+    func getHotelsListOnPreference(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ sid: String, _ vCodes: [String],_ hotelSearchRequst : HotelSearchRequestModel?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.hotelListOnPreferenceL, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let reponse = jsonData[APIKeys.data.rawValue].arrayObject, let first = reponse.first as? JSONDictionary, let sid = first["sid"] as? String, let vCodes = first["vcodes"] as? [String] {
-                    completionBlock(true, [], sid, vCodes)
+                    let hotelSearchRequst = HotelSearchRequestModel(json: jsonData[APIKeys.data.rawValue].arrayValue.first ?? "")
+                    completionBlock(true, [], sid, vCodes,hotelSearchRequst)
                 }
                 else {
-                    completionBlock(true, [], "", [""])
+                    completionBlock(false, [], "", [""],nil)
                 }
             }, failure: { errors in
-                completionBlock(false, errors, "", [""])
+                completionBlock(false, errors, "", [""],nil)
             })
         }) { _ in
-            completionBlock(false, [], "", [""])
+            completionBlock(false, [], "", [""],nil)
         }
     }
     

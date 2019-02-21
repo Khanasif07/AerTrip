@@ -8,7 +8,10 @@
 
 import Foundation
 
-enum SortUsing {
+enum SortUsing  {
+    
+   
+    
     case BestSellers
     case PriceLowToHigh
     case TripAdvisorRatingHighToLow
@@ -33,7 +36,32 @@ class HotelFilterVM {
     var sortUsing: SortUsing = .BestSellers
     
     
-    private init() {}
+    func saveDataToUserDefaults(){
+        var filter = UserInfo.HotelFilter()
+        filter.ratingCount = ratingCount
+        filter.tripAdvisorRatingCount = tripAdvisorRatingCount
+        filter.distanceRange = distanceRange
+        filter.minimumPrice = minimumPrice
+        filter.maximumPrice = maximumPrice
+        filter.amentities = amenitites
+        filter.roomMeal = roomMeal
+        filter.roomCancelation = roomCancelation
+        filter.roomOther = roomOther
+       // filter.sortUsing = sortUsing
+       
+        UserInfo.loggedInUser?.hotelFilter = filter
+        
+        if let filter = UserInfo.loggedInUser?.hotelFilter {
+            print(filter)
+        }
+        
+    }
+    
+    
+    
+    private init() {
+        
+    }
     
     
 }

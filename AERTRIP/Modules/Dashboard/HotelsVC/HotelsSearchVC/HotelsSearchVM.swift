@@ -34,6 +34,7 @@ class HotelsSearchVM: NSObject{
     var vcodes: [String] = []
     var sid: String = ""
     var hotelListResult = [HotelsSearched]()
+    var hotelSearchRequst : HotelSearchRequestModel?
     
     //MARK:- Functions
     //================
@@ -73,11 +74,12 @@ class HotelsSearchVM: NSObject{
     //MARK:- Public
     ///Hotel List Api
     func hotelListOnPreferencesApi() {
-        APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes) in
+        APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes,searhRequest) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.vcodes = vCodes
                 sSelf.sid = sid
+                sSelf.hotelSearchRequst = searhRequest
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)

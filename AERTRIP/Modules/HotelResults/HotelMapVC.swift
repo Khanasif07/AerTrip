@@ -10,6 +10,10 @@ import CoreData
 import GoogleMaps
 import UIKit
 
+let kClusterItemCount = 50
+let kCameraLatitude = 19.0760
+let kCameraLongitude = 72.8777
+
 class HotelMapVC: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var floatingStackView: UIStackView!
@@ -18,7 +22,7 @@ class HotelMapVC: UIViewController {
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
     
-    @IBOutlet weak var floatingViewleadingConstraint: NSLayoutConstraint!
+    @IBOutlet var floatingViewleadingConstraint: NSLayoutConstraint!
     var markers: [(marker: CustomMarker, hid: Int)] = []
     
     var locManager = CLLocationManager()
@@ -29,6 +33,8 @@ class HotelMapVC: UIViewController {
     let defaultDuration: CGFloat = 2.0
     let defaultDamping: CGFloat = 0.22
     let defaultVelocity: CGFloat = 6.0
+    private var clusterManager: GMUClusterManager!
+    var hotelSearchRequest: HotelSearchRequestModel?
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -61,6 +67,9 @@ class HotelMapVC: UIViewController {
         self.registerXib()
         self.setupMapView()
         self.initialSetUp()
+        // self.setUpClusterManager()
+        // self.generateClusterItems()
+        //  self.clusterSetUp()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -87,7 +96,7 @@ class HotelMapVC: UIViewController {
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
         let camera = GMSCameraPosition.camera(withLatitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0, zoom: 15.0)
-        mapView = GMSMapView.map(withFrame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y + 100, width: UIDevice.screenWidth, height: self.view.frame.size.height - 380), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y + 100, width: UIDevice.screenWidth, height: self.view.frame.size.height - 420), camera: camera)
         
         mapView?.isMyLocationEnabled = true
         mapView?.delegate = self
@@ -112,34 +121,80 @@ class HotelMapVC: UIViewController {
         self.view.bringSubviewToFront(self.collectionView)
     }
     
-    func updateMarker(coordinates: CLLocationCoordinate2D, degrees: CLLocationDegrees, duration: Double,hid: Int) {
-        // Keep Rotation Short
-        CATransaction.begin()
-        //CATransaction.setAnimationDuration(4)
-       // self.marker.rotation = degrees
-        CATransaction.commit()
-    
-        
-        for marker in self.markers {
-            if marker.hid == hid {
-                marker.marker.priceView.backgroundColor = AppColors.themeGreen
-                marker.marker.priceLabel.textColor = AppColors.themeWhite
-            } else {
-                marker.marker.priceView.backgroundColor = AppColors.themeWhite
-                marker.marker.priceLabel.textColor = AppColors.themeGreen
-              
-            }
+    private func setUpClusterManager() {
+        // Set up the cluster manager with the supplied icon generator and
+        // renderer.
+        if let mapView = mapView {
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+            let renderer = GMUDefaultClusterRenderer(mapView: mapView,
+                                                     clusterIconGenerator: iconGenerator)
+            renderer.delegate = self
+            clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+                                               renderer: renderer)
         }
+    }
+    
+    private func clusterSetUp() {
+        // Call cluster() after items have been added to perform the clustering
+        // and rendering on map.
+        self.clusterManager.cluster()
+        
+        self.clusterManager.setDelegate(self, mapDelegate: self)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: kCameraLatitude, longitude: kCameraLongitude, zoom: 6)
+        if let mapView = mapView {
+            mapView.camera = camera
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+    /// Randomly generates cluster items within some extent of the camera and
+    /// adds them to the cluster manager.
+    private func generateClusterItems() {
+        let extent = 0.2
+        for index in 1...kClusterItemCount {
+            let lat = kCameraLatitude + extent * randomScale()
+            let lng = kCameraLongitude + extent * randomScale()
+            let name = "Item \(index)"
+            let item =
+                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+            clusterManager.add(item)
+        }
+    }
+    
+    /// Returns a random value between -1.0 and 1.0.
+    private func randomScale() -> Double {
+        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
+    }
+    
+    func updateMarker(coordinates: CLLocationCoordinate2D, degrees: CLLocationDegrees, duration: Double, hid: Int) {
+        // Keep Rotation Short
+//        CATransaction.begin()
+//         CATransaction.setAnimationDuration(4)
+//         self.marker.rotation = degrees
+//        CATransaction.commit()
+        
+//        for marker in self.markers {
+//            if marker.hid == hid {
+//                marker.marker.priceView.backgroundColor = AppColors.themeGreen
+//                marker.marker.priceLabel.textColor = AppColors.themeWhite
+//            } else {
+//                marker.marker.priceView.backgroundColor = AppColors.themeWhite
+//                marker.marker.priceLabel.textColor = AppColors.themeGreen
+//            }
+//        }
         // Movement
-        CATransaction.begin()
-      //  CATransaction.setAnimationDuration(duration)
+//        CATransaction.begin()
+//        CATransaction.setAnimationDuration(duration)
         self.marker.position = coordinates
         
         // Center Map View
         let camera = GMSCameraUpdate.setTarget(coordinates)
         mapView?.animate(with: camera)
         
-        CATransaction.commit()
+//        CATransaction.commit()
     }
     
     func animateButton() {
@@ -157,33 +212,15 @@ class HotelMapVC: UIViewController {
                            self.shareButton.transform = .identity
                        },
                        completion: { _ in
-                          printDebug("Animation finished")
+                           printDebug("Animation finished")
         })
     }
-    
-    @IBAction func setMarkerToCurrentLocaton(_ sender: Any) {}
 }
 
 extension HotelMapVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         printDebug("location \(String(describing: locations.last))")
         self.currentLocation = locations.last
-    }
-}
-
-extension HotelMapVC: GMSMapViewDelegate {
-    // MARK: - GMSMarker Dragging
-    
-    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
-        print("didBeginDragging")
-    }
-    
-    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
-        print("didDrag")
-    }
-    
-    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
-        print("didEndDragging")
     }
 }
 
@@ -227,25 +264,15 @@ extension HotelMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let hData = fetchedResultsController.object(at: indexPath)
         var LocationAtual: CLLocation = CLLocation(latitude: Double(hData.lat ?? "") ?? 0.0, longitude: Double(hData.long ?? "") ?? 0.0)
-        updateMarker(coordinates: CLLocationCoordinate2DMake(LocationAtual.coordinate.latitude, LocationAtual.coordinate.longitude), degrees: 10.0, duration: 0,hid:Int(hData.hid ?? "") ?? 0)
+        
+        updateMarker(coordinates: CLLocationCoordinate2DMake(LocationAtual.coordinate.latitude, LocationAtual.coordinate.longitude), degrees: 10.0, duration: 4, hid: Int(hData.hid ?? "") ?? 0)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //        headerViewTopConstraint.constant = max(-scrollView.contentOffset.y,100)
-        // collectionViewTopConstraint.constant  = -200
-        
-        // let newHeaderHeight =
-        printDebug(scrollView.contentOffset.x)
-        
-        //        printDebug("newHeight is \(newHeight)")
-        //        if 0...200 ~= newHeight {
-        //            self.collectionView.parallaxHeader.height = newHeight
-        //        }
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        _ = targetContentOffset.pointee.x
 
+    
+    //  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    //  _ = targetContentOffset.pointee.x
+    
 //        printDebug("content offset \(scrollView.contentOffset.x)")
 //        let currentPoint = CGPoint(x: scrollView.contentOffset.x, y: 0)
 //        if let indexPath = self.collectionView.indexPathForItem(at: currentPoint) {
@@ -253,17 +280,6 @@ extension HotelMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
 //            let LocationAtual: CLLocation = CLLocation(latitude: Double(hData.lat ?? "") ?? 0.0, longitude: Double(hData.long ?? "") ?? 0.0)
 //            updateMarker(coordinates: CLLocationCoordinate2DMake(LocationAtual.coordinate.latitude, LocationAtual.coordinate.longitude), degrees: 2.0, duration: 4.0,hid: Int(hData.hid ?? "") ?? 0)
 //        }
-    }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == self.collectionView {
-//            var currentCellOffset = self.collectionView.contentOffset
-//            currentCellOffset.x += self.collectionView.frame.width / 2
-//            if let indexPath = self.collectionView.indexPathForItem(at: currentCellOffset) {
-//                self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//            }
-//        }
-//    }
 }
 
 // MARK: - switch did change value
@@ -278,9 +294,69 @@ extension HotelMapVC: ATSwitcherChangeValueDelegate {
 //            }, completion: nil)
 //            self.floatingStackView.spacing = -15
 //            self.floatingViewleadingConstraint.constant = 10
-            animateButton()
+            self.animateButton()
         } else {
             self.floatingStackView.hideViewWithFade()
+        }
+    }
+}
+
+// MARK: - GMUClusterRendererDelegate
+
+extension HotelMapVC: GMUClusterRendererDelegate {
+    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        if marker.userData is GMUCluster {} else {
+            marker.icon = #imageLiteral(resourceName: "clusterSmallTag")
+        }
+    }
+}
+
+// MARK: - GMUMapViewDelegate
+
+extension HotelMapVC: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        if let poiItem = marker.userData as? POIItem {
+            printDebug("Did tap marker for cluster item \(poiItem.name)")
+        } else {
+            printDebug("Did tap a normal marker")
+        }
+        return false
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let lat = mapView.myLocation?.coordinate.latitude,
+            let lng = mapView.myLocation?.coordinate.longitude else { return false }
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 20)
+        mapView.animate(to: camera)
+        
+        return true
+    }
+    
+    // MARK: - GMSMarker Dragging
+    
+    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
+        printDebug("didBeginDragging")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
+        printDebug("didDrag")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        printDebug("didEndDragging")
+    }
+}
+
+// MARK: - GMUClusterManagerDelegate
+
+extension HotelMapVC: GMUClusterManagerDelegate {
+    private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
+        if let mapView = mapView {
+            let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+                                                     zoom: mapView.camera.zoom + 1)
+            let update = GMSCameraUpdate.setCamera(newCamera)
+            mapView.moveCamera(update)
         }
     }
 }

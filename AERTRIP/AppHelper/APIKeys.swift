@@ -87,6 +87,7 @@ enum APIKeys: String {
     case auto_share = "auto_share"
     case notes = "notes"
     case eid = "eid"
+    case hotelFilter = "hotelFilter"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"
@@ -101,6 +102,13 @@ enum APIKeys: String {
     case star = "star"
     case vcodes = "vcodes"
     case sid = "sid"
+    case international = "international"
+    case requestParmaters = "request_parameters"
+    case a = "a"
+    case radius = "r"
+    case underScore = "_"
+   
+
     
     case facilities = "facilities"
     case city_code = "city_code"

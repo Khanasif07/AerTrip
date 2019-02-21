@@ -36,6 +36,7 @@ class HotelResultVC: BaseVC {
     
     @IBOutlet var collectionViewTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet var shimmerView: UIView!
     // MARK: - Properties
     
     var container: NSPersistentContainer!
@@ -89,8 +90,15 @@ class HotelResultVC: BaseVC {
         
         self.initialSetups()
         self.registerXib()
-        self.setupMapView()
+        delay(seconds: 0.5) {
+             self.setupMapView()
+        }
+       
         self.startProgress()
+        self.collectionView.addSubview(shimmerView)
+        delay(seconds: 1) {
+            self.shimmerView.removeFromSuperview()
+        }
     }
     
     // MARK: - Methods
@@ -109,7 +117,7 @@ class HotelResultVC: BaseVC {
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         
-        self.reloadHotelList()
+       self.reloadHotelList()
     }
     
     override func setupFonts() {
@@ -118,7 +126,7 @@ class HotelResultVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.titleLabel.text = "Mumbai"
+        self.titleLabel.text = "New Delhi"
         self.descriptionLabel.text = "30 Jun - 1 Jul • 2 Rooms"
         self.searchBar.placeholder = LocalizedString.SearchHotelsOrLandmark.localized
     }
@@ -209,6 +217,11 @@ class HotelResultVC: BaseVC {
         printDebug("timer\(self.timer!)")
         if self.time >= 10 {
             self.timer!.invalidate()
+            delay(seconds: 0.8) {
+                 self.progressView.isHidden = true
+            }
+           
+           
         }
     }
     
@@ -272,7 +285,7 @@ class HotelResultVC: BaseVC {
     @IBAction func mapButtonAction(_ sender: Any) {
 //        self.header.height = UIDevice.screenHeight
 //        self.header.layoutIfNeeded()
-        AppFlowManager.default.moveToMapVC()
+        AppFlowManager.default.moveToMapVC(self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel())
     }
 }
 
@@ -335,7 +348,9 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        AppFlowManager.default.showHotelDetailsVC()
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        headerViewTopConstraint.constant = max(-scrollView.contentOffset.y,100)
@@ -377,6 +392,7 @@ extension HotelResultVC: MXParallaxHeaderDelegate {
 extension HotelResultVC: HotelFilteVCDelegate {
     func doneButtonTapped() {
         self.fetchRequestType = .FilterApplied
+        HotelFilterVM.shared.saveDataToUserDefaults()
         printDebug("done button tapped")
         self.loadSaveData()
         self.reloadHotelList()
