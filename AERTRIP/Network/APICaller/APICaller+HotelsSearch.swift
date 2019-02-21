@@ -129,6 +129,13 @@ extension APICaller {
             })
         }) { _ in
             completionBlock(false, [], "", [""],nil)
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , "", [""])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] ,"" , [""])
+            }
         }
     }
     
@@ -147,11 +154,16 @@ extension APICaller {
                 else {
                     completionBlock(false, [], [])
                 }
-            }, failure: { _ in
-                completionBlock(false, [], [])
+            }, failure: { (error) in
+                completionBlock(false,error, [])
             })
-        }) { _ in
-            completionBlock(false, [], [])
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , [])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] , [])
+            }
         }
     }
     
