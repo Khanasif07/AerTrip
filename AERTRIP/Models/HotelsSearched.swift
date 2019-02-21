@@ -167,7 +167,7 @@ struct HotelsSearched: Codable {
         if let obj = json[APIKeys.per_night_list_price.rawValue] {
             self.per_night_list_price = "\(obj)".removeNull
         }
-        if let obj = json[APIKeys.amentities.rawValue] as? [String] {
+        if let obj = json[APIKeys.amenities.rawValue] as? [String] {
             self.amenities = obj
         }
     }
