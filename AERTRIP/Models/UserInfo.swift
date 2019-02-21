@@ -491,15 +491,20 @@ class UserInfo {
     
     var hotelFilter: HotelFilter? {
         get {
-            if let data = UserDefaults.getObject(forKey: APIKeys.hotelFilter.rawValue) as? Data, let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? HotelFilter {
+            if let obj = UserDefaults.standard.retrieve(object: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
+                
+                //To retrieve the saved object
+                //                let obj =
                 return obj
             }
             return nil
         }
         set {
             if let vlaue = newValue {
-                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: vlaue)
-                UserDefaults.setObject(encodedData, forKey: APIKeys.hotelFilter.rawValue)
+                //                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: vlaue)
+                //                UserDefaults.setObject(encodedData, forKey: APIKeys.hotelFilter.rawValue)
+                //To save the object
+                UserDefaults.standard.save(customObject: vlaue, inKey: APIKeys.hotelFilter.rawValue)
             }
             else{
                 UserDefaults.removeObject(forKey: APIKeys.hotelFilter.rawValue)

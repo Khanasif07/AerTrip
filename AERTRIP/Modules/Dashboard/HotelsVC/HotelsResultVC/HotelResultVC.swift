@@ -99,6 +99,8 @@ class HotelResultVC: BaseVC {
         delay(seconds: 1) {
             self.shimmerView.removeFromSuperview()
         }
+        
+        print("Debugging")
     }
     
     // MARK: - Methods
