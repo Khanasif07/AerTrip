@@ -16,10 +16,10 @@ class HotelDetailsVC: BaseVC {
     private(set) var viewModel = HotelDetailsVM()
     private var isDataLoaded: Bool = false
     private var completion: (() -> Void)? = nil
+    private var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
     
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var hotelTableView: UITableView! {
         didSet {
             self.hotelTableView.delegate = self
@@ -60,14 +60,18 @@ class HotelDetailsVC: BaseVC {
 
         if yOffset > oldOffset.y {
             //show
+            self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
             self.headerView.animateBackView(isHidden: false)
-            self.headerView.leftButton.setImage(#imageLiteral(resourceName: "save_icon_green"), for: .normal)
+            let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+            self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
         }
         else {
             //hide
+            self.headerView.navTitleLabel.text = ""
             self.headerView.animateBackView(isHidden: true)
-            self.headerView.leftButton.setImage(#imageLiteral(resourceName: "saveHotels"), for: .normal)
+            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
         }
         self.oldOffset = scrollView.contentOffset
@@ -77,10 +81,16 @@ class HotelDetailsVC: BaseVC {
     //==============
     private func configUI() {
         self.view.backgroundColor = .clear
-        self.headerView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.headerView.configureLeftButton(normalImage: #imageLiteral(resourceName: "saveHotels"), selectedImage: #imageLiteral(resourceName: "save_icon_green"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.addTarget(self, action: #selector(self.cancelButtonAction), for: .touchUpInside)
+        self.headerView.leftButton.addTarget(self, action: #selector(self.fevButtonAction), for: .touchUpInside)
+        self.hotelTableView.roundCornersByClipsToBounds(cornerRadius: 10.0)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
+        self.view.addGestureRecognizer(panGesture)
     }
     
     private func registerNibs() {
@@ -109,6 +119,30 @@ class HotelDetailsVC: BaseVC {
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func fevButtonAction(_ sender: UIButton) {
+        self.viewModel.updateFavourite()
+    }
+    
+    @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.view?.window)
+        
+        if sender.state == UIGestureRecognizer.State.began {
+            self.initialTouchPoint = touchPoint
+        } else if sender.state == UIGestureRecognizer.State.changed {
+            if touchPoint.y - self.initialTouchPoint.y > 0 {
+                self.view.frame = CGRect(x: 0, y: touchPoint.y - self.initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }
+        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+            if touchPoint.y - self.initialTouchPoint.y > 100 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
     }
 }
 
@@ -380,5 +414,18 @@ extension HotelDetailsVC: HotelDetailDelegate {
         }
         AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonImage: nil, buttonAction: self.completion)
         printDebug("API Parsing Failed")
+    }
+    
+    func updateFavouriteSuccess(withMessage: String) {
+        self.hotelTableView.reloadData()
+        self.sendDataChangedNotification(data: self)
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        self.headerView.leftButton.setImage(buttonImage, for: .normal)
+    }
+    
+    func updateFavouriteFail() {
+        AppNetworking.hideLoader()
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        self.headerView.leftButton.setImage(buttonImage, for: .normal)
     }
 }

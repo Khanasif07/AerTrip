@@ -21,11 +21,11 @@ class HotelsSearchVM: NSObject{
     //MARK:- Properties
     //MARK:- Public
     var roomNumber: Int = 1
-    var adultsCount: [Int] = [2]
+    var adultsCount: [Int] = [1]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-02-24"
-    var checkOutDate = "2019-03-03"
+    var checkInDate = "2019-03-13"
+    var checkOutDate = "2019-03-15"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""
@@ -34,6 +34,7 @@ class HotelsSearchVM: NSObject{
     var vcodes: [String] = []
     var sid: String = ""
     var hotelListResult = [HotelsSearched]()
+    var hotelSearchRequst : HotelSearchRequestModel?
     
     //MARK:- Functions
     //================
@@ -73,11 +74,12 @@ class HotelsSearchVM: NSObject{
     //MARK:- Public
     ///Hotel List Api
     func hotelListOnPreferencesApi() {
-        APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes) in
+        APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes,searhRequest) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.vcodes = vCodes
                 sSelf.sid = sid
+                sSelf.hotelSearchRequst = searhRequest
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
@@ -93,6 +95,8 @@ class HotelsSearchVM: NSObject{
         APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels) in
             guard let sSelf = self else {return}
             if success {
+                CoreDataManager.shared.deleteCompleteDB()
+                
                 sSelf.hotelListResult = hotels
                 for hotel in hotels {
                    _ =  HotelSearched.insert(dataDict: hotel.jsonDict)

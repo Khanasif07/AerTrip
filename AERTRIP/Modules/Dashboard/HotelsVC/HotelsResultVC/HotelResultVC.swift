@@ -298,7 +298,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let hData = fetchedResultsController.object(at: indexPath)
-        AppFlowManager.default.showHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid)
+        AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid)
 //        self.viewModel.vid = "\(hData.vid ?? "")"
 //        self.viewModel.hid = "\(hData.hid ?? "")"
     }

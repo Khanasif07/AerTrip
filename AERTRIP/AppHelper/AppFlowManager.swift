@@ -295,11 +295,18 @@ extension AppFlowManager {
         }
     }
     
-    func showHotelDetailsVC(hotelInfo: HotelSearched , sid: String) {
+    func presentHotelDetailsVC(hotelInfo: HotelSearched , sid: String) {
         let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelInfo = hotelInfo
         ob.viewModel.sid = sid
         self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func showHotelDetailAmenitiesVC(hotelDetails: HotelDetails) {
+        let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.hotelDetails = hotelDetails
+//        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentEditProfileVC() {

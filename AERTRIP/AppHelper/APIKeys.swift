@@ -87,6 +87,7 @@ enum APIKeys: String {
     case auto_share = "auto_share"
     case notes = "notes"
     case eid = "eid"
+    case hotelFilter = "hotelFilter"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"
@@ -101,6 +102,13 @@ enum APIKeys: String {
     case star = "star"
     case vcodes = "vcodes"
     case sid = "sid"
+    case international = "international"
+    case requestParmaters = "request_parameters"
+    case a = "a"
+    case radius = "r"
+    case underScore = "_"
+   
+
     
     case facilities = "facilities"
     case city_code = "city_code"
@@ -158,7 +166,40 @@ enum APIKeys: String {
     case other = "other"
     case available = "available"
     case classType = "classType"
-    
+    case qid = "qid"
+    case can_combine = "can_combine"
+    case hotel_code = "hotel_code"
+    case rooms = "rooms"
+    case terms = "terms"
+    case cancellation_penalty = "cancellation_penalty"
+    case penalty_array = "penalty_array"
+    case group_rooms = "group_rooms"
+    case inclusion_array = "inclusion_array"
+    case payment_info = "payment_info"
+    case part_payment_last_date = "part_payment_last_date"
+    case rid = "rid"
+    case type = "type"
+    case bed_types = "bed_types"
+    case desc = "desc"
+    case max_adult = "max_adult"
+    case max_child = "max_child"
+    case room_reference = "room_reference"
+    case meals = "meals"
+    case cancellation = "cancellation"
+    case is_refundable = "is_refundable"
+    case to = "to"
+    case penalty = "penalty"
+    case tz = "tz"
+    case from = "from"
+    case boardType = "Board Type";
+    case internet = "Internet";
+    case other_inclusions = "Other Inclusions";
+    case notes_inclusion = "Notes";
+    case transfers = "Transfers";
+    case about_Property = "About the Property";
+    case internet_Business_Services = "Internet & Business Services";
+    case food_Drinks = "Food and drinks";
+    case things_To_Do = "Things to do";
+    case Services = "Services";
+
 }
-
-

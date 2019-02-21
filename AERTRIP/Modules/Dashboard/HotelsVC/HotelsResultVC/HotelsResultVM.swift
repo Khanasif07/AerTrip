@@ -12,6 +12,7 @@ class HotelsResultVM: NSObject {
     
     var sid: String = ""
     internal var hotelListResult = [HotelsSearched]()
+    var hotelSearchRequest : HotelSearchRequestModel?
     
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)

@@ -654,12 +654,29 @@ extension String {
         }
         
         changeRange.length = self.count - changeRange.location
-        // forgive the force unwrapping
-        let changeFont = UIFont(name: font.fontName, size: (font.pointSize / 1.5))!
-       // let offset = font.capHeight - changeFont.capHeight
+        
+        guard let font = UIFont(name: font.fontName, size: (font.pointSize / 1.5)) else {
+            printDebug("font not found")
+            return stylizedPrice
+        }
+        let changeFont = font
         let offset = 6.2
         stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
         stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
+        return stylizedPrice
+    }
+    
+    func addPriceSymbolToLeft(using font: UIFont) -> NSMutableAttributedString {
+        let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
+        
+        guard let font = UIFont(name: font.fontName, size: (font.pointSize / 1.6)) else {
+            printDebug("font not found")
+            return stylizedPrice
+        }
+        let changeFont = font
+        let offset = 0
+        stylizedPrice.addAttribute(.font, value: changeFont, range: NSRange(location: 0, length: 2))
+        stylizedPrice.addAttribute(.baselineOffset, value: offset, range: NSRange(location: 0, length: 2))
         return stylizedPrice
     }
 }

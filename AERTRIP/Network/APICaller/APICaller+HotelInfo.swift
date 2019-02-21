@@ -30,4 +30,23 @@ extension APICaller {
             completionBlock(false, [], nil )
         }
     }
+    //
+    func getHotelDistanceAndTravelTime (params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ response: JSONDictionary?) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.hotelDistanceAndTravelTime, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let data = jsonData["routes"].dictionaryObject {
+                    printDebug(data)
+                    completionBlock(true, data)
+                }
+                else {
+                    completionBlock(false, [:])
+                }
+            }, failure: { (errors) in
+                completionBlock(false, [:])
+            })
+        }) { (error) in
+            completionBlock(false, [:])
+        }
+    }
 }

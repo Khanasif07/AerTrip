@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,7 @@
 		181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */; };
 		1819D3D621FF4900006A367E /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819D3D421FF4900006A367E /* CustomView.swift */; };
 		1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */; };
+		1824D31F2217F7CC0059C8BA /* HotelMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824D31E2217F7CC0059C8BA /* HotelMapVC.swift */; };
 		182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */; };
 		182E8ED321DB6AAC0089C02D /* HotelCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */; };
 		183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */; };
@@ -75,6 +76,8 @@
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
 		188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB42203378F00B4C315 /* GameKit.framework */; };
 		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
+		188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E930B221A8F9A008FE50A /* CustomMarker.xib */; };
+		188E930E221A957A008FE50A /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E930D221A957A008FE50A /* CustomMarker.swift */; };
 		18922E7B2204722200939F72 /* RangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18922E7A2204722200939F72 /* RangeVC.swift */; };
 		18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */; };
 		18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */; };
@@ -133,6 +136,33 @@
 		18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C41B220ACD06005E1E37 /* RoomTableViewCell.swift */; };
 		18D4C41E220ACD06005E1E37 /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D4C41C220ACD06005E1E37 /* RoomTableViewCell.xib */; };
 		18D4C420220B13F2005E1E37 /* HotelFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C41F220B13F2005E1E37 /* HotelFilterVM.swift */; };
+		18EF5E22221C07F500EFFA6E /* ATSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E21221C07F500EFFA6E /* ATSwitcher.swift */; };
+		18EF5E6C221D261B00EFFA6E /* GMUClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E27221D261B00EFFA6E /* GMUClusterManager.m */; };
+		18EF5E6D221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E2B221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m */; };
+		18EF5E6E221D261B00EFFA6E /* GMUWrappingDictionaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E2E221D261B00EFFA6E /* GMUWrappingDictionaryKey.m */; };
+		18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E2F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m */; };
+		18EF5E70221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E31221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m */; };
+		18EF5E71221D261B00EFFA6E /* GMUDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E3A221D261B00EFFA6E /* GMUDefaultClusterRenderer.m */; };
+		18EF5E72221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E3C221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.m */; };
+		18EF5E73221D261B00EFFA6E /* GMUStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E3F221D261B00EFFA6E /* GMUStaticCluster.m */; };
+		18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E44221D261B00EFFA6E /* GMUWeightedLatLng.m */; };
+		18EF5E75221D261B00EFFA6E /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E47221D261B00EFFA6E /* GMUGradient.m */; };
+		18EF5E76221D261B00EFFA6E /* GMUHeatmapTileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E48221D261B00EFFA6E /* GMUHeatmapTileLayer.m */; };
+		18EF5E77221D261B00EFFA6E /* GMUKMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E4A221D261B00EFFA6E /* GMUKMLParser.m */; };
+		18EF5E78221D261B00EFFA6E /* GMUGeometryRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E4B221D261B00EFFA6E /* GMUGeometryRenderer.m */; };
+		18EF5E79221D261B00EFFA6E /* GMUGeometryCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E4E221D261B00EFFA6E /* GMUGeometryCollection.m */; };
+		18EF5E7A221D261B00EFFA6E /* GMUPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E51221D261B00EFFA6E /* GMUPlacemark.m */; };
+		18EF5E7B221D261B00EFFA6E /* GMUPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E52221D261B00EFFA6E /* GMUPolygon.m */; };
+		18EF5E7C221D261B00EFFA6E /* GMUFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E54221D261B00EFFA6E /* GMUFeature.m */; };
+		18EF5E7D221D261B00EFFA6E /* GMUGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E56221D261B00EFFA6E /* GMUGroundOverlay.m */; };
+		18EF5E7E221D261B00EFFA6E /* GMUStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E57221D261B00EFFA6E /* GMUStyle.m */; };
+		18EF5E7F221D261B00EFFA6E /* GMUPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E58221D261B00EFFA6E /* GMUPoint.m */; };
+		18EF5E80221D261B00EFFA6E /* GMULineString.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E5E221D261B00EFFA6E /* GMULineString.m */; };
+		18EF5E81221D261B00EFFA6E /* GMUGeoJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E62221D261B00EFFA6E /* GMUGeoJSONParser.m */; };
+		18EF5E82221D261B00EFFA6E /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E65221D261B00EFFA6E /* GQTPointQuadTree.m */; };
+		18EF5E83221D261B00EFFA6E /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E67221D261B00EFFA6E /* GQTPointQuadTreeChild.m */; };
+		18EF5E86221D265100EFFA6E /* POIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E85221D265100EFFA6E /* POIItem.swift */; };
+		18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
 		18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */; };
 		18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */; };
@@ -142,6 +172,7 @@
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
 		18FAA502220DB907001454DE /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FAA500220DB907001454DE /* SectionHeader.swift */; };
 		18FAA503220DB907001454DE /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FAA501220DB907001454DE /* SectionHeader.xib */; };
+		18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD22221E973D00EF01FC /* HotelFilter.swift */; };
 		18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEC8602200683600C64042 /* ViewProfileVM.swift */; };
 		1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */; };
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
@@ -214,6 +245,8 @@
 		84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CD421F59C0D00F1E844 /* GuestSideMenuHeaderCell.swift */; };
 		84085D1E21F5A10300F1E844 /* HotelsSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84085D1D21F5A10300F1E844 /* HotelsSearch.storyboard */; };
 		84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085D2621F5AD2B00F1E844 /* ATDividerView.swift */; };
+		840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C6FE6221DED7D008EE73C /* AmenitiesCollectionCell.swift */; };
+		840C6FE9221DEE12008EE73C /* AmenitiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840C6FE8221DEE12008EE73C /* AmenitiesCollectionCell.xib */; };
 		840DDE86220D72AD00F8BA92 /* HotelResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840DDE85220D72AD00F8BA92 /* HotelResults.storyboard */; };
 		840DDE88220D735A00F8BA92 /* HotelDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDE87220D735A00F8BA92 /* HotelDetailsVC.swift */; };
 		840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDE8A220D764800F8BA92 /* HotelDetailsImgSlideCell.swift */; };
@@ -285,9 +318,11 @@
 		84BBEEAB221424A900844034 /* HotelDetailsFeeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BBEEA9221424A900844034 /* HotelDetailsFeeTableViewCell.xib */; };
 		84BBEEAE2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBEEAC2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift */; };
 		84BBEEAF2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BBEEAD2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib */; };
+		84BE79F4221D712F00AFC5B7 /* TranslunetNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE79F3221D712F00AFC5B7 /* TranslunetNavBar.swift */; };
+		84BE79F6221D714400AFC5B7 /* TransluentNavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BE79F5221D714400AFC5B7 /* TransluentNavBar.xib */; };
 		84BF46B72211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF46B62211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift */; };
-		84BF46BE2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF46BC2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift */; };
-		84BF46BF2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BF46BD2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib */; };
+		84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF46BC2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift */; };
+		84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BF46BD2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib */; };
 		84BF46C22211E611000AA6E3 /* HotelDetailAmenitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF46C02211E611000AA6E3 /* HotelDetailAmenitiesCell.swift */; };
 		84BF46C32211E611000AA6E3 /* HotelDetailAmenitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BF46C12211E611000AA6E3 /* HotelDetailAmenitiesCell.xib */; };
 		84BF46CA2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BF46C82212A761000AA6E3 /* HotelDetailsLoaderTableViewCell.xib */; };
@@ -312,6 +347,14 @@
 		84E4CC7621E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4CC7421E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib */; };
 		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
 		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
+		84F92884221A94AE00679349 /* hotels_search.csv in Resources */ = {isa = PBXBuildFile; fileRef = 84F92883221A94AE00679349 /* hotels_search.csv */; };
+		84F92886221A98B000679349 /* TripAdvisorDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F92885221A98B000679349 /* TripAdvisorDetailsVC.swift */; };
+		84F92889221A9BF700679349 /* TripAdviserReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F92887221A9BF700679349 /* TripAdviserReviewsCell.swift */; };
+		84F9288A221A9BF700679349 /* TripAdviserReviewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F92888221A9BF700679349 /* TripAdviserReviewsCell.xib */; };
+		84F9288C221B21AA00679349 /* HotelDetailsAmenitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9288B221B21AA00679349 /* HotelDetailsAmenitiesVC.swift */; };
+		84F9288F221B305400679349 /* AmenitiesDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9288D221B305400679349 /* AmenitiesDetailsTableViewCell.swift */; };
+		84F92890221B305400679349 /* AmenitiesDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F9288E221B305400679349 /* AmenitiesDetailsTableViewCell.xib */; };
+		84F92892221BC79300679349 /* HotelDetailsAmenitiesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F92891221BC79300679349 /* HotelDetailsAmenitiesVM.swift */; };
 		84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837121B51A070018DFED /* AppDelegate.swift */; };
 		84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84F9837E21B51A070018DFED /* AERTRIP.xcdatamodeld */; };
 		84F983C421B51A070018DFED /* PKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9838321B51A070018DFED /* PKTextView.swift */; };
@@ -391,6 +434,7 @@
 		181025A321E33C8E0046EED7 /* APICaller+Travellers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Travellers.swift"; sourceTree = "<group>"; };
 		1819D3D421FF4900006A367E /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShimmerSetup.swift; sourceTree = "<group>"; };
+		1824D31E2217F7CC0059C8BA /* HotelMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelMapVC.swift; sourceTree = "<group>"; };
 		182E8ED021DB6AAC0089C02D /* HotelCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCardTableViewCell.swift; sourceTree = "<group>"; };
 		182E8ED121DB6AAC0089C02D /* HotelCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelCardTableViewCell.xib; sourceTree = "<group>"; };
 		183E3F5E21D9E8AA0032DEBA /* HotelPreferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelPreferences.storyboard; sourceTree = "<group>"; };
@@ -433,6 +477,8 @@
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
 		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		188E930B221A8F9A008FE50A /* CustomMarker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMarker.xib; sourceTree = "<group>"; };
+		188E930D221A957A008FE50A /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		18922E7A2204722200939F72 /* RangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeVC.swift; sourceTree = "<group>"; };
 		18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
@@ -494,6 +540,72 @@
 		18D4C41B220ACD06005E1E37 /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
 		18D4C41C220ACD06005E1E37 /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		18D4C41F220B13F2005E1E37 /* HotelFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilterVM.swift; sourceTree = "<group>"; };
+		18EF5E21221C07F500EFFA6E /* ATSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATSwitcher.swift; sourceTree = "<group>"; };
+		18EF5E27221D261B00EFFA6E /* GMUClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUClusterManager.m; sourceTree = "<group>"; };
+		18EF5E28221D261B00EFFA6E /* GMUStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStaticCluster.h; sourceTree = "<group>"; };
+		18EF5E29221D261B00EFFA6E /* GMUMarkerClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUMarkerClustering.h; sourceTree = "<group>"; };
+		18EF5E2B221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGridBasedClusterAlgorithm.m; sourceTree = "<group>"; };
+		18EF5E2C221D261B00EFFA6E /* GMUClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterAlgorithm.h; sourceTree = "<group>"; };
+		18EF5E2D221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUNonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
+		18EF5E2E221D261B00EFFA6E /* GMUWrappingDictionaryKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWrappingDictionaryKey.m; sourceTree = "<group>"; };
+		18EF5E2F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUSimpleClusterAlgorithm.m; sourceTree = "<group>"; };
+		18EF5E30221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGridBasedClusterAlgorithm.h; sourceTree = "<group>"; };
+		18EF5E31221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUNonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
+		18EF5E32221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUSimpleClusterAlgorithm.h; sourceTree = "<group>"; };
+		18EF5E33221D261B00EFFA6E /* GMUWrappingDictionaryKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUWrappingDictionaryKey.h; sourceTree = "<group>"; };
+		18EF5E34221D261B00EFFA6E /* GMUClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterManager.h; sourceTree = "<group>"; };
+		18EF5E35221D261B00EFFA6E /* GMUClusterManager+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUClusterManager+Testing.h"; sourceTree = "<group>"; };
+		18EF5E37221D261B00EFFA6E /* GMUClusterIconGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterIconGenerator.h; sourceTree = "<group>"; };
+		18EF5E38221D261B00EFFA6E /* GMUClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterRenderer.h; sourceTree = "<group>"; };
+		18EF5E39221D261B00EFFA6E /* GMUDefaultClusterRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUDefaultClusterRenderer+Testing.h"; sourceTree = "<group>"; };
+		18EF5E3A221D261B00EFFA6E /* GMUDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUDefaultClusterRenderer.m; sourceTree = "<group>"; };
+		18EF5E3B221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUDefaultClusterIconGenerator.h; sourceTree = "<group>"; };
+		18EF5E3C221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUDefaultClusterIconGenerator.m; sourceTree = "<group>"; };
+		18EF5E3D221D261B00EFFA6E /* GMUDefaultClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUDefaultClusterRenderer.h; sourceTree = "<group>"; };
+		18EF5E3E221D261B00EFFA6E /* GMUDefaultClusterIconGenerator+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUDefaultClusterIconGenerator+Testing.h"; sourceTree = "<group>"; };
+		18EF5E3F221D261B00EFFA6E /* GMUStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStaticCluster.m; sourceTree = "<group>"; };
+		18EF5E40221D261B00EFFA6E /* GMUCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUCluster.h; sourceTree = "<group>"; };
+		18EF5E41221D261B00EFFA6E /* GMUClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterItem.h; sourceTree = "<group>"; };
+		18EF5E43221D261B00EFFA6E /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
+		18EF5E44221D261B00EFFA6E /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
+		18EF5E45221D261B00EFFA6E /* GMUHeatmapTileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUHeatmapTileLayer.h; sourceTree = "<group>"; };
+		18EF5E46221D261B00EFFA6E /* GMUWeightedLatLng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUWeightedLatLng.h; sourceTree = "<group>"; };
+		18EF5E47221D261B00EFFA6E /* GMUGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGradient.m; sourceTree = "<group>"; };
+		18EF5E48221D261B00EFFA6E /* GMUHeatmapTileLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUHeatmapTileLayer.m; sourceTree = "<group>"; };
+		18EF5E4A221D261B00EFFA6E /* GMUKMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUKMLParser.m; sourceTree = "<group>"; };
+		18EF5E4B221D261B00EFFA6E /* GMUGeometryRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeometryRenderer.m; sourceTree = "<group>"; };
+		18EF5E4C221D261B00EFFA6E /* GMUGeoJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeoJSONParser.h; sourceTree = "<group>"; };
+		18EF5E4E221D261B00EFFA6E /* GMUGeometryCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeometryCollection.m; sourceTree = "<group>"; };
+		18EF5E4F221D261B00EFFA6E /* GMUPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPoint.h; sourceTree = "<group>"; };
+		18EF5E50221D261B00EFFA6E /* GMUStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStyle.h; sourceTree = "<group>"; };
+		18EF5E51221D261B00EFFA6E /* GMUPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPlacemark.m; sourceTree = "<group>"; };
+		18EF5E52221D261B00EFFA6E /* GMUPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPolygon.m; sourceTree = "<group>"; };
+		18EF5E53221D261B00EFFA6E /* GMUGeometryContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryContainer.h; sourceTree = "<group>"; };
+		18EF5E54221D261B00EFFA6E /* GMUFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUFeature.m; sourceTree = "<group>"; };
+		18EF5E55221D261B00EFFA6E /* GMULineString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMULineString.h; sourceTree = "<group>"; };
+		18EF5E56221D261B00EFFA6E /* GMUGroundOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGroundOverlay.m; sourceTree = "<group>"; };
+		18EF5E57221D261B00EFFA6E /* GMUStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStyle.m; sourceTree = "<group>"; };
+		18EF5E58221D261B00EFFA6E /* GMUPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPoint.m; sourceTree = "<group>"; };
+		18EF5E59221D261B00EFFA6E /* GMUGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometry.h; sourceTree = "<group>"; };
+		18EF5E5A221D261B00EFFA6E /* GMUGeometryCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryCollection.h; sourceTree = "<group>"; };
+		18EF5E5B221D261B00EFFA6E /* GMUPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPolygon.h; sourceTree = "<group>"; };
+		18EF5E5C221D261B00EFFA6E /* GMUPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPlacemark.h; sourceTree = "<group>"; };
+		18EF5E5D221D261B00EFFA6E /* GMUGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGroundOverlay.h; sourceTree = "<group>"; };
+		18EF5E5E221D261B00EFFA6E /* GMULineString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMULineString.m; sourceTree = "<group>"; };
+		18EF5E5F221D261B00EFFA6E /* GMUFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUFeature.h; sourceTree = "<group>"; };
+		18EF5E60221D261B00EFFA6E /* GMUKMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUKMLParser.h; sourceTree = "<group>"; };
+		18EF5E61221D261B00EFFA6E /* GMUGeometryRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUGeometryRenderer+Testing.h"; sourceTree = "<group>"; };
+		18EF5E62221D261B00EFFA6E /* GMUGeoJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeoJSONParser.m; sourceTree = "<group>"; };
+		18EF5E63221D261B00EFFA6E /* GMUGeometryRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryRenderer.h; sourceTree = "<group>"; };
+		18EF5E65221D261B00EFFA6E /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
+		18EF5E66221D261B00EFFA6E /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		18EF5E67221D261B00EFFA6E /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
+		18EF5E68221D261B00EFFA6E /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
+		18EF5E69221D261B00EFFA6E /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
+		18EF5E6A221D261B00EFFA6E /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
+		18EF5E6B221D261B00EFFA6E /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		18EF5E85221D265100EFFA6E /* POIItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIItem.swift; sourceTree = "<group>"; };
+		18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelSearchRequestModel.swift; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileThreePartTableViewCell.swift; sourceTree = "<group>"; };
 		18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileThreePartTableViewCell.xib; sourceTree = "<group>"; };
@@ -502,6 +614,7 @@
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
 		18FAA500220DB907001454DE /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		18FAA501220DB907001454DE /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
+		18FDDD22221E973D00EF01FC /* HotelFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilter.swift; sourceTree = "<group>"; };
 		18FEC8602200683600C64042 /* ViewProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileVM.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
@@ -576,6 +689,8 @@
 		84085CD421F59C0D00F1E844 /* GuestSideMenuHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestSideMenuHeaderCell.swift; sourceTree = "<group>"; };
 		84085D1D21F5A10300F1E844 /* HotelsSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelsSearch.storyboard; sourceTree = "<group>"; };
 		84085D2621F5AD2B00F1E844 /* ATDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATDividerView.swift; sourceTree = "<group>"; };
+		840C6FE6221DED7D008EE73C /* AmenitiesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesCollectionCell.swift; sourceTree = "<group>"; };
+		840C6FE8221DEE12008EE73C /* AmenitiesCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesCollectionCell.xib; sourceTree = "<group>"; };
 		840DDE85220D72AD00F8BA92 /* HotelResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelResults.storyboard; sourceTree = "<group>"; };
 		840DDE87220D735A00F8BA92 /* HotelDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsVC.swift; sourceTree = "<group>"; };
 		840DDE8A220D764800F8BA92 /* HotelDetailsImgSlideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsImgSlideCell.swift; sourceTree = "<group>"; };
@@ -648,9 +763,11 @@
 		84BBEEA9221424A900844034 /* HotelDetailsFeeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsFeeTableViewCell.xib; sourceTree = "<group>"; };
 		84BBEEAC2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsCancelPolicyTableCell.swift; sourceTree = "<group>"; };
 		84BBEEAD2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsCancelPolicyTableCell.xib; sourceTree = "<group>"; };
+		84BE79F3221D712F00AFC5B7 /* TranslunetNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslunetNavBar.swift; sourceTree = "<group>"; };
+		84BE79F5221D714400AFC5B7 /* TransluentNavBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransluentNavBar.xib; sourceTree = "<group>"; };
 		84BF46B62211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelDetailsVC+TableCell.swift"; sourceTree = "<group>"; };
-		84BF46BC2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesCollectionCell.swift; sourceTree = "<group>"; };
-		84BF46BD2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesCollectionCell.xib; sourceTree = "<group>"; };
+		84BF46BC2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesDetailsCollectionCell.swift; sourceTree = "<group>"; };
+		84BF46BD2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesDetailsCollectionCell.xib; sourceTree = "<group>"; };
 		84BF46C02211E611000AA6E3 /* HotelDetailAmenitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailAmenitiesCell.swift; sourceTree = "<group>"; };
 		84BF46C12211E611000AA6E3 /* HotelDetailAmenitiesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailAmenitiesCell.xib; sourceTree = "<group>"; };
 		84BF46C82212A761000AA6E3 /* HotelDetailsLoaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelDetailsLoaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -675,6 +792,14 @@
 		84E4CC7421E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelsRemoveAllCollectionViewCell.xib; sourceTree = "<group>"; };
 		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
 		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
+		84F92883221A94AE00679349 /* hotels_search.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hotels_search.csv; sourceTree = "<group>"; };
+		84F92885221A98B000679349 /* TripAdvisorDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorDetailsVC.swift; sourceTree = "<group>"; };
+		84F92887221A9BF700679349 /* TripAdviserReviewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdviserReviewsCell.swift; sourceTree = "<group>"; };
+		84F92888221A9BF700679349 /* TripAdviserReviewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdviserReviewsCell.xib; sourceTree = "<group>"; };
+		84F9288B221B21AA00679349 /* HotelDetailsAmenitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsAmenitiesVC.swift; sourceTree = "<group>"; };
+		84F9288D221B305400679349 /* AmenitiesDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		84F9288E221B305400679349 /* AmenitiesDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		84F92891221BC79300679349 /* HotelDetailsAmenitiesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsAmenitiesVM.swift; sourceTree = "<group>"; };
 		84F9837121B51A070018DFED /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9837D21B51A070018DFED /* AERTRIP-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AERTRIP-Bridging-Header.h"; sourceTree = "<group>"; };
 		84F9837F21B51A070018DFED /* AERTRIP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AERTRIP.xcdatamodel; sourceTree = "<group>"; };
@@ -784,6 +909,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				188E9309221A8CCA008FE50A /* HotelResults */,
 				840DDE8E220D77AA00F8BA92 /* HotelDetailsTableCells */,
 				8438C17922045E4B001D510B /* TopNavigationView */,
 				18B435672202DC89000C5E31 /* HotelFilter */,
@@ -797,6 +923,8 @@
 				180A3D6F21C0DA13001A1E6A /* Dashboard */,
 				18FAA500220DB907001454DE /* SectionHeader.swift */,
 				18FAA501220DB907001454DE /* SectionHeader.xib */,
+				84BE79F3221D712F00AFC5B7 /* TranslunetNavBar.swift */,
+				84BE79F5221D714400AFC5B7 /* TransluentNavBar.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -818,6 +946,14 @@
 				1819D3D521FF4900006A367E /* CustomShimmerSetup.swift */,
 			);
 			path = "Custom Shimmer Files";
+			sourceTree = "<group>";
+		};
+		1824D31D2217F7A30059C8BA /* HotelResults */ = {
+			isa = PBXGroup;
+			children = (
+				1824D31E2217F7CC0059C8BA /* HotelMapVC.swift */,
+			);
+			path = HotelResults;
 			sourceTree = "<group>";
 		};
 		183E3F6521D9F1720032DEBA /* HotelsPreferences */ = {
@@ -886,6 +1022,8 @@
 				1870AD10220C769400FB32C8 /* LinkedAccount.swift */,
 				1870AD11220C769400FB32C8 /* SocialUserModel.swift */,
 				1870AD12220C769400FB32C8 /* TravellerModel.swift */,
+				18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */,
+				18FDDD22221E973D00EF01FC /* HotelFilter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -902,6 +1040,23 @@
 				188785A521DF7D990061869E /* TravellerListTableViewCell.xib */,
 			);
 			path = TravellerList;
+			sourceTree = "<group>";
+		};
+		188E9309221A8CCA008FE50A /* HotelResults */ = {
+			isa = PBXGroup;
+			children = (
+				188E930A221A8CD5008FE50A /* Map */,
+			);
+			path = HotelResults;
+			sourceTree = "<group>";
+		};
+		188E930A221A8CD5008FE50A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				188E930B221A8F9A008FE50A /* CustomMarker.xib */,
+				188E930D221A957A008FE50A /* CustomMarker.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		18930A1921D2B817005442C8 /* Search */ = {
@@ -1027,6 +1182,149 @@
 			path = Room;
 			sourceTree = "<group>";
 		};
+		18EF5E20221C07F500EFFA6E /* ATSwitcher */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E21221C07F500EFFA6E /* ATSwitcher.swift */,
+			);
+			path = ATSwitcher;
+			sourceTree = "<group>";
+		};
+		18EF5E25221D261B00EFFA6E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E85221D265100EFFA6E /* POIItem.swift */,
+				18EF5E26221D261B00EFFA6E /* Clustering */,
+				18EF5E42221D261B00EFFA6E /* Heatmap */,
+				18EF5E49221D261B00EFFA6E /* Geometry */,
+				18EF5E64221D261B00EFFA6E /* QuadTree */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		18EF5E26221D261B00EFFA6E /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E27221D261B00EFFA6E /* GMUClusterManager.m */,
+				18EF5E28221D261B00EFFA6E /* GMUStaticCluster.h */,
+				18EF5E29221D261B00EFFA6E /* GMUMarkerClustering.h */,
+				18EF5E2A221D261B00EFFA6E /* Algo */,
+				18EF5E34221D261B00EFFA6E /* GMUClusterManager.h */,
+				18EF5E35221D261B00EFFA6E /* GMUClusterManager+Testing.h */,
+				18EF5E36221D261B00EFFA6E /* View */,
+				18EF5E3F221D261B00EFFA6E /* GMUStaticCluster.m */,
+				18EF5E40221D261B00EFFA6E /* GMUCluster.h */,
+				18EF5E41221D261B00EFFA6E /* GMUClusterItem.h */,
+			);
+			path = Clustering;
+			sourceTree = "<group>";
+		};
+		18EF5E2A221D261B00EFFA6E /* Algo */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E2B221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m */,
+				18EF5E2C221D261B00EFFA6E /* GMUClusterAlgorithm.h */,
+				18EF5E2D221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.h */,
+				18EF5E2E221D261B00EFFA6E /* GMUWrappingDictionaryKey.m */,
+				18EF5E2F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m */,
+				18EF5E30221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.h */,
+				18EF5E31221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m */,
+				18EF5E32221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.h */,
+				18EF5E33221D261B00EFFA6E /* GMUWrappingDictionaryKey.h */,
+			);
+			path = Algo;
+			sourceTree = "<group>";
+		};
+		18EF5E36221D261B00EFFA6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E37221D261B00EFFA6E /* GMUClusterIconGenerator.h */,
+				18EF5E38221D261B00EFFA6E /* GMUClusterRenderer.h */,
+				18EF5E39221D261B00EFFA6E /* GMUDefaultClusterRenderer+Testing.h */,
+				18EF5E3A221D261B00EFFA6E /* GMUDefaultClusterRenderer.m */,
+				18EF5E3B221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.h */,
+				18EF5E3C221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.m */,
+				18EF5E3D221D261B00EFFA6E /* GMUDefaultClusterRenderer.h */,
+				18EF5E3E221D261B00EFFA6E /* GMUDefaultClusterIconGenerator+Testing.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EF5E42221D261B00EFFA6E /* Heatmap */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E43221D261B00EFFA6E /* GMUGradient.h */,
+				18EF5E44221D261B00EFFA6E /* GMUWeightedLatLng.m */,
+				18EF5E45221D261B00EFFA6E /* GMUHeatmapTileLayer.h */,
+				18EF5E46221D261B00EFFA6E /* GMUWeightedLatLng.h */,
+				18EF5E47221D261B00EFFA6E /* GMUGradient.m */,
+				18EF5E48221D261B00EFFA6E /* GMUHeatmapTileLayer.m */,
+			);
+			path = Heatmap;
+			sourceTree = "<group>";
+		};
+		18EF5E49221D261B00EFFA6E /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E4A221D261B00EFFA6E /* GMUKMLParser.m */,
+				18EF5E4B221D261B00EFFA6E /* GMUGeometryRenderer.m */,
+				18EF5E4C221D261B00EFFA6E /* GMUGeoJSONParser.h */,
+				18EF5E4D221D261B00EFFA6E /* Model */,
+				18EF5E60221D261B00EFFA6E /* GMUKMLParser.h */,
+				18EF5E61221D261B00EFFA6E /* GMUGeometryRenderer+Testing.h */,
+				18EF5E62221D261B00EFFA6E /* GMUGeoJSONParser.m */,
+				18EF5E63221D261B00EFFA6E /* GMUGeometryRenderer.h */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		18EF5E4D221D261B00EFFA6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E4E221D261B00EFFA6E /* GMUGeometryCollection.m */,
+				18EF5E4F221D261B00EFFA6E /* GMUPoint.h */,
+				18EF5E50221D261B00EFFA6E /* GMUStyle.h */,
+				18EF5E51221D261B00EFFA6E /* GMUPlacemark.m */,
+				18EF5E52221D261B00EFFA6E /* GMUPolygon.m */,
+				18EF5E53221D261B00EFFA6E /* GMUGeometryContainer.h */,
+				18EF5E54221D261B00EFFA6E /* GMUFeature.m */,
+				18EF5E55221D261B00EFFA6E /* GMULineString.h */,
+				18EF5E56221D261B00EFFA6E /* GMUGroundOverlay.m */,
+				18EF5E57221D261B00EFFA6E /* GMUStyle.m */,
+				18EF5E58221D261B00EFFA6E /* GMUPoint.m */,
+				18EF5E59221D261B00EFFA6E /* GMUGeometry.h */,
+				18EF5E5A221D261B00EFFA6E /* GMUGeometryCollection.h */,
+				18EF5E5B221D261B00EFFA6E /* GMUPolygon.h */,
+				18EF5E5C221D261B00EFFA6E /* GMUPlacemark.h */,
+				18EF5E5D221D261B00EFFA6E /* GMUGroundOverlay.h */,
+				18EF5E5E221D261B00EFFA6E /* GMULineString.m */,
+				18EF5E5F221D261B00EFFA6E /* GMUFeature.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EF5E64221D261B00EFFA6E /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E65221D261B00EFFA6E /* GQTPointQuadTree.m */,
+				18EF5E66221D261B00EFFA6E /* GQTPointQuadTreeItem.h */,
+				18EF5E67221D261B00EFFA6E /* GQTPointQuadTreeChild.m */,
+				18EF5E68221D261B00EFFA6E /* GQTPoint.h */,
+				18EF5E69221D261B00EFFA6E /* GQTPointQuadTree.h */,
+				18EF5E6A221D261B00EFFA6E /* GQTPointQuadTreeChild.h */,
+				18EF5E6B221D261B00EFFA6E /* GQTBounds.h */,
+			);
+			path = QuadTree;
+			sourceTree = "<group>";
+		};
+		18EF5E84221D263400EFFA6E /* GooleMapCluster */ = {
+			isa = PBXGroup;
+			children = (
+				18EF5E25221D261B00EFFA6E /* src */,
+			);
+			path = GooleMapCluster;
+			sourceTree = "<group>";
+		};
 		18FA222D21EC7C400024B91E /* AssignGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1073,6 +1371,7 @@
 		84085C6C21F59C0C00F1E844 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1824D31D2217F7A30059C8BA /* HotelResults */,
 				18B435622202C9AA000C5E31 /* HotelFilter */,
 				84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */,
 				84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */,
@@ -1423,6 +1722,8 @@
 				84BF46B62211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift */,
 				840404FB2215A94C00FCE19E /* HotelDetailsVM.swift */,
 				840404FF2215D91A00FCE19E /* HotelDetails.swift */,
+				84F92893221BC7D900679349 /* HotelDetailsAmenitiesVC */,
+				84F92885221A98B000679349 /* TripAdvisorDetailsVC.swift */,
 			);
 			path = HotelDetailsVC;
 			sourceTree = "<group>";
@@ -1432,6 +1733,7 @@
 			children = (
 				842E04882215332800C482DC /* TableSectionOne */,
 				84BBEE9E2214228400844034 /* TableSectionTwo */,
+				84BE79F7221D804F00AFC5B7 /* TripAdviserReviewsCell */,
 			);
 			path = HotelDetailsTableCells;
 			sourceTree = "<group>";
@@ -1535,8 +1837,8 @@
 				8483AFA922119A44009F7600 /* HotelInfoAddressCell.xib */,
 				84BF46C02211E611000AA6E3 /* HotelDetailAmenitiesCell.swift */,
 				84BF46C12211E611000AA6E3 /* HotelDetailAmenitiesCell.xib */,
-				84BF46BC2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift */,
-				84BF46BD2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib */,
+				84BF46BC2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift */,
+				84BF46BD2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib */,
 				84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */,
 				84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */,
 				84504D562212F375002C1374 /* SearchBarHeaderView.swift */,
@@ -1677,6 +1979,7 @@
 			children = (
 				849F31ED21FF1AC60076BB3D /* profile.csv */,
 				849F31EE21FF1AC60076BB3D /* login.csv */,
+				84F92883221A94AE00679349 /* hotels_search.csv */,
 			);
 			path = ErrorFiles;
 			sourceTree = "<group>";
@@ -1692,8 +1995,21 @@
 				84BBEEA9221424A900844034 /* HotelDetailsFeeTableViewCell.xib */,
 				84BBEEAC2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift */,
 				84BBEEAD2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib */,
+				84F9288D221B305400679349 /* AmenitiesDetailsTableViewCell.swift */,
+				84F9288E221B305400679349 /* AmenitiesDetailsTableViewCell.xib */,
 			);
 			path = TableSectionTwo;
+			sourceTree = "<group>";
+		};
+		84BE79F7221D804F00AFC5B7 /* TripAdviserReviewsCell */ = {
+			isa = PBXGroup;
+			children = (
+				84F92887221A9BF700679349 /* TripAdviserReviewsCell.swift */,
+				84F92888221A9BF700679349 /* TripAdviserReviewsCell.xib */,
+				840C6FE6221DED7D008EE73C /* AmenitiesCollectionCell.swift */,
+				840C6FE8221DEE12008EE73C /* AmenitiesCollectionCell.xib */,
+			);
+			path = TripAdviserReviewsCell;
 			sourceTree = "<group>";
 		};
 		84D2FB7821BE351E00011000 /* PKCountryPicker */ = {
@@ -1729,6 +2045,15 @@
 			path = PKViewPager;
 			sourceTree = "<group>";
 		};
+		84F92893221BC7D900679349 /* HotelDetailsAmenitiesVC */ = {
+			isa = PBXGroup;
+			children = (
+				84F9288B221B21AA00679349 /* HotelDetailsAmenitiesVC.swift */,
+				84F92891221BC79300679349 /* HotelDetailsAmenitiesVM.swift */,
+			);
+			path = HotelDetailsAmenitiesVC;
+			sourceTree = "<group>";
+		};
 		84F9837021B51A070018DFED /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,6 +2080,8 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				18EF5E84221D263400EFFA6E /* GooleMapCluster */,
+				18EF5E20221C07F500EFFA6E /* ATSwitcher */,
 				18BF0AB4221293C500950A17 /* StepSlider */,
 				1896D58E22095371003FC2B6 /* Multi Slider */,
 				1819D3D321FF4900006A367E /* Custom Shimmer Files */,
@@ -1970,7 +2297,7 @@
 				};
 			};
 			buildConfigurationList = 8469FE8A21B513FD0027BB2E /* Build configuration list for PBXProject "AERTRIP" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2005,9 +2332,11 @@
 				84BBEEAF2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib in Resources */,
 				189D1F4C21CE3F8E00746329 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				849F31F021FF1AC60076BB3D /* login.csv in Resources */,
+				84F92884221A94AE00679349 /* hotels_search.csv in Resources */,
 				84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */,
 				840DDE86220D72AD00F8BA92 /* HotelResults.storyboard in Resources */,
 				1804889221CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib in Resources */,
+				188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */,
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
 				840DDE92220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.xib in Resources */,
 				18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */,
@@ -2027,7 +2356,7 @@
 				1809A47C21CDFA7E0018AB2F /* TableViewAddActionCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				189D1F4921CE3F8E00746329 /* SourceSansPro-Black.ttf in Resources */,
-				84BF46BF2211E5EF000AA6E3 /* AmenitiesCollectionCell.xib in Resources */,
+				84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */,
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
 				18D4C41E220ACD06005E1E37 /* RoomTableViewCell.xib in Resources */,
 				848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */,
@@ -2048,6 +2377,9 @@
 				8483AFA322117979009F7600 /* HotelFilterResultFooterView.xib in Resources */,
 				18999D8F21E48D6500E66072 /* OrderTableViewCell.xib in Resources */,
 				18A01E4421CA50ED0071E772 /* GoogleService-Info.plist in Resources */,
+				840C6FE9221DEE12008EE73C /* AmenitiesCollectionCell.xib in Resources */,
+				84F9288A221A9BF700679349 /* TripAdviserReviewsCell.xib in Resources */,
+				84F92890221B305400679349 /* AmenitiesDetailsTableViewCell.xib in Resources */,
 				189D1F5121CE3F8E00746329 /* SourceSansPro-Light.ttf in Resources */,
 				842E048C221583F800C482DC /* RecentHotelSearcheView.xib in Resources */,
 				189D1F4F21CE3F8E00746329 /* SourceSansPro-BoldItalic.ttf in Resources */,
@@ -2070,6 +2402,7 @@
 				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
 				189D1F4821CE3F8E00746329 /* SourceSansPro-LightItalic.ttf in Resources */,
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
+				84BE79F6221D714400AFC5B7 /* TransluentNavBar.xib in Resources */,
 				84956FB621B6579F00BF1183 /* Localizable.strings in Resources */,
 				849F31EF21FF1AC60076BB3D /* profile.csv in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
@@ -2225,6 +2558,7 @@
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
 				1819D3D621FF4900006A367E /* CustomView.swift in Sources */,
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
+				18EF5E73221D261B00EFFA6E /* GMUStaticCluster.m in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
 				180FA06921DCC83F003901FF /* AddAddressTableViewCell.swift in Sources */,
 				84085CF121F59C0E00F1E844 /* SocialLoginVM.swift in Sources */,
@@ -2233,6 +2567,7 @@
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
 				84085CE521F59C0E00F1E844 /* CreateProfileVC.swift in Sources */,
 				84085D1421F59C0E00F1E844 /* ViewProfileDetailVM.swift in Sources */,
+				18EF5E7C221D261B00EFFA6E /* GMUFeature.m in Sources */,
 				84085D1121F59C0E00F1E844 /* ImportContactVC.swift in Sources */,
 				1871B67822084B580066636E /* PriceVC.swift in Sources */,
 				18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */,
@@ -2240,11 +2575,14 @@
 				1896D5922209538B003FC2B6 /* MultiSlider+Drag.swift in Sources */,
 				84FFDFAD21F9F67B005CA257 /* ATCategoryNavBar.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
+				18EF5E7B221D261B00EFFA6E /* GMUPolygon.m in Sources */,
 				849B849721EF0B7C00AA63BA /* PKAlertController.swift in Sources */,
 				84085D0C21F59C0E00F1E844 /* AssignGroupVM.swift in Sources */,
 				84BF46B72211DBB7000AA6E3 /* HotelDetailsVC+TableCell.swift in Sources */,
+				18EF5E82221D261B00EFFA6E /* GQTPointQuadTree.m in Sources */,
 				84085CDA21F59C0E00F1E844 /* MainHomeVC.swift in Sources */,
 				1809A47B21CDFA7E0018AB2F /* TableViewAddActionCell.swift in Sources */,
+				18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */,
 				84F983C221B51A070018DFED /* AERTRIP.xcdatamodeld in Sources */,
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */,
@@ -2261,8 +2599,10 @@
 				84DD0D1D220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift in Sources */,
 				84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */,
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
+				1824D31F2217F7CC0059C8BA /* HotelMapVC.swift in Sources */,
 				84085D1321F59C0E00F1E844 /* TravellerListVC.swift in Sources */,
 				1896D59B220995BF003FC2B6 /* RatingVC.swift in Sources */,
+				84F9288F221B305400679349 /* AmenitiesDetailsTableViewCell.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
@@ -2290,11 +2630,13 @@
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
+				18EF5E70221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				1871B672220823E30066636E /* ATGuestButton.swift in Sources */,
 				1870AD14220C769400FB32C8 /* UserInfo.swift in Sources */,
 				18B4356A2202DCA6000C5E31 /* SortTableViewCell.swift in Sources */,
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
+				18EF5E7E221D261B00EFFA6E /* GMUStyle.m in Sources */,
 				1870AD15220C769400FB32C8 /* ATContact.swift in Sources */,
 				842E048F2215855E00C482DC /* RecentHotelSearchCollectionViewCell.swift in Sources */,
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
@@ -2314,12 +2656,14 @@
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
 				84085CF221F59C0E00F1E844 /* SocialLoginVC.swift in Sources */,
 				84BBEEAA221424A900844034 /* HotelDetailsFeeTableViewCell.swift in Sources */,
+				18EF5E72221D261B00EFFA6E /* GMUDefaultClusterIconGenerator.m in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				1870AD20220C769400FB32C8 /* LinkedAccount.swift in Sources */,
 				1870AD22220C769400FB32C8 /* TravellerModel.swift in Sources */,
 				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
+				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
@@ -2338,6 +2682,7 @@
 				84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */,
 				84085D0721F59C0E00F1E844 /* ViewProfileVC.swift in Sources */,
 				841DD1E62202DC690055FEBB /* SelectDestinationVM.swift in Sources */,
+				18EF5E6E221D261B00EFFA6E /* GMUWrappingDictionaryKey.m in Sources */,
 				84085D0221F59C0E00F1E844 /* EditProfileVM.swift in Sources */,
 				1870AD1A220C769400FB32C8 /* SearchedDestination.swift in Sources */,
 				1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */,
@@ -2346,8 +2691,10 @@
 				84085CD921F59C0E00F1E844 /* BaseVC.swift in Sources */,
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
+				18EF5E71221D261B00EFFA6E /* GMUDefaultClusterRenderer.m in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,
 				842E048A221583F000C482DC /* RecentHotelSearcheView.swift in Sources */,
+				84F92889221A9BF700679349 /* TripAdviserReviewsCell.swift in Sources */,
 				8452D37221E6151500927287 /* CoreDataManager.swift in Sources */,
 				84085CE921F59C0E00F1E844 /* CreateYourAccountVM.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
@@ -2371,17 +2718,21 @@
 				84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */,
 				18FAA502220DB907001454DE /* SectionHeader.swift in Sources */,
 				84085CEE21F59C0E00F1E844 /* ShowToastMessageVC.swift in Sources */,
+				84F9288C221B21AA00679349 /* HotelDetailsAmenitiesVC.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
+				18EF5E7D221D261B00EFFA6E /* GMUGroundOverlay.m in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
+				18EF5E6C221D261B00EFFA6E /* GMUClusterManager.m in Sources */,
 				84BBEEA0221422C100844034 /* HotelDetailsBedsTableViewCell.swift in Sources */,
 				18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */,
 				84F983C821B51A070018DFED /* APIKeys.swift in Sources */,
 				84085CE221F59C0E00F1E844 /* LoginVM.swift in Sources */,
+				84F92892221BC79300679349 /* HotelDetailsAmenitiesVM.swift in Sources */,
 				84085D0021F59C0E00F1E844 /* HotelSearchVC.swift in Sources */,
 				84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
@@ -2398,37 +2749,49 @@
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
 				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				84FFDFAE21F9F67B005CA257 /* ATCategoryView.swift in Sources */,
+				840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */,
 				1808EC6E21DCD3A0006858D6 /* APICaller+Hotels.swift in Sources */,
+				18EF5E77221D261B00EFFA6E /* GMUKMLParser.m in Sources */,
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,
+				18EF5E6D221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m in Sources */,
+				18EF5E80221D261B00EFFA6E /* GMULineString.m in Sources */,
+				18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
+				18EF5E75221D261B00EFFA6E /* GMUGradient.m in Sources */,
 				84CF4E3B21BE8C5500B8EC47 /* ATNotificationButton.swift in Sources */,
 				8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */,
+				18EF5E79221D261B00EFFA6E /* GMUGeometryCollection.m in Sources */,
 				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
 				1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
+				18EF5E81221D261B00EFFA6E /* GMUGeoJSONParser.m in Sources */,
 				840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */,
-				84BF46BE2211E5EF000AA6E3 /* AmenitiesCollectionCell.swift in Sources */,
+				84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */,
 				1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */,
 				84F983D821B51A070018DFED /* UIViewExtension.swift in Sources */,
 				1870AD1F220C769400FB32C8 /* GeneralPrefrenceModel.swift in Sources */,
 				84085CE121F59C0E00F1E844 /* LoginVC.swift in Sources */,
 				1896D5932209538B003FC2B6 /* MultiSliderExtensions.swift in Sources */,
+				18EF5E76221D261B00EFFA6E /* GMUHeatmapTileLayer.m in Sources */,
+				18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */,
 				84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */,
 				84F983E721B51A070018DFED /* AppGlobals.swift in Sources */,
 				84F983D921B51A070018DFED /* Extensions.swift in Sources */,
 				84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */,
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
+				84F92886221A98B000679349 /* TripAdvisorDetailsVC.swift in Sources */,
 				84BF46CB2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
 				1896D5942209538B003FC2B6 /* MultiSlider.swift in Sources */,
 				1809A47F21CDFE850018AB2F /* EditProfileTwoPartTableViewCell.swift in Sources */,
 				183E3F6B21DA00D70032DEBA /* FloatRatingView.swift in Sources */,
+				18EF5E7F221D261B00EFFA6E /* GMUPoint.m in Sources */,
 				84085D1621F59C0E00F1E844 /* SideMenuViewAccountCell.swift in Sources */,
 				1896D59E220998CF003FC2B6 /* RatingVM.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
@@ -2449,28 +2812,35 @@
 				18BF0AB7221293C500950A17 /* StepSlider.m in Sources */,
 				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
 				84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */,
+				18EF5E78221D261B00EFFA6E /* GMUGeometryRenderer.m in Sources */,
 				1870AD21220C769400FB32C8 /* SocialUserModel.swift in Sources */,
 				841DD1E92202DC690055FEBB /* SelectDestinationVC.swift in Sources */,
+				18EF5E83221D261B00EFFA6E /* GQTPointQuadTreeChild.m in Sources */,
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
 				849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,
 				849B849921EF0C8600AA63BA /* PKAlertButton.swift in Sources */,
 				84BF46C22211E611000AA6E3 /* HotelDetailAmenitiesCell.swift in Sources */,
+				188E930E221A957A008FE50A /* CustomMarker.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
+				18EF5E22221C07F500EFFA6E /* ATSwitcher.swift in Sources */,
 				84F983CB21B51A070018DFED /* LocationManager.swift in Sources */,
 				18D4C40E220AB061005E1E37 /* AmenitiesVC.swift in Sources */,
 				84085D0A21F59C0E00F1E844 /* PreferencesVM.swift in Sources */,
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
+				18EF5E86221D265100EFFA6E /* POIItem.swift in Sources */,
 				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
 				840405002215D91A00FCE19E /* HotelDetails.swift in Sources */,
 				84085D0121F59C0E00F1E844 /* HotelSearchVM.swift in Sources */,
 				1804889121CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift in Sources */,
+				84BE79F4221D712F00AFC5B7 /* TranslunetNavBar.swift in Sources */,
 				84085D0421F59C0E00F1E844 /* EditProfileVC+DelegateMethods.swift in Sources */,
 				18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */,
 				84085CFE21F59C0E00F1E844 /* HotelsListVM.swift in Sources */,
 				8483AFAA22119A44009F7600 /* HotelInfoAddressCell.swift in Sources */,
+				18EF5E7A221D261B00EFFA6E /* GMUPlacemark.m in Sources */,
 				1809A47621CD057D0018AB2F /* EditProfileImageHeaderView.swift in Sources */,
 				18D4C419220AC6A9005E1E37 /* RoomVM.swift in Sources */,
 			);
@@ -2602,7 +2972,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2613,7 +2983,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Aertrip Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2627,7 +2997,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AERTRIP/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2638,7 +3008,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Aertrip Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

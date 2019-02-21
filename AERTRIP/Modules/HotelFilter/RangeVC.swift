@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class RangeVC: BaseVC {
     
     // MARK: - IB Outlets
@@ -19,18 +20,21 @@ class RangeVC: BaseVC {
     
     
     
+    
     // MARK: - View Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.doInitialSetup()
+        
+        sliderValueChanged(HotelFilterVM.shared.distanceRange)
     }
     
     
     // MARK: - Override methods
     
-     func doInitialSetup() {
+     private func doInitialSetup() {
         self.rangeView.layer.cornerRadius = 15.5
       
     }
@@ -50,9 +54,12 @@ class RangeVC: BaseVC {
         self.rangeLabel.textColor = AppColors.textFieldTextColor51
     }
     
+    private func setUpRangeView() {
+    }
+    
     @IBAction func sliderValueChanged(_ sender: Any) {
         rangeLabel.text = "Within " + "\((sender as AnyObject).index ?? 0)" + "Km"
-        HotelFilterVM.shared.distanceRange = (sender as AnyObject).index ?? 0
+        HotelFilterVM.shared.distanceRange = Double((sender as AnyObject).index ?? 0)
         
     }
     

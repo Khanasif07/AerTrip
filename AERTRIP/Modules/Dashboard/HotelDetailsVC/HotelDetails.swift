@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct HotelDetails: Codable {
+//Mark:- HotelDetails
+//===================
+struct HotelDetails {
     
     //Mark:- Variables
     //================
-    
     var hid: String = ""
     var vid:String = ""
     var list_price: Double = 0.0
@@ -28,26 +29,24 @@ struct HotelDetails: Codable {
     var fav: String = ""
     var address: String = ""
     var photos: [String] = []
-    var amenities: Amenities? = nil //
-//    var amenities_group: AmenitiesGroup//
-    var checkin_time: String = "" //
-    var checkout_time: String = ""//
-    var checkin: String = ""//
-    var checkout: String = ""//
+    var amenities: Amenities? = nil
+    var amenities_group: [[String: Any]] = [[:]]
+    var checkin_time: String = ""
+    var checkout_time: String = ""
+    var checkin: String = ""
+    var checkout: String = ""
     var num_rooms: Int = 0
-//    var rates: Rates//
+    var rates: [Rates]? = nil
 //    var combine_rates: CombineRates//
-    var info: String = ""//
+    var info: String = ""
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
-    var city: String = ""//
+    var city: String = ""
     var country: String = ""
-    var is_refetch_cp: String = ""//
+    var is_refetch_cp: String = ""
     var per_night_price: String = ""
     var per_night_list_price: String = ""
 //    var occupant: Occupant//
-    
-    
     var facilities: String = ""
     var city_code: String = ""
     var acc_type: String = ""
@@ -58,9 +57,8 @@ struct HotelDetails: Codable {
     var distance: String = ""
     var thumbnail: [String] = [String]()
     
-
-    
-    
+    //Mark:- Initialization
+    //=====================
     init() {
         self.init(json: [:])
     }
@@ -95,16 +93,14 @@ struct HotelDetails: Codable {
                 APIKeys.ta_web_url.rawValue: self.ta_web_url,
                 APIKeys.per_night_price.rawValue: self.per_night_price,
                 APIKeys.per_night_list_price.rawValue: self.per_night_list_price,
-        
-        
                 APIKeys.photos.rawValue: self.photos,
                 APIKeys.amenities.rawValue: self.amenities,
-                //APIKeys.amenities_group.rawValue: self.amenities_group,
+                APIKeys.amenities_group.rawValue: self.amenities_group,
                 APIKeys.checkin_time.rawValue: self.checkin_time,
                 APIKeys.checkout_time.rawValue: self.checkout_time,
                 APIKeys.checkin.rawValue: self.checkin,
                 APIKeys.checkout.rawValue: self.checkout,
-                //APIKeys.rates.rawValue: self.rates,
+                APIKeys.rates.rawValue: self.rates,
                 //APIKeys.combine_rates.rawValue: self.combine_rates,
                 APIKeys.info.rawValue: self.info,
                 APIKeys.city.rawValue: self.city,
@@ -228,70 +224,40 @@ struct HotelDetails: Codable {
             self.is_refetch_cp = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.amenities.rawValue] as? JSONDictionary {
-            
-            if let otherData = obj[APIKeys.other.rawValue] as? [String] {
-                for  (index,data) in otherData.enumerated() {
-                    self.amenities?.other[index] = data
-                }
-                //self.amenities?.other = otherData
-            }
-            if let basicData = obj[APIKeys.basic.rawValue] as? [String] {
-                for data in basicData {
-                    self.amenities?.basic.append(data)
-                }
-//                for  (index,data) in basicData.enumerated() {
-//                    self.amenities?.basic[index] = data
-//                }
-                //self.amenities?.basic = basicData
-            }
-            
-            if let mainData = obj[APIKeys.main.rawValue] as? [JSONDictionary], var mainAmenities = self.amenities {
-                for (index,main) in mainData.enumerated() {
-                    mainAmenities.main?[index].name = "\(main[APIKeys.name.rawValue] ?? "")"
-                        mainAmenities.main?[index].classType = "\(main[APIKeys.classType.rawValue] ?? "")"
-                        mainAmenities.main?[index].available = (main[APIKeys.name.rawValue] as? Int ?? 0)
-                }
+            self.amenities = Amenities.getAmenitiesData(response: obj)
+        }
+        if let obj = json[APIKeys.rates.rawValue] as? [JSONDictionary] {
+            self.rates = Rates.getRatesData(response: obj)
+        }
+        if let obj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary] {
+            for data in obj {
+                self.amenities_group.append(data)
             }
         }
-
-
-        //APIKeys.amenities.rawValue: self.amenities,
-        //APIKeys.amenities_group.rawValue: self.amenities_group,
-        //APIKeys.rates.rawValue: self.rates,
-        //APIKeys.combine_rates.rawValue: self.combine_rates,
-        //APIKeys.occupant.rawValue: self.occupant
     }
     
-    /*
-
-    
-    struct AmenitiesGroup {
-        <#fields#>
-    }
-    
-    struct Rates {
-        <#fields#>
-    }
-    
-    struct CombineRates {
-        <#fields#>
-    }
-    
-    struct Occupant {
-        <#fields#>
-    } */
-    
+    //Mark:- Functions
+    //================
+    ///Static Function
     static func hotelInfo(response: JSONDictionary) -> HotelDetails {
         let hotelInfo = HotelDetails(json: response)
         return hotelInfo
     }
 }
 
-struct Amenities: Codable {
+
+//Mark:- Amenities
+//================
+struct Amenities {
+    
+    //Mark:- Variables
+    //================
     var main: [Main]? = nil
     var basic: [String] = []
     var other: [String] = []
     
+    //Mark:- Initialization
+    //=====================
     init() {
         self.init(json: [:])
     }
@@ -301,19 +267,602 @@ struct Amenities: Codable {
                 APIKeys.basic.rawValue: self.basic,
                 APIKeys.other.rawValue: self.other]
     }
-    
+
     init(json: JSONDictionary) {
+        if let mainData = json[APIKeys.main.rawValue] as? [JSONDictionary] {
+            self.main = Main.getMainData(response: mainData)
+        }
+        
         if let otherData = json[APIKeys.other.rawValue] as? [String] {
-            for  (index,data) in otherData.enumerated() {
-                self.other[index] = data
+            for data in otherData {
+                self.other.append(data)
+            }
+        }
+        
+        if let basicData = json[APIKeys.basic.rawValue] as? [String] {
+            for data in basicData {
+                self.basic.append(data)
             }
         }
     }
     
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getAmenitiesData(response: JSONDictionary) -> Amenities {
+        let amenities = Amenities(json: response)
+        return amenities
+    }
 }
 
-struct Main: Codable {
+
+//Mark:- Main
+//===========
+
+//Mark:- Variables
+//================
+struct Main {
     var available: Int = 0
     var name: String = ""
     var classType: String = ""
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.available.rawValue: self.available,
+                APIKeys.name.rawValue: self.name,
+                APIKeys.classType.rawValue: self.classType]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.name.rawValue] {
+            self.name = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.available.rawValue] as? Int {
+            self.available = obj
+        }
+        if let obj = json[APIKeys.classType.rawValue] {
+            self.classType = "\(obj)".removeNull
+        }
+    }
+
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getMainData(response: [JSONDictionary]) -> [Main] {
+        var mainDataArray = [Main]()
+        for json in response {
+            let obj = Main(json: json)
+            mainDataArray.append(obj)
+        }
+        return mainDataArray
+    }
 }
+
+
+//Mark:- Rates
+//============
+struct Rates {
+    
+    //Mark:- Variables
+    //================
+    var qid: String = ""
+    var can_combine: Bool = false
+    var price: Double = 0.0
+    var list_price: Double = 0.0
+    var tax: Double = 0.0
+    var discount: Double = 0.0
+    var hotel_code: String = ""
+    var group_rooms: String = ""
+    var payment_info: String = ""
+    var part_payment_last_date: String = ""
+    var roomsRates: [RoomsRates]? = nil
+    var terms: RatesTerms? = nil
+    var cancellation_penalty: CancellationPenaltyRates? = nil
+    var penalty_array: [PenaltyRates]? = nil
+    var inclusion_array: [String : Any] = [:]
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.qid.rawValue: self.qid,
+                APIKeys.can_combine.rawValue: self.can_combine,
+                APIKeys.price.rawValue: self.price,
+                APIKeys.list_price.rawValue: self.list_price,
+                APIKeys.tax.rawValue: self.tax,
+                APIKeys.discount.rawValue: self.discount,
+                APIKeys.hotel_code.rawValue: self.hotel_code,
+                APIKeys.group_rooms.rawValue: self.group_rooms,
+                APIKeys.payment_info.rawValue: self.payment_info,
+                APIKeys.part_payment_last_date.rawValue: self.part_payment_last_date,
+                APIKeys.rooms.rawValue: self.roomsRates,
+                APIKeys.terms.rawValue: self.terms,
+                APIKeys.cancellation_penalty.rawValue: self.cancellation_penalty,
+                APIKeys.penalty_array.rawValue: self.penalty_array,
+                APIKeys.inclusion_array.rawValue: self.inclusion_array
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.qid.rawValue] {
+            self.qid = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.can_combine.rawValue] {
+            self.can_combine = ("\(obj)".removeNull == "1" ? true : false)
+        }
+        if let obj = json[APIKeys.price.rawValue] as? Double {
+            self.price = obj
+        }
+        if let obj = json[APIKeys.list_price.rawValue] as? Double {
+            self.list_price = obj
+        }
+        if let obj = json[APIKeys.tax.rawValue] as? Double {
+            self.tax = obj
+        }
+        if let obj = json[APIKeys.discount.rawValue] as? Double {
+            self.discount = obj
+        }
+        if let obj = json[APIKeys.hotel_code.rawValue]{
+            self.hotel_code = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.group_rooms.rawValue] {
+            self.group_rooms = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.payment_info.rawValue] {
+            self.payment_info = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.part_payment_last_date.rawValue] {
+            self.part_payment_last_date = "\(obj)".removeNull
+        }
+        if let roomsData = json[APIKeys.rooms.rawValue] as? [JSONDictionary] {
+            self.roomsRates = RoomsRates.getRoomsData(response: roomsData)
+        }
+        if let termsData = json[APIKeys.terms.rawValue] as? JSONDictionary {
+            self.terms = RatesTerms.getRatesTermsData(response: termsData)
+        }
+        if let cancellationPenaltyData = json[APIKeys.cancellation_penalty.rawValue] as? JSONDictionary {
+            self.cancellation_penalty = CancellationPenaltyRates.getCancellationPenaltyData(response: cancellationPenaltyData)
+        }
+        if let penaltyData = json[APIKeys.penalty_array.rawValue] as? [JSONDictionary] {
+            self.penalty_array = PenaltyRates.getPenaltyRatesData(response: penaltyData)
+        }
+        if let inclusionData = json[APIKeys.inclusion_array.rawValue] as? JSONDictionary {
+            self.inclusion_array = inclusionData
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getRatesData(response: [JSONDictionary]) -> [Rates] {
+        var ratesDataArray = [Rates]()
+        for json in response {
+            let obj = Rates(json: json)
+            ratesDataArray.append(obj)
+        }
+        return ratesDataArray
+    }
+}
+
+
+//Mark:- RoomsRates
+//=================
+struct RoomsRates {
+    
+    //Mark:- Variables
+    //================
+    var rid: String = ""
+    var thumbnail: String = ""
+    var name: String = ""
+    var desc: String = ""
+    var roomBedTypes: [RoomsBedTypes]? = nil
+    var type: String = ""
+    var id: String = ""
+    var max_adult: String = ""
+    var max_child: String = ""
+    var room_reference: String = ""
+    var per_night_price: String = ""
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.rid.rawValue: self.rid,
+                APIKeys.thumbnail.rawValue: self.thumbnail,
+                APIKeys.name.rawValue: self.name,
+                APIKeys.desc.rawValue: self.desc,
+                APIKeys.bed_types.rawValue: self.roomBedTypes,
+                APIKeys.type.rawValue: self.type,
+                APIKeys.id.rawValue: self.id,
+                APIKeys.max_adult.rawValue: self.max_adult,
+                APIKeys.max_child.rawValue: self.max_child,
+                APIKeys.room_reference.rawValue: self.room_reference,
+                APIKeys.per_night_price.rawValue: self.per_night_price
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        
+        if let obj = json[APIKeys.rid.rawValue] {
+            self.rid = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.thumbnail.rawValue] {
+            self.thumbnail = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.name.rawValue] {
+            self.name = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.desc.rawValue] {
+            self.desc = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.bed_types.rawValue] as? [JSONDictionary] {
+            self.roomBedTypes = RoomsBedTypes.getBedTypesData(response: obj)
+        }
+        if let obj = json[APIKeys.type.rawValue] {
+            self.type = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.id.rawValue] {
+            self.id = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.max_adult.rawValue] {
+            self.max_adult = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.max_child.rawValue] {
+            self.max_child = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.room_reference.rawValue] {
+            self.room_reference = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.per_night_price.rawValue] {
+            self.per_night_price = "\(obj)".removeNull
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getRoomsData(response: [JSONDictionary]) -> [RoomsRates] {
+        var roomsDataArray = [RoomsRates]()
+        for json in response {
+            let obj = RoomsRates(json: json)
+            roomsDataArray.append(obj)
+        }
+        return roomsDataArray
+    }
+}
+
+
+//Mark:- RoomsBedTypes
+//====================
+struct  RoomsBedTypes {
+    
+    //Mark:- Variables
+    //================
+    var type: String = ""
+    var id: String = ""
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.type.rawValue: self.type,
+                APIKeys.id.rawValue: self.id
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.type.rawValue] {
+            self.type = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.id.rawValue] {
+            self.id = "\(obj)".removeNull
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getBedTypesData(response: [JSONDictionary]) -> [RoomsBedTypes] {
+        var bedDataArray = [RoomsBedTypes]()
+        for json in response {
+            let obj = RoomsBedTypes(json: json)
+            bedDataArray.append(obj)
+        }
+        return bedDataArray
+    }
+}
+
+
+//Mark:- RatesTerms
+//=================
+struct  RatesTerms {
+    
+    //Mark:- Variables
+    //================
+    var meals: String = ""
+    var cancellation: String = ""
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.meals.rawValue: self.meals,
+                APIKeys.cancellation.rawValue: self.cancellation
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.meals.rawValue] {
+            self.meals = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.cancellation.rawValue] {
+            self.cancellation = "\(obj)".removeNull
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getRatesTermsData(response: JSONDictionary) -> RatesTerms {
+        let termsData = RatesTerms(json: response)
+        return termsData
+    }
+}
+
+
+//Mark:- CancellationPenaltyRates
+//===============================
+struct CancellationPenaltyRates {
+    
+    //Mark:- Variables
+    //================
+    var is_refundable : Bool = false
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.is_refundable.rawValue: self.is_refundable
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.is_refundable.rawValue] {
+            self.is_refundable = "\(obj)".removeNull == "1" ? true : false
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getCancellationPenaltyData(response: JSONDictionary) -> CancellationPenaltyRates {
+        let cancellationPenaltyData = CancellationPenaltyRates(json: response)
+        return cancellationPenaltyData
+    }
+}
+
+//Mark:- PenaltyRates
+//===================
+struct PenaltyRates {
+    
+    //Mark:- Variables
+    //================
+    var to: String = ""
+    var from: String = ""
+    var penalty: Int = 0
+    var tz: String = ""
+    var is_refundable: Bool = false
+
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.to.rawValue: self.to,
+                APIKeys.penalty.rawValue: self.penalty,
+                APIKeys.tz.rawValue: self.tz,
+                APIKeys.is_refundable.rawValue: self.is_refundable,
+                APIKeys.from.rawValue: self.from
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.to.rawValue] {
+            self.to = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.penalty.rawValue] as? Int {
+            self.penalty = obj
+        }
+        if let obj = json[APIKeys.tz.rawValue] {
+            self.tz = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.is_refundable.rawValue] {
+            self.is_refundable = "\(obj)".removeNull == "1" ? true : false
+        }
+        if let obj = json[APIKeys.from.rawValue] {
+            self.from = "\(obj)".removeNull
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func getPenaltyRatesData(response: [JSONDictionary]) -> [PenaltyRates] {
+        var penaltyRatesArray = [PenaltyRates]()
+        for json in response {
+            let obj = PenaltyRates(json: json)
+            penaltyRatesArray.append(obj)
+        }
+        return penaltyRatesArray
+    }
+}
+
+
+////Mark:- InclusionRatesData
+////====================
+//struct InclusionRatesData {
+//
+//    //Mark:- Variables
+//    //================
+//    var boardType: [String] = []
+//    var internet: [String] = []
+//    var other_inclusions: [String] = []
+//    var notes_inclusion: [String] = []
+//    var transfers: [String] = []
+//
+//    //Mark:- Initialization
+//    //=====================
+//    init() {
+//        self.init(json: [:])
+//    }
+//
+//    var jsonDict: JSONDictionary {
+//        return [APIKeys.boardType.rawValue: self.boardType,
+//                APIKeys.internet.rawValue: self.internet,
+//                APIKeys.other_inclusions.rawValue: self.other_inclusions,
+//                APIKeys.notes_inclusion.rawValue: self.notes_inclusion,
+//                APIKeys.transfers.rawValue: self.transfers
+//        ]
+//    }
+//
+//    init(json: JSONDictionary) {
+//        if let boardTypeData = json[APIKeys.boardType.rawValue] as? [String] {
+//            for data in boardTypeData {
+//                self.boardType.append(data)
+//            }
+//        }
+//        if let internetData = json[APIKeys.internet.rawValue] as? [String] {
+//            for data in internetData {
+//                self.internet.append(data)
+//            }
+//        }
+//        if let other_inclusionsData = json[APIKeys.other_inclusions.rawValue] as? [String] {
+//            for data in other_inclusionsData {
+//                self.other_inclusions.append(data)
+//            }
+//        }
+//        if let notes_inclusionData = json[APIKeys.notes_inclusion.rawValue] as? [String] {
+//            for data in notes_inclusionData {
+//                self.notes_inclusion.append(data)
+//            }
+//        }
+//        if let transfersData = json[APIKeys.transfers.rawValue] as? [String] {
+//            for data in transfersData {
+//                self.transfers.append(data)
+//            }
+//        }
+//    }
+//
+//    //Mark:- Functions
+//    //================
+//    ///Static Function
+//    static func getInclusionRatesData(response: JSONDictionary) -> InclusionRatesData {
+//        let inclusionRates = InclusionRatesData(json: response)
+//        return inclusionRates
+//    }
+//}
+//
+//
+////Mark:- AmenitiesGroup
+////=====================
+//struct AmenitiesGroup {
+//
+//    //Mark:- Variables
+//    //================
+//    var aboutProperty: [String] = []
+//    var internetBusinessServices: [String] = []
+//    var foodDrinks: [String] = []
+//    var thingsToDo: [String] = []
+//    var Services: [String] = []
+//
+//    //Mark:- Initialization
+//    //=====================
+//    init() {
+//        self.init(json: [:])
+//    }
+//
+//    var jsonDict: JSONDictionary {
+//        return [APIKeys.about_Property.rawValue: self.aboutProperty,
+//                APIKeys.internet_Business_Services.rawValue: self.internetBusinessServices,
+//                APIKeys.food_Drinks.rawValue: self.foodDrinks,
+//                APIKeys.things_To_Do.rawValue: self.thingsToDo,
+//                APIKeys.Services.rawValue: self.Services
+//        ]
+//    }
+//
+//    init(json: JSONDictionary) {
+//        if let propertyData = json[APIKeys.about_Property.rawValue] as? [String] {
+//            for data in propertyData {
+//                self.aboutProperty.append(data)
+//            }
+//        }
+//        if let internetData = json[APIKeys.internet_Business_Services.rawValue] as? [String] {
+//            for data in internetData {
+//                self.internetBusinessServices.append(data)
+//            }
+//        }
+//        if let foodDrinksData = json[APIKeys.food_Drinks.rawValue] as? [String] {
+//            for data in foodDrinksData {
+//                self.foodDrinks.append(data)
+//            }
+//        }
+//        if let thingsToDoData = json[APIKeys.things_To_Do.rawValue] as? [String] {
+//            for data in thingsToDoData {
+//                self.thingsToDo.append(data)
+//            }
+//        }
+//        if let servicesData = json[APIKeys.Services.rawValue] as? [String] {
+//            for data in servicesData {
+//                self.Services.append(data)
+//            }
+//        }
+//    }
+//
+//    //Mark:- Functions
+//    //================
+//    ///Static Function
+//    static func getAmenitiesGroupData(response: [JSONDictionary]) -> [AmenitiesGroup] {
+//        var amenitiesGroupArray = [AmenitiesGroup]()
+//        for json in response {
+//            let obj = AmenitiesGroup(json: json)
+//            amenitiesGroupArray.append(obj)
+//        }
+//        return amenitiesGroupArray
+//    }
+//}
+
+
+////Mark:- CombineRates
+////===================
+//struct CombineRates {
+//
+//}
+//
+//
+////Mark:- Occupant
+////===================
+//struct Occupant {
+//
+//}

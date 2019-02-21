@@ -57,5 +57,8 @@ class HotelRatingInfoCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func shareButtonAction(_ sender: UIButton) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC , shareData: "sdd")
+        }
     }
 }

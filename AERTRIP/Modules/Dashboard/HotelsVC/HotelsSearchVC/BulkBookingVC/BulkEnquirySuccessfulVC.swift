@@ -151,6 +151,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }, completion: nil)
     }
     
+    ///CheckMark
     private func animatingCheckMark() {
         
         // Scaling

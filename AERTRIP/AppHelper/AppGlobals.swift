@@ -195,6 +195,18 @@ struct AppGlobals {
         
         return fullString
     }
+    
+    
+    func shareWithActivityViewController(VC:UIViewController, shareData: Any) {
+        
+        var sharingData = [Any]()
+        sharingData.append(shareData)
+        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = VC.view
+        VC.present(activityViewController, animated: true, completion: nil)
+        printDebug(sharingData)
+    }
+    
 }
 
 

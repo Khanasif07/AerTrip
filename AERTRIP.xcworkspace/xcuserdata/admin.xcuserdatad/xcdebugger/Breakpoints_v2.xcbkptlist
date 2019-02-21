@@ -4,18 +4,28 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelDetailsVC/HotelDetails.swift"
-            timestampString = "572000458.529489"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
+            timestampString = "572379161.3890539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "init(json:)"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "showHotelDetailAmenitiesVC(hotelDetails:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,29 +35,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelDetailsVC/HotelDetailsVM.swift"
-            timestampString = "572000458.529912"
+            filePath = "AERTRIP/Modules/Dashboard/HotelDetailsVC/HotelDetailsVC.swift"
+            timestampString = "572440192.021311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "getHotelInfoApi()"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "updateFavouriteSuccess(withMessage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelDetailsVC/HotelDetails.swift"
-            timestampString = "572000458.530234"
+            filePath = "AERTRIP/Network/APICaller/APICaller+HotelInfo.swift"
+            timestampString = "572440192.021668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "init(json:)"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getHotelDistanceAndTravelTime(params:loader:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

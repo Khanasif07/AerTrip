@@ -96,6 +96,9 @@ extension Cell {
 protocol HotelDetailDelegate: class {
     func getHotelDetailsSuccess()
     func getHotelDetailsFail()
+    
+    func updateFavouriteSuccess(withMessage: String)
+    func updateFavouriteFail()
 }
 
 class HotelDetailsVM {
@@ -128,6 +131,31 @@ class HotelDetailsVM {
                 printDebug(errors)
                 sSelf.delegate?.getHotelDetailsFail()
             }
+        }
+    }
+    
+    //MARK:- Mark Favourite
+    //MARK:-
+    func updateFavourite() {
+        let param: JSONDictionary = ["hid[0]": hotelInfo?.hid ?? "0", "status": hotelInfo?.fav == "0" ? 1 : 0]
+        APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] (isSuccess, errors, successMessage) in
+            if let sSelf = self {
+                if isSuccess {
+                    sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
+                    sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+                }
+                else {
+                    sSelf.delegate?.updateFavouriteFail()
+                }
+            }
+        }
+    }
+    
+    func getHotelDistanceAndTimeInfo() {
+        let params: JSONDictionary = ["":""]
+        
+        APICaller.shared.getHotelDistanceAndTravelTime(params: params) { [weak self] (success, response) in
+            printDebug(response)
         }
     }
 }

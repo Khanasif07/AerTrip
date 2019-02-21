@@ -13,10 +13,12 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Properties
     //=================
     internal var checkInOutView: CheckInOutView?
+    internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
     private var collectionViewHeight: CGFloat = 0.0
     private var containerViewHeight: CGFloat = 0.0
     private var scrollViewContentSize: CGSize = CGSize.zero
+    private var recentSearchHeight: CGFloat = 150.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     
@@ -62,6 +64,12 @@ class HotelsSearchVC: BaseVC {
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var whereLabel: UILabel!
+    @IBOutlet weak var recentSearchesContainerView: UIView! {
+        didSet {
+            self.recentSearchesContainerView.layoutMargins = UIEdgeInsets(top: -20.0, left: -20.0, bottom: -20.0, right: -20.0)
+        }
+    }
+    
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -79,6 +87,9 @@ class HotelsSearchVC: BaseVC {
     override func viewDidLayoutSubviews() {
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
+        }
+        if let view = self.recentSearchesView {
+            view.frame = self.recentSearchesContainerView.bounds
         }
     }
     
@@ -162,10 +173,11 @@ class HotelsSearchVC: BaseVC {
         self.stateNameLabel.isHidden = true
         self.containerView.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
-        self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
+        self.configureRecentSearchesView()
     }
     
     ///ConfigureCheckInOutView
@@ -173,6 +185,14 @@ class HotelsSearchVC: BaseVC {
         self.checkInOutView = CheckInOutView(frame: self.datePickerView.bounds)
         if let view = self.checkInOutView {
             self.datePickerView.addSubview(view)
+        }
+    }
+    
+    ///ConfigureRecentSearchesView
+    private func configureRecentSearchesView() {
+        self.recentSearchesView = RecentHotelSearcheView(frame: self.recentSearchesContainerView.bounds)
+        if let view = self.recentSearchesView {
+            self.recentSearchesContainerView.addSubview(view)
         }
     }
     
@@ -503,6 +523,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         printDebug("getAllHotelsListResultFail")
         self.searchBtnOutlet.isLoading = false
     }
+    
 }
 
 

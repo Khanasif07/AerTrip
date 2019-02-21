@@ -386,6 +386,8 @@ enum LocalizedString: String {
     case BusinessCenter = "Business Center"
     case Pool = "Pool"
     case Spa = "Spa"
+    case Wi_Fi = "Wi-Fi"
+    case Coffee_Shop = "Coffee Shop"
     
     // MARK: - RoomVC
     

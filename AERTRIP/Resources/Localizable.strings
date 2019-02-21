@@ -273,7 +273,7 @@
 "Ages" = "Ages";
 "AdultsAges" = "Ages 12+";
 "ChildAges" = "Ages 1 - 12";
-"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
+"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 max in a room";
 "ageInYrs" = "Age in yrs";
 
 //MARK:- Destination Selection
@@ -333,6 +333,8 @@
 "BusinessCenter" = "Business Center";
 "Pool" = "Pool";
 "Spa" = "Spa";
+"Wi_Fi" = "Wi-Fi";
+"Coffee_Shop" = "Coffee Shop";
 
 // MARK: - RoomVC
 
