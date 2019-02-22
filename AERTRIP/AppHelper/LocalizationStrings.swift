@@ -272,6 +272,7 @@ enum LocalizedString: String {
     case EnterGroupName = "Enter Group Name"
     case PreferencesSavedSuccessfully
     case GroupAlreadyExist = "GroupAlreadyExist"
+    case GroupNameCanNotEmpty = "GroupNameCanNotEmpty"
     
     
     

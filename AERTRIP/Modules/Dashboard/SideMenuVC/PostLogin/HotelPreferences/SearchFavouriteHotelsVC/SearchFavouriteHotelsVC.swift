@@ -98,12 +98,14 @@ class SearchFavouriteHotelsVC: BaseVC {
     }
     
     private func startLoading() {
-        self.searchBar.isUserInteractionEnabled = false
+        // commented because , we need to end keyboard editing
+       // self.searchBar.isUserInteractionEnabled = false
         indicatorView.isHidden = false
     }
     
     private func stopLoading() {
-        self.searchBar.isUserInteractionEnabled = true
+        // commented because , we need to end keyboard editing
+       // self.searchBar.isUserInteractionEnabled = true
         indicatorView.isHidden = true
     }
     
@@ -162,6 +164,7 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
         self.startLoading()
+        self.searchBar.endEditing(true)
     }
     
     func updateFavouriteSuccess(withMessage: String) {
@@ -176,6 +179,7 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     }
     
     func willSearchForHotels() {
+        self.searchBar.endEditing(true)
         self.startLoading()
     }
     

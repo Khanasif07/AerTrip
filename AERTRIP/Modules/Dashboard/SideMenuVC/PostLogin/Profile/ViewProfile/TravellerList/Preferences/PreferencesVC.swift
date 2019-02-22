@@ -58,7 +58,7 @@ class PreferencesVC: BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        
+        self.topNavView.dividerView.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
@@ -87,13 +87,25 @@ class PreferencesVC: BaseVC {
             textField.textAlignment = .left
         }
         
+       
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            print("Canelled")
+            printDebug("Canelled")
         }
+       
+        
+        
+        
+        
+       
         
         let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             let groupName = alertController.textFields?.first?.text ?? "None"
             printDebug("Current group name: \(groupName)")
+            
+            if groupName.isEmpty {
+                AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
+                return
+            }
             
             if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
                 self.viewModel.groups.append(groupName)
@@ -353,7 +365,6 @@ extension PreferencesVC: PreferencesVMDelegate {
     
     func savePreferencesSuccess() {
         self.stopLoading()
-         AppToast.default.showToastMessage(message: LocalizedString.PreferencesSavedSuccessfully.localized)
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
     }
