@@ -123,7 +123,9 @@ class ImportContactVC: BaseVC {
         }
         
         self.setupPagerView()
-        self.updateNavTitle()
+        delay(seconds: 0.2) {[weak self] in
+            self?.updateNavTitle()
+        }
         
         self.selectedContactsSetHidden(isHidden: true, animated: false)
     }
@@ -163,7 +165,10 @@ class ImportContactVC: BaseVC {
     
     private func updateNavTitle() {
         
-        if self.viewModel.totalContacts <= 0 {
+        if self.allChildVCs[self.currentIndex].isPermissionGiven, self.viewModel.totalSelectedContacts == 0 {
+            self.topNavView.navTitleLabel.text = LocalizedString.SelectContactsToImport.localized
+        }
+        else if self.viewModel.totalSelectedContacts <= 0 {
             self.topNavView.firstRightButton.isEnabled = false
             switch self.currentIndex {
             case 0:
@@ -184,7 +189,7 @@ class ImportContactVC: BaseVC {
         }
         else {
             self.topNavView.firstRightButton.isEnabled = true
-            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalContacts) \(LocalizedString.ContactsSelected.localized)"
+            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalSelectedContacts) \(LocalizedString.ContactsSelected.localized)"
         }
     }
     
@@ -244,6 +249,10 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
+        delay(seconds: 0.2) { [weak self] in
+            self?.updateNavTitle()
+        }
+        
         let currentlyUsingFor = ContactListVC.UsingFor(rawValue: self.currentIndex)
         if currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
             AppToast.default.showToastMessage(message: "No contacts in this phone.")
@@ -349,7 +358,7 @@ extension ImportContactVC: ImportContactVMDelegate {
     
     func selectionDidChanged() {
         self.updateNavTitle()
-        self.selectedContactsSetHidden(isHidden: self.viewModel.totalContacts <= 0, animated: true)
+        self.selectedContactsSetHidden(isHidden: self.viewModel.totalSelectedContacts <= 0, animated: true)
     }
 }
 

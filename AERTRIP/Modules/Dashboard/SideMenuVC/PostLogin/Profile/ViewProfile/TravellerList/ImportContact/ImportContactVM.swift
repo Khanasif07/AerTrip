@@ -79,7 +79,7 @@ class ImportContactVM: NSObject {
     
     var selectedGoogleContacts: [ATContact] = []
     
-    var totalContacts: Int {
+    var totalSelectedContacts: Int {
         return (self.selectedPhoneContacts.count + self.selectedFacebookContacts.count + self.selectedGoogleContacts.count)
     }
     

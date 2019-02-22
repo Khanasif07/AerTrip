@@ -183,6 +183,7 @@
 "ConnectWithFB" = "Connect with Facebook";
 "ConnectWithLinkedIn" = "Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
+"SelectContactsToImport" = "Select Contacts to import";
 
 
 //MARK: - View Profile

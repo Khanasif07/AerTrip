@@ -370,23 +370,25 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         case LocalizedString.FlightPreferences.localized:
-            if indexPath.row >= 2 {
+            if flightDetails.count > indexPath.row {
+                cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
+                cell.sepratorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)-1) ? 16.0 : 0.0
+                cell.separatorView.isHidden = false
+                return cell
+            }
+            else {
                 guard let viewProfileMultiDetailcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
                 }
                 viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
-                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].number)
+                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number)
                 
-                viewProfileMultiDetailcell.separatorLeadingConstraint.constant = ((indexPath.row-1) == frequentFlyer.count) ? 0.0 : 16.0
+                viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 0.0 : 16.0
                 viewProfileMultiDetailcell.separatorView.isHidden = false
                 return viewProfileMultiDetailcell
                 
-            } else {
-                cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
-                cell.sepratorLeadingConstraint.constant = frequentFlyer.isEmpty ? 0.0 : 16.0
-                cell.separatorView.isHidden = false
-                return cell
             }
+            
         default:
             return UITableViewCell()
         }

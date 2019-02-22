@@ -64,6 +64,8 @@ class TravellerListVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
+        self.statusBarStyle = .default
+        
         setUpTravellerHeader()
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
@@ -368,13 +370,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
-//            fatalError("TravellerListTableViewCell not found")
-//        }
+        //        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
+        //            fatalError("TravellerListTableViewCell not found")
+        //        }
         
         let cell = UITableViewCell()
         self.configureCell(cell: cell, travellerData: fetchedResultsController.object(at: indexPath) as? TravellerData)
         cell.tintColor = AppColors.themeGreen
+        let backView = UIView(frame: cell.contentView.bounds)
+        backView.backgroundColor = AppColors.themeWhite
+        cell.selectedBackgroundView = backView
         
         return cell
     }
@@ -408,7 +413,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             return []
         }
         else {
-            return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+            return ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         }
     }
     

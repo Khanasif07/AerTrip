@@ -166,6 +166,10 @@ class EditProfileVM {
                     AppToast.default.showToastMessage(message: "Please enter the airline number for all frequent flyer.")
                     flag = false
                 }
+                else if (self.frequentFlyer[index].airlineName.isEmpty || self.frequentFlyer[index].airlineName == LocalizedString.SelectAirline.localized), !self.frequentFlyer[index].number.isEmpty {
+                    AppToast.default.showToastMessage(message: "Please select the airline for all frequent flyer.")
+                    flag = false
+                }
             }
         }
         
@@ -277,7 +281,10 @@ class EditProfileVM {
             }
         }
         
-        for (idx, frequentFlyerObj) in self.frequentFlyer.enumerated() {
+        let finalFF = self.frequentFlyer.filter { (ff) -> Bool in
+            !ff.airlineName.isEmpty && ff.airlineName != LocalizedString.SelectAirline.localized && !ff.number.isEmpty
+        }
+        for (idx, frequentFlyerObj) in finalFF.enumerated() {
             for key in Array(frequentFlyerObj.jsonDict.keys) {
                 params["ff[\(idx)][\(key)]"] = frequentFlyerObj.jsonDict[key]
             }

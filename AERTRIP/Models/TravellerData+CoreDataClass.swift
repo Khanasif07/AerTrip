@@ -36,7 +36,16 @@ public class TravellerData: NSManagedObject {
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
             userData!.firstName = "\(obj.capitalizedFirst())".removeNull
-            userData!.firstNameFirstChar = "\(userData!.firstName?.firstCharacter ?? "N")"
+            
+            let firstChar = "\(userData!.firstName?.firstCharacter ?? "N")".uppercased()
+            let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            
+            if alphaArr.contains(firstChar) {
+                userData!.firstNameFirstChar = firstChar
+            }
+            else {
+                userData!.firstNameFirstChar = "#"
+            }
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
