@@ -39,14 +39,14 @@ class ViewProfileDetailVM {
                     UserInfo.loggedInUser?.profileImage = trav.profileImage
                     
                     for email in trav.contact.email {
-                        if email.label.lowercased() == "default".lowercased() {
+                        if email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
                             UserInfo.loggedInUser?.email = email.value
                             break
                         }
                     }
                     
                     for mobile in trav.contact.mobile {
-                        if mobile.label.lowercased() == "default".lowercased() {
+                        if mobile.label.lowercased() == LocalizedString.Default.localized.lowercased() {
                             UserInfo.loggedInUser?.mobile = mobile.value
                             break
                         }

@@ -10,7 +10,7 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = true
+    static let isReleasingToClient: Bool = false
     
     static let kCurrency = ""
 
@@ -21,9 +21,9 @@ enum AppConstants {
     static let kFacebookAppID               = ""
     static let kMe = "Me"
     
-    static let kOtpLength                   =         6
-    static let kMinTextFieldCharLength               =         2
-    static let kMaxTextFieldCharLength               =         32
+    static let kOtpLength                  =         6
+    static let kMinTextFieldCharLength     =         2
+    static let kMaxTextFieldCharLength     =         32
     static let kMinPassLength              =         6
     static let kMaxPassLength              =         32
     static let kMinPhoneLength             =         7

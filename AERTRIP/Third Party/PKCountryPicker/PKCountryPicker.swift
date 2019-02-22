@@ -24,6 +24,7 @@ open class PKCountryPicker: UIView {
     private var selectionHandler: ((PKCountryModel)->Void)?
     private weak var parantVC: UIViewController? = nil
     private var currentSelectedIndex: Int = 0
+    private var preSelectedCountry: PKCountryModel?
     let selection = UISelectionFeedbackGenerator()
     
     //MARK:- Picker Life Cycle
@@ -40,10 +41,11 @@ open class PKCountryPicker: UIView {
     
     //MARK:- Methods
     //MARK:- Public
-    public func chooseCountry(onViewController: UIViewController, selectionHandler: @escaping ((PKCountryModel)->Void)) {
+    public func chooseCountry(onViewController: UIViewController, preSelectedCountry: PKCountryModel? = nil, selectionHandler: @escaping ((PKCountryModel)->Void)) {
         self.initialSetup()
         self.selectionHandler = selectionHandler
         self.parantVC = onViewController
+        self.preSelectedCountry = preSelectedCountry
         self.openPicker()
     }
     
@@ -88,9 +90,7 @@ open class PKCountryPicker: UIView {
         
         self.pickerView.frame = CGRect(x: 0.0, y: PKCountryPickerSettings.toolbarHeight, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.pickerSize.height)
         self.addSubview(self.pickerView)
-        let sortedArray = self.getAllCountries().sorted(by: { $0.countryEnglishName < $1.countryEnglishName })
-       // self.countries = self.getAllCountries()
-        self.countries = sortedArray
+        self.countries = self.getAllCountries()
         self.setupToolBar()
         self.setupAppearance()
     }
@@ -163,7 +163,9 @@ open class PKCountryPicker: UIView {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = visibleFrame
         }) { (isCompleted) in
-            
+            if let pre = self.preSelectedCountry {
+                self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
+            }
         }
     }
     

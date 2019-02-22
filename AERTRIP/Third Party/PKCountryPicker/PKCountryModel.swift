@@ -91,8 +91,14 @@ public struct PKCountryModel {
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {
-        return jsonArr.map { (json) -> PKCountryModel in
+        var all = jsonArr.map { (json) -> PKCountryModel in
             PKCountryModel(json: json)
         }
+        
+        all.sort { (first, second) -> Bool in
+            first.sortIndex < second.sortIndex
+        }
+        
+        return all
     }
 }

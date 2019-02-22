@@ -68,11 +68,11 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     private func configureCell() {
         rightViewTextField.delegate = self
         if let email = self.email {
-            leftTitleLabel.text = email.label
+            leftTitleLabel.text = email.label.capitalizedFirst()
             rightViewTextField.text = email.value
           
         } else if let social = self.social {
-            leftTitleLabel.text = social.label
+            leftTitleLabel.text = social.label.capitalizedFirst()
             rightViewTextField.text = social.value
         }
     }

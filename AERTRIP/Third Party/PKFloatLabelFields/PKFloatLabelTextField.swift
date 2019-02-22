@@ -40,7 +40,7 @@ import UIKit
     // MARK: Line height
     
     /// A CGFloat value that determines the height for the bottom line when the control is in the normal state
-    @IBInspectable dynamic open var lineHeight: CGFloat = 1.0 {
+    @IBInspectable dynamic open var lineHeight: CGFloat = 0.5 {
         didSet {
             updateLineView()
             setNeedsDisplay()
@@ -48,7 +48,7 @@ import UIKit
     }
     
     /// A CGFloat value that determines the height for the bottom line when the control is in a selected state
-    @IBInspectable dynamic open var selectedLineHeight: CGFloat = 1.0 {
+    @IBInspectable dynamic open var selectedLineHeight: CGFloat = 0.5 {
         didSet {
             updateLineView()
             setNeedsDisplay()

@@ -244,7 +244,14 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
-
+        let currentlyUsingFor = ContactListVC.UsingFor(rawValue: self.currentIndex)
+        if currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this phone.")
+        } else if currentlyUsingFor == .facebook, self.viewModel.facebookContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this facebook.")
+        } else if currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this google.")
+        }
     }
     
     private func scrollCollectionToEnd() {
@@ -299,7 +306,13 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
         }
-
+        
+        if self.itemsCounts[usingFor.rawValue] > 0 {
+            for idx in 0..<self.itemsCounts[usingFor.rawValue] {
+                self.remove(fromIndex: idx, for: usingFor)
+            }
+        }
+        
         self.selectedContactsCollectionView.performBatchUpdates({
             for idx in 0..<item {
                 self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
@@ -309,19 +322,19 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func removeAll(for usingFor: ContactListVC.UsingFor) {
-
+        
         var item = 0
         switch usingFor {
         case .contacts:
             item = self.viewModel.selectedPhoneContacts.count
-
+            
         case .facebook:
             item = self.viewModel.selectedFacebookContacts.count
-
+            
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
         }
-
+        
         self.selectedContactsCollectionView.performBatchUpdates({
             for idx in 0..<item {
                 self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])

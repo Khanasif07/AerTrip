@@ -53,6 +53,10 @@ class SearchFavouriteHotelsVC: BaseVC {
         self.searchBar.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -60,18 +64,15 @@ class SearchFavouriteHotelsVC: BaseVC {
     override func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             printDebug("notification: Keyboard will show")
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-                emptyView.mainImageViewTopConstraint.constant = -keyboardSize.height
-            }
+            emptyView.mainImageViewTopConstraint.constant = -keyboardSize.height
         }
     }
     
     override func keyboardWillHide(notification: Notification) {
         if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             printDebug("notificatin:Keyboard will hide")
-             emptyView.mainImageViewTopConstraint.constant =  UIScreen.main.bounds.origin.y
-           
+            emptyView.mainImageViewTopConstraint.constant =  UIScreen.main.bounds.origin.y
+            
         }
     }
     
@@ -190,29 +191,23 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
 }
 
 extension SearchFavouriteHotelsVC: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+    func search(forText: String) {
+        if forText == "" {
             self.viewModel.hotels.removeAll()
             self.collectionView.backgroundView = self.emptyView
             self.collectionView.reloadData()
-        } else if searchText.count >= AppConstants.kSearchTextLimit {
+        } else if forText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
-            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.viewModel.searchHotel(forText: searchText)
+            noResultemptyView.searchTextLabel.text = "for \(forText.quoted)"
+            self.viewModel.searchHotel(forText: forText)
         }
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.search(forText: searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchText = searchBar.text ?? ""
-        if searchText == "" {
-            self.viewModel.hotels.removeAll()
-            self.collectionView.backgroundView = self.emptyView
-            self.collectionView.reloadData()
-        } else if searchText.count >= AppConstants.kSearchTextLimit {
-            noResultemptyView.searchTextLabel.isHidden = false
-            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.viewModel.searchHotel(forText: searchText)
-        }
-         searchBar.resignFirstResponder()
+        self.search(forText: searchText)
     }
 }

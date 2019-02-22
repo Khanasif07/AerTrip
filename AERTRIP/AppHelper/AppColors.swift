@@ -110,7 +110,7 @@ enum AppColors {
             return AppColors.themeGray20
             
         case .divider :
-            return AppColors.themeGray10
+            return AppColors.themeGray20
             
         case .screensBackground :
             return AppColors.themeGray04

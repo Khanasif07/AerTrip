@@ -107,6 +107,7 @@ private extension ForgotPasswordVC {
         self.continueButton.isEnabled = false
         self.emailTextField.delegate = self
         self.emailTextField.text = self.viewModel.email
+        self.emailTextField.autocorrectionType = .no
         self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)

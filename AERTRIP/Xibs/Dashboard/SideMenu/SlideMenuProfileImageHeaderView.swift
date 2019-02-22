@@ -66,7 +66,6 @@ class SlideMenuProfileImageHeaderView: UIView {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(singleTap)
-        self.backgroundColor = .red
     }
     
     // Action

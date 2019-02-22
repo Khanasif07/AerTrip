@@ -19,6 +19,8 @@ class TableViewAddActionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.cellBackgroundView.backgroundColor = AppColors.themeGray04
     }
     
     override func prepareForReuse() {

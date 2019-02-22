@@ -122,9 +122,7 @@ class SideMenuVC: BaseVC {
     func updateProfileView(view: SlideMenuProfileImageHeaderView) {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        if let mobileNumber = UserInfo.loggedInUser?.mobile ,let isd = UserInfo.loggedInUser?.isd {
-            view.mobileNumberLabel.text = "\(isd) \(mobileNumber)"
-        }
+        view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             //view.profileImageView.kf.setImage(with: URL(string: imagePath))
@@ -303,7 +301,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 5 {
+        if indexPath.row == 0, let _ = UserInfo.loggedInUserId {
+            self.viewProfileButtonAction(ATButton())
+        }
+        else if indexPath.row == 6 {
             //Settings
             AppFlowManager.default.moveToSettingsVC()
         }
@@ -315,7 +316,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
             
         case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : 70.03
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : 63.0
             
         default:
             return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7

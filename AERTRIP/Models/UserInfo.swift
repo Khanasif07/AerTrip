@@ -62,7 +62,6 @@ class UserInfo {
         var full: String {
             var fullAdd = ""
             
-            
             if !city.isEmpty {
                 fullAdd = fullAdd + " " + city
             }
@@ -326,6 +325,15 @@ class UserInfo {
         }
     }
     
+    var mobileWithISD: String {
+        if !self.mobile.isEmpty {
+            return "\(self.isd) \(self.mobile)"
+        }
+        else {
+            return ""
+        }
+    }
+    
     var preferredCurrency:String{
         get{
             return (userData?["preferred_currency"] as? String ?? "").removeNull
@@ -491,20 +499,20 @@ class UserInfo {
         
         var cont = Contact(json: [:])
         
-        if !self.mobile.isEmpty {
+//        if !self.mobile.isEmpty {
             var mobile = Mobile(json: [:])
             mobile.isd = self.isd
             mobile.value = self.mobile
             mobile.label = LocalizedString.Default.localized
             cont.add(mobile: mobile)
-        }
+//        }
         
-        if !self.email.isEmpty {
+//        if !self.email.isEmpty {
             var email = Email(json: [:])
             email.label = LocalizedString.Default.localized
             email.value = self.email
             cont.add(email: email)
-        }
+//        }
         
         temp.contact = cont
         return temp

@@ -11,7 +11,7 @@ import UIKit
 import IQKeyboardManager
 
 func printDebug<T>(_ obj : T) {
-//    print(obj)
+    print(obj)
 }
 
 func printFonts() {
@@ -147,8 +147,8 @@ struct AppGlobals {
         do {
             // writes the image data to disk
             try data.write(to: fileURL)
-            return fileURL.path
             printDebug("file saved")
+            return fileURL.path
         } catch {
             printDebug("error saving file:")
             return ""

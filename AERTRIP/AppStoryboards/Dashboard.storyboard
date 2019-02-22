@@ -685,7 +685,7 @@ on Christmas”</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="0.0" y="20.5" width="100" height="44"/>
+                                                            <rect key="frame" x="0.0" y="19.5" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -710,7 +710,7 @@ on Christmas”</string>
                                                         <constraint firstAttribute="trailing" secondItem="K55-7N-Anf" secondAttribute="trailing" constant="1" id="IZk-fz-FHY"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-8" id="KI5-6u-qnD"/>
                                                         <constraint firstItem="K55-7N-Anf" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="5" id="SVG-ez-eos"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-13" id="YxI-Pb-iXV"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-14" id="YxI-Pb-iXV"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="iEF-75-ktl"/>
                                                     </constraints>
                                                 </view>

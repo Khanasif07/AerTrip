@@ -27,6 +27,7 @@ class EditProfileVM {
     
     enum UsingFor {
         case travellerList
+        case addNewTravellerList
         case viewProfile
     }
     weak var delegate: EditProfileVMDelegate?
@@ -35,7 +36,7 @@ class EditProfileVM {
     var salutation = ""
     var firstName = ""
     var lastName = ""
-    var emailDefault = ""
+    var label = "me"
     var email: [Email] = []
     var mobile: [Mobile] = []
     var social: [Social] = []
@@ -44,7 +45,7 @@ class EditProfileVM {
     var doa = ""
     var notes = ""
     var passportNumber = ""
-    var passportCountry = ""
+    var passportCountryCode = ""
     var passportCountryName = ""
     var passportIssueDate = ""
     var passportExpiryDate = ""
@@ -53,7 +54,6 @@ class EditProfileVM {
     var frequentFlyer: [FrequentFlyer] = []
     var filePath: String = ""
     var imageSource = ""
-    var label = "me"
     var defaultAirlines: [FlyerModel] = []
     
     // drop down keys
@@ -62,7 +62,12 @@ class EditProfileVM {
     var addressTypes: [String] = []
     var salutationTypes: [String] = []
     var socialTypes: [String] = []
-    var travelData: TravelDetailModel?
+    var travelData: TravelDetailModel? {
+        didSet {
+            self.firstName = travelData?.firstName ?? ""
+            self.lastName = travelData?.lastName ?? ""
+        }
+    }
     
     // preferences
     var seatPreferences = [String: String]()
@@ -150,14 +155,18 @@ class EditProfileVM {
 //            }
         }
         if !self.frequentFlyer.isEmpty {
-//            for (index, _) in self.frequentFlyer.enumerated() {
+            for (index, _) in self.frequentFlyer.enumerated() {
 //                if index > 0 {
-//                      if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
-//                        AppToast.default.showToastMessage(message: "All frequent flyer  should be unique")
+//                    if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
+//                        AppToast.default.showToastMessage(message: "All frequent flyer should be unique")
 //                        flag = false
 //                    }
 //                }
-//            }
+                if !self.frequentFlyer[index].airlineName.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.isEmpty {
+                    AppToast.default.showToastMessage(message: "Please enter the airline number for all frequent flyer.")
+                    flag = false
+                }
+            }
         }
         
         return flag
@@ -223,7 +232,7 @@ class EditProfileVM {
         // remove default email and mobile
         var _email = self.email
         let _mobile = self.mobile
-        if let email = _email.first, email.label == "Default" {
+        if let email = _email.first, email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
             _email.removeFirst()
         }
         params[APIKeys.salutation.rawValue] = salutation
@@ -233,12 +242,12 @@ class EditProfileVM {
         params[APIKeys.doa.rawValue] = doa
         params[APIKeys.passportNumber.rawValue] = passportNumber
         params[APIKeys.passportCountryName.rawValue] = passportCountryName
-        params[APIKeys.passportCountry.rawValue] = passportCountry
+        params[APIKeys.passportCountry.rawValue] = passportCountryCode
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
         
-        if self.currentlyUsinfFor == .travellerList {
+        if self.currentlyUsinfFor == .addNewTravellerList {
             params[APIKeys.id.rawValue] = ""
         } else {
             params[APIKeys.id.rawValue] = self.paxId
@@ -258,7 +267,7 @@ class EditProfileVM {
         
         for (idx, socialObj) in self.social.enumerated() {
             for key in Array(socialObj.jsonDict.keys) {
-                params["contact[mobile][\(idx)][\(key)]"] = socialObj.jsonDict[key]
+                params["contact[social][\(idx)][\(key)]"] = socialObj.jsonDict[key]
             }
         }
         
@@ -274,8 +283,13 @@ class EditProfileVM {
             }
         }
         
-        params[APIKeys.seatPreference.rawValue] = seat
-        params[APIKeys.mealPreference.rawValue] = meal
+        if !seat.isEmpty, seat != LocalizedString.SelectSeatPreference.localized {
+            params[APIKeys.seatPreference.rawValue] = seat
+        }
+
+        if !meal.isEmpty, meal != LocalizedString.SelectMealPreference.localized {
+            params[APIKeys.mealPreference.rawValue] = meal
+        }
         params[APIKeys.notes.rawValue] = notes
         params[APIKeys.imageSource.rawValue] = imageSource
         

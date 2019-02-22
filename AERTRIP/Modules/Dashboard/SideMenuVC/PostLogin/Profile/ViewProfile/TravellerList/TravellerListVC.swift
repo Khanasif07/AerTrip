@@ -28,7 +28,11 @@ class TravellerListVC: BaseVC {
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     let cellIdentifier = "TravellerListTableViewCell"
     let viewModel = TravellerListVM()
-    var isSelectMode: Bool = false
+    var isSelectMode: Bool = false {
+        didSet {
+            tableView.setEditing(isSelectMode, animated: true)
+        }
+    }
     private var selectedTravller: [String] = []
     
     var container: NSPersistentContainer!
@@ -126,7 +130,7 @@ class TravellerListVC: BaseVC {
     }
     
     func addTravellerTapped() {
-        AppFlowManager.default.showEditProfileVC(travelData: nil, usingFor: .travellerList)
+        AppFlowManager.default.showEditProfileVC(travelData: nil, usingFor: .addNewTravellerList)
     }
     
     func selectAllTapped() {}
@@ -265,6 +269,7 @@ class TravellerListVC: BaseVC {
             try fetchedResultsController.performFetch()
             tableView.reloadData()
         } catch {
+            tableView.reloadData()
             print("Fetch failed")
         }
     }
@@ -287,16 +292,12 @@ class TravellerListVC: BaseVC {
         isSelectMode = false
         bottomView.isHidden = true
         selectedTravller.removeAll()
-        if shouldReload {
-            tableView.setEditing(false, animated: true)
-        }
         self.updateNavView()
     }
     
     func setSelectMode() {
         bottomView.isHidden = false
         isSelectMode = true
-        tableView.setEditing(true, animated: true)
         self.updateNavView()
     }
     
@@ -517,27 +518,7 @@ extension TravellerListVC: UISearchBarDelegate {
 
 extension TravellerListVC: NSFetchedResultsControllerDelegate {
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
-            }
-            break
-        case .delete:
-            
-            tableView.deleteRows(at: [indexPath ?? IndexPath()], with: .fade)
-            
-        default:
-            break
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
+        tableView.reloadData()
     }
 }
 
@@ -576,6 +557,6 @@ extension TravellerListVC: AssignGroupVCDelegate {
 
 extension TravellerListVC: TravellerListHeaderViewDelegate {
     func headerViewTapped() {
-        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .travellerList)
+        AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
     }
 }

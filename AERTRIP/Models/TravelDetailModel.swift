@@ -53,7 +53,8 @@ struct TravelDetailModel {
         self.profileImage = json["profile_image"].stringValue.removeNull
         self.imageSource = json["image_source"].stringValue.removeNull
         self.notes = json["notes"].stringValue.removeNull
-        self.passportCountryName = json["passport_country_name"].stringValue.removeNull
+        let cntryName = json["passport_country_name"].stringValue.removeNull
+        self.passportCountryName = cntryName.isEmpty ? self.passportCountry : cntryName
         self.frequestFlyer = FrequentFlyer.retunsFrequentFlyerArray(jsonArr: json["ff"].arrayValue)
     }
 }
@@ -130,36 +131,92 @@ struct Contact {
     }
     
     mutating func add(email: Email) {
+        func sortEmail(withData: Email?) {
+            if let defaultIdx = self.email.firstIndex(where: { (eml) -> Bool in
+                return eml.label.lowercased() == LocalizedString.Default.localized.lowercased()
+            }) {
+                
+                var defaultObj = self.email.remove(at: defaultIdx)
+                if let data = withData {
+                    defaultObj.id = data.id
+                    defaultObj.value = data.value
+                    defaultObj.type = data.type
+                    defaultObj.label = data.label
+                }
+                self.email.insert(defaultObj, at: 0)
+            }
+        }
+        
         if !self.email.contains(where: { (eml) -> Bool in
-            eml.value.lowercased() == email.value.lowercased()
+            return eml.value.lowercased() == email.value.lowercased()
         }) {
             
             if email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
-                self.email.insert(email, at: 0)
+                
+                if self.email.isEmpty {
+                    var tmpEml = Email(json: [:])
+                    tmpEml.label = LocalizedString.Default.localized
+                    self.email.append(tmpEml)
+                }
+                sortEmail(withData: email)
             }
             else {
+                
                 self.email.append(email)
             }
+        }
+        else {
+            sortEmail(withData: nil)
         }
     }
     
     mutating func add(mobile: Mobile) {
+        func sortMobile(withData: Mobile?) {
+            if let defaultIdx = self.mobile.firstIndex(where: { (mbl) -> Bool in
+                return mbl.label.lowercased() == LocalizedString.Default.localized.lowercased()
+            }) {
+                
+                var defaultObj = self.mobile.remove(at: defaultIdx)
+                if let data = withData {
+                    defaultObj.id = data.id
+                    defaultObj.value = data.value
+                    defaultObj.isd = data.isd.isEmpty ? LocalizedString.IndiaIsdCode.localized : data.isd
+                    defaultObj.type = data.type
+                    defaultObj.label = data.label
+                }
+                self.mobile.insert(defaultObj, at: 0)
+            }
+        }
+        
         if !self.mobile.contains(where: { (mbl) -> Bool in
-            mbl.value.lowercased() == mobile.value.lowercased()
+            return mbl.value.lowercased() == mobile.value.lowercased()
         }) {
             
             if mobile.label.lowercased() == LocalizedString.Default.localized.lowercased() {
-                self.mobile.insert(mobile, at: 0)
+                if self.mobile.isEmpty {
+                    var tmpMbl = Mobile(json: [:])
+                    tmpMbl.label = LocalizedString.Default.localized
+                    self.mobile.append(tmpMbl)
+                }
+                sortMobile(withData: mobile)
             }
             else {
+                
                 self.mobile.append(mobile)
             }
+        }
+        else {
+            sortMobile(withData: nil)
         }
     }
     
     mutating func add(social: Social) {
         
-        self.social.append(social)
+        if !self.social.contains(where: { (scl) -> Bool in
+            return scl.id == scl.id
+        }) {
+            self.social.append(social)
+        }
     }
 }
 
@@ -208,6 +265,14 @@ struct Mobile {
     var isd: String = ""
     var isValide: Bool = false
     var mobileFormatted: String = ""
+    var valueWithISD: String {
+        if !self.value.isEmpty {
+            return "\(self.isd) \(self.value)"
+        }
+        else {
+            return ""
+        }
+    }
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -230,6 +295,9 @@ struct Mobile {
         self.value = json["value"].stringValue.removeNull
         if let obj = json["isd"].string?.removeNull, !obj.isEmpty {
             self.isd = obj.contains("+") ? obj : "+\(obj)"
+        }
+        if self.isd.isEmpty {
+            self.isd = LocalizedString.IndiaIsdCode.localized
         }
         self.mobileFormatted = json["mobile_formatted"].stringValue.removeNull
     }
@@ -264,7 +332,7 @@ struct Social {
     }
     
     init(json : JSON) {
-        //        self.jsonDict = json.dictionaryObject ?? [:]
+//        self.jsonDict = json.dictionaryObject ?? [:]
         self.id = json["id"].intValue
         self.type = json["type"].stringValue.removeNull
         self.label = json["label"].stringValue.removeNull

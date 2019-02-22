@@ -34,7 +34,7 @@ class TravellerListVM: NSObject {
             if isSuccess {
                 // self?.travellersDict = travellers
                 for traveller in travellers {
-                    if traveller.label.lowercased() != AppConstants.kMe.lowercased() {
+                    if let logId = UserInfo.loggedInUserId, traveller.id.lowercased() != logId.lowercased(), traveller.label.lowercased() != AppConstants.kMe.lowercased() {
                          _ = TravellerData.insert(dataDict: traveller.jsonDict)
                     }
                 }

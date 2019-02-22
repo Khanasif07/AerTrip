@@ -51,9 +51,27 @@ class ImportContactVM: NSObject {
         }
     }
     
-    var phoneContacts: [ATContact] = []
-    var facebookContacts: [ATContact] = []
-    var googleContacts: [ATContact] = []
+    var phoneContacts: [ATContact] = [] {
+        didSet {
+            phoneContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
+        }
+    }
+    var facebookContacts: [ATContact] = []{
+        didSet {
+            facebookContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
+        }
+    }
+    var googleContacts: [ATContact] = []{
+        didSet {
+            googleContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
+        }
+    }
     
     var selectedPhoneContacts: [ATContact] = []
     
@@ -126,6 +144,7 @@ class ImportContactVM: NSObject {
     func fetchFacebookContacts(forVC: UIViewController) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
+        FacebookController.shared.facebookLogout()
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {
@@ -143,6 +162,7 @@ class ImportContactVM: NSObject {
     func fetchGoogleContacts(forVC: UIViewController) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
+        GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
             if let obj = self?.delegateCollection as? BaseVC {
                 obj.sendDataChangedNotification(data: Notification.phoneContactFetched)

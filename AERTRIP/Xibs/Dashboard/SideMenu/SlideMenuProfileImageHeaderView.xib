@@ -42,7 +42,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="172" y="152" width="187.5" height="33"/>
+                            <rect key="frame" x="180" y="152" width="171.5" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -93,7 +93,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224" y="196" width="83" height="25"/>
+                    <rect key="frame" x="224.5" y="207" width="82" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -114,7 +114,7 @@
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bbK-0v-AkW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="35" id="cCi-95-C6C"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eG1-bH-VIx"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="fkP-SD-7gS"/>
                 <constraint firstItem="cbl-xr-PpX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="h46-BO-zZN"/>

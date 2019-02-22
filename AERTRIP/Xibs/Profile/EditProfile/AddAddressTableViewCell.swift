@@ -36,6 +36,7 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var countryView: UIView!
     
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var bottomDivider: ATDividerView!
     
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
@@ -44,7 +45,7 @@ class AddAddressTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-      self.cellDividerView.defaultHeight = 8.0
+      self.cellDividerView.defaultHeight = 1.0
     }
     
     

@@ -41,7 +41,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // MARK: - Private
     
-    var ffExtraCount: Int = 4
+    var ffExtraCount: Int = 3
     private var defaultPlaceHolder: UIImage = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
     
     // MARK: - Public
@@ -53,15 +53,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
-    var informations: [String] = []
-    var passportDetails: [String] = []
     var pickerTitle: String = ""
     
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
     let flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
-    
-    var flightDetails: [String] = []
     
     // picker
     let pickerView: UIPickerView = UIPickerView()
@@ -100,7 +96,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.webserviceForGetDefaultAirlines()
         
         doInitialSetUp()
-        if viewModel.currentlyUsinfFor == .travellerList {
+        if viewModel.currentlyUsinfFor == .addNewTravellerList {
             setUpForNewTraveller()
         } else {
             setUpData()
@@ -244,28 +240,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         guard var travel = self.viewModel.travelData else {
             return
         }
-        
-//        if let loggedInUserEmail = UserInfo.loggedInUser?.email, let loggedInUserMobile = UserInfo.loggedInUser?.mobile, let isd = UserInfo.loggedInUser?.isd, travel.id == UserInfo.loggedInUser?.paxId {
-//            var email = Email()
-//            email.label = LocalizedString.Default.localized
-//            email.type = LocalizedString.Email.localized
-//            email.value = loggedInUserEmail
-//            viewModel.email.append(email)
-//
-//            var mobile = Mobile()
-//            mobile.label = LocalizedString.Default.localized
-//            mobile.type = LocalizedString.Mobile.localized
-//            mobile.isd = isd
-//            mobile.value = loggedInUserMobile
-//            mobile.isValide = true
-//            viewModel.mobile.append(mobile)
-//        }
+
         if travel.contact.email.isEmpty {
             var email = Email()
             email.label = LocalizedString.Home.localized
             viewModel.email.append(email)
         }
         viewModel.email.append(contentsOf: travel.contact.email)
+        
         if travel.contact.mobile.isEmpty {
             var mobile = Mobile()
             mobile.label = LocalizedString.Home.localized
@@ -291,33 +273,35 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         sections.append(LocalizedString.SocialAccounts.localized)
         
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
-        informations.append(travel.dob.isEmpty ? LocalizedString.SelectDate.localized : travel.dob)
-        viewModel.dob = travel.dob
+        viewModel.dob = travel.dob.isEmpty ? LocalizedString.SelectDate.localized : travel.dob
+        
         travel.doa = AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
-        informations.append(travel.doa.isEmpty ? LocalizedString.SelectDate.localized : travel.doa)
-        viewModel.doa = travel.doa
+        viewModel.doa = travel.doa.isEmpty ? LocalizedString.SelectDate.localized : travel.doa
         
-        informations.append(travel.notes)
+        viewModel.notes = travel.notes
         
-        passportDetails.append(travel.passportNumber)
         viewModel.passportNumber = travel.passportNumber
         
-        passportDetails.append(travel.passportCountryName.isEmpty ? LocalizedString.selectedCountry.localized : travel.passportCountryName)
-        viewModel.passportCountryName = travel.passportCountryName
-        viewModel.passportCountry = travel.passportCountry.isEmpty ? LocalizedString.selectedCountry.localized : travel.passportCountry
+        viewModel.passportCountryName = travel.passportCountryName.isEmpty ? LocalizedString.selectedCountry.localized : travel.passportCountryName
+        viewModel.passportCountryCode = travel.passportCountry.isEmpty ? LocalizedString.selectedCountry.localized : travel.passportCountry
+        
         travel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportIssueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportIssueDate = travel.passportIssueDate
+        
         travel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: travel.passportExpiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.passportExpiryDate = travel.passportExpiryDate
+        
         sections.append(LocalizedString.PassportDetails.localized)
+        
         let imageFromText: UIImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         viewModel.frequentFlyer = travel.frequestFlyer
+        self.ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
+        
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: imageFromText, showIndicator: false)
-          //  editProfileImageHeaderView.profileImageView.kf.setImage(with: URL(string: (travel.profileImage)))
             viewModel.profilePicture = travel.profileImage
         } else {
-            if viewModel.currentlyUsinfFor == .travellerList {
+            if viewModel.currentlyUsinfFor != .viewProfile {
                 editProfileImageHeaderView.profileImageView.image = imageFromText
             } else {
                 editProfileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
@@ -326,7 +310,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
-        
+        editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label
         if self.viewModel.travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences.localized)
         }
@@ -348,9 +332,17 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     private func setUpForNewTraveller() {
         sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
-        passportDetails.append(contentsOf: ["", LocalizedString.selectedCountry.localized])
-        informations.append(contentsOf: [LocalizedString.SelectDate.localized, LocalizedString.SelectDate.localized, ""])
-        flightDetails.append(contentsOf: [LocalizedString.SelectMealPreference.localized, LocalizedString.SelectSeatPreference.localized])
+        
+        viewModel.passportNumber = ""
+        viewModel.passportCountryName = LocalizedString.selectedCountry.localized
+        
+        viewModel.dob = LocalizedString.SelectDate.localized
+        viewModel.doa = LocalizedString.SelectDate.localized
+        viewModel.notes = ""
+        
+        viewModel.seat = LocalizedString.SelectSeatPreference.localized
+        viewModel.meal = LocalizedString.SelectMealPreference.localized
+        
         var email = Email()
         email.type = "Email"
         email.label = "Home"
@@ -373,6 +365,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         address.label = "Home"
         address.countryName = LocalizedString.selectedCountry.localized
         viewModel.addresses.append(address)
+        
+        viewModel.label = "Others"
+        
+        self.ffExtraCount = 4
         
         setUpProfilePhotoInitials()
         tableView.reloadData()
@@ -426,7 +422,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
     }
     
-    func openPicker() {
+    func openPicker(withSelection: String) {
         dismissKeyboard()
         pickerView.reloadAllComponents()
         
@@ -439,6 +435,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             self.genericPickerView.frame = visibleFrame
             self.view.addSubview(self.genericPickerView)
         }) { _ in
+            let index = self.pickerData.firstIndex(of: withSelection) ?? 0
+            self.pickerView.selectRow(index, inComponent: 0, animated: true)
         }
     }
     
@@ -450,6 +448,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             self.genericPickerView.frame = hiddenFrame
         }) { (isDone) in
             self.genericPickerView.removeFromSuperview()
+            self.pickerView.selectRow(0, inComponent: 0, animated: true)
             completion?(isDone)
         }
     }
@@ -533,10 +532,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 cell.editableTextField.text = pickerTitle
                 viewModel.passportCountryName = pickerTitle
                 if let countryCode = self.viewModel.countries.someKey(forValue: pickerTitle) {
-                    viewModel.passportCountry = countryCode
+                    viewModel.passportCountryCode = countryCode
                 }
                 
-                passportDetails[self.indexPath?.row ?? 1] = pickerTitle
+                viewModel.passportCountryName = pickerTitle
             } else {
                 let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
@@ -588,7 +587,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 pickerType = .country
                 let countries = Array(viewModel.countries.values)
                 pickerData = countries
-                //   openPicker()
+
+                self.closeGenricAndDatePicker(completion: nil)
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
                 PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
@@ -599,8 +599,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                     }
                     cell.editableTextField.text = selectedCountry.countryEnglishName
                     self?.viewModel.passportCountryName = selectedCountry.countryEnglishName
-                    self?.viewModel.passportCountry = selectedCountry.ISOCode
-                    self?.passportDetails[self?.indexPath?.row ?? 1] = selectedCountry.countryEnglishName
+                    self?.viewModel.passportCountryCode = selectedCountry.ISOCode
                 }
             }
             
@@ -619,14 +618,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 pickerType = .seatPreference
                 let seatPreferences = Array(viewModel.seatPreferences.values)
                 pickerData = seatPreferences
-                openPicker()
+                openPicker(withSelection: viewModel.seat)
             }
         case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
                 let mealPreferences = Array(viewModel.mealPreferences.values)
                 pickerData = mealPreferences
-                openPicker()
+                openPicker(withSelection: viewModel.meal)
             }
         default:
             break
@@ -673,10 +672,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             cell.editableTextField.text = formatter.string(from: datePicker.date)
             if indexPath.row == 1 {
                 viewModel.doa = formatter.string(from: datePicker.date)
-                informations[indexPath.row] = viewModel.doa
             } else {
                 viewModel.dob = formatter.string(from: datePicker.date)
-                informations[indexPath.row] = viewModel.dob
             }
         case LocalizedString.PassportDetails.localized:
             let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
@@ -745,24 +742,23 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func setUpProfilePhotoInitials() {
-        var imageFromText: UIImage = UIImage()
-        if viewModel.profilePicture == "" {
-            if viewModel.firstName != "" {
-                imageFromText = AppGlobals.shared.getImageFor(firstName: viewModel.firstName, lastName: "", offSet: CGPoint(x: 0.0, y: 9.0))
-                
-            } else if viewModel.lastName != "" {
-                imageFromText = AppGlobals.shared.getImageFor(firstName: "", lastName: viewModel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
+        if viewModel.profilePicture.isEmpty {
+            
+            var flText = ""
+            if !viewModel.firstName.isEmpty, !viewModel.lastName.isEmpty {
+                flText = "\(viewModel.firstName.firstCharacter)\(viewModel.lastName.firstCharacter)"
+            }
+            else if !viewModel.firstName.isEmpty, viewModel.lastName.isEmpty {
+                flText = "\(viewModel.firstName.firstCharacter)"
+            }
+            else if viewModel.firstName.isEmpty, !viewModel.lastName.isEmpty {
+                flText = "\(viewModel.lastName.firstCharacter)"
             }
             
-            if viewModel.firstName != "", viewModel.lastName != "" {
-                imageFromText = AppGlobals.shared.getImageFor(firstName: viewModel.firstName, lastName: viewModel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
-            }
-            
-            if viewModel.firstName == "", viewModel.lastName == "" {
+            if flText.isEmpty {
                 editProfileImageHeaderView.profileImageView.image = defaultPlaceHolder
             } else {
-                editProfileImageHeaderView.profileImageView.image = imageFromText
-            }
+                editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0))            }
         }
     }
     
@@ -771,7 +767,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 
 extension EditProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        if viewModel.currentlyUsinfFor == .travellerList {
+        if viewModel.currentlyUsinfFor == .addNewTravellerList {
             dismiss(animated: true, completion: nil)
         } else {
             AppFlowManager.default.popViewController(animated: true)

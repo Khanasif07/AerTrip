@@ -46,7 +46,7 @@
 
 // MARK:- CreateYourAccountVC
 //MARK:-
-"Create_your_account"  = "Create your \n account";
+"Create_your_account"  = "Create your \naccount";
 "Register"             = "Register";
 "By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use" = "By registering, you agree to Aertrip’s \nprivacy policy & terms of use.";
 "Already_Registered" = "Already Registered?";
@@ -232,7 +232,7 @@
 "ContactNumber" = "CONTACT NUMBER";
 "SocialAccounts" = "SOCIAL ACCOUNTS";
 "Address" = "ADDRESS";
-"MoreInformation" = "MORE INFROMATION";
+"MoreInformation" = "MORE INFORMATION";
 "PassportDetails" = "PASSPORT DETAILS";
 "FlightPreferences" = "FLIGHT PREFERENCES";
 "Email" = "Email";

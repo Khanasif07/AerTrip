@@ -46,33 +46,19 @@ class MainHomeVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.sideMenuController?.viewWillAppear(animated)
-        self.viewProfileVC?.viewWillAppear(animated)
-        self.socialLoginVC?.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.sideMenuController?.viewDidAppear(animated)
-        self.viewProfileVC?.viewDidAppear(animated)
-        self.socialLoginVC?.viewDidAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.sideMenuController?.viewWillDisappear(animated)
-        self.viewProfileVC?.viewWillDisappear(animated)
-        self.socialLoginVC?.viewWillDisappear(animated)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.sideMenuController?.viewDidAppear(animated)
-        self.viewProfileVC?.viewDidAppear(animated)
-        self.socialLoginVC?.viewDidAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -218,7 +204,7 @@ class MainHomeVC: BaseVC {
         
         self.logoView?.isHidden = true
         
-        self.logoView?.frame.origin = CGPoint(x: sideMenu.sideMenuTableView.x, y: 18.0)
+        self.logoView?.frame.origin = CGPoint(x: sideMenu.sideMenuTableView.x, y: 30.0)
         self.mainContainerView.addSubview(self.logoView!)
     }
     
@@ -238,7 +224,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func pushProfileAnimation() {
-        
+
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
@@ -253,6 +239,7 @@ class MainHomeVC: BaseVC {
         self.profileView?.dividerView.isHidden = false
         
         self.viewProfileVC?.viewModel.webserviceForGetTravelDetail()
+
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
@@ -267,7 +254,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
-            
+            self.statusBarStyle = .lightContent
             self.viewProfileVC?.profileImageHeaderView?.isHidden = false
             self.profileView?.isHidden = true
             self.sideMenuVC?.profileContainerView.isHidden = true
@@ -289,6 +276,7 @@ class MainHomeVC: BaseVC {
         let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
         let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
+        self.statusBarStyle = .default
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             self.scrollView.contentOffset = popPoint
             self.profileView?.frame = finalFrame
@@ -351,7 +339,7 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
 
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 18.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
+        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 30.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
 
         self.socialLoginVC?.animateContentOnPop()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -394,6 +382,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     }
     
     func willOpenSideMenu() {
+        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
     }

@@ -20,26 +20,26 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zul-2R-w6l" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="4" width="283" height="0.5"/>
+                        <rect key="frame" x="0.0" y="6.5" width="283" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="lVz-HB-G2f"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBC-qf-0wx">
-                        <rect key="frame" x="20" y="4.5" width="243" height="50"/>
+                        <rect key="frame" x="20" y="7" width="243" height="47"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="1Re-mU-x8B"/>
+                            <constraint firstAttribute="height" constant="47" id="1Re-mU-x8B"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npn-FB-5ab" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="54.5" width="283" height="0.5"/>
+                        <rect key="frame" x="0.0" y="54" width="283" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="y9m-zg-fEk"/>
+                            <constraint firstAttribute="height" constant="1" id="y9m-zg-fEk"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -64,6 +64,8 @@ class ViewProfileDetailVC: BaseVC {
         
         // Api calling
         viewModel.webserviceForGetTravelDetail()
+        
+        self.statusBarStyle = .lightContent
     }
     
     override func bindViewModel() {
@@ -123,11 +125,14 @@ class ViewProfileDetailVC: BaseVC {
         
         self.view.bringSubviewToFront(self.topNavView)
     }
-    
+
     private func setUpDataFromApi() {
         guard let travel = travelData else {
             return
         }
+        
+        sections.removeAll()
+        
         profileImageHeaderView.userNameLabel.text = (travel.firstName) + " " + (travel.lastName)
         profileImageHeaderView.emailIdLabel.text = ""
         profileImageHeaderView.mobileNumberLabel.text = ""
@@ -165,6 +170,7 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.Address.localized)
         }
         
+        email.removeAll()
         let tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
         }
@@ -173,7 +179,7 @@ class ViewProfileDetailVC: BaseVC {
         let social = travel.contact.social.filter { (scl) -> Bool in
             !scl.value.isEmpty
         }
-        sections.removeAll()
+
         if email.count > 0 {
             sections.append(LocalizedString.EmailAddress.localized)
         }
@@ -202,23 +208,38 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.MoreInformation.localized)
         }
         passportDetails.removeAll()
-        if travel.passportNumber != "" {
+        if !travel.passportNumber.isEmpty {
             passportDetails.append((travel.passportNumber))
             passportDetails.append((travel.passportCountryName))
             sections.append(LocalizedString.PassportDetails.localized)
         }
         
-        if travel.preferences.seat.value != "" || travel.preferences.meal.value != "" {
-            let seatPreference = (travel.preferences.seat.value)
-            let mealPreference = (travel.preferences.meal.value)
-            flightDetails.append(seatPreference)
-            flightDetails.append(mealPreference)
+        if !travel.passportIssueDate.isEmpty {
+            passportDetails.append(travel.passportIssueDate)
+        }
+        else if !travel.passportExpiryDate.isEmpty, !passportDetails.contains(travel.passportIssueDate) {
+            passportDetails.append((travel.passportExpiryDate))
+        }
+        
+        flightDetails.removeAll()
+        if !travel.preferences.seat.value.isEmpty {
+            flightDetails.append(travel.preferences.seat.value)
             sections.append(LocalizedString.FlightPreferences.localized)
+        }
+        
+        if !travel.preferences.meal.value.isEmpty {
+            flightDetails.append(travel.preferences.meal.value)
+            if !sections.contains(LocalizedString.FlightPreferences.localized) {
+                sections.append(LocalizedString.FlightPreferences.localized)
+            }
         }
         
         let frequentFlyer = travel.frequestFlyer
         if frequentFlyer.count > 0 {
             self.frequentFlyer = frequentFlyer
+            if !sections.contains(LocalizedString.FlightPreferences.localized) {
+                sections.append(LocalizedString.FlightPreferences.localized)
+            }
         }
         tableView.reloadData()
     }
@@ -236,7 +257,7 @@ extension ViewProfileDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToEditProfileVC(travelData: travelData, usingFor: .viewProfile)
+        AppFlowManager.default.moveToEditProfileVC(travelData: travelData, usingFor: self.viewModel.currentlyUsingFor)
     }
 }
 
@@ -260,12 +281,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.Address.localized:
             return addresses.count
         case LocalizedString.PassportDetails.localized:
-            return 3
+            return passportDetails.count
         case LocalizedString.FlightPreferences.localized:
             if frequentFlyer.count > 0 {
-                return 2 + frequentFlyer.count
+                return flightDetails.count + frequentFlyer.count
             } else {
-                return 2
+                return flightDetails.count
             }
             
         default:
@@ -287,14 +308,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
             return cell
         case LocalizedString.ContactNumber.localized:
-            var contact = ""
-            if !mobile[indexPath.row].isd.isEmpty {
-                contact = "\(mobile[indexPath.row].isd) \(mobile[indexPath.row].value)"
-            }
-            else {
-                contact = mobile[indexPath.row].value
-            }
-            cell.configureCell(mobile[indexPath.row].label, contact.removeAllWhiteSpacesAndNewLines)
+            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines)
             cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
             return cell
         case LocalizedString.SocialAccounts.localized:
@@ -316,11 +330,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 if let issueDate = travelData?.passportIssueDate, let expiryDate = travelData?.passportExpiryDate {
                     viewProfileMultiDetailcell.cofigureCell(AppGlobals.shared.formattedDateFromString(dateString: issueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "", AppGlobals.shared.formattedDateFromString(dateString: expiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
                 }
-                viewProfileMultiDetailcell.separatorView.isHidden = true
+                viewProfileMultiDetailcell.separatorView.isHidden = indexPath.row >= (passportDetails.count - 1)
                 return viewProfileMultiDetailcell
                 
             } else {
                 cell.configureCell(passportDetaitTitle[indexPath.row], passportDetails[indexPath.row])
+                cell.separatorView.isHidden = indexPath.row >= (passportDetails.count - 1)
                 return cell
             }
         case LocalizedString.FlightPreferences.localized:
@@ -332,11 +347,13 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - 2].logoUrl, frequentFlyer[indexPath.row - 2].airlineName, frequentFlyer[indexPath.row - 2].number)
                 
                 viewProfileMultiDetailcell.separatorLeadingConstraint.constant = ((indexPath.row-1) == frequentFlyer.count) ? 0.0 : 16.0
+                viewProfileMultiDetailcell.separatorView.isHidden = false
                 return viewProfileMultiDetailcell
                 
             } else {
                 cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
                 cell.sepratorLeadingConstraint.constant = frequentFlyer.isEmpty ? 0.0 : 16.0
+                cell.separatorView.isHidden = false
                 return cell
             }
         default:
@@ -371,7 +388,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         
         if prallexProgress <= 0.5 {
-            
+            self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false)
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
@@ -383,6 +400,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
         } else {
+            self.statusBarStyle = .lightContent
             self.topNavView.animateBackView(isHidden: true)
             self.topNavView.firstRightButton.isSelected = false
             self.topNavView.leftButton.isSelected = false

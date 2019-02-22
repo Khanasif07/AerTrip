@@ -83,7 +83,7 @@ class CreateYourAccountVC: BaseVC {
         
         self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
         self.loginHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
-        self.notRegisterYetLabel.font = AppFonts.SemiBold.withSize(16)
+        self.notRegisterYetLabel.font = AppFonts.Regular.withSize(16)
         
         let attributedString = NSMutableAttributedString(string: LocalizedString.By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use.localized, attributes: [
             .font: AppFonts.Regular.withSize(14),
