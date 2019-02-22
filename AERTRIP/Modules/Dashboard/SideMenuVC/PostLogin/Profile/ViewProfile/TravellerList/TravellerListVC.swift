@@ -33,7 +33,7 @@ class TravellerListVC: BaseVC {
             tableView.setEditing(isSelectMode, animated: true)
         }
     }
-    private var selectedTravller: [String] = []
+    private var selectedTravller: [NSFetchRequestResult] = []
     
     var container: NSPersistentContainer!
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
@@ -162,9 +162,15 @@ class TravellerListVC: BaseVC {
         }
     }
     
+    func getSelectedPaxIds() -> [String] {
+        return self.selectedTravller.map { (result) -> String in
+            (result as? TravellerData)?.id ?? ""
+        }
+    }
+    
     @IBAction func assignGroupTapped(_ sender: Any) {
         if selectedTravller.count > 0 {
-            AppFlowManager.default.showAssignGroupVC(self, selectedTravller)
+            AppFlowManager.default.showAssignGroupVC(self, getSelectedPaxIds())
         }
     }
     
@@ -177,7 +183,7 @@ class TravellerListVC: BaseVC {
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
-                    self.viewModel.paxIds = self.selectedTravller
+                    self.viewModel.paxIds = self.getSelectedPaxIds()
                     self.viewModel.callDeleteTravellerAPI()
                 }
             }
@@ -269,10 +275,20 @@ class TravellerListVC: BaseVC {
         
         do {
             try fetchedResultsController.performFetch()
-            tableView.reloadData()
+            reloadList()
         } catch {
-            tableView.reloadData()
+            reloadList()
             print("Fetch failed")
+        }
+    }
+    
+    func reloadList() {
+        tableView.reloadData()
+        
+        for result in self.selectedTravller {
+            if let indexPath = self.fetchedResultsController.indexPath(forObject: result) {
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
+            }
         }
     }
     
@@ -375,7 +391,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         //        }
         
         let cell = UITableViewCell()
-        self.configureCell(cell: cell, travellerData: fetchedResultsController.object(at: indexPath) as? TravellerData)
+        let data = fetchedResultsController.object(at: indexPath) as? TravellerData
+        self.configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
         let backView = UIView(frame: cell.contentView.bounds)
         backView.backgroundColor = AppColors.themeWhite
@@ -400,9 +417,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let traveller = fetchedResultsController.object(at: indexPath) as? TravellerData
+            
+            let result = fetchedResultsController.object(at: indexPath)
+            let traveller = result as? TravellerData
             self.viewModel.paxIds.append(traveller?.id ?? "")
-            self.selectedTravller.append(traveller?.id ?? "")
+            self.selectedTravller.append(result)
             self.viewModel.callDeleteTravellerAPI()
         }
     }
@@ -430,12 +449,14 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isSelectMode {
-            if let data = fetchedResultsController.object(at: indexPath) as? TravellerData, let pId = data.id, !pId.isEmpty {
-                if !selectedTravller.contains(pId) {
-                    selectedTravller.append(pId)
-                }
-                self.updateNavView()
+            
+            let current = fetchedResultsController.object(at: indexPath) as? TravellerData
+            if !selectedTravller.contains(where: { (result) -> Bool in
+                ((result as? TravellerData)?.id ?? "") == (current?.id ?? "")
+            }) {
+                selectedTravller.append(fetchedResultsController.object(at: indexPath))
             }
+            self.updateNavView()
         } else if let tData = fetchedResultsController.object(at: indexPath) as? TravellerData {
             AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, usingFor: .travellerList)
         }
@@ -446,12 +467,13 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if isSelectMode {
-            if let data = fetchedResultsController.object(at: indexPath) as? TravellerData, let pId = data.id, !pId.isEmpty {
-                if selectedTravller.contains(pId) {
-                    selectedTravller.remove(at: selectedTravller.firstIndex(of: pId)!)
-                }
-                self.updateNavView()
+            let current = fetchedResultsController.object(at: indexPath) as? TravellerData
+            if let index = selectedTravller.firstIndex(where: { (result) -> Bool in
+                ((result as? TravellerData)?.id ?? "") == (current?.id ?? "")
+            }) {
+                selectedTravller.remove(at: index)
             }
+            self.updateNavView()
         }
 //        let cell = tableView.cellForRow(at: indexPath)
 //        cell?.backgroundColor = AppColors.themeWhite
@@ -488,7 +510,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     func deleteTravellerAPIFailure() {
         bottomView.isHidden = true
         isSelectMode = false
-        tableView.reloadData()
+        reloadList()
         updateNavView()
     }
     
@@ -524,7 +546,7 @@ extension TravellerListVC: UISearchBarDelegate {
 
 extension TravellerListVC: NSFetchedResultsControllerDelegate {
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.reloadData()
+        reloadList()
     }
 }
 
