@@ -310,13 +310,19 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var email = Email()
                 email.type = "email"
                 var label = LocalizedString.Home.localized
-                if self.viewModel.emailTypes.count > 0 {
+                if self.viewModel.emailTypes.count > 0 , self.viewModel.currentlyUsinfFor == .viewProfile {
                     if self.viewModel.email.count == 1 {
                         label = self.viewModel.emailTypes[0]
                     } else if self.viewModel.email.count == 2 {
                         label = self.viewModel.emailTypes[2]
                     } else {
                         label = self.viewModel.emailTypes[1]
+                    }
+                } else {
+                    if self.viewModel.email.count == 1 {
+                        label = self.viewModel.emailTypes[1]
+                    } else {
+                        label = self.viewModel.emailTypes[0]
                     }
                 }
                 email.label = label
@@ -864,8 +870,10 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             self.present(controller, animated: true, completion: nil)
             
         } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy"
             viewType = .leftView
-            showDatePicker(nil, maximumDate: Date())
+            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: Date())
         }
     }
     
@@ -873,7 +881,9 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {} else {
             self.indexPath = indexPath
             viewType = .rightView
-            showDatePicker(Date(), maximumDate: nil)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy"
+            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),Date(), maximumDate: nil)
         }
     }
 }

@@ -22,7 +22,7 @@ extension APICaller {
                 let emailDict = jsonData[APIKeys.data.rawValue][APIKeys.email.rawValue].dictionaryObject
                 let addressDict = jsonData[APIKeys.data.rawValue][APIKeys.address.rawValue].dictionaryObject
                 let mobileDict = jsonData[APIKeys.data.rawValue][APIKeys.mobile.rawValue].dictionaryObject
-                let socialDict = jsonData[APIKeys.data.rawValue][APIKeys.social.rawValue].dictionaryObject
+                let socialDict = jsonData[APIKeys.data.rawValue][APIKeys.social.rawValue].dictionaryObject as? [String:String]
                 
                 var salutations = [String]()
                 var addresses = [String]()
@@ -54,9 +54,9 @@ extension APICaller {
                     }
                 }
                 
-                if let keys = socialDict?.keys {
-                    for key in keys {
-                        socials.append(key)
+                if let values = socialDict?.values {
+                    for value in values {
+                        socials.append(value)
                     }
                 }
                 

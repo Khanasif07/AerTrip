@@ -144,7 +144,7 @@
 //MARK:-
 "Mr"  = "Mr";
 "Mis" = "Mis";
-"PleaseSelectSalutation" = "Please select salutation";
+"PleaseSelectSalutation" = "Kindly provide a valid salutation";
 "PleaseEnterFirstName"   = "Please enter first name";
 "PleaseEnterLastName"    = "Please enter last name";
 "PleaseSelectCountry"    = "Please select country";
@@ -204,7 +204,7 @@
 //MARK:-
 
 "PreferencesSavedSuccessfully" = "Preferences saved successfully";
-
+"GroupNameCanNotEmpty" = "Group name can not be empty";
 
 //MARK:- Edit profile VC
 //MARK:-
@@ -216,7 +216,7 @@
 //MARK:- Traveller VC
 //MARK:-
 
-"AssignGroup" = "AssignGroup";
+"AssignGroup" = "Assign Group";
 "Delete" = "Delete";
 "Deleted" = "Deleted";
 "TheseContactsWillBeDeletedFromTravellersList" = "These contacts will be deleted from Travellers List";
@@ -307,5 +307,6 @@
 
 // MARK:- Range VC
 "SearchResultsRange" = "Search Results Range";
+
 
 

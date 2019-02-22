@@ -578,14 +578,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         switch indexPath.row {
         case 0:
             NSLog("date of birth")
-            showDatePicker(nil, maximumDate: Date())
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy"
+            showDatePicker(formatter.date(from: viewModel.dob),nil, maximumDate: Date())
             
         case 1:
             NSLog("date of aniversary")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            formatter.date(from: viewModel.dob)
-            showDatePicker(formatter.date(from: viewModel.dob), maximumDate: Date())
+            showDatePicker(formatter.date(from: viewModel.doa),formatter.date(from: viewModel.dob), maximumDate: Date())
         case 2:
             NSLog("show notes ")
             
@@ -648,7 +649,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func showDatePicker(_ minimumDate: Date?, maximumDate: Date?) {
+    func showDatePicker(_ pickerDate : Date?, _ minimumDate: Date?, maximumDate: Date?) {
         // Formate Date
 //        var components = DateComponents()
 //        components.year = -100
@@ -671,7 +672,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker.maximumDate = maximumDate
         
         datePicker.datePickerMode = .date
-        datePicker.setDate(Date(), animated: false)
+        datePicker.setDate(pickerDate ?? Date(), animated: false)
         openDatePicker()
     }
     
