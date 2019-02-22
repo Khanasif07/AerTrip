@@ -105,6 +105,7 @@
 "Done"            = "Done";
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
+"SelectedCountySymbol" = "IN";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -172,9 +173,9 @@
 "Facebook" = "Facebook";
 "Google" = "Google";
 "LinkedIn" = "LinkedIn";
-"ImportContactMessage" = "We will show you a list of your contacts to add them as travellers";
-"ImportFacebookMessage" = "Connect with Facebook to import your friends to the travellers list.";
-"ImportGoogleMessage" = "Connect with Google to import your contacts to the travellers list";
+"ImportContactMessage" = "We will show you a list of your contacts to \n add them as travellers";
+"ImportFacebookMessage" = "Connect with Facebook to import your \n friends to the travellers list.";
+"ImportGoogleMessage" = "Connect with Google to import your contacts \n to the travellers list";
 "SelectAll" = "Select All";
 "DeselectAll" = "Deselect All";
 "AllowContacts" = "Allow Contacts";

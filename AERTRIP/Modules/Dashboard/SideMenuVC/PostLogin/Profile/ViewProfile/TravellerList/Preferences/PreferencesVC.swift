@@ -360,5 +360,6 @@ extension PreferencesVC: PreferencesVMDelegate {
     
     func savePreferencesFail(errors: ErrorCodes) {
         self.stopLoading()
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

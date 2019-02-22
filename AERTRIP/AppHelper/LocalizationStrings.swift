@@ -163,6 +163,7 @@ enum LocalizedString: String {
     case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
     case selectedCountryCode    = "selectedCountryCode"
     case selectedCountry        = "selectedCountry"
+    case SelectedCountrySymbol = "SelectedCountySymbol"
 
     //MARK:- ViewProfileVC
     //MARK:-

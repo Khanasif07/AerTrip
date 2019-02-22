@@ -26,7 +26,7 @@ class ATErrorManager {
         var message: String {
             switch self {
             case .noInternet:
-                return "Your phone doesn't have active internet connection."
+                return "Check your internet connection."
                 
             case .requestTimeOut:
                 return "Request time out. Please try again."

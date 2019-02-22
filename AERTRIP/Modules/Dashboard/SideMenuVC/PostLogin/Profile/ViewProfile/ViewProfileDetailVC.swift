@@ -159,17 +159,6 @@ class ViewProfileDetailVC: BaseVC {
             }
         }
         
-        mobile.removeAll()
-        let tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
-            !mbl.value.isEmpty
-        }
-        mobile.append(contentsOf: tempMobile)
-        
-        if travel.address.count > 0 {
-            addresses = travel.address
-            sections.append(LocalizedString.Address.localized)
-        }
-        
         email.removeAll()
         let tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
@@ -179,10 +168,17 @@ class ViewProfileDetailVC: BaseVC {
         let social = travel.contact.social.filter { (scl) -> Bool in
             !scl.value.isEmpty
         }
-
+        
         if email.count > 0 {
             sections.append(LocalizedString.EmailAddress.localized)
         }
+        
+        mobile.removeAll()
+        let tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
+            !mbl.value.isEmpty
+        }
+        mobile.append(contentsOf: tempMobile)
+        
         if mobile.count > 0 {
             sections.append(LocalizedString.ContactNumber.localized)
         }
@@ -191,7 +187,13 @@ class ViewProfileDetailVC: BaseVC {
             sections.append(LocalizedString.SocialAccounts.localized)
         }
         
+        if travel.address.count > 0 {
+            addresses = travel.address
+            sections.append(LocalizedString.Address.localized)
+        }
+    
         informations.removeAll()
+        moreInformation.removeAll()
         if !travel.dob.isEmpty {
             informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
             moreInformation.append(LocalizedString.Birthday.localized)
@@ -247,6 +249,31 @@ class ViewProfileDetailVC: BaseVC {
     func getProgressiveHeight(forProgress: CGFloat) -> CGFloat {
         let ratio: CGFloat = headerHeightToAnimate / CGFloat(0.5)
         return headerHeightToAnimate - (forProgress * ratio)
+    }
+    
+    func createAddress(_ address : Address) -> String {
+        var completeAddress = ""
+        if !address.line1.isEmpty {
+            completeAddress += address.line1
+        }
+        if !address.line2.isEmpty && !address.line1.isEmpty{
+            completeAddress += "\n" + address.line2
+        } else {
+            completeAddress += address.line2
+        }
+        if !address.city.isEmpty  {
+            completeAddress += "\n" + address.city
+        }
+        if !address.postalCode.isEmpty {
+          completeAddress += "-" + address.postalCode
+        }
+        if !address.state.isEmpty {
+            completeAddress += "\n" + address.state
+        }
+        if !address.countryName.isEmpty {
+            completeAddress += ", " + address.countryName
+        }
+        return completeAddress
     }
     
 }
@@ -316,8 +343,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == social.count) ? true : false
             return cell
         case LocalizedString.Address.localized:
-            let content = addresses[indexPath.row].line2 + "\n" + addresses[indexPath.row].line1
-            cell.configureCell(addresses[indexPath.row].label, content)
+            let address = createAddress(addresses[indexPath.row])
+            cell.configureCell(addresses[indexPath.row].label, address)
             cell.separatorView.isHidden = (indexPath.row + 1 == addresses.count) ? true : false
             return cell
         case LocalizedString.PassportDetails.localized:
@@ -447,6 +474,6 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-        //
+         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

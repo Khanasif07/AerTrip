@@ -83,7 +83,7 @@ extension UIView {
         return temp
     }
     
-    func addShadow(cornerRadius: CGFloat, shadowColor: UIColor = .black, backgroundColor: UIColor = .white, offset: CGSize = CGSize(width: -1.0, height: 8.0)) {
+    func addShadow(cornerRadius: CGFloat, shadowColor: UIColor = .black, backgroundColor: UIColor = .white, offset: CGSize = CGSize(width: -1.0, height: 2.0)) {
         let newLayer: CAShapeLayer!
         if shadowLayer == nil {
             newLayer = CAShapeLayer()
@@ -99,11 +99,10 @@ extension UIView {
         self.backgroundColor = UIColor.clear
         newLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         newLayer.fillColor = backgroundColor.cgColor
-        
         newLayer.shadowColor = shadowColor.cgColor
         newLayer.shadowPath  = newLayer.path
         newLayer.shadowOffset = offset
-        newLayer.shadowOpacity = 0.16
-        newLayer.shadowRadius = 10
+        newLayer.shadowOpacity = 0.2
+        newLayer.shadowRadius = 4
     }
 }
