@@ -99,7 +99,7 @@ class PreferencesVC: BaseVC {
        
         
         let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
-            let groupName = alertController.textFields?.first?.text ?? "None"
+            let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
             printDebug("Current group name: \(groupName)")
             
             if groupName.isEmpty {

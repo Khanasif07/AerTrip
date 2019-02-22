@@ -177,8 +177,11 @@ class ImportContactVM: NSObject {
     //MARK:-
     func search(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
-    }
+        if !_phoneContacts.isEmpty || !_googleContacts.isEmpty || !_facebookContacts.isEmpty {
+            perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
+        }
+        
+   }
     
     @objc private func callSearch(_ forText: String) {
         if let obj = self.delegateCollection as? BaseVC {
