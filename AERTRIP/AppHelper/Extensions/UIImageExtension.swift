@@ -160,7 +160,7 @@ extension UIImage {
         let currentFilter = CIFilter(name: "CIGaussianBlur")
         let beginImage = CIImage(image: self)
         currentFilter!.setValue(beginImage, forKey: kCIInputImageKey)
-        currentFilter!.setValue(10, forKey: kCIInputRadiusKey)
+        currentFilter!.setValue(9, forKey: kCIInputRadiusKey)
         
         let cropFilter = CIFilter(name: "CICrop")
         cropFilter!.setValue(currentFilter!.outputImage, forKey: kCIInputImageKey)

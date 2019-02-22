@@ -270,29 +270,26 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         let prallexProgress = self.tableView.parallaxHeader.progress
         
-        printDebug("progress %f \(prallexProgress)")
-        
         if prallexProgress >= 0.6 {
             self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * prallexProgress
         }
         
         if prallexProgress <= 0.5 {
             self.statusBarStyle = .default
-            self.topNavView.animateBackView(isHidden: false)
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                printDebug(prallexProgress)
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
         } else {
             self.statusBarStyle = .lightContent
-            self.topNavView.animateBackView(isHidden: true)
-            self.topNavView.firstRightButton.isSelected = false
-            self.topNavView.leftButton.isSelected = false
-            self.topNavView.leftButton.tintColor = AppColors.themeWhite
-            self.topNavView.navTitleLabel.text = ""
+            self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
+                self?.topNavView.firstRightButton.isSelected = false
+                self?.topNavView.leftButton.isSelected = false
+                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.navTitleLabel.text = ""
+            }
         }
         self.profileImageHeaderView?.layoutIfNeeded()
         self.profileImageHeaderView?.doInitialSetup()
@@ -302,11 +299,11 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.updateForParallexProgress()
     }
 }

@@ -28,10 +28,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zm5-gg-3lW">
-                                <rect key="frame" x="8" y="3.5" width="30" height="30"/>
+                                <rect key="frame" x="7" y="0.0" width="38" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="BTl-5l-bNb"/>
-                                    <constraint firstAttribute="height" constant="30" id="nq2-dx-OKd"/>
+                                    <constraint firstAttribute="width" secondItem="Zm5-gg-3lW" secondAttribute="height" multiplier="1:1" id="Kyo-jK-IYg"/>
                                 </constraints>
                                 <state key="normal" image="redMinusButton"/>
                                 <connections>
@@ -39,7 +38,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Me" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5I-MI-BSY">
-                                <rect key="frame" x="54" y="10" width="231" height="17"/>
+                                <rect key="frame" x="51" y="10" width="234" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -72,10 +71,11 @@
                             <constraint firstAttribute="bottom" secondItem="l5I-MI-BSY" secondAttribute="bottom" constant="11" id="5Oj-Jk-Mx3"/>
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="centerY" secondItem="uex-2P-muU" secondAttribute="centerY" id="8xS-un-vWz"/>
                             <constraint firstAttribute="trailing" secondItem="5T4-2p-Fgf" secondAttribute="trailing" constant="-50" id="Fzv-Kd-imy"/>
-                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="8" id="HTf-jX-GcJ"/>
-                            <constraint firstItem="l5I-MI-BSY" firstAttribute="leading" secondItem="Zm5-gg-3lW" secondAttribute="trailing" constant="16" id="g9H-7z-dPI"/>
+                            <constraint firstItem="l5I-MI-BSY" firstAttribute="leading" secondItem="Zm5-gg-3lW" secondAttribute="trailing" constant="6" id="NH2-oj-zqD"/>
+                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" id="VZh-sL-GTJ"/>
+                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="7" id="Vrd-C3-IsX"/>
+                            <constraint firstAttribute="bottom" secondItem="Zm5-gg-3lW" secondAttribute="bottom" id="bTd-Y3-TQ3"/>
                             <constraint firstItem="l5I-MI-BSY" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" constant="10" id="kzI-5N-Q6M"/>
-                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="centerY" secondItem="l5I-MI-BSY" secondAttribute="centerY" id="n5n-t9-6ez"/>
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="centerY" secondItem="G5a-fe-ECO" secondAttribute="centerY" id="s8j-ee-2n2"/>
                             <constraint firstAttribute="trailing" secondItem="tSw-xN-ckt" secondAttribute="trailing" constant="16" id="sZs-IO-Mkc"/>
                             <constraint firstItem="uex-2P-muU" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" constant="17" id="u8I-Aq-vR3"/>

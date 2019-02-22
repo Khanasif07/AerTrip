@@ -107,6 +107,18 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         setUpToolBarForGenericPickerView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.statusBarStyle = .lightContent
+    }
+    
     override func viewDidLayoutSubviews() {
         guard let headerView = tableView.tableHeaderView else {
             return

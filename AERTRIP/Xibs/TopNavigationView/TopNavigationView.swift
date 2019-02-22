@@ -83,15 +83,17 @@ class TopNavigationView: UIView {
     }
     
     //MARK:- Public
-    func animateBackView(isHidden: Bool) {
+    func animateBackView(isHidden: Bool, completion: ((Bool) -> Void)?) {
         guard !self.isHidingBackView else {return}
         self.isHidingBackView = true
         self.backView.isHidden = false
+
+        completion?(true)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.backViewHeightConstraint.constant = isHidden ? 0.0 : self.height
             self.backView.alpha = isHidden ? 0.0 : 1.0
             self.layoutIfNeeded()
-        }) { (idDone) in
+        }) { (isDone) in
             self.isHidingBackView = false
             self.backView.isHidden = isHidden
         }

@@ -51,6 +51,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        gradient.frame = gradientView.bounds
         // self.backgroundImageView.frame = self.bounds
     }
     

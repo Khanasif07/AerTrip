@@ -55,14 +55,13 @@
                                                 <rect key="frame" x="16" y="29" width="128" height="23"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-N9-PFO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                                                        <rect key="frame" x="0.0" y="2" width="21" height="21"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="23" id="Jzd-hW-Rjc"/>
-                                                            <constraint firstAttribute="width" constant="23" id="NC2-Do-mYF"/>
+                                                            <constraint firstAttribute="width" secondItem="hCx-N9-PFO" secondAttribute="height" multiplier="1:1" id="tUN-f2-ptT"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPA-lN-0Lc">
-                                                        <rect key="frame" x="39" y="0.0" width="89" height="23"/>
+                                                        <rect key="frame" x="35" y="1" width="93" height="23"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -72,9 +71,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="510-G9-7D0"/>
                                                     <constraint firstItem="CPA-lN-0Lc" firstAttribute="centerY" secondItem="hCx-N9-PFO" secondAttribute="centerY" id="CnZ-Wm-qXe"/>
-                                                    <constraint firstItem="hCx-N9-PFO" firstAttribute="top" secondItem="Afx-QT-u4z" secondAttribute="top" id="GlM-5x-F3N"/>
+                                                    <constraint firstItem="hCx-N9-PFO" firstAttribute="top" secondItem="Afx-QT-u4z" secondAttribute="top" constant="2" id="GlM-5x-F3N"/>
                                                     <constraint firstItem="hCx-N9-PFO" firstAttribute="leading" secondItem="Afx-QT-u4z" secondAttribute="leading" id="LeM-Ip-Kfh"/>
-                                                    <constraint firstItem="CPA-lN-0Lc" firstAttribute="leading" secondItem="hCx-N9-PFO" secondAttribute="trailing" constant="16" id="VLO-vh-JWf"/>
+                                                    <constraint firstItem="CPA-lN-0Lc" firstAttribute="leading" secondItem="hCx-N9-PFO" secondAttribute="trailing" constant="14" id="VLO-vh-JWf"/>
                                                     <constraint firstAttribute="trailing" secondItem="CPA-lN-0Lc" secondAttribute="trailing" id="mNj-1f-D2i"/>
                                                     <constraint firstAttribute="bottom" secondItem="hCx-N9-PFO" secondAttribute="bottom" id="w9p-jf-vDp"/>
                                                 </constraints>
@@ -84,7 +83,7 @@
                                         <constraints>
                                             <constraint firstItem="Afx-QT-u4z" firstAttribute="leading" secondItem="8wu-1j-8yp" secondAttribute="leading" constant="16" id="6Qw-d2-HME"/>
                                             <constraint firstItem="kDQ-CC-jXV" firstAttribute="leading" secondItem="siy-KF-9Yb" secondAttribute="leading" id="8AT-r0-ZPM"/>
-                                            <constraint firstAttribute="bottom" secondItem="Afx-QT-u4z" secondAttribute="bottom" constant="9" id="Gz3-jZ-GEM"/>
+                                            <constraint firstAttribute="bottom" secondItem="Afx-QT-u4z" secondAttribute="bottom" constant="11" id="Gz3-jZ-GEM"/>
                                             <constraint firstAttribute="trailing" secondItem="Afx-QT-u4z" secondAttribute="trailing" constant="16" id="OEi-3V-9mI"/>
                                             <constraint firstAttribute="trailing" secondItem="siy-KF-9Yb" secondAttribute="trailing" constant="19" id="Orb-a6-QKV"/>
                                             <constraint firstItem="siy-KF-9Yb" firstAttribute="leading" secondItem="8wu-1j-8yp" secondAttribute="leading" constant="16" id="Q7E-Se-N4T"/>

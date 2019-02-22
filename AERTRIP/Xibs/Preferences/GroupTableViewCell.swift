@@ -28,8 +28,12 @@ class GroupTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
-       
+        
+        groupNameTextField.font = AppFonts.Regular.withSize(18.0)
+        groupNameTextField.textColor = AppColors.themeBlack
+        
+        groupCountLabel.font = AppFonts.Regular.withSize(18.0)
+        groupCountLabel.textColor = AppColors.themeGray40
     }
     
     // MARK: - Helper methods
@@ -46,10 +50,4 @@ class GroupTableViewCell: UITableViewCell {
             delegate?.deleteCellTapped(indexPath)
         }
     }
-    
-    
-    
-    
-
-   
 }

@@ -219,7 +219,7 @@ class MainHomeVC: BaseVC {
         
         self.profileView?.isHidden = true
         self.profileView?.gradientView.isHidden = true
-        self.profileView?.gradientView.alpha = 0
+        self.profileView?.gradientView.alpha = 0.0
         self.mainContainerView.addSubview(self.profileView!)
     }
     
@@ -231,12 +231,13 @@ class MainHomeVC: BaseVC {
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileContainerView.isHidden = true
         
-        let finalFrame = CGRect(x: 0.0, y: -(UIDevice.isIPhoneX ? 0.0 : 0.0), width: UIDevice.screenWidth, height: self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45)
+        let finalFrame = CGRect(x: 0.0, y: -(UIApplication.shared.statusBarFrame.height), width: UIDevice.screenWidth, height: self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false
         self.profileView?.backgroundImageView.isHidden = false
         self.profileView?.dividerView.isHidden = false
+        self.profileView?.gradientView.isHidden = false
         
         self.viewProfileVC?.viewModel.webserviceForGetTravelDetail()
 
@@ -248,8 +249,8 @@ class MainHomeVC: BaseVC {
             self.profileView?.emailIdLabel.alpha = 1.0
             self.profileView?.mobileNumberLabel.alpha = 1.0
             self.profileView?.backgroundImageView.alpha = 1.0
-            self.profileView?.gradientView.alpha = 1.0
             self.profileView?.dividerView.alpha = 1.0
+            self.profileView?.gradientView.alpha = 1.0
             self.profileView?.profileContainerView.transform = CGAffineTransform.identity
             self.profileView?.layoutIfNeeded()
             
@@ -285,12 +286,16 @@ class MainHomeVC: BaseVC {
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
+            self.profileView?.gradientView.alpha = 0.0
             self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
 
             self.profileView?.layoutIfNeeded()
         }
         
         animator.addCompletion { (position) in
+            
+            self.profileView?.gradientView.isHidden = true
+            
             self.profileView?.emailIdLabel.isHidden = true
             self.profileView?.mobileNumberLabel.isHidden = true
 
@@ -298,6 +303,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.dividerView.isHidden = true
 
             self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+//            self.viewProfileVC?.tableView.setContentOffset(CGPoint(x: 0.0, y: -(300.0 + UIApplication.shared.statusBarFrame.height)), animated: false)
             self.profileView?.isHidden = true
             self.sideMenuVC?.profileContainerView.isHidden = false
             self.sideMenuVC?.profileContainerView.isUserInteractionEnabled = true

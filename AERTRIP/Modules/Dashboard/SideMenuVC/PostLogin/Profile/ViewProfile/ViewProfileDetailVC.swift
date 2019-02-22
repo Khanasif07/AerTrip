@@ -14,6 +14,7 @@ class ViewProfileDetailVC: BaseVC {
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: - Variables
     
@@ -84,6 +85,8 @@ class ViewProfileDetailVC: BaseVC {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
         
+        self.headerViewHeightConstraint.constant = headerViewHeight
+
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -330,6 +333,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 if let issueDate = travelData?.passportIssueDate, let expiryDate = travelData?.passportExpiryDate {
                     viewProfileMultiDetailcell.cofigureCell(AppGlobals.shared.formattedDateFromString(dateString: issueDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "", AppGlobals.shared.formattedDateFromString(dateString: expiryDate, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
                 }
+                viewProfileMultiDetailcell.secondTitleLabel.isHidden = false
                 viewProfileMultiDetailcell.separatorView.isHidden = indexPath.row >= (passportDetails.count - 1)
                 return viewProfileMultiDetailcell
                 
@@ -389,23 +393,20 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         
         if prallexProgress <= 0.5 {
             self.statusBarStyle = .default
-            self.topNavView.animateBackView(isHidden: false)
-            
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                printDebug(prallexProgress)
-                
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
             }
         } else {
             self.statusBarStyle = .lightContent
-            self.topNavView.animateBackView(isHidden: true)
-            self.topNavView.firstRightButton.isSelected = false
-            self.topNavView.leftButton.isSelected = false
-            self.topNavView.leftButton.tintColor = AppColors.themeWhite
-            self.topNavView.navTitleLabel.text = ""
+            self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
+                self?.topNavView.firstRightButton.isSelected = false
+                self?.topNavView.leftButton.isSelected = false
+                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.navTitleLabel.text = ""
+            }
         }
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.doInitialSetup()
@@ -415,11 +416,11 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.updateForParallexProgress()
     }
 }

@@ -30,6 +30,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.selectionStyle = .none
     }
 
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
@@ -49,7 +51,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         
         if indexPath.row == 2 {
             firstTitleLabel.isHidden = false
-             self.firstTitleLabel.text = "Frequent Flyer"
+            firstTitleLabel.text = "Frequent Flyer"
+            firstTitleLabelHeightConstraint.constant = 20.0
         } else {
             firstTitleLabel.isHidden = true
             firstTitleLabelHeightConstraint.constant = 0

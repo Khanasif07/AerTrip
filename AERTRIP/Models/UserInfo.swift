@@ -315,7 +315,8 @@ class UserInfo {
     
     var isd:String{
         get{
-            return (userData?["isd"] as? String ?? "").removeNull
+            let val = (userData?["isd"] as? String ?? "").removeNull
+            return val.contains("+") ? val : "+\(val)"
         }
         set{
             let val = newValue.removeNull

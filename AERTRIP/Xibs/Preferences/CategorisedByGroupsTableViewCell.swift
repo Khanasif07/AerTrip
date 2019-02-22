@@ -17,6 +17,8 @@ class CategorisedByGroupsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        groupSwitch.onTintColor = AppColors.themeGreen
     }
 
    
