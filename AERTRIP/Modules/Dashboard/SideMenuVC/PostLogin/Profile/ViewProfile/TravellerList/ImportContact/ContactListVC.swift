@@ -49,6 +49,12 @@ class ContactListVC: BaseVC {
         return newEmptyView
     }()
     
+    private lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -86,11 +92,23 @@ class ContactListVC: BaseVC {
         if let obj = note.object as? ImportContactVM.Notification {
             if obj == .phoneContactFetched {
                 self.fetchPhoneContactsSuccess()
+                tableView.backgroundView = noResultemptyView
             }
             else if obj == .selectionChanged {
                 self.tableView.reloadData()
             }
             else if obj == .searchDone {
+                if self.currentlyUsingFor == .contacts && !self.viewModel.phoneContacts.isEmpty {
+                    tableView.backgroundView = noResultemptyView
+                    
+                }
+                else if self.currentlyUsingFor == .facebook && !self.viewModel.facebookContacts.isEmpty {
+                    tableView.backgroundView = noResultemptyView
+                    
+                }
+                else if self.currentlyUsingFor == .google && !self.viewModel.googleContacts.isEmpty {
+                    tableView.backgroundView = noResultemptyView
+                }
                 self.tableView.reloadData()
             }
         }
@@ -108,6 +126,7 @@ class ContactListVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        noResultemptyView.mainImageViewTopConstraint.constant = 300
     //    self.bottomHeaderTopDiverView.isHidden = true
     }
     
@@ -161,6 +180,7 @@ class ContactListVC: BaseVC {
 extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentlyUsingFor == .contacts {
+        
             tableView.backgroundView?.isHidden = !self.viewModel.phoneContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.phoneContacts.isEmpty
             self.bottomHeaderTopDiverView.isHidden = self.viewModel.phoneContacts.isEmpty
@@ -181,7 +201,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             self.isPermissionGiven = !self.viewModel.googleContacts.isEmpty
             return self.viewModel.googleContacts.count
         }
-        tableView.backgroundView?.isHidden = false
+
         return 0
     }
     

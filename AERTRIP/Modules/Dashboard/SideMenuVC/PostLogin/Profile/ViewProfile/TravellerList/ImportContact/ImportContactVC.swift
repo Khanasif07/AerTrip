@@ -20,6 +20,7 @@ class ImportContactVC: BaseVC {
     @IBOutlet weak var listContainerView: UIView!
     @IBOutlet weak var selectedContactsCollectionView: UICollectionView!
     
+  
     
     //MARK:- Properties
     //MARK:- Public
