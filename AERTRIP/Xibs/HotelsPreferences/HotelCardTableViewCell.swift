@@ -104,6 +104,10 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
 }
 
 extension HotelCardTableViewCell: HotelCardCollectionViewCellDelegate {
+    func pagingScrollEnable(_ indexPath: IndexPath) {
+        <#code#>
+    }
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         self.delegate?.saveButtonAction(sender, forHotel: forHotel)
     }

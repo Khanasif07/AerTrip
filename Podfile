@@ -23,6 +23,7 @@ target 'AERTRIP' do
     pod 'MiniLayout'
     pod 'GoogleMaps'
     pod 'GooglePlaces'
+    pod 'FlexiblePageControl'
 
     pod 'ActiveLabel'
     pod 'TransitionButton'

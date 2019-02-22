@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import FlexiblePageControl
 
 protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
+    func pagingScrollEnable(_ indexPath:IndexPath)
 }
 
 class HotelCardCollectionViewCell: UICollectionViewCell {
@@ -24,8 +26,15 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tripLogoImage: UIImageView!
     @IBOutlet weak var greenCircleRatingView: FloatRatingView!
     @IBOutlet weak var gradientView: UIView!
+   
+    @IBOutlet weak var scrollView: UIScrollView!
     
     private var gradientLayer: CAGradientLayer!
+    let scrollSize: CGFloat = 300
+    let numberOfPage: Int = 100
+    var indexPath: IndexPath?
+    
+    @IBOutlet weak var pageControl: FlexiblePageControl!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     var hotelData: HotelsModel? {
@@ -37,6 +46,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     var hotelListData: HotelSearched? {
         didSet {
             self.populateHotelData()
+            setUpInstagramDotGalleryView()
         }
     }
     
@@ -52,11 +62,34 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         gradientView.backgroundColor = AppColors.clear
         
         self.saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = self.gradientView.bounds
+    }
+    
+    private func setUpInstagramDotGalleryView() {
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        scrollView.isUserInteractionEnabled = true
+        pageControl.center = CGPoint(x: scrollView.center.x, y: self.frame.minY + 20)
+        pageControl.numberOfPages = numberOfPage
+        pageControl.backgroundColor = .black
+       scrollView.backgroundColor = .red
+        
+        guard let thumbnail = hotelListData?.thumbnail  else {
+            printDebug("thumbnails are  empty")
+            return
+        }
+        for index in  0..<5 {
+            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: 0, width: scrollSize, height: scrollSize))
+            view.image = UIImage(named: "tickIcon")
+            scrollView.addSubview(view)
+        }
+       
+        
     }
     
     override func draw(_ rect: CGRect) {
@@ -94,5 +127,15 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         if let hotel = self.hotelData {
             self.delegate?.saveButtonAction(sender, forHotel: hotel)
         }
+    }
+}
+
+extension HotelCardCollectionViewCell : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPath = indexPath {
+             delegate?.pagingScrollEnable(indexPath)
+        }
+       
+       
     }
 }

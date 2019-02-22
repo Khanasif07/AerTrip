@@ -341,6 +341,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         
         let hData = fetchedResultsController.object(at: indexPath)
         cell.hotelListData = hData
+        cell.indexPath = indexPath
         
         return cell
     }

@@ -58,6 +58,7 @@ PODS:
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
+  - FlexiblePageControl (1.0.7)
   - GoogleAppMeasurement (5.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -134,6 +135,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - Firebase/Core
   - Firebase/DynamicLinks
+  - FlexiblePageControl
   - GoogleMaps
   - GooglePlaces
   - GoogleSignIn
@@ -163,6 +165,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDynamicLinks
     - FirebaseInstanceID
+    - FlexiblePageControl
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
@@ -197,6 +200,7 @@ SPEC CHECKSUMS:
   FirebaseCore: fba2bfaa691c49028309b92e4dd37cc4b5512fbe
   FirebaseDynamicLinks: bf911771a3cd80a2ceb8c03dc5afc5b125c31a94
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
+  FlexiblePageControl: 2ce8446da3d75df6432dbad7b9e19151629dae62
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
@@ -215,6 +219,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 012e0e5458bf17c625a02dc147a05ec190ea5f67
+PODFILE CHECKSUM: e66cdf2ef09787f91edd6b22a0e4d516e61ba3bf
 
 COCOAPODS: 1.6.0
