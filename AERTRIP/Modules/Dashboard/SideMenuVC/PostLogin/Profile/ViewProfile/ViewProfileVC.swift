@@ -352,7 +352,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }
 

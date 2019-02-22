@@ -154,7 +154,7 @@ extension AssignGroupVC: AssignGroupVMDelegate {
     }
     
     func assignGroupFail(errors: ErrorCodes) {
-        //
+         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }
 

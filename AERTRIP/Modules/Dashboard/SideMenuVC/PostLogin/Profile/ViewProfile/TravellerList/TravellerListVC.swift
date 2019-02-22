@@ -489,6 +489,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     
     func searchTravellerFail(errors: ErrorCodes) {
         printDebug(errors)
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
     func willSearchForTraveller() {}

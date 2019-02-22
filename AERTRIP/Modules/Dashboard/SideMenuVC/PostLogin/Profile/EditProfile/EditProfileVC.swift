@@ -322,7 +322,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
-        editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label
+        editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst()
         if self.viewModel.travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences.localized)
         }

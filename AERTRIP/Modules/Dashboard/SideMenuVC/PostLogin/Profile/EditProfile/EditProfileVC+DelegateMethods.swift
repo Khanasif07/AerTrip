@@ -77,6 +77,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightViewTextField.delegate = self
                     cell.blackDownImageView.isHidden = false
                 }
+                
+                if self.viewModel.currentlyUsinfFor == .addNewTravellerList {
+                    cell.deleteButton.isHidden = self.viewModel.email.count == 1
+                }
+                
                 cell.rightViewTextField.placeholder = LocalizedString.Email.localized
                 cell.rightViewTextField.keyboardType = .emailAddress
                 cell.email = self.viewModel.email[indexPath.row]
@@ -113,6 +118,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.blackDownImageView.isHidden = false
                     cell.leftView.isUserInteractionEnabled = true
                     cell.leftTitleLabel.textColor = AppColors.themeBlack
+                }
+                if self.viewModel.currentlyUsinfFor == .addNewTravellerList {
+                    cell.deleteButton.isHidden = self.viewModel.mobile.count == 1
                 }
                 cell.configureCell(indexPath, self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
@@ -330,6 +338,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 self.indexPath = indexPath
                 var address = Address()
                 address.label = "Home"
+                address.country = LocalizedString.SelectedCountrySymbol.localized
                 address.countryName = LocalizedString.selectedCountry.localized
                 self.viewModel.addresses.append(address)
                 tableView.reloadData()
