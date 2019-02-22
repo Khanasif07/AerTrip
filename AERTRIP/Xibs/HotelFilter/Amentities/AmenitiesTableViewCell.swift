@@ -17,7 +17,7 @@ class AmenitiesTableViewCell: UITableViewCell {
     @IBOutlet weak var statusButton: UIButton!
     
     
-    var amenitie : (amenititesImage: UIImage, amentitiesTitle: String,amenitiesId:Int)? {
+    var amenitie : (amenititesImage: UIImage, amentitiesTitle: String,amenitiesId:String)? {
         didSet {
             self.populateData()
         }

@@ -43,7 +43,7 @@ class HotelResultVC: BaseVC {
     var predicateStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
-    
+    private var completion: (() -> Void)? = nil
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
         
@@ -99,8 +99,12 @@ class HotelResultVC: BaseVC {
         delay(seconds: 1) {
             self.shimmerView.removeFromSuperview()
         }
+        self.completion = { [weak self] in
+           self?.loadSaveData()
+        }
+        self.applyPreviousFilter()
+       
         
-        print("Debugging")
     }
     
     // MARK: - Methods
@@ -189,6 +193,7 @@ class HotelResultVC: BaseVC {
     
     private func registerXib() {
         self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
     }
     
     private func startProgress() {
@@ -201,6 +206,10 @@ class HotelResultVC: BaseVC {
         self.progressView.setProgress(0.0, animated: false)
         
         self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    private func applyPreviousFilter() {
+        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, buttonTitle: LocalizedString.Apply.localized, buttonImage: nil, buttonAction: self.completion)
     }
     
     // MARK: Show progress
@@ -229,10 +238,14 @@ class HotelResultVC: BaseVC {
     
     private func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
-            let distancePredicate = NSPredicate(format: "distance <= \(HotelFilterVM.shared.distanceRange)")
             self.fetchedResultsController.fetchRequest.sortDescriptors?.removeAll()
             self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
-            switch HotelFilterVM.shared.sortUsing {
+            guard let  filter = UserInfo.loggedInUser?.hotelFilter else {
+              printDebug("filter not found")
+                return
+                
+            }
+            switch filter.sortUsing {
             case .BestSellers:
                 self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "bc", ascending: true))
             case .PriceLowToHigh:
@@ -245,6 +258,18 @@ class HotelResultVC: BaseVC {
                 self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "distance", ascending: true))
             }
             
+            var amentitiesPredicate: NSPredicate? = nil
+            var predicates = [AnyHashable]()
+            for amentities: String in filter.amentities {
+                predicates.append(NSPredicate(format: "amenities == \(String(amentities))"))
+            }
+            if predicates.count > 0 {
+                if let predicates = predicates as? [NSPredicate] {
+                    amentitiesPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+                }
+            }
+
+              let distancePredicate = NSPredicate(format: "distance <= \(filter.distanceRange)")
             let minimumPricePredicate = NSPredicate(format: "price >= \(HotelFilterVM.shared.minimumPrice)")
 //            let maximumPricePredicate = NSPredicate(format: "price <= \(HotelFilterVM.shared.maximumPrice)")
 //
@@ -255,7 +280,7 @@ class HotelResultVC: BaseVC {
             
         //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate,starPredicate,tripAdvisorPredicate])
           //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate])
-            self.fetchedResultsController.fetchRequest.predicate = distancePredicate
+            self.fetchedResultsController.fetchRequest.predicate = amentitiesPredicate
         } else {
             if self.predicateStr == "" {
                 self.fetchedResultsController.fetchRequest.predicate = nil
@@ -329,8 +354,18 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth, height: 53.0)
+         return CGSize(width: UIDevice.screenWidth, height: 53.0)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if (self.fetchedResultsController.sections?.count ?? 0) - 1 == section {
+            return CGSize(width: UIDevice.screenWidth, height: 106.0)
+        } else {
+            return CGSize(width: UIDevice.screenWidth, height: 0.0)
+        }
+       
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let sections = fetchedResultsController.sections else {
@@ -344,6 +379,12 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
                 _ = removeFirstChar.removeFirst()
                 sectionHeader.sectionHeaderLabel.text = removeFirstChar + " kms"
                 return sectionHeader
+            }
+        } else if  kind == "UICollectionElementKindSectionFooter" {
+            if let sectionFooter = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionFooter", for: indexPath) as? SectionFooter {
+               sectionFooter.delegate = self
+               sectionFooter.backgroundColor = .white
+                return sectionFooter
             }
         }
         
@@ -422,6 +463,17 @@ extension HotelResultVC: UISearchBarDelegate {
             self.searchHotels(forText: searchText)
         }
     }
+}
+
+
+// MARK: - Section Footer Delgate methods
+
+extension HotelResultVC : SectionFooterDelegate {
+    func showHotelBeyond() {
+        printDebug("show hotel beyond ")
+    }
+    
+    
 }
 
 

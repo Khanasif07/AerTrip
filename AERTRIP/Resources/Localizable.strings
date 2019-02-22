@@ -375,3 +375,6 @@
 "other" = "other";
 "available" = "available";
 "classType" = "classType";
+
+// Hotel Results
+"ShowHotelsBeyond" = "Show hotels beyond 20km";

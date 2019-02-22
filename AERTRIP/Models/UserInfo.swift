@@ -168,11 +168,11 @@ class UserInfo {
         var distanceRange : Double = 0.0
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
-        var amentities : [Int] = []
+        var amentities : [String] = []
         var roomMeal : [Int] = []
         var roomCancelation : [Int] = []
         var roomOther : [Int] = []
-        //var sortUsing : SortUsing = .bes
+        var sortUsing : SortUsing = .BestSellers
         
         
         init() {
@@ -186,7 +186,8 @@ class UserInfo {
             roomMeal  = []
             roomCancelation  = []
             roomOther  = []
-           // sortUsing  = .BestSellers
+            sortUsing = .BestSellers
+           
         }
         
         
@@ -201,27 +202,9 @@ class UserInfo {
             case roomMeal
             case roomCancelation
             case roomOther
-           // case sortUsing
+            case sortUsing
         }
-//
-//        init(publication: Publication?, indexPath: [Int]) {
-//            self.publication = publication
-//            self.indexPath = indexPath
-//        }
-        
-        init(ratingCount: [Int], tripAdvisorRatingCount: [Int],isIncludeUnRated:Bool,distanceRange:Double,minimumPrice:Double,maximumPrice:Double,amentities: [Int],roomMeal:[Int],roomCancelation:[Int],roomOther:[Int],sortUsing:SortUsing) {
-            self.ratingCount =   ratingCount
-            self.tripAdvisorRatingCount = tripAdvisorRatingCount
-            self.isIncludeUnrated = isIncludeUnRated
-            self.distanceRange = distanceRange
-            self.minimumPrice = minimumPrice
-            self.maximumPrice = maximumPrice
-            self.amentities = amentities
-            self.roomMeal = roomMeal
-            self.roomCancelation = roomCancelation
-            self.roomOther = roomOther
-          //  self.sortUsing = sortUsing
-        }
+
         
          init(from decoder:Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -231,11 +214,11 @@ class UserInfo {
             distanceRange = try values.decode(Double.self, forKey: .distanceRange)
             minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
             maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
-            amentities = try values.decode([Int].self, forKey: .amentities)
+            amentities = try values.decode([String].self, forKey: .amentities)
             roomMeal = try values.decode([Int].self, forKey: .roomMeal)
             roomCancelation = try values.decode([Int].self, forKey: .roomCancelation)
             roomOther = try values.decode([Int].self, forKey: .roomOther)
-          //  sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
+            sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             
             
         }
@@ -492,18 +475,12 @@ class UserInfo {
     var hotelFilter: HotelFilter? {
         get {
             if let obj = UserDefaults.standard.retrieve(object: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
-                
-                //To retrieve the saved object
-                //                let obj =
                 return obj
             }
             return nil
         }
         set {
             if let vlaue = newValue {
-                //                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: vlaue)
-                //                UserDefaults.setObject(encodedData, forKey: APIKeys.hotelFilter.rawValue)
-                //To save the object
                 UserDefaults.standard.save(customObject: vlaue, inKey: APIKeys.hotelFilter.rawValue)
             }
             else{

@@ -173,6 +173,8 @@
 		18FAA502220DB907001454DE /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FAA500220DB907001454DE /* SectionHeader.swift */; };
 		18FAA503220DB907001454DE /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FAA501220DB907001454DE /* SectionHeader.xib */; };
 		18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD22221E973D00EF01FC /* HotelFilter.swift */; };
+		18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FDDD24221FF52F00EF01FC /* SectionFooter.xib */; };
+		18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD25221FF52F00EF01FC /* SectionFooter.swift */; };
 		18FEC8612200683600C64042 /* ViewProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEC8602200683600C64042 /* ViewProfileVM.swift */; };
 		1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */; };
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
@@ -615,6 +617,8 @@
 		18FAA500220DB907001454DE /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		18FAA501220DB907001454DE /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
 		18FDDD22221E973D00EF01FC /* HotelFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilter.swift; sourceTree = "<group>"; };
+		18FDDD24221FF52F00EF01FC /* SectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionFooter.xib; sourceTree = "<group>"; };
+		18FDDD25221FF52F00EF01FC /* SectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionFooter.swift; sourceTree = "<group>"; };
 		18FEC8602200683600C64042 /* ViewProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileVM.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
@@ -923,6 +927,8 @@
 				180A3D6F21C0DA13001A1E6A /* Dashboard */,
 				18FAA500220DB907001454DE /* SectionHeader.swift */,
 				18FAA501220DB907001454DE /* SectionHeader.xib */,
+				18FDDD25221FF52F00EF01FC /* SectionFooter.swift */,
+				18FDDD24221FF52F00EF01FC /* SectionFooter.xib */,
 				84BE79F3221D712F00AFC5B7 /* TranslunetNavBar.swift */,
 				84BE79F5221D714400AFC5B7 /* TransluentNavBar.xib */,
 			);
@@ -2408,6 +2414,7 @@
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				84BBEE9D22141CDD00844034 /* HotelDetailsCardInclusionTableCell.xib in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
+				18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */,
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				189D1F4E21CE3F8E00746329 /* SourceSansPro-Italic.ttf in Resources */,
@@ -2756,6 +2763,7 @@
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,
 				18EF5E6D221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m in Sources */,
 				18EF5E80221D261B00EFFA6E /* GMULineString.m in Sources */,
+				18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */,
 				18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,

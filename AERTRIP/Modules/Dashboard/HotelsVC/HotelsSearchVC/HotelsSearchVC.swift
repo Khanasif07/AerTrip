@@ -511,6 +511,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
+         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid)
     }
     
     func getAllHotelsListResultSuccess() {
@@ -522,6 +523,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     func getAllHotelsListResultFail() {
         printDebug("getAllHotelsListResultFail")
         self.searchBtnOutlet.isLoading = false
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid)
     }
     
 }

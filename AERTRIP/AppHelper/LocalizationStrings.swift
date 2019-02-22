@@ -420,5 +420,8 @@ enum LocalizedString: String {
 //    case Refundable = "Refundable"
     case hotelFilterSearchBar = "hotelFilterSearchBar"
     case InformationUnavailable = "Information unavailable"
+    case ApplyPreviousFilter = "Apply prevoius filters \n 5 stars, within 2 kms, Wi-Fi..."
     case  ReloadResults = "Reload results"
+    case Apply = "Apply"
+    case ShowHotelsBeyond = "ShowHotelsBeyond"
 }
