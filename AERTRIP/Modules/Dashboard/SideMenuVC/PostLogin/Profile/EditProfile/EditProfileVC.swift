@@ -380,7 +380,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         viewModel.label = "Others"
         
-        self.ffExtraCount = 4
+        self.ffExtraCount = 3
+        
+        var emptyFF = FrequentFlyer(json: [:])
+        emptyFF.airlineName = LocalizedString.SelectAirline.localized
+        self.viewModel.frequentFlyer.append(emptyFF)
         
         setUpProfilePhotoInitials()
         tableView.reloadData()

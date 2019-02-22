@@ -30,7 +30,7 @@ class MainHomeVC: BaseVC {
     var transitionAnimator: UIViewPropertyAnimator?
     var animationProgress: CGFloat = 0
     
-    private var isPushedToNext: Bool {
+    var isPushedToNext: Bool {
         return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
     }
     

@@ -28,6 +28,7 @@ class ContactListVC: BaseVC {
     //MARK:- Public
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
+    var isPermissionGiven: Bool = false
     
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
@@ -183,18 +184,21 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             tableView.backgroundView?.isHidden = !self.viewModel.phoneContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.phoneContacts.isEmpty
             self.bottomHeaderTopDiverView.isHidden = self.viewModel.phoneContacts.isEmpty
+            self.isPermissionGiven = !self.viewModel.phoneContacts.isEmpty
             return self.viewModel.phoneContacts.count
         }
         else if self.currentlyUsingFor == .facebook {
             tableView.backgroundView?.isHidden = !self.viewModel.facebookContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.facebookContacts.isEmpty
              self.bottomHeaderTopDiverView.isHidden = self.viewModel.facebookContacts.isEmpty
+            self.isPermissionGiven = !self.viewModel.facebookContacts.isEmpty
             return self.viewModel.facebookContacts.count
         }
         else if self.currentlyUsingFor == .google {
             tableView.backgroundView?.isHidden = !self.viewModel.googleContacts.isEmpty
             self.selectAllButton.isHidden = self.viewModel.googleContacts.isEmpty
             self.bottomHeaderTopDiverView.isHidden = self.viewModel.googleContacts.isEmpty
+            self.isPermissionGiven = !self.viewModel.googleContacts.isEmpty
             return self.viewModel.googleContacts.count
         }
 
@@ -331,6 +335,7 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
+        self.isPermissionGiven = true
         self.tableView.reloadData()
     }
 }

@@ -278,25 +278,26 @@ enum LocalizedString: String {
     
     //MARK:- Import Contacts
     //MARK:-
-    case Contacts = "Contacts";
-    case Google = "Google";
-    case LinkedIn = "LinkedIn";
-    case ImportContactMessage = "ImportContactMessage";
-    case ImportFacebookMessage = "ImportFacebookMessage";
-    case ImportGoogleMessage = "ImportGoogleMessage";
-    case SelectAll = "SelectAll";
-    case DeselectAll = "DeselectAll";
-    case AllowContacts = "AllowContacts";
-    case ConnectWithGoogle = "ConnectWithGoogle";
-    case ConnectWithFB = "ConnectWithFB";
-    case ConnectWithLinkedIn = "ConnectWithLinkedIn";
-    case ContactsSelected = "ContactsSelected";
+    case Contacts = "Contacts"
+    case Google = "Google"
+    case LinkedIn = "LinkedIn"
+    case ImportContactMessage = "ImportContactMessage"
+    case ImportFacebookMessage = "ImportFacebookMessage"
+    case ImportGoogleMessage = "ImportGoogleMessage"
+    case SelectAll = "SelectAll"
+    case DeselectAll = "DeselectAll"
+    case AllowContacts = "AllowContacts"
+    case ConnectWithGoogle = "ConnectWithGoogle"
+    case ConnectWithFB = "ConnectWithFB"
+    case ConnectWithLinkedIn = "ConnectWithLinkedIn"
+    case ContactsSelected = "ContactsSelected"
     case NoContactsFetched = "NoContactsFetched"
+    case SelectContactsToImport = "SelectContactsToImport"
     
     //MARK:- Linked Accounts
     //MARK:-
-    case Disconnect = "Disconnect";
-    case LinkedAccountsMessage = "LinkedAccountsMessage";
+    case Disconnect = "Disconnect"
+    case LinkedAccountsMessage = "LinkedAccountsMessage"
     
     //MARK:- Favourite Hotels
     //MARK:-

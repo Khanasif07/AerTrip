@@ -62,7 +62,12 @@ class ViewProfileVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.statusBarStyle = .lightContent
+        if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
+            self.statusBarStyle = .lightContent
+        }
+        else {
+            self.statusBarStyle = .default
+        }
         
         self.viewModel.webserviceForGetTravelDetail()
         self.setNeedsStatusBarAppearanceUpdate()
@@ -242,9 +247,16 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             case 3:
                 self.statusBarStyle = .default
                 AppFlowManager.default.moveToLinkedAccountsVC()
-                
+
             default:
                 break
+            }
+            
+        case "accounts":
+            if indexPath.row == 0 {
+                //settings
+                self.statusBarStyle = .default
+                AppFlowManager.default.moveToSettingsVC()
             }
             
         case "logOut":
