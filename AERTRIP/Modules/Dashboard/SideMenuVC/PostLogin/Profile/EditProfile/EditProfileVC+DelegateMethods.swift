@@ -18,8 +18,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
-            return indexPath.row + 1 == self.viewModel.addresses.count ? 262 : 270
-        } else if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
+            return 270.0
+        } else
+            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
             return 80
         } else {
             return UITableView.automaticDimension
@@ -202,6 +203,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
                 cell.contentView.backgroundColor = AppColors.themeGray04
                 cell.bottomDivider.isHidden = indexPath.row < (self.viewModel.addresses.count - 1)
+                cell.contentView.bringSubviewToFront(cell.bottomDivider)
                 
                 return cell
             }

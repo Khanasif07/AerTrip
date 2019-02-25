@@ -75,7 +75,7 @@ struct CityHotels {
         
         for (key, value) in json {
             var object = CityHotels()
-            object.cityName = key
+            object.cityName = key.isEmpty ? "Uncategorized" : key
             object.holetList = HotelsModel.models(json: value)
             hotels.append(object)
         }

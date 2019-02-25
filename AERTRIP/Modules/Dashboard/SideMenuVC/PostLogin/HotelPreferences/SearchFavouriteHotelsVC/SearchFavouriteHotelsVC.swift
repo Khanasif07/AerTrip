@@ -120,7 +120,6 @@ extension SearchFavouriteHotelsVC: TopNavigationViewDelegate {
     }
 
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -164,7 +163,6 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
         self.startLoading()
-        self.searchBar.endEditing(true)
     }
     
     func updateFavouriteSuccess(withMessage: String) {
@@ -179,7 +177,6 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     }
     
     func willSearchForHotels() {
-        self.searchBar.endEditing(true)
         self.startLoading()
     }
     

@@ -41,7 +41,21 @@ class ATSearchBar: UISearchBar {
             self.delegate = self.mDelegate
         }
     }
-
+    
+    var edgeInset: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 8.0) {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let xRatio = (self.width - (edgeInset.left + edgeInset.right)) / self.width
+        let yRatio = (self.width - (edgeInset.top + edgeInset.bottom)) / self.width
+        self.transform = CGAffineTransform(scaleX: xRatio, y: yRatio)
+    }
+    
     private func initialSetup() {
         self.backgroundImage = UIImage()
         
@@ -57,7 +71,6 @@ class ATSearchBar: UISearchBar {
         
         self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
         self.addSubview(self.micButton)
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
     }

@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/ViewProfileDetailVC.swift"
-            timestampString = "572566236.7366821"
+            timestampString = "572773138.816743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "375"
@@ -32,6 +32,22 @@
             startingLineNumber = "318"
             endingLineNumber = "318"
             landmarkName = "fetchPhoneContactsSuccess()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Common/ATCategoryView/ATCategoryNavBar.swift"
+            timestampString = "572773138.817297"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
+            landmarkName = "makeScrollViewTransition(fromIndex:toIndex:progress:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

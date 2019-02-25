@@ -45,6 +45,8 @@ public class ATCategoryNavBar: UIView {
     
     fileprivate lazy var buttonFont: UIFont = self.barStyle.defaultFont
     
+    fileprivate lazy var oldNavScrollPosition: CGPoint = CGPoint.zero
+    
     /// Is the UI setup
     fileprivate var isSetup = false
     
@@ -460,31 +462,31 @@ private extension ATCategoryNavBar {
         
     }
     
-    func scrollToCenter(currentBtn: UIButton) {
-        guard barStyle.isScrollable else {
-            return
-        }
-    
-        var centerX = currentBtn.center.x - scrollView.bounds.width * 0.5
-        if centerX < 0.0 {
-            // for labels positioned on the left side of scrollView.bounds.width * 0.5
-            centerX = 0.0
-            
-        }
-        
-        // the x position for the last screen of the scroll
-        if self.barStyle.layoutAlignment == .left, scrollView.contentSize.width < bounds.width {
-            centerX = 0.0
-        }
-        else {
-            let maxLeftEdge = scrollView.contentSize.width - bounds.width
-            if centerX > maxLeftEdge{
-                centerX = maxLeftEdge
-            }
-        }
-        
-        scrollView.setContentOffset(CGPoint(x: centerX, y: 0.0), animated: true)
-        
+    func scrollToCenter(currentBtn: UIButton, animated: Bool = true) {
+//        guard barStyle.isScrollable else {
+//            return
+//        }
+//
+//        var centerX = currentBtn.center.x - scrollView.bounds.width * 0.5
+//        if centerX < 0.0 {
+//            // for labels positioned on the left side of scrollView.bounds.width * 0.5
+//            centerX = 0.0
+//
+//        }
+//
+//        // the x position for the last screen of the scroll
+//        if self.barStyle.layoutAlignment == .left, scrollView.contentSize.width < bounds.width {
+//            centerX = 0.0
+//        }
+//        else {
+//            let maxLeftEdge = scrollView.contentSize.width - bounds.width
+//            if centerX > maxLeftEdge{
+//                centerX = maxLeftEdge
+//            }
+//        }
+//
+        scrollView.setContentOffset(CGPoint(x: currentBtn.x, y: 0.0), animated: animated)
+        oldNavScrollPosition = scrollView.contentOffset
     }
 }
 
@@ -519,7 +521,20 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
         
         makeColorTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
         makeIndicatorTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
+        makeScrollViewTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
         makeBgMaskViewTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
+    }
+    
+    func makeScrollViewTransition(fromIndex: Int, toIndex: Int, progress: CGFloat) {
+        guard (scrollView.width) < indicator.x else { return }
+
+        let fromBtn = buttons[fromIndex]
+        let toBtn = buttons[toIndex]
+
+        let deltaX = ((toBtn.x - fromBtn.x) * 1.0) * progress
+
+        print("scroll.x \(scrollView.contentOffset.x) add \(deltaX) = \(oldNavScrollPosition.x)")
+        scrollView.setContentOffset(CGPoint(x: (oldNavScrollPosition.x + deltaX), y: scrollView.contentOffset.y), animated: false)
     }
     
     func makeIndicatorTransition(fromIndex: Int, toIndex: Int, progress: CGFloat) {
@@ -538,7 +553,6 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
         
         indicator.center.x = fromBtn.center.x + deltaX
         indicator.frame.size.width = fromWidth + deltaWidth * progress
-        
     }
     
     func makeColorTransition(fromIndex: Int, toIndex: Int, progress: CGFloat){
