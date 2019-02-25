@@ -32,8 +32,17 @@ public class BmoViewPagerNavigationBar: UIView {
         }
     }
     
+    /// vierPager's navigation bar text deselected font
+    public var deSelectedFont: UIFont = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.regular)
+    
+    /// vierPager's navigation bar text selected font
+    public var selectedFont: UIFont = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.bold)
+    
     /// vierPager's navigation bar scroll orientataion
     public var orientation: UIPageViewController.NavigationOrientation = .horizontal
+    
+    /// vierPager's navigation bar's items spacing
+    public var itemInterSpace: CGFloat = 5.0
     
     /// if you not allow user change viewPager page by tap navigation bar item, disable it
     public var isEnabledTapEvent: Bool = true
@@ -124,6 +133,9 @@ public class BmoViewPagerNavigationBar: UIView {
         viewPager.navigationBars.append(WeakBmoVPbar(self))
         
         let itemList = BmoPageItemList(viewPager: viewPager, navigationBar: self, delegate: self)
+        itemList.itemInterSpace = itemInterSpace
+        itemList.selectedFont = self.selectedFont
+        itemList.deSelectedFont = self.deSelectedFont
         itemList.bmoDataSource = viewPager.dataSource
         itemList.backgroundColor = UIColor.clear
         itemList.autoFocus = autoFocus

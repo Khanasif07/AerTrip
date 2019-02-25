@@ -16,6 +16,8 @@ class FavouriteHotelsVC: BaseVC {
     @IBOutlet weak var dataContainerView: UIView!
     @IBOutlet var shimmerView: UIView!
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var viewPagerNavBar: BmoViewPagerNavigationBar!
+    @IBOutlet weak var viewPager: BmoViewPager!
     
     
     //MARK:- Properties
@@ -58,7 +60,7 @@ class FavouriteHotelsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? SearchFavouriteHotelsVC {
-            self.initialSetups()
+            self.viewModel.webserviceForGetHotelPreferenceList()
         }
     }
     
@@ -77,48 +79,24 @@ class FavouriteHotelsVC: BaseVC {
     }
     
     private func setupPagerView() {
+        viewPager.dataSource = self
+        viewPager.presentedPageIndex = 0
+        viewPagerNavBar.viewPager = viewPager
+        viewPagerNavBar.itemInterSpace = 20.0
+        viewPagerNavBar.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        viewPagerNavBar.deSelectedFont = AppFonts.Regular.withSize(16.0)
+    }
+    
+    private func reloadList() {
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
-                self.dataContainerView.addSubview(self.emptyView)
+            self.dataContainerView.addSubview(self.emptyView)
         }
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
-            var style = ATCategoryNavBarStyle()
-            style.height = 51.0
-            style.interItemSpace = 5.0
-            style.itemPadding = 8.0
-            style.isScrollable = true
-            style.layoutAlignment = .center
-            style.isEmbeddedToView = true
-            style.showBottomSeparator = true
-            style.bottomSeparatorColor = AppColors.themeGray40
-            style.defaultFont = AppFonts.Regular.withSize(16.0)
-            style.selectedFont = AppFonts.Regular.withSize(16.0)
-            style.indicatorColor = AppColors.themeGreen
-            style.indicatorHeight = 2.0
-            style.indicatorCornerRadius = 2.0
-            style.normalColor = AppColors.themeBlack
-            style.selectedColor = AppColors.themeBlack
-            
             self.allChildVCs.removeAll()
-            for idx in 0..<self.viewModel.allTabs.count {
-                let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-                vc.delegate = self
-                vc.viewModel.forCity = self.viewModel.hotels[idx]
-                
-                self.allChildVCs.append(vc)
-            }
-            
-            if let _ = self.categoryView {
-                self.categoryView.removeFromSuperview()
-                self.categoryView = nil
-            }
-            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-            categoryView.interControllerSpacing = 0.0
-            categoryView.navBar.delegate = self
-            self.dataContainerView.addSubview(categoryView)
-            self.categoryView = categoryView
+            self.viewPager.reloadData()
         }
     }
     
@@ -150,7 +128,7 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     
     func getHotelPreferenceListSuccess() {
         self.shimmerView.removeFromSuperview()
-        self.setupPagerView()
+        self.reloadList()
     }
     
     func getHotelPreferenceListFail() {
@@ -163,8 +141,8 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     
     func updateFavouriteSuccess() {
         self.viewModel.removeAllHotels(forCityIndex: self.currentIndex)
-        self.viewDidLoad()
         self.sendDataChangedNotification(data: self)
+        self.reloadList()
     }
     
     func updateFavouriteFail() {
@@ -183,7 +161,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         }
         else {
             //reload complete list
-            self.viewDidLoad()
+            self.updateFavouriteSuccess()
             self.sendDataChangedNotification(data: self)
         }
     }
@@ -197,3 +175,39 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         }
     }
 }
+
+extension FavouriteHotelsVC: BmoViewPagerDataSource {
+    func bmoViewPagerDataSourceNumberOfPage(in viewPager: BmoViewPager) -> Int {
+        return self.viewModel.hotels.count
+    }
+    
+    func bmoViewPagerDataSourceNaviagtionBarItemTitle(_ viewPager: BmoViewPager, navigationBar: BmoViewPagerNavigationBar, forPageListAt page: Int) -> String? {
+        
+        return self.viewModel.hotels[page].cityName
+    }
+    
+    func bmoViewPagerDataSourceNaviagtionBarItemHighlightedBackgroundView(_ viewPager: BmoViewPager, navigationBar: BmoViewPagerNavigationBar, forPageListAt page: Int) -> UIView? {
+        let view = ATUnderLineView()
+        view.lineWidth = 2.0
+        view.margin = UIEdgeInsets(top: 0.0, left: viewPagerNavBar.itemInterSpace, bottom: 0.0, right: viewPagerNavBar.itemInterSpace)
+        view.strokeColor = AppColors.themeGreen
+        return view
+    }
+
+    func bmoViewPagerDataSource(_ viewPager: BmoViewPager, viewControllerForPageAt page: Int) -> UIViewController {
+        
+        if self.allChildVCs.count > page {
+            let vc = self.allChildVCs[page]
+            vc.viewModel.forCity = self.viewModel.hotels[page]
+            return vc
+        }
+        else {
+            let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+            vc.delegate = self
+            vc.viewModel.forCity = self.viewModel.hotels[page]
+            self.allChildVCs.append(vc)
+            return vc
+        }
+    }
+}
+

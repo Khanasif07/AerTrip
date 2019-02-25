@@ -112,10 +112,17 @@ class BmoDoubleLabel: UILabel {
             }
         }
         foreView.insertSubview(view, at: 0)
-        view.bmoVP.autoFit(foreView)
+        
+        if let vw = view as? ATUnderLineView {
+            view.bmoVP.autoFit(foreView, margin: vw.margin)
+        }
+        else {
+            view.bmoVP.autoFit(foreView)
+        }
     }
     override func draw(_ rect: CGRect) {
         super.draw(rect)
+    
         if maskProgress == 1.0 {
             foreMaskLayer.path = CGPath(rect: rect, transform: nil)
             rearMaskLayer.path = CGPath(rect: CGRect.zero, transform: nil)

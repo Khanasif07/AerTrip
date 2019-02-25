@@ -58,7 +58,7 @@ extension BmoViewPagerDelegateProxy: UIScrollViewDelegate {
                 pager.internalSetPresentedIndex(pager.pageControlIndex)
             }
             if scrollView.contentOffset.x == scrollView.bounds.width {
-                if let index = scrollView.subviews[safe: 1]?.subviews.first?.bmoVP.index() {
+                if let index = scrollView.subviews[1].subviews.first?.bmoVP.index() {
                     pager.pageControlIndex = index
                 }
                 return
@@ -68,7 +68,7 @@ extension BmoViewPagerDelegateProxy: UIScrollViewDelegate {
                 pager.internalSetPresentedIndex(pager.pageControlIndex)
             }
             if scrollView.contentOffset.y == scrollView.bounds.height {
-                if let index = scrollView.subviews[safe: 1]?.subviews.first?.bmoVP.index() {
+                if let index = scrollView.subviews[1].subviews.first?.bmoVP.index() {
                     pager.pageControlIndex = index
                 }
                 return
@@ -90,7 +90,7 @@ extension BmoViewPagerDelegateProxy: UIScrollViewDelegate {
         if progressFraction < 0.0 {
             targetIndex = (progressFraction < -0.5 ? 0 : 1)
         }
-        if let index = scrollView.subviews[safe: targetIndex]?.subviews.first?.bmoVP.index() {
+        if let index = scrollView.subviews[targetIndex].subviews.first?.bmoVP.index() {
             pager.pageControlIndex = index
         }
         pager.delegate?.bmoViewPagerDelegate?(pager, scrollProgress: progressFraction, index: pager.pageControlIndex)

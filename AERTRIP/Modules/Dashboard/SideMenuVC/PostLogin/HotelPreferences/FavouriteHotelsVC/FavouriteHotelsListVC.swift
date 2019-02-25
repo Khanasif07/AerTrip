@@ -17,6 +17,7 @@ class FavouriteHotelsListVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var collectionView: ATCollectionView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     
     //MARK:- Properties
@@ -53,6 +54,7 @@ class FavouriteHotelsListVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundView = self.emptyView
+        self.dividerView.isHidden = false
     }
     
     //MARK:- Public

@@ -64,7 +64,7 @@ public class BmoViewPager: UIView {
                 #endif
                 pageViewController = BmoPageViewController(viewPager: self, scrollDelegate: delegateProxy, orientation: self.orientation)
                 
-                if let vc = parentViewController {
+                if let vc = myParentViewController {
                     #if swift(>=4.2)
                     vc.addChild(pageViewController)
                     self.addSubview(pageViewController.view)
@@ -89,9 +89,9 @@ public class BmoViewPager: UIView {
      if you need get parent view controller from viewPager's view controller, pass into the bmoViewPager's owner
      if the parent view controller as same as the datasource, it will autoset to bmoViewPager's parent view controller
      */
-    public weak var parentViewController: UIViewController? {
+    public var myParentViewController: UIViewController? = nil {
         didSet {
-            if let vc = parentViewController {
+            if let vc = myParentViewController {
                 #if swift(>=4.2)
                 vc.addChild(pageViewController)
                 vc.automaticallyAdjustsScrollViewInsets = false
@@ -181,7 +181,7 @@ public class BmoViewPager: UIView {
     public weak var dataSource: BmoViewPagerDataSource? {
         didSet {
             pageViewController.bmoDataSource = dataSource
-            self.parentViewController = (dataSource as? UIViewController)
+            self.myParentViewController = (dataSource as? UIViewController)
         }
     }
     public weak var delegate: BmoViewPagerDelegate?
@@ -237,7 +237,7 @@ public class BmoViewPager: UIView {
         if inited == false {            
             pageControlIndex = presentedPageIndex
             inited = true
-            if let vc = self.parentViewController {
+            if let vc = self.myParentViewController {
                 #if swift(>=4.2)
                 vc.addChild(pageViewController)
                 pageViewController.didMove(toParent: vc)

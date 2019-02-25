@@ -198,6 +198,17 @@
 		8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438C17B22045E4B001D510B /* TopNavigationView.swift */; };
 		843ACE4421F893B900D87BA8 /* SearchedDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4321F893B900D87BA8 /* SearchedDestination.swift */; };
 		843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */; };
+		843AF3592223D74200F2F894 /* BmoPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF34D2223D74200F2F894 /* BmoPageViewController.swift */; };
+		843AF35A2223D74200F2F894 /* Array+BmoViewPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF34F2223D74200F2F894 /* Array+BmoViewPager.swift */; };
+		843AF35B2223D74200F2F894 /* String+BmoViewPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3502223D74200F2F894 /* String+BmoViewPager.swift */; };
+		843AF35C2223D74200F2F894 /* UIView+BmoViewPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3512223D74200F2F894 /* UIView+BmoViewPager.swift */; };
+		843AF35D2223D74200F2F894 /* BmoPageItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3522223D74200F2F894 /* BmoPageItemList.swift */; };
+		843AF35E2223D74200F2F894 /* BmoViewPagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3532223D74200F2F894 /* BmoViewPagerDelegateProxy.swift */; };
+		843AF35F2223D74200F2F894 /* BmoDoubleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3552223D74200F2F894 /* BmoDoubleLabel.swift */; };
+		843AF3602223D74200F2F894 /* BmoViewPagerNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3562223D74200F2F894 /* BmoViewPagerNavigationBar.swift */; };
+		843AF3612223D74200F2F894 /* BmoPageItemListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3572223D74200F2F894 /* BmoPageItemListLayout.swift */; };
+		843AF3622223D74200F2F894 /* BmoViewPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3582223D74200F2F894 /* BmoViewPager.swift */; };
+		843AF3642223DE6500F2F894 /* ATUnderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AF3632223DE6500F2F894 /* ATUnderLineView.swift */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
 		8452D37221E6151500927287 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452D37121E6151400927287 /* CoreDataManager.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
@@ -493,6 +504,17 @@
 		8438C17B22045E4B001D510B /* TopNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationView.swift; sourceTree = "<group>"; };
 		843ACE4321F893B900D87BA8 /* SearchedDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDestination.swift; sourceTree = "<group>"; };
 		843ACE4521F8994500D87BA8 /* APICaller+HotelsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+HotelsSearch.swift"; sourceTree = "<group>"; };
+		843AF34D2223D74200F2F894 /* BmoPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoPageViewController.swift; sourceTree = "<group>"; };
+		843AF34F2223D74200F2F894 /* Array+BmoViewPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+BmoViewPager.swift"; sourceTree = "<group>"; };
+		843AF3502223D74200F2F894 /* String+BmoViewPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BmoViewPager.swift"; sourceTree = "<group>"; };
+		843AF3512223D74200F2F894 /* UIView+BmoViewPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+BmoViewPager.swift"; sourceTree = "<group>"; };
+		843AF3522223D74200F2F894 /* BmoPageItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoPageItemList.swift; sourceTree = "<group>"; };
+		843AF3532223D74200F2F894 /* BmoViewPagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoViewPagerDelegateProxy.swift; sourceTree = "<group>"; };
+		843AF3552223D74200F2F894 /* BmoDoubleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoDoubleLabel.swift; sourceTree = "<group>"; };
+		843AF3562223D74200F2F894 /* BmoViewPagerNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoViewPagerNavigationBar.swift; sourceTree = "<group>"; };
+		843AF3572223D74200F2F894 /* BmoPageItemListLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoPageItemListLayout.swift; sourceTree = "<group>"; };
+		843AF3582223D74200F2F894 /* BmoViewPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmoViewPager.swift; sourceTree = "<group>"; };
+		843AF3632223DE6500F2F894 /* ATUnderLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATUnderLineView.swift; sourceTree = "<group>"; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		8452D37121E6151400927287 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
@@ -1265,6 +1287,40 @@
 			path = TopNavigationView;
 			sourceTree = "<group>";
 		};
+		843AF34C2223D74200F2F894 /* ATViewPager */ = {
+			isa = PBXGroup;
+			children = (
+				843AF34D2223D74200F2F894 /* BmoPageViewController.swift */,
+				843AF34E2223D74200F2F894 /* Extension */,
+				843AF3522223D74200F2F894 /* BmoPageItemList.swift */,
+				843AF3532223D74200F2F894 /* BmoViewPagerDelegateProxy.swift */,
+				843AF3542223D74200F2F894 /* CustomView */,
+				843AF3562223D74200F2F894 /* BmoViewPagerNavigationBar.swift */,
+				843AF3572223D74200F2F894 /* BmoPageItemListLayout.swift */,
+				843AF3582223D74200F2F894 /* BmoViewPager.swift */,
+			);
+			path = ATViewPager;
+			sourceTree = "<group>";
+		};
+		843AF34E2223D74200F2F894 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				843AF34F2223D74200F2F894 /* Array+BmoViewPager.swift */,
+				843AF3502223D74200F2F894 /* String+BmoViewPager.swift */,
+				843AF3512223D74200F2F894 /* UIView+BmoViewPager.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		843AF3542223D74200F2F894 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				843AF3632223DE6500F2F894 /* ATUnderLineView.swift */,
+				843AF3552223D74200F2F894 /* BmoDoubleLabel.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		843D17172208268D00072BAE /* SwipeNavigationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1358,6 +1414,7 @@
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				843AF34C2223D74200F2F894 /* ATViewPager */,
 				8422727122115B7E00D4F065 /* ATGalleryViewController */,
 				843D17172208268D00072BAE /* SwipeNavigationController */,
 				849F31EB21FF1AC60076BB3D /* ATError */,
@@ -1900,6 +1957,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */,
+				843AF35E2223D74200F2F894 /* BmoViewPagerDelegateProxy.swift in Sources */,
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
 				84085CDC21F59C0E00F1E844 /* DashboardVC.swift in Sources */,
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
@@ -1907,6 +1965,9 @@
 				181025A221E339B10046EED7 /* TravellerModel.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
+				843AF35B2223D74200F2F894 /* String+BmoViewPager.swift in Sources */,
+				843AF3622223D74200F2F894 /* BmoViewPager.swift in Sources */,
+				843AF35F2223D74200F2F894 /* BmoDoubleLabel.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				841DD1EA2202DC690055FEBB /* BulkBookingVM.swift in Sources */,
@@ -1952,6 +2013,7 @@
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
 				84085D0D21F59C0E00F1E844 /* SelectedContactCollectionCell.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
+				843AF35D2223D74200F2F894 /* BmoPageItemList.swift in Sources */,
 				84085CFF21F59C0E00F1E844 /* FavouriteHotelsVM.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
 				8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */,
@@ -1975,14 +2037,18 @@
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
+				843AF35A2223D74200F2F894 /* Array+BmoViewPager.swift in Sources */,
 				84085D1521F59C0E00F1E844 /* SideMenuVM.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
+				843AF3602223D74200F2F894 /* BmoViewPagerNavigationBar.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
+				843AF3642223DE6500F2F894 /* ATUnderLineView.swift in Sources */,
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				84F983DB21B51A070018DFED /* FileManagerExtension.swift in Sources */,
+				843AF3612223D74200F2F894 /* BmoPageItemListLayout.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
 				84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */,
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
@@ -1991,6 +2057,7 @@
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
+				843AF3592223D74200F2F894 /* BmoPageViewController.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
@@ -2055,6 +2122,7 @@
 				841DD1F02202DCFD0055FEBB /* HotelsResultVM.swift in Sources */,
 				84085CF021F59C0E00F1E844 /* ThankYouRegistrationVM.swift in Sources */,
 				18A01E4221CA1FE40071E772 /* GeneralPrefrenceModel.swift in Sources */,
+				843AF35C2223D74200F2F894 /* UIView+BmoViewPager.swift in Sources */,
 				84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */,
 				84BA77CB21EDCDF000C89352 /* LinkedAccount.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,

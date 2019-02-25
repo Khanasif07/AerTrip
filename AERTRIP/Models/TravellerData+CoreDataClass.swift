@@ -14,7 +14,7 @@ public class TravellerData: NSManagedObject {
     
     //MARK:- Insert Single Data
     //MARK:-
-    class func insert(dataDict: JSONDictionary)-> TravellerData {
+    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext)-> TravellerData {
         
         var userData: TravellerData?
         
@@ -23,7 +23,7 @@ public class TravellerData: NSManagedObject {
         }
         
         if (userData == nil) {
-            userData = NSEntityDescription.insertNewObject(forEntityName: "TravellerData", into: CoreDataManager.shared.managedObjectContext) as? TravellerData
+            userData = NSEntityDescription.insertNewObject(forEntityName: "TravellerData", into: context) as? TravellerData
         }
         
         if let obj = dataDict[APIKeys.id.rawValue] {
@@ -79,7 +79,7 @@ public class TravellerData: NSManagedObject {
         var tempDataArr = [TravellerData]()
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
-        managedObjectContext.parent = CoreDataManager.shared.managedObjectContext
+        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
         managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
         
         managedObjectContext.perform { // runs asynchronously
@@ -90,8 +90,8 @@ public class TravellerData: NSManagedObject {
                     
                     // insert new entity object
                     for dataDict in dataDictArray {
-                        if dataDict.label != "me" {
-                            let dataTemp = TravellerData.insert(dataDict: dataDict.jsonDict)
+                        if let logId = UserInfo.loggedInUserId, dataDict.id.lowercased() != logId.lowercased(), dataDict.label.lowercased() != AppConstants.kMe.lowercased() {
+                            let dataTemp = TravellerData.insert(dataDict: dataDict.jsonDict, into: managedObjectContext)
                             dataArr.append(dataTemp)
                         }
                     }

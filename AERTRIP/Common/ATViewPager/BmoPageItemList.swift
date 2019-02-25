@@ -23,6 +23,15 @@ class BmoPageItemList: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     var focusCell, nextCell, previousCell: BmoPageItemCell?
     var bmoViewPagerCount = 0
     
+    /// vierPager's navigation bar text deselected font
+    public var deSelectedFont: UIFont = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.regular)
+    
+    /// vierPager's navigation bar text selected font
+    public var selectedFont: UIFont = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.bold)
+    
+    /// vierPager's navigation bar's items spacing
+    public var itemInterSpace: CGFloat = 5.0
+    
     // for calcualte string size
     var calculateSizeLabel = UILabel()
     
@@ -260,6 +269,7 @@ class BmoPageItemList: UIView, UICollectionViewDelegate, UICollectionViewDataSou
                 focusCell?.titleLabel.maskProgress = 1.0
             }
         }
+        
         lastProgress = progress
     }
     
@@ -297,6 +307,9 @@ class BmoPageItemList: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         let backgroundView = bmoDataSource?.bmoViewPagerDataSourceNaviagtionBarItemNormalBackgroundView?(viewPager, navigationBar: navigationBar, forPageListAt: indexPath.row)
         let foreAttributed = bmoDataSource?.bmoViewPagerDataSourceNaviagtionBarItemHighlightedAttributed?(viewPager, navigationBar: navigationBar, forPageListAt: indexPath.row)
         let foreBackgroundView = bmoDataSource?.bmoViewPagerDataSourceNaviagtionBarItemHighlightedBackgroundView?(viewPager, navigationBar: navigationBar, forPageListAt: indexPath.row)
+        
+        cell.titleLabel.font = indexPath.item == focusIndex ? self.selectedFont : self.deSelectedFont
+        
         cell.configureCell(title: title, focusProgress: fraction,
                            orientation: navigationBar.orientation,
                            rearAttributed: rearAttributed, foreAttributed: foreAttributed,
@@ -367,13 +380,16 @@ class BmoPageItemList: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         guard let title = bmoDataSource?.bmoViewPagerDataSourceNaviagtionBarItemTitle?(bmoViewPager, navigationBar: navigationBar, forPageListAt: index) else {
             return CGSize.zero
         }
+        
+        calculateSizeLabel.font = index == focusIndex ? self.selectedFont : self.deSelectedFont
         calculateSizeLabel.text = title
         calculateSizeLabel.sizeToFit()
+
         let size = calculateSizeLabel.bounds.size
         if navigationBar.orientation == .horizontal {
-            return CGSize(width: size.width + 32, height: collectionView.bounds.size.height)
+            return CGSize(width: size.width + (itemInterSpace * 2.0), height: collectionView.bounds.size.height)
         } else {
-            return CGSize(width: collectionView.bounds.size.width, height: size.height + 32)
+            return CGSize(width: collectionView.bounds.size.width, height: size.height + (itemInterSpace * 2.0))
         }
     }
 }
