@@ -33,6 +33,8 @@ class AddRoomPictureCell: UICollectionViewCell {
     @IBOutlet weak var childStackView: UIStackView!
     @IBOutlet weak var childPopUpBtn: UIButton!
     @IBOutlet weak var childCountLabel: UILabel!
+    @IBOutlet weak var roomCountLabelLeadingConstraint: NSLayoutConstraint!
+    
     
     //Mark:- LifeCycle
     //================
@@ -103,6 +105,10 @@ class AddRoomPictureCell: UICollectionViewCell {
             self.adultCountLabel.text = "\(viewModel.adultsCount[indexPath.item])"
             self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
         }
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.roomCountLabelLeadingConstraint.constant = (self.cancelBtnOutlet.isHidden ? self.centerX/1.5 : 40.0)
+            self.layoutIfNeeded()
+        })
     }
 }
 

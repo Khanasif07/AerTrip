@@ -127,14 +127,12 @@ extension APICaller {
             }, failure: { errors in
                 completionBlock(false, errors, "", [""],nil)
             })
-        }) { _ in
-            completionBlock(false, [], "", [""],nil)
-        }) { (error) in
+        })  { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , "", [""])
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , "", [""],nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] ,"" , [""])
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] ,"" , [""],nil)
             }
         }
     }
@@ -183,6 +181,29 @@ extension APICaller {
             })
         }) { (error) in
             completionBlock(false, [], "")
+        }
+    }
+    
+    func recentHotelsSearchesApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]?)->Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.hotelRecentSearches, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].arrayObject as? JSONDictionaryArray {
+                    let recentSearchesData = RecentSearchesModel.recentSearchData(jsonArr: response)
+                    completionBlock(true, [], recentSearchesData)
+                }
+            }, failure: { (errors) in
+                completionBlock(false, errors, nil)
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] , nil)
+            }
         }
     }
 }

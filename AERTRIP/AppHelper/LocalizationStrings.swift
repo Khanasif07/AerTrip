@@ -421,4 +421,6 @@ enum LocalizedString: String {
     case hotelFilterSearchBar = "hotelFilterSearchBar"
     case InformationUnavailable = "Information unavailable"
     case  ReloadResults = "Reload results"
+    case Choose_App = "Choose_App"
+    case GMap = "GMap"
 }

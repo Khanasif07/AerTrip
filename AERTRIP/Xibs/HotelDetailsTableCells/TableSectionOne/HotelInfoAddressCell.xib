@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HotelInfoAddressCell" rowHeight="155" id="KGk-i7-Jjw" customClass="HotelInfoAddressCell" customModule="AERTRIP" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelInfoAddressCell" rowHeight="155" id="KGk-i7-Jjw" customClass="HotelInfoAddressCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -34,17 +34,18 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
                                 <rect key="frame" x="17" y="46.5" width="342" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="AXB-KS-DLX"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cje-PF-AVP">
-                                <rect key="frame" x="299" y="97.5" width="60" height="20"/>
+                                <rect key="frame" x="299" y="92.5" width="60" height="22"/>
                                 <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-Et-57A">
+                                        <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mco-ua-tSk">
-                                        <rect key="frame" x="15" y="0.0" width="45" height="20"/>
+                                        <rect key="frame" x="15" y="0.0" width="45" height="22"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="more"/>
@@ -55,12 +56,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="OwF-Et-57A" firstAttribute="top" secondItem="cje-PF-AVP" secondAttribute="top" id="2eV-IA-wEM"/>
+                                    <constraint firstAttribute="bottom" secondItem="OwF-Et-57A" secondAttribute="bottom" id="8K4-Kc-GWf"/>
                                     <constraint firstItem="Mco-ua-tSk" firstAttribute="leading" secondItem="cje-PF-AVP" secondAttribute="leading" constant="15" id="CyZ-iz-5Gb"/>
+                                    <constraint firstItem="Mco-ua-tSk" firstAttribute="leading" secondItem="OwF-Et-57A" secondAttribute="trailing" id="GIC-il-u5r"/>
                                     <constraint firstAttribute="width" constant="60" id="KES-gh-DyD"/>
-                                    <constraint firstAttribute="height" constant="20" id="N91-cO-kyK"/>
+                                    <constraint firstAttribute="height" constant="22" id="N91-cO-kyK"/>
                                     <constraint firstItem="Mco-ua-tSk" firstAttribute="top" secondItem="cje-PF-AVP" secondAttribute="top" id="Ndz-tN-VRJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Mco-ua-tSk" secondAttribute="trailing" id="VkQ-Wp-5g4"/>
                                     <constraint firstAttribute="bottom" secondItem="Mco-ua-tSk" secondAttribute="bottom" id="kZq-zB-Nud"/>
+                                    <constraint firstItem="OwF-Et-57A" firstAttribute="leading" secondItem="cje-PF-AVP" secondAttribute="leading" id="viq-av-3rN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwB-o5-ujX">
@@ -81,9 +86,10 @@
                             <constraint firstAttribute="bottom" secondItem="iwB-o5-ujX" secondAttribute="bottom" id="Hpd-9y-jjF"/>
                             <constraint firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" constant="16" id="Mz5-Ow-31t"/>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="UKK-uM-fkx"/>
-                            <constraint firstItem="cje-PF-AVP" firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="-4" id="VHr-Ha-IsQ"/>
+                            <constraint firstItem="cje-PF-AVP" firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="-7" id="VHr-Ha-IsQ"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
                             <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
+                            <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="14" id="vCk-5P-wmf"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -100,6 +106,7 @@
                 <outlet property="addressLabel" destination="NmD-Tk-S8D" id="eri-bL-iZN"/>
                 <outlet property="containerView" destination="ehA-12-5xn" id="OKf-oi-y3m"/>
                 <outlet property="deviderView" destination="iwB-o5-ujX" id="KeD-lx-OP8"/>
+                <outlet property="gradientView" destination="OwF-Et-57A" id="YL0-Pb-Dxf"/>
                 <outlet property="infoTextViewTrailingConstraint" destination="n8C-35-Br4" id="ocA-jQ-QHF"/>
                 <outlet property="moreBtnContainerView" destination="cje-PF-AVP" id="CC9-yD-HwU"/>
                 <outlet property="moreBtnOutlet" destination="Mco-ua-tSk" id="GH9-V6-CFA"/>

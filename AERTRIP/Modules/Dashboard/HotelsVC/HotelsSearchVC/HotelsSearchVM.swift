@@ -14,6 +14,9 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     
     func getAllHotelsListResultSuccess()
     func getAllHotelsListResultFail()
+    
+    func getRecentSearchesDataSuccess()
+    func getRecentSearchesDataFail()
 }
 
 class HotelsSearchVM: NSObject{
@@ -35,6 +38,7 @@ class HotelsSearchVM: NSObject{
     var sid: String = ""
     var hotelListResult = [HotelsSearched]()
     var hotelSearchRequst : HotelSearchRequestModel?
+    var recentSearchesData: [RecentSearchesModel]?
     
     //MARK:- Functions
     //================
@@ -107,6 +111,22 @@ class HotelsSearchVM: NSObject{
                 printDebug(errors)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
                 sSelf.delegate?.getAllHotelsListResultFail()
+            }
+        }
+    }
+    
+    func  getRecentSearchesData() {
+        let params: JSONDictionary = [APIKeys.product.rawValue : "hotel"]
+        printDebug(params)
+        APICaller.shared.recentHotelsSearchesApi(params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.recentSearchesData = recentSearchesHotels
+                sSelf.delegate?.getRecentSearchesDataSuccess()
+            } else {
+                printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                sSelf.delegate?.getRecentSearchesDataFail()
             }
         }
     }

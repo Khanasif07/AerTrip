@@ -29,7 +29,10 @@ class HotelsSearchVC: BaseVC {
     private var cellWidth: CGFloat{
         return self.addRoomCollectionView.frame.size.width / 2.0
     }
-    
+    private var returnUserId: String? {
+        return UserInfo.loggedInUserId
+    }
+
     //MARK:- IBOutlets
     //================
     @IBOutlet weak var scrollView: UIScrollView!
@@ -85,6 +88,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidLayoutSubviews() {
+//        self.shadowOnviewWithcornerRadius(objView: self.containerView)
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
@@ -138,6 +142,15 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
     }
     
+    ///RecentSearchData
+    private func recentSearchData() {
+        if let _ = self.returnUserId  {
+            self.viewModel.getRecentSearchesData()
+        } else {
+          printDebug("User is not logged in")
+        }
+    }
+    
     //ScrollViewDidScroll
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -174,10 +187,12 @@ class HotelsSearchVC: BaseVC {
         self.containerView.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        //self.containerView.addCardShadow()
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
+        self.recentSearchData()
     }
     
     ///ConfigureCheckInOutView
@@ -327,7 +342,17 @@ class HotelsSearchVC: BaseVC {
         final.removeLast(2)
         return final + " \(LocalizedString.stars.localized)"
     }
-    
+//
+//    func shadowOnviewWithcornerRadius(objView :UIView) {
+//        objView.layer.shadowColor = AppColors.themeBlack.cgColor
+//        objView.layer.shadowOpacity = 0.5
+//        objView.layer.shadowRadius  = 5
+//        objView.layer.shadowOffset  = CGSize(width :0, height :3)
+//        objView.layer.masksToBounds = false
+//        objView.layer.cornerRadius  =  10.0
+//        objView.layer.borderWidth   = 0.5
+//    }
+
     //MARK:- Public
     
     //MARK:- IBAction
@@ -344,6 +369,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
+        self.view.isUserInteractionEnabled = false
         sender.isLoading = true
         self.viewModel.hotelListOnPreferencesApi()
     }
@@ -503,7 +529,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
-    
+
     func getAllHotelsOnPreferenceSuccess() {
         self.viewModel.hotelListOnPreferenceResult()
     }
@@ -511,19 +537,33 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
     }
     
     func getAllHotelsListResultSuccess() {
         printDebug("data")
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid)
-        self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
+        if let hotelSearchRequest = self.viewModel.hotelSearchRequst {
+            AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid , hotelSearchRequest: hotelSearchRequest)
+            self.searchBtnOutlet.isLoading = false
+        }
     }
     
     func getAllHotelsListResultFail() {
         printDebug("getAllHotelsListResultFail")
         self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
     }
     
+    func getRecentSearchesDataSuccess() {
+        if let recentSearchesView = self.recentSearchesView {
+            recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
+            recentSearchesView.recentCollectionView.reloadData()
+        }
+        printDebug(self.viewModel.recentSearchesData)
+    }
+    
+    func getRecentSearchesDataFail() {
+        printDebug("recent searches data parsing failed")
+    }
 }
-
-

@@ -99,18 +99,32 @@ protocol HotelDetailDelegate: class {
     
     func updateFavouriteSuccess(withMessage: String)
     func updateFavouriteFail()
+    
+    func getHotelDistanceAndTimeSuccess()
+    func getHotelDistanceAndTimeFail()
 }
 
 class HotelDetailsVM {
+    
+    enum MapMode: String {
+        case walking = "WALKING"
+        case driving = "DRIVING"
+    }
     
     //Mark:- Variables
     //================
     internal var hotelInfo: HotelSearched?
     internal var hotelData: HotelDetails?
+    internal var hotelSearchRequest: HotelSearchRequestModel?
+    internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
+    //var mode: String = "WALKING"
+    var mode: MapMode = .walking
+    var isFooterViewHidden: Bool = false
+    
     
     private var getParams: JSONDictionary {
         let params: JSONDictionary = [APIKeys.vid.rawValue : "\(self.hotelInfo?.vid ?? "")" , APIKeys.hid.rawValue : "\(self.hotelInfo?.hid ?? "")", APIKeys.sid.rawValue : self.sid]
@@ -118,6 +132,7 @@ class HotelDetailsVM {
     }
     
     func getHotelInfoApi() {
+        
         let params: JSONDictionary = self.getParams
         printDebug(params)
         APICaller.shared.getHotelDetails(params: params) { [weak self] (success, errors, hotelData) in
@@ -129,6 +144,7 @@ class HotelDetailsVM {
                 }
             } else {
                 printDebug(errors)
+                sSelf.isFooterViewHidden = true
                 sSelf.delegate?.getHotelDetailsFail()
             }
         }
@@ -152,10 +168,19 @@ class HotelDetailsVM {
     }
     
     func getHotelDistanceAndTimeInfo() {
-        let params: JSONDictionary = ["":""]
-        
-        APICaller.shared.getHotelDistanceAndTravelTime(params: params) { [weak self] (success, response) in
-            printDebug(response)
+        if let hotelSearchRequest = self.hotelSearchRequest , let hotelInfo = self.hotelInfo {
+            let requestParams = hotelSearchRequest.requestParameters
+            APICaller.shared.getHotelDistanceAndTravelTime(originLat: requestParams.latitude, originLong: requestParams.longitude, destinationLat: hotelInfo.lat ?? "", destinationLong: hotelInfo.long ?? "", mode: self.mode.rawValue) { [weak self] (success, placeData) in
+                if let sSelf = self {
+                    if success {
+                        sSelf.placeModel = placeData
+                        sSelf.delegate?.getHotelDistanceAndTimeSuccess()
+                        printDebug(placeData)
+                    } else {
+                        sSelf.delegate?.getHotelDistanceAndTimeFail()
+                    }
+                }
+            }
         }
     }
 }

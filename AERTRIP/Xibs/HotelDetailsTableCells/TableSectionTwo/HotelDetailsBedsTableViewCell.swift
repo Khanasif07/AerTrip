@@ -47,12 +47,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
         self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
-        self.bedSelectionDropDown.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.bedSelectionDropDown.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         
-
-//        //Text
-//        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
-//        self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
     }
     
     private func bedSelectionTitleImgSetUp() {

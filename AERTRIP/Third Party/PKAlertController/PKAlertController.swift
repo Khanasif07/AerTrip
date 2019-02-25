@@ -72,6 +72,42 @@ open class PKAlertController {
         return alertController
     }
     
+    func presentActionSheetWithAttributed(_ title: NSMutableAttributedString?, message: NSMutableAttributedString?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+        
+        alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        
+        alertController.setValue(title, forKey: "attributedTitle")
+        alertController.setValue(message, forKey: "attributedMessage")
+        
+        //add all alert buttons
+        let closure: (UIAlertAction) -> Void = { (alert) in
+            print(alert.title ?? "")
+            if let handel = tapBlock, let idx = alertButtons.firstIndex(where: { (button) -> Bool in
+                (alert.title ?? "") == button.title
+            }) {
+                handel(alert, idx)
+            }
+        }
+        
+        for button in alertButtons {
+            let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
+            alertAction.setValue(button.titleColor, forKey: "titleTextColor")
+            alertController.addAction(alertAction)
+        }
+        
+        //add cancel button
+        let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { (alert) in
+            self.dismissActionSheet()
+        }
+        cancelAction.setValue(cancelButton.titleColor, forKey: "titleTextColor")
+        alertController.addAction(cancelAction)
+        
+        alertController.popoverPresentationController?.sourceView = sourceView
+        alertController.popoverPresentationController?.sourceRect = sourceView.bounds
+        self.topMostController?.present(alertController, animated: true, completion: nil)
+        return alertController
+    }
+    
     public func dismissActionSheet() {
         self.alertController.dismiss(animated: true, completion: nil)
     }

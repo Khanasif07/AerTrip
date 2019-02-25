@@ -309,6 +309,8 @@
 		849F31EF21FF1AC60076BB3D /* profile.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31ED21FF1AC60076BB3D /* profile.csv */; };
 		849F31F021FF1AC60076BB3D /* login.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31EE21FF1AC60076BB3D /* login.csv */; };
 		849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F31F121FF1AD70076BB3D /* ATErrorManager.swift */; };
+		84B8411F2223B51800CAA226 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8411E2223B51700CAA226 /* PlaceModel.swift */; };
+		84B841212223F24900CAA226 /* RecentSearchesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B841202223F24900CAA226 /* RecentSearchesModel.swift */; };
 		84BBEE9D22141CDD00844034 /* HotelDetailsCardInclusionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BBEE9C22141CDD00844034 /* HotelDetailsCardInclusionTableCell.xib */; };
 		84BBEEA0221422C100844034 /* HotelDetailsBedsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBEE9F221422C100844034 /* HotelDetailsBedsTableViewCell.swift */; };
 		84BBEEA32214232D00844034 /* HotelDetailsBedsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BBEEA22214232D00844034 /* HotelDetailsBedsTableViewCell.xib */; };
@@ -754,6 +756,8 @@
 		849F31ED21FF1AC60076BB3D /* profile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = profile.csv; sourceTree = "<group>"; };
 		849F31EE21FF1AC60076BB3D /* login.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = login.csv; sourceTree = "<group>"; };
 		849F31F121FF1AD70076BB3D /* ATErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATErrorManager.swift; sourceTree = "<group>"; };
+		84B8411E2223B51700CAA226 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
+		84B841202223F24900CAA226 /* RecentSearchesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesModel.swift; sourceTree = "<group>"; };
 		84BBEE9C22141CDD00844034 /* HotelDetailsCardInclusionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsCardInclusionTableCell.xib; sourceTree = "<group>"; };
 		84BBEE9F221422C100844034 /* HotelDetailsBedsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsBedsTableViewCell.swift; sourceTree = "<group>"; };
 		84BBEEA22214232D00844034 /* HotelDetailsBedsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsBedsTableViewCell.xib; sourceTree = "<group>"; };
@@ -1724,6 +1728,7 @@
 				840404FF2215D91A00FCE19E /* HotelDetails.swift */,
 				84F92893221BC7D900679349 /* HotelDetailsAmenitiesVC */,
 				84F92885221A98B000679349 /* TripAdvisorDetailsVC.swift */,
+				84B8411E2223B51700CAA226 /* PlaceModel.swift */,
 			);
 			path = HotelDetailsVC;
 			sourceTree = "<group>";
@@ -1755,6 +1760,7 @@
 				1871B673220823F00066636E /* HotelsSearchVM.swift */,
 				841DD1D82202DC680055FEBB /* SelectDestinationVC */,
 				841DD1DE2202DC690055FEBB /* BulkBookingVC */,
+				84B841202223F24900CAA226 /* RecentSearchesModel.swift */,
 			);
 			path = HotelsSearchVC;
 			sourceTree = "<group>";
@@ -2723,6 +2729,7 @@
 				18EF5E7D221D261B00EFFA6E /* GMUGroundOverlay.m in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */,
+				84B841212223F24900CAA226 /* RecentSearchesModel.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
@@ -2806,6 +2813,7 @@
 				84F983DC21B51A070018DFED /* UIDeviceExtension.swift in Sources */,
 				18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */,
 				8460C0C421F34A38007768CC /* ATTableView.swift in Sources */,
+				84B8411F2223B51800CAA226 /* PlaceModel.swift in Sources */,
 				84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
