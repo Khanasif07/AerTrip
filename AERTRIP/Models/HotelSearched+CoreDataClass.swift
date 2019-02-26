@@ -71,6 +71,7 @@ public class HotelSearched: NSManagedObject {
                 hotelSearched?.sectionTitle = "e16 to 20"
             default:
                 hotelSearched?.sectionTitle = "f20 above"
+                hotelSearched?.isHotelBeyondTwentyKm = true
             }
         }
         

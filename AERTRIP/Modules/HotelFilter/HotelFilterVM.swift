@@ -51,7 +51,7 @@ class HotelFilterVM {
         UserInfo.loggedInUser?.hotelFilter = filter
         
         if let filter = UserInfo.loggedInUser?.hotelFilter {
-            print(filter)
+            printDebug(filter)
         }
     }
     

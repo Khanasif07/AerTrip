@@ -117,7 +117,7 @@ public class FlexiblePageControl: UIView {
 
         let currentPage = Int(round(contentOffsetX/pageWidth))
         if currentPage == self.currentPage { return }
-        setCurrentPage(at: currentPage)
+         setCurrentPage(at: currentPage)
     }
 
     public func updateViewSize() {

@@ -16,13 +16,11 @@ let kCameraLongitude = 72.8777
 
 class HotelMapVC: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var floatingStackView: UIStackView!
     @IBOutlet var unPinAllFavouriteButton: UIButton!
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
     
-    @IBOutlet var floatingViewleadingConstraint: NSLayoutConstraint!
     var markers: [(marker: CustomMarker, hid: Int)] = []
     
     var locManager = CLLocationManager()
@@ -30,9 +28,9 @@ class HotelMapVC: UIViewController {
     var container: NSPersistentContainer!
     var marker = GMSMarker()
     var mapView: GMSMapView?
-    let defaultDuration: CGFloat = 2.0
-    let defaultDamping: CGFloat = 0.22
-    let defaultVelocity: CGFloat = 6.0
+    let defaultDuration: CGFloat = 1.2
+    let defaultDamping: CGFloat = 0.70
+    let defaultVelocity: CGFloat = 15.0
     private var clusterManager: GMUClusterManager!
     var hotelSearchRequest: HotelSearchRequestModel?
     
@@ -86,8 +84,10 @@ class HotelMapVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.isPagingEnabled = true
-        self.floatingStackView.isHidden = true
         self.switchView.delegate = self
+        self.unPinAllFavouriteButton.isHidden = true
+        self.emailButton.isHidden = true
+        self.shareButton.isHidden = true
     }
     
     private func setupMapView() {
@@ -197,19 +197,28 @@ class HotelMapVC: UIViewController {
 //        CATransaction.commit()
     }
     
+    private func hideButtons() {
+        self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.unPinAllFavouriteButton.isHidden = true
+        self.emailButton.isHidden = true
+        self.shareButton.isHidden = true
+    }
+    
     func animateButton() {
-        self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.9)
-        self.emailButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.9)
-        self.shareButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.9)
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
                        usingSpringWithDamping: self.defaultDamping,
                        initialSpringVelocity: self.defaultVelocity,
                        options: .allowUserInteraction,
                        animations: {
-                           self.unPinAllFavouriteButton.transform = .identity
-                           self.emailButton.transform = .identity
-                           self.shareButton.transform = .identity
+                           self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
+                           self.emailButton.transform = CGAffineTransform(translationX: 98, y: 0)
+                           self.shareButton.transform = CGAffineTransform(translationX: 142, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")
@@ -268,8 +277,6 @@ extension HotelMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         updateMarker(coordinates: CLLocationCoordinate2DMake(LocationAtual.coordinate.latitude, LocationAtual.coordinate.longitude), degrees: 10.0, duration: 4, hid: Int(hData.hid ?? "") ?? 0)
     }
     
-
-    
     //  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     //  _ = targetContentOffset.pointee.x
     
@@ -287,16 +294,12 @@ extension HotelMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
 extension HotelMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
         if value {
-            self.floatingStackView.showViewWithFade()
-//            UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseOut, animations: {
-//                self.floatingStackView.spacing = 0
-//               self.floatingViewleadingConstraint.constant = 0
-//            }, completion: nil)
-//            self.floatingStackView.spacing = -15
-//            self.floatingViewleadingConstraint.constant = 10
+            self.unPinAllFavouriteButton.isHidden = false
+            self.emailButton.isHidden = false
+            self.shareButton.isHidden = false
             self.animateButton()
         } else {
-            self.floatingStackView.hideViewWithFade()
+            self.hideButtons()
         }
     }
 }

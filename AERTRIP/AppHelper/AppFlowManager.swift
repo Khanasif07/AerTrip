@@ -262,11 +262,10 @@ extension AppFlowManager {
         }
     }
     
-    func moveToHotelsResultVc(_ hotels: [HotelsSearched] , sid: String) {
+    func moveToHotelsResultVc(_ hotelSearchRequest :HotelSearchRequestModel) {
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         self.hotelResultVC = obj
-        obj.viewModel.sid = sid
-        obj.viewModel.hotelListResult = hotels
+        obj.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -338,6 +337,13 @@ extension AppFlowManager {
             hotelResultVC.add(childViewController: ob)
         }
     }
+    
+    func moveToMapVC() {
+        let obj = HotelMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    
 }
 
 //MARK: - Pop Methods

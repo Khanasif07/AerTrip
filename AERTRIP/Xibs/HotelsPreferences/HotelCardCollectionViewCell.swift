@@ -6,35 +6,34 @@
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import FlexiblePageControl
+import UIKit
 
 protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
-    func pagingScrollEnable(_ indexPath:IndexPath)
+    func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
 
 class HotelCardCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var bgView: UIView!
-    @IBOutlet weak var hotelImageView: UIImageView!
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var hotelNameLabel: UILabel!
-    @IBOutlet weak var discountedPriceLabel: UILabel!
-    @IBOutlet weak var actualPriceLabel: UILabel!
-    @IBOutlet weak var starRatingView: FloatRatingView!
-    @IBOutlet weak var tripLogoImage: UIImageView!
-    @IBOutlet weak var greenCircleRatingView: FloatRatingView!
-    @IBOutlet weak var gradientView: UIView!
-   
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var bgView: UIView!
+    @IBOutlet var hotelImageView: UIImageView!
+    @IBOutlet var saveButton: UIButton!
+    @IBOutlet var hotelNameLabel: UILabel!
+    @IBOutlet var discountedPriceLabel: UILabel!
+    @IBOutlet var actualPriceLabel: UILabel!
+    @IBOutlet var starRatingView: FloatRatingView!
+    @IBOutlet var tripLogoImage: UIImageView!
+    @IBOutlet var greenCircleRatingView: FloatRatingView!
+    @IBOutlet var gradientView: UIView!
+    
+    @IBOutlet var scrollView: UIScrollView!
     
     private var gradientLayer: CAGradientLayer!
-    let scrollSize: CGFloat = 300
+    var scrollSize: CGFloat = 0.0
     let numberOfPage: Int = 100
     var indexPath: IndexPath?
     
-    @IBOutlet weak var pageControl: FlexiblePageControl!
+    @IBOutlet var pageControl: FlexiblePageControl!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     var hotelData: HotelsModel? {
@@ -54,42 +53,42 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.gradientView.bounds
-        gradientLayer.colors =
+        self.gradientLayer = CAGradientLayer()
+        self.gradientLayer.frame = self.gradientView.bounds
+        self.gradientLayer.colors =
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
-        gradientView.layer.addSublayer(gradientLayer)
-        gradientView.backgroundColor = AppColors.clear
-        
-        self.saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
-        
+        self.gradientView.layer.addSublayer(self.gradientLayer)
+        self.gradientView.backgroundColor = AppColors.clear
+        self.setupPageControl()
+        self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        self.scrollSize = self.hotelImageView.frame.size.width
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer.frame = self.gradientView.bounds
+        self.gradientLayer.frame = self.gradientView.bounds
     }
     
     private func setUpInstagramDotGalleryView() {
-        scrollView.delegate = self
-        scrollView.isPagingEnabled = true
-        scrollView.isUserInteractionEnabled = true
-        pageControl.center = CGPoint(x: scrollView.center.x, y: self.frame.minY + 20)
-        pageControl.numberOfPages = numberOfPage
-        pageControl.backgroundColor = .black
-       scrollView.backgroundColor = .red
-        
-        guard let thumbnail = hotelListData?.thumbnail  else {
+        guard let thumbnail = hotelListData?.thumbnail else {
             printDebug("thumbnails are  empty")
             return
         }
-        for index in  0..<5 {
-            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: 0, width: scrollSize, height: scrollSize))
-            view.image = UIImage(named: "tickIcon")
+        
+        self.pageControl.numberOfPages = 5
+        self.scrollView.delegate = self
+        self.scrollView.isPagingEnabled = true
+        self.scrollView.isUserInteractionEnabled = true
+        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(5), height: self.hotelImageView.frame.size.height)
+      
+        printDebug("thumbnail count is \(thumbnail.count)")
+        
+        for index in 0..<5 {
+            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: 0, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+            // view.image = UIImage(named: "tickIcon")
             scrollView.addSubview(view)
         }
-       
-        
     }
     
     override func draw(_ rect: CGRect) {
@@ -99,7 +98,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.bgView.layer.borderWidth = 1.0
         self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
     }
-
+    
     private func populateData() {
         self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
         self.starRatingView.rating = self.hotelData?.stars ?? 0
@@ -113,14 +112,19 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     
     private func populateHotelData() {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelListData?.star  ?? 0.0
+        self.starRatingView.rating = self.hotelListData?.star ?? 0.0
         self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
         
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
-     }
+//        if let image = UIImage(named: "hotelCardPlaceHolder") {
+//            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
+//     }
+    }
+    
+    private func setupPageControl() {
+        self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
+        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
@@ -130,12 +134,10 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension HotelCardCollectionViewCell : UIScrollViewDelegate {
+extension HotelCardCollectionViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let indexPath = indexPath {
-             delegate?.pagingScrollEnable(indexPath)
+            self.delegate?.pagingScrollEnable(indexPath, scrollView)
         }
-       
-       
     }
 }

@@ -378,3 +378,4 @@
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
+"HideHotelsBeyond" = "Hide hotels beyond 20 km";

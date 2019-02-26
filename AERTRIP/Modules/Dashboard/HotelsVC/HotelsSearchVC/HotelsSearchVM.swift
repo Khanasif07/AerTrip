@@ -80,6 +80,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.vcodes = vCodes
                 sSelf.sid = sid
                 sSelf.hotelSearchRequst = searhRequest
+                _ = CoreDataManager.shared.deleteAllData("HotelSearched")
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
@@ -88,27 +89,27 @@ class HotelsSearchVM: NSObject{
             }
         }
     }
-    
-    func hotelListOnPreferenceResult() {
-        let params: JSONDictionary = [APIKeys.vcodes.rawValue : self.vcodes.first ?? "" , APIKeys.sid.rawValue : self.sid]
-        printDebug(params)
-        APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels) in
-            guard let sSelf = self else {return}
-            if success {
-                CoreDataManager.shared.deleteCompleteDB()
-                
-                sSelf.hotelListResult = hotels
-                for hotel in hotels {
-                   _ =  HotelSearched.insert(dataDict: hotel.jsonDict)
-                }
-                
-                sSelf.delegate?.getAllHotelsListResultSuccess()
-            } else {
-                printDebug(errors)
-               // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
-                sSelf.delegate?.getAllHotelsListResultFail()
-            }
-        }
-    }
+//
+//    func hotelListOnPreferenceResult() {
+//        let params: JSONDictionary = [APIKeys.vcodes.rawValue : self.vcodes.first ?? "" , APIKeys.sid.rawValue : self.sid]
+//        printDebug(params)
+//        APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels) in
+//            guard let sSelf = self else {return}
+//            if success {
+//                CoreDataManager.shared.deleteCompleteDB()
+//
+//                sSelf.hotelListResult = hotels
+//                for hotel in hotels {
+//                   _ =  HotelSearched.insert(dataDict: hotel.jsonDict)
+//                }
+//
+//                sSelf.delegate?.getAllHotelsListResultSuccess()
+//            } else {
+//                printDebug(errors)
+//               // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+//                sSelf.delegate?.getAllHotelsListResultFail()
+//            }
+//        }
+//    }
 }
 

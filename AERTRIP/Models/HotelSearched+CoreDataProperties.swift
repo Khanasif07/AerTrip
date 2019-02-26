@@ -48,5 +48,6 @@ extension HotelSearched {
     @NSManaged public var vid: String?
     @NSManaged public var sectionTitle:String?
     @NSManaged public var amentities:[String]?
+    @NSManaged public var isHotelBeyondTwentyKm:Bool
 
 }

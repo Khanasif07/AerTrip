@@ -145,6 +145,10 @@ extension HotelSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 }
 
 extension HotelSearchVC: HotelCardCollectionViewCellDelegate {
+    func pagingScrollEnable(_ indexPath: IndexPath,_ scrollView: UIScrollView) {
+    return
+    }
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         self.viewModel.updateFavourite(forHotel: forHotel)
     }

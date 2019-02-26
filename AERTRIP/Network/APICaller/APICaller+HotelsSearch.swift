@@ -132,26 +132,27 @@ extension APICaller {
         }
     }
     
-    func getHotelsListOnPreferenceResult(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsSearched]) -> Void) {
+    func getHotelsListOnPreferenceResult(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsSearched], _ done: Bool) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.hotelListOnPreferenceResult, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotels = response["results"] as? [JSONDictionary] {
                     let hotelsInfo = HotelsSearched.models(jsonArr: hotels)
+                    let done = response["done"] as? Bool
                     let filters = response["filters"] as? JSONDictionary
                     HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
                     HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
-                    completionBlock(true, [], hotelsInfo)
+                    completionBlock(true, [], hotelsInfo,done ?? false)
                 }
                 else {
-                    completionBlock(false, [], [])
+                    completionBlock(false, [], [],false)
                 }
             }, failure: { _ in
-                completionBlock(false, [], [])
+                completionBlock(false, [], [],false)
             })
         }) { _ in
-            completionBlock(false, [], [])
+            completionBlock(false, [], [],false)
         }
     }
     

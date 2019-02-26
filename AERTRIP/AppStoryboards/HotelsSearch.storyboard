@@ -1909,9 +1909,9 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="PE7-r5-Of9" secondAttribute="trailing" id="pVV-in-4Gt"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iFL-Yw-635">
+                            <collectionView clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iFL-Yw-635">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kl0-CS-GqA">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
@@ -1922,17 +1922,18 @@ been sent</string>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Vd3-8h-wQJ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </collectionReusableView>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="bottom" secondItem="iFL-Yw-635" secondAttribute="bottom" id="2S8-EG-e2z"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="421-Un-qeE"/>
-                            <constraint firstItem="iFL-Yw-635" firstAttribute="top" secondItem="6gi-qN-zSY" secondAttribute="bottom" id="Bf2-9p-Ugb"/>
                             <constraint firstItem="iFL-Yw-635" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="EuI-Wg-VOC"/>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="trailing" secondItem="iFL-Yw-635" secondAttribute="trailing" id="Muq-bH-Y9a"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" id="XXd-Kn-pwM"/>
+                            <constraint firstItem="iFL-Yw-635" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" constant="100" id="YIB-Wf-rYr"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="trailing" secondItem="6q0-jH-RZM" secondAttribute="trailing" id="obY-wF-NYw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6q0-jH-RZM"/>
@@ -1940,12 +1941,13 @@ been sent</string>
                     <connections>
                         <outlet property="backButton" destination="u2z-Nf-Ttg" id="fQq-NS-1Oe"/>
                         <outlet property="collectionView" destination="iFL-Yw-635" id="kl9-ae-e5M"/>
-                        <outlet property="collectionViewTopConstraint" destination="Bf2-9p-Ugb" id="fv0-35-8q8"/>
+                        <outlet property="collectionViewTopConstraint" destination="YIB-Wf-rYr" id="Hzx-Mi-Mv6"/>
                         <outlet property="descriptionLabel" destination="Lin-DK-947" id="vVr-Yb-ESx"/>
                         <outlet property="dividerView" destination="jE0-iJ-HOk" id="4UU-bA-0uu"/>
                         <outlet property="filterButton" destination="8yF-1R-KG8" id="EID-0D-kZI"/>
                         <outlet property="headerContainerView" destination="6gi-qN-zSY" id="M8H-wp-smO"/>
-                        <outlet property="headerViewTopConstraint" destination="XXd-Kn-pwM" id="89n-Qr-iBu"/>
+                        <outlet property="headerContainerViewTopConstraint" destination="XXd-Kn-pwM" id="A3j-sW-Z9s"/>
+                        <outlet property="headerContatinerViewHeightConstraint" destination="A8h-NR-7c3" id="jTA-cD-SCn"/>
                         <outlet property="mapButton" destination="pON-oQ-gk6" id="I6O-WA-rBK"/>
                         <outlet property="navContainerView" destination="vvc-1T-CbH" id="9cd-qe-CEn"/>
                         <outlet property="progressView" destination="jG6-4j-fP5" id="1FQ-Kx-nq0"/>
@@ -2393,42 +2395,41 @@ been sent</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="jmh-iN-eXc">
-                                        <rect key="frame" x="77" y="26.5" width="162" height="64"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJl-Tu-PIl">
-                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="64" id="VOr-6g-EzR"/>
-                                                    <constraint firstAttribute="width" constant="64" id="pgy-Yo-Ly4"/>
-                                                </constraints>
-                                                <state key="normal" image="unPinAllFavouriteIcon"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVr-rA-n4h">
-                                                <rect key="frame" x="49" y="0.0" width="64" height="64"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="64" id="ZY9-at-cro"/>
-                                                    <constraint firstAttribute="height" constant="64" id="gCn-DH-jq0"/>
-                                                </constraints>
-                                                <state key="normal" image="emailIcon"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9v9-Mb-UFW">
-                                                <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="64" id="0XW-8u-pdt"/>
-                                                    <constraint firstAttribute="height" constant="64" id="gae-3z-AdB"/>
-                                                </constraints>
-                                                <state key="normal" image="shareIcon"/>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJl-Tu-PIl">
+                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="VOr-6g-EzR"/>
+                                            <constraint firstAttribute="width" constant="64" id="pgy-Yo-Ly4"/>
+                                        </constraints>
+                                        <state key="normal" image="shareIcon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9v9-Mb-UFW">
+                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="0XW-8u-pdt"/>
+                                            <constraint firstAttribute="height" constant="64" id="gae-3z-AdB"/>
+                                        </constraints>
+                                        <state key="normal" image="shareIcon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVr-rA-n4h">
+                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="ZY9-at-cro"/>
+                                            <constraint firstAttribute="height" constant="64" id="gCn-DH-jq0"/>
+                                        </constraints>
+                                        <state key="normal" image="emailIcon"/>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="9v9-Mb-UFW" firstAttribute="centerY" secondItem="JJl-Tu-PIl" secondAttribute="centerY" id="1Fq-B1-so2"/>
+                                    <constraint firstItem="LVr-rA-n4h" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" id="2Fv-tF-Nmu"/>
+                                    <constraint firstItem="LVr-rA-n4h" firstAttribute="centerY" secondItem="9v9-Mb-UFW" secondAttribute="centerY" id="5X2-OH-nQJ"/>
                                     <constraint firstAttribute="height" constant="74" id="62C-KQ-nQO"/>
-                                    <constraint firstItem="jmh-iN-eXc" firstAttribute="leading" secondItem="Lye-yX-dPr" secondAttribute="trailing" constant="10" id="YPd-9M-N42"/>
+                                    <constraint firstItem="JJl-Tu-PIl" firstAttribute="centerX" secondItem="Lye-yX-dPr" secondAttribute="centerX" id="9lV-zZ-mAf"/>
+                                    <constraint firstItem="JJl-Tu-PIl" firstAttribute="centerY" secondItem="Lye-yX-dPr" secondAttribute="centerY" id="U9E-zz-LIY"/>
                                     <constraint firstAttribute="bottom" secondItem="Lye-yX-dPr" secondAttribute="bottom" id="hdS-3J-iT3"/>
-                                    <constraint firstItem="jmh-iN-eXc" firstAttribute="centerY" secondItem="Lye-yX-dPr" secondAttribute="centerY" id="lmM-9w-a7j"/>
+                                    <constraint firstItem="9v9-Mb-UFW" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" id="meH-GD-dRh"/>
                                     <constraint firstItem="Lye-yX-dPr" firstAttribute="leading" secondItem="Dau-q2-rG8" secondAttribute="leading" constant="16" id="tkh-e4-UdB"/>
                                 </constraints>
                             </view>
@@ -2449,8 +2450,6 @@ been sent</string>
                     <connections>
                         <outlet property="collectionView" destination="yNw-G8-b6U" id="Pyx-lg-dtQ"/>
                         <outlet property="emailButton" destination="LVr-rA-n4h" id="lzd-11-HAH"/>
-                        <outlet property="floatingStackView" destination="jmh-iN-eXc" id="7Af-kJ-b8p"/>
-                        <outlet property="floatingViewleadingConstraint" destination="YPd-9M-N42" id="sco-9n-PIp"/>
                         <outlet property="shareButton" destination="9v9-Mb-UFW" id="LrA-13-ubq"/>
                         <outlet property="switchView" destination="Lye-yX-dPr" id="dMS-Om-BSd"/>
                         <outlet property="unPinAllFavouriteButton" destination="JJl-Tu-PIl" id="bzS-ZF-euC"/>
@@ -2832,6 +2831,5 @@ been sent</string>
         <image name="shareIcon" width="76" height="76"/>
         <image name="shimmerViewFavouriteButton" width="18" height="22"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="unPinAllFavouriteIcon" width="76" height="76"/>
     </resources>
 </document>

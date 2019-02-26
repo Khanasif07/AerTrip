@@ -424,4 +424,5 @@ enum LocalizedString: String {
     case  ReloadResults = "Reload results"
     case Apply = "Apply"
     case ShowHotelsBeyond = "ShowHotelsBeyond"
+    case HideHotelBeyond = "HideHotelsBeyond"
 }

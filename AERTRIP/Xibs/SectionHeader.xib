@@ -41,6 +41,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ISL-py-pJD" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="Bq2-YG-6nj"/>
                 <constraint firstItem="ISL-py-pJD" firstAttribute="centerY" secondItem="VXr-Tz-HHm" secondAttribute="centerY" id="RYp-cA-4Lv"/>
