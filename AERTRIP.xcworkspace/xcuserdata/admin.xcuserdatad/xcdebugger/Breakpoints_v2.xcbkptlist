@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/AppNetworking.swift"
-            timestampString = "572794927.250167"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsGroupExpendedVC.swift"
+            timestampString = "572875401.533794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "request(URLString:httpMethod:parameters:encoding:headers:loader:loaderContainerView:success:failure:)"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "initialLayoutAttributesForAppearingItem(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

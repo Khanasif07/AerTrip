@@ -46,12 +46,20 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func hotelFilterTapped(_ sender: Any) {
-      //  AppFlowManager.default.moverToFilterVC()
-        AppFlowManager.default.showFilterVC()
+        //  AppFlowManager.default.moverToFilterVC()
+        //  AppFlowManager.default.showFilterVC()
+        
+        if let topVC = UIApplication.topViewController() {
+            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            
+            let sheet = PKBottomSheet.instanceFromNib
+            sheet.headerHeight = 24.0
+            sheet.headerView = dataVC.headerView
+            sheet.frame = topVC.view.bounds
+            topVC.view.addSubview(sheet)
+            sheet.present(presentedViewController: dataVC, animated: true)
+        }
     }
-    
-    
-    
 }
 
 //MARK:- RoomGuestSelectionVCDelegate

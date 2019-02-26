@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="PKBottomSheet" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKh-Oc-psV">
+                    <rect key="frame" x="0.0" y="47" width="375" height="620"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fE1-UY-rTa">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="8Cv-Dc-in8"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAW-fe-tQX">
+                            <rect key="frame" x="0.0" y="44" width="375" height="576"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xAW-fe-tQX" firstAttribute="leading" secondItem="VKh-Oc-psV" secondAttribute="leading" id="5ix-Ax-sDx"/>
+                        <constraint firstItem="fE1-UY-rTa" firstAttribute="leading" secondItem="VKh-Oc-psV" secondAttribute="leading" id="B3X-V9-lEH"/>
+                        <constraint firstItem="fE1-UY-rTa" firstAttribute="top" secondItem="VKh-Oc-psV" secondAttribute="top" id="TqV-yH-dpE"/>
+                        <constraint firstAttribute="trailing" secondItem="xAW-fe-tQX" secondAttribute="trailing" id="US2-R4-7AD"/>
+                        <constraint firstAttribute="height" constant="620" id="oaa-iU-M6y"/>
+                        <constraint firstAttribute="trailing" secondItem="fE1-UY-rTa" secondAttribute="trailing" id="sRF-6T-xG4"/>
+                        <constraint firstAttribute="bottom" secondItem="xAW-fe-tQX" secondAttribute="bottom" id="u6v-lL-CrI"/>
+                        <constraint firstItem="xAW-fe-tQX" firstAttribute="top" secondItem="fE1-UY-rTa" secondAttribute="bottom" id="zUp-xZ-ZKf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.57898116438356162" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="VKh-Oc-psV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4sS-1e-6ac"/>
+                <constraint firstAttribute="trailing" secondItem="VKh-Oc-psV" secondAttribute="trailing" id="BIo-jz-dSg"/>
+                <constraint firstAttribute="bottom" secondItem="VKh-Oc-psV" secondAttribute="bottom" id="WoL-1A-Cfm"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outlet property="dataContainerView" destination="xAW-fe-tQX" id="gEP-1f-BfI"/>
+                <outlet property="headerContainerView" destination="fE1-UY-rTa" id="lvm-5N-r2g"/>
+                <outlet property="headerHeightConstraint" destination="8Cv-Dc-in8" id="Co4-xG-1t7"/>
+                <outlet property="mainContainerBottomConstraint" destination="WoL-1A-Cfm" id="9kI-Dz-Vs5"/>
+                <outlet property="mainContainerHeightConstraint" destination="oaa-iU-M6y" id="fze-y1-TOP"/>
+                <outlet property="mainContainerView" destination="VKh-Oc-psV" id="srE-Y6-X9y"/>
+            </connections>
+        </view>
+    </objects>
+</document>

@@ -24,13 +24,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbB-Bu-6oD">
-                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
+                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-DZ-l7C">
-                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1095,6 +1095,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvb-St-iAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4106" y="1390"/>
+        </scene>
+        <!--Hotels Group ExpendedVC-->
+        <scene sceneID="SLx-ad-4h5">
+            <objects>
+                <viewController storyboardIdentifier="HotelsGroupExpendedVC" id="9f0-nZ-u0f" customClass="HotelsGroupExpendedVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LMQ-pW-uxn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XQf-mM-Y1B" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nFk-VI-MxD">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfq-c4-tps">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5MT-xR-cfR">
+                                        <rect key="frame" x="92" y="206" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Sfq-c4-tps" firstAttribute="leading" secondItem="cXx-FW-FNg" secondAttribute="leading" id="BgR-jq-X8b"/>
+                            <constraint firstItem="cXx-FW-FNg" firstAttribute="trailing" secondItem="XQf-mM-Y1B" secondAttribute="trailing" id="Izn-9Y-2UU"/>
+                            <constraint firstItem="Sfq-c4-tps" firstAttribute="top" secondItem="LMQ-pW-uxn" secondAttribute="top" id="L7l-yP-wCG"/>
+                            <constraint firstItem="Sfq-c4-tps" firstAttribute="bottom" secondItem="cXx-FW-FNg" secondAttribute="bottom" id="SL0-4T-2FW"/>
+                            <constraint firstItem="cXx-FW-FNg" firstAttribute="bottom" secondItem="XQf-mM-Y1B" secondAttribute="bottom" id="jeF-Cu-TtB"/>
+                            <constraint firstItem="XQf-mM-Y1B" firstAttribute="top" secondItem="LMQ-pW-uxn" secondAttribute="top" id="pvU-VR-J86"/>
+                            <constraint firstItem="Sfq-c4-tps" firstAttribute="trailing" secondItem="cXx-FW-FNg" secondAttribute="trailing" id="y9Z-pg-bRK"/>
+                            <constraint firstItem="XQf-mM-Y1B" firstAttribute="leading" secondItem="cXx-FW-FNg" secondAttribute="leading" id="yWH-np-Ngs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cXx-FW-FNg"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="XQf-mM-Y1B" id="Xhc-MX-Tw8"/>
+                        <outlet property="headerThumbView" destination="iXy-nf-33j" id="MC5-rU-rxq"/>
+                        <outlet property="headerView" destination="QB6-T2-ulQ" id="B2l-ir-XKv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rYN-Hd-Rb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-T2-ulQ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iXy-nf-33j">
+                            <rect key="frame" x="169.5" y="6" width="36" height="4"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="36" id="Ez2-ht-vOJ"/>
+                                <constraint firstAttribute="height" constant="4" id="xbN-Eg-UfZ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="iXy-nf-33j" firstAttribute="top" secondItem="QB6-T2-ulQ" secondAttribute="top" constant="6" id="0Vt-E4-gEW"/>
+                        <constraint firstItem="iXy-nf-33j" firstAttribute="centerX" secondItem="Z59-Qd-J8n" secondAttribute="centerX" id="rXs-Iv-BPU"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Z59-Qd-J8n"/>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="4988" y="1405"/>
         </scene>
     </scenes>
     <resources>
