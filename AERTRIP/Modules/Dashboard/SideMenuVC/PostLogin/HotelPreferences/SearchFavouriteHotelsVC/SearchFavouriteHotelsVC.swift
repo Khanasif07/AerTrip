@@ -140,6 +140,7 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
         cell.hotelData = self.viewModel.hotels[indexPath.item]
         cell.containerTopConstraint.constant = (indexPath.item == 0) ? 10.0 : 5.0
         cell.containerBottomConstraint.constant = 5.0
+
         cell.delegate = self
         return cell
     }
@@ -155,6 +156,10 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
+    func pagingScrollEnable(_ indexPath: IndexPath,_ scrollView: UIScrollView) {
+        return
+    }
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         self.viewModel.updateFavourite(forHotel: forHotel)
     }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SectionFooter" id="U6b-Vx-4bR" customClass="SectionFooter" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISL-py-pJD">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXR-Q2-1zN" userLabel="green">
+                            <rect key="frame" x="24" y="27" width="327" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zl-9U-Ev5" userLabel="red">
+                            <rect key="frame" x="16" y="22" width="343" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ocl-u2-L3P">
+                            <rect key="frame" x="8" y="16" width="359" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="kUL-L4-tbL"/>
+                            </constraints>
+                            <state key="normal" title="Show hotels beyond 20 km"/>
+                            <connections>
+                                <action selector="showHotelBeyond:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="JhU-gb-LqP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ocl-u2-L3P" firstAttribute="leading" secondItem="ISL-py-pJD" secondAttribute="leading" constant="8" id="E5P-t2-amC"/>
+                        <constraint firstAttribute="trailing" secondItem="yXR-Q2-1zN" secondAttribute="trailing" constant="24" id="Nq8-2Q-fWO"/>
+                        <constraint firstAttribute="bottom" secondItem="Ocl-u2-L3P" secondAttribute="bottom" constant="46" id="OZF-sJ-HXT"/>
+                        <constraint firstItem="yXR-Q2-1zN" firstAttribute="top" secondItem="ISL-py-pJD" secondAttribute="top" constant="27" id="Ocb-qz-Yw5"/>
+                        <constraint firstAttribute="bottom" secondItem="3zl-9U-Ev5" secondAttribute="bottom" constant="40" id="Woo-Jw-igW"/>
+                        <constraint firstAttribute="trailing" secondItem="Ocl-u2-L3P" secondAttribute="trailing" constant="8" id="Wp2-Uv-mKW"/>
+                        <constraint firstItem="3zl-9U-Ev5" firstAttribute="leading" secondItem="ISL-py-pJD" secondAttribute="leading" constant="16" id="fV2-LK-LN8"/>
+                        <constraint firstAttribute="trailing" secondItem="3zl-9U-Ev5" secondAttribute="trailing" constant="16" id="fgN-u1-zJL"/>
+                        <constraint firstItem="3zl-9U-Ev5" firstAttribute="top" secondItem="ISL-py-pJD" secondAttribute="top" constant="22" id="gpx-92-oFG"/>
+                        <constraint firstAttribute="bottom" secondItem="yXR-Q2-1zN" secondAttribute="bottom" constant="35" id="lnl-t3-IGi"/>
+                        <constraint firstItem="Ocl-u2-L3P" firstAttribute="top" secondItem="ISL-py-pJD" secondAttribute="top" constant="16" id="mui-jh-vOr"/>
+                        <constraint firstItem="yXR-Q2-1zN" firstAttribute="leading" secondItem="ISL-py-pJD" secondAttribute="leading" constant="24" id="oFL-Sm-mBq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ISL-py-pJD" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="4ZP-cY-T1y"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="ISL-py-pJD" secondAttribute="bottom" id="AyU-WW-vzS"/>
+                <constraint firstItem="ISL-py-pJD" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="Ge0-aC-RD2"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="ISL-py-pJD" secondAttribute="trailing" id="qtb-dB-WbW"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="firstView" destination="yXR-Q2-1zN" id="HRX-Wx-3rq"/>
+                <outlet property="secondView" destination="3zl-9U-Ev5" id="gDo-mj-a1O"/>
+                <outlet property="showHotelBeyondButton" destination="Ocl-u2-L3P" id="4MY-5a-87Y"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="153.82308845577214"/>
+        </collectionReusableView>
+    </objects>
+</document>

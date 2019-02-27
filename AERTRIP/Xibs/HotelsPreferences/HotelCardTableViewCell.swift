@@ -1,3 +1,4 @@
+
 //
 //  HotelCardTableViewCell.swift
 //  AERTRIP
@@ -104,6 +105,10 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
 }
 
 extension HotelCardTableViewCell: HotelCardCollectionViewCellDelegate {
+    func pagingScrollEnable(_ indexPath: IndexPath,_ scrollView: UIScrollView) {
+        return 
+    }
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         self.delegate?.saveButtonAction(sender, forHotel: forHotel)
     }

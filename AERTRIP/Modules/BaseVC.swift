@@ -230,6 +230,36 @@ extension BaseVC {
     }
 }
 
+extension BaseVC {
+    func setUpNavigationBar (title: String , buttonImage: UIImage) {
+        guard let navigationBar = self.navigationController?.navigationBar else
+        {
+            return
+        }
+        let navigationBarAppearence = UINavigationBar.appearance()
+        navigationBarAppearence.backgroundColor = AppColors.themeWhite
+//        navigationBarAppearence.barStyle
+        let shadow = NSShadow()
+        shadow.shadowOffset = CGSize(width: 0, height: 0)
+
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.title = title
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        navigationBar.prefersLargeTitles = true
+        let cancelButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(cancelButtonTapped))
+        self.navigationItem.rightBarButtonItem  = cancelButton
+//        self.contentInsetAdjustmentBehavior = .automatic
+        self.extendedLayoutIncludesOpaqueBars = true
+        navigationBar.shadowImage = UIImage(color: .clear)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 //MARK: UITextField delegate methods
 
 extension BaseVC {
@@ -263,3 +293,4 @@ extension UITabBarController {
         return super.shouldAutorotate
     }
 }
+

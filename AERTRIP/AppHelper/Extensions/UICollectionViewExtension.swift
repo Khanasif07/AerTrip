@@ -12,7 +12,7 @@ import UIKit
 extension UICollectionView {
     
     func registerCell(nibName:String, bundle:Bundle? = nil, forCellWithReuseIdentifier:String? = nil){
-        
+
         let cellWithReuseIdentifier = forCellWithReuseIdentifier ?? nibName
          self.register(UINib(nibName: nibName , bundle: bundle), forCellWithReuseIdentifier: cellWithReuseIdentifier)
     }
@@ -101,4 +101,11 @@ extension UICollectionView {
             }
         }
     }
+    
+    func selectedCell(forCell cell: UICollectionViewCell) -> IndexPath? {
+        let cellPosition: CGPoint = cell.convert(CGPoint.zero, to: self)
+        return self.indexPathForItem(at: cellPosition)
+    }
+    
 }
+

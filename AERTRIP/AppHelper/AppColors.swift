@@ -59,7 +59,7 @@ enum AppColors {
     static let themeGreenishWhite  = #colorLiteral(red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
     
     /// RGB - 51, 51, 51
-    static let textFieldTextColor  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    static let textFieldTextColor51  = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 66, 97, 168
     static let fbButtonBackgroundColor  = #colorLiteral(red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
@@ -73,12 +73,24 @@ enum AppColors {
     // RGB - 175,175,170
     static let profileImageBorderColor =  #colorLiteral(red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1)
     
+    // RGB - 220,220,220
+    static let themeGray220 =  #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
+    
       // RGB - 0,0,0 , 0.05
     static let viewProfileDetailTopGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.176193882)
     
     // RGB - 0,0,0, 0.0
      static let viewProfileDetailBottomGradientColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
 
+    // RGB - 126,126,126, 1.0
+    static let toastBackgroundBlur = #colorLiteral(red: 0.4941176471, green: 0.4941176471, blue: 0.4941176471, alpha: 1)
+    
+    // RGB - 236,253,244, 1.0
+    static let iceGreen = #colorLiteral(red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
+    
+    // RGB - 246,246,246, 1.0
+    static let greyO4 = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+    
     case headlines
     case body
     case subheads

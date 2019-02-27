@@ -10,7 +10,7 @@ import UIKit
 
 class ToastView: UIView {
     
-    private var buttonAction: (()->Void)? = nil
+    internal var buttonAction: (()->Void)? = nil
     private var isSettingForDelete: Bool = false
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -56,7 +56,7 @@ extension ToastView {
     func setupToastMessage(title: String = "", message: String, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil) {
         
         self.messageLabel.attributedText = self.getAttrText(title: title, message: message)
-    
+        
         self.buttonAction = buttonAction
         
         self.viewRightButton.setTitle(buttonTitle, for: .normal)
@@ -90,7 +90,7 @@ extension ToastView {
             let attString: NSMutableAttributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16)])
             
             attString.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(14)], range: (finalText as NSString).range(of: title))
-
+            
             return attString
         }
     }

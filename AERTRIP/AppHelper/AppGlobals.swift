@@ -160,7 +160,8 @@ struct AppGlobals {
         let fullString = NSMutableAttributedString(string: startText)
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
-//        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
+
+        //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
         image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
         image1Attachment.image = image
         
@@ -174,6 +175,49 @@ struct AppGlobals {
         
         return fullString
     }
+
+    func getTextWithImageWithLink(startText: String, startTextColor: UIColor, middleText: String , image: UIImage, endText: String,endTextColor: UIColor , middleTextColor: UIColor , font: UIFont) -> NSMutableAttributedString {
+        
+        let fullString = NSMutableAttributedString()
+        
+        //Start Text SetUp
+        let startTextAttribute = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: startTextColor] as [NSAttributedString.Key : Any]
+        let startAttributedString = NSAttributedString(string: startText, attributes: startTextAttribute)
+        
+        //Middle Text SetUp
+        let middleTextAttribute = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: middleTextColor] as [NSAttributedString.Key : Any]
+        let middleAttributedString = NSAttributedString(string: middleText, attributes: middleTextAttribute)
+
+        //Image SetUp
+        let image1Attachment = NSTextAttachment()
+        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.image = image
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        
+        //End Text SetUp
+        let endTextAttribute = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: endTextColor] as [NSAttributedString.Key : Any]
+        let endAttributedString = NSAttributedString(string: endText, attributes: endTextAttribute)
+        
+        // add the NSTextAttachment wrapper to our full string, then add some more text.
+        fullString.append(startAttributedString)
+        fullString.append(middleAttributedString)
+        fullString.append(image1String)
+        fullString.append(endAttributedString)
+        fullString.addAttributes([NSAttributedString.Key.font: font], range: NSRange(location: 0, length: fullString.length))
+        
+        return fullString
+    }
+    
+    
+    func shareWithActivityViewController(VC:UIViewController, shareData: Any) {
+        
+        var sharingData = [Any]()
+        sharingData.append(shareData)
+        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = VC.view
+        VC.present(activityViewController, animated: true, completion: nil)
+        printDebug(sharingData)
+    }    
 }
 
 

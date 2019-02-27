@@ -8,25 +8,22 @@
 import Foundation
 import UIKit
 
-//MARK:-  UIView
+// MARK: -  UIView
+
 extension UIView {
-    
-    public var autoResizingActive:Bool{
-        
+    public var autoResizingActive: Bool {
         get {
             return self.translatesAutoresizingMaskIntoConstraints
         }
         set {
             self.translatesAutoresizingMaskIntoConstraints = autoResizingActive
-            for view in self.subviews{
+            for view in self.subviews {
                 view.autoResizingActive = autoResizingActive
             }
         }
     }
     
-    
-    public var cornerRadius:CGFloat{
-        
+    public var cornerRadius: CGFloat {
         get {
             return self.layer.cornerRadius
         }
@@ -35,6 +32,7 @@ extension UIView {
             self.clipsToBounds = true
         }
     }
+    
     public var x: CGFloat {
         get {
             return self.frame.origin.x
@@ -131,14 +129,53 @@ extension UIView {
         }
     }
     
-    //MARK:- set round corners
-    func roundCorners(corners:UIRectCorner, radius: CGFloat) {
+    // MARK: - set round corners
+    
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         self.layer.mask = mask
     }
     
+    // MARK: - set round corners by clips to bounds
+    
+    func roundCornersByClipsToBounds(cornerRadius: Double) {
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    /// SHOW VIEW
+    func showViewWithFade() {
+        self.alpha = 0.0
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.alpha = 0.0
+        }, completion: { (_: Bool) -> Void in
+            self.alpha = 1.0
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.fade
+            self.layer.add(transition, forKey: nil)
+            self.isHidden = false
+        })
+    }
+    
+    /// HIDE VIEW
+    func hideViewWithFade() {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.alpha = 1.0
+        }, completion: { (_: Bool) -> Void in
+            self.alpha = 0.0
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.fade
+            self.layer.add(transition, forKey: nil)
+            self.isHidden = true
+        })
+    }
     
     public func addGrayShadow(ofColor color: UIColor = UIColor.black, radius: CGFloat = 3, offset: CGSize = .zero, opacity: Float = 0.2, cornerRadius: CGFloat? = nil) {
         layer.shadowColor = color.cgColor
@@ -151,7 +188,6 @@ extension UIView {
         }
     }
     
-    
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
@@ -163,7 +199,7 @@ extension UIView {
         return nil
     }
     
-    func addShadowWith(_ shadowOffset: CGSize = CGSize(width: 0, height: 0), shadowRadius:CGFloat = 10.0, shadowOpacity: Float = 0.8, color: UIColor = UIColor.black) {
+    func addShadowWith(_ shadowOffset: CGSize = CGSize(width: 0, height: 0), shadowRadius: CGFloat = 10.0, shadowOpacity: Float = 0.8, color: UIColor = UIColor.black) {
         self.layer.masksToBounds = false
         self.layer.shadowOffset = shadowOffset
         self.layer.shadowRadius = shadowRadius
@@ -171,8 +207,7 @@ extension UIView {
         self.layer.shadowColor = color.cgColor
     }
     
-    func addNoDataLable(_ withDataCount : Int, withMessage: String = "No Data Found", withFont:UIFont = UIFont.systemFont(ofSize: 18.0), textColor:UIColor = UIColor.lightGray) {
-        
+    func addNoDataLable(_ withDataCount: Int, withMessage: String = "No Data Found", withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {
         self.removeNoDataLabel()
         
         if withDataCount <= 0 {
@@ -197,12 +232,12 @@ extension UIView {
         }
     }
     
-    //method to make a view circular
+    // method to make a view circular
     func makeCircular(borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear) {
         self.cropCorner(radius: self.frame.size.height / 2.0, borderWidth: borderWidth, borderColor: borderColor)
     }
     
-    //method to give corner a view
+    // method to give corner a view
     func cropCorner(radius: CGFloat, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear) {
         self.layer.cornerRadius = radius
         self.layer.borderWidth = borderWidth
@@ -228,5 +263,24 @@ extension UIView {
     func rotate(rotationAngle: CGFloat) {
         self.transform = CGAffineTransform(rotationAngle: rotationAngle)
         self.clipsToBounds = true
+    }
+    
+    var collectionViewCell: UICollectionViewCell? {
+        var subviewClass = self
+        
+        while !(subviewClass is UICollectionViewCell) {
+            guard let view = subviewClass.superview else { return nil }
+            
+            subviewClass = view
+        }
+        
+        return subviewClass as? UICollectionViewCell
+    }
+    
+    func collectionViewIndexPath(_ collectionView: UICollectionView) -> IndexPath? {
+        if let cell = self.collectionViewCell {
+            return collectionView.indexPath(for: cell)
+        }
+        return nil
     }
 }

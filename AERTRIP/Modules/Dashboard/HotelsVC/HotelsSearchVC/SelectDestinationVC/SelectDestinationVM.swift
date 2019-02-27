@@ -15,6 +15,9 @@ protocol SelectDestinationVMDelegate: class {
     
     func getAllPopularHotelsSuccess()
     func getAllPopularHotelsFail()
+    
+    func getMyLocationSuccess(selected: SearchedDestination)
+    func getMyLocationFail()
 }
 
 class SelectDestinationVM: NSObject {
@@ -27,7 +30,7 @@ class SelectDestinationVM: NSObject {
     var popularDestinationLimit: Int {
         return min(_popularDestinationLimit, self.popularHotels.count)
     }
-
+    
     var searchedHotels = JSONDictionary()
     var allTypes: [String] {
         return Array(searchedHotels.keys)
@@ -103,7 +106,10 @@ class SelectDestinationVM: NSObject {
     
     func getAllPopularHotels() {
         
-        APICaller.shared.getPopularHotels(params: [:]) { [weak self] (success, error, hotels) in
+        var params = JSONDictionary()
+        params["popular_destination"] = 1
+        
+        APICaller.shared.getPopularHotels(params: params) { [weak self] (success, error, hotels) in
             
             guard let sSelf = self else {return}
             
@@ -132,6 +138,21 @@ class SelectDestinationVM: NSObject {
         }
         else {
             self._recentSearches = [hotel]
+        }
+    }
+    
+    func hotelsNearByMe() {
+        APICaller.shared.getHotelsNearByMe(params: [:]) { [weak self] (success, error, hotel) in
+            
+            guard let sSelf = self else {return}
+            
+            if success, let obj = hotel {
+                sSelf.delegate?.getMyLocationSuccess(selected: obj)
+            }
+            else {
+                //AppToast.default.sho
+                sSelf.delegate?.getMyLocationFail()
+            }
         }
     }
 }

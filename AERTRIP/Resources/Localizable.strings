@@ -261,6 +261,18 @@
 //MARK:- Preferences VC
 "GroupAlreadyExist" = "Group already exist.";
 
+//Mark:- Hotels Search
+//Mark:-
+"WhereButton" = "Where";
+"CheckIn" = "Check-in";
+"CheckOut" = "Check-out";
+"Nights" = "Nights";
+"AddRoom" = "Add Room";
+"StarRating" = "Star Rating";
+"AllStars" = "All Stars";
+"WantMoreRooms" = "Want more rooms?";
+"RequestBulkBooking" = "Request Bulk Booking";
+"LoginAndSubmit" = "Login & Submit";
 
 //MARK:- Room Guest Selection
 "Room" = "Room";
@@ -273,7 +285,7 @@
 "Ages" = "Ages";
 "AdultsAges" = "Ages 12+";
 "ChildAges" = "Ages 1 - 12";
-"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
+"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 max in a room";
 "ageInYrs" = "Age in yrs";
 
 //MARK:- Destination Selection
@@ -285,6 +297,13 @@
 
 //MARK:- Bulk Booking
 "BulkBooking" = "Bulk Booking";
+"PreferredHotels" = "Preferred Hotels";
+"SpecialRequest" = "Special Request";
+"IfAny" = "(If Any)";
+"Rooms" = "Rooms";
+"BulkEnquirySent" = "Bulk enquiry has been sent";
+"CustomerServicesShallConnect" = "Our Customer service team shall contact you soon regarding this enquiry.";
+"Submit" = "Submit";
 
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
@@ -304,9 +323,71 @@
 "TripAdvisorRating" = "TripAdvisor Rating";
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
+"Recommended" = "Reccommended";
+"LowToHigh" = "Low to high";
+"FiveToOne" = "5 to 1";
+"NearestFirst" = "Nearest first";
 
 // MARK:- Range VC
 "SearchResultsRange" = "Search Results Range";
 
+// MARK: - Price VC
+"PricePerNight" = "Price per night";
 
 
+// MARK: - Amenties VC
+"Wifi" = "Wifi";
+"RoomService" = "Room Service";
+"Internet" = "Internet";
+"AirConditioner" = "Air Conditioner";
+"RestaurantBar" = "Restaurant Bar";
+"Gym" = "Gym";
+"BusinessCenter" = "Business Center";
+"Pool" = "Pool";
+"Spa" = "Spa";
+"Wi_Fi" = "Wi-Fi";
+"Coffee_Shop" = "Coffee Shop";
+
+// MARK: - RoomVC
+
+// Meal
+"NoMeal" = "No Meal";
+"Breakfast" = "Breakfast";
+"HalfBoard" = "Half Board";
+"FullBoard" = "Full Board";
+"Others" = "Others";
+
+// Cancellation policy
+"Refundable" = "Refundable";
+"PartRefundable" = "Part Refundable";
+"NonRefundable" = "Non-refundable";
+
+// Others
+"FreeWifi" = "Free Wifi";
+"TransferInclusive" = "Transfer Inclusive";
+
+//MARK:- HotelFilterResultsVC
+"From" = "From";
+"SelectRoom" = "Select Room";
+"Maps" = "Maps";
+"AddressSmallLaters" = "Address";
+"Overview" = "Overview";
+"More" = "more";
+"ViewAll" = "View all";
+"CheckTripAdvisor" = "Check TripAdvisor Traveler Rating";
+//"Breakfast" = "Breakfast";
+//"Refundable" = "Refundable";
+"hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";
+"Undo" = "Undo";
+"Deleted" = "Deleted";
+"InformationUnavailable" = "Information unavailable";
+"ReloadResults" = "Reload results";
+"main" = "main";
+"basic" = "basic";
+"other" = "other";
+"available" = "available";
+"classType" = "classType";
+
+// Hotel Results
+"ShowHotelsBeyond" = "Show hotels beyond 20km";
+"HideHotelsBeyond" = "Hide hotels beyond 20 km";

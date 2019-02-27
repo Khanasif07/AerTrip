@@ -39,3 +39,34 @@ public extension UIBarButtonItem {
     }
     
 }
+
+extension UIButton {
+    func dumpingButtonSelectionAnimation() {
+        self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 3.0,
+                       options: .allowAnimatedContent,
+                       animations: { [weak self] in
+                        self?.transform = .identity
+            },
+                       completion: nil)
+    }
+    
+    func dumbingButtonDeselctionAnimation() {
+        self.transform = .identity
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 3.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        [weak self] in
+                        self?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            },
+                       completion: nil
+        )
+    }
+}

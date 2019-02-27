@@ -12,14 +12,20 @@ protocol SocialLoginVCDelegate: class {
     func backButtonTapped(_ sender: UIButton)
 }
 
+
 class SocialLoginVC: BaseVC {
-    // MARK: - Properties
     
+    enum UsingFor {
+        case loginProcess, loginVerification
+    }
+    
+    // MARK: - Properties
     // MARK: -
     // used to find the logo view to hide
     let viewModel = SocialLoginVM()
     weak var delegate: SocialLoginVCDelegate?
-    
+    internal var currentlyUsingFrom = UsingFor.loginProcess
+    internal var completion: (() -> Void)? = nil
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var fbButton: ATButton!
@@ -183,7 +189,12 @@ private extension SocialLoginVC {
 
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        self.delegate?.backButtonTapped(sender)
+        if self.currentlyUsingFrom == .loginVerification {
+            //self.animateContentOnPop()
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.delegate?.backButtonTapped(sender)
+        }
     }
 }
 
@@ -210,7 +221,12 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         } else {
             self.linkedInButton.isLoading = false
         }
-        AppFlowManager.default.goToDashboard()
+        if self.currentlyUsingFrom == .loginVerification {
+            self.dismiss(animated: true, completion: self.completion)
+        } else {
+            AppFlowManager.default.goToDashboard()
+        }
+        
     }
     
     func didLoginFail(errors: ErrorCodes) {

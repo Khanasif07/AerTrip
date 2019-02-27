@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchBarHeaderView" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="breakfastButtonOutlet" destination="AQm-p1-PDi" id="K15-Kj-oV3"/>
+                <outlet property="containerView" destination="ZcD-Vo-SL3" id="6j9-Ms-GbT"/>
+                <outlet property="refundableButtonOutlet" destination="2bG-Rf-QCn" id="CoY-Dh-bNS"/>
+                <outlet property="searchBar" destination="gRc-5v-PCM" id="sIx-gs-0Un"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-Vo-SL3">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+                    <subviews>
+                        <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-5v-PCM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="16" y="15" width="343" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="bap-oN-F9Y"/>
+                            </constraints>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-p1-PDi">
+                            <rect key="frame" x="16" y="67" width="86" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="8IO-4M-wzq"/>
+                                <constraint firstAttribute="width" constant="86" id="tFp-a6-rPI"/>
+                            </constraints>
+                            <state key="normal" title="Breakfast"/>
+                            <connections>
+                                <action selector="breakfastButtonAction:" destination="-1" eventType="touchUpInside" id="Ai8-Wy-1uc"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bG-Rf-QCn">
+                            <rect key="frame" x="110" y="67" width="100" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="1Vs-dd-6LC"/>
+                            </constraints>
+                            <state key="normal" title="Refundable"/>
+                            <connections>
+                                <action selector="refundableButtonAction:" destination="-1" eventType="touchUpInside" id="rSG-WO-8w8"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="gRc-5v-PCM" secondAttribute="trailing" constant="16" id="4BO-M0-aqE"/>
+                        <constraint firstItem="gRc-5v-PCM" firstAttribute="leading" secondItem="ZcD-Vo-SL3" secondAttribute="leading" constant="16" id="5fT-g1-p6c"/>
+                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="height" secondItem="AQm-p1-PDi" secondAttribute="height" id="F5B-Ez-gh6"/>
+                        <constraint firstItem="AQm-p1-PDi" firstAttribute="leading" secondItem="gRc-5v-PCM" secondAttribute="leading" id="FdW-xz-kLf"/>
+                        <constraint firstItem="AQm-p1-PDi" firstAttribute="top" secondItem="gRc-5v-PCM" secondAttribute="bottom" constant="16" id="ViH-ME-ETS"/>
+                        <constraint firstItem="gRc-5v-PCM" firstAttribute="top" secondItem="ZcD-Vo-SL3" secondAttribute="top" constant="15" id="gq2-jI-iHN"/>
+                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="leading" secondItem="AQm-p1-PDi" secondAttribute="trailing" constant="8" id="mnv-37-wsj"/>
+                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="centerY" secondItem="AQm-p1-PDi" secondAttribute="centerY" id="wUd-qS-bcg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ZcD-Vo-SL3" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="cUr-5g-xZ5"/>
+                <constraint firstItem="ZcD-Vo-SL3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="phh-Qj-Jrh"/>
+                <constraint firstAttribute="bottom" secondItem="ZcD-Vo-SL3" secondAttribute="bottom" id="rvJ-lj-OxI"/>
+                <constraint firstItem="ZcD-Vo-SL3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xhB-Qf-ZE4"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

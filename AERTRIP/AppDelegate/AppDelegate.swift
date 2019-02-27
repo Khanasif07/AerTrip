@@ -14,6 +14,7 @@ import LinkedinSwift
 import Firebase
 import Fabric
 import Crashlytics
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppFlowManager.default.setupInitialFlow()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
+        
+        GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
         return true
     }
     

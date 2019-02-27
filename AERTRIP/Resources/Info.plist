@@ -122,6 +122,10 @@
 	<string>This app will need the access to your contacts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app will need the access to photo library.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app will need the access to your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app will need the access to your location</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>

@@ -61,6 +61,14 @@ class ATButton: UIButton {
         }
     }
     
+    var myCornerRadius: CGFloat = 0.0 {
+        didSet {
+            self.layer.cornerRadius = self.myCornerRadius
+            self.addShadowLayer()
+            self.addGradientLayer()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

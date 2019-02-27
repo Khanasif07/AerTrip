@@ -304,6 +304,19 @@ enum LocalizedString: String {
     case Remove = "Remove"
     case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
     
+    //Mark:- Hotels Search
+    //Mark:-
+    case WhereButton = "WhereButton"
+    case CheckIn = "CheckIn"
+    case CheckOut = "CheckOut"
+    case Nights = "Nights"
+    case AddRoom = "AddRoom"
+    case StarRating = "StarRating"
+    case AllStars = "AllStars"
+    case WantMoreRooms = "Want More Rooms?"
+    case RequestBulkBooking = "RequestBulkBooking"
+    case LoginAndSubmit = "Login & Submit"
+    
     //MARK:- Room Guest Selection
     case Room = "Room"
     case Adults = "Adults"
@@ -326,6 +339,13 @@ enum LocalizedString: String {
     
     //MARK:- Bulk Booking
     case BulkBooking = "BulkBooking"
+    case PreferredHotels = "PreferredHotels"
+    case SpecialRequest = "SpecialRequest"
+    case IfAny = "IfAny"
+    case Rooms = "Rooms"
+    case BulkEnquirySent = "BulkEnquirySent"
+    case CustomerServicesShallConnect = "CustomerServicesShallConnect"
+    case Submit = "Submit"
     
     //MARK:- FF Search
     case SearchAirlines = "SearchAirlines"
@@ -342,12 +362,69 @@ enum LocalizedString: String {
     
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
-    case StarRating = "Star Rating"
     case Distance = "Distance"
+    case Recommended = "Reccommended"
+    case LowToHigh = "LowToHigh"
+    case FiveToOne = "FiveToOne"
+    case NearestFirst = "NearestFirst"
+    
+    
     
     
     //MARK: - RangeVC
     case SearchResultsRange = "SearchResultsRange"
     
+    
+    //MARK: - PriceVC
+    case PricePerNight = "PricePerNight"
+    
+    // MARK: - RatingVC
+    
+    
+    // MARK: - AmentitiesVC
+    case Wifi = "Wifi"
+    case RoomService = "RoomService"
+    case Internet = "Internet"
+    case AirConditioner = "AirConditioner"
+    case RestaurantBar = "RestaurantBar"
+    case Gym = "Gym";
+    case BusinessCenter = "Business Center"
+    case Pool = "Pool"
+    case Spa = "Spa"
+    case Wi_Fi = "Wi-Fi"
+    case Coffee_Shop = "Coffee Shop"
+    
+    // MARK: - RoomVC
+    
+    // Meal
+    case NoMeal = "NoMeal"
+    case Breakfast = "Breakfast"
+    case HalfBoard = "HalfBoard"
+    case FullBoard = "FullBoard"
+    case Others = "Others"
+    
+    // Cancellation policy
+    case Refundable = "Refundable"
+    case PartRefundable = "PartRefundable"
+    case NonRefundable = "Nonrefundable"
+    
+    // Others
+    case FreeWifi = "FreeWifi"
+    case TransferInclusive = "TransferInclusive"
+    
+    //MARK:- HotelFilterResultsVC
+    case From = "From"
+    case SelectRoom = "SelectRoom"
+    case Maps = "Maps"
+    case AddressSmallLaters = "AddressSmallLaters"
+    case Overview = "Overview"
+    case More = "More"
+    case ViewAll = "ViewAll"
+    case CheckTripAdvisor = "CheckTripAdvisor"
+    case hotelFilterSearchBar = "hotelFilterSearchBar"
+    case InformationUnavailable = "Information unavailable"
+    case ApplyPreviousFilter = "Apply prevoius filters \n 5 stars, within 2 kms, Wi-Fi..."
+    case ReloadResults = "Reload results"
+    case ShowHotelsBeyond = "ShowHotelsBeyond"
+    case HideHotelBeyond = "HideHotelsBeyond"
 }
-

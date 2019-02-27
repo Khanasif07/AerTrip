@@ -86,4 +86,6 @@ struct SearchedDestination: Codable {
         }
         return (arr, allType)
     }
+    
+   
 }

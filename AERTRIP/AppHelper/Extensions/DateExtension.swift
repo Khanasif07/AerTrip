@@ -247,5 +247,15 @@ extension Date {
         }
         
     }
+    
+    func add(years: Int = 0, months: Int = 0, days: Int = 0, hours: Int = 0, minutes: Int = 0, seconds: Int = 0) -> Date? {
+        let components = DateComponents(year: years, month: months, day: days, hour: hours, minute: minutes, second: seconds)
+        return Calendar.current.date(byAdding: components, to: self)
+    }
+    
+    func addDay(days: Int = 0) -> String? {
+        let components = DateComponents(year: 0, month: 0, day: days, hour: 0, minute: 0, second: 0)
+        return Calendar.current.date(byAdding: components, to: self)?.toString(dateFormat: "YYYY-MM-DD")
+    }
 }
 

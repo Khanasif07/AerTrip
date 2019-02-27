@@ -46,4 +46,7 @@ enum AppConstants {
     static let kAnimationDuration = 0.4
     
     static var isStatusBarBlured = true
+
+    static let kGoogleAPIKey = "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
+    static let kRuppeeSymbol = "\u{20B9} "
 }

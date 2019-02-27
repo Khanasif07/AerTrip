@@ -8,38 +8,41 @@
 
 import UIKit
 
-class HotelFilterVC: BaseVC {
-    
-    
-    // MARK: - IB Outlets
-    @IBOutlet weak var clearAllButton : UIButton!
-    @IBOutlet weak var navigationTitleLabel: UILabel!
+protocol HotelFilteVCDelegate: class {
+    func doneButtonTapped()
+}
 
-    @IBOutlet weak var doneButton: UIButton!
+class HotelFilterVC: BaseVC {
+    // MARK: - IB Outlets
     
-    @IBOutlet weak var dataContainerView:UIView!
-    @IBOutlet weak var mainContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mainContainerView: UIView!
-    @IBOutlet weak var navigationView: UIView!
-    @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var clearAllButton: UIButton!
+    @IBOutlet var navigationTitleLabel: UILabel!
     
+    @IBOutlet var doneButton: UIButton!
     
-    //MARK: - Private
+    @IBOutlet var dataContainerView: UIView!
+    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var mainContainerView: UIView!
+    @IBOutlet var navigationView: UIView!
+    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    
+    // MARK: - Private
+    
     private var currentIndex: Int = 0 {
         didSet {
-          //
+            //
         }
     }
+    
     fileprivate weak var categoryView: ATCategoryView!
     
-    
-    
     // MARK: - Variables
-    private let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized,LocalizedString.Ratings.localized,LocalizedString.Amenities.localized]
+    
+    private let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
     private var allTabs: [ATCategoryItem] {
         var temp = [ATCategoryItem]()
         
-        for title in allTabsStr {
+        for title in self.allTabsStr {
             var obj = ATCategoryItem()
             obj.title = title
             temp.append(obj)
@@ -48,14 +51,14 @@ class HotelFilterVC: BaseVC {
         return temp
     }
     
-   
     private var allChildVCs: [UIViewController] = [UIViewController]()
-
+    weak var delegate : HotelFilteVCDelegate?
+    
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.initialSetups()
     }
     
@@ -66,19 +69,13 @@ class HotelFilterVC: BaseVC {
         self.categoryView?.layoutIfNeeded()
     }
     
-    
-    
-    
-    
-    
-    
     // MARK: - Overrider methods
     
     override func setupTexts() {
         self.clearAllButton.setTitle(LocalizedString.ClearAll.localized, for: .normal)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        
     }
+    
     override func setupFonts() {
         self.clearAllButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
@@ -89,33 +86,43 @@ class HotelFilterVC: BaseVC {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
-    
     // MARK: - Helper methods
+    
     func initialSetups() {
-        self.mainContainerView.layer.cornerRadius = 10.0
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 4)
-        for i in 0..<allTabsStr.count {
-            if i != 1 {
-                let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else {
+        self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
+        for i in 0..<self.allTabsStr.count {
+            if i == 1 {
                 let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
                 self.allChildVCs.append(vc)
+            } else if i == 2 {
+                let vc = PriceVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 3 {
+                let vc = RatingVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 4 {
+                let vc = AmenitiesVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 5 {
+                let vc = RoomVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else {
+                let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
             }
-            
         }
         
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
-       self.setupPagerView()
-       self.hide(animated: false)
+        self.setupPagerView()
+        self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             self?.show(animated: true)
         }
     }
     
     private func show(animated: Bool) {
-        
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
             self.view.layoutIfNeeded()
@@ -123,21 +130,17 @@ class HotelFilterVC: BaseVC {
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
+        }, completion: { _ in
             if shouldRemove {
                 self.removeFromParentVC
             }
         })
     }
     
-  
-    
     private func setupPagerView() {
-        
         var style = ATCategoryNavBarStyle()
         style.height = 50.0
         style.interItemSpace = 15.0
@@ -150,8 +153,8 @@ class HotelFilterVC: BaseVC {
         style.defaultFont = AppFonts.Regular.withSize(16.0)
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.textFieldTextColor
-        style.selectedColor = AppColors.textFieldTextColor
+        style.normalColor = AppColors.textFieldTextColor51
+        style.selectedColor = AppColors.textFieldTextColor51
         
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
@@ -159,29 +162,21 @@ class HotelFilterVC: BaseVC {
         self.dataContainerView.addSubview(categoryView)
         self.categoryView = categoryView
     }
-
-
+    
     // MARK: - IB Action
     
-    @IBAction func clearAllButtonTapped(_ sender: Any) {
+    @IBAction func clearAllButtonTapped(_ sender: Any) {}
+    
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        self.hide(animated: true, shouldRemove: true)
+        delegate?.doneButtonTapped()
     }
-    
-    
-    @IBAction func doneButtonTapped(_ sender:Any) {
-      self.hide(animated: true, shouldRemove: true)
-    }
-    
-    
-    
-
 }
 
+// MARK: - ATCategoryNavBarDelegate
 
-// MARK:- ATCategoryNavBarDelegate
-
-extension HotelFilterVC : ATCategoryNavBarDelegate {
+extension HotelFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
     }
 }
-

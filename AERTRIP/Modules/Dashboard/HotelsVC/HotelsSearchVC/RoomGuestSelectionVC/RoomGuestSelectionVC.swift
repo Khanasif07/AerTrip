@@ -9,16 +9,17 @@
 import UIKit
 
 protocol RoomGuestSelectionVCDelegate: class {
-    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int])
+    func didSelectedRoomGuest(adults: Int, children: Int, childrenAges: [Int], roomNumber: Int)
 }
 
 class RoomGuestSelectionVC: BaseVC {
     
     //MARK:- IBOutlets
-    //MARK:-
+    //================
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var mainContainerBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var roomNumberLabel: UILabel!
     @IBOutlet weak var guestSelectionLabel: UILabel!
@@ -27,29 +28,31 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var adultsAgeLabel: UILabel!
     @IBOutlet weak var childTitleLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
-    @IBOutlet var adultsButtons: [UIButton]!
-    @IBOutlet var childrenButtons: [UIButton]!
+    @IBOutlet var adultsButtons: [ATGuestButton]!
+    @IBOutlet var childrenButtons: [ATGuestButton]!
     @IBOutlet weak var ageSelectionLabel: UILabel!
     @IBOutlet var agePickers: [UIPickerView]!
     @IBOutlet weak var agesContainerView: UIStackView!
     @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var firstLineView: UIView!
+    @IBOutlet weak var secondLineView: UIView!
+    @IBOutlet weak var rectangleView: UIView!
     
     
     //MARK:- Properties
-    //MARK:- Public
+    //================
     private(set) var viewModel = RoomGuestSelectionVM()
     weak var delegate: RoomGuestSelectionVCDelegate?
     private var containerHeight: CGFloat {
-        return UIDevice.screenHeight * 0.56
+        //return UIDevice.screenHeight * 0.56
+        return 370.0
     }
-    //MARK:- Private
+    private var mainContainerHeight: CGFloat = 0.0
     
     //MARK:- ViewLifeCycle
-    //MARK:-
+    //====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         self.initialSetups()
     }
     
@@ -74,7 +77,10 @@ class RoomGuestSelectionVC: BaseVC {
         self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.selected)
         
         self.roomNumberLabel.text = "\(LocalizedString.Room.localized) \(self.viewModel.roomNumber)"
-        self.updateSelection(animated: false)
+        delay(seconds: 0.1) {
+            self.updateSelection(animated: false)
+        }
+        
         self.messageLabel.text = LocalizedString.MostHotelsTypicallyAllow.localized
         
         self.adultsTitleLabel.text = LocalizedString.Adults.localized
@@ -112,13 +118,13 @@ class RoomGuestSelectionVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         
-        self.mainContainerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        
+        //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
+        self.rectangleView.cornerRadius = 15.0
+        self.rectangleView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         
         self.setOldAges()
-        
         self.hide(animated: false)
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
@@ -136,9 +142,10 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        
+        self.mainContainerHeight = self.mainContainerHeightConstraint.constant
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
+            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant - self.agesContainerView.frame.height//280.0
             self.view.layoutIfNeeded()
         })
     }
@@ -166,12 +173,22 @@ class RoomGuestSelectionVC: BaseVC {
         
         //update adults buttons
         for button in self.adultsButtons {
+            let oldState = button.isSelected
             button.isSelected = button.tag <= self.viewModel.selectedAdults
+            
+            if oldState != button.isSelected {
+                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "adult_selected")) : button.deselectedState()
+            }
         }
         
         //update children buttons
         for button in self.childrenButtons {
+            let oldState = button.isSelected
             button.isSelected = button.tag <= self.viewModel.selectedChilds
+            
+            if oldState != button.isSelected {
+                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "child_selected")) : button.deselectedState()
+            }
         }
         self.guestSelectionLabel.text = self.viewModel.selectionString
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
@@ -192,6 +209,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
         let mainH = self.containerHeight
+        // - self.agesContainerView.frame.height
+        //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 1.0
@@ -202,11 +221,12 @@ class RoomGuestSelectionVC: BaseVC {
     
     private func hideAgesPicker(animated: Bool) {
         self.enableAgePicker()
-        guard self.mainContainerHeightConstraint.constant == self.containerHeight else {
+        guard self.mainContainerHeightConstraint.constant <= self.containerHeight else {
             return
         }
         
-        let mainH = self.containerHeight - 90.0
+        //let mainH = self.containerHeight - 90.0
+        let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 0.0
@@ -223,12 +243,13 @@ class RoomGuestSelectionVC: BaseVC {
     @objc func tappedOnBackgroundView(_ sender: UIGestureRecognizer) {
         self.hide(animated: true, shouldRemove: true)
     }
+    
     @IBAction func doneButtonAction(_ sender: UIButton) {
-        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge)
+        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
         self.hide(animated: true, shouldRemove: true)
     }
     
-    @IBAction func adultsButtonsAction(_ sender: UIButton) {
+    @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
 
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
@@ -245,7 +266,7 @@ class RoomGuestSelectionVC: BaseVC {
         }
     }
     
-    @IBAction func childrenButtonsAction(_ sender: UIButton) {
+    @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
 
         var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
@@ -268,7 +289,6 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
@@ -277,7 +297,6 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         pickerLabel?.text = "\(row + 1)"
         pickerLabel?.textColor = AppColors.themeBlack
-        
         return pickerLabel!
     }
     
@@ -285,3 +304,5 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         self.viewModel.childrenAge[pickerView.tag] = row + 1
     }
 }
+
+

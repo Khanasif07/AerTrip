@@ -18,6 +18,7 @@ class HotelsResultHeaderView: UIView {
     //MARK:-
     @IBOutlet weak var mapImageView: UIImageView!
 
+    @IBOutlet weak var mapView: UIView!
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: HotelsResultHeaderViewDelegate?

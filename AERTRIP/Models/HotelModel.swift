@@ -48,9 +48,9 @@ struct HotelsModel {
     }
     
     static func models(json: JSON) -> [HotelsModel] {
-
+        
         var hotels = [HotelsModel]()
-
+        
         for (_ , value) in json {
             hotels.append(HotelsModel(json: value))
         }
@@ -60,7 +60,7 @@ struct HotelsModel {
 }
 
 struct CityHotels {
-
+    
     var holetList: [HotelsModel]
     var cityName: String
     
@@ -79,7 +79,7 @@ struct CityHotels {
             object.holetList = HotelsModel.models(json: value)
             hotels.append(object)
         }
-       
+        
         return hotels
     }
 }

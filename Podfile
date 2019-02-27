@@ -19,7 +19,12 @@ target 'AERTRIP' do
     pod 'IQKeyboardManager'
     pod 'Fabric'
     pod 'Crashlytics'
-    
+    pod 'AvailableHapticFeedback'
+    pod 'MiniLayout'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
+    pod 'FlexiblePageControl'
+
     pod 'ActiveLabel'
     pod 'TransitionButton'
 

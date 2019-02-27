@@ -80,7 +80,7 @@ class SideMenuVC: BaseVC {
                 self.profileContainerView = self.getProfileView()
                 self.profileContainerView.delegate = self
                 self.profileContainerView.isUserInteractionEnabled = true
-                self.profileSuperView.addSubview(self.profileContainerView)
+                self.profileSuperView?.addSubview(self.profileContainerView)
             }
         }
     }

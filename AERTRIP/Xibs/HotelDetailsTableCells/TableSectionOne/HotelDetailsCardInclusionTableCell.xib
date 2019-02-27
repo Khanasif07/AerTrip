@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="BLw-Aa-YMl">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Ka-lD0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMU-08-08H">
+                            <rect key="frame" x="16" y="8" width="301" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oy-dU-rah">
+                            <rect key="frame" x="327" y="5.5" width="32" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="j73-b6-Jdm"/>
+                                <constraint firstAttribute="width" constant="32" id="zxc-XH-c1k"/>
+                            </constraints>
+                            <state key="normal" title="Info"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FREE CANCELLATION by 07 Feb’ 18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htb-Ul-ADi">
+                            <rect key="frame" x="16" y="29" width="343" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="9oy-dU-rah" firstAttribute="centerY" secondItem="xMU-08-08H" secondAttribute="centerY" id="9Hx-NF-1mf"/>
+                        <constraint firstItem="xMU-08-08H" firstAttribute="top" secondItem="uR2-Ka-lD0" secondAttribute="top" constant="8" id="PRO-gH-6LG"/>
+                        <constraint firstItem="Htb-Ul-ADi" firstAttribute="top" secondItem="xMU-08-08H" secondAttribute="bottom" constant="4" id="QNH-v1-TTK"/>
+                        <constraint firstItem="9oy-dU-rah" firstAttribute="leading" secondItem="xMU-08-08H" secondAttribute="trailing" constant="10" id="fx4-GX-9Er"/>
+                        <constraint firstItem="Htb-Ul-ADi" firstAttribute="leading" secondItem="uR2-Ka-lD0" secondAttribute="leading" constant="16" id="hrF-5x-W3J"/>
+                        <constraint firstItem="xMU-08-08H" firstAttribute="leading" secondItem="uR2-Ka-lD0" secondAttribute="leading" constant="16" id="nWF-AW-kva"/>
+                        <constraint firstAttribute="trailing" secondItem="Htb-Ul-ADi" secondAttribute="trailing" constant="16" id="oQr-N5-3YW"/>
+                        <constraint firstAttribute="trailing" secondItem="9oy-dU-rah" secondAttribute="trailing" constant="16" id="um5-1J-at4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uR2-Ka-lD0" firstAttribute="leading" secondItem="Q2H-2f-7M4" secondAttribute="leading" id="6gp-xh-zpc"/>
+                <constraint firstItem="uR2-Ka-lD0" firstAttribute="bottom" secondItem="Q2H-2f-7M4" secondAttribute="bottom" id="9AA-67-Thv"/>
+                <constraint firstItem="Q2H-2f-7M4" firstAttribute="trailing" secondItem="uR2-Ka-lD0" secondAttribute="trailing" id="A8q-bS-PMK"/>
+                <constraint firstItem="uR2-Ka-lD0" firstAttribute="top" secondItem="Q2H-2f-7M4" secondAttribute="top" id="zoc-hd-BI2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Q2H-2f-7M4"/>
+            <point key="canvasLocation" x="1070" y="83"/>
+        </view>
+    </objects>
+</document>

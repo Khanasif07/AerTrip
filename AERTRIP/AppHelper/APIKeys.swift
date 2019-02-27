@@ -3,7 +3,7 @@
 //  
 //
 //  Created by Pramod Kumar on 15/05/18.
-//  Copyright © 2018 Pramod Kumar. All rights reserved.
+//  Copyright © 2108 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
@@ -87,6 +87,7 @@ enum APIKeys: String {
     case auto_share = "auto_share"
     case notes = "notes"
     case eid = "eid"
+    case hotelFilter = "hotelFilter"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"
@@ -94,6 +95,111 @@ enum APIKeys: String {
     case dest_name = "dest_name"
     case latitude = "latitude"
     case longitude = "longitude"
+    case check_in = "check_in"
+    case check_out = "check_out"
+    case isPageRefereshed = "isPageRefereshed"
+    case filter = "filter"
+    case star = "star"
+    case vcodes = "vcodes"
+    case sid = "sid"
+    case international = "international"
+    case requestParmaters = "request_parameters"
+    case a = "a"
+    case radius = "r"
+    case underScore = "_"
+   
+
+    
+    case facilities = "facilities"
+    case city_code = "city_code"
+    case acc_type = "acc_type"
+    case temp_price = "temp_price"
+    case price = "price"
+    case at_hotel_fares = "at_hotel_fares"
+    case no_of_nights = "no_of_nights"
+    case num_rooms = "num_rooms"
+    case list_price = "list_price"
+    case tax = "tax"
+    case discount = "discount"
+    case vid = "vid"
+    case hname = "hname"
+    case locid = "locid"
+    case bc = "bc"
+    case fav = "fav"
+    case distance = "distance"
+    case thumbnail = "thumbnail"
+    case ta_reviews  = "ta_reviews"
+    case ta_web_url = "ta_web_url"
+    case per_night_price = "per_night_price"
+    case per_night_list_price = "per_night_list_price"
+    case lat = "lat"
+    case long = "long"
+    case amenities = "amenities"
+    
+    //BulkBookings
+    case source = "source"
+    case from_date = "from_date"
+    case to_date = "to_date"
+    case destination = "destination"
+    case room_count = "room_count"
+    case adt = "adt"
+    case chd = "chd"
+    case preferred = "preferred"
+    case special_request = "special_request"
+    case pType = "pType"
+    
+    //HotelDetails
+    case photos = "photos"
+    //case amenities = "amenities"
+    case amenities_group = "amenities_group"
+    case checkin_time = "checkin_time"
+    case checkout_time = "checkout_time"
+    case checkin = "checkin"
+    case checkout = "checkout"
+    case rates = "rates"
+    case combine_rates = "combine_rates"
+    case info = "info"
+    case is_refetch_cp = "is_refetch_cp"
+    case occupant = "occupant"
+    case main = "main"
+    case basic = "basic"
+    case other = "other"
+    case available = "available"
+    case classType = "classType"
+    case qid = "qid"
+    case can_combine = "can_combine"
+    case hotel_code = "hotel_code"
+    case rooms = "rooms"
+    case terms = "terms"
+    case cancellation_penalty = "cancellation_penalty"
+    case penalty_array = "penalty_array"
+    case group_rooms = "group_rooms"
+    case inclusion_array = "inclusion_array"
+    case payment_info = "payment_info"
+    case part_payment_last_date = "part_payment_last_date"
+    case rid = "rid"
+    case type = "type"
+    case bed_types = "bed_types"
+    case desc = "desc"
+    case max_adult = "max_adult"
+    case max_child = "max_child"
+    case room_reference = "room_reference"
+    case meals = "meals"
+    case cancellation = "cancellation"
+    case is_refundable = "is_refundable"
+    case to = "to"
+    case penalty = "penalty"
+    case tz = "tz"
+    case from = "from"
+    case boardType = "Board Type";
+    case internet = "Internet";
+    case other_inclusions = "Other Inclusions";
+    case notes_inclusion = "Notes";
+    case transfers = "Transfers";
+    case about_Property = "About the Property";
+    case internet_Business_Services = "Internet & Business Services";
+    case food_Drinks = "Food and drinks";
+    case things_To_Do = "Things to do";
+    case Services = "Services";
+
 }
-
-

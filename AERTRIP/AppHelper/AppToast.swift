@@ -18,6 +18,7 @@ struct AppToast {
             switch self {
             case .cross:
                 return #imageLiteral(resourceName: "ic_toast_cross").withRenderingMode(.alwaysOriginal)
+
             }
         }
         
@@ -33,7 +34,9 @@ struct AppToast {
             
             AppToast.isPreviousView = true
             let ob  = ToastView.instanceFromNib()
-            
+
+            ob.buttonAction = buttonAction
+
             if message.lowercased() == LocalizedString.Deleted.localized.lowercased() {
                 ob.setupToastForDelete(buttonAction: buttonAction)
             }

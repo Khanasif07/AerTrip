@@ -144,8 +144,6 @@ class UserInfo {
                    ]
         }
     
-
-        
         init() {
             
             let json = JSON()
@@ -158,12 +156,76 @@ class UserInfo {
             self.displayOrder   = json["display_order"].stringValue
             self.categorizeByGroup   = json["categorize_by_group"].boolValue
             self.labels = json["labels"].arrayObject as? [String] ?? []
+        }
+    }
+    
+    
+    struct HotelFilter : Codable {
+        var ratingCount: [Int] = []
+        var tripAdvisorRatingCount: [Int] = []
+        var isIncludeUnrated: Bool = false
+        var distanceRange : Double = 0.0
+        var minimumPrice : Double = 0.0
+        var maximumPrice : Double = 0.0
+        var amentities : [String] = []
+        var roomMeal : [Int] = []
+        var roomCancelation : [Int] = []
+        var roomOther : [Int] = []
+        var sortUsing : SortUsing = .BestSellers
+        
+        
+        init() {
+            ratingCount =  []
+            tripAdvisorRatingCount  = []
+            isIncludeUnrated  = false
+            distanceRange  = 0.0
+            minimumPrice  = 0.0
+            maximumPrice  = 0.0
+            amentities  = []
+            roomMeal  = []
+            roomCancelation  = []
+            roomOther  = []
+            sortUsing = .BestSellers
+           
+        }
+        
+        
+        private enum CodingKeys: String, CodingKey {
+            case ratingCount
+            case tripAdvisorRatingCount
+            case isIncludeUnrated
+            case distanceRange
+            case minimumPrice
+            case maximumPrice
+            case amentities
+            case roomMeal
+            case roomCancelation
+            case roomOther
+            case sortUsing
+        }
+
+        
+         init(from decoder:Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            ratingCount = try values.decode([Int].self, forKey: .ratingCount)
+            tripAdvisorRatingCount = try values.decode([Int].self, forKey: .tripAdvisorRatingCount)
+            isIncludeUnrated  = try values.decode(Bool.self, forKey: .isIncludeUnrated)
+            distanceRange = try values.decode(Double.self, forKey: .distanceRange)
+            minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
+            maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
+            amentities = try values.decode([String].self, forKey: .amentities)
+            roomMeal = try values.decode([Int].self, forKey: .roomMeal)
+            roomCancelation = try values.decode([Int].self, forKey: .roomCancelation)
+            roomOther = try values.decode([Int].self, forKey: .roomOther)
+            sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             
             
         }
         
         
+        
     }
+    
     
     static var loggedInUserId:String?{
         get{
@@ -181,6 +243,7 @@ class UserInfo {
             }
         }
     }
+
     
     static var loggedInUser:UserInfo? {
         
@@ -189,6 +252,7 @@ class UserInfo {
         }
         return nil
     }
+
 
     private var userData:JSONDictionary?{
         return UserDefaults.getObject(forKey: "userProfileData_\(userId)") as? JSONDictionary
@@ -413,6 +477,23 @@ class UserInfo {
             }
             else{
                 UserDefaults.removeObject(forKey: APIKeys.generalPref.rawValue)
+            }
+        }
+    }
+    
+    var hotelFilter: HotelFilter? {
+        get {
+            if let obj = UserDefaults.standard.retrieve(object: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
+                return obj
+            }
+            return nil
+        }
+        set {
+            if let vlaue = newValue {
+                UserDefaults.standard.save(customObject: vlaue, inKey: APIKeys.hotelFilter.rawValue)
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.hotelFilter.rawValue)
             }
         }
     }
