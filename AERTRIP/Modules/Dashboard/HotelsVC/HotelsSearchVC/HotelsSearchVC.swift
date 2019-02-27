@@ -82,13 +82,17 @@ class HotelsSearchVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.recentSearchData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
+//        self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
-        self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
-        //self.scrollView.contentSize
+//        self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
     }
     
     override func viewDidLayoutSubviews() {
@@ -196,12 +200,11 @@ class HotelsSearchVC: BaseVC {
         self.containerView.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        //self.containerView.addCardShadow()
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
-        self.recentSearchData()
+//        self.recentSearchData()
     }
     
     ///ConfigureCheckInOutView
@@ -357,7 +360,6 @@ class HotelsSearchVC: BaseVC {
     }
     
     //MARK:- Public
-    
     //MARK:- IBAction
     //===============
     @IBAction func starButtonsAction(_ sender: UIButton) {
@@ -535,7 +537,8 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
         self.view.isUserInteractionEnabled = true
-        self.viewModel.hotelListOnPreferenceResult()
+        self.searchBtnOutlet.isLoading = false
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
     }
     
     func getAllHotelsOnPreferenceFail() {
@@ -545,18 +548,9 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
     
     func getAllHotelsListResultSuccess() {
-        printDebug("data")
-        self.view.isUserInteractionEnabled = true
-        if let hotelSearchRequest = self.viewModel.hotelSearchRequst {
-            AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid , hotelSearchRequest: hotelSearchRequest)
-            self.searchBtnOutlet.isLoading = false
-        }
     }
     
     func getAllHotelsListResultFail() {
-        printDebug("getAllHotelsListResultFail")
-        self.searchBtnOutlet.isLoading = false
-        self.view.isUserInteractionEnabled = true
     }
     
     func getRecentSearchesDataSuccess() {
@@ -564,9 +558,13 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
             if recentSearchesData.isEmpty {
                 self.recentContainerView.isHidden = true
                 self.recentContainerHeightConstraint.constant = 0.0
+                self.scrollView.contentSize.height = UIScreen.main.bounds.height
+                self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             } else {
                 self.recentContainerView.isHidden = false
                 self.recentContainerHeightConstraint.constant = 194.0
+                self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
+                self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
                 recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
                 recentSearchesView.recentCollectionView.reloadData()
             }
