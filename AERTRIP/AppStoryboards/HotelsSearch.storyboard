@@ -1708,22 +1708,34 @@ been sent</string>
                                             <constraint firstItem="hQN-6x-DSh" firstAttribute="leading" secondItem="1YK-7o-PS1" secondAttribute="leading" constant="16" id="zOe-cF-M9e"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwz-g6-UrA">
-                                        <rect key="frame" x="0.0" y="707" width="375" height="154"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVa-Yx-0ni">
+                                        <rect key="frame" x="0.0" y="667" width="375" height="194"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwz-g6-UrA">
+                                                <rect key="frame" x="0.0" y="40" width="375" height="154"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="154" id="0O5-Cu-G1a"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="154" id="0O5-Cu-G1a"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jwz-g6-UrA" secondAttribute="trailing" id="AGg-fK-RJe"/>
+                                            <constraint firstAttribute="bottom" secondItem="Jwz-g6-UrA" secondAttribute="bottom" id="JyL-2o-SGb"/>
+                                            <constraint firstAttribute="height" constant="194" id="c5i-Xd-zce"/>
+                                            <constraint firstItem="Jwz-g6-UrA" firstAttribute="leading" secondItem="qVa-Yx-0ni" secondAttribute="leading" id="xME-oU-O0j"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="1YK-7o-PS1" firstAttribute="top" secondItem="CDH-qY-Oui" secondAttribute="top" id="8gn-EK-VAZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="qVa-Yx-0ni" secondAttribute="trailing" id="Ffu-lz-sTc"/>
                                     <constraint firstItem="1YK-7o-PS1" firstAttribute="leading" secondItem="CDH-qY-Oui" secondAttribute="leading" constant="16" id="NaK-Vq-Yop"/>
-                                    <constraint firstAttribute="trailing" secondItem="Jwz-g6-UrA" secondAttribute="trailing" id="Ych-4z-Msv"/>
+                                    <constraint firstItem="qVa-Yx-0ni" firstAttribute="top" secondItem="1YK-7o-PS1" secondAttribute="bottom" id="PLk-79-t9Q"/>
                                     <constraint firstAttribute="trailing" secondItem="1YK-7o-PS1" secondAttribute="trailing" constant="16" id="b9U-5j-Qlr"/>
-                                    <constraint firstItem="Jwz-g6-UrA" firstAttribute="top" secondItem="1YK-7o-PS1" secondAttribute="bottom" constant="40" id="dFf-kG-BUI"/>
-                                    <constraint firstItem="Jwz-g6-UrA" firstAttribute="leading" secondItem="CDH-qY-Oui" secondAttribute="leading" id="dgB-a7-wsx"/>
+                                    <constraint firstItem="qVa-Yx-0ni" firstAttribute="leading" secondItem="CDH-qY-Oui" secondAttribute="leading" id="gTZ-Z4-FKz"/>
                                     <constraint firstItem="1YK-7o-PS1" firstAttribute="centerX" secondItem="CDH-qY-Oui" secondAttribute="centerX" id="lv2-53-yti"/>
                                     <constraint firstAttribute="bottom" secondItem="1YK-7o-PS1" secondAttribute="bottom" constant="20" id="vyO-qH-59a"/>
                                 </constraints>
@@ -1752,6 +1764,8 @@ been sent</string>
                         <outlet property="fourStarLabel" destination="l82-Be-Pxa" id="vRY-cZ-62f"/>
                         <outlet property="fourthLineView" destination="hQN-6x-DSh" id="DaS-bz-6p8"/>
                         <outlet property="oneStarLabel" destination="r9g-Pq-mrV" id="jKC-X6-Nbl"/>
+                        <outlet property="recentContainerHeightConstraint" destination="c5i-Xd-zce" id="ezi-PY-CQP"/>
+                        <outlet property="recentContainerView" destination="qVa-Yx-0ni" id="PBH-cU-8wM"/>
                         <outlet property="recentSearchesContainerView" destination="Jwz-g6-UrA" id="T6k-ZR-pRl"/>
                         <outlet property="scrollView" destination="CDH-qY-Oui" id="4Du-6s-dlk"/>
                         <outlet property="searchBtnOutlet" destination="Tgd-wk-t9D" id="Clk-hR-6Nk"/>

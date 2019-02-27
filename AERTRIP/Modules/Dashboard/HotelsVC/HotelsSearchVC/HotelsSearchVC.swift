@@ -32,7 +32,7 @@ class HotelsSearchVC: BaseVC {
     private var returnUserId: String? {
         return UserInfo.loggedInUserId
     }
-
+    
     //MARK:- IBOutlets
     //================
     @IBOutlet weak var scrollView: UIScrollView!
@@ -67,6 +67,8 @@ class HotelsSearchVC: BaseVC {
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var whereLabel: UILabel!
+    @IBOutlet weak var recentContainerView: UIView!
+    @IBOutlet weak var recentContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentSearchesContainerView: UIView! {
         didSet {
             self.recentSearchesContainerView.layoutMargins = UIEdgeInsets(top: -20.0, left: -20.0, bottom: -20.0, right: -20.0)
@@ -82,18 +84,24 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
-        self.scrollViewContentSize = self.scrollView.contentSize
+        self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
+        //self.scrollView.contentSize
     }
     
     override func viewDidLayoutSubviews() {
-//        self.shadowOnviewWithcornerRadius(objView: self.containerView)
+        super.viewDidLayoutSubviews()
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
+        }
+        if !(self.scrollViewContentSize == CGSize.zero) {
+            self.updateCollectionViewFrame()
         }
     }
     
@@ -147,7 +155,9 @@ class HotelsSearchVC: BaseVC {
         if let _ = self.returnUserId  {
             self.viewModel.getRecentSearchesData()
         } else {
-          printDebug("User is not logged in")
+            self.recentContainerView.isHidden = true
+            self.recentContainerHeightConstraint.constant = 0.0
+            printDebug("User is not logged in")
         }
     }
     
@@ -228,16 +238,20 @@ class HotelsSearchVC: BaseVC {
     ///UpdateCollectionViewFrame
     private func updateCollectionViewFrame() {
         if self.viewModel.adultsCount.count == 2 {
-            self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
-            self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+                self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
                 self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                //self.view.layoutIfNeeded()
             }
         } else if self.viewModel.adultsCount.count == 1 {
-            self.containerViewHeightConstraint.constant =  self.containerViewHeight
-            self.scrollView.contentSize.height = self.scrollViewContentSize.height
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.containerViewHeightConstraint.constant =  self.containerViewHeight
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                //self.view.layoutIfNeeded()
             }
         }
     }
@@ -342,17 +356,7 @@ class HotelsSearchVC: BaseVC {
         final.removeLast(2)
         return final + " \(LocalizedString.stars.localized)"
     }
-//
-//    func shadowOnviewWithcornerRadius(objView :UIView) {
-//        objView.layer.shadowColor = AppColors.themeBlack.cgColor
-//        objView.layer.shadowOpacity = 0.5
-//        objView.layer.shadowRadius  = 5
-//        objView.layer.shadowOffset  = CGSize(width :0, height :3)
-//        objView.layer.masksToBounds = false
-//        objView.layer.cornerRadius  =  10.0
-//        objView.layer.borderWidth   = 0.5
-//    }
-
+    
     //MARK:- Public
     
     //MARK:- IBAction
@@ -529,7 +533,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
-
+    
     func getAllHotelsOnPreferenceSuccess() {
         self.viewModel.hotelListOnPreferenceResult()
     }
@@ -556,9 +560,16 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
     
     func getRecentSearchesDataSuccess() {
-        if let recentSearchesView = self.recentSearchesView {
-            recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
-            recentSearchesView.recentCollectionView.reloadData()
+        if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
+            if recentSearchesData.isEmpty {
+                self.recentContainerView.isHidden = true
+                self.recentContainerHeightConstraint.constant = 0.0
+            } else {
+                self.recentContainerView.isHidden = false
+                self.recentContainerHeightConstraint.constant = 194.0
+                recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
+                recentSearchesView.recentCollectionView.reloadData()
+            }
         }
         printDebug(self.viewModel.recentSearchesData)
     }

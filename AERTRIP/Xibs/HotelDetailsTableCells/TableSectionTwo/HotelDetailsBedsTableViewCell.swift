@@ -57,6 +57,11 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedSelectionDropDown.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }
     
+    internal func configCell(numberOfRooms: Int , roomData: RoomsRates) {
+        self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
+        self.bedDiscriptionLabel.text = roomData.name
+    }
+    
     //Mark:- IBActions
     //================
     @IBAction func bookmarkButtonAction(_ sender: UIButton) {

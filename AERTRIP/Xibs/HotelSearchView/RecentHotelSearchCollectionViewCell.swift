@@ -57,6 +57,14 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         self.stateNameLabel.textColor = blackColor
         self.totalNightsLabel.textColor = grayColor
         self.totalAdultsLabel.textColor = grayColor
+        
+        //Text
+        self.searchTypeLabel.text = ""
+        self.timeLabel.text = ""
+        self.cityNameLabel.text = ""
+        self.stateNameLabel.text = ""
+        self.totalNightsLabel.text = ""
+        self.totalAdultsLabel.text = ""
     }
 
     ///ConfigureCell

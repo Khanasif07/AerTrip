@@ -165,7 +165,7 @@ enum APIKeys: String {
     case basic = "basic"
     case other = "other"
     case available = "available"
-    case classType = "classType"
+    case classType = "class"
     case qid = "qid"
     case can_combine = "can_combine"
     case hotel_code = "hotel_code"
