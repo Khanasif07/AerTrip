@@ -544,6 +544,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
     }
     
     func getAllHotelsListResultSuccess() {
