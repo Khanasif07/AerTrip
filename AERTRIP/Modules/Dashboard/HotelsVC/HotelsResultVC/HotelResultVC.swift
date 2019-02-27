@@ -52,6 +52,7 @@ class HotelResultVC: BaseVC {
     var timer: Timer?
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
+    var searchIntitialFrame: CGRect = .zero
     private var completion: (() -> Void)?
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -139,7 +140,7 @@ class HotelResultVC: BaseVC {
         self.collectionView.delegate = self
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
-        
+        self.searchIntitialFrame = self.searchBar.frame
         self.reloadHotelList()
     }
     
@@ -240,7 +241,7 @@ class HotelResultVC: BaseVC {
 
         let tranformTran = CGAffineTransform(translationX: 0, y: -50)
        // self.headerContatinerViewHeightConstraint.constant = 50
-        self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x
+        self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
             , y:self.searchBar.frame.origin.y, width: 200, height: 50)
         UIView.animate(withDuration: 0.5, animations: {
             self.searchBar.transform = tranformTran
