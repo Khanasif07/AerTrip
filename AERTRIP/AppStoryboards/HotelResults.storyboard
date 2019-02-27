@@ -18,9 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-Qa-Qei">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-Qa-Qei">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="4ua-7j-9Zr" id="ob4-TE-Ces"/>
+                                    <outlet property="delegate" destination="4ua-7j-9Zr" id="uvc-N8-CSV"/>
+                                </connections>
                             </tableView>
                             <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-Nu-HFX">
                                 <rect key="frame" x="169.5" y="26" width="36" height="4"/>
@@ -55,6 +59,7 @@
                     <connections>
                         <outlet property="headerView" destination="iuD-wn-tNY" id="PAa-0b-0wu"/>
                         <outlet property="hotelTableView" destination="5kb-Qa-Qei" id="jcD-h6-X3e"/>
+                        <outlet property="smallLineView" destination="9ab-Nu-HFX" id="hoO-et-YIP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MC6-g8-4aL" userLabel="First Responder" sceneMemberID="firstResponder"/>

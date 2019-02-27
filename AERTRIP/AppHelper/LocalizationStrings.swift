@@ -427,4 +427,6 @@ enum LocalizedString: String {
     case ReloadResults = "Reload results"
     case ShowHotelsBeyond = "ShowHotelsBeyond"
     case HideHotelBeyond = "HideHotelsBeyond"
+    case Choose_App = "Choose_App"
+    case GMap = "GMap"
 }

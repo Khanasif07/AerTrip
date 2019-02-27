@@ -680,3 +680,10 @@ extension String {
         return stylizedPrice
     }
 }
+
+extension String {
+    func deletingPrefix(prefix: String) -> String {
+        guard self.hasPrefix(prefix) else { return self }
+        return String(self.dropFirst(prefix.count))
+    }
+}

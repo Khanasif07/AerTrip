@@ -23,7 +23,7 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         self.initialSetUp()
-    }
+        }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,11 +46,12 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     ///ConfigureUI
     private func configureUI() {
         //Colors
+        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         let whiteColor = AppColors.themeWhite
         self.containerView.backgroundColor = AppColors.themeGreen
         self.fromLabel.textColor = whiteColor
         self.hotelFeesLabel.textColor = whiteColor
-        self.selectRoomLabel.textColor = whiteColor
+        self.selectRoomLabel.textColor = whiteColor//.withAlphaComponent(0.35)
         
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
@@ -60,7 +61,7 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
         
         //Text
         self.fromLabel.text = LocalizedString.From.localized
-        self.hotelFeesLabel.text = "₹ 35,500"
+//        self.hotelFeesLabel.text = "₹ 35,500"
         self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
     }
 }

@@ -61,7 +61,7 @@ struct RequestParameters {
         self.checkIn = json[APIKeys.check_in.rawValue].stringValue
         self.checkOut = json[APIKeys.check_out.rawValue].stringValue
         self.country = json[APIKeys.country.rawValue].stringValue
-        self.longitude = json[APIKeys.latitude.rawValue].stringValue
+        self.longitude = json[APIKeys.longitude.rawValue].stringValue
         self.destType = json[APIKeys.dest_type.rawValue].stringValue
         self.city = json[APIKeys.city.rawValue].stringValue
         self.destName = json[APIKeys.dest_name.rawValue].stringValue

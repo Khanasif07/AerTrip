@@ -12,7 +12,7 @@ class RecentHotelSearcheView: UIView {
     
     //Mark:- Variables
     //================
-    
+    internal var recentSearchesData: [RecentSearchesModel]?
     
     //Mark:- IBOutlets
     //================
@@ -53,7 +53,7 @@ class RecentHotelSearcheView: UIView {
     }
     
     private func configureUI() {
-        self.recentSearchLabel.textColor =  AppColors.themeWhite
+        self.recentSearchLabel.textColor =  AppColors.themeWhite.withAlphaComponent(0.5)
         self.recentSearchLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
@@ -67,11 +67,14 @@ class RecentHotelSearcheView: UIView {
 extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return recentSearchesData?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecentHotelSearchCollectionViewCell", for: indexPath) as? RecentHotelSearchCollectionViewCell else { return UICollectionViewCell()
+        }
+        if let safeRecentData = self.recentSearchesData {
+            cell.configureCell(recentSearchesData: safeRecentData[indexPath.item])
         }
         return cell
     }
@@ -82,10 +85,6 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0//CGFloat.leastNonzeroMagnitude
+        return 10.0
     }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 10.0
-//    }
 }

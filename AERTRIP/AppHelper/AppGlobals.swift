@@ -217,7 +217,14 @@ struct AppGlobals {
         activityViewController.popoverPresentationController?.sourceView = VC.view
         VC.present(activityViewController, animated: true, completion: nil)
         printDebug(sharingData)
-    }    
+    }
+    
+    ///GET TEXT SIZE
+    func getTextWidthAndHeight(text: String , fontName: UIFont) -> CGSize{
+        let fontAttributes = [NSAttributedString.Key.font: fontName]
+        let sizeOfText = text.size(withAttributes: fontAttributes)
+        return sizeOfText
+    }
 }
 
 

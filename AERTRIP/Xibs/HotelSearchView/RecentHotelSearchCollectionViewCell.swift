@@ -10,10 +10,13 @@ import UIKit
 
 class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
 
+    //Mark:- IBOutlets
+    //================
     @IBOutlet weak var containerView: UIView! {
         didSet {
             self.containerView.layer.cornerRadius = 10.0
             self.containerView.layer.masksToBounds = true
+            self.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.5)
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!
@@ -24,11 +27,16 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var totalAdultsLabel: UILabel!
     
+    //Mark:- LifeCycle
+    //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
     }
     
+    //Mark:- Functions
+    //================
+    ///InitialSetUp
     private func initialSetUp() {
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
@@ -43,19 +51,69 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
         let greenColor = AppColors.themeGreen
-        self.searchTypeLabel.textColor = greenColor
-        self.timeLabel.textColor = greenColor
+        self.searchTypeLabel.textColor = greenColor.withAlphaComponent(0.5)
+        self.timeLabel.textColor = greenColor.withAlphaComponent(0.5)
         self.cityNameLabel.textColor = blackColor
         self.stateNameLabel.textColor = blackColor
         self.totalNightsLabel.textColor = grayColor
         self.totalAdultsLabel.textColor = grayColor
         
-        ///Text
-        
+        //Text
+        self.searchTypeLabel.text = ""
+        self.timeLabel.text = ""
+        self.cityNameLabel.text = ""
+        self.stateNameLabel.text = ""
+        self.totalNightsLabel.text = ""
+        self.totalAdultsLabel.text = ""
     }
 
-    internal func configureCell() {
-        
+    ///ConfigureCell
+    internal func configureCell(recentSearchesData: RecentSearchesModel) {
+        self.timeLabel.text = recentSearchesData.time_ago
+        self.searchTypeLabel.text = recentSearchesData.dest_type
+        let cityName = recentSearchesData.dest_name.split(separator: ",")
+        self.cityNameLabel.text = "\(cityName.first ?? "")"
+        let prefix: String = recentSearchesData.dest_name.firstWord + " "
+        self.stateNameLabel.text = recentSearchesData.dest_name.deletingPrefix(prefix: prefix)
+        let totalNights = (recentSearchesData.totalNights == 1 ? " (\(recentSearchesData.totalNights) Night)" : " (\(recentSearchesData.totalNights) Nights)")
+        if let checkInDate = self.getDateFromString(stringDate: recentSearchesData.checkInDate), let checkOutDate = self.getDateFromString(stringDate: recentSearchesData.checkOutDate) {
+            self.totalNightsLabel.text = checkInDate + " - " + checkOutDate + "\(totalNights)"
+        }
+        self.adultAndRoomText(recentSearchesData: recentSearchesData)
     }
     
+    ///GetDateFromString
+    private func getDateFromString(stringDate: String) -> String? {
+        //String to Date Convert
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, dd MMM yy"
+        let date = dateFormatter.date(from: stringDate)
+        //CONVERT FROM Date to String
+        dateFormatter.dateFormat = "dd MMM"
+        return dateFormatter.string(from: date!)
+    }
+    
+    ///AdultAndRoomText
+    private func adultAndRoomText(recentSearchesData: RecentSearchesModel) {
+        var roomCount: Int = 0
+        var adultCounts: Int = 0
+        if let roomData = recentSearchesData.room {
+            for roomData in roomData {
+                if roomData.isPresent{
+                    roomCount += 1
+                    adultCounts += Int(roomData.adultCounts) ?? 0
+                }
+            }
+        }
+        let roomText = (roomCount == 1) ? "\(roomCount) Room" : "\(roomCount) Rooms"
+        let adultText = adultCounts == 1 ? "\(adultCounts) Adult" : "\(adultCounts) Adults"
+        self.totalAdultsLabel.text = roomText + " (\(adultText))"
+        
+       /*let guestsData = recentSearchesData.guestsValue.split(separator: ",")
+         let roomCounts = guestsData.first
+         let adultData = guestsData.last?.split(separator: " ")
+         let adultCount = "\(adultData?.first ?? "")" == "1" ? "\(adultData?.first ?? "") Adult" : "\(adultData?.first ?? "") Adults"
+         self.totalAdultsLabel.text = "\(roomCounts ?? "") (\(adultCount))"*/
+        
+    }
 }

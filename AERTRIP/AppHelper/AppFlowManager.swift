@@ -263,7 +263,7 @@ extension AppFlowManager {
         }
     }
     
-    func moveToHotelsResultVc(_ hotelSearchRequest :HotelSearchRequestModel) {
+    func moveToHotelsResultVc(_ hotelSearchRequest: HotelSearchRequestModel) {
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -307,10 +307,11 @@ extension AppFlowManager {
         }
     }
     
-    func presentHotelDetailsVC(hotelInfo: HotelSearched , sid: String) {
+    func presentHotelDetailsVC(hotelInfo: HotelSearched , sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
         let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelInfo = hotelInfo
         ob.viewModel.sid = sid
+        ob.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     

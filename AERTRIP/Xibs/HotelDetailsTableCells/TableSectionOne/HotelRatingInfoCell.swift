@@ -44,12 +44,27 @@ class HotelRatingInfoCell: UITableViewCell {
         self.distanceLabel.font = AppFonts.Regular.withSize(16.0)
         
         //Text
-        self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
+        //self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
+        //self.distanceLabel.text = "U+1F698"
     }
     
     internal func configureCell(hotelData: HotelSearched) {
         self.hotelNameLabel.text = hotelData.hotelName
         self.distanceLabel.text = "\(hotelData.distance) km •🚶🏻 4 min"
+        self.hotelRatingView.rating = hotelData.star
+        self.hotelDotsView.rating = hotelData.rating
+    }
+
+        
+    internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel) {
+        self.hotelNameLabel.text = hotelData.hotelName
+        let modeImage: String
+        if placeData.durationValue/60 <= 10 {
+            modeImage = " •🚶🏻 "
+        } else {
+            modeImage = " •🚘 "
+        }
+        self.distanceLabel.text = "\(placeData.distanceText) + \(modeImage) + \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
         self.hotelRatingView.rating = hotelData.star
         self.hotelDotsView.rating = hotelData.rating
     }

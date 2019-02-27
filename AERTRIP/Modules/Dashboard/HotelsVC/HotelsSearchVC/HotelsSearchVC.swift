@@ -29,6 +29,9 @@ class HotelsSearchVC: BaseVC {
     private var cellWidth: CGFloat{
         return self.addRoomCollectionView.frame.size.width / 2.0
     }
+    private var returnUserId: String? {
+        return UserInfo.loggedInUserId
+    }
     
     //MARK:- IBOutlets
     //================
@@ -64,6 +67,8 @@ class HotelsSearchVC: BaseVC {
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var whereLabel: UILabel!
+    @IBOutlet weak var recentContainerView: UIView!
+    @IBOutlet weak var recentContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentSearchesContainerView: UIView! {
         didSet {
             self.recentSearchesContainerView.layoutMargins = UIEdgeInsets(top: -20.0, left: -20.0, bottom: -20.0, right: -20.0)
@@ -79,17 +84,24 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
-        self.scrollViewContentSize = self.scrollView.contentSize
+        self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
+        //self.scrollView.contentSize
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
+        }
+        if !(self.scrollViewContentSize == CGSize.zero) {
+            self.updateCollectionViewFrame()
         }
     }
     
@@ -138,6 +150,17 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
     }
     
+    ///RecentSearchData
+    private func recentSearchData() {
+        if let _ = self.returnUserId  {
+            self.viewModel.getRecentSearchesData()
+        } else {
+            self.recentContainerView.isHidden = true
+            self.recentContainerHeightConstraint.constant = 0.0
+            printDebug("User is not logged in")
+        }
+    }
+    
     //ScrollViewDidScroll
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -174,10 +197,12 @@ class HotelsSearchVC: BaseVC {
         self.containerView.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        //self.containerView.addCardShadow()
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
+        self.recentSearchData()
     }
     
     ///ConfigureCheckInOutView
@@ -213,16 +238,20 @@ class HotelsSearchVC: BaseVC {
     ///UpdateCollectionViewFrame
     private func updateCollectionViewFrame() {
         if self.viewModel.adultsCount.count == 2 {
-            self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
-            self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+                self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
                 self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                //self.view.layoutIfNeeded()
             }
         } else if self.viewModel.adultsCount.count == 1 {
-            self.containerViewHeightConstraint.constant =  self.containerViewHeight
-            self.scrollView.contentSize.height = self.scrollViewContentSize.height
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.containerViewHeightConstraint.constant =  self.containerViewHeight
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                //self.view.layoutIfNeeded()
             }
         }
     }
@@ -344,6 +373,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
+        self.view.isUserInteractionEnabled = false
         sender.isLoading = true
         self.viewModel.hotelListOnPreferencesApi()
     }
@@ -506,28 +536,40 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
       //  self.viewModel.hotelListOnPreferenceResult()
+        self.view.isUserInteractionEnabled = true
             self.searchBtnOutlet.isLoading = false
-           AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
     }
     
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
     }
     
     func getAllHotelsListResultSuccess() {
-        printDebug("data")
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
-        self.searchBtnOutlet.isLoading = false
+       
     }
     
     func getAllHotelsListResultFail() {
-        printDebug("getAllHotelsListResultFail")
-        self.searchBtnOutlet.isLoading = false
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
+        
     }
     
+    func getRecentSearchesDataSuccess() {
+        if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
+            if recentSearchesData.isEmpty {
+                self.recentContainerView.isHidden = true
+                self.recentContainerHeightConstraint.constant = 0.0
+            } else {
+                self.recentContainerView.isHidden = false
+                self.recentContainerHeightConstraint.constant = 194.0
+                recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
+                recentSearchesView.recentCollectionView.reloadData()
+            }
+        }
+        printDebug(self.viewModel.recentSearchesData)
+    }
+    
+    func getRecentSearchesDataFail() {
+        printDebug("recent searches data parsing failed")
+    }
 }
-
-

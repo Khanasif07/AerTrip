@@ -12,7 +12,8 @@ class HotelDetailAmenitiesCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "wifi_icon"),#imageLiteral(resourceName: "roomService_icon"),#imageLiteral(resourceName: "fitness_icon"),#imageLiteral(resourceName: "breakfast_icon"),#imageLiteral(resourceName: "business_icon"),#imageLiteral(resourceName: "internet_icon"),#imageLiteral(resourceName: "pool_icon"),#imageLiteral(resourceName: "restaurant_icon"),#imageLiteral(resourceName: "ac_icon"),#imageLiteral(resourceName: "spa_icon")]
+    private let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "ame-wi-fi"),#imageLiteral(resourceName: "ame-room-service"),#imageLiteral(resourceName: "ame-gym"),#imageLiteral(resourceName: "ame-coffee-shop"),#imageLiteral(resourceName: "ame-business-center"),#imageLiteral(resourceName: "ame-internet"),#imageLiteral(resourceName: "ame-pool"),#imageLiteral(resourceName: "ame-restaurant-bar"),#imageLiteral(resourceName: "ame-air-conditioner"),#imageLiteral(resourceName: "ame-spa")]
+    internal var amenitiesDetails: Amenities?
     
     //Mark:- IBOutlets
     //================
@@ -61,7 +62,6 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         self.amenitiesCollectionView.register(amenitiesNib, forCellWithReuseIdentifier: "AmenitiesCollectionCell")
     }
     
-    
     @IBAction func viewAllBtnAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController as? HotelDetailsVC , let hotelData = parentVC.viewModel.hotelData {
             AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
@@ -74,14 +74,19 @@ class HotelDetailAmenitiesCell: UITableViewCell {
 extension HotelDetailAmenitiesCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.amenitiesItems.count
+        if let safeAmenitiesData = self.amenitiesDetails?.main {
+            return safeAmenitiesData.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmenitiesCollectionCell", for: indexPath) as? AmenitiesCollectionCell else {
             return UICollectionViewCell()
         }
-        cell.configureCell(amenitiesItem: self.amenitiesItems[indexPath.item])
+        if let safeAmenitiesData = self.amenitiesDetails?.main {
+            cell.configureCell(amenitiesMainData: safeAmenitiesData[indexPath.item])
+        }
         return cell
     }
     

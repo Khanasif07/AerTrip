@@ -252,7 +252,7 @@ struct Amenities {
     
     //Mark:- Variables
     //================
-    var main: [Main]? = nil
+    var main: [AmenitiesMain]? = nil
     var basic: [String] = []
     var other: [String] = []
     
@@ -270,7 +270,7 @@ struct Amenities {
 
     init(json: JSONDictionary) {
         if let mainData = json[APIKeys.main.rawValue] as? [JSONDictionary] {
-            self.main = Main.getMainData(response: mainData)
+            self.main = AmenitiesMain.getMainData(response: mainData)
         }
         
         if let otherData = json[APIKeys.other.rawValue] as? [String] {
@@ -301,10 +301,14 @@ struct Amenities {
 
 //Mark:- Variables
 //================
-struct Main {
-    var available: Int = 0
+struct AmenitiesMain {
+    var available: Bool = false
     var name: String = ""
     var classType: String = ""
+    
+    var image: UIImage? {
+        return UIImage(named: self.classType)
+    }
     
     //Mark:- Initialization
     //=====================
@@ -323,7 +327,7 @@ struct Main {
             self.name = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.available.rawValue] as? Int {
-            self.available = obj
+            self.available = (obj == 1) ? true : false
         }
         if let obj = json[APIKeys.classType.rawValue] {
             self.classType = "\(obj)".removeNull
@@ -333,10 +337,10 @@ struct Main {
     //Mark:- Functions
     //================
     ///Static Function
-    static func getMainData(response: [JSONDictionary]) -> [Main] {
-        var mainDataArray = [Main]()
+    static func getMainData(response: [JSONDictionary]) -> [AmenitiesMain] {
+        var mainDataArray = [AmenitiesMain]()
         for json in response {
-            let obj = Main(json: json)
+            let obj = AmenitiesMain(json: json)
             mainDataArray.append(obj)
         }
         return mainDataArray
@@ -346,7 +350,15 @@ struct Main {
 
 //Mark:- Rates
 //============
-struct Rates {
+struct Rates: Hashable {
+    
+    var hashValue: Int {
+        return qid.hashValue
+    }
+    
+    static func == (lhs: Rates, rhs: Rates) -> Bool {
+        return lhs.qid == rhs.qid
+    }
     
     //Mark:- Variables
     //================
@@ -361,6 +373,21 @@ struct Rates {
     var payment_info: String = ""
     var part_payment_last_date: String = ""
     var roomsRates: [RoomsRates]? = nil
+    var roomData: [RoomsRates: Int] {
+        var tempData = [RoomsRates: Int] ()
+        for currentRoom in self.roomsRates! {
+            var count = 1
+            for otherRoom in self.roomsRates! {
+                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
+                    if otherRoom == currentRoom {
+                        count = count + 1
+                    }
+                }
+            }
+            tempData[currentRoom] = count
+        }
+        return tempData
+    }
     var terms: RatesTerms? = nil
     var cancellation_penalty: CancellationPenaltyRates? = nil
     var penalty_array: [PenaltyRates]? = nil
@@ -441,6 +468,51 @@ struct Rates {
     
     //Mark:- Functions
     //================
+    ///GetRoomData
+    func getRoomData() -> [RoomsRates: Int] {
+        var tempData = [RoomsRates: Int] ()
+        guard let roomsRates = self.roomsRates else { return tempData }
+        for currentRoom in roomsRates {
+            var count = 1
+            for otherRoom in roomsRates {
+                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
+                    if otherRoom == currentRoom {
+                        count = count + 1
+                    }
+                }
+            }
+            tempData[currentRoom] = count
+        }
+        return tempData
+    }
+    
+    func getTotalNumberOfRows() -> Int {
+        var totalRows: Int = 0
+        let roomData = getRoomData()
+        if roomData.count > 0 {
+            totalRows += roomData.count
+        }
+        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+            totalRows += 1
+        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+            totalRows += 1
+        }
+        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+            totalRows += 1
+        }
+        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+            totalRows += 1
+        }
+        if let cancellationPenalty = self.cancellation_penalty, cancellationPenalty.is_refundable {
+            if let penaltyArray = self.penalty_array, !penaltyArray.isEmpty {
+                totalRows += 2
+            } else {
+                totalRows += 1
+            }
+        }
+        return totalRows
+    }
+    
     ///Static Function
     static func getRatesData(response: [JSONDictionary]) -> [Rates] {
         var ratesDataArray = [Rates]()
@@ -455,7 +527,31 @@ struct Rates {
 
 //Mark:- RoomsRates
 //=================
-struct RoomsRates {
+struct RoomsRates: Hashable {
+    
+    var hashValue: Int {
+        return rid.hashValue
+    }
+    
+    static func == (lhs: RoomsRates, rhs: RoomsRates) -> Bool {
+        // Bedtypes
+        if lhs.name == rhs.name {
+            if let lhsRoomBeds = lhs.roomBedTypes, let rhsRoomBeds = rhs.roomBedTypes {
+                if lhsRoomBeds.count == rhsRoomBeds.count {
+                    var index = -1
+                    for bedType in lhsRoomBeds {
+                        if rhsRoomBeds.contains(bedType) {
+                            index = index + 1
+                        }
+                    }
+                    if index == lhsRoomBeds.count - 1 {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
     
     //Mark:- Variables
     //================
@@ -545,7 +641,16 @@ struct RoomsRates {
 
 //Mark:- RoomsBedTypes
 //====================
-struct  RoomsBedTypes {
+struct  RoomsBedTypes: Hashable {
+    
+    
+    var hashValue: Int {
+        return id.hashValue
+    }
+    
+    static func == (lhs: RoomsBedTypes, rhs: RoomsBedTypes) -> Bool {
+        return (lhs.id == rhs.id) && (lhs.type == rhs.type)
+    }
     
     //Mark:- Variables
     //================
@@ -718,151 +823,3 @@ struct PenaltyRates {
         return penaltyRatesArray
     }
 }
-
-
-////Mark:- InclusionRatesData
-////====================
-//struct InclusionRatesData {
-//
-//    //Mark:- Variables
-//    //================
-//    var boardType: [String] = []
-//    var internet: [String] = []
-//    var other_inclusions: [String] = []
-//    var notes_inclusion: [String] = []
-//    var transfers: [String] = []
-//
-//    //Mark:- Initialization
-//    //=====================
-//    init() {
-//        self.init(json: [:])
-//    }
-//
-//    var jsonDict: JSONDictionary {
-//        return [APIKeys.boardType.rawValue: self.boardType,
-//                APIKeys.internet.rawValue: self.internet,
-//                APIKeys.other_inclusions.rawValue: self.other_inclusions,
-//                APIKeys.notes_inclusion.rawValue: self.notes_inclusion,
-//                APIKeys.transfers.rawValue: self.transfers
-//        ]
-//    }
-//
-//    init(json: JSONDictionary) {
-//        if let boardTypeData = json[APIKeys.boardType.rawValue] as? [String] {
-//            for data in boardTypeData {
-//                self.boardType.append(data)
-//            }
-//        }
-//        if let internetData = json[APIKeys.internet.rawValue] as? [String] {
-//            for data in internetData {
-//                self.internet.append(data)
-//            }
-//        }
-//        if let other_inclusionsData = json[APIKeys.other_inclusions.rawValue] as? [String] {
-//            for data in other_inclusionsData {
-//                self.other_inclusions.append(data)
-//            }
-//        }
-//        if let notes_inclusionData = json[APIKeys.notes_inclusion.rawValue] as? [String] {
-//            for data in notes_inclusionData {
-//                self.notes_inclusion.append(data)
-//            }
-//        }
-//        if let transfersData = json[APIKeys.transfers.rawValue] as? [String] {
-//            for data in transfersData {
-//                self.transfers.append(data)
-//            }
-//        }
-//    }
-//
-//    //Mark:- Functions
-//    //================
-//    ///Static Function
-//    static func getInclusionRatesData(response: JSONDictionary) -> InclusionRatesData {
-//        let inclusionRates = InclusionRatesData(json: response)
-//        return inclusionRates
-//    }
-//}
-//
-//
-////Mark:- AmenitiesGroup
-////=====================
-//struct AmenitiesGroup {
-//
-//    //Mark:- Variables
-//    //================
-//    var aboutProperty: [String] = []
-//    var internetBusinessServices: [String] = []
-//    var foodDrinks: [String] = []
-//    var thingsToDo: [String] = []
-//    var Services: [String] = []
-//
-//    //Mark:- Initialization
-//    //=====================
-//    init() {
-//        self.init(json: [:])
-//    }
-//
-//    var jsonDict: JSONDictionary {
-//        return [APIKeys.about_Property.rawValue: self.aboutProperty,
-//                APIKeys.internet_Business_Services.rawValue: self.internetBusinessServices,
-//                APIKeys.food_Drinks.rawValue: self.foodDrinks,
-//                APIKeys.things_To_Do.rawValue: self.thingsToDo,
-//                APIKeys.Services.rawValue: self.Services
-//        ]
-//    }
-//
-//    init(json: JSONDictionary) {
-//        if let propertyData = json[APIKeys.about_Property.rawValue] as? [String] {
-//            for data in propertyData {
-//                self.aboutProperty.append(data)
-//            }
-//        }
-//        if let internetData = json[APIKeys.internet_Business_Services.rawValue] as? [String] {
-//            for data in internetData {
-//                self.internetBusinessServices.append(data)
-//            }
-//        }
-//        if let foodDrinksData = json[APIKeys.food_Drinks.rawValue] as? [String] {
-//            for data in foodDrinksData {
-//                self.foodDrinks.append(data)
-//            }
-//        }
-//        if let thingsToDoData = json[APIKeys.things_To_Do.rawValue] as? [String] {
-//            for data in thingsToDoData {
-//                self.thingsToDo.append(data)
-//            }
-//        }
-//        if let servicesData = json[APIKeys.Services.rawValue] as? [String] {
-//            for data in servicesData {
-//                self.Services.append(data)
-//            }
-//        }
-//    }
-//
-//    //Mark:- Functions
-//    //================
-//    ///Static Function
-//    static func getAmenitiesGroupData(response: [JSONDictionary]) -> [AmenitiesGroup] {
-//        var amenitiesGroupArray = [AmenitiesGroup]()
-//        for json in response {
-//            let obj = AmenitiesGroup(json: json)
-//            amenitiesGroupArray.append(obj)
-//        }
-//        return amenitiesGroupArray
-//    }
-//}
-
-
-////Mark:- CombineRates
-////===================
-//struct CombineRates {
-//
-//}
-//
-//
-////Mark:- Occupant
-////===================
-//struct Occupant {
-//
-//}

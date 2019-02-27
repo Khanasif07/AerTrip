@@ -14,6 +14,9 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     
     func getAllHotelsListResultSuccess()
     func getAllHotelsListResultFail()
+    
+    func getRecentSearchesDataSuccess()
+    func getRecentSearchesDataFail()
 }
 
 class HotelsSearchVM: NSObject{
@@ -35,6 +38,7 @@ class HotelsSearchVM: NSObject{
     var sid: String = ""
     var hotelListResult = [HotelsSearched]()
     var hotelSearchRequst : HotelSearchRequestModel?
+    var recentSearchesData: [RecentSearchesModel]?
     
     //MARK:- Functions
     //================
@@ -89,27 +93,21 @@ class HotelsSearchVM: NSObject{
             }
         }
     }
-//
-//    func hotelListOnPreferenceResult() {
-//        let params: JSONDictionary = [APIKeys.vcodes.rawValue : self.vcodes.first ?? "" , APIKeys.sid.rawValue : self.sid]
-//        printDebug(params)
-//        APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels) in
-//            guard let sSelf = self else {return}
-//            if success {
-//                CoreDataManager.shared.deleteCompleteDB()
-//
-//                sSelf.hotelListResult = hotels
-//                for hotel in hotels {
-//                   _ =  HotelSearched.insert(dataDict: hotel.jsonDict)
-//                }
-//
-//                sSelf.delegate?.getAllHotelsListResultSuccess()
-//            } else {
-//                printDebug(errors)
-//               // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
-//                sSelf.delegate?.getAllHotelsListResultFail()
-//            }
-//        }
-//    }
+    
+    func  getRecentSearchesData() {
+        let params: JSONDictionary = [APIKeys.product.rawValue : "hotel"]
+        printDebug(params)
+        APICaller.shared.recentHotelsSearchesApi(params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.recentSearchesData = recentSearchesHotels
+                sSelf.delegate?.getRecentSearchesDataSuccess()
+            } else {
+                printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                sSelf.delegate?.getRecentSearchesDataFail()
+            }
+        }
+    }
 }
 

@@ -462,20 +462,8 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //  AppFlowManager.default.showHotelDetailsVC()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        headerViewTopConstraint.constant = max(-scrollView.contentOffset.y,100)
-        // collectionViewTopConstraint.constant  = -200
-        
-        // let newHeaderHeight =
-        printDebug(scrollView.contentOffset.y)
-        let newHeight = parallexHeaderHeight - scrollView.contentOffset.y
-//        printDebug("newHeight is \(newHeight)")
-//        if 0...200 ~= newHeight {
-//            self.collectionView.parallaxHeader.height = newHeight
-//        }
+        let hData = fetchedResultsController.object(at: indexPath)
+        AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
     }
 }
 

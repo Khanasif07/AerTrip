@@ -388,3 +388,15 @@ extension AppNetworking {
 }
 
 
+extension AppNetworking {
+    static func POSTWithString(endPoint : String,
+                     parameters : JSONDictionary = [:],
+                     headers : HTTPHeaders = [:],
+                     loader : Bool = true,
+                     success : @escaping Success,
+                     failure : @escaping Failure){
+        
+        
+        request(URLString: endPoint, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+    }
+}

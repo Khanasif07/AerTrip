@@ -31,6 +31,12 @@ class HotelDetailsVC: BaseVC {
             self.headerView.roundCornersByClipsToBounds(cornerRadius: 10.0)
         }
     }
+    @IBOutlet weak var smallLineView: UIView! {
+        didSet {
+            self.smallLineView.cornerRadius = self.smallLineView.height/2.0
+            self.smallLineView.clipsToBounds = true
+        }
+    }
     
     //Mark:- LifeCycle
     //================
@@ -39,8 +45,13 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
+        self.completion = { [weak self] in
+            self?.hotelTableView.reloadData()
+            self?.viewModel.getHotelInfoApi()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,6 +125,42 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.register(inclusionNib, forCellReuseIdentifier: "HotelDetailsInclusionTableViewCell")
     }
     
+    private func redirectToMap() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
+        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
+        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
+
+        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            if index == 0 {
+                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
+                    self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                }
+            } else {
+                self.openGoogleMaps(lat: self.viewModel.hotelData?.lat ?? "", long: self.viewModel.hotelData?.long ?? "")
+            }
+        }
+    }
+    
+    private func openGoogleMaps(lat: String,long:String) {
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+            if let url = URL(string:
+                "comgooglemaps://?center=\(lat),\(long)&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            print("Can't use comgooglemaps://")
+        }
+    }
+    
+    private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("Can't use apple map://")
+        }
+    }
     
     //Mark:- IBOActions
     //=================
@@ -127,7 +174,6 @@ class HotelDetailsVC: BaseVC {
     
     @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
         let touchPoint = sender.location(in: self.view?.window)
-        
         if sender.state == UIGestureRecognizer.State.began {
             self.initialTouchPoint = touchPoint
         } else if sender.state == UIGestureRecognizer.State.changed {
@@ -144,6 +190,7 @@ class HotelDetailsVC: BaseVC {
             }
         }
     }
+    
 }
 
 //Mark:- UITableView Delegate And Datasource
@@ -151,55 +198,27 @@ class HotelDetailsVC: BaseVC {
 extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.isDataLoaded == true ? 2 : 1
-        //return 2
+        if let rates = self.viewModel.hotelData?.rates {
+            return rates.count + 1
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !self.isDataLoaded {
-            return 3
-        } else {
+        if let rates = self.viewModel.hotelData?.rates {
             switch section {
             case 0:
                 return 6
-            case 1:
-                return 2
             default:
-                return 0
+                return rates[section - 1].getTotalNumberOfRows()
             }
         }
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if !self.isDataLoaded {
-            switch indexPath.row {
-            case 0:
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-                if let hotelDetails = self.viewModel.hotelInfo {
-                    cell.configCell(hotelData: hotelDetails)
-                }
-                return cell
-                
-            case 1:
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-                if let hotelDetails = self.viewModel.hotelInfo {
-                    cell.configureCell(hotelData: hotelDetails)
-                }
-                return cell
-                
-            case 2:
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsLoaderTableViewCell", for: indexPath) as? HotelDetailsLoaderTableViewCell  else { return UITableViewCell() }
-                cell.activityIndicator.startAnimating()
-                return cell
-                
-            default: return UITableViewCell()
-                
-            }
-        } else {
+        if let hotelDetails = self.viewModel.hotelData, let ratesData = hotelDetails.rates {
             if indexPath.section == 0 {
                 switch indexPath.row {
                 case 0:
@@ -213,7 +232,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 case 1:
                     
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-                    if let hotelDetails = self.viewModel.hotelInfo {
+                    if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
+                        cell.configureCell(hotelData: hotelDetails, placeData: placeData)
+                    } else if let hotelDetails = self.viewModel.hotelInfo {
                         cell.configureCell(hotelData: hotelDetails)
                     }
                     return cell
@@ -237,6 +258,134 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 case 4:
                     
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelData {
+                        cell.amenitiesDetails = hotelDetails.amenities
+                    }
+                    return cell
+                    
+                case 5:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+                    return cell
+                    
+                default:
+                    return UITableViewCell()
+                }
+            } else {
+                let roomData = ratesData[indexPath.section - 1 ].getRoomData()
+                switch indexPath {
+                case IndexPath(row: 0, section: indexPath.section)...IndexPath(row: roomData.count, section: indexPath.section):
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return UITableViewCell() }
+                    cell.configCell(numberOfRooms: Array(roomData.values)[indexPath.row] , roomData: Array(roomData.keys)[indexPath.row])
+                    return cell
+                default:
+                    return UITableViewCell()
+                }
+            }
+        } else {
+            switch indexPath.row {
+            case 0:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
+                if let hotelDetails = self.viewModel.hotelInfo {
+                    cell.configCell(hotelData: hotelDetails)
+                }
+                return cell
+                
+            case 1:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+                if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
+                    cell.configureCell(hotelData: hotelDetails, placeData: placeData)
+                } else if let hotelDetails = self.viewModel.hotelInfo {
+                    cell.configureCell(hotelData: hotelDetails)
+                }
+                
+                return cell
+                
+            case 2:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsLoaderTableViewCell", for: indexPath) as? HotelDetailsLoaderTableViewCell  else { return UITableViewCell() }
+                cell.activityIndicator.startAnimating()
+                return cell
+                
+            default: return UITableViewCell()
+            }
+        }
+        
+    /*    if !self.isDataLoaded {
+            switch indexPath.row {
+            case 0:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
+                if let hotelDetails = self.viewModel.hotelInfo {
+                    cell.configCell(hotelData: hotelDetails)
+                }
+                return cell
+                
+            case 1:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+                if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
+                    cell.configureCell(hotelData: hotelDetails, placeData: placeData)
+                } else if let hotelDetails = self.viewModel.hotelInfo {
+                    cell.configureCell(hotelData: hotelDetails)
+                }
+
+                return cell
+                
+            case 2:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsLoaderTableViewCell", for: indexPath) as? HotelDetailsLoaderTableViewCell  else { return UITableViewCell() }
+                    cell.activityIndicator.startAnimating()
+                return cell
+                
+            default: return UITableViewCell()
+                
+            }
+        } else {
+            if indexPath.section == 0 {
+                switch indexPath.row {
+                case 0:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelInfo {
+                        cell.configCell(hotelData: hotelDetails)
+                    }
+                    return cell
+                    
+                case 1:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
+                        cell.configureCell(hotelData: hotelDetails, placeData: placeData)
+                    } else if let hotelDetails = self.viewModel.hotelInfo {
+                        cell.configureCell(hotelData: hotelDetails)
+                    }
+                    return cell
+                    
+                case 2:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelData {
+                        cell.configureAddressCell(hotelData: hotelDetails)
+                    }
+                    return cell
+                    
+                case 3:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelData {
+                        cell.configureOverviewCell(hotelData: hotelDetails)
+                    }
+                    return cell
+                    
+                case 4:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
+                    if let hotelDetails = self.viewModel.hotelData {
+                        cell.amenitiesDetails = hotelDetails.amenities
+                    }
                     return cell
                     
                 case 5:
@@ -261,6 +410,14 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             } else {
                 return UITableViewCell()
             }
+        } */
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
+            if indexPath.row == 2 {
+                self.redirectToMap()
+            }
         }
     }
     
@@ -279,11 +436,13 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView()
             }
+            if let safeHotelInfo = self.viewModel.hotelInfo {
+                footerView.hotelFeesLabel.text = "₹ \(safeHotelInfo.price)"
+            }
+            //self.hotelFeesLabel.text = "₹ 35,500"
             return footerView
-            
         default:
             return nil
         }
@@ -308,7 +467,13 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case IndexPath(row: 1, section: 0):
                 return 126.5
             case IndexPath(row: 2, section: 0):
-                return 137.0
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.address + "Maps   "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+                }
+                return CGFloat.leastNonzeroMagnitude
             case IndexPath(row: 3, section: 0):
                 return 137.0
             case IndexPath(row: 4, section: 0):
@@ -320,7 +485,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case IndexPath(row: 1, section: 1):
                 return 60.0
             default:
-                return CGFloat.leastNonzeroMagnitude
+                return UITableView.automaticDimension
+                //return CGFloat.leastNonzeroMagnitude
             }
         }
     }
@@ -333,7 +499,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case IndexPath(row: 1, section: 0):
                 return 126.5
             case IndexPath(row: 2, section: 0):
-                return tableView.frame.height - (211.0 + 126.5)
+                return tableView.bounds.height - (211.0 + 126.5 + 50)
             default:
                 return CGFloat.leastNonzeroMagnitude
             }
@@ -344,7 +510,13 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case IndexPath(row: 1, section: 0):
                 return 126.5
             case IndexPath(row: 2, section: 0):
-                return 137.0
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.address + "Maps   "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 14.0//y of textview 46.5 + bottom space 14.0
+                }
+                return CGFloat.leastNonzeroMagnitude
             case IndexPath(row: 3, section: 0):
                 return 137.0
             case IndexPath(row: 4, section: 0):
@@ -356,7 +528,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case IndexPath(row: 1, section: 1):
                 return 60.0
             default:
-                return CGFloat.leastNonzeroMagnitude
+                return UITableView.automaticDimension
+                //return CGFloat.leastNonzeroMagnitude
             }
         }
     }
@@ -376,6 +549,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         switch section {
         case 1:
             return 112.0
+            
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -398,19 +572,27 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             return CGFloat.leastNonzeroMagnitude
         }
     }
+
 }
 
 extension HotelDetailsVC: HotelDetailDelegate {
     
     func getHotelDetailsSuccess() {
         self.isDataLoaded = true
+        let index = IndexPath(row: 2, section: 0)
+        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
+            cell.activityIndicator.stopAnimating()
+        }
         self.hotelTableView.reloadData()
     }
     
     func getHotelDetailsFail() {
-        
-        self.completion = { [weak self] in
-            self?.viewModel.getHotelInfoApi()
+        let index = IndexPath(row: 2, section: 0)
+        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
+            cell.activityIndicator.stopAnimating()
+            delay(seconds: AppConstants.kAnimationDuration) {
+                cell.activityIndicator.isHidden = true
+            }
         }
         AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonImage: nil, buttonAction: self.completion)
         printDebug("API Parsing Failed")
@@ -427,5 +609,19 @@ extension HotelDetailsVC: HotelDetailDelegate {
         AppNetworking.hideLoader()
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         self.headerView.leftButton.setImage(buttonImage, for: .normal)
+    }
+    
+    func getHotelDistanceAndTimeSuccess() {
+        if let placeModel = self.viewModel.placeModel {
+            if !(placeModel.durationValue/60 < 10) {
+                self.viewModel.mode = .driving
+                self.viewModel.getHotelDistanceAndTimeInfo()
+            }
+        }
+        self.hotelTableView.reloadData()
+    }
+    
+    func getHotelDistanceAndTimeFail() {
+        printDebug("time and distance not found")
     }
 }

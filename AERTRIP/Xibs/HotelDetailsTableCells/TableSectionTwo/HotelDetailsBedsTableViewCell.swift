@@ -47,18 +47,19 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
         self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
-        self.bedSelectionDropDown.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.bedSelectionDropDown.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         
-
-//        //Text
-//        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
-//        self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
     }
     
     private func bedSelectionTitleImgSetUp() {
         self.bedSelectionDropDown.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         self.bedSelectionDropDown.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         self.bedSelectionDropDown.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+    }
+    
+    internal func configCell(numberOfRooms: Int , roomData: RoomsRates) {
+        self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
+        self.bedDiscriptionLabel.text = roomData.name
     }
     
     //Mark:- IBActions

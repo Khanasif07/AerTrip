@@ -17,10 +17,15 @@ class HotelInfoAddressCell: UITableViewCell {
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var addressInfoTextView: UITextView!
+    @IBOutlet weak var addressInfoTextView: UITextView! {
+        didSet {
+            self.addressInfoTextView.isUserInteractionEnabled = false
+        }
+    }
     @IBOutlet weak var deviderView: UIView!
     @IBOutlet weak var moreBtnOutlet: UIButton!
     @IBOutlet weak var moreBtnContainerView: UIView!
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var infoTextViewTrailingConstraint: NSLayoutConstraint! {
         didSet {
             self.infoTextViewTrailingConstraint.constant = 0.0
@@ -53,6 +58,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressLabel.textColor = AppColors.themeBlack
         self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+//        self.gradientView.addGradientWithColor(color: AppColors.themeWhite)
         
         //Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)

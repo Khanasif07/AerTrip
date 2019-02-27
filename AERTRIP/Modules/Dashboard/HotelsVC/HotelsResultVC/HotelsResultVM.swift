@@ -35,7 +35,7 @@ class HotelsResultVM: NSObject {
     func hotelListOnPreferenceResult() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue : self.hotelSearchRequest?.vcodes.first ?? "" , APIKeys.sid.rawValue : self.hotelSearchRequest?.sid ?? ""]
         printDebug(params)
-        APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels,isDone) in
+        APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] (success, errors, hotels, isDone) in
             guard let sSelf = self else {return}
             if success {
                 sSelf.hotelListResult = hotels
@@ -51,13 +51,4 @@ class HotelsResultVM: NSObject {
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
