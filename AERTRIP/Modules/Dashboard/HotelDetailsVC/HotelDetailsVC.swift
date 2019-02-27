@@ -276,7 +276,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 switch indexPath {
                 case IndexPath(row: 0, section: indexPath.section)...IndexPath(row: roomData.count, section: indexPath.section):
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return UITableViewCell() }
-                    cell.configCell(numberOfRooms: Array(roomData.values)[indexPath.row] , roomData: Array(roomData.keys)[indexPath.row])
+                    //cell.configCell(numberOfRooms: Array(roomData.values)[indexPath.row] , roomData: Array(roomData.keys)[indexPath.row])
                     return cell
                 default:
                     return UITableViewCell()

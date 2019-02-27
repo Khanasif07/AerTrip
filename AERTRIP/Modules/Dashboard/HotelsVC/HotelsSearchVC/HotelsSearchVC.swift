@@ -21,7 +21,6 @@ class HotelsSearchVC: BaseVC {
     private var recentSearchHeight: CGFloat = 150.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
-    
     ///Computed Properties
     private var cellHeight: CGFloat{
         return self.addRoomCollectionView.frame.size.height
@@ -535,23 +534,29 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
-      //  self.viewModel.hotelListOnPreferenceResult()
         self.view.isUserInteractionEnabled = true
-            self.searchBtnOutlet.isLoading = false
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
+        self.viewModel.hotelListOnPreferenceResult()
     }
     
     func getAllHotelsOnPreferenceFail() {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
     }
     
     func getAllHotelsListResultSuccess() {
-       
+        printDebug("data")
+        self.view.isUserInteractionEnabled = true
+        if let hotelSearchRequest = self.viewModel.hotelSearchRequst {
+            AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelListResult, sid: self.viewModel.sid , hotelSearchRequest: hotelSearchRequest)
+            self.searchBtnOutlet.isLoading = false
+        }
     }
     
     func getAllHotelsListResultFail() {
-        
+        printDebug("getAllHotelsListResultFail")
+        self.searchBtnOutlet.isLoading = false
+        self.view.isUserInteractionEnabled = true
     }
     
     func getRecentSearchesDataSuccess() {
