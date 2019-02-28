@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PKBottomSheetDelegate: class {
+    func willHide(_ sheet: PKBottomSheet)
+}
+
 class PKBottomSheet: UIView {
     
     //MARK:- IBOutlets
@@ -22,6 +26,7 @@ class PKBottomSheet: UIView {
     
     //MARK:- Properties
     //MARK:- Public
+    weak var delegate: PKBottomSheetDelegate?
     
     /* gapFromTop
      * - used to give the gap from top of screen.
@@ -124,13 +129,13 @@ class PKBottomSheet: UIView {
     }
     
     private func hide(animated: Bool, completion: ((Bool)->Void)? = nil) {
+        self.delegate?.willHide(self)
         UIView.animate(withDuration: animated ? animationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainContainerBottomConstraint.constant = sSelf.headerShouldStuckOnBottom ? -(sSelf.sheetHeight - sSelf.headerHeight) : -(sSelf.sheetHeight)
             
             sSelf.layoutIfNeeded()
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
+            }, completion: { (isDone) in
                 completion?(isDone)
         })
     }

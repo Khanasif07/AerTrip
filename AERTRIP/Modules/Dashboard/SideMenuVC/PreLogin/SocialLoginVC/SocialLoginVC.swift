@@ -120,7 +120,6 @@ class SocialLoginVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-       
         self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
@@ -307,7 +306,7 @@ extension SocialLoginVC {
             }
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
-                self.googleButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+                self.googleButton.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
                 self.googleButton.alpha = 0.0
             })
             

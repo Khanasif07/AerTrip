@@ -21,11 +21,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-Qa-Qei">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="4ua-7j-9Zr" id="ob4-TE-Ces"/>
-                                    <outlet property="delegate" destination="4ua-7j-9Zr" id="uvc-N8-CSV"/>
-                                </connections>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I6N-f4-mml">
+                                <rect key="frame" x="0.0" y="20" width="375" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="fCg-8F-zZd"/>
+                                </constraints>
+                            </imageView>
                             <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-Nu-HFX">
                                 <rect key="frame" x="169.5" y="26" width="36" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -45,13 +47,16 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iuD-wn-tNY" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="1SO-o1-uiy"/>
+                            <constraint firstItem="I6N-f4-mml" firstAttribute="trailing" secondItem="5kb-Qa-Qei" secondAttribute="trailing" id="2Lm-gv-daM"/>
                             <constraint firstItem="iuD-wn-tNY" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="7X0-4v-YJu"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="iuD-wn-tNY" secondAttribute="trailing" id="7gm-Mh-Ee0"/>
                             <constraint firstItem="9ab-Nu-HFX" firstAttribute="centerX" secondItem="78m-1T-7vc" secondAttribute="centerX" id="FSt-BG-9hW"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="HAc-Yw-jJT"/>
+                            <constraint firstItem="I6N-f4-mml" firstAttribute="top" secondItem="5kb-Qa-Qei" secondAttribute="top" id="Zce-dv-mwC"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="bsY-hq-LLI"/>
                             <constraint firstItem="9ab-Nu-HFX" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" constant="6" id="dhg-ox-GBO"/>
                             <constraint firstAttribute="bottom" secondItem="5kb-Qa-Qei" secondAttribute="bottom" id="j40-dD-0tG"/>
+                            <constraint firstItem="I6N-f4-mml" firstAttribute="leading" secondItem="5kb-Qa-Qei" secondAttribute="leading" id="n3r-DX-hu3"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="5kb-Qa-Qei" secondAttribute="trailing" id="oNd-9w-az9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9fY-5w-aem"/>
@@ -59,6 +64,7 @@
                     <connections>
                         <outlet property="headerView" destination="iuD-wn-tNY" id="PAa-0b-0wu"/>
                         <outlet property="hotelTableView" destination="5kb-Qa-Qei" id="jcD-h6-X3e"/>
+                        <outlet property="imageView" destination="I6N-f4-mml" id="2YT-Jv-GYl"/>
                         <outlet property="smallLineView" destination="9ab-Nu-HFX" id="hoO-et-YIP"/>
                     </connections>
                 </viewController>

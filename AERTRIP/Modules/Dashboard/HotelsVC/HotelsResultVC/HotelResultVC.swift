@@ -350,6 +350,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Action
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
     }
     
@@ -408,11 +409,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth - 16, height: 200.0)
+        return CGSize(width: UIDevice.screenWidth, height: 203.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets.zero//UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -462,8 +463,10 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let hData = fetchedResultsController.object(at: indexPath)
-        AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            let hData = fetchedResultsController.object(at: indexPath)
+            AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        }
     }
 }
 

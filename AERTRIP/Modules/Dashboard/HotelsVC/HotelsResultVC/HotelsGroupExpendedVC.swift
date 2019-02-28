@@ -25,7 +25,10 @@ class HotelsGroupExpendedVC: BaseVC {
     //MARK:- Public
     
     //MARK:- Private
-    private var itemsCount: Int = 0
+    private var itemsCount: Int = 10
+    private var openCardsRect: [CGRect] = []
+    private var closedCardsRect: [CGRect] = []
+    private var cardViews: [UIView] = []
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -44,23 +47,48 @@ class HotelsGroupExpendedVC: BaseVC {
         
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         
-        collectionView.collectionViewLayout = MyFlowLayout()
+        self.collectionView.isHidden = true
         
-        delay(seconds: 0.3) {
-            self.reload()
+        delay(seconds: 0.2) { [weak self] in
+            self?.saveCardsRact(forCards: 3)
+            self?.collectionView.isHidden = false
+            self?.animateCardsToShow()
         }
-
     }
     
-    func reload() {
-        self.collectionView.performBatchUpdates({
-            for idx in 0..<3 {
-                self.collectionView.insertItems(at: [IndexPath(item: idx, section: 0)])
-                self.itemsCount += 1
+    private func saveCardsRact(forCards: Int) {
+        let spaceFromBottom: CGFloat = 20.0
+        let cardTail: CGFloat = 15.0
+        let cardHeight: CGFloat = 205.0
+        let spaceFromLeading: CGFloat = 20.0
+        for idx in 0..<min(forCards, self.collectionView.subviews.count) {
+            self.openCardsRect.append(self.collectionView.subviews[idx].frame)
+            let newY = self.collectionView.height - (cardHeight + (cardTail * CGFloat(forCards - (idx + 1))) + spaceFromBottom)
+            let newX = spaceFromLeading * CGFloat(idx)
+            self.collectionView.subviews[idx].frame = CGRect(x: newX, y: newY, width: self.collectionView.width - (newX * 2.0), height: cardHeight)
+            self.closedCardsRect.append(self.collectionView.subviews[idx].frame)
+            self.cardViews.append(self.collectionView.subviews[idx])
+            self.collectionView.sendSubviewToBack(self.collectionView.subviews[idx])
+        }
+    }
+    
+    private func animateCardsToShow() {
+        for (idx, card) in self.cardViews.enumerated() {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                guard let sSelf = self else {return}
+                card.frame = sSelf.openCardsRect[idx]
             }
-        }, completion: { (isDone) in
-            //            self.collectionView.reloadData()
-        })
+        }
+    }
+    
+    func animateCardsToClose() {
+        for (idx, card) in self.cardViews.enumerated() {
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                guard let sSelf = self else {return}
+                card.frame = sSelf.closedCardsRect[idx]
+                sSelf.collectionView.sendSubviewToBack(card)
+            }
+        }
     }
     
     //MARK:- Public
@@ -82,6 +110,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         }
         
 //        cell.hotelData = self.viewModel.hotels[indexPath.item]
+        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
         cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
         cell.containerBottomConstraint.constant = 5.0
 //        cell.delegate = self
@@ -99,39 +128,8 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-
-class MyFlowLayout: UICollectionViewFlowLayout {
-    var insertingIndexPaths = [IndexPath]()
-    
-    override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
-        super.prepare(forCollectionViewUpdates: updateItems)
-        
-        insertingIndexPaths.removeAll()
-        
-        for update in updateItems {
-            if let indexPath = update.indexPathAfterUpdate {
-                insertingIndexPaths.append(indexPath)
-            }
-        }
-    }
-    
-    override func finalizeCollectionViewUpdates() {
-        super.finalizeCollectionViewUpdates()
-        
-        insertingIndexPaths.removeAll()
-    }
-    
-    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
-        
-        //if insertingIndexPaths.contains(itemIndexPath) {
-        attributes?.alpha = 0.0
-        //    attributes?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        attributes?.transform = CGAffineTransform(translationX: 0, y: 500.0)
-        
-        print(attributes)
-        //}
-        
-        return attributes
+extension HotelsGroupExpendedVC: PKBottomSheetDelegate {
+    func willHide(_ sheet: PKBottomSheet) {
+        self.animateCardsToClose()
     }
 }

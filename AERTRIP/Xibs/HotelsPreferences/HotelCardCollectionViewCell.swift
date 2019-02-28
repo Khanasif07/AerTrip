@@ -53,15 +53,20 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        self.gradientLayer = CAGradientLayer()
-        self.gradientLayer.frame = self.gradientView.bounds
-        self.gradientLayer.colors =
+
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.gradientView.bounds
+        gradientLayer.colors =
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
-        self.gradientView.layer.addSublayer(self.gradientLayer)
-        self.gradientView.backgroundColor = AppColors.clear
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.backgroundColor = AppColors.clear
+        
+        saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        
+//        bgView.addCardShadow()
+
+        
         self.setupPageControl()
-        self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         self.scrollSize = self.hotelImageView.frame.size.width
     }
     
@@ -96,8 +101,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
         
         self.bgView.cornerRadius = 10.0
-        self.bgView.layer.borderWidth = 1.0
-        self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
+//        self.bgView.layer.borderWidth = 3.0
+//        self.bgView.layer.borderColor = AppColors.themeGray04.withAlphaComponent(0.8).cgColor
     }
     
     private func populateData() {

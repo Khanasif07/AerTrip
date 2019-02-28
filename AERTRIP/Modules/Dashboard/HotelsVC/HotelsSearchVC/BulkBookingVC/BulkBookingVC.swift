@@ -369,8 +369,7 @@ class BulkBookingVC: BaseVC {
     @IBAction func searchButtonAction(_ sender: ATButton) {
         if let _ = self.returnUserId  {
             sender.isLoading = true
-            AppFlowManager.default.showBulkEnquiryVC()
-//            self.viewModel.bulkBookingEnquiryApi()
+            self.viewModel.bulkBookingEnquiryApi()
         }
         else {
             let currentlyUsingFrom = SocialLoginVC.UsingFor.loginVerification

@@ -12,11 +12,10 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
     //================
-    private var oldOffset: CGPoint = .zero
     private(set) var viewModel = HotelDetailsVM()
     private var isDataLoaded: Bool = false
     private var completion: (() -> Void)? = nil
-    private var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    private var initialPanPoint: CGPoint = .zero
     
     //Mark:- IBOutlets
     //================
@@ -37,6 +36,16 @@ class HotelDetailsVC: BaseVC {
             self.smallLineView.clipsToBounds = true
         }
     }
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
+    private var sourceFrame: CGRect = .zero
+    private var tableFrameHidden: CGRect {
+        return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
+    }
+    private weak var parentVC: UIViewController?
+    private weak var sourceView: UIView?
+    private let hotelImageHeight: CGFloat = 211.0
     
     //Mark:- LifeCycle
     //================
@@ -45,6 +54,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
@@ -65,31 +75,66 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.delegate = self
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y
-        guard 105...211 ~= yOffset else {return}
-
-        if yOffset > oldOffset.y {
-            //show
-            self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
-            self.headerView.animateBackView(isHidden: false, completion: nil)
-            let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
-            self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
-        }
-        else {
-            //hide
-            self.headerView.navTitleLabel.text = ""
-            self.headerView.animateBackView(isHidden: true, completion: nil)
-            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-            self.headerView.leftButton.setImage(buttonImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
-        }
-        self.oldOffset = scrollView.contentOffset
+    func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
+        self.parentVC = onViewController
+        self.sourceView = sourceView
+        
+        onViewController.add(childViewController: self)
+        
+        self.setupBeforeAnimation()
+        
+        let newImageFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: self.view.width, height: hotelImageHeight)
+        
+        let newTableFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            guard let sSelf = self else {return}
+            sSelf.imageView.frame = newImageFrame
+            sSelf.hotelTableView.frame = newTableFrame
+            sSelf.hotelTableView.alpha = 1.0
+//            sSelf.hotelTableView.transform = CGAffineTransform.identity
+            
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            
+            sSelf.imageView.isHidden = true
+        })
+    }
+    
+    func hide(animated: Bool) {
+        
+        self.imageView.isHidden = false
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            guard let sSelf = self else {return}
+            sSelf.imageView.frame = sSelf.sourceFrame
+            sSelf.hotelTableView.alpha = 0.0
+            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                sSelf.removeFromParentVC
+        })
     }
     
     //Mark:- Methods
     //==============
+    private func setupBeforeAnimation() {
+        guard let sourceV = self.sourceView, let parant = self.parentVC else {return}
+
+        //setup image view
+        self.imageView.setImageWithUrl(self.viewModel.hotelInfo?.thumbnail?.first ?? "", placeholder: AppPlaceholderImage.hotelCard, showIndicator: true)
+        self.imageView.isHidden = false
+        self.imageView.roundCornersByClipsToBounds(cornerRadius: 10.0)
+        
+        //manage frame
+        self.imageView.translatesAutoresizingMaskIntoConstraints = true
+        self.sourceFrame = parant.view.convert(sourceV.frame, from: sourceV.superview)
+        self.imageView.frame = self.sourceFrame
+        
+        //setup table view
+        hotelTableView.alpha = 0.0
+        hotelTableView.translatesAutoresizingMaskIntoConstraints = true
+        hotelTableView.frame = self.tableFrameHidden
+    }
+    
     private func configUI() {
         self.view.backgroundColor = .clear
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
@@ -165,7 +210,7 @@ class HotelDetailsVC: BaseVC {
     //Mark:- IBOActions
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.hide(animated: true)
     }
     
     @IBAction func fevButtonAction(_ sender: UIButton) {
@@ -173,21 +218,17 @@ class HotelDetailsVC: BaseVC {
     }
     
     @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
+        
+        guard self.imageView.isHidden else {return}
+        
         let touchPoint = sender.location(in: self.view?.window)
+        
         if sender.state == UIGestureRecognizer.State.began {
-            self.initialTouchPoint = touchPoint
-        } else if sender.state == UIGestureRecognizer.State.changed {
-            if touchPoint.y - self.initialTouchPoint.y > 0 {
-                self.view.frame = CGRect(x: 0, y: touchPoint.y - self.initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            }
-        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
-            if touchPoint.y - self.initialTouchPoint.y > 100 {
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                })
-            }
+            self.initialPanPoint = touchPoint
+        }
+        else  if (initialPanPoint.y + 10) < touchPoint.y {
+            self.hide(animated: true)
+            initialPanPoint = touchPoint
         }
     }
     
@@ -449,64 +490,29 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !self.isDataLoaded {
-            switch indexPath {
-            case IndexPath(row: 0, section: 0):
-                return 211.0
-            case IndexPath(row: 1, section: 0):
-                return 126.5
-            case IndexPath(row: 2, section: 0):
-                return tableView.frame.height - (211.0 + 126.5 + 50.0)
-            default:
-                return CGFloat.leastNonzeroMagnitude
-            }
-        } else {
-            switch indexPath {
-            case IndexPath(row: 0, section: 0):
-                return 211.0
-            case IndexPath(row: 1, section: 0):
-                return 126.5
-            case IndexPath(row: 2, section: 0):
-                if let hotelData = self.viewModel.hotelData {
-                    let text = hotelData.address + "Maps   "
-                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                    return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
-                }
-                return CGFloat.leastNonzeroMagnitude
-            case IndexPath(row: 3, section: 0):
-                return 137.0
-            case IndexPath(row: 4, section: 0):
-                return 144.0
-            case IndexPath(row: 5, section: 0):
-                return 49.0
-            case IndexPath(row: 0, section: 1):
-                return 118.0
-            case IndexPath(row: 1, section: 1):
-                return 60.0
-            default:
-                return UITableView.automaticDimension
-                //return CGFloat.leastNonzeroMagnitude
-            }
-        }
+        return self.heightForRow(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.heightForRow(at: indexPath)
+    }
+    
+    private func heightForRow(at indexPath: IndexPath) -> CGFloat {
         if !self.isDataLoaded {
             switch indexPath {
             case IndexPath(row: 0, section: 0):
-                return 211.0
+                return hotelImageHeight
             case IndexPath(row: 1, section: 0):
                 return 126.5
             case IndexPath(row: 2, section: 0):
-                return tableView.bounds.height - (211.0 + 126.5 + 50)
+                return view.bounds.height - (hotelImageHeight + 126.5 + 50)
             default:
-                return CGFloat.leastNonzeroMagnitude
+                return UITableView.automaticDimension
             }
         } else {
             switch indexPath {
             case IndexPath(row: 0, section: 0):
-                return 211.0
+                return hotelImageHeight
             case IndexPath(row: 1, section: 0):
                 return 126.5
             case IndexPath(row: 2, section: 0):
@@ -529,7 +535,6 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 return 60.0
             default:
                 return UITableView.automaticDimension
-                //return CGFloat.leastNonzeroMagnitude
             }
         }
     }
@@ -623,5 +628,37 @@ extension HotelDetailsVC: HotelDetailDelegate {
     
     func getHotelDistanceAndTimeFail() {
         printDebug("time and distance not found")
+    }
+}
+
+
+extension HotelDetailsVC {
+    private func manageHeaderView(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        
+        if (hotelImageHeight - headerView.height) < yOffset {
+            //show
+            self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
+            self.headerView.animateBackView(isHidden: false, completion: nil)
+            let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+            self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+        }
+        else {
+            //hide
+            self.headerView.navTitleLabel.text = ""
+            self.headerView.animateBackView(isHidden: true, completion: nil)
+            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            self.headerView.leftButton.setImage(buttonImage, for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.manageHeaderView(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.manageHeaderView(scrollView)
     }
 }

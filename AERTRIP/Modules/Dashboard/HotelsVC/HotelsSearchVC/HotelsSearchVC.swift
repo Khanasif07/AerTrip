@@ -542,6 +542,8 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
     
     func getAllHotelsOnPreferenceFail() {
+        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
+
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
         self.view.isUserInteractionEnabled = true

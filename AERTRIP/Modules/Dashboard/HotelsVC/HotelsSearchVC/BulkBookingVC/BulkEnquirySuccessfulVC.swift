@@ -77,7 +77,6 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.bulkEnquiryLabel.alpha = 0.0
         self.customerServiceLabel.alpha = 0.0
         self.doneBtnOutlet.alpha = 0.0
-        //        self.headerView.layer.masksToBounds = true
         self.bulkEnquiryLabel.isHidden = true
         self.customerServiceLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true

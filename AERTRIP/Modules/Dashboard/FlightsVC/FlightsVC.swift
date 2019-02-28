@@ -42,14 +42,27 @@ class FlightsVC: BaseVC {
     
     //MARK:- Public
     @objc func imageTapped() {
+//        if let topVC = UIApplication.topViewController() {
+//            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, datasource: self, delegate: self)
+//        }
+        
         if let topVC = UIApplication.topViewController() {
-            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, datasource: self, delegate: self)
+            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            
+            let sheet = PKBottomSheet.instanceFromNib
+            sheet.headerHeight = 24.0
+            sheet.headerView = dataVC.headerView
+            sheet.frame = topVC.view.bounds
+            sheet.delegate = dataVC
+            topVC.view.addSubview(sheet)
+            sheet.present(presentedViewController: dataVC, animated: true)
         }
+
     }
     
     //MARK:- Action
     @IBAction func ShowHotelResultsVC(_ sender: UIButton) {
-        //AppFlowManager.default.showHotelDetailsVC(hotelInfo: <#HotelSearched#>)
+        //AppFlowManager.default.showHotelDetailsVC(hotelInfo: HotelSearched)
     }
 }
 

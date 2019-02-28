@@ -40,7 +40,7 @@ class HotelDetailsVM {
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     private var getHotelInfoParams: JSONDictionary {
-        let params: JSONDictionary = [APIKeys.vid.rawValue : "\(self.hotelInfo?.vid ?? "")" , APIKeys.hid.rawValue : "\(self.hotelInfo?.hid ?? "")", APIKeys.sid.rawValue : self.sid]
+        let params: JSONDictionary = [APIKeys.vid.rawValue : (self.hotelInfo?.vid ?? "") , APIKeys.hid.rawValue : (self.hotelInfo?.hid ?? ""), APIKeys.sid.rawValue : self.hotelSearchRequest?.sid ?? ""]
         return params
     }
     

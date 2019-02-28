@@ -210,6 +210,7 @@ class ATButton: UIButton {
         self.loaderContainer.isHidden = false
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
+        self.bringSubviewToFront(self.loaderContainer)
     }
     
     private func stopLoading() {
