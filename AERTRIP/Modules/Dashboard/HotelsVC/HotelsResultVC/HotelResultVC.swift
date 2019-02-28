@@ -37,12 +37,17 @@ class HotelResultVC: BaseVC {
     @IBOutlet var dividerView: ATDividerView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var progressView: UIProgressView!
+    @IBOutlet var unPinAllFavouriteButton: UIButton!
+    @IBOutlet var emailButton: UIButton!
+    @IBOutlet var shareButton: UIButton!
+    @IBOutlet var switchView: ATSwitcher!
     
     @IBOutlet var collectionViewTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var shimmerView: UIView!
-    @IBOutlet weak var headerContatinerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var floatingView: UIView!
+    @IBOutlet var floatingButtonOnMapView: UIButton!
     
     // MARK: - Properties
     
@@ -54,6 +59,7 @@ class HotelResultVC: BaseVC {
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
     private var completion: (() -> Void)?
+    
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
         
@@ -72,6 +78,7 @@ class HotelResultVC: BaseVC {
     let parallexHeaderHeight = CGFloat(200.0)
     var fetchRequestType: FetchRequestType = .Searching
     var hoteResultViewType: HotelResultViewType = .ListView
+    var favouriteHotels: [HotelSearched] = []
     
     // MARK: - Public
     
@@ -84,6 +91,9 @@ class HotelResultVC: BaseVC {
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     var hideSection = 0
     var footeSection = 1
+    let defaultDuration: CGFloat = 1.2
+    let defaultDamping: CGFloat = 0.70
+    let defaultVelocity: CGFloat = 15.0
     
     // MARK: - ViewLifeCycle
     
@@ -115,6 +125,8 @@ class HotelResultVC: BaseVC {
         }
         self.applyPreviousFilter()
         self.viewModel.hotelListOnPreferenceResult()
+        self.getFavouriteHotels()
+        self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
     }
     
@@ -133,6 +145,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Private
     
     private func initialSetups() {
+        self.setUpFloatingView()
         self.setupParallaxHeader()
         self.collectionView.backgroundView?.backgroundColor = AppColors.clear
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
@@ -142,6 +155,15 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBar.frame
         self.reloadHotelList()
+        self.floatingView.isHidden = true
+        self.floatingButtonOnMapView.isHidden = true
+    }
+    
+    private func setUpFloatingView() {
+        self.switchView.delegate = self
+        self.unPinAllFavouriteButton.isHidden = true
+        self.emailButton.isHidden = true
+        self.shareButton.isHidden = true
     }
     
     override func setupFonts() {
@@ -238,31 +260,35 @@ class HotelResultVC: BaseVC {
     }
     
     func animateHeaderToListView() {
-
-        let tranformTran = CGAffineTransform(translationX: 0, y: -50)
-       // self.headerContatinerViewHeightConstraint.constant = 50
-        self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
-            , y:self.searchBar.frame.origin.y, width: 200, height: 50)
+        self.headerContatinerViewHeightConstraint.constant = 100
+        self.collectionViewTopConstraint.constant = 100
         UIView.animate(withDuration: 0.5, animations: {
-            self.searchBar.transform = tranformTran
-            self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.view.layoutIfNeeded()
-        })
-        
-        
-    }
-    
-    
-    func animateHeaderToMapView() {
-       // self.headerContatinerViewHeightConstraint.constant = 100
-        self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x
-            , y:self.searchBar.frame.origin.y, width: 200, height: 50)
-        UIView.animate(withDuration: 0.5) {
-            self.searchBar.transform = .identity
+            self.searchBar.frame = self.searchIntitialFrame
             self.titleLabel.transform = .identity
             self.descriptionLabel.transform = .identity
             self.view.layoutIfNeeded()
+        })
+    }
+    
+    func animateHeaderToMapView() {
+        self.headerContatinerViewHeightConstraint.constant = 50
+        self.collectionViewTopConstraint.constant = 50
+        UIView.animate(withDuration: 0.5) {
+            self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
+                                          , y: self.searchBar.frame.origin.y - 45, width: self.searchBar.frame.width - 80, height: 50)
+            self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func getFavouriteHotels() {
+        self.favouriteHotels = self.fetchedResultsController.fetchedObjects?.filter { $0.fav == "1" } ?? []
+    }
+    
+    private func getPinnedHotelTemplate() {
+        if !self.favouriteHotels.isEmpty {
+            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
     }
     
@@ -272,6 +298,10 @@ class HotelResultVC: BaseVC {
         self.time += 1.0
         self.progressView.setProgress(self.time / 10, animated: true)
         
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
         if self.time == 2 {
             self.timer!.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
@@ -279,7 +309,6 @@ class HotelResultVC: BaseVC {
             }
         }
         
-        printDebug("timer\(self.timer!)")
         if self.time >= 10 {
             self.timer!.invalidate()
             delay(seconds: 0.8) {
@@ -345,6 +374,19 @@ class HotelResultVC: BaseVC {
         }
     }
     
+    private func openSharingSheet() {
+        let textToShare = [self.viewModel.shortUrl]
+        let activityViewController =
+            UIActivityViewController(activityItems: textToShare as [Any],
+                                     applicationActivities: nil)
+        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+        present(activityViewController, animated: true)
+    }
+    
+    private func removeAllFavouritesHotels() {
+        self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -358,17 +400,43 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-//        self.header.height = UIDevice.screenHeight
-        if hoteResultViewType == .ListView {
-             animateHeaderToMapView()
-            hoteResultViewType = .MapView
+        if self.hoteResultViewType == .ListView {
+            self.animateHeaderToMapView()
+            self.hoteResultViewType = .MapView
         } else {
-            animateHeaderToListView()
-            hoteResultViewType = .ListView
+            self.animateHeaderToListView()
+            self.hoteResultViewType = .ListView
         }
-//        self.header.layoutIfNeeded()
+    }
+    
+    @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
+        self.removeAllFavouritesHotels()
+    }
+    
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        self.openSharingSheet()
+    }
+    
+    @IBAction func EmailButtonTapped(_ sender: Any) {
+        AppFlowManager.default.presentMailComposerVC()
+    }
+    
+    @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.Share.localized, LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
         
-      //  AppFlowManager.default.moveToMapVC()
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            
+            if index == 0 {
+                printDebug("Email")
+                
+            } else if index == 1 {
+                printDebug("Share")
+                self?.openSharingSheet()
+            } else if index == 2 {
+                self?.removeAllFavouritesHotels()
+                printDebug("Remove All photo")
+            }
+        }
     }
 }
 
@@ -420,7 +488,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if (self.fetchedResultsController.sections?.count ?? 0) - self.footeSection == section, self.filterApplied.distanceRange > 0, self.isFotterVisible {
+        if (self.fetchedResultsController.sections?.count ?? 0) - self.footeSection == section, self.filterApplied.distanceRange > 0 {
             return CGSize(width: UIDevice.screenWidth, height: 106.0)
         } else {
             return CGSize(width: UIDevice.screenWidth, height: 0.0)
@@ -463,7 +531,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let hData = fetchedResultsController.object(at: indexPath)
-        AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
     }
 }
 
@@ -475,12 +543,12 @@ extension HotelResultVC: MXParallaxHeaderDelegate {
         if parallaxHeader.progress < 0.9 {
             self.headerContainerViewTopConstraint.constant = -140
             self.collectionViewTopConstraint.constant = 0
-        
+            
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             })
         } else {
-             self.headerContainerViewTopConstraint.constant = 0
+            self.headerContainerViewTopConstraint.constant = 0
             self.collectionViewTopConstraint.constant = 100
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
@@ -547,6 +615,10 @@ extension HotelResultVC: SectionFooterDelegate {
 // MARK: - Hotel Card collection view Delegate methods
 
 extension HotelResultVC: HotelCardCollectionViewCellDelegate {
+    func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
+        self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
+    }
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         //
     }
@@ -562,16 +634,118 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func willGetPinnedTemplate() {
+        //
+    }
+    
+    func getPinnedTemplateSuccess() {
+        //
+    }
+    
+    func getPinnedTemplateFail() {
+        //
+    }
+    
+    func willUpdateFavourite() {
+        //
+    }
+    
+    func updateFavouriteSuccess() {
+        self.reloadHotelList()
+    }
+    
+    func updateFavouriteFail() {
+        //
+    }
+    
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
             self.reloadHotelList()
             self.loadSaveData()
+            self.getFavouriteHotels()
+            self.floatingView.isHidden = self.favouriteHotels.count < 0
+            self.getPinnedHotelTemplate()
+            self.time += 1
+            self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         }
     }
     
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+    }
+    
+    private func hideButtons() {
+        if self.hoteResultViewType == .ListView {
+            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.unPinAllFavouriteButton.isHidden = true
+            self.emailButton.isHidden = true
+            self.shareButton.isHidden = true
+        } else {
+            self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.floatingButtonOnMapView.isHidden = true
+        }
+    }
+    
+    private func animateFloatingButtonOnListView() {
+        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
+                       delay: 0,
+                       usingSpringWithDamping: self.defaultDamping,
+                       initialSpringVelocity: self.defaultVelocity,
+                       options: .allowUserInteraction,
+                       animations: {
+                           self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                           self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
+                           self.emailButton.transform = CGAffineTransform(translationX: 98, y: 0)
+                           self.shareButton.transform = CGAffineTransform(translationX: 142, y: 0)
+                       },
+                       completion: { _ in
+                           printDebug("Animation finished")
+        })
+    }
+    
+    private func animateFloatingButtonOnMapView() {
+        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
+                       delay: 0,
+                       usingSpringWithDamping: self.defaultDamping,
+                       initialSpringVelocity: self.defaultVelocity,
+                       options: .allowUserInteraction,
+                       animations: {
+                           self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 65, y: 0)
+                       },
+                       completion: { _ in
+                           printDebug("Animation finished")
+        })
+    }
+    
+    private func animateButton() {
+        if self.hoteResultViewType == .ListView {
+            self.animateFloatingButtonOnListView()
+        } else {
+            self.animateFloatingButtonOnMapView()
+        }
+    }
+}
+
+extension HotelResultVC: ATSwitcherChangeValueDelegate {
+    func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+        if value {
+            if self.hoteResultViewType == .MapView {
+                self.floatingButtonOnMapView.isHidden = false
+            } else {
+                self.unPinAllFavouriteButton.isHidden = false
+                self.emailButton.isHidden = false
+                self.shareButton.isHidden = false
+            }
+            self.animateButton()
+            self.getFavouriteHotels()
+        } else {
+            self.hideButtons()
+        }
     }
 }

@@ -351,6 +351,13 @@ extension AppFlowManager {
         let obj = HotelMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    // Mail Composer
+    
+    func presentMailComposerVC() {
+        let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
+        self.mainNavigationController.present(obj, animated: true)
+    }
 }
 
 //MARK: - Pop Methods

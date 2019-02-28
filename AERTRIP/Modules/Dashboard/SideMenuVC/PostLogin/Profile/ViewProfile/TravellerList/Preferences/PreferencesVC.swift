@@ -122,7 +122,7 @@ class PreferencesVC: BaseVC {
     }
     
     @objc func setCategorisedByGroupFlag(_ sender: UISwitch) {
-        NSLog("\(sender.isOn)")
+        printDebug("\(sender.isOn)")
         viewModel.isCategorizeByGroup = sender.isOn
     }
     

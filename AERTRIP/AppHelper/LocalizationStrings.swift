@@ -238,7 +238,8 @@ enum LocalizedString: String {
     case AddNotes = "AddNotes"
     case DeleteFromTraveller = "DeleteFromTraveller"
     case Default = "Default"
-    
+    case Share = "Share"
+    case FloatingButtonsTitle = "FloatingButtonsTitle"
     // Mark: - Salutation
     case Mrs = "Mrs"
     case Ms = "Ms"
@@ -429,4 +430,12 @@ enum LocalizedString: String {
     case HideHotelBeyond = "HideHotelsBeyond"
     case Choose_App = "Choose_App"
     case GMap = "GMap"
+    
+    //MARK: - Hotel Result VC
+    
+    case RemoveFromFavourites = "RemoveFromFavourites"
+    case EmailFavouriteHotelInfo = "EmailFavoriteHotelsInfo"
+    case Send = "Send"
+
+    
 }

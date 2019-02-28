@@ -136,7 +136,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
-        NSLog("middle view tapped")
+        printDebug("middle view tapped")
         if let indexPath = indexPath {
             delegate?.rightViewTap(indexPath, gesture)
         }
@@ -153,7 +153,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
 
 extension TwoPartEditTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        NSLog("text field text \(textField.text ?? " ")")
+        printDebug("text field text \(textField.text ?? " ")")
         if let indexPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)

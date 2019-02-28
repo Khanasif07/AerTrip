@@ -88,7 +88,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
-        NSLog("middle view tapped")
+        printDebug("middle view tapped")
         delegate?.middleViewTap(gesture)
     }
     

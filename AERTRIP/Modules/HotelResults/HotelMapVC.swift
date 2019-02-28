@@ -104,9 +104,8 @@ class HotelMapVC: UIViewController {
         self.view.addSubview((mapView!))
         marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
-        
         let hotels = fetchedResultsController.fetchedObjects
-        for hotel in hotels! {
+        for hotel in hotels ?? [] {
             let marker = GMSMarker()
             let LocationAtual: CLLocation = CLLocation(latitude: Double(hotel.lat ?? "") ?? 0.0, longitude: Double(hotel.long ?? "") ?? 0.0)
             marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)

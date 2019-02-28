@@ -142,7 +142,7 @@ class TravellerListVC: BaseVC {
     }
     
     func popOverOptionTapped() {
-        NSLog("edit buttn tapped")
+        printDebug("edit buttn tapped")
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Select.localized, LocalizedString.Preferences.localized, LocalizedString.Import.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         

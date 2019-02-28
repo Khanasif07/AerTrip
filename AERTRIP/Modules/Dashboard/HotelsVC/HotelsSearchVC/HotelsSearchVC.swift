@@ -83,6 +83,12 @@ class HotelsSearchVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.view.isUserInteractionEnabled = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
@@ -542,6 +548,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
     
     func getAllHotelsOnPreferenceFail() {
+         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
     }
