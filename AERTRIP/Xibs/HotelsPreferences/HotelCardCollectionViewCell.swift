@@ -11,6 +11,7 @@ import UIKit
 
 protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
+    func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
 
@@ -90,7 +91,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         printDebug("thumbnail count is \(thumbnail.count)")
         
         for index in 0..<5 {
-            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: 0, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
             view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
             // view.image = UIImage(named: "tickIcon")
             scrollView.addSubview(view)
@@ -122,7 +123,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
-        
+        self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
 //        if let image = UIImage(named: "hotelCardPlaceHolder") {
 //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
 //     }
@@ -136,6 +137,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @objc func saveButtonTapped(_ sender: UIButton) {
         if let hotel = self.hotelData {
             self.delegate?.saveButtonAction(sender, forHotel: hotel)
+        } else if let hotel = self.hotelListData {
+              self.delegate?.saveButtonActionFromLocalStorage(sender, forHotel: hotel)
         }
     }
 }

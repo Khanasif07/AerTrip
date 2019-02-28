@@ -122,4 +122,29 @@ extension APICaller {
             }
         }
     }
+    
+    func getPinnedTemplateAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ shortTemplateUrl: String)->Void ) {
+        
+        AppNetworking.POST(endPoint: APIEndPoint.getPinnedTemplate, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.response.rawValue].dictionaryObject {
+                    let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
+                    completionBlock(true, [],shortUrl ?? "")
+                } else {
+                     completionBlock(false, [],"")
+                }
+            }, failure: { (errors) in
+                completionBlock(false, errors, "")
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "")
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+            }
+        }
+    }
 }

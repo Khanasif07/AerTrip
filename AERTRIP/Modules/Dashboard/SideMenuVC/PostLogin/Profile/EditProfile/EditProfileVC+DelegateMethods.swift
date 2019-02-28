@@ -489,10 +489,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
-                NSLog("open camera")
+                printDebug("open camera")
                 self?.openCamera()
             } else if index == 1 {
-                NSLog("Open gallery")
+                printDebug("Open gallery")
                 self?.openGallery()
             } else if index == 2 {
                 printDebug("Remove Photo")
@@ -508,13 +508,12 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
-                NSLog("open camera")
+                printDebug("open camera")
                 self?.openCamera()
             } else if index == 1 {
-                NSLog("Open gallery")
+                printDebug("Open gallery")
                 self?.openGallery()
             } else if index == 2 {
-                NSLog("")
                 self?.getPhotoFromFacebook()
             } else if index == 3 {
                 self?.getPhotoFromGoogle()
@@ -843,7 +842,7 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSLog("selected data \(pickerData[row])")
+        printDebug("selected data \(pickerData[row])")
         pickerTitle = pickerData[row]
     }
 }
@@ -894,7 +893,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
 
 extension EditProfileVC: SearchVCDelegate {
     func frequentFlyerSelected(_ flyer: FlyerModel) {
-        NSLog("flyer model \(flyer)")
+        printDebug("flyer model \(flyer)")
         if let indexPath = self.indexPath {
             let str = flyer.value
             let strToReplaced = " (\(flyer.iata))"
@@ -942,19 +941,19 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
         let cell = tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell
         switch textfield {
         case cell?.addressLineOneTextField:
-            NSLog("addressLineTwoTextField")
+            printDebug("addressLineTwoTextField")
             self.viewModel.addresses[indexPath.row].line1 = fullString
         case cell?.addressLineTwoTextField:
-            NSLog("addressLineTwoTextField")
+            printDebug("addressLineTwoTextField")
             self.viewModel.addresses[indexPath.row].line2 = fullString
         case cell?.cityTextField:
-            NSLog("cityTextField")
+            printDebug("cityTextField")
             self.viewModel.addresses[indexPath.row].city = fullString
         case cell?.postalCodeTextField:
-            NSLog("postalCodeTextField")
+            printDebug("postalCodeTextField")
             self.viewModel.addresses[indexPath.row].postalCode = fullString
         case cell?.stateTextField:
-            NSLog("stateTextField")
+            printDebug("stateTextField")
             self.viewModel.addresses[indexPath.row].state = fullString
         default:
             break
@@ -962,7 +961,7 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
     }
     
     func addressTypeViewTapped(_ indexPath: IndexPath) {
-        NSLog("Address view Tapped")
+        printDebug("Address view Tapped")
         self.indexPath = indexPath
         if self.viewModel.addressTypes.count > 0 {
             pickerType = .addressTypes
@@ -973,7 +972,7 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
     }
     
     func countryViewTapped(_ indexPath: IndexPath) {
-        NSLog("country view tapped")
+        printDebug("country view tapped")
         self.indexPath = indexPath
         PKCountryPickerSettings.shouldShowCountryCode = false
         if self.viewModel.countries.count > 0 {

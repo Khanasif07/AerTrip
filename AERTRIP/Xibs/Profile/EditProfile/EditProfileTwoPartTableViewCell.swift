@@ -102,7 +102,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
 
 extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        NSLog("text field text \(textField.text ?? " ")")
+        printDebug("text field text \(textField.text ?? " ")")
         if let indexPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)

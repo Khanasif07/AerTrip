@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HotelMailComposerCardViewTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="394.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="228"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="228" id="xGY-Ot-ghr"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCv-vO-xhG">
+                        <rect key="frame" x="16" y="237" width="288" height="141.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62p-l1-YzI">
+                                <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPQ-Dl-3nm">
+                                <rect key="frame" x="246" y="0.0" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PI-2K-QFN" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="26" width="68" height="12"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="Qu0-i1-gin"/>
+                                    <constraint firstAttribute="width" constant="68" id="qhj-Hc-wsa"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="YK7-ub-G8T">
+                                <rect key="frame" x="78" y="26" width="32" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Bdn-o7-TEv"/>
+                                    <constraint firstAttribute="width" constant="32" id="URL-rP-YAO"/>
+                                </constraints>
+                            </imageView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-Bf-oWk" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="110" y="26" width="68" height="12"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="VXt-My-T51"/>
+                                    <constraint firstAttribute="width" constant="68" id="nt1-eQ-4aR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  fsdff" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUp-aA-uRJ">
+                                <rect key="frame" x="0.0" y="55" width="288" height="86.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="62p-l1-YzI" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="2Kw-Od-Y9E"/>
+                            <constraint firstItem="pPQ-Dl-3nm" firstAttribute="top" secondItem="PCv-vO-xhG" secondAttribute="top" id="2w2-kY-mBB"/>
+                            <constraint firstAttribute="trailing" secondItem="pPQ-Dl-3nm" secondAttribute="trailing" id="9IZ-PK-vWg"/>
+                            <constraint firstItem="YK7-ub-G8T" firstAttribute="top" secondItem="7PI-2K-QFN" secondAttribute="top" id="AdV-cG-oDb"/>
+                            <constraint firstItem="7PI-2K-QFN" firstAttribute="top" secondItem="62p-l1-YzI" secondAttribute="bottom" constant="5" id="Azb-yk-M6d"/>
+                            <constraint firstAttribute="trailing" secondItem="dUp-aA-uRJ" secondAttribute="trailing" id="Hj1-UE-7fw"/>
+                            <constraint firstItem="dUp-aA-uRJ" firstAttribute="top" secondItem="7PI-2K-QFN" secondAttribute="bottom" constant="17" id="JYU-n9-F5k"/>
+                            <constraint firstItem="9hv-Bf-oWk" firstAttribute="top" secondItem="YK7-ub-G8T" secondAttribute="top" id="Wfu-E3-VZz"/>
+                            <constraint firstItem="7PI-2K-QFN" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="eMw-B5-L0F"/>
+                            <constraint firstItem="dUp-aA-uRJ" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="hSg-4U-tT5"/>
+                            <constraint firstAttribute="bottom" secondItem="dUp-aA-uRJ" secondAttribute="bottom" id="jtC-u1-XuL"/>
+                            <constraint firstItem="62p-l1-YzI" firstAttribute="top" secondItem="PCv-vO-xhG" secondAttribute="top" id="k5x-EY-nuN"/>
+                            <constraint firstItem="YK7-ub-G8T" firstAttribute="leading" secondItem="7PI-2K-QFN" secondAttribute="trailing" constant="10" id="nWP-zg-jPC"/>
+                            <constraint firstItem="62p-l1-YzI" firstAttribute="centerY" secondItem="pPQ-Dl-3nm" secondAttribute="centerY" id="nqG-or-wXO"/>
+                            <constraint firstItem="9hv-Bf-oWk" firstAttribute="leading" secondItem="YK7-ub-G8T" secondAttribute="trailing" id="uaW-oy-7l0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="sho-Ja-Zl8" secondAttribute="trailing" id="1Sx-TT-lTY"/>
+                    <constraint firstItem="sho-Ja-Zl8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BiV-nP-L0K"/>
+                    <constraint firstAttribute="trailing" secondItem="PCv-vO-xhG" secondAttribute="trailing" constant="16" id="Mqh-Ut-dcu"/>
+                    <constraint firstItem="PCv-vO-xhG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="NTY-kL-6YR"/>
+                    <constraint firstItem="sho-Ja-Zl8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vRO-AK-oM7"/>
+                    <constraint firstItem="PCv-vO-xhG" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" constant="9" id="y80-Zd-v2A"/>
+                    <constraint firstAttribute="bottom" secondItem="PCv-vO-xhG" secondAttribute="bottom" constant="16" id="yhu-uu-gxG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressLabel" destination="dUp-aA-uRJ" id="GrV-zk-Bap"/>
+                <outlet property="hotelCardImageView" destination="sho-Ja-Zl8" id="gh1-oo-xhI"/>
+                <outlet property="hotelNameLabel" destination="62p-l1-YzI" id="FXx-jJ-mQO"/>
+                <outlet property="hotelPriceLabel" destination="pPQ-Dl-3nm" id="2xa-Li-319"/>
+                <outlet property="starRatingView" destination="7PI-2K-QFN" id="2Dh-lk-83T"/>
+                <outlet property="tripRatingView" destination="9hv-Bf-oWk" id="dNU-ze-ujp"/>
+            </connections>
+            <point key="canvasLocation" x="181" y="153"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeUnfilled" width="14" height="14"/>
+        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingUnfill" width="30" height="30"/>
+        <image name="tripAdviser" width="32" height="24"/>
+    </resources>
+</document>

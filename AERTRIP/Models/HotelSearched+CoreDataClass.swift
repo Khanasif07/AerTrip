@@ -107,8 +107,8 @@ public class HotelSearched: NSManagedObject {
         if let obj = dataDict[APIKeys.long.rawValue] {
             hotelSearched!.long = "\(obj)".removeNull
         }
-        if let obj = dataDict[APIKeys.no_of_nights.rawValue] {
-            hotelSearched!.numberOfNight = Int16(obj as! Int)
+        if let obj = dataDict[APIKeys.no_of_nights.rawValue] as? Int {
+            hotelSearched!.numberOfNight = Int16(obj)
         }
         
         if let obj = dataDict[APIKeys.num_rooms.rawValue] as? Int {
@@ -157,8 +157,6 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.amentities = obj
         }
         
-        
-        
         CoreDataManager.shared.saveContext()
         
         return hotelSearched!
@@ -183,7 +181,6 @@ public class HotelSearched: NSManagedObject {
         }
         return nil
     }
-    
 }
 
 

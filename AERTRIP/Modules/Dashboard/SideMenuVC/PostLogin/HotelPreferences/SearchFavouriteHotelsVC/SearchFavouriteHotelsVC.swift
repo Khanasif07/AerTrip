@@ -156,6 +156,10 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
+    func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
+        //Not Required here
+    }
+    
     func pagingScrollEnable(_ indexPath: IndexPath,_ scrollView: UIScrollView) {
         return
     }

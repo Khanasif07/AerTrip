@@ -393,3 +393,8 @@
 "HideHotelsBeyond" = "Hide hotels beyond 20 km";
 "Choose_App" = "Choose App";
 "GMap" = "Google Maps";
+"RemoveFromFavourites" = "Remove from Favourites";
+"Share" = "Share";
+"FloatingButtonsTitle" = "What do you want to do with your \n favourite hotels?";
+"EmailFavoriteHotelsInfo" = "Email Favorite Hotels Info";
+"Send" = "Send";

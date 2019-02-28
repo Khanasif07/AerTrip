@@ -237,6 +237,8 @@ enum APIKeys: String {
     case tripAdvisorRatings = "tripAdvisorRatings"
     case isChecked = "isChecked"
     case recentSearchQuery = "query"
+    case response = "response"
+    case shortUrl = "short_url"
 }
 
 

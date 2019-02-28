@@ -203,6 +203,47 @@
             </objects>
             <point key="canvasLocation" x="1505" y="92"/>
         </scene>
+        <!--Mail ComposerVC-->
+        <scene sceneID="Lxg-qe-qZb">
+            <objects>
+                <viewController storyboardIdentifier="MailComposerVC" id="aI3-3e-QiV" customClass="MailComposerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7jt-ef-q6i">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdY-AN-fBI" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="hWb-EA-FrG"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lh2-kn-jTl">
+                                <rect key="frame" x="0.0" y="55" width="375" height="612"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kdY-AN-fBI" firstAttribute="top" secondItem="ahp-cC-pVe" secondAttribute="top" id="3Os-96-ed9"/>
+                            <constraint firstItem="lh2-kn-jTl" firstAttribute="top" secondItem="kdY-AN-fBI" secondAttribute="bottom" id="3WI-NE-zJb"/>
+                            <constraint firstItem="kdY-AN-fBI" firstAttribute="leading" secondItem="ahp-cC-pVe" secondAttribute="leading" id="Jon-xW-YmJ"/>
+                            <constraint firstItem="ahp-cC-pVe" firstAttribute="trailing" secondItem="lh2-kn-jTl" secondAttribute="trailing" id="OJa-46-gjg"/>
+                            <constraint firstItem="ahp-cC-pVe" firstAttribute="bottom" secondItem="lh2-kn-jTl" secondAttribute="bottom" id="XQ1-L0-vpg"/>
+                            <constraint firstItem="lh2-kn-jTl" firstAttribute="leading" secondItem="ahp-cC-pVe" secondAttribute="leading" id="ewX-R5-3ul"/>
+                            <constraint firstItem="ahp-cC-pVe" firstAttribute="trailing" secondItem="kdY-AN-fBI" secondAttribute="trailing" id="fO9-mM-pCT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ahp-cC-pVe"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="lh2-kn-jTl" id="79v-Aj-QCv"/>
+                        <outlet property="topNavView" destination="kdY-AN-fBI" id="ov8-nz-Ffz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iGO-b1-769" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2281" y="91"/>
+        </scene>
     </scenes>
     <resources>
         <image name="black_cross" width="24" height="24"/>
