@@ -384,16 +384,16 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BQp-MA-CAR">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BQp-MA-CAR">
                                         <rect key="frame" x="0.0" y="250" width="375" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.80392156862745101" green="0.80392156862745101" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="OsF-Jf-BQ4"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpA-8C-F38">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpA-8C-F38">
                                         <rect key="frame" x="0.0" y="277" width="375" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.80392156862745101" green="0.80392156862745101" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="fNa-VU-eOc"/>
                                         </constraints>
@@ -1384,28 +1384,28 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1YK-7o-PS1">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="548"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ovQ-VX-9FK">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="127.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="104"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uOy-8K-VHi">
-                                                        <rect key="frame" x="16" y="21" width="311" height="85.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="uOy-8K-VHi">
+                                                        <rect key="frame" x="16" y="15" width="311" height="72"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3d-hc-lZA">
-                                                                <rect key="frame" x="0.0" y="0.0" width="311" height="28.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="311" height="22.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnQ-Ll-JBK">
-                                                                <rect key="frame" x="0.0" y="28.5" width="311" height="28.5"/>
+                                                                <rect key="frame" x="0.0" y="24.5" width="311" height="23"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw9-M9-zVa">
-                                                                <rect key="frame" x="0.0" y="57" width="311" height="28.5"/>
+                                                                <rect key="frame" x="0.0" y="49.5" width="311" height="22.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1421,52 +1421,52 @@ been sent</string>
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wN-R8-Gjr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="127.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="104"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="whereButtonAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="6IP-ge-uqH"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="4wN-R8-Gjr" firstAttribute="leading" secondItem="ovQ-VX-9FK" secondAttribute="leading" id="L8H-9E-SAC"/>
                                                     <constraint firstAttribute="bottom" secondItem="4wN-R8-Gjr" secondAttribute="bottom" id="MzQ-d2-iet"/>
-                                                    <constraint firstItem="uOy-8K-VHi" firstAttribute="top" secondItem="ovQ-VX-9FK" secondAttribute="top" constant="21" id="QPT-LA-gpF"/>
-                                                    <constraint firstAttribute="bottom" secondItem="uOy-8K-VHi" secondAttribute="bottom" constant="21" id="VgR-xM-AYn"/>
+                                                    <constraint firstItem="uOy-8K-VHi" firstAttribute="top" secondItem="ovQ-VX-9FK" secondAttribute="top" constant="15" id="QPT-LA-gpF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uOy-8K-VHi" secondAttribute="bottom" constant="17" id="VgR-xM-AYn"/>
                                                     <constraint firstItem="4wN-R8-Gjr" firstAttribute="top" secondItem="ovQ-VX-9FK" secondAttribute="top" id="Wtf-Uv-vZg"/>
                                                     <constraint firstAttribute="trailing" secondItem="4wN-R8-Gjr" secondAttribute="trailing" id="Xeb-Zf-Vik"/>
-                                                    <constraint firstAttribute="height" constant="127.5" id="Yfw-RN-YkJ"/>
+                                                    <constraint firstAttribute="height" constant="104" id="Yfw-RN-YkJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="uOy-8K-VHi" secondAttribute="trailing" constant="16" id="ZfH-6S-WQE"/>
                                                     <constraint firstItem="uOy-8K-VHi" firstAttribute="leading" secondItem="ovQ-VX-9FK" secondAttribute="leading" constant="16" id="zWO-bi-fXi"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ss1-DI-z9u" userLabel="First Line View">
-                                                <rect key="frame" x="16" y="127.5" width="311" height="1"/>
+                                                <rect key="frame" x="16" y="104" width="311" height="1"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="hPO-Qr-wIi"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJN-l9-buZ">
-                                                <rect key="frame" x="0.0" y="128.5" width="343" height="127.5"/>
+                                                <rect key="frame" x="0.0" y="105" width="343" height="104"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="127.5" id="D2j-Y4-Xbb"/>
+                                                    <constraint firstAttribute="height" constant="104" id="D2j-Y4-Xbb"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hD1-Hr-9SY" userLabel="Second Line View">
-                                                <rect key="frame" x="16" y="256" width="311" height="1"/>
+                                                <rect key="frame" x="16" y="209" width="311" height="1"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="2KW-LD-PCM"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQd-qj-BsR">
-                                                <rect key="frame" x="0.0" y="257" width="343" height="101.5"/>
+                                                <rect key="frame" x="0.0" y="210" width="343" height="86"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="84P-go-Tru">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="101.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="86"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wxk-IY-X51">
                                                             <size key="itemSize" width="50" height="50"/>
@@ -1486,14 +1486,14 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHG-7q-Jzf" userLabel="Third Line View">
-                                                <rect key="frame" x="16" y="358.5" width="311" height="1"/>
+                                                <rect key="frame" x="16" y="296" width="311" height="1"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="ZCN-eN-gMY"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYO-z5-ao8">
-                                                <rect key="frame" x="0.0" y="359.5" width="343" height="148.5"/>
+                                                <rect key="frame" x="0.0" y="297" width="343" height="121"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="top" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="wE3-vc-Duf">
                                                         <rect key="frame" x="24" y="19" width="295" height="19.5"/>
@@ -1519,10 +1519,10 @@ been sent</string>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ybY-2P-HLU">
-                                                        <rect key="frame" x="38.5" y="47.5" width="266" height="91"/>
+                                                        <rect key="frame" x="38.5" y="47.5" width="266" height="63.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4gW-Bd-fLY">
-                                                                <rect key="frame" x="0.0" y="19.5" width="30" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="5.5" width="30" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9g-Pq-mrV">
                                                                         <rect key="frame" x="11.5" y="0.0" width="7.5" height="19.5"/>
@@ -1533,14 +1533,16 @@ been sent</string>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNg-OL-LA6">
                                                                         <rect key="frame" x="0.0" y="22.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
+                                                                        <state key="selected" image="starRatingFilled"/>
+                                                                        <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
-                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="JoQ-ea-8om"/>
+                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="XDd-Fb-5Sh"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="nfY-js-3uN">
-                                                                <rect key="frame" x="59" y="19.5" width="30" height="52.5"/>
+                                                                <rect key="frame" x="59" y="5.5" width="30" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyc-4s-0Da">
                                                                         <rect key="frame" x="10.5" y="0.0" width="9.5" height="19.5"/>
@@ -1551,14 +1553,16 @@ been sent</string>
                                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ob3-iq-aIs">
                                                                         <rect key="frame" x="0.0" y="22.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
+                                                                        <state key="selected" image="starRatingFilled"/>
+                                                                        <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
-                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="zsx-OJ-huF"/>
+                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="9bf-CK-31n"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="aFd-go-Ur8">
-                                                                <rect key="frame" x="118" y="19.5" width="30" height="52.5"/>
+                                                                <rect key="frame" x="118" y="5.5" width="30" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozn-qe-a17">
                                                                         <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
@@ -1569,14 +1573,16 @@ been sent</string>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMR-oZ-hxO">
                                                                         <rect key="frame" x="0.0" y="22.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
+                                                                        <state key="selected" image="starRatingFilled"/>
+                                                                        <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
-                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="Yrk-IK-Glf"/>
+                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="ipk-7f-j2G"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ZM9-y8-4yv">
-                                                                <rect key="frame" x="177" y="19.5" width="30" height="52.5"/>
+                                                                <rect key="frame" x="177" y="5.5" width="30" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l82-Be-Pxa">
                                                                         <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
@@ -1587,14 +1593,16 @@ been sent</string>
                                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8r-V0-kjE">
                                                                         <rect key="frame" x="0.0" y="22.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
+                                                                        <state key="selected" image="starRatingFilled"/>
+                                                                        <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
-                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="lQQ-Bx-qSp"/>
+                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="Yda-Bk-21B"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="UJ2-vc-Z8P">
-                                                                <rect key="frame" x="236" y="19.5" width="30" height="52.5"/>
+                                                                <rect key="frame" x="236" y="5.5" width="30" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNa-KA-kL1">
                                                                         <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
@@ -1605,8 +1613,10 @@ been sent</string>
                                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMR-Er-NXZ">
                                                                         <rect key="frame" x="0.0" y="22.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
+                                                                        <state key="selected" image="starRatingFilled"/>
+                                                                        <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
-                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="BqY-fL-zLt"/>
+                                                                            <action selector="starButtonsAction:" destination="NJm-O6-sg8" eventType="touchUpInside" id="Ngt-zS-0Sj"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1621,20 +1631,20 @@ been sent</string>
                                                     <constraint firstAttribute="bottom" secondItem="ybY-2P-HLU" secondAttribute="bottom" constant="10" id="L7W-zv-Dbn"/>
                                                     <constraint firstItem="wE3-vc-Duf" firstAttribute="top" secondItem="uYO-z5-ao8" secondAttribute="top" constant="19" id="Xd3-EC-8jU"/>
                                                     <constraint firstItem="wE3-vc-Duf" firstAttribute="leading" secondItem="uYO-z5-ao8" secondAttribute="leading" constant="24" id="dVs-ji-1zb"/>
-                                                    <constraint firstAttribute="height" constant="148.5" id="mh4-fH-ls3"/>
+                                                    <constraint firstAttribute="height" constant="121" id="mh4-fH-ls3"/>
                                                     <constraint firstItem="ybY-2P-HLU" firstAttribute="width" secondItem="uYO-z5-ao8" secondAttribute="width" multiplier="0.775" id="qiw-8K-XbU"/>
                                                     <constraint firstItem="ybY-2P-HLU" firstAttribute="top" secondItem="wE3-vc-Duf" secondAttribute="bottom" constant="9" id="yBR-MI-5ij"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQN-6x-DSh" userLabel="Fourth Line View">
-                                                <rect key="frame" x="16" y="508" width="311" height="1"/>
+                                                <rect key="frame" x="16" y="418" width="311" height="1"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Aer-E2-HQv"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-11-RmX">
-                                                <rect key="frame" x="0.0" y="509" width="343" height="158"/>
+                                                <rect key="frame" x="0.0" y="419" width="343" height="129"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tgd-wk-t9D" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="96.5" y="20" width="150" height="50"/>
@@ -1649,7 +1659,7 @@ been sent</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="nB3-Bo-L6P">
-                                                        <rect key="frame" x="39" y="90" width="265" height="63"/>
+                                                        <rect key="frame" x="39" y="88" width="265" height="34"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
@@ -1662,15 +1672,15 @@ been sent</string>
                                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="nB3-Bo-L6P" secondAttribute="bottom" constant="5" id="9Pe-5f-iYi"/>
-                                                    <constraint firstAttribute="height" constant="158" id="DVW-Ju-EYv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="nB3-Bo-L6P" secondAttribute="bottom" constant="7" id="9Pe-5f-iYi"/>
+                                                    <constraint firstAttribute="height" constant="129" id="DVW-Ju-EYv"/>
                                                     <constraint firstAttribute="trailing" secondItem="nB3-Bo-L6P" secondAttribute="trailing" constant="39" id="Ii7-tg-6m4"/>
                                                     <constraint firstItem="nB3-Bo-L6P" firstAttribute="centerX" secondItem="Tgd-wk-t9D" secondAttribute="centerX" id="Io7-Ye-68u"/>
                                                     <constraint firstItem="nB3-Bo-L6P" firstAttribute="leading" secondItem="Tgf-11-RmX" secondAttribute="leading" constant="39" id="qDY-BE-8XO"/>
                                                     <constraint firstItem="Tgd-wk-t9D" firstAttribute="centerX" secondItem="Tgf-11-RmX" secondAttribute="centerX" id="xYn-h6-071"/>
-                                                    <constraint firstItem="nB3-Bo-L6P" firstAttribute="top" secondItem="Tgd-wk-t9D" secondAttribute="bottom" constant="20" id="yIZ-GN-79U"/>
+                                                    <constraint firstItem="nB3-Bo-L6P" firstAttribute="top" secondItem="Tgd-wk-t9D" secondAttribute="bottom" constant="18" id="yIZ-GN-79U"/>
                                                     <constraint firstItem="Tgd-wk-t9D" firstAttribute="top" secondItem="Tgf-11-RmX" secondAttribute="top" constant="20" id="yhV-Ev-AwZ"/>
                                                 </constraints>
                                             </view>
@@ -1702,14 +1712,14 @@ been sent</string>
                                             <constraint firstAttribute="trailing" secondItem="oJN-l9-buZ" secondAttribute="trailing" id="r37-1c-eOF"/>
                                             <constraint firstAttribute="trailing" secondItem="jQd-qj-BsR" secondAttribute="trailing" id="scl-IL-rbB"/>
                                             <constraint firstItem="iHG-7q-Jzf" firstAttribute="top" secondItem="jQd-qj-BsR" secondAttribute="bottom" id="uJD-pO-NCd"/>
-                                            <constraint firstAttribute="height" constant="667" id="vdZ-6k-BEz"/>
+                                            <constraint firstAttribute="height" constant="548" id="vdZ-6k-BEz"/>
                                             <constraint firstAttribute="trailing" secondItem="hD1-Hr-9SY" secondAttribute="trailing" constant="16" id="xlm-rn-tCE"/>
                                             <constraint firstItem="oJN-l9-buZ" firstAttribute="leading" secondItem="1YK-7o-PS1" secondAttribute="leading" id="zDq-2W-OBY"/>
                                             <constraint firstItem="hQN-6x-DSh" firstAttribute="leading" secondItem="1YK-7o-PS1" secondAttribute="leading" constant="16" id="zOe-cF-M9e"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVa-Yx-0ni">
-                                        <rect key="frame" x="0.0" y="667" width="375" height="194"/>
+                                        <rect key="frame" x="0.0" y="548" width="375" height="194"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwz-g6-UrA">
                                                 <rect key="frame" x="0.0" y="40" width="375" height="154"/>
@@ -1780,11 +1790,11 @@ been sent</string>
                         <outlet property="whereBtnOutlet" destination="4wN-R8-Gjr" id="G5t-fy-HaS"/>
                         <outlet property="whereContainerView" destination="ovQ-VX-9FK" id="9lR-bb-oPV"/>
                         <outlet property="whereLabel" destination="S3d-hc-lZA" id="YLo-Q4-1EL"/>
-                        <outletCollection property="starButtonsOutlet" destination="ob3-iq-aIs" collectionClass="NSMutableArray" id="sKc-Cj-b1I"/>
-                        <outletCollection property="starButtonsOutlet" destination="OMR-Er-NXZ" collectionClass="NSMutableArray" id="cP4-Dd-whT"/>
-                        <outletCollection property="starButtonsOutlet" destination="R8r-V0-kjE" collectionClass="NSMutableArray" id="YCG-Nl-X3N"/>
-                        <outletCollection property="starButtonsOutlet" destination="wMR-oZ-hxO" collectionClass="NSMutableArray" id="bZW-Ro-gez"/>
-                        <outletCollection property="starButtonsOutlet" destination="TNg-OL-LA6" collectionClass="NSMutableArray" id="t4K-KG-xvV"/>
+                        <outletCollection property="starButtonsOutlet" destination="TNg-OL-LA6" collectionClass="NSMutableArray" id="1Ve-x1-mFV"/>
+                        <outletCollection property="starButtonsOutlet" destination="ob3-iq-aIs" collectionClass="NSMutableArray" id="C8c-6x-tNb"/>
+                        <outletCollection property="starButtonsOutlet" destination="wMR-oZ-hxO" collectionClass="NSMutableArray" id="igp-CB-ukR"/>
+                        <outletCollection property="starButtonsOutlet" destination="R8r-V0-kjE" collectionClass="NSMutableArray" id="7Cb-yz-kDV"/>
+                        <outletCollection property="starButtonsOutlet" destination="OMR-Er-NXZ" collectionClass="NSMutableArray" id="if7-uM-oKf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YmN-0c-f8d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2731,15 +2741,15 @@ been sent</string>
                                             <constraint firstAttribute="bottom" secondItem="OGu-Jb-hAR" secondAttribute="bottom" id="uip-3v-s32"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7vw-Sj-8NH" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="193" width="375" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7vw-Sj-8NH" userLabel="firstLineView">
+                                        <rect key="frame" x="0.0" y="196" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="FnQ-fh-s9H"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lK-J1-Dzm" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="229" width="375" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lK-J1-Dzm" userLabel="secondLineView">
+                                        <rect key="frame" x="0.0" y="233" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="HGQ-O8-fX3"/>
@@ -2770,7 +2780,7 @@ been sent</string>
                                     <constraint firstAttribute="bottom" secondItem="uBZ-DY-nHN" secondAttribute="bottom" id="BwU-o3-sSh"/>
                                     <constraint firstItem="mP7-gz-KGv" firstAttribute="trailing" secondItem="uBZ-DY-nHN" secondAttribute="trailing" id="FQg-B7-3lm"/>
                                     <constraint firstAttribute="trailing" secondItem="uBZ-DY-nHN" secondAttribute="trailing" id="Ges-AG-dAf"/>
-                                    <constraint firstItem="mP7-gz-KGv" firstAttribute="top" secondItem="9lK-J1-Dzm" secondAttribute="bottom" constant="59" id="IQt-km-HKT"/>
+                                    <constraint firstItem="mP7-gz-KGv" firstAttribute="top" secondItem="9lK-J1-Dzm" secondAttribute="bottom" constant="55" id="IQt-km-HKT"/>
                                     <constraint firstItem="uBZ-DY-nHN" firstAttribute="leading" secondItem="ci1-CY-s7I" secondAttribute="leading" id="Pyn-v8-jjh"/>
                                     <constraint firstAttribute="trailing" secondItem="fT9-dn-Lxr" secondAttribute="trailing" constant="40" id="UJL-3o-d8d"/>
                                     <constraint firstItem="fT9-dn-Lxr" firstAttribute="top" secondItem="ci1-CY-s7I" secondAttribute="top" constant="20" id="VHF-lm-7WY"/>
@@ -2779,7 +2789,7 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="7vw-Sj-8NH" secondAttribute="trailing" id="Xz6-9h-mUe"/>
                                     <constraint firstItem="mP7-gz-KGv" firstAttribute="bottom" secondItem="fT9-dn-Lxr" secondAttribute="bottom" constant="24" id="ZUb-6e-RRq"/>
                                     <constraint firstItem="mP7-gz-KGv" firstAttribute="leading" secondItem="uBZ-DY-nHN" secondAttribute="leading" id="fKA-BR-0sW"/>
-                                    <constraint firstItem="9lK-J1-Dzm" firstAttribute="top" secondItem="7vw-Sj-8NH" secondAttribute="bottom" constant="35" id="gYs-Xx-PnE"/>
+                                    <constraint firstItem="9lK-J1-Dzm" firstAttribute="top" secondItem="7vw-Sj-8NH" secondAttribute="bottom" constant="36" id="gYs-Xx-PnE"/>
                                     <constraint firstAttribute="bottom" secondItem="yjh-af-4QE" secondAttribute="bottom" id="hGz-Mq-LcD"/>
                                     <constraint firstItem="7vw-Sj-8NH" firstAttribute="leading" secondItem="ci1-CY-s7I" secondAttribute="leading" id="hmu-Ma-VH2"/>
                                     <constraint firstItem="fT9-dn-Lxr" firstAttribute="leading" secondItem="ci1-CY-s7I" secondAttribute="leading" constant="40" id="mLn-nX-XCZ"/>
@@ -2822,6 +2832,7 @@ been sent</string>
         </scene>
     </scenes>
     <resources>
+        <image name="UnselectedStar" width="30" height="30"/>
         <image name="adult_deSelected" width="48" height="48"/>
         <image name="adult_icon" width="21" height="21"/>
         <image name="adult_icon_bulk" width="48" height="48"/>
@@ -2844,6 +2855,7 @@ been sent</string>
         <image name="saveHotelsSelected" width="27" height="27"/>
         <image name="shareIcon" width="76" height="76"/>
         <image name="shimmerViewFavouriteButton" width="18" height="22"/>
+        <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
     </resources>
 </document>

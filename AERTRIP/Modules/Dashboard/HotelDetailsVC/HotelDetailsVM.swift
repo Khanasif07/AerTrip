@@ -33,6 +33,7 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
+    internal var ratesData = [Rates]()
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
@@ -40,19 +41,18 @@ class HotelDetailsVM {
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     private var getHotelInfoParams: JSONDictionary {
-        let params: JSONDictionary = [APIKeys.vid.rawValue : "\(self.hotelInfo?.vid ?? "")" , APIKeys.hid.rawValue : "\(self.hotelInfo?.hid ?? "")", APIKeys.sid.rawValue : self.sid]
+        let params: JSONDictionary = [APIKeys.vid.rawValue : (self.hotelInfo?.vid ?? ""), APIKeys.hid.rawValue : (self.hotelInfo?.hid ?? ""), APIKeys.sid.rawValue : (self.hotelSearchRequest?.sid ?? "")]
         return params
     }
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-        //let params: JSONDictionary = self.getHotelInfoParams
-        //printDebug(params)
         APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
             guard let sSelf = self else {return}
             if success {
                 if let safeHotelData = hotelData {
                     sSelf.hotelData = safeHotelData
+                    sSelf.ratesData = safeHotelData.rates!
                     sSelf.delegate?.getHotelDetailsSuccess()
                 }
             } else {
@@ -96,42 +96,4 @@ class HotelDetailsVM {
             }
         }
     }
-}
-
-extension HotelDetailsVM {
-    
-//    internal func roomFilteration(rates: Rates) {
-//        var roomDict: [Int: RoomsRates] = [:]
-//        if let roomsData = rates.roomsRates{
-//            for room in roomsData {
-//                if roomsData.con
-//                //dict.filter{ $0.key.contains("Foo") }.count
-////                let dictionary = roomsData.reduce(into: [:]) { counts, number in
-////                    counts[number, default: 0] += 1
-////                }
-//                
-//            }
-//        }
-//       
-////        func filterData() -> [RLGroupUser]? {
-////            guard let safeGroupModel = self.groupModel else { return nil }
-////            let filteredMembers = Array(safeGroupModel.groupUsers).filter { (rlGrpUser) -> Bool in
-////                return (rlGrpUser.isAdmin || rlGrpUser.isOwner)
-////            }
-////            return filteredMembers
-////        }
-//    }
-}
-
-
-extension Array where Element: Hashable {
-    
-    func countForElements() -> [Element: Int] {
-        var counts = [Element: Int]()
-        for element in self {
-            counts[element] = (counts[element] ?? 0) + 1
-        }
-        return counts
-    }
-    
 }

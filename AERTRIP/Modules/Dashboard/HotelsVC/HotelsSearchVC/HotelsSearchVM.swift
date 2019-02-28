@@ -24,7 +24,7 @@ class HotelsSearchVM: NSObject{
     //MARK:- Properties
     //MARK:- Public
     var roomNumber: Int = 1
-    var adultsCount: [Int] = [1]
+    var adultsCount: [Int] = [2]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
     var checkInDate = "2019-03-13"
@@ -45,7 +45,9 @@ class HotelsSearchVM: NSObject{
     //MARK:- Private
     ///Params For Api
     private func paramsForApi() -> JSONDictionary {
-        
+        if self.ratingCount.isEmpty {
+            self.ratingCount = [1,2,3,4,5]
+        }
         var params = JSONDictionary()
         let _adultsCount = self.adultsCount
         let _starRating = self.ratingCount
@@ -76,6 +78,31 @@ class HotelsSearchVM: NSObject{
     }
     
     //MARK:- Public
+    
+    ///SaveFormDataToUserDefaults
+    func saveFormDataToUserDefaults() {
+        var hotelData = UserInfo.HotelFormPreviosSearchData()
+        hotelData.roomNumber     = self.roomNumber
+        hotelData.adultsCount    = self.adultsCount
+        hotelData.childrenCounts = self.childrenCounts
+        hotelData.childrenAge    = self.childrenAge
+        hotelData.checkInDate    = self.checkInDate
+        hotelData.checkOutDate   = self.checkOutDate
+        hotelData.destId         = self.destId
+        hotelData.destType       = self.destType
+        hotelData.destName       = self.destName
+        hotelData.ratingCount    = self.ratingCount
+        
+        UserInfo.loggedInUser?.hotelFormData = hotelData
+        
+        if let hotelData = UserInfo.loggedInUser?.hotelFormData {
+            printDebug(hotelData)
+        }
+    }
+    
+//    private override init() {}
+
+    
     ///Hotel List Api
     func hotelListOnPreferencesApi() {
         APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes,searhRequest) in
@@ -110,4 +137,3 @@ class HotelsSearchVM: NSObject{
         }
     }
 }
-

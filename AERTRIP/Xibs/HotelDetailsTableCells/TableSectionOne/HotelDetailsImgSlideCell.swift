@@ -50,12 +50,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         }
     }
     
-//    internal func configCellForHotelDetail(hotelData: HotelDetails) {
-//        self.imageUrls = hotelData.photos
-//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-//        self.pageControl.numberOfPages = self.imageUrls.count
-//        self.imageCollectionView.reloadData()
-//    }
+    internal func configCellForHotelDetail(hotelData: HotelDetails) {
+        self.imageUrls = hotelData.photos
+        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+        self.pageControl.numberOfPages = self.imageUrls.count
+        self.imageCollectionView.reloadData()
+    }
     
     //Mark:- IBOActions
     //=================

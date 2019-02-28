@@ -285,7 +285,7 @@
 "Ages" = "Ages";
 "AdultsAges" = "Ages 12+";
 "ChildAges" = "Ages 1 - 12";
-"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 max in a room";
+"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
 
 //MARK:- Destination Selection
@@ -361,6 +361,9 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
+"FreeCancellation" = "FREE CANCELLATION";
+"FullPaymentNow" = "Full Payment Now";
+"Book" = "Book";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -387,9 +390,16 @@
 "other" = "other";
 "available" = "available";
 "classType" = "classType";
+"Inclusion" = "Inclusion";
+"OtherInclusions" = "Other Inclusions";
+"CancellationPolicy" = "Cancellation Policy";
+"PaymentPolicy" = "Payment Policy";
+"Notes" = "Notes";
+"Info" = "Info";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
 "HideHotelsBeyond" = "Hide hotels beyond 20 km";
 "Choose_App" = "Choose App";
 "GMap" = "Google Maps";
+

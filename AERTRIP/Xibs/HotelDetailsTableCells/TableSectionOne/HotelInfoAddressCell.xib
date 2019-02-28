@@ -87,6 +87,7 @@
                             <constraint firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" constant="16" id="Mz5-Ow-31t"/>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="UKK-uM-fkx"/>
                             <constraint firstItem="cje-PF-AVP" firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="-7" id="VHr-Ha-IsQ"/>
+                            <constraint firstAttribute="height" constant="136.5" id="bMq-7T-4XF"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
                             <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
                             <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="14" id="vCk-5P-wmf"/>
@@ -111,7 +112,7 @@
                 <outlet property="moreBtnContainerView" destination="cje-PF-AVP" id="CC9-yD-HwU"/>
                 <outlet property="moreBtnOutlet" destination="Mco-ua-tSk" id="GH9-V6-CFA"/>
             </connections>
-            <point key="canvasLocation" x="108" y="98.50074962518741"/>
+            <point key="canvasLocation" x="297" y="105"/>
         </tableViewCell>
     </objects>
 </document>

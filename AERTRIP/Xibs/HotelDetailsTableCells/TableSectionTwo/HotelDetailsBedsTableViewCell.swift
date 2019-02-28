@@ -36,7 +36,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private func configureUI() {
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-        self.containerView.roundCornersByClipsToBounds(cornerRadius: 10.0)
+        self.containerView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack

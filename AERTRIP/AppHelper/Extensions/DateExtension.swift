@@ -257,5 +257,16 @@ extension Date {
         let components = DateComponents(year: 0, month: 0, day: days, hour: 0, minute: 0, second: 0)
         return Calendar.current.date(byAdding: components, to: self)?.toString(dateFormat: "YYYY-MM-DD")
     }
+    
+    ///GetDateFromString
+    static func getDateFromString(stringDate: String, currentFormat: String, requiredFormat: String) -> String? {
+        //String to Date Convert
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = currentFormat
+        let date = dateFormatter.date(from: stringDate)
+        //CONVERT FROM Date to String
+        dateFormatter.dateFormat = requiredFormat
+        return dateFormatter.string(from: date!)
+    }
 }
 

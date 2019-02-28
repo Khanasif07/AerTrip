@@ -117,7 +117,6 @@ class RoomGuestSelectionVC: BaseVC {
         //background view
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
@@ -289,6 +288,7 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+       
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()

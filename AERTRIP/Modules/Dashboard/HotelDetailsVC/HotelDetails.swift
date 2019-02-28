@@ -37,7 +37,6 @@ struct HotelDetails {
     var checkout: String = ""
     var num_rooms: Int = 0
     var rates: [Rates]? = nil
-//    var combine_rates: CombineRates//
     var info: String = ""
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
@@ -46,7 +45,6 @@ struct HotelDetails {
     var is_refetch_cp: String = ""
     var per_night_price: String = ""
     var per_night_list_price: String = ""
-//    var occupant: Occupant//
     var facilities: String = ""
     var city_code: String = ""
     var acc_type: String = ""
@@ -352,6 +350,12 @@ struct AmenitiesMain {
 //============
 struct Rates: Hashable {
     
+    //Mark:- Enums
+    //============
+    enum TableCellType {
+        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+    }
+    
     var hashValue: Int {
         return qid.hashValue
     }
@@ -364,7 +368,7 @@ struct Rates: Hashable {
     //================
     var qid: String = ""
     var can_combine: Bool = false
-    var price: Double = 0.0
+    var price: Double = 0.0   //  checkout row 1
     var list_price: Double = 0.0
     var tax: Double = 0.0
     var discount: Double = 0.0
@@ -372,7 +376,7 @@ struct Rates: Hashable {
     var group_rooms: String = ""
     var payment_info: String = ""
     var part_payment_last_date: String = ""
-    var roomsRates: [RoomsRates]? = nil
+    var roomsRates: [RoomsRates]? = nil   /// x count row
     var roomData: [RoomsRates: Int] {
         var tempData = [RoomsRates: Int] ()
         for currentRoom in self.roomsRates! {
@@ -389,9 +393,11 @@ struct Rates: Hashable {
         return tempData
     }
     var terms: RatesTerms? = nil
-    var cancellation_penalty: CancellationPenaltyRates? = nil
-    var penalty_array: [PenaltyRates]? = nil
-    var inclusion_array: [String : Any] = [:]
+    var cancellation_penalty: CancellationPenaltyRates? = nil  ///  cancel row 1
+    var penalty_array: [PenaltyRates]? = nil          /// payment info row 1
+    var inclusion_array: [String : Any] = [:]    /// 3 row
+    var tableViewRowCell = [TableCellType]()
+    
     
     //Mark:- Initialization
     //=====================
@@ -510,7 +516,20 @@ struct Rates: Hashable {
                 totalRows += 1
             }
         }
+        totalRows += 1 /// for checkout cell
         return totalRows
+    }
+    
+    func getFullRefundableData() -> PenaltyRates {
+        var penaltyRates = PenaltyRates()
+        if let penaltyArray = self.penalty_array {
+            for currentPenaltyRates in penaltyArray {
+                if currentPenaltyRates.penalty == 0 {
+                    penaltyRates = currentPenaltyRates
+                }
+            }
+        }
+        return penaltyRates
     }
     
     ///Static Function

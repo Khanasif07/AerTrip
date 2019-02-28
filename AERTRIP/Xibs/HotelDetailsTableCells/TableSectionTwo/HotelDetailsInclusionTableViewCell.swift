@@ -33,17 +33,40 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         //Color
         self.backgroundColor = AppColors.screensBackground.color
         self.containerView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-//        self.hotelNameLabel.textColor = AppColors.themeBlack
-//        self.distanceLabel.textColor = AppColors.themeGray60
-//        self.deviderView.backgroundColor = AppColors.divider.color
-//
-//        //Size
-//        self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
-//        self.distanceLabel.font = AppFonts.Regular.withSize(16.0)
-//
-//        //Text
-//        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
-//        self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
-    }
+        self.inclusionLabel.textColor = AppColors.themeGray40
+        self.inclusionTypeLabel.textColor = AppColors.textFieldTextColor51
 
+        //Size
+        self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
+        self.inclusionTypeLabel.font = AppFonts.Regular.withSize(18.0)
+
+        //Text
+        self.inclusionLabel.text = LocalizedString.Inclusion.localized
+    }
+    
+    private func getAllInclusion(ratesData: Rates) -> [String] {
+        var inclusionText: [String] = []
+        var internetText: [String] = []
+        if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
+            inclusionText = boardInclusion
+        }
+        if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+            internetText = internetInclusion
+        }
+        let setA = Set(inclusionText)
+        let allSet = setA.union(internetText)
+        return Array(allSet)
+    }
+    
+    internal func configureCell(ratesData: Rates) {
+        let inclusionText = self.getAllInclusion(ratesData: ratesData)
+        self.inclusionTypeLabel.text = inclusionText.joined(separator: ", ")
+    }
+    
+    
+    internal func configureOtherInclusionCell(otherInclusion: [String]) {
+        self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+        self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
+    }
+    
 }

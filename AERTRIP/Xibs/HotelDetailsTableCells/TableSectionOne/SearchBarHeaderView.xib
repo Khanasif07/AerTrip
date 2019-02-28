@@ -26,47 +26,60 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-Vo-SL3">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                     <subviews>
-                        <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-5v-PCM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="16" y="15" width="343" height="36"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="36" id="bap-oN-F9Y"/>
-                            </constraints>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-p1-PDi">
-                            <rect key="frame" x="16" y="67" width="86" height="30"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLk-A9-KKf">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-5v-PCM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                    <rect key="frame" x="20" y="20" width="335" height="36"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="36" id="bap-oN-F9Y"/>
+                                    </constraints>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-p1-PDi">
+                                    <rect key="frame" x="20" y="72" width="86" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="8IO-4M-wzq"/>
+                                        <constraint firstAttribute="width" constant="86" id="tFp-a6-rPI"/>
+                                    </constraints>
+                                    <state key="normal" title="Breakfast"/>
+                                    <connections>
+                                        <action selector="breakfastButtonAction:" destination="-1" eventType="touchUpInside" id="Ai8-Wy-1uc"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bG-Rf-QCn">
+                                    <rect key="frame" x="114" y="72" width="100" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="1Vs-dd-6LC"/>
+                                    </constraints>
+                                    <state key="normal" title="Refundable"/>
+                                    <connections>
+                                        <action selector="refundableButtonAction:" destination="-1" eventType="touchUpInside" id="rSG-WO-8w8"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="8IO-4M-wzq"/>
-                                <constraint firstAttribute="width" constant="86" id="tFp-a6-rPI"/>
+                                <constraint firstItem="2bG-Rf-QCn" firstAttribute="leading" secondItem="AQm-p1-PDi" secondAttribute="trailing" constant="8" id="6O8-qE-qQ8"/>
+                                <constraint firstAttribute="trailing" secondItem="gRc-5v-PCM" secondAttribute="trailing" constant="20" id="Rih-VT-0Rd"/>
+                                <constraint firstItem="2bG-Rf-QCn" firstAttribute="height" secondItem="AQm-p1-PDi" secondAttribute="height" id="Uro-aW-H7U"/>
+                                <constraint firstItem="AQm-p1-PDi" firstAttribute="top" secondItem="gRc-5v-PCM" secondAttribute="bottom" constant="16" id="ct2-gw-tKA"/>
+                                <constraint firstItem="AQm-p1-PDi" firstAttribute="leading" secondItem="gRc-5v-PCM" secondAttribute="leading" id="mlt-lf-wYp"/>
+                                <constraint firstAttribute="height" constant="112" id="qb6-ch-HWy"/>
+                                <constraint firstItem="gRc-5v-PCM" firstAttribute="leading" secondItem="NLk-A9-KKf" secondAttribute="leading" constant="20" id="s7w-zN-IAP"/>
+                                <constraint firstItem="2bG-Rf-QCn" firstAttribute="centerY" secondItem="AQm-p1-PDi" secondAttribute="centerY" id="veQ-Ok-IjO"/>
+                                <constraint firstItem="gRc-5v-PCM" firstAttribute="top" secondItem="NLk-A9-KKf" secondAttribute="top" constant="20" id="xb6-xG-v15"/>
                             </constraints>
-                            <state key="normal" title="Breakfast"/>
-                            <connections>
-                                <action selector="breakfastButtonAction:" destination="-1" eventType="touchUpInside" id="Ai8-Wy-1uc"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bG-Rf-QCn">
-                            <rect key="frame" x="110" y="67" width="100" height="30"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="100" id="1Vs-dd-6LC"/>
-                            </constraints>
-                            <state key="normal" title="Refundable"/>
-                            <connections>
-                                <action selector="refundableButtonAction:" destination="-1" eventType="touchUpInside" id="rSG-WO-8w8"/>
-                            </connections>
-                        </button>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="gRc-5v-PCM" secondAttribute="trailing" constant="16" id="4BO-M0-aqE"/>
-                        <constraint firstItem="gRc-5v-PCM" firstAttribute="leading" secondItem="ZcD-Vo-SL3" secondAttribute="leading" constant="16" id="5fT-g1-p6c"/>
-                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="height" secondItem="AQm-p1-PDi" secondAttribute="height" id="F5B-Ez-gh6"/>
-                        <constraint firstItem="AQm-p1-PDi" firstAttribute="leading" secondItem="gRc-5v-PCM" secondAttribute="leading" id="FdW-xz-kLf"/>
-                        <constraint firstItem="AQm-p1-PDi" firstAttribute="top" secondItem="gRc-5v-PCM" secondAttribute="bottom" constant="16" id="ViH-ME-ETS"/>
-                        <constraint firstItem="gRc-5v-PCM" firstAttribute="top" secondItem="ZcD-Vo-SL3" secondAttribute="top" constant="15" id="gq2-jI-iHN"/>
-                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="leading" secondItem="AQm-p1-PDi" secondAttribute="trailing" constant="8" id="mnv-37-wsj"/>
-                        <constraint firstItem="2bG-Rf-QCn" firstAttribute="centerY" secondItem="AQm-p1-PDi" secondAttribute="centerY" id="wUd-qS-bcg"/>
+                        <constraint firstItem="NLk-A9-KKf" firstAttribute="top" secondItem="ZcD-Vo-SL3" secondAttribute="top" id="BM7-XM-K66"/>
+                        <constraint firstAttribute="bottom" secondItem="NLk-A9-KKf" secondAttribute="bottom" id="PTP-Jf-Xd1"/>
+                        <constraint firstItem="NLk-A9-KKf" firstAttribute="leading" secondItem="ZcD-Vo-SL3" secondAttribute="leading" id="Ta2-DY-cgT"/>
+                        <constraint firstAttribute="trailing" secondItem="NLk-A9-KKf" secondAttribute="trailing" id="zwb-zf-Cgp"/>
                     </constraints>
                 </view>
             </subviews>
