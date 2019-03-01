@@ -367,7 +367,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 1:
-            return 112.0
+            return 114.0
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -376,7 +376,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 1:
-            return 112.0
+            return 114.0
             
         default:
             return CGFloat.leastNonzeroMagnitude
@@ -387,6 +387,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         switch section {
         case 0:
             return 50.0
+        case 1:
+            return CGFloat.leastNonzeroMagnitude
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -396,6 +398,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         switch section {
         case 0:
             return 50.0
+        case 1:
+            return CGFloat.leastNonzeroMagnitude
         default:
             return 16.0
         }

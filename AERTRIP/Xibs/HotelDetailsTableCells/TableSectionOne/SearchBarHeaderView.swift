@@ -10,12 +10,23 @@ import UIKit
 
 class SearchBarHeaderView: UITableViewHeaderFooterView {
     
+    //Mark:- Variables
+    //===============
+    let tagButtons = ["Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable"]
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
-    @IBOutlet weak var breakfastButtonOutlet: UIButton!
-    @IBOutlet weak var refundableButtonOutlet: UIButton!
+    @IBOutlet weak var tagCollectionView: UICollectionView! {
+        didSet {
+            self.tagCollectionView.delegate = self
+            self.tagCollectionView.dataSource = self
+            self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
+            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 10.0, bottom: 16.0, right: 16.0)
+        }
+    }
+    
     
     //Mark:- LifeCycle
     //================
@@ -44,31 +55,10 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
     
     ///ConfigureUI
     private func configureUI() {
-        self.searchBarSetUp()
-        self.breakfastButtonOutlet.layer.cornerRadius = 14.0
-        self.breakfastButtonOutlet.layer.borderWidth = 1.0
-        self.breakfastButtonOutlet.layer.masksToBounds = true
-        self.refundableButtonOutlet.layer.cornerRadius = 14.0
-        self.refundableButtonOutlet.layer.borderWidth = 1.0
-        self.refundableButtonOutlet.layer.masksToBounds = true
-        
         //Color
         self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.breakfastButtonOutlet.backgroundColor = AppColors.iceGreen
-        self.breakfastButtonOutlet.layer.borderColor = AppColors.themeGreen.cgColor
-        self.refundableButtonOutlet.backgroundColor = AppColors.greyO4
-        self.refundableButtonOutlet.layer.borderColor = AppColors.themeGray40.cgColor
-        self.breakfastButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.refundableButtonOutlet.setTitleColor(AppColors.themeGray40, for: .normal)
-
-        //Text
-        self.breakfastButtonOutlet.setTitle(LocalizedString.Breakfast.localized, for: .normal)
-        self.refundableButtonOutlet.setTitle(LocalizedString.Refundable.localized, for: .normal)
-        
-        //Font
-        let semiBoldFont16 = AppFonts.SemiBold.withSize(16.0)
-        self.breakfastButtonOutlet.titleLabel?.font = semiBoldFont16
-        self.refundableButtonOutlet.titleLabel?.font = semiBoldFont16
+        self.searchBarSetUp()
+        self.registerXibs()
     }
     
     ///Search Bar SetUp
@@ -89,6 +79,10 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
         }
     }
     
+    private func registerXibs() {
+        self.tagCollectionView.registerCell(nibName: "HotelTagCollectionCell")
+    }
+    
     ///AttributeLabelSetup
     private func attributeLabelSetUp() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
@@ -98,11 +92,41 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
         return attributedString
     }
     
-    //Mark:- IBActions
-    //================
-    @IBAction func breakfastButtonAction(_ sender: UIButton) {
-    }
+}
 
-    @IBAction func refundableButtonAction(_ sender: UIButton) {
+
+extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.tagButtons.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelTagCollectionCell", for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
+        cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        printDebug(self.tagButtons[indexPath.item])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = tagButtons[indexPath.item].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: 10000.0))
+        return CGSize(width: size.width + 40.0, height: 30.0)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets.zero
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8.0
     }
 }
+
+
