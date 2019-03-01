@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol HotelDetailsImgSlideCellDelegate: class {
+    func hotelImageTapAction(at index: Int)
+    func willShowImage(at index: Int, image: UIImage?)
+}
+
 class HotelDetailsImgSlideCell: UITableViewCell {
 
     //Mark:- Variables
@@ -23,6 +28,8 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         }
     }
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    weak var delegate: HotelDetailsImgSlideCellDelegate?
     
     
     //Mark:- LifeCycle
@@ -50,12 +57,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         }
     }
     
-//    internal func configCellForHotelDetail(hotelData: HotelDetails) {
-//        self.imageUrls = hotelData.photos
-//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-//        self.pageControl.numberOfPages = self.imageUrls.count
-//        self.imageCollectionView.reloadData()
-//    }
+    internal func configCellForHotelDetail(hotelData: HotelDetails) {
+        self.imageUrls = hotelData.photos
+        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+        self.pageControl.numberOfPages = self.imageUrls.count
+        self.imageCollectionView.reloadData()
+    }
     
     //Mark:- IBOActions
     //=================
@@ -83,6 +90,16 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         return size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.hotelImageTapAction(at: indexPath.item)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let myCell = cell as? HotelDetailsImageCollectionCell {
+            self.delegate?.willShowImage(at: indexPath.item, image: myCell.hotelImageView.image)
+        }
     }
 }
 

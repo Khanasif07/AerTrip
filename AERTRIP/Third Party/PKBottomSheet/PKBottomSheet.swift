@@ -10,6 +10,7 @@ import UIKit
 
 protocol PKBottomSheetDelegate: class {
     func willHide(_ sheet: PKBottomSheet)
+    func willShow(_ sheet: PKBottomSheet)
 }
 
 class PKBottomSheet: UIView {
@@ -118,7 +119,8 @@ class PKBottomSheet: UIView {
     private func show(animated: Bool) {
         
         self.updateViewSetup()
-        UIView.animate(withDuration: animated ? animationDuration*2.0 : 0.0, delay: 0.0, usingSpringWithDamping: animated ? 0.7 : 0.0, initialSpringVelocity: animated ? 0.4 : 0.0, options: .curveEaseInOut, animations: { [weak self] in
+        self.delegate?.willShow(self)
+        UIView.animate(withDuration: animated ? animationDuration*2.0 : 0.0, delay: 0.0, usingSpringWithDamping: animated ? 0.8 : 0.0, initialSpringVelocity: animated ? 0.2 : 0.0, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainContainerBottomConstraint.constant = 0.0
             

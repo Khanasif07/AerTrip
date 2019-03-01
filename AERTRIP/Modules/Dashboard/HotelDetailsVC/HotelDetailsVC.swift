@@ -17,6 +17,8 @@ class HotelDetailsVC: BaseVC {
     private var completion: (() -> Void)? = nil
     private var initialPanPoint: CGPoint = .zero
     
+    private weak var imagesCollectionView: UICollectionView?
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelTableView: UITableView! {
@@ -265,9 +267,10 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 case 0:
                     
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-                    if let hotelDetails = self.viewModel.hotelInfo {
-                        cell.configCell(hotelData: hotelDetails)
-                    }
+                        cell.configCellForHotelDetail(hotelData: hotelDetails)
+
+                    cell.delegate = self
+                    self.imagesCollectionView = cell.imageCollectionView
                     return cell
                     
                 case 1:
@@ -331,6 +334,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let hotelDetails = self.viewModel.hotelInfo {
                     cell.configCell(hotelData: hotelDetails)
                 }
+                cell.delegate = self
+                self.imagesCollectionView = cell.imageCollectionView
                 return cell
                 
             case 1:
@@ -660,5 +665,38 @@ extension HotelDetailsVC {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+    }
+}
+
+extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
+    func hotelImageTapAction(at index: Int) {
+        // open gallery with show image at index
+        if let topVC = UIApplication.topViewController() {
+            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
+        }
+    }
+    
+    func willShowImage(at index: Int, image: UIImage?) {
+        self.imageView.image = image
+    }
+}
+
+
+extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    
+    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
+        return self.viewModel.hotelData?.photos.count ?? 0
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
+        var image = ATGalleryImage()
+        
+        image.imagePath = self.viewModel.hotelData?.photos[index]
+        
+        return image
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
+        self.imagesCollectionView?.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
     }
 }

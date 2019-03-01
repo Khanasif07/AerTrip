@@ -8,7 +8,6 @@
 
 import CoreData
 import GoogleMaps
-import MXParallaxHeader
 import UIKit
 
 enum FetchRequestType {
@@ -35,14 +34,33 @@ class HotelResultVC: BaseVC {
     @IBOutlet var mapButton: UIButton!
     @IBOutlet var searchBar: ATSearchBar!
     @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var unPinAllFavouriteButton: UIButton!
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
     
-    @IBOutlet var collectionViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionView: UICollectionView!{
+        didSet {
+            collectionView.registerCell(nibName: "HotelCardCollectionViewCell")
+            collectionView.isPagingEnabled = true
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
+    }
+    
+    @IBOutlet var tableViewVertical: UITableView! {
+        didSet {
+            tableViewVertical.registerCell(nibName: "HotelCardTableViewCell")
+            tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
+            tableViewVertical.register(UINib(nibName: "HotelResultSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
+            tableViewVertical.delegate = self
+            tableViewVertical.dataSource = self
+            tableViewVertical.separatorStyle = .none
+        }
+    }
+    
+    @IBOutlet var tableViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var shimmerView: UIView!
     @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
@@ -58,7 +76,11 @@ class HotelResultVC: BaseVC {
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
+    private var oldScrollPosition: CGPoint = .zero
     private var completion: (() -> Void)?
+    private weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
+    
+    private var isConvertingViewMode: Bool = false
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -98,9 +120,11 @@ class HotelResultVC: BaseVC {
     // MARK: - ViewLifeCycle
     
     // MARK: -
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func initialSetup() {
+        
+        self.animateCollectionView(isHidden: true, animated: false)
+
+        self.view.backgroundColor = AppColors.themeWhite
         
         self.container = NSPersistentContainer(name: "AERTRIP")
         
@@ -113,13 +137,11 @@ class HotelResultVC: BaseVC {
         }
         
         self.initialSetups()
-        self.registerXib()
         delay(seconds: 0.5) {
             self.setupMapView()
         }
         
         self.startProgress()
-        self.collectionView.addSubview(self.shimmerView)
         self.completion = { [weak self] in
             self?.loadSaveData()
         }
@@ -147,10 +169,6 @@ class HotelResultVC: BaseVC {
     private func initialSetups() {
         self.setUpFloatingView()
         self.setupParallaxHeader()
-        self.collectionView.backgroundView?.backgroundColor = AppColors.clear
-        self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBar.frame
@@ -183,15 +201,11 @@ class HotelResultVC: BaseVC {
     }
     
     private func setupParallaxHeader() {
-        let parallexHeaderMinHeight = CGFloat(0.0)
+        self.tableViewVertical.backgroundView = header
         
-        // header = HotelsResultHeaderView.instanceFromNib()
-        
-        self.collectionView.parallaxHeader.view = header
-        self.collectionView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
-        self.collectionView.parallaxHeader.height = parallexHeaderHeight
-        self.collectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
-        self.collectionView.parallaxHeader.delegate = self
+        let hView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 160.0))
+        hView.backgroundColor = AppColors.clear
+        self.tableViewVertical.tableHeaderView = hView
     }
     
     private func setupMapView() {
@@ -203,7 +217,6 @@ class HotelResultVC: BaseVC {
         let mapView = GMSMapView.map(withFrame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: UIDevice.screenWidth, height: UIDevice.screenHeight), camera: camera)
         
         mapView.isMyLocationEnabled = true
-        mapView.isUserInteractionEnabled = false
         self.locManager.delegate = self
         self.locManager.startUpdatingLocation()
         
@@ -219,7 +232,12 @@ class HotelResultVC: BaseVC {
     }
     
     private func reloadHotelList() {
-        self.collectionView.reloadData()
+        
+        self.tableViewVertical.isHidden = true
+        if let section = self.fetchedResultsController.sections, !section.isEmpty {
+            self.tableViewVertical.isHidden = false
+        }
+        self.tableViewVertical.reloadData()
     }
     
     private func searchHotels(forText: String) {
@@ -229,12 +247,7 @@ class HotelResultVC: BaseVC {
         self.loadSaveData()
         self.reloadHotelList()
     }
-    
-    private func registerXib() {
-        self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
-        self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
-    }
-    
+
     private func startProgress() {
         // Invalid timer if it is valid
         if self.timer?.isValid == true {
@@ -259,10 +272,69 @@ class HotelResultVC: BaseVC {
         AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion)
     }
     
+    func convertToMapView() {
+        
+        let hiddenOffset = CGPoint(x: 0.0, y: -self.tableViewVertical.height)
+        
+        self.tableViewVertical.setContentOffset(hiddenOffset, animated: true)
+        
+        self.isConvertingViewMode = true
+        delay(seconds: 0.4) {
+            self.isConvertingViewMode = false
+            self.tableViewVertical.isScrollEnabled = false
+        }
+        
+        self.animateCollectionView(isHidden: false, animated: true)
+        
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.tableViewVertical.contentOffset = hiddenOffset
+//        }, completion: { (isDone) in
+//            self.tableViewVertical.isScrollEnabled = false
+//        })
+    }
+    
+    func convertToListView() {
+        self.tableViewVertical.setContentOffset(CGPoint.zero, animated: true)
+        
+        self.isConvertingViewMode = true
+        self.tableViewVertical.isScrollEnabled = true
+        delay(seconds: 0.4) {
+            self.isConvertingViewMode = false
+        }
+        
+        self.animateCollectionView(isHidden: true, animated: true)
+        
+//        self.tableViewVertical.isScrollEnabled = true
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.tableViewVertical.contentOffset = CGPoint.zero
+//        }, completion: { (isDone) in
+//
+//        })
+    }
+    
+    private func animateCollectionView(isHidden: Bool, animated: Bool) {
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
+        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
+
+        if !isHidden {
+            self.collectionView.isHidden = false
+        }
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
+            self.collectionView.alpha = isHidden ? 0.0 : 1.0
+            self.view.layoutIfNeeded()
+        }, completion: { (isDone) in
+            if isHidden {
+                self.collectionView.isHidden = true
+            }
+        })
+    }
+    
     func animateHeaderToListView() {
         self.headerContatinerViewHeightConstraint.constant = 100
-        self.collectionViewTopConstraint.constant = 100
-        UIView.animate(withDuration: 0.5, animations: {
+        self.tableViewTopConstraint.constant = 100
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.searchBar.frame = self.searchIntitialFrame
             self.titleLabel.transform = .identity
             self.descriptionLabel.transform = .identity
@@ -272,8 +344,8 @@ class HotelResultVC: BaseVC {
     
     func animateHeaderToMapView() {
         self.headerContatinerViewHeightConstraint.constant = 50
-        self.collectionViewTopConstraint.constant = 50
-        UIView.animate(withDuration: 0.5) {
+        self.tableViewTopConstraint.constant = 50
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
                                           , y: self.searchBar.frame.origin.y - 45, width: self.searchBar.frame.width - 80, height: 50)
             self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
@@ -346,12 +418,12 @@ class HotelResultVC: BaseVC {
                 }
             }
             
-            let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
-            let minimumPricePredicate = NSPredicate(format: "price >= \(HotelFilterVM.shared.minimumPrice)")
+//            let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
+//            let minimumPricePredicate = NSPredicate(format: "price >= \(HotelFilterVM.shared.minimumPrice)")
 //            let maximumPricePredicate = NSPredicate(format: "price <= \(HotelFilterVM.shared.maximumPrice)")
 //
-            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
-            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
+//            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
+//            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
             
 //            let amentitiesPredicate = NSPredicate(format: "amenities CONTAINS %@", HotelFilterVM.shared.amenitites)
             
@@ -369,6 +441,7 @@ class HotelResultVC: BaseVC {
         
         do {
             try self.fetchedResultsController.performFetch()
+            self.reloadHotelList()
         } catch {
             print("Fetch failed")
         }
@@ -387,6 +460,20 @@ class HotelResultVC: BaseVC {
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
+    private func expand() {
+        if let topVC = UIApplication.topViewController() {
+            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            self.hotelsGroupExpendedVC = dataVC
+            let sheet = PKBottomSheet.instanceFromNib
+            sheet.headerHeight = 24.0
+            sheet.headerView = dataVC.headerView
+            sheet.frame = topVC.view.bounds
+            sheet.delegate = self
+            topVC.view.addSubview(sheet)
+            sheet.present(presentedViewController: dataVC, animated: true)
+        }
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -403,9 +490,11 @@ class HotelResultVC: BaseVC {
     @IBAction func mapButtonAction(_ sender: Any) {
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToMapView()
+            self.convertToMapView()
             self.hoteResultViewType = .MapView
         } else {
             self.animateHeaderToListView()
+            self.convertToListView()
             self.hoteResultViewType = .ListView
         }
     }
@@ -441,16 +530,15 @@ class HotelResultVC: BaseVC {
     }
 }
 
-// MARK: - Collection view datasource and delegate methods
-
+// MARK: - Table view datasource and delegate methods
 // MARK: -
-
-extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (self.fetchedResultsController.sections?.count ?? 0) - self.hideSection
+extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (self.fetchedResultsController.sections?.count ?? 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = self.fetchedResultsController.sections else {
             printDebug("No sections in fetchedResultsController")
             return 0
@@ -462,9 +550,32 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         return sectionInfo.numberOfObjects
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelCardCollectionViewCell", for: indexPath) as? HotelCardCollectionViewCell else {
-            fatalError("HotelCardCollectionViewCell not found")
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 53.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        guard let sections = fetchedResultsController.sections, let hView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelResultSectionHeader") as? HotelResultSectionHeader else {
+            return nil
+        }
+        
+        var removeFirstChar = sections[section].name
+        _ = removeFirstChar.removeFirst()
+        let text = removeFirstChar + " kms"
+        hView.titleLabel.text = "  \(text)   "
+        
+        return hView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 203.0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell") as? HotelCardTableViewCell else {
+            fatalError("HotelCardTableViewCell not found")
         }
         
         let hData = fetchedResultsController.object(at: indexPath)
@@ -473,90 +584,54 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         cell.hotelListData = hData
         cell.indexPath = indexPath
         cell.delegate = self
+        cell.contentView.backgroundColor = AppColors.themeWhite
+        
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth, height: 203.0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero//UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth, height: 53.0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if (self.fetchedResultsController.sections?.count ?? 0) - self.footeSection == section, self.filterApplied.distanceRange > 0 {
-            return CGSize(width: UIDevice.screenWidth, height: 106.0)
-        } else {
-            return CGSize(width: UIDevice.screenWidth, height: 0.0)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let sections = fetchedResultsController.sections else {
-            fatalError("section not found")
-        }
-        
-        if kind == "UICollectionElementKindSectionHeader" {
-            if let sectionHeader = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SectionHeader {
-                sectionHeader.backgroundColor = .clear
-                
-                var removeFirstChar = sections[indexPath.section].name
-                _ = removeFirstChar.removeFirst()
-                sectionHeader.sectionHeaderLabel.text = removeFirstChar + " kms"
-                return sectionHeader
-            }
-        } else if kind == "UICollectionElementKindSectionFooter" {
-            if let sectionFooter = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionFooter", for: indexPath) as? SectionFooter {
-                sectionFooter.delegate = self
-                if self.isAboveTwentyKm, self.filterApplied.distanceRange > 0 {
-                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.HideHotelBeyond.localized, for: .normal)
-                    sectionFooter.firstView.isHidden = true
-                    sectionFooter.secondView.isHidden = true
-                } else {
-                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.ShowHotelsBeyond.localized, for: .normal)
-                    sectionFooter.firstView.isHidden = false
-                    sectionFooter.secondView.isHidden = false
-                }
-                sectionFooter.backgroundColor = .white
-                return sectionFooter
-            }
-        }
-        
-        return UICollectionReusableView()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            let hData = fetchedResultsController.object(at: indexPath)
-            AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
-        }
     }
 }
 
 // MARK: - MXParallaxHeaderDelegate methods
 
-extension HotelResultVC: MXParallaxHeaderDelegate {
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        printDebug("progress \(parallaxHeader.progress)")
-        if parallaxHeader.progress < 0.9 {
+extension HotelResultVC {
+    
+    func manageTopHeader(_ scrollView: UIScrollView) {
+        
+        guard !self.isConvertingViewMode, scrollView === tableViewVertical else {
+            return
+        }
+        print(scrollView.contentOffset)
+        let yPosition = scrollView.contentOffset.y
+//        guard 0...10 ~= yPosition else {return}
+        if 20...30 ~= yPosition {
+            //hide
             self.headerContainerViewTopConstraint.constant = -140
-            self.collectionViewTopConstraint.constant = 0
+            self.tableViewTopConstraint.constant = 0
             
-            UIView.animate(withDuration: 0.5, animations: {
-                self.view.layoutIfNeeded()
-            })
-        } else {
-            self.headerContainerViewTopConstraint.constant = 0
-            self.collectionViewTopConstraint.constant = 100
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.view.layoutIfNeeded()
             })
         }
+        else if yPosition < 20 {
+            //show
+            self.headerContainerViewTopConstraint.constant = 0
+            self.tableViewTopConstraint.constant = 100
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+//        self.oldScrollPosition = scrollView.contentOffset
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        manageTopHeader(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        manageTopHeader(scrollView)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        manageTopHeader(scrollView)
     }
 }
 
@@ -628,7 +703,8 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
         printDebug("Hotel page scroll delegate ")
-        if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell {
+        
+        if let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
             cell.pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
         }
     }
@@ -665,7 +741,6 @@ extension HotelResultVC: HotelResultDelegate {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
-            self.reloadHotelList()
             self.loadSaveData()
             self.getFavouriteHotels()
             self.floatingView.isHidden = self.favouriteHotels.count < 0
@@ -750,5 +825,66 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         } else {
             self.hideButtons()
         }
+    }
+}
+
+extension HotelResultVC: PKBottomSheetDelegate {
+    func updateNavWhileInMapMode(isHidden: Bool) {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+            self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
+            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
+            self?.progressView.isHidden = isHidden
+            self?.view.layoutIfNeeded()
+        }
+    }
+    func willShow(_ sheet: PKBottomSheet) {
+        self.updateNavWhileInMapMode(isHidden: true)
+    }
+    
+    func willHide(_ sheet: PKBottomSheet) {
+        self.updateNavWhileInMapMode(isHidden: false)
+        self.hotelsGroupExpendedVC?.animateCardsToClose()
+    }
+}
+
+
+extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return (self.fetchedResultsController.sections?.count ?? 0) - self.hideSection
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let sections = self.fetchedResultsController.sections else {
+            printDebug("No sections in fetchedResultsController")
+            return 0
+        }
+        let sectionInfo = sections[section]
+        if sectionInfo.numberOfObjects > 0 {
+            self.shimmerView.removeFromSuperview()
+        }
+        return sectionInfo.numberOfObjects
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelCardCollectionViewCell", for: indexPath) as? HotelCardCollectionViewCell else {
+            fatalError("HotelCardCollectionViewCell not found")
+        }
+        
+        let hData = fetchedResultsController.object(at: indexPath)
+        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
+        self.isFotterVisible = self.isAboveTwentyKm
+        cell.hotelListData = hData
+        cell.indexPath = indexPath
+        cell.delegate = self
+        cell.shouldShowMultiPhotos = false
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIDevice.screenWidth, height: 200.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }

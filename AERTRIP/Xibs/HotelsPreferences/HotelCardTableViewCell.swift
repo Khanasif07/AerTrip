@@ -7,113 +7,148 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+import FlexiblePageControl
 import UIKit
 
 protocol HotelCardTableViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
-    func viewAllButtonTapped(_ sender: UIButton)
+    func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
+    func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
 
 class HotelCardTableViewCell: UITableViewCell {
-
-    var hotels = [HotelsModel]()
+    @IBOutlet var bgView: UIView!
+    @IBOutlet var hotelImageView: UIImageView!
+    @IBOutlet var saveButton: UIButton!
+    @IBOutlet var hotelNameLabel: UILabel!
+    @IBOutlet var discountedPriceLabel: UILabel!
+    @IBOutlet var actualPriceLabel: UILabel!
+    @IBOutlet var starRatingView: FloatRatingView!
+    @IBOutlet var tripLogoImage: UIImageView!
+    @IBOutlet var greenCircleRatingView: FloatRatingView!
+    @IBOutlet var gradientView: UIView!
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var pageControl: FlexiblePageControl!
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     
-    weak var delegate: HotelCardTableViewCellDelegate?
+    weak var delegate: HotelCardCollectionViewCellDelegate?
     
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var viewAllButton: UIButton!
-    @IBOutlet weak var hotelCollectionView: UICollectionView!
+    private var gradientLayer: CAGradientLayer!
+    var scrollSize: CGFloat = 0.0
+    let numberOfPage: Int = 100
+    var indexPath: IndexPath?
+    
+    var hotelData: HotelsModel? {
+        didSet {
+            self.populateData()
+        }
+    }
+    
+    var hotelListData: HotelSearched? {
+        didSet {
+            self.populateHotelData()
+            setUpInstagramDotGalleryView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.initialSetups()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-}
-
-//MARK:- Extension initialSetups
-//MARK:-
-extension HotelCardTableViewCell {
-    
-    func initialSetups() {
         
-        self.registerXibs()
-    }
-    
-    func registerXibs() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.gradientView.bounds
+        gradientLayer.colors =
+            [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.backgroundColor = AppColors.clear
         
-        self.hotelCollectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
-        self.hotelCollectionView.dataSource = self
-        self.hotelCollectionView.delegate     = self
+        saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         
-        self.viewAllButton.addTarget(self, action: #selector(viewAllButtonTapped(_:)), for: UIControl.Event.touchUpInside)
-    }
-    
-    @objc func viewAllButtonTapped(_ sender: UIButton) {
-        self.delegate?.viewAllButtonTapped(sender)
-    }
-}
-
-//MARK:- Extension initialSetups
-//MARK:-
-extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.hotels.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //        bgView.addCardShadow()
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelCardCollectionViewCell", for: indexPath) as? HotelCardCollectionViewCell else {
-            fatalError("HotelCardCollectionViewCell not found")
+        
+        self.setupPageControl()
+        self.scrollSize = self.hotelImageView.frame.size.width
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.gradientLayer.frame = self.gradientView.bounds
+    }
+    
+    private func setUpInstagramDotGalleryView() {
+        guard let thumbnail = hotelListData?.thumbnail else {
+            printDebug("thumbnails are  empty")
+            return
         }
         
-        cell.delegate = self
-        cell.hotelData = self.hotels[indexPath.item]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        self.pageControl.numberOfPages = 5
+        self.scrollView.delegate = self
+        self.scrollView.isPagingEnabled = true
+        self.scrollView.isUserInteractionEnabled = true
+        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(5), height: self.hotelImageView.frame.size.height)
         
-        if self.hotels.count > 1 {
-            
-            return CGSize(width: (UIDevice.screenWidth - 26)/1.3, height: self.hotelCollectionView.height)
-        } else {
-            
-            return CGSize(width: UIDevice.screenWidth - 16, height: self.hotelCollectionView.height)
+        printDebug("thumbnail count is \(thumbnail.count)")
+        
+        for index in 0..<5 {
+            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+            // view.image = UIImage(named: "tickIcon")
+            scrollView.addSubview(view)
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
-        if self.hotels.count > 1 {
-            
-            return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        } else {
-            
-            return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        self.bgView.cornerRadius = 10.0
+        //        self.bgView.layer.borderWidth = 3.0
+        //        self.bgView.layer.borderColor = AppColors.themeGray04.withAlphaComponent(0.8).cgColor
+    }
+    
+    private func populateData() {
+        self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
+        self.starRatingView.rating = self.hotelData?.stars ?? 0
+        self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
+        self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
+        
+        if let image = UIImage(named: "hotelCardPlaceHolder") {
+            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
         }
-        
+    }
+    
+    private func populateHotelData() {
+        self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
+        self.starRatingView.rating = self.hotelListData?.star ?? 0.0
+        self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
+        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
+        self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
+        self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
+        //        if let image = UIImage(named: "hotelCardPlaceHolder") {
+        //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
+        //     }
+    }
+    
+    private func setupPageControl() {
+        self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
+        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+    }
+    
+    @objc func saveButtonTapped(_ sender: UIButton) {
+        if let hotel = self.hotelData {
+            self.delegate?.saveButtonAction(sender, forHotel: hotel)
+        } else if let hotel = self.hotelListData {
+            self.delegate?.saveButtonActionFromLocalStorage(sender, forHotel: hotel)
+        }
     }
 }
 
-extension HotelCardTableViewCell: HotelCardCollectionViewCellDelegate {
-    func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
-        // wil note implement here
-    }
-    
-    func pagingScrollEnable(_ indexPath: IndexPath,_ scrollView: UIScrollView) {
-        return 
-    }
-    
-    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
-        self.delegate?.saveButtonAction(sender, forHotel: forHotel)
+
+extension HotelCardTableViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPath = indexPath {
+            self.delegate?.pagingScrollEnable(indexPath, scrollView)
+        }
     }
 }

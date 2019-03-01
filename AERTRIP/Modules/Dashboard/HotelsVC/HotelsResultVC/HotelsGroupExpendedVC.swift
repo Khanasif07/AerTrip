@@ -127,9 +127,3 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         return UIEdgeInsets.zero
     }
 }
-
-extension HotelsGroupExpendedVC: PKBottomSheetDelegate {
-    func willHide(_ sheet: PKBottomSheet) {
-        self.animateCardsToClose()
-    }
-}
