@@ -1967,7 +1967,7 @@ been sent</string>
                                             <constraint firstAttribute="height" constant="64" id="2GL-2Z-7ru"/>
                                             <constraint firstAttribute="width" constant="64" id="KK2-zd-D9B"/>
                                         </constraints>
-                                        <state key="normal" image="shareIcon"/>
+                                        <state key="normal" image="unPinAllFavouriteIcon"/>
                                         <connections>
                                             <action selector="unPinAllFavouriteButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="ent-Dy-V6f"/>
                                         </connections>
@@ -2509,7 +2509,7 @@ been sent</string>
                                         <state key="normal" image="unPinAllFavouriteIcon"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9v9-Mb-UFW">
-                                        <rect key="frame" x="109.5" y="26.5" width="64" height="64"/>
+                                        <rect key="frame" x="209.5" y="26.5" width="64" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="0XW-8u-pdt"/>
                                             <constraint firstAttribute="height" constant="64" id="gae-3z-AdB"/>
@@ -2517,7 +2517,7 @@ been sent</string>
                                         <state key="normal" image="shareIcon"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVr-rA-n4h">
-                                        <rect key="frame" x="209.5" y="26.5" width="64" height="64"/>
+                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="ZY9-at-cro"/>
                                             <constraint firstAttribute="height" constant="64" id="gCn-DH-jq0"/>
@@ -2528,13 +2528,13 @@ been sent</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="9v9-Mb-UFW" firstAttribute="centerY" secondItem="JJl-Tu-PIl" secondAttribute="centerY" id="1Fq-B1-so2"/>
-                                    <constraint firstItem="LVr-rA-n4h" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" constant="200" id="2Fv-tF-Nmu"/>
+                                    <constraint firstItem="LVr-rA-n4h" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" id="2Fv-tF-Nmu"/>
                                     <constraint firstItem="LVr-rA-n4h" firstAttribute="centerY" secondItem="9v9-Mb-UFW" secondAttribute="centerY" id="5X2-OH-nQJ"/>
                                     <constraint firstAttribute="height" constant="74" id="62C-KQ-nQO"/>
                                     <constraint firstItem="JJl-Tu-PIl" firstAttribute="centerX" secondItem="Lye-yX-dPr" secondAttribute="centerX" id="9lV-zZ-mAf"/>
                                     <constraint firstItem="JJl-Tu-PIl" firstAttribute="centerY" secondItem="Lye-yX-dPr" secondAttribute="centerY" id="U9E-zz-LIY"/>
                                     <constraint firstAttribute="bottom" secondItem="Lye-yX-dPr" secondAttribute="bottom" id="hdS-3J-iT3"/>
-                                    <constraint firstItem="9v9-Mb-UFW" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" constant="100" id="meH-GD-dRh"/>
+                                    <constraint firstItem="9v9-Mb-UFW" firstAttribute="leading" secondItem="JJl-Tu-PIl" secondAttribute="leading" constant="200" id="meH-GD-dRh"/>
                                     <constraint firstItem="Lye-yX-dPr" firstAttribute="leading" secondItem="Dau-q2-rG8" secondAttribute="leading" constant="16" id="tkh-e4-UdB"/>
                                 </constraints>
                             </view>

@@ -6,8 +6,8 @@
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
 
-import FlexiblePageControl
 import UIKit
+import FlexiblePageControl
 
 protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)

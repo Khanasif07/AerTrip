@@ -155,7 +155,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBar.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = true
+        self.floatingView.isHidden = false
         self.floatingButtonOnMapView.isHidden = true
     }
     
@@ -418,7 +418,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func EmailButtonTapped(_ sender: Any) {
-        AppFlowManager.default.presentMailComposerVC()
+        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels)
     }
     
     @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
