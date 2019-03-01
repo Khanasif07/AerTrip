@@ -30,11 +30,12 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     ///ConfigureUI
     private func configureUI() {
         //Colors
+        self.backgroundColor = AppColors.screensBackground.color
         self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         let whiteColor = AppColors.themeWhite
         self.containerView.backgroundColor = AppColors.themeGreen
         self.hotelFeesLabel.textColor = whiteColor
-        self.bookLabel.textColor = whiteColor//.withAlphaComponent(0.35)
+        self.bookLabel.textColor = whiteColor
         self.containerView.roundBottomCornersByClipsToBounds(cornerRadius: 10.0)
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)

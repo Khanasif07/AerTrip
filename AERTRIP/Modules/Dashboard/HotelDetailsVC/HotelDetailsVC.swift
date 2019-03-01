@@ -205,7 +205,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if let rates = self.viewModel.hotelData?.rates {
-            return rates.count + 1
+            return rates.count + 1 + 1
         }
         return 1
     }
@@ -215,8 +215,10 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             switch section {
             case 0:
                 return 6
+            case 1:
+                return 0
             default:
-                return rates[section - 1].getTotalNumberOfRows()
+                return rates[section - 2].tableViewRowCell.count //rates[section - 1].getTotalNumberOfRows()
             }
         }
         return 3
@@ -248,38 +250,37 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 default:
                     return UITableViewCell()
                 }
-            } else {
-                let roomData = ratesData[indexPath.section - 1 ].getRoomData()
-                switch indexPath.row {
-                case 0..<roomData.count:
-                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1], roomData: roomData) {
+            } else if (indexPath.section != 1) {
+                let currentRatesData = ratesData[indexPath.section - 2]
+                switch currentRatesData.tableViewRowCell[indexPath.row] {
+                case .roomBedsType:
+                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
                         return cell
                     }
-                case roomData.count:
-                    if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .inclusion:
+                    if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                case roomData.count + 1:
-                    if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .otherInclusion:
+                    if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                case roomData.count + 2:
-                    if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .cancellationPolicy:
+                    if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                case roomData.count + 3:
-                    if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .paymentPolicy:
+                    if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                case roomData.count + 4:
-                    if let cell = self.getNotesCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .notes:
+                    if let cell = self.getNotesCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                case roomData.count + 5:
-                    if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: ratesData[indexPath.section - 1]) {
+                case .checkOut:
+                    if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: currentRatesData) {
                         return cell
                     }
-                default: return UITableViewCell()
                 }
             }
         } else {
@@ -297,7 +298,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             default: return UITableViewCell()
             }
         }
-         return UITableViewCell()
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -326,9 +327,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView()
             }
             if let safeHotelInfo = self.viewModel.hotelInfo {
-                footerView.hotelFeesLabel.text = "₹ \(safeHotelInfo.price)"
+                footerView.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(safeHotelInfo.price)"
             }
-            //self.hotelFeesLabel.text = "₹ 35,500"
             return footerView
         default:
             return nil
@@ -528,12 +528,10 @@ extension HotelDetailsVC {
     func getInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            
             cell.configureCell(ratesData: ratesData)
             return cell
         } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            
             cell.configureCell(ratesData: ratesData)
             return cell
         }
@@ -576,7 +574,7 @@ extension HotelDetailsVC {
     
     func getCheckOutCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
-        cell.hotelFeesLabel.text = "\(ratesData.price)"
+        cell.hotelFeesLabel.text = LocalizedString.rupeesText.localized + " \(ratesData.price)"
         return cell
     }
 }

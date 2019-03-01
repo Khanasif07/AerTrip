@@ -379,9 +379,10 @@ struct Rates: Hashable {
     var roomsRates: [RoomsRates]? = nil   /// x count row
     var roomData: [RoomsRates: Int] {
         var tempData = [RoomsRates: Int] ()
-        for currentRoom in self.roomsRates! {
+        guard let roomsRates = self.roomsRates else { return tempData }
+        for currentRoom in roomsRates {
             var count = 1
-            for otherRoom in self.roomsRates! {
+            for otherRoom in roomsRates {
                 if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
                     if otherRoom == currentRoom {
                         count = count + 1
@@ -396,8 +397,38 @@ struct Rates: Hashable {
     var cancellation_penalty: CancellationPenaltyRates? = nil  ///  cancel row 1
     var penalty_array: [PenaltyRates]? = nil          /// payment info row 1
     var inclusion_array: [String : Any] = [:]    /// 3 row
-    var tableViewRowCell = [TableCellType]()
-    
+    var tableViewRowCell: [TableCellType] {
+        var presentedCell = [TableCellType]()
+        presentedCell.removeAll()
+        //let roomData = self.getRoomData()
+        if self.roomData.count > 0 {
+            for _ in self.roomData {
+                presentedCell.append(.roomBedsType)
+            }
+            //presentedCell.append(.roomBedsType)
+        }
+        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+            presentedCell.append(.inclusion)
+        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+            presentedCell.append(.inclusion)
+        }
+        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+            presentedCell.append(.otherInclusion)
+        }
+        if let cancellationPenalty = self.cancellation_penalty, cancellationPenalty.is_refundable {
+            if let penaltyArray = self.penalty_array, !penaltyArray.isEmpty {
+                presentedCell.append(.cancellationPolicy)
+                presentedCell.append(.paymentPolicy)
+            } else {
+                presentedCell.append(.cancellationPolicy)
+            }
+        }
+        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+            presentedCell.append(.notes)
+        }
+        presentedCell.append(.checkOut)
+        return presentedCell
+    }
     
     //Mark:- Initialization
     //=====================

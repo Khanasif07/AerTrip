@@ -12,9 +12,6 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
     
-    func getAllHotelsListResultSuccess()
-    func getAllHotelsListResultFail()
-    
     func getRecentSearchesDataSuccess()
     func getRecentSearchesDataFail()
 }
@@ -39,6 +36,22 @@ class HotelsSearchVM: NSObject{
     var hotelListResult = [HotelsSearched]()
     var hotelSearchRequst : HotelSearchRequestModel?
     var recentSearchesData: [RecentSearchesModel]?
+    var cityName = ""
+    var stateName = ""
+    
+    var hotelFormData: HotelFormPreviosSearchData? {
+        get {
+            return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData
+        }
+        set {
+            if let vlaue = newValue {
+                UserDefaults.saveCustomObject(customObject: vlaue, forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
+            }
+        }
+    }
     
     //MARK:- Functions
     //================
@@ -81,7 +94,7 @@ class HotelsSearchVM: NSObject{
     
     ///SaveFormDataToUserDefaults
     func saveFormDataToUserDefaults() {
-        var hotelData = UserInfo.HotelFormPreviosSearchData()
+        let hotelData = HotelFormPreviosSearchData()
         hotelData.roomNumber     = self.roomNumber
         hotelData.adultsCount    = self.adultsCount
         hotelData.childrenCounts = self.childrenCounts
@@ -89,19 +102,13 @@ class HotelsSearchVM: NSObject{
         hotelData.checkInDate    = self.checkInDate
         hotelData.checkOutDate   = self.checkOutDate
         hotelData.destId         = self.destId
-        hotelData.destType       = self.destType
-        hotelData.destName       = self.destName
+        hotelData.stateName       = self.stateName
+        hotelData.cityName       = self.cityName
         hotelData.ratingCount    = self.ratingCount
         
-        UserInfo.loggedInUser?.hotelFormData = hotelData
-        
-        if let hotelData = UserInfo.loggedInUser?.hotelFormData {
-            printDebug(hotelData)
-        }
+        self.hotelFormData = hotelData
+        printDebug(self.hotelFormData)
     }
-    
-//    private override init() {}
-
     
     ///Hotel List Api
     func hotelListOnPreferencesApi() {

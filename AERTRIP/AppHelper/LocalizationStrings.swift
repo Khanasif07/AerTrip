@@ -437,4 +437,5 @@ enum LocalizedString: String {
     case PaymentPolicy = "PaymentPolicy"
     case Info = "Info"
     case Book = "Book"
+    case rupeesText = "rupeesText"
 }
