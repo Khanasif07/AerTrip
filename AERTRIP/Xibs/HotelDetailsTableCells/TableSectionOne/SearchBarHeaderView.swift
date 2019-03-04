@@ -12,12 +12,13 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
     
     //Mark:- Variables
     //===============
-    let tagButtons = ["Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable"]
+    var tagButtons = ["Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable"]
     
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var searchBarButton: UIButton!
     @IBOutlet weak var tagCollectionView: UICollectionView! {
         didSet {
             self.tagCollectionView.delegate = self
@@ -92,6 +93,12 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
         return attributedString
     }
     
+    @IBAction func searchBarBtnAction(_ sender: Any) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            printDebug(parentVC.className)
+            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.tagButtons, superView: self)
+        }
+    }
 }
 
 
@@ -103,6 +110,7 @@ extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelTagCollectionCell", for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
+        cell.delegate = self
         cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen)
         return cell
     }
@@ -116,10 +124,6 @@ extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
         return CGSize(width: size.width + 40.0, height: 30.0)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets.zero
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return CGFloat.leastNonzeroMagnitude
     }
@@ -130,3 +134,24 @@ extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 
+extension SearchBarHeaderView: DeleteTagButtonDelegate {
+    
+    func deleteTagButton(indexPath: IndexPath) {
+        if self.tagButtons.indices.contains(indexPath.item) {
+            printDebug("\(self.tagButtons[indexPath.item]) is deleted")
+            self.tagButtons.remove(at: indexPath.item)
+            self.tagCollectionView.reloadData()
+        }
+    }
+}
+
+extension SearchBarHeaderView: AddTagButtonDelegate {
+    
+    func addTagButtons(tagName: String) {
+        self.tagButtons.append(tagName)
+        self.tagCollectionView.reloadData()
+        let indexPath = IndexPath(row: self.tagButtons.count - 1, section: 0)
+        self.tagCollectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
+    
+}

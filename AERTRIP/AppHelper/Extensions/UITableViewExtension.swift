@@ -73,15 +73,15 @@ extension UITableView {
     
 }
 
-//extension UITableViewCell {
-//    class var reusableIdentifier: String {
-//        return "\(self)"
-//    }
-//
-//    var indexPath: IndexPath? {
-//        if let tblVw = self.superview as? UITableView {
-//            return tblVw.indexPath(for: self)
-//        }
-//        return nil
-//    }
-//}
+extension UITableViewCell {
+    class var reusableIdentifier: String {
+        return "\(self)"
+    }
+
+    var indexPathForCell: IndexPath? {
+        if let tblVw = self.superview as? UITableView {
+            return tblVw.indexPath(for: self)
+        }
+        return nil
+    }
+}

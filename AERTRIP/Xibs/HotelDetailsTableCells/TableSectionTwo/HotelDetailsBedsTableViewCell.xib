@@ -41,7 +41,7 @@
                                     <action selector="bookmarkButtonAction:" destination="DaD-df-j56" eventType="touchUpInside" id="a8l-dr-ZON"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EER-A0-JfG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EER-A0-JfG">
                                 <rect key="frame" x="16" y="40" width="311" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -77,11 +77,11 @@
                             <constraint firstItem="EER-A0-JfG" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="leading" id="HrJ-J8-3XV"/>
                             <constraint firstItem="qSR-lc-Kpb" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="8" id="ITb-OU-Vja"/>
                             <constraint firstItem="rjZ-51-vuU" firstAttribute="top" secondItem="EER-A0-JfG" secondAttribute="bottom" constant="7" id="QwX-vV-NiT"/>
+                            <constraint firstItem="qSR-lc-Kpb" firstAttribute="top" secondItem="rjZ-51-vuU" secondAttribute="bottom" constant="16.5" id="Smo-1G-eDP"/>
                             <constraint firstAttribute="trailing" secondItem="qSR-lc-Kpb" secondAttribute="trailing" constant="8" id="UvJ-5A-7hB"/>
                             <constraint firstItem="PMX-kz-73G" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="16" id="V25-30-HT1"/>
                             <constraint firstAttribute="bottom" secondItem="qSR-lc-Kpb" secondAttribute="bottom" id="WnZ-mR-6HE"/>
                             <constraint firstItem="SDh-gF-vY8" firstAttribute="top" secondItem="QxL-7U-xbJ" secondAttribute="top" constant="10" id="adp-Ly-Bad"/>
-                            <constraint firstAttribute="height" constant="117.5" id="buI-MS-9KY"/>
                             <constraint firstItem="mMA-X2-AXe" firstAttribute="leading" secondItem="rjZ-51-vuU" secondAttribute="trailing" constant="100" id="dLC-wX-oT6"/>
                             <constraint firstItem="mMA-X2-AXe" firstAttribute="trailing" secondItem="SDh-gF-vY8" secondAttribute="trailing" id="dn3-ZG-c4n"/>
                             <constraint firstItem="EER-A0-JfG" firstAttribute="top" secondItem="PMX-kz-73G" secondAttribute="bottom" constant="9" id="mde-VY-LzC"/>

@@ -40,7 +40,7 @@ class HotelFormPreviosSearchData: NSObject, NSCoding {
     required init(coder decoder: NSCoder) {
         self.roomNumber     = decoder.decodeObject(forKey: "roomNumber") as? Int ?? 0
         self.adultsCount    = decoder.decodeObject(forKey: "adultsCount") as? [Int] ?? []
-        self.childrenCounts = decoder.decodeObject(forKey: "adultsCount") as? [Int] ?? []
+        self.childrenCounts = decoder.decodeObject(forKey: "childrenCounts") as? [Int] ?? []
         self.childrenAge    = decoder.decodeObject(forKey: "childrenAge") as? [[Int]] ?? [[]]
         self.checkInDate    = decoder.decodeObject(forKey: "checkInDate") as? String ?? ""
         self.checkOutDate   = decoder.decodeObject(forKey: "checkOutDate") as? String ?? ""

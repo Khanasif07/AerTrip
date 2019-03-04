@@ -37,19 +37,21 @@ class BulkRoomSelectionVC: BaseVC {
         didSet {
             self.roomsPicker.delegate = self
             self.roomsPicker.dataSource = self
+            self.roomsPicker.selectRow(self.viewModel.roomCount - 5 , inComponent: 0, animated: true)
         }
     }
     @IBOutlet var adultsPicker: UIPickerView!{
         didSet {
             self.adultsPicker.delegate = self
             self.adultsPicker.dataSource = self
-            self.adultsPicker.selectRow(2, inComponent: 0, animated: true)
+            self.adultsPicker.selectRow(self.viewModel.adultCount - 10, inComponent: 0, animated: true)
         }
     }
     @IBOutlet var childrenPicker: UIPickerView!{
         didSet {
             self.childrenPicker.delegate = self
             self.childrenPicker.dataSource = self
+            self.childrenPicker.selectRow(self.viewModel.childrenCounts, inComponent: 0, animated: true)
         }
     }
 

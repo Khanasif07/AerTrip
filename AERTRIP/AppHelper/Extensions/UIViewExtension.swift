@@ -289,4 +289,12 @@ extension UIView {
         }
         return nil
     }
+    
+    func rootSuperView() -> UIView? {
+        var view = self
+        while let parentView = view.superview {
+            view = parentView
+        }
+        return view
+    }
 }

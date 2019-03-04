@@ -36,7 +36,6 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstLineView: UIView!
     @IBOutlet weak var secondLineView: UIView!
-    @IBOutlet weak var rectangleView: UIView!
     
     
     //MARK:- Properties
@@ -117,9 +116,7 @@ class RoomGuestSelectionVC: BaseVC {
         //background view
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        self.rectangleView.cornerRadius = 15.0
-        self.rectangleView.layer.masksToBounds = true
+        self.mainContainerView.roundTopCornersByClipsToBounds(cornerRadius: 15.0)
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         
@@ -144,7 +141,7 @@ class RoomGuestSelectionVC: BaseVC {
         self.mainContainerHeight = self.mainContainerHeightConstraint.constant
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
-            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant - self.agesContainerView.frame.height//280.0
+//            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
             self.view.layoutIfNeeded()
         })
     }
@@ -201,7 +198,12 @@ class RoomGuestSelectionVC: BaseVC {
     
     private func showAgesPicker(animated: Bool) {
         self.enableAgePicker()
-        guard self.mainContainerHeightConstraint.constant != self.containerHeight else {
+        /*
+         guard self.mainContainerHeightConstraint.constant != self.containerHeight else {
+         return
+         }
+         */
+        guard self.mainContainerHeightConstraint.constant <= self.containerHeight else {
             return
         }
         

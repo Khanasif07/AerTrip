@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="containerView" destination="ZcD-Vo-SL3" id="6j9-Ms-GbT"/>
                 <outlet property="searchBar" destination="gRc-5v-PCM" id="sIx-gs-0Un"/>
+                <outlet property="searchBarButton" destination="8jh-F8-ryQ" id="rFv-Xr-t5O"/>
                 <outlet property="tagCollectionView" destination="zcx-02-qXI" id="Qa3-fH-Jgh"/>
             </connections>
         </placeholder>
@@ -28,13 +29,36 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLk-A9-KKf">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="114"/>
                             <subviews>
-                                <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-5v-PCM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAD-6D-6Ru">
                                     <rect key="frame" x="7.5" y="20" width="360" height="36"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-5v-PCM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="bap-oN-F9Y"/>
+                                            </constraints>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </searchBar>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jh-F8-ryQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="36"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="searchBarBtnAction:" destination="-1" eventType="touchUpInside" id="OfD-Df-Lfb"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="36" id="bap-oN-F9Y"/>
+                                        <constraint firstItem="gRc-5v-PCM" firstAttribute="leading" secondItem="zAD-6D-6Ru" secondAttribute="leading" id="F8C-Mf-0rE"/>
+                                        <constraint firstAttribute="trailing" secondItem="8jh-F8-ryQ" secondAttribute="trailing" id="JPL-zf-YhY"/>
+                                        <constraint firstItem="gRc-5v-PCM" firstAttribute="top" secondItem="zAD-6D-6Ru" secondAttribute="top" id="MiR-3c-y8w"/>
+                                        <constraint firstAttribute="height" constant="36" id="ORv-dv-Ol1"/>
+                                        <constraint firstAttribute="trailing" secondItem="gRc-5v-PCM" secondAttribute="trailing" id="VHW-Xd-WH4"/>
+                                        <constraint firstItem="8jh-F8-ryQ" firstAttribute="leading" secondItem="zAD-6D-6Ru" secondAttribute="leading" id="Zh0-4O-0UK"/>
+                                        <constraint firstItem="8jh-F8-ryQ" firstAttribute="top" secondItem="zAD-6D-6Ru" secondAttribute="top" id="kc4-N5-mVT"/>
+                                        <constraint firstAttribute="bottom" secondItem="8jh-F8-ryQ" secondAttribute="bottom" id="pAI-kb-wHX"/>
                                     </constraints>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
+                                </view>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zcx-02-qXI">
                                     <rect key="frame" x="0.0" y="56" width="375" height="58"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,12 +73,12 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="zcx-02-qXI" secondAttribute="trailing" id="3Wi-Gd-HBO"/>
-                                <constraint firstItem="zcx-02-qXI" firstAttribute="top" secondItem="gRc-5v-PCM" secondAttribute="bottom" id="MQ7-ah-xaU"/>
+                                <constraint firstAttribute="trailing" secondItem="zAD-6D-6Ru" secondAttribute="trailing" constant="7.5" id="FRJ-IJ-xMW"/>
                                 <constraint firstAttribute="bottom" secondItem="zcx-02-qXI" secondAttribute="bottom" id="R5z-HL-Tfm"/>
-                                <constraint firstAttribute="trailing" secondItem="gRc-5v-PCM" secondAttribute="trailing" constant="7.5" id="Rih-VT-0Rd"/>
-                                <constraint firstItem="gRc-5v-PCM" firstAttribute="leading" secondItem="NLk-A9-KKf" secondAttribute="leading" constant="7.5" id="s7w-zN-IAP"/>
+                                <constraint firstItem="zAD-6D-6Ru" firstAttribute="leading" secondItem="NLk-A9-KKf" secondAttribute="leading" constant="7.5" id="TcB-jO-pWP"/>
+                                <constraint firstItem="zAD-6D-6Ru" firstAttribute="top" secondItem="NLk-A9-KKf" secondAttribute="top" constant="20" id="rkl-4S-CfA"/>
+                                <constraint firstItem="zcx-02-qXI" firstAttribute="top" secondItem="zAD-6D-6Ru" secondAttribute="bottom" id="sCU-i3-up3"/>
                                 <constraint firstItem="zcx-02-qXI" firstAttribute="leading" secondItem="NLk-A9-KKf" secondAttribute="leading" id="vtg-KP-8Nx"/>
-                                <constraint firstItem="gRc-5v-PCM" firstAttribute="top" secondItem="NLk-A9-KKf" secondAttribute="top" constant="20" id="xb6-xG-v15"/>
                             </constraints>
                         </view>
                     </subviews>

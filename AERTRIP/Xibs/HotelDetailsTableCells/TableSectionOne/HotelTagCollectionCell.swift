@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol DeleteTagButtonDelegate: class {
+    func deleteTagButton(indexPath: IndexPath)
+}
+
 class HotelTagCollectionCell: UICollectionViewCell {
+    
+    //Mark:- Variables
+    //================
+    internal var currentTagButton: String = ""
+    internal weak var delegate: DeleteTagButtonDelegate?
     
     //Mark:- IBOutlets
     //
@@ -48,6 +57,13 @@ class HotelTagCollectionCell: UICollectionViewCell {
     }
     
     @IBAction func cancelBtnAction(_ sender: UIButton) {
+        if let safeDelegate = self.delegate, let indexPath = self.indexPathForCell {
+            safeDelegate.deleteTagButton(indexPath: indexPath)
+        }
+//        if let parentView = self.rootSuperView() as? SearchBarHeaderView, parentView.tagButtons.contains(self.currentTagButton) {
+//            parentView.tagButtons.remove(object: currentTagButton)
+//            parentView.tagCollectionView.reloadData()
+//        }
         printDebug("cancel button tapped")
     }
 }

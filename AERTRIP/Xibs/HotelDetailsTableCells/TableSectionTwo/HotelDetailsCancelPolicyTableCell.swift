@@ -8,8 +8,18 @@
 
 import UIKit
 
+protocol GetFullInfoDelegate: class {
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath)
+}
+
 class HotelDetailsCancelPolicyTableCell: UITableViewCell {
 
+    //Mark: Variables
+    //===============
+    internal weak var delegate: GetFullInfoDelegate?
+    internal var ratesData: Rates?
+    internal var currentIndexPath:IndexPath?
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
@@ -56,6 +66,35 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         attributedString.append(blackAttributedString)
         self.cancelDescriptionLabel.attributedText = attributedString
     }
+    
+    private func fullPenaltyDetails() {
+        self.cancelTitle.text = LocalizedString.CancellationPolicy.localized
+        if let ratesData = self.ratesData, let cancellationInfo = ratesData.cancellation_penalty, cancellationInfo.is_refundable {
+            let fullRefundableData = ratesData.getFullRefundableData()
+            guard fullRefundableData.is_refundable == true else { return }
+            let attributedString = NSMutableAttributedString()
+            for penaltyData in ratesData.penalty_array! {
+                let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
+                let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
+                attributedString.append(dotAttributedString)
+                let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.textFieldTextColor51] as [NSAttributedString.Key : Any]
+                let blackAttributedString = NSAttributedString(string: "\(penaltyData.penalty)" + "by" + "" + penaltyData.to + penaltyData.from + "\n" , attributes: blackAttribute)
+                attributedString.append(blackAttributedString)
+//                if !penaltyData.from.isEmpty {
+//                    let blackAttributedString = NSAttributedString(string: " by " , attributes: blackAttribute)
+//                    attributedString.append(blackAttributedString)
+//
+//                } else {
+//                    let blackAttributedString = NSAttributedString(string: " by " , attributes: blackAttribute)
+//                    attributedString.append(blackAttributedString)
+//                }
+                self.cancelDescriptionLabel.attributedText = attributedString
+            }
+            
+            //let cancelDesc = Date.getDateFromString(stringDate: fullRefundableData.to, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "dd MMM’ yy")
+        }
+    }
+    
     ///ConfigureCell
     internal func configureCancellationCell(ratesData: Rates) {
         self.cancelTitle.text = LocalizedString.CancellationPolicy.localized
@@ -82,6 +121,12 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func infoBtnAction(_ sender: UIButton) {
-        
+        self.fullPenaltyDetails()
+        guard let text = self.cancelDescriptionLabel.text else { return }
+        let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+        if let safeDelegate = self.delegate , let indexPath = self.currentIndexPath {
+            self.infoBtnOutlet.isHidden = true
+            safeDelegate.expandCell(expandHeight: size.height, indexPath: indexPath)
+        }
     }
 }

@@ -399,6 +399,7 @@ struct Rates: Hashable {
     
     //Mark:- Variables
     //================
+    
     var qid: String = ""
     var can_combine: Bool = false
     var price: Double = 0.0   //  checkout row 1
@@ -416,13 +417,16 @@ struct Rates: Hashable {
         for currentRoom in roomsRates {
             var count = 1
             for otherRoom in roomsRates {
-                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
+                if otherRoom.uuRid != currentRoom.uuRid && !tempData.keys.contains(otherRoom) {
                     if otherRoom == currentRoom {
                         count = count + 1
                     }
                 }
             }
-            tempData[currentRoom] = count
+            if !tempData.keys.contains(currentRoom) {
+                tempData[currentRoom] = count
+            }
+            
         }
         return tempData
     }
@@ -433,12 +437,10 @@ struct Rates: Hashable {
     var tableViewRowCell: [TableCellType] {
         var presentedCell = [TableCellType]()
         presentedCell.removeAll()
-        //let roomData = self.getRoomData()
         if self.roomData.count > 0 {
             for _ in self.roomData {
                 presentedCell.append(.roomBedsType)
             }
-            //presentedCell.append(.roomBedsType)
         }
         if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
             presentedCell.append(.inclusion)
@@ -448,14 +450,10 @@ struct Rates: Hashable {
         if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
             presentedCell.append(.otherInclusion)
         }
-        if let cancellationPenalty = self.cancellation_penalty, cancellationPenalty.is_refundable {
-            if let penaltyArray = self.penalty_array, !penaltyArray.isEmpty {
-                presentedCell.append(.cancellationPolicy)
-                presentedCell.append(.paymentPolicy)
-            } else {
-                presentedCell.append(.cancellationPolicy)
-            }
+        if self.cancellation_penalty != nil {
+            presentedCell.append(.cancellationPolicy)
         }
+        presentedCell.append(.paymentPolicy)
         if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
             presentedCell.append(.notes)
         }
@@ -573,13 +571,10 @@ struct Rates: Hashable {
         if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
             totalRows += 1
         }
-        if let cancellationPenalty = self.cancellation_penalty, cancellationPenalty.is_refundable {
-            if let penaltyArray = self.penalty_array, !penaltyArray.isEmpty {
-                totalRows += 2
-            } else {
-                totalRows += 1
-            }
+        if self.cancellation_penalty != nil {
+            totalRows += 1
         }
+        totalRows += 1 ///for payment cell
         totalRows += 1 /// for checkout cell
         return totalRows
     }
@@ -613,7 +608,7 @@ struct Rates: Hashable {
 struct RoomsRates: Hashable {
     
     var hashValue: Int {
-        return rid.hashValue
+        return uuRid.hashValue
     }
     
     static func == (lhs: RoomsRates, rhs: RoomsRates) -> Bool {
@@ -638,6 +633,7 @@ struct RoomsRates: Hashable {
     
     //Mark:- Variables
     //================
+    var uuRid: String = ""
     var rid: String = ""
     var thumbnail: String = ""
     var name: String = ""
@@ -672,7 +668,7 @@ struct RoomsRates: Hashable {
     }
     
     init(json: JSONDictionary) {
-        
+        self.uuRid = UUID().uuidString
         if let obj = json[APIKeys.rid.rawValue] {
             self.rid = "\(obj)".removeNull
         }

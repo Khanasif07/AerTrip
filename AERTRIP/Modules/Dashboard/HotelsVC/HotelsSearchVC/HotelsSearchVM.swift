@@ -99,19 +99,11 @@ class HotelsSearchVM: NSObject{
         let hotelData = HotelFormPreviosSearchData()
         hotelData.roomNumber     = self.roomNumber
         hotelData.adultsCount    = self.adultsCount
-//        for (index,data) in self.adultsCount.enumerated() {
-//            hotelData.adultsCount.append(data)
-//        }
-//        for (index,data) in self.childrenCounts.enumerated() {
-//            hotelData.childrenCounts[index] = data
-//        }
-//        for (indexX,dataX) in self.childrenAge.enumerated() {
-//            for (indexY,dataY) in dataX.enumerated() {
-//                hotelData.childrenAge[indexX][indexY] = dataY
-//            }
-//        }
         hotelData.childrenCounts = self.childrenCounts
         hotelData.childrenAge    = self.childrenAge
+//        hotelData.adultsCount    = self.adultsCount.map{ $0 }
+//        hotelData.childrenCounts = self.childrenCounts.map{ $0 }
+//        hotelData.childrenAge    = self.childrenAge.map{ $0 }
         hotelData.checkInDate    = self.checkInDate
         hotelData.checkOutDate   = self.checkOutDate
         hotelData.destId         = self.destId
@@ -135,7 +127,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
-               // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
                 sSelf.delegate?.getAllHotelsOnPreferenceFail()
             }
         }

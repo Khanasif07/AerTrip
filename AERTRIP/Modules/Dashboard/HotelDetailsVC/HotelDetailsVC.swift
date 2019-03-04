@@ -17,6 +17,8 @@ class HotelDetailsVC: BaseVC {
     private var isDataLoaded: Bool = false
     private var completion: (() -> Void)? = nil
     private var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    private var expandHeight: CGFloat = 0.0
+    private var currentIndexPath: IndexPath?
     
     //Mark:- IBOutlets
     //================
@@ -360,6 +362,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             else {
                 return tableView.frame.height - (211.0 + 126.5)
             }
+        } else if let index = self.currentIndexPath, index == indexPath, expandHeight != 0.0  {
+            return self.expandHeight
         }
         return UITableView.automaticDimension
     }
@@ -458,130 +462,10 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
 }
 
-//Mark:- Hotel TableView Cells
-//============================
-extension HotelDetailsVC {
-    
-    func getImageSlideCellWithInfo(indexPath: IndexPath, hotelInfo: HotelSearched) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.configCell(hotelData: hotelInfo)
-        return cell
-    }
-    
-    func getHotelRatingCellWithInfo(indexPath: IndexPath, hotelInfo: HotelSearched) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-        if let placeData = self.viewModel.placeModel {
-            cell.configureCell(hotelData: hotelInfo, placeData: placeData)
-        } else {
-            cell.configureCell(hotelData: hotelInfo)
-        }
-        return cell
-    }
-    
-    func getLoaderCell(indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsLoaderTableViewCell", for: indexPath) as? HotelDetailsLoaderTableViewCell  else { return UITableViewCell() }
-        cell.activityIndicator.startAnimating()
-        return cell
-    }
-    
-    func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.configCellForHotelDetail(hotelData: hotelDetails)
-        return cell
-    }
-    
-    func getHotelRatingInfoCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
-        if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
-            cell.configureCell(hotelData: hotelDetails, placeData: placeData)
-        } else if let hotelInfo = self.viewModel.hotelInfo {
-            cell.configureCell(hotelData: hotelInfo)
-        }
-        return cell
-    }
-    
-    func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-        cell.configureAddressCell(hotelData: hotelDetails)
-        return cell
-    }
-    
-    func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-        cell.configureOverviewCell(hotelData: hotelDetails)
-        return cell
-    }
-    
-    func getHotelDetailsAmenitiesCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
-        cell.amenitiesDetails = hotelDetails.amenities
-        return cell
-    }
-    
-    func getTripAdviserCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
-        return cell
-    }
-    
-    func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
-        for (count, data) in roomData.enumerated() {
-            print(count, "\t" ,data)
-        }
-        cell.configCell(numberOfRooms: Array(roomData.values)[indexPath.row] , roomData: Array(roomData.keys)[indexPath.row])
-        return cell
-    }
-    
-    func getInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
-            guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureCell(ratesData: ratesData)
-            return cell
-        } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
-            guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureCell(ratesData: ratesData)
-            return cell
-        }
-        return nil
-    }
-    
-    func otherInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
-            guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
-            return cell
-        }
-        return nil
-    }
-    
-    func getCancellationCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        if ratesData.cancellation_penalty != nil {
-            guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCancelPolicyTableCell", for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-            cell.configureCancellationCell(ratesData: ratesData)
-            return cell
-        }
-        return nil
-    }
-    
-    func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCancelPolicyTableCell", for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-        cell.configurePaymentCell(ratesData: ratesData)
-        return cell
-        
-    }
-    
-    func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
-            guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "NotesTableCell", for: indexPath) as? NotesTableCell  else { return nil }
-            cell.noteLabel.text = notesInclusion.first
-            return cell
-        }
-        return nil
-    }
-    
-    func getCheckOutCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
-        cell.hotelFeesLabel.text = LocalizedString.rupeesText.localized + " \(ratesData.price)"
-        return cell
+extension HotelDetailsVC: GetFullInfoDelegate {
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
+        self.expandHeight = expandHeight
+        self.currentIndexPath = indexPath
+        self.hotelTableView.reloadRow(at: indexPath, with: .fade)
     }
 }

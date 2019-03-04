@@ -197,6 +197,124 @@
             </objects>
             <point key="canvasLocation" x="1505" y="92"/>
         </scene>
+        <!--Search Hotel TagVC-->
+        <scene sceneID="eYe-yZ-2wV">
+            <objects>
+                <viewController storyboardIdentifier="SearchHotelTagVC" id="ATa-1D-shv" customClass="SearchHotelTagVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1uc-73-txV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WGC-TJ-FQc">
+                                <rect key="frame" x="0.0" y="23" width="375" height="46"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="vBF-DK-5Lh" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="7.5" y="0.0" width="295.5" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="lIE-pY-nRW"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29a-Am-ymC">
+                                        <rect key="frame" x="303" y="0.0" width="56" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="56" id="sHZ-l4-igT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelBtnAction:" destination="ATa-1D-shv" eventType="touchUpInside" id="Lrl-sr-JUq"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-5W-8Gc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="45.5" width="375" height="0.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="tXm-Lv-cIc"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="29a-Am-ymC" secondAttribute="trailing" constant="16" id="3ux-rb-DDz"/>
+                                    <constraint firstItem="vBF-DK-5Lh" firstAttribute="leading" secondItem="WGC-TJ-FQc" secondAttribute="leading" constant="7.5" id="9dZ-i7-tJC"/>
+                                    <constraint firstAttribute="trailing" secondItem="9vZ-5W-8Gc" secondAttribute="trailing" id="9wf-2z-b6A"/>
+                                    <constraint firstItem="29a-Am-ymC" firstAttribute="leading" secondItem="vBF-DK-5Lh" secondAttribute="trailing" id="Ufa-OH-nDj"/>
+                                    <constraint firstAttribute="bottom" secondItem="9vZ-5W-8Gc" secondAttribute="bottom" id="dSi-aF-uIT"/>
+                                    <constraint firstItem="vBF-DK-5Lh" firstAttribute="top" secondItem="WGC-TJ-FQc" secondAttribute="top" id="dl6-c8-yqZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="29a-Am-ymC" secondAttribute="bottom" constant="10" id="n4Q-vj-2Nw"/>
+                                    <constraint firstItem="29a-Am-ymC" firstAttribute="top" secondItem="WGC-TJ-FQc" secondAttribute="top" id="pX8-OH-zCP"/>
+                                    <constraint firstAttribute="height" constant="46" id="u9f-TX-H5i"/>
+                                    <constraint firstItem="9vZ-5W-8Gc" firstAttribute="leading" secondItem="WGC-TJ-FQc" secondAttribute="leading" id="uHi-Ov-lQw"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="7hr-8d-KNX">
+                                <rect key="frame" x="0.0" y="69" width="375" height="598"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchTagTableCell" rowHeight="44" id="tR3-Rj-gYA" customClass="SearchTagTableCell" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tR3-Rj-gYA" id="nB0-iZ-0HL">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyf-Be-qnX">
+                                                    <rect key="frame" x="16" y="11" width="343" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOt-Vh-4IW" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="43.5" width="359" height="0.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="1IV-V4-HlQ"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Jyf-Be-qnX" firstAttribute="leading" secondItem="nB0-iZ-0HL" secondAttribute="leading" constant="16" id="M8A-j0-Bxt"/>
+                                                <constraint firstItem="Jyf-Be-qnX" firstAttribute="centerY" secondItem="nB0-iZ-0HL" secondAttribute="centerY" id="Nj6-09-yuP"/>
+                                                <constraint firstAttribute="bottom" secondItem="FOt-Vh-4IW" secondAttribute="bottom" id="RBX-LX-HDJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Jyf-Be-qnX" secondAttribute="trailing" constant="16" id="RT4-Fx-YzY"/>
+                                                <constraint firstAttribute="trailing" secondItem="FOt-Vh-4IW" secondAttribute="trailing" id="gkl-PZ-dOC"/>
+                                                <constraint firstItem="FOt-Vh-4IW" firstAttribute="leading" secondItem="nB0-iZ-0HL" secondAttribute="leading" constant="16" id="tDv-U4-7JR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dividerView" destination="FOt-Vh-4IW" id="gJQ-ig-vaR"/>
+                                            <outlet property="dividerViewLeadingConstraints" destination="tDv-U4-7JR" id="XbX-gJ-lH0"/>
+                                            <outlet property="hotelTagName" destination="Jyf-Be-qnX" id="ufj-5p-uur"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="S0M-lq-BGk" firstAttribute="trailing" secondItem="7hr-8d-KNX" secondAttribute="trailing" id="Gls-Go-lqi"/>
+                            <constraint firstItem="WGC-TJ-FQc" firstAttribute="leading" secondItem="S0M-lq-BGk" secondAttribute="leading" id="LLx-24-xFA"/>
+                            <constraint firstItem="WGC-TJ-FQc" firstAttribute="trailing" secondItem="S0M-lq-BGk" secondAttribute="trailing" id="MP4-8h-2ko"/>
+                            <constraint firstItem="7hr-8d-KNX" firstAttribute="leading" secondItem="S0M-lq-BGk" secondAttribute="leading" id="S4g-Lx-W2v"/>
+                            <constraint firstAttribute="bottom" secondItem="7hr-8d-KNX" secondAttribute="bottom" id="Tyu-CE-BZO"/>
+                            <constraint firstItem="7hr-8d-KNX" firstAttribute="top" secondItem="WGC-TJ-FQc" secondAttribute="bottom" id="eie-HF-hjf"/>
+                            <constraint firstItem="WGC-TJ-FQc" firstAttribute="top" secondItem="S0M-lq-BGk" secondAttribute="top" constant="3" id="uGQ-U7-EaJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="S0M-lq-BGk"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelBtnOutlet" destination="29a-Am-ymC" id="T9h-HH-8I6"/>
+                        <outlet property="dividerView" destination="9vZ-5W-8Gc" id="Sf7-ry-j21"/>
+                        <outlet property="searchBar" destination="vBF-DK-5Lh" id="EAm-Q6-zRI"/>
+                        <outlet property="tagTableView" destination="7hr-8d-KNX" id="nkC-dG-sL5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="avu-K2-opf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2232.8000000000002" y="87.706146926536732"/>
+        </scene>
     </scenes>
     <resources>
         <image name="black_cross" width="24" height="24"/>
