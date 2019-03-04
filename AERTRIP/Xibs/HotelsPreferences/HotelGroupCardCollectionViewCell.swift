@@ -9,13 +9,7 @@
 import UIKit
 import FlexiblePageControl
 
-protocol HotelCardCollectionViewCellDelegate: class {
-    func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
-    func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
-    func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
-}
-
-class HotelCardCollectionViewCell: UICollectionViewCell {
+class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet var bgView: UIView!
     @IBOutlet var hotelImageView: UIImageView!
     @IBOutlet var saveButton: UIButton!
@@ -30,6 +24,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet var pageControl: FlexiblePageControl!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var firstShadowCard: UIView!
+    @IBOutlet weak var secondShadowCard: UIView!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -59,7 +55,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-
+        self.setupShadowCards()
+        
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
         gradientLayer.colors =
@@ -76,6 +73,16 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.gradientLayer.frame = self.gradientView.bounds
+    }
+    
+    private func setupShadowCards() {
+        self.firstShadowCard.backgroundColor = AppColors.themeGray40
+        self.firstShadowCard.layer.cornerRadius = 10.0
+        self.firstShadowCard.layer.masksToBounds = true
+        
+        self.secondShadowCard.backgroundColor = AppColors.themeDarkGreen
+        self.secondShadowCard.layer.cornerRadius = 10.0
+        self.secondShadowCard.layer.masksToBounds = true
     }
     
     private func setUpInstagramDotGalleryView() {
@@ -147,7 +154,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension HotelCardCollectionViewCell: UIScrollViewDelegate {
+extension HotelGroupCardCollectionViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let indexPath = indexPath {
             self.delegate?.pagingScrollEnable(indexPath, scrollView)

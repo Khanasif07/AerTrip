@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Contacts
+import ContactsUI
 
 class MailComposerVC: BaseVC {
     // MARK: IB Outlets
@@ -15,8 +17,10 @@ class MailComposerVC: BaseVC {
     @IBOutlet var tableView: UITableView!
     
     // MARK: Variables
-    
     let cellIdenitifer = "HotelMailComposerCardViewTableViewCell"
+    var mailComposerHeaderView: EmailComposerHeaderView = EmailComposerHeaderView()
+    var selectedMails: [String] = []
+     let viewModel = MailComposerVM()
     
     // MARK: - View Life cycle
     
@@ -26,6 +30,37 @@ class MailComposerVC: BaseVC {
         self.doInitialSetup()
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
+    
+    
+    override func viewDidLayoutSubviews() {
+        guard let headerView = tableView.tableHeaderView else {
+            return
+        }
+        
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if headerView.frame.size.height != size.height {
+            headerView.frame.size.height = size.height
+            tableView.tableHeaderView = headerView
+            tableView.layoutIfNeeded()
+        }
+        
+        guard let footerView = tableView.tableFooterView else {
+            return
+        }
+        
+        let footerSize = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if footerView.frame.size.height != footerSize.height {
+            footerView.frame.size.height = footerSize.height
+            tableView.tableFooterView = footerView
+            tableView.layoutIfNeeded()
+        }
+        
+    }
+    
     // MARK: - Helper methods
     
     private func doInitialSetup() {
@@ -33,6 +68,7 @@ class MailComposerVC: BaseVC {
         self.tableViewSetup()
         self.registerXib()
         self.setupHeader()
+        //self.setUpFooter()
     }
     
     private func navBarSetUp() {
@@ -50,12 +86,22 @@ class MailComposerVC: BaseVC {
     }
     
     private func registerXib() {
-        self.tableView.register(UINib(nibName: cellIdenitifer, bundle: nil), forCellReuseIdentifier: cellIdenitifer)
+        self.tableView.register(UINib(nibName: self.cellIdenitifer, bundle: nil), forCellReuseIdentifier: self.cellIdenitifer)
     }
     
     private func setupHeader() {
+        mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
+        mailComposerHeaderView.delegate = self
+        tableView.tableHeaderView = mailComposerHeaderView
         
     }
+    
+    private func setUpFooter() {
+        mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
+        tableView.tableFooterView = mailComposerHeaderView
+    }
+    
+   
 }
 
 // MARK: - Top Navigation Bar Delegate methods
@@ -70,12 +116,11 @@ extension MailComposerVC: TopNavigationViewDelegate {
     }
 }
 
-
 // MARK: - TableViewDataSource and TableViewDelegate methods
 
-extension MailComposerVC : UITableViewDataSource,UITableViewDelegate {
+extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return self.viewModel.favouriteHotels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,12 +128,89 @@ extension MailComposerVC : UITableViewDataSource,UITableViewDelegate {
             printDebug("cell not found")
             return UITableViewCell()
         }
-        
+        cell.favHotel = self.viewModel.favouriteHotels[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 395
     }
+}
+
+
+// MARK: -  Mail Composer Header View Delegate methods
+
+extension MailComposerVC : EmailComposeerHeaderViewDelegate {
+    func textFieldText(_ textfield: UITextField) {
+        //  mailComposerHeaderView.toEmailTextView.text = textfield.text
+    }
+    
+    func textViewText(_ textView: UITextView) {
+        //
+    }
+    
+    func openContactScreen() {
+        printDebug("open Contact Screen")
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+        contactPicker.displayedPropertyKeys =
+            [CNContactEmailAddressesKey]
+        self.present(contactPicker, animated: true, completion: nil)
+    }
     
 }
+
+
+// MARK : Contact picker Delegate methods
+
+extension MailComposerVC : CNContactPickerDelegate {
+//    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+//        picker.dismiss(animated: true, completion: nil)
+//
+//        let email = CNContactFormatter.string(from: contact, style: <#T##CNContactFormatterStyle#>)
+//        for number in contact.phoneNumbers {
+//            let mobile = number.value.value(forKey: "digits") as? String
+//            if (mobile?.count)! > 7 {
+//                // your code goes here
+//            }
+//        }
+//    }
+    
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        picker.dismiss(animated: true, completion: nil)
+        if let _mail = contact.emailAddresses.first?.value as String? {
+            printDebug("mail is \(_mail)")
+            self.selectedMails.append(_mail)
+         
+        }
+        var mailString : String = ""
+        for mail in selectedMails {
+           mailString += mail + " "
+        }
+        
+        mailComposerHeaderView.toEmailTextView.text = mailString
+      
+        
+    }
+}
+
+
+// MARK : - Viewmodel delegates methods
+
+extension MailComposerVC : MailComoserVMDelegate {
+    func willSendEmail() {
+        //
+    }
+    
+    func didSendEmailSuccess() {
+        //
+    }
+    
+    func didSendemailFail() {
+        //
+    }
+    
+    
+}
+
+

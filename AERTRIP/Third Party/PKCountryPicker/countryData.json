@@ -14,6 +14,9 @@
         "AppleStore": 0,
         "UNRank": 110,
         "MobileRank": "",
+        "CurrencyCode": "AFN",
+        "CurrencyName": "Afghani",
+        "CurrencySymbol": "Af",
         "SortIndex": 1
     },
     {
@@ -31,6 +34,9 @@
         "AppleStore": 1,
         "UNRank": 49,
         "MobileRank": 29,
+        "CurrencyCode": "DZD",
+        "CurrencyName": "Algerian Dinar",
+        "CurrencySymbol": "د.ج",
         "SortIndex": 2
     },
     {
@@ -48,6 +54,9 @@
         "AppleStore": 0,
         "UNRank": 201,
         "MobileRank": "",
+        "CurrencyCode": "USD",
+        "CurrencyName": "US Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 3
     },
     {
@@ -65,6 +74,9 @@
         "AppleStore": 0,
         "UNRank": 167,
         "MobileRank": "",
+        "CurrencyCode": "EUR",
+        "CurrencyName": "Euro",
+        "CurrencySymbol": "€",
         "SortIndex": 4
     },
     {
@@ -82,6 +94,9 @@
         "AppleStore": 1,
         "UNRank": 61,
         "MobileRank": "",
+        "CurrencyCode": "AOA",
+        "CurrencyName": "Kwanza",
+        "CurrencySymbol": "Kz",
         "SortIndex": 5
     },
     {
@@ -99,6 +114,9 @@
         "AppleStore": 1,
         "UNRank": 205,
         "MobileRank": "",
+        "CurrencyCode": "XCD",
+        "CurrencyName": "East Caribbean Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 6
     },
     {
@@ -116,6 +134,9 @@
         "AppleStore": 1,
         "UNRank": 188,
         "MobileRank": "",
+        "CurrencyCode": "XCD",
+        "CurrencyName": "East Caribbean Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 7
     },
     {
@@ -133,6 +154,9 @@
         "AppleStore": 1,
         "UNRank": 25,
         "MobileRank": 25,
+        "CurrencyCode": "ARS",
+        "CurrencyName": "Argentine Peso",
+        "CurrencySymbol": "$",
         "SortIndex": 8
     },
     {
@@ -150,6 +174,9 @@
         "AppleStore": 1,
         "UNRank": 134,
         "MobileRank": "",
+        "CurrencyCode": "AMD",
+        "CurrencyName": "Armenian Dram",
+        "CurrencySymbol": "Դ",
         "SortIndex": 9
     },
     {
@@ -167,6 +194,9 @@
         "AppleStore": 0,
         "UNRank": 170,
         "MobileRank": "",
+        "CurrencyCode": "AWG",
+        "CurrencyName": "Aruban Guilder/Florin",
+        "CurrencySymbol": "ƒ",
         "SortIndex": 10
     },
     {
@@ -184,6 +214,9 @@
         "AppleStore": 0,
         "UNRank": 230,
         "MobileRank": "",
+        "CurrencyCode": "SHP",
+        "CurrencyName": "Saint Helena Pound",
+        "CurrencySymbol": "£",
         "SortIndex": 11
     },
     {
@@ -201,6 +234,9 @@
         "AppleStore": 1,
         "UNRank": 12,
         "MobileRank": 38,
+        "CurrencyCode": "AUD",
+        "CurrencyName": "Australian Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 12
     },
     {
@@ -218,6 +254,9 @@
         "AppleStore": 1,
         "UNRank": 69,
         "MobileRank": 55,
+        "CurrencyCode": "AZN",
+        "CurrencyName": "Azerbaijanian Manat",
+        "CurrencySymbol": "ман",
         "SortIndex": 13
     },
     {
@@ -235,6 +274,9 @@
         "AppleStore": 1,
         "UNRank": 142,
         "MobileRank": "",
+        "CurrencyCode": "BSD",
+        "CurrencyName": "Bahamian Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 14
     },
     {
@@ -252,6 +294,9 @@
         "AppleStore": 1,
         "UNRank": 97,
         "MobileRank": "",
+        "CurrencyCode": "BHD",
+        "CurrencyName": "Bahraini Dinar",
+        "CurrencySymbol": "ب.د",
         "SortIndex": 15
     },
     {
@@ -269,6 +314,9 @@
         "AppleStore": 0,
         "UNRank": 60,
         "MobileRank": 12,
+        "CurrencyCode": "BDT",
+        "CurrencyName": "Taka",
+        "CurrencySymbol": "৳",
         "SortIndex": 16
     },
     {
@@ -286,6 +334,9 @@
         "AppleStore": 1,
         "UNRank": 163,
         "MobileRank": "",
+        "CurrencyCode": "BBD",
+        "CurrencyName": "Barbados Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 17
     },
     {
@@ -303,6 +354,9 @@
         "AppleStore": 1,
         "UNRank": 76,
         "MobileRank": "",
+        "CurrencyCode": "BYR",
+        "CurrencyName": "Belarussian Ruble",
+        "CurrencySymbol": "Br",
         "SortIndex": 18
     },
     {
@@ -320,6 +374,9 @@
         "AppleStore": 1,
         "UNRank": 23,
         "MobileRank": 48,
+        "CurrencyCode": "EUR",
+        "CurrencyName": "Euro",
+        "CurrencySymbol": "€",
         "SortIndex": 19
     },
     {
@@ -337,6 +394,9 @@
         "AppleStore": 1,
         "UNRank": 183,
         "MobileRank": "",
+        "CurrencyCode": "BZD",
+        "CurrencyName": "Belize Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 20
     },
     {
@@ -354,6 +414,9 @@
         "AppleStore": 1,
         "UNRank": 144,
         "MobileRank": "",
+        "CurrencyCode": "XAF",
+        "CurrencyName": "CFA Franc BCEAO",
+        "CurrencySymbol": "₣",
         "SortIndex": 21
     },
     {
@@ -371,6 +434,9 @@
         "AppleStore": 1,
         "UNRank": 152,
         "MobileRank": "",
+        "CurrencyCode": "BMD",
+        "CurrencyName": "Bermudian Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 22
     },
     {
@@ -388,6 +454,9 @@
         "AppleStore": 1,
         "UNRank": 182,
         "MobileRank": "",
+        "CurrencyCode": "Nu",
+        "CurrencyName": "Ngultrum",
+        "CurrencySymbol": "BTN",
         "SortIndex": 23
     },
     {
@@ -405,6 +474,9 @@
         "AppleStore": 1,
         "UNRank": 102,
         "MobileRank": "",
+        "CurrencyCode": "BOB",
+        "CurrencyName": "Boliviano",
+        "CurrencySymbol": "Bs.",
         "SortIndex": 24
     },
     {
@@ -422,6 +494,9 @@
         "AppleStore": 0,
         "UNRank": 229,
         "MobileRank": "",
+        "CurrencyCode": "USD",
+        "CurrencyName": "US Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 25
     },
     {
@@ -439,6 +514,9 @@
         "AppleStore": 0,
         "UNRank": 112,
         "MobileRank": "",
+        "CurrencyCode": "BAM",
+        "CurrencyName": "Konvertibilna Marka",
+        "CurrencySymbol": "КМ",
         "SortIndex": 26
     },
     {
@@ -456,6 +534,9 @@
         "AppleStore": 1,
         "UNRank": 114,
         "MobileRank": "",
+        "CurrencyCode": "BWP",
+        "CurrencyName": "Pula",
+        "CurrencySymbol": "P",
         "SortIndex": 27
     },
     {
@@ -473,6 +554,9 @@
         "AppleStore": 1,
         "UNRank": 6,
         "MobileRank": 4,
+        "CurrencyCode": "BRL",
+        "CurrencyName": "Brazilian Real",
+        "CurrencySymbol": "R$",
         "SortIndex": 28
     },
     {
@@ -490,6 +574,9 @@
         "AppleStore": 1,
         "UNRank": 115,
         "MobileRank": "",
+        "CurrencyCode": "SGD",
+        "CurrencyName": "Singapore Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 29
     },
     {
@@ -507,6 +594,9 @@
         "AppleStore": 1,
         "UNRank": 77,
         "MobileRank": 52,
+        "CurrencyCode": "BGN",
+        "CurrencyName": "Bulgarian Lev",
+        "CurrencySymbol": "лв",
         "SortIndex": 30
     },
     {
@@ -524,6 +614,9 @@
         "AppleStore": 1,
         "UNRank": 135,
         "MobileRank": "",
+        "CurrencyCode": "XAF",
+        "CurrencyName": "CFA Franc BCEAO",
+        "CurrencySymbol": "₣",
         "SortIndex": 31
     },
     {
@@ -541,6 +634,9 @@
         "AppleStore": 0,
         "UNRank": 101,
         "MobileRank": "",
+        "CurrencyCode": "XAF",
+        "CurrencyName": "CFA Franc BCEAO",
+        "CurrencySymbol": "₣",
         "SortIndex": 32
     },
     {
@@ -558,6 +654,9 @@
         "AppleStore": 1,
         "UNRank": 125,
         "MobileRank": "",
+        "CurrencyCode": "KHR",
+        "CurrencyName": "Riel",
+        "CurrencySymbol": "៛",
         "SortIndex": 33
     },
     {
@@ -575,6 +674,9 @@
         "AppleStore": 0,
         "UNRank": 96,
         "MobileRank": "",
+        "CurrencyCode": "XAF",
+        "CurrencyName": "CFA Franc BCEAO",
+        "CurrencySymbol": "₣",
         "SortIndex": 34
     },
     {
@@ -592,6 +694,9 @@
         "AppleStore": 1,
         "UNRank": 11,
         "MobileRank": 35,
+        "CurrencyCode": "CAD",
+        "CurrencyName": "Canadian Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 35
     },
     {
@@ -609,6 +714,9 @@
         "AppleStore": 1,
         "UNRank": 168,
         "MobileRank": "",
+        "CurrencyCode": "KYD",
+        "CurrencyName": "Cayman Islands Dollar",
+        "CurrencySymbol": "$",
         "SortIndex": 36
     },
     {
@@ -626,6 +734,9 @@
         "AppleStore": 1,
         "UNRank": 39,
         "MobileRank": 41,
+        "CurrencyCode": "CLP",
+        "CurrencyName": "Chilean Peso",
+        "CurrencySymbol": "$",
         "SortIndex": 37
     },
     {
@@ -643,6 +754,9 @@
         "AppleStore": 1,
         "UNRank": 2,
         "MobileRank": 1,
+        "CurrencyCode": "CNY",
+        "CurrencyName": "Yuan",
+        "CurrencySymbol": "¥",
         "SortIndex": 38
     },
     {
@@ -660,6 +774,9 @@
         "AppleStore": 1,
         "UNRank": 32,
         "MobileRank": 27,
+        "CurrencyCode": "COP",
+        "CurrencyName": "Colombian Peso",
+        "CurrencySymbol": "$",
         "SortIndex": 39
     },
     {
@@ -677,6 +794,9 @@
         "AppleStore": 0,
         "UNRank": 228,
         "MobileRank": "",
+        "CurrencyCode": "EUR",
+        "CurrencyName": "Euro",
+        "CurrencySymbol": "€",
         "SortIndex": 40
     },
     {
@@ -694,6 +814,9 @@
         "AppleStore": 1,
         "UNRank": 122,
         "MobileRank": "",
+        "CurrencyCode": "XAF",
+        "CurrencyName": "CFA Franc BCEAO",
+        "CurrencySymbol": "₣",
         "SortIndex": 41
     },
     {
@@ -711,6 +834,9 @@
         "AppleStore": 0,
         "UNRank": 117,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 42
     },
     {
@@ -728,6 +854,9 @@
         "AppleStore": 0,
         "UNRank": 206,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 43
     },
     {
@@ -745,6 +874,9 @@
         "AppleStore": 1,
         "UNRank": 85,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 44
     },
     {
@@ -762,6 +894,9 @@
         "AppleStore": 0,
         "UNRank": 66,
         "MobileRank": 62,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 45
     },
     {
@@ -779,6 +914,9 @@
         "AppleStore": 0,
         "UNRank": 158,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 46
     },
     {
@@ -796,6 +934,9 @@
         "AppleStore": 1,
         "UNRank": 99,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 47
     },
     {
@@ -813,6 +954,9 @@
         "AppleStore": 1,
         "UNRank": 47,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 48
     },
     {
@@ -830,6 +974,9 @@
         "AppleStore": 0,
         "UNRank": 161,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 49
     },
     {
@@ -847,6 +994,9 @@
         "AppleStore": 0,
         "UNRank": 84,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 50
     },
     {
@@ -864,6 +1014,9 @@
         "AppleStore": 0,
         "UNRank": 198,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 51
     },
     {
@@ -881,6 +1034,9 @@
         "AppleStore": 1,
         "UNRank": 33,
         "MobileRank": 54,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 52
     },
     {
@@ -898,6 +1054,9 @@
         "AppleStore": 0,
         "UNRank": 227,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 53
     },
     {
@@ -915,6 +1074,9 @@
         "AppleStore": 0,
         "UNRank": 184,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 54
     },
     {
@@ -932,6 +1094,9 @@
         "AppleStore": 1,
         "UNRank": 203,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 55
     },
     {
@@ -949,6 +1114,9 @@
         "AppleStore": 1,
         "UNRank": 4,
         "MobileRank": 9,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 56
     },
     {
@@ -966,6 +1134,9 @@
         "AppleStore": 1,
         "UNRank": 67,
         "MobileRank": 45,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 57
     },
     {
@@ -983,6 +1154,9 @@
         "AppleStore": 1,
         "UNRank": 44,
         "MobileRank": 19,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 58
     },
     {
@@ -1000,6 +1174,9 @@
         "AppleStore": 1,
         "UNRank": 104,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 59
     },
     {
@@ -1017,6 +1194,9 @@
         "AppleStore": 0,
         "UNRank": 171,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 60
     },
     {
@@ -1034,6 +1214,9 @@
         "AppleStore": 1,
         "UNRank": 106,
         "MobileRank": 59,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 61
     },
     {
@@ -1051,6 +1234,9 @@
         "AppleStore": 0,
         "UNRank": 93,
         "MobileRank": 42,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 62
     },
     {
@@ -1068,6 +1254,9 @@
         "AppleStore": 1,
         "UNRank": 35,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 63
     },
     {
@@ -1085,6 +1274,9 @@
         "AppleStore": 1,
         "UNRank": 13,
         "MobileRank": 23,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 64
     },
     {
@@ -1102,6 +1294,9 @@
         "AppleStore": 0,
         "UNRank": 210,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 65
     },
     {
@@ -1119,6 +1314,9 @@
         "AppleStore": 0,
         "UNRank": 176,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 66
     },
     {
@@ -1136,6 +1334,9 @@
         "AppleStore": 1,
         "UNRank": 165,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 67
     },
     {
@@ -1153,6 +1354,9 @@
         "AppleStore": 1,
         "UNRank": 5,
         "MobileRank": 18,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 68
     },
     {
@@ -1170,6 +1374,9 @@
         "AppleStore": 0,
         "UNRank": 116,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 69
     },
     {
@@ -1187,6 +1394,9 @@
         "AppleStore": 0,
         "UNRank": 100,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 70
     },
     {
@@ -1204,6 +1414,9 @@
         "AppleStore": 1,
         "UNRank": 186,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 71
     },
     {
@@ -1221,6 +1434,9 @@
         "AppleStore": 0,
         "UNRank": 120,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 72
     },
     {
@@ -1238,6 +1454,9 @@
         "AppleStore": 1,
         "UNRank": 86,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 73
     },
     {
@@ -1255,6 +1474,9 @@
         "AppleStore": 1,
         "UNRank": 196,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 74
     },
     {
@@ -1272,6 +1494,9 @@
         "AppleStore": 0,
         "UNRank": 226,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 75
     },
     {
@@ -1289,6 +1514,9 @@
         "AppleStore": 0,
         "UNRank": 160,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 76
     },
     {
@@ -1306,6 +1534,9 @@
         "AppleStore": 1,
         "UNRank": 79,
         "MobileRank": 43,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 77
     },
     {
@@ -1323,6 +1554,9 @@
         "AppleStore": 0,
         "UNRank": 157,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 78
     },
     {
@@ -1340,6 +1574,9 @@
         "AppleStore": 1,
         "UNRank": 194,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 79
     },
     {
@@ -1357,6 +1594,9 @@
         "AppleStore": 1,
         "UNRank": 172,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 80
     },
     {
@@ -1374,6 +1614,9 @@
         "AppleStore": 1,
         "UNRank": 70,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 81
     },
     {
@@ -1391,6 +1634,9 @@
         "AppleStore": 0,
         "UNRank": 147,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 82
     },
     {
@@ -1408,6 +1654,9 @@
         "AppleStore": 1,
         "UNRank": 113,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 83
     },
     {
@@ -1425,6 +1674,9 @@
         "AppleStore": 1,
         "UNRank": 41,
         "MobileRank": 47,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 84
     },
     {
@@ -1442,6 +1694,9 @@
         "AppleStore": 1,
         "UNRank": 121,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 85
     },
     {
@@ -1459,6 +1714,9 @@
         "AppleStore": 1,
         "UNRank": 9,
         "MobileRank": 2,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 86
     },
     {
@@ -1476,6 +1734,9 @@
         "AppleStore": 1,
         "UNRank": 16,
         "MobileRank": 6,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 87
     },
     {
@@ -1493,6 +1754,9 @@
         "AppleStore": 0,
         "UNRank": 22,
         "MobileRank": 13,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 88
     },
     {
@@ -1510,6 +1774,9 @@
         "AppleStore": 0,
         "UNRank": 59,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 89
     },
     {
@@ -1527,6 +1794,9 @@
         "AppleStore": 1,
         "UNRank": 46,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 90
     },
     {
@@ -1544,6 +1814,9 @@
         "AppleStore": 1,
         "UNRank": 42,
         "MobileRank": 53,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 91
     },
     {
@@ -1561,6 +1834,9 @@
         "AppleStore": 1,
         "UNRank": 8,
         "MobileRank": 15,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 92
     },
     {
@@ -1578,6 +1854,9 @@
         "AppleStore": 1,
         "UNRank": 118,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 93
     },
     {
@@ -1595,6 +1874,9 @@
         "AppleStore": 1,
         "UNRank": 3,
         "MobileRank": 8,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 94
     },
     {
@@ -1612,6 +1894,9 @@
         "AppleStore": 1,
         "UNRank": 94,
         "MobileRank": 56,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 95
     },
     {
@@ -1629,6 +1914,9 @@
         "AppleStore": 1,
         "UNRank": 181,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 96
     },
     {
@@ -1646,6 +1934,9 @@
         "AppleStore": 0,
         "UNRank": 174,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 97
     },
     {
@@ -1663,6 +1954,9 @@
         "AppleStore": 1,
         "UNRank": 51,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 98
     },
     {
@@ -1680,6 +1974,9 @@
         "AppleStore": 1,
         "UNRank": 89,
         "MobileRank": 31,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 99
     },
     {
@@ -1697,6 +1994,9 @@
         "AppleStore": 1,
         "UNRank": 56,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 100
     },
     {
@@ -1714,6 +2014,9 @@
         "AppleStore": 1,
         "UNRank": 155,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 101
     },
     {
@@ -1731,6 +2034,9 @@
         "AppleStore": 1,
         "UNRank": 141,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 102
     },
     {
@@ -1748,6 +2054,9 @@
         "AppleStore": 1,
         "UNRank": 95,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 103
     },
     {
@@ -1765,6 +2074,9 @@
         "AppleStore": 1,
         "UNRank": 87,
         "MobileRank": 60,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 104
     },
     {
@@ -1782,6 +2094,9 @@
         "AppleStore": 0,
         "UNRank": 173,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 105
     },
     {
@@ -1799,6 +2114,9 @@
         "AppleStore": 1,
         "UNRank": 187,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 106
     },
     {
@@ -1816,6 +2134,9 @@
         "AppleStore": 0,
         "UNRank": 91,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 107
     },
     {
@@ -1833,6 +2154,9 @@
         "AppleStore": 0,
         "UNRank": 151,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 108
     },
     {
@@ -1850,6 +2174,9 @@
         "AppleStore": 1,
         "UNRank": 83,
         "MobileRank": 61,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 109
     },
     {
@@ -1867,6 +2194,9 @@
         "AppleStore": 1,
         "UNRank": 71,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 110
     },
     {
@@ -1884,6 +2214,9 @@
         "AppleStore": 1,
         "UNRank": 57,
         "MobileRank": 49,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 111
     },
     {
@@ -1901,6 +2234,9 @@
         "AppleStore": 1,
         "UNRank": 88,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 112
     },
     {
@@ -1918,6 +2254,9 @@
         "AppleStore": 1,
         "UNRank": 133,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 113
     },
     {
@@ -1935,6 +2274,9 @@
         "AppleStore": 1,
         "UNRank": 137,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 114
     },
     {
@@ -1952,6 +2294,9 @@
         "AppleStore": 1,
         "UNRank": 153,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 115
     },
     {
@@ -1969,6 +2314,9 @@
         "AppleStore": 1,
         "UNRank": 36,
         "MobileRank": 40,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 116
     },
     {
@@ -1986,6 +2334,9 @@
         "AppleStore": 0,
         "UNRank": 178,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 117
     },
     {
@@ -2003,6 +2354,9 @@
         "AppleStore": 1,
         "UNRank": 131,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 118
     },
     {
@@ -2020,6 +2374,9 @@
         "AppleStore": 1,
         "UNRank": 138,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 119
     },
     {
@@ -2037,6 +2394,9 @@
         "AppleStore": 0,
         "UNRank": 209,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 120
     },
     {
@@ -2054,6 +2414,9 @@
         "AppleStore": 0,
         "UNRank": 225,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 121
     },
     {
@@ -2071,6 +2434,9 @@
         "AppleStore": 1,
         "UNRank": 162,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 122
     },
     {
@@ -2088,6 +2454,9 @@
         "AppleStore": 1,
         "UNRank": 130,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 123
     },
     {
@@ -2105,6 +2474,9 @@
         "AppleStore": 1,
         "UNRank": 14,
         "MobileRank": 14,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 124
     },
     {
@@ -2122,6 +2494,9 @@
         "AppleStore": 1,
         "UNRank": 191,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 125
     },
     {
@@ -2139,6 +2514,9 @@
         "AppleStore": 0,
         "UNRank": 153,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 126
     },
     {
@@ -2156,6 +2534,9 @@
         "AppleStore": 1,
         "UNRank": 140,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 127
     },
     {
@@ -2173,6 +2554,9 @@
         "AppleStore": 1,
         "UNRank": 212,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 128
     },
     {
@@ -2190,6 +2574,9 @@
         "AppleStore": 0,
         "UNRank": 63,
         "MobileRank": 36,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 129
     },
     {
@@ -2207,6 +2594,9 @@
         "AppleStore": 1,
         "UNRank": 126,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 130
     },
     {
@@ -2224,6 +2614,9 @@
         "AppleStore": 0,
         "UNRank": 75,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 131
     },
     {
@@ -2241,6 +2634,9 @@
         "AppleStore": 1,
         "UNRank": 127,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 132
     },
     {
@@ -2258,6 +2654,9 @@
         "AppleStore": 0,
         "UNRank": 211,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 133
     },
     {
@@ -2275,6 +2674,9 @@
         "AppleStore": 1,
         "UNRank": 111,
         "MobileRank": 42,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 134
     },
     {
@@ -2292,6 +2694,9 @@
         "AppleStore": 1,
         "UNRank": 17,
         "MobileRank": 37,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 135
     },
     {
@@ -2309,6 +2714,9 @@
         "AppleStore": 0,
         "UNRank": 136,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 136
     },
     {
@@ -2326,6 +2734,9 @@
         "AppleStore": 1,
         "UNRank": 55,
         "MobileRank": 58,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 137
     },
     {
@@ -2343,6 +2754,9 @@
         "AppleStore": 1,
         "UNRank": 143,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 138
     },
     {
@@ -2360,6 +2774,9 @@
         "AppleStore": 1,
         "UNRank": 149,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 139
     },
     {
@@ -2377,6 +2794,9 @@
         "AppleStore": 1,
         "UNRank": 40,
         "MobileRank": 11,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 140
     },
     {
@@ -2394,6 +2814,9 @@
         "AppleStore": 0,
         "UNRank": 224,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 141
     },
     {
@@ -2411,6 +2834,9 @@
         "AppleStore": 0,
         "UNRank": 223,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 142
     },
     {
@@ -2428,6 +2854,9 @@
         "AppleStore": 0,
         "UNRank": 129,
         "MobileRank": 63,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 143
     },
     {
@@ -2445,6 +2874,9 @@
         "AppleStore": 0,
         "UNRank": 222,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 144
     },
     {
@@ -2462,6 +2894,9 @@
         "AppleStore": 1,
         "UNRank": 25,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 145
     },
     {
@@ -2479,6 +2914,9 @@
         "AppleStore": 1,
         "UNRank": 28,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 146
     },
     {
@@ -2496,6 +2934,9 @@
         "AppleStore": 1,
         "UNRank": 65,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 147
     },
     {
@@ -2513,6 +2954,9 @@
         "AppleStore": 0,
         "UNRank": 145,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 148
     },
     {
@@ -2530,6 +2974,9 @@
         "AppleStore": 1,
         "UNRank": 48,
         "MobileRank": 7,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 149
     },
     {
@@ -2547,6 +2994,9 @@
         "AppleStore": 1,
         "UNRank": 208,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 150
     },
     {
@@ -2564,6 +3014,9 @@
         "AppleStore": 0,
         "UNRank": 221,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 151
     },
     {
@@ -2581,6 +3034,9 @@
         "AppleStore": 1,
         "UNRank": 92,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 152
     },
     {
@@ -2598,6 +3054,9 @@
         "AppleStore": 1,
         "UNRank": 128,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 153
     },
     {
@@ -2615,6 +3074,9 @@
         "AppleStore": 1,
         "UNRank": 52,
         "MobileRank": 33,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 154
     },
     {
@@ -2632,6 +3094,9 @@
         "AppleStore": 1,
         "UNRank": 45,
         "MobileRank": 10,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 155
     },
     {
@@ -2649,6 +3114,9 @@
         "AppleStore": 1,
         "UNRank": 24,
         "MobileRank": 26,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 156
     },
     {
@@ -2666,6 +3134,9 @@
         "AppleStore": 1,
         "UNRank": 43,
         "MobileRank": 46,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 157
     },
     {
@@ -2683,6 +3154,9 @@
         "AppleStore": 0,
         "UNRank": 62,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 158
     },
     {
@@ -2700,6 +3174,9 @@
         "AppleStore": 1,
         "UNRank": 10,
         "MobileRank": 5,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 159
     },
     {
@@ -2717,6 +3194,9 @@
         "AppleStore": 1,
         "UNRank": 53,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 160
     },
     {
@@ -2734,6 +3214,9 @@
         "AppleStore": 0,
         "UNRank": 177,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 161
     },
     {
@@ -2751,6 +3234,9 @@
         "AppleStore": 1,
         "UNRank": 74,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 162
     },
     {
@@ -2768,6 +3254,9 @@
         "AppleStore": 1,
         "UNRank": 146,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 163
     },
     {
@@ -2785,6 +3274,9 @@
         "AppleStore": 1,
         "UNRank": 50,
         "MobileRank": 34,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 164
     },
     {
@@ -2802,6 +3294,9 @@
         "AppleStore": 0,
         "UNRank": 150,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 165
     },
     {
@@ -2819,6 +3314,9 @@
         "AppleStore": 1,
         "UNRank": 124,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 166
     },
     {
@@ -2836,6 +3334,9 @@
         "AppleStore": 1,
         "UNRank": 37,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 167
     },
     {
@@ -2853,6 +3354,9 @@
         "AppleStore": 0,
         "UNRank": 220,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 168
     },
     {
@@ -2870,6 +3374,9 @@
         "AppleStore": 0,
         "UNRank": 219,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 169
     },
     {
@@ -2887,6 +3394,9 @@
         "AppleStore": 1,
         "UNRank": 199,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 170
     },
     {
@@ -2904,6 +3414,9 @@
         "AppleStore": 1,
         "UNRank": 185,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 171
     },
     {
@@ -2921,6 +3434,9 @@
         "AppleStore": 0,
         "UNRank": 218,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 172
     },
     {
@@ -2938,6 +3454,9 @@
         "AppleStore": 0,
         "UNRank": 217,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 173
     },
     {
@@ -2955,6 +3474,9 @@
         "AppleStore": 1,
         "UNRank": 199,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 174
     },
     {
@@ -2972,6 +3494,9 @@
         "AppleStore": 0,
         "UNRank": 201,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 175
     },
     {
@@ -2989,6 +3514,9 @@
         "AppleStore": 0,
         "UNRank": 179,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 176
     },
     {
@@ -3006,6 +3534,9 @@
         "AppleStore": 1,
         "UNRank": 207,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 177
     },
     {
@@ -3023,6 +3554,9 @@
         "AppleStore": 1,
         "UNRank": 20,
         "MobileRank": 39,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 178
     },
     {
@@ -3039,6 +3573,9 @@
         "AppleStore": 1,
         "UNRank": 119,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 179
     },
     {
@@ -3055,6 +3592,9 @@
         "AppleStore": 1,
         "UNRank": 190,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 180
     },
     {
@@ -3072,6 +3612,9 @@
         "AppleStore": 1,
         "UNRank": 169,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 181
     },
     {
@@ -3089,6 +3632,9 @@
         "AppleStore": 1,
         "UNRank": 38,
         "MobileRank": 57,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 182
     },
     {
@@ -3106,6 +3652,9 @@
         "AppleStore": 0,
         "UNRank": 197,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 183
     },
     {
@@ -3123,6 +3672,9 @@
         "AppleStore": 1,
         "UNRank": 64,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 184
     },
     {
@@ -3140,6 +3692,9 @@
         "AppleStore": 1,
         "UNRank": 78,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 185
     },
     {
@@ -3157,6 +3712,9 @@
         "AppleStore": 1,
         "UNRank": 195,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 186
     },
     {
@@ -3174,6 +3732,9 @@
         "AppleStore": 0,
         "UNRank": 189,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 187
     },
     {
@@ -3191,6 +3752,9 @@
         "AppleStore": 1,
         "UNRank": 29,
         "MobileRank": 28,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 188
     },
     {
@@ -3208,6 +3772,9 @@
         "AppleStore": 1,
         "UNRank": 15,
         "MobileRank": 24,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 189
     },
     {
@@ -3225,6 +3792,9 @@
         "AppleStore": 0,
         "UNRank": 123,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 190
     },
     {
@@ -3242,6 +3812,9 @@
         "AppleStore": 1,
         "UNRank": 72,
         "MobileRank": 44,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 191
     },
     {
@@ -3259,6 +3832,9 @@
         "AppleStore": 0,
         "UNRank": 73,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 192
     },
     {
@@ -3276,6 +3852,9 @@
         "AppleStore": 1,
         "UNRank": 159,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 193
     },
     {
@@ -3293,6 +3872,9 @@
         "AppleStore": 1,
         "UNRank": 164,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 194
     },
     {
@@ -3310,6 +3892,9 @@
         "AppleStore": 1,
         "UNRank": 21,
         "MobileRank": 51,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 195
     },
     {
@@ -3327,6 +3912,9 @@
         "AppleStore": 1,
         "UNRank": 19,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 196
     },
     {
@@ -3344,6 +3932,9 @@
         "AppleStore": 0,
         "UNRank": 68,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 197
     },
     {
@@ -3361,6 +3952,9 @@
         "AppleStore": 1,
         "UNRank": 132,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 198
     },
     {
@@ -3378,6 +3972,9 @@
         "AppleStore": 1,
         "UNRank": 105,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 199
     },
     {
@@ -3395,6 +3992,9 @@
         "AppleStore": 1,
         "UNRank": 27,
         "MobileRank": 30,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 200
     },
     {
@@ -3412,6 +4012,9 @@
         "AppleStore": 1,
         "UNRank": 148,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 201
     },
     {
@@ -3429,6 +4032,9 @@
         "AppleStore": 1,
         "UNRank": 103,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 202
     },
     {
@@ -3446,6 +4052,9 @@
         "AppleStore": 1,
         "UNRank": 30,
         "MobileRank": 20,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 203
     },
     {
@@ -3463,6 +4072,9 @@
         "AppleStore": 0,
         "UNRank": 156,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 204
     },
     {
@@ -3480,6 +4092,9 @@
         "AppleStore": 0,
         "UNRank": 166,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 205
     },
     {
@@ -3497,6 +4112,9 @@
         "AppleStore": 0,
         "UNRank": 216,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 206
     },
     {
@@ -3514,6 +4132,9 @@
         "AppleStore": 0,
         "UNRank": 204,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 207
     },
     {
@@ -3531,6 +4152,9 @@
         "AppleStore": 1,
         "UNRank": 107,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 208
     },
     {
@@ -3548,6 +4172,9 @@
         "AppleStore": 1,
         "UNRank": 81,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 209
     },
     {
@@ -3565,6 +4192,9 @@
         "AppleStore": 1,
         "UNRank": 18,
         "MobileRank": 21,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 210
     },
     {
@@ -3582,6 +4212,9 @@
         "AppleStore": 1,
         "UNRank": 98,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 211
     },
     {
@@ -3599,6 +4232,9 @@
         "AppleStore": 1,
         "UNRank": 192,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 212
     },
     {
@@ -3616,6 +4252,9 @@
         "AppleStore": 0,
         "UNRank": 213,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 213
     },
     {
@@ -3633,6 +4272,9 @@
         "AppleStore": 0,
         "UNRank": 175,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 214
     },
     {
@@ -3650,6 +4292,9 @@
         "AppleStore": 1,
         "UNRank": 108,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 215
     },
     {
@@ -3667,6 +4312,9 @@
         "AppleStore": 1,
         "UNRank": 54,
         "MobileRank": 22,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 216
     },
     {
@@ -3684,6 +4332,9 @@
         "AppleStore": 1,
         "UNRank": 31,
         "MobileRank": 50,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 217
     },
     {
@@ -3701,6 +4352,9 @@
         "AppleStore": 1,
         "UNRank": 7,
         "MobileRank": 16,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 218
     },
     {
@@ -3718,6 +4372,9 @@
         "AppleStore": 1,
         "UNRank": 1,
         "MobileRank": 3,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 219
     },
     {
@@ -3735,6 +4392,9 @@
         "AppleStore": 1,
         "UNRank": 80,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 220
     },
     {
@@ -3752,6 +4412,9 @@
         "AppleStore": 1,
         "UNRank": 82,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 221
     },
     {
@@ -3769,6 +4432,9 @@
         "AppleStore": 0,
         "UNRank": 215,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 222
     },
     {
@@ -3786,6 +4452,9 @@
         "AppleStore": 1,
         "UNRank": 34,
         "MobileRank": 32,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 223
     },
     {
@@ -3803,6 +4472,9 @@
         "AppleStore": 1,
         "UNRank": 58,
         "MobileRank": 17,
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 224
     },
     {
@@ -3820,6 +4492,9 @@
         "AppleStore": 1,
         "UNRank": 193,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 225
     },
     {
@@ -3837,6 +4512,9 @@
         "AppleStore": 1,
         "UNRank": 180,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 226
     },
     {
@@ -3854,6 +4532,9 @@
         "AppleStore": 0,
         "UNRank": 214,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 227
     },
     {
@@ -3871,6 +4552,9 @@
         "AppleStore": 1,
         "UNRank": 90,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 228
     },
     {
@@ -3888,6 +4572,9 @@
         "AppleStore": 0,
         "UNRank": 109,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 229
     },
     {
@@ -3905,6 +4592,9 @@
         "AppleStore": 1,
         "UNRank": 139,
         "MobileRank": "",
+        "CurrencyCode": "",
+        "CurrencyName": "",
+        "CurrencySymbol": "",
         "SortIndex": 230
     }
 ]

@@ -35,6 +35,8 @@ class EditProfileImageHeaderView: UIView {
     weak var delegate: EditProfileImageHeaderViewDelegate?
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         editButton.setTitle(LocalizedString.Edit.rawValue.localizedLowercase, for: .normal)
         salutaionLabel.text = LocalizedString.Title.rawValue
         firstNameTextField.placeholder = LocalizedString.FirstName.rawValue

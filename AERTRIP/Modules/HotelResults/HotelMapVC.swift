@@ -31,7 +31,7 @@ class HotelMapVC: UIViewController {
     let defaultDuration: CGFloat = 1.2
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
-    private var clusterManager: GMUClusterManager!
+   // private var clusterManager: GMUClusterManager!
     var hotelSearchRequest: HotelSearchRequestModel?
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
@@ -120,26 +120,26 @@ class HotelMapVC: UIViewController {
         self.view.bringSubviewToFront(self.collectionView)
     }
     
-    private func setUpClusterManager() {
-        // Set up the cluster manager with the supplied icon generator and
-        // renderer.
-        if let mapView = mapView {
-            let iconGenerator = GMUDefaultClusterIconGenerator()
-            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-            let renderer = GMUDefaultClusterRenderer(mapView: mapView,
-                                                     clusterIconGenerator: iconGenerator)
-            renderer.delegate = self
-            clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
-                                               renderer: renderer)
-        }
-    }
+//    private func setUpClusterManager() {
+//        // Set up the cluster manager with the supplied icon generator and
+//        // renderer.
+//        if let mapView = mapView {
+//            let iconGenerator = GMUDefaultClusterIconGenerator()
+//            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+//            let renderer = GMUDefaultClusterRenderer(mapView: mapView,
+//                                                     clusterIconGenerator: iconGenerator)
+//            renderer.delegate = self
+//            clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+//                                               renderer: renderer)
+//        }
+//    }
     
     private func clusterSetUp() {
         // Call cluster() after items have been added to perform the clustering
         // and rendering on map.
-        self.clusterManager.cluster()
+       // self.clusterManager.cluster()
         
-        self.clusterManager.setDelegate(self, mapDelegate: self)
+       // self.clusterManager.setDelegate(self, mapDelegate: self)
         
         let camera = GMSCameraPosition.camera(withLatitude: kCameraLatitude, longitude: kCameraLongitude, zoom: 6)
         if let mapView = mapView {
@@ -151,17 +151,17 @@ class HotelMapVC: UIViewController {
     
     /// Randomly generates cluster items within some extent of the camera and
     /// adds them to the cluster manager.
-    private func generateClusterItems() {
-        let extent = 0.2
-        for index in 1...kClusterItemCount {
-            let lat = kCameraLatitude + extent * randomScale()
-            let lng = kCameraLongitude + extent * randomScale()
-            let name = "Item \(index)"
-            let item =
-                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
-            clusterManager.add(item)
-        }
-    }
+//    private func generateClusterItems() {
+//        let extent = 0.2
+//        for index in 1...kClusterItemCount {
+//            let lat = kCameraLatitude + extent * randomScale()
+//            let lng = kCameraLongitude + extent * randomScale()
+//            let name = "Item \(index)"
+//            let item =
+//                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+//            clusterManager.add(item)
+//        }
+//    }
     
     /// Returns a random value between -1.0 and 1.0.
     private func randomScale() -> Double {
@@ -305,25 +305,25 @@ extension HotelMapVC: ATSwitcherChangeValueDelegate {
 
 // MARK: - GMUClusterRendererDelegate
 
-extension HotelMapVC: GMUClusterRendererDelegate {
-    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
-        if marker.userData is GMUCluster {} else {
-            marker.icon = #imageLiteral(resourceName: "clusterSmallTag")
-        }
-    }
-}
+//extension HotelMapVC: GMUClusterRendererDelegate {
+//    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+//        if marker.userData is GMUCluster {} else {
+//            marker.icon = #imageLiteral(resourceName: "clusterSmallTag")
+//        }
+//    }
+//}
 
 // MARK: - GMUMapViewDelegate
 
 extension HotelMapVC: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if let poiItem = marker.userData as? POIItem {
-            printDebug("Did tap marker for cluster item \(poiItem.name)")
-        } else {
-            printDebug("Did tap a normal marker")
-        }
-        return false
-    }
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        if let poiItem = marker.userData as? POIItem {
+//            printDebug("Did tap marker for cluster item \(poiItem.name)")
+//        } else {
+//            printDebug("Did tap a normal marker")
+//        }
+//        return false
+//    }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         guard let lat = mapView.myLocation?.coordinate.latitude,
@@ -352,13 +352,13 @@ extension HotelMapVC: GMSMapViewDelegate {
 
 // MARK: - GMUClusterManagerDelegate
 
-extension HotelMapVC: GMUClusterManagerDelegate {
-    private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
-        if let mapView = mapView {
-            let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
-                                                     zoom: mapView.camera.zoom + 1)
-            let update = GMSCameraUpdate.setCamera(newCamera)
-            mapView.moveCamera(update)
-        }
-    }
-}
+//extension HotelMapVC: GMUClusterManagerDelegate {
+//    private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
+//        if let mapView = mapView {
+//            let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+//                                                     zoom: mapView.camera.zoom + 1)
+//            let update = GMSCameraUpdate.setCamera(newCamera)
+//            mapView.moveCamera(update)
+//        }
+//    }
+//}

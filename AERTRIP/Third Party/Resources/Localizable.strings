@@ -398,3 +398,9 @@
 "FloatingButtonsTitle" = "What do you want to do with your \n favourite hotels?";
 "EmailFavoriteHotelsInfo" = "Email Favorite Hotels Info";
 "Send" = "Send";
+"To" = "To";
+"Message" = "Message";
+"SeeRates" = "See Rates";
+"SharedMessage" = "shared his favorite hotels with you…";
+"CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
+"HotelResultFor" = "Hotel results for…";

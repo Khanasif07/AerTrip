@@ -436,6 +436,15 @@ enum LocalizedString: String {
     case RemoveFromFavourites = "RemoveFromFavourites"
     case EmailFavouriteHotelInfo = "EmailFavoriteHotelsInfo"
     case Send = "Send"
+    case To = "To"
+    case Message = "Message"
+    case SeeRates = "SeeRates"
+    case SharedMessage = "SharedMessage"
+    case CheckOutMessage = "CheckOutMessage"
+    case HotelResultFor = "HotelResultFor"
+    
+    
+    
 
     
 }
