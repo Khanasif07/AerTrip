@@ -12,7 +12,7 @@ class HotelFormPreviosSearchData: NSObject, NSCoding {
     var roomNumber: Int = 0
     var adultsCount: [Int] = []
     var childrenCounts: [Int] = []
-    var childrenAge: [[Int]] = [[]]
+    var childrenAge: [[Int]] = [[]] // [[1,2,3,4], []]
     var checkInDate = ""
     var checkOutDate = ""
     var destId: String = ""

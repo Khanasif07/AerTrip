@@ -525,6 +525,9 @@ extension HotelDetailsVC {
     
     func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
+        for (count, data) in roomData.enumerated() {
+            print(count, "\t" ,data)
+        }
         cell.configCell(numberOfRooms: Array(roomData.values)[indexPath.row] , roomData: Array(roomData.keys)[indexPath.row])
         return cell
     }

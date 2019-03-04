@@ -72,8 +72,10 @@ class HotelsSearchVM: NSObject{
         params[APIKeys.dest_name.rawValue] = self.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
-        for (idx , _ ) in _starRating.enumerated() {
-            params["filter[star][\(idx)star]"] = true
+        for (idx , data ) in _starRating.enumerated() {
+//            params["filter[star][\(idx)star]"] = true
+            params["filter[star][\(data)star]"] = true
+            
         }
         
         for (idx ,  data) in _adultsCount.enumerated() {
@@ -97,6 +99,17 @@ class HotelsSearchVM: NSObject{
         let hotelData = HotelFormPreviosSearchData()
         hotelData.roomNumber     = self.roomNumber
         hotelData.adultsCount    = self.adultsCount
+//        for (index,data) in self.adultsCount.enumerated() {
+//            hotelData.adultsCount.append(data)
+//        }
+//        for (index,data) in self.childrenCounts.enumerated() {
+//            hotelData.childrenCounts[index] = data
+//        }
+//        for (indexX,dataX) in self.childrenAge.enumerated() {
+//            for (indexY,dataY) in dataX.enumerated() {
+//                hotelData.childrenAge[indexX][indexY] = dataY
+//            }
+//        }
         hotelData.childrenCounts = self.childrenCounts
         hotelData.childrenAge    = self.childrenAge
         hotelData.checkInDate    = self.checkInDate

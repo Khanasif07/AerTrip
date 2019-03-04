@@ -57,17 +57,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zko-wU-s3o">
-                                <rect key="frame" x="229" y="80.5" width="99" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="GIB-j9-QxO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="2 Single Beds"/>
-                                <connections>
-                                    <action selector="bedsDropDownButtonAction:" destination="DaD-df-j56" eventType="touchUpInside" id="cMl-je-jN5"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSR-lc-Kpb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="8" y="116.5" width="327" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -75,19 +64,26 @@
                                     <constraint firstAttribute="height" constant="1" id="5hn-JZ-3vW"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMA-X2-AXe">
+                                <rect key="frame" x="166" y="78.5" width="167" height="24"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="zko-wU-s3o" secondAttribute="trailing" constant="15" id="6Ui-nF-1or"/>
+                            <constraint firstItem="mMA-X2-AXe" firstAttribute="centerY" secondItem="rjZ-51-vuU" secondAttribute="centerY" id="1lA-r7-F8w"/>
                             <constraint firstItem="EER-A0-JfG" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="leading" id="HrJ-J8-3XV"/>
                             <constraint firstItem="qSR-lc-Kpb" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="8" id="ITb-OU-Vja"/>
                             <constraint firstItem="rjZ-51-vuU" firstAttribute="top" secondItem="EER-A0-JfG" secondAttribute="bottom" constant="7" id="QwX-vV-NiT"/>
                             <constraint firstAttribute="trailing" secondItem="qSR-lc-Kpb" secondAttribute="trailing" constant="8" id="UvJ-5A-7hB"/>
                             <constraint firstItem="PMX-kz-73G" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="16" id="V25-30-HT1"/>
                             <constraint firstAttribute="bottom" secondItem="qSR-lc-Kpb" secondAttribute="bottom" id="WnZ-mR-6HE"/>
-                            <constraint firstItem="zko-wU-s3o" firstAttribute="centerY" secondItem="rjZ-51-vuU" secondAttribute="centerY" id="ad9-k9-eoW"/>
                             <constraint firstItem="SDh-gF-vY8" firstAttribute="top" secondItem="QxL-7U-xbJ" secondAttribute="top" constant="10" id="adp-Ly-Bad"/>
                             <constraint firstAttribute="height" constant="117.5" id="buI-MS-9KY"/>
+                            <constraint firstItem="mMA-X2-AXe" firstAttribute="leading" secondItem="rjZ-51-vuU" secondAttribute="trailing" constant="100" id="dLC-wX-oT6"/>
+                            <constraint firstItem="mMA-X2-AXe" firstAttribute="trailing" secondItem="SDh-gF-vY8" secondAttribute="trailing" id="dn3-ZG-c4n"/>
                             <constraint firstItem="EER-A0-JfG" firstAttribute="top" secondItem="PMX-kz-73G" secondAttribute="bottom" constant="9" id="mde-VY-LzC"/>
                             <constraint firstItem="SDh-gF-vY8" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="trailing" constant="10" id="nXc-Dr-Q6a"/>
                             <constraint firstAttribute="trailing" secondItem="EER-A0-JfG" secondAttribute="trailing" constant="16" id="vmb-AT-80n"/>
@@ -97,6 +93,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="QxL-7U-xbJ" firstAttribute="top" secondItem="0y0-hK-j0h" secondAttribute="top" id="1Tq-h4-Sec"/>
                     <constraint firstItem="QxL-7U-xbJ" firstAttribute="leading" secondItem="0y0-hK-j0h" secondAttribute="leading" constant="16" id="DGp-zJ-Ng3"/>
@@ -104,16 +101,17 @@
                     <constraint firstAttribute="bottom" secondItem="QxL-7U-xbJ" secondAttribute="bottom" id="pcO-iH-7uh"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="bedDiscriptionLabel" destination="EER-A0-JfG" id="rhK-rF-Yip"/>
-                <outlet property="bedSelectionDropDown" destination="zko-wU-s3o" id="2Lm-fy-don"/>
                 <outlet property="bedTypeLabel" destination="PMX-kz-73G" id="fWi-Xx-P4F"/>
                 <outlet property="bedsLabel" destination="rjZ-51-vuU" id="SVa-UT-PYm"/>
                 <outlet property="bookmarkButtonOutlet" destination="SDh-gF-vY8" id="ov1-r9-tgO"/>
                 <outlet property="containerView" destination="QxL-7U-xbJ" id="dHk-y8-oLZ"/>
                 <outlet property="deviderView" destination="qSR-lc-Kpb" id="iMT-D7-Pqq"/>
+                <outlet property="dropDownTextField" destination="mMA-X2-AXe" id="9da-FP-OVf"/>
             </connections>
-            <point key="canvasLocation" x="833" y="1011"/>
+            <point key="canvasLocation" x="832.79999999999995" y="1010.1949025487257"/>
         </tableViewCell>
     </objects>
     <resources>

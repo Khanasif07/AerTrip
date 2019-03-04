@@ -22,10 +22,6 @@ class HotelsSearchVC: BaseVC {
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     private var needToGetRecentSearches: Bool = false
-    ///Computed Properties
-    private var cellHeight: CGFloat{
-        return self.addRoomCollectionView.frame.size.height
-    }
     private var returnUserId: String? {
         return UserInfo.loggedInUserId
     }
@@ -64,7 +60,7 @@ class HotelsSearchVC: BaseVC {
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var whereLabel: UILabel!
-    @IBOutlet weak var recentContainerView: UIView!
+    @IBOutlet weak var recentContainerParentView: UIView!
     @IBOutlet weak var recentContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentSearchesContainerView: UIView! {
         didSet {
@@ -82,18 +78,14 @@ class HotelsSearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if needToGetRecentSearches{
+//        if needToGetRecentSearches{
             self.recentSearchData()
-        }
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        if let _ = self.returnUserId  {
-//            printDebug("user logged in")
-//        } else {
-//            self.scrollViewContentSize = self.scrollView.contentSize
-//        }
+        self.scrollViewContentSize = self.scrollView.contentSize
         self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
         self.containerViewHeight = self.containerView.frame.size.height
     }
@@ -162,7 +154,7 @@ class HotelsSearchVC: BaseVC {
         let date = Date()
         if let hotelFormData = self.viewModel.hotelFormData, let checkInDate = hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
             if date.daysBetweenDate(toDate: date, endDate: checkInDate) <= 0 {
-              //  self.viewModel.roomNumber = hotelFormData.roomNumber
+                //  self.viewModel.roomNumber = hotelFormData.roomNumber
                 self.viewModel.ratingCount = hotelFormData.ratingCount
                 self.viewModel.adultsCount = hotelFormData.adultsCount
                 self.viewModel.childrenCounts = hotelFormData.childrenCounts
@@ -193,7 +185,7 @@ class HotelsSearchVC: BaseVC {
         if let checkInOutView = self.checkInOutView {
             checkInOutView.fillPreviousData(viewModel: self.viewModel)
         }
-        if self.viewModel.ratingCount.isEmpty || (self.viewModel.ratingCount == [1,2,3,4,5]){
+        if self.viewModel.ratingCount.isEmpty || (self.viewModel.ratingCount == [1,2,3,4,5]) {
             for starBtn in self.starButtonsOutlet {
                 starBtn.isHighlighted = true
             }
@@ -203,6 +195,11 @@ class HotelsSearchVC: BaseVC {
             }
         }
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
+        if self.viewModel.adultsCount.count >= 2 {
+            self.containerViewHeightConstraint.constant = 548.0 + 86.0
+        } else if self.viewModel.adultsCount.count == 1 {
+            self.containerViewHeightConstraint.constant = 548.0 
+        }
     }
     
     ///RecentSearchData
@@ -254,7 +251,7 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
-        self.recentSearchData()
+//        self.recentSearchData()
         self.getDataFromPreviousSearch()
     }
     
@@ -263,7 +260,7 @@ class HotelsSearchVC: BaseVC {
         self.containerView.layer.cornerRadius = 10
         // border
         //self.containerView.layer.borderWidth = 1.0
-//        self.containerView.layer.borderColor = UIColor.black.cgColor
+        //        self.containerView.layer.borderColor = UIColor.black.cgColor
         // shadow
         self.containerView.layer.shadowColor = AppColors.themeDarkGreen.cgColor// UIColor.black.cgColor
         self.containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -308,20 +305,16 @@ class HotelsSearchVC: BaseVC {
                 self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 self.view.layoutIfNeeded()
-            }) { [weak self] (isComleted) in
-                guard let sSelf = self else { return }
-                sSelf.scrollView.contentSize.height = sSelf.scrollViewContentSize.height + sSelf.collectionViewHeight
-                //self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
             }
         } else if self.viewModel.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
                 self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
-            }) { [weak self] (isComleted) in
-                guard let sSelf = self else { return }
-                sSelf.scrollView.contentSize.height = sSelf.scrollViewContentSize.height
-                //self.view.layoutIfNeeded()
+            }) { (isComleted) in
+                self.scrollView.contentSize.height = self.scrollViewContentSize.height
             }
         }
     }
@@ -381,10 +374,10 @@ class HotelsSearchVC: BaseVC {
             final = "All \(LocalizedString.stars.localized)"//"0 \(LocalizedString.stars.localized)"
             return final
         }
-//        else if arr.count == maxCount {
-//            final = "All \(LocalizedString.stars.localized)"
-//            return final
-//        }
+            //        else if arr.count == maxCount {
+            //            final = "All \(LocalizedString.stars.localized)"
+            //            return final
+            //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
             return final
@@ -441,16 +434,14 @@ class HotelsSearchVC: BaseVC {
     }
     
     private func recentSearchesHidden() {
-        self.recentContainerView.isHidden = true
+        self.recentContainerParentView.isHidden = true
         self.recentContainerHeightConstraint.constant = 0.0
-        self.scrollViewContentSize = self.scrollView.contentSize
     }
     
     private func recentSearchesShow() {
-            self.recentContainerView.isHidden = false
-            self.recentContainerHeightConstraint.constant = 194.0
-            self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
-            self.scrollViewContentSize = self.scrollView.contentSize
+        self.recentContainerParentView.isHidden = false
+        self.recentContainerHeightConstraint.constant = 194.0
+        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
     }
     
     //MARK:- Public
@@ -537,11 +528,10 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
         case 1:
             return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height)
         case 2:
-            return (indexPath.item == 2) ? CGSize(width: collectionView.frame.width , height: collectionView.frame.height/2) : CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
+            return (indexPath.item == 2) ? CGSize(width: collectionView.frame.width , height: 86.0) : CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
         default:
             return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
         }
-        //        return (self.viewModel.adultsCount.count == 1) ? CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height) : CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
     }
 }
 
@@ -557,10 +547,10 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         if self.viewModel.adultsCount.count < 4 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
-                self.addRoomCollectionView.performBatchUpdates({ [weak self] () -> Void in
-                    self?.addRoomCollectionView.insertItems(at: [indexPath])
-                }, completion: { [weak self] (true) in
-                    self?.reloadCollectionView()
+                self.addRoomCollectionView.performBatchUpdates({ () -> Void in
+                    self.addRoomCollectionView.insertItems(at: [indexPath])
+                    }, completion: { (true) in
+                        self.reloadCollectionView()
                 })
             }
         } else {
@@ -580,11 +570,11 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 self.reloadCollectionView()
             } else {
                 UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-                    self.addRoomCollectionView.performBatchUpdates({ [weak self] () -> Void in
-                        self?.updateCollectionViewFrame()
-                        self?.addRoomCollectionView.deleteItems(at: [indexPath])
-                    }) { [weak self] (true) in
-                        self?.reloadCollectionView()
+                    self.addRoomCollectionView.performBatchUpdates({ () -> Void in
+                        self.updateCollectionViewFrame()
+                        self.addRoomCollectionView.deleteItems(at: [indexPath])
+                    }) { (true) in
+                        self.reloadCollectionView()
                     }
                 }
             }
@@ -622,16 +612,16 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         printDebug("selected: \(hotel)")
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
-//            self.viewModel.cityName = hotel.city
+            self.viewModel.cityName = hotel.city
         } else {
             let newValue = hotel.value.split(separator: " ")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
-//            self.viewModel.cityName = hotel.city
+            self.viewModel.cityName = hotel.city
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
-//        self.viewModel.stateName = hotel.value
+        self.viewModel.stateName = hotel.value
         self.cityNameLabel.isHidden = false
         self.stateNameLabel.isHidden = false
         self.dataForApi(hotel: hotel)

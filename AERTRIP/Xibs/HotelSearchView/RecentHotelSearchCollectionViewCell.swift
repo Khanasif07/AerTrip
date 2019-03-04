@@ -117,6 +117,5 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
          let adultData = guestsData.last?.split(separator: " ")
          let adultCount = "\(adultData?.first ?? "")" == "1" ? "\(adultData?.first ?? "") Adult" : "\(adultData?.first ?? "") Adults"
          self.totalAdultsLabel.text = "\(roomCounts ?? "") (\(adultCount))"*/
-        
     }
 }

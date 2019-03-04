@@ -31,6 +31,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     private func configureUI() {
         //Colors
         self.backgroundColor = AppColors.screensBackground.color
+//        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
         self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         let whiteColor = AppColors.themeWhite
         self.containerView.backgroundColor = AppColors.themeGreen

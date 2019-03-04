@@ -80,6 +80,16 @@ extension UIView {
         }
     }
 
+    func shadowOnHotelDetailsTabelCell(color: UIColor, offset: CGSize, opacity: Float, shadowRadius: CGFloat) {
+//        (cornerRadius: Double, maskedCorners: CACornerMask, color: UIColor, offset: CGSize, opacity: Float, shadowRadius: CGFloat)
+//        self.layer.cornerRadius = CGFloat(cornerRadius)
+//        self.layer.maskedCorners = maskedCorners
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = shadowRadius
+    }
+    
     func addShadow() {
         layer.shadowColor = UIColor.gray.cgColor
         layer.shadowOpacity = 0.25

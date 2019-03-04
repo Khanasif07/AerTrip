@@ -37,6 +37,9 @@ struct HotelDetails {
     var checkout: String = ""
     var num_rooms: Int = 0
     var rates: [Rates]? = nil
+    var completeRoomData: [RoomsRates: Int] {
+        return self.getComleteRoomData()
+    }
     var info: String = ""
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
@@ -60,6 +63,8 @@ struct HotelDetails {
     init() {
         self.init(json: [:])
     }
+    
+    
     
     var jsonDict: JSONDictionary {
         return [APIKeys.facilities.rawValue: self.facilities,
@@ -236,6 +241,33 @@ struct HotelDetails {
     
     //Mark:- Functions
     //================
+    
+    
+    func getComleteRoomData() -> [RoomsRates: Int] {
+        let arrRates = [Rates]()
+        var completeRoomData = [RoomsRates: Int]() // Final
+        
+        var arrRoomData = [[RoomsRates: Int]]()
+        
+        for rate in arrRates {
+            let roomData = rate.getRoomData()
+            arrRoomData.append(roomData)
+        }
+        
+        for roomData in arrRoomData {
+            for roomRate in roomData.keys {
+                if completeRoomData.keys.contains(roomRate) {
+                    let count = completeRoomData[roomRate]!
+                    completeRoomData[roomRate] = roomData[roomRate] ?? 0 + count
+                } else {
+                    completeRoomData[roomRate] = roomData[roomRate]
+                }
+                
+            }
+        }
+        return completeRoomData
+    }
+    
     ///Static Function
     static func hotelInfo(response: JSONDictionary) -> HotelDetails {
         let hotelInfo = HotelDetails(json: response)
@@ -344,6 +376,7 @@ struct AmenitiesMain {
         return mainDataArray
     }
 }
+
 
 
 //Mark:- Rates
