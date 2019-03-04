@@ -36,10 +36,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     // MARK : - Variables
     weak var delegate : EditProfileThreePartTableViewCellDelegate?
-    var indexPath:IndexPath?
-    
-    
-    
+
     // MARK : - View Life cycle methods
     
     override func awakeFromNib() {
@@ -51,8 +48,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     // MARK : - Helper methods
     
-    func configureCell(_ indexPath:IndexPath,_ isd:String,_ label : String, _ value: String) {
-        self.indexPath = indexPath
+    func configureCell(_ isd:String,_ label : String, _ value: String) {
         self.leftTitleLabel.text = label.capitalizedFirst()
         self.rightViewTextField.text = value
         
@@ -68,21 +64,21 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         self.rightViewTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
-        leftView.tag = indexPath.row
+        leftView.tag = indexPath?.row ?? 0
         leftView.addGestureRecognizer(gesture)
         
         let middleViewGesture = UITapGestureRecognizer(target: self, action: #selector(self.middleViewTap(gesture:)))
         middleViewGesture.numberOfTapsRequired = 1
         middleView.isUserInteractionEnabled = true
-        middleView.tag = indexPath.row
+        middleView.tag = indexPath?.row ?? 0
         middleView.addGestureRecognizer(middleViewGesture)
         
     }
     
     
     @objc  func leftViewTap(gesture: UITapGestureRecognizer) {
-        if let indexPath = indexPath {
-             delegate?.threePartLeftViewTap(indexPath,gesture)
+        if let idxPath = indexPath {
+             delegate?.threePartLeftViewTap(idxPath, gesture)
         }
        
     }
@@ -97,8 +93,8 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     @IBAction func deleteCellButtonTapped(_ sender: Any) {
         
-        if let indexPath = indexPath {
-            delegate?.editProfileThreePartDeleteCellTapped(indexPath)
+        if let idxPath = indexPath {
+            delegate?.editProfileThreePartDeleteCellTapped(idxPath)
         }
     }
     
@@ -119,8 +115,8 @@ extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
-        if let indexPath = indexPath {
-            delegate?.editProfileThreePartTableViewCellTextFieldText(indexPath, self.rightViewTextField.nationalNumber, isValide: self.rightViewTextField.isValidNumber)
+        if let idxPath = indexPath {
+            delegate?.editProfileThreePartTableViewCellTextFieldText(idxPath, self.rightViewTextField.nationalNumber, isValide: self.rightViewTextField.isValidNumber)
         }
     }
     

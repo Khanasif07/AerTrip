@@ -18,7 +18,6 @@ class AddRoomCell: UICollectionViewCell {
     //Mark:- Variables
     //================
     internal weak var delegate: ExpandedCellDelegate?
-    internal var indexPath:IndexPath!
     
     //Mark:- IBOutlets
     //================
@@ -36,8 +35,8 @@ class AddRoomCell: UICollectionViewCell {
     //Mark:- IBActions
     //================
     @IBAction func addRoomBtnAction(_ sender: UIButton) {
-        if let delegate = self.delegate{
-            delegate.plusButtonTouched(indexPath: indexPath)
+        if let delegate = self.delegate, let idxPath = self.indexPath {
+            delegate.plusButtonTouched(indexPath: idxPath)
         }
     }
     

@@ -17,7 +17,6 @@ class AddRoomPictureCell: UICollectionViewCell {
     //Mark:- Variables
     //================
     internal weak var delegate: ExpandedCellDelegate?
-    internal var indexPath:IndexPath!
     internal weak var roomGuestDelegate: RoomGuestSelectionVCDelegate?
     
     //Mark:- IBOutlets
@@ -50,10 +49,10 @@ class AddRoomPictureCell: UICollectionViewCell {
     }
     
     @IBAction func cancelBtnAction(_ sender: UIButton) {
-        if let delegate = self.delegate{
+        if let delegate = self.delegate, let idxPath = self.indexPath{
             sender.alpha = 0.5
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-                delegate.cancelButtonTouched(indexPath: self.indexPath)
+                delegate.cancelButtonTouched(indexPath: idxPath)
                 sender.alpha = 1
             }
         }
@@ -78,16 +77,17 @@ class AddRoomPictureCell: UICollectionViewCell {
     
     ///Configure Cell
     internal func configureCell(viewModel: HotelsSearchVM) {
-        self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(indexPath.item + 1)"
+        let idxPath = self.indexPath ?? IndexPath(item: 0, section: 0)
+        self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
         //roomData.count == 2
         if viewModel.adultsCount.count == 1 {
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
             //self.childStackView.isHidden = true
         } else{
-            if indexPath.item == 0 || indexPath.item == 1 {
+            if idxPath.item == 0 || idxPath.item == 1 {
                 self.lineView.isHidden = false
-                if indexPath.item == 0 {
+                if idxPath.item == 0 {
                     self.lineViewLeadingConstraint.constant = 16.0
                     self.lineViewTrailingConstraint.constant = 0.0
                 } else {
@@ -100,10 +100,10 @@ class AddRoomPictureCell: UICollectionViewCell {
             }
             self.cancelBtnOutlet.isHidden = false
         }
-        if indexPath.item < 4 {
-            self.childStackView.isHidden = viewModel.childrenCounts[indexPath.item] == 0 ? true : false
-            self.adultCountLabel.text = "\(viewModel.adultsCount[indexPath.item])"
-            self.childCountLabel.text = "\(viewModel.childrenCounts[indexPath.item])"
+        if idxPath.item < 4 {
+            self.childStackView.isHidden = viewModel.childrenCounts[idxPath.item] == 0 ? true : false
+            self.adultCountLabel.text = "\(viewModel.adultsCount[idxPath.item])"
+            self.childCountLabel.text = "\(viewModel.childrenCounts[idxPath.item])"
         }
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.roomCountLabelLeadingConstraint.constant = (self.cancelBtnOutlet.isHidden ? self.centerX/1.5 : 40.0)

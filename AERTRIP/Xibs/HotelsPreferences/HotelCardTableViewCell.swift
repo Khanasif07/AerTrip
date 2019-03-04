@@ -37,7 +37,6 @@ class HotelCardTableViewCell: UITableViewCell {
     private var gradientLayer: CAGradientLayer!
     var scrollSize: CGFloat = 0.0
     let numberOfPage: Int = 100
-    var indexPath: IndexPath?
     
     var hotelData: HotelsModel? {
         didSet {
@@ -147,8 +146,8 @@ class HotelCardTableViewCell: UITableViewCell {
 
 extension HotelCardTableViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let indexPath = indexPath {
-            self.delegate?.pagingScrollEnable(indexPath, scrollView)
+        if let idxPath = indexPath {
+            self.delegate?.pagingScrollEnable(idxPath, scrollView)
         }
     }
 }

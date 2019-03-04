@@ -407,14 +407,12 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else {
                 return UICollectionViewCell()
             }
-            addRoomCell.indexPath = indexPath
             addRoomCell.delegate = self
             return addRoomCell
         } else {
             guard let addRoomPicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomPictureCell", for: indexPath) as? AddRoomPictureCell else {
                 return UICollectionViewCell()
             }
-            addRoomPicCell.indexPath = indexPath
             addRoomPicCell.delegate = self
             addRoomPicCell.configureCell(viewModel: self.viewModel)
             return addRoomPicCell

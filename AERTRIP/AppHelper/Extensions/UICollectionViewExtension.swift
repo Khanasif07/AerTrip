@@ -114,11 +114,11 @@ extension UICollectionViewCell {
         return "\(self)"
     }
     
-//    var indexPath: IndexPath? {
-//        if let tblVw = self.superview as? UICollectionView {
-//            return tblVw.indexPath(for: self)
-//        }
-//        return nil
-//    }
+    var indexPath: IndexPath? {
+        if let tblVw = self.superview as? UICollectionView {
+            return tblVw.indexPath(for: self)
+        }
+        return nil
+    }
 }
 

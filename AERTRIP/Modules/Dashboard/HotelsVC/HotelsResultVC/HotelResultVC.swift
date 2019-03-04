@@ -604,7 +604,6 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
         self.isFotterVisible = self.isAboveTwentyKm
         cell.hotelListData = hData
-        cell.indexPath = indexPath
         cell.delegate = self
         cell.contentView.backgroundColor = AppColors.themeWhite
         
@@ -912,7 +911,6 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             }
             
             cell.hotelListData = hData
-            cell.indexPath = indexPath
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -924,7 +922,6 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             }
             
             cell.hotelListData = hData
-            cell.indexPath = indexPath
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             

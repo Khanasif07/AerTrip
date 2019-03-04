@@ -78,10 +78,10 @@ extension UITableViewCell {
         return "\(self)"
     }
     
-//    var indexPath: IndexPath? {
-//        if let tblVw = self.superview as? UITableView {
-//            return tblVw.indexPath(for: self)
-//        }
-//        return nil
-//    }
+    var indexPath: IndexPath? {
+        if let tblVw = self.superview as? UITableView {
+            return tblVw.indexPath(for: self)
+        }
+        return nil
+    }
 }

@@ -64,7 +64,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.editProfilTwoPartTableViewCelldelegate = self
-                cell.indexPath = indexPath
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
                     //make disable
                     cell.rightViewTextField.isEnabled = false
@@ -87,7 +86,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.rightViewTextField.keyboardType = .emailAddress
                 cell.email = self.viewModel.email[indexPath.row]
                 cell.social = nil
-                cell.indexPath = indexPath
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
                 return cell
@@ -123,7 +121,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 if self.viewModel.currentlyUsinfFor == .addNewTravellerList {
                     cell.deleteButton.isHidden = self.viewModel.mobile.count == 1
                 }
-                cell.configureCell(indexPath, self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
+                cell.configureCell(self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
                 cell.middleSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
@@ -145,7 +143,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.rightViewTextField.placeholder = LocalizedString.SocialProfile.localized
                 cell.social = self.viewModel.social[indexPath.row]
                 cell.email = nil
-                cell.indexPath = indexPath
                 cell.deleteButton.isHidden = self.viewModel.social.count == 1
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
@@ -164,7 +161,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.leftSeparatorView.isHidden = true
                 cell.rightSeparatorView.isHidden = true
                 cell.ffData = nil
-                cell.indexPath = indexPath
                 
                 return cell
                 
@@ -177,7 +173,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.placeholder = LocalizedString.passportNo.localized
                 
                 //index 0: passport no, index 1: passport country
-                cell.configureCell(indexPath, passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
+                cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
 
                 return cell
             }
@@ -197,7 +193,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("AddAddressTableViewCell not found")
                 }
                 cell.delegate = self
-                cell.configureCell(indexPath, addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName)
+                cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName)
                 
                 cell.deleteButton.isHidden = self.viewModel.addresses.count <= 1
                 cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
@@ -228,7 +224,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.downArrowImageView.isHidden = true
                 
                 //index 0: dob, index 1: doa
-                cell.configureCell(indexPath, moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
+                cell.configureCell(moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
                 cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
                 return cell
             }
@@ -247,7 +243,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         fatalError("TwoPartEditTableViewCell not found")
                     }
                     cell.delegate = self
-                    cell.indexPath = indexPath
                     cell.rightTextField.placeholder = LocalizedString.Number.localized
                     cell.frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
@@ -275,7 +270,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
                 cell.downArrowImageView.isHidden = false
-                cell.configureCell(indexPath, flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
+                cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell
             }
             

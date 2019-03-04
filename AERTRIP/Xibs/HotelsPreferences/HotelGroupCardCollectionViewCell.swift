@@ -32,7 +32,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     private var gradientLayer: CAGradientLayer!
     var scrollSize: CGFloat = 0.0
     let numberOfPage: Int = 100
-    var indexPath: IndexPath?
+    
     var shouldShowMultiPhotos: Bool = true {
         didSet {
             self.updateMutiPhotos()
@@ -156,8 +156,8 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
 
 extension HotelGroupCardCollectionViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let indexPath = indexPath {
-            self.delegate?.pagingScrollEnable(indexPath, scrollView)
+        if let idxPath = indexPath {
+            self.delegate?.pagingScrollEnable(idxPath, scrollView)
         }
     }
 }
