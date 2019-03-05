@@ -42,22 +42,26 @@ class HotelResultVC: BaseVC {
     
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet {
-            collectionView.registerCell(nibName: "HotelCardCollectionViewCell")
-            collectionView.registerCell(nibName: "HotelGroupCardCollectionViewCell")
+            collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
+            collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
             collectionView.isPagingEnabled = true
             collectionView.delegate = self
             collectionView.dataSource = self
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.showsHorizontalScrollIndicator = false
         }
     }
     
     @IBOutlet var tableViewVertical: UITableView! {
         didSet {
-            tableViewVertical.registerCell(nibName: "HotelCardTableViewCell")
+            tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
             tableViewVertical.register(UINib(nibName: "HotelResultSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
             tableViewVertical.delegate = self
             tableViewVertical.dataSource = self
             tableViewVertical.separatorStyle = .none
+            tableViewVertical.showsVerticalScrollIndicator = false
+            tableViewVertical.showsHorizontalScrollIndicator = false
         }
     }
     
@@ -88,11 +92,11 @@ class HotelResultVC: BaseVC {
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
-    private var oldScrollPosition: CGPoint = .zero
     private var completion: (() -> Void)?
     private weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
     
-    private var isConvertingViewMode: Bool = false
+    private var visibleMapHeightInVerticalMode: CGFloat = 160.0
+    private var oldScrollPosition: CGPoint = CGPoint.zero
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -109,7 +113,6 @@ class HotelResultVC: BaseVC {
         return fetchedResultsController
     }()
     
-    let parallexHeaderHeight = CGFloat(200.0)
     var fetchRequestType: FetchRequestType = .Searching
     var hoteResultViewType: HotelResultViewType = .ListView
     var favouriteHotels: [HotelSearched] = []
@@ -119,7 +122,6 @@ class HotelResultVC: BaseVC {
     // MARK: - Private
     
     let viewModel = HotelsResultVM()
-//    var header = HotelsResultHeaderView.instanceFromNib()
     var locManager = CLLocationManager()
     var currentLocation: CLLocation?
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
@@ -129,10 +131,15 @@ class HotelResultVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     
+    private var isShowingGroupedCell: Bool = false
+    
     // MARK: - ViewLifeCycle
     
     // MARK: -
     override func initialSetup() {
+        
+        self.relocateSwitchButton(shouldMoveUp: false, animated: false)
+        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: false)
         
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
@@ -181,7 +188,6 @@ class HotelResultVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        mapView?.frame = self.header.mapImageView.bounds
     }
     
     // MARK: - Methods
@@ -223,16 +229,12 @@ class HotelResultVC: BaseVC {
     }
     
     private func setupTableHeader() {
-        
-        header.mapImageView.translatesAutoresizingMaskIntoConstraints = true
-        header.mapImageView.clipsToBounds = true
-        header.mapImageView.frame = CGRect(x: 0.0, y: 0.0, width: header.mapImageView.frame.width, height: 160.0)
-        self.tableViewVertical.backgroundView = header
-        header.layoutIfNeeded()
+        self.tableViewVertical.backgroundView = nil
+        self.tableViewVertical.backgroundColor = AppColors.clear
         
         let shadowsHeight: CGFloat = 60.0
         
-        let hView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 160.0))
+        let hView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: visibleMapHeightInVerticalMode))
         hView.backgroundColor = AppColors.clear
         
         let shadowView = UIView(frame: CGRect(x: 0.0, y: (hView.frame.height - shadowsHeight), width: UIDevice.screenWidth, height: shadowsHeight))
@@ -285,43 +287,11 @@ class HotelResultVC: BaseVC {
     }
     
     func convertToMapView() {
-        
-        let hiddenOffset = CGPoint(x: 0.0, y: -self.tableViewVertical.height)
-        
-        self.tableViewVertical.setContentOffset(hiddenOffset, animated: true)
-        
-        self.isConvertingViewMode = true
-        delay(seconds: 0.4) {
-            self.isConvertingViewMode = false
-            self.tableViewVertical.isScrollEnabled = false
-        }
-        
         self.animateCollectionView(isHidden: false, animated: true)
-        
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.tableViewVertical.contentOffset = hiddenOffset
-        }, completion: { (isDone) in
-            self.tableViewVertical.isScrollEnabled = false
-        })
     }
     
     func convertToListView() {
-        self.tableViewVertical.setContentOffset(CGPoint.zero, animated: true)
-        
-        self.isConvertingViewMode = true
-        self.tableViewVertical.isScrollEnabled = true
-        delay(seconds: 0.4) {
-            self.isConvertingViewMode = false
-        }
-        
         self.animateCollectionView(isHidden: true, animated: true)
-        
-        self.tableViewVertical.isScrollEnabled = true
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.tableViewVertical.contentOffset = CGPoint.zero
-        }, completion: { (isDone) in
-
-        })
     }
     
     private func animateCollectionView(isHidden: Bool, animated: Bool) {
@@ -335,13 +305,27 @@ class HotelResultVC: BaseVC {
         }
         
         
-        header.mapImageView.frame = CGRect(x: 0.0, y: 0.0, width: header.mapImageView.frame.width, height: isHidden ? 160.0 : tableViewVertical.height)
+        //resize the map view for map/list view
+        let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
+        
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            
+            //map resize animation
+            self.mapView?.frame = mapFrame
+            
+            //vertical list animation
             self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
             self.collectionView.alpha = isHidden ? 0.0 : 1.0
+            
+            //floating buttons animation
             self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
             self.currentLocationButton.isHidden = isHidden
             self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
+            
+            //horizontal list animation
+            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
+            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+            
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             if isHidden {
@@ -354,6 +338,7 @@ class HotelResultVC: BaseVC {
     func animateHeaderToListView() {
         self.headerContatinerViewHeightConstraint.constant = 100
         self.tableViewTopConstraint.constant = 100
+        mapContainerTopConstraint.constant = 100
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.searchBar.frame = self.searchIntitialFrame
             self.titleLabel.transform = .identity
@@ -365,6 +350,7 @@ class HotelResultVC: BaseVC {
     func animateHeaderToMapView() {
         self.headerContatinerViewHeightConstraint.constant = 50
         self.tableViewTopConstraint.constant = 50
+        mapContainerTopConstraint.constant = 50
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
                                           , y: self.searchBar.frame.origin.y - 45, width: self.searchBar.frame.width - 80, height: 50)
@@ -494,6 +480,25 @@ class HotelResultVC: BaseVC {
         }
     }
     
+    private func relocateSwitchButton(shouldMoveUp: Bool, animated: Bool) {
+        let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
+        
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0) { [weak self] in
+            self?.switchView.transform = trans
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    private func relocateCurrentLocationButton(shouldMoveUp: Bool, animated: Bool) {
+        let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
+        
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0) { [weak self] in
+            self?.currentLocationButton.transform = trans
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -618,7 +623,7 @@ extension HotelResultVC {
     
     func manageTopHeader(_ scrollView: UIScrollView) {
         
-        guard !self.isConvertingViewMode, scrollView === tableViewVertical else {
+        guard scrollView === tableViewVertical else {
             return
         }
 
@@ -627,6 +632,7 @@ extension HotelResultVC {
             //hide
             self.headerContainerViewTopConstraint.constant = -140
             self.tableViewTopConstraint.constant = 0
+            mapContainerTopConstraint.constant = 0
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.view.layoutIfNeeded()
@@ -636,6 +642,7 @@ extension HotelResultVC {
             //show
             self.headerContainerViewTopConstraint.constant = 0
             self.tableViewTopConstraint.constant = 100
+            mapContainerTopConstraint.constant = 100
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -647,20 +654,87 @@ extension HotelResultVC {
             return
         }
         
-        printDebug(scrollView.contentOffset)
+//        printDebug(scrollView.contentOffset)
+//
+//        let xPosition = scrollView.contentOffset.x
+//
+//        let item = xPosition / UIDevice.screenWidth
+//        printDebug(item)
         
-        let xPosition = scrollView.contentOffset.x
+        let xPos = scrollView.contentOffset.x
         
-        let item = xPosition / UIDevice.screenWidth
-        printDebug(item)
+        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
+        
+        let fractional: CGFloat = xPos / UIDevice.screenWidth
+        let decimal: CGFloat = floor(fractional)
+        let progress = fractional - decimal
+        
+        if xPos > self.oldScrollPosition.x {
+            //forward
+            printDebug("forward, \(progress)")
+            if let _ = self.collectionView.indexPathForItem(at: point) {
+                //grouped cell
+                if progress < 0.5 {
+                    self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
+                }
+                else {
+                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                }
+            }
+            else {
+                //normal cell
+                if progress < 0.5 {
+                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                }
+                else {
+                    self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                }
+            }
+        }
+        else {
+            //backward
+            printDebug("backward, \(progress)")
+            if let _ = self.collectionView.indexPathForItem(at: point) {
+                //grouped cell
+                if progress < 0.5 {
+                    self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
+                }
+                else {
+                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                }
+            }
+            else {
+                //normal cell
+                if progress < 0.5 {
+                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                }
+                else {
+                    self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                }
+            }
+        }
+    }
+    
+    func manageMapViewOnScroll(_ scrollView: UIScrollView) {
+        guard scrollView === tableViewVertical, let mView = self.mapView else {
+            return
+        }
+        
+        let yPosition = min(scrollView.contentOffset.y, visibleMapHeightInVerticalMode)
+        
+        mView.frame = CGRect(x: 0.0, y: -(yPosition), width: mView.width, height: mView.height)
+        mView.isHidden = scrollView.contentOffset.y > visibleMapHeightInVerticalMode
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageTopHeader(scrollView)
+        manageMapViewOnScroll(scrollView)
+        manageFloatingButtonOnPaginationScroll(scrollView)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         manageTopHeader(scrollView)
+        self.oldScrollPosition = scrollView.contentOffset
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -867,6 +941,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
             self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
+            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.progressView.isHidden = isHidden
             self?.view.layoutIfNeeded()
         }
@@ -906,7 +981,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         self.isFotterVisible = self.isAboveTwentyKm
         
         if indexPath.item%3 != 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelGroupCardCollectionViewCell", for: indexPath) as? HotelGroupCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
             
@@ -917,7 +992,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         }
         else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelCardCollectionViewCell", for: indexPath) as? HotelCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelCardCollectionViewCell else {
                 fatalError("HotelCardCollectionViewCell not found")
             }
             
@@ -930,7 +1005,15 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth, height: 200.0)
+        
+        if indexPath.item%3 != 0 {
+            //grouped cell
+            return CGSize(width: UIDevice.screenWidth, height: 230.0)
+        }
+        else {
+            //single cell
+            return CGSize(width: UIDevice.screenWidth, height: 200.0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -940,6 +1023,8 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        self.isShowingGroupedCell = cell.isKind(of: HotelGroupCardCollectionViewCell.self)
         
         let hData = fetchedResultsController.object(at: indexPath)
         updateMarker(coordinates: CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0))
@@ -955,15 +1040,15 @@ extension HotelResultVC {
         
         let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 14.0)
         
-        let mapV = GMSMapView.map(withFrame: header.mapImageView.bounds, camera: camera)
+        let mapRact = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: visibleMapHeightInVerticalMode)
+        let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
         mapView = mapV
         mapV.setMinZoom(1.0, maxZoom: 30.0)
         mapV.isMyLocationEnabled = true
         mapV.delegate = self
         mapV.backgroundColor = .red
         
-        header.mapImageView.addSubview(mapV)
-        header.mapImageView.image = nil
+        mapContainerView.addSubview(mapV)
         
         activeMarker = GMSMarker()
         activeMarker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
@@ -1005,7 +1090,7 @@ extension HotelResultVC {
         if let mapView = mapView {
             mapView.camera = camera
             mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
+            mapView.settings.myLocationButton = false
         }
     }
     
