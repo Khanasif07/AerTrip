@@ -452,7 +452,11 @@ class HotelsSearchVC: BaseVC {
         self.recentContainerParentView.isHidden = false
         self.recentContainerHeightConstraint.constant = self.recentSearchHeight//194.0
 //        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
-        self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+        if self.viewModel.adultsCount.count < 2 {
+            self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
+        } else {
+            self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+        }
     }
     
     //MARK:- Public

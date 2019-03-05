@@ -41,7 +41,10 @@ class HotelDetailsVC: BaseVC {
         }
     }
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var hotelFeesLabel: UILabel!
+    @IBOutlet weak var selectRoomLabel: UILabel!
     
     private var sourceFrame: CGRect = .zero
     private var tableFrameHidden: CGRect {
@@ -60,6 +63,7 @@ class HotelDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
+        self.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
         self.configUI()
         self.registerNibs()
         self.completion = { [weak self] in
@@ -79,16 +83,33 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        let whiteColor = AppColors.themeWhite
+        self.footerView.backgroundColor = AppColors.themeGreen
+        self.fromLabel.textColor = whiteColor
+        self.hotelFeesLabel.textColor = whiteColor
+        self.selectRoomLabel.textColor = whiteColor
+    }
+    
+    override func setupFonts() {
+        let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
+        self.fromLabel.font = AppFonts.Regular.withSize(14.0)
+        self.hotelFeesLabel.font = semiboldFontSize20
+        self.selectRoomLabel.font = semiboldFontSize20
+    }
+    
+    override func setupTexts() {
+        self.fromLabel.text = LocalizedString.From.localized
+        self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
+    }
+    
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
         self.parentVC = onViewController
         self.sourceView = sourceView
-        
         onViewController.add(childViewController: self)
-        
         self.setupBeforeAnimation()
-        
         let newImageFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: self.view.width, height: hotelImageHeight)
-        
         let newTableFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
@@ -96,16 +117,13 @@ class HotelDetailsVC: BaseVC {
             sSelf.hotelTableView.frame = newTableFrame
             sSelf.hotelTableView.alpha = 1.0
 //            sSelf.hotelTableView.transform = CGAffineTransform.identity
-            
         }, completion: { [weak self](isDone) in
             guard let sSelf = self else {return}
-            
             sSelf.imageView.isHidden = true
         })
     }
     
     func hide(animated: Bool) {
-        
         self.imageView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
@@ -158,7 +176,6 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelRatingInfoCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsLoaderTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
-        self.hotelTableView.register(HotelFilterResultFooterView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultFooterView")
         self.hotelTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)
         self.hotelTableView.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: "SearchBarHeaderView")
@@ -204,6 +221,41 @@ class HotelDetailsVC: BaseVC {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             print("Can't use apple map://")
+        }
+    }
+    
+    private func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
+        if indexPath == IndexPath(row: 2, section: 0) {
+            if let hotelData = self.viewModel.hotelData {
+                let text = hotelData.address + "Maps   "
+                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                return size.height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+            }
+            else {
+                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+            }
+        } else if let index = self.currentIndexPath, index == indexPath, expandHeight > 0.0  {
+            return self.expandHeight
+        }
+        return UITableView.automaticDimension
+    }
+    
+    private func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
+        switch section {
+        case 1:
+            return 114.0
+        default:
+            return 0.0//CGFloat.leastNonzeroMagnitude
+        }
+    }
+    
+    private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0.0
+        default:
+            return 16.0
         }
     }
     
@@ -254,7 +306,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 return 0
             default:
                 self.viewModel.roomRates.append(rates[section - 2].roomData)
-                return rates[section - 2].tableViewRowCell.count //rates[section - 1].getTotalNumberOfRows()
+                return rates[section - 2].tableViewRowCell.count
             }
         }
         return 3
@@ -290,8 +342,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 let currentRatesData = ratesData[indexPath.section - 2]
                 switch currentRatesData.tableViewRowCell[indexPath.row] {
                 case .roomBedsType:
-//                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
-                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
+                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
                         return cell
                     }
                 case .inclusion:
@@ -349,105 +400,40 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 1:
-            
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchBarHeaderView") as? SearchBarHeaderView  else { return UITableViewHeaderFooterView() }
             return headerView
-            
-        default:
-            return nil
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
-            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelFilterResultFooterView") as? HotelFilterResultFooterView  else { return UITableViewHeaderFooterView()
-            }
-            if let safeHotelInfo = self.viewModel.hotelInfo {
-                footerView.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(safeHotelInfo.price)"
-            }
-            return footerView
         default:
             return nil
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath == IndexPath(row: 2, section: 0) {
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps   "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
-            } else {
-                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5 + 50.0)
-            }
-        }
-        return UITableView.automaticDimension
+        return self.heightForRow(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath == IndexPath(row: 2, section: 0) {
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps   "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
-            }
-            else {
-                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
-            }
-        } else if let index = self.currentIndexPath, index == indexPath, expandHeight > 0.0  {
-            return self.expandHeight
-        }
-        return UITableView.automaticDimension
+        return self.heightForRow(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 1:
-            return 114.0
-        default:
-            return 0.0//CGFloat.leastNonzeroMagnitude
-        }
+        return self.heightForHeaderView(tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 1:
-            return 114.0
-            
-        default:
-            return CGFloat.leastNonzeroMagnitude
-        }
+        return self.heightForHeaderView(tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 50.0
-        case 1:
-            return CGFloat.leastNonzeroMagnitude
-        default:
-            return CGFloat.leastNonzeroMagnitude
-        }
+        return self.heightForFooterView(tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 50.0
-        case 1:
-            return CGFloat.leastNonzeroMagnitude
-        default:
-            return 16.0
-        }
+        return self.heightForFooterView(tableView: tableView, section: section)
     }
-    
 }
 
 extension HotelDetailsVC: HotelDetailDelegate {
-    
+
     func getHotelDetailsSuccess() {
         self.isDataLoaded = true
         let index = IndexPath(row: 2, section: 0)
