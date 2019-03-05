@@ -38,6 +38,9 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     //================
     ///InitialSetUp
     private func initialSetUp() {
+        
+        self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
+        self.cityImageView.tintColor = AppColors.themeGreenWithBlur
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
         self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
@@ -50,9 +53,9 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         ///Colors
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
-        let greenColor = AppColors.themeGreen
-        self.searchTypeLabel.textColor = greenColor.withAlphaComponent(0.5)
-        self.timeLabel.textColor = greenColor.withAlphaComponent(0.5)
+        let greenColor = AppColors.themeGreenWithBlur
+        self.searchTypeLabel.textColor = greenColor
+        self.timeLabel.textColor = greenColor
         self.cityNameLabel.textColor = blackColor
         self.stateNameLabel.textColor = blackColor
         self.totalNightsLabel.textColor = grayColor
@@ -114,6 +117,5 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
          let adultData = guestsData.last?.split(separator: " ")
          let adultCount = "\(adultData?.first ?? "")" == "1" ? "\(adultData?.first ?? "") Adult" : "\(adultData?.first ?? "") Adults"
          self.totalAdultsLabel.text = "\(roomCounts ?? "") (\(adultCount))"*/
-        
     }
 }

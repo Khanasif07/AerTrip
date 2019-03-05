@@ -140,10 +140,16 @@ extension UIView {
     
     // MARK: - set round corners by clips to bounds
     
-    func roundCornersByClipsToBounds(cornerRadius: Double) {
+    func roundTopCornersByClipsToBounds(cornerRadius: Double) {
         self.layer.cornerRadius = CGFloat(cornerRadius)
         self.clipsToBounds = true
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+   
+    func roundBottomCornersByClipsToBounds(cornerRadius: Double) {
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
     /// SHOW VIEW
@@ -282,5 +288,13 @@ extension UIView {
             return collectionView.indexPath(for: cell)
         }
         return nil
+    }
+    
+    func rootSuperView() -> UIView? {
+        var view = self
+        while let parentView = view.superview {
+            view = parentView
+        }
+        return view
     }
 }

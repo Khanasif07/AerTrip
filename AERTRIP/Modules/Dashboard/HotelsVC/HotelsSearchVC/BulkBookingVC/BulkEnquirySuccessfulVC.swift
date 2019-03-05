@@ -73,7 +73,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.cornerRadius = 15.0
-        self.containerView.roundCornersByClipsToBounds(cornerRadius: 15.0)
+        self.containerView.roundTopCornersByClipsToBounds(cornerRadius: 15.0)
         self.bulkEnquiryLabel.alpha = 0.0
         self.customerServiceLabel.alpha = 0.0
         self.doneBtnOutlet.alpha = 0.0

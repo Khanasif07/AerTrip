@@ -38,7 +38,9 @@ struct HotelDetails {
     var checkout: String = ""
     var num_rooms: Int = 0
     var rates: [Rates]? = nil
-//    var combine_rates: CombineRates//
+//    var completeRoomData: [RoomsRates: Int] {
+//        return self.getComleteRoomData()
+//    }
     var info: String = ""
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
@@ -47,7 +49,6 @@ struct HotelDetails {
     var is_refetch_cp: String = ""
     var per_night_price: String = ""
     var per_night_list_price: String = ""
-//    var occupant: Occupant//
     var facilities: String = ""
     var city_code: String = ""
     var acc_type: String = ""
@@ -63,6 +64,8 @@ struct HotelDetails {
     init() {
         self.init(json: [:])
     }
+    
+    
     
     var jsonDict: JSONDictionary {
         return [APIKeys.facilities.rawValue: self.facilities,
@@ -239,6 +242,48 @@ struct HotelDetails {
     
     //Mark:- Functions
     //================
+    
+    
+//    func getComleteRoomData() -> [RoomsRates: Int] {
+//        let arrRates = [Rates]()
+//        var completeRoomData = [RoomsRates: Int]() // Final
+//
+//        var arrRoomData = [[RoomsRates: Int]]()
+//
+//        for rate in arrRates {
+//            let roomData = rate.getRoomData()
+//            arrRoomData.append(roomData)
+//        }
+//
+//        for roomData in arrRoomData {
+//            for roomRate in roomData.keys {
+//                if completeRoomData.keys.contains(roomRate) {
+//                    let count = completeRoomData[roomRate]!
+//                    completeRoomData[roomRate] = roomData[roomRate] ?? 0 + count
+//                } else {
+//                    completeRoomData[roomRate] = roomData[roomRate]
+//                }
+//
+//            }
+//        }
+//        return completeRoomData
+//    }
+    
+    func getCompleteRates() -> ([RoomsRates],[Int]) {
+        var arraOfRoomRates = [RoomsRates]()
+        var arrayOfRoomCount = [Int]()
+        if let ratesData = self.rates {
+            for rate in ratesData  {
+                for (_,value) in rate.roomData.enumerated() {
+                    arrayOfRoomCount.append(value.value)
+                    arraOfRoomRates.append(value.key)
+                }
+            }
+            return (arraOfRoomRates,arrayOfRoomCount)
+        }
+        return (arraOfRoomRates,arrayOfRoomCount)
+    }
+    
     ///Static Function
     static func hotelInfo(response: JSONDictionary) -> HotelDetails {
         let hotelInfo = HotelDetails(json: response)
@@ -349,9 +394,16 @@ struct AmenitiesMain {
 }
 
 
+
 //Mark:- Rates
 //============
 struct Rates: Hashable {
+    
+    //Mark:- Enums
+    //============
+    enum TableCellType {
+        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+    }
     
     var hashValue: Int {
         return qid.hashValue
@@ -363,9 +415,10 @@ struct Rates: Hashable {
     
     //Mark:- Variables
     //================
+    
     var qid: String = ""
     var can_combine: Bool = false
-    var price: Double = 0.0
+    var price: Double = 0.0   //  checkout row 1
     var list_price: Double = 0.0
     var tax: Double = 0.0
     var discount: Double = 0.0
@@ -373,26 +426,56 @@ struct Rates: Hashable {
     var group_rooms: String = ""
     var payment_info: String = ""
     var part_payment_last_date: String = ""
-    var roomsRates: [RoomsRates]? = nil
+    var roomsRates: [RoomsRates]? = nil   /// x count row
     var roomData: [RoomsRates: Int] {
         var tempData = [RoomsRates: Int] ()
-        for currentRoom in self.roomsRates! {
+        guard let roomsRates = self.roomsRates else { return tempData }
+        for currentRoom in roomsRates {
             var count = 1
-            for otherRoom in self.roomsRates! {
-                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
+            for otherRoom in roomsRates {
+                if otherRoom.uuRid != currentRoom.uuRid && !tempData.keys.contains(otherRoom) {
                     if otherRoom == currentRoom {
                         count = count + 1
                     }
                 }
             }
-            tempData[currentRoom] = count
+            if !tempData.keys.contains(currentRoom) {
+                tempData[currentRoom] = count
+            }
+            
         }
         return tempData
     }
     var terms: RatesTerms? = nil
-    var cancellation_penalty: CancellationPenaltyRates? = nil
-    var penalty_array: [PenaltyRates]? = nil
-    var inclusion_array: [String : Any] = [:]
+    var cancellation_penalty: CancellationPenaltyRates? = nil  ///  cancel row 1
+    var penalty_array: [PenaltyRates]? = nil          /// payment info row 1
+    var inclusion_array: [String : Any] = [:]    /// 3 row
+    var tableViewRowCell: [TableCellType] {
+        var presentedCell = [TableCellType]()
+        presentedCell.removeAll()
+        if self.roomData.count > 0 {
+            for _ in self.roomData {
+                presentedCell.append(.roomBedsType)
+            }
+        }
+        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+            presentedCell.append(.inclusion)
+        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+            presentedCell.append(.inclusion)
+        }
+        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+            presentedCell.append(.otherInclusion)
+        }
+        if self.cancellation_penalty != nil {
+            presentedCell.append(.cancellationPolicy)
+        }
+        presentedCell.append(.paymentPolicy)
+        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+            presentedCell.append(.notes)
+        }
+        presentedCell.append(.checkOut)
+        return presentedCell
+    }
     
     //Mark:- Initialization
     //=====================
@@ -469,49 +552,59 @@ struct Rates: Hashable {
     
     //Mark:- Functions
     //================
-    ///GetRoomData
-    func getRoomData() -> [RoomsRates: Int] {
-        var tempData = [RoomsRates: Int] ()
-        guard let roomsRates = self.roomsRates else { return tempData }
-        for currentRoom in roomsRates {
-            var count = 1
-            for otherRoom in roomsRates {
-                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
-                    if otherRoom == currentRoom {
-                        count = count + 1
-                    }
+//    ///GetRoomData
+//    func getRoomData() -> [RoomsRates: Int] {
+//        var tempData = [RoomsRates: Int] ()
+//        guard let roomsRates = self.roomsRates else { return tempData }
+//        for currentRoom in roomsRates {
+//            var count = 1
+//            for otherRoom in roomsRates {
+//                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
+//                    if otherRoom == currentRoom {
+//                        count = count + 1
+//                    }
+//                }
+//            }
+//            tempData[currentRoom] = count
+//        }
+//        return tempData
+//    }
+//
+//    func getTotalNumberOfRows() -> Int {
+//        var totalRows: Int = 0
+//        let roomData = getRoomData()
+//        if roomData.count > 0 {
+//            totalRows += roomData.count
+//        }
+//        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+//            totalRows += 1
+//        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+//            totalRows += 1
+//        }
+//        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+//            totalRows += 1
+//        }
+//        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+//            totalRows += 1
+//        }
+//        if self.cancellation_penalty != nil {
+//            totalRows += 1
+//        }
+//        totalRows += 1 ///for payment cell
+//        totalRows += 1 /// for checkout cell
+//        return totalRows
+//    }
+    
+    func getFullRefundableData() -> PenaltyRates {
+        var penaltyRates = PenaltyRates()
+        if let penaltyArray = self.penalty_array {
+            for currentPenaltyRates in penaltyArray {
+                if currentPenaltyRates.penalty == 0 {
+                    penaltyRates = currentPenaltyRates
                 }
             }
-            tempData[currentRoom] = count
         }
-        return tempData
-    }
-    
-    func getTotalNumberOfRows() -> Int {
-        var totalRows: Int = 0
-        let roomData = getRoomData()
-        if roomData.count > 0 {
-            totalRows += roomData.count
-        }
-        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
-            totalRows += 1
-        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
-            totalRows += 1
-        }
-        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
-            totalRows += 1
-        }
-        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
-            totalRows += 1
-        }
-        if let cancellationPenalty = self.cancellation_penalty, cancellationPenalty.is_refundable {
-            if let penaltyArray = self.penalty_array, !penaltyArray.isEmpty {
-                totalRows += 2
-            } else {
-                totalRows += 1
-            }
-        }
-        return totalRows
+        return penaltyRates
     }
     
     ///Static Function
@@ -531,7 +624,7 @@ struct Rates: Hashable {
 struct RoomsRates: Hashable {
     
     var hashValue: Int {
-        return rid.hashValue
+        return uuRid.hashValue
     }
     
     static func == (lhs: RoomsRates, rhs: RoomsRates) -> Bool {
@@ -556,6 +649,7 @@ struct RoomsRates: Hashable {
     
     //Mark:- Variables
     //================
+    var uuRid: String = ""
     var rid: String = ""
     var thumbnail: String = ""
     var name: String = ""
@@ -590,7 +684,7 @@ struct RoomsRates: Hashable {
     }
     
     init(json: JSONDictionary) {
-        
+        self.uuRid = UUID().uuidString
         if let obj = json[APIKeys.rid.rawValue] {
             self.rid = "\(obj)".removeNull
         }

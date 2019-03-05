@@ -5,16 +5,17 @@
 //  Created by Admin on 08/02/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
-
 import UIKit
+import FlexiblePageControl
 
 protocol HotelDetailsImgSlideCellDelegate: class {
     func hotelImageTapAction(at index: Int)
     func willShowImage(at index: Int, image: UIImage?)
 }
 
-class HotelDetailsImgSlideCell: UITableViewCell {
 
+class HotelDetailsImgSlideCell: UITableViewCell {
+    
     //Mark:- Variables
     //================
     internal var imageUrls: [String] = []
@@ -27,7 +28,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             self.imageCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pageControl: FlexiblePageControl! {
+        didSet {
+            self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
+            self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+        }
+    }
     
     weak var delegate: HotelDetailsImgSlideCellDelegate?
     
@@ -38,22 +44,30 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         super.awakeFromNib()
         self.initialSetUps()
     }
-
+    
     //Mark:- Methods
     //==============
     private func initialSetUps() {
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
-        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-        self.pageControl.numberOfPages = self.imageUrls.count
+//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+//        self.pageControl.numberOfPages = self.imageUrls.count
+//
+    }
+    
+    private func pageControlSetUp(imageUrls: [String]) {
+        self.imageUrls = imageUrls
+        self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
+        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
+        self.pageControl.numberOfPages = 10
+        self.pageControl.backgroundColor = AppColors.themeRed
+        self.imageCollectionView.reloadData()
     }
     
     internal func configCell(hotelData: HotelSearched) {
-        if let safeHotelData = hotelData.thumbnail {
-            self.imageUrls = safeHotelData
-            self.pageControl.isHidden = !(self.imageUrls.count > 1)
-            self.pageControl.numberOfPages = self.imageUrls.count
-            self.imageCollectionView.reloadData()
+        if let imageUrls = hotelData.thumbnail {
+            self.pageControlSetUp(imageUrls: imageUrls)
         }
     }
     
@@ -62,11 +76,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         self.pageControl.isHidden = !(self.imageUrls.count > 1)
         self.pageControl.numberOfPages = self.imageUrls.count
         self.imageCollectionView.reloadData()
+        self.pageControlSetUp(imageUrls: hotelData.photos)
     }
     
     //Mark:- IBOActions
     //=================
-
+    
 }
 
 //Mark:- UICollectionView Delegate And Datasource
@@ -104,19 +119,7 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
 }
 
 extension HotelDetailsImgSlideCell: UIScrollViewDelegate {
-    
-    /*func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }
-
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }*/
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
-        let index = scrollView.contentOffset.x / witdh
-        let roundedIndex = round(index)
-        self.pageControl.currentPage = Int(roundedIndex)
+        self.pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
     }
 }

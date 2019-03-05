@@ -19,44 +19,57 @@
                 <rect key="frame" x="0.0" y="0.0" width="386" height="48.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="6jo-8X-gyF">
-                        <rect key="frame" x="16" y="14" width="32" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="Xrl-fb-95s"/>
-                            <constraint firstAttribute="width" constant="32" id="mH6-ls-VpY"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check TripAdvisor Traveler Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-9e-MnP">
-                        <rect key="frame" x="56" y="14" width="290" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="fpT-xa-ZZi">
-                        <rect key="frame" x="346" y="2.5" width="40" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="XC3-RA-teM"/>
-                        </constraints>
-                    </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcV-jY-hti" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="47.5" width="386" height="1"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkk-gB-H9L">
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="48.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="6jo-8X-gyF">
+                                <rect key="frame" x="16" y="14" width="32" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Xrl-fb-95s"/>
+                                    <constraint firstAttribute="width" constant="32" id="mH6-ls-VpY"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check TripAdvisor Traveler Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-9e-MnP">
+                                <rect key="frame" x="56" y="13" width="290" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="fpT-xa-ZZi">
+                                <rect key="frame" x="346" y="1.5" width="40" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="XC3-RA-teM"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcV-jY-hti" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="20" y="47.5" width="346" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="hs4-GQ-szx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="hs4-GQ-szx"/>
+                            <constraint firstItem="6jo-8X-gyF" firstAttribute="top" secondItem="zkk-gB-H9L" secondAttribute="top" constant="14" id="95H-sA-oAj"/>
+                            <constraint firstItem="fpT-xa-ZZi" firstAttribute="centerY" secondItem="gpi-9e-MnP" secondAttribute="centerY" id="CqS-uZ-zpL"/>
+                            <constraint firstItem="DcV-jY-hti" firstAttribute="leading" secondItem="zkk-gB-H9L" secondAttribute="leading" constant="20" id="Nuw-Yr-QSd"/>
+                            <constraint firstItem="6jo-8X-gyF" firstAttribute="leading" secondItem="zkk-gB-H9L" secondAttribute="leading" constant="16" id="aQw-pM-q03"/>
+                            <constraint firstItem="fpT-xa-ZZi" firstAttribute="leading" secondItem="gpi-9e-MnP" secondAttribute="trailing" id="bbL-q6-nfN"/>
+                            <constraint firstAttribute="trailing" secondItem="DcV-jY-hti" secondAttribute="trailing" constant="20" id="erb-BH-0uE"/>
+                            <constraint firstItem="gpi-9e-MnP" firstAttribute="leading" secondItem="6jo-8X-gyF" secondAttribute="trailing" constant="8" id="gRi-Jh-NLq"/>
+                            <constraint firstAttribute="trailing" secondItem="fpT-xa-ZZi" secondAttribute="trailing" id="gfr-Uq-5s9"/>
+                            <constraint firstItem="gpi-9e-MnP" firstAttribute="centerY" secondItem="zkk-gB-H9L" secondAttribute="centerY" constant="-1" id="iKt-88-mFE"/>
+                            <constraint firstAttribute="height" constant="48.5" id="kaZ-A6-XvN"/>
+                            <constraint firstAttribute="bottom" secondItem="DcV-jY-hti" secondAttribute="bottom" id="yWW-Rr-gOe"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="gpi-9e-MnP" firstAttribute="leading" secondItem="6jo-8X-gyF" secondAttribute="trailing" constant="8" id="5lV-fZ-QIY"/>
-                    <constraint firstItem="fpT-xa-ZZi" firstAttribute="leading" secondItem="gpi-9e-MnP" secondAttribute="trailing" id="E1E-ru-x4R"/>
-                    <constraint firstItem="fpT-xa-ZZi" firstAttribute="centerY" secondItem="gpi-9e-MnP" secondAttribute="centerY" id="JCF-j9-Ep1"/>
-                    <constraint firstItem="6jo-8X-gyF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="aXh-UR-nIM"/>
-                    <constraint firstAttribute="bottom" secondItem="DcV-jY-hti" secondAttribute="bottom" id="dSo-Lg-MuS"/>
-                    <constraint firstAttribute="trailing" secondItem="fpT-xa-ZZi" secondAttribute="trailing" id="eAD-cs-xjx"/>
-                    <constraint firstItem="DcV-jY-hti" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jo2-HF-azi"/>
-                    <constraint firstAttribute="trailing" secondItem="DcV-jY-hti" secondAttribute="trailing" id="k3a-8f-uWS"/>
-                    <constraint firstItem="gpi-9e-MnP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sgf-5l-Eed"/>
-                    <constraint firstItem="6jo-8X-gyF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vDe-LO-6U0"/>
+                    <constraint firstAttribute="trailing" secondItem="zkk-gB-H9L" secondAttribute="trailing" id="2dm-po-TjH"/>
+                    <constraint firstAttribute="bottom" secondItem="zkk-gB-H9L" secondAttribute="bottom" id="Gem-9Y-Gst"/>
+                    <constraint firstItem="zkk-gB-H9L" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rf4-kO-hGA"/>
+                    <constraint firstItem="zkk-gB-H9L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="waY-vh-4V4"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -408,6 +408,9 @@ enum LocalizedString: String {
     case Refundable = "Refundable"
     case PartRefundable = "PartRefundable"
     case NonRefundable = "Nonrefundable"
+    case NonRefundableExplanation = "NonRefundableExplanation"
+    case FreeCancellation = "FreeCancellation"
+    case FullPaymentNow = "FullPaymentNow"
     
     // Others
     case FreeWifi = "FreeWifi"
@@ -430,9 +433,8 @@ enum LocalizedString: String {
     case HideHotelBeyond = "HideHotelsBeyond"
     case Choose_App = "Choose_App"
     case GMap = "GMap"
-    
+
     //MARK: - Hotel Result VC
-    
     case RemoveFromFavourites = "RemoveFromFavourites"
     case EmailFavouriteHotelInfo = "EmailFavoriteHotelsInfo"
     case Send = "Send"
@@ -442,9 +444,12 @@ enum LocalizedString: String {
     case SharedMessage = "SharedMessage"
     case CheckOutMessage = "CheckOutMessage"
     case HotelResultFor = "HotelResultFor"
-    
-    
-    
 
-    
+    case Inclusion = "Inclusion"
+    case OtherInclusions = "OtherInclusions"
+    case CancellationPolicy = "CancellationPolicy"
+    case PaymentPolicy = "PaymentPolicy"
+    case Info = "Info"
+    case Book = "Book"
+    case rupeesText = "rupeesText"
 }

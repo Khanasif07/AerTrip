@@ -615,6 +615,13 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let hData = fetchedResultsController.object(at: indexPath)
+        if let cell = tableView.cellForRow(at: indexPath) {
+            AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView,sid: self.viewModel.sid,hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        }
+    }
 }
 
 // MARK: - MXParallaxHeaderDelegate methods

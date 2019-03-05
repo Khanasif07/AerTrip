@@ -285,7 +285,7 @@
 "Ages" = "Ages";
 "AdultsAges" = "Ages 12+";
 "ChildAges" = "Ages 1 - 12";
-"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 max in a room";
+"MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
 
 //MARK:- Destination Selection
@@ -361,6 +361,10 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
+"NonRefundableExplanation" = "You will be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
+"FreeCancellation" = "FREE CANCELLATION";
+"FullPaymentNow" = "Full Payment Now";
+"Book" = "Book";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -387,6 +391,12 @@
 "other" = "other";
 "available" = "available";
 "classType" = "classType";
+"Inclusion" = "Inclusion";
+"OtherInclusions" = "Other Inclusions";
+"CancellationPolicy" = "Cancellation Policy";
+"PaymentPolicy" = "Payment Policy";
+"Notes" = "Notes";
+"Info" = "Info";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
@@ -404,3 +414,4 @@
 "SharedMessage" = "shared his favorite hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
+"rupeesText" = "₹";

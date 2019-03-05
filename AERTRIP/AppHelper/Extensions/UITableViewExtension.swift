@@ -70,8 +70,8 @@ extension UITableView {
         refreshControl.tintColor = tintColor
         self.addSubview(refreshControl)
     }
+    
 }
-
 
 extension UITableViewCell {
     class var reusableIdentifier: String {

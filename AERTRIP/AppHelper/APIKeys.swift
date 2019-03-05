@@ -239,6 +239,7 @@ enum APIKeys: String {
     case recentSearchQuery = "query"
     case response = "response"
     case shortUrl = "short_url"
+    case hotelFormPreviosSearchData = "hotelFormPreviosSearchData"
 }
 
 

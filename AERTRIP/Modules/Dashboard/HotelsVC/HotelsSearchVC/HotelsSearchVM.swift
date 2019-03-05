@@ -12,9 +12,6 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
     
-    func getAllHotelsListResultSuccess()
-    func getAllHotelsListResultFail()
-    
     func getRecentSearchesDataSuccess()
     func getRecentSearchesDataFail()
 }
@@ -24,7 +21,7 @@ class HotelsSearchVM: NSObject{
     //MARK:- Properties
     //MARK:- Public
     var roomNumber: Int = 1
-    var adultsCount: [Int] = [1]
+    var adultsCount: [Int] = [2]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
     var checkInDate = "2019-03-13"
@@ -39,13 +36,31 @@ class HotelsSearchVM: NSObject{
     var hotelListResult = [HotelsSearched]()
     var hotelSearchRequst : HotelSearchRequestModel?
     var recentSearchesData: [RecentSearchesModel]?
+    var cityName = ""
+    var stateName = ""
+    
+    var hotelFormData: HotelFormPreviosSearchData? {
+        get {
+            return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData
+        }
+        set {
+            if let vlaue = newValue {
+                UserDefaults.saveCustomObject(customObject: vlaue, forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
+            }
+        }
+    }
     
     //MARK:- Functions
     //================
     //MARK:- Private
     ///Params For Api
     private func paramsForApi() -> JSONDictionary {
-        
+        if self.ratingCount.isEmpty {
+            self.ratingCount = [1,2,3,4,5]
+        }
         var params = JSONDictionary()
         let _adultsCount = self.adultsCount
         let _starRating = self.ratingCount
@@ -57,8 +72,10 @@ class HotelsSearchVM: NSObject{
         params[APIKeys.dest_name.rawValue] = self.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
-        for (idx , _ ) in _starRating.enumerated() {
-            params["filter[star][\(idx)star]"] = true
+        for (idx , data ) in _starRating.enumerated() {
+//            params["filter[star][\(idx)star]"] = true
+            params["filter[star][\(data)star]"] = true
+            
         }
         
         for (idx ,  data) in _adultsCount.enumerated() {
@@ -76,6 +93,28 @@ class HotelsSearchVM: NSObject{
     }
     
     //MARK:- Public
+    
+    ///SaveFormDataToUserDefaults
+    func saveFormDataToUserDefaults() {
+        let hotelData = HotelFormPreviosSearchData()
+        hotelData.roomNumber     = self.roomNumber
+        hotelData.adultsCount    = self.adultsCount
+        hotelData.childrenCounts = self.childrenCounts
+        hotelData.childrenAge    = self.childrenAge
+//        hotelData.adultsCount    = self.adultsCount.map{ $0 }
+//        hotelData.childrenCounts = self.childrenCounts.map{ $0 }
+//        hotelData.childrenAge    = self.childrenAge.map{ $0 }
+        hotelData.checkInDate    = self.checkInDate
+        hotelData.checkOutDate   = self.checkOutDate
+        hotelData.destId         = self.destId
+        hotelData.stateName       = self.stateName
+        hotelData.cityName       = self.cityName
+        hotelData.ratingCount    = self.ratingCount
+        
+        self.hotelFormData = hotelData
+        printDebug(self.hotelFormData)
+    }
+    
     ///Hotel List Api
     func hotelListOnPreferencesApi() {
         APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes,searhRequest) in
@@ -88,7 +127,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
-               // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
                 sSelf.delegate?.getAllHotelsOnPreferenceFail()
             }
         }
@@ -110,4 +149,3 @@ class HotelsSearchVM: NSObject{
         }
     }
 }
-

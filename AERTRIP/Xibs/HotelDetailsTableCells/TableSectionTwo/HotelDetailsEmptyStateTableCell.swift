@@ -1,14 +1,14 @@
 //
-//  HotelDetailsFeeTableViewCell.swift
+//  HotelDetailsEmptyStateTableCell.swift
 //  AERTRIP
 //
-//  Created by Admin on 13/02/19.
+//  Created by Admin on 05/03/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class HotelDetailsFeeTableViewCell: UITableViewCell {
+class HotelDetailsEmptyStateTableCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

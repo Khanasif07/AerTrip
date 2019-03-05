@@ -15,20 +15,13 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
-    private var collectionViewHeight: CGFloat = 0.0
-    private var containerViewHeight: CGFloat = 0.0
+    private var collectionViewHeight: CGFloat = 86.0
+    private var containerViewHeight: CGFloat = 548.0
     private var scrollViewContentSize: CGSize = CGSize.zero
-    private var recentSearchHeight: CGFloat = 150.0
+    private var recentSearchHeight: CGFloat = 194.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
-    
-    ///Computed Properties
-    private var cellHeight: CGFloat{
-        return self.addRoomCollectionView.frame.size.height
-    }
-    private var cellWidth: CGFloat{
-        return self.addRoomCollectionView.frame.size.width / 2.0
-    }
+    private var needToGetRecentSearches: Bool = false
     private var returnUserId: String? {
         return UserInfo.loggedInUserId
     }
@@ -67,7 +60,7 @@ class HotelsSearchVC: BaseVC {
     }
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var whereLabel: UILabel!
-    @IBOutlet weak var recentContainerView: UIView!
+    @IBOutlet weak var recentContainerParentView: UIView!
     @IBOutlet weak var recentContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentSearchesContainerView: UIView! {
         didSet {
@@ -83,13 +76,14 @@ class HotelsSearchVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            self.recentSearchData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.scrollView.contentSize.height = UIScreen.main.bounds.height + 214.0
-        self.collectionViewHeight = self.addRoomCollectionView.frame.size.height
-        self.containerViewHeight = self.containerView.frame.size.height
-        self.scrollViewContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 214.0)
-        //self.scrollView.contentSize
+//        self.scrollViewContentSize = self.scrollView.contentSize
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,9 +94,10 @@ class HotelsSearchVC: BaseVC {
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
         }
-        if !(self.scrollViewContentSize == CGSize.zero) {
+        if !(self.scrollViewContentSize == .zero) {
             self.updateCollectionViewFrame()
         }
+        self.shadowSetUp()
     }
     
     override func bindViewModel() {
@@ -150,17 +145,6 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
     }
     
-    ///RecentSearchData
-    private func recentSearchData() {
-        if let _ = self.returnUserId  {
-            self.viewModel.getRecentSearchesData()
-        } else {
-            self.recentContainerView.isHidden = true
-            self.recentContainerHeightConstraint.constant = 0.0
-            printDebug("User is not logged in")
-        }
-    }
-    
     //ScrollViewDidScroll
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -194,15 +178,27 @@ class HotelsSearchVC: BaseVC {
     private func initialSetups() {
         self.cityNameLabel.isHidden = true
         self.stateNameLabel.isHidden = true
-        self.containerView.cornerRadius = 10.0
-        self.containerView.clipsToBounds = true
+        self.shadowSetUp()
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        //self.containerView.addCardShadow()
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
-        self.recentSearchData()
+        self.getDataFromPreviousSearch()
+    }
+    
+    ///Shadow Set Up
+    private func shadowSetUp() {
+        // corner radius
+        self.containerView.layer.cornerRadius = 10
+        // border
+        //self.containerView.layer.borderWidth = 1.0
+        //        self.containerView.layer.borderColor = UIColor.black.cgColor
+        // shadow
+        self.containerView.layer.shadowColor = AppColors.themeDarkGreen.cgColor// UIColor.black.cgColor
+        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.containerView.layer.shadowOpacity = 0.7
+        self.containerView.layer.shadowRadius = 6.0
     }
     
     ///ConfigureCheckInOutView
@@ -239,20 +235,94 @@ class HotelsSearchVC: BaseVC {
     private func updateCollectionViewFrame() {
         if self.viewModel.adultsCount.count == 2 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
+                //self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
-                //self.view.layoutIfNeeded()
+//                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+                if self.recentContainerParentView.isHidden == false {
+                    self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+                } else {
+                    self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + 20.0
+                }
             }
         } else if self.viewModel.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
-                self.scrollView.contentSize.height = self.scrollViewContentSize.height
+//                self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
-                //self.view.layoutIfNeeded()
+                //self.scrollView.contentSize.height = self.scrollViewContentSize.height
+                if self.recentContainerParentView.isHidden == false {
+                    self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
+                } else {
+                    self.scrollView.contentSize.height = self.containerViewHeight + 20.0
+                }
             }
+        }
+    }
+    
+    ///GetDataFromPreviousSearch
+    private func getDataFromPreviousSearch() {
+        let date = Date()
+        if let hotelFormData = self.viewModel.hotelFormData, let checkInDate = hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
+            if date.daysBetweenDate(toDate: date, endDate: checkInDate) <= 0 {
+                //  self.viewModel.roomNumber = hotelFormData.roomNumber
+                self.viewModel.ratingCount = hotelFormData.ratingCount
+                self.viewModel.adultsCount = hotelFormData.adultsCount
+                self.viewModel.childrenCounts = hotelFormData.childrenCounts
+                self.viewModel.childrenAge = hotelFormData.childrenAge
+                self.viewModel.destId = hotelFormData.destId
+                self.viewModel.destType = hotelFormData.destType
+                self.viewModel.destName = hotelFormData.destName
+                self.viewModel.cityName = hotelFormData.cityName
+                self.viewModel.stateName = hotelFormData.stateName
+                self.viewModel.checkInDate = hotelFormData.checkInDate
+                self.viewModel.checkOutDate = hotelFormData.checkOutDate
+                self.fillDataFromPreviousSearch()
+            }
+        } else {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = true
+            }
+        }
+    }
+    
+    ///FillDataFromPreviousSearch
+    private func fillDataFromPreviousSearch() {
+        
+        self.cityNameLabel.text = self.viewModel.cityName
+        self.stateNameLabel.text = self.viewModel.stateName
+        self.cityNameLabel.isHidden = false
+        self.stateNameLabel.isHidden = false
+        if let checkInOutView = self.checkInOutView {
+            checkInOutView.fillPreviousData(viewModel: self.viewModel)
+        }
+        if self.viewModel.ratingCount.isEmpty || (self.viewModel.ratingCount == [1,2,3,4,5]) {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = true
+            }
+        } else {
+            for star in self.viewModel.ratingCount {
+                self.starButtonsOutlet[star - 1].isSelected = true
+            }
+        }
+        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
+        if self.viewModel.adultsCount.count >= 2 {
+            self.containerViewHeightConstraint.constant = self.containerViewHeight + self.collectionViewHeight
+        } else if self.viewModel.adultsCount.count == 1 {
+            self.containerViewHeightConstraint.constant = self.containerViewHeight
+        }
+        self.addRoomCollectionView.reloadData()
+    }
+    
+    ///RecentSearchData
+    private func recentSearchData() {
+        if let _ = self.returnUserId  {
+            self.viewModel.getRecentSearchesData()
+        } else {
+            self.hideRecentSearchesView()
+            printDebug("User is not logged in")
         }
     }
     
@@ -275,12 +345,25 @@ class HotelsSearchVC: BaseVC {
             else {
                 currentButton.isSelected = !currentButton.isSelected
             }
+            currentButton.isHighlighted = false
             if self.viewModel.ratingCount.contains(forStar) {
                 self.viewModel.ratingCount.remove(at: self.viewModel.ratingCount.firstIndex(of: forStar)!)
             }
             else {
                 self.viewModel.ratingCount.append(forStar)
-                
+            }
+        }
+        if self.viewModel.ratingCount.isEmpty || self.viewModel.ratingCount.count == 5 {
+            delay(seconds: 0.1) {
+                for starBtn in self.starButtonsOutlet {
+                    starBtn.isSelected = false
+                    starBtn.isHighlighted = true
+                }
+                self.viewModel.ratingCount.removeAll()
+            }
+        } else {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = false
             }
         }
     }
@@ -294,14 +377,14 @@ class HotelsSearchVC: BaseVC {
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty {
-            final = "0 \(LocalizedString.stars.localized)"
+        if arr.isEmpty || arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)"//"0 \(LocalizedString.stars.localized)"
             return final
         }
-        else if arr.count == maxCount {
-            final = "All \(LocalizedString.stars.localized)"
-            return final
-        }
+            //        else if arr.count == maxCount {
+            //            final = "All \(LocalizedString.stars.localized)"
+            //            return final
+            //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
             return final
@@ -357,15 +440,27 @@ class HotelsSearchVC: BaseVC {
         return final + " \(LocalizedString.stars.localized)"
     }
     
-    //MARK:- Public
+    ///Hide Recent Search View
+    private func hideRecentSearchesView() {
+        self.recentContainerParentView.isHidden = true
+        self.recentContainerHeightConstraint.constant = 0.0
+        self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + 20.0
+    }
     
+    ///Show Recent Search View
+    private func showRecentSearchView() {
+        self.recentContainerParentView.isHidden = false
+        self.recentContainerHeightConstraint.constant = self.recentSearchHeight//194.0
+//        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
+        self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+    }
+    
+    //MARK:- Public
     //MARK:- IBAction
     //===============
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
-        sender.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
@@ -414,7 +509,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
                 return UICollectionViewCell()
             }
             addRoomPicCell.delegate = self
-            addRoomPicCell.configureCell(viewModel: self.viewModel)
+            addRoomPicCell.configureCell(for: indexPath, viewModel: self.viewModel)
             return addRoomPicCell
         }
     }
@@ -424,15 +519,27 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             self.plusButtonTouched(indexPath: indexPath)
         } else if (collectionView.cellForItem(at: indexPath) as? AddRoomPictureCell) != nil {
             self.addRoomPicIndex = indexPath
-            AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: 1, selectedChildren: 0, selectedAges: [0], roomNumber: (indexPath.row + 1) , delegate: self)
+            AppFlowManager.default.showRoomGuestSelectionVC(selectedAdults: self.viewModel.adultsCount[indexPath.item], selectedChildren: self.viewModel.childrenCounts[indexPath.item], selectedAges: self.viewModel.childrenAge[indexPath.item], roomNumber: (indexPath.row + 1) , delegate: self)
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if self.collectionViewHeight != 0.0 {
-            return CGSize(width: self.cellWidth , height: self.collectionViewHeight)
-        } else {
-            return CGSize(width: self.cellWidth , height: self.cellHeight)
+        switch self.viewModel.adultsCount.count {
+        case 1:
+            return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height)
+        case 2:
+            let width = (indexPath.item == 2) ? collectionView.frame.width : collectionView.frame.width/2
+            return CGSize(width: width , height: collectionView.frame.height/2)
+        default:
+            return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
         }
     }
 }
@@ -451,8 +558,8 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                     self.addRoomCollectionView.insertItems(at: [indexPath])
-                }, completion: { (true) in
-                    self.reloadCollectionView()
+                    }, completion: { (true) in
+                        self.reloadCollectionView()
                 })
             }
         } else {
@@ -462,7 +569,6 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     
     ///Cancel Button Tapped
     func cancelButtonTouched(indexPath: IndexPath) {
-        
         if self.viewModel.adultsCount.count <= 4 {
             self.viewModel.adultsCount.remove(at: indexPath.item)
             self.viewModel.childrenCounts.remove(at: indexPath.item)
@@ -515,13 +621,16 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         printDebug("selected: \(hotel)")
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
+            self.viewModel.cityName = hotel.city
         } else {
             let newValue = hotel.value.split(separator: " ")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
+            self.viewModel.cityName = hotel.city
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
+        self.viewModel.stateName = hotel.value
         self.cityNameLabel.isHidden = false
         self.stateNameLabel.isHidden = false
         self.dataForApi(hotel: hotel)
@@ -533,9 +642,9 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
-      //  self.viewModel.hotelListOnPreferenceResult()
+        self.viewModel.saveFormDataToUserDefaults()
         self.view.isUserInteractionEnabled = true
-            self.searchBtnOutlet.isLoading = false
+        self.searchBtnOutlet.isLoading = false
         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
     }
     
@@ -547,30 +656,25 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         self.view.isUserInteractionEnabled = true
     }
     
-    func getAllHotelsListResultSuccess() {
-       
-    }
-    
-    func getAllHotelsListResultFail() {
-        
-    }
-    
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
             if recentSearchesData.isEmpty {
-                self.recentContainerView.isHidden = true
-                self.recentContainerHeightConstraint.constant = 0.0
+                self.hideRecentSearchesView()
             } else {
-                self.recentContainerView.isHidden = false
-                self.recentContainerHeightConstraint.constant = 194.0
+                self.showRecentSearchView()
                 recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
                 recentSearchesView.recentCollectionView.reloadData()
             }
+        } else {
+            self.showRecentSearchView()
         }
+        self.needToGetRecentSearches = true
         printDebug(self.viewModel.recentSearchesData)
     }
     
     func getRecentSearchesDataFail() {
+        self.hideRecentSearchesView()
         printDebug("recent searches data parsing failed")
     }
 }
+
