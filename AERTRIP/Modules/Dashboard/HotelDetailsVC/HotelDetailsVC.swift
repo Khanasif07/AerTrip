@@ -224,6 +224,41 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
+    private func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
+        if indexPath == IndexPath(row: 2, section: 0) {
+            if let hotelData = self.viewModel.hotelData {
+                let text = hotelData.address + "Maps   "
+                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                return size.height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+            }
+            else {
+                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+            }
+        } else if let index = self.currentIndexPath, index == indexPath, expandHeight > 0.0  {
+            return self.expandHeight
+        }
+        return UITableView.automaticDimension
+    }
+    
+    private func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
+        switch section {
+        case 1:
+            return 114.0
+        default:
+            return 0.0//CGFloat.leastNonzeroMagnitude
+        }
+    }
+    
+    private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0.0
+        default:
+            return 16.0
+        }
+    }
+    
     //Mark:- IBOActions
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
@@ -394,41 +429,6 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return self.heightForFooterView(tableView: tableView, section: section)
-    }
-    
-    private func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath == IndexPath(row: 2, section: 0) {
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps   "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
-            }
-            else {
-                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
-            }
-        } else if let index = self.currentIndexPath, index == indexPath, expandHeight > 0.0  {
-            return self.expandHeight
-        }
-        return UITableView.automaticDimension
-    }
-    
-    private func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
-        switch section {
-        case 1:
-            return 114.0
-        default:
-            return 0.0//CGFloat.leastNonzeroMagnitude
-        }
-    }
-    
-    private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 0.0
-        default:
-            return 16.0
-        }
     }
 }
 
