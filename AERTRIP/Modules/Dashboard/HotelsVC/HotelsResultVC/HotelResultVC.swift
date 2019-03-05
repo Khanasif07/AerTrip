@@ -663,11 +663,12 @@ extension HotelResultVC {
         
         let xPos = scrollView.contentOffset.x
         
-        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
-        
         let fractional: CGFloat = xPos / UIDevice.screenWidth
         let decimal: CGFloat = floor(fractional)
         let progress = fractional - decimal
+        
+//        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
+        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
         
         if xPos > self.oldScrollPosition.x {
             //forward
