@@ -38,9 +38,6 @@ struct HotelDetails {
     var checkout: String = ""
     var num_rooms: Int = 0
     var rates: [Rates]? = nil
-//    var completeRoomData: [RoomsRates: Int] {
-//        return self.getComleteRoomData()
-//    }
     var info: String = ""
     var ta_reviews: String  = ""
     var ta_web_url: String = ""
@@ -64,9 +61,7 @@ struct HotelDetails {
     init() {
         self.init(json: [:])
     }
-    
-    
-    
+
     var jsonDict: JSONDictionary {
         return [APIKeys.facilities.rawValue: self.facilities,
                 APIKeys.city_code.rawValue: self.city_code,
@@ -114,8 +109,7 @@ struct HotelDetails {
     }
     
     init(json: JSONDictionary) {
-        
-        
+
         if let obj = json[APIKeys.facilities.rawValue] {
             self.facilities = "\(obj)".removeNull
         }
@@ -243,21 +237,21 @@ struct HotelDetails {
     //Mark:- Functions
     //================
     
-    func getCompleteRates() -> ([RoomsRates],[Int]) {
-        var arraOfRoomRates = [RoomsRates]()
-        var arrayOfRoomCount = [Int]()
-        if let ratesData = self.rates {
-            for rate in ratesData  {
-                for (_,value) in rate.roomData.enumerated() {
-                    arrayOfRoomCount.append(value.value)
-                    arraOfRoomRates.append(value.key)
-                }
-            }
-            return (arraOfRoomRates,arrayOfRoomCount)
-        }
-        return (arraOfRoomRates,arrayOfRoomCount)
-    }
-    
+//    func getCompleteRates() -> ([RoomsRates],[Int]) {
+//        var arraOfRoomRates = [RoomsRates]()
+//        var arrayOfRoomCount = [Int]()
+//        if let ratesData = self.rates {
+//            for rate in ratesData  {
+//                for (_,value) in rate.roomData.enumerated() {
+//                    arrayOfRoomCount.append(value.value)
+//                    arraOfRoomRates.append(value.key)
+//                }
+//            }
+//            return (arraOfRoomRates,arrayOfRoomCount)
+//        }
+//        return (arraOfRoomRates,arrayOfRoomCount)
+//    }
+//
     ///Static Function
     static func hotelInfo(response: JSONDictionary) -> HotelDetails {
         let hotelInfo = HotelDetails(json: response)

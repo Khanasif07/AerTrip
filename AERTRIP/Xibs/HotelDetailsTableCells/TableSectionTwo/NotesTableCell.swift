@@ -37,7 +37,6 @@ class NotesTableCell: UITableViewCell {
         self.btnContainerView.addGradientWithColor(color: AppColors.themeWhite)
         //Font
         self.notesTitle.font = AppFonts.Regular.withSize(14.0)
-        self.notesTitle.font = AppFonts.Regular.withSize(14.0)
         //TextColo
         self.notesTitle.textColor = AppColors.themeGray40
         self.noteLabel.textColor = AppColors.textFieldTextColor51

@@ -33,15 +33,15 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
-    var roomRatesData = [RoomsRates]()
-    var roomCount = [Int]()
+    var roomRatesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
-    //var mode: String = "WALKING"
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
+    
+    ///Computed Property
     private var getHotelInfoParams: JSONDictionary {
         let params: JSONDictionary = [APIKeys.vid.rawValue : (self.hotelInfo?.vid ?? "") , APIKeys.hid.rawValue : (self.hotelInfo?.hid ?? ""), APIKeys.sid.rawValue : self.hotelSearchRequest?.sid ?? ""]
         return params

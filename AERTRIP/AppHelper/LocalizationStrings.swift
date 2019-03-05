@@ -409,6 +409,7 @@ enum LocalizedString: String {
     case PartRefundable = "PartRefundable"
     case NonRefundable = "Nonrefundable"
     case NonRefundableExplanation = "NonRefundableExplanation"
+    case FullPaymentExplanation = "FullPaymentExplanation"
     case FreeCancellation = "FreeCancellation"
     case FullPaymentNow = "FullPaymentNow"
     
@@ -452,4 +453,7 @@ enum LocalizedString: String {
     case Info = "Info"
     case Book = "Book"
     case rupeesText = "rupeesText"
+    case Whoops = "Whoops"
+    case HotelDetailsEmptyState = "HotelDetailsEmptyState"
+    case ResetFilter = "ResetFilter"
 }

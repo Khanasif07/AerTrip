@@ -13,13 +13,12 @@ class HotelDetailsVC: BaseVC {
     //Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsVM()
-    private var isDataLoaded: Bool = false
     private var completion: (() -> Void)? = nil
-
+    
     private var initialPanPoint: CGPoint = .zero
     private weak var imagesCollectionView: UICollectionView?
     private var expandHeight: CGFloat = 0.0
-    private var currentIndexPath: IndexPath?
+    private var allIndexPath = [IndexPath]()
     
     //Mark:- IBOutlets
     //================
@@ -116,10 +115,10 @@ class HotelDetailsVC: BaseVC {
             sSelf.imageView.frame = newImageFrame
             sSelf.hotelTableView.frame = newTableFrame
             sSelf.hotelTableView.alpha = 1.0
-//            sSelf.hotelTableView.transform = CGAffineTransform.identity
-        }, completion: { [weak self](isDone) in
-            guard let sSelf = self else {return}
-            sSelf.imageView.isHidden = true
+            //            sSelf.hotelTableView.transform = CGAffineTransform.identity
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                sSelf.imageView.isHidden = true
         })
     }
     
@@ -140,7 +139,7 @@ class HotelDetailsVC: BaseVC {
     //==============
     private func setupBeforeAnimation() {
         guard let sourceV = self.sourceView, let parant = self.parentVC else {return}
-
+        
         //setup image view
         self.imageView.setImageWithUrl(self.viewModel.hotelInfo?.thumbnail?.first ?? "", placeholder: AppPlaceholderImage.hotelCard, showIndicator: true)
         self.imageView.isHidden = false
@@ -182,7 +181,7 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
-        self.hotelTableView.registerCell(nibName: NotesTableCell.reusableIdentifier)
+//        self.hotelTableView.registerCell(nibName: NotesTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
     }
@@ -199,15 +198,18 @@ class HotelDetailsVC: BaseVC {
                     self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
                 }
             } else {
-                self.openGoogleMaps(lat: self.viewModel.hotelData?.lat ?? "", long: self.viewModel.hotelData?.long ?? "")
+                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
+                    self.openGoogleMaps(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                }
             }
         }
     }
     
-    private func openGoogleMaps(lat: String,long:String) {
+    //"comgooglemaps://?center=\(lat),\(long)&zoom=14&views=traffic"
+    private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             if let url = URL(string:
-                "comgooglemaps://?center=\(lat),\(long)&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
+                "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
@@ -216,6 +218,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+        
         let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
         if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -235,8 +238,6 @@ class HotelDetailsVC: BaseVC {
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
             }
-        } else if let index = self.currentIndexPath, index == indexPath, expandHeight > 0.0  {
-            return self.expandHeight
         }
         return UITableView.automaticDimension
     }
@@ -244,19 +245,17 @@ class HotelDetailsVC: BaseVC {
     private func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
         switch section {
         case 1:
-            return 114.0
+            return 94.0
         default:
-            return 0.0//CGFloat.leastNonzeroMagnitude
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     
     private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 0.0
-        default:
-            return 16.0
+        if section == 1{
+            return 4.0
         }
+       return 16.0
     }
     
     //Mark:- IBOActions
@@ -433,9 +432,12 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 }
 
 extension HotelDetailsVC: HotelDetailDelegate {
-
+    
     func getHotelDetailsSuccess() {
-        self.isDataLoaded = true
+//        self.viewModel.roomRatesData = self.viewModel.hotelData?.rates ?? [Rates]()
+//        for rates in self.viewModel.roomRatesData {
+//            self.viewModel.roomRates.append(rates.roomData)
+//        }
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
@@ -548,9 +550,19 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
 }
 
 extension HotelDetailsVC: GetFullInfoDelegate {
-    func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath, attributedString: NSMutableAttributedString) {
         self.expandHeight = expandHeight
-        self.currentIndexPath = indexPath
-        self.hotelTableView.reloadRow(at: indexPath, with: .fade)
+        if !allIndexPath.contains(indexPath) {
+            self.allIndexPath.append(indexPath)
+            self.hotelTableView.performBatchUpdates({ [weak self] in
+                if let cell = self?.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCancelPolicyTableCell {
+                    cell.infoBtnOutlet.isHidden = true
+                    cell.allDetailsLabel.isHidden = false
+                    cell.allDetailsLabel.attributedText = attributedString.trimWhiteSpace()
+                }
+                self?.hotelTableView.reloadRows(at: [indexPath], with: .fade)
+            }) { (isDone) in
+            }
+        }
     }
 }
