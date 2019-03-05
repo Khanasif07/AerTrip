@@ -13,7 +13,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     private var typesOfBed = [String]()
-    internal var bedPickerView = UIPickerView()
+    private var bedPickerView = UIPickerView()
     
     //Mark:- IBOutlets
     //================
@@ -81,7 +81,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         dropDownButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 0.0, bottom: 0.0, right: 0.0)
         dropDownButton.setImage(#imageLiteral(resourceName: "downArrow").withRenderingMode(.alwaysTemplate), for: .normal)
         dropDownButton.imageView?.tintColor = AppColors.themeGreen
-//        dropDownButton.addTarget(self, action: #selector(self.dropDowBtnAction), for: .touchUpInside)
         self.dropDownTextField.rightView = dropDownButton
         self.dropDownTextField.rightViewMode = .always
     }
@@ -122,10 +121,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     @objc func doneBedPicker(){
         self.endEditing(true)
     }
-    
-//    @objc func dropDowBtnAction(_ sender: UIButton) {
-//    }
-    
 }
 
 

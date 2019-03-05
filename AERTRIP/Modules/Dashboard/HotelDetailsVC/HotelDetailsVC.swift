@@ -107,30 +107,20 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func registerNibs() {
-        let nib = UINib(nibName: "HotelDetailsImgSlideCell", bundle: nil)
-        self.hotelTableView.register(nib, forCellReuseIdentifier: "HotelDetailsImgSlideCell")
-        let hotelInfoNib = UINib(nibName: "HotelRatingInfoCell", bundle: nil)
-        self.hotelTableView.register(hotelInfoNib, forCellReuseIdentifier: "HotelRatingInfoCell")
-        let loaderNib = UINib(nibName: "HotelDetailsLoaderTableViewCell", bundle: nil)
-        self.hotelTableView.register(loaderNib, forCellReuseIdentifier: "HotelDetailsLoaderTableViewCell")
-        let hotelInfoAddressNib = UINib(nibName: "HotelInfoAddressCell", bundle: nil)
-        self.hotelTableView.register(hotelInfoAddressNib, forCellReuseIdentifier: "HotelInfoAddressCell")
+        self.hotelTableView.registerCell(nibName: HotelDetailsImgSlideCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelRatingInfoCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsLoaderTableViewCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
         self.hotelTableView.register(HotelFilterResultFooterView.self, forHeaderFooterViewReuseIdentifier: "HotelFilterResultFooterView")
-        let amenitiesNib = UINib(nibName: "HotelDetailAmenitiesCell", bundle: nil)
-        self.hotelTableView.register(amenitiesNib, forCellReuseIdentifier: "HotelDetailAmenitiesCell")
-        let tripAdvisorNib = UINib(nibName: "TripAdvisorTableViewCell", bundle: nil)
-        self.hotelTableView.register(tripAdvisorNib, forCellReuseIdentifier: "TripAdvisorTableViewCell")
+        self.hotelTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)
         self.hotelTableView.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: "SearchBarHeaderView")
-        let hotelBedsNib = UINib(nibName: "HotelDetailsBedsTableViewCell", bundle: nil)
-        self.hotelTableView.register(hotelBedsNib, forCellReuseIdentifier: "HotelDetailsBedsTableViewCell")
-        let inclusionNib = UINib(nibName: "HotelDetailsInclusionTableViewCell", bundle: nil)
-        self.hotelTableView.register(inclusionNib, forCellReuseIdentifier: "HotelDetailsInclusionTableViewCell")
-        let cancellationNib = UINib(nibName: "HotelDetailsCancelPolicyTableCell", bundle: nil)
-        self.hotelTableView.register(cancellationNib, forCellReuseIdentifier: "HotelDetailsCancelPolicyTableCell")
-        let notesNIb = UINib(nibName: "NotesTableCell", bundle: nil)
-        self.hotelTableView.register(notesNIb, forCellReuseIdentifier: "NotesTableCell")
-        let checkOutNib = UINib(nibName: "HotelDetailsCheckOutTableViewCell", bundle: nil)
-        self.hotelTableView.register(checkOutNib, forCellReuseIdentifier: "HotelDetailsCheckOutTableViewCell")
+        self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: NotesTableCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
     }
     
     private func redirectToMap() {
@@ -220,6 +210,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case 1:
                 return 0
             default:
+                self.viewModel.roomRates.append(rates[section - 2].roomData)
                 return rates[section - 2].tableViewRowCell.count //rates[section - 1].getTotalNumberOfRows()
             }
         }
@@ -256,7 +247,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 let currentRatesData = ratesData[indexPath.section - 2]
                 switch currentRatesData.tableViewRowCell[indexPath.row] {
                 case .roomBedsType:
-                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
+//                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
+                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
                         return cell
                     }
                 case .inclusion:

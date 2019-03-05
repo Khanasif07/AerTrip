@@ -407,6 +407,7 @@ enum LocalizedString: String {
     case Refundable = "Refundable"
     case PartRefundable = "PartRefundable"
     case NonRefundable = "Nonrefundable"
+    case NonRefundableExplanation = "NonRefundableExplanation"
     case FreeCancellation = "FreeCancellation"
     case FullPaymentNow = "FullPaymentNow"
     

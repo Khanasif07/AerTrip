@@ -470,7 +470,6 @@ class HotelsSearchVC: BaseVC {
     @IBAction func searchButtonAction(_ sender: ATButton) {
         self.view.isUserInteractionEnabled = false
         sender.isLoading = true
-        self.viewModel.saveFormDataToUserDefaults()
         self.viewModel.hotelListOnPreferencesApi()
     }
     
@@ -645,6 +644,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
+        self.viewModel.saveFormDataToUserDefaults()
         self.view.isUserInteractionEnabled = true
         self.searchBtnOutlet.isLoading = false
         AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
@@ -654,7 +654,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
         self.view.isUserInteractionEnabled = true
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
+        //AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
     }
     
     func getRecentSearchesDataSuccess() {

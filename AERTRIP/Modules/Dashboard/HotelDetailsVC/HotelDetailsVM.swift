@@ -33,7 +33,9 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
-    internal var ratesData = [Rates]()
+    var roomRatesData = [RoomsRates]()
+    var roomCount = [Int]()
+    var roomRates = [[RoomsRates : Int]]()
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
@@ -68,7 +70,6 @@ class HotelDetailsVM {
 //            if success {
 //                if let safeHotelData = hotelData {
 //                    sSelf.hotelData = safeHotelData
-//                    sSelf.ratesData = safeHotelData.rates!
 //                    sSelf.delegate?.getHotelDetailsSuccess()
 //                }
 //            } else {
