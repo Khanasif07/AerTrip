@@ -138,8 +138,8 @@ class HotelResultVC: BaseVC {
     // MARK: -
     override func initialSetup() {
         
-        self.relocateSwitchButton(shouldMoveUp: false, animated: false)
-        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: false)
+//        self.relocateSwitchButton(shouldMoveUp: false, animated: false)
+//        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: false)
         
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
@@ -331,6 +331,7 @@ class HotelResultVC: BaseVC {
             if isHidden {
                 self.floatingButtonBackView.isHidden = true
                 self.collectionView.isHidden = true
+                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
         })
     }
@@ -674,53 +675,102 @@ extension HotelResultVC {
         let decimal: CGFloat = floor(fractional)
         let progress = fractional - decimal
         
-//        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
-        let point = CGPoint(x: xPos+self.collectionView.width, y: scrollView.contentOffset.y)
+        let currentPoint = CGPoint(x: decimal * UIDevice.screenWidth, y: scrollView.contentOffset.y)
+        guard 0.01...0.99 ~= progress else {
+            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+                //current grouped cell
+                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
+            }
+            else {
+                //current normal cell
+                self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+            }
+            return
+        }
+        
+        let nextPoint = CGPoint(x: (decimal+1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
+        let prevPoint = CGPoint(x: (decimal-1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
         
         if xPos > self.oldScrollPosition.x {
             //forward
-            printDebug("forward, \(progress)")
-            if let _ = self.collectionView.indexPathForItem(at: point) {
-                //grouped cell
-                if progress < 0.5 {
+            printDebug("forward, \(fractional)")
+            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+                //current grouped cell
+                if let _ = self.collectionView.indexPathForItem(at: nextPoint) {
+                    //next grouped cell
+                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
                 }
                 else {
-                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                    //next normal cell
+                    if progress < 0.5 {
+                        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                    }
+                    else {
+                        self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                    }
                 }
             }
             else {
-                //normal cell
-                if progress < 0.5 {
-                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                //current normal cell
+                if let _ = self.collectionView.indexPathForItem(at: nextPoint) {
+                    //next grouped cell
+                    if progress < 0.5 {
+                        self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
+                    }
+                    else {
+                        self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                    }
                 }
                 else {
+                    //next normal cell
                     self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
                 }
             }
         }
         else {
             //backward
-            printDebug("backward, \(progress)")
-            if let _ = self.collectionView.indexPathForItem(at: point) {
-                //grouped cell
-                if progress < 0.5 {
+            printDebug("backward, \(fractional)")
+            
+            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+                //current grouped cell
+                if let _ = self.collectionView.indexPathForItem(at: prevPoint) {
+                    //prev grouped cell
+                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
                 }
                 else {
-                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                    //prev normal cell
+                    if progress < 0.5 {
+                        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                    }
+                    else {
+                        self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                    }
                 }
             }
             else {
-                //normal cell
-                if progress < 0.5 {
-                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
+                //current normal cell
+                if let _ = self.collectionView.indexPathForItem(at: prevPoint) {
+                    //prev grouped cell
+                    if progress < 0.5 {
+                        self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
+                    }
+                    else {
+                        self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                    }
                 }
                 else {
+                    //prev normal cell
                     self.relocateSwitchButton(shouldMoveUp: false, animated: true)
+                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
                 }
             }
         }
+        self.oldScrollPosition = scrollView.contentOffset
     }
     
     func manageMapViewOnScroll(_ scrollView: UIScrollView) {
@@ -742,7 +792,6 @@ extension HotelResultVC {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         manageTopHeader(scrollView)
-        self.oldScrollPosition = scrollView.contentOffset
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
