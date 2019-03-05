@@ -28,6 +28,8 @@ struct AppToast {
     private init() {}
     static private var isPreviousView = false
     
+    private let spaceFromBottom: CGFloat = 10.0
+    
     func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil) {
         
         if !AppToast.isPreviousView {
@@ -53,7 +55,7 @@ struct AppToast {
         vc.view.addSubview(ob)
         ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + UIApplication.shared.statusBarFrame.height) , width: UIDevice.screenWidth - 20, height: CGFloat(height))
+            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + AppFlowManager.default.safeAreaInsets.bottom + self.spaceFromBottom) , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         }
         
         delay(seconds: duration) {

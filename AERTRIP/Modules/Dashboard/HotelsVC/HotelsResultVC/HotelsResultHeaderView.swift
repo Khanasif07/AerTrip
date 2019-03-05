@@ -30,8 +30,8 @@ class HotelsResultHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.mapImageView.isUserInteractionEnabled = true
         self.setupFontsAndText()
-        
     }
     
     override func layoutSubviews() {

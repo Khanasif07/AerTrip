@@ -27,13 +27,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbB-Bu-6oD">
-                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
+                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-DZ-l7C">
-                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1923,6 +1923,10 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="PE7-r5-Of9" secondAttribute="trailing" id="pVV-in-4Gt"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4L4-0l-go0">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGi-oq-CiZ">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2338,13 +2342,17 @@ been sent</string>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="bottom" secondItem="8VE-Es-wDg" secondAttribute="bottom" constant="10" id="V2i-cX-9xL"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" id="XXd-Kn-pwM"/>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="trailing" secondItem="vPy-PP-d5W" secondAttribute="trailing" id="c4y-V0-1bQ"/>
+                            <constraint firstItem="6q0-jH-RZM" firstAttribute="trailing" secondItem="4L4-0l-go0" secondAttribute="trailing" id="dRr-o2-74I"/>
                             <constraint firstItem="vGi-oq-CiZ" firstAttribute="bottom" secondItem="6q0-jH-RZM" secondAttribute="bottom" id="f0K-MP-bjU"/>
+                            <constraint firstItem="4L4-0l-go0" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="n8i-mv-POU"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="trailing" secondItem="6q0-jH-RZM" secondAttribute="trailing" id="obY-wF-NYw"/>
                             <constraint firstItem="8VE-Es-wDg" firstAttribute="leading" secondItem="C4Q-Za-jnc" secondAttribute="leading" id="sW8-eA-c33"/>
                             <constraint firstItem="vGi-oq-CiZ" firstAttribute="trailing" secondItem="6q0-jH-RZM" secondAttribute="trailing" id="sXG-1X-JdA"/>
+                            <constraint firstItem="4L4-0l-go0" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" constant="100" id="t1R-Xg-c2P"/>
                             <constraint firstItem="vPy-PP-d5W" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="tD9-CL-Efh"/>
                             <constraint firstItem="vGi-oq-CiZ" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" constant="100" id="wdp-OY-KcH"/>
                             <constraint firstItem="02F-ux-wR2" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="wuG-be-VWi"/>
+                            <constraint firstItem="6q0-jH-RZM" firstAttribute="bottom" secondItem="4L4-0l-go0" secondAttribute="bottom" id="xK9-Gf-Rcg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6q0-jH-RZM"/>
                     </view>
@@ -2364,6 +2372,8 @@ been sent</string>
                         <outlet property="headerContainerViewTopConstraint" destination="XXd-Kn-pwM" id="A3j-sW-Z9s"/>
                         <outlet property="headerContatinerViewHeightConstraint" destination="A8h-NR-7c3" id="jTA-cD-SCn"/>
                         <outlet property="mapButton" destination="pON-oQ-gk6" id="I6O-WA-rBK"/>
+                        <outlet property="mapContainerTopConstraint" destination="t1R-Xg-c2P" id="Uwc-9p-se9"/>
+                        <outlet property="mapContainerView" destination="4L4-0l-go0" id="Le0-3B-l3y"/>
                         <outlet property="navContainerView" destination="vvc-1T-CbH" id="9cd-qe-CEn"/>
                         <outlet property="progressView" destination="jG6-4j-fP5" id="1FQ-Kx-nq0"/>
                         <outlet property="searchBar" destination="y6m-ss-Adv" id="TyD-qS-Yha"/>

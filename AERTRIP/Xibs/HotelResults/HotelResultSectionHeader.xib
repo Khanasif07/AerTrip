@@ -23,7 +23,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y26-EA-bsf">
                     <rect key="frame" x="0.0" y="0.0" width="473" height="69"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Av-fi-5Tj">
                     <rect key="frame" x="220.5" y="24" width="32.5" height="21"/>
@@ -35,7 +35,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="8Av-fi-5Tj" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Qta-m2-diU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="Y26-EA-bsf" secondAttribute="top" id="Rrj-c0-q45"/>

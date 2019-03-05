@@ -44,7 +44,7 @@ class HotelResultVC: BaseVC {
         didSet {
             collectionView.registerCell(nibName: "HotelCardCollectionViewCell")
             collectionView.registerCell(nibName: "HotelGroupCardCollectionViewCell")
-            collectionView.isPagingEnabled = false
+            collectionView.isPagingEnabled = true
             collectionView.delegate = self
             collectionView.dataSource = self
         }
@@ -70,8 +70,16 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
+    @IBOutlet weak var mapContainerView: UIView!
+    @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
+    let kClusterItemCount = 50
+    private var clusterManager: GMUClusterManager!
+    
+    var markers: [(marker: CustomMarker, hid: Int)] = []
+    var activeMarker = GMSMarker()
+    var mapView: GMSMapView?
     
     var container: NSPersistentContainer!
     var predicateStr: String = ""
@@ -111,7 +119,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Private
     
     let viewModel = HotelsResultVM()
-    var header = HotelsResultHeaderView.instanceFromNib()
+//    var header = HotelsResultHeaderView.instanceFromNib()
     var locManager = CLLocationManager()
     var currentLocation: CLLocation?
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
@@ -127,7 +135,6 @@ class HotelResultVC: BaseVC {
     override func initialSetup() {
         
         self.animateCollectionView(isHidden: true, animated: false)
-        self.currentLocationButton.isHidden = true
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
 
         self.view.backgroundColor = AppColors.themeWhite
@@ -143,10 +150,7 @@ class HotelResultVC: BaseVC {
         }
         
         self.initialSetups()
-        delay(seconds: 0.5) {
-            self.setupMapView()
-        }
-        
+
         self.startProgress()
         self.completion = { [weak self] in
             self?.loadSaveData()
@@ -156,6 +160,12 @@ class HotelResultVC: BaseVC {
         self.getFavouriteHotels()
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
+        
+        self.addMapView()
+        
+        self.setUpClusterManager()
+        self.generateClusterItems()
+        self.clusterSetUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +176,12 @@ class HotelResultVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        mapView?.frame = self.header.mapImageView.bounds
     }
     
     // MARK: - Methods
@@ -208,7 +224,11 @@ class HotelResultVC: BaseVC {
     
     private func setupTableHeader() {
         
+        header.mapImageView.translatesAutoresizingMaskIntoConstraints = true
+        header.mapImageView.clipsToBounds = true
+        header.mapImageView.frame = CGRect(x: 0.0, y: 0.0, width: header.mapImageView.frame.width, height: 160.0)
         self.tableViewVertical.backgroundView = header
+        header.layoutIfNeeded()
         
         let shadowsHeight: CGFloat = 60.0
         
@@ -222,29 +242,6 @@ class HotelResultVC: BaseVC {
         self.tableViewVertical.tableHeaderView = hView
     }
     
-    private func setupMapView() {
-        self.locManager.requestWhenInUseAuthorization()
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {}
-        
-        let camera = GMSCameraPosition.camera(withLatitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: UIDevice.screenWidth, height: UIDevice.screenHeight), camera: camera)
-        
-        mapView.isMyLocationEnabled = true
-        self.locManager.delegate = self
-        self.locManager.startUpdatingLocation()
-        
-        self.header.addSubview(mapView)
-        
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
-        
-        marker.title = marker.title
-        marker.snippet = "Australia"
-        marker.map = mapView
-    }
-    
     private func reloadHotelList() {
         
         self.tableViewVertical.isHidden = true
@@ -252,6 +249,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.isHidden = false
         }
         self.tableViewVertical.reloadData()
+        self.collectionView.reloadData()
     }
     
     private func searchHotels(forText: String) {
@@ -300,11 +298,11 @@ class HotelResultVC: BaseVC {
         
         self.animateCollectionView(isHidden: false, animated: true)
         
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//            self.tableViewVertical.contentOffset = hiddenOffset
-//        }, completion: { (isDone) in
-//            self.tableViewVertical.isScrollEnabled = false
-//        })
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.tableViewVertical.contentOffset = hiddenOffset
+        }, completion: { (isDone) in
+            self.tableViewVertical.isScrollEnabled = false
+        })
     }
     
     func convertToListView() {
@@ -318,23 +316,26 @@ class HotelResultVC: BaseVC {
         
         self.animateCollectionView(isHidden: true, animated: true)
         
-//        self.tableViewVertical.isScrollEnabled = true
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//            self.tableViewVertical.contentOffset = CGPoint.zero
-//        }, completion: { (isDone) in
-//
-//        })
+        self.tableViewVertical.isScrollEnabled = true
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.tableViewVertical.contentOffset = CGPoint.zero
+        }, completion: { (isDone) in
+
+        })
     }
     
     private func animateCollectionView(isHidden: Bool, animated: Bool) {
         collectionView.translatesAutoresizingMaskIntoConstraints = true
         let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
-        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
+        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
 
         if !isHidden {
             self.collectionView.isHidden = false
             self.floatingButtonBackView.isHidden = false
         }
+        
+        
+        header.mapImageView.frame = CGRect(x: 0.0, y: 0.0, width: header.mapImageView.frame.width, height: isHidden ? 160.0 : tableViewVertical.height)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
             self.collectionView.alpha = isHidden ? 0.0 : 1.0
@@ -646,18 +647,16 @@ extension HotelResultVC {
             return
         }
         
-        print(scrollView.contentOffset)
+        printDebug(scrollView.contentOffset)
         
         let xPosition = scrollView.contentOffset.x
         
         let item = xPosition / UIDevice.screenWidth
-        
-        print(item)
+        printDebug(item)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageTopHeader(scrollView)
-        manageFloatingButtonOnPaginationScroll(scrollView)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -685,7 +684,7 @@ extension HotelResultVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         printDebug("location \(String(describing: locations.last))")
         self.currentLocation = locations.last
-        self.setupMapView()
+        self.addMapView()
     }
 }
 
@@ -781,6 +780,7 @@ extension HotelResultVC: HotelResultDelegate {
             self.getPinnedHotelTemplate()
             self.time += 1
             self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            self.updateMarkers()
         }
     }
     
@@ -884,7 +884,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (self.fetchedResultsController.sections?.count ?? 0) - self.hideSection
+        return (self.fetchedResultsController.sections?.count ?? 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -905,7 +905,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
         self.isFotterVisible = self.isAboveTwentyKm
         
-        if indexPath.item%3 != 0, false {
+        if indexPath.item%3 != 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelGroupCardCollectionViewCell", for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
@@ -936,6 +936,150 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
             self.expandGroup()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let hData = fetchedResultsController.object(at: indexPath)
+        updateMarker(coordinates: CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0))
+    }
+}
+
+
+extension HotelResultVC {
+    private func addMapView() {
+        self.locManager.requestWhenInUseAuthorization()
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways {}
+        
+        let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 14.0)
+        
+        let mapV = GMSMapView.map(withFrame: header.mapImageView.bounds, camera: camera)
+        mapView = mapV
+        mapV.setMinZoom(1.0, maxZoom: 30.0)
+        mapV.isMyLocationEnabled = true
+        mapV.delegate = self
+        mapV.backgroundColor = .red
+        
+        header.mapImageView.addSubview(mapV)
+        header.mapImageView.image = nil
+        
+        activeMarker = GMSMarker()
+        activeMarker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
+        
+        self.updateMarkers()
+    }
+    
+    func updateMarkers() {
+//        guard let mapV = self.mapView else {return}
+//        self.removeAllMerkers()
+//        let hotels = fetchedResultsController.fetchedObjects ?? []
+//        guard hotels.count > 10 else {return}
+//        for hotel in hotels[0...15] {
+//            let marker = GMSMarker()
+//            let LocationAtual: CLLocation = CLLocation(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
+//            marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)
+//            marker.title = marker.title
+//            //  marker.icon = hotel.fav == "0" ? UIImage(named: "clusterSmallTag") : UIImage(named: "favHotelWithShadowMarker")
+//            let customMarkerView = CustomMarker.instanceFromNib()
+//            customMarkerView.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+//            marker.iconView = customMarkerView
+//            marker.map = mapV
+//
+//            markers.append((marker: customMarkerView, hid: Int(hotel.hid ?? "") ?? 0))
+//        }
+    }
+    
+    func removeAllMerkers() {
+        self.mapView?.clear()
+    }
+    
+    func updateMarker(coordinates: CLLocationCoordinate2D) {
+        mapView?.animate(toLocation: coordinates)
+    }
+    
+    private func clusterSetUp() {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: kCameraLatitude, longitude: kCameraLongitude, zoom: 6)
+        if let mapView = mapView {
+            mapView.camera = camera
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+    private func setUpClusterManager() {
+        // Set up the cluster manager with the supplied icon generator and
+        // renderer.
+        if let mapView = mapView {
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+            let renderer = GMUDefaultClusterRenderer(mapView: mapView,
+                                                     clusterIconGenerator: iconGenerator)
+            renderer.delegate = self
+            clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+                                               renderer: renderer)
+        }
+    }
+    
+    /// Randomly generates cluster items within some extent of the camera and
+    /// adds them to the cluster manager.
+    private func generateClusterItems() {
+        let extent = 0.2
+        for index in 1...kClusterItemCount {
+            let lat = kCameraLatitude + extent * randomScale()
+            let lng = kCameraLongitude + extent * randomScale()
+            let name = "Item \(index)"
+            let item =
+                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+            clusterManager.add(item)
+        }
+    }
+    
+    /// Returns a random value between -1.0 and 1.0.
+    private func randomScale() -> Double {
+        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
+    }
+}
+
+extension HotelResultVC: GMSMapViewDelegate {
+
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let lat = mapView.myLocation?.coordinate.latitude,
+            let lng = mapView.myLocation?.coordinate.longitude else { return false }
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 20)
+        mapView.animate(to: camera)
+        
+        return true
+    }
+    
+    // MARK: - GMSMarker Dragging
+    
+    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
+        printDebug("didBeginDragging")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
+        printDebug("didDrag")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        printDebug("didEndDragging")
+    }
+}
+
+
+// MARK: - GMUClusterManagerDelegate
+
+extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
+    private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
+        if let mapView = mapView {
+            let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+                                                     zoom: mapView.camera.zoom + 1)
+            let update = GMSCameraUpdate.setCamera(newCamera)
+            mapView.moveCamera(update)
         }
     }
 }
