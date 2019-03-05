@@ -43,6 +43,43 @@
                                     <constraint firstAttribute="height" constant="50" id="nYt-Fd-kBe"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nq5-oc-9bO">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-e0-u6T">
+                                        <rect key="frame" x="16" y="16.5" width="33" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="33" id="8hJ-XZ-4oo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="₹ 35,500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMa-Pj-5RO">
+                                        <rect key="frame" x="57" y="13" width="84" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSk-o0-OHD">
+                                        <rect key="frame" x="161" y="13" width="198" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="BSk-o0-OHD" secondAttribute="trailing" constant="16" id="ETZ-ik-PKd"/>
+                                    <constraint firstItem="BSk-o0-OHD" firstAttribute="centerY" secondItem="Nq5-oc-9bO" secondAttribute="centerY" id="H5N-6c-JQd"/>
+                                    <constraint firstItem="TMa-Pj-5RO" firstAttribute="centerY" secondItem="Ovj-e0-u6T" secondAttribute="centerY" id="Odt-IW-9NN"/>
+                                    <constraint firstItem="Ovj-e0-u6T" firstAttribute="centerY" secondItem="Nq5-oc-9bO" secondAttribute="centerY" id="WGF-jh-2Ua"/>
+                                    <constraint firstItem="BSk-o0-OHD" firstAttribute="leading" secondItem="TMa-Pj-5RO" secondAttribute="trailing" constant="20" id="eid-lJ-ed6"/>
+                                    <constraint firstAttribute="height" constant="50" id="iiB-AY-qxc"/>
+                                    <constraint firstItem="Ovj-e0-u6T" firstAttribute="leading" secondItem="Nq5-oc-9bO" secondAttribute="leading" constant="16" id="uwZ-jM-a5O"/>
+                                    <constraint firstItem="TMa-Pj-5RO" firstAttribute="leading" secondItem="Ovj-e0-u6T" secondAttribute="trailing" constant="8" id="ztf-mc-yuM"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -50,21 +87,28 @@
                             <constraint firstItem="I6N-f4-mml" firstAttribute="trailing" secondItem="5kb-Qa-Qei" secondAttribute="trailing" id="2Lm-gv-daM"/>
                             <constraint firstItem="iuD-wn-tNY" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="7X0-4v-YJu"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="iuD-wn-tNY" secondAttribute="trailing" id="7gm-Mh-Ee0"/>
+                            <constraint firstItem="Nq5-oc-9bO" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="ASf-ih-nQu"/>
                             <constraint firstItem="9ab-Nu-HFX" firstAttribute="centerX" secondItem="78m-1T-7vc" secondAttribute="centerX" id="FSt-BG-9hW"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="leading" secondItem="9fY-5w-aem" secondAttribute="leading" id="HAc-Yw-jJT"/>
+                            <constraint firstItem="9fY-5w-aem" firstAttribute="bottom" secondItem="Nq5-oc-9bO" secondAttribute="bottom" id="WzB-gR-4kP"/>
                             <constraint firstItem="I6N-f4-mml" firstAttribute="top" secondItem="5kb-Qa-Qei" secondAttribute="top" id="Zce-dv-mwC"/>
                             <constraint firstItem="5kb-Qa-Qei" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" id="bsY-hq-LLI"/>
                             <constraint firstItem="9ab-Nu-HFX" firstAttribute="top" secondItem="9fY-5w-aem" secondAttribute="top" constant="6" id="dhg-ox-GBO"/>
                             <constraint firstAttribute="bottom" secondItem="5kb-Qa-Qei" secondAttribute="bottom" id="j40-dD-0tG"/>
+                            <constraint firstItem="Nq5-oc-9bO" firstAttribute="trailing" secondItem="9fY-5w-aem" secondAttribute="trailing" id="jzc-YH-cuh"/>
                             <constraint firstItem="I6N-f4-mml" firstAttribute="leading" secondItem="5kb-Qa-Qei" secondAttribute="leading" id="n3r-DX-hu3"/>
                             <constraint firstItem="9fY-5w-aem" firstAttribute="trailing" secondItem="5kb-Qa-Qei" secondAttribute="trailing" id="oNd-9w-az9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9fY-5w-aem"/>
                     </view>
                     <connections>
+                        <outlet property="footerView" destination="Nq5-oc-9bO" id="LFF-4M-Kvk"/>
+                        <outlet property="fromLabel" destination="Ovj-e0-u6T" id="pKi-0M-nOF"/>
                         <outlet property="headerView" destination="iuD-wn-tNY" id="PAa-0b-0wu"/>
+                        <outlet property="hotelFeesLabel" destination="TMa-Pj-5RO" id="VqG-e4-gnO"/>
                         <outlet property="hotelTableView" destination="5kb-Qa-Qei" id="jcD-h6-X3e"/>
                         <outlet property="imageView" destination="I6N-f4-mml" id="2YT-Jv-GYl"/>
+                        <outlet property="selectRoomLabel" destination="BSk-o0-OHD" id="Bu7-Xd-imk"/>
                         <outlet property="smallLineView" destination="9ab-Nu-HFX" id="hoO-et-YIP"/>
                     </connections>
                 </viewController>
