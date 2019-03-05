@@ -42,9 +42,7 @@ class HotelDetailsVC: BaseVC {
     }
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var footerView: UIView!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var hotelFeesLabel: UILabel!
-    @IBOutlet weak var selectRoomLabel: UILabel!
+    @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
     
     private var sourceFrame: CGRect = .zero
     private var tableFrameHidden: CGRect {
@@ -53,6 +51,9 @@ class HotelDetailsVC: BaseVC {
     private weak var parentVC: UIViewController?
     private weak var sourceView: UIView?
     private let hotelImageHeight: CGFloat = 211.0
+    
+    private var initialStickyPosition: CGFloat = -1.0
+    private var oldScrollPosition: CGPoint = .zero
     
     //Mark:- LifeCycle
     //================
@@ -63,13 +64,22 @@ class HotelDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
-        self.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
         self.configUI()
         self.registerNibs()
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
         }
+        
+        
+        let stickyView = getStickyFooter()
+        stickyView.frame = self.footerView.bounds
+        self.footerView.addSubview(stickyView)
+        
+        
+        let footerView = getStickyFooter()
+        footerView.frame = self.footerView.bounds
+        self.hotelTableView.tableFooterView = footerView
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,21 +97,13 @@ class HotelDetailsVC: BaseVC {
         self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         let whiteColor = AppColors.themeWhite
         self.footerView.backgroundColor = AppColors.themeGreen
-        self.fromLabel.textColor = whiteColor
-        self.hotelFeesLabel.textColor = whiteColor
-        self.selectRoomLabel.textColor = whiteColor
     }
     
-    override func setupFonts() {
-        let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
-        self.fromLabel.font = AppFonts.Regular.withSize(14.0)
-        self.hotelFeesLabel.font = semiboldFontSize20
-        self.selectRoomLabel.font = semiboldFontSize20
-    }
-    
-    override func setupTexts() {
-        self.fromLabel.text = LocalizedString.From.localized
-        self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
+    private func getStickyFooter() -> HotelFilterResultFooterView {
+        let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
+        stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
+        
+        return stV
     }
     
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
@@ -505,12 +507,57 @@ extension HotelDetailsVC {
         }
     }
     
+    func manageBottomRateView(_ scrollView: UIScrollView) {
+        if hotelTableView.numberOfSections > 2 {
+            let rows = hotelTableView.numberOfRows(inSection: 2)
+            let indexPath = IndexPath(row: rows-1, section: 2)
+            
+            var finalY: CGFloat = 0.0
+            if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
+                
+                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + UIApplication.shared.statusBarFrame.height + 10.0
+                if self.initialStickyPosition <= 0.0 {
+                    self.initialStickyPosition = finalY
+                }
+                
+                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
+                if 0...self.footerView.height ~= bottomCons {
+                    self.stickyBottomConstraint.constant = -bottomCons
+                }
+                else if self.initialStickyPosition <= 0.0 {
+                    self.stickyBottomConstraint.constant = 0.0
+                }
+                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                    self.stickyBottomConstraint.constant = -(self.footerView.height)
+                }
+            }
+            else {
+                if (self.initialStickyPosition + self.footerView.height) > scrollView.contentOffset.y {
+                    self.stickyBottomConstraint.constant = 0.0
+                }
+                self.initialStickyPosition = -1.0
+            }
+        }
+        else {
+            self.stickyBottomConstraint.constant = 0.0
+        }
+        self.oldScrollPosition = scrollView.contentOffset
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+        self.manageBottomRateView(scrollView)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            self.manageBottomRateView(scrollView)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+        self.manageBottomRateView(scrollView)
     }
 }
 
