@@ -74,8 +74,9 @@ class PKBottomSheet: UIView {
     private var presentedViewController: UIViewController!
     
     private var sheetHeight: CGFloat {
+
         let height = self.parentViewController?.view.height ?? UIScreen.main.bounds.height
-        return height - gapFromTop
+        return (height) - (gapFromTop + self.safeAreaInsets.bottom + self.safeAreaInsets.top)
     }
     
     private var oldPanPoint = CGPoint.zero
@@ -109,6 +110,7 @@ class PKBottomSheet: UIView {
     private func initialSetups() {
         updateViewSetup()
         
+        addTapGesture()
         addPanGesture()
     }
     
@@ -159,8 +161,23 @@ class PKBottomSheet: UIView {
             headerContainerView.addSubview(hView)
         }
         
-        mainContainerView.roundCorners(corners: [.topLeft, .topRight], radius: headerCornerRadius)
-        mainContainerView.layer.masksToBounds = true
+        self.roundCorners(forView: self.mainContainerView, cornerRadius: headerCornerRadius)
+    }
+    
+    private func roundCorners(forView view: UIView, cornerRadius: CGFloat) {
+        view.layer.cornerRadius = cornerRadius
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    private func addTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handelTapGesture(_:)))
+        tap.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc private func handelTapGesture(_ sender: UIGestureRecognizer) {
+        self.dismiss(animated: true)
     }
     
     private func addPanGesture() {

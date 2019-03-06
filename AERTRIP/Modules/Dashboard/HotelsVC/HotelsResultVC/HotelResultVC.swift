@@ -76,13 +76,11 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchContainerView: UIView!
     
     // MARK: - Properties
-    let kClusterItemCount = 50
     private var clusterManager: GMUClusterManager!
     
-    var markers: [(marker: CustomMarker, hid: Int)] = []
-    var activeMarker = GMSMarker()
     var mapView: GMSMapView?
     
     var container: NSPersistentContainer!
@@ -97,6 +95,7 @@ class HotelResultVC: BaseVC {
     
     private var visibleMapHeightInVerticalMode: CGFloat = 160.0
     private var oldScrollPosition: CGPoint = CGPoint.zero
+    private let mapIntitalZoomLabel: Float = 8.0
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -169,10 +168,6 @@ class HotelResultVC: BaseVC {
         self.statusBarStyle = .default
         
         self.addMapView()
-        
-        self.setUpClusterManager()
-        self.generateClusterItems()
-        self.clusterSetUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -308,6 +303,8 @@ class HotelResultVC: BaseVC {
         //resize the map view for map/list view
         let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
         
+        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel+4.0))
+        self.moveMapToCurrentCity()
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             
             //map resize animation
@@ -485,7 +482,7 @@ class HotelResultVC: BaseVC {
         let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0) { [weak self] in
-            self?.switchView.transform = trans
+            self?.switchContainerView.transform = trans
             self?.view.layoutIfNeeded()
         }
     }
@@ -496,6 +493,12 @@ class HotelResultVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0) { [weak self] in
             self?.currentLocationButton.transform = trans
             self?.view.layoutIfNeeded()
+        }
+    }
+    
+    private func moveMapToCurrentCity() {
+        if let loc = self.viewModel.searchedCityLocation {
+            self.updateMarker(coordinates: loc)
         }
     }
     
@@ -556,6 +559,8 @@ class HotelResultVC: BaseVC {
         }
     }
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
+        self.moveMapToCurrentCity()
+        self.mapView?.animate(toZoom: mapIntitalZoomLabel+4.0)
     }
 }
 
@@ -661,13 +666,6 @@ extension HotelResultVC {
         guard scrollView === collectionView else {
             return
         }
-        
-//        printDebug(scrollView.contentOffset)
-//
-//        let xPosition = scrollView.contentOffset.x
-//
-//        let item = xPosition / UIDevice.screenWidth
-//        printDebug(item)
         
         let xPos = scrollView.contentOffset.x
         
@@ -1095,42 +1093,36 @@ extension HotelResultVC {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
-        let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
         
         let mapRact = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: visibleMapHeightInVerticalMode)
         let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
         mapView = mapV
         mapV.setMinZoom(1.0, maxZoom: 30.0)
-        mapV.isMyLocationEnabled = true
+        mapV.animate(toZoom: mapIntitalZoomLabel)
+        mapV.isMyLocationEnabled = false
         mapV.delegate = self
-        mapV.backgroundColor = .red
         
         mapContainerView.addSubview(mapV)
         
-        activeMarker = GMSMarker()
-        activeMarker.position = CLLocationCoordinate2D(latitude: currentLocation?.coordinate.latitude ?? 0.0, longitude: currentLocation?.coordinate.longitude ?? 0.0)
-        
+        self.setUpClusterManager()
         self.updateMarkers()
     }
     
+    private func addCityLocation() {
+        if let loc = self.viewModel.searchedCityLocation {
+            let cityMarker = GMSMarker()
+            
+            let iconView = CityMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 62.0, height: 62.0))
+            cityMarker.iconView = iconView
+            cityMarker.position = loc
+            cityMarker.map = self.mapView
+        }
+    }
+    
     func updateMarkers() {
-//        guard let mapV = self.mapView else {return}
-//        self.removeAllMerkers()
-//        let hotels = fetchedResultsController.fetchedObjects ?? []
-//        guard hotels.count > 10 else {return}
-//        for hotel in hotels[0...15] {
-//            let marker = GMSMarker()
-//            let LocationAtual: CLLocation = CLLocation(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
-//            marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)
-//            marker.title = marker.title
-//            //  marker.icon = hotel.fav == "0" ? UIImage(named: "clusterSmallTag") : UIImage(named: "favHotelWithShadowMarker")
-//            let customMarkerView = CustomMarker.instanceFromNib()
-//            customMarkerView.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
-//            marker.iconView = customMarkerView
-//            marker.map = mapV
-//
-//            markers.append((marker: customMarkerView, hid: Int(hotel.hid ?? "") ?? 0))
-//        }
+        self.addCityLocation()
+        self.generateClusterItems()
     }
     
     func removeAllMerkers() {
@@ -1140,17 +1132,7 @@ extension HotelResultVC {
     func updateMarker(coordinates: CLLocationCoordinate2D) {
         mapView?.animate(toLocation: coordinates)
     }
-    
-    private func clusterSetUp() {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: kCameraLatitude, longitude: kCameraLongitude, zoom: 6)
-        if let mapView = mapView {
-            mapView.camera = camera
-            mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = false
-        }
-    }
-    
+
     private func setUpClusterManager() {
         // Set up the cluster manager with the supplied icon generator and
         // renderer.
@@ -1168,20 +1150,11 @@ extension HotelResultVC {
     /// Randomly generates cluster items within some extent of the camera and
     /// adds them to the cluster manager.
     private func generateClusterItems() {
-        let extent = 0.2
-        for index in 1...kClusterItemCount {
-            let lat = kCameraLatitude + extent * randomScale()
-            let lng = kCameraLongitude + extent * randomScale()
-            let name = "Item \(index)"
-            let item =
-                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+        let hotels = fetchedResultsController.fetchedObjects ?? []
+        for hotel in hotels {
+            let item = ATClusterItem(position: CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0), hotel: hotel)
             clusterManager.add(item)
         }
-    }
-    
-    /// Returns a random value between -1.0 and 1.0.
-    private func randomScale() -> Double {
-        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
 }
 
@@ -1216,6 +1189,18 @@ extension HotelResultVC: GMSMapViewDelegate {
 // MARK: - GMUClusterManagerDelegate
 
 extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
+    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        if let item = marker.userData as? ATClusterItem, let hotel = item.hotelDetails {
+            let LocationAtual: CLLocation = CLLocation(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
+            marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)
+            marker.title = marker.title
+            //  marker.icon = hotel.fav == "0" ? UIImage(named: "clusterSmallTag") : UIImage(named: "favHotelWithShadowMarker")
+            let customMarkerView = CustomMarker.instanceFromNib()
+            customMarkerView.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+            marker.iconView = customMarkerView
+        }
+    }
+    
     private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
         if let mapView = mapView {
             let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,

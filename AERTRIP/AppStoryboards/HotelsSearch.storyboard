@@ -458,55 +458,80 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2h-nW-Ql1">
                                         <rect key="frame" x="16" y="0.0" width="343" height="45"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gt-wN-T12">
-                                                <rect key="frame" x="19" y="0.0" width="45" height="45"/>
-                                                <state key="normal" image="unPinAllFavouriteIcon"/>
-                                                <connections>
-                                                    <action selector="unPinAllFavouriteButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="ent-Dy-V6f"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdD-Je-HuK">
-                                                <rect key="frame" x="19" y="0.0" width="45" height="45"/>
-                                                <state key="normal" image="shareIcon"/>
-                                                <connections>
-                                                    <action selector="shareButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="ewf-3S-hgC"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuJ-Za-8gE">
-                                                <rect key="frame" x="19" y="0.0" width="45" height="45"/>
-                                                <state key="normal" image="emailIcon"/>
-                                                <connections>
-                                                    <action selector="EmailButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="EMi-ny-7Qd"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fob-f5-039">
-                                                <rect key="frame" x="19" y="0.0" width="45" height="45"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEh-eq-HbI">
+                                                <rect key="frame" x="0.0" y="0.0" width="289" height="45"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gt-wN-T12">
+                                                        <rect key="frame" x="23" y="0.0" width="45" height="45"/>
+                                                        <state key="normal" image="unPinAllFavouriteIcon"/>
+                                                        <connections>
+                                                            <action selector="unPinAllFavouriteButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="ent-Dy-V6f"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdD-Je-HuK">
+                                                        <rect key="frame" x="23" y="0.0" width="45" height="45"/>
+                                                        <state key="normal" image="shareIcon"/>
+                                                        <connections>
+                                                            <action selector="shareButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="ewf-3S-hgC"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuJ-Za-8gE">
+                                                        <rect key="frame" x="23" y="0.0" width="45" height="45"/>
+                                                        <state key="normal" image="emailIcon"/>
+                                                        <connections>
+                                                            <action selector="EmailButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="EMi-ny-7Qd"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fob-f5-039">
+                                                        <rect key="frame" x="23" y="0.0" width="45" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="Fob-f5-039" secondAttribute="height" multiplier="1:1" id="IME-Cy-Hx9"/>
+                                                        </constraints>
+                                                        <state key="normal" image="floatingButtonOnMapView"/>
+                                                        <connections>
+                                                            <action selector="floatingButtonOptionOnMapViewTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="zI6-F8-EoO"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zM-fH-R5x" customClass="ATSwitcher" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="7" width="51" height="31"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="51" id="Yrf-Lx-vlj"/>
+                                                            <constraint firstAttribute="height" constant="31" id="x3v-nc-aNp"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="originalImage" value="offFavouriteSwitch"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="onFavouriteSwitch"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="originalColor">
+                                                                <color key="value" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                                <color key="value" red="0.98823529409999999" green="0.21176470589999999" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="Fob-f5-039" secondAttribute="height" multiplier="1:1" id="l2G-01-tOF"/>
+                                                    <constraint firstItem="2gt-wN-T12" firstAttribute="leading" secondItem="BdD-Je-HuK" secondAttribute="leading" id="3BP-zF-PzN"/>
+                                                    <constraint firstItem="2gt-wN-T12" firstAttribute="top" secondItem="BdD-Je-HuK" secondAttribute="top" id="6mC-aV-zUc"/>
+                                                    <constraint firstItem="vuJ-Za-8gE" firstAttribute="top" secondItem="Fob-f5-039" secondAttribute="top" id="Bao-VI-NCq"/>
+                                                    <constraint firstItem="vuJ-Za-8gE" firstAttribute="leading" secondItem="Fob-f5-039" secondAttribute="leading" id="Bcc-bc-cDq"/>
+                                                    <constraint firstItem="4zM-fH-R5x" firstAttribute="centerY" secondItem="wEh-eq-HbI" secondAttribute="centerY" id="CiS-cE-bpq"/>
+                                                    <constraint firstItem="BdD-Je-HuK" firstAttribute="trailing" secondItem="vuJ-Za-8gE" secondAttribute="trailing" id="E88-wG-4G6"/>
+                                                    <constraint firstItem="4zM-fH-R5x" firstAttribute="leading" secondItem="wEh-eq-HbI" secondAttribute="leading" constant="20" id="Poj-yU-x4w"/>
+                                                    <constraint firstItem="BdD-Je-HuK" firstAttribute="top" secondItem="vuJ-Za-8gE" secondAttribute="top" id="T01-hb-LU2"/>
+                                                    <constraint firstItem="vuJ-Za-8gE" firstAttribute="bottom" secondItem="Fob-f5-039" secondAttribute="bottom" id="UEH-kU-eVL"/>
+                                                    <constraint firstItem="BdD-Je-HuK" firstAttribute="leading" secondItem="vuJ-Za-8gE" secondAttribute="leading" id="ZdD-Hh-Bh1"/>
+                                                    <constraint firstItem="BdD-Je-HuK" firstAttribute="bottom" secondItem="vuJ-Za-8gE" secondAttribute="bottom" id="adK-8t-QQl"/>
+                                                    <constraint firstItem="Fob-f5-039" firstAttribute="height" secondItem="wEh-eq-HbI" secondAttribute="height" id="e1i-U5-ugd"/>
+                                                    <constraint firstItem="2gt-wN-T12" firstAttribute="trailing" secondItem="BdD-Je-HuK" secondAttribute="trailing" id="hSp-uA-goY"/>
+                                                    <constraint firstItem="2gt-wN-T12" firstAttribute="bottom" secondItem="BdD-Je-HuK" secondAttribute="bottom" id="hf0-Vp-4VS"/>
+                                                    <constraint firstItem="vuJ-Za-8gE" firstAttribute="trailing" secondItem="Fob-f5-039" secondAttribute="trailing" id="iYX-W0-elq"/>
+                                                    <constraint firstItem="Fob-f5-039" firstAttribute="centerX" secondItem="4zM-fH-R5x" secondAttribute="centerX" id="kOK-QT-M12"/>
+                                                    <constraint firstItem="Fob-f5-039" firstAttribute="centerY" secondItem="4zM-fH-R5x" secondAttribute="centerY" id="tdc-aC-Uys"/>
                                                 </constraints>
-                                                <state key="normal" image="floatingButtonOnMapView"/>
-                                                <connections>
-                                                    <action selector="floatingButtonOptionOnMapViewTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="zI6-F8-EoO"/>
-                                                </connections>
-                                            </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zM-fH-R5x" customClass="ATSwitcher" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="7" width="51" height="31"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="51" id="Yrf-Lx-vlj"/>
-                                                    <constraint firstAttribute="height" constant="31" id="x3v-nc-aNp"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="originalImage" value="offFavouriteSwitch"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="NO"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="onFavouriteSwitch"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="originalColor">
-                                                        <color key="value" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
-                                                        <color key="value" red="0.98823529409999999" green="0.21176470589999999" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBg-WB-Vkd">
                                                 <rect key="frame" x="294" y="0.0" width="45" height="45"/>
@@ -521,27 +546,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="vuJ-Za-8gE" firstAttribute="top" secondItem="Fob-f5-039" secondAttribute="top" id="1g6-kn-QRt"/>
-                                            <constraint firstItem="BdD-Je-HuK" firstAttribute="bottom" secondItem="Fob-f5-039" secondAttribute="bottom" id="84c-32-Zur"/>
+                                            <constraint firstAttribute="bottom" secondItem="wEh-eq-HbI" secondAttribute="bottom" id="4hW-j7-vsB"/>
+                                            <constraint firstItem="wEh-eq-HbI" firstAttribute="top" secondItem="Z2h-nW-Ql1" secondAttribute="top" id="8WT-p5-Buw"/>
                                             <constraint firstAttribute="height" constant="45" id="AnJ-8B-sio"/>
-                                            <constraint firstItem="2gt-wN-T12" firstAttribute="top" secondItem="Fob-f5-039" secondAttribute="top" id="CKk-dE-uhZ"/>
-                                            <constraint firstItem="Fob-f5-039" firstAttribute="centerX" secondItem="4zM-fH-R5x" secondAttribute="centerX" id="G1U-lK-c4q"/>
-                                            <constraint firstItem="2gt-wN-T12" firstAttribute="leading" secondItem="Fob-f5-039" secondAttribute="leading" id="HyH-cL-tdP"/>
-                                            <constraint firstItem="vuJ-Za-8gE" firstAttribute="leading" secondItem="Fob-f5-039" secondAttribute="leading" id="KZN-0s-0qm"/>
                                             <constraint firstItem="tBg-WB-Vkd" firstAttribute="top" secondItem="Z2h-nW-Ql1" secondAttribute="top" id="O6a-pA-Z6u"/>
-                                            <constraint firstItem="2gt-wN-T12" firstAttribute="bottom" secondItem="Fob-f5-039" secondAttribute="bottom" id="UK8-gG-ydr"/>
-                                            <constraint firstItem="Fob-f5-039" firstAttribute="top" secondItem="Z2h-nW-Ql1" secondAttribute="top" id="WsV-BB-WLd"/>
+                                            <constraint firstItem="tBg-WB-Vkd" firstAttribute="leading" secondItem="wEh-eq-HbI" secondAttribute="trailing" constant="5" id="Qjr-EU-t7a"/>
                                             <constraint firstAttribute="trailing" secondItem="tBg-WB-Vkd" secondAttribute="trailing" constant="4" id="XVW-A2-7gA"/>
-                                            <constraint firstItem="4zM-fH-R5x" firstAttribute="centerY" secondItem="Z2h-nW-Ql1" secondAttribute="centerY" id="Z3O-J6-awS"/>
-                                            <constraint firstAttribute="bottom" secondItem="Fob-f5-039" secondAttribute="bottom" id="b7z-6L-kSj"/>
-                                            <constraint firstItem="BdD-Je-HuK" firstAttribute="top" secondItem="Fob-f5-039" secondAttribute="top" id="biZ-Nm-BCx"/>
-                                            <constraint firstItem="BdD-Je-HuK" firstAttribute="leading" secondItem="Fob-f5-039" secondAttribute="leading" id="dxG-vf-hqn"/>
-                                            <constraint firstItem="BdD-Je-HuK" firstAttribute="trailing" secondItem="Fob-f5-039" secondAttribute="trailing" id="gqL-G5-Fhh"/>
-                                            <constraint firstItem="2gt-wN-T12" firstAttribute="trailing" secondItem="Fob-f5-039" secondAttribute="trailing" id="hox-gA-caF"/>
-                                            <constraint firstItem="vuJ-Za-8gE" firstAttribute="bottom" secondItem="Fob-f5-039" secondAttribute="bottom" id="p5H-Ax-b95"/>
+                                            <constraint firstItem="wEh-eq-HbI" firstAttribute="leading" secondItem="Z2h-nW-Ql1" secondAttribute="leading" id="uEF-tR-cNR"/>
                                             <constraint firstAttribute="bottom" secondItem="tBg-WB-Vkd" secondAttribute="bottom" id="wre-lc-vQ4"/>
-                                            <constraint firstItem="vuJ-Za-8gE" firstAttribute="trailing" secondItem="Fob-f5-039" secondAttribute="trailing" id="xPj-VD-fPA"/>
-                                            <constraint firstItem="4zM-fH-R5x" firstAttribute="leading" secondItem="Z2h-nW-Ql1" secondAttribute="leading" constant="16" id="ybP-Qu-XDl"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -606,6 +618,7 @@
                         <outlet property="searchBar" destination="y6m-ss-Adv" id="TyD-qS-Yha"/>
                         <outlet property="shareButton" destination="BdD-Je-HuK" id="ixN-g6-1XQ"/>
                         <outlet property="shimmerView" destination="02F-ux-wR2" id="DK9-iH-fey"/>
+                        <outlet property="switchContainerView" destination="wEh-eq-HbI" id="CPC-jN-UxQ"/>
                         <outlet property="switchView" destination="4zM-fH-R5x" id="mSX-4B-aCK"/>
                         <outlet property="tableViewTopConstraint" destination="wdp-OY-KcH" id="6Ks-NZ-A81"/>
                         <outlet property="tableViewVertical" destination="vGi-oq-CiZ" id="SPt-yV-FhU"/>
