@@ -73,12 +73,9 @@ open class PKAlertController {
     }
     
     func presentActionSheetWithAttributed(_ title: NSMutableAttributedString?, message: NSMutableAttributedString?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
-        
         alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        
         alertController.setValue(title, forKey: "attributedTitle")
         alertController.setValue(message, forKey: "attributedMessage")
-        
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
             print(alert.title ?? "")
@@ -88,7 +85,6 @@ open class PKAlertController {
                 handel(alert, idx)
             }
         }
-        
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
             alertAction.setValue(button.titleColor, forKey: "titleTextColor")

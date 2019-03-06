@@ -81,7 +81,9 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
     }
     
     private func registerXibs() {
-        self.tagCollectionView.registerCell(nibName: HotelTagCollectionCell.reusableIdentifier)
+        let nib = UINib(nibName: HotelTagCollectionCell.reusableIdentifier, bundle: nil)
+        self.tagCollectionView.register(nib, forCellWithReuseIdentifier: HotelTagCollectionCell.reusableIdentifier)
+//        self.tagCollectionView.registerCell(nibName: HotelTagCollectionCell.reusableIdentifier)
     }
     
     ///AttributeLabelSetup

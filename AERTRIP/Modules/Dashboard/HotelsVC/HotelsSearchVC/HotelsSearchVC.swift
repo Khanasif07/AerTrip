@@ -450,7 +450,7 @@ class HotelsSearchVC: BaseVC {
     ///Show Recent Search View
     private func showRecentSearchView() {
         self.recentContainerParentView.isHidden = false
-        self.recentContainerHeightConstraint.constant = self.recentSearchHeight//194.0
+        self.recentContainerHeightConstraint.constant = self.recentSearchHeight
 //        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
         if self.viewModel.adultsCount.count < 2 {
             self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0

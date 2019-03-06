@@ -33,22 +33,22 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-kr-yMO" customClass="FlexiblePageControl" customModule="FlexiblePageControl">
-                        <rect key="frame" x="50" y="158.5" width="275" height="18"/>
+                        <rect key="frame" x="167.5" y="156.5" width="40" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="18" id="Fsq-OC-MaD"/>
+                            <constraint firstAttribute="height" constant="20" id="Fsq-OC-MaD"/>
+                            <constraint firstAttribute="width" constant="40" id="fxD-5Q-GXs"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="iOg-kr-yMO" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="6pt-pO-Q6X"/>
                     <constraint firstAttribute="trailing" secondItem="KjR-TN-84W" secondAttribute="trailing" id="AVR-c2-ozm"/>
                     <constraint firstAttribute="bottom" secondItem="KjR-TN-84W" secondAttribute="bottom" id="BcV-9H-t3R"/>
                     <constraint firstItem="KjR-TN-84W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DAq-rq-LsT"/>
                     <constraint firstAttribute="bottom" secondItem="iOg-kr-yMO" secondAttribute="bottom" constant="10" id="QHB-Mn-28A"/>
-                    <constraint firstItem="iOg-kr-yMO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="bLk-4z-6sA"/>
                     <constraint firstItem="KjR-TN-84W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="myi-di-EhI"/>
-                    <constraint firstAttribute="trailing" secondItem="iOg-kr-yMO" secondAttribute="trailing" constant="50" id="rdE-4H-UDZ"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

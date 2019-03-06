@@ -42,7 +42,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcV-jY-hti" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="20" y="47.5" width="346" height="1"/>
+                                <rect key="frame" x="0.0" y="47.5" width="386" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hs4-GQ-szx"/>
@@ -53,10 +53,10 @@
                         <constraints>
                             <constraint firstItem="6jo-8X-gyF" firstAttribute="top" secondItem="zkk-gB-H9L" secondAttribute="top" constant="14" id="95H-sA-oAj"/>
                             <constraint firstItem="fpT-xa-ZZi" firstAttribute="centerY" secondItem="gpi-9e-MnP" secondAttribute="centerY" id="CqS-uZ-zpL"/>
-                            <constraint firstItem="DcV-jY-hti" firstAttribute="leading" secondItem="zkk-gB-H9L" secondAttribute="leading" constant="20" id="Nuw-Yr-QSd"/>
+                            <constraint firstItem="DcV-jY-hti" firstAttribute="leading" secondItem="zkk-gB-H9L" secondAttribute="leading" id="Nuw-Yr-QSd"/>
                             <constraint firstItem="6jo-8X-gyF" firstAttribute="leading" secondItem="zkk-gB-H9L" secondAttribute="leading" constant="16" id="aQw-pM-q03"/>
                             <constraint firstItem="fpT-xa-ZZi" firstAttribute="leading" secondItem="gpi-9e-MnP" secondAttribute="trailing" id="bbL-q6-nfN"/>
-                            <constraint firstAttribute="trailing" secondItem="DcV-jY-hti" secondAttribute="trailing" constant="20" id="erb-BH-0uE"/>
+                            <constraint firstAttribute="trailing" secondItem="DcV-jY-hti" secondAttribute="trailing" id="erb-BH-0uE"/>
                             <constraint firstItem="gpi-9e-MnP" firstAttribute="leading" secondItem="6jo-8X-gyF" secondAttribute="trailing" constant="8" id="gRi-Jh-NLq"/>
                             <constraint firstAttribute="trailing" secondItem="fpT-xa-ZZi" secondAttribute="trailing" id="gfr-Uq-5s9"/>
                             <constraint firstItem="gpi-9e-MnP" firstAttribute="centerY" secondItem="zkk-gB-H9L" secondAttribute="centerY" constant="-1" id="iKt-88-mFE"/>
