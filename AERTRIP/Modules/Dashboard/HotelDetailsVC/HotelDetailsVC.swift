@@ -21,12 +21,13 @@ class HotelDetailsVC: BaseVC {
     private weak var parentVC: UIViewController?
     private weak var sourceView: UIView?
     private let hotelImageHeight: CGFloat = 211.0
-    
     private var initialStickyPosition: CGFloat = -1.0
     private var oldScrollPosition: CGPoint = .zero
-
     private var tableFrameHidden: CGRect {
         return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
+    }
+    private var stickyVisibleBottom: CGFloat {
+        return AppFlowManager.default.safeAreaInsets.top
     }
     var allIndexPath = [IndexPath]()
     
@@ -79,6 +80,8 @@ class HotelDetailsVC: BaseVC {
         let footerView = getStickyFooter()
         footerView.frame = self.footerView.bounds
         self.hotelTableView.tableFooterView = footerView
+        
+        self.stickyBottomConstraint.constant = stickyVisibleBottom
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,7 +97,6 @@ class HotelDetailsVC: BaseVC {
     
     override func setupColors() {
         self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        let whiteColor = AppColors.themeWhite
         self.footerView.backgroundColor = AppColors.themeGreen
     }
     
@@ -110,8 +112,8 @@ class HotelDetailsVC: BaseVC {
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        let newImageFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        let newImageFrame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: self.view.width, height: hotelImageHeight)
+        let newTableFrame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: UIDevice.screenWidth, height: (UIDevice.screenHeight-(AppFlowManager.default.safeAreaInsets.bottom + AppFlowManager.default.safeAreaInsets.top)))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame
@@ -252,10 +254,11 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
-        if section == 1{
-            return 4.0
-        }
-       return 16.0
+        return 0.0
+//        if section == 1{
+//            return 4.0
+//        }
+//       return 16.0
     }
     
     //Mark:- IBOActions
@@ -512,34 +515,43 @@ extension HotelDetailsVC {
             let rows = hotelTableView.numberOfRows(inSection: 2)
             let indexPath = IndexPath(row: rows-1, section: 2)
             
-            var finalY: CGFloat = 0.0
             if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
                 
-                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + UIApplication.shared.statusBarFrame.height + 10.0
-                if self.initialStickyPosition <= 0.0 {
-                    self.initialStickyPosition = finalY
+                let scrolledPoint = (self.hotelTableView.height + scrollView.contentOffset.y) - cell.frame.origin.y
+                
+                if self.initialStickyPosition <= 0 {
+                    self.initialStickyPosition = cell.frame.origin.y
                 }
                 
-                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
-                if 0...self.footerView.height ~= bottomCons {
-                    self.stickyBottomConstraint.constant = -bottomCons
-                }
-                else if self.initialStickyPosition <= 0.0 {
-                    self.stickyBottomConstraint.constant = 0.0
-                }
-                else if (self.initialStickyPosition + self.footerView.height) < finalY {
-                    self.stickyBottomConstraint.constant = -(self.footerView.height)
-                }
+                let bottomCons = min(scrolledPoint, self.footerView.height)
+                self.stickyBottomConstraint.constant = -(bottomCons) + stickyVisibleBottom
+//                let finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom) + 10.0
+//                if self.initialStickyPosition <= 0.0 {
+//                    self.initialStickyPosition = finalY
+//                }
+//
+//                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
+//                if 0...self.footerView.height ~= bottomCons {
+//                    self.stickyBottomConstraint.constant = -(bottomCons + stickyVisibleBottom)
+//                }
+//                else if self.initialStickyPosition <= 0.0 {
+//                    self.stickyBottomConstraint.constant = stickyVisibleBottom
+//                }
+//                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+//                    self.stickyBottomConstraint.constant = -(self.footerView.height + stickyVisibleBottom)
+//                }
             }
             else {
-                if (self.initialStickyPosition + self.footerView.height) > scrollView.contentOffset.y {
-                    self.stickyBottomConstraint.constant = 0.0
+                if self.initialStickyPosition > scrollView.contentOffset.y {
+                    self.stickyBottomConstraint.constant = stickyVisibleBottom
                 }
-                self.initialStickyPosition = -1.0
+                else {
+                    self.stickyBottomConstraint.constant = -(self.footerView.height + stickyVisibleBottom)
+                }
             }
         }
         else {
-            self.stickyBottomConstraint.constant = 0.0
+            self.stickyBottomConstraint.constant = stickyVisibleBottom
         }
         self.oldScrollPosition = scrollView.contentOffset
     }

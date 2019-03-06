@@ -1194,9 +1194,8 @@ extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
             let LocationAtual: CLLocation = CLLocation(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
             marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)
             marker.title = marker.title
-            //  marker.icon = hotel.fav == "0" ? UIImage(named: "clusterSmallTag") : UIImage(named: "favHotelWithShadowMarker")
             let customMarkerView = CustomMarker.instanceFromNib()
-            customMarkerView.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+            customMarkerView.hotel = hotel
             marker.iconView = customMarkerView
         }
     }

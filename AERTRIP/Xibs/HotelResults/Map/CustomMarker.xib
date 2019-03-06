@@ -50,11 +50,11 @@
                                 <constraint firstAttribute="width" constant="1" id="IHc-4b-o7i"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clusterSmallTag" translatesAutoresizingMaskIntoConstraints="NO" id="BaY-fR-KX4">
-                            <rect key="frame" x="32.5" y="36" width="10" height="10"/>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clusterSmallTag" translatesAutoresizingMaskIntoConstraints="NO" id="BaY-fR-KX4">
+                            <rect key="frame" x="30" y="32" width="15" height="15"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="10" id="55c-cA-g6V"/>
-                                <constraint firstAttribute="width" constant="10" id="ngm-SK-vBc"/>
+                                <constraint firstAttribute="height" constant="15" id="55c-cA-g6V"/>
+                                <constraint firstAttribute="width" constant="15" id="ngm-SK-vBc"/>
                             </constraints>
                         </imageView>
                     </subviews>
@@ -62,7 +62,7 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="VqL-7u-ZGq" secondAttribute="bottom" constant="10" id="7dL-Br-Ni4"/>
                         <constraint firstItem="pWE-ga-fhZ" firstAttribute="leading" secondItem="Y9O-wj-yxX" secondAttribute="leading" id="F5f-el-h61"/>
-                        <constraint firstAttribute="bottom" secondItem="BaY-fR-KX4" secondAttribute="bottom" constant="1" id="I4j-LV-teB"/>
+                        <constraint firstAttribute="bottom" secondItem="BaY-fR-KX4" secondAttribute="bottom" id="I4j-LV-teB"/>
                         <constraint firstAttribute="trailing" secondItem="pWE-ga-fhZ" secondAttribute="trailing" id="IfN-hc-6FT"/>
                         <constraint firstItem="BaY-fR-KX4" firstAttribute="centerX" secondItem="VqL-7u-ZGq" secondAttribute="centerX" id="cNS-Pn-XuX"/>
                         <constraint firstItem="pWE-ga-fhZ" firstAttribute="top" secondItem="Y9O-wj-yxX" secondAttribute="top" id="dYG-mW-hIj"/>
@@ -81,6 +81,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="connectorView" destination="VqL-7u-ZGq" id="zXT-WK-75h"/>
+                <outlet property="iconImageView" destination="BaY-fR-KX4" id="dUd-Fc-gaD"/>
                 <outlet property="priceLabel" destination="Fqe-kI-xbz" id="KnP-v9-hhd"/>
                 <outlet property="priceView" destination="pWE-ga-fhZ" id="HDm-TI-erd"/>
             </connections>

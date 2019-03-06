@@ -15,7 +15,7 @@ class CityMarkerView: UIView {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var dotView: UIView!
     
-    
+    private var pulsAnimation = PKPulseAnimation()
     //Mark:- LifeCycle
     //================
     override init(frame: CGRect) {
@@ -26,6 +26,12 @@ class CityMarkerView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialSetUp()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+//        self.pulsAnimation.position = CGPoint(x: self.backgroundView.frame.width/2.0, y: self.backgroundView.frame.height/2.0)
     }
 
     
@@ -43,13 +49,24 @@ class CityMarkerView: UIView {
         delay(seconds: 0.2) { [weak self] in
             guard let sSelf = self else {return}
             sSelf.configureUI()
+            sSelf.addRippel()
         }
+    }
+    
+    private func addRippel() {
+        self.pulsAnimation.numPulse = 3
+        self.pulsAnimation.radius = backgroundView.height
+        self.pulsAnimation.currentAnimation = .opacity
+        self.pulsAnimation.backgroundColor = AppColors.themeOrange.cgColor
+        self.backgroundView.layer.insertSublayer(self.pulsAnimation, below: self.dotView.layer)
+        self.pulsAnimation.position = CGPoint(x: self.backgroundView.frame.width/2.0, y: self.backgroundView.frame.height/2.0)
+        self.pulsAnimation.start()
     }
     
     ///ConfigureUI
     private func configureUI() {
         
-        backgroundView.backgroundColor = AppColors.themeOrange.withAlphaComponent(0.1)
+        backgroundView.backgroundColor = AppColors.clear//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
         
         backgroundView.cornerRadius = backgroundView.height / 2.0
