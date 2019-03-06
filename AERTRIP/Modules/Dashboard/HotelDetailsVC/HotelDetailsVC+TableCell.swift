@@ -14,7 +14,10 @@ extension HotelDetailsVC {
     
     internal func getImageSlideCellWithInfo(indexPath: IndexPath, hotelInfo: HotelSearched) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.configCell(hotelData: hotelInfo)
+        if let imageUrls = hotelInfo.thumbnail {
+            cell.imageUrls = imageUrls
+            cell.configCell(imageUrls: imageUrls)
+        }
         return cell
     }
     
@@ -36,7 +39,8 @@ extension HotelDetailsVC {
     
     internal func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.configCellForHotelDetail(hotelData: hotelDetails)
+        cell.imageUrls = hotelDetails.photos
+        cell.configCell(imageUrls: hotelDetails.photos)
         return cell
     }
     
@@ -121,13 +125,19 @@ extension HotelDetailsVC {
         return nil
     }
     
-    internal func getCancellationCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
+    internal func getCancellationCell(indexPath: IndexPath, ratesData: Rates) -> HotelDetailsCancelPolicyTableCell? {
         if ratesData.cancellation_penalty != nil {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.configureCancellationCell(ratesData: ratesData)
-            //cell.delegate = self
-            //cell.ratesData = ratesData
-            cell.infoBtnOutlet.addTarget(self, action: #selector(cancellationBtnTapped(_:)), for: .touchUpInside)
+            cell.delegate = self
+            if allIndexPath.contains(indexPath) {
+                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)
+                cell.infoBtnOutlet.isHidden = true
+            }
+            else {
+                cell.allDetailsLabel.attributedText = nil
+                cell.infoBtnOutlet.isHidden = false
+            }
             return cell
         }
         return nil
@@ -136,16 +146,29 @@ extension HotelDetailsVC {
     internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
         cell.configurePaymentCell(ratesData: ratesData)
-        cell.infoBtnOutlet.addTarget(self, action: #selector(paymentBtnTapped(_:)), for: .touchUpInside)
+        if allIndexPath.contains(indexPath) {
+            cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()
+            cell.infoBtnOutlet.isHidden = true
+        }
+        else {
+            cell.allDetailsLabel.attributedText = nil
+            cell.infoBtnOutlet.isHidden = false
+        }
         return cell
-        
     }
     
     internal func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.configureNotesCell(ratesData: ratesData)
-            cell.moreBtnOutlet.addTarget(self, action: #selector(noteBtnTapped(_:)), for: .touchUpInside)
+            if allIndexPath.contains(indexPath) {
+                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)
+                cell.moreBtnOutlet.isHidden = true
+            }
+            else {
+                cell.allDetailsLabel.attributedText = nil
+                cell.moreBtnOutlet.isHidden = false
+            }
             return cell
         }
         return nil

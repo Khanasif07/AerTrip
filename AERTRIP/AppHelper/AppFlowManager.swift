@@ -328,7 +328,12 @@ extension AppFlowManager {
     func showHotelDetailAmenitiesVC(hotelDetails: HotelDetails) {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelDetails = hotelDetails
-        //        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentHotelDetailsOverViewVC(overViewInfo: String) {
+        let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.overViewInfo = overViewInfo
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     

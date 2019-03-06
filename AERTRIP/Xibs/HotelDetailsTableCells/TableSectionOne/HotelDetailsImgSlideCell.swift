@@ -34,7 +34,6 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
         }
     }
-    
     weak var delegate: HotelDetailsImgSlideCellDelegate?
     
     
@@ -50,33 +49,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     private func initialSetUps() {
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
-//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-//        self.pageControl.numberOfPages = self.imageUrls.count
-//
     }
     
-    private func pageControlSetUp(imageUrls: [String]) {
-        self.imageUrls = imageUrls
-        self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
-        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
-//        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-        self.pageControl.numberOfPages = 10
-        self.pageControl.backgroundColor = AppColors.themeRed
+    internal func configCell(imageUrls: [String]) {
+        self.pageControl.isHidden = !(imageUrls.count > 1)
+        self.pageControl.numberOfPages = imageUrls.count
         self.imageCollectionView.reloadData()
-    }
-    
-    internal func configCell(hotelData: HotelSearched) {
-        if let imageUrls = hotelData.thumbnail {
-            self.pageControlSetUp(imageUrls: imageUrls)
-        }
-    }
-    
-    internal func configCellForHotelDetail(hotelData: HotelDetails) {
-        self.imageUrls = hotelData.photos
-        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-        self.pageControl.numberOfPages = self.imageUrls.count
-        self.imageCollectionView.reloadData()
-        self.pageControlSetUp(imageUrls: hotelData.photos)
     }
     
     //Mark:- IBOActions
@@ -96,8 +74,6 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelDetailsImageCollectionCell", for: indexPath) as? HotelDetailsImageCollectionCell else {
             return UICollectionViewCell()
         }
-        self.pageControl.isHidden = !(self.imageUrls.count > 1)
-        self.pageControl.numberOfPages = self.imageUrls.count
         cell.configCell(imgUrl: imageUrls[indexPath.item])
         return cell
     }

@@ -14,11 +14,17 @@ class HotelDetailsVC: BaseVC {
     //================
     private(set) var viewModel = HotelDetailsVM()
     private var completion: (() -> Void)? = nil
-    
     private var initialPanPoint: CGPoint = .zero
     private weak var imagesCollectionView: UICollectionView?
     private var expandHeight: CGFloat = 0.0
-    private var allIndexPath = [IndexPath]()
+    private var sourceFrame: CGRect = .zero
+    private weak var parentVC: UIViewController?
+    private weak var sourceView: UIView?
+    private let hotelImageHeight: CGFloat = 211.0
+    private var tableFrameHidden: CGRect {
+        return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
+    }
+    var allIndexPath = [IndexPath]()
     
     //Mark:- IBOutlets
     //================
@@ -44,14 +50,6 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var hotelFeesLabel: UILabel!
     @IBOutlet weak var selectRoomLabel: UILabel!
-    
-    private var sourceFrame: CGRect = .zero
-    private var tableFrameHidden: CGRect {
-        return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
-    }
-    private weak var parentVC: UIViewController?
-    private weak var sourceView: UIView?
-    private let hotelImageHeight: CGFloat = 211.0
     
     //Mark:- LifeCycle
     //================
@@ -115,7 +113,6 @@ class HotelDetailsVC: BaseVC {
             sSelf.imageView.frame = newImageFrame
             sSelf.hotelTableView.frame = newTableFrame
             sSelf.hotelTableView.alpha = 1.0
-            //            sSelf.hotelTableView.transform = CGAffineTransform.identity
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 sSelf.imageView.isHidden = true
@@ -181,14 +178,13 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
-//        self.hotelTableView.registerCell(nibName: NotesTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
     }
     
     private func redirectToMap() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
-        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
+        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
         let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
         
         _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
@@ -550,19 +546,12 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
 }
 
 extension HotelDetailsVC: GetFullInfoDelegate {
-    func expandCell(expandHeight: CGFloat, indexPath: IndexPath, attributedString: NSMutableAttributedString) {
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
         self.expandHeight = expandHeight
         if !allIndexPath.contains(indexPath) {
             self.allIndexPath.append(indexPath)
-            self.hotelTableView.performBatchUpdates({ [weak self] in
-                if let cell = self?.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCancelPolicyTableCell {
-                    cell.infoBtnOutlet.isHidden = true
-                    cell.allDetailsLabel.isHidden = false
-                    cell.allDetailsLabel.attributedText = attributedString.trimWhiteSpace()
-                }
-                self?.hotelTableView.reloadRows(at: [indexPath], with: .fade)
-            }) { (isDone) in
-            }
+//            self.hotelTableView.reloadRows(at: [indexPath], with: .fade)
+            self.hotelTableView.reloadData()
         }
     }
 }

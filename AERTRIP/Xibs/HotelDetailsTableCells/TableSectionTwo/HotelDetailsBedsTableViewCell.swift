@@ -35,17 +35,16 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     
     //Mark:- Methods
     //==============
+    ///Configure UI
     private func configureUI() {
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-        
 //        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
         self.bedsLabel.textColor = AppColors.themeBlack
         self.dropDownTextField.textColor = AppColors.themeGreen
-        
         //Size
         self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
@@ -54,16 +53,20 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.configurePickerView()
     }
     
+    ///Configure PickerView
     private func configurePickerView() {
         let bedPickerViewHeight: CGFloat = 217
         let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 44.0 + 216.0, width: UIScreen.main.bounds.width, height: 44.0)
+        toolbar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 44.0 + 216.0, width: UIScreen.main.bounds.width, height: 44.35)
+        let bottomView = UIView()
+        bottomView.frame = CGRect(x: 0.0, y: 44.00, width: UIScreen.main.bounds.width, height: 0.35)
+        bottomView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        toolbar.addSubview(bottomView)
 //        toolbar.sizeToFit()
 //        toolbar.backgroundColor = AppColors.themeGray20
-        toolbar.layer.borderWidth = 0.5
-        toolbar.layer.borderColor = AppColors.divider.color.withAlphaComponent(0.4).cgColor
+        toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneBedPicker))
+        let doneButton = UIBarButtonItem(title: LocalizedString.Done.localized, style: .plain, target: self, action: #selector(doneBedPicker))
         let greenAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
@@ -75,6 +78,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.dropDownTextField.inputView = self.bedPickerView
     }
     
+    ///Configure BedSelection Title ImgSetUp
     private func bedSelectionTitleImgSetUp() {
         let dropDownButton = UIButton(type: .custom)
         dropDownButton.frame = CGRect(x: 0, y: 0, width: 20.0, height: 20.0)
@@ -85,8 +89,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.dropDownTextField.rightViewMode = .always
     }
     
+    ///Config Cell
     internal func configCell(numberOfRooms: Int , roomData: RoomsRates , isOnlyOneRoom: Bool ) {
-        
         if isOnlyOneRoom {
             self.bedTypeLabel.text = roomData.name + " " + roomData.desc
             self.bedDiscriptionLabel.text = roomData.desc
@@ -123,7 +127,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     }
 }
 
-
+//Mark:- UIPickerView Delegate And DataSource
+//===========================================
 extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -138,6 +143,7 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
+            pickerLabel?.textColor = AppColors.themeBlack
             pickerLabel?.font = AppFonts.Regular.withSize(23.0)
             pickerLabel?.textAlignment = .center
         }
@@ -147,7 +153,7 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 32.5
+        return 32.0
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

@@ -48,6 +48,7 @@ class HotelTagCollectionCell: UICollectionViewCell {
         self.cancelButton.imageEdgeInsets = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
     }
     
+    ///ConfigureUI Cell
     internal func configureCell(tagTitle: String, titleColor: UIColor , tagBtnColor: UIColor) {
         self.tagOptionNameLabel.text = tagTitle
         self.tagOptionNameLabel.textColor = titleColor
@@ -60,10 +61,6 @@ class HotelTagCollectionCell: UICollectionViewCell {
         if let safeDelegate = self.delegate, let indexPath = self.indexPath {
             safeDelegate.deleteTagButton(indexPath: indexPath)
         }
-//        if let parentView = self.rootSuperView() as? SearchBarHeaderView, parentView.tagButtons.contains(self.currentTagButton) {
-//            parentView.tagButtons.remove(object: currentTagButton)
-//            parentView.tagCollectionView.reloadData()
-//        }
         printDebug("cancel button tapped")
     }
 }

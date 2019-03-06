@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GetFullInfoDelegate: class {
-    func expandCell(expandHeight: CGFloat, indexPath: IndexPath, attributedString: NSMutableAttributedString)
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath)
 }
 
 class HotelDetailsCancelPolicyTableCell: UITableViewCell {
@@ -214,9 +214,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func infoBtnAction(_ sender: UIButton) {
-//        if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender),let safeDelegate = self.delegate ,let penalyDetails = self.fullPenaltyDetails(){
-//            safeDelegate.expandCell(expandHeight: size.height, indexPath: indexPath, attributedString: penalyDetails)
-//        }
+        if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender), let safeDelegate = self.delegate {
+            safeDelegate.expandCell(expandHeight: size.height, indexPath: indexPath)
+        }
     }
     
     @IBAction func moreBtnAction(_ sender: UIButton) {
