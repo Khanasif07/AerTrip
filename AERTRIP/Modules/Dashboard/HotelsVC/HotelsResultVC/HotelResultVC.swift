@@ -130,8 +130,6 @@ class HotelResultVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     
-    private var isShowingGroupedCell: Bool = false
-    
     // MARK: - ViewLifeCycle
     
     // MARK: -
@@ -1079,7 +1077,14 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        self.isShowingGroupedCell = cell.isKind(of: HotelGroupCardCollectionViewCell.self)
+        
+//        var hData: HotelsModel?
+//        if let myCell = cell as? HotelGroupCardCollectionViewCell {
+//            hData = myCell.hotelData
+//        }
+//        else if let myCell = cell as? HotelCardCollectionViewCell {
+//            hData = myCell.hotelData
+//        }
         
         let hData = fetchedResultsController.object(at: indexPath)
         updateMarker(coordinates: CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0))
@@ -1191,13 +1196,30 @@ extension HotelResultVC: GMSMapViewDelegate {
 extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
         if let item = marker.userData as? ATClusterItem, let hotel = item.hotelDetails {
-            let LocationAtual: CLLocation = CLLocation(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
-            marker.position = CLLocationCoordinate2D(latitude: LocationAtual.coordinate.latitude, longitude: LocationAtual.coordinate.longitude)
-            marker.title = marker.title
+            marker.position = CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
+            
             let customMarkerView = CustomMarker.instanceFromNib()
             customMarkerView.hotel = hotel
             marker.iconView = customMarkerView
         }
+    }
+    
+    func renderer(_ renderer: GMUClusterRenderer, markerFor object: Any) -> GMSMarker? {
+        printDebug("dasasa")
+        
+        let marker = GMSMarker()
+        
+        let markerView = ClusterMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0))
+
+        if let cluster = object as? GMUStaticCluster, let allItems = cluster.items as? [ATClusterItem], let hotel = allItems.first?.hotelDetails {
+            marker.position = CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
+            
+            markerView.items = allItems
+        }
+        
+        marker.iconView = markerView
+        
+        return marker
     }
     
     private func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {

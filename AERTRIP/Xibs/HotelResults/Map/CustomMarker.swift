@@ -42,7 +42,7 @@ class CustomMarker: UIView {
     }
     
     private func configureData() {
-        self.isFavourite = true//hotel.fav == "1"
+        self.isFavourite = (hotel?.fav ?? "0") == "1"
         self.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel?.price.delimiter ?? "0")").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
     }
     
