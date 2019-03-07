@@ -28,7 +28,7 @@ class EmailComposerHeaderView: UIView {
     @IBOutlet weak var checkInCheckOutView: UIView!
     
     @IBOutlet weak var checkOutMessageLabel: UILabel!
-    @IBOutlet weak var seeRatesButton: UIButton!
+    @IBOutlet weak var seeRatesButton: ATButton!
     
     // MARK: - Properties
     weak var delegate : EmailComposeerHeaderViewDelegate?
@@ -43,6 +43,9 @@ class EmailComposerHeaderView: UIView {
         super.awakeFromNib()
         
         self.doInitialSeup()
+        self.setUpText()
+        self.setUpColor()
+        self.setUpFont()
 
     }
     
@@ -56,7 +59,9 @@ class EmailComposerHeaderView: UIView {
         self.checkInCheckOutView.layer.borderColor = AppColors.themeGray40.cgColor
         self.messageTextField.delegate = self
         self.toEmailTextView.delegate = self
-       self.setUpText()
+        self.seeRatesButton.layer.cornerRadius = 5.0
+      
+      
      
     }
     
@@ -77,6 +82,8 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         self.checkOutMessageLabel.font = AppFonts.Regular.withSize(18.0)
         self.hotelResultLabel.font = AppFonts.Regular.withSize(18.0)
+        self.toEmailTextView.font = AppFonts.Regular.withSize(18.0)
+        self.messageTextField.font = AppFonts.Regular.withSize(18.0)
         
         
         
@@ -90,6 +97,7 @@ class EmailComposerHeaderView: UIView {
         self.checkOutMessageLabel.textColor = AppColors.textFieldTextColor51
         self.hotelResultLabel.textColor = AppColors.themeGray60
         self.toEmailTextView.textColor = AppColors.themeGreen
+        self.messageTextField.textColor = AppColors.textFieldTextColor51
         
         
     }

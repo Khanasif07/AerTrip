@@ -442,6 +442,8 @@ enum LocalizedString: String {
     case SharedMessage = "SharedMessage"
     case CheckOutMessage = "CheckOutMessage"
     case HotelResultFor = "HotelResultFor"
+    case NoHotelFound = "NoHotelFound"
+    case NoHotelFoundMessage = "NoHotelFoundMessage"
     
     
     

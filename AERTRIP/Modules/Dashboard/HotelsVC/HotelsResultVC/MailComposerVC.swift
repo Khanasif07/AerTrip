@@ -40,7 +40,6 @@ class MailComposerVC: BaseVC {
         guard let headerView = tableView.tableHeaderView else {
             return
         }
-        
         let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         if headerView.frame.size.height != size.height {
             headerView.frame.size.height = size.height
@@ -74,9 +73,9 @@ class MailComposerVC: BaseVC {
     private func navBarSetUp() {
         self.topNavView.backgroundColor = AppColors.clear
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.topNavView.configureNavBar(title: LocalizedString.EmailFavouriteHotelInfo.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Send.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Send.localized, selectedTitle: LocalizedString.Send.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
     }
     
     private func tableViewSetup() {
@@ -92,6 +91,8 @@ class MailComposerVC: BaseVC {
     private func setupHeader() {
         mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
         mailComposerHeaderView.delegate = self
+        let text = "    \(UserInfo.loggedInUser?.firstName ?? "") \( UserInfo.loggedInUser?.lastName ?? "") \(LocalizedString.SharedMessage.localized)"
+        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text , boldText:"\( UserInfo.loggedInUser?.firstName ?? "") \( UserInfo.loggedInUser?.lastName ?? "")")
         tableView.tableHeaderView = mailComposerHeaderView
         
     }
@@ -101,6 +102,14 @@ class MailComposerVC: BaseVC {
         tableView.tableFooterView = mailComposerHeaderView
     }
     
+    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(30.0), .foregroundColor: AppColors.themeBlack])
+        attString.addAttributes([
+            .font: AppFonts.Regular.withSize(30.0),
+            .foregroundColor: AppColors.themeGray20
+            ], range:(text as NSString).range(of: boldText))
+        return attString
+    }
    
 }
 
@@ -113,6 +122,7 @@ extension MailComposerVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Send mail")
+        self.viewModel.callSendEmailMail()
     }
 }
 
@@ -203,7 +213,7 @@ extension MailComposerVC : MailComoserVMDelegate {
     }
     
     func didSendEmailSuccess() {
-        //
+        dismiss(animated: true, completion: nil)
     }
     
     func didSendemailFail() {

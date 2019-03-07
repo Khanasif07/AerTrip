@@ -9,54 +9,63 @@
 import UIKit
 
 class RatingVC: BaseVC {
+    // MARK: - IB Outlets
     
-    // MARK:- IB Outlets
+    @IBOutlet var starRatingTitleLabel: UILabel!
+    @IBOutlet var starLabel: UILabel!
+    @IBOutlet var includeRatedTitleLabel: UILabel!
+    @IBOutlet var includeRatedStatusButton: UIButton!
     
-    @IBOutlet weak var starRatingTitleLabel: UILabel!
-    @IBOutlet weak var starLabel: UILabel!
-    @IBOutlet weak var includeRatedTitleLabel: UILabel!
-    @IBOutlet weak var includeRatedStatusButton: UIButton!
-    
-    @IBOutlet weak var tripAdvisorTitleLabel: UILabel!
-    @IBOutlet weak var tripAdvisorStarLabel: UILabel!
+    @IBOutlet var tripAdvisorTitleLabel: UILabel!
+    @IBOutlet var tripAdvisorStarLabel: UILabel!
     @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet var tripAdvisorRatingButtons: [UIButton]!
     
-  
-    
     // MARK: - Variables
     
-    
+    var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.getSavedFilter()
+        self.doInitialSetup()
     }
     
-    
-    override func bindViewModel() {
-    
-    }
-  
     override func setupTexts() {
         self.starRatingTitleLabel.text = LocalizedString.StarRating.localized
-        
     }
-    
-    
     
     override func setupColors() {
         self.starRatingTitleLabel.textColor = AppColors.themeGray40
         self.starLabel.textColor = AppColors.themeGray40
     }
     
-    
     override func setupFonts() {
         self.starRatingTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.starLabel.font = AppFonts.Regular.withSize(14.0)
     }
-
+    
+    func getSavedFilter() {
+        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+            printDebug("filter not found")
+            return
+        }
+        self.filterApplied = filter
+        HotelFilterVM.shared.ratingCount = self.filterApplied.ratingCount
+        HotelFilterVM.shared.tripAdvisorRatingCount = self.filterApplied.tripAdvisorRatingCount
+    }
+    
+    private func doInitialSetup() {
+        for star in HotelFilterVM.shared.ratingCount {
+            self.updateStarButtonState(forStar: star, isSettingFirstTime: true)
+        }
+        for star in HotelFilterVM.shared.tripAdvisorRatingCount {
+            self.updateTripAdvisorRatingButtonState(forStar: star, isSettingFirstTime: true)
+        }
+        
+        self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
+    }
     
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
@@ -65,7 +74,6 @@ class RatingVC: BaseVC {
         sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
     }
     
-    
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
         self.updateTripAdvisorRatingButtonState(forStar: sender.tag)
         self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
@@ -73,23 +81,14 @@ class RatingVC: BaseVC {
         sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
     }
     
-    
-   
     @IBAction func includeUnratedAction(_ sender: UIButton) {
-        if !HotelFilterVM.shared.isIncludeUnrated {
-            includeRatedStatusButton.setImage(UIImage(named: "tick"), for: .normal)
-            HotelFilterVM.shared.isIncludeUnrated = true
-        } else {
-             HotelFilterVM.shared.isIncludeUnrated = false
-             includeRatedStatusButton.setImage(UIImage(named: "untick"), for: .normal)
-        }
-       
+        self.includeRatedStatusButton.isSelected = !sender.isSelected
+        HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
     }
     
-    
-    ///Star Button State
+    /// Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
-        guard 1...5 ~= forStar else {return}
+        guard 1...5 ~= forStar else { return }
         if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
             button.tag == forStar
         }).first {
@@ -99,17 +98,16 @@ class RatingVC: BaseVC {
             else {
                 currentButton.isSelected = !currentButton.isSelected
             }
-            if HotelFilterVM.shared.ratingCount.contains(forStar) {
+            if HotelFilterVM.shared.ratingCount.contains(forStar){
                 HotelFilterVM.shared.ratingCount.remove(at: HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
             }
-            else {
+            else  {
                 HotelFilterVM.shared.ratingCount.append(forStar)
-                
             }
         }
     }
     
-    ///Get Star Rating
+    /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
@@ -131,19 +129,18 @@ class RatingVC: BaseVC {
             return final
         }
         
-        for (idx,value) in arr.enumerated() {
+        for (idx, value) in arr.enumerated() {
             let diff = value - (prev ?? 0)
             if diff == 1 {
-                //number is successor
+                // number is successor
                 if start == nil {
                     start = prev
                 }
                 end = value
             }
             else if diff > 1 {
-                //number is not successor
+                // number is not successor
                 if start == nil {
-                    
                     if let p = prev {
                         final += "\(p), "
                     }
@@ -181,9 +178,9 @@ class RatingVC: BaseVC {
         return final + " \(LocalizedString.stars.localized)"
     }
     
-    ///Star Button State
+    /// Star Button State
     private func updateTripAdvisorRatingButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
-        guard 1...5 ~= forStar else {return}
+        guard 1...5 ~= forStar else { return }
         if let currentButton = self.tripAdvisorRatingButtons.filter({ (button) -> Bool in
             button.tag == forStar
         }).first {
@@ -198,10 +195,7 @@ class RatingVC: BaseVC {
             }
             else {
                 HotelFilterVM.shared.tripAdvisorRatingCount.append(forStar)
-                
             }
         }
     }
-
-
 }

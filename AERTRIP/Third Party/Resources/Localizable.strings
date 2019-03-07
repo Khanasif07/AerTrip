@@ -401,6 +401,8 @@
 "To" = "To";
 "Message" = "Message";
 "SeeRates" = "See Rates";
-"SharedMessage" = "shared his favorite hotels with you…";
+"SharedMessage" = "shared his  favorite  hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
+"NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
+"NoHotelFoundMessage" = "Choose another date for this location and try again.";

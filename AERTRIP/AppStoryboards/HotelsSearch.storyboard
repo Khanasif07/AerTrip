@@ -1852,6 +1852,14 @@ been sent</string>
                                                     <action selector="mapButtonAction:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="Sj2-aj-gPm"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWR-bf-4P9">
+                                                <rect key="frame" x="320" y="0.0" width="39" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Canel"/>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="Zjw-TJ-FyN" eventType="touchUpInside" id="fD6-2y-efa"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1860,9 +1868,12 @@ been sent</string>
                                             <constraint firstItem="8yF-1R-KG8" firstAttribute="top" secondItem="vvc-1T-CbH" secondAttribute="top" id="Dl8-y2-7Lq"/>
                                             <constraint firstAttribute="bottom" secondItem="pON-oQ-gk6" secondAttribute="bottom" id="GDv-5X-iBm"/>
                                             <constraint firstItem="u2z-Nf-Ttg" firstAttribute="top" secondItem="vvc-1T-CbH" secondAttribute="top" id="Ita-RF-eJ1"/>
+                                            <constraint firstAttribute="trailing" secondItem="KWR-bf-4P9" secondAttribute="trailing" constant="16" id="KEd-9E-abN"/>
+                                            <constraint firstItem="KWR-bf-4P9" firstAttribute="top" secondItem="pON-oQ-gk6" secondAttribute="top" id="Koy-7Q-Dy5"/>
                                             <constraint firstItem="u2z-Nf-Ttg" firstAttribute="leading" secondItem="vvc-1T-CbH" secondAttribute="leading" id="LbA-iO-OJN"/>
                                             <constraint firstItem="pON-oQ-gk6" firstAttribute="leading" secondItem="8yF-1R-KG8" secondAttribute="trailing" id="aGg-W4-Cno"/>
                                             <constraint firstAttribute="bottom" secondItem="u2z-Nf-Ttg" secondAttribute="bottom" id="eDA-sm-vdg"/>
+                                            <constraint firstItem="KWR-bf-4P9" firstAttribute="bottom" secondItem="pON-oQ-gk6" secondAttribute="bottom" id="gh5-gw-Lfa"/>
                                             <constraint firstItem="8yF-1R-KG8" firstAttribute="leading" secondItem="hqC-VG-A4I" secondAttribute="trailing" id="iQt-0o-770"/>
                                             <constraint firstItem="hqC-VG-A4I" firstAttribute="centerY" secondItem="u2z-Nf-Ttg" secondAttribute="centerY" constant="-10" id="jb4-O0-516"/>
                                             <constraint firstAttribute="height" constant="44" id="mgl-rB-gvQ"/>
@@ -1939,6 +1950,26 @@ been sent</string>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxw-qV-mf7">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="01Z-vR-ZnW">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Zjw-TJ-FyN" id="OEe-Bd-XwV"/>
+                                            <outlet property="delegate" destination="Zjw-TJ-FyN" id="0J8-mB-1Wh"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="01Z-vR-ZnW" firstAttribute="leading" secondItem="Kxw-qV-mf7" secondAttribute="leading" id="AnF-Ze-vAv"/>
+                                    <constraint firstAttribute="trailing" secondItem="01Z-vR-ZnW" secondAttribute="trailing" id="CNz-hR-l8s"/>
+                                    <constraint firstAttribute="bottom" secondItem="01Z-vR-ZnW" secondAttribute="bottom" id="Cc2-7W-4eC"/>
+                                    <constraint firstItem="01Z-vR-ZnW" firstAttribute="top" secondItem="Kxw-qV-mf7" secondAttribute="top" id="dQm-de-UHj"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2h-nW-Ql1">
                                 <rect key="frame" x="16" y="573" width="317" height="74"/>
                                 <subviews>
@@ -1962,10 +1993,10 @@ been sent</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gt-wN-T12">
-                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <rect key="frame" x="3.5" y="20.5" width="76" height="76"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="2GL-2Z-7ru"/>
-                                            <constraint firstAttribute="width" constant="64" id="KK2-zd-D9B"/>
+                                            <constraint firstAttribute="height" constant="76" id="2GL-2Z-7ru"/>
+                                            <constraint firstAttribute="width" constant="76" id="KK2-zd-D9B"/>
                                         </constraints>
                                         <state key="normal" image="unPinAllFavouriteIcon"/>
                                         <connections>
@@ -1973,10 +2004,10 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdD-Je-HuK">
-                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <rect key="frame" x="3.5" y="20.5" width="76" height="76"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="9Jg-wn-oOt"/>
-                                            <constraint firstAttribute="width" constant="64" id="Y2b-jg-rp8"/>
+                                            <constraint firstAttribute="height" constant="76" id="9Jg-wn-oOt"/>
+                                            <constraint firstAttribute="width" constant="76" id="Y2b-jg-rp8"/>
                                         </constraints>
                                         <state key="normal" image="shareIcon"/>
                                         <connections>
@@ -1984,10 +2015,10 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuJ-Za-8gE">
-                                        <rect key="frame" x="9.5" y="26.5" width="64" height="64"/>
+                                        <rect key="frame" x="3.5" y="20.5" width="76" height="76"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="FMw-Zj-BPE"/>
-                                            <constraint firstAttribute="height" constant="64" id="HSm-Pp-sdi"/>
+                                            <constraint firstAttribute="width" constant="76" id="FMw-Zj-BPE"/>
+                                            <constraint firstAttribute="height" constant="76" id="HSm-Pp-sdi"/>
                                         </constraints>
                                         <state key="normal" image="emailIcon"/>
                                         <connections>
@@ -1995,7 +2026,7 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fob-f5-039">
-                                        <rect key="frame" x="9.5" y="43" width="31" height="31"/>
+                                        <rect key="frame" x="3.5" y="43" width="31" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="MHu-8l-K7V"/>
                                             <constraint firstAttribute="width" constant="31" id="zHu-gs-Vp0"/>
@@ -2022,23 +2053,28 @@ been sent</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="bottom" secondItem="iFL-Yw-635" secondAttribute="bottom" id="2S8-EG-e2z"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="421-Un-qeE"/>
                             <constraint firstItem="Z2h-nW-Ql1" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" constant="16" id="63g-wj-Fgz"/>
+                            <constraint firstItem="Kxw-qV-mf7" firstAttribute="top" secondItem="6gi-qN-zSY" secondAttribute="bottom" id="6Vu-6R-Kav"/>
                             <constraint firstItem="iFL-Yw-635" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="EuI-Wg-VOC"/>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="trailing" secondItem="iFL-Yw-635" secondAttribute="trailing" id="Muq-bH-Y9a"/>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="bottom" secondItem="Z2h-nW-Ql1" secondAttribute="bottom" constant="20" id="XDR-5u-Xsw"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" id="XXd-Kn-pwM"/>
                             <constraint firstItem="iFL-Yw-635" firstAttribute="top" secondItem="6q0-jH-RZM" secondAttribute="top" constant="100" id="YIB-Wf-rYr"/>
                             <constraint firstItem="6q0-jH-RZM" firstAttribute="trailing" secondItem="Z2h-nW-Ql1" secondAttribute="trailing" constant="42" id="c6f-BG-fa0"/>
+                            <constraint firstItem="Kxw-qV-mf7" firstAttribute="trailing" secondItem="6q0-jH-RZM" secondAttribute="trailing" id="gNB-ON-voQ"/>
+                            <constraint firstItem="Kxw-qV-mf7" firstAttribute="leading" secondItem="6q0-jH-RZM" secondAttribute="leading" id="hWq-fc-cHi"/>
                             <constraint firstItem="6gi-qN-zSY" firstAttribute="trailing" secondItem="6q0-jH-RZM" secondAttribute="trailing" id="obY-wF-NYw"/>
+                            <constraint firstItem="Kxw-qV-mf7" firstAttribute="bottom" secondItem="6q0-jH-RZM" secondAttribute="bottom" id="qYR-fi-BO4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6q0-jH-RZM"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="u2z-Nf-Ttg" id="fQq-NS-1Oe"/>
+                        <outlet property="cancelButton" destination="KWR-bf-4P9" id="Ofp-wQ-mkk"/>
                         <outlet property="collectionView" destination="iFL-Yw-635" id="kl9-ae-e5M"/>
                         <outlet property="collectionViewTopConstraint" destination="YIB-Wf-rYr" id="Hzx-Mi-Mv6"/>
                         <outlet property="descriptionLabel" destination="Lin-DK-947" id="vVr-Yb-ESx"/>
@@ -2050,6 +2086,8 @@ been sent</string>
                         <outlet property="headerContainerView" destination="6gi-qN-zSY" id="M8H-wp-smO"/>
                         <outlet property="headerContainerViewTopConstraint" destination="XXd-Kn-pwM" id="A3j-sW-Z9s"/>
                         <outlet property="headerContatinerViewHeightConstraint" destination="A8h-NR-7c3" id="jTA-cD-SCn"/>
+                        <outlet property="hotelSearchTableView" destination="01Z-vR-ZnW" id="Qte-3I-FT5"/>
+                        <outlet property="hotelSearchView" destination="Kxw-qV-mf7" id="SIJ-BT-j2B"/>
                         <outlet property="mapButton" destination="pON-oQ-gk6" id="I6O-WA-rBK"/>
                         <outlet property="navContainerView" destination="vvc-1T-CbH" id="9cd-qe-CEn"/>
                         <outlet property="progressView" destination="jG6-4j-fP5" id="1FQ-Kx-nq0"/>
@@ -2937,6 +2975,6 @@ been sent</string>
         <image name="shareIcon" width="76" height="76"/>
         <image name="shimmerViewFavouriteButton" width="18" height="22"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="unPinAllFavouriteIcon" width="44" height="44"/>
+        <image name="unPinAllFavouriteIcon" width="76" height="76"/>
     </resources>
 </document>

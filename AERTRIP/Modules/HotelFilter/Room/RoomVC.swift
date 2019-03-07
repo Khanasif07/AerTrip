@@ -47,6 +47,7 @@ class RoomVC: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        roomSegmentedControl.selectedSegmentIndex = 0
         roomSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
         tableData = meal
         

@@ -48,6 +48,11 @@ class HotelResultVC: BaseVC {
     @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var floatingView: UIView!
     @IBOutlet var floatingButtonOnMapView: UIButton!
+    @IBOutlet var cancelButton: UIButton!
+    
+    // Searching View
+    @IBOutlet var hotelSearchView: UIView!
+    @IBOutlet var hotelSearchTableView: UITableView!
     
     // MARK: - Properties
     
@@ -79,6 +84,22 @@ class HotelResultVC: BaseVC {
     var fetchRequestType: FetchRequestType = .Searching
     var hoteResultViewType: HotelResultViewType = .ListView
     var favouriteHotels: [HotelSearched] = []
+    let hotelResultCellIdentifier = "HotelSearchTableViewCell"
+    var searchedHotels: [HotelSearched] = []
+    
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    lazy var noHotelFoundEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noHotelFound
+        return newEmptyView
+    }()
+    
+    var filterArray: [HotelSearched] = []
     
     // MARK: - Public
     
@@ -114,15 +135,8 @@ class HotelResultVC: BaseVC {
         
         self.initialSetups()
         self.registerXib()
-        delay(seconds: 0.5) {
-            self.setupMapView()
-        }
         
         self.startProgress()
-        self.collectionView.addSubview(self.shimmerView)
-        self.completion = { [weak self] in
-            self?.loadSaveData()
-        }
         self.applyPreviousFilter()
         self.viewModel.hotelListOnPreferenceResult()
         self.getFavouriteHotels()
@@ -132,8 +146,6 @@ class HotelResultVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.getSavedFilter()
     }
     
     override func bindViewModel() {
@@ -157,6 +169,17 @@ class HotelResultVC: BaseVC {
         self.reloadHotelList()
         self.floatingView.isHidden = false
         self.floatingButtonOnMapView.isHidden = true
+        self.cancelButton.alpha = 0
+        self.hotelSearchView.isHidden = true
+        self.collectionView.addSubview(self.shimmerView)
+        self.hotelSearchTableView.separatorStyle = .none
+        self.completion = { [weak self] in
+            self?.loadSaveData()
+        }
+        delay(seconds: 0.5) {
+            self.setupMapView()
+        }
+        // self.hotelSearchTableView.backgroundView = noResultemptyView
     }
     
     private func setUpFloatingView() {
@@ -169,17 +192,20 @@ class HotelResultVC: BaseVC {
     override func setupFonts() {
         self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.descriptionLabel.font = AppFonts.SemiBold.withSize(13.0)
+        self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupTexts() {
         self.titleLabel.text = "New Delhi"
         self.descriptionLabel.text = "30 Jun - 1 Jul • 2 Rooms"
         self.searchBar.placeholder = LocalizedString.SearchHotelsOrLandmark.localized
+        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
     }
     
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.descriptionLabel.textColor = AppColors.themeBlack
+        self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
     private func setupParallaxHeader() {
@@ -218,11 +244,11 @@ class HotelResultVC: BaseVC {
         marker.map = mapView
     }
     
-    private func reloadHotelList() {
+    func reloadHotelList() {
         self.collectionView.reloadData()
     }
     
-    private func searchHotels(forText: String) {
+    func searchHotels(forText: String) {
         self.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
@@ -233,6 +259,7 @@ class HotelResultVC: BaseVC {
     private func registerXib() {
         self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
+        self.hotelSearchTableView.registerCell(nibName: self.hotelResultCellIdentifier, bundle: nil, forCellWithReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
     private func startProgress() {
@@ -282,6 +309,18 @@ class HotelResultVC: BaseVC {
         }
     }
     
+    func showSearchAnimation() {
+        self.filterButton.isHidden = true
+        self.mapButton.isHidden = true
+        self.cancelButton.alpha = 1
+    }
+    
+    func hideSearchAnimation() {
+        self.filterButton.isHidden = false
+        self.mapButton.isHidden = false
+        self.cancelButton.alpha = 0
+    }
+    
     private func getFavouriteHotels() {
         self.favouriteHotels = self.fetchedResultsController.fetchedObjects?.filter { $0.fav == "1" } ?? []
     }
@@ -317,7 +356,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    private func loadSaveData() {
+    func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
             self.fetchedResultsController.fetchRequest.sortDescriptors?.removeAll()
             self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
@@ -337,41 +376,54 @@ class HotelResultVC: BaseVC {
             
             var amentitiesPredicate: NSPredicate?
             var predicates = [AnyHashable]()
-            for amentities: String in self.filterApplied.amentities {
-                predicates.append(NSPredicate(format: "amenities == \(String(amentities))"))
-            }
-            if predicates.count > 0 {
-                if let predicates = predicates as? [NSPredicate] {
-                    amentitiesPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-                }
-            }
+//            for amentities: String in self.filterApplied.amentities {
+//                predicates.append(NSPredicate(format: "amenities == \(String(amentities))"))
+//            }
+//            if predicates.count > 0 {
+//                if let predicates = predicates as? [NSPredicate] {
+//                    amentitiesPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+//                }
+//            }
             
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
-            let minimumPricePredicate = NSPredicate(format: "price >= \(HotelFilterVM.shared.minimumPrice)")
-//            let maximumPricePredicate = NSPredicate(format: "price <= \(HotelFilterVM.shared.maximumPrice)")
+            let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
+            let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
 //
-            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
-            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
+//            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
+//            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
             
 //            let amentitiesPredicate = NSPredicate(format: "amenities CONTAINS %@", HotelFilterVM.shared.amenitites)
             
             //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate,starPredicate,tripAdvisorPredicate])
             //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate])
-            self.fetchedResultsController.fetchRequest.predicate = amentitiesPredicate
+            let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [minimumPricePredicate, maximumPricePredicate, distancePredicate])
+            
+            self.fetchedResultsController.fetchRequest.predicate = andPredicate
         } else {
             if self.predicateStr == "" {
                 self.fetchedResultsController.fetchRequest.predicate = nil
                 
             } else {
-                self.fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr)
+                let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+                self.fetchedResultsController.fetchRequest.predicate = orPredicate
             }
         }
         
         do {
             try self.fetchedResultsController.performFetch()
+            if !self.predicateStr.isEmpty {
+                self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
+                self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+                self.hotelSearchTableView.reloadData()
+            }
+            if self.fetchRequestType == .FilterApplied {
+                self.filterArray = self.fetchedResultsController.fetchedObjects?.filter { $0.amenities?.contains(array: self.filterApplied.amentities) ?? false } ?? []
+            }
+            
         } catch {
             print("Fetch failed")
         }
+        self.reloadHotelList()
     }
     
     private func openSharingSheet() {
@@ -418,7 +470,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func EmailButtonTapped(_ sender: Any) {
-        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels)
+        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest?.sid ?? "", self.viewModel.shortUrl)
     }
     
     @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
@@ -438,6 +490,13 @@ class HotelResultVC: BaseVC {
             }
         }
     }
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.animateHeaderToListView()
+        self.hideSearchAnimation()
+        self.hotelSearchView.isHidden = true
+        self.view.endEditing(true)
+    }
 }
 
 // MARK: - Collection view datasource and delegate methods
@@ -446,7 +505,7 @@ class HotelResultVC: BaseVC {
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (self.fetchedResultsController.sections?.count ?? 0) - self.hideSection
+        return (self.fetchedResultsController.sections?.count ?? 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -488,7 +547,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if (self.fetchedResultsController.sections?.count ?? 0) - self.footeSection == section, self.filterApplied.distanceRange > 0 {
+        if (self.fetchedResultsController.sections?.count ?? 0) == section, self.filterApplied.distanceRange > 0 {
             return CGSize(width: UIDevice.screenWidth, height: 106.0)
         } else {
             return CGSize(width: UIDevice.screenWidth, height: 0.0)
@@ -509,22 +568,23 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
                 sectionHeader.sectionHeaderLabel.text = removeFirstChar + " kms"
                 return sectionHeader
             }
-        } else if kind == "UICollectionElementKindSectionFooter" {
-            if let sectionFooter = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionFooter", for: indexPath) as? SectionFooter {
-                sectionFooter.delegate = self
-                if self.isAboveTwentyKm, self.filterApplied.distanceRange > 0 {
-                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.HideHotelBeyond.localized, for: .normal)
-                    sectionFooter.firstView.isHidden = true
-                    sectionFooter.secondView.isHidden = true
-                } else {
-                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.ShowHotelsBeyond.localized, for: .normal)
-                    sectionFooter.firstView.isHidden = false
-                    sectionFooter.secondView.isHidden = false
-                }
-                sectionFooter.backgroundColor = .white
-                return sectionFooter
-            }
         }
+//        else if kind == "UICollectionElementKindSectionFooter" {
+//            if let sectionFooter = self.collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionFooter", for: indexPath) as? SectionFooter {
+//                sectionFooter.delegate = self
+//                if self.isAboveTwentyKm, self.filterApplied.distanceRange > 0 {
+//                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.HideHotelBeyond.localized, for: .normal)
+//                    sectionFooter.firstView.isHidden = true
+//                    sectionFooter.secondView.isHidden = true
+//                } else {
+//                    sectionFooter.showHotelBeyondButton.setTitle(LocalizedString.ShowHotelsBeyond.localized, for: .normal)
+//                    sectionFooter.firstView.isHidden = false
+//                    sectionFooter.secondView.isHidden = false
+//                }
+//                sectionFooter.backgroundColor = .white
+//                return sectionFooter
+//            }
+//        }
         
         return UICollectionReusableView()
     }
@@ -564,8 +624,8 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.fetchRequestType = .FilterApplied
         HotelFilterVM.shared.saveDataToUserDefaults()
         printDebug("done button tapped")
+        self.getSavedFilter()
         self.loadSaveData()
-        self.reloadHotelList()
     }
 }
 
@@ -577,21 +637,6 @@ extension HotelResultVC: CLLocationManagerDelegate {
     }
 }
 
-// MARK: - Search bar delegate methods
-
-extension HotelResultVC: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
-            self.fetchRequestType = .Searching
-            self.predicateStr = ""
-            self.loadSaveData()
-            self.reloadHotelList()
-        } else {
-            self.searchHotels(forText: searchText)
-        }
-    }
-}
-
 // MARK: - Section Footer Delgate methods
 
 extension HotelResultVC: SectionFooterDelegate {
@@ -599,14 +644,14 @@ extension HotelResultVC: SectionFooterDelegate {
         if self.isAboveTwentyKm {
             printDebug("hide hotel beyond ")
             self.isAboveTwentyKm = false
-            self.hideSection = 1
-            self.footeSection = 2
+            //  self.hideSection = 1
+            // self.footeSection = 2
             self.reloadHotelList()
         } else {
             printDebug("show hotel beyond ")
             self.isAboveTwentyKm = true
-            self.hideSection = 0
-            self.footeSection = 1
+            // self.hideSection = 0
+            // self.footeSection = 1
             self.reloadHotelList()
         }
     }
@@ -673,6 +718,11 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func getAllHotelsListResultFail(errors: ErrorCodes) {
+        self.hotelSearchView.isHidden = false
+        self.progressView.removeFromSuperview()
+        self.shimmerView.removeFromSuperview()
+        self.floatingView.isHidden = true
+        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
@@ -701,8 +751,8 @@ extension HotelResultVC: HotelResultDelegate {
                            self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                            self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
-                           self.emailButton.transform = CGAffineTransform(translationX: 98, y: 0)
-                           self.shareButton.transform = CGAffineTransform(translationX: 142, y: 0)
+                           self.emailButton.transform = CGAffineTransform(translationX: 108, y: 0)
+                           self.shareButton.transform = CGAffineTransform(translationX: 162, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")

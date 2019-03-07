@@ -45,7 +45,7 @@ extension HotelSearched {
     @NSManaged public var thumbnail: [String]?
     @NSManaged public var vid: String?
     @NSManaged public var sectionTitle: String?
-    @NSManaged public var amentities: [String]?
+    @NSManaged public var amenities: [String]?
     @NSManaged public var isHotelBeyondTwentyKm: Bool
     
     var dict: JSONDictionary {
@@ -79,7 +79,7 @@ extension HotelSearched {
         temp[APIKeys.temp_price.rawValue] = self.tempPrice
         temp[APIKeys.thumbnail.rawValue] = self.thumbnail
         temp[APIKeys.vid.rawValue] = self.vid
-      
+        temp[APIKeys.amenities.rawValue] = self.amenities
         
         return temp
     }

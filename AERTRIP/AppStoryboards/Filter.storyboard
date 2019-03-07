@@ -238,6 +238,7 @@
                         <outlet property="rangeLabel" destination="f5U-Ru-ge6" id="MLv-JM-jJJ"/>
                         <outlet property="rangeView" destination="Yc4-Rx-GhG" id="xmm-mt-kQw"/>
                         <outlet property="searchResultRangeLabel" destination="DxM-Qk-1fu" id="Tib-F6-Tlm"/>
+                        <outlet property="stepSlider" destination="jU1-4c-SMd" id="Cmi-Wl-eeE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbm-hI-RRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -530,6 +531,7 @@
                                             <constraint firstAttribute="width" secondItem="Hjq-iD-j65" secondAttribute="height" multiplier="1:1" id="Pxk-0N-Ajs"/>
                                         </constraints>
                                         <state key="normal" image="untick"/>
+                                        <state key="selected" image="tick"/>
                                         <connections>
                                             <action selector="includeUnratedAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="9dK-p9-pKV"/>
                                         </connections>
@@ -810,6 +812,7 @@
         <image name="deselectedAdvisorRating" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="thumbImage" width="31" height="32"/>
+        <image name="tick" width="22" height="22"/>
         <image name="untick" width="22" height="22"/>
     </resources>
 </document>

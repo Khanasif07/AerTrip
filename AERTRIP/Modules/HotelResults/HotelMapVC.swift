@@ -216,8 +216,8 @@ class HotelMapVC: UIViewController {
                            self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                            self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
-                           self.emailButton.transform = CGAffineTransform(translationX: 98, y: 0)
-                           self.shareButton.transform = CGAffineTransform(translationX: 142, y: 0)
+                           self.emailButton.transform = CGAffineTransform(translationX: 108, y: 0)
+                           self.shareButton.transform = CGAffineTransform(translationX: 162, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")
