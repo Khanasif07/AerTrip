@@ -301,7 +301,7 @@ class HotelResultVC: BaseVC {
         //resize the map view for map/list view
         let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
         
-        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel+4.0))
+        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel*2.0))
         self.moveMapToCurrentCity()
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             
@@ -558,7 +558,7 @@ class HotelResultVC: BaseVC {
     }
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
         self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: mapIntitalZoomLabel+4.0)
+        self.mapView?.animate(toZoom: mapIntitalZoomLabel*2.0)
     }
 }
 
@@ -673,7 +673,7 @@ extension HotelResultVC {
         
         let currentPoint = CGPoint(x: decimal * UIDevice.screenWidth, y: scrollView.contentOffset.y)
         guard 0.01...0.99 ~= progress else {
-            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
                 //current grouped cell
                 self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                 self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -692,9 +692,9 @@ extension HotelResultVC {
         if xPos > self.oldScrollPosition.x {
             //forward
             printDebug("forward, \(fractional)")
-            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
                 //current grouped cell
-                if let _ = self.collectionView.indexPathForItem(at: nextPoint) {
+                if self.collectionView.indexPathForItem(at: nextPoint) != nil {
                     //next grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -711,7 +711,7 @@ extension HotelResultVC {
             }
             else {
                 //current normal cell
-                if let _ = self.collectionView.indexPathForItem(at: nextPoint) {
+                if self.collectionView.indexPathForItem(at: nextPoint) != nil {
                     //next grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -731,9 +731,9 @@ extension HotelResultVC {
             //backward
             printDebug("backward, \(fractional)")
             
-            if let _ = self.collectionView.indexPathForItem(at: currentPoint) {
+            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
                 //current grouped cell
-                if let _ = self.collectionView.indexPathForItem(at: prevPoint) {
+                if self.collectionView.indexPathForItem(at: prevPoint) != nil {
                     //prev grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -750,7 +750,7 @@ extension HotelResultVC {
             }
             else {
                 //current normal cell
-                if let _ = self.collectionView.indexPathForItem(at: prevPoint) {
+                if self.collectionView.indexPathForItem(at: prevPoint) != nil {
                     //prev grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -783,7 +783,7 @@ extension HotelResultVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageTopHeader(scrollView)
         manageMapViewOnScroll(scrollView)
-        manageFloatingButtonOnPaginationScroll(scrollView)
+//        manageFloatingButtonOnPaginationScroll(scrollView)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -1076,15 +1076,6 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        
-//        var hData: HotelsModel?
-//        if let myCell = cell as? HotelGroupCardCollectionViewCell {
-//            hData = myCell.hotelData
-//        }
-//        else if let myCell = cell as? HotelCardCollectionViewCell {
-//            hData = myCell.hotelData
-//        }
         
         let hData = fetchedResultsController.object(at: indexPath)
         updateMarker(coordinates: CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0))
