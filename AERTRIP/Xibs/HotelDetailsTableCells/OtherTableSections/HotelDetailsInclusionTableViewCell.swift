@@ -18,7 +18,12 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var inclusionLabel: UILabel!
     @IBOutlet weak var inclusionTypeLabel: UILabel!
-
+    @IBOutlet weak var shadowView: UIView! {
+        didSet {
+            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)        }
+        }
+    }
+    
     
     //Mark:- LifeCycle
     //================
@@ -32,7 +37,6 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     private func configureUI() {
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-//        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
         self.containerView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         self.inclusionLabel.textColor = AppColors.themeGray40
         self.inclusionTypeLabel.textColor = AppColors.textFieldTextColor51

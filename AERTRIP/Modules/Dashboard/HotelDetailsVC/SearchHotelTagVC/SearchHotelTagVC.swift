@@ -67,10 +67,10 @@ class SearchHotelTagVC: BaseVC {
     //================
     ///UPDATE DATA SOURCE FOR FILTER
     ///Update Data Source
-    private func updateDataSource(queryStr: String) {
+    private func updateDataSource(searchedTag: String) {
         self.copyOfTagButtons = self.tagButtons.filter({ (currentTag) -> Bool in
             let tempStr: NSString = currentTag as NSString
-            let range = tempStr.range(of: queryStr, options: NSString.CompareOptions.caseInsensitive)
+            let range = tempStr.range(of: searchedTag, options: NSString.CompareOptions.caseInsensitive)
             return range.location != NSNotFound
         })
     }
@@ -120,7 +120,7 @@ extension SearchHotelTagVC: UISearchBarDelegate {
         if searchText == "" {
             self.copyOfTagButtons = self.tagButtons
         } else {
-            self.updateDataSource(queryStr: searchText)
+            self.updateDataSource(searchedTag: searchText)
         }
         self.tagTableView.reloadData()
     }

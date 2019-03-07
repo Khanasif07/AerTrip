@@ -17,14 +17,22 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var shadowView: UIView! {
+        didSet {
+            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)
+        }
+    }
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var bedTypeLabel: UILabel!
     @IBOutlet weak var bedDiscriptionLabel: UILabel!
     @IBOutlet weak var bookmarkButtonOutlet: UIButton!
     @IBOutlet weak var bedsLabel: UILabel!
     @IBOutlet weak var deviderView: ATDividerView!
-    @IBOutlet weak var dropDownTextField: UITextField!
-
+    @IBOutlet weak var dropDownTextField: UITextField! {
+        didSet {
+            self.dropDownTextField.delegate = self
+        }
+    }
     
     //Mark:- LifeCycle
     //================
@@ -39,7 +47,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private func configureUI() {
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-//        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
@@ -76,6 +83,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedPickerView.backgroundColor = AppColors.themeWhite
         self.dropDownTextField.inputAccessoryView = toolbar
         self.dropDownTextField.inputView = self.bedPickerView
+//        self.dropDownTextField
     }
     
     ///Configure BedSelection Title ImgSetUp
@@ -91,6 +99,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     
     ///Config Cell
     internal func configCell(numberOfRooms: Int , roomData: RoomsRates , isOnlyOneRoom: Bool ) {
+        self.typesOfBed.removeAll()
         if isOnlyOneRoom {
             self.bedTypeLabel.text = roomData.name + " " + roomData.desc
             self.bedDiscriptionLabel.text = roomData.desc
@@ -103,16 +112,23 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
             self.bedDiscriptionLabel.text = roomData.name + " " + roomData.desc
             self.deviderView.isHidden = true
-        }        
+        }
         if let roomBedsTypes = roomData.roomBedTypes {
             for bedType in roomBedsTypes {
                 self.typesOfBed.append(bedType.type + "  ")
             }
         }
-        if self.typesOfBed.isEmpty || (self.typesOfBed.count == 1) {
+        if self.typesOfBed.isEmpty {
             self.dropDownTextField.isHidden = true
         } else {
             self.dropDownTextField.isHidden = false
+            if self.typesOfBed.count == 1 {
+                self.dropDownTextField.rightViewMode = .never
+                self.dropDownTextField.isUserInteractionEnabled = false
+            } else {
+                self.dropDownTextField.rightViewMode = .always
+                self.dropDownTextField.isUserInteractionEnabled = true
+            }
             self.dropDownTextField.text = self.typesOfBed[0] + "   "
         }
     }
@@ -161,19 +177,25 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
     }
 }
 
+extension HotelDetailsBedsTableViewCell: UITextFieldDelegate {
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        self.dropDownTextField.inputView = self.bedPickerView
+        return false
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+}
+
 
 /*
  if self.typesOfBed.isEmpty || (self.typesOfBed.count == 1) {
  self.dropDownTextField.isHidden = true
- } else {
+ }
+ else {
  self.dropDownTextField.isHidden = false
- //            if self.typesOfBed.count == 1 {
- //                self.dropDownTextField.rightViewMode = .never
- //                self.dropDownTextField.isUserInteractionEnabled = false
- //            } else {
- //                self.dropDownTextField.rightViewMode = .always
- //                self.dropDownTextField.isUserInteractionEnabled = true
- //            }
  self.dropDownTextField.text = self.typesOfBed[0] + "   "
  }
  */

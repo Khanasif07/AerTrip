@@ -412,6 +412,7 @@ enum LocalizedString: String {
     case FullPaymentExplanation = "FullPaymentExplanation"
     case FreeCancellation = "FreeCancellation"
     case FullPaymentNow = "FullPaymentNow"
+    case NoRoomsAvailable = "NoRoomsAvailable"
     
     // Others
     case FreeWifi = "FreeWifi"

@@ -15,7 +15,13 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var hotelFeesLabel: UILabel!
     @IBOutlet weak var bookLabel: UILabel!
-    
+    @IBOutlet weak var shadowView: UIView! {
+        didSet {
+            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)
+            
+        }
+    }
+
     
     //Mark:- LifeCycle
     //================

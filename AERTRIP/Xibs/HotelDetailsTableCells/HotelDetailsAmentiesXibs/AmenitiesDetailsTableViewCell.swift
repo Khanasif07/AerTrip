@@ -12,9 +12,7 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "wifi_icon"),#imageLiteral(resourceName: "fitness_icon"),#imageLiteral(resourceName: "roomService_icon"),#imageLiteral(resourceName: "business_icon"),#imageLiteral(resourceName: "internet_icon"),#imageLiteral(resourceName: "pool_icon"),#imageLiteral(resourceName: "ac_icon"),#imageLiteral(resourceName: "breakfast_icon"),#imageLiteral(resourceName: "restaurant_icon"),#imageLiteral(resourceName: "spa_icon")]
-    let amenitiesNames: [String] = [LocalizedString.Wi_Fi.localized,LocalizedString.Gym.localized,LocalizedString.RoomService.localized,LocalizedString.BusinessCenter.localized,LocalizedString.Internet.localized,LocalizedString.Pool.localized,LocalizedString.AirConditioner.localized,LocalizedString.Coffee_Shop.localized,LocalizedString.RestaurantBar.localized,LocalizedString.Spa.localized]
-    
+    internal var amenitiesDetails: Amenities?
     
     //Mark:- IBOutlets
     //================
@@ -25,7 +23,11 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
             self.amenitiesCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerView: ATDividerView! {
+        didSet {
+            self.dividerView.backgroundColor = AppColors.themeBlack
+        }
+    }
     
     //Mark:- LifeCycle
     //================
@@ -39,16 +41,11 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         self.registerNibs()
-        //Text Font
-        //Text Color
-//        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
-        //Text SetUp
     }
     
     ///Register Nibs
     private func registerNibs() {
-        let amenitiesNib = UINib(nibName: "AmenitiesDetailsCollectionCell", bundle: nil)
-        self.amenitiesCollectionView.register(amenitiesNib, forCellWithReuseIdentifier: "AmenitiesDetailsCollectionCell")
+        self.amenitiesCollectionView.registerCell(nibName: AmenitiesDetailsCollectionCell.reusableIdentifier)
     }
 }
 
@@ -57,14 +54,19 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
 extension AmenitiesDetailsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.amenitiesItems.count
+        if let safeAmenitiesData = self.amenitiesDetails?.main {
+            return safeAmenitiesData.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmenitiesDetailsCollectionCell", for: indexPath) as? AmenitiesDetailsCollectionCell else {
             return UICollectionViewCell()
         }
-        cell.configureCell(amenitiesItem: self.amenitiesItems[indexPath.item], amenitiesName: self.amenitiesNames[indexPath.item])
+        if let safeAmenitiesData = self.amenitiesDetails?.main {
+            cell.configureCell(amenitiesMainData: safeAmenitiesData[indexPath.item])
+        }
         return cell
     }
     
@@ -78,10 +80,10 @@ extension AmenitiesDetailsTableViewCell: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        return 0.0//CGFloat.leastNonzeroMagnitude
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        return 0.0//CGFloat.leastNonzeroMagnitude
     }
 }

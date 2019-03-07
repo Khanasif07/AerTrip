@@ -12,15 +12,15 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
     //================
+    internal var completion: (() -> Void)? = nil
+    internal weak var imagesCollectionView: UICollectionView?
+    internal var expandHeight: CGFloat = 0.0
+    internal let hotelImageHeight: CGFloat = 211.0
     private(set) var viewModel = HotelDetailsVM()
-    private var completion: (() -> Void)? = nil
     private var initialPanPoint: CGPoint = .zero
-    private weak var imagesCollectionView: UICollectionView?
-    private var expandHeight: CGFloat = 0.0
     private var sourceFrame: CGRect = .zero
     private weak var parentVC: UIViewController?
     private weak var sourceView: UIView?
-    private let hotelImageHeight: CGFloat = 211.0
     private var tableFrameHidden: CGRect {
         return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
     }
@@ -50,6 +50,7 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var hotelFeesLabel: UILabel!
     @IBOutlet weak var selectRoomLabel: UILabel!
+    @IBOutlet weak var noRoomsAvailable: UILabel!
     
     //Mark:- LifeCycle
     //================
@@ -63,17 +64,12 @@ class HotelDetailsVC: BaseVC {
         self.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
         self.configUI()
         self.registerNibs()
+        self.footerViewSetUpForNormalState()
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        delay(seconds: 0.2) {
-            self.viewModel.getHotelInfoApi()
-        }
+        self.viewModel.getHotelInfoApi()
     }
     
     override func bindViewModel() {
@@ -81,22 +77,21 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func setupColors() {
-        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        let whiteColor = AppColors.themeWhite
-        self.footerView.backgroundColor = AppColors.themeGreen
-        self.fromLabel.textColor = whiteColor
-        self.hotelFeesLabel.textColor = whiteColor
-        self.selectRoomLabel.textColor = whiteColor
+        self.noRoomsAvailable.textColor = AppColors.themeWhite
+        self.fromLabel.textColor = AppColors.themeWhite
+        self.hotelFeesLabel.textColor = AppColors.themeWhite
+        self.selectRoomLabel.textColor = AppColors.themeWhite
     }
     
     override func setupFonts() {
-        let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
         self.fromLabel.font = AppFonts.Regular.withSize(14.0)
-        self.hotelFeesLabel.font = semiboldFontSize20
-        self.selectRoomLabel.font = semiboldFontSize20
+        self.hotelFeesLabel.font = AppFonts.SemiBold.withSize(20.0)
+        self.selectRoomLabel.font = AppFonts.SemiBold.withSize(20.0)
+        self.noRoomsAvailable.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
+        self.noRoomsAvailable.text = LocalizedString.NoRoomsAvailable.localized
         self.fromLabel.text = LocalizedString.From.localized
         self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
     }
@@ -134,6 +129,7 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- Methods
     //==============
+    
     private func setupBeforeAnimation() {
         guard let sourceV = self.sourceView, let parant = self.parentVC else {return}
         
@@ -174,7 +170,7 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)
-        self.hotelTableView.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: "SearchBarHeaderView")
+        self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
@@ -182,26 +178,6 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
     }
     
-    private func redirectToMap() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
-        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
-        
-        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-            
-            if index == 0 {
-                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
-                    self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            } else {
-                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
-                    self.openGoogleMaps(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            }
-        }
-    }
-    
-    //"comgooglemaps://?center=\(lat),\(long)&zoom=14&views=traffic"
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             if let url = URL(string:
@@ -223,7 +199,44 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
-    private func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
+    internal func footerViewSetUpForEmptyState() {
+        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGray04, AppColors.shadowBlue])
+        self.footerView.backgroundColor = AppColors.themeGray04
+        self.noRoomsAvailable.isHidden = false
+        self.fromLabel.isHidden = true
+        self.hotelFeesLabel.isHidden = true
+        self.selectRoomLabel.isHidden = true
+    }
+    
+    internal func footerViewSetUpForNormalState() {
+        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.footerView.backgroundColor = AppColors.themeGreen
+        self.noRoomsAvailable.isHidden = true
+        self.fromLabel.isHidden = false
+        self.hotelFeesLabel.isHidden = false
+        self.selectRoomLabel.isHidden = false
+    }
+    
+    internal func redirectToMap() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
+        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
+        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
+        
+        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            if index == 0 {
+                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
+                    self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                }
+            } else {
+                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
+                    self.openGoogleMaps(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                }
+            }
+        }
+    }
+    
+    internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
         if indexPath == IndexPath(row: 2, section: 0) {
             if let hotelData = self.viewModel.hotelData {
                 let text = hotelData.address + "Maps   "
@@ -238,20 +251,25 @@ class HotelDetailsVC: BaseVC {
         return UITableView.automaticDimension
     }
     
-    private func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
-        switch section {
-        case 1:
-            return 94.0
-        default:
-            return CGFloat.leastNonzeroMagnitude
-        }
+    internal func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
+        return 0.0
     }
     
-    private func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
-        if section == 1{
-            return 4.0
+    internal func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    internal func filterdHotelData(tagList: [String]) {
+        self.viewModel.ratesData.removeAll()
+        self.viewModel.roomRates.removeAll()
+        self.viewModel.tableViewRowCell.removeAll()
+        if let rates = self.viewModel.hotelData?.rates {
+            self.viewModel.ratesData = self.viewModel.getFilteredData(rates: rates, tagList: tagList)
+            for singleRate in self.viewModel.ratesData {
+                self.viewModel.roomRates.append(singleRate.roomData)
+                self.viewModel.tableViewRowCell.append(singleRate.tableViewRowCell)
+            }
         }
-       return 16.0
     }
     
     //Mark:- IBOActions
@@ -265,293 +283,14 @@ class HotelDetailsVC: BaseVC {
     }
     
     @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
-        
         guard self.imageView.isHidden else {return}
-        
         let touchPoint = sender.location(in: self.view?.window)
-        
         if sender.state == UIGestureRecognizer.State.began {
             self.initialPanPoint = touchPoint
         }
         else  if (initialPanPoint.y + 10) < touchPoint.y {
             self.hide(animated: true)
             initialPanPoint = touchPoint
-        }
-    }
-    
-}
-
-//Mark:- UITableView Delegate And Datasource
-//==========================================
-extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if let rates = self.viewModel.hotelData?.rates {
-            return rates.count + 1 + 1
-        }
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let rates = self.viewModel.hotelData?.rates {
-            switch section {
-            case 0:
-                return 6
-            case 1:
-                return 0
-            default:
-                self.viewModel.roomRates.append(rates[section - 2].roomData)
-                return rates[section - 2].tableViewRowCell.count
-            }
-        }
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if let hotelDetails = self.viewModel.hotelData, let ratesData = hotelDetails.rates {
-            if indexPath.section == 0 {
-                switch indexPath.row {
-                case 0:
-                    let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 1:
-                    let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 2:
-                    let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 3:
-                    let cell = self.getHotelOverViewCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 4:
-                    let cell = self.getHotelDetailsAmenitiesCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 5:
-                    let cell = self.getTripAdviserCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                default:
-                    return UITableViewCell()
-                }
-            } else if (indexPath.section != 1) {
-                let currentRatesData = ratesData[indexPath.section - 2]
-                switch currentRatesData.tableViewRowCell[indexPath.row] {
-                case .roomBedsType:
-                    if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRatesData.roomData) {
-                        return cell
-                    }
-                case .inclusion:
-                    if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                case .otherInclusion:
-                    if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                case .cancellationPolicy:
-                    if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                case .paymentPolicy:
-                    if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                case .notes:
-                    if let cell = self.getNotesCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                case .checkOut:
-                    if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: currentRatesData) {
-                        return cell
-                    }
-                }
-            }
-        } else {
-            guard let hotelInfo = self.viewModel.hotelInfo else { return UITableViewCell() }
-            switch indexPath.row {
-            case 0:
-                let cell = self.getImageSlideCellWithInfo(indexPath: indexPath, hotelInfo: hotelInfo)
-                return cell
-            case 1:
-                let cell = self.getHotelRatingCellWithInfo(indexPath: indexPath, hotelInfo: hotelInfo)
-                return cell
-            case 2:
-                let cell = self.getLoaderCell(indexPath: indexPath)
-                return cell
-            default: return UITableViewCell()
-            }
-        }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
-            if indexPath.row == 2 {
-                self.redirectToMap()
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 1:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchBarHeaderView") as? SearchBarHeaderView  else { return UITableViewHeaderFooterView() }
-            return headerView
-        default:
-            return nil
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.heightForRow(tableView: tableView, indexPath: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.heightForRow(tableView: tableView, indexPath: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return self.heightForHeaderView(tableView: tableView, section: section)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.heightForHeaderView(tableView: tableView, section: section)
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return self.heightForFooterView(tableView: tableView, section: section)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return self.heightForFooterView(tableView: tableView, section: section)
-    }
-}
-
-extension HotelDetailsVC: HotelDetailDelegate {
-    
-    func getHotelDetailsSuccess() {
-//        self.viewModel.roomRatesData = self.viewModel.hotelData?.rates ?? [Rates]()
-//        for rates in self.viewModel.roomRatesData {
-//            self.viewModel.roomRates.append(rates.roomData)
-//        }
-        let index = IndexPath(row: 2, section: 0)
-        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
-            cell.activityIndicator.stopAnimating()
-        }
-        self.hotelTableView.reloadData()
-    }
-    
-    func getHotelDetailsFail() {
-        let index = IndexPath(row: 2, section: 0)
-        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
-            cell.activityIndicator.stopAnimating()
-            delay(seconds: AppConstants.kAnimationDuration) {
-                cell.activityIndicator.isHidden = true
-            }
-        }
-        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonImage: nil, buttonAction: self.completion)
-        printDebug("API Parsing Failed")
-    }
-    
-    func updateFavouriteSuccess(withMessage: String) {
-        self.hotelTableView.reloadData()
-        self.sendDataChangedNotification(data: self)
-        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        self.headerView.leftButton.setImage(buttonImage, for: .normal)
-    }
-    
-    func updateFavouriteFail() {
-        AppNetworking.hideLoader()
-        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        self.headerView.leftButton.setImage(buttonImage, for: .normal)
-    }
-    
-    func getHotelDistanceAndTimeSuccess() {
-        if let placeModel = self.viewModel.placeModel {
-            if !(placeModel.durationValue/60 < 10) {
-                self.viewModel.mode = .driving
-                self.viewModel.getHotelDistanceAndTimeInfo()
-            }
-        }
-        self.hotelTableView.reloadData()
-    }
-    
-    func getHotelDistanceAndTimeFail() {
-        printDebug("time and distance not found")
-    }
-}
-
-extension HotelDetailsVC {
-    private func manageHeaderView(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y
-        
-        if (hotelImageHeight - headerView.height) < yOffset {
-            //show
-            self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
-            self.headerView.animateBackView(isHidden: false, completion: nil)
-            let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
-            self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
-        }
-        else {
-            //hide
-            self.headerView.navTitleLabel.text = ""
-            self.headerView.animateBackView(isHidden: true, completion: nil)
-            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-            self.headerView.leftButton.setImage(buttonImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-    }
-}
-
-extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
-    func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-        if let topVC = UIApplication.topViewController() {
-            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
-        }
-    }
-    
-    func willShowImage(at index: Int, image: UIImage?) {
-        self.imageView.image = image
-    }
-}
-
-
-extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
-    
-    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
-        return self.viewModel.hotelData?.photos.count ?? 0
-    }
-    
-    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
-        var image = ATGalleryImage()
-        
-        image.imagePath = self.viewModel.hotelData?.photos[index]
-        
-        return image
-    }
-    
-    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
-        self.imagesCollectionView?.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
-    }
-}
-
-extension HotelDetailsVC: GetFullInfoDelegate {
-    func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
-        self.expandHeight = expandHeight
-        if !allIndexPath.contains(indexPath) {
-            self.allIndexPath.append(indexPath)
-//            self.hotelTableView.reloadRows(at: [indexPath], with: .fade)
-            self.hotelTableView.reloadData()
         }
     }
 }

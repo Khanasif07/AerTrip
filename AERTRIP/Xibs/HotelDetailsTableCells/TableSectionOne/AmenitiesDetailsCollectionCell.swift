@@ -20,7 +20,12 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var amenitiesStackView: UIStackView!
     @IBOutlet weak var amenitiesImageView: UIImageView!
     @IBOutlet weak var amenitiesNameLabel: UILabel!
-    
+    @IBOutlet weak var dividerView: ATDividerView! {
+        didSet {
+            self.dividerView.alpha = 0.5
+            self.dividerView.backgroundColor = AppColors.themeBlack
+        }
+    }
     
     //Mark:- LifeCycle
     //================
@@ -31,13 +36,25 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     }
     
     private func configUi() {
-        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(18.0)
+        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(17.0)//18 is to big
+        self.amenitiesNameLabel.textColor = AppColors.themeBlack
     }
 
     //Mark:- Methods
     //==============
-    internal func configureCell(amenitiesItem: UIImage,amenitiesName: String) {
-        self.amenitiesImageView.image = amenitiesItem
-        self.amenitiesNameLabel.text = amenitiesName
+    internal func configureCell(amenitiesMainData: AmenitiesMain) {
+        self.amenitiesImageView.image = amenitiesMainData.image
+        self.amenitiesNameLabel.text = amenitiesMainData.name
+        if amenitiesMainData.available {
+            self.amenitiesImageView.alpha = 1.0
+            self.amenitiesNameLabel.alpha = 1.0
+            self.dividerView.alpha = 0.0
+            self.dividerView.isHidden = true
+        } else {
+            self.amenitiesImageView.alpha = 0.35
+            self.dividerView.alpha = 0.5
+            self.amenitiesNameLabel.alpha = 0.35
+            self.dividerView.isHidden = false
+        }
     }
 }

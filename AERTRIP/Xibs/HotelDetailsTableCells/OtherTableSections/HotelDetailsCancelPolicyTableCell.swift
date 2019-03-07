@@ -32,6 +32,11 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         }
     }
     @IBOutlet weak var moreBtnOutlet: UIButton!
+    @IBOutlet weak var shadowView: UIView! {
+        didSet {
+            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)
+        }
+    }
     
     
     //Mark:- LifeCycle
@@ -78,7 +83,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Full Penalty Details
     internal func fullPenaltyDetails(ratesData: Rates) -> NSMutableAttributedString? {
-//        self.titleLabel.text = LocalizedString.CancellationPolicy.localized
+        //        self.titleLabel.text = LocalizedString.CancellationPolicy.localized
         //let ratesData = self.ratesData,
         if let cancellationInfo = ratesData.cancellation_penalty {
             let attributedString = NSMutableAttributedString()
@@ -146,15 +151,15 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         //let ratesData = self.ratesData,
         if let notesInclusion = ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] {
             let attributedString = NSMutableAttributedString()
-            for (index,note) in notesInclusion.enumerated() {
-                if index != 0 {
-                    let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
-                    let dotAttributedString = NSAttributedString(string: "●   ", attributes: dotAttributes)
-                    attributedString.append(dotAttributedString)
-                    let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-                    let blackAttributedString = NSAttributedString(string: "\(note)\n" , attributes: blackAttribute)
-                    attributedString.append(blackAttributedString)
-                }
+            for (note) in notesInclusion {
+                //                if index != 0 {
+                let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
+                let dotAttributedString = NSAttributedString(string: "●   ", attributes: dotAttributes)
+                attributedString.append(dotAttributedString)
+                let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+                let blackAttributedString = NSAttributedString(string: "\(note)\n" , attributes: blackAttribute)
+                attributedString.append(blackAttributedString)
+                //                }
             }
             return attributedString
         }
@@ -220,8 +225,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     @IBAction func moreBtnAction(_ sender: UIButton) {
-//        if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender),let safeDelegate = self.delegate ,let penalyDetails = self.fullNotesDetails(){
-//            safeDelegate.expandCell(expandHeight: size.height, indexPath: indexPath, attributedString: penalyDetails)
-//        }
+        if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender), let safeDelegate = self.delegate {
+            safeDelegate.expandCell(expandHeight: size.height, indexPath: indexPath)
+        }
     }
 }

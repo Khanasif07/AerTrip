@@ -1,18 +1,19 @@
 //
-//  SearchBarHeaderView.swift
+//  SearchTagTableCell.swift
 //  AERTRIP
 //
-//  Created by Admin on 12/02/19.
+//  Created by Admin on 07/03/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class SearchBarHeaderView: UITableViewHeaderFooterView {
-    
+class HotelDetailsSearchTagTableCell: UITableViewCell {
+
     //Mark:- Variables
     //===============
-    var tagButtons = ["Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable","Breakfast","Refundable"]
+    var tagButtons: [String] = ["Breakfast"]
+    internal var availableTags = [String]()
     
     //Mark:- IBOutlets
     //================
@@ -28,29 +29,11 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    
     //Mark:- LifeCycle
     //================
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        self.initialSetUp()
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initialSetUp()
-    }
-    
-    //Mark:- PrivateFunctions
-    //=======================
-    //.InitialSetUp
-    private func initialSetUp() {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "SearchBarHeaderView", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        view.frame = bounds
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(view)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.configureUI()
     }
     
@@ -81,9 +64,7 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
     }
     
     private func registerXibs() {
-        let nib = UINib(nibName: HotelTagCollectionCell.reusableIdentifier, bundle: nil)
-        self.tagCollectionView.register(nib, forCellWithReuseIdentifier: HotelTagCollectionCell.reusableIdentifier)
-//        self.tagCollectionView.registerCell(nibName: HotelTagCollectionCell.reusableIdentifier)
+        self.tagCollectionView.registerCell(nibName: HotelTagCollectionCell.reusableIdentifier)
     }
     
     ///AttributeLabelSetup
@@ -95,16 +76,20 @@ class SearchBarHeaderView: UITableViewHeaderFooterView {
         return attributedString
     }
     
+//    internal func configureCell(hotelData: Amenities) {
+//        
+//    }
+    
     @IBAction func searchBarBtnAction(_ sender: Any) {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             printDebug(parentVC.className)
-            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.tagButtons, superView: self)
+            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.availableTags, superView: self)
         }
     }
 }
 
 
-extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.tagButtons.count
@@ -113,7 +98,13 @@ extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelTagCollectionCell.reusableIdentifier, for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen)
+        var isCancelButtonAvailable: Bool = true
+        if self.tagButtons[indexPath.item] == "Breakfast" {
+            isCancelButtonAvailable = false
+        } else {
+            isCancelButtonAvailable = true
+        }
+        cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: isCancelButtonAvailable)
         return cell
     }
     
@@ -136,24 +127,32 @@ extension SearchBarHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 
-extension SearchBarHeaderView: DeleteTagButtonDelegate {
+extension HotelDetailsSearchTagTableCell: DeleteTagButtonDelegate {
     
     func deleteTagButton(indexPath: IndexPath) {
-        if self.tagButtons.indices.contains(indexPath.item) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC , self.tagButtons.indices.contains(indexPath.item) {
             printDebug("\(self.tagButtons[indexPath.item]) is deleted")
             self.tagButtons.remove(at: indexPath.item)
             self.tagCollectionView.reloadData()
+            parentVC.filterdHotelData(tagList: self.tagButtons)
+            parentVC.hotelTableView.reloadData()
+//            let indexPath = IndexPath(row: self.tagButtons.count - 1, section: 0)
+//            self.tagCollectionView.scrollToItem(at: indexPath, at: .right, animated: true)
         }
     }
 }
 
-extension SearchBarHeaderView: AddTagButtonDelegate {
+extension HotelDetailsSearchTagTableCell: AddTagButtonDelegate {
     
     func addTagButtons(tagName: String) {
-        self.tagButtons.append(tagName)
-        self.tagCollectionView.reloadData()
-        let indexPath = IndexPath(row: self.tagButtons.count - 1, section: 0)
-        self.tagCollectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            self.tagButtons.append(tagName)
+            self.tagCollectionView.reloadData()
+            parentVC.filterdHotelData(tagList: self.tagButtons)
+            parentVC.hotelTableView.reloadData()
+            let indexPath = IndexPath(row: self.tagButtons.count - 1, section: 0)
+            self.tagCollectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        }
     }
     
 }

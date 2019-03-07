@@ -81,12 +81,14 @@ class HotelInfoAddressCell: UITableViewCell {
 
     
     internal func configureAddressCell(hotelData: HotelDetails) {
+        self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
         self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
     internal func configureOverviewCell(hotelData: HotelDetails) {
         //self.infoTextViewTrailingConstraint.constant = -self.moreBtnOutlet.frame.origin.y
+        self.moreBtnOutlet.isHidden = false
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         self.attributeLabelSetUp(overview: hotelData.info)

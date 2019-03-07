@@ -28,11 +28,7 @@ class AmenitiesCollectionCell: UICollectionViewCell {
     }
     
     //Mark:- Methods
-    //==============
-//    internal func configureCell(amenitiesItem: UIImage) {
-//        self.amenitiesImageView.image = amenitiesItem
-//    }
-    
+    //==============    
     internal func configureCell(amenitiesMainData: AmenitiesMain) {
         self.amenitiesImageView.image = amenitiesMainData.image
         self.amenitiesImageView.alpha = amenitiesMainData.available ? 1 : 0.5

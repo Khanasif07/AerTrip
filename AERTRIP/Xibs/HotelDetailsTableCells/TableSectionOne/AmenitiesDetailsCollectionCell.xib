@@ -13,43 +13,48 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AmenitiesDetailsCollectionCell" id="gTV-IL-0wX" customClass="AmenitiesDetailsCollectionCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="146" height="94"/>
+            <rect key="frame" x="0.0" y="0.0" width="187.5" height="51.5"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="146" height="94"/>
+                <rect key="frame" x="0.0" y="0.0" width="187.5" height="51.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YJ-en-OhD">
-                        <rect key="frame" x="0.0" y="0.0" width="146" height="94"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="51.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-Te-GSK">
-                                <rect key="frame" x="16" y="33.5" width="114" height="27"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="meA-D5-heo">
-                                        <rect key="frame" x="0.0" y="1.5" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="meA-D5-heo" secondAttribute="height" multiplier="1:1" id="MmL-z5-P8z"/>
-                                            <constraint firstAttribute="height" constant="24" id="gib-sv-pdA"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuS-Yd-Ih7">
-                                        <rect key="frame" x="44" y="3" width="70" height="21.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="meA-D5-heo">
+                                <rect key="frame" x="16" y="14" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="yPH-7e-9cq"/>
+                                    <constraint firstAttribute="width" secondItem="meA-D5-heo" secondAttribute="height" multiplier="1:1" id="MmL-z5-P8z"/>
+                                    <constraint firstAttribute="height" constant="24" id="gib-sv-pdA"/>
                                 </constraints>
-                            </stackView>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwT-o5-Mnv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="12" y="26.5" width="163.5" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="dPk-4U-cbs"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuS-Yd-Ih7">
+                                <rect key="frame" x="58" y="15" width="112.5" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="UFg-Te-GSK" firstAttribute="centerY" secondItem="4YJ-en-OhD" secondAttribute="centerY" id="2J2-HY-C9i"/>
-                            <constraint firstAttribute="trailing" secondItem="UFg-Te-GSK" secondAttribute="trailing" constant="16" id="DBh-tT-Emu"/>
-                            <constraint firstItem="UFg-Te-GSK" firstAttribute="centerX" secondItem="4YJ-en-OhD" secondAttribute="centerX" id="UA0-vB-g4r"/>
-                            <constraint firstItem="UFg-Te-GSK" firstAttribute="leading" secondItem="4YJ-en-OhD" secondAttribute="leading" constant="16" id="csM-Ue-cXO"/>
+                            <constraint firstAttribute="trailing" secondItem="RwT-o5-Mnv" secondAttribute="trailing" constant="12" id="7bX-ds-Mkm"/>
+                            <constraint firstAttribute="bottom" secondItem="meA-D5-heo" secondAttribute="bottom" constant="13.75" id="A7J-0X-eIx"/>
+                            <constraint firstItem="meA-D5-heo" firstAttribute="leading" secondItem="4YJ-en-OhD" secondAttribute="leading" constant="16" id="IC8-Zj-nOO"/>
+                            <constraint firstAttribute="trailing" secondItem="wuS-Yd-Ih7" secondAttribute="trailing" constant="17" id="KUb-34-w3d"/>
+                            <constraint firstItem="RwT-o5-Mnv" firstAttribute="leading" secondItem="4YJ-en-OhD" secondAttribute="leading" constant="12" id="Ps6-dN-g76"/>
+                            <constraint firstItem="meA-D5-heo" firstAttribute="top" secondItem="4YJ-en-OhD" secondAttribute="top" constant="13.75" id="Rn1-rb-Urv"/>
+                            <constraint firstItem="wuS-Yd-Ih7" firstAttribute="leading" secondItem="meA-D5-heo" secondAttribute="trailing" constant="18" id="V0k-g9-0Xu"/>
+                            <constraint firstItem="RwT-o5-Mnv" firstAttribute="centerY" secondItem="meA-D5-heo" secondAttribute="centerY" multiplier="1.05" id="cyz-7G-nNK"/>
+                            <constraint firstAttribute="height" constant="51.5" id="fhp-o5-aeB"/>
+                            <constraint firstItem="wuS-Yd-Ih7" firstAttribute="centerY" secondItem="meA-D5-heo" secondAttribute="centerY" id="iCk-5t-MrS"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -65,8 +70,8 @@
             <connections>
                 <outlet property="amenitiesImageView" destination="meA-D5-heo" id="ngj-0E-tEq"/>
                 <outlet property="amenitiesNameLabel" destination="wuS-Yd-Ih7" id="ktR-El-9DH"/>
-                <outlet property="amenitiesStackView" destination="UFg-Te-GSK" id="YGP-WF-eWm"/>
                 <outlet property="containerView" destination="4YJ-en-OhD" id="Zhm-TP-jG4"/>
+                <outlet property="dividerView" destination="RwT-o5-Mnv" id="guj-kv-C4V"/>
             </connections>
             <point key="canvasLocation" x="190" y="111"/>
         </collectionViewCell>

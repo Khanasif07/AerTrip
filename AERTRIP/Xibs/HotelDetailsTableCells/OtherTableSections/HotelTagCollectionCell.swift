@@ -49,10 +49,15 @@ class HotelTagCollectionCell: UICollectionViewCell {
     }
     
     ///ConfigureUI Cell
-    internal func configureCell(tagTitle: String, titleColor: UIColor , tagBtnColor: UIColor) {
+    internal func configureCell(tagTitle: String, titleColor: UIColor , tagBtnColor: UIColor,isCancelButtonAvailable: Bool) {
+        if isCancelButtonAvailable {
+            self.cancelButton.imageView?.tintColor = titleColor
+            self.cancelButton.isHidden = false
+        } else {
+            self.cancelButton.isHidden = true
+        }
         self.tagOptionNameLabel.text = tagTitle
         self.tagOptionNameLabel.textColor = titleColor
-        self.cancelButton.imageView?.tintColor = titleColor
         self.containerView.backgroundColor = tagBtnColor
         self.containerView.layer.borderColor = titleColor.cgColor
     }
