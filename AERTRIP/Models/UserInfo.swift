@@ -167,6 +167,8 @@ class UserInfo {
         var distanceRange : Double = 0.0
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
+        var leftRangePrice : Double = 0.0
+        var rightRangePrice: Double = 0.0
         var amentities : [String] = []
         var roomMeal : [Int] = []
         var roomCancelation : [Int] = []
@@ -181,6 +183,8 @@ class UserInfo {
             distanceRange  = 0.0
             minimumPrice  = 0.0
             maximumPrice  = 0.0
+            leftRangePrice = 0.0
+            rightRangePrice = 0.0
             amentities  = []
             roomMeal  = []
             roomCancelation  = []
@@ -197,6 +201,8 @@ class UserInfo {
             case distanceRange
             case minimumPrice
             case maximumPrice
+            case leftRangePrice
+            case rightRangePrice
             case amentities
             case roomMeal
             case roomCancelation
@@ -213,6 +219,8 @@ class UserInfo {
             distanceRange = try values.decode(Double.self, forKey: .distanceRange)
             minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
             maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
+            leftRangePrice = try values.decode(Double.self, forKey: .leftRangePrice)
+            rightRangePrice = try values.decode(Double.self, forKey: .rightRangePrice)
             amentities = try values.decode([String].self, forKey: .amentities)
             roomMeal = try values.decode([Int].self, forKey: .roomMeal)
             roomCancelation = try values.decode([Int].self, forKey: .roomCancelation)

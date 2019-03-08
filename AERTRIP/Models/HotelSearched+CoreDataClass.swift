@@ -154,7 +154,7 @@ public class HotelSearched: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.amenities.rawValue] as? [String] {
-            hotelSearched!.amentities = obj
+            hotelSearched!.amenities = obj
         }
         
         CoreDataManager.shared.saveContext()

@@ -148,6 +148,9 @@ extension APICaller {
                     let filters = response["filters"] as? JSONDictionary
                     HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
                     HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
+                    HotelFilterVM.shared.leftRangePrice =  HotelFilterVM.shared.minimumPrice
+                     HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
+                    HotelFilterVM.shared.saveDataToUserDefaults()
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }
                 else {

@@ -26,9 +26,11 @@ class HotelFilterVM {
     var ratingCount: [Int] = []
     var tripAdvisorRatingCount: [Int] = []
     var isIncludeUnrated: Bool = false
-    var distanceRange: Double = 2.0
+    var distanceRange: Double = 0.0
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
+    var leftRangePrice: Double = 0.0
+    var rightRangePrice : Double = 0.0
     var amenitites: [String] = []
     var roomMeal: [Int] = []
     var roomCancelation: [Int] = []
@@ -39,9 +41,12 @@ class HotelFilterVM {
         var filter = UserInfo.HotelFilter()
         filter.ratingCount = ratingCount
         filter.tripAdvisorRatingCount = tripAdvisorRatingCount
+        filter.isIncludeUnrated = isIncludeUnrated
         filter.distanceRange = distanceRange
         filter.minimumPrice = minimumPrice
         filter.maximumPrice = maximumPrice
+        filter.leftRangePrice = leftRangePrice
+        filter.rightRangePrice = rightRangePrice
         filter.amentities = amenitites
         filter.roomMeal = roomMeal
         filter.roomCancelation = roomCancelation

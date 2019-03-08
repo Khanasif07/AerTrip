@@ -8,35 +8,27 @@
 
 import UIKit
 
-
 class RangeVC: BaseVC {
-    
     // MARK: - IB Outlets
-    @IBOutlet weak var searchResultRangeLabel: UILabel!
-    @IBOutlet weak var rangeView: UIView!
-    @IBOutlet weak var rangeLabel: UILabel!
     
-    
-    
-    
-    
+    @IBOutlet var searchResultRangeLabel: UILabel!
+    @IBOutlet var rangeView: UIView!
+    @IBOutlet var rangeLabel: UILabel!
+    @IBOutlet var stepSlider: StepSlider!
     
     // MARK: - View Life cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.doInitialSetup()
         
-        sliderValueChanged(HotelFilterVM.shared.distanceRange)
+        self.doInitialSetup()
+        self.setUpRangeView()
     }
-    
     
     // MARK: - Override methods
     
-     private func doInitialSetup() {
+    private func doInitialSetup() {
         self.rangeView.layer.cornerRadius = 15.5
-      
     }
     
     override func setupTexts() {
@@ -48,24 +40,22 @@ class RangeVC: BaseVC {
         self.rangeLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
-    
     override func setupColors() {
         self.rangeView.backgroundColor = AppColors.themeGray10
         self.rangeLabel.textColor = AppColors.textFieldTextColor51
     }
     
     private func setUpRangeView() {
+        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+            printDebug("filter not found")
+            return
+        }
+        self.stepSlider.index = UInt(filter.distanceRange.toInt)
+        self.rangeLabel.text = "Within " + "\((filter.distanceRange.toInt))" + "Km"
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
-        rangeLabel.text = "Within " + "\((sender as AnyObject).index ?? 0)" + "Km"
+        self.rangeLabel.text = "Within " + "\((sender as AnyObject).index ?? 0)" + "Km"
         HotelFilterVM.shared.distanceRange = Double((sender as AnyObject).index ?? 0)
-        
     }
-    
-    
-    
-
- 
-
 }

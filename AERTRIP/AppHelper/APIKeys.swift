@@ -150,7 +150,6 @@ enum APIKeys: String {
     
     //HotelDetails
     case photos = "photos"
-    //case amenities = "amenities"
     case amenities_group = "amenities_group"
     case checkin_time = "checkin_time"
     case checkout_time = "checkout_time"

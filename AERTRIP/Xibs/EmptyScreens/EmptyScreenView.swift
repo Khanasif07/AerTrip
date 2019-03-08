@@ -21,6 +21,7 @@ class EmptyScreenView: UIView {
         case importGoogleContacts
         case none
         case noResult
+        case noHotelFound
     }
     
     //MARK:- properties -
@@ -107,11 +108,12 @@ extension EmptyScreenView {
             
         case .importGoogleContacts:
             self.setupForImportGoogleContacts()
-            
         case .none:
             self.setupForNone()
         case .noResult:
             self.setUpNoResult()
+        case .noHotelFound:
+            self.setUpNoHotelFound()
         }
     }
     
@@ -186,7 +188,7 @@ extension EmptyScreenView {
         self.messageLabel.text = LocalizedString.ImportGoogleMessage.localized
     }
     
-    private func setUpNoResult(){
+    private func setUpNoResult() {
         self.containerViewCenterYConstraint.constant = -125
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
@@ -194,5 +196,24 @@ extension EmptyScreenView {
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.noResults.localized
         
+    }
+    
+    private func setUpNoHotelFound() {
+        self.containerViewCenterYConstraint.constant = 0
+        self.messageLabelTopConstraint.constant = 0
+        self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
+       
+    }
+    
+    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(22.0), .foregroundColor: AppColors.themeBlack])
+        attString.addAttributes([
+            .font: AppFonts.Regular.withSize(18.0),
+            .foregroundColor: AppColors.themeGray60
+            ], range:(text as NSString).range(of: boldText))
+        return attString
     }
 }

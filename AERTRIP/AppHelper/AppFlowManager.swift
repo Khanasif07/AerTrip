@@ -369,9 +369,11 @@ extension AppFlowManager {
     
     // Mail Composer
     
-    func presentMailComposerVC(_ favouriteHotels: [HotelSearched]) {
+    func presentMailComposerVC(_ favouriteHotels: [HotelSearched],_ sid: String,_ pinnedTemplateUrl: String) {
         let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.favouriteHotels = favouriteHotels
+        obj.viewModel.u = pinnedTemplateUrl
+        obj.viewModel.sid = sid
         self.mainNavigationController.present(obj, animated: true)
     }
 }
