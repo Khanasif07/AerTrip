@@ -458,4 +458,8 @@ enum LocalizedString: String {
     case Whoops = "Whoops"
     case HotelDetailsEmptyState = "HotelDetailsEmptyState"
     case ResetFilter = "ResetFilter"
+    
+    // Mail Composer View
+    case ContactUsAertrip = "ContactUsAertrip"
+    case CopyrightAertrip = "CopyrightAertrip"
 }

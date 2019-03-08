@@ -10,12 +10,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC.swift"
-            timestampString = "573700453.8394229"
+            timestampString = "573709517.634855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "684"
             endingLineNumber = "684"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC.swift"
+            timestampString = "573709517.636291"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC.swift"
+            timestampString = "573709517.637316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
+            timestampString = "573709517.6383311"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "searchBar(_:textDidChange:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
+            timestampString = "573709517.638406"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "searchBarTextDidBeginEditing(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
+            timestampString = "573709517.638464"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "searchBar(_:textDidChange:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
+            timestampString = "573709517.638527"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "searchBarTextDidBeginEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

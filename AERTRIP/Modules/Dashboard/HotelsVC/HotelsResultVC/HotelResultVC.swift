@@ -237,7 +237,7 @@ class HotelResultVC: BaseVC {
         delay(seconds: 0.5) {
            // self.setupMapView()
         }
-        // self.hotelSearchTableView.backgroundView = noResultemptyView
+        self.hotelSearchTableView.backgroundView = noResultemptyView
     }
     
     private func setUpFloatingView() {

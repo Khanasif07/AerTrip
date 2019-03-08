@@ -19,6 +19,7 @@ class MailComposerVC: BaseVC {
     // MARK: Variables
     let cellIdenitifer = "HotelMailComposerCardViewTableViewCell"
     var mailComposerHeaderView: EmailComposerHeaderView = EmailComposerHeaderView()
+    var mailComposerFooterView: EmailComposerFooterView = EmailComposerFooterView()
     var selectedMails: [String] = []
      let viewModel = MailComposerVM()
     
@@ -67,7 +68,7 @@ class MailComposerVC: BaseVC {
         self.tableViewSetup()
         self.registerXib()
         self.setupHeader()
-        //self.setUpFooter()
+        self.setUpFooter()
     }
     
     private func navBarSetUp() {
@@ -98,8 +99,8 @@ class MailComposerVC: BaseVC {
     }
     
     private func setUpFooter() {
-        mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
-        tableView.tableFooterView = mailComposerHeaderView
+        mailComposerFooterView = EmailComposerFooterView.instanceFromNib()
+        tableView.tableFooterView = mailComposerFooterView
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

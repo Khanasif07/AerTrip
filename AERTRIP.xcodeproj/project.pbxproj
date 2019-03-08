@@ -28,6 +28,8 @@
 		180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180A3D7F21C108C0001A1E6A /* ToastView.xib */; };
 		180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8321C1098E001A1E6A /* ToastView.swift */; };
 		180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3D8521C11AE7001A1E6A /* AppToast.swift */; };
+		180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C0B223205B8005FAEA9 /* EmailComposerFooterView.swift */; };
+		180E7C0E223205D5005FAEA9 /* EmailComposerFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180E7C0D223205D5005FAEA9 /* EmailComposerFooterView.xib */; };
 		180F9BD9222CF35F00518D3B /* HotelSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F9BD7222CF35F00518D3B /* HotelSearchTableViewCell.swift */; };
 		180F9BDA222CF35F00518D3B /* HotelSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180F9BD8222CF35F00518D3B /* HotelSearchTableViewCell.xib */; };
 		180F9BDC222D055100518D3B /* HotelResultVC+ DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F9BDB222D055100518D3B /* HotelResultVC+ DelegateMethods.swift */; };
@@ -485,6 +487,8 @@
 		180A3D7F21C108C0001A1E6A /* ToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastView.xib; sourceTree = "<group>"; };
 		180A3D8321C1098E001A1E6A /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		180A3D8521C11AE7001A1E6A /* AppToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToast.swift; sourceTree = "<group>"; };
+		180E7C0B223205B8005FAEA9 /* EmailComposerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposerFooterView.swift; sourceTree = "<group>"; };
+		180E7C0D223205D5005FAEA9 /* EmailComposerFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailComposerFooterView.xib; sourceTree = "<group>"; };
 		180F9BD7222CF35F00518D3B /* HotelSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HotelSearchTableViewCell.swift; path = AERTRIP/Xibs/HotelResults/HotelSearchTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		180F9BD8222CF35F00518D3B /* HotelSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HotelSearchTableViewCell.xib; path = AERTRIP/Xibs/HotelResults/HotelSearchTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		180F9BDB222D055100518D3B /* HotelResultVC+ DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelResultVC+ DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -1275,6 +1279,8 @@
 				18C31F0C2227FFB60052162C /* EmailComposerHeaderView.swift */,
 				180F9BD7222CF35F00518D3B /* HotelSearchTableViewCell.swift */,
 				180F9BD8222CF35F00518D3B /* HotelSearchTableViewCell.xib */,
+				180E7C0B223205B8005FAEA9 /* EmailComposerFooterView.swift */,
+				180E7C0D223205D5005FAEA9 /* EmailComposerFooterView.xib */,
 			);
 			path = MailComposer;
 			sourceTree = "<group>";
@@ -2607,6 +2613,7 @@
 				84BF46CA2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.xib in Resources */,
 				180FA06A21DCC83F003901FF /* AddAddressTableViewCell.xib in Resources */,
 				840DDE8D220D764800F8BA92 /* HotelDetailsImgSlideCell.xib in Resources */,
+				180E7C0E223205D5005FAEA9 /* EmailComposerFooterView.xib in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
 				84504D592212F382002C1374 /* SearchBarHeaderView.xib in Resources */,
 				18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */,
@@ -2944,6 +2951,7 @@
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
+				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
 				18D4C417220AC515005E1E37 /* RoomVC.swift in Sources */,
 				84085CE021F59C0E00F1E844 /* SideMenuVC.swift in Sources */,
 				1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */,

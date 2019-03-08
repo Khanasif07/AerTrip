@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EmailComposerFooterView" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="232"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI7-8o-Pk3">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="232"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YU8-2B-ElD" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="137" y="8" width="100" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="sQg-Nl-fGC"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-eN-eus" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="67" width="375" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="ljp-sP-m1r"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fx-JZ-fqP">
+                            <rect key="frame" x="16" y="92" width="343" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-Cm-eXE">
+                            <rect key="frame" x="143" y="136.5" width="88" height="24.5"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mri-tp-2dc">
+                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                    <state key="normal" image="twiterIcon"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kav-Qm-Mzv">
+                                    <rect key="frame" x="32" y="0.0" width="24" height="24"/>
+                                    <state key="normal" image="googleIcon"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5I3-VL-dFD">
+                                    <rect key="frame" x="64" y="0.0" width="24" height="24"/>
+                                    <state key="normal" image="facebookIcon"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQU-Se-DTN">
+                            <rect key="frame" x="16" y="191" width="343" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="7io-eN-eus" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" id="CSX-af-eaC"/>
+                        <constraint firstAttribute="trailing" secondItem="fJb-Cm-eXE" secondAttribute="trailing" constant="144" id="D3A-CQ-nck"/>
+                        <constraint firstAttribute="trailing" secondItem="7Fx-JZ-fqP" secondAttribute="trailing" constant="16" id="Dey-w3-LbV"/>
+                        <constraint firstItem="fJb-Cm-eXE" firstAttribute="top" secondItem="7Fx-JZ-fqP" secondAttribute="bottom" constant="24" id="EZL-vX-gkC"/>
+                        <constraint firstItem="YU8-2B-ElD" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="137" id="Lmd-3x-OtN"/>
+                        <constraint firstItem="YU8-2B-ElD" firstAttribute="top" secondItem="gI7-8o-Pk3" secondAttribute="top" constant="8" id="OMj-TN-68K"/>
+                        <constraint firstItem="fJb-Cm-eXE" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="143" id="TfM-4D-I8G"/>
+                        <constraint firstItem="7Fx-JZ-fqP" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="YM6-KZ-Lis"/>
+                        <constraint firstItem="7Fx-JZ-fqP" firstAttribute="top" secondItem="7io-eN-eus" secondAttribute="bottom" constant="24" id="gwM-Wf-zsK"/>
+                        <constraint firstItem="7io-eN-eus" firstAttribute="top" secondItem="YU8-2B-ElD" secondAttribute="bottom" constant="24" id="hn3-az-PBJ"/>
+                        <constraint firstItem="hQU-Se-DTN" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="lZx-8O-4Lp"/>
+                        <constraint firstAttribute="trailing" secondItem="hQU-Se-DTN" secondAttribute="trailing" constant="16" id="mrX-oT-a16"/>
+                        <constraint firstAttribute="trailing" secondItem="YU8-2B-ElD" secondAttribute="trailing" constant="138" id="o4E-CW-7p5"/>
+                        <constraint firstAttribute="trailing" secondItem="7io-eN-eus" secondAttribute="trailing" id="rAe-MH-a3f"/>
+                        <constraint firstAttribute="bottom" secondItem="hQU-Se-DTN" secondAttribute="bottom" constant="20.5" id="wUE-5d-vjE"/>
+                        <constraint firstItem="hQU-Se-DTN" firstAttribute="top" secondItem="fJb-Cm-eXE" secondAttribute="bottom" constant="30" id="yUy-Tm-eMY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="gI7-8o-Pk3" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="3hx-7M-83b"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="gI7-8o-Pk3" secondAttribute="bottom" id="L3U-nJ-iPm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gI7-8o-Pk3" secondAttribute="trailing" id="pEN-Ax-iw6"/>
+                <constraint firstItem="gI7-8o-Pk3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="uCq-T9-vMQ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="contactUsLabel" destination="7Fx-JZ-fqP" id="c7L-xY-wEF"/>
+                <outlet property="licenseLabel" destination="hQU-Se-DTN" id="yx1-Xo-chj"/>
+                <outlet property="seeRatesButton" destination="YU8-2B-ElD" id="7Yz-Xp-gtd"/>
+                <outlet property="socialIconStackView" destination="fJb-Cm-eXE" id="83p-Ok-IWm"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="facebookIcon" width="24" height="24"/>
+        <image name="googleIcon" width="24" height="24"/>
+        <image name="twiterIcon" width="24" height="24"/>
+    </resources>
+</document>
