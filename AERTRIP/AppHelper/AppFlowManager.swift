@@ -307,18 +307,33 @@ extension AppFlowManager {
         }
     }
     
-    func presentHotelDetailsVC(hotelInfo: HotelSearched , sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
-        let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-        ob.viewModel.hotelInfo = hotelInfo
-        ob.viewModel.sid = sid
-        ob.viewModel.hotelSearchRequest = hotelSearchRequest
-        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    func presentHotelDetailsVC(hotelInfo: HotelSearched, sourceView: UIView, sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
+        if let topVC = UIApplication.topViewController() {
+            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+            ob.viewModel.hotelInfo = hotelInfo
+            ob.viewModel.sid = sid
+            ob.viewModel.hotelSearchRequest = hotelSearchRequest
+            ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
+        }
+        //        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentSearchHotelTagVC(tagButtons: [String] , superView: SearchBarHeaderView) {
+        let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.delegate = superView
+        ob.tagButtons = tagButtons
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func showHotelDetailAmenitiesVC(hotelDetails: HotelDetails) {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelDetails = hotelDetails
-        //        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentHotelDetailsOverViewVC(overViewInfo: String) {
+        let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.overViewInfo = overViewInfo
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     

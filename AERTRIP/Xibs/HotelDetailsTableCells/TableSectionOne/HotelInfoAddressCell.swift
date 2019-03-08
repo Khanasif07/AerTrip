@@ -102,6 +102,9 @@ class HotelInfoAddressCell: UITableViewCell {
     
     @IBAction func moreButtonAction(_ sender: UIButton) {
         printDebug("More")
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: parentVC.viewModel.hotelData?.info ?? "")
+        }
     }
     
 }

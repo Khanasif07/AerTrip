@@ -9,5 +9,8 @@ import UIKit
 
 struct ATGalleryImage {
     var image: UIImage?
-    var imageUrl: URL?
+    var imageUrl: URL? {
+        return imagePath?.toUrl
+    }
+    var imagePath: String?
 }

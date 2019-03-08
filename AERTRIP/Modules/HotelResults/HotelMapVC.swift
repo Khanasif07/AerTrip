@@ -65,9 +65,9 @@ class HotelMapVC: UIViewController {
         self.registerXib()
         self.setupMapView()
         self.initialSetUp()
-        // self.setUpClusterManager()
-        // self.generateClusterItems()
-        //  self.clusterSetUp()
+//         self.setUpClusterManager()
+//         self.generateClusterItems()
+//          self.clusterSetUp()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -187,11 +187,14 @@ class HotelMapVC: UIViewController {
         // Movement
 //        CATransaction.begin()
 //        CATransaction.setAnimationDuration(duration)
-        self.marker.position = coordinates
+//        self.marker.position = coordinates
+//
+//        // Center Map View
+//        let camera = GMSCameraUpdate.setTarget(coordinates)
+//        mapView?.animate(with: camera)
         
-        // Center Map View
-        let camera = GMSCameraUpdate.setTarget(coordinates)
-        mapView?.animate(with: camera)
+        self.mapView?.animate(toLocation: coordinates)
+
         
 //        CATransaction.commit()
     }

@@ -27,6 +27,13 @@ class HotelsResultVM: NSObject {
     
     weak var delegate: HotelResultDelegate?
     
+    var searchedCityLocation: CLLocationCoordinate2D? {
+        if let lat = self.hotelSearchRequest?.requestParameters.latitude.toDouble, let long = self.hotelSearchRequest?.requestParameters.longitude.toDouble {
+            return CLLocationCoordinate2D(latitude: lat, longitude: long)
+        }
+        return nil
+    }
+    
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.callSearchHotel(_:)), with: forText, afterDelay: 0.5)

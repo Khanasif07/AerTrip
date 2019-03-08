@@ -35,6 +35,9 @@ class ATGalleryViewController: UIViewController {
     private let cellIdentifier = "ATGalleryCell"
     weak var datasource: ATGalleryViewDatasource?
     weak var delegate: ATGalleryViewDelegate?
+    var startShowingFrom: Int = 0
+    
+    private var numberOfImages: Int = 0
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -128,6 +131,8 @@ class ATGalleryViewController: UIViewController {
         self.horizontalCollectionView.isHidden = true
         self.horizontalCollectionView.isHidden = true
         
+        self.scrollCollectionView(toIndex: self.startShowingFrom)
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainImageView.frame = newFrame
@@ -138,6 +143,13 @@ class ATGalleryViewController: UIViewController {
                 self.horizontalCollectionView.isHidden = ATGalleryViewConfiguration.viewMode != .horizontal
                 self.verticalCollectionView.isHidden = ATGalleryViewConfiguration.viewMode != .vertical
         })
+    }
+    
+    private func scrollCollectionView(toIndex: Int) {
+        if toIndex != 0, toIndex < numberOfImages {
+            self.horizontalCollectionView.scrollToItem(at: IndexPath(item: toIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+            self.verticalCollectionView.scrollToItem(at: IndexPath(item: toIndex, section: 0), at: UICollectionView.ScrollPosition.centeredVertically, animated: false)
+        }
     }
     
     private func hideMe(isShowing: Bool = false) {
@@ -213,12 +225,14 @@ class ATGalleryViewController: UIViewController {
     }
     
     //MARK:- Public
-    public class func show(onViewController: UIViewController, sourceView: UIView?, datasource: ATGalleryViewDatasource, delegate: ATGalleryViewDelegate) {
+    public class func show(onViewController: UIViewController, sourceView: UIView?, startShowingFrom: Int = 0, datasource: ATGalleryViewDatasource, delegate: ATGalleryViewDelegate) {
         
         ATGalleryViewConfiguration.viewMode = .horizontal
         let gVC = ATGalleryViewController.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = onViewController
         gVC.sourceView = sourceView ?? onViewController.view
+        
+        gVC.startShowingFrom = startShowingFrom
         
         gVC.datasource = datasource
         gVC.delegate = delegate
@@ -240,7 +254,8 @@ class ATGalleryViewController: UIViewController {
 //MARK:-
 extension ATGalleryViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.datasource?.numberOfImages(in: self) ?? 0
+        self.numberOfImages = self.datasource?.numberOfImages(in: self) ?? 0
+        return self.numberOfImages
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

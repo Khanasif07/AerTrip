@@ -575,28 +575,16 @@ on Christmas”</string>
                                 <color key="textColor" red="0.99999600648880005" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gettyimages" translatesAutoresizingMaskIntoConstraints="NO" id="kEP-Re-qcw">
-                                <rect key="frame" x="30" y="187.5" width="315" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="iN8-ZG-Jzt"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dN1-OA-CG2" firstAttribute="centerX" secondItem="McH-7D-g5Y" secondAttribute="centerX" id="0OZ-PN-dvp"/>
                             <constraint firstItem="McH-7D-g5Y" firstAttribute="centerX" secondItem="LFJ-3z-saS" secondAttribute="centerX" id="2Xt-mO-jcg"/>
-                            <constraint firstItem="kEP-Re-qcw" firstAttribute="leading" secondItem="LFJ-3z-saS" secondAttribute="leading" constant="30" id="Ab0-TH-Hrx"/>
-                            <constraint firstItem="LFJ-3z-saS" firstAttribute="trailing" secondItem="kEP-Re-qcw" secondAttribute="trailing" constant="30" id="Ju6-tp-liv"/>
                             <constraint firstItem="dN1-OA-CG2" firstAttribute="top" secondItem="McH-7D-g5Y" secondAttribute="bottom" constant="15" id="bR1-L2-MXU"/>
                             <constraint firstItem="McH-7D-g5Y" firstAttribute="centerY" secondItem="LFJ-3z-saS" secondAttribute="centerY" multiplier="0.9" id="dUT-rL-Fq4"/>
-                            <constraint firstItem="kEP-Re-qcw" firstAttribute="centerY" secondItem="LFJ-3z-saS" secondAttribute="centerY" id="e4V-UP-hKo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LFJ-3z-saS"/>
                     </view>
-                    <connections>
-                        <outlet property="imageView" destination="kEP-Re-qcw" id="OLy-qx-jAZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqH-6U-ZCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

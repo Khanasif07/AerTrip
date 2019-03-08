@@ -27,6 +27,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
     
+    private var tickLayer: CAShapeLayer!
+    private var tickImageSize: CGSize {
+        let tickImageWidth: CGFloat = 25.0
+        return CGSize(width: tickImageWidth, height: tickImageWidth*0.8)
+    }
+    private var tickLineWidth: CGFloat = 4.0
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -67,11 +73,10 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.cornerRadius = 15.0
-        self.containerView.roundCornersByClipsToBounds(cornerRadius: 15.0)
+        self.containerView.roundTopCornersByClipsToBounds(cornerRadius: 15.0)
         self.bulkEnquiryLabel.alpha = 0.0
         self.customerServiceLabel.alpha = 0.0
         self.doneBtnOutlet.alpha = 0.0
-        //        self.headerView.layer.masksToBounds = true
         self.bulkEnquiryLabel.isHidden = true
         self.customerServiceLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true
@@ -101,7 +106,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         let myLayer = CALayer()
         myLayer.backgroundColor = UIColor.clear.cgColor
         myLayer.frame = CGRect(x: (reScaleFrame.width - 20.0) / 2.0, y: (reScaleFrame.height - 20.0) / 2.0, width: 20.0, height: 20.0)
-        self.searchBtnOutlet.layer.addSublayer(myLayer)
+//        self.searchBtnOutlet.layer.addSublayer(myLayer)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
             self.searchBtnOutlet.frame = reScaleFrame
@@ -139,6 +144,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.doneBtnOutlet.isHidden = false
         UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
             self.searchBtnOutlet.frame = newReScaleFrame
+            self.updateTickPath()
             self.searchBtnOutlet.myCornerRadius = newReScaleFrame.height / 2.0
             self.searchBtnOutlet.transform = t
             self.bulkEnquiryLabel.bottom = self.bulkLabelBottom
@@ -154,34 +160,40 @@ class BulkEnquirySuccessfulVC: BaseVC {
     ///CheckMark
     private func animatingCheckMark() {
         
-        // Scaling
-        let frame = self.searchBtnOutlet.frame
-        let scale = frame.width / 100
-        let centerX = frame.size.width / 2
-        let centerY = frame.size.height / 2
-        let sixOclock = CGFloat(Double.pi / 2)
-        
-        // Check mark
-        let checkmarkPath = UIBezierPath(arcCenter: CGPoint(x: centerX, y: centerY), radius: centerX, startAngle:  sixOclock, endAngle: sixOclock * 5, clockwise: false)
-        checkmarkPath.move(to: CGPoint(x: centerX - 23 * scale, y: centerY - 1 * scale))
-        checkmarkPath.addLine(to: CGPoint(x: centerX - 6 * scale, y: centerY + 15.9 * scale))
-        checkmarkPath.addLine(to: CGPoint(x: centerX + 22.8 * scale, y: centerY - 13.4 * scale))
-        
         // Shape layer for Check mark path
         let shapeLayer = CAShapeLayer()
+        self.tickLayer = shapeLayer
+        shapeLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: (self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0, width: tickImageSize.width, height: tickImageSize.height)
         shapeLayer.fillColor = AppColors.clear.cgColor
         shapeLayer.strokeColor = AppColors.themeWhite.cgColor
-        shapeLayer.lineWidth = 4
+        shapeLayer.lineWidth = tickLineWidth
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineJoin = CAShapeLayerLineJoin.round
-        shapeLayer.path = checkmarkPath.cgPath
-        
+        shapeLayer.path = self.getTickMarkPath()
+
+        // Animation
+        self.searchBtnOutlet.layer.addSublayer(shapeLayer)
+
         // Animation
         self.searchBtnOutlet.layer.addSublayer(shapeLayer)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.duration = AppConstants.kAnimationDuration
         shapeLayer.add(animation, forKey: "MyAnimation")
+    }
+    
+    func updateTickPath() {
+        self.tickLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: (self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0, width: tickImageSize.width, height: tickImageSize.height)
+    }
+    
+    private func getTickMarkPath() -> CGPath {
+
+        let size: CGSize = tickImageSize
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: tickLineWidth / 2.0, y: size.height / 2.0), transform: .identity)
+        path.addLine(to: CGPoint(x: CGFloat(ceilf(Float(size.width * 0.3))), y: size.height - tickLineWidth / 1.0), transform: .identity)
+        path.addLine(to: CGPoint(x: size.width - tickLineWidth / 3.0, y: tickLineWidth / 3.0), transform: .identity)
+        return UIBezierPath(cgPath: path).cgPath
     }
     
     //Mark:- IBActions

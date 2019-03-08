@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol PKBottomSheetDelegate: class {
+    func willHide(_ sheet: PKBottomSheet)
+    func willShow(_ sheet: PKBottomSheet)
+}
+
 class PKBottomSheet: UIView {
     
     //MARK:- IBOutlets
@@ -22,6 +27,7 @@ class PKBottomSheet: UIView {
     
     //MARK:- Properties
     //MARK:- Public
+    weak var delegate: PKBottomSheetDelegate?
     
     /* gapFromTop
      * - used to give the gap from top of screen.
@@ -68,8 +74,9 @@ class PKBottomSheet: UIView {
     private var presentedViewController: UIViewController!
     
     private var sheetHeight: CGFloat {
+
         let height = self.parentViewController?.view.height ?? UIScreen.main.bounds.height
-        return height - gapFromTop
+        return (height) - (gapFromTop + self.safeAreaInsets.bottom + self.safeAreaInsets.top)
     }
     
     private var oldPanPoint = CGPoint.zero
@@ -103,6 +110,7 @@ class PKBottomSheet: UIView {
     private func initialSetups() {
         updateViewSetup()
         
+        addTapGesture()
         addPanGesture()
     }
     
@@ -113,7 +121,8 @@ class PKBottomSheet: UIView {
     private func show(animated: Bool) {
         
         self.updateViewSetup()
-        UIView.animate(withDuration: animated ? animationDuration*2.0 : 0.0, delay: 0.0, usingSpringWithDamping: animated ? 0.7 : 0.0, initialSpringVelocity: animated ? 0.4 : 0.0, options: .curveEaseInOut, animations: { [weak self] in
+        self.delegate?.willShow(self)
+        UIView.animate(withDuration: animated ? animationDuration*2.0 : 0.0, delay: 0.0, usingSpringWithDamping: animated ? 0.8 : 0.0, initialSpringVelocity: animated ? 0.2 : 0.0, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainContainerBottomConstraint.constant = 0.0
             
@@ -124,13 +133,13 @@ class PKBottomSheet: UIView {
     }
     
     private func hide(animated: Bool, completion: ((Bool)->Void)? = nil) {
+        self.delegate?.willHide(self)
         UIView.animate(withDuration: animated ? animationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainContainerBottomConstraint.constant = sSelf.headerShouldStuckOnBottom ? -(sSelf.sheetHeight - sSelf.headerHeight) : -(sSelf.sheetHeight)
             
             sSelf.layoutIfNeeded()
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
+            }, completion: { (isDone) in
                 completion?(isDone)
         })
     }
@@ -152,8 +161,23 @@ class PKBottomSheet: UIView {
             headerContainerView.addSubview(hView)
         }
         
-        mainContainerView.roundCorners(corners: [.topLeft, .topRight], radius: headerCornerRadius)
-        mainContainerView.layer.masksToBounds = true
+        self.roundCorners(forView: self.mainContainerView, cornerRadius: headerCornerRadius)
+    }
+    
+    private func roundCorners(forView view: UIView, cornerRadius: CGFloat) {
+        view.layer.cornerRadius = cornerRadius
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    private func addTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handelTapGesture(_:)))
+        tap.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc private func handelTapGesture(_ sender: UIGestureRecognizer) {
+        self.dismiss(animated: true)
     }
     
     private func addPanGesture() {

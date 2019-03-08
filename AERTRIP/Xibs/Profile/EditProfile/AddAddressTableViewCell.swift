@@ -40,7 +40,6 @@ class AddAddressTableViewCell: UITableViewCell {
     
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
-    var indexPath:IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,9 +55,8 @@ class AddAddressTableViewCell: UITableViewCell {
     
     // MARK: - Helper methods
     
-    func configureCell(_ indexPath:IndexPath,addressType type:String, addressLineOne lineOne :String,addressLineTwo lineTwo:String,cityName city :String,postalCode code :String,stateName state:String, countryName country:String) {
+    func configureCell(addressType type:String, addressLineOne lineOne :String,addressLineTwo lineTwo:String,cityName city :String,postalCode code :String,stateName state:String, countryName country:String) {
         
-        self.indexPath = indexPath
         self.addressTypeLabel.text = type
         self.addressLineOneTextField.text = lineOne
         self.addressLineOneTextField.delegate = self
@@ -75,13 +73,13 @@ class AddAddressTableViewCell: UITableViewCell {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(addressTypeTapped(gesture:)))
         gesture.numberOfTapsRequired = 1
         addressTypeView.isUserInteractionEnabled = true
-        addressTypeView.tag = indexPath.row
+        addressTypeView.tag = indexPath?.row ?? 0
         addressTypeView.addGestureRecognizer(gesture)
         
         let countryViewGesture = UITapGestureRecognizer(target: self, action: #selector(countryViewTapped(gesture:)))
         countryViewGesture.numberOfTapsRequired = 1
         countryView.isUserInteractionEnabled = true
-        countryView.tag = indexPath.row
+        countryView.tag = indexPath?.row ?? 0
         countryView.addGestureRecognizer(countryViewGesture)
         
         
@@ -90,21 +88,21 @@ class AddAddressTableViewCell: UITableViewCell {
     
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
-        if let indexPath = indexPath {
-          delegate?.addressTypeViewTapped(indexPath)
+        if let idxPath = indexPath {
+          delegate?.addressTypeViewTapped(idxPath)
         }
     }
     
     @objc func countryViewTapped(gesture: UITapGestureRecognizer) {
-        if let indexPath = indexPath {
-            delegate?.countryViewTapped(indexPath)
+        if let idxPath = indexPath {
+            delegate?.countryViewTapped(idxPath)
         }
     }
     
     
     @IBAction func deleteCellTapped(_ sender: Any) {
-        if let indexPath = indexPath {
-            delegate?.deleteAddressCellTapped(indexPath)
+        if let idxPath = indexPath {
+            delegate?.deleteAddressCellTapped(idxPath)
         }
     }
     
@@ -117,10 +115,10 @@ class AddAddressTableViewCell: UITableViewCell {
 extension AddAddressTableViewCell:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
-        if let indexPath = indexPath {
+        if let idxPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                delegate?.addAddressTextField(textField, indexPath, fullString)
+                delegate?.addAddressTextField(textField, idxPath, fullString)
             }
         }
         return true

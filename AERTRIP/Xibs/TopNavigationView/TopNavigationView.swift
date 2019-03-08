@@ -26,6 +26,12 @@ class TopNavigationView: UIView {
     //MARK:- Public
     weak var delegate: TopNavigationViewDelegate?
     
+    var shouldAddBlurEffect: Bool = false {
+        didSet {
+            self.addBlurEffect()
+        }
+    }
+    
     //MARK:- Private
     private var isHidingBackView: Bool = false
     
@@ -71,7 +77,29 @@ class TopNavigationView: UIView {
         containerView.frame = self.bounds
         containerView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         
+        //add blur on backView
+        self.addBlurEffect()
+        
         self.configureNavBar(title: "")
+    }
+    
+    private func addBlurEffect() {
+        guard shouldAddBlurEffect else {return}
+        if let backClr = self.backgroundColor, backClr != AppColors.clear {
+            self.insertSubview(getBlurView(forView: self), at: 0)
+            self.backgroundColor = AppColors.clear
+        }
+        
+        self.backView.addSubview(getBlurView(forView: self.backView))
+        self.backView.backgroundColor = AppColors.clear
+    }
+    
+    private func getBlurView(forView: UIView) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = forView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
     }
     
     private func updateTitleFrames() {

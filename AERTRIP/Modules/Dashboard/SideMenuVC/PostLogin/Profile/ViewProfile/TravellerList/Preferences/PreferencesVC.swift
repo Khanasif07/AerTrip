@@ -221,7 +221,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 orderCell.separatorView.isHidden = indexPath.row == (order.count-1)
                 return orderCell
             } else if indexPath.row == 2 {
-                guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyTableViewCell else {
+                guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyStateTableViewCell else {
                     fatalError("EmptyTableViewCell not found")
                 }
                 return emptyCell
@@ -243,7 +243,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 groupCell.delegate = self
                 
                 let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])
-                groupCell.configureCell(indexPath, viewModel.groups[indexPath.row], totalCount)
+                groupCell.configureCell(viewModel.groups[indexPath.row], totalCount)
                 return groupCell
             
         default:

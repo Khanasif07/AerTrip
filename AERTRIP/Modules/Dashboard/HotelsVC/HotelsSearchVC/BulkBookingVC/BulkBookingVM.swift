@@ -19,8 +19,8 @@ class BulkBookingVM {
     var roomCounts: Int = 5
     var adultsCount: Int = 12
     var childrenCounts: Int = 0
-    var checkInDate = "2019-02-08" //Date().toString(dateFormat: "YYYY-MM-DD")
-    var checkOutDate = "2019-02-18"
+    var checkInDate = "2019-03-20" //Date().toString(dateFormat: "YYYY-MM-DD")
+    var checkOutDate = "2019-03-25"
     var ratingCount: [Int] = []
     var source: String = ""
     var preferred: String = ""

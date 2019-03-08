@@ -23,7 +23,6 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     
     // MARK: - Variables
-    var indexPath : IndexPath?
     weak var delegate : GroupTableViewCellDelegate?
     
     override func awakeFromNib() {
@@ -38,8 +37,7 @@ class GroupTableViewCell: UITableViewCell {
     
     // MARK: - Helper methods
     
-    func configureCell(_ indexPath:IndexPath,_ groupName: String, _ totalContactsCount: Int) {
-        self.indexPath = indexPath
+    func configureCell(_ groupName: String, _ totalContactsCount: Int) {
         groupNameTextField.text = groupName
         
         groupCountLabel.text = "\(totalContactsCount)"
@@ -47,8 +45,8 @@ class GroupTableViewCell: UITableViewCell {
     
     
     @IBAction func deleteCellTapped(_ sender: Any) {
-        if let indexPath = indexPath {
-            delegate?.deleteCellTapped(indexPath)
+        if let idxPath = indexPath {
+            delegate?.deleteCellTapped(idxPath)
         }
     }
 }

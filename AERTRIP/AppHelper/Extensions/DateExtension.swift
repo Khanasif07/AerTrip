@@ -126,7 +126,7 @@ extension Date {
         let frmtr = DateFormatter()
         frmtr.locale = Locale(identifier: "en_US_POSIX")
         frmtr.dateFormat = dateFormat
-        frmtr.timeZone = timeZone
+//        frmtr.timeZone = timeZone
         return frmtr.string(from: self)
     }
     
@@ -256,6 +256,22 @@ extension Date {
     func addDay(days: Int = 0) -> String? {
         let components = DateComponents(year: 0, month: 0, day: days, hour: 0, minute: 0, second: 0)
         return Calendar.current.date(byAdding: components, to: self)?.toString(dateFormat: "YYYY-MM-DD")
+    }
+    
+    ///GetDateFromString
+    static func getDateFromString(stringDate: String, currentFormat: String, requiredFormat: String) -> String? {
+        //String to Date Convert
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = currentFormat
+        let date = dateFormatter.date(from: stringDate)
+        //CONVERT FROM Date to String
+        dateFormatter.dateFormat = requiredFormat
+        return dateFormatter.string(from: date!)
+    }
+    
+    func daysBetweenDate(toDate: Date, endDate: Date) -> Int {
+        let components = Calendar.current.dateComponents([Calendar.Component.day], from: endDate, to: toDate)
+        return components.day ?? 0
     }
 }
 

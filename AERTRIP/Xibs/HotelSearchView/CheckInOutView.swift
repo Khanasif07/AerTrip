@@ -67,4 +67,15 @@ class CheckInOutView: UIView {
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
         self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
     }
+    
+    internal func fillPreviousData(viewModel: HotelsSearchVM) {
+        let checkInDate = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        self.checkInDateLabel.text = checkInDate
+        let checkOutDate = Date.getDateFromString(stringDate: viewModel.checkOutDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        self.checkOutDateLabel.text = checkOutDate
+        let totalNights = Date().daysBetweenDate(toDate: viewModel.checkOutDate.toDate(dateFormat: "yyyy-mm-dd")!, endDate: viewModel.checkInDate.toDate(dateFormat: "yyyy-mm-dd")!)
+        self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) Night" : "\(totalNights) Nights"
+        self.checkInDay.text = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+        self.checkOutDay.text = Date.getDateFromString(stringDate: viewModel.checkOutDate, currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+    }
 }

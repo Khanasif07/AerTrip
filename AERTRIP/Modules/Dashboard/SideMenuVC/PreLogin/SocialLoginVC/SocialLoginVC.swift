@@ -93,12 +93,14 @@ class SocialLoginVC: BaseVC {
         self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
         self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         
-        self.fbButton.shadowColor = AppColors.themeBlack
         self.fbButton.isSocial = true
-        self.googleButton.shadowColor = AppColors.themeBlack
+        self.fbButton.shadowColor = AppColors.themeBlack
+        
         self.googleButton.isSocial = true
-        self.linkedInButton.shadowColor = AppColors.themeBlack
+        self.googleButton.shadowColor = AppColors.themeBlack
+        
         self.linkedInButton.isSocial = true
+        self.linkedInButton.shadowColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
@@ -120,7 +122,6 @@ class SocialLoginVC: BaseVC {
     // MARK: -
     
     @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-       
         self.viewModel.fbLogin(vc: self, completionBlock: nil)
     }
     
@@ -307,7 +308,7 @@ extension SocialLoginVC {
             }
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
-                self.googleButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+                self.googleButton.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
                 self.googleButton.alpha = 0.0
             })
             

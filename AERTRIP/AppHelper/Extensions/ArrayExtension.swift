@@ -31,7 +31,7 @@ extension Array where Element : Equatable {
     
     ///Removes all null values present in an Array
     mutating func removeNullValues(){
-        self = self.flatMap { $0 }
+        self = self.compactMap{ $0 }
     }
     
     ///Returns a sub array within the range

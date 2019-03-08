@@ -14,6 +14,7 @@ import UIKit
 extension HotelResultVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tableViewType = .SearchTableView
         animateHeaderToMapView()
         self.hotelSearchView.isHidden = false
         showSearchAnimation()
@@ -48,20 +49,3 @@ extension HotelResultVC: UISearchBarDelegate {
 
 // MARK: - Hotel Search View Delegate methods
 
-extension HotelResultVC : UITableViewDataSource,UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.hotelSearchTableView.backgroundView?.isHidden = self.searchedHotels.count > 0
-        return self.searchedHotels.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: hotelResultCellIdentifier, for: indexPath) as? HotelSearchTableViewCell else {
-            printDebug("HotelSearchTableViewCell not found")
-            return UITableViewCell()
-        }
-        cell.searchText = self.predicateStr
-        cell.hotelData = self.searchedHotels[indexPath.row]
-        return cell
-    }
-
-}

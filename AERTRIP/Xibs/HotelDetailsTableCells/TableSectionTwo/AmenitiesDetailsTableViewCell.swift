@@ -41,6 +41,7 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
         self.registerNibs()
         //Text Font
         //Text Color
+//        self.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0)
         //Text SetUp
     }
     

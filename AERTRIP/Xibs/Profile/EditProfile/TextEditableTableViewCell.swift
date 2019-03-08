@@ -24,7 +24,6 @@ class TextEditableTableViewCell: UITableViewCell {
     
     // MARK: - Variables
     weak var delegate : TextEditableTableViewCellDelegate?
-    var indexPath: IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,11 +37,10 @@ class TextEditableTableViewCell: UITableViewCell {
     
     // MARK: - Helper methods
     
-    func configureCell(_ indexPath:IndexPath,_ title: String, _ text: String) {
+    func configureCell(_ title: String, _ text: String) {
         titleLabel.text = title
         editableTextField.text = text
         editableTextField.delegate = self
-        self.indexPath = indexPath
     }
     
 }
@@ -51,10 +49,10 @@ class TextEditableTableViewCell: UITableViewCell {
 extension TextEditableTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
-        if let indexPath = indexPath {
+        if let idxPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                delegate?.textEditableTableViewCellTextFieldText(indexPath, fullString)
+                delegate?.textEditableTableViewCellTextFieldText(idxPath, fullString)
             }
         }
         return true

@@ -21,6 +21,7 @@ class BulkBookingVC: BaseVC {
     //MARK:-
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
@@ -146,6 +147,7 @@ class BulkBookingVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
+        self.dividerView.backgroundColor = AppColors.themeGray10
         self.firstLineView.backgroundColor = AppColors.themeGray10
         self.secondLineView.backgroundColor = AppColors.themeGray10
         self.thirdLineView.backgroundColor = AppColors.themeGray10
@@ -164,8 +166,8 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextField.textColor = AppColors.textFieldTextColor51
         self.preferredTextField.textColor = AppColors.textFieldTextColor51
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.specialReqTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray04,NSAttributedString.Key.font: regularFontSize16])
-        self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray04,NSAttributedString.Key.font: regularFontSize16])
+        self.specialReqTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
+        self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
     }
     
     
@@ -191,6 +193,9 @@ class BulkBookingVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         self.searchButtonOutlet.layer.cornerRadius = 25.0
+        for starBtn in self.starButtonsOutlet {
+            starBtn.isHighlighted = true
+        }
         //self.rectangleView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
@@ -232,7 +237,7 @@ class BulkBookingVC: BaseVC {
         })
     }
     
-    ///Update Stars Status
+    ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
         if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
@@ -244,12 +249,25 @@ class BulkBookingVC: BaseVC {
             else {
                 currentButton.isSelected = !currentButton.isSelected
             }
+            currentButton.isHighlighted = false
             if self.viewModel.ratingCount.contains(forStar) {
                 self.viewModel.ratingCount.remove(at: self.viewModel.ratingCount.firstIndex(of: forStar)!)
             }
             else {
                 self.viewModel.ratingCount.append(forStar)
-                
+            }
+        }
+        if self.viewModel.ratingCount.isEmpty || self.viewModel.ratingCount.count == 5 {
+            delay(seconds: 0.1) {
+                for starBtn in self.starButtonsOutlet {
+                    starBtn.isSelected = false
+                    starBtn.isHighlighted = true
+                }
+                self.viewModel.ratingCount.removeAll()
+            }
+        } else {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = false
             }
         }
     }
@@ -263,14 +281,14 @@ class BulkBookingVC: BaseVC {
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty {
-            final = "0 \(LocalizedString.stars.localized)"
+        if arr.isEmpty || arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)"//"0 \(LocalizedString.stars.localized)"
             return final
         }
-        else if arr.count == maxCount {
-            final = "All \(LocalizedString.stars.localized)"
-            return final
-        }
+            //        else if arr.count == maxCount {
+            //            final = "All \(LocalizedString.stars.localized)"
+            //            return final
+            //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
             return final
@@ -328,9 +346,6 @@ class BulkBookingVC: BaseVC {
     
     ///Data For Api
     private func dataForApi(hotel: SearchedDestination) {
-        //        self.viewModel.destType = hotel.dest_type
-        //        self.viewModel.destName = hotel.dest_name
-        //        self.viewModel.destId = hotel.dest_id
         self.viewModel.destination = hotel.city
         self.viewModel.source = hotel.dest_name
     }
@@ -354,12 +369,10 @@ class BulkBookingVC: BaseVC {
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
-        sender.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
     }
     
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {
-        AppFlowManager.default.showBulkRoomSelectionVC(rooms: 5, adults: 11, children: 0, delegate: self)
+        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {

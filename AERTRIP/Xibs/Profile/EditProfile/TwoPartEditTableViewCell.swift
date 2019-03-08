@@ -38,7 +38,6 @@ class TwoPartEditTableViewCell: UITableViewCell {
     // MARK: - Variables
     
     weak var delegate: TwoPartEditTableViewCellDelegate?
-    var indexPath: IndexPath?
     var ffData: FrequentFlyer? {
         didSet {
             configureCell()
@@ -130,21 +129,21 @@ class TwoPartEditTableViewCell: UITableViewCell {
     }
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
-        if let indexPath = indexPath {
-            delegate?.twoPartEditLeftViewTap(indexPath, gesture)
+        if let idxPath = indexPath {
+            delegate?.twoPartEditLeftViewTap(idxPath, gesture)
         }
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
         printDebug("middle view tapped")
-        if let indexPath = indexPath {
-            delegate?.rightViewTap(indexPath, gesture)
+        if let idxPath = indexPath {
+            delegate?.rightViewTap(idxPath, gesture)
         }
     }
     
     @IBAction func deleteCellTapped(_ sender: Any) {
-        if let indexPath = indexPath {
-            delegate?.twoPartDeleteCellTapped(indexPath)
+        if let idxPath = indexPath {
+            delegate?.twoPartDeleteCellTapped(idxPath)
         }
     }
 }
@@ -154,10 +153,10 @@ class TwoPartEditTableViewCell: UITableViewCell {
 extension TwoPartEditTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
-        if let indexPath = indexPath {
+        if let idxPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                delegate?.twoPartEditTextField(indexPath, fullString)
+                delegate?.twoPartEditTextField(idxPath, fullString)
             }
         }
         return true

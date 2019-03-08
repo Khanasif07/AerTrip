@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HotelTagCollectionCell" id="Off-ko-IjY" customClass="HotelTagCollectionCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wew-bM-4h1">
+                        <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-Hx-fbZ">
+                                <rect key="frame" x="8" y="3" width="107" height="22"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcxcxcxcxc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjd-vP-gef">
+                                        <rect key="frame" x="0.0" y="1.5" width="81" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-f7-Z2T">
+                                        <rect key="frame" x="85" y="0.0" width="22" height="22"/>
+                                        <state key="normal" image="cross_icon"/>
+                                        <connections>
+                                            <action selector="cancelBtnAction:" destination="Off-ko-IjY" eventType="touchUpInside" id="WAQ-pF-P1c"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="centerY" secondItem="wew-bM-4h1" secondAttribute="centerY" id="OOE-bq-h24"/>
+                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="leading" secondItem="wew-bM-4h1" secondAttribute="leading" constant="8" id="T0U-OY-AZr"/>
+                            <constraint firstAttribute="trailing" secondItem="JhX-Hx-fbZ" secondAttribute="trailing" constant="6" id="YCx-u8-l2q"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="wew-bM-4h1" secondAttribute="bottom" id="CGU-0a-XRb"/>
+                <constraint firstAttribute="trailing" secondItem="wew-bM-4h1" secondAttribute="trailing" id="KgG-aO-U0F"/>
+                <constraint firstItem="wew-bM-4h1" firstAttribute="leading" secondItem="Off-ko-IjY" secondAttribute="leading" id="Mgd-Cv-gCa"/>
+                <constraint firstItem="wew-bM-4h1" firstAttribute="top" secondItem="Off-ko-IjY" secondAttribute="top" id="q1o-P6-qpt"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="4WS-kG-lQg"/>
+            <size key="customSize" width="237" height="91"/>
+            <connections>
+                <outlet property="cancelButton" destination="lnK-f7-Z2T" id="npF-vE-TwL"/>
+                <outlet property="containerView" destination="wew-bM-4h1" id="iGk-Pv-KdE"/>
+                <outlet property="tagOptionNameLabel" destination="Gjd-vP-gef" id="jTt-N2-M38"/>
+            </connections>
+            <point key="canvasLocation" x="108" y="387.70614692653675"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="cross_icon" width="22" height="22"/>
+    </resources>
+</document>

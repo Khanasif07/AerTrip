@@ -36,7 +36,12 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     private var gradientLayer: CAGradientLayer!
     var scrollSize: CGFloat = 0.0
     let numberOfPage: Int = 100
-    var indexPath: IndexPath?
+
+    var shouldShowMultiPhotos: Bool = true {
+        didSet {
+            self.updateMutiPhotos()
+        }
+    }
     
     var hotelData: HotelsModel? {
         didSet {
@@ -54,15 +59,17 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        self.gradientLayer = CAGradientLayer()
-        self.gradientLayer.frame = self.gradientView.bounds
-        self.gradientLayer.colors =
+
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.gradientView.bounds
+        gradientLayer.colors =
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
-        self.gradientView.layer.addSublayer(self.gradientLayer)
-        self.gradientView.backgroundColor = AppColors.clear
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.backgroundColor = AppColors.clear
+        
+        saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        
         self.setupPageControl()
-        self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         self.scrollSize = self.hotelImageView.frame.size.width
     }
     
@@ -76,6 +83,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
             printDebug("thumbnails are  empty")
             return
         }
+        
+        self.hotelImageView.setImageWithUrl(thumbnail.first ?? "", placeholder: AppPlaceholderImage.hotelCard, showIndicator: true)
         
         self.pageControl.numberOfPages = 5
         self.scrollView.delegate = self
@@ -97,8 +106,6 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
         
         self.bgView.cornerRadius = 10.0
-        self.bgView.layer.borderWidth = 1.0
-        self.bgView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
     private func populateData() {
@@ -111,7 +118,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
             self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
         }
     }
-    
+
     private func populateHotelData() {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
         self.starRatingView.rating = self.hotelListData?.star ?? 0.0
@@ -119,14 +126,16 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
-//        if let image = UIImage(named: "hotelCardPlaceHolder") {
-//            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
-//     }
     }
     
     private func setupPageControl() {
         self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
         self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+    }
+    
+    private func updateMutiPhotos() {
+        self.scrollView.isHidden = !self.shouldShowMultiPhotos
+        self.pageControl.isHidden = !self.shouldShowMultiPhotos
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
@@ -140,8 +149,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
 
 extension HotelCardCollectionViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let indexPath = indexPath {
-            self.delegate?.pagingScrollEnable(indexPath, scrollView)
+        if let idxPath = indexPath {
+            self.delegate?.pagingScrollEnable(idxPath, scrollView)
         }
     }
 }

@@ -33,9 +33,28 @@ class ToastView: UIView {
         self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite
-        self.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.82)
+        self.addBlurEffect()
         self.viewRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         self.viewRightButton.titleLabel?.textColor = AppColors.themeYellow
+    }
+    
+    private func addBlurEffect() {
+        if let backClr = self.backgroundColor, backClr != AppColors.clear {
+            self.insertSubview(getBlurView(forView: self), at: 0)
+            self.backgroundColor = AppColors.clear
+        }
+        
+        self.insertSubview(getBlurView(forView: self), at: 0)
+        self.backgroundColor = AppColors.clear
+    }
+    
+    private func getBlurView(forView: UIView) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = forView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0.7
+        return blurEffectView
     }
     
     @IBAction func viewRightButtonTapped(_ sender: UIButton) {

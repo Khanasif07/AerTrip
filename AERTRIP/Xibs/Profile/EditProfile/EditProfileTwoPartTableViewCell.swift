@@ -29,7 +29,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     // MARK: - Variables
     
     weak var editProfilTwoPartTableViewCelldelegate: EditProfileTwoPartTableViewCellDelegate?
-    var indexPath: IndexPath?
+
     var email: Email? {
         didSet {
             configureCell()
@@ -86,16 +86,16 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     }
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
-        if let indexPath = indexPath {
-            editProfilTwoPartTableViewCelldelegate?.leftViewTap(indexPath, gesture)
+        if let idxPath = indexPath {
+            editProfilTwoPartTableViewCelldelegate?.leftViewTap(idxPath, gesture)
         }
     }
     
     // MARK: - IB Actions
     
     @IBAction func deleteCellButtonTapped(_ sender: Any) {
-        if let indexPath = indexPath {
-            editProfilTwoPartTableViewCelldelegate?.deleteCellTapped(indexPath)
+        if let idxPath = indexPath {
+            editProfilTwoPartTableViewCelldelegate?.deleteCellTapped(idxPath)
         }
     }
 }
@@ -103,10 +103,10 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
 extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
-        if let indexPath = indexPath {
+        if let idxPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                editProfilTwoPartTableViewCelldelegate?.textFieldText(indexPath, fullString)
+                editProfilTwoPartTableViewCelldelegate?.textFieldText(idxPath, fullString)
             }
         }
         return true
@@ -118,8 +118,8 @@ extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if let indexPath = indexPath {
-            editProfilTwoPartTableViewCelldelegate?.textFieldEndEditing(indexPath, textField.text!)
+        if let idxPath = indexPath {
+            editProfilTwoPartTableViewCelldelegate?.textFieldEndEditing(idxPath, textField.text!)
         }
         return true
     }

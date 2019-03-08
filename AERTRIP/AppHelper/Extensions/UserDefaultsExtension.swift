@@ -75,6 +75,17 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
+    class func saveCustomObject(customObject object: Any?, forKey key: String?) {
+        guard let ky = key, let obj = object else { return }
+        self.standard.set(NSKeyedArchiver.archivedData(withRootObject: obj), forKey: ky)
+        self.standard.synchronize()
+    }
+    
+    class func getCustomObject(forKey key: String?) -> Any? {
+        guard let ky = key, let data = self.standard.data(forKey: ky) else { return nil }
+        return NSKeyedUnarchiver.unarchiveObject(with: data)
+    }
+    
     func save<T:Encodable>(customObject object: T, inKey key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(object) {
@@ -83,7 +94,7 @@ extension UserDefaults {
     }
     
     func retrieve<T:Decodable>(object type:T.Type, fromKey key: String) -> T? {
-        if let data = self.data(forKey: key) {
+      if let data = self.data(forKey: key) {
             let decoder = JSONDecoder()
             if let object = try? decoder.decode(type, from: data) {
                 return object
