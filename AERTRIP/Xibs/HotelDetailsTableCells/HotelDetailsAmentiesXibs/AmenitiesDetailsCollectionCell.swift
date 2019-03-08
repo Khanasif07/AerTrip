@@ -22,8 +22,7 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var amenitiesNameLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-            self.dividerView.alpha = 0.5
-            self.dividerView.backgroundColor = AppColors.themeBlack
+            self.dividerView.alpha = 0.7
         }
     }
     
@@ -52,7 +51,7 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
             self.dividerView.isHidden = true
         } else {
             self.amenitiesImageView.alpha = 0.35
-            self.dividerView.alpha = 0.5
+            self.dividerView.alpha = 0.7
             self.amenitiesNameLabel.alpha = 0.35
             self.dividerView.isHidden = false
         }

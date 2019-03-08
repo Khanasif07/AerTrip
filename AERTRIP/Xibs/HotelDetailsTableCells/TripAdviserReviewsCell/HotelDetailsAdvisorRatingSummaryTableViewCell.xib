@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsAdvisorRatingSummaryTableViewCell" id="KGk-i7-Jjw" customClass="HotelDetailsAdvisorRatingSummaryTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="269.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="269"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating Summary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaN-rM-ObJ">
+                        <rect key="frame" x="16" y="21" width="343" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zzV-4M-V0m">
+                        <rect key="frame" x="16" y="54.5" width="343" height="188"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eZy-04-CzP">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w0-Le-GKw">
+                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rt5-bc-PEc" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="VgP-99-Zd0"/>
+                                            <constraint firstAttribute="width" constant="100" id="Zqo-tQ-n1Z"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nub-3O-Cz9">
+                                <rect key="frame" x="0.0" y="33.5" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sleep Quality" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIA-Db-cpz">
+                                        <rect key="frame" x="0.0" y="0.0" width="107" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa7-Kp-FXk" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="C3C-7b-amr"/>
+                                            <constraint firstAttribute="height" constant="17" id="uaW-q5-o6K"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FTS-0n-Ho0">
+                                <rect key="frame" x="0.0" y="67" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZu-H5-LyP">
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MG6-ok-xeS" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="zIz-sg-rsO"/>
+                                            <constraint firstAttribute="height" constant="17" id="zfu-qQ-T9g"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8jf-Q7-fwG">
+                                <rect key="frame" x="0.0" y="100.5" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uma-Tb-ARw">
+                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu5-oe-GLd" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="OKi-2F-VIj"/>
+                                            <constraint firstAttribute="height" constant="17" id="YjA-pV-0pF"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rFk-47-2DR">
+                                <rect key="frame" x="0.0" y="134" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTb-lN-jKv">
+                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3kO-fr-S3y" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="AX3-sq-CTB"/>
+                                            <constraint firstAttribute="height" constant="17" id="Nhr-RG-dVz"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gGq-7C-ZpE">
+                                <rect key="frame" x="0.0" y="167.5" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cleanliness" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1o-zW-AED">
+                                        <rect key="frame" x="0.0" y="0.0" width="92" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0iw-2a-plL" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="2" width="100" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="VxB-ad-Dnt"/>
+                                            <constraint firstAttribute="height" constant="17" id="lSt-tr-ghk"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                <size key="value" width="20" height="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="188" id="yGu-gV-62y"/>
+                        </constraints>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dm-yW-xIj" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="16" y="268.5" width="343" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="wei-LI-9p9"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kaN-rM-ObJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="65v-JK-ced"/>
+                    <constraint firstItem="zzV-4M-V0m" firstAttribute="top" secondItem="kaN-rM-ObJ" secondAttribute="bottom" constant="13" id="89v-zO-Eg2"/>
+                    <constraint firstItem="0Dm-yW-xIj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="D1Y-mI-NWB"/>
+                    <constraint firstAttribute="trailing" secondItem="kaN-rM-ObJ" secondAttribute="trailing" constant="16" id="KSi-ea-zTZ"/>
+                    <constraint firstAttribute="trailing" secondItem="zzV-4M-V0m" secondAttribute="trailing" constant="16" id="W7M-Ng-Ms0"/>
+                    <constraint firstItem="zzV-4M-V0m" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YFo-Yj-y7v"/>
+                    <constraint firstAttribute="bottom" secondItem="0Dm-yW-xIj" secondAttribute="bottom" id="cgt-d8-RSl"/>
+                    <constraint firstItem="kaN-rM-ObJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cw5-Sp-dLt"/>
+                    <constraint firstItem="0Dm-yW-xIj" firstAttribute="top" secondItem="zzV-4M-V0m" secondAttribute="bottom" constant="26" id="tPI-dL-esl"/>
+                    <constraint firstAttribute="trailing" secondItem="0Dm-yW-xIj" secondAttribute="trailing" constant="16" id="yAT-XK-JYI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cleanlinessLabel" destination="e1o-zW-AED" id="nZs-V1-GZI"/>
+                <outlet property="cleanlinessRatingView" destination="0iw-2a-plL" id="UO7-iN-q4t"/>
+                <outlet property="dividerView" destination="0Dm-yW-xIj" id="J4J-Du-dxN"/>
+                <outlet property="locationLabel" destination="1w0-Le-GKw" id="pZY-yF-itB"/>
+                <outlet property="locationRatingView" destination="Rt5-bc-PEc" id="Kez-XG-Cq3"/>
+                <outlet property="roomsLabel" destination="hZu-H5-LyP" id="MkU-lz-jdr"/>
+                <outlet property="roomsRatingView" destination="MG6-ok-xeS" id="9qj-Dx-cUp"/>
+                <outlet property="serviceLabel" destination="uma-Tb-ARw" id="E8C-g6-fQ4"/>
+                <outlet property="serviceRatingView" destination="Zu5-oe-GLd" id="MK6-Lx-Vst"/>
+                <outlet property="sleepQualityLabel" destination="rIA-Db-cpz" id="HLB-1k-so0"/>
+                <outlet property="sleepQualityRatingView" destination="Aa7-Kp-FXk" id="uYb-W9-Bnf"/>
+                <outlet property="titleLabel" destination="kaN-rM-ObJ" id="jEH-KH-CPY"/>
+                <outlet property="valueLRatingView" destination="3kO-fr-S3y" id="T8x-9q-HrR"/>
+                <outlet property="valueLabel" destination="cTb-lN-jKv" id="QRb-1x-y8i"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeUnfilled" width="14" height="14"/>
+    </resources>
+</document>

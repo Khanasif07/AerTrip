@@ -13,7 +13,7 @@ class HotelDetailsAmenitiesVM: NSObject {
     
     internal var hotelDetails: HotelDetails?
     var sections: [String] = []
-    var rowData: [Any] = []
+//    var rowData: [Any] = []
     var rowsData = [[String]]()
     
     internal func getAmenitiesSections() {
@@ -23,7 +23,7 @@ class HotelDetailsAmenitiesVM: NSObject {
                 if let value = amenities.value as? [String] {
                     self.rowsData.append(value)
                 }
-                self.rowData.append(amenities.value)
+//                self.rowData.append(amenities.value)
             }
         }
     }

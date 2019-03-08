@@ -12,6 +12,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
 
     //Mark:- Variables
     //===============
+    var permanentTags: [String] = ["Breakfast"]
     var tagButtons: [String] = ["Breakfast"]
     internal var availableTags = [String]()
     
@@ -98,23 +99,37 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelTagCollectionCell.reusableIdentifier, for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
         cell.delegate = self
-        var isCancelButtonAvailable: Bool = true
-        if self.tagButtons[indexPath.item] == "Breakfast" {
-            isCancelButtonAvailable = false
+        let isCancelButtonAvailable: Bool = self.permanentTags.contains(self.tagButtons[indexPath.item]) ? false : true
+        if let parentVC = self.parentViewController as? HotelDetailsVC , !parentVC.viewModel.filteredTags.contains(self.tagButtons[indexPath.item]) {
+            cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGray40, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: isCancelButtonAvailable)
         } else {
-            isCancelButtonAvailable = true
+            cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: isCancelButtonAvailable)
         }
-        cell.configureCell(tagTitle: tagButtons[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: isCancelButtonAvailable)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         printDebug(self.tagButtons[indexPath.item])
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            if !parentVC.viewModel.filteredTags.contains(self.tagButtons[indexPath.item]) {
+                parentVC.viewModel.filteredTags.append(self.tagButtons[indexPath.item])
+                parentVC.filterdHotelData(tagList: parentVC.viewModel.filteredTags)
+                self.tagCollectionView.reloadData()
+                parentVC.hotelTableView.reloadData()
+            } else {
+                parentVC.viewModel.filteredTags.remove(object: self.tagButtons[indexPath.item])
+                parentVC.filterdHotelData(tagList: parentVC.viewModel.filteredTags)
+                self.tagCollectionView.reloadData()
+                parentVC.hotelTableView.reloadData()
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cancelButtonWidth: CGFloat = self.permanentTags.contains(self.tagButtons[indexPath.item]) ? 20.0 : 40.0
         let size = tagButtons[indexPath.item].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: 10000.0))
-        return CGSize(width: size.width + 40.0, height: 30.0)
+        return CGSize(width: size.width + cancelButtonWidth, height: 30.0)
+//        return CGSize(width: size.width + 40.0, height: 30.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

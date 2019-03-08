@@ -16,16 +16,22 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
     @IBOutlet weak var amenitiesLabel: UILabel!
     @IBOutlet weak var stickyTitleLabel: UILabel!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
-            self.amenitiesTblView.contentInset = UIEdgeInsets(top: 28.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.amenitiesTblView.delegate = self
             self.amenitiesTblView.dataSource = self
             self.amenitiesTblView.estimatedRowHeight = UITableView.automaticDimension
             self.amenitiesTblView.rowHeight = UITableView.automaticDimension
+            self.amenitiesTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.amenitiesTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
     }
     
@@ -43,7 +49,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     override func setupFonts() {
         self.amenitiesLabel.font = AppFonts.SemiBold.withSize(22.0)
-        self.stickyTitleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.stickyTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
     }
     
     override func setupTexts() {
@@ -52,6 +58,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.dividerView.isHidden = true
         self.registerNibs()
         self.viewModel.getAmenitiesSections()
     }
@@ -60,14 +67,24 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //================
     private func registerNibs() {
         self.amenitiesTblView.registerCell(nibName: AmenitiesDetailsTableViewCell.reusableIdentifier)
-        self.amenitiesTblView.registerCell(nibName: AmenitiesDescriptionTableViewCell.reusableIdentifier)
         self.amenitiesTblView.registerCell(nibName: AmenitiesNameTableViewCell.reusableIdentifier)
         self.amenitiesTblView.register(AmenitiesDescriptionHeaderView.self, forHeaderFooterViewReuseIdentifier: "AmenitiesDescriptionHeaderView")
-
     }
     
     private func heightForHeader(_ tableView: UITableView, section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+        if section == 0 {
+            return CGFloat.leastNonzeroMagnitude
+        } else {
+            return 49.0
+        }
+    }
+    
+    private func imageByAmenitiesName(imageName: String) -> UIImage {
+        if let confirmedImage = UIImage(named: imageName) {
+            return confirmedImage
+        } else {
+            return #imageLiteral(resourceName: "buildingImage")
+        }
     }
     
     @IBAction func cancelButtonAction(_ sender: UIButton) {
@@ -93,7 +110,7 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate , UITableViewDataSource {
         case 0:
             return 1
         default:
-            return self.viewModel.sections.isEmpty ? 0 : self.viewModel.rowsData[section - 1].count//(self.viewModel.rowData[section - 1] as AnyObject).count
+            return self.viewModel.sections.isEmpty ? 0 : self.viewModel.rowsData[section - 1].count
         }
     }
     
@@ -101,22 +118,24 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate , UITableViewDataSource {
         if indexPath.section == 0 {
             if let cell = self.getAmenitiesDetailsTableViewCell(tableView, indexPath: indexPath) {
                 return cell
-            } else {
-                if let cell = self.getAmenitiesDetailsRows(tableView, indexPath: indexPath, amenitiesName: self.viewModel.rowsData[indexPath.section - 1]) {
-                    return cell
-                }
+            }
+        }
+        else {
+            if let cell = self.getAmenitiesDetailsRows(tableView, indexPath: indexPath, amenitiesName: self.viewModel.rowsData[indexPath.section - 1]) {
+                return cell
             }
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section != 0 {
+        if section == 0 { return nil }
+        else {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AmenitiesDescriptionHeaderView") as? AmenitiesDescriptionHeaderView else { return UIView() }
-            headerView.configureView(title: self.viewModel.sections[section - 1], image: #imageLiteral(resourceName: "About the Property"))
+            let image = self.imageByAmenitiesName(imageName: self.viewModel.sections[section - 1])
+            headerView.configureView(title: self.viewModel.sections[section - 1], image: image)
             return headerView
         }
-        return nil
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -144,5 +163,33 @@ extension HotelDetailsAmenitiesVC {
         cell.facilitiesNameLabel.text = amenitiesName[indexPath.row]
         return cell
     }
+}
+
+extension HotelDetailsAmenitiesVC {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y == 0.0  {
+            self.headerTopConstraint.constant = 8.0
+            self.dividerView.isHidden = true
+            self.stickyTitleLabel.alpha = 0.0
+            self.stickyTitleLabel.isHidden = true
+            self.amenitiesLabel.frame.origin.y = 0.0
+            self.containerViewHeigthConstraint.constant = 50.0
+        } else if scrollView.contentOffset.y > 10.0 {
+            self.headerTopConstraint.constant = 0.0
+            self.dividerView.isHidden = false
+            self.stickyTitleLabel.alpha = 1.0
+            self.stickyTitleLabel.isHidden = false
+            self.amenitiesLabel.frame.origin.y -= scrollView.contentOffset.y / 2.0
+            self.containerViewHeigthConstraint.constant = 44.0
+        }
+        else {
+            self.headerTopConstraint.constant = 0.0
+            self.dividerView.isHidden = false
+            self.stickyTitleLabel.isHidden = false
+            self.stickyTitleLabel.alpha = 1.0
+            self.amenitiesLabel.frame.origin.y += scrollView.contentOffset.y / 2.0
+            self.containerViewHeigthConstraint.constant = 50.0
+        }
+    }
 }

@@ -23,11 +23,7 @@ class AmenitiesDetailsTableViewCell: UITableViewCell {
             self.amenitiesCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var dividerView: ATDividerView! {
-        didSet {
-            self.dividerView.backgroundColor = AppColors.themeBlack
-        }
-    }
+    @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================

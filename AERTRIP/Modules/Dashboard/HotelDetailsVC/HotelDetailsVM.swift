@@ -33,6 +33,8 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
+    var tagsForFilteration = [String]()
+    var filteredTags = [String]()
     var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
     var tableViewRowCell = [[TableCellType]]()

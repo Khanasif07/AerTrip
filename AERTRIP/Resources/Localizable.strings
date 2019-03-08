@@ -370,6 +370,7 @@
 "HotelDetailsEmptyState" = "No results are available. We couldn’t find Rooms to match your filters. Try changing the filters, or reset them.";
 "ResetFilter" = "Reset Filter";
 "NoRoomsAvailable" = "No Rooms Available";
+"Reviews" = "Reviews";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -420,3 +421,6 @@
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
 "rupeesText" = "₹";
+
+"WriteYourOwnReview" = "Write your own Review";
+"ReadAll" = "Read all";

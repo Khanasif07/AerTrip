@@ -131,11 +131,15 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
-            if indexPath.row == 2 {
-                self.redirectToMap()
-            } else if indexPath.row == 3 {
-                AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
+        if indexPath.section == 0 {
+            if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
+                if indexPath.row == 2 {
+                    self.redirectToMap()
+                } else if indexPath.row == 3 {
+                    AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
+                }
+            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil {
+                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "")
             }
         }
     }
