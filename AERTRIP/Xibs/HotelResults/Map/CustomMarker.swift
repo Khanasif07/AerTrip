@@ -32,6 +32,12 @@ class CustomMarker: UIView {
         }
     }
     
+    var isSelected: Bool = false {
+        didSet {
+            self.updateSelection()
+        }
+    }
+    
     class func instanceFromNib() -> CustomMarker {
         return UINib(nibName: "CustomMarker", bundle: nil).instantiate(withOwner: nil, options: nil).first as! CustomMarker
     }
@@ -63,5 +69,19 @@ class CustomMarker: UIView {
             connectorView.backgroundColor = AppColors.themeGreen
             iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
         }
+    }
+    
+    private func updateSelection() {
+        guard isSelected else {
+            self.updateFav()
+            return
+        }
+        
+        
+        priceView.layer.borderColor = AppColors.clear.cgColor
+        priceView.layer.borderWidth = 0.0
+        priceView.backgroundColor = isFavourite ? AppColors.themeRed : AppColors.themeGreen
+
+        priceLabel.textColor = AppColors.themeWhite
     }
 }

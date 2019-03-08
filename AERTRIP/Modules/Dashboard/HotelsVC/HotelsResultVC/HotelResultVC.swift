@@ -92,10 +92,11 @@ class HotelResultVC: BaseVC {
     var searchIntitialFrame: CGRect = .zero
     private var completion: (() -> Void)?
     private weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
+    private var displayingHotelLocation: CLLocationCoordinate2D?
     
     private var visibleMapHeightInVerticalMode: CGFloat = 160.0
     private var oldScrollPosition: CGPoint = CGPoint.zero
-    private let mapIntitalZoomLabel: Float = 8.0
+    private let mapIntitalZoomLabel: Float = 12.0
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
@@ -301,7 +302,7 @@ class HotelResultVC: BaseVC {
         //resize the map view for map/list view
         let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
         
-        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel*2.0))
+        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel+5.0))
         self.moveMapToCurrentCity()
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             
@@ -558,7 +559,7 @@ class HotelResultVC: BaseVC {
     }
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
         self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: mapIntitalZoomLabel*2.0)
+        self.mapView?.animate(toZoom: mapIntitalZoomLabel+5.0)
     }
 }
 
@@ -685,7 +686,7 @@ extension HotelResultVC {
             }
             return
         }
-        
+
         let nextPoint = CGPoint(x: (decimal+1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
         let prevPoint = CGPoint(x: (decimal-1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
         
@@ -1077,8 +1078,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
+        printDebug("willDisplay")
         let hData = fetchedResultsController.object(at: indexPath)
-        updateMarker(coordinates: CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0))
+        let loc = CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0)
+        self.displayingHotelLocation = loc
+        updateMarker(coordinates: loc)
     }
 }
 
@@ -1166,6 +1170,10 @@ extension HotelResultVC: GMSMapViewDelegate {
         return true
     }
     
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        printDebug("didChange position \(position)")
+    }
+    
     // MARK: - GMSMarker Dragging
     
     func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
@@ -1189,14 +1197,26 @@ extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
         if let item = marker.userData as? ATClusterItem, let hotel = item.hotelDetails {
             marker.position = CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
             
+            printDebug("willRenderMarker \(marker.position)")
+            
             let customMarkerView = CustomMarker.instanceFromNib()
+            
+            
             customMarkerView.hotel = hotel
+            
+            if let loc = self.displayingHotelLocation, marker.position.latitude == loc.latitude, marker.position.longitude == loc.longitude {
+                customMarkerView.isSelected = true
+            }
+            else {
+                customMarkerView.isSelected = false
+            }
             marker.iconView = customMarkerView
+            
+            
         }
     }
-    
+
     func renderer(_ renderer: GMUClusterRenderer, markerFor object: Any) -> GMSMarker? {
-        printDebug("dasasa")
         
         let marker = GMSMarker()
         
@@ -1204,6 +1224,8 @@ extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
 
         if let cluster = object as? GMUStaticCluster, let allItems = cluster.items as? [ATClusterItem], let hotel = allItems.first?.hotelDetails {
             marker.position = CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)
+            
+            printDebug("markerFor object \(marker.position)")
             
             markerView.items = allItems
         }
