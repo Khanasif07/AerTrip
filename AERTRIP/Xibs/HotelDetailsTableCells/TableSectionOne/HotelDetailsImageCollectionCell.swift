@@ -24,7 +24,7 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.bgView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
+        self.bgView.roundTopCorners(cornerRadius: 10.0)
     }
     
     //Mark:- Methods

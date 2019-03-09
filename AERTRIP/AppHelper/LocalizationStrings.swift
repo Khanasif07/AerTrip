@@ -173,6 +173,7 @@ enum LocalizedString: String {
     
     //MARK: - View Profile
     case Edit = "Edit"
+    case Create = "Create"
     case TravellerList = "TravellerList"
     case HotelPreferences = "HotelPreferences"
     case QuickPay = "QuickPay"
@@ -462,4 +463,9 @@ enum LocalizedString: String {
     // Mail Composer View
     case ContactUsAertrip = "ContactUsAertrip"
     case CopyrightAertrip = "CopyrightAertrip"
+    
+    //Select Trip Screen
+    case SelectTrip = "SelectTrip"
+    case CreateNewTrip = "CreateNewTrip"
+    case NameYourTrip = "NameYourTrip"
 }

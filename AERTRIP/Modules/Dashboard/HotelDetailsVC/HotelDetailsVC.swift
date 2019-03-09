@@ -41,7 +41,7 @@ class HotelDetailsVC: BaseVC {
     }
     @IBOutlet weak var headerView: TopNavigationView! {
         didSet{
-            self.headerView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
+            self.headerView.roundTopCorners(cornerRadius: 10.0)
         }
     }
     @IBOutlet weak var smallLineView: UIView! {
@@ -146,7 +146,7 @@ class HotelDetailsVC: BaseVC {
         //setup image view
         self.imageView.setImageWithUrl(self.viewModel.hotelInfo?.thumbnail?.first ?? "", placeholder: AppPlaceholderImage.hotelCard, showIndicator: true)
         self.imageView.isHidden = false
-        self.imageView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
+        self.imageView.roundTopCorners(cornerRadius: 10.0)
         
         //manage frame
         self.imageView.translatesAutoresizingMaskIntoConstraints = true
@@ -168,7 +168,7 @@ class HotelDetailsVC: BaseVC {
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.addTarget(self, action: #selector(self.cancelButtonAction), for: .touchUpInside)
         self.headerView.leftButton.addTarget(self, action: #selector(self.fevButtonAction), for: .touchUpInside)
-        self.hotelTableView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
+        self.hotelTableView.roundTopCorners(cornerRadius: 10.0)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
         self.view.addGestureRecognizer(panGesture)
     }

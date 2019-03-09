@@ -90,11 +90,11 @@ extension HotelDetailsVC {
         }
         cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
         if indexPath.row == 0 {
-            cell.containerView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
+            cell.containerView.roundTopCorners(cornerRadius: 10.0)
             //            cell.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0
             cell.bookmarkButtonOutlet.isHidden = false
         } else if indexPath.row == roomData.count - 1 {
-            cell.containerView.roundTopCornersByClipsToBounds(cornerRadius: 0.0)
+            cell.containerView.roundTopCorners(cornerRadius: 0.0)
             cell.deviderView.isHidden = false
             cell.bookmarkButtonOutlet.isHidden = true
         } else {

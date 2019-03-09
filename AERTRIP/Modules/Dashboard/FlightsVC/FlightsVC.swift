@@ -12,6 +12,7 @@ class FlightsVC: BaseVC {
     
     //MARK:- Properties
     //MARK:-
+    @IBOutlet weak var myButton: UIButton!
     
     //MARK:- IBOutlets
     //MARK:-
@@ -34,7 +35,15 @@ class FlightsVC: BaseVC {
     //MARK:- Public
 
     //MARK:- Action
-    @IBAction func ShowHotelResultsVC(_ sender: UIButton) {
-        //AppFlowManager.default.showHotelDetailsVC(hotelInfo: HotelSearched)
+    @IBAction func myButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.presentSelectTripVC(delegate: self)
+    }
+}
+
+//MARK:- SelectTripVC delegate methods
+//MARK:-
+extension FlightsVC: SelectTripVCDelegate {
+    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
+        printDebug("Selected trip: \(trip.title)")
     }
 }

@@ -225,6 +225,22 @@ struct AppGlobals {
         let sizeOfText = text.size(withAttributes: fontAttributes)
         return sizeOfText
     }
+    
+    func addBlurEffect(forView: UIView) {
+        forView.insertSubview(getBlurView(forView: forView), at: 0)
+        forView.backgroundColor = AppColors.clear
+        
+        forView.insertSubview(getBlurView(forView: forView), at: 0)
+        forView.backgroundColor = AppColors.clear
+    }
+    
+    func getBlurView(forView: UIView) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = forView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
+    }
 }
 
 

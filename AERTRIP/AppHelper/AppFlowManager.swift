@@ -376,6 +376,27 @@ extension AppFlowManager {
         obj.viewModel.sid = sid
         self.mainNavigationController.present(obj, animated: true)
     }
+    
+    func presentSelectTripVC(delegate: SelectTripVCDelegate) {
+        let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        obj.delegate = delegate
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
+        let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        obj.modalPresentationStyle = .overCurrentContext
+        obj.delegate = delegate
+        if let oVC = onViewController {
+            oVC.present(obj, animated: true)
+        }
+        else {
+            self.mainNavigationController.present(obj, animated: true)
+        }
+//        delay(seconds: 0.1) { [weak obj] in
+//            obj?.delegate = delegate
+//        }
+    }
 }
 
 //MARK: - Pop Methods

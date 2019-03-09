@@ -79,36 +79,6 @@ extension UIView {
             removeConstraint(constraints[constrainIndex])
         }
     }
-
-    func shadowOnHotelDetailsTabelCell(color: UIColor, offset: CGSize, opacity: Float, shadowRadius: CGFloat) {
-//        (cornerRadius: Double, maskedCorners: CACornerMask, color: UIColor, offset: CGSize, opacity: Float, shadowRadius: CGFloat)
-//        self.layer.cornerRadius = CGFloat(cornerRadius)
-//        self.layer.maskedCorners = maskedCorners
-        self.layer.shadowColor = color.cgColor
-        self.layer.shadowOffset = offset
-        self.layer.shadowOpacity = opacity
-        self.layer.shadowRadius = shadowRadius
-    }
-    
-    func addShadow() {
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOpacity = 0.25
-        layer.shadowOffset = CGSize(width: 0, height: 4)
-        layer.shadowRadius = 0.5
-    }
-    
-    func addShadowWithCornerRadius(offset: CGSize, color: UIColor, radius: CGFloat, opacity: Float) {
-        layer.masksToBounds = false
-        layer.shadowOffset = offset
-        layer.shadowColor = color.cgColor
-        layer.shadowRadius = radius
-        layer.shadowOpacity = opacity
-        
-        let backgroundCGColor = backgroundColor?.cgColor
-        backgroundColor = nil
-        layer.backgroundColor =  backgroundCGColor
-    }
-    
 }
 
 extension Array where Element: UIView {

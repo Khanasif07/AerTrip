@@ -140,16 +140,25 @@ extension UIView {
     
     // MARK: - set round corners by clips to bounds
     
-    func roundTopCornersByClipsToBounds(cornerRadius: Double) {
-        self.layer.cornerRadius = CGFloat(cornerRadius)
+    func roundTopCorners(cornerRadius: CGFloat) {
+        
         self.clipsToBounds = true
-        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.addShadow(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], color: .clear, offset: .zero, opacity: 0.0, shadowRadius: 0.0)
     }
    
-    func roundBottomCornersByClipsToBounds(cornerRadius: Double) {
-        self.layer.cornerRadius = CGFloat(cornerRadius)
+    func roundBottomCorners(cornerRadius: CGFloat) {
         self.clipsToBounds = true
-        self.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        self.addShadow(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], color: .clear, offset: .zero, opacity: 0.0, shadowRadius: 0.0)
+    }
+    
+    func addShadow(cornerRadius: CGFloat, maskedCorners: CACornerMask, color: UIColor, offset: CGSize, opacity: Float, shadowRadius: CGFloat) {
+
+        self.layer.cornerRadius = cornerRadius
+        self.layer.maskedCorners = maskedCorners
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = shadowRadius
     }
     
     /// SHOW VIEW
@@ -203,14 +212,6 @@ extension UIView {
             }
         }
         return nil
-    }
-    
-    func addShadowWith(_ shadowOffset: CGSize = CGSize(width: 0, height: 0), shadowRadius: CGFloat = 10.0, shadowOpacity: Float = 0.8, color: UIColor = UIColor.black) {
-        self.layer.masksToBounds = false
-        self.layer.shadowOffset = shadowOffset
-        self.layer.shadowRadius = shadowRadius
-        self.layer.shadowOpacity = shadowOpacity
-        self.layer.shadowColor = color.cgColor
     }
     
     func addNoDataLable(_ withDataCount: Int, withMessage: String = "No Data Found", withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {

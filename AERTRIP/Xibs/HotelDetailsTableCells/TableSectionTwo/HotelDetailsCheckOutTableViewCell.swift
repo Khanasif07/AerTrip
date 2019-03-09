@@ -37,7 +37,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         self.containerView.backgroundColor = AppColors.themeGreen
         self.hotelFeesLabel.textColor = whiteColor
         self.bookLabel.textColor = whiteColor
-        self.containerView.roundBottomCornersByClipsToBounds(cornerRadius: 10.0)
+        self.containerView.roundBottomCorners(cornerRadius: 10.0)
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
         self.hotelFeesLabel.font = semiboldFontSize20

@@ -21,18 +21,13 @@ class DemoVC: BaseVC {
     
     //MARK:- ViewLifeCycle
     //MARK:-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func initialSetup() {
         
-        // Do any additional setup after loading the view.
-        self.initialSetups()
     }
     
     //MARK:- Methods
     //MARK:- Private
-    private func initialSetups() {
-        
-    }
+
     
     //MARK:- Public
     

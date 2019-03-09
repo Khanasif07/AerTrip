@@ -116,7 +116,7 @@ class RoomGuestSelectionVC: BaseVC {
         //background view
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        self.mainContainerView.roundTopCornersByClipsToBounds(cornerRadius: 15.0)
+        self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         

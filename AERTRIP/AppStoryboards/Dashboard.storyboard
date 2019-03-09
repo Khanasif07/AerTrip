@@ -87,13 +87,13 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerin" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                        <rect key="frame" x="6" y="0.0" width="62" height="62"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="hKG-lk-EnP" secondAttribute="height" multiplier="1:1" id="DHW-qt-SDU"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-                                                                                        <rect key="frame" x="0.0" y="72" width="73.5" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="70.5" width="73.5" height="21.5"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <nil key="highlightedColor"/>
@@ -125,13 +125,13 @@
                                                                                 <rect key="frame" x="93.5" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flights" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                        <rect key="frame" x="6" y="0.0" width="62" height="62"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="KsZ-Ga-z3J" secondAttribute="height" multiplier="1:1" id="8Hy-dr-IoG"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-                                                                                        <rect key="frame" x="0.0" y="72" width="73.5" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="70.5" width="73.5" height="21.5"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <nil key="highlightedColor"/>
@@ -163,13 +163,13 @@
                                                                                 <rect key="frame" x="187" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                        <rect key="frame" x="6" y="0.0" width="62" height="62"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="BKX-kN-nNl" secondAttribute="height" multiplier="1:1" id="fdI-Wu-z9g"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-                                                                                        <rect key="frame" x="0.0" y="72" width="73.5" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="70.5" width="73.5" height="21.5"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <nil key="highlightedColor"/>
@@ -201,13 +201,13 @@
                                                                                 <rect key="frame" x="280.5" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trips" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                        <rect key="frame" x="6" y="0.0" width="62" height="62"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="ncO-p1-Aoc" secondAttribute="height" multiplier="1:1" id="H1h-j1-Qqa"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-                                                                                        <rect key="frame" x="0.0" y="72" width="73.5" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="70.5" width="73.5" height="21.5"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <nil key="highlightedColor"/>
@@ -575,16 +575,29 @@ on Christmas”</string>
                                 <color key="textColor" red="0.99999600648880005" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-0o-Orm">
+                                <rect key="frame" x="110.5" y="223.5" width="154" height="62"/>
+                                <connections>
+                                    <action selector="myButtonAction:" destination="qif-Xc-JfX" eventType="touchUpInside" id="eAu-Pb-X0A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dN1-OA-CG2" firstAttribute="centerX" secondItem="McH-7D-g5Y" secondAttribute="centerX" id="0OZ-PN-dvp"/>
                             <constraint firstItem="McH-7D-g5Y" firstAttribute="centerX" secondItem="LFJ-3z-saS" secondAttribute="centerX" id="2Xt-mO-jcg"/>
+                            <constraint firstItem="WJG-0o-Orm" firstAttribute="bottom" secondItem="dN1-OA-CG2" secondAttribute="bottom" id="UOI-Kx-FvP"/>
+                            <constraint firstItem="WJG-0o-Orm" firstAttribute="leading" secondItem="dN1-OA-CG2" secondAttribute="leading" id="bM3-1u-6cL"/>
                             <constraint firstItem="dN1-OA-CG2" firstAttribute="top" secondItem="McH-7D-g5Y" secondAttribute="bottom" constant="15" id="bR1-L2-MXU"/>
                             <constraint firstItem="McH-7D-g5Y" firstAttribute="centerY" secondItem="LFJ-3z-saS" secondAttribute="centerY" multiplier="0.9" id="dUT-rL-Fq4"/>
+                            <constraint firstItem="WJG-0o-Orm" firstAttribute="top" secondItem="McH-7D-g5Y" secondAttribute="top" id="dpC-56-Atz"/>
+                            <constraint firstItem="WJG-0o-Orm" firstAttribute="trailing" secondItem="dN1-OA-CG2" secondAttribute="trailing" id="uh5-gX-N7T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LFJ-3z-saS"/>
                     </view>
+                    <connections>
+                        <outlet property="myButton" destination="WJG-0o-Orm" id="Ezk-Cv-nBZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqH-6U-ZCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -952,7 +965,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="TripsVC" id="PTU-br-IAu" customClass="TripsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8aR-r3-Nn6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="504.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">

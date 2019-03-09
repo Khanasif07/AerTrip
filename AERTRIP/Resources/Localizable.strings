@@ -188,6 +188,7 @@
 
 //MARK: - View Profile
 "Edit" = "Edit";
+"Create" = "Create";
 "TravellerList" = "Travellers List";
 "HotelPreferences" = "Favourite Hotels";
 "QuickPay" = "QuickPay";
@@ -424,3 +425,9 @@
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
 "CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
+
+
+//Select Trip Screen
+"SelectTrip" = "Select Trip";
+"CreateNewTrip" = "Create New Trip";
+"NameYourTrip" = "Name Your Trip";
