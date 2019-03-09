@@ -48,6 +48,7 @@ extension HotelSearched {
     @NSManaged public var amenities: [String]?
     @NSManaged public var isHotelBeyondTwentyKm: Bool
     
+    
     var dict: JSONDictionary {
         var temp = JSONDictionary()
         temp[APIKeys.acc_type.rawValue] = self.accountType ?? ""

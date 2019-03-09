@@ -60,7 +60,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.distance = distance
             switch distance {
             case 0..<2:
-                 hotelSearched?.sectionTitle = "a0 to 2"
+                hotelSearched?.sectionTitle = "a0 to 2"
             case 2..<5 :
                 hotelSearched?.sectionTitle = "b2 to 4"
             case 5..<10:
@@ -92,8 +92,12 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.hotelName = "\(obj)".removeNull
         }
         
-      if let obj = dataDict[APIKeys.lat.rawValue] {
+        if let obj = dataDict[APIKeys.lat.rawValue] {
             hotelSearched!.lat = "\(obj)".removeNull
+        }
+        
+        if let obj = dataDict[APIKeys.long.rawValue] {
+            hotelSearched!.long = "\(obj)".removeNull
         }
         
         if let obj = dataDict[APIKeys.list_price.rawValue] {
@@ -104,9 +108,7 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.locid = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.long.rawValue] {
-            hotelSearched!.long = "\(obj)".removeNull
-        }
+        
         if let obj = dataDict[APIKeys.no_of_nights.rawValue] as? Int {
             hotelSearched!.numberOfNight = Int16(obj)
         }
