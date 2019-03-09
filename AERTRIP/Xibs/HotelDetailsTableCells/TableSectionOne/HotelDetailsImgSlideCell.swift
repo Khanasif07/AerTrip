@@ -28,10 +28,11 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             self.imageCollectionView.dataSource = self
         }
     }
-    @IBOutlet weak var pageControl: FlexiblePageControl! {
+    @IBOutlet weak var pageControl: ISPageControl! {
         didSet {
-            self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
-            self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+            self.pageControl.tintColor = AppColors.themeGray220
+            self.pageControl.currentPageTintColor = AppColors.themeWhite
+            self.pageControl.radius = 3.0
         }
     }
     weak var delegate: HotelDetailsImgSlideCellDelegate?
@@ -49,6 +50,8 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     private func initialSetUps() {
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
+        self.pageControl.isHidden = !(imageUrls.count > 1)
+        self.pageControl.numberOfPages = imageUrls.count
     }
     
     internal func configCell(imageUrls: [String]) {
@@ -56,7 +59,6 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         self.pageControl.numberOfPages = imageUrls.count
         self.imageCollectionView.reloadData()
     }
-    
     //Mark:- IBOActions
     //=================
     
@@ -95,7 +97,8 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
 }
 
 extension HotelDetailsImgSlideCell: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.currentPage = Int(pageNumber)
     }
 }

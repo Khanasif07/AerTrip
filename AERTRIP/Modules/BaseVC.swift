@@ -192,8 +192,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     deinit {
         NotificationCenter.default.removeObserver(self, name: .dataChanged, object: nil)
     }
-    
-    
 }
 
 

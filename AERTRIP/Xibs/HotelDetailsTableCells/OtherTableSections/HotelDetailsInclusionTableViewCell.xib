@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsInclusionTableViewCell" rowHeight="60" id="YSe-Qp-Mzz" customClass="HotelDetailsInclusionTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YSe-Qp-Mzz" id="jBB-Yr-9h9">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3S-Vl-9TH">
+                        <rect key="frame" x="16" y="0.0" width="343" height="59.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFu-Vn-lNe">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="59.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inclusions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liU-Nv-gBW">
+                                        <rect key="frame" x="16" y="8" width="311" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breakfast" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udg-8m-1K1">
+                                        <rect key="frame" x="16" y="29" width="311" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="udg-8m-1K1" secondAttribute="trailing" constant="16" id="Yl2-MK-iGt"/>
+                                    <constraint firstAttribute="trailing" secondItem="liU-Nv-gBW" secondAttribute="trailing" constant="16" id="bLz-tG-8gK"/>
+                                    <constraint firstItem="udg-8m-1K1" firstAttribute="top" secondItem="liU-Nv-gBW" secondAttribute="bottom" constant="4" id="f5J-Oi-REv"/>
+                                    <constraint firstItem="udg-8m-1K1" firstAttribute="leading" secondItem="xFu-Vn-lNe" secondAttribute="leading" constant="16" id="k7Q-aN-mNJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="udg-8m-1K1" secondAttribute="bottom" constant="9.5" id="nyY-lG-NpY"/>
+                                    <constraint firstItem="liU-Nv-gBW" firstAttribute="leading" secondItem="xFu-Vn-lNe" secondAttribute="leading" constant="16" id="v3e-pz-A5y"/>
+                                    <constraint firstItem="liU-Nv-gBW" firstAttribute="top" secondItem="xFu-Vn-lNe" secondAttribute="top" constant="8" id="vS1-LS-Pdl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xFu-Vn-lNe" secondAttribute="bottom" id="b3h-AO-p4b"/>
+                            <constraint firstAttribute="trailing" secondItem="xFu-Vn-lNe" secondAttribute="trailing" id="fxW-FL-9dZ"/>
+                            <constraint firstItem="xFu-Vn-lNe" firstAttribute="leading" secondItem="G3S-Vl-9TH" secondAttribute="leading" id="iVD-9L-1ta"/>
+                            <constraint firstItem="xFu-Vn-lNe" firstAttribute="top" secondItem="G3S-Vl-9TH" secondAttribute="top" id="s0P-OJ-M06"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="G3S-Vl-9TH" secondAttribute="trailing" constant="16" id="GuG-Vx-JJ4"/>
+                    <constraint firstItem="G3S-Vl-9TH" firstAttribute="top" secondItem="jBB-Yr-9h9" secondAttribute="top" id="Mwc-rW-kG2"/>
+                    <constraint firstItem="G3S-Vl-9TH" firstAttribute="leading" secondItem="jBB-Yr-9h9" secondAttribute="leading" constant="16" id="P4E-PH-DMc"/>
+                    <constraint firstAttribute="bottom" secondItem="G3S-Vl-9TH" secondAttribute="bottom" id="X54-83-3cl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="containerView" destination="xFu-Vn-lNe" id="JRK-HP-WwB"/>
+                <outlet property="inclusionLabel" destination="liU-Nv-gBW" id="FRF-cm-CDx"/>
+                <outlet property="inclusionTypeLabel" destination="udg-8m-1K1" id="EHj-ni-1fN"/>
+                <outlet property="shadowView" destination="G3S-Vl-9TH" id="pAf-gb-tmX"/>
+            </connections>
+            <point key="canvasLocation" x="111" y="35"/>
+        </tableViewCell>
+    </objects>
+</document>

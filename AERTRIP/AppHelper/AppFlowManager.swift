@@ -318,7 +318,7 @@ extension AppFlowManager {
         //        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func presentSearchHotelTagVC(tagButtons: [String] , superView: SearchBarHeaderView) {
+    func presentSearchHotelTagVC(tagButtons: [String] , superView: HotelDetailsSearchTagTableCell) {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
@@ -334,6 +334,12 @@ extension AppFlowManager {
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentHotelDetailsTripAdvisorVC(hotelId: String) {
+        let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.hotelId = hotelId
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     

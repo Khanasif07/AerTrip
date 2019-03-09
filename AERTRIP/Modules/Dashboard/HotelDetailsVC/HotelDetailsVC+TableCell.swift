@@ -77,6 +77,15 @@ extension HotelDetailsVC {
         return cell
     }
     
+    internal func getSearchBarTagCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsSearchTagTableCell") as? HotelDetailsSearchTagTableCell  else { return UITableViewCell() }
+        if let amenities = hotelDetails.amenities {
+            let tags = amenities.basic + amenities.other
+            cell.availableTags = tags//amenities.basic
+        }
+        return cell
+    }
+    
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
         
@@ -91,7 +100,6 @@ extension HotelDetailsVC {
         cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
         if indexPath.row == 0 {
             cell.containerView.roundTopCornersByClipsToBounds(cornerRadius: 10.0)
-            //            cell.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0
             cell.bookmarkButtonOutlet.isHidden = false
         } else if indexPath.row == roomData.count - 1 {
             cell.containerView.roundTopCornersByClipsToBounds(cornerRadius: 0.0)
@@ -99,6 +107,7 @@ extension HotelDetailsVC {
             cell.bookmarkButtonOutlet.isHidden = true
         } else {
             cell.bookmarkButtonOutlet.isHidden = true
+            cell.containerView.roundTopCornersByClipsToBounds(cornerRadius: 0.0)
         }
         return cell
     }
@@ -130,11 +139,13 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.configureCancellationCell(ratesData: ratesData)
             cell.delegate = self
-            if allIndexPath.contains(indexPath) {
-                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)
+            if self.allIndexPath.contains(indexPath) {
+                cell.allDetailsLabel.isHidden = false
+                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
                 cell.infoBtnOutlet.isHidden = true
             }
             else {
+                cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
                 cell.infoBtnOutlet.isHidden = false
             }
@@ -145,12 +156,15 @@ extension HotelDetailsVC {
     
     internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
+        cell.delegate = self
         cell.configurePaymentCell(ratesData: ratesData)
-        if allIndexPath.contains(indexPath) {
-            cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()
+        if self.allIndexPath.contains(indexPath) {
+            cell.allDetailsLabel.isHidden = false
+            cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()?.trimWhiteSpace()
             cell.infoBtnOutlet.isHidden = true
         }
         else {
+            cell.allDetailsLabel.isHidden = true
             cell.allDetailsLabel.attributedText = nil
             cell.infoBtnOutlet.isHidden = false
         }
@@ -160,12 +174,18 @@ extension HotelDetailsVC {
     internal func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
+            cell.delegate = self
             cell.configureNotesCell(ratesData: ratesData)
-            if allIndexPath.contains(indexPath) {
-                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)
+            if self.allIndexPath.contains(indexPath) {
+                cell.descriptionLabel.text = ""
+                cell.allDetailsLabel.isHidden = false
+                cell.moreInfoContainerView.isHidden = true
+                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
                 cell.moreBtnOutlet.isHidden = true
             }
             else {
+                cell.moreInfoContainerView.isHidden = false
+                cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
                 cell.moreBtnOutlet.isHidden = false
             }
@@ -184,53 +204,4 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsEmptyStateTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsEmptyStateTableCell  else { return nil }
         return cell
     }
-    
-    @objc func noteBtnTapped(_ sender: UIButton) {
-        if let ratesData = self.viewModel.hotelData?.rates, let indexPath = self.hotelTableView.indexPath(forItem: sender) {
-            self.hotelTableView.performBatchUpdates({ [weak self] in
-                if let cell = self?.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCancelPolicyTableCell {
-                    cell.infoBtnOutlet.isHidden = true
-                    cell.moreInfoContainerView.isHidden = true
-                    cell.allDetailsLabel.isHidden = false
-                    let attributedString = cell.fullNotesDetails(ratesData: ratesData[indexPath.section - 2])
-                    cell.allDetailsLabel.attributedText = attributedString
-                    self?.hotelTableView.reloadRows(at: [indexPath], with: .fade)
-                }
-            }) { (isDone) in
-            }
-        }
-    }
-    
-    @objc func paymentBtnTapped(_ sender: UIButton) {
-        if let indexPath = self.hotelTableView.indexPath(forItem: sender) {
-            self.hotelTableView.performBatchUpdates({ [weak self] in
-                if let cell = self?.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCancelPolicyTableCell {
-                    cell.infoBtnOutlet.isHidden = true
-                    cell.moreBtnOutlet.isHidden = true
-                    cell.allDetailsLabel.isHidden = false
-                    let attributedString = cell.fullPaymentDetails()
-                    cell.allDetailsLabel.attributedText = attributedString
-                    self?.hotelTableView.reloadRows(at: [indexPath], with: .fade)
-                }
-            }) { (isDone) in
-            }
-        }
-    }
-    
-    @objc func cancellationBtnTapped(_ sender: UIButton) {
-        if let ratesData = self.viewModel.hotelData?.rates, let indexPath = self.hotelTableView.indexPath(forItem: sender) {
-            self.hotelTableView.performBatchUpdates({ [weak self] in
-                if let cell = self?.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCancelPolicyTableCell {
-                    cell.infoBtnOutlet.isHidden = true
-                    cell.moreBtnOutlet.isHidden = true
-                    cell.allDetailsLabel.isHidden = false
-                    let attributedString = cell.fullPenaltyDetails(ratesData: ratesData[indexPath.section - 2])
-                    cell.allDetailsLabel.attributedText = attributedString
-                    self?.hotelTableView.reloadRows(at: [indexPath], with: .fade)
-                }
-            }) { (isDone) in
-            }
-        }
-    }
 }
-

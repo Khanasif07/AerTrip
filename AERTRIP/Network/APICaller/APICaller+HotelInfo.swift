@@ -54,4 +54,23 @@ extension APICaller {
             completionBlock(false, nil)
         }
     }
+    
+    func getHotelTripAdvisorDetailsApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelTripAdvisorDetails: HotelDetailsReviewsModel?)->Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.hotelReviews, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    let hotelInfo = HotelDetailsReviewsModel.hotelDetailsReviews(response: response)
+                    completionBlock(true, [], hotelInfo)
+                } else {
+                    completionBlock(true, [], nil)
+                }
+            }, failure:  { (errors) in
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            completionBlock(false, [], nil)
+        }
+    }
 }

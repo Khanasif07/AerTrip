@@ -1,0 +1,301 @@
+//
+//  HotelDetailsVC+Delegates.swift
+//  AERTRIP
+//
+//  Created by Admin on 08/03/19.
+//  Copyright © 2019 Pramod Kumar. All rights reserved.
+//
+
+import UIKit
+
+//Mark:- UITableView Delegate And Datasource
+//==========================================
+extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if self.viewModel.hotelData != nil {
+            return self.viewModel.ratesData.isEmpty ? 3 : self.viewModel.ratesData.count + 2
+        }
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.viewModel.hotelData != nil {
+            switch section {
+            case 0:
+                return 6
+            case 1:
+                return 1
+            default:
+                if self.viewModel.ratesData.isEmpty {
+                    self.footerViewSetUpForEmptyState()
+                    return 1
+                } else {
+                    self.footerViewSetUpForNormalState()
+                    return self.viewModel.tableViewRowCell[section-2].count
+                }
+            }
+        }
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let hotelDetails = self.viewModel.hotelData {
+            if indexPath.section == 0 {
+                switch indexPath.row {
+                case 0:
+                    let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                case 1:
+                    let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                case 2:
+                    let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                case 3:
+                    let cell = self.getHotelOverViewCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                case 4:
+                    let cell = self.getHotelDetailsAmenitiesCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                case 5:
+                    let cell = self.getTripAdviserCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                    return cell
+                default:
+                    return UITableViewCell()
+                }
+            } else if indexPath.section == 1 {
+                let cell = self.getSearchBarTagCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            }
+            else {
+                if self.viewModel.ratesData.isEmpty {
+                    if let cell = self.getHotelDetailsEmptyStateCell(indexPath: indexPath) {
+                        return cell
+                    }
+                } else {
+                    
+                    let currentRatesData = self.viewModel.ratesData[indexPath.section - 2]
+                    let currentRoomData = self.viewModel.roomRates[indexPath.section - 2]
+                    let tableViewRowCell = self.viewModel.tableViewRowCell[indexPath.section - 2]
+                    
+                    switch tableViewRowCell[indexPath.row] {
+                    case .roomBedsType:
+                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRoomData){
+                            return cell
+                        }
+                    case .inclusion:
+                        if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    case .otherInclusion:
+                        if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    case .cancellationPolicy:
+                        if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    case .paymentPolicy:
+                        if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    case .notes:
+                        if let cell = self.getNotesCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    case .checkOut:
+                        if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: currentRatesData) {
+                            return cell
+                        }
+                    }
+                }
+            }
+        } else {
+            guard let hotelInfo = self.viewModel.hotelInfo else { return UITableViewCell() }
+            switch indexPath.row {
+            case 0:
+                let cell = self.getImageSlideCellWithInfo(indexPath: indexPath, hotelInfo: hotelInfo)
+                return cell
+            case 1:
+                let cell = self.getHotelRatingCellWithInfo(indexPath: indexPath, hotelInfo: hotelInfo)
+                return cell
+            case 2:
+                let cell = self.getLoaderCell(indexPath: indexPath)
+                return cell
+            default: return UITableViewCell()
+            }
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
+                if indexPath.row == 2 {
+                    self.redirectToMap()
+                } else if indexPath.row == 3 {
+                    AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
+                }
+            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil {
+                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "")
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.heightForRow(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.heightForRow(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.heightForHeaderView(tableView: tableView, section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.heightForHeaderView(tableView: tableView, section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return self.heightForFooterView(tableView: tableView, section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.heightForFooterView(tableView: tableView, section: section)
+    }
+}
+
+//Mark:- HotelDetailDelegate
+//==========================
+extension HotelDetailsVC: HotelDetailDelegate {
+    
+    func getHotelDetailsSuccess() {
+        self.filterdHotelData(tagList: ["Breakfast"])
+        let index = IndexPath(row: 2, section: 0)
+        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
+            cell.activityIndicator.stopAnimating()
+        }
+        self.hotelTableView.reloadData()
+    }
+    
+    func getHotelDetailsFail() {
+        let index = IndexPath(row: 2, section: 0)
+        if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
+            cell.activityIndicator.stopAnimating()
+            delay(seconds: AppConstants.kAnimationDuration) {
+                cell.activityIndicator.isHidden = true
+            }
+        }
+        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonImage: nil, buttonAction: self.completion)
+        printDebug("API Parsing Failed")
+    }
+    
+    func updateFavouriteSuccess(withMessage: String) {
+        self.hotelTableView.reloadData()
+        self.sendDataChangedNotification(data: self)
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        self.headerView.leftButton.setImage(buttonImage, for: .normal)
+    }
+    
+    func updateFavouriteFail() {
+        AppNetworking.hideLoader()
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        self.headerView.leftButton.setImage(buttonImage, for: .normal)
+    }
+    
+    func getHotelDistanceAndTimeSuccess() {
+        if let placeModel = self.viewModel.placeModel {
+            if !(placeModel.durationValue/60 < 10) {
+                self.viewModel.mode = .driving
+                self.viewModel.getHotelDistanceAndTimeInfo()
+            }
+        }
+        self.hotelTableView.reloadData()
+    }
+    
+    func getHotelDistanceAndTimeFail() {
+        printDebug("time and distance not found")
+    }
+}
+
+//Mark:- ScrollView Delegate
+//==========================
+extension HotelDetailsVC {
+    private func manageHeaderView(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        if (hotelImageHeight - headerView.height) < yOffset {
+            //show
+            self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
+            self.headerView.animateBackView(isHidden: false, completion: nil)
+            let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+            self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+        }
+        else {
+            //hide
+            self.headerView.navTitleLabel.text = ""
+            self.headerView.animateBackView(isHidden: true, completion: nil)
+            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            self.headerView.leftButton.setImage(buttonImage, for: .normal)
+            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.manageHeaderView(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.manageHeaderView(scrollView)
+    }
+}
+
+//Mark:- HotelDetailsImgSlideCellDelegate
+//=======================================
+extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
+    func hotelImageTapAction(at index: Int) {
+        // open gallery with show image at index
+        if let topVC = UIApplication.topViewController() {
+            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
+        }
+    }
+    
+    func willShowImage(at index: Int, image: UIImage?) {
+        self.imageView.image = image
+    }
+}
+
+//Mark:- ATGallery Delegate And Datasource
+//========================================
+extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    
+    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
+        return self.viewModel.hotelData?.photos.count ?? 0
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
+        var image = ATGalleryImage()
+        image.imagePath = self.viewModel.hotelData?.photos[index]
+        return image
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
+        self.imagesCollectionView?.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+    }
+}
+
+//Mark:- GetFullInfoDelegate
+//==========================
+extension HotelDetailsVC: GetFullInfoDelegate {
+    func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
+        self.expandHeight = expandHeight
+        if !allIndexPath.contains(indexPath) {
+            self.allIndexPath.append(indexPath)
+            self.hotelTableView.reloadData()
+        }
+    }
+}

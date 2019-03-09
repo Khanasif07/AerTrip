@@ -33,8 +33,11 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
-    var roomRatesData = [Rates]()
+    var tagsForFilteration = [String]()
+    var filteredTags = [String]()
+    var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
+    var tableViewRowCell = [[TableCellType]]()
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
@@ -47,37 +50,51 @@ class HotelDetailsVM {
         return params
     }
     
+    ///Get Filtered Data
+    func getFilteredData(rates: [Rates], tagList: [String]) -> [Rates] {
+        let filteredRates = rates.filter { (rate: Rates) -> Bool in
+            if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
+                if inclusionInfo.containsArray(array: tagList) { return true }
+                //                for tag in tagList {
+                //                    if inclusionInfo.contains(tag) { return true }
+                //                }
+            }
+            return false
+        }
+        return filteredRates
+    }
+    
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-        let frameworkBundle = Bundle(for: PKCountryPicker.self)
-        if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
-            do {
-                if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
-                    if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
-                        self.hotelData = HotelDetails.hotelInfo(response: data)
-                        self.delegate?.getHotelDetailsSuccess()
-                    }
+        //        let frameworkBundle = Bundle(for: PKCountryPicker.self)
+        //        if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
+        //            do {
+        //                if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
+        //                    if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
+        //                        self.hotelData = HotelDetails.hotelInfo(response: data)
+        //                        self.delegate?.getHotelDetailsSuccess()
+        //                    }
+        //                }
+        //            }
+        //            catch {
+        //                printDebug("error")
+        //                //self.hotelData = hotelData
+        //            }
+        //        }
+        
+        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
+            guard let sSelf = self else {return}
+            if success {
+                if let safeHotelData = hotelData {
+                    sSelf.hotelData = safeHotelData
+                    sSelf.delegate?.getHotelDetailsSuccess()
                 }
-            }
-            catch {
-                printDebug("error")
-                //self.hotelData = hotelData
+            } else {
+                printDebug(errors)
+                sSelf.isFooterViewHidden = true
+                sSelf.delegate?.getHotelDetailsFail()
             }
         }
-        
-//        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
-//            guard let sSelf = self else {return}
-//            if success {
-//                if let safeHotelData = hotelData {
-//                    sSelf.hotelData = safeHotelData
-//                    sSelf.delegate?.getHotelDetailsSuccess()
-//                }
-//            } else {
-//                printDebug(errors)
-//                sSelf.isFooterViewHidden = true
-//                sSelf.delegate?.getHotelDetailsFail()
-//            }
-//        }
     }
     
     //MARK:- Mark Favourite
