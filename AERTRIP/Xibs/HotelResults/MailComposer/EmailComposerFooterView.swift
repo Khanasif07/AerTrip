@@ -9,17 +9,16 @@
 import UIKit
 
 class EmailComposerFooterView: UIView {
+    @IBOutlet var seeRatesButton: ATButton!
+    @IBOutlet var contactUsLabel: UILabel!
+    @IBOutlet var socialIconStackView: UIStackView!
+    @IBOutlet var licenseLabel: UILabel!
     
-    
-    @IBOutlet weak var seeRatesButton: ATButton!
-    @IBOutlet weak var contactUsLabel: UILabel!
-    @IBOutlet weak var socialIconStackView: UIStackView!
-    @IBOutlet weak var licenseLabel: UILabel!
-    
-  
     class func instanceFromNib() -> EmailComposerFooterView {
         return UINib(nibName: "EmailComposerFooterView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmailComposerFooterView
     }
+    
+    // MARK: - View LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,10 +27,9 @@ class EmailComposerFooterView: UIView {
         self.setUpText()
         self.setUpColor()
         self.setUpFont()
-        
     }
     
-    //MARK:-  Helper methods
+    // MARK: -  Helper methods
     
     private func doInitialSetup() {
         self.seeRatesButton.layer.cornerRadius = 5.0
@@ -40,7 +38,7 @@ class EmailComposerFooterView: UIView {
     private func setUpText() {
         self.seeRatesButton.setTitle(LocalizedString.SeeRates.localized, for: .normal)
         self.contactUsLabel.text = LocalizedString.ContactUsAertrip.localized
-        self.licenseLabel.text = LocalizedString.CopyrightAertrip.localized
+        self.licenseLabel.attributedText = self.getAttributeBoldTextForHotelName(text: AppConstants.kCopyrightSymbol + LocalizedString.CopyrightAertrip.localized, boldText: AppConstants.kCopyrightSymbol)
     }
     
     private func setUpColor() {
@@ -54,5 +52,14 @@ class EmailComposerFooterView: UIView {
         self.contactUsLabel.font = AppFonts.Regular.withSize(14.0)
         self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
     }
-
+    
+    private func getAttributeBoldTextForHotelName(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(14.0), .foregroundColor: UIColor.black])
+        
+        attString.addAttributes([
+            .font: AppFonts.SemiBold.withSize(18.0),
+            .foregroundColor: AppColors.themeGreen
+        ], range: (text as NSString).range(of: boldText))
+        return attString
+    }
 }

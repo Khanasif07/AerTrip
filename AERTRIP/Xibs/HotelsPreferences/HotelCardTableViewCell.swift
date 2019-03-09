@@ -12,7 +12,7 @@ import UIKit
 
 protocol HotelCardTableViewCellDelegate: class {
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel)
-    func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
+    func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched)
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
 
@@ -29,8 +29,8 @@ class HotelCardTableViewCell: UITableViewCell {
     @IBOutlet var gradientView: UIView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var pageControl: FlexiblePageControl!
-    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -55,17 +55,16 @@ class HotelCardTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.gradientView.bounds
-        gradientLayer.colors =
+        self.gradientLayer = CAGradientLayer()
+        self.gradientLayer.frame = self.gradientView.bounds
+        self.gradientLayer.colors =
             [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
-        gradientView.layer.addSublayer(gradientLayer)
-        gradientView.backgroundColor = AppColors.clear
+        self.gradientView.layer.addSublayer(self.gradientLayer)
+        self.gradientView.backgroundColor = AppColors.clear
         
-        saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         
         //        bgView.addCardShadow()
-        
         
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
@@ -118,12 +117,17 @@ class HotelCardTableViewCell: UITableViewCell {
     }
     
     private func populateHotelData() {
-        self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelListData?.star ?? 0.0
-        self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
-        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
-        self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
-        self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
+        guard let hotel = self.hotelListData else {
+            printDebug("hotel not found")
+            return
+        }
+        
+        self.hotelNameLabel.text = hotel.hotelName ?? LocalizedString.na.localized
+        self.starRatingView.rating = hotel.star
+        self.greenCircleRatingView.rating = hotel.rating
+        self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
+        self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)"
+        self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
         //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
         //     }
@@ -142,7 +146,6 @@ class HotelCardTableViewCell: UITableViewCell {
         }
     }
 }
-
 
 extension HotelCardTableViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
