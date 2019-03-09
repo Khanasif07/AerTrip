@@ -10,6 +10,7 @@ import UIKit
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
+    func clearAllButtonTapped()
 }
 
 class HotelFilterVC: BaseVC {
@@ -165,7 +166,9 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - IB Action
     
-    @IBAction func clearAllButtonTapped(_ sender: Any) {}
+    @IBAction func clearAllButtonTapped(_ sender: Any) {
+        delegate?.clearAllButtonTapped()
+    }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         self.hide(animated: true, shouldRemove: true)

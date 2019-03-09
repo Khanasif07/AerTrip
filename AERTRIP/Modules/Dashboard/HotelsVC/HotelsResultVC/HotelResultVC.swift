@@ -93,6 +93,7 @@ class HotelResultVC: BaseVC {
     
     var mapView: GMSMapView?
     
+    
     var container: NSPersistentContainer!
     var predicateStr: String = ""
     var time: Float = 0.0
@@ -160,7 +161,23 @@ class HotelResultVC: BaseVC {
     let defaultVelocity: CGFloat = 15.0
     
     // MARK: - ViewLifeCycle
-    
+    func getHotelsForMapView() -> [String: Any]{
+        var temp = [String: Any]()
+        if let allHotels = self.fetchedResultsController.fetchedObjects {
+            for hs in allHotels {
+                if let lat = hs.lat, let long = hs.long {
+                    if var allHotles = temp["\(lat)\(long)"] as? [HotelSearched] {
+                        allHotles.append(hs)
+                        temp["\(lat)\(long)"] = allHotles
+                    }
+                    else {
+                        temp["\(lat)\(long)"] = [hs]
+                    }
+                }
+            }
+        }
+    return temp
+    }
     // MARK: -
     override func initialSetup() {
         
@@ -239,6 +256,7 @@ class HotelResultVC: BaseVC {
            // self.setupMapView()
         }
         self.hotelSearchTableView.backgroundView = noResultemptyView
+        self.hotelSearchTableView.reloadData()
     }
     
     private func setUpFloatingView() {
@@ -477,31 +495,43 @@ class HotelResultVC: BaseVC {
             
             var amentitiesPredicate: NSPredicate?
             var predicates = [AnyHashable]()
-//            for amentities: String in self.filterApplied.amentities {
-//                predicates.append(NSPredicate(format: "amenities == \(String(amentities))"))
-//            }
-//            if predicates.count > 0 {
-//                if let predicates = predicates as? [NSPredicate] {
-//                    amentitiesPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-//                }
-//            }
+            for amentity in self.filterApplied.amentities {
+                predicates.append(NSPredicate(format: "'\(amentity)' IN amenities"))
+            }
+            if predicates.count > 0 {
+                if let predicates = predicates as? [NSPredicate] {
+                    amentitiesPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+                }
+            }
             
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
             let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
-
+            
+            
 
 //
 //            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
 //            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
             
-//            let amentitiesPredicate = NSPredicate(format: "amenities CONTAINS %@", HotelFilterVM.shared.amenitites)
+//            for (idx, amentity) in HotelFilterVM.shared.amenitites.enumerated() {
+//                let amentitiesPredicate = NSPredicate(format: "amenities IN %@", amentity)
+//            }
+            
+//            for amentiti in HotelFilterVM.shared.amenitites {
+//                 let amentitiesPredicate = NSPredicate(format: "amenities IN %@", HotelFilterVM.shared.amenitites)
+//            }
+//
             
             //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate,starPredicate,tripAdvisorPredicate])
             //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate])
-            let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [minimumPricePredicate, maximumPricePredicate, distancePredicate])
+            if let amentitiesPredicate = amentitiesPredicate {
+                 let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [minimumPricePredicate, maximumPricePredicate, distancePredicate,amentitiesPredicate])
+                self.fetchedResultsController.fetchRequest.predicate = andPredicate
+            }
+           
             
-            self.fetchedResultsController.fetchRequest.predicate = andPredicate
+            
         } else {
             if self.predicateStr == "" {
                 self.fetchedResultsController.fetchRequest.predicate = nil
@@ -519,12 +549,13 @@ class HotelResultVC: BaseVC {
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
             }
-            if self.fetchRequestType == .FilterApplied {
-                self.filterArray = self.fetchedResultsController.fetchedObjects?.filter { $0.amenities?.contains(array: self.filterApplied.amentities) ?? false } ?? []
-            }
+//            if self.fetchRequestType == .FilterApplied {
+//                self.filterArray = self.fetchedResultsController.fetchedObjects?.filter { $0.amenities?.contains(array: self.filterApplied.amentities) ?? false } ?? []
+//            }
             
             self.reloadHotelList()
         } catch {
+            printDebug(error.localizedDescription)
             print("Fetch failed")
         }
         self.reloadHotelList()
@@ -543,10 +574,11 @@ class HotelResultVC: BaseVC {
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
-    private func expandGroup() {
+    private func expandGroup(_ hotels: [HotelSearched]) {
         if let topVC = UIApplication.topViewController() {
             let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
             self.hotelsGroupExpendedVC = dataVC
+            dataVC.viewModel.samePlaceHotels = hotels
             let sheet = PKBottomSheet.instanceFromNib
             sheet.headerHeight = 24.0
             sheet.headerView = dataVC.headerView
@@ -599,12 +631,14 @@ class HotelResultVC: BaseVC {
         self.hideButtons()
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToMapView()
+            self.mapButton.isSelected = true
             self.convertToMapView()
             self.hoteResultViewType = .MapView
         } else {
             self.animateHeaderToListView()
             self.convertToListView()
             self.hoteResultViewType = .ListView
+            self.mapButton.isSelected = false
         }
     }
     
@@ -938,6 +972,11 @@ extension HotelResultVC {
 // MARK: - Hotel filter Delegate methods
 
 extension HotelResultVC: HotelFilteVCDelegate {
+    func clearAllButtonTapped() {
+        self.fetchRequestType = .Searching
+        self.loadSaveData()
+    }
+    
     func doneButtonTapped() {
         self.fetchRequestType = .FilterApplied
         HotelFilterVM.shared.saveDataToUserDefaults()
@@ -1028,6 +1067,8 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             self.loadSaveData()
             self.getFavouriteHotels()
+           let allHotels =  self.getHotelsForMapView()
+         
             self.floatingView.isHidden = self.favouriteHotels.count < 0
             self.getPinnedHotelTemplate()
             self.time += 1
@@ -1060,6 +1101,8 @@ extension HotelResultVC: HotelResultDelegate {
         }
     }
     
+    // Animate button on List View
+    
     private func animateFloatingButtonOnListView() {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
@@ -1078,6 +1121,9 @@ extension HotelResultVC: HotelResultDelegate {
                            printDebug("Animation finished")
         })
     }
+    
+    // Animate Button on map View
+    
     
     private func animateFloatingButtonOnMapView() {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
@@ -1143,33 +1189,34 @@ extension HotelResultVC: PKBottomSheetDelegate {
 
 extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (self.fetchedResultsController.sections?.count ?? 0)
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections else {
-            printDebug("No sections in fetchedResultsController")
-            return 0
-        }
-        let sectionInfo = sections[section]
-        if sectionInfo.numberOfObjects > 0 {
-            self.shimmerView.removeFromSuperview()
-        }
-        return sectionInfo.numberOfObjects
+//        guard let sections = self.fetchedResultsController.sections else {
+//            printDebug("No sections in fetchedResultsController")
+//            return 0
+//        }
+//        let sectionInfo = sections[section]
+//        if sectionInfo.numberOfObjects > 0 {
+//            self.shimmerView.removeFromSuperview()
+//        }
+        return self.getHotelsForMapView().keys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let hData = fetchedResultsController.object(at: indexPath)
-        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
-        self.isFotterVisible = self.isAboveTwentyKm
+        let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])
         
-        if indexPath.item%3 != 0 {
+//        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
+//        self.isFotterVisible = self.isAboveTwentyKm
+        
+        if hData?.count ?? 1 > 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
             
-            cell.hotelListData = hData
+            cell.hotelListData = hData?.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -1180,7 +1227,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
                 fatalError("HotelCardCollectionViewCell not found")
             }
             
-            cell.hotelListData = hData
+            cell.hotelListData = hData?.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -1189,8 +1236,9 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])
         
-        if indexPath.item%3 != 0 {
+        if hData?.count ?? 1 > 1 {
             //grouped cell
             return CGSize(width: UIDevice.screenWidth, height: 230.0)
         }
@@ -1202,15 +1250,15 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
-            self.expandGroup()
+            self.expandGroup((Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched] ?? []))
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+
         printDebug("willDisplay")
-        let hData = fetchedResultsController.object(at: indexPath)
-        let loc = CLLocationCoordinate2D(latitude: hData.lat?.toDouble ?? 0.0, longitude: hData.long?.toDouble ?? 0)
+        let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])?.first
+        let loc = CLLocationCoordinate2D(latitude: hData!.lat?.toDouble ?? 0.0, longitude: hData?.long?.toDouble ?? 0)
         self.displayingHotelLocation = loc
         updateMarker(coordinates: loc)
     }

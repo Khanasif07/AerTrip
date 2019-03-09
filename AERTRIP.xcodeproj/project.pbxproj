@@ -167,6 +167,7 @@
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
 		18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */; };
 		18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */; };
+		18F967DC22327A9200B163C8 /* HotelsGroupExtendedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F967DB22327A9200B163C8 /* HotelsGroupExtendedVM.swift */; };
 		18FA223021EC7C7C0024B91E /* AssignGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */; };
 		18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */; };
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
@@ -672,6 +673,7 @@
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileThreePartTableViewCell.swift; sourceTree = "<group>"; };
 		18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileThreePartTableViewCell.xib; sourceTree = "<group>"; };
+		18F967DB22327A9200B163C8 /* HotelsGroupExtendedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsGroupExtendedVM.swift; sourceTree = "<group>"; };
 		18FA222E21EC7C7B0024B91E /* AssignGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignGroupTableViewCell.swift; sourceTree = "<group>"; };
 		18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignGroupTableViewCell.xib; sourceTree = "<group>"; };
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
@@ -1952,6 +1954,7 @@
 				18C31F032227C7D50052162C /* MailComposerVC.swift */,
 				18727EB222291CF400DB1786 /* MailComposerVM.swift */,
 				180F9BDB222D055100518D3B /* HotelResultVC+ DelegateMethods.swift */,
+				18F967DB22327A9200B163C8 /* HotelsGroupExtendedVM.swift */,
 			);
 			path = HotelsResultVC;
 			sourceTree = "<group>";
@@ -3085,6 +3088,7 @@
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				8411E8D7222ED76300C93C0B /* HotelFilterResultFooterView.swift in Sources */,
 				1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */,
+				18F967DC22327A9200B163C8 /* HotelsGroupExtendedVM.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,

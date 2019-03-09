@@ -26,9 +26,11 @@ class HotelsGroupExpendedVC: BaseVC {
     
     //MARK:- Private
     private var itemsCount: Int = 10
+    
     private var openCardsRect: [CGRect] = []
     private var closedCardsRect: [CGRect] = []
     private var cardViews: [UIView] = []
+    let viewModel = HotelsGroupExtendedVM()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -37,6 +39,10 @@ class HotelsGroupExpendedVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+    }
+    
+    override func bindViewModel() {
+        //self.viewModel.delegate = self
     }
     
     //MARK:- Methods
@@ -100,7 +106,7 @@ class HotelsGroupExpendedVC: BaseVC {
 extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.itemsCount
+        return self.viewModel.samePlaceHotels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,9 +116,10 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         }
         
 //        cell.hotelData = self.viewModel.hotels[indexPath.item]
-        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
-        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-        cell.containerBottomConstraint.constant = 5.0
+        cell.hotelListData = self.viewModel.samePlaceHotels[indexPath.item]
+//        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
+//        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+//        cell.containerBottomConstraint.constant = 5.0
 //        cell.delegate = self
         return cell
     }
