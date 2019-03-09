@@ -318,7 +318,7 @@ extension AppFlowManager {
         //        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func presentSearchHotelTagVC(tagButtons: [String] , superView: SearchBarHeaderView) {
+    func presentSearchHotelTagVC(tagButtons: [String] , superView: HotelDetailsSearchTagTableCell) {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
@@ -334,6 +334,12 @@ extension AppFlowManager {
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentHotelDetailsTripAdvisorVC(hotelId: String) {
+        let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
+        ob.viewModel.hotelId = hotelId
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -369,11 +375,11 @@ extension AppFlowManager {
     
     // Mail Composer
     
-    func presentMailComposerVC(_ favouriteHotels: [HotelSearched],_ sid: String,_ pinnedTemplateUrl: String) {
+    func presentMailComposerVC(_ favouriteHotels: [HotelSearched],_ hotelSearchRequest: HotelSearchRequestModel,_ pinnedTemplateUrl: String) {
         let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.u = pinnedTemplateUrl
-        obj.viewModel.sid = sid
+        obj.viewModel.hotelSearchRequest = hotelSearchRequest ?? HotelSearchRequestModel()
         self.mainNavigationController.present(obj, animated: true)
     }
     

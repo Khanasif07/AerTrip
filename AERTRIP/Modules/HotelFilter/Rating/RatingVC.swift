@@ -29,7 +29,6 @@ class RatingVC: BaseVC {
         super.viewDidLoad()
         
         self.getSavedFilter()
-        self.doInitialSetup()
     }
     
     override func setupTexts() {
@@ -54,16 +53,27 @@ class RatingVC: BaseVC {
         self.filterApplied = filter
         HotelFilterVM.shared.ratingCount = self.filterApplied.ratingCount
         HotelFilterVM.shared.tripAdvisorRatingCount = self.filterApplied.tripAdvisorRatingCount
+        self.doInitialSetup()
     }
     
     private func doInitialSetup() {
-        for star in HotelFilterVM.shared.ratingCount {
-            self.updateStarButtonState(forStar: star, isSettingFirstTime: true)
+        if HotelFilterVM.shared.ratingCount.isEmpty || (HotelFilterVM.shared.ratingCount == [1, 2, 3, 4, 5]) {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = true
+            }
         }
-        for star in HotelFilterVM.shared.tripAdvisorRatingCount {
-            self.updateTripAdvisorRatingButtonState(forStar: star, isSettingFirstTime: true)
+        else {
+            for star in HotelFilterVM.shared.ratingCount {
+                self.starButtonsOutlet[star - 1].isSelected = true
+            }
         }
         
+        for rating in HotelFilterVM.shared.tripAdvisorRatingCount {
+            self.tripAdvisorRatingButtons[rating - 1].isSelected = true
+        }
+        
+        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
+        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
     }
     
@@ -98,11 +108,26 @@ class RatingVC: BaseVC {
             else {
                 currentButton.isSelected = !currentButton.isSelected
             }
-            if HotelFilterVM.shared.ratingCount.contains(forStar){
+            currentButton.isHighlighted = false
+            if HotelFilterVM.shared.ratingCount.contains(forStar) {
                 HotelFilterVM.shared.ratingCount.remove(at: HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
             }
-            else  {
+            else {
                 HotelFilterVM.shared.ratingCount.append(forStar)
+            }
+            if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
+                delay(seconds: 0.1) {
+                    for starBtn in self.starButtonsOutlet {
+                        starBtn.isSelected = false
+                        starBtn.isHighlighted = true
+                    }
+                    HotelFilterVM.shared.ratingCount.removeAll()
+                }
+            }
+            else {
+                for starBtn in self.starButtonsOutlet {
+                    starBtn.isHighlighted = false
+                }
             }
         }
     }

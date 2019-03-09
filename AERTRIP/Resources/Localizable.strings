@@ -370,6 +370,8 @@
 "Whoops" = "Whoops!";
 "HotelDetailsEmptyState" = "No results are available. We couldn’t find Rooms to match your filters. Try changing the filters, or reset them.";
 "ResetFilter" = "Reset Filter";
+"NoRoomsAvailable" = "No Rooms Available";
+"Reviews" = "Reviews";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -423,6 +425,7 @@
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "rupeesText" = "₹";
 
+
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
 "CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
 
@@ -431,3 +434,13 @@
 "SelectTrip" = "Select Trip";
 "CreateNewTrip" = "Create New Trip";
 "NameYourTrip" = "Name Your Trip";
+"CopyrightAertrip" = "  2012 Aertrip. All Rights Reserved.";
+"WriteYourOwnReview" = "Write your own Review";
+"ReadAll" = "Read all";
+"Excellent"  =  "Excellent";
+"VeryGood" =   "Very Good";
+"Average" =  "Average";
+"Poor" =  "Poor";
+"Terrible" =   "Terrible";
+"TravellerRating" = "Traveller Rating";
+"RatingSummary" = "Rating Summary";

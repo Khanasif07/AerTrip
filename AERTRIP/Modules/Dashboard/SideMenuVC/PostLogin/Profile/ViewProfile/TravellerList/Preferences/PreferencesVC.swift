@@ -6,10 +6,10 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
-protocol PreferencesVCDelegate:class {
+protocol PreferencesVCDelegate: class {
     func preferencesUpdated()
     func cancelButtonTapped()
 }
@@ -17,11 +17,12 @@ protocol PreferencesVCDelegate:class {
 class PreferencesVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
-    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
+    
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     let sections = [LocalizedString.SortOrder, LocalizedString.DisplayOrder, LocalizedString.Groups]
     let order = [LocalizedString.FirstLast, LocalizedString.LastFirst]
@@ -30,7 +31,7 @@ class PreferencesVC: BaseVC {
     let emptyCellIdentifier = "EmptyTableViewCell"
     let groupCellIdentifier = "GroupTableViewCell"
     let addActionCellIdentifier = "TableViewAddActionCell"
-    weak var delegate : PreferencesVCDelegate?
+    weak var delegate: PreferencesVCDelegate?
     let viewModel = PreferencesVM()
     
     var labelsCountDict: [JSONDictionary] = []
@@ -53,12 +54,12 @@ class PreferencesVC: BaseVC {
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none
-
-        self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
-        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        self.topNavView.dividerView.isHidden = true
+        
+        topNavView.delegate = self
+        topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
+        topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        topNavView.dividerView.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
@@ -87,16 +88,9 @@ class PreferencesVC: BaseVC {
             textField.textAlignment = .left
         }
         
-       
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             printDebug("Canelled")
         }
-       
-        
-        
-        
-        
-       
         
         let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
@@ -107,7 +101,7 @@ class PreferencesVC: BaseVC {
                 return
             }
             
-            if !self.viewModel.groups.contains(where: {$0.compare(groupName, options: .caseInsensitive) == .orderedSame}) {
+            if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
                 self.viewModel.groups.append(groupName)
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
@@ -127,7 +121,7 @@ class PreferencesVC: BaseVC {
     }
     
     override func bindViewModel() {
-        self.viewModel.delegate = self
+        viewModel.delegate = self
     }
     
     @IBAction func addNewGroupButtonTapped(_ sender: Any) {
@@ -136,7 +130,7 @@ class PreferencesVC: BaseVC {
     
     private func getCount(forLabel: String) -> Int {
         var finalCount = 0
-        for dict in self.labelsCountDict {
+        for dict in labelsCountDict {
             if let obj = dict["label"], "\(obj)".lowercased() == forLabel.lowercased(), let count = dict["count"] {
                 finalCount = "\(count)".toInt ?? 0
                 break
@@ -147,15 +141,15 @@ class PreferencesVC: BaseVC {
     }
     
     func startLoading() {
-        self.indicatorView.isHidden = false
-        self.indicatorView.startAnimating()
-        self.topNavView.firstRightButton.isHidden = true
+        indicatorView.isHidden = false
+        indicatorView.startAnimating()
+        topNavView.firstRightButton.isHidden = true
     }
     
     func stopLoading() {
-        self.indicatorView.isHidden = true
-        self.indicatorView.stopAnimating()
-        self.topNavView.firstRightButton.isHidden = false
+        indicatorView.isHidden = true
+        indicatorView.stopAnimating()
+        topNavView.firstRightButton.isHidden = false
     }
 }
 
@@ -184,14 +178,13 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.DisplayOrder:
             return order.count + 2
         case LocalizedString.Groups:
-             return viewModel.groups.count
+            return viewModel.groups.count
         default:
             return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         switch sections[indexPath.section] {
         case LocalizedString.SortOrder:
             guard let orderCell = tableView.dequeueReusableCell(withIdentifier: orderCellIdentifier, for: indexPath) as? OrderTableViewCell else {
@@ -204,7 +197,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             } else if viewModel.sortOrder == "LF", indexPath.row == 1 {
                 orderCell.checkIconImageView.isHidden = false
             }
-            orderCell.separatorView.isHidden = indexPath.row == (order.count-1)
+            orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
             return orderCell
         case LocalizedString.DisplayOrder:
             if indexPath.row < 2 {
@@ -218,10 +211,10 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 } else if viewModel.displayOrder == "LF", indexPath.row == 1 {
                     orderCell.checkIconImageView.isHidden = false
                 }
-                orderCell.separatorView.isHidden = indexPath.row == (order.count-1)
+                orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
                 return orderCell
             } else if indexPath.row == 2 {
-                guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyStateTableViewCell else {
+                guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyTableViewCell else {
                     fatalError("EmptyTableViewCell not found")
                 }
                 return emptyCell
@@ -236,15 +229,15 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
-                guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
-                    fatalError("GroupTableViewCell not found")
-                }
-                groupCell.dividerView.isHidden = indexPath.row == self.viewModel.groups.count - 1
-                groupCell.delegate = self
-                
-                let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])
-                groupCell.configureCell(viewModel.groups[indexPath.row], totalCount)
-                return groupCell
+            guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
+                fatalError("GroupTableViewCell not found")
+            }
+            groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
+            groupCell.delegate = self
+            
+            let totalCount = getCount(forLabel: viewModel.groups[indexPath.row])
+            groupCell.configureCell(viewModel.groups[indexPath.row], totalCount)
+            return groupCell
             
         default:
             break
@@ -307,19 +300,19 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-            let movedObject = viewModel.groups[sourceIndexPath.row]
-            viewModel.groups.remove(at: sourceIndexPath.row)
-            viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
-       
+        let movedObject = viewModel.groups[sourceIndexPath.row]
+        viewModel.groups.remove(at: sourceIndexPath.row)
+        viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == self.viewModel.groups.count {
+        if indexPath.row == viewModel.groups.count {
             return false
         }
         
         return true
     }
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
@@ -340,9 +333,8 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
 
 extension PreferencesVC: GroupTableViewCellDelegate {
     func deleteCellTapped(_ indexPath: IndexPath) {
-        
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
@@ -360,17 +352,17 @@ extension PreferencesVC: GroupTableViewCellDelegate {
 
 extension PreferencesVC: PreferencesVMDelegate {
     func willSavePreferences() {
-        self.startLoading()
+        startLoading()
     }
     
     func savePreferencesSuccess() {
-        self.stopLoading()
+        stopLoading()
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
     }
     
     func savePreferencesFail(errors: ErrorCodes) {
-        self.stopLoading()
+        stopLoading()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

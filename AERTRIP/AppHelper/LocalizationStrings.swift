@@ -361,6 +361,15 @@ enum LocalizedString: String {
     case Price = "Price"
     case Ratings = "Ratings"
     case Amenities = "Amenities"
+    case Reviews = "Reviews"
+    
+    case Excellent  =  "Excellent"
+    case VeryGood =   "VeryGood"
+    case Average =  "Average"
+    case Poor =  "Poor"
+    case Terrible =   "Terrible"
+    case TravellerRating = "TravellerRating"
+    case RatingSummary = "RatingSummary"
     
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
@@ -370,7 +379,9 @@ enum LocalizedString: String {
     case FiveToOne = "FiveToOne"
     case NearestFirst = "NearestFirst"
     
-    
+    case WriteYourOwnReview = "WriteYourOwnReview"
+    case ViewAll = "ViewAll"
+    case ReadAll = "ReadAll"
     
     
     //MARK: - RangeVC
@@ -413,6 +424,7 @@ enum LocalizedString: String {
     case FullPaymentExplanation = "FullPaymentExplanation"
     case FreeCancellation = "FreeCancellation"
     case FullPaymentNow = "FullPaymentNow"
+    case NoRoomsAvailable = "NoRoomsAvailable"
     
     // Others
     case FreeWifi = "FreeWifi"
@@ -425,7 +437,6 @@ enum LocalizedString: String {
     case AddressSmallLaters = "AddressSmallLaters"
     case Overview = "Overview"
     case More = "More"
-    case ViewAll = "ViewAll"
     case CheckTripAdvisor = "CheckTripAdvisor"
     case hotelFilterSearchBar = "hotelFilterSearchBar"
     case InformationUnavailable = "Information unavailable"

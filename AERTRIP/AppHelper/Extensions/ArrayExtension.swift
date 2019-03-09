@@ -104,5 +104,8 @@ extension Array where Element: Equatable {
         }
         return true
     }
+    
+    func containsArray(array: [Element]) -> Bool {
+        return !array.contains { !self.contains($0) }
+    }
 }
-

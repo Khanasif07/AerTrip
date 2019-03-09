@@ -31,7 +31,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCv-vO-xhG">
                                 <rect key="frame" x="10" y="238" width="280" height="146.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62p-l1-YzI">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62p-l1-YzI">
                                         <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -103,6 +103,7 @@
                                     <constraint firstAttribute="trailing" secondItem="dUp-aA-uRJ" secondAttribute="trailing" id="Hj1-UE-7fw"/>
                                     <constraint firstItem="dUp-aA-uRJ" firstAttribute="top" secondItem="7PI-2K-QFN" secondAttribute="bottom" constant="17" id="JYU-n9-F5k"/>
                                     <constraint firstItem="9hv-Bf-oWk" firstAttribute="top" secondItem="YK7-ub-G8T" secondAttribute="top" id="Wfu-E3-VZz"/>
+                                    <constraint firstItem="pPQ-Dl-3nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="62p-l1-YzI" secondAttribute="trailing" constant="10" id="aQo-fx-ZKe"/>
                                     <constraint firstItem="7PI-2K-QFN" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="eMw-B5-L0F"/>
                                     <constraint firstItem="dUp-aA-uRJ" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="hSg-4U-tT5"/>
                                     <constraint firstAttribute="bottom" secondItem="dUp-aA-uRJ" secondAttribute="bottom" id="jtC-u1-XuL"/>

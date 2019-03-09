@@ -31,7 +31,8 @@ struct HotelDetails {
     var address: String = ""
     var photos: [String] = []
     var amenities: Amenities? = nil
-    var amenities_group: [[String: Any]] = [[:]]
+//    var amenities_group: [[String: Any]] = [[:]]
+    var amenitiesGroups : [String : Any] = [:]
     var checkin_time: String = ""
     var checkout_time: String = ""
     var checkin: String = ""
@@ -94,7 +95,7 @@ struct HotelDetails {
                 APIKeys.per_night_list_price.rawValue: self.per_night_list_price,
                 APIKeys.photos.rawValue: self.photos,
                 APIKeys.amenities.rawValue: self.amenities,
-                APIKeys.amenities_group.rawValue: self.amenities_group,
+                APIKeys.amenities_group.rawValue: self.amenitiesGroups,
                 APIKeys.checkin_time.rawValue: self.checkin_time,
                 APIKeys.checkout_time.rawValue: self.checkout_time,
                 APIKeys.checkin.rawValue: self.checkin,
@@ -227,31 +228,16 @@ struct HotelDetails {
         if let obj = json[APIKeys.rates.rawValue] as? [JSONDictionary] {
             self.rates = Rates.getRatesData(response: obj)
         }
-        if let obj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary] {
-            for data in obj {
-                self.amenities_group.append(data)
-            }
+        if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
+            self.amenitiesGroups = firstObj
+//            for obj in arrObj {
+//                self.amenities_group.append(data)
+//            }
         }
     }
     
     //Mark:- Functions
     //================
-    
-//    func getCompleteRates() -> ([RoomsRates],[Int]) {
-//        var arraOfRoomRates = [RoomsRates]()
-//        var arrayOfRoomCount = [Int]()
-//        if let ratesData = self.rates {
-//            for rate in ratesData  {
-//                for (_,value) in rate.roomData.enumerated() {
-//                    arrayOfRoomCount.append(value.value)
-//                    arraOfRoomRates.append(value.key)
-//                }
-//            }
-//            return (arraOfRoomRates,arrayOfRoomCount)
-//        }
-//        return (arraOfRoomRates,arrayOfRoomCount)
-//    }
-//
     ///Static Function
     static func hotelInfo(response: JSONDictionary) -> HotelDetails {
         let hotelInfo = HotelDetails(json: response)
@@ -362,16 +348,21 @@ struct AmenitiesMain {
 }
 
 
-
-//Mark:- Rates
-//============
-struct Rates: Hashable {
-    
     //Mark:- Enums
     //============
     enum TableCellType {
         case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
     }
+
+//Mark:- Rates
+//============
+struct Rates: Hashable {
+    
+//    //Mark:- Enums
+//    //============
+//    enum TableCellType {
+//        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+//    }
     
     var hashValue: Int {
         return qid.hashValue
@@ -401,14 +392,16 @@ struct Rates: Hashable {
         for currentRoom in roomsRates {
             var count = 1
             for otherRoom in roomsRates {
-                if otherRoom.uuRid != currentRoom.uuRid && !tempData.keys.contains(otherRoom) {
+                if (otherRoom.uuRid != currentRoom.uuRid) && (!self.alreadyExist(arrRooms: Array(tempData.keys), room: otherRoom)) {
                     if otherRoom == currentRoom {
                         count = count + 1
                     }
                 }
             }
-            if !tempData.keys.contains(currentRoom) {
+            if !self.alreadyExist(arrRooms: Array(tempData.keys), room: currentRoom) {
                 tempData[currentRoom] = count
+            } else {
+                printDebug("Already Exist in Array")
             }
             
         }
@@ -470,6 +463,27 @@ struct Rates: Hashable {
         ]
     }
     
+    func alreadyExist(arrRooms:  [RoomsRates], room: RoomsRates) -> Bool {
+        for otherRoom in arrRooms {
+            if otherRoom == room {
+                if let lhsRoomBeds = otherRoom.roomBedTypes, let rhsRoomBeds = room.roomBedTypes {
+                    if lhsRoomBeds.count == rhsRoomBeds.count {
+                        var index = -1
+                        for bedType in lhsRoomBeds {
+                            if rhsRoomBeds.contains(bedType) {
+                                index = index + 1
+                            }
+                        }
+                        if index == lhsRoomBeds.count - 1 {
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
     init(json: JSONDictionary) {
         if let obj = json[APIKeys.qid.rawValue] {
             self.qid = "\(obj)".removeNull
@@ -520,24 +534,29 @@ struct Rates: Hashable {
     
     //Mark:- Functions
     //================
-//    ///GetRoomData
-//    func getRoomData() -> [RoomsRates: Int] {
-//        var tempData = [RoomsRates: Int] ()
-//        guard let roomsRates = self.roomsRates else { return tempData }
-//        for currentRoom in roomsRates {
-//            var count = 1
-//            for otherRoom in roomsRates {
-//                if otherRoom.id != currentRoom.id && !tempData.keys.contains(otherRoom) {
-//                    if otherRoom == currentRoom {
-//                        count = count + 1
-//                    }
-//                }
-//            }
-//            tempData[currentRoom] = count
-//        }
-//        return tempData
-//    }
-//
+    ///GetRoomData
+    func getRoomData() -> [RoomsRates: Int] {
+        var tempData = [RoomsRates: Int] ()
+        guard let roomsRates = self.roomsRates else { return tempData }
+        for currentRoom in roomsRates {
+            var count = 1
+            var isNew = true
+            for otherRoom in roomsRates {
+                if otherRoom.uuRid != currentRoom.uuRid && !tempData.keys.contains(otherRoom) {
+                    if otherRoom == currentRoom {
+                        count = count + 1
+                    }
+                }
+            }
+            if !tempData.keys.contains(currentRoom) {
+                tempData[currentRoom] = count
+            }
+            
+        }
+        return tempData
+    }
+    
+    //
 //    func getTotalNumberOfRows() -> Int {
 //        var totalRows: Int = 0
 //        let roomData = getRoomData()
@@ -705,7 +724,6 @@ struct RoomsRates: Hashable {
 //Mark:- RoomsBedTypes
 //====================
 struct  RoomsBedTypes: Hashable {
-    
     
     var hashValue: Int {
         return id.hashValue
@@ -886,3 +904,186 @@ struct PenaltyRates {
         return penaltyRatesArray
     }
 }
+
+/*
+
+if(mList.get(position).getRooms()!=null) {
+    
+    if(mList.get(position).getRooms().size() == 1) {
+        
+        mList.get(position).getRooms().get(0).setSelected(true);
+        holder.rvRoomsTypes.setVisibility(View.GONE);
+        holder.tvRoomTypeName.setVisibility(View.VISIBLE);
+        holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName().trim());
+        
+        if(mList.get(position).getRooms().get(0).getDesc()!=null &&
+            !mList.get(position).getRooms().get(0).getDesc().trim().isEmpty()) {
+            holder.tvRoomDescription.setVisibility(View.VISIBLE);
+            holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName() + " " +
+                mList.get(position).getRooms().get(0).getDesc());
+        } else {
+            holder.tvRoomDescription.setVisibility(View.GONE);
+        }
+        
+        if(mList.get(position).getRooms().get(0).getBedTypes()!=null) {
+            if(mList.get(position).getRooms().get(0).getBedTypes().size() > 1) {
+                
+                holder.tvBed.setVisibility(View.VISIBLE);
+                holder.tvBedSelection.setVisibility(View.VISIBLE);
+                holder.ivDown.setVisibility(View.VISIBLE);
+                for(int i = 0; i<mList.get(position).getRooms().get(0).getBedTypes().size(); i++) {
+                    mList.get(position).getRooms().get(0).getBedTypes().get(i).setSelected(false);
+                }
+                holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType());
+                mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
+                
+            } else {
+                if(mList.get(position).getRooms().get(0).getBedTypes().size() == 1) {
+                    holder.tvBed.setVisibility(View.VISIBLE);
+                    holder.tvBedSelection.setVisibility(View.VISIBLE);
+                    holder.ivDown.setVisibility(View.INVISIBLE);
+                    holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType().trim());
+                    mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
+                } else {
+                    holder.tvBed.setVisibility(View.GONE);
+                    holder.tvBedSelection.setVisibility(View.GONE);
+                    holder.ivDown.setVisibility(View.GONE);
+                }
+            }
+        } else {
+            holder.tvBed.setVisibility(View.GONE);
+            holder.tvBedSelection.setVisibility(View.GONE);
+            holder.ivDown.setVisibility(View.GONE);
+        }
+        
+    } else {
+        
+        holder.tvRoomTypeName.setVisibility(View.GONE);
+        holder.tvRoomDescription.setVisibility(View.GONE);
+        holder.tvBed.setVisibility(View.GONE);
+        holder.tvBedSelection.setVisibility(View.GONE);
+        holder.ivDown.setVisibility(View.GONE);
+        
+        
+        
+        ////////////**************** setting room types for more than 1 *******************/////////////
+        ArrayList<Room> temp =  new ArrayList<>();
+        ArrayList<Room> roomsList =  mList.get(position).getRooms();
+        
+        if(roomsList!=null && roomsList.size() > 0) {
+            
+            for(int i = 0; i<roomsList.size(); i++) {
+                mList.get(position).getRooms().get(i).setNumberOfEntries(0);
+            }
+            
+            for(int i=0; i<roomsList.size(); i++) {
+                
+                Room model1 = roomsList.get(i);
+                boolean flag = false;
+                int pos = -1;
+                
+                for(int j = 0; j<temp.size(); j++) {
+                    
+                    Room temp1 = temp.get(j);
+                    
+                    if(temp1.getName().trim().equalsIgnoreCase(model1.getName().trim())) {
+                        
+                        boolean isBedTypesSame = false;
+                        
+                        if((temp1.getBedTypes()==null && model1.getBedTypes()==null)
+                            || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size()==0)) {
+                            
+                            isBedTypesSame = true;
+                            
+                        } else if((temp1.getBedTypes()!=null && model1.getBedTypes()==null)
+                            || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size() > 0)
+                            ||(temp1.getBedTypes()==null && model1.getBedTypes()!=null) ||
+                                (temp1.getBedTypes().size() > 0  && model1.getBedTypes().size() == 0)) {
+                            
+                            isBedTypesSame = false;
+                            flag = false;
+                            
+                        } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
+                            temp1.getBedTypes().size() != model1.getBedTypes().size()) {
+                            
+                            isBedTypesSame = false;
+                            flag = false;
+                            
+                        } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
+                            temp1.getBedTypes().size() == model1.getBedTypes().size()) {
+                            
+                            isBedTypesSame = true;
+                            
+                            for(int k = 0; k < model1.getBedTypes().size(); k++) {
+                                BedType bedTypeModel = model1.getBedTypes().get(k);
+                                boolean isContain = true;
+                                for(int m = 0; m < temp1.getBedTypes().size(); m++) {
+                                    
+                                    if(bedTypeModel.getType()!=null && temp1.getBedTypes().get(m).getType()!=null &&
+                                        bedTypeModel.getId()!=null && bedTypeModel.getId()!=null &&
+                                        bedTypeModel.getType().trim().equalsIgnoreCase(temp1.getBedTypes().get(m).getType().trim()) &&
+                                        bedTypeModel.getId().equals(temp1.getBedTypes().get(m).getId())) {
+                                        break;
+                                    } else {
+                                        if(m == temp1.getBedTypes().size()-1) {
+                                            isContain = false;
+                                        }
+                                    }
+                                }
+                                
+                                if(!isContain) {
+                                    isBedTypesSame = false;
+                                    break;
+                                }
+                                
+                            }
+                            //                                // start of bed type array comparison
+                            //                                for(int k=0; k<temp1.getBedTypes().size(); k++) {
+                            //
+                            //                                    for(int l=0; l < model1.getBedTypes().size(); l++) {
+                            //
+                            //                                        if(temp1.getBedTypes().get(k).getType()!=null &&
+                            //                                            model1.getBedTypes().get(l).getType()!=null &&
+                            //
+                            //                                                temp1.getBedTypes().get(k).getType().trim()
+                            //                                                .equalsIgnoreCase(model1.getBedTypes().get(l).getType().trim()) &&
+                            //
+                            //                                                temp1.getBedTypes().get(k).getId()!=null &&
+                            //                                                model1.getBedTypes().get(l).getId()!=null &&
+                            //
+                            //                                                temp1.getBedTypes().get(k).getId() ==
+                            //                                                model1.getBedTypes().get(l).getId()) {
+                            //
+                            //
+                            //                                        } else {
+                            //                                            isBedTypesSame = false;
+                            //                                            break;
+                            //                                        }
+                            //                                    }
+                            //
+                            //                                    if(!isBedTypesSame)
+                            //                                    break;
+                            //                                }
+                            // end of bed type compariso
+                        }
+                        
+                        if(isBedTypesSame) {
+                            flag = true;
+                            pos = j;
+                            break;
+                        }
+                    }
+                }
+                
+                if(flag) {
+                    temp.get(pos).setNumberOfEntries(temp.get(pos).getNumberOfEntries() +  1);
+                } else {
+                    model1.setNumberOfEntries(model1.getNumberOfEntries()+1);
+                    temp.add(model1);
+                }
+            }
+            
+        }
+        
+        mList.get(position).setActualRoomsAfterFiltering(temp);
+*/

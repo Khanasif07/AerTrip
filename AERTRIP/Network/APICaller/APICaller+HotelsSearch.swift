@@ -112,27 +112,27 @@ extension APICaller {
         }
     }
     
-    func getHotelsListOnPreference(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ sid: String, _ vCodes: [String],_ hotelSearchRequst : HotelSearchRequestModel?) -> Void) {
+    func getHotelsListOnPreference(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ sid: String, _ vCodes: [String], _ hotelSearchRequst: HotelSearchRequestModel?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.hotelListOnPreferenceL, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let reponse = jsonData[APIKeys.data.rawValue].arrayObject, let first = reponse.first as? JSONDictionary, let sid = first["sid"] as? String, let vCodes = first["vcodes"] as? [String] {
                     let hotelSearchRequst = HotelSearchRequestModel(json: jsonData[APIKeys.data.rawValue].arrayValue.first ?? "")
-                    completionBlock(true, [], sid, vCodes,hotelSearchRequst)
+                    completionBlock(true, [], sid, vCodes, hotelSearchRequst)
                 }
                 else {
-                    completionBlock(false, [], "", [""],nil)
+                    completionBlock(false, [], "", [""], nil)
                 }
             }, failure: { errors in
-                completionBlock(false, errors, "", [""],nil)
+                completionBlock(false, errors, "", [""], nil)
             })
-        })  { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , "", [""],nil)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "", [""], nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] ,"" , [""],nil)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "", [""], nil)
             }
         }
     }
@@ -148,65 +148,64 @@ extension APICaller {
                     let filters = response["filters"] as? JSONDictionary
                     HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
                     HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
-                    HotelFilterVM.shared.leftRangePrice =  HotelFilterVM.shared.minimumPrice
-                     HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
-                    HotelFilterVM.shared.saveDataToUserDefaults()
+                    HotelFilterVM.shared.leftRangePrice = HotelFilterVM.shared.minimumPrice
+                    HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }
                 else {
-                    completionBlock(false, [], [],false)
+                    completionBlock(false, [], [], false)
                 }
-            }, failure: { (error) in
-                completionBlock(false,error, [], false)
+            }, failure: { error in
+                completionBlock(false, error, [], false)
             })
-        }) { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , [], false)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [], false)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] , [], false)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [], false)
             }
         }
     }
     
-    func bulkBookingEnquiryApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ enquiryId: String)->Void) {
-        AppNetworking.POST(endPoint: APIEndPoint.hotelBulkBooking, parameters: params, loader: loader, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
+    func bulkBookingEnquiryApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ enquiryId: String) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.hotelBulkBooking, parameters: params, loader: loader, success: { [weak self] json in
+            guard let sSelf = self else { return }
             printDebug(json)
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let enquiryId = response["enquiry_id"] as? String {
-                    
                     completionBlock(true, [], enquiryId)
-                } else {
+                }
+                else {
                     completionBlock(true, [], "")
                 }
-            }, failure:  { (errors) in
+            }, failure: { errors in
                 completionBlock(false, errors, "")
             })
-        }) { (error) in
+        }) { _ in
             completionBlock(false, [], "")
         }
     }
     
-    func recentHotelsSearchesApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]?)->Void) {
-        AppNetworking.GET(endPoint: APIEndPoint.hotelRecentSearches, parameters: params, loader: loader, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
+    func recentHotelsSearchesApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]?) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.hotelRecentSearches, parameters: params, loader: loader, success: { [weak self] json in
+            guard let sSelf = self else { return }
             printDebug(json)
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].arrayObject as? JSONDictionaryArray {
                     let recentSearchesData = RecentSearchesModel.recentSearchData(jsonArr: response)
                     completionBlock(true, [], recentSearchesData)
                 }
-            }, failure: { (errors) in
+            }, failure: { errors in
                 completionBlock(false, errors, nil)
             })
             
-        }) { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue] , nil)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue] , nil)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
             }
         }
     }

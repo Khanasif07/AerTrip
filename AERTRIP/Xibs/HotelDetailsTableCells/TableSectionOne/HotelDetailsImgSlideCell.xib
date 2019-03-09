@@ -32,11 +32,11 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-kr-yMO" customClass="FlexiblePageControl" customModule="FlexiblePageControl">
-                        <rect key="frame" x="167.5" y="156.5" width="40" height="20"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-kr-yMO" customClass="ISPageControl" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="167.5" y="163.5" width="40" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Fsq-OC-MaD"/>
+                            <constraint firstAttribute="height" constant="13" id="Fsq-OC-MaD"/>
                             <constraint firstAttribute="width" constant="40" id="fxD-5Q-GXs"/>
                         </constraints>
                     </view>

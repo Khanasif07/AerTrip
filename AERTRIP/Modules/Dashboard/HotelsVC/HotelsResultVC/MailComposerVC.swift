@@ -6,9 +6,9 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import Contacts
 import ContactsUI
+import UIKit
 
 class MailComposerVC: BaseVC {
     // MARK: IB Outlets
@@ -17,11 +17,12 @@ class MailComposerVC: BaseVC {
     @IBOutlet var tableView: UITableView!
     
     // MARK: Variables
+    
     let cellIdenitifer = "HotelMailComposerCardViewTableViewCell"
     var mailComposerHeaderView: EmailComposerHeaderView = EmailComposerHeaderView()
     var mailComposerFooterView: EmailComposerFooterView = EmailComposerFooterView()
     var selectedMails: [String] = []
-     let viewModel = MailComposerVM()
+    let viewModel = MailComposerVM()
     
     // MARK: - View Life cycle
     
@@ -35,8 +36,6 @@ class MailComposerVC: BaseVC {
         self.viewModel.delegate = self
     }
     
-    
-    
     override func viewDidLayoutSubviews() {
         guard let headerView = tableView.tableHeaderView else {
             return
@@ -44,8 +43,8 @@ class MailComposerVC: BaseVC {
         let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         if headerView.frame.size.height != size.height {
             headerView.frame.size.height = size.height
-            tableView.tableHeaderView = headerView
-            tableView.layoutIfNeeded()
+            self.tableView.tableHeaderView = headerView
+            self.tableView.layoutIfNeeded()
         }
         
         guard let footerView = tableView.tableFooterView else {
@@ -55,10 +54,9 @@ class MailComposerVC: BaseVC {
         let footerSize = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         if footerView.frame.size.height != footerSize.height {
             footerView.frame.size.height = footerSize.height
-            tableView.tableFooterView = footerView
-            tableView.layoutIfNeeded()
+            self.tableView.tableFooterView = footerView
+            self.tableView.layoutIfNeeded()
         }
-        
     }
     
     // MARK: - Helper methods
@@ -90,17 +88,17 @@ class MailComposerVC: BaseVC {
     }
     
     private func setupHeader() {
-        mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
-        mailComposerHeaderView.delegate = self
-        let text = "    \(UserInfo.loggedInUser?.firstName ?? "") \( UserInfo.loggedInUser?.lastName ?? "") \(LocalizedString.SharedMessage.localized)"
-        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text , boldText:"\( UserInfo.loggedInUser?.firstName ?? "") \( UserInfo.loggedInUser?.lastName ?? "")")
-        tableView.tableHeaderView = mailComposerHeaderView
-        
+        self.mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
+        self.mailComposerHeaderView.delegate = self
+        let text = "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "") \(LocalizedString.SharedMessage.localized)"
+        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "")")
+        self.setUpCheckInOutView()
+        self.tableView.tableHeaderView = mailComposerHeaderView
     }
     
     private func setUpFooter() {
-        mailComposerFooterView = EmailComposerFooterView.instanceFromNib()
-        tableView.tableFooterView = mailComposerFooterView
+        self.mailComposerFooterView = EmailComposerFooterView.instanceFromNib()
+        self.tableView.tableFooterView = self.mailComposerFooterView
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
@@ -108,10 +106,25 @@ class MailComposerVC: BaseVC {
         attString.addAttributes([
             .font: AppFonts.Regular.withSize(30.0),
             .foregroundColor: AppColors.themeGray20
-            ], range:(text as NSString).range(of: boldText))
+        ], range: (text as NSString).range(of: boldText))
         return attString
     }
-   
+    
+    private func setUpCheckInOutView() {
+        // get all value in a format
+        let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        let totalNights = Date().daysBetweenDate(toDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: "yyyy-mm-dd")! ?? Date(), endDate: viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: "yyyy-mm-dd")! ?? Date())
+        let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+        let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+        
+        // setup the text
+        self.mailComposerHeaderView.checkInDateLabel.text = checkInDate
+        self.mailComposerHeaderView.checkOutDateLabel.text = checkOutDate
+        self.mailComposerHeaderView.numberOfNightsLabel.text = (totalNights == 1) ? "\(totalNights) Night" : "\(totalNights) Nights"
+        self.mailComposerHeaderView.checkInDayLabel.text = checkInDay
+        self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
+    }
 }
 
 // MARK: - Top Navigation Bar Delegate methods
@@ -148,10 +161,9 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
 // MARK: -  Mail Composer Header View Delegate methods
 
-extension MailComposerVC : EmailComposeerHeaderViewDelegate {
+extension MailComposerVC: EmailComposeerHeaderViewDelegate {
     func textFieldText(_ textfield: UITextField) {
         //  mailComposerHeaderView.toEmailTextView.text = textfield.text
     }
@@ -168,13 +180,11 @@ extension MailComposerVC : EmailComposeerHeaderViewDelegate {
             [CNContactEmailAddressesKey]
         self.present(contactPicker, animated: true, completion: nil)
     }
-    
 }
 
+// MARK: Contact picker Delegate methods
 
-// MARK : Contact picker Delegate methods
-
-extension MailComposerVC : CNContactPickerDelegate {
+extension MailComposerVC: CNContactPickerDelegate {
 //    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
 //        picker.dismiss(animated: true, completion: nil)
 //
@@ -192,23 +202,19 @@ extension MailComposerVC : CNContactPickerDelegate {
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
             self.selectedMails.append(_mail)
-         
         }
-        var mailString : String = ""
-        for mail in selectedMails {
-           mailString += mail + " "
+        var mailString: String = ""
+        for mail in self.selectedMails {
+            mailString += mail + " "
         }
         
-        mailComposerHeaderView.toEmailTextView.text = mailString
-      
-        
+        self.mailComposerHeaderView.toEmailTextView.text = mailString
     }
 }
 
+// MARK: - Viewmodel delegates methods
 
-// MARK : - Viewmodel delegates methods
-
-extension MailComposerVC : MailComoserVMDelegate {
+extension MailComposerVC: MailComoserVMDelegate {
     func willSendEmail() {
         //
     }
@@ -220,8 +226,4 @@ extension MailComposerVC : MailComoserVMDelegate {
     func didSendemailFail() {
         //
     }
-    
-    
 }
-
-

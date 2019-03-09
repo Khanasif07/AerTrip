@@ -110,6 +110,7 @@ class HotelsSearchVM: NSObject{
         hotelData.stateName       = self.stateName
         hotelData.cityName       = self.cityName
         hotelData.ratingCount    = self.ratingCount
+        hotelData.destType       = self.destType
         
         self.hotelFormData = hotelData
         printDebug(self.hotelFormData)
