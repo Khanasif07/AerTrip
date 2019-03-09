@@ -13,6 +13,8 @@ class HotelDetailsReviewsVC: BaseVC {
     //Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsReviewsVM()
+    let sectionName = ["",LocalizedString.TravellerRating.localized,LocalizedString.RatingSummary.localized]
+    let ratingNames = [LocalizedString.Excellent.localized,LocalizedString.VeryGood.localized,LocalizedString.Average.localized,LocalizedString.Poor.localized,LocalizedString.Terrible.localized]
     
     //Mark:- IBOutlets
     //================
@@ -25,15 +27,14 @@ class HotelDetailsReviewsVC: BaseVC {
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var reviewsTblView: UITableView! {
         didSet {
-            self.reviewsTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.reviewsTblView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reviewsTblView.delegate = self
             self.reviewsTblView.dataSource = self
             self.reviewsTblView.estimatedRowHeight = UITableView.automaticDimension
             self.reviewsTblView.rowHeight = UITableView.automaticDimension
             self.reviewsTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.reviewsTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.reviewsTblView.estimatedSectionHeaderHeight = CGFloat.leastNonzeroMagnitude
-            self.reviewsTblView.sectionHeaderHeight = CGFloat.leastNonzeroMagnitude
+            self.reviewsTblView.backgroundColor = AppColors.themeWhite
         }
     }
     
@@ -72,12 +73,40 @@ class HotelDetailsReviewsVC: BaseVC {
     //Mark:- Functions
     //================
     private func registerNibs() {
+        let nib = UINib(nibName: "TripAdvisorReviewsHeaderView", bundle: nil)
+        self.reviewsTblView.register(nib, forHeaderFooterViewReuseIdentifier: "TripAdvisorReviewsHeaderView")
         self.reviewsTblView.registerCell(nibName: TripAdvisorTravelerRatingTableViewCell.reusableIdentifier)
         self.reviewsTblView.registerCell(nibName: TripAdviserReviewsCell.reusableIdentifier)
-        self.reviewsTblView.registerCell(nibName: TripAdvisorTravelerRatingTableViewCell.reusableIdentifier)
-        self.reviewsTblView.registerCell(nibName: HotelDetailsAdvisorRatingSummaryTableViewCell.reusableIdentifier)
+        self.reviewsTblView.registerCell(nibName: ReviewTableViewCell.reusableIdentifier)
+        self.reviewsTblView.registerCell(nibName: AdvisorRatingTableViewCell.reusableIdentifier)
         self.reviewsTblView.registerCell(nibName: ReviewsOptionTableViewCell.reusableIdentifier)
         self.reviewsTblView.registerCell(nibName: PoweredByTableViewCell.reusableIdentifier)
+    }
+    
+    private func getReverseNumber(row: Int) -> String {
+        switch row {
+        case 0:
+            return "5"
+        case 1:
+            return "4"
+        case 2:
+            return "3"
+        case 3:
+            return "2"
+        case 4:
+            return "1"
+        default:
+            return "0"
+        }
+    }
+    
+    private func getHeightForHeaderInSection(section: Int) -> CGFloat {
+        switch section {
+        case 1,2:
+            return 49
+        default:
+            return CGFloat.leastNonzeroMagnitude
+        }
     }
     
     @IBAction func cancelButtonAction(_ sender: UIButton) {
@@ -91,13 +120,38 @@ class HotelDetailsReviewsVC: BaseVC {
 
 extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if self.viewModel.hotelTripAdvisorDetails != nil {
+             return self.viewModel.sectionData.count
+        }
+        return 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if self.viewModel.hotelTripAdvisorDetails != nil {
+            return self.viewModel.sectionData[section].count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case 1,2:
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TripAdvisorReviewsHeaderView") as? TripAdvisorReviewsHeaderView else { return nil }
+            headerView.headerLabel.text = self.sectionName[section]
+            return headerView
+        default:
+            return nil
+        }
+        
+       
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let tripAdviserDetails = self.viewModel.hotelTripAdvisorDetails {
-            switch self.viewModel.rowsData[indexPath.row] {
+            
+            let currentSection = self.viewModel.sectionData[indexPath.section]
+            switch currentSection[indexPath.row] {
             case .tripAdvisorTravelerRatingCell:
                 if let cell = self.getTripAdvisorTravelerRatingCell(tableView, indexPath: indexPath, tripAdviserDetails: tripAdviserDetails) {
                     return cell
@@ -122,38 +176,60 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.getHeightForHeaderInSection(section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.getHeightForHeaderInSection(section: section)
+    }
+    
 }
 
 extension HotelDetailsReviewsVC {
     
     internal func getTripAdvisorTravelerRatingCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
-        cell.reviewsLabel.text = tripAdviserDetails.numReviews
+        cell.reviewsLabel.text = tripAdviserDetails.numReviews + " " + LocalizedString.Reviews.localized
         cell.tripAdviserRatingView.rating = Double(tripAdviserDetails.rating) ?? 0.0
         cell.hotelNumberLabel.text = tripAdviserDetails.rankingData?.rankingString
         return cell
     }
     
     internal func getTripAdviserReviewsCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdviserReviewsCell", for: indexPath) as? TripAdviserReviewsCell else { return UITableViewCell() }
-        cell.configCell(reviewRatingCount: tripAdviserDetails.reviewRatingCount)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableViewCell", for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
+        if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
+            cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
+            if indexPath.row == ratingNames.count - 1 {
+                cell.progressViewBottomConstraints.constant = 26.5
+            } else {
+                cell.progressViewBottomConstraints.constant = 6.5
+            }
+        }
         return cell
     }
     
     internal func getAdvisorRatingSummaryCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsAdvisorRatingSummaryTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsAdvisorRatingSummaryTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AdvisorRatingTableViewCell.reusableIdentifier, for: indexPath) as? AdvisorRatingTableViewCell else { return UITableViewCell() }
         if let ratingSummary = tripAdviserDetails.ratingSummary {
             cell.configCell(ratingSummary: ratingSummary[indexPath.row])
+            if indexPath.row == ratingSummary.count - 1 {
+                cell.dividerViewTopConstraints.constant = 26.5
+                cell.dividerView.isHidden = false
+                } else {
+                cell.dividerViewTopConstraints.constant = 6.5
+                cell.dividerView.isHidden = true
+            }
         }
         return cell
     }
     
     internal func getReviewsOptionCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewsOptionTableViewCell.reusableIdentifier, for: indexPath) as? ReviewsOptionTableViewCell else { return UITableViewCell() }
-        if indexPath.row == 4 {
+        if indexPath.row == 0 {
             cell.titleLabel.text = LocalizedString.WriteYourOwnReview.localized
-        } else if indexPath.row == 5 {
-            //                let text = tripAdviserDetails.photoCount == "1" ? "\(tripAdviserDetails.photoCount) photo" : "\(tripAdviserDetails.photoCount) photos"
+        } else if indexPath.row == 1 {
             cell.titleLabel.text = "\(LocalizedString.ViewAll.localized) \(tripAdviserDetails.photoCount) Photos"
         } else {
             cell.titleLabel.text = "\(LocalizedString.ReadAll.localized) \(tripAdviserDetails.numReviews) reviews"
@@ -175,6 +251,8 @@ extension HotelDetailsReviewsVC {
 
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func getHotelTripAdvisorDetailsSuccess() {
+        self.viewModel.getTypeOfCellInSections()
+        
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
     }
@@ -182,6 +260,4 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func getHotelTripAdvisorFail() {
         printDebug("Api parsing failed")
     }
-    
-    
 }

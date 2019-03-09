@@ -362,6 +362,14 @@ enum LocalizedString: String {
     case Amenities = "Amenities"
     case Reviews = "Reviews"
     
+    case Excellent  =  "Excellent"
+    case VeryGood =   "VeryGood"
+    case Average =  "Average"
+    case Poor =  "Poor"
+    case Terrible =   "Terrible"
+    case TravellerRating = "TravellerRating"
+    case RatingSummary = "RatingSummary"
+    
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
     case Distance = "Distance"

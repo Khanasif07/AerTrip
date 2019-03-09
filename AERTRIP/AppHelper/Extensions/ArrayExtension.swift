@@ -96,3 +96,9 @@ extension Array {
         return String(data: data, encoding: String.Encoding.utf8)
     }
 }
+
+extension Array where Element: Equatable {
+    func containsArray(array: [Element]) -> Bool {
+        return !array.contains { !self.contains($0) }
+    }
+}

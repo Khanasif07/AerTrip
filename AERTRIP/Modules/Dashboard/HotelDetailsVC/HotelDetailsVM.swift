@@ -131,9 +131,3 @@ class HotelDetailsVM {
         }
     }
 }
-
-extension Array where Element: Equatable {
-    func containsArray(array: [Element]) -> Bool {
-        return !array.contains { !self.contains($0) }
-    }
-}

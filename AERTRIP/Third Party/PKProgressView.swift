@@ -35,7 +35,7 @@ class PKProgressView: UIView {
         }
     }
     
-    @IBInspectable var progressTint : UIColor = UIColor.blue {
+    @IBInspectable var progressTint : UIColor = AppColors.themeGreen {
         didSet {
             if let prgrsVw = self.progressView  {
                 prgrsVw.backgroundColor = self.progressTint
@@ -61,7 +61,7 @@ class PKProgressView: UIView {
         }
     }
     
-    @IBInspectable var progressBorderColor : UIColor = UIColor.blue {
+    @IBInspectable var progressBorderColor : UIColor = AppColors.themeGreen {
         didSet {
             self.draw(self.frame)
         }
@@ -91,7 +91,6 @@ class PKProgressView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
         self.addTrackView()
     }
     

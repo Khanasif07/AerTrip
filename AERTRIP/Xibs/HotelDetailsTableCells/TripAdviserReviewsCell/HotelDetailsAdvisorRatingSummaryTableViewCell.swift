@@ -53,9 +53,24 @@ class HotelDetailsAdvisorRatingSummaryTableViewCell: UITableViewCell {
         self.cleanlinessLabel.textColor = AppColors.themeBlack
     }
     
-    internal func configCell(ratingSummary: RatingSummary) {
-        self.locationLabel.text = ratingSummary.localizedName
-        self.locationRatingView.rating = Double(ratingSummary.value) ?? 0.0
+    internal func configCell(ratingSummary: [RatingSummary]) {
+        self.locationLabel.text = ratingSummary[0].localizedName
+        self.locationRatingView.rating = Double(ratingSummary[0].value) ?? 0.0
+        
+        self.sleepQualityLabel.text = ratingSummary[1].localizedName
+        self.sleepQualityRatingView.rating = Double(ratingSummary[1].value) ?? 0.0
+
+        self.roomsLabel.text = ratingSummary[2].localizedName
+        self.roomsRatingView.rating = Double(ratingSummary[2].value) ?? 0.0
+
+        self.serviceLabel.text = ratingSummary[3].localizedName
+        self.serviceRatingView.rating = Double(ratingSummary[3].value) ?? 0.0
+
+        self.valueLabel.text = ratingSummary[4].localizedName
+        self.valueLRatingView.rating = Double(ratingSummary[4].value) ?? 0.0
+
+        self.cleanlinessLabel.text = ratingSummary[5].localizedName
+        self.cleanlinessRatingView.rating = Double(ratingSummary[5].value) ?? 0.0
     }
 
 }

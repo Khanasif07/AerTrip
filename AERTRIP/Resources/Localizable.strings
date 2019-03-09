@@ -424,3 +424,10 @@
 
 "WriteYourOwnReview" = "Write your own Review";
 "ReadAll" = "Read all";
+"Excellent"  =  "Excellent";
+"VeryGood" =   "Very Good";
+"Average" =  "Average";
+"Poor" =  "Poor";
+"Terrible" =   "Terrible";
+"TravellerRating" = "Traveller Rating";
+"RatingSummary" = "Rating Summary";

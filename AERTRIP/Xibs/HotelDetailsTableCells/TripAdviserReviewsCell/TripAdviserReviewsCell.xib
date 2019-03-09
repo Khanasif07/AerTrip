@@ -29,7 +29,7 @@
                         <rect key="frame" x="16" y="50" width="343" height="159.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="dod-o1-LrJ">
-                                <rect key="frame" x="0.0" y="0.0" width="86" height="159.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="85.5" height="159.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Excellent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzh-pw-4Ey">
                                         <rect key="frame" x="0.0" y="0.0" width="73" height="21.5"/>
@@ -64,49 +64,29 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="i1g-Vz-ACH">
-                                <rect key="frame" x="91" y="0.0" width="198.5" height="159.5"/>
+                                <rect key="frame" x="90.5" y="0.0" width="198.5" height="159.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAA-ot-8Zr" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="198.5" height="21.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039215686276" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21.5" id="BLd-fd-jUe"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpy-hD-uOT" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="34.5" width="198.5" height="21.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21.5" id="Mup-9Q-wLO"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4kg-6a-MXv" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="69" width="198.5" height="21.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21.5" id="a9J-cR-rwH"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nP-SW-cKJ" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="103.5" width="198.5" height="21.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21.5" id="22t-d2-JnQ"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0T-5w-py8" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="138" width="198.5" height="21.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="rAA-ot-8Zr" firstAttribute="leading" secondItem="Gpy-hD-uOT" secondAttribute="leading" id="49B-gz-ax3"/>
-                                    <constraint firstItem="Gpy-hD-uOT" firstAttribute="leading" secondItem="4kg-6a-MXv" secondAttribute="leading" id="JTx-v5-ZuP"/>
-                                    <constraint firstItem="8nP-SW-cKJ" firstAttribute="leading" secondItem="S0T-5w-py8" secondAttribute="leading" id="LPq-uu-47e"/>
-                                    <constraint firstAttribute="height" constant="159.5" id="iRl-8O-ODm"/>
-                                    <constraint firstItem="4kg-6a-MXv" firstAttribute="leading" secondItem="8nP-SW-cKJ" secondAttribute="leading" id="k7t-T4-eIc"/>
-                                    <constraint firstItem="rAA-ot-8Zr" firstAttribute="leading" secondItem="i1g-Vz-ACH" secondAttribute="leading" id="kv9-2T-bKA"/>
-                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="cqP-i0-EJc">
                                 <rect key="frame" x="294.5" y="0.0" width="48.5" height="159.5"/>
@@ -144,9 +124,6 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="i1g-Vz-ACH" firstAttribute="leading" secondItem="ohg-XJ-qgx" secondAttribute="leading" constant="91" id="ZRB-WJ-LHZ"/>
-                        </constraints>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acw-GL-a4r" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="235" width="343" height="0.5"/>

@@ -75,14 +75,14 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                         return cell
                     }
                 } else {
-                    //                let currentRatesData = ratesData[indexPath.section - 2]
+                    
                     let currentRatesData = self.viewModel.ratesData[indexPath.section - 2]
                     let currentRoomData = self.viewModel.roomRates[indexPath.section - 2]
-                    //                switch currentRatesData.tableViewRowCell[indexPath.row] {
                     let tableViewRowCell = self.viewModel.tableViewRowCell[indexPath.section - 2]
+                    
                     switch tableViewRowCell[indexPath.row] {
                     case .roomBedsType:
-                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRoomData){//currentRatesData.roomData) {
+                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRoomData){
                             return cell
                         }
                     case .inclusion:

@@ -31,6 +31,12 @@ class TripAdviserReviewsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.excellentProgressBar.backgroundColor = AppColors.themeGray04
+        self.veryGoodProgressBar.backgroundColor = AppColors.themeGray04
+        self.averageProgressBar.backgroundColor = AppColors.themeGray04
+        self.poorProgressBar.backgroundColor = AppColors.themeGray04
+        self.terribleProgressBar.backgroundColor = AppColors.themeGray04
+        
         self.excellentProgressBar.progressTint = AppColors.themeGreen
         self.veryGoodProgressBar.progressTint = AppColors.themeGreen
         self.averageProgressBar.progressTint = AppColors.themeGreen
@@ -65,22 +71,28 @@ class TripAdviserReviewsCell: UITableViewCell {
         self.terribleRatingLabel.textColor = AppColors.themeBlack
     }
     
-    internal func configCell(reviewRatingCount: JSONDictionary) {
-        
-        if let terribleRating = reviewRatingCount["1"] as? String, let progressValue = NumberFormatter().number(from: terribleRating) {
-            self.terribleProgressBar.progress = CGFloat(truncating: progressValue)
-        }
-        if let poorRating = reviewRatingCount["2"] as? String, let progressValue = NumberFormatter().number(from: poorRating)  {
-            self.poorProgressBar.progress = CGFloat(truncating: progressValue)
-        }
-        if let averageRating = reviewRatingCount["3"] as? String, let progressValue = NumberFormatter().number(from: averageRating)  {
-            self.averageProgressBar.progress = CGFloat(truncating: progressValue)
-        }
-        if let veryGoodRating = reviewRatingCount["4"] as? String, let progressValue = NumberFormatter().number(from: veryGoodRating)  {
-            self.veryGoodProgressBar.progress = CGFloat(truncating: progressValue)
-        }
-        if let excellentRating = reviewRatingCount["5"] as? String, let progressValue = NumberFormatter().number(from: excellentRating)  {
-            self.excellentProgressBar.progress = CGFloat(truncating: progressValue)
+    internal func configCell(totalReviews: String, reviewRatingCount: JSONDictionary) {
+        if let numReviews = NumberFormatter().number(from: totalReviews) {
+            if let terribleRating = reviewRatingCount["1"] as? String, let progressValue = NumberFormatter().number(from: terribleRating) {
+                self.terribleProgressBar.progress = CGFloat(truncating: progressValue)/CGFloat(truncating: numReviews)
+                self.terribleRatingLabel.text = terribleRating
+            }
+            if let poorRating = reviewRatingCount["2"] as? String, let progressValue = NumberFormatter().number(from: poorRating)  {
+                self.poorProgressBar.progress = CGFloat(truncating: progressValue)/CGFloat(truncating: numReviews)
+                self.poorRatingLabel.text = poorRating
+            }
+            if let averageRating = reviewRatingCount["3"] as? String, let progressValue = NumberFormatter().number(from: averageRating)  {
+                self.averageProgressBar.progress = CGFloat(truncating: progressValue)/CGFloat(truncating: numReviews)
+                self.averageRatingLabel.text = averageRating
+            }
+            if let veryGoodRating = reviewRatingCount["4"] as? String, let progressValue = NumberFormatter().number(from: veryGoodRating)  {
+                self.veryGoodProgressBar.progress = CGFloat(truncating: progressValue)/CGFloat(truncating: numReviews)
+                self.veryGoodRatingLabel.text = veryGoodRating
+            }
+            if let excellentRating = reviewRatingCount["5"] as? String, let progressValue = NumberFormatter().number(from: excellentRating)  {
+                self.excellentProgressBar.progress = CGFloat(truncating: progressValue)/CGFloat(truncating: numReviews)
+                self.excellentRatingLabel.text = excellentRating
+            }
         }
     }
 }

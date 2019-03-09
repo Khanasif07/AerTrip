@@ -168,28 +168,37 @@ extension HotelDetailsAmenitiesVC {
 extension HotelDetailsAmenitiesVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y == 0.0  {
+        printDebug(scrollView.contentOffset.y)
+        if scrollView.contentOffset.y <= 0.0  {
             self.headerTopConstraint.constant = 8.0
             self.dividerView.isHidden = true
-            self.stickyTitleLabel.alpha = 0.0
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
             self.stickyTitleLabel.isHidden = true
             self.amenitiesLabel.frame.origin.y = 0.0
             self.containerViewHeigthConstraint.constant = 50.0
         } else if scrollView.contentOffset.y > 10.0 {
             self.headerTopConstraint.constant = 0.0
             self.dividerView.isHidden = false
-            self.stickyTitleLabel.alpha = 1.0
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
             self.stickyTitleLabel.isHidden = false
             self.amenitiesLabel.frame.origin.y -= scrollView.contentOffset.y / 2.0
             self.containerViewHeigthConstraint.constant = 44.0
         }
-        else {
+        else  {
+            if scrollView.contentOffset.y < 10.0 {
+                self.amenitiesLabel.frame.origin.y = 0.0
+            } else {
+                self.amenitiesLabel.frame.origin.y += scrollView.contentOffset.y / 2.0
+            }
             self.headerTopConstraint.constant = 0.0
             self.dividerView.isHidden = false
             self.stickyTitleLabel.isHidden = false
-            self.stickyTitleLabel.alpha = 1.0
-            self.amenitiesLabel.frame.origin.y += scrollView.contentOffset.y / 2.0
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
             self.containerViewHeigthConstraint.constant = 50.0
         }
+    }
+    
+    private func updateHeaderView() {
+        
     }
 }

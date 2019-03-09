@@ -19,9 +19,9 @@ class HotelDetailsReviewsVM {
     enum TypeOfReviewCell {
         case tripAdvisorTravelerRatingCell , travellerRatingCell , advisorRatingSummaryCell , reviewsOptionCell , poweredByCell
     }
-    
     internal weak var delegate: HotelTripAdvisorDetailsDelegate?
-    var rowsData: [TypeOfReviewCell] = [.tripAdvisorTravelerRatingCell , .travellerRatingCell , .advisorRatingSummaryCell , .reviewsOptionCell , .reviewsOptionCell , .reviewsOptionCell , .poweredByCell]
+    var sectionData: [[TypeOfReviewCell]] = []
+//    var rowsData: [TypeOfReviewCell] = []
     var hotelTripAdvisorDetails: HotelDetailsReviewsModel?
     var hotelId: String = ""
     
@@ -39,5 +39,30 @@ class HotelDetailsReviewsVM {
                 sSelf.delegate?.getHotelTripAdvisorFail()
             }
         }
+    }
+    
+    func getTypeOfCellInSections() {
+        
+        guard let hotelTripAdvisorDetails = self.hotelTripAdvisorDetails else { return }
+        
+        self.sectionData.append([.tripAdvisorTravelerRatingCell])
+        
+        if !hotelTripAdvisorDetails.reviewRatingCount.isEmpty {
+            var rowsData: [TypeOfReviewCell] = []
+            for _ in hotelTripAdvisorDetails.reviewRatingCount{
+                rowsData.append(.travellerRatingCell)
+            }
+            self.sectionData.append(rowsData)
+        }
+        
+        
+        if let ratingSummary = hotelTripAdvisorDetails.ratingSummary, !ratingSummary.isEmpty {
+            var rowsData: [TypeOfReviewCell] = []
+            for _ in ratingSummary{
+                rowsData.append(.advisorRatingSummaryCell)
+            }
+            self.sectionData.append(rowsData)
+        }
+        self.sectionData.append([.reviewsOptionCell,.reviewsOptionCell,.reviewsOptionCell,.poweredByCell])
     }
 }
