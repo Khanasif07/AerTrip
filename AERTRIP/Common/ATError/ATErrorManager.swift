@@ -128,6 +128,9 @@ class ATErrorManager {
         
         for code in forCodes {
             let err = self.error(forCode: code, module: module)
+            if !message.isEmpty {
+                message += "\n"
+            }
             message += err.message
             temp.append(err)
         }

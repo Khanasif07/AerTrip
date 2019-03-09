@@ -53,7 +53,7 @@ class LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .profile)
             }
         }
     }

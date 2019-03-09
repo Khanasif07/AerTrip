@@ -332,7 +332,6 @@
 		848F1A5A220326ED002BDA39 /* HotelResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F1A59220326ED002BDA39 /* HotelResultVC.swift */; };
 		848F1A5D2203281C002BDA39 /* HotelsResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F1A5B2203281B002BDA39 /* HotelsResultHeaderView.swift */; };
 		848F1A5E2203281C002BDA39 /* HotelsResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F1A5C2203281C002BDA39 /* HotelsResultHeaderView.xib */; };
-		8491D1ED222D3FC2001D0313 /* popular.json in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1D8222D3FC1001D0313 /* popular.json */; };
 		8491D1EE222D3FC2001D0313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1D9222D3FC1001D0313 /* Assets.xcassets */; };
 		8491D1EF222D3FC2001D0313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1DA222D3FC1001D0313 /* GoogleService-Info.plist */; };
 		8491D1F0222D3FC2001D0313 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1DB222D3FC1001D0313 /* Localizable.strings */; };
@@ -841,7 +840,6 @@
 		848F1A59220326ED002BDA39 /* HotelResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelResultVC.swift; sourceTree = "<group>"; };
 		848F1A5B2203281B002BDA39 /* HotelsResultHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsResultHeaderView.swift; sourceTree = "<group>"; };
 		848F1A5C2203281C002BDA39 /* HotelsResultHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelsResultHeaderView.xib; sourceTree = "<group>"; };
-		8491D1D8222D3FC1001D0313 /* popular.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = popular.json; sourceTree = "<group>"; };
 		8491D1D9222D3FC1001D0313 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8491D1DA222D3FC1001D0313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8491D1DB222D3FC1001D0313 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -2153,7 +2151,6 @@
 		8491D1D7222D3FC1001D0313 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8491D1D8222D3FC1001D0313 /* popular.json */,
 				8491D1D9222D3FC1001D0313 /* Assets.xcassets */,
 				8491D1DA222D3FC1001D0313 /* GoogleService-Info.plist */,
 				8491D1DB222D3FC1001D0313 /* Localizable.strings */,
@@ -2670,7 +2667,6 @@
 				18B4596821D4DD380001C21D /* AddressTextEditTableViewCell.xib in Resources */,
 				8491D1EF222D3FC2001D0313 /* GoogleService-Info.plist in Resources */,
 				1887859F21DF746F0061869E /* TravellerListHeaderView.xib in Resources */,
-				8491D1ED222D3FC2001D0313 /* popular.json in Resources */,
 				18D4C413220AB572005E1E37 /* AmenitiesTableViewCell.xib in Resources */,
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
 				84F983D221B51A070018DFED /* LICENSE in Resources */,
