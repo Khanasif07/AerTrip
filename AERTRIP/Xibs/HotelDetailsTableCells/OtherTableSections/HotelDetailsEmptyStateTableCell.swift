@@ -45,6 +45,11 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func resetButtonAction(_ sender: UIButton) {
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            parentVC.viewModel.tagsForFilteration = parentVC.viewModel.permanentTagsForFilteration
+            parentVC.filterdHotelData(tagList: parentVC.viewModel.tagsForFilteration)
+            parentVC.hotelTableView.reloadData()
+        }
     }
     
 }

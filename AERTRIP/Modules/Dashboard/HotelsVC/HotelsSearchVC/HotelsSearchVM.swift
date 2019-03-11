@@ -84,11 +84,13 @@ class HotelsSearchVM: NSObject{
         
         for (idx , dataX) in _chidrenAge.enumerated() {
             for (idy , dataY) in dataX.enumerated() {
-                params["r[\(idx)][c][\(idy)]"] = dataY
+                if dataY != 0 {
+                    params["r[\(idx)][c][\(idy)]"] = dataY
+                }
             }
         }
         
-        printDebug(params)
+//        printDebug(params)
         return params
     }
     
@@ -107,7 +109,8 @@ class HotelsSearchVM: NSObject{
         hotelData.checkInDate    = self.checkInDate
         hotelData.checkOutDate   = self.checkOutDate
         hotelData.destId         = self.destId
-        hotelData.stateName       = self.stateName
+        hotelData.destName       = self.destName
+        hotelData.stateName      = self.stateName
         hotelData.cityName       = self.cityName
         hotelData.ratingCount    = self.ratingCount
         hotelData.destType       = self.destType

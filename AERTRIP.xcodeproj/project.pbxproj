@@ -1994,8 +1994,8 @@
 				840DDE8B220D764800F8BA92 /* HotelDetailsImgSlideCell.xib */,
 				840DDE8F220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.swift */,
 				840DDE90220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.xib */,
-				8483AFA422118549009F7600 /* HotelRatingInfoCell.swift */,
 				84BBEE9C22141CDD00844034 /* HotelDetailsCardInclusionTableCell.xib */,
+				8483AFA422118549009F7600 /* HotelRatingInfoCell.swift */,
 				8483AFA522118549009F7600 /* HotelRatingInfoCell.xib */,
 				8483AFA822119A44009F7600 /* HotelInfoAddressCell.swift */,
 				8483AFA922119A44009F7600 /* HotelInfoAddressCell.xib */,
@@ -2418,8 +2418,8 @@
 				84F983A821B51A070018DFED /* AppConstants.swift */,
 				84F983A921B51A070018DFED /* AppGlobals.swift */,
 				84F983AA21B51A070018DFED /* AppFonts.swift */,
-				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
 				18D2BC9721C8D535003A37E1 /* AppLoader.swift */,
+				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";

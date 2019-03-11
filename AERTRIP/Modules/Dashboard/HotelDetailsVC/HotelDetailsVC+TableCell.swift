@@ -79,16 +79,18 @@ extension HotelDetailsVC {
     
     internal func getSearchBarTagCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsSearchTagTableCell") as? HotelDetailsSearchTagTableCell  else { return UITableViewCell() }
+        cell.permanentTagsForFilteration = self.viewModel.permanentTagsForFilteration
+        cell.availableTagsForFilterartion = self.viewModel.tagsForFilteration
         if let amenities = hotelDetails.amenities {
             let tags = amenities.basic + amenities.other
-            cell.availableTags = tags//amenities.basic
+            cell.allTagsForFilteration = tags
         }
+        cell.tagCollectionView.reloadData()
         return cell
     }
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
-        
         let key = Array(roomData.keys)[indexPath.row]
         let value = roomData[key]
         var isOnlyOneRoom: Bool = false
@@ -147,7 +149,6 @@ extension HotelDetailsVC {
             else {
                 cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
-                cell.infoBtnOutlet.isHidden = false
             }
             return cell
         }

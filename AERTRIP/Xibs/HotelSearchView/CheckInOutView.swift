@@ -69,7 +69,7 @@ class CheckInOutView: UIView {
     }
     
     internal func fillPreviousData(viewModel: HotelsSearchVM) {
-        let checkInDate = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        let checkInDate = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-MM-DD", requiredFormat: "dd MMM")
         self.checkInDateLabel.text = checkInDate
         let checkOutDate = Date.getDateFromString(stringDate: viewModel.checkOutDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
         self.checkOutDateLabel.text = checkOutDate

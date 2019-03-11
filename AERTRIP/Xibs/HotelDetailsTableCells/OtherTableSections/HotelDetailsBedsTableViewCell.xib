@@ -12,17 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsBedsTableViewCell" id="DaD-df-j56" customClass="HotelDetailsBedsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DaD-df-j56" id="0y0-hK-j0h">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="115.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4m-eS-rYN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="115.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxL-7U-xbJ">
-                                <rect key="frame" x="16" y="0.0" width="343" height="117.5"/>
+                                <rect key="frame" x="16" y="0.0" width="343" height="115.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier King Bed Ocean View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMX-kz-73G">
                                         <rect key="frame" x="16" y="10" width="280" height="21"/>
@@ -60,19 +60,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMA-X2-AXe">
+                                        <rect key="frame" x="166" y="78" width="167" height="24.5"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSR-lc-Kpb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="116.5" width="327" height="1"/>
+                                        <rect key="frame" x="8" y="114.5" width="327" height="1"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="5hn-JZ-3vW"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMA-X2-AXe">
-                                        <rect key="frame" x="166" y="78.5" width="167" height="24"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -80,7 +80,7 @@
                                     <constraint firstItem="EER-A0-JfG" firstAttribute="leading" secondItem="PMX-kz-73G" secondAttribute="leading" id="HrJ-J8-3XV"/>
                                     <constraint firstItem="qSR-lc-Kpb" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="8" id="ITb-OU-Vja"/>
                                     <constraint firstItem="rjZ-51-vuU" firstAttribute="top" secondItem="EER-A0-JfG" secondAttribute="bottom" constant="7" id="QwX-vV-NiT"/>
-                                    <constraint firstItem="qSR-lc-Kpb" firstAttribute="top" secondItem="rjZ-51-vuU" secondAttribute="bottom" constant="16.5" id="Smo-1G-eDP"/>
+                                    <constraint firstItem="qSR-lc-Kpb" firstAttribute="top" secondItem="mMA-X2-AXe" secondAttribute="bottom" constant="12" id="RHF-PJ-s7X"/>
                                     <constraint firstAttribute="trailing" secondItem="qSR-lc-Kpb" secondAttribute="trailing" constant="8" id="UvJ-5A-7hB"/>
                                     <constraint firstItem="PMX-kz-73G" firstAttribute="leading" secondItem="QxL-7U-xbJ" secondAttribute="leading" constant="16" id="V25-30-HT1"/>
                                     <constraint firstAttribute="bottom" secondItem="qSR-lc-Kpb" secondAttribute="bottom" id="WnZ-mR-6HE"/>
@@ -121,6 +121,7 @@
                 <outlet property="bookmarkButtonOutlet" destination="SDh-gF-vY8" id="ov1-r9-tgO"/>
                 <outlet property="containerView" destination="QxL-7U-xbJ" id="dHk-y8-oLZ"/>
                 <outlet property="deviderView" destination="qSR-lc-Kpb" id="iMT-D7-Pqq"/>
+                <outlet property="dividerViewTopConstraints" destination="RHF-PJ-s7X" id="qiq-WE-gnp"/>
                 <outlet property="dropDownTextField" destination="mMA-X2-AXe" id="9da-FP-OVf"/>
                 <outlet property="shadowView" destination="M4m-eS-rYN" id="PzR-vC-mDj"/>
             </connections>
