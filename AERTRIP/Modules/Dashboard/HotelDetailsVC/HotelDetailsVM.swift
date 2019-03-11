@@ -33,8 +33,9 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
-    var tagsForFilteration = [String]()
-    var filteredTags = [String]()
+    var permanentTagsForFilteration: [String] = ["Breakfast"]
+    var tagsForFilteration: [String] = ["Breakfast"]
+    var selectedTags: [String] = ["Breakfast"]
     var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
     var tableViewRowCell = [[TableCellType]]()
@@ -66,35 +67,35 @@ class HotelDetailsVM {
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-        //        let frameworkBundle = Bundle(for: PKCountryPicker.self)
-        //        if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
-        //            do {
-        //                if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
-        //                    if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
-        //                        self.hotelData = HotelDetails.hotelInfo(response: data)
-        //                        self.delegate?.getHotelDetailsSuccess()
-        //                    }
-        //                }
-        //            }
-        //            catch {
-        //                printDebug("error")
-        //                //self.hotelData = hotelData
-        //            }
-        //        }
+//        let frameworkBundle = Bundle(for: PKCountryPicker.self)
+//        if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
+//            do {
+//                if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
+//                    if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
+//                        self.hotelData = HotelDetails.hotelInfo(response: data)
+//                        self.delegate?.getHotelDetailsSuccess()
+//                    }
+//                }
+//            }
+//            catch {
+//                printDebug("error")
+//                //self.hotelData = hotelData
+//            }
+//        }
         
-        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
-            guard let sSelf = self else {return}
-            if success {
-                if let safeHotelData = hotelData {
-                    sSelf.hotelData = safeHotelData
-                    sSelf.delegate?.getHotelDetailsSuccess()
+                APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
+                    guard let sSelf = self else {return}
+                    if success {
+                        if let safeHotelData = hotelData {
+                            sSelf.hotelData = safeHotelData
+                            sSelf.delegate?.getHotelDetailsSuccess()
+                        }
+                    } else {
+                        printDebug(errors)
+                        sSelf.isFooterViewHidden = true
+                        sSelf.delegate?.getHotelDetailsFail()
+                    }
                 }
-            } else {
-                printDebug(errors)
-                sSelf.isFooterViewHidden = true
-                sSelf.delegate?.getHotelDetailsFail()
-            }
-        }
     }
     
     //MARK:- Mark Favourite

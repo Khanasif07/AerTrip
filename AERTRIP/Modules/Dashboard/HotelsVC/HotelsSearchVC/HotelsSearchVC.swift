@@ -78,12 +78,12 @@ class HotelsSearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            self.recentSearchData()
+        self.recentSearchData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.scrollViewContentSize = self.scrollView.contentSize
+        //        self.scrollViewContentSize = self.scrollView.contentSize
     }
     
     override func viewDidLayoutSubviews() {
@@ -239,7 +239,7 @@ class HotelsSearchVC: BaseVC {
                 //self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
-//                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
+                //                self.scrollView.contentSize.height = self.scrollViewContentSize.height + self.collectionViewHeight
                 if self.recentContainerParentView.isHidden == false {
                     self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
                 } else {
@@ -249,7 +249,7 @@ class HotelsSearchVC: BaseVC {
         } else if self.viewModel.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
-//                self.scrollView.contentSize.height = self.scrollViewContentSize.height
+                //                self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
                 //self.scrollView.contentSize.height = self.scrollViewContentSize.height
@@ -451,7 +451,7 @@ class HotelsSearchVC: BaseVC {
     private func showRecentSearchView() {
         self.recentContainerParentView.isHidden = false
         self.recentContainerHeightConstraint.constant = self.recentSearchHeight
-//        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
+        //        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
         if self.viewModel.adultsCount.count < 2 {
             self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
         } else {
@@ -562,8 +562,8 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                     self.addRoomCollectionView.insertItems(at: [indexPath])
-                    }, completion: { (true) in
-                        self.reloadCollectionView()
+                }, completion: { (true) in
+                    self.reloadCollectionView()
                 })
             }
         } else {
@@ -653,8 +653,6 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
     
     func getAllHotelsOnPreferenceFail() {
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
-
         printDebug("getAllHotelsOnPreferenceFail")
         self.searchBtnOutlet.isLoading = false
         self.view.isUserInteractionEnabled = true
@@ -670,7 +668,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
                 recentSearchesView.recentCollectionView.reloadData()
             }
         } else {
-            self.showRecentSearchView()
+            self.hideRecentSearchesView()
         }
         self.needToGetRecentSearches = true
         printDebug(self.viewModel.recentSearchesData)

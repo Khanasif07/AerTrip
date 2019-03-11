@@ -362,7 +362,7 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
-"NonRefundableExplanation" = "You will be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
+"NonRefundableExplanation" = "Non-refundable";
 "FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking";
 "FreeCancellation" = "FREE CANCELLATION";
 "FullPaymentNow" = "Full Payment Now";

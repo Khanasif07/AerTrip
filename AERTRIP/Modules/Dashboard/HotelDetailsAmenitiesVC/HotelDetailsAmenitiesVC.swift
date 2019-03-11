@@ -23,6 +23,8 @@ class HotelDetailsAmenitiesVC: BaseVC {
     @IBOutlet weak var amenitiesLabel: UILabel!
     @IBOutlet weak var stickyTitleLabel: UILabel!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var amenitiesTitleBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
             self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
@@ -169,36 +171,26 @@ extension HotelDetailsAmenitiesVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         printDebug(scrollView.contentOffset.y)
-        if scrollView.contentOffset.y <= 0.0  {
-            self.headerTopConstraint.constant = 8.0
-            self.dividerView.isHidden = true
-            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
-            self.stickyTitleLabel.isHidden = true
-            self.amenitiesLabel.frame.origin.y = 0.0
-            self.containerViewHeigthConstraint.constant = 50.0
-        } else if scrollView.contentOffset.y > 10.0 {
-            self.headerTopConstraint.constant = 0.0
+        guard scrollView.contentOffset.y >= 0 || scrollView.contentOffset.y <= 20 else { return }
+        if scrollView.contentOffset.y > 10.0 {
             self.dividerView.isHidden = false
             self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
+            self.amenitiesLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
             self.stickyTitleLabel.isHidden = false
-            self.amenitiesLabel.frame.origin.y -= scrollView.contentOffset.y / 2.0
+            self.amenitiesLabelTopConstraints.constant -= scrollView.contentOffset.y/10 + 6.0
             self.containerViewHeigthConstraint.constant = 44.0
         }
         else  {
-            if scrollView.contentOffset.y < 10.0 {
-                self.amenitiesLabel.frame.origin.y = 0.0
+            if scrollView.contentOffset.y <= 6.0 {
+                self.amenitiesLabelTopConstraints.constant = 6.0
             } else {
-                self.amenitiesLabel.frame.origin.y += scrollView.contentOffset.y / 2.0
+                self.amenitiesLabelTopConstraints.constant += scrollView.contentOffset.y/10 - 6.0
             }
-            self.headerTopConstraint.constant = 0.0
             self.dividerView.isHidden = false
             self.stickyTitleLabel.isHidden = false
+            self.amenitiesLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
             self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
-            self.containerViewHeigthConstraint.constant = 50.0
+            self.containerViewHeigthConstraint.constant = 58.0
         }
-    }
-    
-    private func updateHeaderView() {
-        
     }
 }

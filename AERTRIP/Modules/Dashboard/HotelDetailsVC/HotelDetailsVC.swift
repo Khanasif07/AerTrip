@@ -12,11 +12,11 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
     //================
+    private(set) var viewModel = HotelDetailsVM()
     internal var completion: (() -> Void)? = nil
     internal weak var imagesCollectionView: UICollectionView?
     internal var expandHeight: CGFloat = 0.0
     internal let hotelImageHeight: CGFloat = 211.0
-    private(set) var viewModel = HotelDetailsVM()
     private var initialPanPoint: CGPoint = .zero
     private var sourceFrame: CGRect = .zero
     private weak var parentVC: UIViewController?
@@ -65,6 +65,7 @@ class HotelDetailsVC: BaseVC {
         self.configUI()
         self.registerNibs()
         self.footerViewSetUpForNormalState()
+        self.viewModel.tagsForFilteration = self.viewModel.permanentTagsForFilteration
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()

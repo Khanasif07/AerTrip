@@ -263,6 +263,7 @@ extension Date {
         //String to Date Convert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = currentFormat
+        dateFormatter.locale = Locale.current
         let date = dateFormatter.date(from: stringDate)
         //CONVERT FROM Date to String
         dateFormatter.dateFormat = requiredFormat

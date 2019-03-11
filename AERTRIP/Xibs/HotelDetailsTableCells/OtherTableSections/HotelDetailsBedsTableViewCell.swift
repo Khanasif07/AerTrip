@@ -28,6 +28,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     @IBOutlet weak var bookmarkButtonOutlet: UIButton!
     @IBOutlet weak var bedsLabel: UILabel!
     @IBOutlet weak var deviderView: ATDividerView!
+    @IBOutlet weak var dividerViewTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var dropDownTextField: UITextField! {
         didSet {
             self.dropDownTextField.delegate = self

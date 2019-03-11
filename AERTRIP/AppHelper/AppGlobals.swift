@@ -241,6 +241,20 @@ struct AppGlobals {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return blurEffectView
     }
+    
+    func createParagraphAttribute() -> NSParagraphStyle {
+        var paragraphStyle: NSMutableParagraphStyle
+        paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey : Any])]
+        paragraphStyle.minimumLineHeight = 0
+        paragraphStyle.maximumLineHeight = 0
+        paragraphStyle.defaultTabInterval = 15
+        paragraphStyle.firstLineHeadIndent = 0
+        paragraphStyle.headIndent = 15
+        paragraphStyle.paragraphSpacingBefore = -8.0
+        paragraphStyle.paragraphSpacing = paragraphStyle.paragraphSpacingBefore + 0.0
+        return paragraphStyle
+    }
 }
 
 
