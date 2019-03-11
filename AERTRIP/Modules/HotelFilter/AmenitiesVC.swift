@@ -24,6 +24,7 @@ class AmenitiesVC: BaseVC {
         super.viewDidLoad()
         
         doIntitialSetup()
+        self.addFooterView()
         registerXib()
     }
     
@@ -37,6 +38,13 @@ class AmenitiesVC: BaseVC {
     
     private func registerXib() {
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    private func addFooterView() {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 120))
+        customView.backgroundColor = AppColors.themeWhite
+        
+        tableView.tableFooterView = customView
     }
 }
 

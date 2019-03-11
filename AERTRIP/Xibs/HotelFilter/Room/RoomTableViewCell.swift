@@ -15,9 +15,21 @@ class RoomTableViewCell: UITableViewCell  {
     @IBOutlet weak var statusButton: UIButton!
     
     
-    var room : (title: String,id:Int)? {
+    var meal : ATMeal? {
         didSet {
             self.populateData()
+        }
+    }
+    
+    var cancellationPolicy : ATCancellationPolicy? {
+        didSet {
+           self.populateCancellationPolicyData()
+        }
+    }
+    
+    var others : ATOthers? {
+        didSet {
+            self.populateOthersData()
         }
     }
     
@@ -29,6 +41,14 @@ class RoomTableViewCell: UITableViewCell  {
 
    
     private func populateData() {
-        self.titleLabel.text = room?.title
+        self.titleLabel.text = meal?.title
+    }
+    
+    private func populateCancellationPolicyData() {
+        self.titleLabel.text = cancellationPolicy?.title
+    }
+    
+    private func populateOthersData() {
+        self.titleLabel.text = others?.title
     }
 }

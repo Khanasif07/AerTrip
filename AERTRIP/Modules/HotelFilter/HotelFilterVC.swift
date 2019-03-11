@@ -61,6 +61,7 @@ class HotelFilterVC: BaseVC {
         super.viewDidLoad()
         
         self.initialSetups()
+        self.setupGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,23 +74,27 @@ class HotelFilterVC: BaseVC {
     // MARK: - Overrider methods
     
     override func setupTexts() {
+        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.clearAllButton.setTitle(LocalizedString.ClearAll.localized, for: .normal)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
+        self.navigationTitleLabel.text = navigationTitleText
     }
     
     override func setupFonts() {
         self.clearAllButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.navigationTitleLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
     override func setupColors() {
         self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.navigationTitleLabel.textColor = AppColors.themeGray40
     }
     
     // MARK: - Helper methods
     
-    func initialSetups() {
+   private func initialSetups() {
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
         for i in 0..<self.allTabsStr.count {
@@ -164,9 +169,19 @@ class HotelFilterVC: BaseVC {
         self.categoryView = categoryView
     }
     
+    private func setupGesture() {
+        let gestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(outsideAreaTapped))
+        gestureRecognizer.cancelsTouchesInView = false
+        gestureRecognizer.numberOfTapsRequired = 1
+        gestureRecognizer.numberOfTouchesRequired = 1
+        gestureRecognizer.delegate = self
+        view.addGestureRecognizer(gestureRecognizer)
+    }
+    
     // MARK: - IB Action
     
     @IBAction func clearAllButtonTapped(_ sender: Any) {
+        self.hide(animated: true, shouldRemove: true)
         delegate?.clearAllButtonTapped()
     }
     
@@ -174,6 +189,13 @@ class HotelFilterVC: BaseVC {
         self.hide(animated: true, shouldRemove: true)
         delegate?.doneButtonTapped()
     }
+    
+    @objc func  outsideAreaTapped() {
+        self.hide(animated: true, shouldRemove: true)
+    }
+    
+    
+    
 }
 
 // MARK: - ATCategoryNavBarDelegate
@@ -181,5 +203,14 @@ class HotelFilterVC: BaseVC {
 extension HotelFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate Method
+
+extension HotelFilterVC {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
+        return (touch.view === self.view)
     }
 }

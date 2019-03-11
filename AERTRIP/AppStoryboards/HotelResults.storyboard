@@ -46,7 +46,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nq5-oc-9bO">
                                 <rect key="frame" x="0.0" y="625" width="375" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-e0-u6T">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-e0-u6T">
                                         <rect key="frame" x="16" y="16.5" width="33" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="33" id="8hJ-XZ-4oo"/>
@@ -55,16 +55,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" fixedFrame="YES" text="₹ 35,500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMa-Pj-5RO">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="₹ 35,500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMa-Pj-5RO">
                                         <rect key="frame" x="57" y="13" width="84" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSk-o0-OHD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSk-o0-OHD">
                                         <rect key="frame" x="161" y="13" width="198" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -78,7 +76,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-
                                     <constraint firstItem="ifY-X5-DCc" firstAttribute="leading" secondItem="Nq5-oc-9bO" secondAttribute="leading" id="8EV-kX-Xo5"/>
                                     <constraint firstItem="ifY-X5-DCc" firstAttribute="centerY" secondItem="Nq5-oc-9bO" secondAttribute="centerY" id="8G5-Pc-qr7"/>
                                     <constraint firstAttribute="trailing" secondItem="BSk-o0-OHD" secondAttribute="trailing" constant="16" id="ETZ-ik-PKd"/>
@@ -115,14 +112,14 @@
                     </view>
                     <connections>
                         <outlet property="footerView" destination="Nq5-oc-9bO" id="NGf-zy-ymu"/>
+                        <outlet property="fromLabel" destination="Ovj-e0-u6T" id="Mnp-rB-7Ro"/>
                         <outlet property="headerView" destination="iuD-wn-tNY" id="PAa-0b-0wu"/>
+                        <outlet property="hotelFeesLabel" destination="TMa-Pj-5RO" id="zac-Ys-jwf"/>
                         <outlet property="hotelTableView" destination="5kb-Qa-Qei" id="jcD-h6-X3e"/>
                         <outlet property="imageView" destination="I6N-f4-mml" id="2YT-Jv-GYl"/>
-
                         <outlet property="noRoomsAvailable" destination="ifY-X5-DCc" id="Yha-KK-vkI"/>
                         <outlet property="selectRoomLabel" destination="BSk-o0-OHD" id="Bu7-Xd-imk"/>
                         <outlet property="smallLineView" destination="9ab-Nu-HFX" id="hoO-et-YIP"/>
-                        <outlet property="stickyBottomConstraint" destination="WzB-gR-4kP" id="xEC-Za-eGg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MC6-g8-4aL" userLabel="First Responder" sceneMemberID="firstResponder"/>

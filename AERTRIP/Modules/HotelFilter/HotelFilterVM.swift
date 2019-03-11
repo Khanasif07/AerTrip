@@ -36,6 +36,8 @@ class HotelFilterVM {
     var roomCancelation: [Int] = []
     var roomOther: [Int] = []
     var sortUsing: SortUsing = .BestSellers
+    var totalHotelCount : Int  = 0
+    var filterHotelCount : Int = 0 
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()

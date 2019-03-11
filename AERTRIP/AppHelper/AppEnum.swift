@@ -1,6 +1,6 @@
 //
 //  AppEnum.swift
-//  
+//
 //
 //  Created by Pramod Kumar on 24/09/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
@@ -19,10 +19,11 @@ extension Notification.Name {
     static let sessionExpired = Notification.Name("sessionExpired")
 }
 
-//MARK:- Applicaion Response Code From Server
-//MARK:-
+// MARK: - Applicaion Response Code From Server
+
+// MARK: -
+
 enum AppErrorCodeFor: Int {
-    
     case success = 200
     case authenticationFailed = 402
     case noInternet = 600
@@ -86,7 +87,6 @@ enum AppErrorCodeFor: Int {
     case user_type_not_matched = 115
     
     var message: String {
-        
         switch self {
         case .success:
             return ""
@@ -252,7 +252,7 @@ enum AppErrorCodeFor: Int {
             
         case .youHaveExceededMaximumAttemptsToResetPassword:
             return "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.            "
-           
+            
         case .user_Not_Found, .user_type_not_matched:
             return "The email ID provided is incorrect"
         default:
@@ -261,9 +261,9 @@ enum AppErrorCodeFor: Int {
     }
 }
 
-//AppErrorCodeFor(rawValue: 1212)?.message
+// AppErrorCodeFor(rawValue: 1212)?.message
 
-//Navigation
+// Navigation
 public enum ATTransitionMode: Int {
     case present, dismiss, push, pop
 }
@@ -305,32 +305,31 @@ enum ATAmenity: String, CaseIterable {
             
         case .Internet:
             return LocalizedString.Internet.localized
-
+            
         case .AirConditioner:
             return LocalizedString.AirConditioner.localized
-
+            
         case .RestaurantBar:
             return LocalizedString.RestaurantBar.localized
-
+            
         case .Gym:
             return LocalizedString.Gym.localized
-
+            
         case .BusinessCenter:
             return LocalizedString.BusinessCenter.localized
-
+            
         case .Pool:
             return LocalizedString.Pool.localized
-
+            
         case .Spa:
             return LocalizedString.Spa.localized
-
+            
         case .Coffee_Shop:
             return LocalizedString.Coffee_Shop.localized
         }
     }
     
     var icon: UIImage {
-        
         switch self {
         case .Wifi:
             return #imageLiteral(resourceName: "ame-wi-fi")
@@ -361,6 +360,68 @@ enum ATAmenity: String, CaseIterable {
             
         case .Coffee_Shop:
             return #imageLiteral(resourceName: "ame-coffee-shop")
+        }
+    }
+}
+
+enum ATMeal: Int, CaseIterable {
+    case NoMeal = 1
+    case Breakfast = 2
+    case HalfBoard = 3
+    case FullBoard = 5
+    case Others = 6
+    
+    var title: String {
+        switch self {
+        case .NoMeal:
+            return LocalizedString.NoMeal.localized
+            
+        case .Breakfast:
+            return LocalizedString.Breakfast.localized
+            
+        case .HalfBoard:
+            return LocalizedString.HalfBoard.localized
+            
+        case .FullBoard:
+            return LocalizedString.FullBoard.localized
+            
+        case .Others:
+            return LocalizedString.Others.localized
+        }
+    }
+}
+
+
+enum ATCancellationPolicy: Int, CaseIterable {
+    case Refundable = 1
+    case PartRefundable = 2
+    case NonRefundable = 3
+    
+    var title: String {
+        switch self {
+        case .Refundable:
+            return LocalizedString.Refundable.localized
+            
+        case .PartRefundable:
+            return LocalizedString.PartRefundable.localized
+            
+        case .NonRefundable:
+            return LocalizedString.NonRefundable.localized
+        }
+    }
+}
+
+enum ATOthers: Int, CaseIterable {
+    case FreeWifi = 1
+    case TransferInclusive = 2
+    
+    var title: String {
+        switch self {
+        case .FreeWifi:
+            return LocalizedString.FreeWifi.localized
+            
+        case .TransferInclusive:
+            return LocalizedString.TransferInclusive.localized
         }
     }
 }

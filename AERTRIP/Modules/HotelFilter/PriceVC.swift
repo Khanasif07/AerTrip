@@ -21,10 +21,7 @@ class PriceVC: BaseVC {
     @IBOutlet weak var maximumPriceLabel: UILabel!
     
     // MARK: - Variables
-//    let minimum : CGFloat = CGFloat(HotelFilterVM.shared.minimumPrice)
-//    let maximum : CGFloat = CGFloat(HotelFilterVM.shared.maximumPrice)
-    let minimum : CGFloat = 1000
-    let maximum : CGFloat = 10000
+
     let horizontalMultiSlider = MultiSlider()
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     
@@ -48,15 +45,15 @@ class PriceVC: BaseVC {
     
          horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
         horizontalMultiSlider.orientation = .horizontal
-        horizontalMultiSlider.minimumValue = CGFloat(filterApplied.minimumPrice)
-        horizontalMultiSlider.maximumValue = CGFloat(filterApplied.maximumPrice)
-        horizontalMultiSlider.value = [CGFloat(filterApplied.leftRangePrice),CGFloat(filterApplied.rightRangePrice)]
+        horizontalMultiSlider.minimumValue = CGFloat(HotelFilterVM.shared.minimumPrice)
+        horizontalMultiSlider.maximumValue = CGFloat(HotelFilterVM.shared.maximumPrice)
+    horizontalMultiSlider.value = [UserInfo.loggedInUser?.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice) ,UserInfo.loggedInUser?.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) :CGFloat(HotelFilterVM.shared.maximumPrice)  ]
         horizontalMultiSlider.isSettingValue = true
         horizontalMultiSlider.thumbCount = 2
         horizontalMultiSlider.tintColor =  AppColors.themeGreen  // color of the track
         horizontalMultiSlider.outerTrackColor = AppColors.themeGray10
         horizontalMultiSlider.trackWidth = 3
-        horizontalMultiSlider.showsThumbImageShadow = true
+        horizontalMultiSlider.showsThumbImageShadow = false
         horizontalMultiSlider.hasRoundTrackEnds = true
         horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + 24, width: UIScreen.main.bounds.width - 66, height: 28.0)
         view.addSubview(horizontalMultiSlider)
@@ -65,8 +62,10 @@ class PriceVC: BaseVC {
     private func doInitialSetup(){
         minimumPriceView.layer.cornerRadius = 15.0
         maximumPriceView.layer.cornerRadius = 15.0
-        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(filterApplied.leftRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(filterApplied.rightRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        let leftRangePrice = UserInfo.loggedInUser?.hotelFilter != nil ?  filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
+        let rightRangePrice = UserInfo.loggedInUser?.hotelFilter != nil ?  filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
+        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(leftRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(rightRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
        
     }
     
@@ -81,8 +80,6 @@ class PriceVC: BaseVC {
     
     override func setupColors() {
         titleLabel.textColor = AppColors.themeGray40
-        //titleLabel.textColor = AppColors.themeRed
-
         minimumPriceLabel.textColor = AppColors.textFieldTextColor51
         maximumPriceLabel.textColor = AppColors.textFieldTextColor51
         minimumPriceView.backgroundColor = AppColors.themeGray10

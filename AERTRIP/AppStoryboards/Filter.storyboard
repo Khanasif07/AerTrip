@@ -81,6 +81,7 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="We1-vK-Fq2" firstAttribute="leading" secondItem="4cd-5g-yVs" secondAttribute="leading" id="8Lm-dH-IVl"/>
                                     <constraint firstItem="We1-vK-Fq2" firstAttribute="top" secondItem="4cd-5g-yVs" secondAttribute="top" constant="20" id="GKq-an-ZQ5"/>
@@ -441,7 +442,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyY-ed-ygo">
-                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
+                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
                                                         <state key="normal" image="starRatingUnfill"/>
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>

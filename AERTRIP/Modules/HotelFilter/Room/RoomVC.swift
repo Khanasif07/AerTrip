@@ -23,13 +23,13 @@ class RoomVC: UIViewController {
     // MARK: - Variables
     
     let cellIdentifier = "RoomTableViewCell"
-    let meal: [(title: String, id: Int)] = [(title: LocalizedString.NoMeal.localized, id: 1), (title: LocalizedString.Breakfast.localized, id: 2), (title: LocalizedString.HalfBoard.localized, id: 3), (title: LocalizedString.FullBoard.localized, id: 4), (title: LocalizedString.Others.localized, id: 5)]
+    let amentiesDetails: [ATAmenity] = ATAmenity.allCases
+    let meal: [ATMeal] = ATMeal.allCases
     
-    let cancellationPolicy: [(title: String, id: Int)] = [(title: LocalizedString.Refundable.localized, id: 1), (title: LocalizedString.PartRefundable.localized, id: 2), (title: LocalizedString.NonRefundable.localized, id: 3)]
+    let cancellationPolicy: [ATCancellationPolicy] = ATCancellationPolicy.allCases
     
-    let others: [(title: String, id: Int)] = [(title: LocalizedString.FreeWifi.localized, id: 1), (title: LocalizedString.TransferInclusive.localized, id: 2)]
+    let others: [ATOthers] = ATOthers.allCases
     
-    var tableData: [(title: String, id: Int)] = []
     var roomType: RoomType = .meal
     
     // MARK: - View Life cycle
@@ -49,8 +49,6 @@ class RoomVC: UIViewController {
         tableView.dataSource = self
         roomSegmentedControl.selectedSegmentIndex = 0
         roomSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-        tableData = meal
-        
         tableView.reloadData()
     }
     
@@ -62,15 +60,12 @@ class RoomVC: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             printDebug("Meal tapped")
-            tableData = meal
             roomType = .meal
         case 1:
             printDebug("cancellation policy tapped")
-            tableData = cancellationPolicy
             roomType = .cancellationPolicy
         case 2:
             printDebug("Others")
-            tableData = others
             roomType = .others
         default:
             printDebug("Tapped")
@@ -100,14 +95,14 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
         }
         switch roomType {
         case .meal:
-            cell.room = meal[indexPath.row]
-            cell.statusButton.isSelected = HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].id)
+            cell.meal = meal[indexPath.row]
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].rawValue)
         case .cancellationPolicy:
-            cell.room = cancellationPolicy[indexPath.row]
-             cell.statusButton.isSelected = HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].id)
+            cell.cancellationPolicy = cancellationPolicy[indexPath.row]
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].rawValue)
         case .others:
-            cell.room = others[indexPath.row]
-            cell.statusButton.isSelected = HotelFilterVM.shared.roomOther.contains(others[indexPath.row].id)
+            cell.others = others[indexPath.row]
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomOther.contains(others[indexPath.row].rawValue)
         }
         
         return cell
@@ -120,25 +115,24 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch roomType {
         case .meal:
-            if HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].id) {
-                HotelFilterVM.shared.roomMeal.remove(at: HotelFilterVM.shared.roomMeal.firstIndex(of: meal[indexPath.row].id)!)
+            if HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].rawValue) {
+                HotelFilterVM.shared.roomMeal.remove(at: HotelFilterVM.shared.roomMeal.firstIndex(of: meal[indexPath.row].rawValue)!)
             } else {
-                HotelFilterVM.shared.roomMeal.append(meal[indexPath.row].id)
+                HotelFilterVM.shared.roomMeal.append(meal[indexPath.row].rawValue)
             }
             
         case .cancellationPolicy:
-            if HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].id) {
-                HotelFilterVM.shared.roomCancelation.remove(at: HotelFilterVM.shared.roomCancelation.firstIndex(of: cancellationPolicy[indexPath.row].id)!)
+            if HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].rawValue) {
+                HotelFilterVM.shared.roomCancelation.remove(at: HotelFilterVM.shared.roomCancelation.firstIndex(of: cancellationPolicy[indexPath.row].rawValue)!)
             } else {
-                HotelFilterVM.shared.roomCancelation.append(cancellationPolicy[indexPath.row].id)
+                HotelFilterVM.shared.roomCancelation.append(cancellationPolicy[indexPath.row].rawValue)
             }
         case .others:
-            if HotelFilterVM.shared.roomOther.contains(others[indexPath.row].id) {
-                HotelFilterVM.shared.roomOther.remove(at: HotelFilterVM.shared.roomOther.firstIndex(of: others[indexPath.row].id)!)
+            if HotelFilterVM.shared.roomOther.contains(others[indexPath.row].rawValue) {
+                HotelFilterVM.shared.roomOther.remove(at: HotelFilterVM.shared.roomOther.firstIndex(of: others[indexPath.row].rawValue)!)
             } else {
-                HotelFilterVM.shared.roomOther.append(others[indexPath.row].id)
+                HotelFilterVM.shared.roomOther.append(others[indexPath.row].rawValue)
             }
-            
         }
         self.tableView.reloadData()
     }

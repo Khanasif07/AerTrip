@@ -182,9 +182,7 @@ class HotelResultVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
-//        self.relocateSwitchButton(shouldMoveUp: false, animated: false)
-//        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: false)
-        
+ 
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
@@ -239,20 +237,17 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBar.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = false
+        self.floatingView.isHidden = true
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchView.isHidden = true
         self.hotelSearchTableView.separatorStyle = .none
         self.hotelSearchTableView.delegate = self
         self.hotelSearchTableView.dataSource = self
-        // self.shimmerView.backgroundColor = .red
         self.completion = { [weak self] in
             self?.loadSaveData()
         }
-        delay(seconds: 0.5) {
-            // self.setupMapView()
-        }
+        
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
     }
@@ -529,15 +524,12 @@ class HotelResultVC: BaseVC {
         
         do {
             try self.fetchedResultsController.performFetch()
+            self.getHotelsCount()
             if !self.predicateStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
             }
-//            if self.fetchRequestType == .FilterApplied {
-//                self.filterArray = self.fetchedResultsController.fetchedObjects?.filter { $0.amenities?.contains(array: self.filterApplied.amentities) ?? false } ?? []
-//            }
-            
             self.reloadHotelList()
         } catch {
             printDebug(error.localizedDescription)
@@ -595,6 +587,15 @@ class HotelResultVC: BaseVC {
     private func moveMapToCurrentCity() {
         if let loc = self.viewModel.searchedCityLocation {
             self.updateMarker(coordinates: loc)
+        }
+    }
+    
+    private func getHotelsCount() {
+        if fetchRequestType == .Searching {
+            HotelFilterVM.shared.totalHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+            HotelFilterVM.shared.filterHotelCount =  HotelFilterVM.shared.totalHotelCount
+        } else {
+            HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
         }
     }
     
@@ -932,6 +933,7 @@ extension HotelResultVC {
 extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.fetchRequestType = .Searching
+        self.filterButton.isSelected = false
         self.loadSaveData()
     }
     
@@ -939,6 +941,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.fetchRequestType = .FilterApplied
         HotelFilterVM.shared.saveDataToUserDefaults()
         printDebug("done button tapped")
+        self.filterButton.isSelected = true
         self.getSavedFilter()
         self.loadSaveData()
     }
