@@ -141,4 +141,11 @@ extension EmailComposerHeaderView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.delegate?.textViewText(textView)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        return true
+        }
+    
+
 }
