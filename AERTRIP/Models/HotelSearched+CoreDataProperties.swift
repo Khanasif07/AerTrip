@@ -45,9 +45,17 @@ extension HotelSearched {
     @NSManaged public var thumbnail: [String]?
     @NSManaged public var vid: String?
     @NSManaged public var sectionTitle: String?
-    @NSManaged public var amenities: [String]?
+    @NSManaged public var amenities: String?
     @NSManaged public var isHotelBeyondTwentyKm: Bool
     
+    var amenitiesArr: [String] {
+        if let amt = self.amenities, !amt.isEmpty {
+            var all = amt.components(separatedBy: ",")
+            all.removeFirst()
+            return all
+        }
+        return []
+    }
     
     var dict: JSONDictionary {
         var temp = JSONDictionary()

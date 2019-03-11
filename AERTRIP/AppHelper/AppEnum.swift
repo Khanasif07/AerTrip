@@ -282,3 +282,85 @@ enum AppImage {
     static let facebookLogoImage: UIImage = #imageLiteral(resourceName: "facebook")
     static let googleLogoImage: UIImage = #imageLiteral(resourceName: "google")
 }
+
+enum ATAmenity: String, CaseIterable {
+    case AirConditioner = "1"
+    case BusinessCenter = "2"
+    case Coffee_Shop = "3"
+    case Gym = "4"
+    case Internet = "5"
+    case Pool = "6"
+    case RestaurantBar = "7"
+    case RoomService = "8"
+    case Spa = "9"
+    case Wifi = "10"
+    
+    var title: String {
+        switch self {
+        case .Wifi:
+            return LocalizedString.Wifi.localized
+            
+        case .RoomService:
+            return LocalizedString.RoomService.localized
+            
+        case .Internet:
+            return LocalizedString.Internet.localized
+
+        case .AirConditioner:
+            return LocalizedString.AirConditioner.localized
+
+        case .RestaurantBar:
+            return LocalizedString.RestaurantBar.localized
+
+        case .Gym:
+            return LocalizedString.Gym.localized
+
+        case .BusinessCenter:
+            return LocalizedString.BusinessCenter.localized
+
+        case .Pool:
+            return LocalizedString.Pool.localized
+
+        case .Spa:
+            return LocalizedString.Spa.localized
+
+        case .Coffee_Shop:
+            return LocalizedString.Coffee_Shop.localized
+        }
+    }
+    
+    var icon: UIImage {
+        
+        switch self {
+        case .Wifi:
+            return #imageLiteral(resourceName: "ame-wi-fi")
+            
+        case .RoomService:
+            return #imageLiteral(resourceName: "ame-room-service")
+            
+        case .Internet:
+            return #imageLiteral(resourceName: "ame-internet")
+            
+        case .AirConditioner:
+            return #imageLiteral(resourceName: "ame-air-conditioner")
+            
+        case .RestaurantBar:
+            return #imageLiteral(resourceName: "ame-restaurant-bar")
+            
+        case .Gym:
+            return #imageLiteral(resourceName: "ame-gym")
+            
+        case .BusinessCenter:
+            return #imageLiteral(resourceName: "ame-business-center")
+            
+        case .Pool:
+            return #imageLiteral(resourceName: "ame-pool")
+            
+        case .Spa:
+            return #imageLiteral(resourceName: "ame-spa")
+            
+        case .Coffee_Shop:
+            return #imageLiteral(resourceName: "ame-coffee-shop")
+        }
+    }
+}

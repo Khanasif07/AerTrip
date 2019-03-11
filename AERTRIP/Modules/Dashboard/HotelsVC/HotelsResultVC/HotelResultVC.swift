@@ -496,7 +496,7 @@ class HotelResultVC: BaseVC {
             var amentitiesPredicate: NSPredicate?
             var predicates = [AnyHashable]()
             for amentity in self.filterApplied.amentities {
-                predicates.append(NSPredicate(format: "'\(amentity)' IN amenities"))
+                predicates.append(NSPredicate(format: "amenities CONTAINS[c] ',\(amentity)'"))
             }
             if predicates.count > 0 {
                 if let predicates = predicates as? [NSPredicate] {
@@ -508,21 +508,10 @@ class HotelResultVC: BaseVC {
             let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
             let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
             
-//
+
 //            let starPredicate = NSPredicate(format: "star IN %@", HotelFilterVM.shared.ratingCount)
 //            let tripAdvisorPredicate = NSPredicate(format: "rating IN %@", HotelFilterVM.shared.tripAdvisorRatingCount)
             
-//            for (idx, amentity) in HotelFilterVM.shared.amenitites.enumerated() {
-//                let amentitiesPredicate = NSPredicate(format: "amenities IN %@", amentity)
-//            }
-            
-//            for amentiti in HotelFilterVM.shared.amenitites {
-//                 let amentitiesPredicate = NSPredicate(format: "amenities IN %@", HotelFilterVM.shared.amenitites)
-//            }
-//
-            
-            //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate,starPredicate,tripAdvisorPredicate])
-            //  let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [distancePredicate, minimumPricePredicate])
             if let amentitiesPredicate = amentitiesPredicate {
                 let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [minimumPricePredicate, maximumPricePredicate, distancePredicate, amentitiesPredicate])
                 self.fetchedResultsController.fetchRequest.predicate = andPredicate

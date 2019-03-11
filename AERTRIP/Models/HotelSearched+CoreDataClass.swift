@@ -155,8 +155,9 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.vid = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.amenities.rawValue] as? [String] {
-            hotelSearched!.amenities = obj
+        if let obj = dataDict[APIKeys.amenities.rawValue] as? [String], !obj.isEmpty {
+            let str = ",\(obj.joined(separator: ","))"
+            hotelSearched!.amenities = str
         }
         
         CoreDataManager.shared.saveContext()
