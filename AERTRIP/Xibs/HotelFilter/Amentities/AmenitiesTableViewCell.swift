@@ -17,7 +17,7 @@ class AmenitiesTableViewCell: UITableViewCell {
     @IBOutlet weak var statusButton: UIButton!
     
     
-    var amenitie : (amenititesImage: UIImage, amentitiesTitle: String,amenitiesId:String)? {
+    var amenitie: ATAmenity? {
         didSet {
             self.populateData()
         }
@@ -32,9 +32,7 @@ class AmenitiesTableViewCell: UITableViewCell {
     }
     
     private func populateData() {
-        self.amenityImageView.image = amenitie?.amenititesImage
-        self.amentityTitleLabel.text = amenitie?.amentitiesTitle
+        self.amenityImageView.image = amenitie?.icon
+        self.amentityTitleLabel.text = amenitie?.title
     }
-
-    
 }
