@@ -46,7 +46,7 @@ class RatingVC: BaseVC {
     }
     
     func getSavedFilter() {
-        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+        guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             return
         }

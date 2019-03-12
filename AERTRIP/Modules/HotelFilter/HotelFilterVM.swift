@@ -30,14 +30,14 @@ class HotelFilterVM {
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
     var leftRangePrice: Double = 0.0
-    var rightRangePrice : Double = 0.0
+    var rightRangePrice: Double = 0.0
     var amenitites: [String] = []
     var roomMeal: [Int] = []
     var roomCancelation: [Int] = []
     var roomOther: [Int] = []
     var sortUsing: SortUsing = .BestSellers
-    var totalHotelCount : Int  = 0
-    var filterHotelCount : Int = 0 
+    var totalHotelCount: Int = 0
+    var filterHotelCount: Int = 0
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
@@ -55,9 +55,9 @@ class HotelFilterVM {
         filter.roomOther = roomOther
         filter.sortUsing = sortUsing
         
-        UserInfo.loggedInUser?.hotelFilter = filter
+        UserInfo.hotelFilter = filter
         
-        if let filter = UserInfo.loggedInUser?.hotelFilter {
+        if let filter = UserInfo.hotelFilter {
             printDebug(filter)
         }
     }

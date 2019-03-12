@@ -12,14 +12,18 @@ import UIKit
 // MARK: - Search bar delegate methods
 
 extension HotelResultVC: UISearchBarDelegate {
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.tableViewType = .SearchTableView
         animateHeaderToMapView()
+        self.predicateStr = ""
+        self.searchedHotels.removeAll()
+        self.loadSaveData()
         self.hotelSearchView.isHidden = false
+        self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             self.fetchRequestType = .Searching
@@ -27,6 +31,7 @@ extension HotelResultVC: UISearchBarDelegate {
             self.loadSaveData()
             self.hotelSearchView.isHidden = true
             self.tableViewType = .ListTableView
+            self.searchHotels(forText: searchText)
             self.reloadHotelList()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             self.tableViewType = .SearchTableView
@@ -41,14 +46,9 @@ extension HotelResultVC: UISearchBarDelegate {
         self.hotelSearchView.isHidden = true
     }
     
-    
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.hotelSearchView.isHidden = true
     }
-    
-    
 }
 
 // MARK: - Hotel Search View Delegate methods
-

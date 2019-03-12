@@ -315,7 +315,6 @@ extension AppFlowManager {
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
-        //        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func presentSearchHotelTagVC(tagButtons: [String] , superView: HotelDetailsSearchTagTableCell) {

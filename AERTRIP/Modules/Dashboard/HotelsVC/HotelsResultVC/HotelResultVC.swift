@@ -155,7 +155,6 @@ class HotelResultVC: BaseVC {
         newEmptyView.vType = .noHotelFoundOnFilter
         return newEmptyView
     }()
-  
     
     // MARK: - Public
     
@@ -193,7 +192,6 @@ class HotelResultVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
- 
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
@@ -348,7 +346,7 @@ class HotelResultVC: BaseVC {
     }
     
     private func getSavedFilter() {
-        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+        guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             return
         }
@@ -448,6 +446,7 @@ class HotelResultVC: BaseVC {
     
     private func getFavouriteHotels() {
         self.favouriteHotels = self.fetchedResultsController.fetchedObjects?.filter { $0.fav == "1" } ?? []
+        self.favouriteHotels.count > 0 && UserInfo.loggedInUser != nil ? self.showFloatingView() : self.hideFloatingView()
     }
     
     private func getPinnedHotelTemplate() {
@@ -483,7 +482,8 @@ class HotelResultVC: BaseVC {
     
     func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
-            var subpredicates : [NSPredicate] = []
+            self.filterButton.isSelected = true
+            var subpredicates: [NSPredicate] = []
             self.fetchedResultsController.fetchRequest.sortDescriptors?.removeAll()
             self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
             
@@ -511,19 +511,19 @@ class HotelResultVC: BaseVC {
                 }
             }
             
-           
             let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
             let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
             subpredicates.append(minimumPricePredicate)
             subpredicates.append(maximumPricePredicate)
-            if filterApplied.distanceRange > 0 {
+            if self.filterApplied.distanceRange > 0 {
                 let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
                 subpredicates.append(distancePredicate)
             }
-            
-
-            
-            var starPredicate : NSPredicate?
+            if self.filterApplied.isIncludeUnrated {
+                self.filterApplied.ratingCount.append(0)
+                self.filterApplied.tripAdvisorRatingCount.append(0)
+            }
+            var starPredicate: NSPredicate?
             var starPredicates = [AnyHashable]()
             for star in self.filterApplied.ratingCount {
                 starPredicates.append(NSPredicate(format: "filterStar CONTAINS[c] '\(star)'"))
@@ -535,7 +535,7 @@ class HotelResultVC: BaseVC {
                 }
             }
             
-            var tripAdvisorPredicate : NSPredicate?
+            var tripAdvisorPredicate: NSPredicate?
             var tripAdvisorPredicates = [AnyHashable]()
             for rating in self.filterApplied.tripAdvisorRatingCount {
                 tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
@@ -555,14 +555,12 @@ class HotelResultVC: BaseVC {
                 subpredicates.append(starPredicate)
             }
             
-            
             if let tripAdvisorPredicate = tripAdvisorPredicate {
                 subpredicates.append(tripAdvisorPredicate)
             }
-          
+            
             let andPredicate = NSCompoundPredicate(type: .and, subpredicates: subpredicates)
             self.fetchedResultsController.fetchRequest.predicate = andPredicate
-            
         } else {
             if self.predicateStr == "" {
                 self.fetchedResultsController.fetchRequest.predicate = nil
@@ -580,6 +578,8 @@ class HotelResultVC: BaseVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
+            } else {
+                self.searchedHotels.removeAll()
             }
             self.reloadHotelList()
         } catch {
@@ -635,7 +635,6 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    
     private func moveMapToCurrentCity() {
         if let loc = self.viewModel.searchedCityLocation {
             self.updateMarker(coordinates: loc)
@@ -643,9 +642,9 @@ class HotelResultVC: BaseVC {
     }
     
     private func getHotelsCount() {
-        if fetchRequestType == .Searching {
+        if self.fetchRequestType == .Searching {
             HotelFilterVM.shared.totalHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
-            HotelFilterVM.shared.filterHotelCount =  HotelFilterVM.shared.totalHotelCount
+            HotelFilterVM.shared.filterHotelCount = HotelFilterVM.shared.totalHotelCount
         } else {
             HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
         }
@@ -733,15 +732,16 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if self.tableViewType == .SearchTableView {
             return 1
         } else {
-             self.hotelSearchView.isHidden = true
-             self.showFloatingView()
-            if self.fetchedResultsController.sections?.count == 0 && self.fetchRequestType == .FilterApplied {
+            self.hotelSearchView.isHidden = true
+            self.showFloatingView()
+            self.getFavouriteHotels()
+            if self.fetchedResultsController.sections?.count == 0, self.fetchRequestType == .FilterApplied {
                 self.hotelSearchView.isHidden = false
                 self.hideFloatingView()
                 self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
                 self.noHotelFoundOnFilterEmptyView.backgroundColor = .red
-                self.shimmerView.addSubview(noHotelFoundOnFilterEmptyView)
-                self.view.bringSubviewToFront(shimmerView)
+                self.shimmerView.addSubview(self.noHotelFoundOnFilterEmptyView)
+                self.view.bringSubviewToFront(self.shimmerView)
             }
             return (self.fetchedResultsController.sections?.count ?? 0)
         }
@@ -749,6 +749,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.tableViewType == .SearchTableView {
+            if self.searchedHotels.count == 0, self.fetchRequestType == .Searching {
+                self.hotelSearchTableView.backgroundView = self.noResultemptyView
+            }
             self.hotelSearchTableView.backgroundView?.isHidden = self.searchedHotels.count > 0
             return self.searchedHotels.count
         } else {
@@ -863,13 +866,6 @@ extension HotelResultVC {
         guard scrollView === collectionView else {
             return
         }
-        
-//        printDebug(scrollView.contentOffset)
-//
-//        let xPosition = scrollView.contentOffset.x
-//
-//        let item = xPosition / UIDevice.screenWidth
-//        printDebug(item)
         
         let xPos = scrollView.contentOffset.x
         
@@ -996,6 +992,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.fetchRequestType = .Searching
         self.filterButton.isSelected = false
+        UserInfo.hotelFilter = nil
         self.loadSaveData()
     }
     
@@ -1091,13 +1088,15 @@ extension HotelResultVC: HotelResultDelegate {
             self.loadSaveData()
             self.getFavouriteHotels()
             let allHotels = self.getHotelsForMapView()
-            
-            self.floatingView.isHidden = self.favouriteHotels.count < 0
             self.getPinnedHotelTemplate()
             self.time += 1
             self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             self.updateMarkers()
-            self.applyPreviousFilter()
+            if UserInfo.hotelFilter != nil {
+                self.applyPreviousFilter()
+                self.fetchRequestType = .FilterApplied
+                self.getSavedFilter()
+            }
         }
     }
     
