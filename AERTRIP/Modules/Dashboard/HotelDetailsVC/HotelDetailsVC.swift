@@ -59,6 +59,18 @@ class HotelDetailsVC: BaseVC {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarColor = AppColors.themeWhite
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.statusBarColor = AppColors.clear
+    }
+    
     override func initialSetup() {
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()

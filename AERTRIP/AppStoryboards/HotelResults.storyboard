@@ -28,7 +28,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VcK-r3-9tc">
-                                        <rect key="frame" x="16" y="14" width="305" height="44"/>
+                                        <rect key="frame" x="16" y="23" width="79.5" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -42,7 +42,6 @@
                                         <state key="normal" image="black_cross"/>
                                         <state key="selected" image="saveHotelsSelected"/>
                                         <connections>
-                                            <action selector="cancelButtonAction:" destination="lMz-Su-6N3" eventType="touchUpInside" id="MGP-Ib-Aui"/>
                                             <action selector="cancelButtonAction:" destination="Lm2-CM-1Vf" eventType="touchUpInside" id="aOR-b9-43Q"/>
                                         </connections>
                                     </button>
@@ -58,16 +57,14 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ZSs-5T-m9x" secondAttribute="trailing" id="3Q1-55-x20"/>
                                     <constraint firstItem="cBi-6j-0Lv" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" constant="50" id="5rI-J5-hoG"/>
-                                    <constraint firstItem="VcK-r3-9tc" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" constant="16" id="7va-Bt-oPE"/>
                                     <constraint firstAttribute="height" constant="58" id="8l3-ND-lEk"/>
                                     <constraint firstItem="ZSs-5T-m9x" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" id="Kiu-bq-FDP"/>
                                     <constraint firstAttribute="trailing" secondItem="IJx-xE-TF9" secondAttribute="trailing" id="T7V-aS-gxL"/>
-                                    <constraint firstItem="IJx-xE-TF9" firstAttribute="leading" secondItem="VcK-r3-9tc" secondAttribute="trailing" constant="10" id="TN7-lP-ycM"/>
                                     <constraint firstAttribute="bottom" secondItem="IJx-xE-TF9" secondAttribute="bottom" id="UtB-pf-4BC"/>
+                                    <constraint firstItem="VcK-r3-9tc" firstAttribute="top" secondItem="BbH-Ve-X4Q" secondAttribute="top" constant="23" id="afV-DX-bqD"/>
                                     <constraint firstItem="cBi-6j-0Lv" firstAttribute="centerY" secondItem="BbH-Ve-X4Q" secondAttribute="centerY" id="enE-1u-WEp"/>
                                     <constraint firstAttribute="bottom" secondItem="ZSs-5T-m9x" secondAttribute="bottom" id="gN4-KL-RMQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="VcK-r3-9tc" secondAttribute="bottom" id="uZn-4K-Vnm"/>
-                                    <constraint firstItem="VcK-r3-9tc" firstAttribute="top" secondItem="BbH-Ve-X4Q" secondAttribute="top" constant="14" id="vpC-HH-8HB"/>
+                                    <constraint firstItem="VcK-r3-9tc" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" constant="16" id="lix-ef-wus"/>
                                     <constraint firstAttribute="trailing" secondItem="cBi-6j-0Lv" secondAttribute="trailing" constant="50" id="xNS-jb-ccV"/>
                                 </constraints>
                             </view>
@@ -94,10 +91,10 @@
                         <outlet property="dividerView" destination="ZSs-5T-m9x" id="CbM-TJ-LnQ"/>
                         <outlet property="headerContainerView" destination="BbH-Ve-X4Q" id="oge-uK-TEp"/>
                         <outlet property="headerTopConstraint" destination="4nj-F6-LbE" id="U9c-91-RVv"/>
+                        <outlet property="reviewTopConstraint" destination="afV-DX-bqD" id="6gi-ck-zBJ"/>
                         <outlet property="reviewsLabel" destination="VcK-r3-9tc" id="XNs-iM-UtR"/>
                         <outlet property="reviewsTblView" destination="gsL-Zb-bA9" id="Yob-2n-Tc0"/>
                         <outlet property="stickyTitleLabel" destination="cBi-6j-0Lv" id="T97-vW-uTY"/>
-                        <outlet property="titleLabelTopConstraints" destination="vpC-HH-8HB" id="9OI-hn-fed"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKj-zW-yaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -698,7 +695,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEm-JA-4lE">
-                                <rect key="frame" x="0.0" y="625" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8R1-ZL-HgQ"/>
