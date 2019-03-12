@@ -37,7 +37,6 @@ class HotelDetailsReviewsVC: BaseVC {
             self.reviewsTblView.backgroundColor = AppColors.themeWhite
         }
     }
-    @IBOutlet weak var reviewLabelYConstraint: NSLayoutConstraint!
     @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!
     
     
