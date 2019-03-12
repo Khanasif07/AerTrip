@@ -20,10 +20,10 @@ class MailComposerVM: NSObject {
     var favouriteHotels: [HotelSearched] = []
     var hotelSearchRequest: HotelSearchRequestModel?
     weak var delegate: MailComoserVMDelegate?
-    var subject: String = "Tesging"
+    var subject: String = ""
     var u: String = ""
-    var fromEmails: [String] = ["rahulTest@yopmail.com"]
-    var pinnedEmails: [String] = ["pawan.kumar@appinventiv.co"]
+    var fromEmails: [String] = []
+    var pinnedEmails: [String] = []
     
     func callSendEmailMail() {
         var param = JSONDictionary()

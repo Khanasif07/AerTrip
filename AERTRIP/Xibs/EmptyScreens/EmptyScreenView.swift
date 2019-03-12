@@ -22,6 +22,7 @@ class EmptyScreenView: UIView {
         case none
         case noResult
         case noHotelFound
+        case noHotelFoundOnFilter
     }
     
     //MARK:- properties -
@@ -114,6 +115,8 @@ extension EmptyScreenView {
             self.setUpNoResult()
         case .noHotelFound:
             self.setUpNoHotelFound()
+        case .noHotelFoundOnFilter:
+            self.setUpNoHotelFoundOnFilter()
         }
     }
     
@@ -207,6 +210,17 @@ extension EmptyScreenView {
         self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
        
     }
+    
+    private func setUpNoHotelFoundOnFilter() {
+        self.containerViewCenterYConstraint.constant = 0
+        self.messageLabelTopConstraint.constant = 0
+        self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFoundFilter.localized, boldText: LocalizedString.NoHotelFoundMessageOnFilter.localized)
+        
+    }
+    
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(22.0), .foregroundColor: AppColors.themeBlack])

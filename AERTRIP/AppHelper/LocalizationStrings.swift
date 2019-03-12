@@ -459,7 +459,8 @@ enum LocalizedString: String {
     case HotelResultFor = "HotelResultFor"
     case NoHotelFound = "NoHotelFound"
     case NoHotelFoundMessage = "NoHotelFoundMessage"
-
+    case NoHotelFoundMessageOnFilter = "NoHotelFoundMessageOnFilter"
+    case NoHotelFoundFilter = "NoHotelFoundFilter"
     case Inclusion = "Inclusion"
     case OtherInclusions = "OtherInclusions"
     case CancellationPolicy = "CancellationPolicy"

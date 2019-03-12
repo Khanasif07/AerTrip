@@ -121,7 +121,6 @@ class RatingVC: BaseVC {
                         starBtn.isSelected = false
                         starBtn.isHighlighted = true
                     }
-                    HotelFilterVM.shared.ratingCount.removeAll()
                 }
             }
             else {

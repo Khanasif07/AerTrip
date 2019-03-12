@@ -177,6 +177,7 @@
 		18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD22221E973D00EF01FC /* HotelFilter.swift */; };
 		18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FDDD24221FF52F00EF01FC /* SectionFooter.xib */; };
 		18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD25221FF52F00EF01FC /* SectionFooter.swift */; };
+		18FDF3272236A9A5009CC909 /* ATEmailSelectorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */; };
 		1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */; };
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
 		84011A9B222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84011A99222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift */; };
@@ -708,6 +709,7 @@
 		18FDDD22221E973D00EF01FC /* HotelFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilter.swift; sourceTree = "<group>"; };
 		18FDDD24221FF52F00EF01FC /* SectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionFooter.xib; sourceTree = "<group>"; };
 		18FDDD25221FF52F00EF01FC /* SectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionFooter.swift; sourceTree = "<group>"; };
+		18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATEmailSelectorTextView.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
@@ -1542,6 +1544,22 @@
 				18FA222F21EC7C7B0024B91E /* AssignGroupTableViewCell.xib */,
 			);
 			path = AssignGroup;
+			sourceTree = "<group>";
+		};
+		18FDF3242236A974009CC909 /* ISPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				84323D432230E47600DA7581 /* ISPageControl.swift */,
+			);
+			path = ISPageControl;
+			sourceTree = "<group>";
+		};
+		18FDF3252236A988009CC909 /* ATEmailSelectorTextView */ = {
+			isa = PBXGroup;
+			children = (
+				18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */,
+			);
+			path = ATEmailSelectorTextView;
 			sourceTree = "<group>";
 		};
 		1F4636CC21F5ABE2000D56B0 /* HotelSearchView */ = {
@@ -2459,9 +2477,10 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				18FDF3252236A988009CC909 /* ATEmailSelectorTextView */,
+				18FDF3242236A974009CC909 /* ISPageControl */,
 				18F968002233BEAE00B163C8 /* GrowingTextView */,
 				8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */,
-				84323D432230E47600DA7581 /* ISPageControl.swift */,
 				18930A1E21D33EFF005442C8 /* SearchTextField.swift */,
 				84AD5F25222D51F80095EA5D /* PKAlertController */,
 				846FB58622250A95007F70F9 /* PKBottomSheet */,
@@ -3214,6 +3233,7 @@
 				840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */,
 				1808EC6E21DCD3A0006858D6 /* APICaller+Hotels.swift in Sources */,
 				846856A822339607001B9E13 /* ReviewTableViewCell.swift in Sources */,
+				18FDF3272236A9A5009CC909 /* ATEmailSelectorTextView.swift in Sources */,
 				18EF5E77221D261B00EFFA6E /* GMUKMLParser.m in Sources */,
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,

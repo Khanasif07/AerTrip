@@ -11,13 +11,12 @@ import UIKit
 protocol EmailComposeerHeaderViewDelegate: class {
     func openContactScreen()
     func textFieldText(_ textfield: UITextField)
-    func textViewText(_ textView: UITextView)
 }
 
 class EmailComposerHeaderView: UIView {
     // MARK: - IB Outlets
     
-    @IBOutlet var toEmailTextView: UITextView!
+    @IBOutlet var toEmailTextView: ATEmailSelectorTextView!
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var toLabel: UILabel!
     @IBOutlet var messageLabel: UILabel!
@@ -64,7 +63,6 @@ class EmailComposerHeaderView: UIView {
         self.checkInCheckOutView.layer.borderWidth = 0.5
         self.checkInCheckOutView.layer.borderColor = AppColors.themeGray40.cgColor
         self.messageTextField.delegate = self
-        self.toEmailTextView.delegate = self
         self.seeRatesButton.layer.cornerRadius = 5.0
     }
     
@@ -84,7 +82,11 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         self.checkOutMessageLabel.font = AppFonts.Italic.withSize(18.0)
         self.hotelResultLabel.font = AppFonts.Regular.withSize(18.0)
+        // to Email Text View font
+        self.toEmailTextView.inactiveTagFont = AppFonts.Regular.withSize(18.0)
+        self.toEmailTextView.activeTagFont = AppFonts.Regular.withSize(18.0)
         self.toEmailTextView.font = AppFonts.Regular.withSize(18.0)
+        
         self.messageTextField.font = AppFonts.Regular.withSize(18.0)
     }
     
@@ -95,8 +97,12 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.titleLabel?.textColor = AppColors.themeWhite
         self.checkOutMessageLabel.textColor = AppColors.textFieldTextColor51
         self.hotelResultLabel.textColor = AppColors.themeGray60
-        self.toEmailTextView.textColor = AppColors.themeGreen
         self.messageTextField.textColor = AppColors.textFieldTextColor51
+        // toEmail Text View Color
+        self.toEmailTextView.activeTagBackgroundColor = AppColors.themeGreen
+        self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
+        self.toEmailTextView.activeTagFontColor = AppColors.themeWhite
+        self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
     }
     
     // Check Out View
@@ -137,15 +143,4 @@ extension EmailComposerHeaderView: UITextFieldDelegate {
 
 // MARK: - UITextView Delegate methods
 
-extension EmailComposerHeaderView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        self.delegate?.textViewText(textView)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        return true
-        }
-    
 
-}

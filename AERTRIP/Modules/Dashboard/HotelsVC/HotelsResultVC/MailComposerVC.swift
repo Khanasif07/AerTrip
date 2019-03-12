@@ -30,6 +30,7 @@ class MailComposerVC: BaseVC {
         super.viewDidLoad()
         
         self.doInitialSetup()
+        self.setupEmail()
     }
     
     override func bindViewModel() {
@@ -125,6 +126,12 @@ class MailComposerVC: BaseVC {
         self.mailComposerHeaderView.checkInDayLabel.text = checkInDay
         self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
     }
+    
+    private func setupEmail() {
+        if let email = UserInfo.loggedInUser?.email {
+            self.viewModel.fromEmails = [email]
+        }
+    }
 }
 
 // MARK: - Top Navigation Bar Delegate methods
@@ -136,6 +143,9 @@ extension MailComposerVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Send mail")
+        let mail = self.mailComposerHeaderView.toEmailTextView.text
+        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })
         self.viewModel.callSendEmailMail()
     }
 }
@@ -165,11 +175,7 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
     func textFieldText(_ textfield: UITextField) {
-        //  mailComposerHeaderView.toEmailTextView.text = textfield.text
-    }
-    
-    func textViewText(_ textView: UITextView) {
-        //
+        self.viewModel.subject = textfield.text ?? ""
     }
     
     func openContactScreen() {
@@ -185,30 +191,13 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
 // MARK: Contact picker Delegate methods
 
 extension MailComposerVC: CNContactPickerDelegate {
-//    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-//        picker.dismiss(animated: true, completion: nil)
-//
-//        let email = CNContactFormatter.string(from: contact, style: <#T##CNContactFormatterStyle#>)
-//        for number in contact.phoneNumbers {
-//            let mobile = number.value.value(forKey: "digits") as? String
-//            if (mobile?.count)! > 7 {
-//                // your code goes here
-//            }
-//        }
-//    }
-    
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         picker.dismiss(animated: true, completion: nil)
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
-            self.selectedMails.append(_mail)
+            self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
+            self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
         }
-        var mailString: String = ""
-        for mail in self.selectedMails {
-            mailString += mail + " "
-        }
-        
-        self.mailComposerHeaderView.toEmailTextView.text = mailString
     }
 }
 
