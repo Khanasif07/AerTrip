@@ -24,9 +24,12 @@ class AppFlowManager: NSObject {
     var mainHomeVC: MainHomeVC?
     
     private let urlScheme = "://"
+    private var loginVerificationComplition: ((Bool)->Void)? = nil
     
     private override init() {
         super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
     }
     
     var safeAreaInsets: UIEdgeInsets {
@@ -55,6 +58,15 @@ class AppFlowManager: NSObject {
     
     func setTabbarController(controller: BaseTabBarController) {
         tabBarController = controller
+    }
+    
+    @objc private func dataChanged(_ note: Notification) {
+        //function intended to override
+        if let noti = note.object as? ATNotification {
+            if let com = loginVerificationComplition, noti == .userLoggedInSuccess {
+                com(true)
+            }
+        }
     }
     
     private var window : UIWindow {
@@ -94,6 +106,28 @@ class AppFlowManager: NSObject {
         self.window.backgroundColor = .white
         self.window.makeKeyAndVisible()
     }
+    
+    //check and manage the further processing if user logged-in or note
+    func proccessIfUserLoggedIn(completion: ((Bool)->Void)?) {
+        loginVerificationComplition = completion
+        if let _ = UserInfo.loggedInUserId {
+            //user is logged in
+            completion?(true)
+        }
+        else {
+            //user note logged in
+            //open login flow
+            
+            let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+            socialVC.currentlyUsingFrom = .loginVerification
+            
+            delay(seconds: 0.1) { [weak socialVC] in
+                socialVC?.animateContentOnLoad()
+            }
+            
+            self.mainNavigationController.pushViewController(socialVC, animated: true)
+        }
+    }
 }
 
 //MARK: - Public Navigation func
@@ -102,32 +136,17 @@ extension AppFlowManager {
         
     }
     
-    func moveToSocialLoginVC(usingFor: SocialLoginVC.UsingFor, completion:  (() -> Void)? = nil) {
-        if usingFor == .loginVerification {
-            if let _ = self.mainHomeVC {
-                let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-                ob.currentlyUsingFrom = usingFor
-                ob.completion = completion
-                delay(seconds: 0.2) {
-                    ob.animateContentOnLoad()
-                }
-                self.mainNavigationController.present(ob, animated: true, completion: nil)
-            }
-        } else {
-            let ob = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-            self.mainNavigationController.pushViewController(ob, animated: true)
-        }
-    }
-    
-    func moveToLoginVC(email: String) {
+    func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
+        ob.currentlyUsingFrom = usingFor
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToCreateYourAccountVC(email: String) {
+    func moveToCreateYourAccountVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
         let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
+        ob.currentlyUsingFrom = usingFor
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
@@ -368,8 +387,8 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     
-    func moveToMapVC() {
-        let obj = HotelMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+    func moveToHCDataSelectionVC() {
+        let obj = HCDataSelectionVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -379,7 +398,7 @@ extension AppFlowManager {
         let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.u = pinnedTemplateUrl
-        obj.viewModel.hotelSearchRequest = hotelSearchRequest ?? HotelSearchRequestModel()
+        obj.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.present(obj, animated: true)
     }
     

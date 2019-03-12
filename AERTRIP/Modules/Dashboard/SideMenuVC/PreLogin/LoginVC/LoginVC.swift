@@ -27,6 +27,9 @@ class LoginVC: BaseVC {
     @IBOutlet weak private var registerHereButton: UIButton!
     @IBOutlet weak var showPasswordButton: UIButton!
     
+    
+    internal var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -159,8 +162,13 @@ private extension LoginVC {
 
 extension LoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        self.topNavBar.leftButton.isHidden = true
-        AppFlowManager.default.popToRootViewController(animated: true)
+        topNavBar.leftButton.isHidden = true
+        if currentlyUsingFrom == .loginProcess {
+            AppFlowManager.default.popToRootViewController(animated: true)
+        }
+        else {
+            AppFlowManager.default.popViewController(animated: true)
+        }
     }
 }
 
@@ -173,9 +181,14 @@ extension LoginVC: LoginVMDelegate {
     }
     
     func didLoginSuccess() {
-        self.loginButton.isLoading = false
-        delay(seconds: 0.3) {
-            AppFlowManager.default.goToDashboard()
+        self.loginButton.isLoading = false        
+        if self.currentlyUsingFrom == .loginVerification {
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            AppFlowManager.default.popToRootViewController(animated: true)
+        } else {
+            delay(seconds: 0.3) {
+                AppFlowManager.default.goToDashboard()
+            }
         }
     }
     

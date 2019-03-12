@@ -73,6 +73,13 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .userLoggedInSuccess {
+            self.scrollViewSetup()
+            self.makeDefaultSetup()
+        }
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
@@ -84,6 +91,12 @@ class MainHomeVC: BaseVC {
         //setup scroll view
         self.scrollViewSetup()
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
+        self.makeDefaultSetup()
+        
+        self.addEdgeSwipeGesture()
+    }
+    
+    private func makeDefaultSetup() {
         delay(seconds: 0.2) {[weak self] in
             if UserInfo.loggedInUserId == nil {
                 self?.setupLogoView()
@@ -92,8 +105,6 @@ class MainHomeVC: BaseVC {
                 self?.setupProfileView()
             }
         }
-        
-        self.addEdgeSwipeGesture()
     }
     
     private func scrollViewSetup() {

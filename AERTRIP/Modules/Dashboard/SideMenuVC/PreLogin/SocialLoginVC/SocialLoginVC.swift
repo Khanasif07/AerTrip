@@ -12,20 +12,18 @@ protocol SocialLoginVCDelegate: class {
     func backButtonTapped(_ sender: UIButton)
 }
 
+enum LoginFlowUsingFor {
+    case loginProcess, loginVerification
+}
 
 class SocialLoginVC: BaseVC {
-    
-    enum UsingFor {
-        case loginProcess, loginVerification
-    }
     
     // MARK: - Properties
     // MARK: -
     // used to find the logo view to hide
     let viewModel = SocialLoginVM()
     weak var delegate: SocialLoginVCDelegate?
-    internal var currentlyUsingFrom = UsingFor.loginProcess
-    internal var completion: (() -> Void)? = nil
+    internal var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var fbButton: ATButton!
@@ -134,12 +132,12 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToCreateYourAccountVC(email: "")
+        AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
-        AppFlowManager.default.moveToLoginVC(email: "")
+        AppFlowManager.default.moveToLoginVC(email: "", usingFor: currentlyUsingFrom)
     }
 }
 
@@ -191,8 +189,7 @@ private extension SocialLoginVC {
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         if self.currentlyUsingFrom == .loginVerification {
-            //self.animateContentOnPop()
-            self.dismiss(animated: true, completion: nil)
+            AppFlowManager.default.popViewController(animated: true)
         } else {
             self.delegate?.backButtonTapped(sender)
         }
@@ -223,11 +220,11 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             self.linkedInButton.isLoading = false
         }
         if self.currentlyUsingFrom == .loginVerification {
-            self.dismiss(animated: true, completion: self.completion)
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            AppFlowManager.default.popToRootViewController(animated: true)
         } else {
             AppFlowManager.default.goToDashboard()
         }
-        
     }
     
     func didLoginFail(errors: ErrorCodes) {

@@ -170,8 +170,6 @@ class BulkBookingVC: BaseVC {
         self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
     }
     
-    
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -385,11 +383,13 @@ class BulkBookingVC: BaseVC {
             self.viewModel.bulkBookingEnquiryApi()
         }
         else {
-            let currentlyUsingFrom = SocialLoginVC.UsingFor.loginVerification
-            AppFlowManager.default.moveToSocialLoginVC(usingFor: currentlyUsingFrom) { [weak self] in
-                self?.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
-                sender.isLoading = true
-                self?.viewModel.bulkBookingEnquiryApi()
+            
+            AppFlowManager.default.proccessIfUserLoggedIn { [weak self] (isLoggedIn) in
+                if isLoggedIn {
+                    self?.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
+                    sender.isLoading = true
+                    self?.viewModel.bulkBookingEnquiryApi()
+                }
             }
         }
     }
