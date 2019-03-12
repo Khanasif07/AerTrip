@@ -96,13 +96,13 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
         switch roomType {
         case .meal:
             cell.meal = meal[indexPath.row]
-            cell.statusButton.isSelected = HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].rawValue)
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].title)
         case .cancellationPolicy:
             cell.cancellationPolicy = cancellationPolicy[indexPath.row]
-            cell.statusButton.isSelected = HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].rawValue)
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].title)
         case .others:
             cell.others = others[indexPath.row]
-            cell.statusButton.isSelected = HotelFilterVM.shared.roomOther.contains(others[indexPath.row].rawValue)
+            cell.statusButton.isSelected = HotelFilterVM.shared.roomOther.contains(others[indexPath.row].title)
         }
         
         return cell
@@ -115,23 +115,23 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch roomType {
         case .meal:
-            if HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].rawValue) {
-                HotelFilterVM.shared.roomMeal.remove(at: HotelFilterVM.shared.roomMeal.firstIndex(of: meal[indexPath.row].rawValue)!)
+            if HotelFilterVM.shared.roomMeal.contains(meal[indexPath.row].title) {
+                HotelFilterVM.shared.roomMeal.remove(at: HotelFilterVM.shared.roomMeal.firstIndex(of: meal[indexPath.row].title)!)
             } else {
-                HotelFilterVM.shared.roomMeal.append(meal[indexPath.row].rawValue)
+                HotelFilterVM.shared.roomMeal.append(meal[indexPath.row].title)
             }
             
         case .cancellationPolicy:
-            if HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].rawValue) {
-                HotelFilterVM.shared.roomCancelation.remove(at: HotelFilterVM.shared.roomCancelation.firstIndex(of: cancellationPolicy[indexPath.row].rawValue)!)
+            if HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].title) {
+                HotelFilterVM.shared.roomCancelation.remove(at: HotelFilterVM.shared.roomCancelation.firstIndex(of: cancellationPolicy[indexPath.row].title)!)
             } else {
-                HotelFilterVM.shared.roomCancelation.append(cancellationPolicy[indexPath.row].rawValue)
+                HotelFilterVM.shared.roomCancelation.append(cancellationPolicy[indexPath.row].title)
             }
         case .others:
-            if HotelFilterVM.shared.roomOther.contains(others[indexPath.row].rawValue) {
-                HotelFilterVM.shared.roomOther.remove(at: HotelFilterVM.shared.roomOther.firstIndex(of: others[indexPath.row].rawValue)!)
+            if HotelFilterVM.shared.roomOther.contains(others[indexPath.row].title) {
+                HotelFilterVM.shared.roomOther.remove(at: HotelFilterVM.shared.roomOther.firstIndex(of: others[indexPath.row].title)!)
             } else {
-                HotelFilterVM.shared.roomOther.append(others[indexPath.row].rawValue)
+                HotelFilterVM.shared.roomOther.append(others[indexPath.row].title)
             }
         }
         self.tableView.reloadData()

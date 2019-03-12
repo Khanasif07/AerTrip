@@ -79,8 +79,7 @@ extension HotelDetailsVC {
     
     internal func getSearchBarTagCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsSearchTagTableCell") as? HotelDetailsSearchTagTableCell  else { return UITableViewCell() }
-        cell.permanentTagsForFilteration = self.viewModel.permanentTagsForFilteration
-        cell.availableTagsForFilterartion = self.viewModel.tagsForFilteration
+        cell.availableTagsForFilterartion = self.viewModel.permanentTagsForFilteration
         if let amenities = hotelDetails.amenities {
             let tags = amenities.basic + amenities.other
             cell.allTagsForFilteration = tags
@@ -102,7 +101,6 @@ extension HotelDetailsVC {
         cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
         if indexPath.row == 0 {
             cell.containerView.roundTopCorners(cornerRadius: 10.0)
-            //            cell.containerView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 6.0
             cell.bookmarkButtonOutlet.isHidden = false
         } else if indexPath.row == roomData.count - 1 {
             cell.containerView.roundTopCorners(cornerRadius: 0.0)

@@ -46,8 +46,20 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
     //================
     @IBAction func resetButtonAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
-            parentVC.viewModel.tagsForFilteration = parentVC.viewModel.permanentTagsForFilteration
-            parentVC.filterdHotelData(tagList: parentVC.viewModel.tagsForFilteration)
+            parentVC.viewModel.roomMealData = parentVC.viewModel.filterAppliedData.roomMeal
+            parentVC.viewModel.roomCancellationData = parentVC.viewModel.filterAppliedData.roomCancelation
+            parentVC.viewModel.roomOtherData = parentVC.viewModel.filterAppliedData.roomOther
+            parentVC.viewModel.currentlyFilterApplying = .initialTags
+            parentVC.viewModel.permanentTagsForFilteration = parentVC.viewModel.roomMealData + parentVC.viewModel.roomCancellationData + parentVC.viewModel.roomOtherData
+            parentVC.viewModel.selectedTags = parentVC.viewModel.roomMealData + parentVC.viewModel.roomCancellationData + parentVC.viewModel.roomOtherData
+            if parentVC.viewModel.permanentTagsForFilteration.isEmpty {
+                parentVC.viewModel.roomMealData = ["Breakfast"]
+                parentVC.viewModel.roomCancellationData = ["Refundable"]
+                parentVC.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
+                parentVC.viewModel.selectedTags = ["Breakfast"]
+                parentVC.viewModel.currentlyFilterApplying = .roomMealTags
+            }
+            parentVC.filterdHotelData(tagList: [])
             parentVC.hotelTableView.reloadData()
         }
     }

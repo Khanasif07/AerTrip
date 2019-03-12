@@ -16,6 +16,7 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var hotelFeesLabel: UILabel!
     @IBOutlet weak var selectRoomLabel: UILabel!
+    @IBOutlet weak var noRoomsAvailable: UILabel!
     
     
     //Mark:- LifeCycle
@@ -46,22 +47,23 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     ///ConfigureUI
     private func configureUI() {
         //Colors
-        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        let whiteColor = AppColors.themeWhite
-        self.containerView.backgroundColor = AppColors.themeGreen
-        self.fromLabel.textColor = whiteColor
-        self.hotelFeesLabel.textColor = whiteColor
-        self.selectRoomLabel.textColor = whiteColor//.withAlphaComponent(0.35)
+//        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//        self.containerView.backgroundColor = AppColors.themeGreen
+        self.fromLabel.textColor =  AppColors.themeWhite
+        self.hotelFeesLabel.textColor =  AppColors.themeWhite
+        self.selectRoomLabel.textColor =  AppColors.themeWhite
+        self.noRoomsAvailable.textColor =  AppColors.themeWhite
         
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
         self.fromLabel.font = AppFonts.Regular.withSize(14.0)
         self.hotelFeesLabel.font = semiboldFontSize20
         self.selectRoomLabel.font = semiboldFontSize20
+        self.noRoomsAvailable.font = semiboldFontSize20
         
         //Text
         self.fromLabel.text = LocalizedString.From.localized
-//        self.hotelFeesLabel.text = "₹ 35,500"
         self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
+        self.noRoomsAvailable.text = LocalizedString.NoRoomsAvailable.localized
     }
 }
