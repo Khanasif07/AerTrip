@@ -27,11 +27,10 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case 1:
                 return 1
             default:
+                self.updateStickyFooterView()
                 if self.viewModel.ratesData.isEmpty {
-                    self.footerViewSetUpForEmptyState()
                     return 1
                 } else {
-                    self.footerViewSetUpForNormalState()
                     return self.viewModel.tableViewRowCell[section-2].count
                 }
             }
@@ -174,7 +173,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 extension HotelDetailsVC: HotelDetailDelegate {
     
     func getHotelDetailsSuccess() {
-        self.filterdHotelData(tagList: self.viewModel.tagsForFilteration)
+        self.filterdHotelData(tagList: self.viewModel.selectedTags)
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
@@ -186,6 +185,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
+            //"Breakfast"
             delay(seconds: AppConstants.kAnimationDuration) {
                 cell.activityIndicator.isHidden = true
             }
@@ -245,13 +245,59 @@ extension HotelDetailsVC {
         }
     }
     
+    func manageBottomRateView(_ scrollView: UIScrollView) {
+        if hotelTableView.numberOfSections > 2 {
+            let rows = hotelTableView.numberOfRows(inSection: 2)
+            let indexPath = IndexPath(row: rows-1, section: 2)
+            
+            var finalY: CGFloat = 0.0
+            if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
+                
+                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + UIApplication.shared.statusBarFrame.height + 10.0
+                if self.initialStickyPosition <= 0.0 {
+                    self.initialStickyPosition = finalY
+                }
+                
+                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
+                if 0...self.footerView.height ~= bottomCons {
+                    self.stickyBottomConstraint.constant = -bottomCons
+                }
+                else if self.initialStickyPosition <= 0.0 {
+                    self.stickyBottomConstraint.constant = 0.0
+                }
+                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                    self.stickyBottomConstraint.constant = -(self.footerView.height)
+                }
+            }
+            else {
+                if (self.initialStickyPosition + self.footerView.height) > scrollView.contentOffset.y {
+                    self.stickyBottomConstraint.constant = 0.0
+                }
+                self.initialStickyPosition = -1.0
+            }
+        }
+        else {
+            self.stickyBottomConstraint.constant = 0.0
+        }
+        self.oldScrollPosition = scrollView.contentOffset
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+        self.manageBottomRateView(scrollView)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            self.manageBottomRateView(scrollView)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+        self.manageBottomRateView(scrollView)
     }
+    
 }
 
 //Mark:- HotelDetailsImgSlideCellDelegate

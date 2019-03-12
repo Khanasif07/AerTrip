@@ -15,7 +15,8 @@ class HotelDetailsOverviewVC: BaseVC {
     //================
     let overViewText: String = ""
     let viewModel = HotelDetailsOverviewVM()
-    
+    private let maxHeaderHeight: CGFloat = 58.0
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var overViewTextViewOutlet: UITextView! {
@@ -27,6 +28,10 @@ class HotelDetailsOverviewVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stickyTitleLabel: UILabel!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var overViewLabelTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerContainerView: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -51,19 +56,8 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //        if scrollView.contentOffset.y > 10.0 {
-        //            self.stickyTitleLabel.text = "Overview"
-        //            self.titleLabel.origin.y -= scrollView.contentOffset.y
-        //        } else {
-        //            self.stickyTitleLabel.text = ""
-        //            self.titleLabel.origin.y += scrollView.contentOffset.y
-        //        }
-        scrollView.contentInsetAdjustmentBehavior = .automatic
-        print(scrollView.contentOffset)
     }
     
     //Mark:- Functions
@@ -90,5 +84,50 @@ class HotelDetailsOverviewVC: BaseVC {
     
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+extension HotelDetailsOverviewVC {
+    
+    func manageHeaderView(_ scrollView: UIScrollView) {
+        
+        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
+        printDebug(yOffset)
+        
+        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
+        
+        //header container view height
+        let heightToDecrease: CGFloat = 8.0
+        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
+        self.containerViewHeigthConstraint.constant = height
+        
+        //sticky label alpha
+        let alpha = (yOffset * (1.0 / headerContainerView.height))
+        self.stickyTitleLabel.alpha = alpha
+        
+        //reviews label
+        self.titleLabel.alpha = 1.0 - alpha
+        self.overViewLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidScroll")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDecelerating")
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDragging")
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndScrollingAnimation")
     }
 }

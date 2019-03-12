@@ -11,6 +11,7 @@ import UIKit
 
 enum ATNotification {
     case profileChanged
+    case userLoggedInSuccess
 }
 
 extension Notification.Name {

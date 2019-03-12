@@ -32,9 +32,9 @@ class HotelFilterVM {
     var leftRangePrice: Double = 0.0
     var rightRangePrice: Double = 0.0
     var amenitites: [String] = []
-    var roomMeal: [Int] = []
-    var roomCancelation: [Int] = []
-    var roomOther: [Int] = []
+    var roomMeal: [String] = []
+    var roomCancelation: [String] = []
+    var roomOther: [String] = []
     var sortUsing: SortUsing = .BestSellers
     var totalHotelCount: Int = 0
     var filterHotelCount: Int = 0

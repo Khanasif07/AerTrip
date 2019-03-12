@@ -480,4 +480,7 @@ enum LocalizedString: String {
     case SelectTrip = "SelectTrip"
     case CreateNewTrip = "CreateNewTrip"
     case NameYourTrip = "NameYourTrip"
+    
+    //Hotel Checkout Deatail Selection screen
+    case Guests = "Guests"
 }

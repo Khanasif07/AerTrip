@@ -65,6 +65,9 @@ class ViewProfileVC: BaseVC {
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
             self.statusBarStyle = .lightContent
         }
+        else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
+            self.statusBarStyle = .lightContent
+        }
         else {
             self.statusBarStyle = .default
         }

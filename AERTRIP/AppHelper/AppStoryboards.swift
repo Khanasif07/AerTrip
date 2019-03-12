@@ -20,6 +20,7 @@ enum AppStoryboard : String {
     case HotelResults
     case Settings
     case Filter
+    case HotelCheckout
 }
 
 extension AppStoryboard {

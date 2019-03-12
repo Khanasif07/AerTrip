@@ -78,6 +78,12 @@ enum AppColors {
     // RGB - 175,175,170
     static let profileImageBorderColor =  #colorLiteral(red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1)
     
+    // RGB - 170 ,170 ,170
+    static let noRoomsAvailableFooterColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
+    
+    // RGB - 212 ,217 , 216
+    static let noRoomsAvailableFooterShadow = #colorLiteral(red: 0.831372549, green: 0.8509803922, blue: 0.8470588235, alpha: 1)
+    
     // RGB - 220,220,220
     static let themeGray220 =  #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
     

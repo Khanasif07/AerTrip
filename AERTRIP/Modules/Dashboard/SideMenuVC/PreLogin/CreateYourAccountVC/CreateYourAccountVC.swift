@@ -29,6 +29,8 @@ class CreateYourAccountVC: BaseVC {
     
     
     
+    internal var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -206,8 +208,12 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
 extension CreateYourAccountVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         topNavBar.leftButton.isHidden = true
-        AppFlowManager.default.popToRootViewController(animated: true)
-        
+        if currentlyUsingFrom == .loginProcess {
+            AppFlowManager.default.popToRootViewController(animated: true)
+        }
+        else {
+            AppFlowManager.default.popViewController(animated: true)
+        }
     }
 }
 

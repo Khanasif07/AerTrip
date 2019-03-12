@@ -170,9 +170,9 @@ class UserInfo {
         var leftRangePrice : Double = 0.0
         var rightRangePrice: Double = 0.0
         var amentities : [String] = []
-        var roomMeal : [Int] = []
-        var roomCancelation : [Int] = []
-        var roomOther : [Int] = []
+        var roomMeal : [String] = []
+        var roomCancelation : [String] = []
+        var roomOther : [String] = []
         var sortUsing : SortUsing = .BestSellers
         
         
@@ -222,9 +222,9 @@ class UserInfo {
             leftRangePrice = try values.decode(Double.self, forKey: .leftRangePrice)
             rightRangePrice = try values.decode(Double.self, forKey: .rightRangePrice)
             amentities = try values.decode([String].self, forKey: .amentities)
-            roomMeal = try values.decode([Int].self, forKey: .roomMeal)
-            roomCancelation = try values.decode([Int].self, forKey: .roomCancelation)
-            roomOther = try values.decode([Int].self, forKey: .roomOther)
+            roomMeal = try values.decode([String].self, forKey: .roomMeal)
+            roomCancelation = try values.decode([String].self, forKey: .roomCancelation)
+            roomOther = try values.decode([String].self, forKey: .roomOther)
             sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             
             

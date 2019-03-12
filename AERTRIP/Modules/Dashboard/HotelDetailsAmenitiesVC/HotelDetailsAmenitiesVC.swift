@@ -13,18 +13,17 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsAmenitiesVM()
-    
+    private let maxHeaderHeight: CGFloat = 58.0
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var headerContainerView: UIView!
-    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
     @IBOutlet weak var amenitiesLabel: UILabel!
     @IBOutlet weak var stickyTitleLabel: UILabel!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
-    @IBOutlet weak var amenitiesTitleBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
             self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
@@ -36,6 +35,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
             self.amenitiesTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
     }
+    
     
     //Mark:- LifeCycle
     //================
@@ -169,28 +169,44 @@ extension HotelDetailsAmenitiesVC {
 
 extension HotelDetailsAmenitiesVC {
     
+    func manageHeaderView(_ scrollView: UIScrollView) {
+        
+        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
+        printDebug(yOffset)
+        
+        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
+        
+        //header container view height
+        let heightToDecrease: CGFloat = 8.0
+        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
+        self.containerViewHeigthConstraint.constant = height
+        
+        //sticky label alpha
+        let alpha = (yOffset * (1.0 / headerContainerView.height))
+        self.stickyTitleLabel.alpha = alpha
+        
+        //reviews label
+        self.amenitiesLabel.alpha = 1.0 - alpha
+        self.amenitiesLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        printDebug(scrollView.contentOffset.y)
-        guard scrollView.contentOffset.y >= 0 || scrollView.contentOffset.y <= 20 else { return }
-        if scrollView.contentOffset.y > 10.0 {
-            self.dividerView.isHidden = false
-            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
-            self.amenitiesLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
-            self.stickyTitleLabel.isHidden = false
-            self.amenitiesLabelTopConstraints.constant -= scrollView.contentOffset.y/10 + 6.0
-            self.containerViewHeigthConstraint.constant = 44.0
-        }
-        else  {
-            if scrollView.contentOffset.y <= 6.0 {
-                self.amenitiesLabelTopConstraints.constant = 6.0
-            } else {
-                self.amenitiesLabelTopConstraints.constant += scrollView.contentOffset.y/10 - 6.0
-            }
-            self.dividerView.isHidden = false
-            self.stickyTitleLabel.isHidden = false
-            self.amenitiesLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
-            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
-            self.containerViewHeigthConstraint.constant = 58.0
-        }
+        manageHeaderView(scrollView)
+        print("scrollViewDidScroll")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDecelerating")
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDragging")
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndScrollingAnimation")
     }
 }

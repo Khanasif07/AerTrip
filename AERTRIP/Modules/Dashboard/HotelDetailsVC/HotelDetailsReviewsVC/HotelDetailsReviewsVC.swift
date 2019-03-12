@@ -37,6 +37,10 @@ class HotelDetailsReviewsVC: BaseVC {
             self.reviewsTblView.backgroundColor = AppColors.themeWhite
         }
     }
+    @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!
+    
+    
+    private let maxHeaderHeight: CGFloat = 58.0
     
     //Mark:- LifeCycle
     //================
@@ -243,12 +247,6 @@ extension HotelDetailsReviewsVC {
     }
 }
 
-extension HotelDetailsReviewsVC {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-}
-
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
@@ -259,5 +257,50 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     
     func getHotelTripAdvisorFail() {
         printDebug("Api parsing failed")
+    }
+}
+
+extension HotelDetailsReviewsVC {
+    
+    func manageHeaderView(_ scrollView: UIScrollView) {
+        
+        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
+        printDebug(yOffset)
+
+        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
+        
+        //header container view height
+        let heightToDecrease: CGFloat = 8.0
+        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
+        self.containerViewHeigthConstraint.constant = height
+        
+        //sticky label alpha
+        let alpha = (yOffset * (1.0 / headerContainerView.height))
+        self.stickyTitleLabel.alpha = alpha
+        
+        //reviews label
+        self.reviewsLabel.alpha = 1.0 - alpha
+        reviewTopConstraint.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
+//        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidScroll")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDecelerating")
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndDragging")
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        manageHeaderView(scrollView)
+        print("scrollViewDidEndScrollingAnimation")
     }
 }
