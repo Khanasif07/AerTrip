@@ -304,8 +304,8 @@ class HotelResultVC: BaseVC {
     }
     
     private func setupNavigationTitleLabelText() {
-        let checkIn = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM") ?? ""
-        let checkOut = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkOut ?? " ", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM") ?? ""
+        let checkIn = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+        let checkOut = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkOut ?? " ", currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.hotelSearchRequest?.requestParameters.numOfRooms ?? ""
         self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
     }
@@ -578,8 +578,6 @@ class HotelResultVC: BaseVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
-            } else {
-                self.searchedHotels.removeAll()
             }
             self.reloadHotelList()
         } catch {
@@ -807,7 +805,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.searchText = self.predicateStr
-            cell.hotelData = self.searchedHotels[indexPath.row]
+            if searchedHotels.count > 0 {
+                  cell.hotelData = self.searchedHotels[indexPath.row]
+            }
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell") as? HotelCardTableViewCell else {
@@ -973,7 +973,7 @@ extension HotelResultVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
         self.manageMapViewOnScroll(scrollView)
-        self.manageFloatingButtonOnPaginationScroll(scrollView)
+       // self.manageFloatingButtonOnPaginationScroll(scrollView)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

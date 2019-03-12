@@ -16,7 +16,6 @@ extension HotelResultVC: UISearchBarDelegate {
         self.tableViewType = .SearchTableView
         animateHeaderToMapView()
         self.predicateStr = ""
-        self.searchedHotels.removeAll()
         self.loadSaveData()
         self.hotelSearchView.isHidden = false
         self.hotelSearchTableView.backgroundView = nil
@@ -47,7 +46,12 @@ extension HotelResultVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.animateHeaderToListView()
+        self.hideSearchAnimation()
         self.hotelSearchView.isHidden = true
+        self.view.endEditing(true)
+        self.tableViewType = .ListTableView
+        self.reloadHotelList()
     }
 }
 
