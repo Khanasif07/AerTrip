@@ -27,6 +27,10 @@ class HotelDetailsOverviewVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stickyTitleLabel: UILabel!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var titleLabelTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
+
     
     //Mark:- LifeCycle
     //================
@@ -51,19 +55,8 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //        if scrollView.contentOffset.y > 10.0 {
-        //            self.stickyTitleLabel.text = "Overview"
-        //            self.titleLabel.origin.y -= scrollView.contentOffset.y
-        //        } else {
-        //            self.stickyTitleLabel.text = ""
-        //            self.titleLabel.origin.y += scrollView.contentOffset.y
-        //        }
-        scrollView.contentInsetAdjustmentBehavior = .automatic
-        print(scrollView.contentOffset)
     }
     
     //Mark:- Functions
@@ -90,5 +83,34 @@ class HotelDetailsOverviewVC: BaseVC {
     
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+extension HotelDetailsOverviewVC {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug(scrollView.contentOffset.y)
+        guard scrollView.contentOffset.y >= 0 || scrollView.contentOffset.y <= 20 else { return }
+        if scrollView.contentOffset.y > 10.0 {
+            self.dividerView.isHidden = false
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
+            self.titleLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
+            self.stickyTitleLabel.isHidden = false
+            self.titleLabelTopConstraints.constant -= scrollView.contentOffset.y/10 + 10.0
+            self.containerViewHeigthConstraint.constant = 44.0
+        }
+        else  {
+            if scrollView.contentOffset.y <= 5.0 {
+                self.titleLabelTopConstraints.constant = 10.0
+            } else {
+                self.titleLabelTopConstraints.constant += scrollView.contentOffset.y/10 - 10.0
+            }
+            self.dividerView.isHidden = true
+            self.stickyTitleLabel.isHidden = false
+            self.titleLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
+            self.containerViewHeigthConstraint.constant = 54.0
+        }
     }
 }

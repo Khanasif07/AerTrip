@@ -24,7 +24,11 @@ class HotelDetailsVC: BaseVC {
     private var tableFrameHidden: CGRect {
         return CGRect(x: 40.0, y: self.sourceFrame.origin.y, width: (UIDevice.screenWidth - 80.0), height: self.sourceFrame.size.height)
     }
-    var allIndexPath = [IndexPath]()
+    internal var allIndexPath = [IndexPath]()
+    internal var initialStickyPosition: CGFloat = -1.0
+    internal var oldScrollPosition: CGPoint = .zero
+    var stickyView: HotelFilterResultFooterView?
+    var tableFooterView: HotelFilterResultFooterView?
     
     //Mark:- IBOutlets
     //================
@@ -47,10 +51,7 @@ class HotelDetailsVC: BaseVC {
     }
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var footerView: UIView!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var hotelFeesLabel: UILabel!
-    @IBOutlet weak var selectRoomLabel: UILabel!
-    @IBOutlet weak var noRoomsAvailable: UILabel!
+    @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -61,11 +62,18 @@ class HotelDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
-        self.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
         self.configUI()
         self.registerNibs()
-        self.footerViewSetUpForNormalState()
-        self.viewModel.tagsForFilteration = self.viewModel.permanentTagsForFilteration
+        self.footerViewSetUp()
+        self.getSavedFilter()
+        if self.viewModel.permanentTagsForFilteration.isEmpty {
+            self.viewModel.currentlyFilterApplying = .roomMealTags
+            self.viewModel.roomMealData = ["Breakfast"]
+            self.viewModel.roomCancellationData = ["Refundable"]
+            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
+            self.viewModel.selectedTags = ["Breakfast"]
+        }
+
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
@@ -78,23 +86,65 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func setupColors() {
-        self.noRoomsAvailable.textColor = AppColors.themeWhite
-        self.fromLabel.textColor = AppColors.themeWhite
-        self.hotelFeesLabel.textColor = AppColors.themeWhite
-        self.selectRoomLabel.textColor = AppColors.themeWhite
+        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.footerView.backgroundColor = AppColors.themeGreen
     }
     
-    override func setupFonts() {
-        self.fromLabel.font = AppFonts.Regular.withSize(14.0)
-        self.hotelFeesLabel.font = AppFonts.SemiBold.withSize(20.0)
-        self.selectRoomLabel.font = AppFonts.SemiBold.withSize(20.0)
-        self.noRoomsAvailable.font = AppFonts.SemiBold.withSize(20.0)
+    private func getStickyFooter() -> HotelFilterResultFooterView {
+        let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
+        stV.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        stV.containerView.backgroundColor = AppColors.themeGreen
+        stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
+        stV.noRoomsAvailable.isHidden = true
+        return stV
     }
     
-    override func setupTexts() {
-        self.noRoomsAvailable.text = LocalizedString.NoRoomsAvailable.localized
-        self.fromLabel.text = LocalizedString.From.localized
-        self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
+    internal func updateStickyFooterView() {
+        if self.viewModel.ratesData.isEmpty {
+            if let stickyView = self.stickyView {
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+                stickyView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+                stickyView.noRoomsAvailable.isHidden = false
+                stickyView.fromLabel.isHidden = true
+                stickyView.hotelFeesLabel.isHidden = true
+                stickyView.selectRoomLabel.isHidden = true
+                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+            }
+            
+            if let footerView = self.tableFooterView {
+                footerView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+                footerView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+                footerView.noRoomsAvailable.isHidden = false
+                footerView.fromLabel.isHidden = true
+                footerView.hotelFeesLabel.isHidden = true
+                footerView.selectRoomLabel.isHidden = true
+                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+            }
+        } else {
+            if let stickyView = self.stickyView {
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                stickyView.containerView.backgroundColor = AppColors.themeGreen
+                stickyView.noRoomsAvailable.isHidden = true
+                stickyView.fromLabel.isHidden = false
+                stickyView.hotelFeesLabel.isHidden = false
+                stickyView.selectRoomLabel.isHidden = false
+                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                self.footerView.backgroundColor = AppColors.themeGreen
+            }
+            
+            if let footerView = self.tableFooterView {
+                footerView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                footerView.containerView.backgroundColor = AppColors.themeGreen
+                footerView.noRoomsAvailable.isHidden = true
+                footerView.fromLabel.isHidden = false
+                footerView.hotelFeesLabel.isHidden = false
+                footerView.selectRoomLabel.isHidden = false
+                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                self.footerView.backgroundColor = AppColors.themeGreen
+            }
+        }
     }
     
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
@@ -102,13 +152,14 @@ class HotelDetailsVC: BaseVC {
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        let newImageFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: UIApplication.shared.statusBarFrame.height, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        let newImageFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0, width: self.view.width, height: hotelImageHeight)
+        let newTableFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame
             sSelf.hotelTableView.frame = newTableFrame
             sSelf.hotelTableView.alpha = 1.0
+            //            sSelf.hotelTableView.transform = CGAffineTransform.identity
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 sSelf.imageView.isHidden = true
@@ -130,6 +181,19 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- Methods
     //==============
+    private func footerViewSetUp() {
+        self.stickyView = getStickyFooter()
+        if let stickyView = self.stickyView {
+            stickyView.frame = self.footerView.bounds
+            self.footerView.addSubview(stickyView)
+        }
+        
+        self.tableFooterView = getStickyFooter()
+        if let footerView = self.tableFooterView {
+            footerView.frame = self.footerView.bounds
+            self.hotelTableView.tableFooterView = footerView
+        }
+    }
     
     private func setupBeforeAnimation() {
         guard let sourceV = self.sourceView, let parant = self.parentVC else {return}
@@ -200,22 +264,18 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
-    internal func footerViewSetUpForEmptyState() {
-        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGray04, AppColors.shadowBlue])
-        self.footerView.backgroundColor = AppColors.themeGray04
-        self.noRoomsAvailable.isHidden = false
-        self.fromLabel.isHidden = true
-        self.hotelFeesLabel.isHidden = true
-        self.selectRoomLabel.isHidden = true
-    }
-    
-    internal func footerViewSetUpForNormalState() {
-        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        self.footerView.backgroundColor = AppColors.themeGreen
-        self.noRoomsAvailable.isHidden = true
-        self.fromLabel.isHidden = false
-        self.hotelFeesLabel.isHidden = false
-        self.selectRoomLabel.isHidden = false
+    private func getSavedFilter() {
+        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+            printDebug("Filter not found")
+            return
+        }
+        self.viewModel.filterAppliedData = filter
+        self.viewModel.roomMealData = filter.roomMeal
+        self.viewModel.roomOtherData = filter.roomOther
+        self.viewModel.roomCancellationData = filter.roomCancelation
+        self.viewModel.permanentTagsForFilteration = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        self.viewModel.currentlyFilterApplying = .initialTags
     }
     
     internal func redirectToMap() {
@@ -265,7 +325,8 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomRates.removeAll()
         self.viewModel.tableViewRowCell.removeAll()
         if let rates = self.viewModel.hotelData?.rates {
-            self.viewModel.ratesData = self.viewModel.getFilteredData(rates: rates, tagList: tagList)
+            //            self.viewModel.currentlyFilterApplying = currentlyFilterApplying
+            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
             for singleRate in self.viewModel.ratesData {
                 self.viewModel.roomRates.append(singleRate.roomData)
                 self.viewModel.tableViewRowCell.append(singleRate.tableViewRowCell)

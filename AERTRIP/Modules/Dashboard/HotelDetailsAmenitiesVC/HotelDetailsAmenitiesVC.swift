@@ -186,7 +186,7 @@ extension HotelDetailsAmenitiesVC {
             } else {
                 self.amenitiesLabelTopConstraints.constant += scrollView.contentOffset.y/10 - 6.0
             }
-            self.dividerView.isHidden = false
+            self.dividerView.isHidden = true
             self.stickyTitleLabel.isHidden = false
             self.amenitiesLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
             self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0

@@ -37,6 +37,8 @@ class HotelDetailsReviewsVC: BaseVC {
             self.reviewsTblView.backgroundColor = AppColors.themeWhite
         }
     }
+    @IBOutlet weak var titleLabelTopConstraints: NSLayoutConstraint!
+
     
     //Mark:- LifeCycle
     //================
@@ -243,12 +245,6 @@ extension HotelDetailsReviewsVC {
     }
 }
 
-extension HotelDetailsReviewsVC {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-}
-
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
@@ -259,5 +255,33 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     
     func getHotelTripAdvisorFail() {
         printDebug("Api parsing failed")
+    }
+}
+
+extension HotelDetailsReviewsVC {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug(scrollView.contentOffset.y)
+        guard scrollView.contentOffset.y >= 0 || scrollView.contentOffset.y <= 20 else { return }
+        if scrollView.contentOffset.y > 10.0 {
+            self.dividerView.isHidden = false
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
+            self.reviewsLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
+            self.stickyTitleLabel.isHidden = false
+            self.titleLabelTopConstraints.constant -= scrollView.contentOffset.y/10 + 14.0
+            self.containerViewHeigthConstraint.constant = 44.0
+        }
+        else  {
+            if scrollView.contentOffset.y <= 6.0 {
+                self.titleLabelTopConstraints.constant = 14.0
+            } else {
+                self.titleLabelTopConstraints.constant += scrollView.contentOffset.y/10 - 14.0
+            }
+            self.dividerView.isHidden = true
+            self.stickyTitleLabel.isHidden = false
+            self.reviewsLabel.alpha = 1.0 - scrollView.contentOffset.y/50.0
+            self.stickyTitleLabel.alpha = scrollView.contentOffset.y/100.0
+            self.containerViewHeigthConstraint.constant = 58.0
+        }
     }
 }

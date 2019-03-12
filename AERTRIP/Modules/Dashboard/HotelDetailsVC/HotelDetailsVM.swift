@@ -26,6 +26,10 @@ class HotelDetailsVM {
         case driving = "DRIVING"
     }
     
+    enum FilterTagType {
+        case newTag, roomMealTags, roomOtherTags, roomCancellationTags, initialTags
+    }
+    
     //Mark:- Variables
     //================
     internal var hotelInfo: HotelSearched?
@@ -33,9 +37,12 @@ class HotelDetailsVM {
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?
-    var permanentTagsForFilteration: [String] = ["Breakfast"]
-    var tagsForFilteration: [String] = ["Breakfast"]
-    var selectedTags: [String] = ["Breakfast"]
+    var permanentTagsForFilteration: [String] = []
+    var selectedTags: [String] = []
+    var roomMealData: [String] = []
+    var roomOtherData: [String] = []
+    var roomCancellationData: [String] = []
+    var currentlyFilterApplying: FilterTagType = .initialTags
     var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
     var tableViewRowCell = [[TableCellType]]()
@@ -44,6 +51,7 @@ class HotelDetailsVM {
     var hid: String = ""
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
+    var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
     
     ///Computed Property
     private var getHotelInfoParams: JSONDictionary {
@@ -51,51 +59,213 @@ class HotelDetailsVM {
         return params
     }
     
-    ///Get Filtered Data
-    func getFilteredData(rates: [Rates], tagList: [String]) -> [Rates] {
+    ///Get Initial Filtered Data
+    func getFilteredRatesData(rates: [Rates], tagList: [String],roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
+        
         let filteredRates = rates.filter { (rate: Rates) -> Bool in
-            if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-                if inclusionInfo.containsArray(array: tagList) { return true }
-                //                for tag in tagList {
-                //                    if inclusionInfo.contains(tag) { return true }
-                //                }
+            
+            switch self.currentlyFilterApplying {
+                
+            case .newTag:
+                if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
+                    if inclusionInfo.containsArray(array: tagList) { return true }
+                }
+            case .roomMealTags:
+                if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
+                    if inclusionInfo.containsArray(array: roomMealData) {
+                        if !roomOtherData.isEmpty || !roomCancellationData.isEmpty {
+                            if !roomOtherData.isEmpty {
+                                if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
+                                    if internetInfo.containsArray(array: roomOtherData) {
+                                        return true
+                                    }
+                                    else {
+                                        return false
+                                    }
+                                }
+                            }
+                            else if !roomCancellationData.isEmpty  {
+                                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
+                                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
+                                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+                                
+                                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+                                    return true
+                                } else {
+                                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
+                                        return true
+                                    } else if isPartRefundable {
+                                        for penalty in rate.penalty_array! {
+                                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
+                                        }
+                                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
+                                        return true
+                                    }
+                                }
+                            }
+                            
+                        }
+                        return true
+                    }
+                }
+            case .roomOtherTags:
+                if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
+                    if internetInfo.containsArray(array: roomOtherData) {
+                        
+                        return true
+                    }
+                }
+            case .roomCancellationTags:
+                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
+                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
+                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+                
+                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+                    return true
+                } else {
+                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
+                        return true
+                    } else if isPartRefundable {
+                        for penalty in rate.penalty_array! {
+                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
+                        }
+                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
+                        return true
+                    }
+                }
+            case .initialTags:
+                if !roomMealData.isEmpty {
+                    if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
+                        if inclusionInfo.containsArray(array: roomMealData) {
+                            if !roomOtherData.isEmpty || !roomCancellationData.isEmpty {
+                                
+                                if !roomOtherData.isEmpty {
+                                    if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
+                                        if internetInfo.containsArray(array: roomOtherData) {
+                                            return true
+                                        }
+                                        else {
+                                            return false
+                                        }
+                                    }
+                                }
+                                else if !roomCancellationData.isEmpty  {
+                                    let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
+                                    let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
+                                    let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+                                    
+                                    if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+                                        return true
+                                    } else {
+                                        if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
+                                            return true
+                                        } else if isPartRefundable {
+                                            for penalty in rate.penalty_array! {
+                                                if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
+                                            }
+                                        } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
+                                            return true
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            else {
+                                return true
+                            }
+                        } // return false
+                    } else {
+                        return false
+                    }
+                }
+                    
+                else if !roomOtherData.isEmpty {
+                    if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
+                        if internetInfo.containsArray(array: roomOtherData) {
+                            if !roomCancellationData.isEmpty {
+                                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
+                                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
+                                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+                                
+                                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+                                    return true
+                                } else {
+                                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
+                                        return true
+                                    } else if isPartRefundable {
+                                        for penalty in rate.penalty_array! {
+                                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
+                                        }
+                                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
+                                        return true
+                                    }
+                                }
+                            }
+                            else {
+                                return true
+                            }
+                        }
+                    }
+                }
+                else if !roomCancellationData.isEmpty {
+                    let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
+                    let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
+                    let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+                    
+                    if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+                        return true
+                    } else {
+                        if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
+                            return true
+                        } else if isPartRefundable {
+                            for penalty in rate.penalty_array! {
+                                if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
+                            }
+                        } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
+                            return true
+                        }
+                    }
+                }
             }
             return false
+        }
+        if self.selectedTags.isEmpty{//roomMealData.isEmpty && roomOtherData.isEmpty && roomCancellationData.isEmpty
+            return rates
         }
         return filteredRates
     }
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-//        let frameworkBundle = Bundle(for: PKCountryPicker.self)
-//        if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
-//            do {
-//                if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
-//                    if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
-//                        self.hotelData = HotelDetails.hotelInfo(response: data)
-//                        self.delegate?.getHotelDetailsSuccess()
-//                    }
-//                }
-//            }
-//            catch {
-//                printDebug("error")
-//                //self.hotelData = hotelData
-//            }
-//        }
+        /*   let frameworkBundle = Bundle(for: PKCountryPicker.self)
+         if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
+         do {
+         if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
+         if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
+         self.hotelData = HotelDetails.hotelInfo(response: data)
+         self.delegate?.getHotelDetailsSuccess()
+         }
+         }
+         }
+         catch {
+         printDebug("error")
+         //self.hotelData = hotelData
+         }
+         } */
         
-                APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
-                    guard let sSelf = self else {return}
-                    if success {
-                        if let safeHotelData = hotelData {
-                            sSelf.hotelData = safeHotelData
-                            sSelf.delegate?.getHotelDetailsSuccess()
-                        }
-                    } else {
-                        printDebug(errors)
-                        sSelf.isFooterViewHidden = true
-                        sSelf.delegate?.getHotelDetailsFail()
-                    }
+        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
+            guard let sSelf = self else {return}
+            if success {
+                if let safeHotelData = hotelData {
+                    sSelf.hotelData = safeHotelData
+                    sSelf.delegate?.getHotelDetailsSuccess()
                 }
+            } else {
+                printDebug(errors)
+                sSelf.isFooterViewHidden = true
+                sSelf.delegate?.getHotelDetailsFail()
+            }
+        }
     }
     
     //MARK:- Mark Favourite

@@ -99,6 +99,7 @@ extension Array {
 
 extension Array where Element: Equatable {
     func contains(array: [Element]) -> Bool {
+        if array.isEmpty { return true }
         for item in array {
             if !self.contains(item) { return false }
         }

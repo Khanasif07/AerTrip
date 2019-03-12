@@ -46,7 +46,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         self.inclusionTypeLabel.font = AppFonts.Regular.withSize(18.0)
 
         //Text
-        self.inclusionLabel.text = LocalizedString.Inclusion.localized
+        
     }
     
     private func getAllInclusion(ratesData: Rates) -> [String] {
@@ -64,6 +64,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     }
     
     internal func configureCell(ratesData: Rates) {
+        self.inclusionLabel.text = LocalizedString.Inclusion.localized
         let inclusionText = self.getAllInclusion(ratesData: ratesData)
         self.inclusionTypeLabel.text = inclusionText.joined(separator: ", ")
     }
