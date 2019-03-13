@@ -47,6 +47,8 @@ extension HotelSearched {
     @NSManaged public var sectionTitle: String?
     @NSManaged public var amenities: String?
     @NSManaged public var isHotelBeyondTwentyKm: Bool
+    @NSManaged public var filterStar: String
+    @NSManaged public var filterTripAdvisorRating:String
     
     var amenitiesArr: [String] {
         if let amt = self.amenities, !amt.isEmpty {

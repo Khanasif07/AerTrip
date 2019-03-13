@@ -337,7 +337,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZa-ly-2v6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31.199999999999999" y="195.6521739130435"/>
+            <point key="canvasLocation" x="-694" y="261"/>
+        </scene>
+        <!--Guest DetailsVC-->
+        <scene sceneID="Av8-0G-cyD">
+            <objects>
+                <viewController storyboardIdentifier="GuestDetailsVC" id="KIG-P0-ByE" customClass="GuestDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="945-ac-KYE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnv-2r-oQd" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Hu7-h8-omi"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="dnv-2r-oQd" secondAttribute="trailing" id="A5x-Ze-hTo"/>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="AuL-Y2-nzN" secondAttribute="trailing" id="CSH-7H-VRt"/>
+                            <constraint firstItem="AuL-Y2-nzN" firstAttribute="top" secondItem="dnv-2r-oQd" secondAttribute="bottom" id="TgQ-YF-zyu"/>
+                            <constraint firstItem="dnv-2r-oQd" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="UXR-XF-3oz"/>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="AuL-Y2-nzN" secondAttribute="bottom" id="WWc-Gg-0Lu"/>
+                            <constraint firstItem="AuL-Y2-nzN" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="jjA-XZ-s6H"/>
+                            <constraint firstItem="dnv-2r-oQd" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" id="mEX-z2-gHW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ef6-oa-bzv"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="AuL-Y2-nzN" id="LZg-a0-RA2"/>
+                        <outlet property="topNavView" destination="dnv-2r-oQd" id="EjT-8v-YOA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L5K-by-zH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1" y="277"/>
         </scene>
         <!--Fare Updated Pop UpVC-->
         <scene sceneID="AC6-7L-9c2">

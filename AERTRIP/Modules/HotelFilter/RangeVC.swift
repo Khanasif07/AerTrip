@@ -46,12 +46,13 @@ class RangeVC: BaseVC {
     }
     
     private func setUpRangeView() {
-        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+        guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             return
         }
-        self.stepSlider.index = UInt(filter.distanceRange.toInt)
-        self.rangeLabel.text = "Within " + "\((filter.distanceRange.toInt))" + "Km"
+        let range = UserInfo.hotelFilter != nil ? filter.distanceRange : HotelFilterVM.shared.distanceRange
+        self.stepSlider.index = UInt(range.toInt)
+        self.rangeLabel.text = "Within " + "\((range.toInt))" + "Km"
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {

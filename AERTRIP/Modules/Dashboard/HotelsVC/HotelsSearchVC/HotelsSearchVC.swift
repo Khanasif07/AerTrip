@@ -265,6 +265,7 @@ class HotelsSearchVC: BaseVC {
     ///GetDataFromPreviousSearch
     private func getDataFromPreviousSearch() {
         let date = Date()
+
         let oldData = HotelsSearchVM.hotelFormData
         if let checkInDate = oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
             if date.daysBetweenDate(toDate: date, endDate: checkInDate) <= 0 {

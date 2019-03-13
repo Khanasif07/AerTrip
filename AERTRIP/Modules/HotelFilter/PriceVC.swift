@@ -9,48 +9,42 @@
 import UIKit
 
 class PriceVC: BaseVC {
-    
-    
     // MARK: - IBOutlets
-    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var minimumPriceView: UIView!
-    @IBOutlet weak var minimumPriceLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
     
-    @IBOutlet weak var maximumPriceView: UIView!
-    @IBOutlet weak var maximumPriceLabel: UILabel!
+    @IBOutlet var minimumPriceView: UIView!
+    @IBOutlet var minimumPriceLabel: UILabel!
+    
+    @IBOutlet var maximumPriceView: UIView!
+    @IBOutlet var maximumPriceLabel: UILabel!
     
     // MARK: - Variables
-
+    
     let horizontalMultiSlider = MultiSlider()
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getSavedFilter()
-        self.doInitialSetup()
-        self.addSlider()
+        getSavedFilter()
+        doInitialSetup()
+        addSlider()
     }
     
+    // MARK: - Override methods
     
-   
- 
-    
-    
-    // MARK:- Override methods
-
     // MARK: - Helper methods
-   private func addSlider() {
     
-         horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+    private func addSlider() {
+        horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
         horizontalMultiSlider.orientation = .horizontal
         horizontalMultiSlider.minimumValue = CGFloat(HotelFilterVM.shared.minimumPrice)
         horizontalMultiSlider.maximumValue = CGFloat(HotelFilterVM.shared.maximumPrice)
-    horizontalMultiSlider.value = [UserInfo.loggedInUser?.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice) ,UserInfo.loggedInUser?.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) :CGFloat(HotelFilterVM.shared.maximumPrice)  ]
+        horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
         horizontalMultiSlider.isSettingValue = true
         horizontalMultiSlider.thumbCount = 2
-        horizontalMultiSlider.tintColor =  AppColors.themeGreen  // color of the track
+        horizontalMultiSlider.tintColor = AppColors.themeGreen // color of the track
         horizontalMultiSlider.outerTrackColor = AppColors.themeGray10
         horizontalMultiSlider.trackWidth = 3
         horizontalMultiSlider.showsThumbImageShadow = false
@@ -59,24 +53,22 @@ class PriceVC: BaseVC {
         view.addSubview(horizontalMultiSlider)
     }
     
-    private func doInitialSetup(){
+    private func doInitialSetup() {
         minimumPriceView.layer.cornerRadius = 15.0
         maximumPriceView.layer.cornerRadius = 15.0
-        let leftRangePrice = UserInfo.loggedInUser?.hotelFilter != nil ?  filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
-        let rightRangePrice = UserInfo.loggedInUser?.hotelFilter != nil ?  filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
+        let leftRangePrice = UserInfo.hotelFilter != nil ? filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
+        let rightRangePrice = UserInfo.hotelFilter != nil ? filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
         minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(leftRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(rightRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-       
     }
     
     func getSavedFilter() {
-        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+        guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             return
         }
-        self.filterApplied = filter
+        filterApplied = filter
     }
-    
     
     override func setupColors() {
         titleLabel.textColor = AppColors.themeGray40
@@ -96,14 +88,12 @@ class PriceVC: BaseVC {
         titleLabel.text = LocalizedString.PricePerNight.localized
     }
     
-    
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
-        //"\u{20B9} " +
+        // "\u{20B9} " +
         minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         HotelFilterVM.shared.leftRangePrice = Double(slider.value.first ?? 0.0).roundTo(places: 2)
         HotelFilterVM.shared.rightRangePrice = Double(slider.value.last ?? 0.0).roundTo(places: 2)
-        maximumPriceLabel.attributedText =  (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
-
 }

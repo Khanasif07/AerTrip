@@ -50,4 +50,9 @@ enum AppConstants {
     static let kGoogleAPIKey = "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
+    
+    // CellIdentifier
+    
+    static let ktableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
+  
 }

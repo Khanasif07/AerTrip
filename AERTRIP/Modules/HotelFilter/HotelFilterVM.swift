@@ -26,18 +26,18 @@ class HotelFilterVM {
     var ratingCount: [Int] = []
     var tripAdvisorRatingCount: [Int] = []
     var isIncludeUnrated: Bool = false
-    var distanceRange: Double = 0.0
+    var distanceRange: Double = 2.0
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
     var leftRangePrice: Double = 0.0
-    var rightRangePrice : Double = 0.0
+    var rightRangePrice: Double = 0.0
     var amenitites: [String] = []
     var roomMeal: [String] = []
     var roomCancelation: [String] = []
     var roomOther: [String] = []
     var sortUsing: SortUsing = .BestSellers
-    var totalHotelCount : Int  = 0
-    var filterHotelCount : Int = 0 
+    var totalHotelCount: Int = 0
+    var filterHotelCount: Int = 0
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
@@ -55,9 +55,9 @@ class HotelFilterVM {
         filter.roomOther = roomOther
         filter.sortUsing = sortUsing
         
-        UserInfo.loggedInUser?.hotelFilter = filter
+        UserInfo.hotelFilter = filter
         
-        if let filter = UserInfo.loggedInUser?.hotelFilter {
+        if let filter = UserInfo.hotelFilter {
             printDebug(filter)
         }
     }

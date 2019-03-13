@@ -334,7 +334,6 @@ extension AppFlowManager {
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
-        //        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func presentSearchHotelTagVC(tagButtons: [String] , superView: HotelDetailsSearchTagTableCell) {
@@ -421,6 +420,11 @@ extension AppFlowManager {
 //        delay(seconds: 0.1) { [weak obj] in
 //            obj?.delegate = delegate
 //        }
+    }
+    
+    func moveToGuestDetailScreen() {
+        let obj = GuestDetailsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

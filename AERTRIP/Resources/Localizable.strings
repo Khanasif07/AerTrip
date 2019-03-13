@@ -423,6 +423,8 @@
 "HotelResultFor" = "Hotel results for…";
 "NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
+"NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
+"NoHotelFoundFilter" = "No Hotel Found\nChoose another filters try again.";
 "rupeesText" = "₹";
 
 
@@ -447,6 +449,13 @@
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
+
+//Hotel Checkout Guest Details screen
+"GuestDetails" = "GuestDetails";
+"CancelWithSpace" = " Cancel";
+"DoneWithSpace" = "Done ";
+"FirstName" = "First Name";
+"LastName" = "Last Name";
 "Details" = "Details";
 "PreferencesSpecialRequests" = "PreferencesSpecialRequests";
 "Optional" = "Optional";

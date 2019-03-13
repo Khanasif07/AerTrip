@@ -63,9 +63,6 @@ class HotelCardTableViewCell: UITableViewCell {
         self.gradientView.backgroundColor = AppColors.clear
         
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
-        
-        //        bgView.addCardShadow()
-        
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
     }
@@ -81,18 +78,17 @@ class HotelCardTableViewCell: UITableViewCell {
             return
         }
         
-        self.pageControl.numberOfPages = 5
+        self.pageControl.numberOfPages = thumbnail.count
         self.scrollView.delegate = self
-        self.scrollView.isPagingEnabled = true
+        self.scrollView.isPagingEnabled = (thumbnail.count <= 1)
         self.scrollView.isUserInteractionEnabled = true
         self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(5), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")
-        
-        for index in 0..<5 {
+        self.pageControl.isHidden = (thumbnail.count <= 1)
+        for index in 0..<thumbnail.count {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
             view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            // view.image = UIImage(named: "tickIcon")
             scrollView.addSubview(view)
         }
     }
@@ -101,8 +97,6 @@ class HotelCardTableViewCell: UITableViewCell {
         super.draw(rect)
         
         self.bgView.cornerRadius = 10.0
-        //        self.bgView.layer.borderWidth = 3.0
-        //        self.bgView.layer.borderColor = AppColors.themeGray04.withAlphaComponent(0.8).cgColor
     }
     
     private func populateData() {

@@ -106,7 +106,7 @@ class HotelDetailsVC: BaseVC {
         let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
         stV.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         stV.containerView.backgroundColor = AppColors.themeGreen
-        stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price ?? 0.0)"
+        stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price.delimiter ?? "0.0")"
         stV.noRoomsAvailable.isHidden = true
         stV.addSelectRoomTarget(target: self, action: #selector(selectRoomAction))
         return stV
@@ -129,13 +129,13 @@ class HotelDetailsVC: BaseVC {
                 self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
             }
             
-            if let footerView = self.tableFooterView {
-                footerView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
-                footerView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
-                footerView.noRoomsAvailable.isHidden = false
-                footerView.fromLabel.isHidden = true
-                footerView.hotelFeesLabel.isHidden = true
-                footerView.selectRoomLabel.isHidden = true
+            if let tableFooterView = self.tableFooterView {
+                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+                tableFooterView.noRoomsAvailable.isHidden = false
+                tableFooterView.fromLabel.isHidden = true
+                tableFooterView.hotelFeesLabel.isHidden = true
+                tableFooterView.selectRoomLabel.isHidden = true
                 self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
                 self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
             }
@@ -151,13 +151,13 @@ class HotelDetailsVC: BaseVC {
                 self.footerView.backgroundColor = AppColors.themeGreen
             }
             
-            if let footerView = self.tableFooterView {
-                footerView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-                footerView.containerView.backgroundColor = AppColors.themeGreen
-                footerView.noRoomsAvailable.isHidden = true
-                footerView.fromLabel.isHidden = false
-                footerView.hotelFeesLabel.isHidden = false
-                footerView.selectRoomLabel.isHidden = false
+            if let tableFooterView = self.tableFooterView {
+                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+                tableFooterView.noRoomsAvailable.isHidden = true
+                tableFooterView.fromLabel.isHidden = false
+                tableFooterView.hotelFeesLabel.isHidden = false
+                tableFooterView.selectRoomLabel.isHidden = false
                 self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
                 self.footerView.backgroundColor = AppColors.themeGreen
             }
@@ -285,7 +285,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func getSavedFilter() {
-        guard let filter = UserInfo.loggedInUser?.hotelFilter else {
+        guard let filter = UserInfo.hotelFilter else {
             printDebug("Filter not found")
             return
         }
