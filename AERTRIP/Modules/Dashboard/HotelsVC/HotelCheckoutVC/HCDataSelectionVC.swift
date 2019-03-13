@@ -140,9 +140,15 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
+        FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: 30.0, totalUpdatedAmount: 12000.0, continueButtonAction: {
+            print("continueButtonAction")
+        }, goBackButtonAction: {
+            print("goBackButtonAction")
+        })
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
+        FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: 30.0, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
     }
 }
 

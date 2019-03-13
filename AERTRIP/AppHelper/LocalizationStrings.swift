@@ -493,4 +493,9 @@ enum LocalizedString: String {
     case PreferencesSpecialRequests = "Preferences, Special Requests"
     case Optional = "Optional"
     case EmailMobileCommunicationMessageForBooking = "EmailMobileCommunicationMessageForBooking"
+    case FareIncreasedBy = "FareIncreasedBy"
+    case TotalUpdatedPrice = "TotalUpdatedPrice"
+    case ContinueBooking = "ContinueBooking"
+    case GoBackToResults = "GoBackToResults"
+    case FareDippedBy = "FareDippedBy"
 }
