@@ -14,6 +14,7 @@ class GuestDetailsVC: BaseVC {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var travellersTableView: UITableView!
     
     
     // Mark: - Properties
@@ -30,10 +31,11 @@ class GuestDetailsVC: BaseVC {
         self.doInitialSetup()
         self.addFooterView()
         self.getRoomDetails()
+       
     }
     
 
-    
+   
 
 
     
@@ -48,8 +50,10 @@ class GuestDetailsVC: BaseVC {
     
     private func doInitialSetup() {
         self.tableView.separatorStyle = .none
+        self.travellersTableView.separatorStyle = .none
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.travellersTableView.isHidden = true
         self.setUpNavigationView()
     }
     
@@ -69,8 +73,10 @@ class GuestDetailsVC: BaseVC {
     }
     
     private func getRoomDetails() {
-        self.viewModel.hotelFormData =  HotelsSearchVM.hotelFormData ?? HotelFormPreviosSearchData()
+        self.viewModel.hotelFormData =  HotelsSearchVM.hotelFormData
     }
+    
+  
 
 }
 
@@ -92,6 +98,7 @@ extension GuestDetailsVC : UITableViewDataSource ,UITableViewDelegate {
             printDebug("cell not found")
             return UITableViewCell()
         }
+        cell.delegate = self
         if indexPath.row < self.viewModel.hotelFormData.adultsCount[indexPath.section] {
             cell.guestTitleLabel.text = "Adult \(indexPath.row + 1)"
         } else {
@@ -121,10 +128,7 @@ extension GuestDetailsVC : UITableViewDataSource ,UITableViewDelegate {
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        printDebug(scrollView.contentOffset)
-    }
+
    
    
 }
@@ -141,3 +145,15 @@ extension GuestDetailsVC : TopNavigationViewDelegate {
         AppFlowManager.default.popViewController(animated: true)
     }
 }
+
+extension GuestDetailsVC : GuestDetailTableViewCellDelegate {
+    func textField(_ textField: UITextField) {
+        let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: tableView)
+        self.tableView.setContentOffset(CGPoint(x: self.tableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
+       
+        printDebug("item position is \(itemPosition)")
+    }
+    
+    
+}
+
