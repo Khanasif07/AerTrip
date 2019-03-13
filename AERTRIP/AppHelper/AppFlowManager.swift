@@ -421,6 +421,11 @@ extension AppFlowManager {
 //            obj?.delegate = delegate
 //        }
     }
+    
+    func moveToGuestDetailScreen() {
+        let obj = GuestDetailsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
 }
 
 //MARK: - Pop Methods

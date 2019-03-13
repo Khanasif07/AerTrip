@@ -288,7 +288,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true

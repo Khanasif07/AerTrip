@@ -482,10 +482,18 @@ on Christmas”</string>
                                                     <constraint firstItem="ghO-aZ-vI6" firstAttribute="top" secondItem="ZaM-aV-lTD" secondAttribute="top" id="nXW-u6-lcX"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kw-zs-yPC">
+                                                <rect key="frame" x="231" y="146" width="125" height="30"/>
+                                                <state key="normal" title="OpenGuestDetails"/>
+                                                <connections>
+                                                    <action selector="openGuestDetailsScreenTapped:" destination="bYL-Ms-OZy" eventType="touchUpInside" id="A1e-ad-bwj"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="Zr9-Sf-iGr" secondAttribute="top" constant="-8" id="3vQ-rr-X5y"/>
+                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="3kw-zs-yPC" secondAttribute="bottom" constant="155.5" id="40L-aY-H46"/>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="5rZ-LR-yJq"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="35" id="6Ic-CZ-Qwm"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="leading" secondItem="Zr9-Sf-iGr" secondAttribute="leading" constant="20" id="6q1-Ea-wqq"/>
@@ -501,10 +509,13 @@ on Christmas”</string>
                                             <constraint firstItem="ese-ox-irL" firstAttribute="top" secondItem="Scz-4i-JRa" secondAttribute="bottom" constant="5" id="Xkm-a9-aMb"/>
                                             <constraint firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" constant="10" id="Z1t-N9-rv6"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" constant="30" id="ZeQ-OS-Eoe"/>
+                                            <constraint firstItem="3kw-zs-yPC" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="231" id="aYv-VX-cRh"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="top" secondItem="bJN-Be-u7u" secondAttribute="bottom" constant="70" id="daZ-Wt-uGN"/>
+                                            <constraint firstAttribute="trailing" secondItem="3kw-zs-yPC" secondAttribute="trailing" constant="19" id="etX-Wp-jDe"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="trailing" secondItem="Zr9-Sf-iGr" secondAttribute="trailing" constant="-20" id="fHP-UV-gED"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="DG4-JY-83S" secondAttribute="bottom" constant="15" id="i5n-ah-2B5"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="trailing" secondItem="ese-ox-irL" secondAttribute="trailing" constant="-15" id="jxu-N8-RkT"/>
+                                            <constraint firstItem="3kw-zs-yPC" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="34.5" id="kHb-Cp-Rw0"/>
                                             <constraint firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="kWb-g8-wmH"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="bottom" secondItem="ZaM-aV-lTD" secondAttribute="bottom" id="tNb-d4-7TC"/>
                                             <constraint firstItem="ZaM-aV-lTD" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="10" id="tkU-EY-dy5"/>
@@ -965,7 +976,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="TripsVC" id="PTU-br-IAu" customClass="TripsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8aR-r3-Nn6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="504.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">

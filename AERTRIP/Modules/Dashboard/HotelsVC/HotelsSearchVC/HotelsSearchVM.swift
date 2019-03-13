@@ -39,7 +39,7 @@ class HotelsSearchVM: NSObject{
     var cityName = ""
     var stateName = ""
     
-    var hotelFormData: HotelFormPreviosSearchData? {
+    class var hotelFormData: HotelFormPreviosSearchData? {
         get {
             return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData
         }
@@ -115,8 +115,8 @@ class HotelsSearchVM: NSObject{
         hotelData.ratingCount    = self.ratingCount
         hotelData.destType       = self.destType
         
-        self.hotelFormData = hotelData
-        printDebug(self.hotelFormData)
+        HotelsSearchVM.hotelFormData = hotelData
+        printDebug(HotelsSearchVM.hotelFormData)
     }
     
     ///Hotel List Api

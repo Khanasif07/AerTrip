@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="119" id="KGk-i7-Jjw" customClass="GuestDetailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="118.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USd-zI-5DG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="118.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br8-JF-9yQ">
+                                <rect key="frame" x="16" y="15" width="42" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="si6-BZ-3vU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7EI-ks-Y6F" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="55" width="76" height="63.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="M1W-qj-2wR"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Title"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="5BY-Ys-Io1">
+                                <rect key="frame" x="79" y="86" width="9" height="6"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wOV-ds-QMg">
+                                <rect key="frame" x="104" y="55" width="216" height="63.5"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PeD-mV-8zF" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="63.5"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="First Name"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Pe-Oj-KeI" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="115.5" y="0.0" width="100.5" height="63.5"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Last name"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="118.5" id="4Jv-41-rjX"/>
+                            <constraint firstAttribute="bottom" secondItem="7EI-ks-Y6F" secondAttribute="bottom" id="5Kd-gc-kTZ"/>
+                            <constraint firstItem="wOV-ds-QMg" firstAttribute="centerY" secondItem="7EI-ks-Y6F" secondAttribute="centerY" id="93h-we-YRl"/>
+                            <constraint firstItem="Br8-JF-9yQ" firstAttribute="leading" secondItem="USd-zI-5DG" secondAttribute="leading" constant="16" id="DeF-aF-0S7"/>
+                            <constraint firstItem="Br8-JF-9yQ" firstAttribute="top" secondItem="USd-zI-5DG" secondAttribute="top" constant="15" id="RoK-8s-XiC"/>
+                            <constraint firstItem="wOV-ds-QMg" firstAttribute="leading" secondItem="7EI-ks-Y6F" secondAttribute="trailing" constant="12" id="WWU-uh-hKZ"/>
+                            <constraint firstItem="7EI-ks-Y6F" firstAttribute="top" secondItem="Br8-JF-9yQ" secondAttribute="bottom" constant="20" id="Xv3-qm-rXc"/>
+                            <constraint firstItem="5BY-Ys-Io1" firstAttribute="trailing" secondItem="7EI-ks-Y6F" secondAttribute="trailing" constant="-4" id="Zha-go-25T"/>
+                            <constraint firstAttribute="bottom" secondItem="wOV-ds-QMg" secondAttribute="bottom" id="b06-81-J2e"/>
+                            <constraint firstItem="5BY-Ys-Io1" firstAttribute="centerY" secondItem="7EI-ks-Y6F" secondAttribute="centerY" constant="2" id="jpF-ej-fli"/>
+                            <constraint firstItem="Br8-JF-9yQ" firstAttribute="leading" secondItem="7EI-ks-Y6F" secondAttribute="leading" id="qwN-gU-NtY"/>
+                            <constraint firstAttribute="trailing" secondItem="wOV-ds-QMg" secondAttribute="trailing" id="scz-Tn-i9F"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="USd-zI-5DG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8GM-0u-cA0"/>
+                    <constraint firstItem="USd-zI-5DG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FJ0-SB-Dbx"/>
+                    <constraint firstAttribute="bottom" secondItem="USd-zI-5DG" secondAttribute="bottom" id="ZkR-xh-48J"/>
+                    <constraint firstAttribute="trailing" secondItem="USd-zI-5DG" secondAttribute="trailing" id="u8C-gr-2zq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="firstNameTextField" destination="PeD-mV-8zF" id="HvU-bY-pLB"/>
+                <outlet property="guestTitleLabel" destination="Br8-JF-9yQ" id="4tK-Jo-nJ3"/>
+                <outlet property="lastNameTextField" destination="2Pe-Oj-KeI" id="xcw-Bd-I3A"/>
+                <outlet property="salutationTextField" destination="7EI-ks-Y6F" id="6EG-tv-Gfg"/>
+            </connections>
+            <point key="canvasLocation" x="52.799999999999997" y="51.724137931034484"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="downArrow" width="9" height="6"/>
+    </resources>
+</document>

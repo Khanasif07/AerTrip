@@ -176,4 +176,9 @@ class AerinVC: BaseVC {
     
     
     //MARK:- Action
+    
+    @IBAction func openGuestDetailsScreenTapped(_ sender: Any) {
+        AppFlowManager.default.moveToGuestDetailScreen()
+    }
+    
 }

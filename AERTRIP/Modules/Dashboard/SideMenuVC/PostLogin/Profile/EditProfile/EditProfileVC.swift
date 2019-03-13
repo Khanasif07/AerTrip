@@ -48,7 +48,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     let viewModel = EditProfileVM()
     var sections = [LocalizedString.EmailAddress.localized, LocalizedString.ContactNumber.localized, LocalizedString.Address.localized, LocalizedString.MoreInformation.localized]
-    let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     var editProfileImageHeaderView: EditProfileImageHeaderView = EditProfileImageHeaderView()
     
     var indexPath: IndexPath?
@@ -197,7 +196,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func registerXib() {
-        tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
+        tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
         tableView.register(UINib(nibName: editTwoPartCellIdentifier, bundle: nil), forCellReuseIdentifier: editTwoPartCellIdentifier)
         tableView.register(UINib(nibName: editThreePartCellIdentifier, bundle: nil), forCellReuseIdentifier: editThreePartCellIdentifier)
         tableView.register(UINib(nibName: addActionCellIdentifier, bundle: nil), forCellReuseIdentifier: addActionCellIdentifier)

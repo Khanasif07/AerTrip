@@ -75,6 +75,7 @@ enum LocalizedString: String {
     case noreply_aertrip_com = "noreply_aertrip_com"
     case password_redset_link_message = "password_redset_link_message"
     case Cancel = "Cancel"
+    case CancelWithSpace = "CancelWithSpace"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
 
@@ -115,6 +116,7 @@ enum LocalizedString: String {
     case Mobile_Number  = "Mobile_Number"
     case Lets_Get_Started = "Lets_Get_Started"
     case Done    = "Done"
+    case DoneWithSpace = "DoneWithSpace"
     
     // MARK:- ForgotPasswordVC
     //MARK:-
@@ -205,8 +207,8 @@ enum LocalizedString: String {
     // MARK: - Edit Profile VC
     
     case Save = "Save"
-    case FirstName = "First name"
-    case LastName = "Last name"
+    case FirstName = "FirstName"
+    case LastName = "LastName"
     case TakePhoto = "Take Photo"
     case ChoosePhoto = "Choose Photo"
     case ImportFromFacebook = "Import from Facebook"
@@ -483,4 +485,8 @@ enum LocalizedString: String {
     
     //Hotel Checkout Deatail Selection screen
     case Guests = "Guests"
+    
+    //Hotel Checkout Guest Details screen
+    case GuestDetails = "GuestDetails"
+   
 }

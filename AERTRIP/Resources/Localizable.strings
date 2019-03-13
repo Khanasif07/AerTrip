@@ -449,3 +449,10 @@
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
+
+//Hotel Checkout Guest Details screen
+"GuestDetails" = "GuestDetails";
+"CancelWithSpace" = " Cancel";
+"DoneWithSpace" = "Done ";
+"FirstName" = "First Name";
+"LastName" = "Last Name";

@@ -265,7 +265,7 @@ class HotelsSearchVC: BaseVC {
     ///GetDataFromPreviousSearch
     private func getDataFromPreviousSearch() {
         let date = Date()
-        if let hotelFormData = self.viewModel.hotelFormData, let checkInDate = hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
+        if let hotelFormData = HotelsSearchVM.hotelFormData, let checkInDate = hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
             if date.daysBetweenDate(toDate: date, endDate: checkInDate) <= 0 {
                 //  self.viewModel.roomNumber = hotelFormData.roomNumber
                 self.viewModel.ratingCount = hotelFormData.ratingCount
