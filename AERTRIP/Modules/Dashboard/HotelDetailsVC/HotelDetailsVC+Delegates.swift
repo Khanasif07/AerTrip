@@ -249,7 +249,7 @@ extension HotelDetailsVC {
         if hotelTableView.numberOfSections > 2 {
             let rows = hotelTableView.numberOfRows(inSection: 2)
             let indexPath = IndexPath(row: rows-1, section: 2)
-            
+            let extra = UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0
             var finalY: CGFloat = 0.0
             if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
                 
@@ -260,7 +260,7 @@ extension HotelDetailsVC {
                 
                 let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
                 if 0...self.footerView.height ~= bottomCons {
-                    self.stickyBottomConstraint.constant = -bottomCons
+                    self.stickyBottomConstraint.constant = -(bottomCons)
                 }
                 else if self.initialStickyPosition <= 0.0 {
                     self.stickyBottomConstraint.constant = 0.0

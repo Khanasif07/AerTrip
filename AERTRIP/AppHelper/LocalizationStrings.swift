@@ -482,4 +482,8 @@ enum LocalizedString: String {
     
     //Hotel Checkout Deatail Selection screen
     case Guests = "Guests"
+    case Details = "Details"
+    case PreferencesSpecialRequests = "Preferences, Special Requests"
+    case Optional = "Optional"
+    case EmailMobileCommunicationMessageForBooking = "EmailMobileCommunicationMessageForBooking"
 }

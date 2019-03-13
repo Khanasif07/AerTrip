@@ -66,4 +66,12 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
         self.selectRoomLabel.text = LocalizedString.SelectRoom.localized
         self.noRoomsAvailable.text = LocalizedString.NoRoomsAvailable.localized
     }
+    
+    func addSelectRoomTarget(target: Any?, action: Selector?) {
+        self.selectRoomLabel.isUserInteractionEnabled = true
+        
+        let tapGeature = UITapGestureRecognizer(target: target, action: action)
+        tapGeature.numberOfTapsRequired = 1
+        self.selectRoomLabel.addGestureRecognizer(tapGeature)
+    }
 }

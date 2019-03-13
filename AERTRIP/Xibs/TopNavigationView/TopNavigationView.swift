@@ -19,7 +19,7 @@ extension TopNavigationViewDelegate {
     func topNavBarSecondRightButtonAction(_ sender: UIButton) { }
 }
 
-@IBDesignable
+
 class TopNavigationView: UIView {
     
     //MARK:- Properties

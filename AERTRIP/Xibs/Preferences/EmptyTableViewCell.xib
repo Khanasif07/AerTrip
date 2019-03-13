@@ -45,6 +45,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bottomDividerView" destination="gZn-LN-XUW" id="MwD-oj-uXO"/>
+                <outlet property="topDividerView" destination="9Yt-oI-Nxj" id="QOs-wD-Yqm"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>
