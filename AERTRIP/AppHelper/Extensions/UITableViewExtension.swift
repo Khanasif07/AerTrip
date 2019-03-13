@@ -12,7 +12,7 @@ import UIKit
 extension UITableView {
     
     
-    func registerCell(nibName:String, bundle:Bundle? = nil, forCellWithReuseIdentifier:String? = nil){
+    func registerCell(nibName:String, bundle:Bundle? = Bundle.main, forCellWithReuseIdentifier:String? = nil){
         
         let cellWithReuseIdentifier = forCellWithReuseIdentifier ?? nibName
         self.register(UINib(nibName: nibName , bundle: bundle), forCellReuseIdentifier: cellWithReuseIdentifier)

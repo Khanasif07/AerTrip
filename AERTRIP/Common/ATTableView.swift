@@ -18,5 +18,6 @@ class ATTableView: UITableView {
     
     private func intitalSetup() {
         self.keyboardDismissMode = .onDrag
+        self.separatorStyle = .none
     }
 }

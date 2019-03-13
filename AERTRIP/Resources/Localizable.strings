@@ -456,3 +456,7 @@
 "DoneWithSpace" = "Done ";
 "FirstName" = "First Name";
 "LastName" = "Last Name";
+"Details" = "Details";
+"PreferencesSpecialRequests" = "PreferencesSpecialRequests";
+"Optional" = "Optional";
+"EmailMobileCommunicationMessageForBooking" = "This mobile number and email address will be used for all communication related to this booking.";

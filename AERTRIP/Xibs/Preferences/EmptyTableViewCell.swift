@@ -8,4 +8,8 @@
 
 import UIKit
 
-class EmptyTableViewCell: UITableViewCell {}
+class EmptyTableViewCell: UITableViewCell {
+    @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
+    
+}

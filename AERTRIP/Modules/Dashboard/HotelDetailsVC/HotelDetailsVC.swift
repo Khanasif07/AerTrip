@@ -108,7 +108,12 @@ class HotelDetailsVC: BaseVC {
         stV.containerView.backgroundColor = AppColors.themeGreen
         stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price.delimiter ?? "0.0")"
         stV.noRoomsAvailable.isHidden = true
+        stV.addSelectRoomTarget(target: self, action: #selector(selectRoomAction))
         return stV
+    }
+    
+    @objc func selectRoomAction() {
+        AppFlowManager.default.moveToHCDataSelectionVC()
     }
     
     internal func updateStickyFooterView() {
@@ -160,12 +165,15 @@ class HotelDetailsVC: BaseVC {
     }
     
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
+        
         self.parentVC = onViewController
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        let newImageFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+        
+        let newY = UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0
+        let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
+        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-newY))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame

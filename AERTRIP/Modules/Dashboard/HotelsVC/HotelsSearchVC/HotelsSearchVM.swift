@@ -39,17 +39,13 @@ class HotelsSearchVM: NSObject{
     var cityName = ""
     var stateName = ""
     
-    class var hotelFormData: HotelFormPreviosSearchData? {
+
+    class var hotelFormData: HotelFormPreviosSearchData {
         get {
-            return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData
+            return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData ?? HotelFormPreviosSearchData()
         }
         set {
-            if let vlaue = newValue {
-                UserDefaults.saveCustomObject(customObject: vlaue, forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
-            }
-            else{
-                UserDefaults.removeObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
-            }
+            UserDefaults.saveCustomObject(customObject: newValue, forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
         }
     }
     

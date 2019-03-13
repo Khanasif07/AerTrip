@@ -265,20 +265,22 @@ class HotelsSearchVC: BaseVC {
     ///GetDataFromPreviousSearch
     private func getDataFromPreviousSearch() {
         let date = Date()
-        if let hotelFormData = HotelsSearchVM.hotelFormData, let checkInDate = hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
+
+        let oldData = HotelsSearchVM.hotelFormData
+        if let checkInDate = oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
             if date.daysBetweenDate(toDate: date, endDate: checkInDate) <= 0 {
-                //  self.viewModel.roomNumber = hotelFormData.roomNumber
-                self.viewModel.ratingCount = hotelFormData.ratingCount
-                self.viewModel.adultsCount = hotelFormData.adultsCount
-                self.viewModel.childrenCounts = hotelFormData.childrenCounts
-                self.viewModel.childrenAge = hotelFormData.childrenAge
-                self.viewModel.destId = hotelFormData.destId
-                self.viewModel.destType = hotelFormData.destType
-                self.viewModel.destName = hotelFormData.destName
-                self.viewModel.cityName = hotelFormData.cityName
-                self.viewModel.stateName = hotelFormData.stateName
-                self.viewModel.checkInDate = hotelFormData.checkInDate
-                self.viewModel.checkOutDate = hotelFormData.checkOutDate
+                //  self.viewModel.roomNumber = oldData.roomNumber
+                self.viewModel.ratingCount = oldData.ratingCount
+                self.viewModel.adultsCount = oldData.adultsCount
+                self.viewModel.childrenCounts = oldData.childrenCounts
+                self.viewModel.childrenAge = oldData.childrenAge
+                self.viewModel.destId = oldData.destId
+                self.viewModel.destType = oldData.destType
+                self.viewModel.destName = oldData.destName
+                self.viewModel.cityName = oldData.cityName
+                self.viewModel.stateName = oldData.stateName
+                self.viewModel.checkInDate = oldData.checkInDate
+                self.viewModel.checkOutDate = oldData.checkOutDate
                 self.fillDataFromPreviousSearch()
             }
         } else {
