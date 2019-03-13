@@ -49,6 +49,7 @@ class HotelDetailsVM {
     var vid: String = ""
     var sid: String = ""
     var hid: String = ""
+    var currencyPreference: String = ""
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
@@ -59,7 +60,6 @@ class HotelDetailsVM {
         return params
     }
     
-    ///Get Initial Filtered Data
     func getFilteredRatesData(rates: [Rates], tagList: [String],roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
         
         let filteredRates = rates.filter { (rate: Rates) -> Bool in
@@ -168,7 +168,6 @@ class HotelDetailsVM {
                                         }
                                     }
                                 }
-                                
                             }
                             else {
                                 return true
@@ -253,11 +252,12 @@ class HotelDetailsVM {
          }
          } */
         
-        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData) in
+        APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData, currencyPref) in
             guard let sSelf = self else {return}
             if success {
                 if let safeHotelData = hotelData {
                     sSelf.hotelData = safeHotelData
+                    sSelf.currencyPreference = currencyPref
                     sSelf.delegate?.getHotelDetailsSuccess()
                 }
             } else {

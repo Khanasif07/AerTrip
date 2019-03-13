@@ -449,3 +449,9 @@
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
+"Coupons" = "Coupons";
+"EnterCouponCode" = "Enter a Coupon Code";
+"OfferTerms" = "Offer Terms";
+"Code" = "CODE:";
+"NoCouponRequired" = "No coupon required";
+"YouAlreadyHaveBestPrice" = "You already have the best price.";

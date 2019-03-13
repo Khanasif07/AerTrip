@@ -185,7 +185,6 @@ extension HotelDetailsVC: HotelDetailDelegate {
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
-            //"Breakfast"
             delay(seconds: AppConstants.kAnimationDuration) {
                 cell.activityIndicator.isHidden = true
             }

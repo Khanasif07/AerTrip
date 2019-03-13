@@ -258,6 +258,16 @@ enum APIKeys: String {
     case rankingStringDetail = "ranking_string_detail"
     case ratingImageUrl = "rating_image_url"
     case localizedName = "localized_name"
+    case is_applied = "is_applied"
+    case coupon_code = "coupon_code"
+    case coupon_title = "coupon_title"
+    case description = "description"
+    case discounts_breakup = "discounts_breakup"
+    case CPD = "CPD"
+    case CACB = "CACB"
+    case CSPCFEE = "CSPCFEE"
+    case product_type = "product_type"
+    case currency_pref = "currency_pref"
 }
 
 
