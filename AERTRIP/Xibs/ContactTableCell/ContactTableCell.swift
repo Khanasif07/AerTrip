@@ -27,6 +27,7 @@ class ContactTableCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        self.selectionStyle = .none
         configUI()
     }
 
@@ -48,6 +49,7 @@ class ContactTableCell: UITableViewCell {
         
         contactNumberTextField.font = AppFonts.Regular.withSize(18.0)
         contactNumberTextField.textColor = AppColors.themeBlack
+        contactNumberTextField.placeholder = LocalizedString.Mobile.localized
         
         if let current = PKCountryPicker.default.getCurrentLocalCountryData() {
             flagImageView.image = current.flagImage
