@@ -13,7 +13,6 @@ import UIKit
 
 extension HotelResultVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.tableViewType = .SearchTableView
         animateHeaderToMapView()
         self.predicateStr = ""
         self.loadSaveData()
@@ -24,20 +23,20 @@ extension HotelResultVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+         self.fetchRequestType = .Searching
         if searchText == "" {
-            self.fetchRequestType = .Searching
             self.predicateStr = ""
             self.loadSaveData()
             self.hotelSearchView.isHidden = true
             self.tableViewType = .ListTableView
-            self.searchHotels(forText: searchText)
+            self.searchForText(searchText)
             self.reloadHotelList()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             self.tableViewType = .SearchTableView
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.hotelSearchView.isHidden = false
-            self.searchHotels(forText: searchText)
+            self.searchForText(searchText)
         }
     }
     

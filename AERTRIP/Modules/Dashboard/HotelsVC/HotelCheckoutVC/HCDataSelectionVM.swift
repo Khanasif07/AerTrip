@@ -20,7 +20,7 @@ class HCDataSelectionVM {
     //MARK:- Public
     weak var delegate: HCDataSelectionVMDelegate?
     private(set) var itineraryData: ItineraryData?
-        
+    var guests : [[GuestModal]] = [[]]
     //MARK:- Private
     
     
