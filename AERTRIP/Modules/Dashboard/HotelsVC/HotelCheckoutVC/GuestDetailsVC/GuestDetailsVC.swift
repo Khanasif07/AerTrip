@@ -17,6 +17,7 @@ class GuestDetailsVC: BaseVC {
     
     // Mark: - Properties
     let cellIdentifier = "GuestDetailTableViewCell"
+    let viewModel = GuestDetailsVM()
     
     // MARK: - View Life cycle
     
@@ -74,13 +75,13 @@ class GuestDetailsVC: BaseVC {
     // get Room details from User defaults
     
     private func getRoomDetails() {
-        HCDataSelectionVM.shared.hotelFormData = HotelsSearchVM.hotelFormData
+        viewModel.hotelFormData = HotelsSearchVM.hotelFormData
     }
     
     // Make table view particular index selectable or Editable
     private func makeTableViewIndexSelectable() {
-        self.tableView.scrollToRow(at: HCDataSelectionVM.shared.selectedIndexPath, at: .top, animated: false)
-        if let cell = tableView.cellForRow(at: HCDataSelectionVM.shared.selectedIndexPath) as? GuestDetailTableViewCell {
+        self.tableView.scrollToRow(at: viewModel.selectedIndexPath, at: .top, animated: false)
+        if let cell = tableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
             cell.firstNameTextField.becomeFirstResponder()
         }
     }
@@ -90,11 +91,11 @@ class GuestDetailsVC: BaseVC {
 
 extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return HCDataSelectionVM.shared.hotelFormData.adultsCount.count
+        return viewModel.hotelFormData.adultsCount.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HCDataSelectionVM.shared.hotelFormData.adultsCount[section] + HCDataSelectionVM.shared.hotelFormData.childrenCounts[section]
+        return viewModel.hotelFormData.adultsCount[section] + viewModel.hotelFormData.childrenCounts[section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,10 +104,10 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.delegate = self
-        if indexPath.row < HCDataSelectionVM.shared.hotelFormData.adultsCount[indexPath.section] {
+        if indexPath.row < viewModel.hotelFormData.adultsCount[indexPath.section] {
             cell.guestTitleLabel.text = "Adult \(indexPath.row + 1)"
         } else {
-            cell.guestTitleLabel.text = "Child \((indexPath.row -  HCDataSelectionVM.shared.hotelFormData.adultsCount[indexPath.section]) + 1)"
+            cell.guestTitleLabel.text = "Child \((indexPath.row -  viewModel.hotelFormData.adultsCount[indexPath.section]) + 1)"
         }
         
         return cell
