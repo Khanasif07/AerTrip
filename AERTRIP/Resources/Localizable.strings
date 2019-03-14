@@ -470,3 +470,15 @@
 "FareDippedBy" = "Fare dipped by";
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
+
+//Hotel Checkout Coupons VC
+"Coupons" = "Coupons";
+"EnterCouponCode" = "Enter a Coupon Code";
+"OfferTerms" = "Offer Terms";
+"Code" = "CODE:";
+"NoCouponRequired" = "No coupon required";
+"YouAlreadyHaveBestPrice" = "You already have the best price.";
+
+//Hotel Checkout Special Request VC
+"AirlineNameFlightNumberArrivalTime" = "Airline Name, Flight Number, Arrival Time...";
+"SpecialRequestIfAny" = "Special Request If any...";

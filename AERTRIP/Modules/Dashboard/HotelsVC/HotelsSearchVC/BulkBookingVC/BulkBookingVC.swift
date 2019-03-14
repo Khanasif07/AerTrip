@@ -181,6 +181,8 @@ class BulkBookingVC: BaseVC {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let finalText = textField.text , finalText.containsWhitespace {
             textField.text = ""
+        } else {
+            printDebug("There is a text")
         }
     }
     

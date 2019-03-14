@@ -86,7 +86,7 @@ class HotelsSearchVM: NSObject{
             }
         }
         
-//        printDebug(params)
+        printDebug(params)
         return params
     }
     

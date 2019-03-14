@@ -36,7 +36,6 @@ class RoomTableViewCell: UITableViewCell  {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
    
@@ -50,5 +49,11 @@ class RoomTableViewCell: UITableViewCell  {
     
     private func populateOthersData() {
         self.titleLabel.text = others?.title
+    }
+    
+    internal func configCell(title: String) {
+        self.titleLabel.textColor = AppColors.themeBlack
+        self.titleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.titleLabel.text = title
     }
 }

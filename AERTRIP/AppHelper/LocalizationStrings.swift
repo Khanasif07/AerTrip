@@ -504,4 +504,16 @@ enum LocalizedString: String {
     case FareDippedBy = "FareDippedBy"
     case FareBreakup = "FareBreakup"
     case TotalPayableNow = "TotalPayableNow"
+
+    //Hotel Checkout Coupons VC
+    case Coupons = "Coupons"
+    case EnterCouponCode = "EnterCouponCode"
+    case OfferTerms = "OfferTerms"
+    case Code = "Code"
+    case NoCouponRequired = "NoCouponRequired"
+    case YouAlreadyHaveBestPrice = "YouAlreadyHaveBestPrice"
+    
+    //Hotel Checkout Special Request VC
+    case AirlineNameFlightNumberArrivalTime = "AirlineNameFlightNumberArrivalTime"
+    case SpecialRequestIfAny = "SpecialRequestIfAny"
 }

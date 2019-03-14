@@ -291,6 +291,15 @@ enum APIKeys: String {
     case it_id
     case traveller_master
     case special_requests
+
+    case is_applied = "is_applied"
+    case coupon_title = "coupon_title"
+    case description = "description"
+    case discounts_breakup = "discounts_breakup"
+    case CPD = "CPD"
+    case CACB = "CACB"
+    case CSPCFEE = "CSPCFEE"
+    case currency_pref = "currency_pref"
 }
 
 

@@ -11,23 +11,23 @@ import Foundation
 extension APICaller {
     //hotelInfo
     
-    func getHotelDetails(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: HotelDetails?) -> Void) {
+    func getHotelDetails(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: HotelDetails?,_ currencyPref: String) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.hotelInfo, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotel = response["results"] as? JSONDictionary {
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotel = response["results"] as? JSONDictionary, let currencyPref = response[APIKeys.currency_pref.rawValue] as? String {
                     let hotelInfo = HotelDetails.hotelInfo(response: hotel)
-                    completionBlock(true, [], hotelInfo)
+                    completionBlock(true, [], hotelInfo, currencyPref)
                 }
                 else {
-                    completionBlock(false, [], nil)
+                    completionBlock(false, [], nil, "")
                 }
             }, failure: { _ in
-                completionBlock(false, [], nil )
+                completionBlock(false, [], nil, "" )
             })
         }) { _ in
-            completionBlock(false, [], nil )
+            completionBlock(false, [], nil, "" )
         }
     }
     //
