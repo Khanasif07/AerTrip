@@ -319,7 +319,17 @@ class HotelResultVC: BaseVC {
         self.collectionView.reloadData()
     }
     
-    func searchHotels(forText: String) {
+    
+     func searchForText(_ searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+    }
+    
+    @objc private func performSearchForText(_ searchText: String) {
+        searchHotels(forText: searchText)
+    }
+    
+   private func searchHotels(forText: String) {
         self.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
@@ -578,6 +588,8 @@ class HotelResultVC: BaseVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
+            } else {
+                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
             }
             self.reloadHotelList()
         } catch {
@@ -712,6 +724,9 @@ class HotelResultVC: BaseVC {
         self.hotelSearchView.isHidden = true
         self.view.endEditing(true)
         self.tableViewType = .ListTableView
+        self.searchBar.text = ""
+        self.predicateStr = ""
+        self.loadSaveData()
         self.reloadHotelList()
     }
     

@@ -20,12 +20,13 @@ class HCDataSelectionVM {
     //MARK:- Public
     weak var delegate: HCDataSelectionVMDelegate?
     private(set) var itineraryData: ItineraryData?
-    
+
     //following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
         
+    var guests : [[GuestModal]] = [[]]
+
     //MARK:- Private
-    
     
     //MARK:- Methods
     //MARK:- Private

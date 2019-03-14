@@ -26,7 +26,7 @@ class HotelFilterVM {
     var ratingCount: [Int] = []
     var tripAdvisorRatingCount: [Int] = []
     var isIncludeUnrated: Bool = false
-    var distanceRange: Double = 2.0
+    var distanceRange: Double = 14.0
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
     var leftRangePrice: Double = 0.0
