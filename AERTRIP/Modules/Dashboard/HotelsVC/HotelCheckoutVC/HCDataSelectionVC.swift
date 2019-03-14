@@ -34,7 +34,6 @@ class HCDataSelectionVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
-    let viewModel = HCDataSelectionVM()
     
     //MARK:- Private
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -52,6 +51,8 @@ class HCDataSelectionVC: BaseVC {
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
+        
+        setUpGuestsArray()
     }
     
     override func setupFonts() {
@@ -110,6 +111,15 @@ class HCDataSelectionVC: BaseVC {
         tableView.registerCell(nibName: TextEditableTableViewCell.reusableIdentifier)
         tableView.registerCell(nibName: ContactTableCell.reusableIdentifier)
         
+    }
+    
+    private func setUpGuestsArray() {
+        for i in 0..<HCDataSelectionVM.shared.hotelFormData.adultsCount.count {
+            for j in 0..<HCDataSelectionVM.shared.hotelFormData.adultsCount.count + HCDataSelectionVM.shared.hotelFormData.childrenCounts.count {
+                let guests = GuestModal()
+                HCDataSelectionVM.shared.guests[i][j] = guests
+            }
+        }
     }
     
     //MARK:- Methods
@@ -304,5 +314,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
     }
 }

@@ -12,6 +12,20 @@ class HCDataSelectionVM {
     
     //MARK:- Properties
     //MARK:- Public
+    static let shared = HCDataSelectionVM()
+    
+    // Save Hotel Form Data
+  
+    var hotelFormData : HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    var selectedIndexPath: IndexPath = IndexPath()
+   
+    //GuestModalArray for travellers
+    var guests : [[GuestModal]] = [[]]
+    
+    
+     private init() {}
+    
+  
     
     //MARK:- Private
     

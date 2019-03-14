@@ -422,8 +422,9 @@ extension AppFlowManager {
 //        }
     }
     
-    func moveToGuestDetailScreen() {
+    func moveToGuestDetailScreen(_ indexPath:IndexPath) {
         let obj = GuestDetailsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+         HCDataSelectionVM.shared.selectedIndexPath = indexPath
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
