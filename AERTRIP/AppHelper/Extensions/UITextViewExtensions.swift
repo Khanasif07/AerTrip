@@ -17,3 +17,10 @@ extension UITextView{
         return 0
     }
 }
+
+extension UITextField {
+    
+    func setAttributedPlaceHolder(placeHolderText: String, color: UIColor = AppColors.themeGray20, font: UIFont = AppFonts.Regular.withSize(18.0)) {
+        self.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.foregroundColor: color,NSAttributedString.Key.font: font])
+    }
+}

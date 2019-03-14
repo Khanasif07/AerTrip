@@ -241,8 +241,7 @@
                                 <rect key="frame" x="0.0" y="495" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R 24,2341.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbc-HR-3Ud">
-
-                                        <rect key="frame" x="16" y="14.5" width="100" height="21"/>
+                                        <rect key="frame" x="16" y="15" width="100" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="6rP-wv-rCQ"/>
                                         </constraints>
@@ -857,6 +856,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mQI-YQ-7bq"/>
                     </view>
+                    <connections>
+                        <outlet property="headerView" destination="02x-et-lss" id="1Mw-H0-UAf"/>
+                        <outlet property="tableView" destination="ZyA-U8-tKE" id="s4A-DA-OUj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rb6-O4-VjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -864,10 +867,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="emptyStateCoupon" width="192" height="104"/>
         <image name="ic_add_adult" width="67" height="67"/>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
-        <image name="emptyStateCoupon" width="192" height="104"/>
     </resources>
 </document>

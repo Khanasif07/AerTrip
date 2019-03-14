@@ -45,7 +45,8 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
         self.infoTextField.font = AppFonts.Regular.withSize(18.0)
         
         //Text
-        self.infoTextField.attributedPlaceholder = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
+        self.infoTextField.setAttributedPlaceHolder(placeHolderText: "")
+        //        self.infoTextField.attributedPlaceholder = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
         //        self.specialRequestTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.SpecialRequestIfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
         
     }
@@ -60,7 +61,6 @@ extension HCSpecialRequestTextfieldCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-//        print(finalText)
         if !finalText.isEmpty {
             self.delegate?.passingSpecialRequestAndAirLineInfo(infoText: finalText)
         }

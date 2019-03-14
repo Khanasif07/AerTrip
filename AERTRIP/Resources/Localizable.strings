@@ -482,3 +482,5 @@
 //Hotel Checkout Special Request VC
 "AirlineNameFlightNumberArrivalTime" = "Airline Name, Flight Number, Arrival Time...";
 "SpecialRequestIfAny" = "Special Request If any...";
+"EmailItineraries" = "Email Itineraries";
+"SendToAll" = "Send to all";
