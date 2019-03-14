@@ -18,6 +18,7 @@ extension HotelDetailsVC {
             cell.imageUrls = imageUrls
             cell.configCell(imageUrls: imageUrls)
         }
+        cell.delegate = self
         return cell
     }
     
@@ -40,6 +41,7 @@ extension HotelDetailsVC {
     internal func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
         cell.imageUrls = hotelDetails.photos
+        cell.delegate = self
         cell.configCell(imageUrls: hotelDetails.photos)
         return cell
     }

@@ -388,8 +388,11 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     
-    func moveToHCDataSelectionVC() {
+    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String) {
         let obj = HCDataSelectionVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.viewModel.sId = sid
+        obj.viewModel.hId = hid
+        obj.viewModel.qId = qid
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

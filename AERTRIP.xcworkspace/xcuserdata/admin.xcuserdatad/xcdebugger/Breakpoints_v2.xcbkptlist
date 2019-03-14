@@ -9,13 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/APICaller/APICaller+HotelsSearch.swift"
-            timestampString = "574252715.828494"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC.swift"
+            timestampString = "574261510.867247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "fetchConfirmItineraryData(params:loader:completionBlock:)"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "openGoogleMaps(originLat:originLong:destLat:destLong:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
+            timestampString = "574261510.867636"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "recentSearchData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVM.swift"
+            timestampString = "574261510.867866"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "getRecentSearchesData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

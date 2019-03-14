@@ -121,6 +121,7 @@ extension SelectTripVC: TopNavigationViewDelegate {
         if let indexPath = viewModel.selectedIndexPath {
             self.delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row])
         }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

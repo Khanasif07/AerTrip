@@ -41,10 +41,3 @@ class FlightsVC: BaseVC {
     }
 }
 
-//MARK:- SelectTripVC delegate methods
-//MARK:-
-extension FlightsVC: SelectTripVCDelegate {
-    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
-        printDebug("Selected trip: \(trip.title)")
-    }
-}

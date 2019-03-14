@@ -113,9 +113,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     @objc func selectRoomAction() {
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { (isGuest) in
-            AppFlowManager.default.moveToHCDataSelectionVC()
-        }
+        self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
     }
     
     internal func updateStickyFooterView() {
@@ -272,7 +270,7 @@ class HotelDetailsVC: BaseVC {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
-            print("Can't use comgooglemaps://")
+            AppToast.default.showToastMessage(message: "Google Maps is not installed on you device.")
         }
     }
     

@@ -632,7 +632,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
             let newValue = hotel.value.split(separator: " ")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
-            self.viewModel.cityName = hotel.city
+            self.viewModel.cityName = "\(newValue.first ?? "")"
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
