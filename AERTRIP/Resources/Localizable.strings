@@ -449,9 +449,15 @@
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
+
+//Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
 "EnterCouponCode" = "Enter a Coupon Code";
 "OfferTerms" = "Offer Terms";
 "Code" = "CODE:";
 "NoCouponRequired" = "No coupon required";
 "YouAlreadyHaveBestPrice" = "You already have the best price.";
+
+//Hotel Checkout Special Request VC
+"AirlineNameFlightNumberArrivalTime" = "Airline Name, Flight Number, Arrival Time...";
+"SpecialRequestIfAny" = "Special Request If any...";

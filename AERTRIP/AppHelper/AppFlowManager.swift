@@ -396,6 +396,11 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
+    func presentHCSpecialRequestsVC() {
+        let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
     // Mail Composer
     
     func presentMailComposerVC(_ favouriteHotels: [HotelSearched],_ hotelSearchRequest: HotelSearchRequestModel,_ pinnedTemplateUrl: String) {

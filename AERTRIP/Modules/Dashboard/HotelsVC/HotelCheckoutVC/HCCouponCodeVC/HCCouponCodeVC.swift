@@ -31,7 +31,11 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var couponTextField: UITextField! {
         didSet {
             self.couponTextField.delegate = self
-            self.couponTextField.modifyClearButton(with: #imageLiteral(resourceName: "ic_toast_cross"))
+            self.couponTextField.rightViewMode = .whileEditing
+            self.couponTextField.autocorrectionType = .no
+            self.couponTextField.autocapitalizationType = .allCharacters
+            self.couponTextField.adjustsFontSizeToFitWidth = true
+//            self.couponTextField.modifyClearButton(with: #imageLiteral(resourceName: "ic_toast_cross"))
         }
     }
     @IBOutlet weak var emptyStateView: UIView!
@@ -48,6 +52,7 @@ class HCCouponCodeVC: BaseVC {
     override func initialSetup() {
         self.statusBarStyle = .default
         self.emptyStateSetUp()
+        self.textFieldClearBtnSetUp()
         self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.registerNibs()
@@ -89,6 +94,13 @@ class HCCouponCodeVC: BaseVC {
         self.couponTableView.registerCell(nibName: CouponCodeTableViewCell.reusableIdentifier)
     }
     
+    private func textFieldClearBtnSetUp() {
+        if let clearButton : UIButton = couponTextField.value(forKey: "_clearButton") as? UIButton {
+            clearButton.setImage(#imageLiteral(resourceName: "ic_toast_cross"), for: .normal)
+            clearButton.size = CGSize(width: 16.0, height: 16.0)
+        }
+    }
+    
     private func emptyStateSetUp() {
         /*if self.viewModel.couponsData != nil {
             self.emptyStateView.isHidden = true
@@ -104,7 +116,8 @@ class HCCouponCodeVC: BaseVC {
     //Mark:- IBActions
     //================
     @IBAction func cancelButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+//        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func applyButtonAction(_ sender: UIButton) {
@@ -135,12 +148,14 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
 
 extension HCCouponCodeVC {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if let text = textField.text , text.isEmpty {
-            textField.rightViewMode = .never
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.enterCouponLabel.isHidden = true
+        if self.selectedIndexPath == nil {
+            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         } else {
-            textField.rightViewMode = .always
+            self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }
+        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -148,14 +163,11 @@ extension HCCouponCodeVC {
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         print(finalText)
         if finalText == "" {
-            textField.rightViewMode = .never
             self.enterCouponLabel.isHidden = true
             if self.selectedIndexPath == nil {
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
-            //            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         } else {
-            textField.rightViewMode = .always
             self.enterCouponLabel.isHidden = false
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }

@@ -483,10 +483,16 @@ enum LocalizedString: String {
     
     //Hotel Checkout Deatail Selection screen
     case Guests = "Guests"
+    
+    //Hotel Checkout Coupons VC
     case Coupons = "Coupons"
     case EnterCouponCode = "EnterCouponCode"
     case OfferTerms = "OfferTerms"
     case Code = "Code"
     case NoCouponRequired = "NoCouponRequired"
     case YouAlreadyHaveBestPrice = "YouAlreadyHaveBestPrice"
+    
+    //Hotel Checkout Special Request VC
+    case AirlineNameFlightNumberArrivalTime = "AirlineNameFlightNumberArrivalTime"
+    case SpecialRequestIfAny = "SpecialRequestIfAny"
 }

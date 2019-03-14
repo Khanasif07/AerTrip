@@ -38,7 +38,8 @@ class FlightsVC: BaseVC {
     @IBAction func myButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentSelectTripVC(delegate: self)
         //AppFlowManager.default.moveToHCDataSelectionVC()
-        AppFlowManager.default.presentHCCouponCodeVC()
+        AppFlowManager.default.presentHCSpecialRequestsVC()
+//        AppFlowManager.default.presentHCCouponCodeVC()
     }
 }
 

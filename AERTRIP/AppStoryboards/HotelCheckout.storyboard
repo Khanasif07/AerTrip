@@ -127,6 +127,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="VGl-on-W21" eventType="touchUpInside" id="ZKF-p0-2EC"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyC-vl-0CA">
                                         <rect key="frame" x="299" y="5" width="60" height="34"/>
@@ -135,6 +138,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Apply"/>
+                                        <connections>
+                                            <action selector="applyButtonAction:" destination="VGl-on-W21" eventType="touchUpInside" id="AtK-CN-sdF"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -159,7 +165,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CEs-Ti-qds">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CEs-Ti-qds">
                                         <rect key="frame" x="16" y="29" width="343" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="ipp-or-5kE"/>
@@ -266,6 +272,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qBY-om-J9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="660" y="195.6521739130435"/>
+        </scene>
+        <!--Special RequestsVC-->
+        <scene sceneID="Qpr-pY-N61">
+            <objects>
+                <viewController storyboardIdentifier="HCSpecialRequestsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mUF-NM-8nN" customClass="HCSpecialRequestsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PH3-p4-VLD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="got-mI-PfG" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="O9F-KB-OhB"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pgi-Tg-PDW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="got-mI-PfG" firstAttribute="leading" secondItem="gSK-uj-WGo" secondAttribute="leading" id="3BX-sG-JIH"/>
+                            <constraint firstItem="gSK-uj-WGo" firstAttribute="bottom" secondItem="pgi-Tg-PDW" secondAttribute="bottom" id="7a0-QH-abj"/>
+                            <constraint firstItem="pgi-Tg-PDW" firstAttribute="leading" secondItem="gSK-uj-WGo" secondAttribute="leading" id="9dg-1g-Gac"/>
+                            <constraint firstItem="gSK-uj-WGo" firstAttribute="trailing" secondItem="pgi-Tg-PDW" secondAttribute="trailing" id="H2G-bM-qXH"/>
+                            <constraint firstItem="got-mI-PfG" firstAttribute="top" secondItem="gSK-uj-WGo" secondAttribute="top" id="UWM-Oa-pV1"/>
+                            <constraint firstItem="pgi-Tg-PDW" firstAttribute="top" secondItem="got-mI-PfG" secondAttribute="bottom" id="fi5-fD-ukV"/>
+                            <constraint firstItem="gSK-uj-WGo" firstAttribute="trailing" secondItem="got-mI-PfG" secondAttribute="trailing" id="s2n-n3-xig"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gSK-uj-WGo"/>
+                    </view>
+                    <connections>
+                        <outlet property="headerView" destination="got-mI-PfG" id="Zfs-2P-VkZ"/>
+                        <outlet property="specialReqTableView" destination="pgi-Tg-PDW" id="cLZ-Lq-pDp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbJ-2U-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1319" y="201"/>
+        </scene>
+        <!--Email ItinerariesVC-->
+        <scene sceneID="1x1-rk-bM7">
+            <objects>
+                <viewController storyboardIdentifier="HCEmailItinerariesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zyL-xp-RRG" customClass="HCEmailItinerariesVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M1I-cD-FHB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02x-et-lss" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="clP-3k-4Ck"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZyA-U8-tKE" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZyA-U8-tKE" firstAttribute="bottom" secondItem="mQI-YQ-7bq" secondAttribute="bottom" id="H4V-zn-cgJ"/>
+                            <constraint firstItem="02x-et-lss" firstAttribute="leading" secondItem="mQI-YQ-7bq" secondAttribute="leading" id="Mdv-DE-IxX"/>
+                            <constraint firstItem="ZyA-U8-tKE" firstAttribute="trailing" secondItem="mQI-YQ-7bq" secondAttribute="trailing" id="Mve-Mf-JKb"/>
+                            <constraint firstItem="ZyA-U8-tKE" firstAttribute="leading" secondItem="mQI-YQ-7bq" secondAttribute="leading" id="UhH-8G-0HM"/>
+                            <constraint firstItem="02x-et-lss" firstAttribute="top" secondItem="mQI-YQ-7bq" secondAttribute="top" id="dPl-Hd-fPv"/>
+                            <constraint firstItem="ZyA-U8-tKE" firstAttribute="top" secondItem="02x-et-lss" secondAttribute="bottom" id="dbJ-TY-CeQ"/>
+                            <constraint firstItem="02x-et-lss" firstAttribute="trailing" secondItem="mQI-YQ-7bq" secondAttribute="trailing" id="rLd-2c-vX7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mQI-YQ-7bq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rb6-O4-VjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2078" y="200"/>
         </scene>
     </scenes>
     <resources>
