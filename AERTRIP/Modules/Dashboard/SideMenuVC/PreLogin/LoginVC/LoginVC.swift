@@ -78,7 +78,11 @@ class LoginVC: BaseVC {
     override func setupTexts() {
         
         self.welcomeLabel.text = LocalizedString.Welcome_Back.localized
-        self.registerHereButton.setTitle(LocalizedString.Register_here.localized, for: .normal)
+        
+        self.registerHereButton.setTitle(currentlyUsingFrom == .loginVerificationForCheckout ? LocalizedString.ContinueAsGuest.localized : LocalizedString.Register_here.localized, for: .normal)
+        
+        self.registerHereLabel.text = currentlyUsingFrom == .loginVerificationForCheckout ? "\(LocalizedString.SkipSignIn.localized)?" : LocalizedString.Not_ye_registered.localized
+        
         self.forgotPasswordButton.setTitle(LocalizedString.Forgot_Password.localized, for: .normal)
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
         self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized, keyboardType: .default, returnType: .done, isSecureText: true)
@@ -127,7 +131,21 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func registerHereButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToCreateYourAccountVC(email: self.viewModel.email)
+        if currentlyUsingFrom == .loginVerificationForCheckout {
+            popIfUsingFromCheckOut()
+        }
+        else {
+            AppFlowManager.default.moveToCreateYourAccountVC(email: self.viewModel.email)
+        }
+    }
+    
+    private func popIfUsingFromCheckOut() {
+        self.sendDataChangedNotification(data: ATNotification.userAsGuest)
+        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
+            return vc.isKind(of: HotelResultVC.self)
+        }) {
+            AppFlowManager.default.popToViewController(obj, animated: true)
+        }
     }
 }
 
@@ -182,13 +200,15 @@ extension LoginVC: LoginVMDelegate {
     
     func didLoginSuccess() {
         self.loginButton.isLoading = false        
-        if self.currentlyUsingFrom == .loginVerification {
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
-            AppFlowManager.default.popToRootViewController(animated: true)
-        } else {
+        if self.currentlyUsingFrom == .loginProcess {
             delay(seconds: 0.3) {
                 AppFlowManager.default.goToDashboard()
             }
+        } else if self.currentlyUsingFrom == .loginVerificationForCheckout {
+            popIfUsingFromCheckOut()
+        } else {
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            AppFlowManager.default.popToRootViewController(animated: true)
         }
     }
     

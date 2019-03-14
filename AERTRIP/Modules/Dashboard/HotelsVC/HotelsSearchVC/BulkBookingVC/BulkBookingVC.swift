@@ -383,13 +383,10 @@ class BulkBookingVC: BaseVC {
             self.viewModel.bulkBookingEnquiryApi()
         }
         else {
-            
-            AppFlowManager.default.proccessIfUserLoggedIn { [weak self] (isLoggedIn) in
-                if isLoggedIn {
-                    self?.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
-                    sender.isLoading = true
-                    self?.viewModel.bulkBookingEnquiryApi()
-                }
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
+                self?.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
+                sender.isLoading = true
+                self?.viewModel.bulkBookingEnquiryApi()
             }
         }
     }

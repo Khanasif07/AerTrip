@@ -24,7 +24,7 @@ class AppFlowManager: NSObject {
     var mainHomeVC: MainHomeVC?
     
     private let urlScheme = "://"
-    private var loginVerificationComplition: ((Bool)->Void)? = nil
+    private var loginVerificationComplition: ((_ isGuest: Bool)->Void)? = nil
     
     private override init() {
         super.init()
@@ -62,9 +62,12 @@ class AppFlowManager: NSObject {
     
     @objc private func dataChanged(_ note: Notification) {
         //function intended to override
-        if let noti = note.object as? ATNotification {
-            if let com = loginVerificationComplition, noti == .userLoggedInSuccess {
+        if let noti = note.object as? ATNotification, let com = loginVerificationComplition {
+            if noti == .userAsGuest {
                 com(true)
+            }
+            else {
+                com(false)
             }
         }
     }
@@ -108,18 +111,18 @@ class AppFlowManager: NSObject {
     }
     
     //check and manage the further processing if user logged-in or note
-    func proccessIfUserLoggedIn(completion: ((Bool)->Void)?) {
+    func proccessIfUserLoggedIn(verifyingFor: LoginFlowUsingFor, completion: ((_ isGuest: Bool)->Void)?) {
         loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {
             //user is logged in
-            completion?(true)
+            completion?(false)
         }
         else {
             //user note logged in
             //open login flow
             
             let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
-            socialVC.currentlyUsingFrom = .loginVerification
+            socialVC.currentlyUsingFrom = verifyingFor
             
             delay(seconds: 0.1) { [weak socialVC] in
                 socialVC?.animateContentOnLoad()
@@ -330,7 +333,6 @@ extension AppFlowManager {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
             ob.viewModel.hotelInfo = hotelInfo
-            ob.viewModel.sid = sid
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }

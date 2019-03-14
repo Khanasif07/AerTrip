@@ -12,6 +12,7 @@ import UIKit
 enum ATNotification {
     case profileChanged
     case userLoggedInSuccess
+    case userAsGuest
 }
 
 extension Notification.Name {

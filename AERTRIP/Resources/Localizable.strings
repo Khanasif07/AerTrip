@@ -15,7 +15,7 @@
 "search" = "Search";
 "Undo" = "Undo";
 "apply" = "Apply";
-
+"For" = "For";
 
 // MARK:- TextField validation
 //MARK:-
@@ -27,6 +27,8 @@
 // MARK:- SocialLoginVC
 //MARK:-
 "I_am_new_register"  = "I’m New\nRegister";
+"SkipSignIn" = "Skip Sign In";
+"ContinueAsGuest" = "Continue as guest";
 "Existing_User_Sign" = "Existing User\nSign in";
 "Continue_with_Facebook"  = "Continue with Facebook";
 "Continue_with_Google"    = "Continue with Google";
@@ -40,7 +42,7 @@
 "Welcome_Back"    = "Welcome Back!";
 "Email_ID"      = "Email ID";
 "Password"      = "Password";
-"Not_ye_registered_Register_here"  = "Not yet registered? Register here";
+"Not_ye_registered"  = "Not yet registered?";
 "Login" = "Login";
 "Register_here" = "Register here";
 
@@ -268,6 +270,7 @@
 "CheckIn" = "Check-in";
 "CheckOut" = "Check-out";
 "Nights" = "Nights";
+"Night" = "Night";
 "AddRoom" = "Add Room";
 "StarRating" = "Star Rating";
 "AllStars" = "All Stars";
@@ -465,3 +468,5 @@
 "ContinueBooking" = "Continue booking";
 "GoBackToResults" = "Go back to results";
 "FareDippedBy" = "Fare dipped by";
+"FareBreakup" = "Fare Breakup";
+"TotalPayableNow" = "Total payable now";

@@ -13,7 +13,7 @@ protocol SocialLoginVCDelegate: class {
 }
 
 enum LoginFlowUsingFor {
-    case loginProcess, loginVerification
+    case loginProcess, loginVerificationForCheckout, loginVerificationForBulkbooking
 }
 
 class SocialLoginVC: BaseVC {
@@ -132,12 +132,26 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
+        if currentlyUsingFrom == .loginVerificationForCheckout {
+            popIfUsingFromCheckOut()
+        }
+        else {
+            AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
+        }
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         
         AppFlowManager.default.moveToLoginVC(email: "", usingFor: currentlyUsingFrom)
+    }
+    
+    private func popIfUsingFromCheckOut() {
+        self.sendDataChangedNotification(data: ATNotification.userAsGuest)
+        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
+            return vc.isKind(of: HotelResultVC.self)
+        }) {
+            AppFlowManager.default.popToViewController(obj, animated: true)
+        }
     }
 }
 
@@ -170,17 +184,29 @@ private extension SocialLoginVC {
     }
     
     func setupsFonts() {
-        let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
-            .font: AppFonts.Regular.withSize(14.0),
-            .foregroundColor: UIColor.black
-        ])
-        attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
-        self.newRegisterLabel.attributedText = attributedString
+        
+        if currentlyUsingFrom == .loginVerificationForCheckout {
+            let finalStr = "\(LocalizedString.SkipSignIn.localized)\n\(LocalizedString.ContinueAsGuest.localized)"
+            let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
+                .font: AppFonts.Regular.withSize(14.0),
+                .foregroundColor: UIColor.black
+                ])
+            attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (finalStr as NSString).range(of: LocalizedString.SkipSignIn.localized))
+            self.newRegisterLabel.attributedText = attributedString
+        }
+        else {
+            let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
+                .font: AppFonts.Regular.withSize(14.0),
+                .foregroundColor: UIColor.black
+                ])
+            attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
+            self.newRegisterLabel.attributedText = attributedString
+        }
         
         let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
             .font: AppFonts.SemiBold.withSize(18.0),
             .foregroundColor: UIColor.black
-        ])
+            ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
     }
@@ -188,10 +214,10 @@ private extension SocialLoginVC {
 
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        if self.currentlyUsingFrom == .loginVerification {
-            AppFlowManager.default.popViewController(animated: true)
-        } else {
+        if self.currentlyUsingFrom == .loginProcess {
             self.delegate?.backButtonTapped(sender)
+        } else {
+            AppFlowManager.default.popViewController(animated: true)
         }
     }
 }
@@ -219,11 +245,16 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         } else {
             self.linkedInButton.isLoading = false
         }
-        if self.currentlyUsingFrom == .loginVerification {
+        
+        if self.currentlyUsingFrom == .loginProcess {
+            AppFlowManager.default.goToDashboard()
+        }
+        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
+            popIfUsingFromCheckOut()
+        }
+        else {
             self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
             AppFlowManager.default.popToRootViewController(animated: true)
-        } else {
-            AppFlowManager.default.goToDashboard()
         }
     }
     

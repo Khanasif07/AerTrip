@@ -97,7 +97,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func makeDefaultSetup() {
-        delay(seconds: 0.2) {[weak self] in
+        delay(seconds: 0.3) {[weak self] in
             if UserInfo.loggedInUserId == nil {
                 self?.setupLogoView()
             }

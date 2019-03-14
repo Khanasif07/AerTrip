@@ -258,6 +258,39 @@ enum APIKeys: String {
     case rankingStringDetail = "ranking_string_detail"
     case ratingImageUrl = "rating_image_url"
     case localizedName = "localized_name"
+    
+    //itinerary data
+    case payment_amount
+    case pg_id
+    case payment_method_id
+    case payment_method_sub_type_id
+    case display_currency
+    case gateway_currency
+    case booking_currency
+    case display_currency_conversion
+    case gateway_currency_conversion
+    case booking_currency_conversion
+    case booking_name
+    case booking_description
+    case user_billing_address
+    case total_fare
+    case convenience_fees
+    case use_wallet
+    case use_points
+    case session_id
+    case product_type_id
+    case product_type
+    case product_category
+    case user_id
+    case user_type
+    case coupon_code
+    case coupon_id
+    case added_date
+    case is_combo
+    case vcode
+    case it_id
+    case traveller_master
+    case special_requests
 }
 
 

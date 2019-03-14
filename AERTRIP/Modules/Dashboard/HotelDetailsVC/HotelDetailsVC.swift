@@ -113,7 +113,9 @@ class HotelDetailsVC: BaseVC {
     }
     
     @objc func selectRoomAction() {
-        AppFlowManager.default.moveToHCDataSelectionVC()
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { (isGuest) in
+            AppFlowManager.default.moveToHCDataSelectionVC()
+        }
     }
     
     internal func updateStickyFooterView() {

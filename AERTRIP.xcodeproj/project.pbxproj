@@ -392,6 +392,7 @@
 		84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */; };
 		84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84981CDA21F759A1002E68C7 /* AddRoomCell.swift */; };
 		84981CDD21F759A1002E68C7 /* AddRoomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CDB21F759A1002E68C7 /* AddRoomCell.xib */; };
+		849EC9E6223A56F300B217D4 /* ItineraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849EC9E5223A56F300B217D4 /* ItineraryData.swift */; };
 		849F31EF21FF1AC60076BB3D /* profile.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31ED21FF1AC60076BB3D /* profile.csv */; };
 		849F31F021FF1AC60076BB3D /* login.csv in Resources */ = {isa = PBXBuildFile; fileRef = 849F31EE21FF1AC60076BB3D /* login.csv */; };
 		849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F31F121FF1AD70076BB3D /* ATErrorManager.swift */; };
@@ -938,6 +939,7 @@
 		84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomPictureCell.xib; sourceTree = "<group>"; };
 		84981CDA21F759A1002E68C7 /* AddRoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomCell.swift; sourceTree = "<group>"; };
 		84981CDB21F759A1002E68C7 /* AddRoomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomCell.xib; sourceTree = "<group>"; };
+		849EC9E5223A56F300B217D4 /* ItineraryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryData.swift; sourceTree = "<group>"; };
 		849F31ED21FF1AC60076BB3D /* profile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = profile.csv; sourceTree = "<group>"; };
 		849F31EE21FF1AC60076BB3D /* login.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = login.csv; sourceTree = "<group>"; };
 		849F31F121FF1AD70076BB3D /* ATErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATErrorManager.swift; sourceTree = "<group>"; };
@@ -1224,6 +1226,7 @@
 				18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */,
 				18FDDD22221E973D00EF01FC /* HotelFilter.swift */,
 				841FA50A22324F3300DE9FE9 /* TripModel.swift */,
+				849EC9E5223A56F300B217D4 /* ItineraryData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3185,6 +3188,7 @@
 				1870AD22220C769400FB32C8 /* TravellerModel.swift in Sources */,
 				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
+				849EC9E6223A56F300B217D4 /* ItineraryData.swift in Sources */,
 				8455A6852232997C00CEE2B3 /* HotelDetailsReviewsVM.swift in Sources */,
 				843AF3592223D74200F2F894 /* BmoPageViewController.swift in Sources */,
 				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,

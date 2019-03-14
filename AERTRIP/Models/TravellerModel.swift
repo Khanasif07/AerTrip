@@ -39,7 +39,7 @@ struct TravellerModel {
         self.dob = json["dob"].stringValue.removeNull
     }
     
-    static func retunsTravellerArray(jsonArr: [JSON]) -> [TravellerModel] {
+    static func models(jsonArr: [JSON]) -> [TravellerModel] {
         var traveller = [TravellerModel]()
         for element in jsonArr {
             traveller.append(TravellerModel(json: element))

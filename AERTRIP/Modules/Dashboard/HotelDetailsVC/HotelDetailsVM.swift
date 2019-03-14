@@ -47,7 +47,6 @@ class HotelDetailsVM {
     var roomRates = [[RoomsRates : Int]]()
     var tableViewRowCell = [[TableCellType]]()
     var vid: String = ""
-    var sid: String = ""
     var hid: String = ""
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false

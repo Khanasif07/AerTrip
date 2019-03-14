@@ -59,6 +59,8 @@ enum APIEndPoint : String {
     case getPinnedTemplate             = "hotels/get-pinned-template"
     case hotelReviews                  = "hotels/review"
     case sendPinnedMail                = "hotels/send-pinned-mail"
+    case confirmation                = "hotels/confirmation"
+    
 }
 
 //MARK: - endpoint extension for url -

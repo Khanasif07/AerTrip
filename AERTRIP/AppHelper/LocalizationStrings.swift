@@ -26,6 +26,7 @@ enum LocalizedString: String {
     case noResults = "No Results"
     case Undo = "Undo"
     case apply = "Apply"
+    case For = "For"
     
     // MARK:- TextField validation
     //MARK:-
@@ -38,6 +39,8 @@ enum LocalizedString: String {
     // MARK:- SocialLoginVC
     //MARK:-
     case I_am_new_register  = "I_am_new_register"
+    case SkipSignIn = "SkipSignIn"
+    case ContinueAsGuest = "ContinueAsGuest"
     case Existing_User_Sign = "Existing_User_Sign"
     case Continue_with_Facebook  = "Continue_with_Facebook"
     case Continue_with_Google    = "Continue_with_Google"
@@ -51,7 +54,7 @@ enum LocalizedString: String {
     case Welcome_Back     = "Welcome_Back"
     case Email_ID         = "Email_ID"
     case Password         = "Password"
-    case Not_ye_registered_Register_here  = "Not_ye_registered_Register_here"
+    case Not_ye_registered  = "Not_ye_registered"
     case Login = "Login"
     case Register_here = "Register_here"
     
@@ -314,6 +317,7 @@ enum LocalizedString: String {
     case CheckIn = "CheckIn"
     case CheckOut = "CheckOut"
     case Nights = "Nights"
+    case Night = "Night"
     case AddRoom = "AddRoom"
     case StarRating = "StarRating"
     case AllStars = "AllStars"
@@ -498,4 +502,6 @@ enum LocalizedString: String {
     case ContinueBooking = "ContinueBooking"
     case GoBackToResults = "GoBackToResults"
     case FareDippedBy = "FareDippedBy"
+    case FareBreakup = "FareBreakup"
+    case TotalPayableNow = "TotalPayableNow"
 }

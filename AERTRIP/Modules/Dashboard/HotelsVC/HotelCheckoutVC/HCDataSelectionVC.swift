@@ -30,6 +30,10 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var checkInOutDate: UILabel!
     @IBOutlet weak var detailsButton: UIButton!
+    @IBOutlet weak var fareBreakupTitleLabel: UILabel!
+    @IBOutlet weak var fareDetailLabel: UILabel!
+    @IBOutlet weak var totalPayableTextLabel: UILabel!
+    @IBOutlet weak var totalFareAmountLabel: UILabel!
     
     
     //MARK:- Properties
@@ -52,6 +56,8 @@ class HCDataSelectionVC: BaseVC {
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
+        
+        fillData()
     }
     
     override func setupFonts() {
@@ -65,6 +71,12 @@ class HCDataSelectionVC: BaseVC {
         hotelNameLabel.font = AppFonts.SemiBold.withSize(18.0)
         checkInOutDate.font = AppFonts.Regular.withSize(16.0)
         detailsButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
+        
+        //fare breakup
+        fareBreakupTitleLabel.font = AppFonts.SemiBold.withSize(16.0)
+        fareDetailLabel.font = AppFonts.Regular.withSize(16.0)
+        totalPayableTextLabel.font = AppFonts.Regular.withSize(20.0)
+        totalFareAmountLabel.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
@@ -75,6 +87,10 @@ class HCDataSelectionVC: BaseVC {
         
         //hotel details
         detailsButton.setTitle(LocalizedString.Details.localized, for: .normal)
+        
+        //fare breakup
+        fareBreakupTitleLabel.text = LocalizedString.FareBreakup.localized
+        totalPayableTextLabel.text = LocalizedString.TotalPayableNow.localized
         
         //temp
         hotelNameLabel.text = "Grand Hyatt Hotel Mumbai, Maharastra, India"
@@ -92,6 +108,16 @@ class HCDataSelectionVC: BaseVC {
         hotelNameLabel.textColor = AppColors.themeBlack
         checkInOutDate.textColor = AppColors.themeGray40
         detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
+    }
+    
+    override func bindViewModel() {
+        viewModel.delegate = self
+    }
+    
+    private func fillData() {
+        viewModel.fetchConfirmItineraryData()
+        totalFareLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0).delimiter)"
+        setupFareBreakup()
     }
     
     private func setupNavView() {
@@ -114,12 +140,25 @@ class HCDataSelectionVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
+    private func setupFareBreakup() {
+        let room = 1, night = 2
+        let roomText = (room > 1) ? LocalizedString.Rooms.localized : LocalizedString.Room.localized
+        let nightText = (night > 1) ? LocalizedString.Nights.localized : LocalizedString.Night.localized
+        
+        fareDetailLabel.text = "\(LocalizedString.For.localized) \(room) \(roomText) & \(night) \(nightText)"
+        totalFareAmountLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0))"
+    }
+    
     private func toggleFareDetailView() {
         animateFareDetails(isHidden: fareDetailBottomConstraint.constant >= 0, animated: true)
     }
+    
     private func animateFareDetails(isHidden: Bool, animated: Bool) {
         
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        if !isHidden {
+            self.fareDetailContainerView.isHidden = false
+        }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             
@@ -128,7 +167,11 @@ class HCDataSelectionVC: BaseVC {
             
             sSelf.view.layoutIfNeeded()
             
-            }, completion: nil)
+            }, completion: { [weak self] (isDone) in
+                if isHidden {
+                    self?.fareDetailContainerView.isHidden = true
+                }
+        })
     }
     
     //MARK:- Public
@@ -152,6 +195,17 @@ class HCDataSelectionVC: BaseVC {
     }
 }
 
+extension HCDataSelectionVC: HCDataSelectionVMDelegate {
+    func willFetchConfirmItineraryData() {
+    }
+    
+    func fetchConfirmItineraryDataSuccess() {
+        fillData()
+    }
+    
+    func fetchConfirmItineraryDataFail() {
+    }
+}
 
 extension HCDataSelectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
@@ -280,11 +334,14 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.downArrowImageView.isHidden = true
                 
                 cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-                cell.titleLabel.textColor = AppColors.themeGray40
+                cell.titleLabel.textColor = AppColors.themeGray20
                 cell.titleLabel.text = LocalizedString.Email_ID.localized
                 
+                cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
+                cell.editableTextField.text = UserInfo.loggedInUser?.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
-                cell.titleLabel.textColor = AppColors.themeGray20
+                cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
+                cell.editableTextField.keyboardType = .emailAddress
                 cell.editableTextField.placeholder = LocalizedString.Email_ID.localized
                 
                 return cell
