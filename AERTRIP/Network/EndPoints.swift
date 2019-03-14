@@ -56,11 +56,12 @@ enum APIEndPoint : String {
     case hotelInfo                     = "hotels/details"
     case hotelDistanceAndTravelTime    = "https://maps.googleapis.com/maps/api/"
     case hotelRecentSearches           = "recent-search/get"
+    
+    // Hotel Result Api
     case getPinnedTemplate             = "hotels/get-pinned-template"
     case hotelReviews                  = "hotels/review"
     case sendPinnedMail                = "hotels/send-pinned-mail"
     case confirmation                = "hotels/confirmation"
-    
 }
 
 //MARK: - endpoint extension for url -

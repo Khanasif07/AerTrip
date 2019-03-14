@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GuestDetailTableViewCellDelegate: class {
+    func textField(_ textField: UITextField)
+}
+
 class GuestDetailTableViewCell: UITableViewCell {
     
     //MARK: - IB Outlets
@@ -16,6 +20,9 @@ class GuestDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var salutationTextField: PKFloatLabelTextField!
     @IBOutlet weak var firstNameTextField : PKFloatLabelTextField!
     @IBOutlet weak var lastNameTextField:PKFloatLabelTextField!
+    
+    // MARK: - Properties
+    weak var delegate : GuestDetailTableViewCellDelegate?
     
     
     // MARK:- View Life Cycle
@@ -37,6 +44,9 @@ class GuestDetailTableViewCell: UITableViewCell {
          self.salutationTextField.titleYPadding = -10.0
          self.firstNameTextField.titleYPadding = -10.0
          self.lastNameTextField.titleYPadding = -10.0
+         self.salutationTextField.delegate = self
+         self.firstNameTextField.delegate = self
+         self.lastNameTextField.delegate = self
     }
     
     private func setUpFont() {
@@ -63,4 +73,20 @@ class GuestDetailTableViewCell: UITableViewCell {
     }
     
     
+}
+
+extension GuestDetailTableViewCell : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case salutationTextField :
+            delegate?.textField(salutationTextField)
+        case firstNameTextField:
+            delegate?.textField(firstNameTextField)
+        case lastNameTextField:
+            delegate?.textField(lastNameTextField)
+        default:
+            break
+        
+        }
+    }
 }

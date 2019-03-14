@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class HCDataSelectionRoomDetailCell: UITableViewCell {
     
     //Mark:- IBOutlets
@@ -17,6 +18,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
+
     
     //Mark:- LifeCycles
     //Mark:-
@@ -92,15 +94,23 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
             let age = hotelFormData.childrenAge[forIdx.row][indexPath.item-hotelFormData.adultsCount[forIdx.row]]
             cell.configData(isAdult: false, number: (indexPath.item + 1), age: age)
+          
+            
         }
         else {
             cell.configData(isAdult: true, number: (indexPath.item + 1), age: nil)
+            var guestModal = GuestModal()
+            guestModal.passengerType = PassengersType.Adult.rawValue
+             HCDataSelectionVM.shared.guests[forIdx.row].append(guestModal)
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let forIndex = forIndex {
+           AppFlowManager.default.moveToGuestDetailScreen(IndexPath(row: indexPath.item, section: forIndex.row))
+        }
         
     }
 }

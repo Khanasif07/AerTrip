@@ -427,3 +427,8 @@ enum ATOthers: Int, CaseIterable {
         }
     }
 }
+
+enum PassengersType : String {
+    case Adult = "ADT"
+    case child = "CHD"
+}

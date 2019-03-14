@@ -428,26 +428,35 @@
                                     <constraint firstAttribute="height" constant="44" id="Hu7-h8-omi"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="obO-hP-wGa">
+                                <rect key="frame" x="0.0" y="168" width="375" height="499"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="obO-hP-wGa" secondAttribute="trailing" id="97N-r3-Ss6"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="dnv-2r-oQd" secondAttribute="trailing" id="A5x-Ze-hTo"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="AuL-Y2-nzN" secondAttribute="trailing" id="CSH-7H-VRt"/>
+                            <constraint firstItem="obO-hP-wGa" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="ENL-BA-iza"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="top" secondItem="dnv-2r-oQd" secondAttribute="bottom" id="TgQ-YF-zyu"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="UXR-XF-3oz"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="AuL-Y2-nzN" secondAttribute="bottom" id="WWc-Gg-0Lu"/>
+                            <constraint firstItem="obO-hP-wGa" firstAttribute="top" secondItem="dnv-2r-oQd" secondAttribute="bottom" constant="104" id="eIX-V4-sP1"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="jjA-XZ-s6H"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" id="mEX-z2-gHW"/>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="obO-hP-wGa" secondAttribute="bottom" id="wpi-3A-45C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ef6-oa-bzv"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="AuL-Y2-nzN" id="LZg-a0-RA2"/>
                         <outlet property="topNavView" destination="dnv-2r-oQd" id="EjT-8v-YOA"/>
+                        <outlet property="travellersTableView" destination="obO-hP-wGa" id="2LQ-NT-tHx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5K-by-zH5" userLabel="First Responder" sceneMemberID="firstResponder"/>

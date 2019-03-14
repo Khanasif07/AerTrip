@@ -21,6 +21,19 @@ class HCDataSelectionVM {
     weak var delegate: HCDataSelectionVMDelegate?
     private(set) var itineraryData: ItineraryData?
     
+    static let shared = HCDataSelectionVM()
+    
+    // Save Hotel Form Data
+    
+    var hotelFormData : HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    var selectedIndexPath: IndexPath = IndexPath()
+    
+    //GuestModalArray for travellers
+    var guests : [[GuestModal]] = [[]]
+    
+    
+    private init() {}
+    
     //MARK:- Private
     
     
