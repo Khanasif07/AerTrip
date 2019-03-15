@@ -8,16 +8,26 @@
 
 import UIKit
 
+enum GuestTableViewType {
+    case Searching
+    case GuestDetails
+}
+
 class GuestDetailsVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: UITableView!
+    // Guest Detail table view
+    @IBOutlet var guestDetailTableView: ATTableView!
+    
+    // Generic top Nav View
     @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var travellersTableView: UITableView!
+    
+    // table view for searching traveller from traveller list
+    @IBOutlet var travellersTableView: ATTableView!
     
     // Mark: - Properties
-    let cellIdentifier = "GuestDetailTableViewCell"
-    let viewModel = GuestDetailsVM()
+    let viewModel = GuestDetailsVM.shared
+    var guestTableViewType: GuestTableViewType = .GuestDetails
     
     // MARK: - View Life cycle
     
@@ -31,9 +41,14 @@ class GuestDetailsVC: BaseVC {
         
         // setting delay of 1 sec because table view cell are creating
         
-        delay(seconds: 1.0) { [weak self] in
+        delay(seconds: 2.0) { [weak self] in
             self?.makeTableViewIndexSelectable()
         }
+        self.viewModel.webserviceForGetSalutations()
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     // MARK: - Helper methods
@@ -41,15 +56,18 @@ class GuestDetailsVC: BaseVC {
     // register All Xib file
     
     private func registerXib() {
-        self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
-        self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
+        self.travellersTableView.registerCell(nibName: TravellerListTableViewCell.reusableIdentifier)
+        self.guestDetailTableView.registerCell(nibName: GuestDetailTableViewCell.reusableIdentifier)
+        self.guestDetailTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
     private func doInitialSetup() {
-        self.tableView.separatorStyle = .none
         self.travellersTableView.separatorStyle = .none
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
+        self.guestDetailTableView.dataSource = self
+        self.guestDetailTableView.delegate = self
+        
+        self.travellersTableView.dataSource = self
+        self.travellersTableView.delegate = self
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
     }
@@ -69,19 +87,19 @@ class GuestDetailsVC: BaseVC {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 120))
         customView.backgroundColor = AppColors.themeWhite
         
-        tableView.tableFooterView = customView
+        guestDetailTableView.tableFooterView = customView
     }
     
     // get Room details from User defaults
     
     private func getRoomDetails() {
-        viewModel.hotelFormData = HotelsSearchVM.hotelFormData
+        self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
     }
     
     // Make table view particular index selectable or Editable
     private func makeTableViewIndexSelectable() {
-        self.tableView.scrollToRow(at: viewModel.selectedIndexPath, at: .top, animated: false)
-        if let cell = tableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
+        self.guestDetailTableView.scrollToRow(at: self.viewModel.selectedIndexPath, at: .top, animated: false)
+        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
             cell.firstNameTextField.becomeFirstResponder()
         }
     }
@@ -91,45 +109,75 @@ class GuestDetailsVC: BaseVC {
 
 extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.hotelFormData.adultsCount.count
+        if self.guestTableViewType == .GuestDetails {
+            return self.viewModel.hotelFormData.adultsCount.count
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.hotelFormData.adultsCount[section] + viewModel.hotelFormData.childrenCounts[section]
+        if self.guestTableViewType == .GuestDetails {
+            return self.viewModel.hotelFormData.adultsCount[section] + self.viewModel.hotelFormData.childrenCounts[section]
+        } else {
+            return self.viewModel.travellerList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
-            printDebug("cell not found")
-            return UITableViewCell()
-        }
-        cell.delegate = self
-        if indexPath.row < viewModel.hotelFormData.adultsCount[indexPath.section] {
-            cell.guestTitleLabel.text = "Adult \(indexPath.row + 1)"
+        if self.guestTableViewType == .GuestDetails {
+            guard let cell = guestDetailTableView.dequeueReusableCell(withIdentifier: GuestDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
+                printDebug("cell not found")
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            if indexPath.row < self.viewModel.hotelFormData.adultsCount[indexPath.section] {
+                cell.guestTitleLabel.text = "Adult \(indexPath.row + 1)"
+            } else {
+                cell.guestTitleLabel.text = "Child \((indexPath.row - self.viewModel.hotelFormData.adultsCount[indexPath.section]) + 1)"
+            }
+            return cell
         } else {
-            cell.guestTitleLabel.text = "Child \((indexPath.row -  viewModel.hotelFormData.adultsCount[indexPath.section]) + 1)"
+            guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
+                printDebug("cell not found")
+                return UITableViewCell()
+            }
+            cell.travellerModelData = self.viewModel.travellerList[indexPath.row]
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
+        if self.guestTableViewType == .GuestDetails {
+            return 60.0
+        } else {
+            return 44
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 95.0
+        if self.guestTableViewType == .GuestDetails {
+            return 95.0
+        } else {
+            return 44.0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
-            fatalError("ViewProfileDetailTableViewSectionView not found")
+        if self.guestTableViewType == .GuestDetails {
+            guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
+                fatalError("ViewProfileDetailTableViewSectionView not found")
+            }
+            headerView.headerLabel.text = "ROOM \(section + 1)"
+            headerView.backgroundColor = AppColors.themeGray04
+            headerView.containerView.backgroundColor = AppColors.themeGray04
+            return headerView
+        } else {
+            return nil
         }
-        headerView.headerLabel.text = "ROOM \(section + 1)"
-        headerView.backgroundColor = AppColors.themeGray04
-        headerView.containerView.backgroundColor = AppColors.themeGray04
-        return headerView
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 }
 
 // MARK: - Top NavigationView Delegate methods
@@ -147,9 +195,21 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
 
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textField(_ textField: UITextField) {
-        let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: tableView)
-        // self.tableView.setContentOffset(CGPoint(x: self.tableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
-        
+        let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
+        self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
+        guestTableViewType = .Searching
+        travellersTableView.isHidden = false
+        self.travellersTableView.reloadData()
         printDebug("item position is \(itemPosition)")
+    }
+}
+
+extension GuestDetailsVC: GuestDetailsVMDelegate {
+    func getFail(errors: ErrorCodes) {
+        printDebug(errors)
+    }
+    
+    func getSalutationResponse(salutations: [String]) {
+        //
     }
 }

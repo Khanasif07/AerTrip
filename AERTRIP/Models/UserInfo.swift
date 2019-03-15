@@ -295,7 +295,7 @@ class UserInfo {
         }
     }
     
-    var salutation:String{
+    var salutation:String {
         get{
             return (userData?["salutation"] as? String ?? "").removeNull
         }

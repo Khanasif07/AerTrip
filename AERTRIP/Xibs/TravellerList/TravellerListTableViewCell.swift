@@ -15,7 +15,7 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var separatorView: ATDividerView!
     @IBOutlet var selectTravellerButton: UIButton!
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet var leadingConstraint: NSLayoutConstraint!
 //    @IBOutlet var edgeToEdgeBottomSeparatorView: ATDividerView!
     
 //    @IBOutlet var edgeToEdgeTopSeparatorView: ATDividerView!
@@ -27,6 +27,12 @@ class TravellerListTableViewCell: UITableViewCell {
     var travellerData: TravellerData? {
         didSet {
             configureCell()
+        }
+    }
+    
+    var travellerModelData: TravellerModel? {
+        didSet {
+            configureCellForTraveller()
         }
     }
     
@@ -44,6 +50,12 @@ class TravellerListTableViewCell: UITableViewCell {
                 userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
         }
+    }
+    
+    private func configureCellForTraveller() {
+        selectTravellerButton.isHidden = true
+        leadingConstraint.constant = 16
+        userNameLabel.text = travellerModelData?.firstName
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

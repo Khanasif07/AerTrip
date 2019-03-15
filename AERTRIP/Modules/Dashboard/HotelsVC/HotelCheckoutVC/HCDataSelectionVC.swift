@@ -9,7 +9,7 @@
 import UIKit
 
 class HCDataSelectionVC: BaseVC {
-    
+
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -42,13 +42,15 @@ class HCDataSelectionVC: BaseVC {
     //MARK:- Public
     let viewModel = HCDataSelectionVM()
     
-    //MARK:- Private
+    // MARK: - Private
+    
     private let hotelFormData = HotelsSearchVM.hotelFormData
     
-    //MARK:- ViewLifeCycle
-    //MARK:-
+    // MARK: - ViewLifeCycle
+    
+    // MARK: -
+    
     override func initialSetup() {
-        
         registerXIBs()
         
         setupNavView()
@@ -62,21 +64,22 @@ class HCDataSelectionVC: BaseVC {
         fillData()
         
         manageLoader(shouldStart: true)
+
+        setupGuestArray()
     }
     
     override func setupFonts() {
-        
-        //continue button
+        // continue button
         totalFareLabel.font = AppFonts.SemiBold.withSize(20.0)
         infoTextLabel.font = AppFonts.Regular.withSize(14.0)
         continueButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         
-        //hotel details
+        // hotel details
         hotelNameLabel.font = AppFonts.SemiBold.withSize(18.0)
         checkInOutDate.font = AppFonts.Regular.withSize(16.0)
         detailsButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         
-        //fare breakup
+        // fare breakup
         fareBreakupTitleLabel.font = AppFonts.SemiBold.withSize(16.0)
         fareDetailLabel.font = AppFonts.Regular.withSize(16.0)
         totalPayableTextLabel.font = AppFonts.Regular.withSize(20.0)
@@ -84,27 +87,25 @@ class HCDataSelectionVC: BaseVC {
     }
     
     override func setupTexts() {
-        
-        //continue button
+        // continue button
         infoTextLabel.text = LocalizedString.Info.localized
         continueButton.setTitle(LocalizedString.Continue.localized, for: .normal)
         
-        //hotel details
+        // hotel details
         detailsButton.setTitle(LocalizedString.Details.localized, for: .normal)
         
-        //fare breakup
+        // fare breakup
         fareBreakupTitleLabel.text = LocalizedString.FareBreakup.localized
         totalPayableTextLabel.text = LocalizedString.TotalPayableNow.localized
     }
     
     override func setupColors() {
-        
-        //continue button
+        // continue button
         totalFareLabel.textColor = AppColors.themeWhite
         infoTextLabel.textColor = AppColors.themeWhite
         continueButton.setTitleColor(AppColors.themeWhite, for: .normal)
         
-        //hotel details
+        // hotel details
         hotelNameLabel.textColor = AppColors.themeBlack
         checkInOutDate.textColor = AppColors.themeGray40
         detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -164,11 +165,12 @@ class HCDataSelectionVC: BaseVC {
         tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         tableView.registerCell(nibName: TextEditableTableViewCell.reusableIdentifier)
         tableView.registerCell(nibName: ContactTableCell.reusableIdentifier)
-        
     }
     
-    //MARK:- Methods
-    //MARK:- Private
+    // MARK: - Methods
+    
+    // MARK: - Private
+    
     private func setupFareBreakup() {
         if let room = viewModel.itineraryData?.hotelDetails?.num_rooms, let night = viewModel.itineraryData?.hotelDetails?.no_of_nights {
             let roomText = (room > 1) ? LocalizedString.Rooms.localized : LocalizedString.Room.localized
@@ -184,38 +186,47 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func animateFareDetails(isHidden: Bool, animated: Bool) {
-        
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if !isHidden {
-            self.fareDetailContainerView.isHidden = false
+            fareDetailContainerView.isHidden = false
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            guard let sSelf = self else {return}
+            guard let sSelf = self else { return }
             
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : 0.0
             sSelf.upArrowImageView.transform = rotateTrans
             
             sSelf.view.layoutIfNeeded()
             
-            }, completion: { [weak self] (isDone) in
-                if isHidden {
-                    self?.fareDetailContainerView.isHidden = true
-                }
+        }, completion: { [weak self] _ in
+            if isHidden {
+                self?.fareDetailContainerView.isHidden = true
+            }
         })
     }
     
     private func setupGuestArray() {
         for i in 0..<hotelFormData.adultsCount.count {
-            for _ in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
-                self.viewModel.guests[i].append(GuestModal())
+            var temp: [GuestModal] = []
+            for j in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
+                var guest = GuestModal()
+                if j < hotelFormData.adultsCount[i] {
+                    guest.passengerType = PassengersType.Adult.rawValue
+                }
+                else {
+                    guest.passengerType = PassengersType.child.rawValue
+                }
+                temp.append(guest)
             }
+            GuestDetailsVM.shared.guests.append(temp)
         }
+        viewModel.guests = GuestDetailsVM.shared.guests
     }
     
-    //MARK:- Public
+    // MARK: - Public
     
+    // MARK: - Action
     
-    //MARK:- Action
     @IBAction func fareInfoButtonAction(_ sender: UIButton) {
         toggleFareDetailView()
     }
@@ -234,6 +245,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchConfirmItineraryDataSuccess() {
+        GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
         manageLoader(shouldStart: false)
         fillData()
         viewModel.fetchRecheckRatesData()
@@ -268,16 +280,14 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
 
 extension HCDataSelectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        //back button action
+        // back button action
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        //plus button action
-        
+        // plus button action
     }
 }
-
 
 extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -285,37 +295,36 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         let newRow = indexPath.row - hotelFormData.adultsCount.count
         
         if newRow < 0 {
-            //room data cell
+            // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
             return (115.0 * ((totalCount <= 4) ? 1.0 : 2.0)) + 61.0
         }
         else {
             switch newRow {
-            case 0, 2, 7 :
-                //space
+            case 0, 2, 7:
+                // space
                 return 35.0
                 
-            case 1 :
-                //prefrences
+            case 1:
+                // prefrences
                 return 78.0
                 
-            case 3 :
-                //contact details text
+            case 3:
+                // contact details text
                 return 54.0
                 
-            case 4 :
-                //mobile number
+            case 4:
+                // mobile number
                 return 60.0
                 
-            case 5 :
-                //email
+            case 5:
+                // email
                 return 60.0
                 
-            case 6 :
+            case 6:
                 //text message
                 return 60.0
                 
@@ -326,11 +335,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let newRow = indexPath.row - hotelFormData.adultsCount.count
         
         if newRow < 0 {
-            //room data cell
+            // room data cell
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionRoomDetailCell.reusableIdentifier) as? HCDataSelectionRoomDetailCell else {
                 return UITableViewCell()
             }
@@ -341,8 +349,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 7 :
-                //space
+            case 0, 2, 7:
+                // space
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
                     return UITableViewCell()
                 }
@@ -354,20 +362,19 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
                 
-            case 1 :
-                //prefrences
+            case 1:
+                // prefrences
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionPrefrencesCell.reusableIdentifier) as? HCDataSelectionPrefrencesCell else {
                     return UITableViewCell()
                 }
                 
                 return cell
                 
-            case 3 :
-                //contact details text
+            case 3:
+                // contact details text
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionTextLabelCell.reusableIdentifier) as? HCDataSelectionTextLabelCell else {
                     return UITableViewCell()
                 }
-                
                 
                 cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
                 cell.titleLabel.textColor = AppColors.themeBlack
@@ -376,16 +383,16 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
                 
-            case 4 :
-                //mobile number
+            case 4:
+                // mobile number
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reusableIdentifier) as? ContactTableCell else {
                     return UITableViewCell()
                 }
-                                
+                
                 return cell
                 
-            case 5 :
-                //email
+            case 5:
+                // email
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: TextEditableTableViewCell.reusableIdentifier) as? TextEditableTableViewCell else {
                     return UITableViewCell()
                 }
@@ -405,7 +412,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
                 
-            case 6 :
+            case 6:
                 //text message
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionTextLabelCell.reusableIdentifier) as? HCDataSelectionTextLabelCell else {
                     return UITableViewCell()

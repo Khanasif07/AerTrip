@@ -8,29 +8,26 @@
 
 import UIKit
 
-
 class HCDataSelectionRoomDetailCell: UITableViewCell {
-    
-    //Mark:- IBOutlets
-    //Mark:-
-    @IBOutlet weak var roomNumberLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet var roomNumberLabel: UILabel!
+    @IBOutlet var collectionView: UICollectionView!
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
     
-    
-    //Mark:- LifeCycles
-    //Mark:-
+    // Mark:- LifeCycles
+    // Mark:-
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
-        self.configUI()
+        selectionStyle = .none
+        configUI()
     }
     
-    //Mark:- Functions
-    //Mark:-
+    // Mark:- Functions
+    // Mark:-
     
     private func configUI() {
         collectionView.delegate = self
@@ -46,19 +43,16 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         collectionView.reloadData()
     }
     
-    //Mark:- IBActions
-    //Mark:-
+    // Mark:- IBActions
+    // Mark:-
 }
 
 extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
         return UIEdgeInsets.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         guard let forIdx = forIndex else {
             return 0
         }
@@ -67,7 +61,6 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         guard let forIdx = forIndex else {
             return CGSize.zero
         }
@@ -81,7 +74,6 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         return CGSize(width: width, height: height)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5.0
     }
@@ -92,7 +84,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         }
         
         if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
-            let age = hotelFormData.childrenAge[forIdx.row][indexPath.item-hotelFormData.adultsCount[forIdx.row]]
+            let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
             cell.configData(isAdult: false, number: (indexPath.item + 1), age: age)
         }
         else {
@@ -106,30 +98,26 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         if let forIndex = forIndex {
             AppFlowManager.default.moveToGuestDetailScreen(IndexPath(row: indexPath.item, section: forIndex.row))
         }
-        
     }
 }
 
-
 class HCDataSelectionPrefrencesCell: UITableViewCell {
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
     
-    //Mark:- IBOutlets
-    //Mark:-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    
-    
-    //Mark:- LifeCycles
-    //Mark:-
+    // Mark:- LifeCycles
+    // Mark:-
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
-        self.configUI()
+        selectionStyle = .none
+        configUI()
     }
     
-    //Mark:- Functions
-    //Mark:-
+    // Mark:- Functions
+    // Mark:-
     
     private func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(18.0)
@@ -141,29 +129,27 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         descriptionLabel.text = LocalizedString.Optional.localized
     }
     
-    //Mark:- IBActions
-    //Mark:-
+    // Mark:- IBActions
+    // Mark:-
 }
 
 class HCDataSelectionTextLabelCell: UITableViewCell {
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var topConstraint: NSLayoutConstraint!
     
-    //Mark:- IBOutlets
-    //Mark:-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    
-    
-    //Mark:- LifeCycles
-    //Mark:-
+    // Mark:- LifeCycles
+    // Mark:-
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
-        self.configUI()
+        selectionStyle = .none
+        configUI()
     }
     
-    //Mark:- Functions
-    //Mark:-
+    // Mark:- Functions
+    // Mark:-
     
     func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(14.0)
@@ -171,29 +157,28 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
         titleLabel.text = LocalizedString.EmailMobileCommunicationMessageForBooking.localized
     }
     
-    //Mark:- IBActions
-    //Mark:-
+    // Mark:- IBActions
+    // Mark:-
 }
 
 class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
-    
-    //Mark:- IBOutlets
-    //Mark:-
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
     
     private(set) var isForAdult: Bool = false
     
-    //Mark:- LifeCycles
-    //Mark:-
+    // Mark:- LifeCycles
+    // Mark:-
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.configUI()
+        configUI()
     }
     
-    //Mark:- Functions
-    //Mark:-
+    // Mark:- Functions
+    // Mark:-
     
     private func configUI() {
         iconImageView.image = nil
@@ -214,6 +199,6 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         titleLabel.text = finalText
     }
     
-    //Mark:- IBActions
-    //Mark:-
+    // Mark:- IBActions
+    // Mark:-
 }
