@@ -92,7 +92,6 @@ class HotelDetailsAmenitiesVC: BaseVC {
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 //Mark:- UITableView Delegate And DataSource

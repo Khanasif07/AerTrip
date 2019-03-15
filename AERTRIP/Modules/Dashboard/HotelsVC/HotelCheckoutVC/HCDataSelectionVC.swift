@@ -174,6 +174,14 @@ class HCDataSelectionVC: BaseVC {
         })
     }
     
+    private func setupGuestArray() {
+        for i in 0..<hotelFormData.adultsCount.count {
+            for _ in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
+                self.viewModel.guests[i].append(GuestModal())
+            }
+        }
+    }
+    
     //MARK:- Public
     
     

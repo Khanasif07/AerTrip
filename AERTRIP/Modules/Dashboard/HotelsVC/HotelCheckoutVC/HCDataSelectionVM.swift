@@ -20,9 +20,13 @@ class HCDataSelectionVM {
     //MARK:- Public
     weak var delegate: HCDataSelectionVMDelegate?
     private(set) var itineraryData: ItineraryData?
+
+    //following properties will use to hit the confirmation API, will passed from where this class is being initiated
+    var sId = "", hId = "", qId = ""
         
+    var guests : [[GuestModal]] = [[]]
+
     //MARK:- Private
-    
     
     //MARK:- Methods
     //MARK:- Private
@@ -30,7 +34,7 @@ class HCDataSelectionVM {
     
     //MARK:- Public
     func fetchConfirmItineraryData() {
-        let params: JSONDictionary = ["":""]
+        let params: JSONDictionary = [APIKeys.sid.rawValue: sId, APIKeys.hid.rawValue: hId, "data[0][qid]": qId, "p": "hotels"]
         printDebug(params)
         
         delegate?.willFetchConfirmItineraryData()

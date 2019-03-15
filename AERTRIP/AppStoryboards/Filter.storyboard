@@ -165,7 +165,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yc4-Rx-GhG">
                                 <rect key="frame" x="257" y="65" width="102" height="31"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Within 2 Km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5U-Ru-ge6">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Within 14 Km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5U-Ru-ge6">
                                         <rect key="frame" x="0.0" y="0.0" width="102" height="31"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
@@ -205,7 +205,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="dotsInteractionEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="enableHapticFeedback" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="index">
-                                        <integer key="value" value="0"/>
+                                        <integer key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
                                         <color key="value" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -442,7 +442,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyY-ed-ygo">
-                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
+                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
                                                         <state key="normal" image="starRatingUnfill"/>
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>

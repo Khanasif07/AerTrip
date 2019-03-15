@@ -80,9 +80,9 @@ class HotelCardTableViewCell: UITableViewCell {
         
         self.pageControl.numberOfPages = thumbnail.count
         self.scrollView.delegate = self
-        self.scrollView.isPagingEnabled = (thumbnail.count <= 1)
-        self.scrollView.isUserInteractionEnabled = true
-        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(5), height: self.hotelImageView.frame.size.height)
+        self.scrollView.isPagingEnabled = (thumbnail.count < 1)
+        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")
         self.pageControl.isHidden = (thumbnail.count <= 1)

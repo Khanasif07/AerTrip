@@ -137,10 +137,19 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func bookmarkButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.presentSelectTripVC(delegate: self)
     }
     
     @objc func doneBedPicker(){
         self.endEditing(true)
+    }
+}
+
+//MARK:- SelectTripVC delegate methods
+//MARK:-
+extension HotelDetailsBedsTableViewCell: SelectTripVCDelegate {
+    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
+        printDebug("Selected trip: \(trip.title)")
     }
 }
 
