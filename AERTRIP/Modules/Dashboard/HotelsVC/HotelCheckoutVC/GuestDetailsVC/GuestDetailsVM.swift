@@ -8,13 +8,31 @@
 
 import UIKit
 
-class GuestDetailsVM {
-    
-    // Save Hotel Form Data
-    var hotelFormData : HotelFormPreviosSearchData = HotelFormPreviosSearchData()
-    var selectedIndexPath: IndexPath = IndexPath()
-    
-    //GuestModalArray for travellers
-    var guests : [[GuestModal]] = [[]]
+protocol GuestDetailsVMDelegate: class {}
 
+class GuestDetailsVM {
+    static let shared = GuestDetailsVM()
+    weak var delegate: GuestDetailsVMDelegate?
+    // Save Hotel Form Data
+    var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    var selectedIndexPath: IndexPath = IndexPath()
+    var salutation = [String]()
+    
+    // GuestModalArray for travellers
+    var guests: [[GuestModal]] = [[]]
+    var travellerList: [TravellerModel] = []
+    
+    private init() {}
+    
+    func webserviceForGetSalutations() {
+        APICaller.shared.callGetSalutationsApi(completionBlock: { success, data, errors in
+            
+            if success {
+                self.salutation = data
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+            }
+        })
+    }
 }

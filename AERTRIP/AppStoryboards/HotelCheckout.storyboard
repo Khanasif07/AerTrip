@@ -241,8 +241,7 @@
                                 <rect key="frame" x="0.0" y="495" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R 24,2341.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbc-HR-3Ud">
-
-                                        <rect key="frame" x="16" y="14.5" width="100" height="21"/>
+                                        <rect key="frame" x="16" y="15" width="100" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="6rP-wv-rCQ"/>
                                         </constraints>
@@ -428,11 +427,11 @@
                                     <constraint firstAttribute="height" constant="44" id="Hu7-h8-omi"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="obO-hP-wGa">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="obO-hP-wGa" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="168" width="375" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -454,9 +453,9 @@
                         <viewLayoutGuide key="safeArea" id="ef6-oa-bzv"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="AuL-Y2-nzN" id="LZg-a0-RA2"/>
+                        <outlet property="guestDetailTableView" destination="AuL-Y2-nzN" id="lWJ-sp-4lG"/>
                         <outlet property="topNavView" destination="dnv-2r-oQd" id="EjT-8v-YOA"/>
-                        <outlet property="travellersTableView" destination="obO-hP-wGa" id="2LQ-NT-tHx"/>
+                        <outlet property="travellersTableView" destination="obO-hP-wGa" id="g7J-in-VOb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5K-by-zH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -864,10 +863,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="emptyStateCoupon" width="192" height="104"/>
         <image name="ic_add_adult" width="67" height="67"/>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
-        <image name="emptyStateCoupon" width="192" height="104"/>
     </resources>
 </document>

@@ -319,17 +319,16 @@ class HotelResultVC: BaseVC {
         self.collectionView.reloadData()
     }
     
-    
-     func searchForText(_ searchText: String) {
+    func searchForText(_ searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+        perform(#selector(self.performSearchForText(_:)), with: searchText, afterDelay: 0.5)
     }
     
     @objc private func performSearchForText(_ searchText: String) {
-        searchHotels(forText: searchText)
+        self.searchHotels(forText: searchText)
     }
     
-   private func searchHotels(forText: String) {
+    private func searchHotels(forText: String) {
         self.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
         self.predicateStr = forText
@@ -589,7 +588,7 @@ class HotelResultVC: BaseVC {
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 self.hotelSearchTableView.reloadData()
             } else {
-                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
+                self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
             }
             self.reloadHotelList()
         } catch {
@@ -820,8 +819,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.searchText = self.predicateStr
-            if searchedHotels.count > 0 {
-                  cell.hotelData = self.searchedHotels[indexPath.row]
+            if self.searchedHotels.count > 0 {
+                cell.hotelData = self.searchedHotels[indexPath.row]
             }
             return cell
         } else {
@@ -841,9 +840,16 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let hData = fetchedResultsController.object(at: indexPath)
-        if let cell = tableView.cellForRow(at: indexPath) {
-            AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        if self.tableViewType == .SearchTableView {
+            let hData = self.searchedHotels[indexPath.row]
+            if let cell = tableView.cellForRow(at: indexPath) {
+                AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            }
+        } else {
+            let hData = fetchedResultsController.object(at: indexPath)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            }
         }
     }
 }
@@ -988,7 +994,7 @@ extension HotelResultVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
         self.manageMapViewOnScroll(scrollView)
-       // self.manageFloatingButtonOnPaginationScroll(scrollView)
+        // self.manageFloatingButtonOnPaginationScroll(scrollView)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
