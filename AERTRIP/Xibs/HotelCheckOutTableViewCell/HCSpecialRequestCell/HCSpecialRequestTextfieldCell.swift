@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol SpecialReqAndAirLineInfoDelegate: class {
-    func passingSpecialRequestAndAirLineInfo(infoText: String)
+protocol HCSpecialRequestTextfieldCellDelegate: class {
+    func didPassSpecialRequestAndAirLineText(infoText: String, indexPath: IndexPath)
 }
 
 class HCSpecialRequestTextfieldCell: UITableViewCell {
     
     //Mark:- Variables
-    weak var delegate: SpecialReqAndAirLineInfoDelegate?
+    weak var delegate: HCSpecialRequestTextfieldCellDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -24,6 +24,8 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     @IBOutlet weak var infoTextField: UITextField! {
         didSet {
             self.infoTextField.delegate = self
+            self.infoTextField.rightViewMode = .whileEditing
+            self.infoTextField.textFieldClearBtnSetUp()
         }
     }
     @IBOutlet weak var bottomDividerView: ATDividerView!
@@ -46,9 +48,6 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
         
         //Text
         self.infoTextField.setAttributedPlaceHolder(placeHolderText: "")
-        //        self.infoTextField.attributedPlaceholder = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
-        //        self.specialRequestTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.SpecialRequestIfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
-        
     }
     
     internal func configCell(placeHolderText: String) {
@@ -56,13 +55,15 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     }
 }
 
+//Mark:- UITextField Delegate
+//===========================
 extension HCSpecialRequestTextfieldCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !finalText.isEmpty {
-            self.delegate?.passingSpecialRequestAndAirLineInfo(infoText: finalText)
+        if let superView = self.superview as? UITableView , let indexPath = superView.indexPath(forItem: textField), !finalText.isEmpty {
+            self.delegate?.didPassSpecialRequestAndAirLineText(infoText: finalText,indexPath: indexPath)
         }
         return true
     }

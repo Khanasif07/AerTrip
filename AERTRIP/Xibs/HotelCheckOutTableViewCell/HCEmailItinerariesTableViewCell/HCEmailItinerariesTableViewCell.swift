@@ -26,6 +26,11 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     @IBOutlet weak var emailTextField: UITextField! {
         didSet {
             self.emailTextField.delegate = self
+            self.emailTextField.rightViewMode = .whileEditing
+//            self.emailTextField
+            self.emailTextField.adjustsFontSizeToFitWidth = true
+            self.emailTextField.textFieldClearBtnSetUp()
+
         }
     }
     @IBOutlet weak var sendButton: UIButton!

@@ -372,6 +372,16 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        //Redirect to Selection Preference VC
+        if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
+            AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests, delegate: self)
+        }
+    }
+}
+
+
+extension HCDataSelectionVC: HCSpecialRequestsDelegate {
+    func didPassSelectedRequestsId(ids: [Int], preferences: String, request: String) {
+        printDebug("\(ids),\t\(preferences),\t\(request)")
     }
 }
