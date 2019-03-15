@@ -173,13 +173,12 @@ class HotelDetailsVC: BaseVC {
         
         let newY = UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-newY))
+        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame
             sSelf.hotelTableView.frame = newTableFrame
             sSelf.hotelTableView.alpha = 1.0
-            //            sSelf.hotelTableView.transform = CGAffineTransform.identity
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 sSelf.imageView.isHidden = true

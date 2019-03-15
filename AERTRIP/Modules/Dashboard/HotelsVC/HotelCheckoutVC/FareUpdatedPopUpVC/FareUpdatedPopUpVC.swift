@@ -80,7 +80,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func updateDecreasePopUp(decreasedAmount: Double) {
         let currency = "$"
-        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "child_selected"), endText: "\(LocalizedString.FareDippedBy.localized) \(currency)\(decreasedAmount)", font: AppFonts.Regular.withSize(16.0))
+        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_fare_dipped"), endText: " \(LocalizedString.FareDippedBy.localized) \(currency)\(decreasedAmount)", font: AppFonts.Regular.withSize(16.0))
         
         attrText.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], range: (attrText.string as NSString).range(of: attrText.string))
         

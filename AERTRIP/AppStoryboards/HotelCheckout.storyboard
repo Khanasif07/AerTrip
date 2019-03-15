@@ -195,17 +195,14 @@
                                             <constraint firstAttribute="height" constant="1" id="jm5-Ag-baV"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mel-ki-lzv">
-                                        <rect key="frame" x="16" y="12" width="168" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mel-ki-lzv">
+                                        <rect key="frame" x="16" y="12" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34543" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk0-MR-eUi">
-                                        <rect key="frame" x="194" y="12.5" width="100" height="19.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="T6T-kT-gVl"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="34543" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk0-MR-eUi">
+                                        <rect key="frame" x="68" y="12.5" width="226" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -241,8 +238,7 @@
                                 <rect key="frame" x="0.0" y="495" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R 24,2341.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbc-HR-3Ud">
-
-                                        <rect key="frame" x="16" y="14.5" width="100" height="21"/>
+                                        <rect key="frame" x="16" y="15" width="100" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="6rP-wv-rCQ"/>
                                         </constraints>
@@ -293,6 +289,19 @@
                                     <constraint firstItem="Sbc-HR-3Ud" firstAttribute="leading" secondItem="ppY-MC-9bt" secondAttribute="leading" constant="16" id="g0l-lS-hL2"/>
                                     <constraint firstItem="RIu-DD-UtY" firstAttribute="top" secondItem="ppY-MC-9bt" secondAttribute="top" id="m0q-VD-5lT"/>
                                     <constraint firstItem="yTr-kx-KUi" firstAttribute="leading" secondItem="Sbc-HR-3Ud" secondAttribute="trailing" constant="8" id="y0j-Fi-fud"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUJ-iR-Ql8">
+                                <rect key="frame" x="0.0" y="451" width="375" height="94"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gQ7-Mc-Czt">
+                                        <rect key="frame" x="177.5" y="37" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="gQ7-Mc-Czt" firstAttribute="centerX" secondItem="cUJ-iR-Ql8" secondAttribute="centerX" id="cyc-Ja-r23"/>
+                                    <constraint firstItem="gQ7-Mc-Czt" firstAttribute="centerY" secondItem="cUJ-iR-Ql8" secondAttribute="centerY" id="grD-9f-1Ta"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMl-TE-dRQ">
@@ -372,15 +381,19 @@
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="bXX-Jv-Wqc" secondAttribute="trailing" id="12h-jb-aW1"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="bottom" id="1P7-NX-d4n"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="top" secondItem="bXX-Jv-Wqc" secondAttribute="bottom" id="1is-1F-BP8"/>
+                            <constraint firstItem="cUJ-iR-Ql8" firstAttribute="trailing" secondItem="pDs-Hh-dQp" secondAttribute="trailing" id="2SN-gM-bTe"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="pDs-Hh-dQp" secondAttribute="trailing" id="6k3-TT-BPK"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="7xd-lw-0Hd"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="9Pl-Yz-GTl"/>
+                            <constraint firstItem="cUJ-iR-Ql8" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="Ff9-lJ-Xc4"/>
+                            <constraint firstItem="cUJ-iR-Ql8" firstAttribute="bottom" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="KKc-xw-hQ9"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ffZ-xz-8YE" secondAttribute="trailing" id="MyW-Re-Wik"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="Nhf-aN-4ut"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ppY-MC-9bt" secondAttribute="trailing" id="OjW-l4-mgK"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="bottom" secondItem="zMl-TE-dRQ" secondAttribute="bottom" id="RCf-rf-KB5"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="top" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="UVz-Jr-Qoz"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="top" secondItem="ffZ-xz-8YE" secondAttribute="bottom" id="VbY-KC-ZB0"/>
+                            <constraint firstItem="cUJ-iR-Ql8" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="cyD-jk-S7l"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="top" secondItem="qGC-DP-rgu" secondAttribute="top" id="ljZ-aS-cxI"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="zMl-TE-dRQ" secondAttribute="trailing" id="wlJ-ud-Cvi"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="xDG-ow-6vT"/>
@@ -389,6 +402,7 @@
                         <viewLayoutGuide key="safeArea" id="qGC-DP-rgu"/>
                     </view>
                     <connections>
+                        <outlet property="activityLoader" destination="gQ7-Mc-Czt" id="oFA-MJ-fZq"/>
                         <outlet property="checkInOutDate" destination="xk0-MR-eUi" id="3ak-SB-jfr"/>
                         <outlet property="continueButton" destination="RIu-DD-UtY" id="vp5-7C-El9"/>
                         <outlet property="continueContainerView" destination="ppY-MC-9bt" id="VAu-5f-jOJ"/>
@@ -401,6 +415,7 @@
                         <outlet property="hotelNameLabel" destination="mel-ki-lzv" id="Ysy-ZE-jbp"/>
                         <outlet property="infoButton" destination="CdW-ts-4Dd" id="Ta2-OO-059"/>
                         <outlet property="infoTextLabel" destination="yTr-kx-KUi" id="zlp-9I-uQO"/>
+                        <outlet property="loaderContainerView" destination="cUJ-iR-Ql8" id="8CJ-Iy-4us"/>
                         <outlet property="tableView" destination="ffZ-xz-8YE" id="1RH-TM-3fC"/>
                         <outlet property="topNavView" destination="bXX-Jv-Wqc" id="bF1-3J-foR"/>
                         <outlet property="totalFareAmountLabel" destination="b6G-94-5kb" id="mvu-Ff-Naz"/>
@@ -707,13 +722,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coupon required" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lA5-61-6x6">
-                                        <rect key="frame" x="21.5" y="145" width="197" height="28"/>
+                                        <rect key="frame" x="21.5" y="145" width="197" height="26"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You already have the best price." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIZ-SL-rUz">
-                                        <rect key="frame" x="0.0" y="177.5" width="240" height="23"/>
+                                        <rect key="frame" x="0.0" y="175.5" width="240" height="21"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -864,10 +879,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="emptyStateCoupon" width="192" height="104"/>
         <image name="ic_add_adult" width="67" height="67"/>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
-        <image name="emptyStateCoupon" width="192" height="104"/>
     </resources>
 </document>

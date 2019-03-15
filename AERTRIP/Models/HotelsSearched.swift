@@ -40,6 +40,10 @@ struct HotelsSearched: Codable {
     var country: String = ""
     var amenities: [String] = [String]()
     
+    //used in hotel checkout
+    var checkin: String = ""
+    var checkout: String = ""
+    
     init() {
         self.init(json: [:])
     }
@@ -166,6 +170,13 @@ struct HotelsSearched: Codable {
         }
         if let obj = json[APIKeys.amenities.rawValue] as? [String] {
             self.amenities = obj
+        }
+        
+        if let obj = json[APIKeys.checkin.rawValue] {
+            self.checkin = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.checkout.rawValue] {
+            self.checkout = "\(obj)".removeNull
         }
     }
     

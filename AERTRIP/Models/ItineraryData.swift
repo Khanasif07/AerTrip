@@ -44,6 +44,7 @@ struct ItineraryData {
     
     var traveller_master: [TravellerModel] = []
     var special_requests: [SpecialRequest] = []
+    var hotelDetails: HotelDetails?
 
 
 //    var part_payment = {  }
@@ -93,6 +94,8 @@ struct ItineraryData {
         
         traveller_master = TravellerModel.models(jsonArr: json[APIKeys.traveller_master.rawValue]["aertrip"].arrayValue)
         special_requests = SpecialRequest.models(jsonArr: json[APIKeys.special_requests.rawValue].arrayValue)
+        
+        hotelDetails = HotelDetails(json: json["details"]["processed_data"].dictionaryObject ?? [:])
     }
 }
 

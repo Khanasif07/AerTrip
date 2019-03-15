@@ -235,4 +235,29 @@ extension APICaller {
             }
         }
     }
+    
+    func fetchRecheckRatesData(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ data: ItineraryData?) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.recheckRates, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    let itiD = ItineraryData(json: jsonData[APIKeys.data.rawValue]["itinerary"])
+                    completionBlock(true, [], itiD)
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
+            }, failure: { error in
+                completionBlock(false, error, nil)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
 }

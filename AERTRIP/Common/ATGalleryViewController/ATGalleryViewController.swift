@@ -222,6 +222,7 @@ class ATGalleryViewController: UIViewController {
         }
         
         self.modeChangeButton.isSelected = ATGalleryViewConfiguration.viewMode != .vertical
+        self.modeChangeButton.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
     }
     
     //MARK:- Public

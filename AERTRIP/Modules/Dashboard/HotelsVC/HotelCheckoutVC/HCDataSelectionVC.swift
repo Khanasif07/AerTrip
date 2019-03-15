@@ -34,6 +34,8 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var fareDetailLabel: UILabel!
     @IBOutlet weak var totalPayableTextLabel: UILabel!
     @IBOutlet weak var totalFareAmountLabel: UILabel!
+    @IBOutlet weak var loaderContainerView: UIView!
+    @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     
     //MARK:- Properties
@@ -58,6 +60,8 @@ class HCDataSelectionVC: BaseVC {
         continueContainerView.addGredient(isVertical: false)
         
         fillData()
+        
+        manageLoader(shouldStart: true)
     }
     
     override func setupFonts() {
@@ -91,10 +95,6 @@ class HCDataSelectionVC: BaseVC {
         //fare breakup
         fareBreakupTitleLabel.text = LocalizedString.FareBreakup.localized
         totalPayableTextLabel.text = LocalizedString.TotalPayableNow.localized
-        
-        //temp
-        hotelNameLabel.text = "Grand Hyatt Hotel Mumbai, Maharastra, India"
-        checkInOutDate.text = "22 Jul - 28 Jul"
     }
     
     override func setupColors() {
@@ -114,10 +114,39 @@ class HCDataSelectionVC: BaseVC {
         viewModel.delegate = self
     }
     
+    private func manageLoader(shouldStart: Bool) {
+        activityLoader.style = .whiteLarge
+        activityLoader.color = AppColors.themeGreen
+        activityLoader.startAnimating()
+        
+        loaderContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.5)
+        
+        loaderContainerView.isHidden = !shouldStart
+    }
+    
     private func fillData() {
         viewModel.fetchConfirmItineraryData()
         totalFareLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0).delimiter)"
         setupFareBreakup()
+        
+        hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
+        
+        var finalDate = ""
+        if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
+            finalDate = Date.getDateFromString(stringDate: chIn, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+        }
+        
+        if let chOut = viewModel.itineraryData?.hotelDetails?.checkout, !chOut.isEmpty {
+            let txt = Date.getDateFromString(stringDate: chOut, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+            
+            if finalDate.isEmpty {
+                finalDate = txt
+            }
+            else {
+                finalDate += " - \(txt)"
+            }
+        }
+        checkInOutDate.text = finalDate
     }
     
     private func setupNavView() {
@@ -141,12 +170,13 @@ class HCDataSelectionVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func setupFareBreakup() {
-        let room = 1, night = 2
-        let roomText = (room > 1) ? LocalizedString.Rooms.localized : LocalizedString.Room.localized
-        let nightText = (night > 1) ? LocalizedString.Nights.localized : LocalizedString.Night.localized
+        if let room = viewModel.itineraryData?.hotelDetails?.num_rooms, let night = viewModel.itineraryData?.hotelDetails?.no_of_nights {
+            let roomText = (room > 1) ? LocalizedString.Rooms.localized : LocalizedString.Room.localized
+            let nightText = (night > 1) ? LocalizedString.Nights.localized : LocalizedString.Night.localized
+            fareDetailLabel.text = "\(LocalizedString.For.localized) \(room) \(roomText) & \(night) \(nightText)"
+        }
         
-        fareDetailLabel.text = "\(LocalizedString.For.localized) \(room) \(roomText) & \(night) \(nightText)"
-        totalFareAmountLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0))"
+        totalFareAmountLabel.text = "$ \(Int(viewModel.itineraryData?.total_fare ?? 0.0))"
     }
     
     private func toggleFareDetailView() {
@@ -191,27 +221,48 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
-        FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: 30.0, totalUpdatedAmount: 12000.0, continueButtonAction: {
-            print("continueButtonAction")
-        }, goBackButtonAction: {
-            print("goBackButtonAction")
-        })
+        FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: 10.0, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
-        FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: 30.0, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
     }
 }
 
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func willFetchConfirmItineraryData() {
+        manageLoader(shouldStart: true)
     }
     
     func fetchConfirmItineraryDataSuccess() {
+        manageLoader(shouldStart: false)
         fillData()
+        viewModel.fetchRecheckRatesData()
     }
     
     func fetchConfirmItineraryDataFail() {
+        manageLoader(shouldStart: false)
+    }
+    
+    func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
+        if let oldAmount = viewModel.itineraryData?.total_fare {
+            let newAmount = recheckedData.total_fare
+            
+            let diff = newAmount - oldAmount
+            if diff > 0 {
+                //increased
+                FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: {[weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.continueButtonAction(sSelf.continueButton)
+                    }, goBackButtonAction: {[weak self] in
+                        guard let sSelf = self else {return}
+                        sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                })
+            }
+            else if diff < 0 {
+                //dipped
+                FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -(diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            }
+        }
     }
 }
 

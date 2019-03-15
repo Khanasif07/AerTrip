@@ -246,7 +246,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBar.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = true
+        self.hideFavSwitch()
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchView.isHidden = true
@@ -456,7 +456,7 @@ class HotelResultVC: BaseVC {
     
     private func getFavouriteHotels() {
         self.favouriteHotels = self.fetchedResultsController.fetchedObjects?.filter { $0.fav == "1" } ?? []
-        self.favouriteHotels.count > 0 && UserInfo.loggedInUser != nil ? self.showFloatingView() : self.hideFloatingView()
+        self.favouriteHotels.count > 0 && UserInfo.loggedInUser != nil ? self.showFavSwitch() : self.hideFavSwitch()
     }
     
     private func getPinnedHotelTemplate() {
@@ -746,11 +746,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return 1
         } else {
             self.hotelSearchView.isHidden = true
-            self.showFloatingView()
+            self.showFavSwitch()
             self.getFavouriteHotels()
             if self.fetchedResultsController.sections?.count == 0, self.fetchRequestType == .FilterApplied {
                 self.hotelSearchView.isHidden = false
-                self.hideFloatingView()
+                self.hideFavSwitch()
                 self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
                 self.noHotelFoundOnFilterEmptyView.backgroundColor = .red
                 self.shimmerView.addSubview(self.noHotelFoundOnFilterEmptyView)
@@ -1119,7 +1119,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.hotelSearchView.isHidden = false
         self.progressView.removeFromSuperview()
         self.shimmerView.removeFromSuperview()
-        self.hideFloatingView()
+        self.hideFavSwitch()
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
@@ -1183,12 +1183,12 @@ extension HotelResultVC: HotelResultDelegate {
         }
     }
     
-    private func hideFloatingView() {
-        self.floatingView.isHidden = true
+    private func hideFavSwitch() {
+        self.switchContainerView.isHidden = true
     }
     
-    private func showFloatingView() {
-        self.floatingView.isHidden = false
+    private func showFavSwitch() {
+        self.switchContainerView.isHidden = false
     }
 }
 
@@ -1292,6 +1292,9 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
             self.expandGroup((Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched] ?? []))
+        }
+        else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let hData = cell.hotelListData {
+            AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
     }
     

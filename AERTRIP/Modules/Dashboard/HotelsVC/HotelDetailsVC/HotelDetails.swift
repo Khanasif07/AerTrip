@@ -31,7 +31,7 @@ struct HotelDetails {
     var address: String = ""
     var photos: [String] = []
     var amenities: Amenities? = nil
-//    var amenities_group: [[String: Any]] = [[:]]
+    //    var amenities_group: [[String: Any]] = [[:]]
     var amenitiesGroups : [String : Any] = [:]
     var checkin_time: String = ""
     var checkout_time: String = ""
@@ -62,7 +62,7 @@ struct HotelDetails {
     init() {
         self.init(json: [:])
     }
-
+    
     var jsonDict: JSONDictionary {
         return [APIKeys.facilities.rawValue: self.facilities,
                 APIKeys.city_code.rawValue: self.city_code,
@@ -102,15 +102,15 @@ struct HotelDetails {
                 APIKeys.checkout.rawValue: self.checkout,
                 APIKeys.rates.rawValue: self.rates,
                 //APIKeys.combine_rates.rawValue: self.combine_rates,
-                APIKeys.info.rawValue: self.info,
-                APIKeys.city.rawValue: self.city,
-                APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp
-                //APIKeys.occupant.rawValue: self.occupant
+            APIKeys.info.rawValue: self.info,
+            APIKeys.city.rawValue: self.city,
+            APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp
+            //APIKeys.occupant.rawValue: self.occupant
         ]
     }
     
     init(json: JSONDictionary) {
-
+        
         if let obj = json[APIKeys.facilities.rawValue] {
             self.facilities = "\(obj)".removeNull
         }
@@ -123,23 +123,23 @@ struct HotelDetails {
         if let obj = json[APIKeys.acc_type.rawValue] {
             self.acc_type = "\(obj)".removeNull
         }
-        if let obj = json[APIKeys.temp_price.rawValue] as? Double {
-            self.temp_price = obj
+        if let obj = json[APIKeys.temp_price.rawValue] {
+            self.temp_price = "\(obj)".toDouble ?? 0.0
         }
-        if let obj = json[APIKeys.price.rawValue] as? Double {
-            self.price = obj
+        if let obj = json[APIKeys.price.rawValue] {
+            self.price = "\(obj)".toDouble ?? 0.0
         }
-        if let obj = json[APIKeys.at_hotel_fares.rawValue] as? Double {
-            self.at_hotel_fares = obj
+        if let obj = json[APIKeys.at_hotel_fares.rawValue] {
+            self.at_hotel_fares = "\(obj)".toDouble ?? 0.0
         }
-        if let obj = json[APIKeys.no_of_nights.rawValue] as? Int {
-            self.no_of_nights = obj
+        if let obj = json[APIKeys.no_of_nights.rawValue] {
+            self.no_of_nights = "\(obj)".toInt ?? 0
         }
-        if let obj = json[APIKeys.num_rooms.rawValue] as? Int {
-            self.num_rooms = obj
+        if let obj = json[APIKeys.num_rooms.rawValue] {
+            self.num_rooms = "\(obj)".toInt ?? 0
         }
-        if let obj = json[APIKeys.list_price.rawValue] as? Double {
-            self.list_price = obj
+        if let obj = json[APIKeys.list_price.rawValue] {
+            self.list_price = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json[APIKeys.tax.rawValue] as? Double {
             self.tax = obj
@@ -230,9 +230,9 @@ struct HotelDetails {
         }
         if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
             self.amenitiesGroups = firstObj
-//            for obj in arrObj {
-//                self.amenities_group.append(data)
-//            }
+            //            for obj in arrObj {
+            //                self.amenities_group.append(data)
+            //            }
         }
     }
     
@@ -267,7 +267,7 @@ struct Amenities {
                 APIKeys.basic.rawValue: self.basic,
                 APIKeys.other.rawValue: self.other]
     }
-
+    
     init(json: JSONDictionary) {
         if let mainData = json[APIKeys.main.rawValue] as? [JSONDictionary] {
             self.main = AmenitiesMain.getMainData(response: mainData)
@@ -333,7 +333,7 @@ struct AmenitiesMain {
             self.classType = "\(obj)".removeNull
         }
     }
-
+    
     //Mark:- Functions
     //================
     ///Static Function
@@ -348,21 +348,21 @@ struct AmenitiesMain {
 }
 
 
-    //Mark:- Enums
-    //============
-    enum TableCellType {
-        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
-    }
+//Mark:- Enums
+//============
+enum TableCellType {
+    case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+}
 
 //Mark:- Rates
 //============
 struct Rates: Hashable {
     
-//    //Mark:- Enums
-//    //============
-//    enum TableCellType {
-//        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
-//    }
+    //    //Mark:- Enums
+    //    //============
+    //    enum TableCellType {
+    //        case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+    //    }
     
     var hashValue: Int {
         return qid.hashValue
@@ -557,30 +557,30 @@ struct Rates: Hashable {
     }
     
     //
-//    func getTotalNumberOfRows() -> Int {
-//        var totalRows: Int = 0
-//        let roomData = getRoomData()
-//        if roomData.count > 0 {
-//            totalRows += roomData.count
-//        }
-//        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
-//            totalRows += 1
-//        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
-//            totalRows += 1
-//        }
-//        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
-//            totalRows += 1
-//        }
-//        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
-//            totalRows += 1
-//        }
-//        if self.cancellation_penalty != nil {
-//            totalRows += 1
-//        }
-//        totalRows += 1 ///for payment cell
-//        totalRows += 1 /// for checkout cell
-//        return totalRows
-//    }
+    //    func getTotalNumberOfRows() -> Int {
+    //        var totalRows: Int = 0
+    //        let roomData = getRoomData()
+    //        if roomData.count > 0 {
+    //            totalRows += roomData.count
+    //        }
+    //        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+    //            totalRows += 1
+    //        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+    //            totalRows += 1
+    //        }
+    //        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+    //            totalRows += 1
+    //        }
+    //        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+    //            totalRows += 1
+    //        }
+    //        if self.cancellation_penalty != nil {
+    //            totalRows += 1
+    //        }
+    //        totalRows += 1 ///for payment cell
+    //        totalRows += 1 /// for checkout cell
+    //        return totalRows
+    //    }
     
     func getFullRefundableData() -> PenaltyRates {
         var penaltyRates = PenaltyRates()
@@ -858,7 +858,7 @@ struct PenaltyRates {
     var penalty: Int = 0
     var tz: String = ""
     var is_refundable: Bool = false
-
+    
     //Mark:- Initialization
     //=====================
     init() {
@@ -906,184 +906,184 @@ struct PenaltyRates {
 }
 
 /*
-
-if(mList.get(position).getRooms()!=null) {
-    
-    if(mList.get(position).getRooms().size() == 1) {
-        
-        mList.get(position).getRooms().get(0).setSelected(true);
-        holder.rvRoomsTypes.setVisibility(View.GONE);
-        holder.tvRoomTypeName.setVisibility(View.VISIBLE);
-        holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName().trim());
-        
-        if(mList.get(position).getRooms().get(0).getDesc()!=null &&
-            !mList.get(position).getRooms().get(0).getDesc().trim().isEmpty()) {
-            holder.tvRoomDescription.setVisibility(View.VISIBLE);
-            holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName() + " " +
-                mList.get(position).getRooms().get(0).getDesc());
-        } else {
-            holder.tvRoomDescription.setVisibility(View.GONE);
-        }
-        
-        if(mList.get(position).getRooms().get(0).getBedTypes()!=null) {
-            if(mList.get(position).getRooms().get(0).getBedTypes().size() > 1) {
-                
-                holder.tvBed.setVisibility(View.VISIBLE);
-                holder.tvBedSelection.setVisibility(View.VISIBLE);
-                holder.ivDown.setVisibility(View.VISIBLE);
-                for(int i = 0; i<mList.get(position).getRooms().get(0).getBedTypes().size(); i++) {
-                    mList.get(position).getRooms().get(0).getBedTypes().get(i).setSelected(false);
-                }
-                holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType());
-                mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
-                
-            } else {
-                if(mList.get(position).getRooms().get(0).getBedTypes().size() == 1) {
-                    holder.tvBed.setVisibility(View.VISIBLE);
-                    holder.tvBedSelection.setVisibility(View.VISIBLE);
-                    holder.ivDown.setVisibility(View.INVISIBLE);
-                    holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType().trim());
-                    mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
-                } else {
-                    holder.tvBed.setVisibility(View.GONE);
-                    holder.tvBedSelection.setVisibility(View.GONE);
-                    holder.ivDown.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            holder.tvBed.setVisibility(View.GONE);
-            holder.tvBedSelection.setVisibility(View.GONE);
-            holder.ivDown.setVisibility(View.GONE);
-        }
-        
-    } else {
-        
-        holder.tvRoomTypeName.setVisibility(View.GONE);
-        holder.tvRoomDescription.setVisibility(View.GONE);
-        holder.tvBed.setVisibility(View.GONE);
-        holder.tvBedSelection.setVisibility(View.GONE);
-        holder.ivDown.setVisibility(View.GONE);
-        
-        
-        
-        ////////////**************** setting room types for more than 1 *******************/////////////
-        ArrayList<Room> temp =  new ArrayList<>();
-        ArrayList<Room> roomsList =  mList.get(position).getRooms();
-        
-        if(roomsList!=null && roomsList.size() > 0) {
-            
-            for(int i = 0; i<roomsList.size(); i++) {
-                mList.get(position).getRooms().get(i).setNumberOfEntries(0);
-            }
-            
-            for(int i=0; i<roomsList.size(); i++) {
-                
-                Room model1 = roomsList.get(i);
-                boolean flag = false;
-                int pos = -1;
-                
-                for(int j = 0; j<temp.size(); j++) {
-                    
-                    Room temp1 = temp.get(j);
-                    
-                    if(temp1.getName().trim().equalsIgnoreCase(model1.getName().trim())) {
-                        
-                        boolean isBedTypesSame = false;
-                        
-                        if((temp1.getBedTypes()==null && model1.getBedTypes()==null)
-                            || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size()==0)) {
-                            
-                            isBedTypesSame = true;
-                            
-                        } else if((temp1.getBedTypes()!=null && model1.getBedTypes()==null)
-                            || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size() > 0)
-                            ||(temp1.getBedTypes()==null && model1.getBedTypes()!=null) ||
-                                (temp1.getBedTypes().size() > 0  && model1.getBedTypes().size() == 0)) {
-                            
-                            isBedTypesSame = false;
-                            flag = false;
-                            
-                        } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
-                            temp1.getBedTypes().size() != model1.getBedTypes().size()) {
-                            
-                            isBedTypesSame = false;
-                            flag = false;
-                            
-                        } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
-                            temp1.getBedTypes().size() == model1.getBedTypes().size()) {
-                            
-                            isBedTypesSame = true;
-                            
-                            for(int k = 0; k < model1.getBedTypes().size(); k++) {
-                                BedType bedTypeModel = model1.getBedTypes().get(k);
-                                boolean isContain = true;
-                                for(int m = 0; m < temp1.getBedTypes().size(); m++) {
-                                    
-                                    if(bedTypeModel.getType()!=null && temp1.getBedTypes().get(m).getType()!=null &&
-                                        bedTypeModel.getId()!=null && bedTypeModel.getId()!=null &&
-                                        bedTypeModel.getType().trim().equalsIgnoreCase(temp1.getBedTypes().get(m).getType().trim()) &&
-                                        bedTypeModel.getId().equals(temp1.getBedTypes().get(m).getId())) {
-                                        break;
-                                    } else {
-                                        if(m == temp1.getBedTypes().size()-1) {
-                                            isContain = false;
-                                        }
-                                    }
-                                }
-                                
-                                if(!isContain) {
-                                    isBedTypesSame = false;
-                                    break;
-                                }
-                                
-                            }
-                            //                                // start of bed type array comparison
-                            //                                for(int k=0; k<temp1.getBedTypes().size(); k++) {
-                            //
-                            //                                    for(int l=0; l < model1.getBedTypes().size(); l++) {
-                            //
-                            //                                        if(temp1.getBedTypes().get(k).getType()!=null &&
-                            //                                            model1.getBedTypes().get(l).getType()!=null &&
-                            //
-                            //                                                temp1.getBedTypes().get(k).getType().trim()
-                            //                                                .equalsIgnoreCase(model1.getBedTypes().get(l).getType().trim()) &&
-                            //
-                            //                                                temp1.getBedTypes().get(k).getId()!=null &&
-                            //                                                model1.getBedTypes().get(l).getId()!=null &&
-                            //
-                            //                                                temp1.getBedTypes().get(k).getId() ==
-                            //                                                model1.getBedTypes().get(l).getId()) {
-                            //
-                            //
-                            //                                        } else {
-                            //                                            isBedTypesSame = false;
-                            //                                            break;
-                            //                                        }
-                            //                                    }
-                            //
-                            //                                    if(!isBedTypesSame)
-                            //                                    break;
-                            //                                }
-                            // end of bed type compariso
-                        }
-                        
-                        if(isBedTypesSame) {
-                            flag = true;
-                            pos = j;
-                            break;
-                        }
-                    }
-                }
-                
-                if(flag) {
-                    temp.get(pos).setNumberOfEntries(temp.get(pos).getNumberOfEntries() +  1);
-                } else {
-                    model1.setNumberOfEntries(model1.getNumberOfEntries()+1);
-                    temp.add(model1);
-                }
-            }
-            
-        }
-        
-        mList.get(position).setActualRoomsAfterFiltering(temp);
-*/
+ 
+ if(mList.get(position).getRooms()!=null) {
+ 
+ if(mList.get(position).getRooms().size() == 1) {
+ 
+ mList.get(position).getRooms().get(0).setSelected(true);
+ holder.rvRoomsTypes.setVisibility(View.GONE);
+ holder.tvRoomTypeName.setVisibility(View.VISIBLE);
+ holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName().trim());
+ 
+ if(mList.get(position).getRooms().get(0).getDesc()!=null &&
+ !mList.get(position).getRooms().get(0).getDesc().trim().isEmpty()) {
+ holder.tvRoomDescription.setVisibility(View.VISIBLE);
+ holder.tvRoomTypeName.setText(mList.get(position).getRooms().get(0).getName() + " " +
+ mList.get(position).getRooms().get(0).getDesc());
+ } else {
+ holder.tvRoomDescription.setVisibility(View.GONE);
+ }
+ 
+ if(mList.get(position).getRooms().get(0).getBedTypes()!=null) {
+ if(mList.get(position).getRooms().get(0).getBedTypes().size() > 1) {
+ 
+ holder.tvBed.setVisibility(View.VISIBLE);
+ holder.tvBedSelection.setVisibility(View.VISIBLE);
+ holder.ivDown.setVisibility(View.VISIBLE);
+ for(int i = 0; i<mList.get(position).getRooms().get(0).getBedTypes().size(); i++) {
+ mList.get(position).getRooms().get(0).getBedTypes().get(i).setSelected(false);
+ }
+ holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType());
+ mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
+ 
+ } else {
+ if(mList.get(position).getRooms().get(0).getBedTypes().size() == 1) {
+ holder.tvBed.setVisibility(View.VISIBLE);
+ holder.tvBedSelection.setVisibility(View.VISIBLE);
+ holder.ivDown.setVisibility(View.INVISIBLE);
+ holder.tvBedSelection.setText(mList.get(position).getRooms().get(0).getBedTypes().get(0).getType().trim());
+ mList.get(position).getRooms().get(0).getBedTypes().get(0).setSelected(true);
+ } else {
+ holder.tvBed.setVisibility(View.GONE);
+ holder.tvBedSelection.setVisibility(View.GONE);
+ holder.ivDown.setVisibility(View.GONE);
+ }
+ }
+ } else {
+ holder.tvBed.setVisibility(View.GONE);
+ holder.tvBedSelection.setVisibility(View.GONE);
+ holder.ivDown.setVisibility(View.GONE);
+ }
+ 
+ } else {
+ 
+ holder.tvRoomTypeName.setVisibility(View.GONE);
+ holder.tvRoomDescription.setVisibility(View.GONE);
+ holder.tvBed.setVisibility(View.GONE);
+ holder.tvBedSelection.setVisibility(View.GONE);
+ holder.ivDown.setVisibility(View.GONE);
+ 
+ 
+ 
+ ////////////**************** setting room types for more than 1 *******************/////////////
+ ArrayList<Room> temp =  new ArrayList<>();
+ ArrayList<Room> roomsList =  mList.get(position).getRooms();
+ 
+ if(roomsList!=null && roomsList.size() > 0) {
+ 
+ for(int i = 0; i<roomsList.size(); i++) {
+ mList.get(position).getRooms().get(i).setNumberOfEntries(0);
+ }
+ 
+ for(int i=0; i<roomsList.size(); i++) {
+ 
+ Room model1 = roomsList.get(i);
+ boolean flag = false;
+ int pos = -1;
+ 
+ for(int j = 0; j<temp.size(); j++) {
+ 
+ Room temp1 = temp.get(j);
+ 
+ if(temp1.getName().trim().equalsIgnoreCase(model1.getName().trim())) {
+ 
+ boolean isBedTypesSame = false;
+ 
+ if((temp1.getBedTypes()==null && model1.getBedTypes()==null)
+ || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size()==0)) {
+ 
+ isBedTypesSame = true;
+ 
+ } else if((temp1.getBedTypes()!=null && model1.getBedTypes()==null)
+ || (temp1.getBedTypes().size()==0 && model1.getBedTypes().size() > 0)
+ ||(temp1.getBedTypes()==null && model1.getBedTypes()!=null) ||
+ (temp1.getBedTypes().size() > 0  && model1.getBedTypes().size() == 0)) {
+ 
+ isBedTypesSame = false;
+ flag = false;
+ 
+ } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
+ temp1.getBedTypes().size() != model1.getBedTypes().size()) {
+ 
+ isBedTypesSame = false;
+ flag = false;
+ 
+ } else if(temp1.getBedTypes()!=null && model1.getBedTypes()!=null &&
+ temp1.getBedTypes().size() == model1.getBedTypes().size()) {
+ 
+ isBedTypesSame = true;
+ 
+ for(int k = 0; k < model1.getBedTypes().size(); k++) {
+ BedType bedTypeModel = model1.getBedTypes().get(k);
+ boolean isContain = true;
+ for(int m = 0; m < temp1.getBedTypes().size(); m++) {
+ 
+ if(bedTypeModel.getType()!=null && temp1.getBedTypes().get(m).getType()!=null &&
+ bedTypeModel.getId()!=null && bedTypeModel.getId()!=null &&
+ bedTypeModel.getType().trim().equalsIgnoreCase(temp1.getBedTypes().get(m).getType().trim()) &&
+ bedTypeModel.getId().equals(temp1.getBedTypes().get(m).getId())) {
+ break;
+ } else {
+ if(m == temp1.getBedTypes().size()-1) {
+ isContain = false;
+ }
+ }
+ }
+ 
+ if(!isContain) {
+ isBedTypesSame = false;
+ break;
+ }
+ 
+ }
+ //                                // start of bed type array comparison
+ //                                for(int k=0; k<temp1.getBedTypes().size(); k++) {
+ //
+ //                                    for(int l=0; l < model1.getBedTypes().size(); l++) {
+ //
+ //                                        if(temp1.getBedTypes().get(k).getType()!=null &&
+ //                                            model1.getBedTypes().get(l).getType()!=null &&
+ //
+ //                                                temp1.getBedTypes().get(k).getType().trim()
+ //                                                .equalsIgnoreCase(model1.getBedTypes().get(l).getType().trim()) &&
+ //
+ //                                                temp1.getBedTypes().get(k).getId()!=null &&
+ //                                                model1.getBedTypes().get(l).getId()!=null &&
+ //
+ //                                                temp1.getBedTypes().get(k).getId() ==
+ //                                                model1.getBedTypes().get(l).getId()) {
+ //
+ //
+ //                                        } else {
+ //                                            isBedTypesSame = false;
+ //                                            break;
+ //                                        }
+ //                                    }
+ //
+ //                                    if(!isBedTypesSame)
+ //                                    break;
+ //                                }
+ // end of bed type compariso
+ }
+ 
+ if(isBedTypesSame) {
+ flag = true;
+ pos = j;
+ break;
+ }
+ }
+ }
+ 
+ if(flag) {
+ temp.get(pos).setNumberOfEntries(temp.get(pos).getNumberOfEntries() +  1);
+ } else {
+ model1.setNumberOfEntries(model1.getNumberOfEntries()+1);
+ temp.add(model1);
+ }
+ }
+ 
+ }
+ 
+ mList.get(position).setActualRoomsAfterFiltering(temp);
+ */

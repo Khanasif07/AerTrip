@@ -12,6 +12,8 @@ protocol HCDataSelectionVMDelegate: class {
     func willFetchConfirmItineraryData()
     func fetchConfirmItineraryDataSuccess()
     func fetchConfirmItineraryDataFail()
+    
+    func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
 }
 
 class HCDataSelectionVM {
@@ -46,6 +48,20 @@ class HCDataSelectionVM {
             } else {
                 printDebug(errors)
                 sSelf.delegate?.fetchConfirmItineraryDataFail()
+            }
+        }
+    }
+    
+    func fetchRecheckRatesData() {
+        let params: JSONDictionary = [APIKeys.it_id.rawValue: itineraryData?.it_id ?? ""]
+        printDebug(params)
+        
+        APICaller.shared.fetchRecheckRatesData(params: params) { [weak self] (success, errors, itData) in
+            guard let sSelf = self else { return }
+            if success, let data = itData {
+                sSelf.delegate?.fetchRecheckRatesDataSuccess(recheckedData: data)
+            } else {
+                printDebug(errors)
             }
         }
     }
