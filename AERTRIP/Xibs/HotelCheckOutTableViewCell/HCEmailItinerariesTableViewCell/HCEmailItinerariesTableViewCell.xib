@@ -44,7 +44,7 @@
                                 <rect key="frame" x="59" y="36.5" width="220" height="23.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkX-r9-bsM">
                                 <rect key="frame" x="295" y="34" width="64" height="28"/>
@@ -58,6 +58,9 @@
                                     <action selector="sendButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Y4U-QZ-3KE"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HSR-N2-T3o">
+                                <rect key="frame" x="295" y="38" width="64" height="20"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7L7-LV-Lsh" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="59" y="68" width="220" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -69,16 +72,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="h9j-Li-45u" firstAttribute="trailing" secondItem="AYe-2u-nzb" secondAttribute="trailing" id="1gx-lr-jCA"/>
+                            <constraint firstItem="HSR-N2-T3o" firstAttribute="leading" secondItem="tkX-r9-bsM" secondAttribute="leading" id="2a2-Dy-dg8"/>
                             <constraint firstAttribute="bottom" secondItem="7L7-LV-Lsh" secondAttribute="bottom" id="57j-0J-ejD"/>
                             <constraint firstItem="tkX-r9-bsM" firstAttribute="centerY" secondItem="AYe-2u-nzb" secondAttribute="centerY" id="5HZ-8V-r2d"/>
                             <constraint firstItem="h9j-Li-45u" firstAttribute="centerY" secondItem="xhF-JN-GzF" secondAttribute="centerY" constant="-5" id="7ua-tl-Nce"/>
                             <constraint firstItem="7L7-LV-Lsh" firstAttribute="top" secondItem="AYe-2u-nzb" secondAttribute="bottom" constant="8" id="9en-IP-RQD"/>
+                            <constraint firstItem="HSR-N2-T3o" firstAttribute="trailing" secondItem="tkX-r9-bsM" secondAttribute="trailing" id="DJL-I7-niC"/>
                             <constraint firstItem="xhF-JN-GzF" firstAttribute="top" secondItem="yOI-1j-4wY" secondAttribute="top" constant="8" id="IFf-z7-EZo"/>
                             <constraint firstItem="tkX-r9-bsM" firstAttribute="leading" secondItem="AYe-2u-nzb" secondAttribute="trailing" constant="16" id="Q3Z-xn-0jA"/>
                             <constraint firstItem="7L7-LV-Lsh" firstAttribute="trailing" secondItem="AYe-2u-nzb" secondAttribute="trailing" id="VuM-fQ-cZw"/>
+                            <constraint firstItem="HSR-N2-T3o" firstAttribute="centerY" secondItem="tkX-r9-bsM" secondAttribute="centerY" id="WvD-hz-dRJ"/>
                             <constraint firstItem="7L7-LV-Lsh" firstAttribute="leading" secondItem="AYe-2u-nzb" secondAttribute="leading" id="dfE-3m-LMD"/>
                             <constraint firstItem="AYe-2u-nzb" firstAttribute="leading" secondItem="h9j-Li-45u" secondAttribute="leading" id="edM-0b-9dF"/>
                             <constraint firstItem="AYe-2u-nzb" firstAttribute="top" secondItem="h9j-Li-45u" secondAttribute="bottom" constant="8" id="i9H-9P-oeY"/>
+                            <constraint firstItem="HSR-N2-T3o" firstAttribute="centerX" secondItem="tkX-r9-bsM" secondAttribute="centerX" id="k3u-Gc-cEM"/>
                             <constraint firstAttribute="trailing" secondItem="tkX-r9-bsM" secondAttribute="trailing" constant="16" id="nel-bp-cEs"/>
                             <constraint firstItem="xhF-JN-GzF" firstAttribute="leading" secondItem="yOI-1j-4wY" secondAttribute="leading" constant="16" id="rAc-r6-gmR"/>
                             <constraint firstItem="h9j-Li-45u" firstAttribute="leading" secondItem="xhF-JN-GzF" secondAttribute="trailing" constant="13" id="sic-OU-pzr"/>
@@ -94,6 +101,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="HSR-N2-T3o" id="Q6U-3B-AWh"/>
                 <outlet property="dividerView" destination="7L7-LV-Lsh" id="Sjt-vE-6vM"/>
                 <outlet property="emailTextField" destination="AYe-2u-nzb" id="yKk-f3-Ogk"/>
                 <outlet property="nameLabel" destination="h9j-Li-45u" id="Hiu-FG-Vxa"/>

@@ -56,7 +56,7 @@ class HCDataSelectionVC: BaseVC {
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
-        
+        viewModel.fetchConfirmItineraryData()
         fillData()
     }
     
@@ -115,7 +115,6 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func fillData() {
-        viewModel.fetchConfirmItineraryData()
         totalFareLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0).delimiter)"
         setupFareBreakup()
     }

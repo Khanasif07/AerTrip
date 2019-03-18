@@ -8,16 +8,17 @@
 
 import UIKit
 
-protocol SendToEmailIDDelegate: class {
-    func sendToEmailId(indexPath: IndexPath)
-    func sendEmailText(emailId: String)
+protocol HCEmailItinerariesTableViewCellDelegate: class {
+    func sendToEmailId(indexPath: IndexPath, emailId: String)
+    func updateEmailId(indexPath: IndexPath, emailId: String)
 }
 
 class HCEmailItinerariesTableViewCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    weak var delegate: SendToEmailIDDelegate?
+    weak var delegate: HCEmailItinerariesTableViewCellDelegate?
+    let sendBtnImage = #imageLiteral(resourceName: "checkIcon").withRenderingMode(.alwaysTemplate)
     
     //Mark:- IBOutlets
     //================
@@ -27,13 +28,14 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         didSet {
             self.emailTextField.delegate = self
             self.emailTextField.rightViewMode = .whileEditing
-//            self.emailTextField
+            self.emailTextField.keyboardType = .emailAddress
+            self.emailTextField.autocorrectionType = .no
             self.emailTextField.adjustsFontSizeToFitWidth = true
-            self.emailTextField.textFieldClearBtnSetUp()
 
         }
     }
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
@@ -42,7 +44,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.configUI()
     }
-    
+
     //Mark:- Functions
     //================
     private func configUI() {
@@ -50,6 +52,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         self.profileImageView.makeCircular()
         self.sendButton.layer.cornerRadius = 14.0
         self.sendButton.layer.masksToBounds = true
+        self.activityIndicator.isHidden = true
         //Color
         self.sendButton.backgroundColor = AppColors.screensBackground.color
         self.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
@@ -62,42 +65,95 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         //Text
         self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
         self.emailTextField.setAttributedPlaceHolder(placeHolderText: LocalizedString.Email_ID.localized)
-    }
-    
-    private func sendButtonSetUp(isMailSended: Bool) {
-        if isMailSended {
-            self.sendButton.setTitle(nil, for: .normal)
-            self.sendButton.setImage(#imageLiteral(resourceName: "buttonCheckIcon"), for: .normal)
-            self.sendButton.backgroundColor = UIColor.clear
-        } else {
-            self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
-            self.sendButton.setImage(nil, for: .normal)
-            self.sendButton.backgroundColor = AppColors.screensBackground.color
-        }
+        self.emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     
     internal func configCell(isMailSended: Bool, name: String) {
-        self.sendButtonSetUp(isMailSended: isMailSended)
         self.profileImageView.image = #imageLiteral(resourceName: "linkFacebook")
         self.nameLabel.text = name
+        if isMailSended {
+            self.sendButton.setTitle(nil, for: .normal)
+            self.sendButton.backgroundColor = UIColor.clear
+            self.sendButton.setImage(#imageLiteral(resourceName: "checkIcon"), for: .normal)
+            self.emailTextField.textColor = AppColors.themeGray40
+        } else {
+            self.sendButton.setImage(nil, for: .normal)
+            self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
+            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.emailTextField.textColor = AppColors.textFieldTextColor51
+        }
     }
+    
+    internal func configureCell(emailInfo: HCEmailItinerariesModel, name: String, profileImage: String) {
+        self.nameLabel.text = name
+        self.profileImageView.setImageWithUrl(profileImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+        self.emailTextField.text = emailInfo.emailId
+        switch emailInfo.emailStatus {
+        case .toBeSend:
+            self.activityIndicator.isHidden = true
+            self.sendButton.isHidden = false
+            self.sendButton.setImage(nil, for: .normal)
+            self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
+            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.sendButton.isUserInteractionEnabled = true
+            if emailInfo.emailId.isEmail {
+                self.sendButton.setTitleColor(AppColors.themeGreen, for: .normal)
+                self.emailTextField.textColor = AppColors.textFieldTextColor51
+            } else {
+                self.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
+                self.emailTextField.textColor = AppColors.themeRed
+            }
+        case .sending:
+            self.sendButton.isHidden = true
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            self.emailTextField.textColor = AppColors.textFieldTextColor51
+        case .sent:
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.sendButton.isHidden = false
+            self.sendButton.setTitle(nil, for: .normal)
+            self.sendButton.backgroundColor = UIColor.clear
+            self.sendButton.setImage(self.sendBtnImage, for: .normal)
+            self.sendButton.imageView?.tintColor = AppColors.themeGreen
+            self.sendButton.isUserInteractionEnabled = false
+            self.emailTextField.textColor = AppColors.themeGray40
+        }
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let superView = self.superview as? UITableView, let indexPath = superView.indexPath(forItem: textField), let safeDelegate = self.delegate, let emailId =  textField.text{
+            safeDelegate.updateEmailId(indexPath: indexPath, emailId: emailId)
+        }
+    }
+    
     
     //Mark:- IBOActions
     //================
     @IBAction func sendButtonAction(_ sender: UIButton) {
-        if let superView = self.superview as? UITableView, let indexPath = superView.indexPath(forItem: sender), let safeDelegate = self.delegate {
-            safeDelegate.sendToEmailId(indexPath: indexPath)
+        if let superView = self.superview as? UITableView, let indexPath = superView.indexPath(forItem: sender), let safeDelegate = self.delegate, let emailId =  self.emailTextField.text{
+            safeDelegate.sendToEmailId(indexPath: indexPath, emailId: emailId.trimmingCharacters(in: .whitespacesAndNewlines))
         }
     }
 }
 
 extension HCEmailItinerariesTableViewCell: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
-        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !finalText.isEmpty {
-            self.delegate?.sendEmailText(emailId: finalText)
-        }
-        return true
-    }
+    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if let safeDelegate = self.delegate, let emailId =  textField.text {
+//            let finalText = emailId.trimmingCharacters(in: .whitespacesAndNewlines)
+//            if !finalText.isEmpty {
+//                safeDelegate.sendEmailText(emailId: finalText)
+//            }
+//        }
+//    }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
+//        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+//        if !finalText.isEmpty {
+//            self.delegate?.sendEmailText(emailId: finalText)
+//        }
+//        return true
+//    }
 }
