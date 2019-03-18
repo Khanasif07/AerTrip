@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4H-MB-VFi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSy-dK-afP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSy-dK-afP" customClass="ActiveLabel" customModule="ActiveLabel">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -38,6 +38,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="y4H-MB-VFi" secondAttribute="bottom" id="5J1-8K-IyT"/>
                     <constraint firstAttribute="trailing" secondItem="y4H-MB-VFi" secondAttribute="trailing" id="OHC-yK-N8y"/>
@@ -45,9 +46,10 @@
                     <constraint firstItem="y4H-MB-VFi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pc9-97-Bm5"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="termAndPrivacyLabel" destination="cSy-dK-afP" id="7UX-nf-sfh"/>
+                <outlet property="termAndPrivacyLabel" destination="cSy-dK-afP" id="1jR-A3-C61"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="134.93253373313345"/>
         </tableViewCell>

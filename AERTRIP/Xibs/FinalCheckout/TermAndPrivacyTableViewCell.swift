@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import ActiveLabel
+import SafariServices
+
 
 class TermAndPrivacyTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var termAndPrivacyLabel: UILabel!
+    @IBOutlet weak var termAndPrivacyLabel: ActiveLabel!
     
 
     override func awakeFromNib() {
@@ -21,24 +24,65 @@ class TermAndPrivacyTableViewCell: UITableViewCell {
     }
 
     private func doInitialSetup() {
-        let attributedString = NSMutableAttributedString(string: "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip.\n\nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.", attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 14.0)!,
-            .foregroundColor: UIColor.black
-            ])
-        attributedString.addAttributes([
-            .font: AppFonts.SemiBold.withSize(14.0),
-            .foregroundColor: AppColors.themeGreen
-            ], range: NSRange(location: 31, length: 10))
-        attributedString.addAttributes([
-            .font: AppFonts.SemiBold.withSize(14.0),
-            .foregroundColor: AppColors.themeGreen
-            ], range: NSRange(location: 43, length: 14))
-        attributedString.addAttributes([
-            .font: AppFonts.SemiBold.withSize(14.0),
-            .foregroundColor: AppColors.themeGreen
-            ], range: NSRange(location: 62, length: 12))
-        self.termAndPrivacyLabel.attributedText = attributedString
+        self.linkSetupForTermsAndCondition(withLabel: self.termAndPrivacyLabel)
     }
    
     
+}
+
+
+extension TermAndPrivacyTableViewCell {
+    func linkSetupForTermsAndCondition(withLabel : ActiveLabel) {
+        
+        let fareDetails =  ActiveType.custom(pattern: "\\s\(LocalizedString.FareDetails.localized)\\b")
+        let privacyPolicy  = ActiveType.custom(pattern: "\\s\(LocalizedString.privacy_policy.localized)\\b")
+        let termsOfUse     = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
+        
+        withLabel.enabledTypes = [fareDetails,privacyPolicy,termsOfUse]
+        withLabel.customize { (label) in
+            
+            label.text = LocalizedString.CheckOutPrivacyAndPolicyTerms.localized
+            label.customColor[fareDetails] = AppColors.themeGreen
+            label.customSelectedColor[fareDetails] = AppColors.themeGreen
+            label.customColor[privacyPolicy] = AppColors.themeGreen
+            label.customSelectedColor[privacyPolicy] = AppColors.themeGreen
+            label.customColor[termsOfUse] = AppColors.themeGreen
+            label.customSelectedColor[termsOfUse] = AppColors.themeGreen
+            
+            label.handleCustomTap(for:fareDetails) { element in
+                
+                guard let url = URL(string: AppConstants.termsOfUse) else {return}
+                let safariVC = SFSafariViewController(url: url)
+                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
+            }
+            
+            label.handleCustomTap(for: privacyPolicy) { element in
+                
+                guard let url = URL(string: AppConstants.privacyPolicy) else {return}
+                let safariVC = SFSafariViewController(url: url)
+               AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
+            }
+            
+            label.handleCustomTap(for: termsOfUse) { element in
+                
+                guard let url = URL(string: AppConstants.termsOfUse) else {return}
+                let safariVC = SFSafariViewController(url: url)
+                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
+            }
+        }
+        
+        
+       
+    }
+    
+    
+}
+
+extension TermAndPrivacyTableViewCell : SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
+    }
 }

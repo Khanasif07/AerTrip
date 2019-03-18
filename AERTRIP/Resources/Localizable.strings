@@ -327,7 +327,7 @@
 "TripAdvisorRating" = "TripAdvisor Rating";
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
-"Recommended" = "Reccommended";
+"Recommended" = "Recommended";
 "LowToHigh" = "Low to high";
 "FiveToOne" = "5 to 1";
 "NearestFirst" = "Nearest first";
@@ -337,6 +337,8 @@
 
 // MARK: - Price VC
 "PricePerNight" = "Price per night";
+"Total" = "Total";
+"PerNight" = "Per Night";
 
 
 // MARK: - Amenties VC
@@ -484,9 +486,11 @@
 "SpecialRequestIfAny" = "Special Request If any...";
 
 // Hotel Checkout
-"Checkout" = "Checkout";
+"CheckoutTitle" = "Checkout";
 "ApplyCoupon" = "Apply Coupon";
 "PayByAertripWallet" = "Pay by Aertrip Wallet";
 "Balance" = "Balance";
 "FareDetails" = "Fare Details";
 "Pay" = "Pay";
+"FareRules" = "Fare Rules";
+"CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \n You will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";

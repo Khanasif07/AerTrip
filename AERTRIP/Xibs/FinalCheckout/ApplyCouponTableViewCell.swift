@@ -18,6 +18,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
         
         self.setupFonts()
         self.setUpColors()
+        self.setUpText()
     }
 
     // MARK: - Helper methods

@@ -380,7 +380,7 @@ enum LocalizedString: String {
     case BestSellers = "BestSellers"
     case TripAdvisor = "TripAdvisorRating"
     case Distance = "Distance"
-    case Recommended = "Reccommended"
+    case Recommended = "Recommended"
     case LowToHigh = "LowToHigh"
     case FiveToOne = "FiveToOne"
     case NearestFirst = "NearestFirst"
@@ -396,6 +396,8 @@ enum LocalizedString: String {
     
     //MARK: - PriceVC
     case PricePerNight = "PricePerNight"
+    case Total = "Total"
+    case PerNight = "PerNight"
     
     // MARK: - RatingVC
     
@@ -518,14 +520,14 @@ enum LocalizedString: String {
     case SpecialRequestIfAny = "SpecialRequestIfAny"
     
     //Final Checkout Screen
-    case Checkout = "Checkout"
+    case CheckoutTitle = "CheckoutTitle"
     case ApplyCoupon = "ApplyCoupon"
     case PayByAertripWallet = "PayByAertripWallet"
     case Balance = "Balance"
     case FareDetails = "FareDetails"
     case Pay = "Pay"
-   
-  
+    case FareRules = "FareRules"
+    case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
     
 }
 

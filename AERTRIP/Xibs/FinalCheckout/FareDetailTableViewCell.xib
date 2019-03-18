@@ -69,15 +69,31 @@
                             <constraint firstItem="CCw-Ko-TER" firstAttribute="top" secondItem="WDY-SO-1EZ" secondAttribute="top" constant="13" id="zJb-xu-aFG"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0I-xS-2kl" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="120.5" width="320" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="e8L-ub-Oy5"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="T0I-xS-2kl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EZV-8t-2Gu"/>
                     <constraint firstItem="WDY-SO-1EZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="S02-Kn-wnf"/>
                     <constraint firstAttribute="trailing" secondItem="WDY-SO-1EZ" secondAttribute="trailing" id="WwO-86-3zd"/>
                     <constraint firstAttribute="bottom" secondItem="WDY-SO-1EZ" secondAttribute="bottom" id="nYs-Zc-6qb"/>
+                    <constraint firstAttribute="trailing" secondItem="T0I-xS-2kl" secondAttribute="trailing" id="nay-tO-Yzf"/>
                     <constraint firstItem="WDY-SO-1EZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pbP-Dw-YnK"/>
+                    <constraint firstAttribute="bottom" secondItem="T0I-xS-2kl" secondAttribute="bottom" id="r8a-qZ-CWm"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="fareDetailTitleLabel" destination="CCw-Ko-TER" id="8Lc-KB-jCK"/>
+                <outlet property="numberOfRoomAndLabel" destination="kyJ-Qe-5K3" id="MBW-yZ-UH9"/>
+                <outlet property="totalPayableNowLabel" destination="xez-m4-io2" id="mVy-ZT-Zr1"/>
+                <outlet property="totalPriceLabel" destination="H2x-X2-WIj" id="zNI-5i-0HK"/>
+            </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>
     </objects>
