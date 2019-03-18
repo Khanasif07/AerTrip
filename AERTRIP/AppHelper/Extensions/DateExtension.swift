@@ -263,10 +263,10 @@ extension Date {
         //String to Date Convert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = currentFormat
-        let date = dateFormatter.date(from: stringDate)
+        guard let date = dateFormatter.date(from: stringDate) else {return nil}
         //CONVERT FROM Date to String
         dateFormatter.dateFormat = requiredFormat
-        return dateFormatter.string(from: date!)
+        return dateFormatter.string(from: date)
     }
     
     func daysBetweenDate(toDate: Date, endDate: Date) -> Int {

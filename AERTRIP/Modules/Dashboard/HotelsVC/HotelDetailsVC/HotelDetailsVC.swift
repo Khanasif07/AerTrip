@@ -27,6 +27,7 @@ class HotelDetailsVC: BaseVC {
     internal var allIndexPath = [IndexPath]()
     internal var initialStickyPosition: CGFloat = -1.0
     internal var oldScrollPosition: CGPoint = .zero
+    internal var didsmissOnScrollPosition: CGFloat = 200.0
     var stickyView: HotelFilterResultFooterView?
     var tableFooterView: HotelFilterResultFooterView?
     
@@ -34,8 +35,8 @@ class HotelDetailsVC: BaseVC {
     //================
     @IBOutlet weak var hotelTableView: UITableView! {
         didSet {
-            self.hotelTableView.delegate = self
-            self.hotelTableView.dataSource = self
+            hotelTableView.delegate = self
+            hotelTableView.dataSource = self
         }
     }
     @IBOutlet weak var headerView: TopNavigationView! {
@@ -183,6 +184,12 @@ class HotelDetailsVC: BaseVC {
                 guard let sSelf = self else {return}
                 sSelf.imageView.isHidden = true
         })
+    }
+    
+    func hideOnScroll() {
+        
+        self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
+        self.hide(animated: true)
     }
     
     func hide(animated: Bool) {

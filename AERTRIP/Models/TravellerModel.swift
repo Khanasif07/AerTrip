@@ -30,6 +30,28 @@ struct TravellerModel {
                 "dob": self.dob]
     }
     
+    var fullName: String {
+        if !self.firstName.isEmpty {
+            let final = "\(self.firstName) \(self.lastName)"
+            return final
+        }
+        else {
+            return self.lastName
+        }
+    }
+    
+    var guestModal: GuestModal {
+        var temp = GuestModal()
+        
+        temp.id = id
+        temp.salutation = salutation
+        temp.firstName = firstName
+        temp.lastName = lastName
+        temp.profilePicture = ""
+        
+        return temp
+    }
+    
     init(json: JSON) {
         self.id = json["id"].stringValue.removeNull
         self.label = json["label"].stringValue.removeNull

@@ -98,7 +98,7 @@ class SelectDestinationVM: NSObject {
                 sSelf.delegate?.searchDestinationSuccess()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.searchDestinationFail()
             }
         }
@@ -118,7 +118,7 @@ class SelectDestinationVM: NSObject {
                 sSelf.delegate?.getAllPopularHotelsSuccess()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
                 sSelf.delegate?.getAllPopularHotelsFail()
             }
         }

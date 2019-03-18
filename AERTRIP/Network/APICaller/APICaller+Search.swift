@@ -23,6 +23,7 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                  completionBlock(false,[],errors)
             })
             

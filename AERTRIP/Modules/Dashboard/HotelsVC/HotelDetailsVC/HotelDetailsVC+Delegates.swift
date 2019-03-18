@@ -287,18 +287,30 @@ extension HotelDetailsVC {
         self.oldScrollPosition = scrollView.contentOffset
     }
     
+    private func closeOnScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        printDebug(yOffset)
+        if -(yOffset) >= didsmissOnScrollPosition {
+            //close
+            self.hideOnScroll()
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
         self.manageBottomRateView(scrollView)
+        self.closeOnScroll(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate {
+            self.closeOnScroll(scrollView)
             self.manageBottomRateView(scrollView)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.closeOnScroll(scrollView)
         self.manageHeaderView(scrollView)
         self.manageBottomRateView(scrollView)
     }

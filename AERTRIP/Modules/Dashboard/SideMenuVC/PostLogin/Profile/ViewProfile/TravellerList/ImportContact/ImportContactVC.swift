@@ -283,6 +283,9 @@ extension ImportContactVC: ImportContactVMDelegate {
             
         case .google:
             item = self.viewModel.selectedGoogleContacts.count - 1
+            
+        default:
+            item = 0
         }
         self.selectedContactsCollectionView.performBatchUpdates({
             self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
@@ -315,6 +318,9 @@ extension ImportContactVC: ImportContactVMDelegate {
 
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
+            
+        default:
+            item = 0
         }
         
         if self.itemsCounts[usingFor.rawValue] > 0 {
@@ -343,10 +349,13 @@ extension ImportContactVC: ImportContactVMDelegate {
             
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
+            
+        default:
+            item = 0
         }
         
         self.selectedContactsCollectionView.performBatchUpdates({
-            for idx in 0..<item {
+            for idx in 1...item {
                 self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
                 self.itemsCounts[usingFor.rawValue] -= 1
             }

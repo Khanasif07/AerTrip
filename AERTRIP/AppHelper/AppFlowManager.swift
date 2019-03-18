@@ -338,6 +338,13 @@ extension AppFlowManager {
         }
     }
     
+    func presentHCSelectGuestsVC() {
+        if let topVC = UIApplication.topViewController() {
+            let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+            topVC.present(ob, animated: true, completion: nil)
+        }
+    }
+    
     func presentSearchHotelTagVC(tagButtons: [String] , superView: HotelDetailsSearchTagTableCell) {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView

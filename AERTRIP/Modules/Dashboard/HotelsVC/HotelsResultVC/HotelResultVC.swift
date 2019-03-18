@@ -1127,7 +1127,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.shimmerView.removeFromSuperview()
         self.hideFavSwitch()
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
     
     private func hideButtons() {

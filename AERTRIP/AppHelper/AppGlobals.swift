@@ -95,8 +95,10 @@ struct AppGlobals {
 
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         
-        let (_, message) = ATErrorManager.default.error(forCodes: errors, module: module)
-        AppToast.default.showToastMessage(message: message)
+        let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
+        if !message.isEmpty {
+            AppToast.default.showToastMessage(message: message)
+        }
     }
     
     // convert Date from one format to another

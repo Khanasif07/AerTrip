@@ -127,7 +127,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.getAllHotelsOnPreferenceFail()
             }
         }
@@ -143,7 +143,7 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getRecentSearchesDataSuccess()
             } else {
                 printDebug(errors)
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.getRecentSearchesDataFail()
             }
         }

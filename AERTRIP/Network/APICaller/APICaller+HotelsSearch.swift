@@ -35,6 +35,7 @@ extension APICaller {
                 }
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, [:])
             })
         }) { error in
@@ -83,6 +84,7 @@ extension APICaller {
                 }
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, [])
             })
         }) { _ in
@@ -105,6 +107,7 @@ extension APICaller {
                 }
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, nil)
             })
         }) { _ in
@@ -125,6 +128,7 @@ extension APICaller {
                     completionBlock(false, [], "", [""], nil)
                 }
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, "", [""], nil)
             })
         }) { error in
@@ -157,6 +161,7 @@ extension APICaller {
                     completionBlock(false, [], [], false)
                 }
             }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, error, [], false)
             })
         }) { error in
@@ -181,6 +186,7 @@ extension APICaller {
                     completionBlock(true, [], "")
                 }
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, "")
             })
         }) { _ in
@@ -198,6 +204,7 @@ extension APICaller {
                     completionBlock(true, [], recentSearchesData)
                 }
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, nil)
             })
             
@@ -224,6 +231,7 @@ extension APICaller {
                     completionBlock(false, [], nil)
                 }
             }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, error, nil)
             })
         }) { error in
@@ -249,6 +257,7 @@ extension APICaller {
                     completionBlock(false, [], nil)
                 }
             }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, error, nil)
             })
         }) { error in

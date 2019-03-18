@@ -21,6 +21,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (error) in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .login)
                 completionBlock(false, error)
             })
             
@@ -57,6 +58,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, errors)
             })
             
@@ -97,6 +99,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, errors)
             })
             
@@ -137,6 +140,7 @@ extension APICaller {
                 completionBlock(sucess, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, errors)
             })
             
@@ -163,6 +167,7 @@ extension APICaller {
                 completionBlock(true, email, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, "", errors)
             })
             
@@ -189,6 +194,7 @@ extension APICaller {
                 completionBlock(true, email, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, "", errors)
             })
             
@@ -215,6 +221,7 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, "", errors)
             })
             
@@ -247,6 +254,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false,  errors)
             })
             
@@ -277,6 +285,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, errors)
             })
             
@@ -312,6 +321,7 @@ extension APICaller {
                 completionBlock(true, salutation, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, [""], errors)
             })
             
@@ -339,6 +349,7 @@ extension APICaller {
                 completionBlock(true, acc, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, [], errors)
             })
             
@@ -362,6 +373,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
                 completionBlock(false, errors)
             })
             

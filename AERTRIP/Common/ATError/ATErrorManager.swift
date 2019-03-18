@@ -15,7 +15,7 @@ class ATErrorManager {
     enum Module: String {
         case profile
         case login
-        case hotelSearch
+        case hotelsSearch
     }
     
     enum LocalError: Int {
@@ -122,20 +122,39 @@ class ATErrorManager {
         return error
     }
     
-    func error(forCodes: [Int], module: ATErrorManager.Module) -> ([ATError], String) {
+    func logError(forCodes errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
+        
+        let (_, message, hint) = ATErrorManager.default.error(forCodes: errors, module: module)
+        let finalError = "******************************************************************\n" +
+            "                              ATError                             \n" +
+            "                              =======                             \n" +
+            "                          Message to show:                        \n" +
+            "\(message)\n" +
+            "------------------------------------------------------------------\n" +
+            "                           Developer hint:                        \n" +
+            "\(hint)\n" +
+        "******************************************************************\n"
+        
+        printDebug(finalError)
+    }
+    
+    func error(forCodes: [Int], module: ATErrorManager.Module) -> ([ATError], String, String) {
         var temp = [ATError]()
         var message = ""
+        var hint = ""
         
         for code in forCodes {
             let err = self.error(forCode: code, module: module)
             if !message.isEmpty {
                 message += "\n"
             }
+
+            hint += err.hint
             message += err.message
             temp.append(err)
         }
         
-        return (temp, message)
+        return (temp, message, hint)
     }
 }
 

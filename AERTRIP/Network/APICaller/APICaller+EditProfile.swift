@@ -63,6 +63,7 @@ extension APICaller {
                 completionBlock(true, addresses, emails, mobiles, salutations, socials, [])
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, [""], [], [], [], [], errors)
             })
             
@@ -94,6 +95,7 @@ extension APICaller {
                 completionBlock(true, seatPreferencesDict, mealPreferencesDict, [])
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, [:], [:], errors)
             })
             
@@ -122,6 +124,7 @@ extension APICaller {
                 completionBlock(true, countriesDict, [])
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, [:], errors)
             })
             
@@ -151,6 +154,7 @@ extension APICaller {
                 completionBlock(true, data, [])
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(true, [], errors)
             })
             
@@ -178,6 +182,7 @@ extension APICaller {
                     completionBlock(true, [])
 
                 }, failure: { (errors) in
+                    ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                     completionBlock(false, errors)
                 })
 

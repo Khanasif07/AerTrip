@@ -20,6 +20,7 @@ extension APICaller {
                 completionBlock(true, [], array)
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, errors, [])
             })
             
@@ -42,6 +43,7 @@ extension APICaller {
                 completionBlock(true, [])
                 
             }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, errors)
             })
             

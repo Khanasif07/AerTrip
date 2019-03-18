@@ -20,6 +20,12 @@ class ContactDetailsTableCell: UITableViewCell {
         }
     }
     
+    var traveller: TravellerModel? {
+        didSet {
+            self.populateData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,7 +44,13 @@ class ContactDetailsTableCell: UITableViewCell {
     }
 
     private func populateData() {
-        self.selectionButton.isSelected = false
-        self.nameLabel.text = self.contact?.fullName ?? ""
+        if contact != nil {
+            self.selectionButton.isSelected = false
+            self.nameLabel.text = self.contact?.fullName ?? ""
+        }
+        else {
+            self.selectionButton.isSelected = false
+            self.nameLabel.text = self.traveller?.fullName ?? ""
+        }
     }
 }

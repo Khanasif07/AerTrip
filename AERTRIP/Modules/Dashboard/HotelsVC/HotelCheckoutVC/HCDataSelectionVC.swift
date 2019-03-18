@@ -62,6 +62,7 @@ class HCDataSelectionVC: BaseVC {
         continueContainerView.addGredient(isVertical: false)
         
         fillData()
+        viewModel.fetchConfirmItineraryData()
         
         manageLoader(shouldStart: true)
 
@@ -126,7 +127,6 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func fillData() {
-        viewModel.fetchConfirmItineraryData()
         totalFareLabel.text = "$ \((viewModel.itineraryData?.total_fare ?? 0.0).delimiter)"
         setupFareBreakup()
         
@@ -211,16 +211,15 @@ class HCDataSelectionVC: BaseVC {
             for j in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
                 var guest = GuestModal()
                 if j < hotelFormData.adultsCount[i] {
-                    guest.passengerType = PassengersType.Adult.rawValue
+                    guest.passengerType = PassengersType.Adult
                 }
                 else {
-                    guest.passengerType = PassengersType.child.rawValue
+                    guest.passengerType = PassengersType.child
                 }
                 temp.append(guest)
             }
             GuestDetailsVM.shared.guests.append(temp)
         }
-        viewModel.guests = GuestDetailsVM.shared.guests
     }
     
     // MARK: - Public
@@ -236,6 +235,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
+        
     }
 }
 
@@ -286,6 +286,7 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         // plus button action
+        AppFlowManager.default.presentHCSelectGuestsVC()
     }
 }
 

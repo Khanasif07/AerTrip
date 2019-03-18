@@ -481,6 +481,7 @@
                         <outlet property="bottomHeaderTopDiverView" destination="hJo-Q8-0aI" id="3c9-WE-hEZ"/>
                         <outlet property="containerBottomConstraint" destination="EWq-Iw-iRY" id="Dkr-2a-lzT"/>
                         <outlet property="selectAllButton" destination="lfl-cY-TyE" id="71F-Yk-LaB"/>
+                        <outlet property="selectAllButtonHeightConstraint" destination="Tbv-jb-MTE" id="xYF-S6-sLc"/>
                         <outlet property="tableView" destination="wna-Yf-HIz" id="eKN-OT-LwC"/>
                     </connections>
                 </viewController>

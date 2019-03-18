@@ -19,6 +19,7 @@ extension APICaller {
                 completionBlock(sucess, [], jsonData[APIKeys.data.rawValue][APIKeys.msg.rawValue].stringValue)
                 
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, "")
             })
         }) { (error) in

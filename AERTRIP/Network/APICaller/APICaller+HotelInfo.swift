@@ -23,8 +23,9 @@ extension APICaller {
                 else {
                     completionBlock(false, [], nil, "")
                 }
-            }, failure: { _ in
-                completionBlock(false, [], nil, "" )
+            }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil, "" )
             })
         }) { _ in
             completionBlock(false, [], nil, "" )
@@ -47,6 +48,7 @@ extension APICaller {
                     completionBlock(false, nil)
                 }
             }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, nil)
             })
         }) { (error) in
@@ -67,6 +69,7 @@ extension APICaller {
                     completionBlock(true, [], nil)
                 }
             }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in

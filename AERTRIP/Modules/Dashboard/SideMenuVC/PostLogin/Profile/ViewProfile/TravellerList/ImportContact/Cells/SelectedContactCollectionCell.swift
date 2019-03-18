@@ -26,6 +26,18 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         }
     }
     
+    var guestDetail: GuestModal? {
+        didSet {
+            self.populateData()
+        }
+    }
+    
+    var isSelectedForGuest: Bool = false {
+        didSet {
+            self.populateData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetup()
@@ -55,16 +67,46 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     }
     
     private func populateData() {
-        self.nameLabel.text = self.contact?.firstName ?? ""
         
-        let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
-        self.profileImageView.image = placeholder
-        if let imgData = self.contact?.imageData {
-            self.profileImageView.image = UIImage(data: imgData)
+        if self.contact != nil {
+            self.nameLabel.text = self.contact?.firstName ?? ""
+            
+            let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
+            self.profileImageView.image = placeholder
+            if let imgData = self.contact?.imageData {
+                self.profileImageView.image = UIImage(data: imgData)
+            }
+            else if let img = self.contact?.image, !img.isEmpty {
+                self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
+            }
+            self.crossButton.isHidden = false
         }
-        else if let img = self.contact?.image, !img.isEmpty {
-            self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
-        }        
+        else {
+            
+            if let fName = self.guestDetail?.firstName, !fName.isEmpty {
+                self.nameLabel.text = fName
+                self.crossButton.isHidden = false
+            }
+            else {
+                self.crossButton.isHidden = true
+                self.nameLabel.text = ""
+            }
+            
+            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            if let ptype = self.guestDetail?.passengerType {
+                if isSelectedForGuest {
+                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                }
+                else {
+                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                }
+            }
+            
+            self.profileImageView.image = placeHolder
+            if let img = self.guestDetail?.profilePicture, !img.isEmpty {
+                self.profileImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
+            }
+        }
     }
     
     @objc func crossButtonAction(_ sender: UIButton) {

@@ -78,6 +78,7 @@ enum LocalizedString: String {
     case noreply_aertrip_com = "noreply_aertrip_com"
     case password_redset_link_message = "password_redset_link_message"
     case Cancel = "Cancel"
+    case Add = "Add"
     case CancelWithSpace = "CancelWithSpace"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
@@ -179,6 +180,7 @@ enum LocalizedString: String {
     //MARK: - View Profile
     case Edit = "Edit"
     case Create = "Create"
+    case Travellers = "Travellers"
     case TravellerList = "TravellerList"
     case HotelPreferences = "HotelPreferences"
     case QuickPay = "QuickPay"

@@ -14,6 +14,8 @@
 "noData" = "Sorry! You are lonely here.";
 "search" = "Search";
 "Undo" = "Undo";
+"Add" = "Add";
+"Cancel" = "Cancel";
 "apply" = "Apply";
 "For" = "For";
 
@@ -191,6 +193,7 @@
 //MARK: - View Profile
 "Edit" = "Edit";
 "Create" = "Create";
+"Travellers" = "Travellers";
 "TravellerList" = "Travellers List";
 "HotelPreferences" = "Favourite Hotels";
 "QuickPay" = "QuickPay";

@@ -50,6 +50,17 @@ struct ATContact {
         }
     }
     
+    var guestModal: GuestModal {
+        var temp = GuestModal()
+        
+        temp.salutation = ""
+        temp.firstName = firstName
+        temp.lastName = lastName
+        temp.profilePicture = image
+        
+        return temp
+    }
+    
     init() {
         let json = JSON()
         self.init(json: json)
