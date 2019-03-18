@@ -36,6 +36,7 @@ class HotelFilterVM {
     var roomCancelation: [String] = []
     var roomOther: [String] = []
     var sortUsing: SortUsing = .BestSellers
+    var priceType: Price = .Total
     var totalHotelCount: Int = 0
     var filterHotelCount: Int = 0
     

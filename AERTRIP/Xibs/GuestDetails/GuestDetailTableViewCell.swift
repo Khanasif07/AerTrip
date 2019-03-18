@@ -10,6 +10,7 @@ import UIKit
 
 protocol GuestDetailTableViewCellDelegate: class {
     func textField(_ textField: UITextField)
+    func textFieldWhileEditing(_ textField: UITextField)
 }
 
 class GuestDetailTableViewCell: UITableViewCell {
@@ -48,6 +49,8 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.salutationTextField.inputView = self.salutationPicker
         self.salutationTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.salutationTextField.tintColor = UIColor.clear
+        firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
     private func setUpFont() {
@@ -122,6 +125,12 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
             break
         }
     }
+    
+    @objc func textFieldDidChanged(_ textField: UITextField) {
+        self.delegate?.textFieldWhileEditing(textField)
+    }
+    
+    
 }
 
 // MARK: - Extension UIPickerViewDataSource, UIPickerViewDelegate
