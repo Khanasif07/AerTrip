@@ -482,9 +482,18 @@ on Christmas”</string>
                                                     <constraint firstItem="ghO-aZ-vI6" firstAttribute="top" secondItem="ZaM-aV-lTD" secondAttribute="top" id="nXW-u6-lcX"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEj-AZ-ZyL">
+                                                <rect key="frame" x="206" y="142" width="159" height="30"/>
+                                                <state key="normal" title="Open Checkout Screen"/>
+                                                <connections>
+                                                    <action selector="openCheckoutScreen:" destination="bYL-Ms-OZy" eventType="touchUpInside" id="0Ms-DF-FXf"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="OEj-AZ-ZyL" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="30.5" id="349-CC-T8b"/>
+                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="OEj-AZ-ZyL" secondAttribute="bottom" constant="159.5" id="3Xd-jN-CnE"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="Zr9-Sf-iGr" secondAttribute="top" constant="-8" id="3vQ-rr-X5y"/>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="5rZ-LR-yJq"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="35" id="6Ic-CZ-Qwm"/>
@@ -496,6 +505,7 @@ on Christmas”</string>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" id="IZE-6N-K2G"/>
                                             <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="35" id="OMK-Va-R3H"/>
                                             <constraint firstItem="Scz-4i-JRa" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" id="Q21-27-dso"/>
+                                            <constraint firstAttribute="trailing" secondItem="OEj-AZ-ZyL" secondAttribute="trailing" constant="10" id="Rpu-QZ-nLE"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" id="UzB-W0-FFD"/>
                                             <constraint firstItem="ese-ox-irL" firstAttribute="leading" secondItem="Scz-4i-JRa" secondAttribute="leading" id="XAH-7s-eUj"/>
                                             <constraint firstItem="ese-ox-irL" firstAttribute="top" secondItem="Scz-4i-JRa" secondAttribute="bottom" constant="5" id="Xkm-a9-aMb"/>
@@ -506,6 +516,7 @@ on Christmas”</string>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="DG4-JY-83S" secondAttribute="bottom" constant="15" id="i5n-ah-2B5"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="trailing" secondItem="ese-ox-irL" secondAttribute="trailing" constant="-15" id="jxu-N8-RkT"/>
                                             <constraint firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="kWb-g8-wmH"/>
+                                            <constraint firstItem="OEj-AZ-ZyL" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="206" id="mDb-04-a5T"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="bottom" secondItem="ZaM-aV-lTD" secondAttribute="bottom" id="tNb-d4-7TC"/>
                                             <constraint firstItem="ZaM-aV-lTD" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="10" id="tkU-EY-dy5"/>
                                             <constraint firstItem="bJN-Be-u7u" firstAttribute="leading" secondItem="ese-ox-irL" secondAttribute="leading" constant="15" id="u1V-He-MDk"/>

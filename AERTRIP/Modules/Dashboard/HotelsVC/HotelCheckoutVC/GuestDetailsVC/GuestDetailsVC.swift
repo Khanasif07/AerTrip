@@ -28,6 +28,10 @@ class GuestDetailsVC: BaseVC {
     // Mark: - Properties
     let viewModel = GuestDetailsVM.shared
     var guestTableViewType: GuestTableViewType = .GuestDetails
+    var indexPath: IndexPath?
+    
+    // travellers for managing on table view
+    var travellers: [TravellerModel] = []
     
     // MARK: - View Life cycle
     
@@ -36,8 +40,9 @@ class GuestDetailsVC: BaseVC {
         
         self.registerXib()
         self.doInitialSetup()
-        self.addFooterView()
+        self.addFooterViewToGuestDetailTableView()
         self.getRoomDetails()
+        self.addFooterViewToTravellerTableView()
         
         // setting delay of 1 sec because table view cell are creating
         
@@ -70,6 +75,7 @@ class GuestDetailsVC: BaseVC {
         self.travellersTableView.delegate = self
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
+        self.travellers = self.viewModel.travellerList
     }
     
     // configure navigation View
@@ -83,11 +89,18 @@ class GuestDetailsVC: BaseVC {
     
     // add Footer to Table view
     
-    private func addFooterView() {
+    private func addFooterViewToGuestDetailTableView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 120))
         customView.backgroundColor = AppColors.themeWhite
         
         guestDetailTableView.tableFooterView = customView
+    }
+    
+    private func addFooterViewToTravellerTableView() {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 400))
+        customView.backgroundColor = AppColors.themeWhite
+        
+        travellersTableView.tableFooterView = customView
     }
     
     // get Room details from User defaults
@@ -103,13 +116,23 @@ class GuestDetailsVC: BaseVC {
             cell.firstNameTextField.becomeFirstResponder()
         }
     }
+    
+    private func editedGuest(_ indexPath: IndexPath?) {
+//        if let indexPath = indexPath {
+//         //   printDebug(GuestDetailsVM.shared.guests[indexPath.row])
+////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[indexPath.row].salutation
+////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[indexPath.row].firstName
+////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[indexPath.row].lastName
+//            
+//        }
+    }
 }
 
 // MARK: - UITableView Data Source and Delegate methods
 
 extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             return self.viewModel.hotelFormData.adultsCount.count
         } else {
             return 1
@@ -117,15 +140,15 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             return self.viewModel.hotelFormData.adultsCount[section] + self.viewModel.hotelFormData.childrenCounts[section]
         } else {
-            return self.viewModel.travellerList.count
+            return self.travellers.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             guard let cell = guestDetailTableView.dequeueReusableCell(withIdentifier: GuestDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
                 printDebug("cell not found")
                 return UITableViewCell()
@@ -142,21 +165,21 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("cell not found")
                 return UITableViewCell()
             }
-            cell.travellerModelData = self.viewModel.travellerList[indexPath.row]
+            cell.travellerModelData = self.travellers[indexPath.row]
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             return 60.0
         } else {
-            return 44
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             return 95.0
         } else {
             return 44.0
@@ -164,7 +187,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.guestTableViewType == .GuestDetails {
+        if tableView === self.guestDetailTableView {
             guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
                 fatalError("ViewProfileDetailTableViewSectionView not found")
             }
@@ -177,7 +200,19 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView === self.travellersTableView {
+            self.travellersTableView.isHidden = true
+            if let cellindexPath = self.indexPath {
+                if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
+                    cell.salutationTextField.text = self.travellers[indexPath.row].salutation
+                    cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
+                    cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
+                    self.editedGuest(self.indexPath)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Top NavigationView Delegate methods
@@ -194,12 +229,22 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
 }
 
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
+    func textFieldWhileEditing(_ textField: UITextField) {
+        if textField.text != "" {
+            self.travellers = self.viewModel.travellerList.filter({ $0.firstName.contains(textField.text ?? "") })
+        } else {
+            self.travellers = self.viewModel.travellerList
+        }
+        
+        self.travellersTableView.reloadData()
+    }
+    
     func textField(_ textField: UITextField) {
+        self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
         self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
-        guestTableViewType = .Searching
         travellersTableView.isHidden = false
-        self.travellersTableView.reloadData()
+        travellersTableView.reloadData()
         printDebug("item position is \(itemPosition)")
     }
 }

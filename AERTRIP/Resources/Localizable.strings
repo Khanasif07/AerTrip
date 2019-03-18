@@ -482,3 +482,11 @@
 //Hotel Checkout Special Request VC
 "AirlineNameFlightNumberArrivalTime" = "Airline Name, Flight Number, Arrival Time...";
 "SpecialRequestIfAny" = "Special Request If any...";
+
+// Hotel Checkout
+"Checkout" = "Checkout";
+"ApplyCoupon" = "Apply Coupon";
+"PayByAertripWallet" = "Pay by Aertrip Wallet";
+"Balance" = "Balance";
+"FareDetails" = "Fare Details";
+"Pay" = "Pay";

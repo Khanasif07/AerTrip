@@ -516,4 +516,16 @@ enum LocalizedString: String {
     //Hotel Checkout Special Request VC
     case AirlineNameFlightNumberArrivalTime = "AirlineNameFlightNumberArrivalTime"
     case SpecialRequestIfAny = "SpecialRequestIfAny"
+    
+    //Final Checkout Screen
+    case Checkout = "Checkout"
+    case ApplyCoupon = "ApplyCoupon"
+    case PayByAertripWallet = "PayByAertripWallet"
+    case Balance = "Balance"
+    case FareDetails = "FareDetails"
+    case Pay = "Pay"
+   
+  
+    
 }
+
