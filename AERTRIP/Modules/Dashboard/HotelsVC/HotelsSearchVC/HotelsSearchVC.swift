@@ -629,7 +629,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
             self.cityNameLabel.text = hotel.city
             self.viewModel.cityName = hotel.city
         } else {
-            let newValue = hotel.value.split(separator: " ")
+            let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
             self.viewModel.cityName = "\(newValue.first ?? "")"

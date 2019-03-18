@@ -188,7 +188,7 @@ extension APICaller {
         }
     }
     
-    func recentHotelsSearchesApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]?) -> Void) {
+    func recentHotelsSearchesApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.hotelRecentSearches, parameters: params, loader: loader, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
@@ -198,15 +198,15 @@ extension APICaller {
                     completionBlock(true, [], recentSearchesData)
                 }
             }, failure: { errors in
-                completionBlock(false, errors, nil)
+                completionBlock(false, errors, [])
             })
             
         }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [])
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
             }
         }
     }

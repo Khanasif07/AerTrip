@@ -61,13 +61,11 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.statusBarColor = AppColors.themeWhite
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         self.statusBarColor = AppColors.clear
     }
     
@@ -98,14 +96,16 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func setupColors() {
-        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        self.footerView.backgroundColor = AppColors.themeGreen
+//        self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//        self.footerView.backgroundColor = AppColors.themeGreen
     }
     
+    //Mark:- Methods
+    //==============
     private func getStickyFooter() -> HotelFilterResultFooterView {
         let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
-        stV.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        stV.containerView.backgroundColor = AppColors.themeGreen
+//        stV.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//        stV.containerView.backgroundColor = AppColors.themeGreen
         stV.hotelFeesLabel.text = LocalizedString.rupeesText.localized + "\(self.viewModel.hotelInfo?.price.delimiter ?? "0.0")"
         stV.noRoomsAvailable.isHidden = true
         stV.addSelectRoomTarget(target: self, action: #selector(selectRoomAction))
@@ -119,47 +119,47 @@ class HotelDetailsVC: BaseVC {
     internal func updateStickyFooterView() {
         if self.viewModel.ratesData.isEmpty {
             if let stickyView = self.stickyView {
-                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
                 stickyView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
                 stickyView.noRoomsAvailable.isHidden = false
                 stickyView.fromLabel.isHidden = true
                 stickyView.hotelFeesLabel.isHidden = true
                 stickyView.selectRoomLabel.isHidden = true
-                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
-                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+//                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+//                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
             }
             
             if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
                 tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
                 tableFooterView.noRoomsAvailable.isHidden = false
                 tableFooterView.fromLabel.isHidden = true
                 tableFooterView.hotelFeesLabel.isHidden = true
                 tableFooterView.selectRoomLabel.isHidden = true
-                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
-                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+//                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterColor, AppColors.noRoomsAvailableFooterShadow])
+//                self.footerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
             }
         } else {
             if let stickyView = self.stickyView {
-                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
                 stickyView.noRoomsAvailable.isHidden = true
                 stickyView.fromLabel.isHidden = false
                 stickyView.hotelFeesLabel.isHidden = false
                 stickyView.selectRoomLabel.isHidden = false
-                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-                self.footerView.backgroundColor = AppColors.themeGreen
+//                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//                self.footerView.backgroundColor = AppColors.themeGreen
             }
             
             if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
                 tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
                 tableFooterView.noRoomsAvailable.isHidden = true
                 tableFooterView.fromLabel.isHidden = false
                 tableFooterView.hotelFeesLabel.isHidden = false
                 tableFooterView.selectRoomLabel.isHidden = false
-                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-                self.footerView.backgroundColor = AppColors.themeGreen
+//                self.footerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//                self.footerView.backgroundColor = AppColors.themeGreen
             }
         }
     }
@@ -199,8 +199,6 @@ class HotelDetailsVC: BaseVC {
         })
     }
     
-    //Mark:- Methods
-    //==============
     private func footerViewSetUp() {
         self.stickyView = getStickyFooter()
         if let stickyView = self.stickyView {
@@ -270,7 +268,7 @@ class HotelDetailsVC: BaseVC {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
-            AppToast.default.showToastMessage(message: "Google Maps is not installed on you device.")
+            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
         }
     }
     

@@ -378,6 +378,25 @@ extension String {
         }
     }
     
+    func htmlToAttributedString(withFontSize fontSize: CGFloat, fontFamily: String? = nil, fontColor: UIColor? = nil) -> NSAttributedString {
+        var htmlCSSString = "<style>" +
+            "html *" +
+            "{" +
+        "font-size: \(fontSize)px !important;"
+        
+        if let family = fontFamily {
+            htmlCSSString += "font-family: \(family) !important;"
+        }
+        
+        if let color = fontColor {
+            htmlCSSString += "color: #\(color.hexString!) !important;"
+        }
+        
+        htmlCSSString += "}</style> \(self)"
+        
+        return htmlCSSString.htmlToAttributedString
+    }
+    
     func contains(_ find: String) -> Bool {
         return self.range(of: find) != nil
     }

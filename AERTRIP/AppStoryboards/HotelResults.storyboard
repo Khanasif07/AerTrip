@@ -34,7 +34,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJx-xE-TF9">
-                                        <rect key="frame" x="331" y="14" width="44" height="44"/>
+                                        <rect key="frame" x="328" y="14" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="LBc-Yj-SKZ"/>
                                             <constraint firstAttribute="width" secondItem="IJx-xE-TF9" secondAttribute="height" multiplier="1:1" id="Uh0-5x-h9Y"/>
@@ -59,7 +59,7 @@
                                     <constraint firstItem="cBi-6j-0Lv" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" constant="50" id="5rI-J5-hoG"/>
                                     <constraint firstAttribute="height" constant="58" id="8l3-ND-lEk"/>
                                     <constraint firstItem="ZSs-5T-m9x" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" id="Kiu-bq-FDP"/>
-                                    <constraint firstAttribute="trailing" secondItem="IJx-xE-TF9" secondAttribute="trailing" id="T7V-aS-gxL"/>
+                                    <constraint firstAttribute="trailing" secondItem="IJx-xE-TF9" secondAttribute="trailing" constant="3" id="T7V-aS-gxL"/>
                                     <constraint firstAttribute="bottom" secondItem="IJx-xE-TF9" secondAttribute="bottom" id="UtB-pf-4BC"/>
                                     <constraint firstItem="VcK-r3-9tc" firstAttribute="top" secondItem="BbH-Ve-X4Q" secondAttribute="top" constant="23" id="afV-DX-bqD"/>
                                     <constraint firstItem="cBi-6j-0Lv" firstAttribute="centerY" secondItem="BbH-Ve-X4Q" secondAttribute="centerY" id="enE-1u-WEp"/>
@@ -383,7 +383,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-ov-qPs">
-                                        <rect key="frame" x="331" y="14" width="44" height="44"/>
+                                        <rect key="frame" x="328" y="14" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="0Mq-Y9-CPb"/>
                                             <constraint firstAttribute="width" secondItem="Nag-ov-qPs" secondAttribute="height" multiplier="1:1" id="c85-i2-zk2"/>
@@ -406,7 +406,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="2c7-sd-jZc"/>
                                     <constraint firstAttribute="trailing" secondItem="KgX-tJ-B4W" secondAttribute="trailing" id="9Kh-cl-CT2"/>
-                                    <constraint firstAttribute="trailing" secondItem="Nag-ov-qPs" secondAttribute="trailing" id="K7w-wK-wWl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nag-ov-qPs" secondAttribute="trailing" constant="3" id="K7w-wK-wWl"/>
                                     <constraint firstItem="CLb-88-tVG" firstAttribute="leading" secondItem="A1E-cN-71K" secondAttribute="leading" constant="16" id="L0W-ow-XTf"/>
                                     <constraint firstAttribute="trailing" secondItem="Dv0-4d-vRL" secondAttribute="trailing" constant="50" id="Wlm-Xi-wDv"/>
                                     <constraint firstItem="CLb-88-tVG" firstAttribute="top" secondItem="A1E-cN-71K" secondAttribute="top" constant="23" id="XNc-yr-Pvs"/>
@@ -588,7 +588,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xP4-6L-qeG">
-                                        <rect key="frame" x="331" y="14" width="44" height="44"/>
+                                        <rect key="frame" x="328" y="14" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="xP4-6L-qeG" secondAttribute="height" multiplier="1:1" id="dGo-jO-YUP"/>
                                             <constraint firstAttribute="height" constant="44" id="rh4-Hf-y9H"/>
@@ -617,7 +617,7 @@
                                     <constraint firstItem="Z94-aH-clr" firstAttribute="leading" secondItem="BCJ-yj-6gr" secondAttribute="leading" id="ZUU-VH-9Wj"/>
                                     <constraint firstAttribute="bottom" secondItem="Z94-aH-clr" secondAttribute="bottom" id="cxp-Il-FuQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Z94-aH-clr" secondAttribute="trailing" id="ih5-r8-Nnh"/>
-                                    <constraint firstAttribute="trailing" secondItem="xP4-6L-qeG" secondAttribute="trailing" id="s2w-Fv-Um8"/>
+                                    <constraint firstAttribute="trailing" secondItem="xP4-6L-qeG" secondAttribute="trailing" constant="3" id="s2w-Fv-Um8"/>
                                     <constraint firstItem="dC5-9F-Jem" firstAttribute="top" secondItem="BCJ-yj-6gr" secondAttribute="top" constant="23" id="tN2-V6-gNC"/>
                                     <constraint firstAttribute="trailing" secondItem="P6d-ac-rCT" secondAttribute="trailing" constant="50" id="yrg-UG-BOX"/>
                                 </constraints>

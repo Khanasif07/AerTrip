@@ -69,7 +69,6 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     
     func addSelectRoomTarget(target: Any?, action: Selector?) {
         self.selectRoomLabel.isUserInteractionEnabled = true
-        
         let tapGeature = UITapGestureRecognizer(target: target, action: action)
         tapGeature.numberOfTapsRequired = 1
         self.selectRoomLabel.addGestureRecognizer(tapGeature)
