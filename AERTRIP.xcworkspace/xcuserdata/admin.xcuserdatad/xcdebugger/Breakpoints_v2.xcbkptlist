@@ -6,49 +6,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Common/AppExtension.swift"
-            timestampString = "574611233.615837"
+            filePath = "AERTRIP/Network/APICaller/APICaller+HotelsSearch.swift"
+            timestampString = "574664483.450803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "addGredient(isVertical:cornerRadius:colors:)"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "recentHotelsSearchesApi(params:loader:completionBlock:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Common/AppExtension.swift"
-            timestampString = "574611233.616351"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "removeGredient()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Common/AppExtension.swift"
-            timestampString = "574611233.616591"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "removeGredient()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.APICaller.recentHotelsSearchesApi(params: Swift.Dictionary&lt;Swift.String, Any&gt;, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.Array&lt;AERTRIP.RecentSearchesModel&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/Git%20Code/Aertrip/AERTRIP/Network/APICaller/APICaller+HotelsSearch.swift"
+                  timestampString = "574664558.151512"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "119">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.recentHotelsSearchesApi(params: Swift.Dictionary&lt;Swift.String, Any&gt;, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.Array&lt;AERTRIP.RecentSearchesModel&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/Git%20Code/Aertrip/AERTRIP/Network/APICaller/APICaller+HotelsSearch.swift"
+                  timestampString = "574664558.155605"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
