@@ -646,14 +646,14 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         
         switch self.sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            if self.viewModel.email[indexPath.row].value == "" {
+            if self.viewModel.email[indexPath.row].value.isEmpty {
                 self.viewModel.email.remove(at: indexPath.row)
                 self.tableView.reloadData()
                 return
             }
            
         case LocalizedString.SocialAccounts.localized:
-            if self.viewModel.social[indexPath.row].value == "" {
+            if self.viewModel.social[indexPath.row].value.isEmpty {
                 self.viewModel.social.remove(at: indexPath.row)
                 self.tableView.reloadData()
                 return

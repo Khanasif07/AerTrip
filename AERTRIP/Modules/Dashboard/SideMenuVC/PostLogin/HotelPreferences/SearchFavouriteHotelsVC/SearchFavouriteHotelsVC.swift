@@ -202,7 +202,7 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
 
 extension SearchFavouriteHotelsVC: UISearchBarDelegate {
     func search(forText: String) {
-        if forText == "" {
+        if forText.isEmpty {
             self.viewModel.hotels.removeAll()
             self.collectionView.backgroundView = self.emptyView
             self.collectionView.reloadData()

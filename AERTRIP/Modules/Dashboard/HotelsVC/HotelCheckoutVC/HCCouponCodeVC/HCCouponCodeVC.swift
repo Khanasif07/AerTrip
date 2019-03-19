@@ -162,7 +162,7 @@ extension HCCouponCodeVC {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         print(finalText)
-        if finalText == "" {
+        if finalText.isEmpty {
             self.enterCouponLabel.isHidden = true
             if self.selectedIndexPath == nil {
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)

@@ -206,15 +206,21 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func setupGuestArray() {
+        GuestDetailsVM.shared.guests.removeAll()
         for i in 0..<hotelFormData.adultsCount.count {
             var temp: [GuestModal] = []
             for j in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
                 var guest = GuestModal()
                 if j < hotelFormData.adultsCount[i] {
                     guest.passengerType = PassengersType.Adult
+                    guest.numberInRoom = (j + 1)
+                    guest.age = -1
                 }
                 else {
                     guest.passengerType = PassengersType.child
+                    let childIdx = (j - hotelFormData.adultsCount[i])
+                    guest.numberInRoom = childIdx + 1
+                    guest.age = hotelFormData.childrenAge[i][childIdx]
                 }
                 temp.append(guest)
             }

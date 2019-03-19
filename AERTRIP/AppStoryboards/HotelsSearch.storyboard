@@ -88,7 +88,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="hqC-VG-A4I" firstAttribute="leading" secondItem="u2z-Nf-Ttg" secondAttribute="trailing" constant="44" id="44M-93-kaR"/>
                                             <constraint firstAttribute="trailing" secondItem="pON-oQ-gk6" secondAttribute="trailing" id="84Y-YR-Oko"/>
@@ -119,7 +118,6 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="y6m-ss-Adv" firstAttribute="leading" secondItem="PE7-r5-Of9" secondAttribute="leading" constant="16" id="Ewc-lX-BZA"/>
                                             <constraint firstAttribute="bottom" secondItem="y6m-ss-Adv" secondAttribute="bottom" id="IMf-JJ-iuf"/>
@@ -165,7 +163,7 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGi-oq-CiZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGi-oq-CiZ" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -650,6 +648,7 @@
                         <outlet property="navContainerView" destination="vvc-1T-CbH" id="9cd-qe-CEn"/>
                         <outlet property="progressView" destination="jG6-4j-fP5" id="1FQ-Kx-nq0"/>
                         <outlet property="searchBar" destination="y6m-ss-Adv" id="TyD-qS-Yha"/>
+                        <outlet property="searchBarContainerView" destination="PE7-r5-Of9" id="Rv8-rd-6I2"/>
                         <outlet property="shareButton" destination="BdD-Je-HuK" id="ixN-g6-1XQ"/>
                         <outlet property="shimmerView" destination="02F-ux-wR2" id="DK9-iH-fey"/>
                         <outlet property="switchContainerView" destination="wEh-eq-HbI" id="CPC-jN-UxQ"/>

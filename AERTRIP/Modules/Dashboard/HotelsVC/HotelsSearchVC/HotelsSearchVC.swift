@@ -74,6 +74,10 @@ class HotelsSearchVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
+        
+        //setting the dummy check-in/out date
+        viewModel.checkInDate = Date().addDay(days: 0) ?? ""
+        viewModel.checkOutDate = Date().addDay(days: 5) ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {

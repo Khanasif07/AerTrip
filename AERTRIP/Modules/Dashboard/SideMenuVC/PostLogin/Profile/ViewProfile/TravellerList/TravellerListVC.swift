@@ -266,7 +266,7 @@ class TravellerListVC: BaseVC {
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         fetchedResultsController.delegate = self
-        if predicateStr == "" {
+        if predicateStr.isEmpty {
             fetchedResultsController.fetchRequest.predicate = nil
 
         } else {
@@ -531,7 +531,7 @@ extension TravellerListVC: TravellerListVMDelegate {
 
 extension TravellerListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+        if searchText.isEmpty {
             predicateStr = ""
             loadSavedData()
         } else {

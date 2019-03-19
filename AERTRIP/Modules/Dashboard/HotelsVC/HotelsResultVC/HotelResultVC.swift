@@ -13,16 +13,12 @@ import UIKit
 enum FetchRequestType {
     case FilterApplied
     case Searching
+    case normal
 }
 
 enum HotelResultViewType {
     case MapView
     case ListView
-}
-
-enum CurrentlyTableViewUsing {
-    case SearchTableView
-    case ListTableView
 }
 
 class HotelResultVC: BaseVC {
@@ -57,7 +53,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var tableViewVertical: UITableView! {
+    @IBOutlet var tableViewVertical: ATTableView! {
         didSet {
             self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
@@ -79,7 +75,12 @@ class HotelResultVC: BaseVC {
     @IBOutlet var cancelButton: UIButton!
     
     // Searching View
-    @IBOutlet var hotelSearchView: UIView!
+    @IBOutlet var hotelSearchView: UIView! {
+        didSet {
+            hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            hotelSearchView.isUserInteractionEnabled = true
+        }
+    }
     @IBOutlet var hotelSearchTableView: UITableView!
     @IBOutlet var currentLocationButton: UIButton!
     @IBOutlet var floatingViewBottomConstraint: NSLayoutConstraint!
@@ -87,6 +88,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet var mapContainerView: UIView!
     @IBOutlet var mapContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet var switchContainerView: UIView!
+    @IBOutlet weak var searchBarContainerView: UIView!
     
     // MARK: - Properties
     
@@ -126,9 +128,8 @@ class HotelResultVC: BaseVC {
     }()
     
     // Request and View Type
-    var fetchRequestType: FetchRequestType = .Searching
+    var fetchRequestType: FetchRequestType = .normal
     var hoteResultViewType: HotelResultViewType = .ListView
-    var tableViewType: CurrentlyTableViewUsing = .ListTableView
     
     var favouriteHotels: [HotelSearched] = []
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
@@ -216,7 +217,6 @@ class HotelResultVC: BaseVC {
         }
         
         self.viewModel.hotelListOnPreferenceResult()
-        self.getFavouriteHotels()
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
         
@@ -239,20 +239,28 @@ class HotelResultVC: BaseVC {
     
     // MARK: - Private
     
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            printDebug("notification: Keyboard will show")
+            let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
+            self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    
     func initialSetups() {
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
-        self.searchIntitialFrame = self.searchBar.frame
+        self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
         self.floatingView.isHidden = true
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
-        self.hotelSearchView.isHidden = true
         self.hotelSearchTableView.separatorStyle = .none
         self.hotelSearchTableView.delegate = self
         self.hotelSearchTableView.dataSource = self
+        
         self.completion = { [weak self] in
             self?.loadSaveData()
         }
@@ -301,17 +309,19 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideButtons()
+        self.fetchRequestType = .normal
         if self.hoteResultViewType == .ListView {
-            self.animateHeaderToMapView()
             self.mapButton.isSelected = true
-            self.convertToMapView()
             self.hoteResultViewType = .MapView
+            self.animateHeaderToMapView()
+            self.convertToMapView()
         } else {
-            self.animateHeaderToListView()
-            self.convertToListView()
             self.hoteResultViewType = .ListView
             self.mapButton.isSelected = false
+            self.animateHeaderToListView()
+            self.convertToListView()
         }
+        self.reloadHotelList()
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
@@ -345,11 +355,12 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.animateHeaderToListView()
+        if self.hoteResultViewType == .ListView {
+            self.animateHeaderToListView()
+        }
+        self.fetchRequestType = .normal
         self.hideSearchAnimation()
-        self.hotelSearchView.isHidden = true
         self.view.endEditing(true)
-        self.tableViewType = .ListTableView
         self.searchBar.text = ""
         self.predicateStr = ""
         self.loadSaveData()

@@ -84,7 +84,7 @@ class HCSelectGuestsVC: BaseVC {
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.SelectGuests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Add.rawValue, selectedTitle: LocalizedString.Add.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -100,6 +100,8 @@ class HCSelectGuestsVC: BaseVC {
         
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
+        
+        self.selectedContactsCollectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
         for idx in 0..<allTabsStr.count {
             let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
@@ -188,6 +190,23 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         return GuestDetailsVM.shared.guests.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIDevice.screenWidth / 5.0, height: 20.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SectionHeader {
+            
+            header.sectionHeaderLabel.text = "\(LocalizedString.Room.localized) \(indexPath.section + 1)"
+            
+            return header
+        }
+        else {
+            return UICollectionReusableView()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return GuestDetailsVM.shared.guests[section].count
     }
@@ -201,6 +220,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.delegate = self
         
         cell.contact = nil
+        
         cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
         
         return cell
@@ -212,7 +232,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 0)
     }
 }
 

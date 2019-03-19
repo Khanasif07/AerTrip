@@ -128,7 +128,7 @@ extension HotelResultVC {
     // Fetch Request Without Filters
     
     func fetchRequestWithoutFilter() {
-        if self.predicateStr == "" {
+        if self.predicateStr.isEmpty {
             self.fetchedResultsController.fetchRequest.predicate = nil
             
         } else {

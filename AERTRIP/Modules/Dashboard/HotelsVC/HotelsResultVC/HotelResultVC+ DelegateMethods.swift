@@ -14,9 +14,9 @@ import UIKit
 extension HotelResultVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
-        self.predicateStr = ""
+        self.predicateStr = searchBar.text ?? ""
+        self.fetchRequestType = .Searching
         self.loadSaveData()
-        self.hotelSearchView.isHidden = false
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
@@ -24,32 +24,26 @@ extension HotelResultVC: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.fetchRequestType = .Searching
-        if searchText == "" {
+        if searchText.isEmpty {
             self.predicateStr = ""
             self.loadSaveData()
-            self.hotelSearchView.isHidden = true
-            self.tableViewType = .ListTableView
             self.searchForText(searchText)
             self.reloadHotelList()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
-            self.tableViewType = .SearchTableView
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.hotelSearchView.isHidden = false
             self.searchForText(searchText)
         }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.hotelSearchView.isHidden = true
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.fetchRequestType = .normal
         self.animateHeaderToListView()
         self.hideSearchAnimation()
-        self.hotelSearchView.isHidden = true
         self.view.endEditing(true)
-        self.tableViewType = .ListTableView
         self.reloadHotelList()
     }
 }
@@ -67,7 +61,6 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 self.shareButton.isHidden = false
             }
             self.animateButton()
-            self.getFavouriteHotels()
         } else {
             self.hideButtons()
         }
@@ -127,8 +120,6 @@ extension HotelResultVC: HotelResultDelegate {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
             self.loadSaveData()
-            self.getFavouriteHotels()
-            let allHotels = self.getHotelsForMapView()
             self.getPinnedHotelTemplate()
             self.time += 1
             self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
@@ -142,10 +133,9 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func getAllHotelsListResultFail(errors: ErrorCodes) {
-        self.hotelSearchView.isHidden = false
         self.progressView.removeFromSuperview()
         self.shimmerView.removeFromSuperview()
-        self.hideFloatingView()
+        self.manageFloatingView(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
@@ -195,7 +185,7 @@ extension HotelResultVC: SectionFooterDelegate {
 
 extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
-        self.fetchRequestType = .Searching
+        self.fetchRequestType = .normal
         self.filterButton.isSelected = false
         UserInfo.hotelFilter = nil
         self.loadSaveData()

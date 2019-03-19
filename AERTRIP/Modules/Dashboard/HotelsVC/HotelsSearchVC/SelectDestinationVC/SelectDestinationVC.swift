@@ -175,7 +175,7 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
 //MARK:-
 extension SelectDestinationVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+        if searchText.isEmpty {
             //clear all data and reload to initial view
             self.isInSearchMode = false
         } else if searchText.count >= AppConstants.kSearchTextLimit {

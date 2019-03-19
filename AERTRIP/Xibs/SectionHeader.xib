@@ -21,34 +21,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISL-py-pJD">
-                    <rect key="frame" x="167" y="16" width="41.5" height="21"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wh-9c-1AW">
-                            <rect key="frame" x="4.5" y="4.5" width="32.5" height="12"/>
-                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="3Nq-mb-Uvp"/>
-                        <constraint firstAttribute="trailing" secondItem="1Wh-9c-1AW" secondAttribute="trailing" constant="4.5" id="CQU-Ka-LnF"/>
-                        <constraint firstItem="1Wh-9c-1AW" firstAttribute="top" secondItem="ISL-py-pJD" secondAttribute="top" constant="4.5" id="bUc-7k-UJf"/>
-                        <constraint firstAttribute="bottom" secondItem="1Wh-9c-1AW" secondAttribute="bottom" constant="4.5" id="fI3-k5-XmW"/>
-                        <constraint firstItem="1Wh-9c-1AW" firstAttribute="leading" secondItem="ISL-py-pJD" secondAttribute="leading" constant="4.5" id="z8r-an-aDc"/>
-                    </constraints>
-                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wh-9c-1AW">
+                    <rect key="frame" x="0.0" y="17.5" width="375" height="18"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ISL-py-pJD" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="Bq2-YG-6nj"/>
-                <constraint firstItem="ISL-py-pJD" firstAttribute="centerY" secondItem="VXr-Tz-HHm" secondAttribute="centerY" id="RYp-cA-4Lv"/>
+                <constraint firstItem="1Wh-9c-1AW" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="BnF-co-QLT"/>
+                <constraint firstItem="1Wh-9c-1AW" firstAttribute="centerY" secondItem="VXr-Tz-HHm" secondAttribute="centerY" id="acX-40-Zi5"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="1Wh-9c-1AW" secondAttribute="trailing" id="mze-t2-Q9t"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <connections>
-                <outlet property="labelBackgroundView" destination="ISL-py-pJD" id="VfB-Y1-CxY"/>
                 <outlet property="sectionHeaderLabel" destination="1Wh-9c-1AW" id="lJh-XB-aaG"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>

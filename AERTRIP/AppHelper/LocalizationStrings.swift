@@ -531,5 +531,7 @@ enum LocalizedString: String {
     case FareRules = "FareRules"
     case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
     
+    //Select Guests
+    case SelectGuests = "SelectGuests"
 }
 

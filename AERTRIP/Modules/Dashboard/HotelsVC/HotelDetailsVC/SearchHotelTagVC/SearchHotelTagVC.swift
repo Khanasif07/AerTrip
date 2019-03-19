@@ -117,7 +117,7 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         printDebug(searchText)
-        if searchText == "" {
+        if searchText.isEmpty {
             self.copyOfTagButtons = self.tagButtons
         } else {
             self.updateDataSource(searchedTag: searchText)

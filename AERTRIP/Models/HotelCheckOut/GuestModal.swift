@@ -16,6 +16,8 @@ struct GuestModal {
     var salutation: String = ""
     private var _passengerType: String = ""
     var profilePicture: String = ""
+    var numberInRoom: Int = -1
+    var age: Int = 0
     
     
     var passengerType: PassengersType {

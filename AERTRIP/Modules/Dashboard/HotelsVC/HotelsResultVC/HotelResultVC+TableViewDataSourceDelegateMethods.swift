@@ -13,31 +13,38 @@ import Foundation
 // MARK: -
 
 extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if self.tableViewType == .SearchTableView {
-            return 1
-        } else {
+    func manageViewForSearchAndFilterMode() {
+        self.getFavouriteHotels()
+        let count = self.fetchedResultsController.sections?.count ?? 0
+        if (self.fetchRequestType == .FilterApplied) {
+            self.hotelSearchView.isHidden = false
+            self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
+            self.hotelSearchTableView.backgroundView?.isHidden = count > 0
+        }
+        else if (self.fetchRequestType == .Searching) {
+            self.manageFloatingView(isHidden: true)
+            self.hotelSearchView.isHidden = false
+            self.hotelSearchTableView.backgroundView = self.noResultemptyView
+            self.hotelSearchTableView.backgroundView?.isHidden = count > 0
+        }
+        else {
             self.hotelSearchView.isHidden = true
-            self.showFloatingView()
-            self.getFavouriteHotels()
-            if self.fetchedResultsController.sections?.count == 0, self.fetchRequestType == .FilterApplied {
-                self.hotelSearchView.isHidden = false
-                self.hideFloatingView()
-                self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
-                self.noHotelFoundOnFilterEmptyView.backgroundColor = .red
-                self.shimmerView.addSubview(self.noHotelFoundOnFilterEmptyView)
-                self.view.bringSubviewToFront(self.shimmerView)
-            }
-            return (self.fetchedResultsController.sections?.count ?? 0)
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        manageViewForSearchAndFilterMode()
+        
+        if tableView === hotelSearchTableView {
+            return 1
+        }
+        else {
+            return self.fetchedResultsController.sections?.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.tableViewType == .SearchTableView {
-            if self.searchedHotels.count == 0, self.fetchRequestType == .Searching {
-                self.hotelSearchTableView.backgroundView = self.noResultemptyView
-            }
-            self.hotelSearchTableView.backgroundView?.isHidden = self.searchedHotels.count > 0
+        if tableView === hotelSearchTableView {
             return self.searchedHotels.count
         } else {
             guard let sections = self.fetchedResultsController.sections else {
@@ -53,15 +60,19 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if self.tableViewType == .SearchTableView {
-            return UITableView.automaticDimension
-        } else {
+        if tableView === hotelSearchTableView {
+            return 0.0
+        }
+        else {
             return 53.0
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.tableViewType == .ListTableView {
+        if tableView === hotelSearchTableView {
+            return nil
+        }
+        else {
             guard let sections = fetchedResultsController.sections, let hView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelResultSectionHeader") as? HotelResultSectionHeader else {
                 return nil
             }
@@ -72,21 +83,19 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             hView.titleLabel.text = "  \(text)   "
             
             return hView
-        } else {
-            return nil
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.tableViewType == .ListTableView {
-            return 203.0
-        } else {
+        if tableView === hotelSearchTableView {
             return UITableView.automaticDimension
+        } else {
+            return 203.0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.tableViewType == .SearchTableView {
+        if tableView === hotelSearchTableView {
             guard let cell = hotelSearchTableView.dequeueReusableCell(withIdentifier: self.hotelResultCellIdentifier, for: indexPath) as? HotelSearchTableViewCell else {
                 printDebug("HotelSearchTableViewCell not found")
                 return UITableViewCell()
@@ -113,7 +122,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.tableViewType == .SearchTableView {
+        if tableView === hotelSearchTableView {
             let hData = self.searchedHotels[indexPath.row]
             if let cell = tableView.cellForRow(at: indexPath) {
                 AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)

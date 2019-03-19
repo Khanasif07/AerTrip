@@ -13,8 +13,9 @@ extension HotelResultVC {
         self.headerContatinerViewHeightConstraint.constant = 100
         self.tableViewTopConstraint.constant = 100
         self.mapContainerTopConstraint.constant = 100
+        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBar.frame = self.searchIntitialFrame
+            self.searchBarContainerView.frame = self.searchIntitialFrame
             self.titleLabel.transform = .identity
             self.descriptionLabel.transform = .identity
             self.view.layoutIfNeeded()
@@ -25,13 +26,17 @@ extension HotelResultVC {
         self.headerContatinerViewHeightConstraint.constant = 50
         self.tableViewTopConstraint.constant = 50
         self.mapContainerTopConstraint.constant = 50
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            self.searchBar.frame = CGRect(x: self.searchBar.frame.origin.x + 10
-                                          , y: self.searchBar.frame.origin.y - 45, width: self.searchBar.frame.width - 80, height: 50)
+        self.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
+        self.searchBarContainerView.backgroundColor = AppColors.clear
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.searchBarContainerView.frame = CGRect(x: self.searchIntitialFrame.origin.x + 20
+                , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - 80, height: 50)
             self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
             self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
             self.view.layoutIfNeeded()
-        }
+        }, completion: { (isDone) in
+            self.view.bringSubviewToFront(self.searchBarContainerView)
+        })
     }
     
     func showSearchAnimation() {
@@ -71,7 +76,6 @@ extension HotelResultVC {
             
             // floating buttons animation
             self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
-            self.currentLocationButton.isHidden = isHidden
             self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
             
             // horizontal list animation

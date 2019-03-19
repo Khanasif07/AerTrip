@@ -49,8 +49,14 @@ extension HotelResultVC {
     }
     
     func getFavouriteHotels() {
-        self.favouriteHotels = self.fetchedResultsController.fetchedObjects?.filter { $0.fav == "1" } ?? []
-        self.favouriteHotels.count > 0 && UserInfo.loggedInUser != nil ? self.showFloatingView() : self.hideFloatingView()
+        self.favouriteHotels = self.searchedHotels.filter { $0.fav == "1" }
+        
+        if let _ = UserInfo.loggedInUserId {
+            self.manageSwitchContainer(isHidden: self.favouriteHotels.isEmpty)
+        }
+        else {
+            self.manageSwitchContainer(isHidden: true)
+        }
     }
     
     func getPinnedHotelTemplate() {
@@ -173,8 +179,15 @@ extension HotelResultVC {
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }
-        self.tableViewVertical.reloadData()
-        self.collectionView.reloadData()
+        
+        self.hotelSearchTableView.reloadData()
+        
+        if self.hoteResultViewType == .ListView {
+            self.tableViewVertical.reloadData()
+        }
+        else {
+            self.collectionView.reloadData()
+        }
     }
     
     func searchForText(_ searchText: String) {
@@ -208,12 +221,14 @@ extension HotelResultVC {
         }
     }
     
-    func hideFloatingView() {
-        self.floatingView.isHidden = true
+    func manageSwitchContainer(isHidden: Bool) {
+        manageFloatingView(isHidden: isHidden)
+        switchContainerView.isHidden = isHidden
+        self.currentLocationButton.isHidden = hoteResultViewType == .ListView
     }
     
-    func showFloatingView() {
-        self.floatingView.isHidden = false
+    func manageFloatingView(isHidden: Bool) {
+        self.floatingView.isHidden = isHidden
     }
     
     // MARK: - Manage Header animation
