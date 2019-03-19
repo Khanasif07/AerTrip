@@ -177,7 +177,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     private func textSetUpForCancellation(text: String, isBtnHidden: Bool) {
-        self.infoBtnOutlet.isHidden = isHidden
+        self.infoBtnOutlet.isHidden = isBtnHidden
         self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
         self.descriptionLabel.textColor = AppColors.textFieldTextColor51
         self.descriptionLabel.text = text

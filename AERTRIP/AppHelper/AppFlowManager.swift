@@ -371,6 +371,7 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
+    
     func showAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.viewModel.paxIds = selectedTraveller
@@ -409,8 +410,15 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentHCSpecialRequestsVC() {
+    func presentHCSpecialRequestsVC(specialRequests: [SpecialRequest], delegate: HCSpecialRequestsDelegate) {
         let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.delegate = delegate
+        obj.viewModel.specialRequests = specialRequests
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    func presentHCEmailItinerariesVC() {
+        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.present(obj, animated: true)
     }
     

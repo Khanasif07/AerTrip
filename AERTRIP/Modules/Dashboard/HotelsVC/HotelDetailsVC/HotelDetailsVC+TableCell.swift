@@ -101,16 +101,16 @@ extension HotelDetailsVC {
             isOnlyOneRoom = false
         }
         cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
-        if indexPath.row == 0 {
-            cell.containerView.roundTopCorners(cornerRadius: 10.0)
-            cell.bookmarkButtonOutlet.isHidden = false
-        } else if indexPath.row == roomData.count - 1 {
-            cell.containerView.roundTopCorners(cornerRadius: 0.0)
-            cell.deviderView.isHidden = false
-            cell.bookmarkButtonOutlet.isHidden = true
+        if roomData.count == 1 {
+            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: false)
         } else {
-            cell.bookmarkButtonOutlet.isHidden = true
-            cell.containerView.roundTopCorners(cornerRadius: 0.0)
+            if indexPath.row == 0 {
+                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: true)
+            } else if indexPath.row < roomData.count - 1 {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: true)
+            } else {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
+            }
         }
         return cell
     }

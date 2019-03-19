@@ -382,7 +382,8 @@ extension String {
         var htmlCSSString = "<style>" +
             "html *" +
             "{" +
-        "font-size: \(fontSize)pt !important;"
+
+        "font-size: \(fontSize)px !important;"
         
         if let family = fontFamily {
             htmlCSSString += "font-family: \(family) !important;"

@@ -530,6 +530,7 @@ enum LocalizedString: String {
     case Pay = "Pay"
     case FareRules = "FareRules"
     case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
-    
+    case EmailItineraries = "EmailItineraries"
+    case SendToAll = "SendToAll"
 }
 

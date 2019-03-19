@@ -26,7 +26,7 @@ class HCCouponCodeVC: BaseVC {
     }
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
-    @IBOutlet weak var coupanLabel: UILabel!
+    @IBOutlet weak var couponLabel: UILabel!
     @IBOutlet weak var enterCouponLabel: UILabel!
     @IBOutlet weak var couponTextField: UITextField! {
         didSet {
@@ -35,7 +35,7 @@ class HCCouponCodeVC: BaseVC {
             self.couponTextField.autocorrectionType = .no
             self.couponTextField.autocapitalizationType = .allCharacters
             self.couponTextField.adjustsFontSizeToFitWidth = true
-//            self.couponTextField.modifyClearButton(with: #imageLiteral(resourceName: "ic_toast_cross"))
+            self.couponTextField.textFieldClearBtnSetUp()
         }
     }
     @IBOutlet weak var emptyStateView: UIView!
@@ -52,14 +52,13 @@ class HCCouponCodeVC: BaseVC {
     override func initialSetup() {
         self.statusBarStyle = .default
         self.emptyStateSetUp()
-        self.textFieldClearBtnSetUp()
         self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.registerNibs()
     }
     
     override func setupFonts() {
-        self.coupanLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.couponLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.applyButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.couponTextField.font = AppFonts.Regular.withSize(18.0)
@@ -69,7 +68,7 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.coupanLabel.text = LocalizedString.Coupons.localized
+        self.couponLabel.text = LocalizedString.Coupons.localized
         self.applyButton.setTitle(LocalizedString.apply.localized, for: .normal)
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
         self.enterCouponLabel.text = LocalizedString.EnterCouponCode.localized
@@ -78,7 +77,7 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func setupColors() {
-        self.coupanLabel.textColor = AppColors.themeBlack
+        self.couponLabel.textColor = AppColors.themeBlack
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTextField.textColor = AppColors.themeBlack
@@ -92,13 +91,6 @@ class HCCouponCodeVC: BaseVC {
     //================
     private func registerNibs() {
         self.couponTableView.registerCell(nibName: CouponCodeTableViewCell.reusableIdentifier)
-    }
-    
-    private func textFieldClearBtnSetUp() {
-        if let clearButton : UIButton = couponTextField.value(forKey: "_clearButton") as? UIButton {
-            clearButton.setImage(#imageLiteral(resourceName: "ic_toast_cross"), for: .normal)
-            clearButton.size = CGSize(width: 16.0, height: 16.0)
-        }
     }
     
     private func emptyStateSetUp() {

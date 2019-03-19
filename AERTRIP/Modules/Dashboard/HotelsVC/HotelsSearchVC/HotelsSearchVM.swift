@@ -24,8 +24,8 @@ class HotelsSearchVM: NSObject{
     var adultsCount: [Int] = [2]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-04-01"
-    var checkOutDate = "2019-04-05"
+    var checkInDate = "2019-04-17"
+    var checkOutDate = "2019-04-23"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""
@@ -99,9 +99,6 @@ class HotelsSearchVM: NSObject{
         hotelData.adultsCount    = self.adultsCount
         hotelData.childrenCounts = self.childrenCounts
         hotelData.childrenAge    = self.childrenAge
-//        hotelData.adultsCount    = self.adultsCount.map{ $0 }
-//        hotelData.childrenCounts = self.childrenCounts.map{ $0 }
-//        hotelData.childrenAge    = self.childrenAge.map{ $0 }
         hotelData.checkInDate    = self.checkInDate
         hotelData.checkOutDate   = self.checkOutDate
         hotelData.destId         = self.destId
@@ -133,6 +130,7 @@ class HotelsSearchVM: NSObject{
         }
     }
     
+    ///Get Recent Searches Data
     func  getRecentSearchesData() {
         let params: JSONDictionary = [APIKeys.product.rawValue : "hotel"]
         printDebug(params)

@@ -497,3 +497,5 @@
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \n You will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"EmailItineraries" = "Email Itineraries";
+"SendToAll" = "Send to all";

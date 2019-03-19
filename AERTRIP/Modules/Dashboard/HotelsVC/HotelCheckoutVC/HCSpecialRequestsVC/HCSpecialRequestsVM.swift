@@ -10,7 +10,9 @@ import Foundation
 
 class HCSpecialRequestsVM {
     
-    var specialRequest: [String] = ["Adjoining Rooms","Feather Pillow","Connecting Rooms","Foam Pillow","Balcony","Non Allergic Pillow","Close to Elevator","City View","Adjoining Rooms","Feather Pillow","Connecting Rooms","Foam Pillow","Balcony","Non Allergic Pillow","Close to Elevator","City View"]
-    var selectedRequests: [String] = []
+    var preferences: String = ""
+    var request: String = ""
+    var selectedRequestsId: [Int] = []
+    var specialRequests: [SpecialRequest] = []
     
 }

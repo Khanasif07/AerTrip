@@ -10,9 +10,21 @@ import UIKit
 
 extension UIView {
     
+    func removeGredient() {
+        if let layers = self.layer.sublayers {
+            for layer in layers {
+                if (layer.name ?? "") == "gradientLayer" {
+                    layer.removeFromSuperlayer()
+                    break
+                }
+            }
+        }
+    }
+    
     func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = [AppColors.themeGreen, AppColors.shadowBlue]) {
-        
+        removeGredient()
         let gradientLayer = CAGradientLayer()
+        gradientLayer.name = "gradientLayer"
         gradientLayer.frame = self.bounds
         var cgColors = colors.map { (clr) -> CGColor in
             clr.cgColor
