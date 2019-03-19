@@ -402,7 +402,7 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
         } else {
-            let newValue = hotel.value.split(separator: " ")
+            let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
         }
