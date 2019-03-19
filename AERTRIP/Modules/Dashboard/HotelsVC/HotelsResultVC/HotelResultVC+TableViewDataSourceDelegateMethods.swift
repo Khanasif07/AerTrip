@@ -113,15 +113,16 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedIndexPath = indexPath
         if self.tableViewType == .SearchTableView {
             let hData = self.searchedHotels[indexPath.row]
             if let cell = tableView.cellForRow(at: indexPath) {
-                AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         } else {
             let hData = fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) {
-                AppFlowManager.default.presentHotelDetailsVC(hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         }
     }

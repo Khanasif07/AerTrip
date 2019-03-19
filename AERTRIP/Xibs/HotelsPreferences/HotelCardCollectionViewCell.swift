@@ -84,20 +84,17 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        self.hotelImageView.setImageWithUrl(thumbnail.first ?? "", placeholder: AppPlaceholderImage.hotelCard, showIndicator: true)
-        
-        self.pageControl.numberOfPages = 5
+        self.pageControl.numberOfPages = thumbnail.count
         self.scrollView.delegate = self
-        self.scrollView.isPagingEnabled = true
-        self.scrollView.isUserInteractionEnabled = true
-        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(5), height: self.hotelImageView.frame.size.height)
-      
-        printDebug("thumbnail count is \(thumbnail.count)")
+        self.scrollView.isPagingEnabled = (thumbnail.count < 1)
+        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
-        for index in 0..<5 {
+        printDebug("thumbnail count is \(thumbnail.count)")
+        self.pageControl.isHidden = (thumbnail.count <= 1)
+        for index in 0..<thumbnail.count {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
             view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            // view.image = UIImage(named: "tickIcon")
             scrollView.addSubview(view)
         }
     }

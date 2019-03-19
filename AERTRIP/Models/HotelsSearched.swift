@@ -35,12 +35,12 @@ struct HotelsSearched: Codable {
     var thumbnail: [String] = [String]()
     var ta_reviews: String = ""
     var ta_web_url: String = ""
-    var per_night_price: String = ""
-    var per_night_list_price: String = ""
+    var per_night_price: Double = 0.0
+    var per_night_list_price: Double = 0.0
     var country: String = ""
     var amenities: [String] = [String]()
     
-    //used in hotel checkout
+    // used in hotel checkout
     var checkin: String = ""
     var checkout: String = ""
     
@@ -163,11 +163,13 @@ struct HotelsSearched: Codable {
             self.ta_web_url = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.per_night_price.rawValue] {
-            self.per_night_price = "\(obj)".removeNull
+            self.per_night_price = "\(obj)".toDouble ?? 0.0
         }
-        if let obj = json[APIKeys.per_night_list_price.rawValue] {
-            self.per_night_list_price = "\(obj)".removeNull
+        
+        if let obj = json[APIKeys.per_night_list_price.rawValue]  {
+            self.per_night_list_price = "\(obj)".toDouble ?? 0.0
         }
+        
         if let obj = json[APIKeys.amenities.rawValue] as? [String] {
             self.amenities = obj
         }

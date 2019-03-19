@@ -13,7 +13,7 @@ protocol HotelDetailDelegate: class {
     func getHotelDetailsFail()
     
     func updateFavouriteSuccess(withMessage: String)
-    func updateFavouriteFail()
+    func updateFavouriteFail(errors:ErrorCodes)
     
     func getHotelDistanceAndTimeSuccess()
     func getHotelDistanceAndTimeFail()
@@ -276,9 +276,10 @@ class HotelDetailsVM {
                 if isSuccess {
                     sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+                    _ = self?.hotelInfo?.afterUpdate
                 }
                 else {
-                    sSelf.delegate?.updateFavouriteFail()
+                    sSelf.delegate?.updateFavouriteFail(errors:errors)
                 }
             }
         }

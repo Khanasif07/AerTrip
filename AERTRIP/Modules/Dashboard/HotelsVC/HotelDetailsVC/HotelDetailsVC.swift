@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HotelDetailsVCDelegate : class {
+    func hotelFavouriteUpdated()
+}
+
 class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
@@ -30,6 +34,7 @@ class HotelDetailsVC: BaseVC {
     internal var didsmissOnScrollPosition: CGFloat = 200.0
     var stickyView: HotelFilterResultFooterView?
     var tableFooterView: HotelFilterResultFooterView?
+    weak var delegate : HotelDetailsVCDelegate?
     
     //Mark:- IBOutlets
     //================

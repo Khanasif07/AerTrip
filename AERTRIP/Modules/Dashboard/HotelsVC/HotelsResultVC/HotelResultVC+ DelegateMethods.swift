@@ -98,6 +98,30 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
+        self.loadSaveData()
+        self.getFavouriteHotels()
+        let allHotels = self.getHotelsForMapView()
+        self.getPinnedHotelTemplate()
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        self.updateMarkers()
+        if UserInfo.hotelFilter != nil {
+            self.applyPreviousFilter()
+            self.fetchRequestType = .FilterApplied
+            self.getSavedFilter()
+        }
+    }
+    
+    func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
+        self.hotelSearchView.isHidden = false
+        self.progressView.removeFromSuperview()
+        self.shimmerView.removeFromSuperview()
+        self.hideFloatingView()
+        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+    }
+    
     func willGetPinnedTemplate() {
         //
     }
@@ -118,8 +142,12 @@ extension HotelResultVC: HotelResultDelegate {
         self.reloadHotelList()
     }
 
-    func updateFavouriteFail() {
-        //
+    func updateFavouriteFail(errors:ErrorCodes) {
+        if errors.contains(array: [-1]) {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        } else {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        }
     }
 
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -142,12 +170,11 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func getAllHotelsListResultFail(errors: ErrorCodes) {
-        self.hotelSearchView.isHidden = false
-        self.progressView.removeFromSuperview()
-        self.shimmerView.removeFromSuperview()
-        self.hideFloatingView()
-        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        
+        if errors.contains(array: [37]) {
+            self.viewModel.hotelListOnResultFallback()
+        }
+        
     }
 }
 
@@ -219,4 +246,19 @@ extension HotelResultVC: CLLocationManagerDelegate {
         self.currentLocation = locations.last
         self.addMapView()
     }
+}
+
+
+// MARK: - Hotel Detail VC Delegate
+
+extension HotelResultVC: HotelDetailsVCDelegate {
+    func hotelFavouriteUpdated() {
+        if let indexPath = selectedIndexPath {
+             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+                selectedIndexPath = nil 
+        }
+       
+    }
+    
+    
 }

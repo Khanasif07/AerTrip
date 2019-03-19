@@ -24,8 +24,8 @@ class HotelsSearchVM: NSObject{
     var adultsCount: [Int] = [2]
     var childrenCounts: [Int] = [0]
     var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-03-18"
-    var checkOutDate = "2019-03-23"
+    var checkInDate = "2019-04-01"
+    var checkOutDate = "2019-04-05"
     var destId: String = ""
     var destType: String = ""
     var destName: String = ""

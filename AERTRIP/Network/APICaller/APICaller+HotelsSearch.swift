@@ -269,4 +269,38 @@ extension APICaller {
             }
         }
     }
+    
+    
+    func getHotelsOnFallBack(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsSearched], _ done: Bool) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.resutlFallBack, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotels = response["results"] as? [JSONDictionary] {
+                    let hotelsInfo = HotelsSearched.models(jsonArr: hotels)
+                    let done = response["done"] as? Bool
+                    let filters = response["filters"] as? JSONDictionary
+                    HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
+                    HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
+                    HotelFilterVM.shared.leftRangePrice = HotelFilterVM.shared.minimumPrice
+                    HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
+                    
+                    completionBlock(true, [], hotelsInfo, done ?? false)
+                }
+                else {
+                    completionBlock(false, [], [], false)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, [], false)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [], false)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [], false)
+            }
+        }
+    }
 }

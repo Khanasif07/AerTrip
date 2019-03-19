@@ -13,10 +13,12 @@ protocol HotelResultDelegate: class {
     func getAllHotelsListResultFail(errors: ErrorCodes)
     func willUpdateFavourite()
     func updateFavouriteSuccess()
-    func updateFavouriteFail()
+    func updateFavouriteFail(errors:ErrorCodes)
     func willGetPinnedTemplate()
     func getPinnedTemplateSuccess()
     func getPinnedTemplateFail()
+    func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool)
+    func getAllHotelsOnResultFallbackFail(errors: ErrorCodes)
 }
 
 class HotelsResultVM: NSObject {
@@ -81,7 +83,7 @@ class HotelsResultVM: NSObject {
         }
         
         self.delegate?.willUpdateFavourite()
-        APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess, _, successMessage in
+        APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess,errors, successMessage in
             if isSuccess {
                 for hotel in forHotels {
                     if !isUnpinHotels {
@@ -94,7 +96,7 @@ class HotelsResultVM: NSObject {
                 if isUnpinHotels {  AppToast.default.showToastMessage(message: successMessage) }
                 self.delegate?.updateFavouriteSuccess()
             } else {
-                self.delegate?.updateFavouriteFail()
+                self.delegate?.updateFavouriteFail(errors: errors)
             }
         }
     }
@@ -116,4 +118,23 @@ class HotelsResultVM: NSObject {
             }
         }
     }
+    
+    func hotelListOnResultFallback() {
+        let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
+        printDebug(params)
+        APICaller.shared.getHotelsOnFallBack(params: params) { [weak self] success, errors, hotels, isDone in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.hotelListResult = hotels
+                for hotel in hotels {
+                    _ = HotelSearched.insert(dataDict: hotel.jsonDict)
+                }
+                sSelf.delegate?.getAllHotelsOnResultFallbackSuccess(isDone)
+            } else {
+                printDebug(errors)
+                sSelf.delegate?.getAllHotelsOnResultFallbackFail(errors: errors)
+            }
+        }
+    }
+   
 }
