@@ -191,7 +191,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIDevice.screenWidth / 5.0, height: 20.0)
+        return CGSize.zero//CGSize(width: UIDevice.screenWidth / 5.0, height: 20.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -311,6 +311,7 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideButtons()
+        self.switchView.toggle()
         self.fetchRequestType = .normal
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true

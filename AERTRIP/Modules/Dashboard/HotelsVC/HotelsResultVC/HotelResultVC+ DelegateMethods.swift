@@ -110,7 +110,6 @@ extension HotelResultVC: HotelResultDelegate {
         self.hotelSearchView.isHidden = false
         self.progressView.removeFromSuperview()
         self.shimmerView.removeFromSuperview()
-        self.hideFloatingView()
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }

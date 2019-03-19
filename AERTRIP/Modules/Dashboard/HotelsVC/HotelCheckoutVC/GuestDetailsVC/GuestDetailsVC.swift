@@ -73,6 +73,7 @@ class GuestDetailsVC: BaseVC {
         
         self.travellersTableView.dataSource = self
         self.travellersTableView.delegate = self
+        guestDetailTableView.isScrollEnabled = true
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
         self.travellers = self.viewModel.travellerList
@@ -202,6 +203,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === self.travellersTableView {
+            guestDetailTableView.isScrollEnabled = true
             self.travellersTableView.isHidden = true
             if let cellindexPath = self.indexPath {
                 if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
@@ -243,6 +245,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
         self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
+        guestDetailTableView.isScrollEnabled = false
         travellersTableView.isHidden = false
         travellersTableView.reloadData()
         printDebug("item position is \(itemPosition)")

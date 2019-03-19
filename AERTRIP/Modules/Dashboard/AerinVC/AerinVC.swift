@@ -173,12 +173,8 @@ class AerinVC: BaseVC {
     //MARK:- Private
 
     //MARK:- Public
+
     
-    
-    @IBAction func openCheckoutScreen(_ sender: Any) {
-        let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
-        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
-    }
     //MARK:- Action
     
 }

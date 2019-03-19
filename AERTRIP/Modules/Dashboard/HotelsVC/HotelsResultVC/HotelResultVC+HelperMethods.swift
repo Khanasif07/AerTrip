@@ -143,12 +143,8 @@ extension HotelResultVC {
     }
     
     func getHotelsCount() {
-        if self.fetchRequestType == .Searching {
-            HotelFilterVM.shared.totalHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
-            HotelFilterVM.shared.filterHotelCount = HotelFilterVM.shared.totalHotelCount
-        } else {
-            HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
-        }
+        HotelFilterVM.shared.totalHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+        HotelFilterVM.shared.filterHotelCount = HotelFilterVM.shared.totalHotelCount
     }
     
     func setupTableHeader() {

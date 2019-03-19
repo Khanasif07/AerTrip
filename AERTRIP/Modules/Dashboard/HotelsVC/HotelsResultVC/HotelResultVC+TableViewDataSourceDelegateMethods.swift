@@ -16,10 +16,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func manageViewForSearchAndFilterMode() {
         self.getFavouriteHotels()
         let count = self.fetchedResultsController.sections?.count ?? 0
-        if (self.fetchRequestType == .FilterApplied) {
+        if (self.fetchRequestType == .FilterApplied), count <= 0 {
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
-            self.hotelSearchTableView.backgroundView?.isHidden = count > 0
         }
         else if (self.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
@@ -122,6 +121,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         self.selectedIndexPath = indexPath
         if tableView === hotelSearchTableView {
             let hData = self.searchedHotels[indexPath.row]

@@ -86,6 +86,10 @@ class ATSwitcher: UIView {
         delegate?.switcherDidChangeValue(switcher: self, value: on)
     }
     
+    func toggle() {
+        self.switcherButtonTouch(button)
+    }
+    
     func animationSwitcherButton() {
         if on == true {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
