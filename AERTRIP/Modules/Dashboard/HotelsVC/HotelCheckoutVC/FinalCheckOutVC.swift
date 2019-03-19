@@ -131,6 +131,12 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 1 {
+            AppFlowManager.default.presentHCCouponCodeVC()
+        }
+    }
 }
 
 // MARK: - TopNavigationView Delegate methods

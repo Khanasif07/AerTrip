@@ -209,6 +209,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
                     self.editedGuest(self.indexPath)
+                    
                 }
             }
         }

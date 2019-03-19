@@ -458,6 +458,11 @@ extension AppFlowManager {
          obj.viewModel.selectedIndexPath = indexPath
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    func moveToFinalCheckoutVC() {
+        let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+    }
 }
 
 //MARK: - Pop Methods
