@@ -296,6 +296,10 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
+    private func presentEmailVC() {
+        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -311,7 +315,7 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideButtons()
-        self.switchView.toggle()
+        self.switchView.setOn(isOn: false)
         self.fetchRequestType = .normal
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true
@@ -336,7 +340,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func EmailButtonTapped(_ sender: Any) {
-        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+        self.presentEmailVC()
     }
     
     @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
@@ -346,7 +350,7 @@ class HotelResultVC: BaseVC {
             
             if index == 0 {
                 printDebug("Email")
-                
+                self?.presentEmailVC()
             } else if index == 1 {
                 printDebug("Share")
                 self?.openSharingSheet()

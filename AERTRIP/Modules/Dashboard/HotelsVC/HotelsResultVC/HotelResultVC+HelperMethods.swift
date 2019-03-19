@@ -218,9 +218,16 @@ extension HotelResultVC {
     }
     
     func manageSwitchContainer(isHidden: Bool) {
-        manageFloatingView(isHidden: isHidden)
-        switchContainerView.isHidden = isHidden
-        self.currentLocationButton.isHidden = hoteResultViewType == .ListView
+        if hoteResultViewType == .ListView {
+            manageFloatingView(isHidden: isHidden)
+            switchContainerView.isHidden = isHidden
+            self.currentLocationButton.isHidden = hoteResultViewType == .ListView
+        }
+        else {
+            manageFloatingView(isHidden: false)
+            switchContainerView.isHidden = isHidden
+            self.currentLocationButton.isHidden = false
+        }
     }
     
     func manageFloatingView(isHidden: Bool) {

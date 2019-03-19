@@ -86,8 +86,10 @@ class ATSwitcher: UIView {
         delegate?.switcherDidChangeValue(switcher: self, value: on)
     }
     
-    func toggle() {
-        self.switcherButtonTouch(button)
+    func setOn(isOn: Bool) {
+        on = isOn
+        animationSwitcherButton()
+        delegate?.switcherDidChangeValue(switcher: self, value: on)
     }
     
     func animationSwitcherButton() {
