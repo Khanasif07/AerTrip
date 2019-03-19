@@ -237,7 +237,8 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
-        FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: 10.0, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+        AppFlowManager.default.moveToFinalCheckoutVC()
+        
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
