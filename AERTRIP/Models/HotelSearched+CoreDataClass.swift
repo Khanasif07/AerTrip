@@ -118,10 +118,13 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.numberOfRooms = Int16(obj)
         }
         
-        if let obj = dataDict[APIKeys.per_night_list_price.rawValue] as? String {
-            hotelSearched!.perNightListPrice = Double(obj) ?? 0.0
+        if let obj = dataDict[APIKeys.per_night_list_price.rawValue] {
+            hotelSearched!.perNightListPrice = obj as! Double
         }
-        
+        if let obj = dataDict[APIKeys.per_night_price.rawValue] {
+            hotelSearched!.perNightPrice = obj as! Double
+        }
+
         if let obj = dataDict[APIKeys.price.rawValue]  {
             hotelSearched!.price = obj as! Double
         }

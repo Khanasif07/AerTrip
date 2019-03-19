@@ -8,13 +8,18 @@
 
 import UIKit
 
+protocol HCSpecialRequestsDelegate: class {
+    func didPassSelectedRequestsId(ids: [Int],  preferences: String, request: String)
+}
+
 class HCSpecialRequestsVC: BaseVC {
     
     //Mark:- Variables
     //================
-    let viewModel = HCSpecialRequestsVM()
-    var selectedIndexPath: [IndexPath] = []
-    let textFieldPlaceHolder: [String] = [LocalizedString.AirlineNameFlightNumberArrivalTime.localized,LocalizedString.SpecialRequestIfAny.localized]
+    internal let viewModel = HCSpecialRequestsVM()
+    internal weak var delegate: HCSpecialRequestsDelegate?
+    private var selectedIndexPath: [IndexPath] = []
+    private let textFieldPlaceHolder: [String] = [LocalizedString.AirlineNameFlightNumberArrivalTime.localized,LocalizedString.SpecialRequestIfAny.localized]
     
     //Mark:- IBOutlets
     //================
@@ -49,14 +54,14 @@ class HCSpecialRequestsVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.headerView.navTitleLabel.text = LocalizedString.SpecialRequest.localized
+//        self.headerView.navTitleLabel.text = LocalizedString.SpecialRequest.localized
     }
     
     //Mark:- Functions
     //================
     private func headerViewSetUp() {
         self.headerView.delegate = self
-        self.headerView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.headerView.configureNavBar(title: LocalizedString.SpecialRequest.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.headerView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.headerView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
     }
@@ -69,15 +74,17 @@ class HCSpecialRequestsVC: BaseVC {
     //Mark:- IBActions
 }
 
-
+//Mark:- UITableView Delegate DataSource
+//======================================
 extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.specialRequest.count + 2
+        return self.viewModel.specialRequests.count + 2
+//        return self.viewModel.itineraryData.special_requests.count + 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row < self.viewModel.specialRequest.count {
+        if indexPath.row < self.viewModel.specialRequests.count {
             let cell = self.getRoomTableViewCell(tableView, cellForRowAt: indexPath)
             return cell
         } else {
@@ -90,15 +97,19 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
         if let _ = tableView.cellForRow(at: indexPath) as? RoomTableViewCell {
             if !self.selectedIndexPath.contains(indexPath) {
                 self.selectedIndexPath.append(indexPath)
+                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
             }
             else {
                 self.selectedIndexPath.remove(object: indexPath)
+                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
             }
         }
         self.specialReqTableView.reloadData()
     }
 }
 
+//Mark:- TableView Cells
+//======================
 extension HCSpecialRequestsVC {
     
     internal func getRoomTableViewCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,14 +119,14 @@ extension HCSpecialRequestsVC {
         } else {
             cell.statusButton.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
         }
-        cell.configCell(title: self.viewModel.specialRequest[indexPath.row])
+        cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
         return cell
     }
     
     internal func getTextFieldCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCSpecialRequestTextfieldCell.reusableIdentifier, for: indexPath) as? HCSpecialRequestTextfieldCell else { return UITableViewCell() }
         cell.delegate = self
-        if indexPath.row == self.viewModel.specialRequest.count {
+        if indexPath.row == self.viewModel.specialRequests.count {
             cell.topDividerViewTopConstraints.constant = 17.0
             cell.configCell(placeHolderText: textFieldPlaceHolder[0])
             cell.topDividerView.isHidden = false
@@ -128,6 +139,8 @@ extension HCSpecialRequestsVC {
     }
 }
 
+//Mark:- TopNavigationView Delegate
+//=================================
 extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
@@ -136,12 +149,22 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        
+        if let safeDelegate = self.delegate, (!self.viewModel.selectedRequestsId.isEmpty || !self.viewModel.preferences.isEmpty || !self.viewModel.request.isEmpty) {
+            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, preferences: self.viewModel.preferences, request: self.viewModel.request)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension HCSpecialRequestsVC: SpecialReqAndAirLineInfoDelegate {
-    func passingSpecialRequestAndAirLineInfo(infoText: String) {
+//Mark:- HCSpecialRequestTextfieldCell Delegate
+//=============================================
+extension HCSpecialRequestsVC: HCSpecialRequestTextfieldCellDelegate {
+    func didPassSpecialRequestAndAirLineText(infoText: String,indexPath: IndexPath) {
+        if indexPath.row == self.viewModel.specialRequests.count {
+            self.viewModel.preferences = infoText
+        } else {
+            self.viewModel.request = infoText
+        }
         printDebug(infoText)
     }
 }

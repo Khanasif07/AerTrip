@@ -14,6 +14,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     //================
     private var typesOfBed = [String]()
     private var bedPickerView = UIPickerView()
+    private var selectedRow: Int?
     
     //Mark:- IBOutlets
     //================
@@ -32,6 +33,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     @IBOutlet weak var dropDownTextField: UITextField! {
         didSet {
             self.dropDownTextField.delegate = self
+            self.dropDownTextField.tintColor = .clear
         }
     }
     
@@ -70,8 +72,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         bottomView.frame = CGRect(x: 0.0, y: 44.00, width: UIScreen.main.bounds.width, height: 0.35)
         bottomView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         toolbar.addSubview(bottomView)
-//        toolbar.sizeToFit()
-//        toolbar.backgroundColor = AppColors.themeGray20
         toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: LocalizedString.Done.localized, style: .plain, target: self, action: #selector(doneBedPicker))
@@ -84,14 +84,13 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedPickerView.backgroundColor = AppColors.themeWhite
         self.dropDownTextField.inputAccessoryView = toolbar
         self.dropDownTextField.inputView = self.bedPickerView
-//        self.dropDownTextField
     }
     
     ///Configure BedSelection Title ImgSetUp
     private func bedSelectionTitleImgSetUp() {
         let dropDownButton = UIButton(type: .custom)
         dropDownButton.frame = CGRect(x: 0, y: 0, width: 20.0, height: 20.0)
-        dropDownButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 0.0, bottom: 0.0, right: 0.0)
+        dropDownButton.imageEdgeInsets = UIEdgeInsets(top: 1.0, left: 0.0, bottom: 0.0, right: 0.0)
         dropDownButton.setImage(#imageLiteral(resourceName: "downArrow").withRenderingMode(.alwaysTemplate), for: .normal)
         dropDownButton.imageView?.tintColor = AppColors.themeGreen
         self.dropDownTextField.rightView = dropDownButton
@@ -134,6 +133,13 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         }
     }
     
+    internal func showHideSetUp(cornerRaduis: CGFloat, bookmarkBtnHidden: Bool, dividerViewHidden: Bool) {
+        self.containerView.roundTopCorners(cornerRadius: cornerRaduis)
+        self.bookmarkButtonOutlet.isHidden = bookmarkBtnHidden
+        self.deviderView.isHidden = dividerViewHidden
+
+    }
+    
     //Mark:- IBActions
     //================
     @IBAction func bookmarkButtonAction(_ sender: UIButton) {
@@ -141,12 +147,15 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     }
     
     @objc func doneBedPicker(){
+        if let selectedRow = self.selectedRow {
+            self.dropDownTextField.text = self.typesOfBed[selectedRow]
+        }
         self.endEditing(true)
     }
 }
 
 //MARK:- SelectTripVC delegate methods
-//MARK:-
+//====================================
 extension HotelDetailsBedsTableViewCell: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
         printDebug("Selected trip: \(trip.title)")
@@ -183,7 +192,7 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.dropDownTextField.text = self.typesOfBed[row]
+        self.selectedRow = row
     }
 }
 
@@ -198,14 +207,3 @@ extension HotelDetailsBedsTableViewCell: UITextFieldDelegate {
         return false
     }
 }
-
-
-/*
- if self.typesOfBed.isEmpty || (self.typesOfBed.count == 1) {
- self.dropDownTextField.isHidden = true
- }
- else {
- self.dropDownTextField.isHidden = false
- self.dropDownTextField.text = self.typesOfBed[0] + "   "
- }
- */

@@ -300,6 +300,7 @@ enum APIKeys: String {
     case CACB = "CACB"
     case CSPCFEE = "CSPCFEE"
     case currency_pref = "currency_pref"
+    case booking_id = "booking_id"
 }
 
 

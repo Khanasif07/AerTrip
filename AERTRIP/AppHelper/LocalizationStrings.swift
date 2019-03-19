@@ -533,5 +533,8 @@ enum LocalizedString: String {
     
     //Select Guests
     case SelectGuests = "SelectGuests"
+    
+    case EmailItineraries = "EmailItineraries"
+    case SendToAll = "SendToAll"
 }
 

@@ -82,12 +82,11 @@ class HotelsSearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.recentSearchData()
+        self.getRecentSearchData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        self.scrollViewContentSize = self.scrollView.contentSize
     }
     
     override func viewDidLayoutSubviews() {
@@ -188,6 +187,7 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
+        self.hideRecentSearchesView()
         self.getDataFromPreviousSearch()
     }
     
@@ -323,7 +323,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     ///RecentSearchData
-    private func recentSearchData() {
+    private func getRecentSearchData() {
         if let _ = self.returnUserId  {
             self.viewModel.getRecentSearchesData()
         } else {
@@ -450,6 +450,9 @@ class HotelsSearchVC: BaseVC {
     private func hideRecentSearchesView() {
         self.recentContainerParentView.isHidden = true
         self.recentContainerHeightConstraint.constant = 0.0
+        if let recentSearchesView = self.recentSearchesView {
+            recentSearchesView.isHidden = true
+        }
         self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + 20.0
     }
     
@@ -457,6 +460,9 @@ class HotelsSearchVC: BaseVC {
     private func showRecentSearchView() {
         self.recentContainerParentView.isHidden = false
         self.recentContainerHeightConstraint.constant = self.recentSearchHeight
+        if let recentSearchesView = self.recentSearchesView {
+            recentSearchesView.isHidden = false
+        }
         //        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
         if self.viewModel.adultsCount.count < 2 {
             self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
@@ -666,11 +672,11 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
-            if recentSearchesData.isEmpty {
+            if !(recentSearchesData.count > 0) {
                 self.hideRecentSearchesView()
             } else {
                 self.showRecentSearchView()
-                recentSearchesView.recentSearchesData = self.viewModel.recentSearchesData
+                recentSearchesView.recentSearchesData = recentSearchesData
                 recentSearchesView.recentCollectionView.reloadData()
             }
         } else {

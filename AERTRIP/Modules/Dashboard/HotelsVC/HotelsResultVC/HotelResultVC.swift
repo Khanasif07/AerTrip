@@ -109,6 +109,8 @@ class HotelResultVC: BaseVC {
     var visibleMapHeightInVerticalMode: CGFloat = 160.0
     var oldScrollPosition: CGPoint = CGPoint.zero
     let mapIntitalZoomLabel: Float = 12.0
+    var selectedIndexPath: IndexPath?
+    var selectedIndexPathForHotelSearch: IndexPath?
     
     // fetch result controller
     

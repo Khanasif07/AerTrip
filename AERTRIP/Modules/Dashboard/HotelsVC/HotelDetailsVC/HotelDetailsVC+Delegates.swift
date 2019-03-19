@@ -204,12 +204,19 @@ extension HotelDetailsVC: HotelDetailDelegate {
         self.sendDataChangedNotification(data: self)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         self.headerView.leftButton.setImage(buttonImage, for: .normal)
+        self.delegate?.hotelFavouriteUpdated()
     }
     
-    func updateFavouriteFail() {
+    func updateFavouriteFail(errors:ErrorCodes) {
         AppNetworking.hideLoader()
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         self.headerView.leftButton.setImage(buttonImage, for: .normal)
+        if errors.contains(array: [-1]) {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        } else {
+             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        }
+        
     }
     
     func getHotelDistanceAndTimeSuccess() {
@@ -362,3 +369,4 @@ extension HotelDetailsVC: GetFullInfoDelegate {
         }
     }
 }
+

@@ -329,10 +329,11 @@ extension AppFlowManager {
         }
     }
     
-    func presentHotelDetailsVC(hotelInfo: HotelSearched, sourceView: UIView, sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
+    func presentHotelDetailsVC(_ vc : HotelResultVC,hotelInfo: HotelSearched, sourceView: UIView, sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
             ob.viewModel.hotelInfo = hotelInfo
+            ob.delegate = vc
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
@@ -369,6 +370,7 @@ extension AppFlowManager {
         ob.viewModel.hotelId = hotelId
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
+    
     
     func showAssignGroupVC(_ vc: TravellerListVC,_ selectedTraveller : [String]){
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
@@ -408,8 +410,15 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentHCSpecialRequestsVC() {
+    func presentHCSpecialRequestsVC(specialRequests: [SpecialRequest], delegate: HCSpecialRequestsDelegate) {
         let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.delegate = delegate
+        obj.viewModel.specialRequests = specialRequests
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    func presentHCEmailItinerariesVC() {
+        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.present(obj, animated: true)
     }
     

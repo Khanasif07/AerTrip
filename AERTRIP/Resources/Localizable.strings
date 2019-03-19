@@ -500,3 +500,6 @@
 
 //Select Guest
 "SelectGuests" = "Select Guests";
+
+"EmailItineraries" = "Email Itineraries";
+"SendToAll" = "Send to all";

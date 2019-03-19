@@ -174,6 +174,7 @@ class UserInfo {
         var roomCancelation : [String] = []
         var roomOther : [String] = []
         var sortUsing : SortUsing = .BestSellers
+        var priceType : Price = .Total
         
         
         init() {
@@ -190,6 +191,7 @@ class UserInfo {
             roomCancelation  = []
             roomOther  = []
             sortUsing = .BestSellers
+            priceType = .Total
            
         }
         
@@ -208,6 +210,7 @@ class UserInfo {
             case roomCancelation
             case roomOther
             case sortUsing
+            case priceType
         }
 
         
@@ -226,6 +229,7 @@ class UserInfo {
             roomCancelation = try values.decode([String].self, forKey: .roomCancelation)
             roomOther = try values.decode([String].self, forKey: .roomOther)
             sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
+            priceType = try values.decode(Price.self, forKey: .priceType)
             
             
         }

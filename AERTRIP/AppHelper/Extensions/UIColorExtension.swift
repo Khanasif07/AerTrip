@@ -11,6 +11,16 @@ import UIKit
 
 extension UIColor{
     
+    var hexString:String? {
+        if let components = self.cgColor.components {
+            let r = components[0]
+            let g = components[1]
+            let b = components[2]
+            return  String(format: "%02X%02X%02X", (Int)(r * 255), (Int)(g * 255), (Int)(b * 255))
+        }
+        return nil
+    }
+    
     convenience init(r: Int, g: Int, b: Int, alpha : CGFloat) {
         assert(r >= 0 && r <= 255, "Invalid red component")
         assert(g >= 0 && g <= 255, "Invalid green component")
@@ -46,15 +56,5 @@ extension UIColor{
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
-    }
-    
-    var hexString:String? {
-        if let components = self.cgColor.components {
-            let r = components[0]
-            let g = components[1]
-            let b = components[2]
-            return  String(format: "%02X%02X%02X", (Int)(r * 255), (Int)(g * 255), (Int)(b * 255))
-        }
-        return nil
     }
 }

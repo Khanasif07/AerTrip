@@ -146,13 +146,12 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell{
             cell.tintColor = AppColors.themeGreen
             cell.accessoryType = .checkmark
+            cell.leftTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.priceType = .PerNight
-                cell.leftTitleLabel.textColor = AppColors.themeGreen
             case 1:
                 HotelFilterVM.shared.priceType = .Total
-                cell.leftTitleLabel.textColor = AppColors.themeGreen
             default:
                 return
             }
@@ -163,6 +162,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.accessoryType = .none
             cell.leftTitleLabel.textColor = AppColors.textFieldTextColor51
+            cell.rightTitleLabel.textColor = AppColors.themeGray40
         }
     }
 }
