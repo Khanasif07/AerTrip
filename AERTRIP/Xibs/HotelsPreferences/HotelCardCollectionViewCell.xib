@@ -79,60 +79,83 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pgm-9V-W9W" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="127" width="68" height="12"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vxF-JS-gpm">
+                                <rect key="frame" x="16" y="123" width="171" height="20"/>
+                                <subviews>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brn-Lu-YEU" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="4" width="68" height="12"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="68" id="352-xj-N57"/>
+                                            <constraint firstAttribute="height" constant="12" id="c88-S1-K2J"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HNw-Bb-Uye">
+                                        <rect key="frame" x="76" y="0.0" width="95" height="20"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="OXO-E8-CFQ">
+                                                <rect key="frame" x="0.0" y="-8" width="43" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="43" id="ZX7-cx-Aa3"/>
+                                                </constraints>
+                                            </imageView>
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJd-su-Y7s" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="40" y="4" width="68" height="12"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="12" id="W3x-cy-ZZ8"/>
+                                                    <constraint firstAttribute="width" constant="68" id="ptH-zt-tLH"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="PGg-Mg-G6c"/>
+                                            <constraint firstItem="sJd-su-Y7s" firstAttribute="centerY" secondItem="HNw-Bb-Uye" secondAttribute="centerY" id="RFn-o5-fhn"/>
+                                            <constraint firstItem="OXO-E8-CFQ" firstAttribute="top" secondItem="HNw-Bb-Uye" secondAttribute="top" constant="-8" id="VQK-8p-ouc"/>
+                                            <constraint firstItem="sJd-su-Y7s" firstAttribute="leading" secondItem="OXO-E8-CFQ" secondAttribute="trailing" constant="-3" id="gWC-E2-SsO"/>
+                                            <constraint firstItem="OXO-E8-CFQ" firstAttribute="leading" secondItem="HNw-Bb-Uye" secondAttribute="leading" id="n0Z-fd-EYT"/>
+                                            <constraint firstAttribute="trailing" secondItem="sJd-su-Y7s" secondAttribute="trailing" priority="900" id="pc3-Z9-zY7"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="l7g-u2-YJU"/>
-                                    <constraint firstAttribute="width" constant="68" id="odJ-A5-SVy"/>
+                                    <constraint firstAttribute="height" constant="20" id="IUz-YS-6Fw"/>
+                                    <constraint firstAttribute="width" constant="171" id="W0j-wS-gmB"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="kcW-I4-5ov">
-                                <rect key="frame" x="89" y="121.5" width="32" height="24"/>
-                            </imageView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2EW-7r-wgf" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="126" y="127.5" width="68" height="12"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="68" id="Br4-az-eoJ"/>
-                                    <constraint firstAttribute="height" constant="12" id="oOo-u9-Sbj"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JfG-uz-AxF" firstAttribute="top" secondItem="Pgm-9V-W9W" secondAttribute="bottom" constant="10" id="2ll-Qw-bzB"/>
+                            <constraint firstItem="JfG-uz-AxF" firstAttribute="top" secondItem="vxF-JS-gpm" secondAttribute="bottom" constant="6" id="1lR-aE-TOd"/>
                             <constraint firstItem="cJV-J5-Avs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JfG-uz-AxF" secondAttribute="trailing" constant="10" id="5g2-nF-1ot"/>
                             <constraint firstItem="hfU-XL-9qt" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" id="BSD-Wl-O31"/>
                             <constraint firstItem="hfU-XL-9qt" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" id="CvV-UU-EGF"/>
-                            <constraint firstItem="kcW-I4-5ov" firstAttribute="centerY" secondItem="Pgm-9V-W9W" secondAttribute="centerY" multiplier="1.005" id="DSa-j0-mbF"/>
                             <constraint firstAttribute="trailing" secondItem="j42-Hp-yYC" secondAttribute="trailing" id="GlO-oc-Io5"/>
                             <constraint firstItem="JfG-uz-AxF" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" constant="16" id="Jub-hC-1vz"/>
                             <constraint firstAttribute="bottom" secondItem="cJV-J5-Avs" secondAttribute="bottom" constant="10" id="OHT-yK-kxV"/>
                             <constraint firstItem="v9a-aw-7oF" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" id="OXU-Ag-l0A"/>
-                            <constraint firstItem="2EW-7r-wgf" firstAttribute="centerY" secondItem="kcW-I4-5ov" secondAttribute="centerY" id="TZV-kf-gT2"/>
                             <constraint firstAttribute="trailing" secondItem="cJV-J5-Avs" secondAttribute="trailing" constant="16" id="ZWB-Xx-aKU"/>
-                            <constraint firstItem="2EW-7r-wgf" firstAttribute="leading" secondItem="kcW-I4-5ov" secondAttribute="trailing" constant="5" id="b4y-w6-nAm"/>
+                            <constraint firstItem="vxF-JS-gpm" firstAttribute="leading" secondItem="JfG-uz-AxF" secondAttribute="leading" id="aCz-8C-9MU"/>
                             <constraint firstItem="v9a-aw-7oF" firstAttribute="height" secondItem="LMU-bo-fv2" secondAttribute="height" multiplier="0.65" id="bRi-bn-uZU"/>
                             <constraint firstItem="hfU-XL-9qt" firstAttribute="trailing" secondItem="v9a-aw-7oF" secondAttribute="trailing" id="cCn-Z1-fIa"/>
                             <constraint firstItem="cJV-J5-Avs" firstAttribute="top" secondItem="21o-Ch-D9F" secondAttribute="bottom" id="cnv-47-JJM"/>
@@ -140,7 +163,6 @@
                             <constraint firstItem="j42-Hp-yYC" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" id="fo0-KJ-oPc"/>
                             <constraint firstAttribute="bottom" secondItem="hfU-XL-9qt" secondAttribute="bottom" id="gEQ-GR-XaH"/>
                             <constraint firstItem="jc5-ID-tyR" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" id="hWS-nY-ddd"/>
-                            <constraint firstItem="kcW-I4-5ov" firstAttribute="leading" secondItem="Pgm-9V-W9W" secondAttribute="trailing" constant="5" id="ig5-kF-zwo"/>
                             <constraint firstItem="jc5-ID-tyR" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" id="ki5-IM-iOZ"/>
                             <constraint firstItem="Uk1-XF-SdS" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" constant="150" id="ljI-0t-J86"/>
                             <constraint firstItem="Uk1-XF-SdS" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" constant="10" id="nmg-mw-o3F"/>
@@ -149,7 +171,6 @@
                             <constraint firstItem="j42-Hp-yYC" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" id="ryd-Db-mgn"/>
                             <constraint firstItem="21o-Ch-D9F" firstAttribute="trailing" secondItem="cJV-J5-Avs" secondAttribute="trailing" id="u5L-Th-pXO"/>
                             <constraint firstAttribute="bottom" secondItem="j42-Hp-yYC" secondAttribute="bottom" id="uNp-E5-k2Q"/>
-                            <constraint firstItem="Pgm-9V-W9W" firstAttribute="leading" secondItem="JfG-uz-AxF" secondAttribute="leading" id="ux5-Ld-T5S"/>
                             <constraint firstAttribute="bottom" secondItem="v9a-aw-7oF" secondAttribute="bottom" id="w2m-VE-hQF"/>
                             <constraint firstAttribute="bottom" secondItem="JfG-uz-AxF" secondAttribute="bottom" constant="10" id="wGa-aJ-kL8"/>
                         </constraints>
@@ -172,14 +193,15 @@
                 <outlet property="containerTopConstraint" destination="h5G-lw-K7V" id="WXq-hN-wky"/>
                 <outlet property="discountedPriceLabel" destination="cJV-J5-Avs" id="irD-IQ-pWW"/>
                 <outlet property="gradientView" destination="v9a-aw-7oF" id="3nQ-dU-jvP"/>
-                <outlet property="greenCircleRatingView" destination="2EW-7r-wgf" id="2ft-F7-Yax"/>
+                <outlet property="greenCircleRatingView" destination="sJd-su-Y7s" id="DcD-wU-QeJ"/>
                 <outlet property="hotelImageView" destination="j42-Hp-yYC" id="B4K-rg-zdq"/>
                 <outlet property="hotelNameLabel" destination="JfG-uz-AxF" id="pb9-2o-c50"/>
                 <outlet property="pageControl" destination="Uk1-XF-SdS" id="zcd-EQ-bjJ"/>
+                <outlet property="ratingContainerLeadingConstraint" destination="aCz-8C-9MU" id="Sxu-jN-cD7"/>
                 <outlet property="saveButton" destination="jc5-ID-tyR" id="cME-fm-ujq"/>
                 <outlet property="scrollView" destination="hfU-XL-9qt" id="9pe-3H-NeJ"/>
-                <outlet property="starRatingView" destination="Pgm-9V-W9W" id="CDx-d2-opz"/>
-                <outlet property="tripLogoImage" destination="kcW-I4-5ov" id="smg-fb-3XO"/>
+                <outlet property="starRatingView" destination="brn-Lu-YEU" id="gpA-hd-NhU"/>
+                <outlet property="tripLogoImage" destination="OXO-E8-CFQ" id="eSE-4d-CsE"/>
             </connections>
             <point key="canvasLocation" x="89.599999999999994" y="73.313343328335833"/>
         </collectionViewCell>

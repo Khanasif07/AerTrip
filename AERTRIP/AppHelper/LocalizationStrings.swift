@@ -508,6 +508,7 @@ enum LocalizedString: String {
     case FareDippedBy = "FareDippedBy"
     case FareBreakup = "FareBreakup"
     case TotalPayableNow = "TotalPayableNow"
+    case Confirm = "Confirm"
 
     //Hotel Checkout Coupons VC
     case Coupons = "Coupons"
@@ -536,5 +537,22 @@ enum LocalizedString: String {
     
     case EmailItineraries = "EmailItineraries"
     case SendToAll = "SendToAll"
+    
+    //Booking Incomplete Screen
+    case BookingIncomplete = "BookingIncomplete"
+    case YourWalletMoneyOf = "YourWalletMoneyOf"
+    case WasUsedForAnotherTransaction = "WasUsedForAnotherTransaction"
+    case BookingAmount = "BookingAmount"
+    case PaidAmount = "PaidAmount"
+    case BalanceAmount = "BalanceAmount"
+    case RequestRefund = "RequestRefund"
+    case BookingIncompleteBottomMessage = "BookingIncompleteBottomMessage"
+    
+    //Refund Requested
+    case Requested = "Requested"
+    case WeNotedYourRequestToRefund = "WeNotedYourRequestToRefund"
+    case ToYour = "ToYour"
+    case ReturnHome = "ReturnHome"
+    case ThisWillCancelThisBookingAndAmountRefundToPayment = "ThisWillCancelThisBookingAndAmountRefundToPayment"
 }
 

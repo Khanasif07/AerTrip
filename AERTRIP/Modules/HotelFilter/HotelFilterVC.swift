@@ -162,11 +162,18 @@ class HotelFilterVC: BaseVC {
         style.normalColor = AppColors.textFieldTextColor51
         style.selectedColor = AppColors.textFieldTextColor51
         
+        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
+        style.badgeBackgroundColor = AppColors.themeGreen
+        style.badgeBorderColor = AppColors.clear
+        style.badgeBorderWidth = 0.0
+        
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self
         self.dataContainerView.addSubview(categoryView)
         self.categoryView = categoryView
+        
+        categoryView.setBadgeDot(atIndex: 1)
     }
     
     private func setupGesture() {

@@ -461,7 +461,17 @@ extension AppFlowManager {
     
     func moveToFinalCheckoutVC() {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
-        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToBookingIncompleteVC() {
+        let obj = HCBookingIncompleteVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToRefundRequestedVC() {
+        let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

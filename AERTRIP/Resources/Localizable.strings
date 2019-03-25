@@ -475,6 +475,7 @@
 "FareDippedBy" = "Fare dipped by";
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
+"Confirm" = "Confirm";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
@@ -503,3 +504,21 @@
 
 "EmailItineraries" = "Email Itineraries";
 "SendToAll" = "Send to all";
+
+
+//Booking Incomplete Screen
+"BookingIncomplete" = "Booking Incomplete";
+"YourWalletMoneyOf" = "Your wallet money of";
+"WasUsedForAnotherTransaction" = "was used for another transaction.";
+"BookingAmount" = "Booking Amount";
+"PaidAmount" = "Paid Amount";
+"BalanceAmount" = "Balance Amount";
+"RequestRefund" = "Request refund";
+"BookingIncompleteBottomMessage" = "If you don’t take any action now, your amount will be auto-refunded to your";
+
+//Refund Requested
+"Requested" = "Requested";
+"WeNotedYourRequestToRefund" = "We’ve noted your request to refund";
+"ToYour" = "to your";
+"ReturnHome" = "Return Home";
+"ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";

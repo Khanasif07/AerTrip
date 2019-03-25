@@ -477,7 +477,7 @@ class UserInfo {
     var generalPref: GeneralPref? {
         get {
             if let genPref = userData?[APIKeys.generalPref.rawValue] as? String {
-                if let dict = AppGlobals.shared.onject(from: genPref) {
+                if let dict = AppGlobals.shared.object(from: genPref) {
                     return GeneralPref(json: JSON(dict))
                 }
             }

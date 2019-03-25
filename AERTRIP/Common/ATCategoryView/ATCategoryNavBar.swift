@@ -198,21 +198,22 @@ public class ATCategoryNavBar: UIView {
 
         
         if badgeInfo.numberOfBadge == 1 {
-            let dotSize = CGSize(width: 10.0, height: 10.0)
-            badgeLabel.backgroundColor = UIColor.red
-            badgeLabel.frame.size = dotSize
+            badgeLabel.backgroundColor = barStyle.badgeBackgroundColor
+            badgeLabel.frame.size = barStyle.badgeDotSize
             badgeLabel.frame.origin.x = referenceFrame.maxX
             badgeLabel.frame.origin.y = referenceFrame.origin.y
-            badgeLabel.layer.cornerRadius = dotSize.height * 0.5
+            badgeLabel.layer.cornerRadius = barStyle.badgeDotSize.height * 0.5
+            badgeLabel.layer.borderColor = barStyle.badgeBorderColor.cgColor
+            badgeLabel.layer.borderWidth = barStyle.badgeBorderWidth
             badgeLabel.layer.masksToBounds = true
             btn.addSubview(badgeLabel)
             badgeInfo.badgeLabel = badgeLabel
             return
         }
         
-        badgeLabel.backgroundColor = UIColor.red
-        badgeLabel.textColor = UIColor.white
-        badgeLabel.font = UIFont.systemFont(ofSize: 12.0)
+        badgeLabel.backgroundColor = barStyle.badgeBackgroundColor
+        badgeLabel.textColor = barStyle.badgeTextColor
+        badgeLabel.font = barStyle.badgeTextFont
         badgeLabel.text = "\(badgeInfo.numberOfBadge)"
         badgeLabel.sizeToFit()
         let oldFrame = badgeLabel.frame
@@ -228,6 +229,8 @@ public class ATCategoryNavBar: UIView {
             cornerRadius = Double(badgeLabel.intrinsicContentSize.height * 0.5)
         }
         badgeLabel.layer.cornerRadius = CGFloat(cornerRadius)
+        badgeLabel.layer.borderColor = barStyle.badgeBorderColor.cgColor
+        badgeLabel.layer.borderWidth = barStyle.badgeBorderWidth
         badgeLabel.layer.masksToBounds = true
         btn.addSubview(badgeLabel)
         badgeInfo.badgeLabel = badgeLabel
@@ -463,30 +466,27 @@ private extension ATCategoryNavBar {
     }
     
     func scrollToCenter(currentBtn: UIButton, animated: Bool = true) {
-//        guard barStyle.isScrollable else {
-//            return
-//        }
+        guard barStyle.isScrollable else {
+            return
+        }
+        
+        var centerX = currentBtn.center.x - scrollView.bounds.width * 0.5
+        if centerX < 0.0 {
+            // for labels positioned on the left side of scrollView.bounds.width * 0.5
+            centerX = 0.0
+            
+        }
+        
+        // the x position for the last screen of the scroll
+        let maxLeftEdge = scrollView.contentSize.width - bounds.width
+        if centerX > maxLeftEdge{
+            centerX = maxLeftEdge
+        }
+        scrollView.setContentOffset(CGPoint(x: centerX, y: 0.0), animated: true)
+        
 //
-//        var centerX = currentBtn.center.x - scrollView.bounds.width * 0.5
-//        if centerX < 0.0 {
-//            // for labels positioned on the left side of scrollView.bounds.width * 0.5
-//            centerX = 0.0
-//
-//        }
-//
-//        // the x position for the last screen of the scroll
-//        if self.barStyle.layoutAlignment == .left, scrollView.contentSize.width < bounds.width {
-//            centerX = 0.0
-//        }
-//        else {
-//            let maxLeftEdge = scrollView.contentSize.width - bounds.width
-//            if centerX > maxLeftEdge{
-//                centerX = maxLeftEdge
-//            }
-//        }
-//
-        scrollView.setContentOffset(CGPoint(x: currentBtn.x, y: 0.0), animated: animated)
-        oldNavScrollPosition = scrollView.contentOffset
+//        scrollView.setContentOffset(CGPoint(x: currentBtn.x, y: 0.0), animated: animated)
+//        oldNavScrollPosition = scrollView.contentOffset
     }
 }
 
@@ -521,7 +521,7 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
         
         makeColorTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
         makeIndicatorTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
-        makeScrollViewTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
+//        makeScrollViewTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
         makeBgMaskViewTransition(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
     }
     

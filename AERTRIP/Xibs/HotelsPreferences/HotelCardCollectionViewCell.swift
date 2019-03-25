@@ -30,6 +30,8 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet var pageControl: FlexiblePageControl!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
+
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -107,8 +109,23 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     
     private func populateData() {
         self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelData?.stars ?? 0
-        self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
+
+        self.starRatingView.isHidden = true
+        self.ratingContainerLeadingConstraint.constant = -10.0
+        if let hotel = self.hotelData, hotel.stars > 0.0 {
+            self.ratingContainerLeadingConstraint.constant = 0.0
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = hotel.stars
+        }
+        
+        self.greenCircleRatingView.isHidden = true
+        self.tripLogoImage.isHidden = true
+        if let hotel = self.hotelData, hotel.rating > 0.0 {
+            self.greenCircleRatingView.isHidden = false
+            self.tripLogoImage.isHidden = false
+            self.greenCircleRatingView.rating = hotel.rating
+        }
+
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
@@ -118,8 +135,24 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
 
     private func populateHotelData() {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelListData?.star ?? 0.0
-        self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
+        
+        self.starRatingView.isHidden = true
+        self.ratingContainerLeadingConstraint.constant = -10.0
+        if let hotel = self.hotelListData, hotel.star > 0.0 {
+            self.ratingContainerLeadingConstraint.constant = 0.0
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = hotel.star
+        }
+        
+        self.greenCircleRatingView.isHidden = true
+        self.tripLogoImage.isHidden = true
+        if let hotel = self.hotelListData, hotel.rating > 0.0 {
+            self.greenCircleRatingView.isHidden = false
+            self.tripLogoImage.isHidden = false
+            self.greenCircleRatingView.rating = hotel.rating
+        }
+
+        
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true

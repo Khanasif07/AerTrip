@@ -77,15 +77,16 @@ open class ATCategoryView: UIView {
         navBar.select(at: index)
     }
     
+    public func setBadgeDot(atIndex index:Int) {
+        self.setBadge(atIndex: index, badgeNumber: 1)
+    }
+    
     public func setBadge(atIndex index: Int, badgeNumber num: Int) {
         guard index >= 0 && index <= categories.count else {
             return
         }
         navBar.setBadge(atIndex: index, numberOfBadge: num)
     }
-    
-    
-    
 }
 
 //MARK:- For setups

@@ -60,7 +60,7 @@ struct AppGlobals {
         return String(data: data, encoding: String.Encoding.utf8)
     }
     
-    func onject(from json:String) -> Any? {
+    func object(from json:String) -> Any? {
         
         if let data = json.data(using: .utf8) {
             return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)

@@ -110,3 +110,11 @@ extension Array where Element: Equatable {
         return !array.contains { !self.contains($0) }
     }
 }
+
+extension Array where Element: Equatable {
+    mutating func remove(object: Element) {
+        if let index = self.index(of: object) {
+            self.remove(at: index)
+        }
+    }
+}

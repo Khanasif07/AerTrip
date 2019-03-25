@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CityMarkerView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundView" destination="iFv-qO-pHW" id="fYj-or-Yy3"/>
+                <outlet property="dotHeightConstraint" destination="U0v-c8-vBz" id="Mku-Bi-J3g"/>
                 <outlet property="dotView" destination="tFr-0s-8uo" id="94z-Pd-sBD"/>
             </connections>
         </placeholder>
