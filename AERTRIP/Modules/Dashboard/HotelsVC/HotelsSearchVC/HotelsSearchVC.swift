@@ -566,7 +566,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
     
     ///Plus Button Tapped
     func plusButtonTouched(indexPath: IndexPath) {
-        self.viewModel.adultsCount.append(1)
+        self.viewModel.adultsCount.append(2)
         self.viewModel.childrenCounts.append(0)
         self.viewModel.childrenAge.append([])
         if self.viewModel.adultsCount.count < 4 {
