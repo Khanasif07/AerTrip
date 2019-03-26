@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CurrenyCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="103" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="103" height="62"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJd-Z9-Fbd">
+                        <rect key="frame" x="0.0" y="0.0" width="103" height="62"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43c-lc-1j0">
+                                <rect key="frame" x="4" y="7" width="95" height="24"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfY-yB-hB4">
+                                <rect key="frame" x="8" y="34.5" width="87" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="43c-lc-1j0" secondAttribute="trailing" constant="4" id="00k-gL-BVW"/>
+                            <constraint firstItem="pfY-yB-hB4" firstAttribute="leading" secondItem="fJd-Z9-Fbd" secondAttribute="leading" constant="8" id="QQt-zn-bYA"/>
+                            <constraint firstAttribute="trailing" secondItem="pfY-yB-hB4" secondAttribute="trailing" constant="8" id="b2K-4R-TlU"/>
+                            <constraint firstItem="pfY-yB-hB4" firstAttribute="top" secondItem="43c-lc-1j0" secondAttribute="bottom" constant="3.5" id="cqB-yE-K0Z"/>
+                            <constraint firstAttribute="bottom" secondItem="pfY-yB-hB4" secondAttribute="bottom" constant="9.5" id="de2-9R-SjT"/>
+                            <constraint firstItem="43c-lc-1j0" firstAttribute="top" secondItem="fJd-Z9-Fbd" secondAttribute="top" constant="7" id="evf-YK-ayY"/>
+                            <constraint firstItem="43c-lc-1j0" firstAttribute="leading" secondItem="fJd-Z9-Fbd" secondAttribute="leading" constant="4" id="u5P-GU-uMI"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="fJd-Z9-Fbd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Lmp-dM-X3n"/>
+                <constraint firstAttribute="bottom" secondItem="fJd-Z9-Fbd" secondAttribute="bottom" id="lb7-zY-99m"/>
+                <constraint firstItem="fJd-Z9-Fbd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mWY-3x-omw"/>
+                <constraint firstAttribute="trailing" secondItem="fJd-Z9-Fbd" secondAttribute="trailing" id="wE2-u1-vzh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="currencyConversionValueLabel" destination="pfY-yB-hB4" id="ish-I0-qJf"/>
+                <outlet property="currencyNameLabel" destination="43c-lc-1j0" id="Ttj-jL-Ocn"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

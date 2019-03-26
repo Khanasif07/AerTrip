@@ -6,23 +6,23 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(TravellerData)
 public class TravellerData: NSManagedObject {
+    // MARK: - Insert Single Data
     
-    //MARK:- Insert Single Data
-    //MARK:-
-    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext)-> TravellerData {
-        
+    // MARK: -
+    
+    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext) -> TravellerData {
         var userData: TravellerData?
         
         if let id = dataDict[APIKeys.id.rawValue], !"\(id)".isEmpty {
             userData = TravellerData.fetch(id: "\(id)")
         }
         
-        if (userData == nil) {
+        if userData == nil {
             userData = NSEntityDescription.insertNewObject(forEntityName: "TravellerData", into: context) as? TravellerData
         }
         
@@ -34,7 +34,7 @@ public class TravellerData: NSManagedObject {
             userData!.dob = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.firstName.rawValue] as? String{
+        if let obj = dataDict[APIKeys.firstName.rawValue] as? String {
             userData!.firstName = "\(obj.capitalizedFirst())".removeNull
             
             let firstChar = "\(userData!.firstName?.firstCharacter ?? "N")".uppercased()
@@ -51,10 +51,10 @@ public class TravellerData: NSManagedObject {
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
             if obj.isEmpty {
                 userData!.label = "Others"
-            } else {
+            }
+            else {
                 userData!.label = "\(obj)".removeNull
             }
-            
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
             userData!.lastName = "\(obj)".removeNull
@@ -70,11 +70,11 @@ public class TravellerData: NSManagedObject {
         return userData!
     }
     
+    // MARK: - Insert Bulk Data
     
-    //MARK:- Insert Bulk Data
-    //MARK:-
-    class func insert(dataDictArray: [TravellerModel], completionBlock:@escaping ([TravellerData]) -> Void) {
-        
+    // MARK: -
+    
+    class func insert(dataDictArray: [TravellerModel], completionBlock: @escaping ([TravellerData]) -> Void) {
         var dataArr = [TravellerData]()
         var tempDataArr = [TravellerData]()
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
@@ -83,14 +83,11 @@ public class TravellerData: NSManagedObject {
         managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
         
         managedObjectContext.perform { // runs asynchronously
-            
-            while(true) { // loop through each batch of inserts. Your implementation may vary.
-                
+            while true { // loop through each batch of inserts. Your implementation may vary.
                 autoreleasepool { // auto release objects after the batch save
-                    
                     // insert new entity object
                     for dataDict in dataDictArray {
-                        if let logId = UserInfo.loggedInUserId, dataDict.id.lowercased() != logId.lowercased(), dataDict.label.lowercased() != AppConstants.kMe.lowercased() {
+                        if let logId = UserInfo.loggedInUserId, dataDict.id != "\(logId)".toInt, dataDict.label.lowercased() != AppConstants.kMe.lowercased() {
                             let dataTemp = TravellerData.insert(dataDict: dataDict.jsonDict, into: managedObjectContext)
                             dataArr.append(dataTemp)
                         }
@@ -101,17 +98,16 @@ public class TravellerData: NSManagedObject {
                 do {
                     try managedObjectContext.save()
                 }
-                catch let error {
+                catch {
                     printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
                 }
                 
                 CoreDataManager.shared.managedObjectContext.perform({
-                    
-                    if CoreDataManager.shared.managedObjectContext.hasChanges{
+                    if CoreDataManager.shared.managedObjectContext.hasChanges {
                         do {
                             try CoreDataManager.shared.managedObjectContext.save()
                         }
-                        catch let error {
+                        catch {
                             printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
                         }
                     }
@@ -126,17 +122,18 @@ public class TravellerData: NSManagedObject {
         }
     }
     
-    //MARK:- Check Whether Value Exist or Not
-    //MARK:-
+    // MARK: - Check Whether Value Exist or Not
+    
+    // MARK: -
+    
     class func fetch(id: String?) -> TravellerData? {
-        
         var predicateStr = ""
         if let id = id {
             predicateStr = "id BEGINSWITH '\(id)'"
         }
         
         if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
-            if (!fetchResult.isEmpty) {
+            if !fetchResult.isEmpty {
                 return fetchResult[0] as? TravellerData
             }
             return nil
@@ -145,11 +142,10 @@ public class TravellerData: NSManagedObject {
     }
     
     class func fetch(forLabel: String) -> [TravellerData]? {
-        
         let predicateStr = "label LIKE '\(forLabel)'"
-
+        
         if let fetchResult = CoreDataManager.shared.fetchData("TravellerData", predicate: predicateStr, sort: nil) {
-            if (!fetchResult.isEmpty) {
+            if !fetchResult.isEmpty {
                 return fetchResult as? [TravellerData]
             }
             return nil
@@ -178,4 +174,3 @@ extension TravellerData {
         return nil
     }
 }
-

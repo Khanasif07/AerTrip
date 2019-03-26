@@ -105,7 +105,7 @@ class MailComposerVC: BaseVC {
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(30.0), .foregroundColor: AppColors.themeBlack])
         attString.addAttributes([
-            .font: AppFonts.Regular.withSize(30.0),
+            .font: AppFonts.Bold.withSize(30.0),
             .foregroundColor: AppColors.themeGray20
         ], range: (text as NSString).range(of: boldText))
         return attString
@@ -174,8 +174,14 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: -  Mail Composer Header View Delegate methods
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
-    func textFieldText(_ textfield: UITextField) {
-        self.viewModel.subject = textfield.text ?? ""
+    func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
+        let size = textView.bounds.size
+        headerView.headerViewHeightConstraint.constant += size.height
+        headerView.layoutIfNeeded()
+    }
+    
+    func textViewText(_ textView: UITextView) {
+        self.viewModel.subject = textView.text ?? ""
     }
     
     func openContactScreen() {

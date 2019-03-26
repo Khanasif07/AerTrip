@@ -485,6 +485,8 @@ enum LocalizedString: String {
     // Mail Composer View
     case ContactUsAertrip = "ContactUsAertrip"
     case CopyrightAertrip = "CopyrightAertrip"
+    case CheckoutMyFavouriteHotels = "CheckoutMyFavouriteHotels"
+    
     
     //Select Trip Screen
     case SelectTrip = "SelectTrip"
@@ -530,6 +532,15 @@ enum LocalizedString: String {
     case Pay = "Pay"
     case FareRules = "FareRules"
     case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
+    case PayableWalletMessage = "PayableWalletMessage"
+    case NetEffectiveFare = "NetEffectiveFare"
+    case GrossFare = "GrossFare"
+    case Discounts  = "Discounts"
+    case CouponDiscount = "CouponDiscount"
+    case AertripWallet = "AertripWallet"
+    case CurrencyOptions = "CurrencyOptions"
+    case CheckOutCurrencyOptionInfoMessage = "CheckOutCurrencyOptionInfoMessage"
+   
     
     //Select Guests
     case SelectGuests = "SelectGuests"

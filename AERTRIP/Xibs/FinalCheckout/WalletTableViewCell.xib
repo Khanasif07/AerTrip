@@ -29,13 +29,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-W3-9aO">
-                                <rect key="frame" x="16" y="34" width="42" height="21"/>
+                                <rect key="frame" x="16" y="37" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGW-gw-9Mi">
-                                <rect key="frame" x="58" y="34" width="42" height="21"/>
+                                <rect key="frame" x="62" y="37" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,7 +44,7 @@
                                 <rect key="frame" x="255" y="22" width="51" height="31"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u8B-sP-wQK">
-                                <rect key="frame" x="212" y="26" width="23" height="23"/>
+                                <rect key="frame" x="209" y="26" width="23" height="23"/>
                                 <state key="normal" image="infoIcon"/>
                             </button>
                         </subviews>
@@ -53,13 +53,13 @@
                             <constraint firstItem="hGW-gw-9Mi" firstAttribute="centerY" secondItem="sCI-W3-9aO" secondAttribute="centerY" id="2C6-CG-JF3"/>
                             <constraint firstItem="3Df-Id-Cd6" firstAttribute="leading" secondItem="eic-6h-zqP" secondAttribute="leading" constant="16" id="EBO-ul-hYW"/>
                             <constraint firstItem="Fsd-58-Siy" firstAttribute="centerY" secondItem="eic-6h-zqP" secondAttribute="centerY" id="K7E-33-fOo"/>
-                            <constraint firstItem="hGW-gw-9Mi" firstAttribute="leading" secondItem="sCI-W3-9aO" secondAttribute="trailing" id="Owu-IQ-oYz"/>
+                            <constraint firstItem="hGW-gw-9Mi" firstAttribute="leading" secondItem="sCI-W3-9aO" secondAttribute="trailing" constant="4" id="Owu-IQ-oYz"/>
                             <constraint firstAttribute="trailing" secondItem="Fsd-58-Siy" secondAttribute="trailing" constant="16" id="Ujg-Hx-Sn1"/>
                             <constraint firstItem="u8B-sP-wQK" firstAttribute="centerY" secondItem="Fsd-58-Siy" secondAttribute="centerY" id="cft-rV-zWg"/>
-                            <constraint firstItem="sCI-W3-9aO" firstAttribute="top" secondItem="3Df-Id-Cd6" secondAttribute="bottom" id="iJO-F1-gB3"/>
+                            <constraint firstItem="sCI-W3-9aO" firstAttribute="top" secondItem="3Df-Id-Cd6" secondAttribute="bottom" constant="3" id="iJO-F1-gB3"/>
                             <constraint firstItem="3Df-Id-Cd6" firstAttribute="top" secondItem="eic-6h-zqP" secondAttribute="top" constant="13" id="kxk-9u-EBE"/>
                             <constraint firstItem="sCI-W3-9aO" firstAttribute="leading" secondItem="3Df-Id-Cd6" secondAttribute="leading" id="pAI-ro-Khv"/>
-                            <constraint firstItem="Fsd-58-Siy" firstAttribute="leading" secondItem="u8B-sP-wQK" secondAttribute="trailing" constant="20" id="v8h-9l-53L"/>
+                            <constraint firstItem="Fsd-58-Siy" firstAttribute="leading" secondItem="u8B-sP-wQK" secondAttribute="trailing" constant="23" id="v8h-9l-53L"/>
                         </constraints>
                     </view>
                 </subviews>

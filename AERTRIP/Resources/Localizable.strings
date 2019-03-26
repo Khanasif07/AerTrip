@@ -492,14 +492,26 @@
 "CheckoutTitle" = "Checkout";
 "ApplyCoupon" = "Apply Coupon";
 "PayByAertripWallet" = "Pay by Aertrip Wallet";
-"Balance" = "Balance";
+"Balance" = "Balance:";
 "FareDetails" = "Fare Details";
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \n You will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"PayableWalletMessage" = "₹ 100 will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
+"NetEffectiveFare" = "Net Effective Fare:";
+"GrossFare" = "Gross Fare";
+"Discounts"  = "Discounts";
+"CouponDiscount" = "Coupon-Discount";
+"AertripWallet" = "Aertrip Wallet";
+"CurrencyOptions" = "Currency options";
+"CheckOutCurrencyOptionInfoMessage" = "Your card provider / bank may charge you foreign transaction fee.";
 
 //Select Guest
 "SelectGuests" = "Select Guests";
 
 "EmailItineraries" = "Email Itineraries";
 "SendToAll" = "Send to all";
+
+
+// Mail Composer VC
+"CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";

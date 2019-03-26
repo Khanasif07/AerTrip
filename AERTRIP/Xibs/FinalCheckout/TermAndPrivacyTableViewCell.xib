@@ -22,18 +22,33 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4H-MB-VFi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qA-gT-klr" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="quY-VV-YSb"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSy-dK-afP" customClass="ActiveLabel" customModule="ActiveLabel">
                                 <rect key="frame" x="8" y="0.0" width="304" height="99.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumLineHeight">
+                                        <real key="value" value="-1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0qA-gT-klr" secondAttribute="trailing" id="3aP-Xi-4Um"/>
                             <constraint firstAttribute="bottom" secondItem="cSy-dK-afP" secondAttribute="bottom" id="7Tq-6S-g2J"/>
+                            <constraint firstItem="0qA-gT-klr" firstAttribute="top" secondItem="y4H-MB-VFi" secondAttribute="top" id="8fH-RM-Lkl"/>
                             <constraint firstItem="cSy-dK-afP" firstAttribute="leading" secondItem="y4H-MB-VFi" secondAttribute="leading" constant="8" id="B2E-Fm-Hgd"/>
                             <constraint firstAttribute="trailing" secondItem="cSy-dK-afP" secondAttribute="trailing" constant="8" id="JBZ-sj-C2N"/>
+                            <constraint firstItem="0qA-gT-klr" firstAttribute="leading" secondItem="y4H-MB-VFi" secondAttribute="leading" id="JS1-kw-pAf"/>
                             <constraint firstItem="cSy-dK-afP" firstAttribute="top" secondItem="y4H-MB-VFi" secondAttribute="top" id="Sgb-GR-9W8"/>
                         </constraints>
                     </view>

@@ -47,7 +47,7 @@ class GuestDetailsVC: BaseVC {
         // setting delay of 1 sec because table view cell are creating
         
         delay(seconds: 2.0) { [weak self] in
-            self?.makeTableViewIndexSelectable()
+            // self?.makeTableViewIndexSelectable()
         }
         self.viewModel.webserviceForGetSalutations()
     }
@@ -73,7 +73,7 @@ class GuestDetailsVC: BaseVC {
         
         self.travellersTableView.dataSource = self
         self.travellersTableView.delegate = self
-        guestDetailTableView.isScrollEnabled = true
+        self.guestDetailTableView.isScrollEnabled = true
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
         self.travellers = self.viewModel.travellerList
@@ -121,10 +121,10 @@ class GuestDetailsVC: BaseVC {
     private func editedGuest(_ indexPath: IndexPath?) {
 //        if let indexPath = indexPath {
 //         //   printDebug(GuestDetailsVM.shared.guests[indexPath.row])
-////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[indexPath.row].salutation
-////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[indexPath.row].firstName
-////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[indexPath.row].lastName
-//            
+        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[indexPath.row].salutation
+        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[indexPath.row].firstName
+        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[indexPath.row].lastName
+//
 //        }
     }
 }
@@ -134,7 +134,7 @@ class GuestDetailsVC: BaseVC {
 extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView === self.guestDetailTableView {
-            return self.viewModel.hotelFormData.adultsCount.count
+            return GuestDetailsVM.shared.guests.count
         } else {
             return 1
         }
@@ -142,7 +142,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === self.guestDetailTableView {
-            return self.viewModel.hotelFormData.adultsCount[section] + self.viewModel.hotelFormData.childrenCounts[section]
+            return GuestDetailsVM.shared.guests[section].count
         } else {
             return self.travellers.count
         }
@@ -155,11 +155,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.delegate = self
-            if indexPath.row < self.viewModel.hotelFormData.adultsCount[indexPath.section] {
-                cell.guestTitleLabel.text = "Adult \(indexPath.row + 1)"
-            } else {
-                cell.guestTitleLabel.text = "Child \((indexPath.row - self.viewModel.hotelFormData.adultsCount[indexPath.section]) + 1)"
-            }
+            cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
             return cell
         } else {
             guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
@@ -192,7 +188,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
                 fatalError("ViewProfileDetailTableViewSectionView not found")
             }
-            headerView.headerLabel.text = "ROOM \(section + 1)"
+            headerView.headerLabel.text = "\(LocalizedString.Room.localized) \(section + 1)"
             headerView.backgroundColor = AppColors.themeGray04
             headerView.containerView.backgroundColor = AppColors.themeGray04
             return headerView
@@ -203,7 +199,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === self.travellersTableView {
-            guestDetailTableView.isScrollEnabled = true
+            self.guestDetailTableView.isScrollEnabled = true
             self.travellersTableView.isHidden = true
             if let cellindexPath = self.indexPath {
                 if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
@@ -211,7 +207,6 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
                     self.editedGuest(self.indexPath)
-                    
                 }
             }
         }

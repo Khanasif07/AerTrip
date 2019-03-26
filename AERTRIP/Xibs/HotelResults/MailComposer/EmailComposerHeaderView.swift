@@ -10,14 +10,15 @@ import UIKit
 
 protocol EmailComposeerHeaderViewDelegate: class {
     func openContactScreen()
-    func textFieldText(_ textfield: UITextField)
+    func textViewText(_ textView: UITextView)
+    func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView)
 }
 
 class EmailComposerHeaderView: UIView {
     // MARK: - IB Outlets
     
     @IBOutlet var toEmailTextView: ATEmailSelectorTextView!
-    @IBOutlet var messageTextField: UITextField!
+    @IBOutlet var messageSubjectTextView: UITextView!
     @IBOutlet var toLabel: UILabel!
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var hotelResultLabel: UILabel!
@@ -33,6 +34,7 @@ class EmailComposerHeaderView: UIView {
     @IBOutlet var checkOutMessageLabel: UILabel!
     @IBOutlet var seeRatesButton: ATButton!
     @IBOutlet var numberOfNightsLabel: UILabel!
+    @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     
@@ -58,11 +60,11 @@ class EmailComposerHeaderView: UIView {
     private func doInitialSeup() {
         self.drawDottedLine(start: CGPoint(x: self.firstDotedView.bounds.minX, y: self.firstDotedView.bounds.minY), end: CGPoint(x: self.firstDotedView.bounds.maxX, y: self.firstDotedView.bounds.minY), view: self.firstDotedView)
         self.drawDottedLine(start: CGPoint(x: self.secondDotedView.bounds.minX, y: self.secondDotedView.bounds.minY), end: CGPoint(x: self.secondDotedView.bounds.maxX, y: self.secondDotedView.bounds.minY), view: self.secondDotedView)
-        self.messageTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized
         self.checkInCheckOutView.layer.cornerRadius = 5.0
         self.checkInCheckOutView.layer.borderWidth = 0.5
         self.checkInCheckOutView.layer.borderColor = AppColors.themeGray40.cgColor
-        self.messageTextField.delegate = self
+        self.messageSubjectTextView.delegate = self
         self.seeRatesButton.layer.cornerRadius = 5.0
     }
     
@@ -87,7 +89,7 @@ class EmailComposerHeaderView: UIView {
         self.toEmailTextView.activeTagFont = AppFonts.Regular.withSize(18.0)
         self.toEmailTextView.font = AppFonts.Regular.withSize(18.0)
         
-        self.messageTextField.font = AppFonts.Regular.withSize(18.0)
+        self.messageSubjectTextView.font = AppFonts.Regular.withSize(18.0)
     }
     
     private func setUpColor() {
@@ -97,7 +99,7 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.titleLabel?.textColor = AppColors.themeWhite
         self.checkOutMessageLabel.textColor = AppColors.textFieldTextColor51
         self.hotelResultLabel.textColor = AppColors.themeGray60
-        self.messageTextField.textColor = AppColors.textFieldTextColor51
+        self.messageSubjectTextView.textColor = AppColors.textFieldTextColor51
         // toEmail Text View Color
         self.toEmailTextView.activeTagBackgroundColor = AppColors.themeGreen
         self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
@@ -126,21 +128,14 @@ class EmailComposerHeaderView: UIView {
     }
 }
 
-// MARK: - UITextFieldDelegate methods
+// MARK: - UITextViewDelegate methods
 
-// MARK: - UITextField methods
+// MARK: - UITextViewDelegate  Methods
 
-extension EmailComposerHeaderView: UITextFieldDelegate {
-    @objc func textFieldDidChanged(_ textField: UITextField) {
-        self.delegate?.textFieldText(textField)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension EmailComposerHeaderView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.delegate?.textViewText(textView)
+        
+        self.delegate?.updateHeightOfHeader(self, textView)
     }
 }
-
-// MARK: - UITextView Delegate methods
-
-

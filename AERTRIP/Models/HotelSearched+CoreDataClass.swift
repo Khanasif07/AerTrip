@@ -61,7 +61,7 @@ public class HotelSearched: NSManagedObject {
             switch distance {
             case 0..<2:
                 hotelSearched?.sectionTitle = "a0 to 2"
-            case 2..<5 :
+            case 2..<5:
                 hotelSearched?.sectionTitle = "b2 to 4"
             case 5..<10:
                 hotelSearched?.sectionTitle = "c5 to 10"
@@ -74,8 +74,6 @@ public class HotelSearched: NSManagedObject {
                 hotelSearched?.isHotelBeyondTwentyKm = true
             }
         }
-        
-        
         
         if let obj = dataDict[APIKeys.facilities.rawValue] {
             hotelSearched!.facilities = "\(obj)".removeNull
@@ -109,7 +107,6 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.locid = "\(obj)".removeNull
         }
         
-        
         if let obj = dataDict[APIKeys.no_of_nights.rawValue] as? Int {
             hotelSearched!.numberOfNight = Int16(obj)
         }
@@ -124,67 +121,35 @@ public class HotelSearched: NSManagedObject {
         if let obj = dataDict[APIKeys.per_night_price.rawValue] {
             hotelSearched!.perNightPrice = obj as! Double
         }
-
-        if let obj = dataDict[APIKeys.price.rawValue]  {
+        
+        if let obj = dataDict[APIKeys.price.rawValue] {
             hotelSearched!.price = obj as! Double
         }
         
-        if let obj = dataDict[APIKeys.rating.rawValue] {
-            let tripAdvisorRating = obj as! Double
-            hotelSearched!.rating = tripAdvisorRating
-            switch tripAdvisorRating {
-            case 0..<0.5:
-                hotelSearched?.filterTripAdvisorRating = "0"
-            case 0.5..<1.0:
-                hotelSearched?.filterTripAdvisorRating = "1"
-            case 1.0..<1.5:
-                hotelSearched?.filterTripAdvisorRating = "1"
-            case 1.5..<2.0:
-                hotelSearched?.filterTripAdvisorRating = "2"
-            case 2.0..<2.5:
-                hotelSearched?.filterTripAdvisorRating = "2"
-            case 2.5..<3.0:
-                hotelSearched?.filterTripAdvisorRating = "3"
-            case 3.0..<3.5:
-                hotelSearched?.filterTripAdvisorRating = "3"
-            case 3.5..<4.0:
-                hotelSearched?.filterTripAdvisorRating = "4"
-            case 4.0..<4.5:
-                hotelSearched?.filterTripAdvisorRating = "4"
-            case 4.5...5.0:
-                hotelSearched?.filterTripAdvisorRating = "5"
-            default:
-                hotelSearched?.filterTripAdvisorRating = "0"
+        // function to get rounded value from string
+        
+        func getRoundedValue(value: Double) -> String {
+            let difference = value - floor(value)
+            if difference <= 0.5 {
+                return "\(floor(value))"
+            } else {
+                return "\(ceil(value))"
             }
         }
         
+        // trip Advisor rating value
+        if let obj = dataDict[APIKeys.rating.rawValue] {
+            let tripAdvisorRating = obj as! Double
+            hotelSearched!.rating = tripAdvisorRating
+            hotelSearched?.filterTripAdvisorRating = getRoundedValue(value: tripAdvisorRating)
+        }
+        
+        // star rating value
+        
         if let obj = dataDict[APIKeys.star.rawValue] {
-            let star =  obj as! Double
+            let star = obj as! Double
             hotelSearched!.star = star
-            switch star {
-            case 0..<0.5:
-                hotelSearched?.filterStar = "0"
-            case 0.5..<1.0:
-                hotelSearched?.filterStar = "1"
-            case 1.0..<1.5:
-                hotelSearched?.filterStar = "1"
-            case 1.5..<2.0:
-                hotelSearched?.filterStar = "2"
-            case 2.0..<2.5:
-                hotelSearched?.filterStar = "2"
-            case 2.5..<3.0:
-                hotelSearched?.filterStar = "3"
-            case 3.0..<3.5:
-                hotelSearched?.filterStar = "3"
-            case 3.5..<4.0:
-                hotelSearched?.filterStar = "4"
-            case 4.0..<4.5:
-                hotelSearched?.filterStar = "4"
-            case 4.5...5.0:
-                hotelSearched?.filterStar = "5"
-            default:
-                hotelSearched?.filterStar = "0"
-            }
+            hotelSearched?.filterStar = getRoundedValue(value: star)
         }
         
         if let obj = dataDict[APIKeys.ta_reviews.rawValue] {
@@ -220,7 +185,6 @@ public class HotelSearched: NSManagedObject {
         return hotelSearched!
     }
     
-    
     // MARK: - Check Whether Value Exist or Not
     
     // MARK: -
@@ -240,6 +204,3 @@ public class HotelSearched: NSManagedObject {
         return nil
     }
 }
-
-
-

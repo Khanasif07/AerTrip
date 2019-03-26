@@ -84,7 +84,6 @@ class ATButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.titleLabel?.font = AppFonts.SemiBold.withSize(15)
         self.addShadowLayer()
         self.addGradientLayer()
         self.setupLoader()

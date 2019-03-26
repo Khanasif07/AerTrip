@@ -9,16 +9,20 @@
 import UIKit
 
 class FlightsVC: BaseVC {
+    // MARK: - Properties
     
-    //MARK:- Properties
-    //MARK:-
-    @IBOutlet weak var myButton: UIButton!
+    // MARK: -
     
-    //MARK:- IBOutlets
-    //MARK:-
+    @IBOutlet var myButton: UIButton!
     
-    //MARK:- ViewLifeCycle
-    //MARK:-
+    // MARK: - IBOutlets
+    
+    // MARK: -
+    
+    // MARK: - ViewLifeCycle
+    
+    // MARK: -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,19 +30,20 @@ class FlightsVC: BaseVC {
         self.initialSetups()
     }
     
-    //MARK:- Methods
-    //MARK:- Private
-    private func initialSetups() {
-
-    }
+    // MARK: - Methods
     
-    //MARK:- Public
-
-    //MARK:- Action
+    // MARK: - Private
+    
+    private func initialSetups() {}
+    
+    // MARK: - Public
+    
+    // MARK: - Action
+    
     @IBAction func myButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentHCSpecialRequestsVC()
-        AppFlowManager.default.presentHCEmailItinerariesVC()
+        //  AppFlowManager.default.presentHCEmailItinerariesVC()
+        AppFlowManager.default.moveToFinalCheckoutVC()
 //        AppFlowManager.default.presentHCCouponCodeVC()
     }
 }
-

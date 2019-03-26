@@ -77,10 +77,11 @@ class HotelResultVC: BaseVC {
     // Searching View
     @IBOutlet var hotelSearchView: UIView! {
         didSet {
-            hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-            hotelSearchView.isUserInteractionEnabled = true
+            self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
+    
     @IBOutlet var hotelSearchTableView: UITableView!
     @IBOutlet var currentLocationButton: UIButton!
     @IBOutlet var floatingViewBottomConstraint: NSLayoutConstraint!
@@ -88,7 +89,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet var mapContainerView: UIView!
     @IBOutlet var mapContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet var switchContainerView: UIView!
-    @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet var searchBarContainerView: UIView!
     
     // MARK: - Properties
     
@@ -256,7 +257,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = true
+        self.floatingView.isHidden = false
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none

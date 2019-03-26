@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TotalPayableNowCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X5k-bb-JD2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkg-CX-A0d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="0.0" width="288" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="GIK-5O-Oaq"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-iD-4Fj">
+                                <rect key="frame" x="16" y="10" width="42" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="zcp-ny-QTK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxE-39-BCL" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="44.5" width="288" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jif-Gs-eSC"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGl-8c-SSq">
+                                <rect key="frame" x="262" y="9.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gkg-CX-A0d" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="44I-Ze-qhj"/>
+                            <constraint firstItem="DGl-8c-SSq" firstAttribute="centerY" secondItem="KQe-iD-4Fj" secondAttribute="centerY" id="8ws-kk-dFK"/>
+                            <constraint firstItem="hxE-39-BCL" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="9F1-O9-GfL"/>
+                            <constraint firstItem="hxE-39-BCL" firstAttribute="top" secondItem="KQe-iD-4Fj" secondAttribute="bottom" constant="14.5" id="Bsm-Xk-8Yy"/>
+                            <constraint firstAttribute="trailing" secondItem="DGl-8c-SSq" secondAttribute="trailing" constant="16" id="HdN-wZ-Ktu"/>
+                            <constraint firstAttribute="trailing" secondItem="gkg-CX-A0d" secondAttribute="trailing" constant="16" id="Pfv-14-Cbl"/>
+                            <constraint firstItem="KQe-iD-4Fj" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="VQb-tO-G1G"/>
+                            <constraint firstItem="gkg-CX-A0d" firstAttribute="top" secondItem="X5k-bb-JD2" secondAttribute="top" id="deK-yH-wQO"/>
+                            <constraint firstAttribute="bottom" secondItem="hxE-39-BCL" secondAttribute="bottom" id="joi-l9-I93"/>
+                            <constraint firstAttribute="trailing" secondItem="hxE-39-BCL" secondAttribute="trailing" constant="16" id="lLq-aw-518"/>
+                            <constraint firstItem="KQe-iD-4Fj" firstAttribute="top" secondItem="gkg-CX-A0d" secondAttribute="bottom" constant="9" id="tX5-Fd-0ND"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="X5k-bb-JD2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="510-dp-BIx"/>
+                    <constraint firstAttribute="trailing" secondItem="X5k-bb-JD2" secondAttribute="trailing" id="bv9-Qy-UOG"/>
+                    <constraint firstItem="X5k-bb-JD2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cBo-F6-64a"/>
+                    <constraint firstAttribute="bottom" secondItem="X5k-bb-JD2" secondAttribute="bottom" id="q3X-I6-3wx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="totalPayableNowLabel" destination="KQe-iD-4Fj" id="Caf-rJ-iIS"/>
+                <outlet property="totalPriceLabel" destination="DGl-8c-SSq" id="DIq-z5-sGx"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

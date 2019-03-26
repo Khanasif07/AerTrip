@@ -8,10 +8,9 @@
 
 import Foundation
 
-
 struct GuestModal {
     var idInt: Int = 0
-    var id: String = ""
+    var id: Int = 0
     var firstName: String = ""
     var lastName: String = ""
     var salutation: String = ""
@@ -19,7 +18,6 @@ struct GuestModal {
     var profilePicture: String = ""
     var numberInRoom: Int = -1
     var age: Int = 0
-    
     
     var passengerType: PassengersType {
         set {
@@ -32,29 +30,28 @@ struct GuestModal {
     }
     
     var fullName: String {
-        if !self.firstName.isEmpty {
-            let final = "\(self.firstName) \(self.lastName)"
+        if !firstName.isEmpty {
+            let final = "\(firstName) \(lastName)"
             return final
         }
         else {
-            return self.lastName
+            return lastName
         }
     }
     
-    var jsonDict: [String:Any] {
-        return ["id":self.id,
-                "firstName":self.firstName,
-                "lastName":self.lastName,
-                "salutation":self.salutation,"passengerType":self._passengerType,"profilePicture":self.profilePicture]
+    var jsonDict: [String: Any] {
+        return ["id": self.id,
+                "firstName": self.firstName,
+                "lastName": self.lastName,
+                "salutation": self.salutation, "passengerType": self._passengerType, "profilePicture": self.profilePicture]
     }
     
-    init () {
-       id = ""
-       firstName = ""
-       lastName = ""
-       salutation = ""
-       _passengerType = ""
-       profilePicture = ""
+    init() {
+        id = 0
+        firstName = ""
+        lastName = ""
+        salutation = ""
+        _passengerType = ""
+        profilePicture = ""
     }
-  
 }

@@ -6,19 +6,18 @@
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import CoreData
+import Crashlytics
+import Fabric
 import FBSDKLoginKit
+import Firebase
+import GoogleMaps
 import GoogleSignIn
 import LinkedinSwift
-import Firebase
-import Fabric
-import Crashlytics
-import GoogleMaps
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     let transitionCoordinator = TransitionCoordinator()
     static var shared = UIApplication.shared.delegate as! AppDelegate
@@ -30,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppFlowManager.default.setupInitialFlow()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
-        
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
         return true
     }
@@ -56,28 +54,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-       // self.saveContext()
+        // self.saveContext()
     }
     
-    
-    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
+        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, _ in
             // ...
-            guard let  url = dynamiclink?.url else {return}
+            guard let url = dynamiclink?.url else { return }
             
-            if url.absoluteString.contains("email=") && url.absoluteString.contains("&ref") {
-                
-                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else {return}
-                guard let ref   = url.absoluteString.components(separatedBy: "&ref=").last else {return}
+            if url.absoluteString.contains("email="), url.absoluteString.contains("&ref") {
+                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else { return }
+                guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return }
                 AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
-                
-            } else if url.absoluteString.contains("&key=") && url.absoluteString.contains("&token=") && url.absoluteString.contains("&email=") {
-                
-                guard let ref   = url.absoluteString.slice(from: "&key=", to: "&token=") else {return}
-                guard let token   = url.absoluteString.slice(from: "&token=", to: "&email=") else {return}
-                guard let email = url.absoluteString.components(separatedBy: "&email=").last else {return}
+            }
+            else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
+                guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return }
+                guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return }
+                guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return }
                 AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
             }
         }
@@ -85,21 +78,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        
         if url.scheme?.lowercased() == AppConstants.fbUrl {
-            return FBSDKApplicationDelegate.sharedInstance().application(application,open: url,sourceApplication: sourceApplication, annotation: annotation)
+            return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         else if url.scheme?.lowercased() == AppConstants.googleUrl {
-            return GIDSignIn.sharedInstance().handle(url,sourceApplication: sourceApplication,annotation: annotation)
+            return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
         }
         else if LinkedinSwiftHelper.shouldHandle(url) {
-            return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation
-            )
+            return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         
         return true
     }
+    
 //    // MARK: - Core Data stack
 //
 //    lazy var persistentContainer: NSPersistentContainer = {
@@ -144,7 +135,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
 //    }
-    
-    
 }
-

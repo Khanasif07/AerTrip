@@ -26,6 +26,12 @@ class GuestDetailTableViewCell: UITableViewCell {
     weak var delegate: GuestDetailTableViewCellDelegate?
     let salutationPicker = UIPickerView()
     
+    var guestDetail: GuestModal? {
+        didSet {
+            configureCell()
+        }
+    }
+    
     // MARK: - View Life Cycle
     
     override func awakeFromNib() {
@@ -49,8 +55,8 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.salutationTextField.inputView = self.salutationPicker
         self.salutationTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.salutationTextField.tintColor = UIColor.clear
-        firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
-        lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
     private func setUpFont() {
@@ -74,6 +80,14 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.salutationTextField.titleActiveTextColour = AppColors.themeGreen
         self.firstNameTextField.titleActiveTextColour = AppColors.themeGreen
         self.lastNameTextField.titleActiveTextColour = AppColors.themeGreen
+    }
+    
+    private func configureCell() {
+        if self.guestDetail?.passengerType == .Adult {
+            self.guestTitleLabel.text = LocalizedString.Adult.localized + " \(String(describing: self.guestDetail?.id ?? 0))"
+        } else {
+            self.guestTitleLabel.text = LocalizedString.Child.localized + " \(self.guestDetail?.id ?? 0)"
+        }
     }
     
     func initToolBar(picker: UIPickerView) -> UIToolbar {
@@ -129,8 +143,6 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         self.delegate?.textFieldWhileEditing(textField)
     }
-    
-    
 }
 
 // MARK: - Extension UIPickerViewDataSource, UIPickerViewDelegate
