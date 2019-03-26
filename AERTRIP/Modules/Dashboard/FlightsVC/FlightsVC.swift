@@ -40,7 +40,7 @@ class FlightsVC: BaseVC {
 //        AppFlowManager.default.presentHCEmailItinerariesVC()
 //        AppFlowManager.default.presentHCCouponCodeVC()
         
-        AppFlowManager.default.moveToBookingIncompleteVC()
+//        AppFlowManager.default.moveToBookingIncompleteVC()
     }
 }
 

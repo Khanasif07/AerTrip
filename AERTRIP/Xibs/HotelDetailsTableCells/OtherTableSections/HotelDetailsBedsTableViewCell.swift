@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HotelDetailsBedsTableViewCellDelegate: class {
+    func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell)
+}
+
 class HotelDetailsBedsTableViewCell: UITableViewCell {
     
     //Mark:- Variables
@@ -15,6 +19,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private var typesOfBed = [String]()
     private var bedPickerView = UIPickerView()
     private var selectedRow: Int?
+    
+    weak var delegate: HotelDetailsBedsTableViewCellDelegate? = nil
     
     //Mark:- IBOutlets
     //================
@@ -143,7 +149,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func bookmarkButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.presentSelectTripVC(delegate: self)
+        self.delegate?.bookMarkButtonAction(sender: self)
     }
     
     @objc func doneBedPicker(){
@@ -151,14 +157,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.dropDownTextField.text = self.typesOfBed[selectedRow]
         }
         self.endEditing(true)
-    }
-}
-
-//MARK:- SelectTripVC delegate methods
-//====================================
-extension HotelDetailsBedsTableViewCell: SelectTripVCDelegate {
-    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
-        printDebug("Selected trip: \(trip.title)")
     }
 }
 

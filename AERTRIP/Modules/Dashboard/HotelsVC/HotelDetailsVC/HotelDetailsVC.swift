@@ -315,7 +315,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath == IndexPath(row: 2, section: 0) {
+        if indexPath.section == 0, indexPath.row == 2 {
             if let hotelData = self.viewModel.hotelData {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
@@ -325,6 +325,22 @@ class HotelDetailsVC: BaseVC {
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
             }
+        }
+        else if indexPath.section == 0, indexPath.row == 3 {
+            //overview cell
+            if let hotelData = self.viewModel.hotelData {
+                let text = hotelData.info
+                var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
+                
+                let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
+                let minH = AppFonts.Regular.withSize(18.0).lineHeight
+                
+                height = max(height, minH)
+                height = min(height, maxH)
+                return height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+            }
+            return UITableView.automaticDimension
         }
         return UITableView.automaticDimension
     }

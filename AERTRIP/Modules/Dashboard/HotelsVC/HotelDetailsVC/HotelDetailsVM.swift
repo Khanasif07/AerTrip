@@ -17,6 +17,9 @@ protocol HotelDetailDelegate: class {
     
     func getHotelDistanceAndTimeSuccess()
     func getHotelDistanceAndTimeFail()
+    
+    func willSaveHotelWithTrip()
+    func saveHotelWithTripSuccess(trip: TripModel)
 }
 
 class HotelDetailsVM {
@@ -298,6 +301,32 @@ class HotelDetailsVM {
                         sSelf.delegate?.getHotelDistanceAndTimeFail()
                     }
                 }
+            }
+        }
+    }
+    
+    func saveHotelWithTrip(toTrip trip: TripModel, forRate: Rates, forRoomRate: RoomsRates) {
+        
+        var params: JSONDictionary = [APIKeys.timezone.rawValue: "Automatic"]
+        params[APIKeys.trip_id.rawValue] = trip.id
+        params[APIKeys.hotel_id.rawValue] = self.hotelData?.hid ?? ""
+        params[APIKeys.check_in_dt.rawValue] = self.hotelData?.checkin ?? ""
+        params[APIKeys.check_out_dt.rawValue] = self.hotelData?.checkout ?? ""
+        params[APIKeys.check_in_time.rawValue] = self.hotelData?.checkin_time ?? ""
+        params[APIKeys.check_out_time.rawValue] = self.hotelData?.checkout_time ?? ""
+        params[APIKeys.total_cost.rawValue] = "\(Int(self.hotelData?.price ?? 0.0))"
+        params[APIKeys.per_night_cost.rawValue] = "\(Int(self.hotelData?.per_night_price.toDouble ?? 0.0))"
+        params[APIKeys.num_rooms.rawValue] = self.hotelData?.num_rooms ?? 0
+        params[APIKeys.num_guests.rawValue] = 3
+        params[APIKeys.currency_code.rawValue] = self.currencyPreference
+        params["rooms[0][room_type]"] = forRoomRate.name + forRoomRate.desc
+        params["rooms[0][room_id]"] = forRoomRate.rid
+        params["rooms[0][inclusions]"] = ""
+        
+        self.delegate?.willSaveHotelWithTrip()
+        APICaller.shared.saveHotelWithTripAPI(params: params) { [weak self](success, errors) in
+            if success {
+                self?.delegate?.saveHotelWithTripSuccess(trip: trip)
             }
         }
     }

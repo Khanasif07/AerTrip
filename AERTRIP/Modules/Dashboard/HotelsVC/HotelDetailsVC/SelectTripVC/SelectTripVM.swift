@@ -19,7 +19,7 @@ class SelectTripVM {
     //MARK:- Properties
     //MARK:- Public
     var selectedIndexPath: IndexPath?
-    weak var delegate: SelectTripVMDelegate?
+    var delegate: SelectTripVMDelegate?
     
     var allTrips: [TripModel] = []
     
@@ -34,13 +34,9 @@ class SelectTripVM {
     func fetchAllTrips() {
         self.delegate?.willFetchAllTrips()
         
-        for idx in 1...10 {
-            var trip = TripModel()
-            trip.title = "Trip \(idx)"
-            
-            self.allTrips.append(trip)
+        APICaller.shared.getAllTripsAPI { (success, errors, trips, defaultTrip) in
+            self.allTrips = trips
+            self.delegate?.fetchAllTripsSuccess()
         }
-        
-        self.delegate?.fetchAllTripsSuccess()
     }
 }

@@ -92,6 +92,8 @@ extension HotelDetailsVC {
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
+        
+        cell.delegate = self
         let key = Array(roomData.keys)[indexPath.row]
         let value = roomData[key]
         var isOnlyOneRoom: Bool = false

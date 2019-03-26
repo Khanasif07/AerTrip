@@ -28,9 +28,15 @@ class CreateNewTripVM {
     
     
     //MARK:- Public
-    func save(trip: TripModel) {
+    func add(trip: TripModel) {
         self.delegate?.willSaveTrip()
         
-        self.delegate?.saveTripSuccess(trip: trip)
+        APICaller.shared.addNewTripAPI(params: [APIKeys.name.rawValue: trip.name]) { [weak self](success, error, trip) in
+            
+            guard let sSelf = self else {return}
+            if success, let trp = trip {
+                sSelf.delegate?.saveTripSuccess(trip: trp)
+            }
+        }
     }
 }

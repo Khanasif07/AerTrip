@@ -178,6 +178,15 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
     
+    func willSaveHotelWithTrip() {
+        
+    }
+    
+    func saveHotelWithTripSuccess(trip: TripModel) {
+        let message = trip.isDefault ? "Added to default trip" : "Added to \(trip.name) trip"
+        AppToast.default.showToastMessage(message: message, onViewController: self)
+    }
+    
     func getHotelDetailsSuccess() {
         self.filterdHotelData(tagList: self.viewModel.selectedTags)
         let index = IndexPath(row: 2, section: 0)
@@ -355,6 +364,26 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
     
     func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
         self.imagesCollectionView?.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+    }
+}
+
+//Mark:- HotelDetailsBedsTableViewCellDelegate
+//==========================
+extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
+    func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
+        AppFlowManager.default.selectTrip { (trip) in
+            
+            delay(seconds: 0.3, completion: { [weak self] in
+                guard let sSelf = self else {return}
+                
+                if let indexPath = sSelf.hotelTableView.indexPath(for: sender) {
+                    let currentRatesData = sSelf.viewModel.ratesData[indexPath.section - 2]
+                    let currentRoomData = sSelf.viewModel.roomRates[indexPath.section - 2]
+                    
+                    sSelf.viewModel.saveHotelWithTrip(toTrip: trip, forRate: currentRatesData, forRoomRate: Array(currentRoomData.keys)[indexPath.row])
+                }
+            })
+        }
     }
 }
 

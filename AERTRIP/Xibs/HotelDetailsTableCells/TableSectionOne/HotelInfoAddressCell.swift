@@ -71,11 +71,13 @@ class HotelInfoAddressCell: UITableViewCell {
     
     ///AttributeLabelSetup
     private func attributeLabelSetUp(overview: String) {
-        let attributedString = NSMutableAttributedString()
-        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let blackAttributedString = NSAttributedString(string: overview, attributes: blackAttribute)
-        attributedString.append(blackAttributedString)
-        self.addressInfoTextView.attributedText = attributedString
+//        let attributedString = NSMutableAttributedString()
+//        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+//        let blackAttributedString = NSAttributedString(string: overview, attributes: blackAttribute)
+//        attributedString.append(blackAttributedString)
+//
+        let attrText = overview.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
+        self.addressInfoTextView.attributedText = attrText
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() >= 3 ) ? false : true
     }
 

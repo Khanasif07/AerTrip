@@ -128,7 +128,7 @@ open class PKPulseAnimation: CAReplicatorLayer, CAAnimationDelegate {
         repeatCount = MAXFLOAT
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(save),
+                                               selector: #selector(add),
                                                name: UIApplication.didEnterBackgroundNotification,
                                                object: nil)
         
