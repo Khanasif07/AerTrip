@@ -17,7 +17,7 @@ class BulkBookingVM {
     
     //MARK:- Properties
     var roomCounts: Int = 5
-    var adultsCount: Int = 12
+    var adultsCount: Int = 10
     var childrenCounts: Int = 0
     var checkInDate = "2019-03-20" //Date().toString(dateFormat: "YYYY-MM-DD")
     var checkOutDate = "2019-03-25"
@@ -28,6 +28,7 @@ class BulkBookingVM {
     var destination: String = ""
     var pType: String = "hotel"
     var enquiryId: String = ""
+    var oldData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     
     //MARK:- Public
     internal weak var delegate: BulkBookingVMDelegate?

@@ -69,6 +69,12 @@ class ATButton: UIButton {
         }
     }
     
+    var fontForTitle: UIFont = AppFonts.SemiBold.withSize(17.0) {
+        didSet {
+            self.titleLabel?.font = fontForTitle
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -166,6 +172,11 @@ class ATButton: UIButton {
     override func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: .normal)
         super.setTitle(title, for: .highlighted)
+    }
+    
+    private func initialSetup() {
+        fontForTitle = AppFonts.SemiBold.withSize(17.0)
+        addRequiredAction()
     }
     
     private func addRequiredAction() {

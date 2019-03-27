@@ -35,7 +35,7 @@ class FinalCheckOutVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+        self.payButton.fontForTitle = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {

@@ -495,7 +495,7 @@ class UserInfo {
     
     class var hotelFilter: HotelFilter? {
         get {
-            if let obj = UserDefaults.standard.retrieve(object: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
+            if let obj = UserDefaults.standard.retrieve(objectType: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
                 return obj
             }
             return nil

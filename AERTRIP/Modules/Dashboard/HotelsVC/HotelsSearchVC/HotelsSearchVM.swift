@@ -20,32 +20,20 @@ class HotelsSearchVM: NSObject{
     
     //MARK:- Properties
     //MARK:- Public
-    var roomNumber: Int = 1
-    var adultsCount: [Int] = [2]
-    var childrenCounts: [Int] = [0]
-    var childrenAge: [[Int]] = [[]]
-    var checkInDate = "2019-04-17"
-    var checkOutDate = "2019-04-23"
-    var destId: String = ""
-    var destType: String = ""
-    var destName: String = ""
-    var ratingCount: [Int] = []
     weak var delegate: SearchHoteslOnPreferencesDelegate?
     var vcodes: [String] = []
     var sid: String = ""
     var hotelListResult = [HotelsSearched]()
     var hotelSearchRequst : HotelSearchRequestModel?
     var recentSearchesData: [RecentSearchesModel]?
-    var cityName = ""
-    var stateName = ""
-    
+    var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
 
     class var hotelFormData: HotelFormPreviosSearchData {
         get {
-            return UserDefaults.getCustomObject(forKey: APIKeys.hotelFormPreviosSearchData.rawValue) as? HotelFormPreviosSearchData ?? HotelFormPreviosSearchData()
+            return UserDefaults.standard.retrieve(objectType: HotelFormPreviosSearchData.self, fromKey: APIKeys.hotelFormPreviosSearchData.rawValue) ?? HotelFormPreviosSearchData()
         }
         set {
-            UserDefaults.saveCustomObject(customObject: newValue, forKey: APIKeys.hotelFormPreviosSearchData.rawValue)
+            UserDefaults.standard.save(customObject: newValue, inKey: APIKeys.hotelFormPreviosSearchData.rawValue)
         }
     }
     
@@ -60,18 +48,18 @@ class HotelsSearchVM: NSObject{
     
     ///Params For Api
     private func paramsForApi() -> JSONDictionary {
-        if self.ratingCount.isEmpty {
-            self.ratingCount = [1,2,3,4,5]
+        if self.searchedFormData.ratingCount.isEmpty {
+            self.searchedFormData.ratingCount = [1,2,3,4,5]
         }
         var params = JSONDictionary()
-        let _adultsCount = self.adultsCount
-        let _starRating = self.ratingCount
-        let _chidrenAge = self.childrenAge
-        params[APIKeys.check_in.rawValue] = self.checkInDate
-        params[APIKeys.check_out.rawValue] = self.checkOutDate
-        params[APIKeys.dest_id.rawValue] = self.destId
-        params[APIKeys.dest_type.rawValue] = self.destType
-        params[APIKeys.dest_name.rawValue] = self.destName
+        let _adultsCount = self.searchedFormData.adultsCount
+        let _starRating = self.searchedFormData.ratingCount
+        let _chidrenAge = self.searchedFormData.childrenAge
+        params[APIKeys.check_in.rawValue] = self.searchedFormData.checkInDate
+        params[APIKeys.check_out.rawValue] = self.searchedFormData.checkOutDate
+        params[APIKeys.dest_id.rawValue] = self.searchedFormData.destId
+        params[APIKeys.dest_type.rawValue] = self.searchedFormData.destType
+        params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
         for (idx , data ) in _starRating.enumerated() {
@@ -100,21 +88,7 @@ class HotelsSearchVM: NSObject{
     
     ///SaveFormDataToUserDefaults
     func saveFormDataToUserDefaults() {
-        let hotelData = HotelFormPreviosSearchData()
-        hotelData.roomNumber     = self.roomNumber
-        hotelData.adultsCount    = self.adultsCount
-        hotelData.childrenCounts = self.childrenCounts
-        hotelData.childrenAge    = self.childrenAge
-        hotelData.checkInDate    = self.checkInDate
-        hotelData.checkOutDate   = self.checkOutDate
-        hotelData.destId         = self.destId
-        hotelData.destName       = self.destName
-        hotelData.stateName      = self.stateName
-        hotelData.cityName       = self.cityName
-        hotelData.ratingCount    = self.ratingCount
-        hotelData.destType       = self.destType
-        
-        HotelsSearchVM.hotelFormData = hotelData
+        HotelsSearchVM.hotelFormData = self.searchedFormData
         printDebug(HotelsSearchVM.hotelFormData)
     }
     

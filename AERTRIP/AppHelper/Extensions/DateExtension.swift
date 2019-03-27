@@ -268,10 +268,5 @@ extension Date {
         dateFormatter.dateFormat = requiredFormat
         return dateFormatter.string(from: date)
     }
-    
-    func daysBetweenDate(toDate: Date, endDate: Date) -> Int {
-        let components = Calendar.current.dateComponents([Calendar.Component.day], from: endDate, to: toDate)
-        return components.day ?? 0
-    }
 }
 

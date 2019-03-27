@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HotelFormPreviosSearchData: NSObject, NSCoding {
+struct HotelFormPreviosSearchData: Codable {
     var roomNumber: Int = 0
     var adultsCount: [Int] = []
     var childrenCounts: [Int] = []
@@ -22,48 +22,67 @@ class HotelFormPreviosSearchData: NSObject, NSCoding {
     var cityName: String = ""
     var ratingCount: [Int] = []
     
-    override init() {
-        self.roomNumber     =  0
-        self.adultsCount    = []
-        self.childrenCounts = []
-        self.childrenAge    = [[]]
-        self.checkInDate    = ""
-        self.checkOutDate   = ""
+    init() {
+        self.roomNumber     =  1
+        self.adultsCount    = [2]
+        self.childrenCounts = [0]
+        self.childrenAge    = [[0,0,0,0]]
+        self.checkInDate    = Date().addDay(days: 0) ?? ""
+        self.checkOutDate   = (self.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date()).addDay(days: 5) ?? ""
         self.destId         = ""
         self.destType       = ""
         self.destName       = ""
         self.stateName      = ""
         self.cityName       = ""
-        self.ratingCount    = []
-    }
-
-    required init(coder decoder: NSCoder) {
-        self.roomNumber     = decoder.decodeObject(forKey: "roomNumber") as? Int ?? 0
-        self.adultsCount    = decoder.decodeObject(forKey: "adultsCount") as? [Int] ?? []
-        self.childrenCounts = decoder.decodeObject(forKey: "childrenCounts") as? [Int] ?? []
-        self.childrenAge    = decoder.decodeObject(forKey: "childrenAge") as? [[Int]] ?? [[]]
-        self.checkInDate    = decoder.decodeObject(forKey: "checkInDate") as? String ?? ""
-        self.checkOutDate   = decoder.decodeObject(forKey: "checkOutDate") as? String ?? ""
-        self.destId         = decoder.decodeObject(forKey: "destId") as? String ?? ""
-        self.destType       = decoder.decodeObject(forKey: "destType") as? String ?? ""
-        self.destName       = decoder.decodeObject(forKey: "destName") as? String ?? ""
-        self.stateName      = decoder.decodeObject(forKey: "stateName") as? String ?? ""
-        self.cityName       = decoder.decodeObject(forKey: "cityName") as? String ?? ""
-        self.ratingCount    = decoder.decodeObject(forKey: "ratingCount") as? [Int] ?? []
+        self.ratingCount    = [1,2,3,4,5]
     }
     
-    func encode(with coder: NSCoder) {
-        coder.encode(roomNumber, forKey: "roomNumber")
-        coder.encode(adultsCount, forKey: "adultsCount")
-        coder.encode(childrenCounts, forKey: "childrenCounts")
-        coder.encode(childrenAge, forKey: "childrenAge")
-        coder.encode(checkInDate, forKey: "checkInDate")
-        coder.encode(checkOutDate, forKey: "checkOutDate")
-        coder.encode(destId, forKey: "destId")
-        coder.encode(destType, forKey: "destType")
-        coder.encode(destName, forKey: "destName")
-        coder.encode(stateName, forKey: "stateName")
-        coder.encode(cityName, forKey: "cityName")
-        coder.encode(ratingCount, forKey: "ratingCount")
+    private enum CodingKeys: String, CodingKey {
+        case roomNumber
+        case adultsCount
+        case childrenCounts
+        case childrenAge
+        case checkInDate
+        case checkOutDate
+        case destId
+        case destName
+        case destType
+        case stateName
+        case cityName
+        case ratingCount
+    }
+    
+    init(from decoder: Decoder) throws {
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        roomNumber = try values.decode(Int.self, forKey: .roomNumber)
+        adultsCount = try values.decode([Int].self, forKey: .adultsCount)
+        childrenCounts = try values.decode([Int].self, forKey: .childrenCounts)
+        childrenAge = try values.decode([[Int]].self, forKey: .childrenAge)
+        checkInDate = try values.decode(String.self, forKey: .checkInDate)
+        checkOutDate = try values.decode(String.self, forKey: .checkOutDate)
+        destId = try values.decode(String.self, forKey: .destId)
+        destName = try values.decode(String.self, forKey: .destName)
+        destType = try values.decode(String.self, forKey: .destType)
+        stateName = try values.decode(String.self, forKey: .stateName)
+        cityName = try values.decode(String.self, forKey: .cityName)
+        ratingCount = try values.decode([Int].self, forKey: .ratingCount)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(roomNumber, forKey: .roomNumber)
+        try container.encode(adultsCount, forKey: .adultsCount)
+        try container.encode(childrenCounts, forKey: .childrenCounts)
+        try container.encode(childrenAge, forKey: .childrenAge)
+        try container.encode(checkInDate, forKey: .checkInDate)
+        try container.encode(checkOutDate, forKey: .checkOutDate)
+        try container.encode(destId, forKey: .destId)
+        try container.encode(destName, forKey: .destName)
+        try container.encode(destType, forKey: .destType)
+        try container.encode(stateName, forKey: .stateName)
+        try container.encode(cityName, forKey: .cityName)
+        try container.encode(ratingCount, forKey: .ratingCount)
     }
 }
