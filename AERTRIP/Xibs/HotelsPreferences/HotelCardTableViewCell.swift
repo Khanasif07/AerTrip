@@ -120,14 +120,16 @@ class HotelCardTableViewCell: UITableViewCell {
         self.starRatingView.rating = hotel.star
         self.greenCircleRatingView.rating = hotel.rating
         self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
+        var price : String = "\(hotel.price.delimiter)"
         if  let filter = UserInfo.hotelFilter  {
             switch filter.priceType {
             case .Total :
-                  self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)"
+                  price = "\(hotel.price.delimiter)"
             case .PerNight:
-                self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + "\(hotel.perNightPrice.delimiter)"
+                  price  = "\(hotel.perNightPrice.delimiter)"
             }
         }
+        self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + price
         self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
         //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)

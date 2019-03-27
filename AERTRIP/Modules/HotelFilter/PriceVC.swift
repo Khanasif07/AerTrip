@@ -55,7 +55,7 @@ class PriceVC: BaseVC {
         horizontalMultiSlider.tintColor = AppColors.themeGreen // color of the track
         horizontalMultiSlider.outerTrackColor = AppColors.themeGray10
         horizontalMultiSlider.trackWidth = 3
-        horizontalMultiSlider.showsThumbImageShadow = false
+        horizontalMultiSlider.showsThumbImageShadow = true
         horizontalMultiSlider.hasRoundTrackEnds = true
         horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + 24, width: UIScreen.main.bounds.width - 66, height: 28.0)
         view.addSubview(horizontalMultiSlider)
@@ -75,9 +75,11 @@ class PriceVC: BaseVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            HotelFilterVM.shared.priceType = .Total
             return
         }
         filterApplied = filter
+        HotelFilterVM.shared.priceType = filter.priceType
     }
     
     func registerXib() {

@@ -47,7 +47,7 @@ class GuestDetailsVC: BaseVC {
         // setting delay of 1 sec because table view cell are creating
         
         delay(seconds: 2.0) { [weak self] in
-            // self?.makeTableViewIndexSelectable()
+             self?.makeTableViewIndexSelectable()
         }
         self.viewModel.webserviceForGetSalutations()
     }
@@ -118,14 +118,19 @@ class GuestDetailsVC: BaseVC {
         }
     }
     
-    private func editedGuest(_ indexPath: IndexPath?) {
-//        if let indexPath = indexPath {
-//         //   printDebug(GuestDetailsVM.shared.guests[indexPath.row])
-        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[indexPath.row].salutation
-        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[indexPath.row].firstName
-        ////            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[indexPath.row].lastName
-//
-//        }
+    private func editedGuest(_ travellerIndexPath: IndexPath) {
+        if let indexPath = self.indexPath {
+            printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[travellerIndexPath.row].salutation
+                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[travellerIndexPath.row].firstName
+                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[travellerIndexPath.row].lastName
+          
+            printDebug("after updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+          
+                printDebug("=====guest \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+              self.guestDetailTableView.reloadData()
+
+        }
     }
 }
 
@@ -155,6 +160,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.delegate = self
+            printDebug("=====guest==== \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
             return cell
         } else {
@@ -206,9 +212,12 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                     cell.salutationTextField.text = self.travellers[indexPath.row].salutation
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
-                    self.editedGuest(self.indexPath)
+
                 }
+
             }
+            self.editedGuest(indexPath)
+         self.travellers = self.viewModel.travellerList
         }
     }
 }
@@ -229,7 +238,7 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textFieldWhileEditing(_ textField: UITextField) {
         if textField.text != "" {
-            self.travellers = self.viewModel.travellerList.filter({ $0.firstName.contains(textField.text ?? "") })
+            self.travellers = self.viewModel.travellerList.filter({ $0.firstName.lowercased().contains(textField.text?.lowercased() ?? "") })
         } else {
             self.travellers = self.viewModel.travellerList
         }
@@ -239,12 +248,19 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     
     func textField(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
-        self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(95)), animated: true)
-        guestDetailTableView.isScrollEnabled = false
-        travellersTableView.isHidden = false
-        travellersTableView.reloadData()
-        printDebug("item position is \(itemPosition)")
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell , textField != cell.salutationTextField {
+            
+            // get item position
+            let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
+            
+            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
+            
+            guestDetailTableView.isScrollEnabled = false
+            travellersTableView.isHidden = false
+            travellersTableView.reloadData()
+            printDebug("item position is \(itemPosition)")
+        }
+
     }
 }
 

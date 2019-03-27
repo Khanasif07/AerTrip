@@ -283,18 +283,18 @@ open class MultiSlider: UIControl {
     private func addThumbView() {
         let i = thumbViews.count
         let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
-        thumbView.addShadow()
+        //thumbView.addShadow(withColor: AppColors.themeGreen, scale: false)
         thumbViews.append(thumbView)
         slideView.addConstrainedSubview(thumbView, constrain: NSLayoutConstraint.Attribute.center(in: orientation).perpendicularCenter)
         positionThumbView(i)
-        thumbView.blur(disabledThumbIndices.contains(i))
+        //thumbView.blur(disabledThumbIndices.contains(i))
         addValueLabel(i)
         updateThumbViewShadowVisibility()
     }
 
     private func updateThumbViewShadowVisibility() {
         thumbViews.forEach {
-            $0.layer.shadowOpacity = showsThumbImageShadow ? 0.25 : 0
+            $0.layer.shadowOpacity = showsThumbImageShadow ? 0.30 : 0
         }
     }
 

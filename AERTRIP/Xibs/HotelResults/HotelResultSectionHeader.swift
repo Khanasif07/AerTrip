@@ -11,6 +11,7 @@ import UIKit
 class HotelResultSectionHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabelWidthConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

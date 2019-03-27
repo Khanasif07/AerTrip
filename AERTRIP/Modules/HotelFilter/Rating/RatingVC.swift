@@ -48,6 +48,7 @@ class RatingVC: BaseVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            self.doInitialSetup()
             return
         }
         self.filterApplied = filter
@@ -73,7 +74,7 @@ class RatingVC: BaseVC {
         }
         
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
-        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5,isForStarRating: false)
         self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
     }
     
@@ -86,7 +87,7 @@ class RatingVC: BaseVC {
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
         self.updateTripAdvisorRatingButtonState(forStar: sender.tag)
-        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5,isForStarRating: false)
         sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
         sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
     }
@@ -132,7 +133,7 @@ class RatingVC: BaseVC {
     }
     
     /// Get Star Rating
-    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+    private func getStarString(fromArr: [Int], maxCount: Int,isForStarRating: Bool = true) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
         var final = ""
@@ -141,15 +142,15 @@ class RatingVC: BaseVC {
         var prev: Int?
         
         if arr.isEmpty {
-            final = "0 \(LocalizedString.stars.localized)"
+            final =  isForStarRating ? "0 \(LocalizedString.stars.localized)" : "0 \(LocalizedString.Ratings.localized)"
             return final
         }
         else if arr.count == maxCount {
-            final = "All \(LocalizedString.stars.localized)"
+            final = isForStarRating ? "All \(LocalizedString.stars.localized)" : "All \(LocalizedString.Ratings.localized)"
             return final
         }
         else if arr.count == 1 {
-            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            final = isForStarRating ? "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")" : "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.Rating.localized)" : "\(LocalizedString.Ratings.localized)")"
             return final
         }
         
@@ -199,7 +200,7 @@ class RatingVC: BaseVC {
             end = nil
         }
         final.removeLast(2)
-        return final + " \(LocalizedString.stars.localized)"
+        return isForStarRating ? final + " \(LocalizedString.stars.localized)" : final + " \(LocalizedString.Ratings.localized)"
     }
     
     /// Star Button State

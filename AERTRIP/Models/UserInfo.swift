@@ -161,9 +161,9 @@ class UserInfo {
     
     
     struct HotelFilter : Codable {
-        var ratingCount: [Int] = []
-        var tripAdvisorRatingCount: [Int] = []
-        var isIncludeUnrated: Bool = false
+        var ratingCount: [Int] = [1,2,3,4,5]
+        var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
+        var isIncludeUnrated: Bool = true
         var distanceRange : Double = 0.0
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
@@ -178,9 +178,9 @@ class UserInfo {
         
         
         init() {
-            ratingCount =  []
-            tripAdvisorRatingCount  = []
-            isIncludeUnrated  = false
+            ratingCount =  [1,2,3,4,5]
+            tripAdvisorRatingCount  = [1,2,3,4,5]
+            isIncludeUnrated  = true
             distanceRange  = 0.0
             minimumPrice  = 0.0
             maximumPrice  = 0.0

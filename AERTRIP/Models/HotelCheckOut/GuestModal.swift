@@ -9,7 +9,6 @@
 import Foundation
 
 struct GuestModal {
-    var idInt: Int = 0
     var id: Int = 0
     var firstName: String = ""
     var lastName: String = ""

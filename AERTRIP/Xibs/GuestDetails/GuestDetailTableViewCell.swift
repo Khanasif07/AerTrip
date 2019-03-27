@@ -42,6 +42,12 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.doInitalSetup()
     }
     
+//    override func prepareForReuse() {
+//        self.salutationTextField.text = ""
+//        self.firstNameTextField.text = ""
+//        self.lastNameTextField.text = ""
+//    }
+    
     // MARK: - Helper methods
     
     private func doInitalSetup() {
@@ -83,10 +89,8 @@ class GuestDetailTableViewCell: UITableViewCell {
     }
     
     private func configureCell() {
-        if self.guestDetail?.passengerType == .Adult {
-            self.guestTitleLabel.text = LocalizedString.Adult.localized + " \(String(describing: self.guestDetail?.id ?? 0))"
-        } else {
-            self.guestTitleLabel.text = LocalizedString.Child.localized + " \(self.guestDetail?.id ?? 0)"
+        if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
+            self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
         }
     }
     

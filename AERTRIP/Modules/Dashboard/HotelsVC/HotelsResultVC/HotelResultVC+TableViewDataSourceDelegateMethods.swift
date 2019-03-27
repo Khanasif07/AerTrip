@@ -79,7 +79,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             var removeFirstChar = sections[section].name
             _ = removeFirstChar.removeFirst()
             let text = removeFirstChar + " kms"
-            hView.titleLabel.text = "  \(text)   "
+            hView.titleLabel.text = "\(text)"
+            hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 9
+           
             
             return hView
         }

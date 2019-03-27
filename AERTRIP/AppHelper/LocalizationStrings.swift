@@ -540,6 +540,7 @@ enum LocalizedString: String {
     case AertripWallet = "AertripWallet"
     case CurrencyOptions = "CurrencyOptions"
     case CheckOutCurrencyOptionInfoMessage = "CheckOutCurrencyOptionInfoMessage"
+    case Rating = "Rating"
    
     
     //Select Guests

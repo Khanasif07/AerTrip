@@ -31,7 +31,7 @@ class HotelFilterVC: BaseVC {
     
     private var currentIndex: Int = 0 {
         didSet {
-            //
+            
         }
     }
     
@@ -160,13 +160,16 @@ class HotelFilterVC: BaseVC {
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
         style.normalColor = AppColors.textFieldTextColor51
-        style.selectedColor = AppColors.textFieldTextColor51
+        style.selectedColor = AppColors.themeBlack
         
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self
         self.dataContainerView.addSubview(categoryView)
         self.categoryView = categoryView
+        
+        // Set last Selected Index on Nav bar
+        self.categoryView.select(at: HotelFilterVM.shared.lastSelectedIndex)
     }
     
     private func setupGesture() {
@@ -203,6 +206,7 @@ class HotelFilterVC: BaseVC {
 extension HotelFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
+        HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
 

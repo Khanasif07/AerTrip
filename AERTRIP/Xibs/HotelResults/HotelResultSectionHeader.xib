@@ -28,6 +28,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Av-fi-5Tj">
                     <rect key="frame" x="220.5" y="24" width="32.5" height="21"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="32.5" id="qZZ-4q-omr"/>
                         <constraint firstAttribute="height" constant="21" id="sux-gc-za2"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
@@ -48,6 +49,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="titleLabel" destination="8Av-fi-5Tj" id="bzm-Kf-YHw"/>
+                <outlet property="titleLabelWidthConstraint" destination="qZZ-4q-omr" id="VNg-ME-29s"/>
             </connections>
             <point key="canvasLocation" x="216.80000000000001" y="-114.69265367316342"/>
         </view>

@@ -23,9 +23,9 @@ enum SortUsing {
 class HotelFilterVM {
     static let shared = HotelFilterVM()
     
-    var ratingCount: [Int] = []
-    var tripAdvisorRatingCount: [Int] = []
-    var isIncludeUnrated: Bool = false
+    var ratingCount: [Int] = [1,2,3,4,5]
+    var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
+    var isIncludeUnrated: Bool = true
     var distanceRange: Double = 14.0
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
@@ -39,6 +39,7 @@ class HotelFilterVM {
     var priceType: Price = .Total
     var totalHotelCount: Int = 0
     var filterHotelCount: Int = 0
+    var lastSelectedIndex: Int = 0
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
