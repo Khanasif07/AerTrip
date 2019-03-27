@@ -335,6 +335,7 @@ extension AppFlowManager {
             ob.viewModel.hotelInfo = hotelInfo
             ob.delegate = vc
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
+//            ob.view.frame = CGRect(x: 0.0, y: UIDevice.topPaddingFromSafeArea, width: UIDevice.screenWidth, height: UIDevice.screenHeight - UIDevice.topPaddingFromSafeArea)
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
     }
@@ -419,6 +420,11 @@ extension AppFlowManager {
     
     func presentHCEmailItinerariesVC() {
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    func presentYouAreAllDoneVC() {
+        let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.present(obj, animated: true)
     }
     

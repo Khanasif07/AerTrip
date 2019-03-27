@@ -67,7 +67,8 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.themeWhite
+//        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,6 +77,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.view.backgroundColor = .clear
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
@@ -83,13 +85,10 @@ class HotelDetailsVC: BaseVC {
         self.footerViewSetUp()
         self.getSavedFilter()
         if self.viewModel.permanentTagsForFilteration.isEmpty {
-            self.viewModel.currentlyFilterApplying = .roomMealTags
             self.viewModel.roomMealData = ["Breakfast"]
-            self.viewModel.roomCancellationData = ["Refundable"]
             self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
             self.viewModel.selectedTags = ["Breakfast"]
         }
-
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
@@ -359,7 +358,8 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.tableViewRowCell.removeAll()
         if let rates = self.viewModel.hotelData?.rates {
             //            self.viewModel.currentlyFilterApplying = currentlyFilterApplying
-            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
+//            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
+            self.viewModel.ratesData = self.viewModel.filteredData(rates: rates , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
             for singleRate in self.viewModel.ratesData {
                 self.viewModel.roomRates.append(singleRate.roomData)
                 self.viewModel.tableViewRowCell.append(singleRate.tableViewRowCell)

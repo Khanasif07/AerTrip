@@ -23,7 +23,11 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
             //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)        }
         }
     }
-    
+    @IBOutlet weak var inclusionLabelBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var inclusionTypeLabelBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var shadowViewLeadingConstraints: NSLayoutConstraint!
+    @IBOutlet weak var shadowViewTrailingConstraints: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -34,19 +38,40 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     
     //Mark:- Methods
     //==============
+    ///Configure UI
     private func configureUI() {
+        self.dividerView.isHidden = true
         //Color
         self.backgroundColor = AppColors.screensBackground.color
         self.containerView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         self.inclusionLabel.textColor = AppColors.themeGray40
         self.inclusionTypeLabel.textColor = AppColors.textFieldTextColor51
-
-        //Size
+        
+        //Font
         self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
         self.inclusionTypeLabel.font = AppFonts.Regular.withSize(18.0)
-
+        
         //Text
         
+    }
+    
+    ///HC ConstraintsAndData SetUp
+    private func hcConstraintsAndDataSetUp(isWebsiteCell: Bool) {
+        self.shadowViewLeadingConstraints.constant = 0.0
+        self.shadowViewTrailingConstraints.constant = 0.0
+        if isWebsiteCell {
+            self.dividerView.isHidden = false
+            self.inclusionLabelBottomConstraints.constant = 6.0
+            self.inclusionTypeLabelBottomConstraints.constant = 21.0
+            self.inclusionLabel.font = AppFonts.SemiBold.withSize(16.0)
+            self.inclusionLabel.textColor = AppColors.themeBlack
+        } else {
+            self.dividerView.isHidden = true
+            self.inclusionLabelBottomConstraints.constant = 4.0
+            self.inclusionTypeLabelBottomConstraints.constant = 9.0
+            self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
+            self.inclusionLabel.textColor = AppColors.themeGray40
+        }
     }
     
     private func getAllInclusion(ratesData: Rates) -> [String] {
@@ -75,4 +100,30 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
     }
     
+    internal func configureWebsiteCell(website: String) {
+        self.hcConstraintsAndDataSetUp(isWebsiteCell: true)
+        self.inclusionLabel.text = LocalizedString.Website.localized
+        self.inclusionTypeLabel.text = website
+    }
+    
+    ///Config HCBeds Cell
+    internal func configHCBedsCell() {
+        self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
+        self.inclusionLabel.text = LocalizedString.Beds.localized
+        self.inclusionTypeLabel.text = "2 Single Beds"
+    }
+    
+    ///Config HCInclusion Cell
+    internal func configHCInclusionCell() {
+        self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
+        self.inclusionLabel.text = LocalizedString.Inclusion.localized
+        self.inclusionTypeLabel.text = "Breakfast"
+    }
+    
+    ///Config HCOtherInlusion Cell
+    internal func configHCOtherInlusionCell() {
+        self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
+        self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+        self.inclusionTypeLabel.text = "Valet Parking"
+    }
 }

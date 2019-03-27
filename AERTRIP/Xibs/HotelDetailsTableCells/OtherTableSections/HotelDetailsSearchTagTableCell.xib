@@ -25,11 +25,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-ca-tDu">
                                 <rect key="frame" x="7.5" y="16" width="305" height="36"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="aIQ-rb-fbI" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                    <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="agr-Lp-2El" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="cOH-hZ-Qsb"/>
-                                        </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raa-UD-puN">
@@ -44,11 +41,12 @@
                                 <constraints>
                                     <constraint firstItem="raa-UD-puN" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="top" id="1Zc-1f-WSs"/>
                                     <constraint firstItem="raa-UD-puN" firstAttribute="leading" secondItem="Snn-ca-tDu" secondAttribute="leading" id="31z-lz-RA2"/>
-                                    <constraint firstItem="aIQ-rb-fbI" firstAttribute="leading" secondItem="Snn-ca-tDu" secondAttribute="leading" id="8xC-Y2-M6E"/>
+                                    <constraint firstItem="agr-Lp-2El" firstAttribute="leading" secondItem="Snn-ca-tDu" secondAttribute="leading" id="3jH-2m-nur"/>
+                                    <constraint firstItem="agr-Lp-2El" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="top" id="5eu-GY-tGt"/>
                                     <constraint firstAttribute="height" constant="36" id="Oek-FP-41Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="aIQ-rb-fbI" secondAttribute="trailing" id="Rze-Sf-dG0"/>
+                                    <constraint firstAttribute="trailing" secondItem="agr-Lp-2El" secondAttribute="trailing" id="ZB1-8y-v52"/>
                                     <constraint firstAttribute="trailing" secondItem="raa-UD-puN" secondAttribute="trailing" id="r7O-Nj-Rhp"/>
-                                    <constraint firstItem="aIQ-rb-fbI" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="top" id="zpK-nF-SaP"/>
+                                    <constraint firstAttribute="bottom" secondItem="agr-Lp-2El" secondAttribute="bottom" id="zFz-VV-sYv"/>
                                     <constraint firstAttribute="bottom" secondItem="raa-UD-puN" secondAttribute="bottom" id="zxp-et-WTm"/>
                                 </constraints>
                             </view>
@@ -88,7 +86,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerView" destination="BxV-6e-jjY" id="jb3-1i-qC8"/>
-                <outlet property="searchBar" destination="aIQ-rb-fbI" id="Dx8-F8-O49"/>
+                <outlet property="searchBar" destination="agr-Lp-2El" id="MhZ-yp-jvC"/>
                 <outlet property="searchBarButton" destination="raa-UD-puN" id="WdE-rg-gbR"/>
                 <outlet property="tagCollectionView" destination="n7F-JS-gRz" id="dxa-fN-jVd"/>
             </connections>

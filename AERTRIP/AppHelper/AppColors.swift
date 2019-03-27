@@ -69,6 +69,9 @@ enum AppColors {
     /// RGB - 66, 97, 168
     static let fbButtonBackgroundColor  = #colorLiteral(red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
     
+    // RGB - 47, 173, 244
+    static let twitterBackgroundColor  = #colorLiteral(red: 0.1843137255, green: 0.6784313725, blue: 0.9568627451, alpha: 1)
+    
     /// RGB - 0, 120, 186
     static let linkedinButtonBackgroundColor  = #colorLiteral(red: 0, green: 0.4705882353, blue: 0.7294117647, alpha: 1)
 
@@ -101,6 +104,9 @@ enum AppColors {
     
     // RGB - 246,246,246, 1.0
     static let greyO4 = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+    
+    // RGB - 170, 2, 255
+    static let brightViolet = #colorLiteral(red: 0.6666666667, green: 0.007843137255, blue: 1, alpha: 1)
     
     case headlines
     case body

@@ -429,7 +429,7 @@ enum LocalizedString: String {
     // Cancellation policy
     case Refundable = "Refundable"
     case PartRefundable = "PartRefundable"
-    case NonRefundable = "Nonrefundable"
+    case NonRefundable = "NonRefundable"
     case NonRefundableExplanation = "NonRefundableExplanation"
     case FullPaymentExplanation = "FullPaymentExplanation"
     case FreeCancellation = "FreeCancellation"
@@ -554,5 +554,20 @@ enum LocalizedString: String {
     case ToYour = "ToYour"
     case ReturnHome = "ReturnHome"
     case ThisWillCancelThisBookingAndAmountRefundToPayment = "ThisWillCancelThisBookingAndAmountRefundToPayment"
+
+    case Change = "Change"
+    case YourBookingIDIs = "YourBookingIDIs"
+    case AndAllDetailsWillBeSentToYourEmail = "AndAllDetailsWillBeSentToYourEmail"
+    case YouAreAllDoneLabel = "YouAreAllDoneLabel"
+    case AddToAppleWallet = "AddToAppleWallet"
+    case BookingDetails = "BookingDetails"
+    case Website = "Website"
+    case Beds = "Beds"
+    case EmailItinerary = "EmailItinerary"
+    case TotalCharge = "TotalCharge"
+    case ConfirmationVoucher = "ConfirmationVoucher"
+    case View = "View"
+    case TellYourFriendsAboutYourPlan = "TellYourFriendsAboutYourPlan"
+    case WhatNext = "WhatNext"
 }
 
