@@ -12,17 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsBedsTableViewCell" id="DaD-df-j56" customClass="HotelDetailsBedsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DaD-df-j56" id="0y0-hK-j0h">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="115.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4m-eS-rYN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="115.5"/>
+                        <rect key="frame" x="16" y="4" width="343" height="115.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxL-7U-xbJ">
-                                <rect key="frame" x="16" y="0.0" width="343" height="115.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="115.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier King Bed Ocean View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMX-kz-73G">
                                         <rect key="frame" x="16" y="10" width="280" height="21"/>
@@ -98,19 +98,19 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="QxL-7U-xbJ" secondAttribute="trailing" constant="16" id="K4s-LG-CXR"/>
+                            <constraint firstAttribute="trailing" secondItem="QxL-7U-xbJ" secondAttribute="trailing" id="K4s-LG-CXR"/>
                             <constraint firstAttribute="bottom" secondItem="QxL-7U-xbJ" secondAttribute="bottom" id="UR7-nh-8T7"/>
                             <constraint firstItem="QxL-7U-xbJ" firstAttribute="top" secondItem="M4m-eS-rYN" secondAttribute="top" id="gfV-Ce-uM8"/>
-                            <constraint firstItem="QxL-7U-xbJ" firstAttribute="leading" secondItem="M4m-eS-rYN" secondAttribute="leading" constant="16" id="lE7-yj-6lh"/>
+                            <constraint firstItem="QxL-7U-xbJ" firstAttribute="leading" secondItem="M4m-eS-rYN" secondAttribute="leading" id="lE7-yj-6lh"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="M4m-eS-rYN" firstAttribute="leading" secondItem="0y0-hK-j0h" secondAttribute="leading" id="2mu-JR-5r1"/>
+                    <constraint firstItem="M4m-eS-rYN" firstAttribute="leading" secondItem="0y0-hK-j0h" secondAttribute="leading" constant="16" id="2mu-JR-5r1"/>
                     <constraint firstAttribute="bottom" secondItem="M4m-eS-rYN" secondAttribute="bottom" id="SQk-Wk-IcT"/>
-                    <constraint firstItem="M4m-eS-rYN" firstAttribute="top" secondItem="0y0-hK-j0h" secondAttribute="top" id="WPn-Um-KtX"/>
-                    <constraint firstAttribute="trailing" secondItem="M4m-eS-rYN" secondAttribute="trailing" id="rjK-7P-0uR"/>
+                    <constraint firstItem="M4m-eS-rYN" firstAttribute="top" secondItem="0y0-hK-j0h" secondAttribute="top" constant="4" id="WPn-Um-KtX"/>
+                    <constraint firstAttribute="trailing" secondItem="M4m-eS-rYN" secondAttribute="trailing" constant="16" id="rjK-7P-0uR"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -48,10 +48,10 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     ///Search Bar SetUp
     private func searchBarSetUp() {
         //UI
+        self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10
-        
         if let textField = self.searchBar.value(forKey: "_searchField") as? UITextField {
             //Color
             textField.borderStyle = .none
@@ -77,23 +77,26 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     }
     
     private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String) {
-        if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) || parentVC.viewModel.roomMealData.contains(currentTag) {
-            parentVC.viewModel.currentlyFilterApplying = .roomMealTags
+        if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
             if !parentVC.viewModel.roomMealData.contains(currentTag) {
                 parentVC.viewModel.roomMealData.append(currentTag)
+            } else {
+                parentVC.viewModel.roomMealData.remove(object: currentTag)
             }
         } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) || parentVC.viewModel.roomOtherData.contains(currentTag) {
-            parentVC.viewModel.currentlyFilterApplying = .roomOtherTags
             if !parentVC.viewModel.roomOtherData.contains(currentTag) {
                 parentVC.viewModel.roomOtherData.append(currentTag)
+            } else {
+                parentVC.viewModel.roomOtherData.remove(object: currentTag)
             }
         } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) || parentVC.viewModel.roomCancellationData.contains(currentTag) {
-            parentVC.viewModel.currentlyFilterApplying = .roomCancellationTags
             if !parentVC.viewModel.roomCancellationData.contains(currentTag) {
                 parentVC.viewModel.roomCancellationData.append(currentTag)
+            } else {
+                parentVC.viewModel.roomCancellationData.remove(object: currentTag)
             }
         } else {
-            parentVC.viewModel.currentlyFilterApplying = .newTag
+//            parentVC.viewModel.currentlyFilterApplying = .newTag
         }
     }
     

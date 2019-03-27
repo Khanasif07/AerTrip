@@ -37,8 +37,9 @@ class FlightsVC: BaseVC {
     //MARK:- Action
     @IBAction func myButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentHCSpecialRequestsVC()
-        AppFlowManager.default.presentHCEmailItinerariesVC()
+//        AppFlowManager.default.presentHCEmailItinerariesVC()
 //        AppFlowManager.default.presentHCCouponCodeVC()
+        AppFlowManager.default.presentYouAreAllDoneVC()
     }
 }
 

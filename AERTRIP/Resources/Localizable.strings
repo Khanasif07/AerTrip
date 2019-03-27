@@ -365,8 +365,9 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
-"NonRefundableExplanation" = "Non-refundable";
-"FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking";
+"NonRefundableExplanation" = "You will be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
+
+"FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
 "FreeCancellation" = "FREE CANCELLATION";
 "FullPaymentNow" = "Full Payment Now";
 "Book" = "Book";
@@ -484,3 +485,18 @@
 "SpecialRequestIfAny" = "Special Request If any...";
 "EmailItineraries" = "Email Itineraries";
 "SendToAll" = "Send to all";
+"Change" = "Change";
+"YourBookingIDIs" = "Your booking ID is";
+"AndAllDetailsWillBeSentToYourEmail" = "and all details will be sent to your email.";
+"YouAreAllDoneLabel" = "You’re all done!";
+"AddToAppleWallet" = "Add to Apple Wallet";
+"BookingDetails" = "BOOKING DETAILS";
+"Website" = "Website";
+"Beds" = "Beds";
+"EmailItinerary" = "Email Itinerary";
+"TotalCharge" = "Total Charge";
+"ConfirmationVoucher" = "Confirmation Voucher";
+"View" = "View";
+"TellYourFriendsAboutYourPlan" = "Tell your friends about your plan!";
+"WhatNext" = "What next?";
+"ReturnHome" = "Return Home";

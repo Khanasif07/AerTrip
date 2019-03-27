@@ -52,6 +52,12 @@ class HotelsSearchVM: NSObject{
     //MARK:- Functions
     //================
     //MARK:- Private
+    
+    ///Validations
+    internal func validationForHotelsForm() {
+        
+    }
+    
     ///Params For Api
     private func paramsForApi() -> JSONDictionary {
         if self.ratingCount.isEmpty {

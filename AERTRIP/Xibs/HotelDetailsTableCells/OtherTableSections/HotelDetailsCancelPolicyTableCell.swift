@@ -33,7 +33,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     @IBOutlet weak var moreBtnOutlet: UIButton!
     @IBOutlet weak var shadowView: UIView!
-    
+    @IBOutlet weak var shadowViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shadowViewTrailingConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -65,15 +66,46 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     ///AttributeLabelSetup
-    private func attributeLabelSetUp(text: String) {
+    private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Int) {
         let attributedString = NSMutableAttributedString()
         let greenAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen]
-        let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: greenAtrribute)
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let blackAttributedString = NSAttributedString(string: " by " + text, attributes: blackAttribute)
-        attributedString.append(greenAttributedString)
-        attributedString.append(blackAttributedString)
+        var startingDate: String = ""
+        var endingDate: String = ""
+        if !toDate.isEmpty {
+            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+        }
+        if !fromDate.isEmpty {
+            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+        }
+        if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+            let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "dd MMM’ yy") ?? ""
+            let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: greenAtrribute)
+            let blackAttributedString = NSAttributedString(string: " by " + cancelDesc , attributes: blackAttribute)
+            attributedString.append(greenAttributedString)
+            attributedString.append(blackAttributedString)
+        } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: greenAtrribute)
+            let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel from \(startingDate) to \(endingDate)\n" + endingDate, attributes: blackAttribute)
+            attributedString.append(greenAttributedString)
+            attributedString.append(blackAttributedString)
+        } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: greenAtrribute)
+            let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel on \(startingDate) or later\n" + endingDate, attributes: blackAttribute)
+            attributedString.append(greenAttributedString)
+            attributedString.append(blackAttributedString)
+        }
         self.descriptionLabel.attributedText = attributedString
+    }
+    
+    private func constraintSetUp(isHotelDetailsScreen: Bool) {
+        if isHotelDetailsScreen {
+            self.shadowViewLeadingConstraint.constant = 16.0
+            self.shadowViewTrailingConstraint.constant = 16.0
+         } else {
+            self.shadowViewLeadingConstraint.constant = 0.0
+            self.shadowViewTrailingConstraint.constant = 0.0
+        }
     }
     
     ///Full Penalty Details
@@ -92,6 +124,12 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                     fullAttributedString.append(attributedString)
                 }
                 return fullAttributedString
+            } else {
+                let attributedString = NSMutableAttributedString()
+                let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60] as [NSAttributedString.Key : Any]
+                let blackAttributedString = NSAttributedString(string: LocalizedString.NonRefundableExplanation.localized, attributes: blackAttribute)
+                attributedString.append(blackAttributedString)
+                return attributedString
             }
         }
         return nil
@@ -148,7 +186,6 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             for (note) in notesInclusion {
                 let formattedString: String = "●  \(note)\n"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-//                attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(7.0), range: (formattedString as NSString).range(of: "●"))
                 let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
                 fullAttributedString.append(attributedString)
@@ -159,25 +196,22 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     ///Configure Cancellation Cell
-    internal func configureCancellationCell(ratesData: Rates) {
+    internal func configureCancellationCell(ratesData: Rates , isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
+        self.infoBtnOutlet.isHidden = false
         self.titleLabel.text = LocalizedString.CancellationPolicy.localized
         if let cancellationInfo = ratesData.cancellation_penalty, cancellationInfo.is_refundable {
-            let fullRefundableData = ratesData.getFullRefundableData()
-            guard fullRefundableData.is_refundable == true else {
-                self.textSetUpForCancellation(text: LocalizedString.PartRefundable.localized, isBtnHidden: false)
-                return
+            if let firstRefundableData = ratesData.penalty_array?.first {
+                self.attributeLabelSetUp(roomPrice: ratesData.price , toDate: firstRefundableData.to, fromDate: firstRefundableData.from, penalty: firstRefundableData.penalty)
             }
-            let cancelDesc = Date.getDateFromString(stringDate: fullRefundableData.to, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "dd MMM’ yy")
-            self.attributeLabelSetUp(text: cancelDesc ?? "")
-            self.infoBtnOutlet.isHidden = false
         } else {
-            self.textSetUpForCancellation(text: LocalizedString.NonRefundableExplanation.localized, isBtnHidden: true)
+            self.textSetUpForCancellation(text: LocalizedString.NonRefundable.localized)
         }
     }
     
-    private func textSetUpForCancellation(text: String, isBtnHidden: Bool) {
-        self.infoBtnOutlet.isHidden = isBtnHidden
+    ///Text SetUp For Cancellation
+    private func textSetUpForCancellation(text: String) {
         self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
         self.descriptionLabel.textColor = AppColors.textFieldTextColor51
         self.descriptionLabel.text = text
@@ -185,7 +219,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     
     ///Configure Payment Cell
-    internal func configurePaymentCell(ratesData: Rates) {
+    internal func configurePaymentCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
         self.titleLabel.text = LocalizedString.PaymentPolicy.localized
         if !ratesData.payment_info.isEmpty {
@@ -202,7 +237,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     ///Configure Notes Cell
-    internal func configureNotesCell(ratesData: Rates) {
+    internal func configureNotesCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] {
             self.infoBtnOutlet.isHidden = true
             self.moreInfoContainerView.isHidden = false

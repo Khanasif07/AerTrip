@@ -58,7 +58,6 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressLabel.textColor = AppColors.themeBlack
         self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
-//        self.gradientView.addGradientWithColor(color: AppColors.themeWhite)
         
         //Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)
@@ -76,6 +75,7 @@ class HotelInfoAddressCell: UITableViewCell {
         let blackAttributedString = NSAttributedString(string: overview, attributes: blackAttribute)
         attributedString.append(blackAttributedString)
         self.addressInfoTextView.attributedText = attributedString
+//        self.addressInfoTextView.attributedText = overview.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() >= 3 ) ? false : true
     }
 
@@ -87,14 +87,17 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureOverviewCell(hotelData: HotelDetails) {
-        //self.infoTextViewTrailingConstraint.constant = -self.moreBtnOutlet.frame.origin.y
         self.moreBtnOutlet.isHidden = false
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         self.attributeLabelSetUp(overview: hotelData.info)
     }
     
-    
+    internal func hcConfigureAddressCell(address: String) {
+        self.moreBtnOutlet.isHidden = true
+        self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
+        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "  " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+    }
     
     //Mark:- IBActions
     //================

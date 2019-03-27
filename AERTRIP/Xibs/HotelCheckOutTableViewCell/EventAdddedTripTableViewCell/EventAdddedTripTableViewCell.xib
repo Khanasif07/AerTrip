@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventAdddedTripTableViewCell" id="KGk-i7-Jjw" customClass="EventAdddedTripTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trips" translatesAutoresizingMaskIntoConstraints="NO" id="Bfc-Cl-pag">
+                        <rect key="frame" x="16" y="8.5" width="19.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14.800000000000001" id="Fz3-8F-CVs"/>
+                            <constraint firstAttribute="width" constant="19.699999999999999" id="atX-04-pWS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event addded to new trip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeS-GX-96w">
+                        <rect key="frame" x="44" y="7" width="147" height="18"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekend in Abudhabi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaY-6l-Kx9">
+                        <rect key="frame" x="16" y="26.5" width="273" height="23"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OR-nx-x76">
+                        <rect key="frame" x="299" y="27" width="60" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="eFf-TB-sqa"/>
+                            <constraint firstAttribute="width" constant="60" id="wVe-wS-DpJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                        <state key="normal" title="Change">
+                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="changeButtonActin:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Duh-l0-AhS"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hm2-fu-aeZ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="59" width="375" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="HqB-qs-FCu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hm2-fu-aeZ" secondAttribute="trailing" id="3Ui-yz-c2l"/>
+                    <constraint firstItem="YaY-6l-Kx9" firstAttribute="top" secondItem="Bfc-Cl-pag" secondAttribute="bottom" constant="3.1000000000000001" id="72e-4w-ejd"/>
+                    <constraint firstItem="Bfc-Cl-pag" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="9fD-ej-1y9"/>
+                    <constraint firstItem="Bfc-Cl-pag" firstAttribute="centerY" secondItem="TeS-GX-96w" secondAttribute="centerY" id="C21-5f-RJf"/>
+                    <constraint firstItem="3OR-nx-x76" firstAttribute="centerY" secondItem="YaY-6l-Kx9" secondAttribute="centerY" id="C5U-hf-LFS"/>
+                    <constraint firstItem="TeS-GX-96w" firstAttribute="leading" secondItem="Bfc-Cl-pag" secondAttribute="trailing" constant="8.3000000000000007" id="KcA-qa-Zvh"/>
+                    <constraint firstItem="3OR-nx-x76" firstAttribute="leading" secondItem="YaY-6l-Kx9" secondAttribute="trailing" constant="10" id="ThO-7N-wDG"/>
+                    <constraint firstAttribute="bottom" secondItem="hm2-fu-aeZ" secondAttribute="bottom" id="VBq-nu-mE3"/>
+                    <constraint firstAttribute="trailing" secondItem="3OR-nx-x76" secondAttribute="trailing" constant="16" id="bG7-IZ-056"/>
+                    <constraint firstItem="hm2-fu-aeZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hNr-y8-8Na"/>
+                    <constraint firstItem="TeS-GX-96w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="ouM-LA-1g0"/>
+                    <constraint firstItem="YaY-6l-Kx9" firstAttribute="leading" secondItem="Bfc-Cl-pag" secondAttribute="leading" id="pfo-Ef-Cei"/>
+                    <constraint firstItem="hm2-fu-aeZ" firstAttribute="top" secondItem="YaY-6l-Kx9" secondAttribute="bottom" constant="9.5" id="rQ5-lL-Qbc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="changeButtonLabel" destination="3OR-nx-x76" id="NP5-Hr-OYT"/>
+                <outlet property="dividerView" destination="hm2-fu-aeZ" id="hS9-kK-Ppu"/>
+                <outlet property="eventAddedLabel" destination="TeS-GX-96w" id="Yjt-0r-Xk7"/>
+                <outlet property="eventDescLabel" destination="YaY-6l-Kx9" id="Ra9-fN-n8L"/>
+                <outlet property="eventImageView" destination="Bfc-Cl-pag" id="8vF-qS-Vcu"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="trips" width="43" height="32"/>
+    </resources>
+</document>

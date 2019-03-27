@@ -34,7 +34,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="387"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionRoomDetailCell" rowHeight="176" id="pb4-yD-P31" customClass="HCDataSelectionRoomDetailCell" customModule="AERTRIP" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionRoomDetailCell" rowHeight="176" id="pb4-yD-P31" customClass="HCDataSelectionRoomDetailCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="176"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pb4-yD-P31" id="KFS-ah-IBh">
@@ -110,7 +110,7 @@
                                             <outlet property="roomNumberLabel" destination="YLX-fm-tfI" id="po0-hS-J4N"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionPrefrencesCell" rowHeight="90" id="5hj-Zt-T4T" customClass="HCDataSelectionPrefrencesCell" customModule="AERTRIP" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionPrefrencesCell" rowHeight="90" id="5hj-Zt-T4T" customClass="HCDataSelectionPrefrencesCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="204" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hj-Zt-T4T" id="4pa-qf-MOj">
@@ -157,7 +157,7 @@
                                             <outlet property="titleLabel" destination="ZEv-u6-Ltz" id="dKz-1E-ZZB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionTextLabelCell" rowHeight="90" id="dqr-Y2-2nz" customClass="HCDataSelectionTextLabelCell" customModule="AERTRIP" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionTextLabelCell" rowHeight="90" id="dqr-Y2-2nz" customClass="HCDataSelectionTextLabelCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="294" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dqr-Y2-2nz" id="tvb-ip-w0g">
@@ -706,13 +706,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coupon required" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lA5-61-6x6">
-                                        <rect key="frame" x="21.5" y="145" width="197" height="28"/>
+                                        <rect key="frame" x="21.5" y="145" width="197" height="26"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You already have the best price." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIZ-SL-rUz">
-                                        <rect key="frame" x="0.0" y="177.5" width="240" height="23"/>
+                                        <rect key="frame" x="0.0" y="175.5" width="240" height="21"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -864,6 +864,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rb6-O4-VjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2078" y="200"/>
+        </scene>
+        <!--You Are All DoneVC-->
+        <scene sceneID="6vL-R2-Ky1">
+            <objects>
+                <viewController storyboardIdentifier="YouAreAllDoneVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H3d-W6-wR5" customClass="YouAreAllDoneVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PWa-Ch-smb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="bUu-0D-FCy" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bUu-0D-FCy" secondAttribute="bottom" id="7An-0z-OBV"/>
+                            <constraint firstItem="bUu-0D-FCy" firstAttribute="leading" secondItem="Rrj-ib-Jd0" secondAttribute="leading" id="hmN-cS-uuA"/>
+                            <constraint firstItem="bUu-0D-FCy" firstAttribute="top" secondItem="Rrj-ib-Jd0" secondAttribute="top" id="l4A-v0-2XE"/>
+                            <constraint firstItem="Rrj-ib-Jd0" firstAttribute="trailing" secondItem="bUu-0D-FCy" secondAttribute="trailing" id="r4L-cf-DPJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Rrj-ib-Jd0"/>
+                    </view>
+                    <connections>
+                        <outlet property="allDoneTableView" destination="bUu-0D-FCy" id="hho-8h-zOD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P2W-AN-d6d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2919" y="190"/>
         </scene>
     </scenes>
     <resources>
