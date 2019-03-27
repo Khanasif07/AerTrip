@@ -370,8 +370,9 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
-"NonRefundableExplanation" = "Non-refundable";
-"FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking";
+"NonRefundableExplanation" = "You will be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
+
+"FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
 "FreeCancellation" = "FREE CANCELLATION";
 "FullPaymentNow" = "Full Payment Now";
 "Book" = "Book";
@@ -475,6 +476,7 @@
 "FareDippedBy" = "Fare dipped by";
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
+"Confirm" = "Confirm";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
@@ -515,3 +517,34 @@
 
 // Mail Composer VC
 "CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";
+//Booking Incomplete Screen
+"BookingIncomplete" = "Booking Incomplete";
+"YourWalletMoneyOf" = "Your wallet money of";
+"WasUsedForAnotherTransaction" = "was used for another transaction.";
+"BookingAmount" = "Booking Amount";
+"PaidAmount" = "Paid Amount";
+"BalanceAmount" = "Balance Amount";
+"RequestRefund" = "Request refund";
+"BookingIncompleteBottomMessage" = "If you don’t take any action now, your amount will be auto-refunded to your";
+
+//Refund Requested
+"Requested" = "Requested";
+"WeNotedYourRequestToRefund" = "We’ve noted your request to refund";
+"ToYour" = "to your";
+"ReturnHome" = "Return Home";
+"ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";
+
+"Change" = "Change";
+"YourBookingIDIs" = "Your booking ID is";
+"AndAllDetailsWillBeSentToYourEmail" = "and all details will be sent to your email.";
+"YouAreAllDoneLabel" = "You’re all done!";
+"AddToAppleWallet" = "Add to Apple Wallet";
+"BookingDetails" = "BOOKING DETAILS";
+"Website" = "Website";
+"Beds" = "Beds";
+"EmailItinerary" = "Email Itinerary";
+"TotalCharge" = "Total Charge";
+"ConfirmationVoucher" = "Confirmation Voucher";
+"View" = "View";
+"TellYourFriendsAboutYourPlan" = "Tell your friends about your plan!";
+"WhatNext" = "What next?";

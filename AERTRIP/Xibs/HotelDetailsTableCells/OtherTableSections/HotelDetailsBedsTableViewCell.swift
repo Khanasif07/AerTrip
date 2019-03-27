@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HotelDetailsBedsTableViewCellDelegate: class {
+    func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell)
+}
+
 class HotelDetailsBedsTableViewCell: UITableViewCell {
     
     //Mark:- Variables
@@ -16,13 +20,11 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private var bedPickerView = UIPickerView()
     private var selectedRow: Int?
     
+    weak var delegate: HotelDetailsBedsTableViewCellDelegate? = nil
+    
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var shadowView: UIView! {
-        didSet {
-            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)
-        }
-    }
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var bedTypeLabel: UILabel!
     @IBOutlet weak var bedDiscriptionLabel: UILabel!
@@ -49,6 +51,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         //Color
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 4.0)
         self.backgroundColor = AppColors.screensBackground.color
         self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.bedTypeLabel.textColor = AppColors.themeBlack
@@ -101,7 +104,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     internal func configCell(numberOfRooms: Int , roomData: RoomsRates , isOnlyOneRoom: Bool ) {
         self.typesOfBed.removeAll()
         if isOnlyOneRoom {
-            self.bedTypeLabel.text = roomData.name + " " + roomData.desc
+            self.bedTypeLabel.text = roomData.name //+ " " + roomData.desc
             self.bedDiscriptionLabel.text = roomData.desc
             self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -125,9 +128,11 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             if self.typesOfBed.count == 1 {
                 self.dropDownTextField.rightViewMode = .never
                 self.dropDownTextField.isUserInteractionEnabled = false
+                self.dropDownTextField.textColor = AppColors.themeBlack
             } else {
                 self.dropDownTextField.rightViewMode = .always
                 self.dropDownTextField.isUserInteractionEnabled = true
+                self.dropDownTextField.textColor = AppColors.themeGreen
             }
             self.dropDownTextField.text = self.typesOfBed[0] + "   "
         }
@@ -137,13 +142,12 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.containerView.roundTopCorners(cornerRadius: cornerRaduis)
         self.bookmarkButtonOutlet.isHidden = bookmarkBtnHidden
         self.deviderView.isHidden = dividerViewHidden
-
     }
     
     //Mark:- IBActions
     //================
     @IBAction func bookmarkButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.presentSelectTripVC(delegate: self)
+        self.delegate?.bookMarkButtonAction(sender: self)
     }
     
     @objc func doneBedPicker(){
@@ -151,14 +155,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.dropDownTextField.text = self.typesOfBed[selectedRow]
         }
         self.endEditing(true)
-    }
-}
-
-//MARK:- SelectTripVC delegate methods
-//====================================
-extension HotelDetailsBedsTableViewCell: SelectTripVCDelegate {
-    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel) {
-        printDebug("Selected trip: \(trip.title)")
     }
 }
 

@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwm-2f-09j" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="24" width="84" height="16"/>
+                                <rect key="frame" x="16" y="24" width="85" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="84" id="BqD-ST-6Kw"/>
+                                    <constraint firstAttribute="width" constant="85" id="BqD-ST-6Kw"/>
                                     <constraint firstAttribute="height" constant="16" id="q9P-i1-xRU"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -38,13 +38,16 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="5nw-wX-aWV">
-                                <rect key="frame" x="105" y="20" width="32" height="24"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="5nw-wX-aWV">
+                                <rect key="frame" x="122" y="20" width="32" height="24"/>
                             </imageView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYC-TG-7kR" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="142" y="24" width="84" height="16"/>
+                                <rect key="frame" x="157" y="24" width="84" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="BIX-1T-uMW"/>
@@ -58,6 +61,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                         <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                        <size key="value" width="17" height="17"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -102,16 +108,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="csV-EG-uhH" secondAttribute="trailing" constant="16" id="Fxr-a7-tn9"/>
-                            <constraint firstItem="5nw-wX-aWV" firstAttribute="leading" secondItem="Uwm-2f-09j" secondAttribute="trailing" constant="5" id="HFY-fQ-Xax"/>
+                            <constraint firstItem="5nw-wX-aWV" firstAttribute="leading" secondItem="Uwm-2f-09j" secondAttribute="trailing" constant="21" id="HFY-fQ-Xax"/>
                             <constraint firstItem="5nw-wX-aWV" firstAttribute="top" secondItem="1b9-2b-97Y" secondAttribute="top" constant="20" id="KaM-bo-EHi"/>
                             <constraint firstItem="Eoq-MG-oaS" firstAttribute="centerY" secondItem="5nw-wX-aWV" secondAttribute="centerY" id="M3E-bh-BqV"/>
                             <constraint firstItem="s1K-bC-FdR" firstAttribute="leading" secondItem="1b9-2b-97Y" secondAttribute="leading" constant="16" id="MZi-RM-jcH"/>
                             <constraint firstAttribute="trailing" secondItem="Eoq-MG-oaS" secondAttribute="trailing" constant="4" id="QgB-TK-TgF"/>
                             <constraint firstItem="csV-EG-uhH" firstAttribute="leading" secondItem="1b9-2b-97Y" secondAttribute="leading" constant="16" id="U5h-Rq-Omj"/>
                             <constraint firstItem="csV-EG-uhH" firstAttribute="top" secondItem="5nw-wX-aWV" secondAttribute="bottom" constant="11" id="UbV-HV-R6q"/>
-                            <constraint firstAttribute="height" constant="126" id="Yes-Mu-KtG"/>
                             <constraint firstItem="pUO-7u-72l" firstAttribute="top" secondItem="csV-EG-uhH" secondAttribute="bottom" constant="5" id="fZD-fb-l8F"/>
-                            <constraint firstItem="LYC-TG-7kR" firstAttribute="leading" secondItem="5nw-wX-aWV" secondAttribute="trailing" constant="5" id="igD-oH-spQ"/>
+                            <constraint firstItem="s1K-bC-FdR" firstAttribute="top" secondItem="pUO-7u-72l" secondAttribute="bottom" constant="18.5" id="gAU-4a-A65"/>
+                            <constraint firstItem="LYC-TG-7kR" firstAttribute="leading" secondItem="5nw-wX-aWV" secondAttribute="trailing" constant="3" id="igD-oH-spQ"/>
                             <constraint firstItem="5nw-wX-aWV" firstAttribute="centerY" secondItem="Uwm-2f-09j" secondAttribute="centerY" multiplier="1.005" id="kes-vc-DcA"/>
                             <constraint firstAttribute="bottom" secondItem="s1K-bC-FdR" secondAttribute="bottom" id="nDq-Jc-zVW"/>
                             <constraint firstAttribute="trailing" secondItem="s1K-bC-FdR" secondAttribute="trailing" constant="16" id="oLi-ss-BD8"/>
@@ -150,6 +156,6 @@
         <image name="share_file_icon" width="27" height="27"/>
         <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="tripAdviser" width="32" height="24"/>
+        <image name="tripAdviserBig" width="32" height="18"/>
     </resources>
 </document>

@@ -67,7 +67,8 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.themeWhite
+//        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,6 +77,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.view.backgroundColor = .clear
         self.headerView.shouldAddBlurEffect = true
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
@@ -83,13 +85,10 @@ class HotelDetailsVC: BaseVC {
         self.footerViewSetUp()
         self.getSavedFilter()
         if self.viewModel.permanentTagsForFilteration.isEmpty {
-            self.viewModel.currentlyFilterApplying = .roomMealTags
             self.viewModel.roomMealData = ["Breakfast"]
-            self.viewModel.roomCancellationData = ["Refundable"]
             self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
             self.viewModel.selectedTags = ["Breakfast"]
         }
-
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
@@ -315,7 +314,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath == IndexPath(row: 2, section: 0) {
+        if indexPath.section == 0, indexPath.row == 2 {
             if let hotelData = self.viewModel.hotelData {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
@@ -325,6 +324,22 @@ class HotelDetailsVC: BaseVC {
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
             }
+        }
+        else if indexPath.section == 0, indexPath.row == 3 {
+            //overview cell
+            if let hotelData = self.viewModel.hotelData {
+                let text = hotelData.info
+                var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
+                
+                let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
+                let minH = AppFonts.Regular.withSize(18.0).lineHeight
+                
+                height = max(height, minH)
+                height = min(height, maxH)
+                return height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+            }
+            return UITableView.automaticDimension
         }
         return UITableView.automaticDimension
     }
@@ -343,7 +358,8 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.tableViewRowCell.removeAll()
         if let rates = self.viewModel.hotelData?.rates {
             //            self.viewModel.currentlyFilterApplying = currentlyFilterApplying
-            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
+//            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
+            self.viewModel.ratesData = self.viewModel.filteredData(rates: rates , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
             for singleRate in self.viewModel.ratesData {
                 self.viewModel.roomRates.append(singleRate.roomData)
                 self.viewModel.tableViewRowCell.append(singleRate.tableViewRowCell)

@@ -18,7 +18,7 @@ public struct ATCategoryNavBarStyle {
     
     public var contentInset: UIEdgeInsets = .zero
     
-    /// The paddings inserted before/after a AHCategoryItem's content.
+    /// The paddings inserted before/after a ATCategoryItem's content.
     /// Note: this padding attribute is included into the touch area for each categoryItem.
     public var itemPadding: CGFloat = 8.0
     
@@ -34,20 +34,20 @@ public struct ATCategoryNavBarStyle {
     public var showBarSelectionAnimation = true
     
     
-    /// AHCategoryItem normal color. Use RGB channels!!!
+    /// ATCategoryItem normal color. Use RGB channels!!!
     public var normalColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
-    /// AHCategoryItem selected color. Use RGB channels!!!
+    /// ATCategoryItem selected color. Use RGB channels!!!
     public var selectedColor = UIColor(red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
     
-    /// The space between each AHCategoryItem
+    /// The space between each ATCategoryItem
     public var interItemSpace: CGFloat = 20.0
     
 
     public var showBottomSeparator = true
     public var bottomSeparatorColor = UIColor.lightGray
     
-    /// The 'underscore' indicator following AHCategoryItems.
+    /// The 'underscore' indicator following ATCategoryItems.
     public var showIndicator = true
     
     public var indicatorHeight:CGFloat = 2.0
@@ -55,7 +55,7 @@ public struct ATCategoryNavBarStyle {
     public var indicatorColor:UIColor = UIColor(red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
     
     
-    //###### AHCategoryItems Background Mask Related
+    //###### ATCategoryItems Background Mask Related
     
     /// The default bgMaskView's background color.
     /// It doesn't have to use RGB channels.
@@ -65,6 +65,19 @@ public struct ATCategoryNavBarStyle {
     public var bgMaskView: UIView? = nil
     
     public var showBgMaskView = false
+    
+    //##################
+    
+    //###### Badge related
+    /// The default bgMaskView's background color.
+    /// It doesn't have to use RGB channels.
+    public var badgeBackgroundColor = UIColor.red
+    public var badgeTextColor = UIColor.white
+    public var badgeDotSize = CGSize(width: 8.0, height: 8.0)
+    public var badgeTextFont = UIFont.systemFont(ofSize: 12.0)
+    
+    public var badgeBorderWidth: CGFloat = 1.0
+    public var badgeBorderColor = UIColor.green
     
     //##################
     

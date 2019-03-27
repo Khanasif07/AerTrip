@@ -36,6 +36,7 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstLineView: UIView!
     @IBOutlet weak var secondLineView: UIView!
+    @IBOutlet weak var doneButtonBottomConstraint: NSLayoutConstraint!
     
     
     //MARK:- Properties
@@ -43,8 +44,7 @@ class RoomGuestSelectionVC: BaseVC {
     private(set) var viewModel = RoomGuestSelectionVM()
     weak var delegate: RoomGuestSelectionVCDelegate?
     private var containerHeight: CGFloat {
-        //return UIDevice.screenHeight * 0.56
-        return 370.0
+        return 420.0 + AppFlowManager.default.safeAreaInsets.bottom
     }
     private var mainContainerHeight: CGFloat = 0.0
     
@@ -56,7 +56,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
+        self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         
         self.roomNumberLabel.font = AppFonts.SemiBold.withSize(17.0)
         self.guestSelectionLabel.font = AppFonts.Regular.withSize(14.0)
@@ -94,6 +94,7 @@ class RoomGuestSelectionVC: BaseVC {
     override func setupColors() {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeBlack.withAlphaComponent(0.2), offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.guestSelectionLabel.textColor = AppColors.themeGray40
@@ -125,6 +126,10 @@ class RoomGuestSelectionVC: BaseVC {
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
         }
+        
+        self.firstLineView.isHidden = true
+        self.secondLineView.isHidden = true
+        self.doneButtonBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
     private func setOldAges() {
@@ -138,7 +143,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        self.mainContainerHeight = self.mainContainerHeightConstraint.constant
+        self.mainContainerHeight = self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
 //            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
@@ -209,6 +214,8 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
+        self.firstLineView.isHidden = false
+        self.secondLineView.isHidden = false
         let mainH = self.containerHeight
         // - self.agesContainerView.frame.height
         //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
@@ -227,6 +234,8 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         //let mainH = self.containerHeight - 90.0
+        self.firstLineView.isHidden = true
+        self.secondLineView.isHidden = true
         let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
@@ -286,7 +295,11 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 12
+        return 13
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 35.0
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -297,13 +310,13 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
             pickerLabel?.font = AppFonts.Regular.withSize(23.0)
             pickerLabel?.textAlignment = .center
         }
-        pickerLabel?.text = "\(row + 1)"
+        pickerLabel?.text = (row == 0) ? "<1" : "\(row)"
         pickerLabel?.textColor = AppColors.themeBlack
         return pickerLabel!
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.viewModel.childrenAge[pickerView.tag] = row + 1
+        self.viewModel.childrenAge[pickerView.tag] = row
     }
 }
 

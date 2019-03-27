@@ -13,17 +13,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsCancelPolicyTableCell" rowHeight="150" id="wzg-Pu-iWC" customClass="HotelDetailsCancelPolicyTableCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wzg-Pu-iWC" id="wT9-Nb-ff1">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLj-Gl-x7e">
-                        <rect key="frame" x="16" y="0.0" width="343" height="56.5"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="59.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VcL-tP-jZX">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="56.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="59.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xc0-c6-ajP">
                                         <rect key="frame" x="16" y="8" width="269" height="17"/>
@@ -31,7 +31,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPi-8k-ph1">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPi-8k-ph1">
                                         <rect key="frame" x="295" y="5.5" width="32" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="2yG-vb-tpM"/>
@@ -49,7 +49,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGV-Bt-DZu">
-                                        <rect key="frame" x="16" y="51.5" width="311" height="0.0"/>
+                                        <rect key="frame" x="16" y="50.5" width="311" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                                                     <constraint firstAttribute="width" constant="15" id="0j5-81-vEY"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-ke-DCX">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-ke-DCX">
                                                 <rect key="frame" x="15" y="0.0" width="40" height="19"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="more"/>
@@ -93,7 +93,7 @@
                                     <constraint firstAttribute="trailing" secondItem="fxw-wH-Vvk" secondAttribute="trailing" constant="16" id="4a3-da-yiG"/>
                                     <constraint firstItem="TbH-qX-YjN" firstAttribute="centerY" secondItem="fxw-wH-Vvk" secondAttribute="centerY" id="6AE-Y8-n3D"/>
                                     <constraint firstItem="fxw-wH-Vvk" firstAttribute="top" secondItem="Xc0-c6-ajP" secondAttribute="bottom" constant="4" id="ASJ-pN-ZsC"/>
-                                    <constraint firstItem="zGV-Bt-DZu" firstAttribute="top" secondItem="fxw-wH-Vvk" secondAttribute="bottom" constant="1" id="JxX-wq-TkK"/>
+                                    <constraint firstItem="zGV-Bt-DZu" firstAttribute="top" secondItem="fxw-wH-Vvk" secondAttribute="bottom" id="JxX-wq-TkK"/>
                                     <constraint firstAttribute="trailing" secondItem="NPi-8k-ph1" secondAttribute="trailing" constant="16" id="MCl-41-Lbx"/>
                                     <constraint firstItem="NPi-8k-ph1" firstAttribute="centerY" secondItem="Xc0-c6-ajP" secondAttribute="centerY" id="ZTF-rJ-y7t"/>
                                     <constraint firstItem="zGV-Bt-DZu" firstAttribute="trailing" secondItem="fxw-wH-Vvk" secondAttribute="trailing" id="Zt6-m7-4ze"/>
@@ -102,7 +102,7 @@
                                     <constraint firstItem="NPi-8k-ph1" firstAttribute="leading" secondItem="Xc0-c6-ajP" secondAttribute="trailing" constant="10" id="fgp-Ia-lDA"/>
                                     <constraint firstAttribute="trailing" secondItem="TbH-qX-YjN" secondAttribute="trailing" constant="16" id="hiM-Od-AIQ"/>
                                     <constraint firstItem="fxw-wH-Vvk" firstAttribute="leading" secondItem="VcL-tP-jZX" secondAttribute="leading" constant="16" id="mgj-ja-Dkf"/>
-                                    <constraint firstAttribute="bottom" secondItem="zGV-Bt-DZu" secondAttribute="bottom" constant="5" id="pTP-Mw-PNH"/>
+                                    <constraint firstAttribute="bottom" secondItem="zGV-Bt-DZu" secondAttribute="bottom" constant="9" id="pTP-Mw-PNH"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -133,6 +133,8 @@
                 <outlet property="moreBtnOutlet" destination="5dp-ke-DCX" id="eAn-Rr-eVL"/>
                 <outlet property="moreInfoContainerView" destination="TbH-qX-YjN" id="eDW-r8-URT"/>
                 <outlet property="shadowView" destination="xLj-Gl-x7e" id="39V-V1-KcJ"/>
+                <outlet property="shadowViewLeadingConstraint" destination="Bx3-F4-jjk" id="gE3-Sl-frA"/>
+                <outlet property="shadowViewTrailingConstraint" destination="W6l-n6-1u7" id="ea0-Zy-WFk"/>
                 <outlet property="titleLabel" destination="Xc0-c6-ajP" id="fH4-un-iGX"/>
             </connections>
         </tableViewCell>

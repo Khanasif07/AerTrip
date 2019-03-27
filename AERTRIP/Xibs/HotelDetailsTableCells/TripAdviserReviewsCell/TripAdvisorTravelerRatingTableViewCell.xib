@@ -25,7 +25,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="MnX-uc-XFV">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="MnX-uc-XFV">
                         <rect key="frame" x="16" y="53.5" width="32" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="pxr-yN-5Xw"/>
@@ -97,6 +97,6 @@
     <resources>
         <image name="combinedShapeFill" width="14" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
-        <image name="tripAdviser" width="32" height="24"/>
+        <image name="tripAdviserBig" width="32" height="18"/>
     </resources>
 </document>

@@ -33,6 +33,7 @@ class SelectTripVC: BaseVC {
     //MARK:- Public
     let viewModel = SelectTripVM()
     weak var delegate: SelectTripVCDelegate?
+    var selectionComplition: ((TripModel)->Void)? = nil
     
     //MARK:- Private
     private let cellIdentifier = "cellIdentifier"
@@ -48,7 +49,9 @@ class SelectTripVC: BaseVC {
         
         topNavView.configureFirstRightButton(normalTitle: LocalizedString.Save.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
-        viewModel.fetchAllTrips()
+        if viewModel.allTrips.isEmpty {
+            viewModel.fetchAllTrips()
+        }
     }
     
     override func setupColors() {
@@ -119,6 +122,9 @@ extension SelectTripVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         if let indexPath = viewModel.selectedIndexPath {
+            if let handler = self.selectionComplition {
+                handler(viewModel.allTrips[indexPath.row])
+            }
             self.delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row])
         }
         self.dismiss(animated: true, completion: nil)
@@ -144,7 +150,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell?.textLabel?.font = AppFonts.Regular.withSize(18.0)
-        cell?.textLabel?.text = viewModel.allTrips[indexPath.row].title
+        cell?.textLabel?.text = viewModel.allTrips[indexPath.row].name
         cell?.tintColor = AppColors.themeGreen
         cell?.accessoryType = .none
         

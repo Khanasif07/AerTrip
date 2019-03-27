@@ -301,6 +301,24 @@ enum APIKeys: String {
     case CSPCFEE = "CSPCFEE"
     case currency_pref = "currency_pref"
     case booking_id = "booking_id"
+    
+    case trip_id
+    case sdate
+    case edate
+    case is_default
+    case is_locked
+    case is_owner
+    case owner_name
+    case timezone
+    case hotel_id
+    case check_in_dt
+    case check_out_dt
+    case check_in_time
+    case check_out_time
+    case total_cost
+    case per_night_cost
+    case num_guests
+    case currency_code
 }
 
 

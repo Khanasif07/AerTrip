@@ -19,14 +19,10 @@ class BulkBookingVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
-    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var rectangleView: UIView!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var childContainerView: UIView!
     @IBOutlet weak var whereContainerView: UIView!
     @IBOutlet weak var datePickerView: UIView!
@@ -69,6 +65,8 @@ class BulkBookingVC: BaseVC {
         }
     }
     @IBOutlet weak var whereLabel: UILabel!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomView: UIView!
     
     
     //MARK:- Properties
@@ -99,8 +97,6 @@ class BulkBookingVC: BaseVC {
     override func setupFonts() {
         let semiBold18 = AppFonts.SemiBold.withSize(18.0)
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        titleLabel.font = semiBold18
-        cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.whereLabel.font = AppFonts.Regular.withSize(20.0)
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
         self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
@@ -122,9 +118,6 @@ class BulkBookingVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.titleLabel.text = LocalizedString.BulkBooking.localized
-        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
         self.whereLabel.text = LocalizedString.WhereButton.localized
         self.starRatingLabel.text = LocalizedString.StarRating.localized
         self.allStarLabel.text = LocalizedString.AllStars.localized
@@ -140,14 +133,9 @@ class BulkBookingVC: BaseVC {
     
     override func setupColors() {
         
-        self.titleLabel.textColor = AppColors.themeBlack
-        self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.cancelButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.dividerView.backgroundColor = AppColors.themeGray10
         self.firstLineView.backgroundColor = AppColors.themeGray10
         self.secondLineView.backgroundColor = AppColors.themeGray10
         self.thirdLineView.backgroundColor = AppColors.themeGray10
@@ -190,8 +178,14 @@ class BulkBookingVC: BaseVC {
     //MARK:- Private
     ///InitialSetUp
     private func initialSetups() {
-        self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.view.alpha = 1.0
+        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
+        self.topNavView.delegate = self
+        self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        
         self.searchButtonOutlet.layer.cornerRadius = 25.0
         for starBtn in self.starButtonsOutlet {
             starBtn.isHighlighted = true
@@ -218,6 +212,7 @@ class BulkBookingVC: BaseVC {
     
     ///Show View
     private func show(animated: Bool) {
+        self.bottomView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = 0.0
             self.view.layoutIfNeeded()
@@ -227,6 +222,7 @@ class BulkBookingVC: BaseVC {
     
     ///Hide View
     private func hide(animated: Bool, shouldRemove: Bool = false) {
+        self.bottomView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.frame.height + 100)
             self.view.layoutIfNeeded()
@@ -361,11 +357,6 @@ class BulkBookingVC: BaseVC {
     
     
     //MARK:- Action
-    @IBAction func cancelButtonAction(_ sender: UIButton) {
-        self.view.endEditing(true)
-        self.hide(animated: true, shouldRemove: true)
-    }
-    
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
@@ -391,6 +382,18 @@ class BulkBookingVC: BaseVC {
                 self?.viewModel.bulkBookingEnquiryApi()
             }
         }
+    }
+}
+
+//MARK:- TopNavigationViewDelegate
+//==================================
+extension BulkBookingVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.hide(animated: true, shouldRemove: true)
     }
 }
 

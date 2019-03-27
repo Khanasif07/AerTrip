@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HCBookingDetailsTableViewHeaderFooterView" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gH7-Qy-K6H">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKING DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kN2-Ur-UhO">
+                            <rect key="frame" x="16" y="36" width="343" height="18"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="kN2-Ur-UhO" firstAttribute="leading" secondItem="gH7-Qy-K6H" secondAttribute="leading" constant="16" id="6tG-wd-6gv"/>
+                        <constraint firstItem="kN2-Ur-UhO" firstAttribute="top" secondItem="gH7-Qy-K6H" secondAttribute="top" constant="36" id="OtY-NF-XSP"/>
+                        <constraint firstAttribute="bottom" secondItem="kN2-Ur-UhO" secondAttribute="bottom" constant="9" id="QRz-gB-qKN"/>
+                        <constraint firstAttribute="trailing" secondItem="kN2-Ur-UhO" secondAttribute="trailing" constant="16" id="Xxt-vc-xBd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gH7-Qy-K6H" secondAttribute="bottom" id="Glx-5h-Zam"/>
+                <constraint firstItem="gH7-Qy-K6H" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Hhs-GE-NCA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gH7-Qy-K6H" secondAttribute="trailing" id="Nb8-Ts-Dgh"/>
+                <constraint firstItem="gH7-Qy-K6H" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="O5E-wq-F17"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bookingDetailsLabel" destination="kN2-Ur-UhO" id="AFS-We-epg"/>
+                <outlet property="containerView" destination="gH7-Qy-K6H" id="xxF-Dr-Q1l"/>
+            </connections>
+        </view>
+    </objects>
+</document>

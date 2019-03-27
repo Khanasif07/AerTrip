@@ -16,7 +16,7 @@ class SelectDestinationVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar! {
@@ -33,6 +33,8 @@ class SelectDestinationVC: BaseVC {
     }
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var rectangleView: UIView!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+
     
     
     //MARK:- Properties
@@ -84,9 +86,10 @@ class SelectDestinationVC: BaseVC {
     private func initialSetups() {
         registerXib()
         
-        self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        
+        self.view.alpha = 1.0
+        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
@@ -104,7 +107,7 @@ class SelectDestinationVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        
+        self.bottomView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = 0.0
             self.view.layoutIfNeeded()
@@ -114,7 +117,7 @@ class SelectDestinationVC: BaseVC {
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        
+        self.bottomView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
             self.view.layoutIfNeeded()

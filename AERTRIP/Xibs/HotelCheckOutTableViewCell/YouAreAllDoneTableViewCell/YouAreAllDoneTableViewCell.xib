@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="YouAreAllDoneTableViewCell" rowHeight="240" id="KGk-i7-Jjw" customClass="YouAreAllDoneTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="295.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="295"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QD-4J-MkZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AertripLogoBlack" translatesAutoresizingMaskIntoConstraints="NO" id="XtX-bJ-dTA">
+                                <rect key="frame" x="15" y="9" width="29" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="OER-CB-PPX"/>
+                                    <constraint firstAttribute="height" constant="26" id="UAX-K6-7KB"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AertripTextLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TAT-1N-Yla">
+                                <rect key="frame" x="54" y="15" width="112" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="0KX-tH-Uie"/>
+                                    <constraint firstAttribute="width" constant="112" id="CT9-TP-nS0"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TAT-1N-Yla" firstAttribute="leading" secondItem="XtX-bJ-dTA" secondAttribute="trailing" constant="10" id="K8a-w7-YBn"/>
+                            <constraint firstItem="XtX-bJ-dTA" firstAttribute="top" secondItem="2QD-4J-MkZ" secondAttribute="top" constant="9" id="OhW-6V-U4y"/>
+                            <constraint firstItem="TAT-1N-Yla" firstAttribute="centerY" secondItem="XtX-bJ-dTA" secondAttribute="centerY" id="WJi-Ri-nxz"/>
+                            <constraint firstAttribute="height" constant="44" id="hpD-Zl-SHi"/>
+                            <constraint firstItem="XtX-bJ-dTA" firstAttribute="leading" secondItem="2QD-4J-MkZ" secondAttribute="leading" constant="15" id="j41-M2-Kn8"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’re all done!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZh-1Y-5dq">
+                        <rect key="frame" x="16" y="46" width="343" height="43"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="34"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your booking ID is 2324354657 and all details will be sent to your email." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbM-hh-hIc">
+                        <rect key="frame" x="16" y="99" width="343" height="45.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwX-zX-t0U">
+                        <rect key="frame" x="16" y="160.5" width="343" height="60.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVC-8D-YhN">
+                        <rect key="frame" x="16" y="233" width="343" height="45"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="UfJ-Iw-3ld"/>
+                        </constraints>
+                        <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Add to Apple Wallet" image="AddToAppleWallet"/>
+                        <connections>
+                            <action selector="addToAppleWalletButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KbL-Vb-G0S"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-jX-ddG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="294" width="375" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ISA-Y6-s9L"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="nbM-hh-hIc" firstAttribute="top" secondItem="NZh-1Y-5dq" secondAttribute="bottom" constant="10" id="9HO-zU-lIy"/>
+                    <constraint firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" constant="16" id="A2w-8t-lQS"/>
+                    <constraint firstAttribute="bottom" secondItem="xAo-jX-ddG" secondAttribute="bottom" id="AW9-p3-y3z"/>
+                    <constraint firstAttribute="trailing" secondItem="xAo-jX-ddG" secondAttribute="trailing" id="EAc-Vw-08J"/>
+                    <constraint firstItem="NZh-1Y-5dq" firstAttribute="top" secondItem="2QD-4J-MkZ" secondAttribute="bottom" constant="2" id="GzR-Rk-mab"/>
+                    <constraint firstItem="nbM-hh-hIc" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="Qlf-ng-QVf"/>
+                    <constraint firstItem="AVC-8D-YhN" firstAttribute="top" secondItem="HwX-zX-t0U" secondAttribute="bottom" constant="12" id="RCF-BK-GCq"/>
+                    <constraint firstItem="AVC-8D-YhN" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="VjD-HD-2ae"/>
+                    <constraint firstItem="NZh-1Y-5dq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZrW-rP-kew"/>
+                    <constraint firstAttribute="trailing" secondItem="2QD-4J-MkZ" secondAttribute="trailing" id="aKk-2E-VLf"/>
+                    <constraint firstItem="2QD-4J-MkZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="f5J-KF-lxg"/>
+                    <constraint firstItem="xAo-jX-ddG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="imx-EX-ooS"/>
+                    <constraint firstItem="HwX-zX-t0U" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="jiQ-NT-DjQ"/>
+                    <constraint firstItem="AVC-8D-YhN" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="mNC-LZ-Iui"/>
+                    <constraint firstItem="HwX-zX-t0U" firstAttribute="top" secondItem="nbM-hh-hIc" secondAttribute="bottom" constant="16" id="qpq-9Y-fBm"/>
+                    <constraint firstItem="nbM-hh-hIc" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="rEb-be-RrZ"/>
+                    <constraint firstItem="xAo-jX-ddG" firstAttribute="top" secondItem="AVC-8D-YhN" secondAttribute="bottom" constant="16" id="rkP-la-Aee"/>
+                    <constraint firstItem="HwX-zX-t0U" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="vyt-Xf-ZY9"/>
+                    <constraint firstItem="2QD-4J-MkZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x9R-2D-Xk5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addToAppleWalletButton" destination="AVC-8D-YhN" id="dt9-cU-ukX"/>
+                <outlet property="aertripLogoImgView" destination="XtX-bJ-dTA" id="prr-hl-hFW"/>
+                <outlet property="aertripTitleImgView" destination="TAT-1N-Yla" id="ngx-xY-2rZ"/>
+                <outlet property="bookingIdAndDetailsLabel" destination="nbM-hh-hIc" id="6Wm-2i-SrA"/>
+                <outlet property="dividerView" destination="xAo-jX-ddG" id="VRZ-A9-f1m"/>
+                <outlet property="thankYouLabel" destination="HwX-zX-t0U" id="jep-xv-dws"/>
+                <outlet property="youAreAllDoneLabel" destination="NZh-1Y-5dq" id="K7i-4C-tjz"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="228.03598200899552"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="AddToAppleWallet" width="30" height="22"/>
+        <image name="AertripLogoBlack" width="29" height="26"/>
+        <image name="AertripTextLogo" width="112" height="14"/>
+    </resources>
+</document>

@@ -23,6 +23,7 @@ class RangeVC: BaseVC {
         
         self.doInitialSetup()
         self.setUpRangeView()
+        self.addCurrentLocationView()
     }
     
     // MARK: - Override methods
@@ -44,6 +45,17 @@ class RangeVC: BaseVC {
     override func setupColors() {
         self.rangeView.backgroundColor = AppColors.themeGray10
         self.rangeLabel.textColor = AppColors.textFieldTextColor51
+    }
+    
+    private func addCurrentLocationView() {
+        let iconView = CityMarkerView(frame: CGRect(x: -4.0, y: (stepSlider.height - 30.0) / 2.0, width: 30.0, height: 30.0), shouldAddRippel: false)
+        iconView.isUserInteractionEnabled = false
+        stepSlider.addSubview(iconView)
+        
+        delay(seconds: 0.3) { [weak self] in
+            guard let sSelf = self else {return}
+            sSelf.stepSlider.bringSubviewToFront(iconView)
+        }
     }
     
     private func setUpRangeView() {

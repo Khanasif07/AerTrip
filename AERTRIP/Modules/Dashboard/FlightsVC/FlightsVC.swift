@@ -45,5 +45,7 @@ class FlightsVC: BaseVC {
         //  AppFlowManager.default.presentHCEmailItinerariesVC()
         AppFlowManager.default.moveToFinalCheckoutVC()
 //        AppFlowManager.default.presentHCCouponCodeVC()
+
+        AppFlowManager.default.presentYouAreAllDoneVC()
     }
 }

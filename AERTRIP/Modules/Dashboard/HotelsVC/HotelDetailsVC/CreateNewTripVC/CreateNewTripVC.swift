@@ -101,14 +101,15 @@ class CreateNewTripVC: BaseVC {
         self.captureImage(delegate: self)
     }
     @IBAction func createButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if (titleTextField.text ?? "").isEmpty {
             AppToast.default.showToastMessage(message: "Please enter trip name.")
         }
         else {
             var trip = TripModel()
-            trip.title = titleTextField.text ?? ""
+            trip.name = titleTextField.text ?? ""
             trip.image = tripImageView.image
-            viewModel.save(trip: trip)
+            viewModel.add(trip: trip)
         }
     }
 }

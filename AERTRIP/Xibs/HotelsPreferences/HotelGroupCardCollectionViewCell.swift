@@ -26,6 +26,8 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstShadowCard: UIView!
     @IBOutlet weak var secondShadowCard: UIView!
+    @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
+
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -128,8 +130,23 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
 
     private func populateHotelData() {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
-        self.starRatingView.rating = self.hotelListData?.star ?? 0.0
-        self.greenCircleRatingView.rating = self.hotelListData?.rating ?? 0.0
+        
+        self.starRatingView.isHidden = true
+        self.ratingContainerLeadingConstraint.constant = -10.0
+        if let star = self.hotelListData?.star, star > 0.0 {
+            self.ratingContainerLeadingConstraint.constant = 0.0
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = star
+        }
+        
+        self.greenCircleRatingView.isHidden = true
+        self.tripLogoImage.isHidden = true
+        if let rating = self.hotelListData?.rating, rating > 0.0 {
+            self.greenCircleRatingView.isHidden = false
+            self.tripLogoImage.isHidden = false
+            self.greenCircleRatingView.rating = rating
+        }
+        
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         self.discountedPriceLabel.text = "\(String(describing: self.hotelListData?.price ?? 0.0))"
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true

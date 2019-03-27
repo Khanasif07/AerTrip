@@ -31,6 +31,7 @@ class HotelCardTableViewCell: UITableViewCell {
     @IBOutlet var pageControl: FlexiblePageControl!
     @IBOutlet var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -117,8 +118,23 @@ class HotelCardTableViewCell: UITableViewCell {
         }
         
         self.hotelNameLabel.text = hotel.hotelName ?? LocalizedString.na.localized
-        self.starRatingView.rating = hotel.star
-        self.greenCircleRatingView.rating = hotel.rating
+        
+        self.starRatingView.isHidden = true
+        self.ratingContainerLeadingConstraint.constant = -10.0
+        if hotel.star > 0.0 {
+            self.ratingContainerLeadingConstraint.constant = 0.0
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = hotel.star
+        }
+        
+        self.greenCircleRatingView.isHidden = true
+        self.tripLogoImage.isHidden = true
+        if hotel.rating > 0.0 {
+            self.greenCircleRatingView.isHidden = false
+            self.tripLogoImage.isHidden = false
+            self.greenCircleRatingView.rating = hotel.rating
+        }
+
         self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
         var price : String = "\(hotel.price.delimiter)"
         if  let filter = UserInfo.hotelFilter  {

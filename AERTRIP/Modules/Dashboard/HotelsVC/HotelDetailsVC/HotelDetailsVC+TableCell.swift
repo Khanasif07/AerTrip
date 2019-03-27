@@ -92,6 +92,8 @@ extension HotelDetailsVC {
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
+        
+        cell.delegate = self
         let key = Array(roomData.keys)[indexPath.row]
         let value = roomData[key]
         var isOnlyOneRoom: Bool = false
@@ -140,7 +142,7 @@ extension HotelDetailsVC {
     internal func getCancellationCell(indexPath: IndexPath, ratesData: Rates) -> HotelDetailsCancelPolicyTableCell? {
         if ratesData.cancellation_penalty != nil {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-            cell.configureCancellationCell(ratesData: ratesData)
+            cell.configureCancellationCell(ratesData: ratesData, isHotelDetailsScreen: true)
             cell.delegate = self
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
@@ -159,7 +161,7 @@ extension HotelDetailsVC {
     internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
         cell.delegate = self
-        cell.configurePaymentCell(ratesData: ratesData)
+        cell.configurePaymentCell(ratesData: ratesData, isHotelDetailsScreen: true)
         if self.allIndexPath.contains(indexPath) {
             cell.allDetailsLabel.isHidden = false
             cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()?.trimWhiteSpace()
@@ -177,7 +179,7 @@ extension HotelDetailsVC {
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.delegate = self
-            cell.configureNotesCell(ratesData: ratesData)
+            cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: true)
             if self.allIndexPath.contains(indexPath) {
                 cell.descriptionLabel.text = ""
                 cell.allDetailsLabel.isHidden = false

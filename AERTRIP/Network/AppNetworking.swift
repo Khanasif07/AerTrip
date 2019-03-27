@@ -213,8 +213,12 @@ enum AppNetworking {
                             switch(response.result) {
                                 
                             case .success(let value):
-                                
-                                printDebug("response: \(value)\nresponse url: \(URLString)")
+                                if value.isEmpty, let resData = response.data, let string = String(data: resData, encoding: String.Encoding.utf8) {
+                                    printDebug("response: \(string)\nresponse url: \(URLString)")
+                                }
+                                else {
+                                    printDebug("response: \(value)\nresponse url: \(URLString)")
+                                }
                                 success(JSON(value))
                                 
                             case .failure(let e):

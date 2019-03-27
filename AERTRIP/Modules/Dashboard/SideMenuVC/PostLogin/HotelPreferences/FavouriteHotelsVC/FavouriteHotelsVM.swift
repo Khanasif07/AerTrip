@@ -22,6 +22,8 @@ class FavouriteHotelsVM {
     
     //MARK:- Properties
     //MARK:- Public
+    var allTabs: [ATCategoryItem] = []
+    
     var hotels = [CityHotels]()
     
     weak var delegate: ViewAllHotelsVMDelegate?
@@ -41,6 +43,13 @@ class FavouriteHotelsVM {
             if success {
                 
                 self.hotels = cities
+                
+                self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
+                    var item = ATCategoryItem()
+                    item.title = city.cityName
+                    return item
+                }
+                
                 self.delegate?.getHotelPreferenceListSuccess()
             }
             else {
@@ -68,6 +77,11 @@ class FavouriteHotelsVM {
     
     func removeAllHotels(forCityIndex: Int) {
         self.hotels.remove(at: forCityIndex)
+        self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
+            var item = ATCategoryItem()
+            item.title = city.cityName
+            return item
+        }
     }
     
     func removeHotel(forCity: CityHotels, cityIndex: Int, forHotelAtIndex: Int) {

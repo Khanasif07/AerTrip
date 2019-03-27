@@ -14,12 +14,21 @@ class CityMarkerView: UIView {
     //================
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var dotView: UIView!
+    @IBOutlet weak var dotHeightConstraint: NSLayoutConstraint!
     
     private var pulsAnimation = PKPulseAnimation()
+    private var shouldAddRippel: Bool = true
     //Mark:- LifeCycle
     //================
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.initialSetUp()
+    }
+    
+    init(frame: CGRect, shouldAddRippel: Bool) {
+        super.init(frame: frame)
+        
+        self.shouldAddRippel = shouldAddRippel
         self.initialSetUp()
     }
     
@@ -48,8 +57,14 @@ class CityMarkerView: UIView {
         
         delay(seconds: 0.2) { [weak self] in
             guard let sSelf = self else {return}
+            if sSelf.shouldAddRippel {
+                sSelf.addRippel()
+                sSelf.dotHeightConstraint.constant = 13.0
+            }
+            else {
+                sSelf.dotHeightConstraint.constant = 8.0
+            }
             sSelf.configureUI()
-            sSelf.addRippel()
         }
     }
     
@@ -66,10 +81,10 @@ class CityMarkerView: UIView {
     ///ConfigureUI
     private func configureUI() {
         
-        backgroundView.backgroundColor = AppColors.clear//AppColors.themeOrange.withAlphaComponent(0.1)
+        backgroundView.backgroundColor = shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.3)//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
         
         backgroundView.cornerRadius = backgroundView.height / 2.0
-        dotView.cornerRadius = dotView.height / 2.0
+        dotView.cornerRadius = dotHeightConstraint.constant / 2.0
     }
 }
