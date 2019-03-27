@@ -120,13 +120,12 @@ class BulkBookingVC: BaseVC {
     override func setupTexts() {
         self.whereLabel.text = LocalizedString.WhereButton.localized
         self.starRatingLabel.text = LocalizedString.StarRating.localized
-        self.allStarLabel.text = LocalizedString.AllStars.localized
         if let _ = self.returnUserId {
             self.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
         } else {
             self.searchButtonOutlet.setTitle(LocalizedString.LoginAndSubmit.localized, for: .normal)
         }
-        self.bulkBookingLabel.text = LocalizedString.BulkBooking.localized
+        self.bulkBookingLabel.text = LocalizedString.Guests.localized
         self.preferredHotelsLabel.text = LocalizedString.PreferredHotels.localized
         self.specialReqLabel.text = LocalizedString.SpecialRequest.localized
     }
@@ -200,6 +199,35 @@ class BulkBookingVC: BaseVC {
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
         }
+        
+        self.setSearchFormData()
+    }
+    
+    private func setSearchFormData() {
+        let oldData = self.viewModel.oldData
+        
+        self.viewModel.destination = oldData.destName
+        self.viewModel.checkInDate = oldData.checkInDate
+        self.viewModel.checkOutDate = oldData.checkOutDate
+        self.viewModel.roomCounts = 5
+        self.viewModel.adultsCount = 10
+        self.viewModel.childrenCounts = 0
+        
+        self.cityNameLabel.text = oldData.cityName
+        self.stateNameLabel.text = oldData.stateName
+        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
+        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+        
+        self.checkInOutView?.setDates(fromData: oldData)
+        
+        self.updateRoomData(rooms: self.viewModel.roomCounts, adults: self.viewModel.adultsCount, children: self.viewModel.childrenCounts)
+        
+        for star in oldData.ratingCount {
+            self.updateStarButtonState(forStar: star)
+        }
+        
+        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
+        
     }
     
     ///ConfigureCheckInOutView
@@ -411,8 +439,8 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
-        self.cityNameLabel.isHidden = false
-        self.stateNameLabel.isHidden = false
+        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
+        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
         self.dataForApi(hotel: hotel)
     }
 }

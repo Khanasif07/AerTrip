@@ -79,7 +79,7 @@ class AddRoomPictureCell: UICollectionViewCell {
             //?? IndexPath(item: 0, section: 0)
         self.lineView.backgroundColor = AppColors.divider.color
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
-        if viewModel.adultsCount.count == 1 {
+        if viewModel.searchedFormData.adultsCount.count == 1 {
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
         } else{
@@ -99,9 +99,9 @@ class AddRoomPictureCell: UICollectionViewCell {
             self.cancelBtnOutlet.isHidden = false
         }
         if idxPath.item < 4 {
-            self.childPopUpBtn.isHidden = viewModel.childrenCounts[idxPath.item] == 0 ? true : false
-            self.adultPopUpBtn.setTitle("\(viewModel.adultsCount[idxPath.item])", for: .normal)
-            self.childPopUpBtn.setTitle("\(viewModel.childrenCounts[idxPath.item])", for: .normal)
+            self.childPopUpBtn.isHidden = viewModel.searchedFormData.childrenCounts[idxPath.item] == 0 ? true : false
+            self.adultPopUpBtn.setTitle("\(viewModel.searchedFormData.adultsCount[idxPath.item])", for: .normal)
+            self.childPopUpBtn.setTitle("\(viewModel.searchedFormData.childrenCounts[idxPath.item])", for: .normal)
         }
     }
 }
