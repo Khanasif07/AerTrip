@@ -230,9 +230,9 @@ struct HotelDetails {
         }
         if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
             self.amenitiesGroups = firstObj
-            //            for obj in arrObj {
-            //                self.amenities_group.append(data)
-            //            }
+//                        for obj in arrObj {
+//                            self.amenities_group.append(data)
+//                        }
         }
     }
     

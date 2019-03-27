@@ -84,11 +84,7 @@ class HotelDetailsVC: BaseVC {
         self.registerNibs()
         self.footerViewSetUp()
         self.getSavedFilter()
-        if self.viewModel.permanentTagsForFilteration.isEmpty {
-            self.viewModel.roomMealData = ["Breakfast"]
-            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
-            self.viewModel.selectedTags = ["Breakfast"]
-        }
+        self.permanentTagsForFilteration()
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
@@ -280,7 +276,7 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
-    private func getSavedFilter() {
+    internal func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("Filter not found")
             return
@@ -291,7 +287,16 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomCancellationData = filter.roomCancelation
         self.viewModel.permanentTagsForFilteration = filter.roomMeal + filter.roomCancelation + filter.roomOther
         self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
-        self.viewModel.currentlyFilterApplying = .initialTags
+    }
+    
+    internal func permanentTagsForFilteration() {
+        if self.viewModel.permanentTagsForFilteration.isEmpty {
+            self.viewModel.filterAppliedData.roomMeal = ["Breakfast"]
+            self.viewModel.roomMealData = self.viewModel.filterAppliedData.roomMeal
+            self.viewModel.filterAppliedData.roomCancelation = ["Refundable"]
+            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
+            self.viewModel.selectedTags = ["Breakfast"]
+        }
     }
     
     internal func redirectToMap() {
@@ -357,8 +362,6 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomRates.removeAll()
         self.viewModel.tableViewRowCell.removeAll()
         if let rates = self.viewModel.hotelData?.rates {
-            //            self.viewModel.currentlyFilterApplying = currentlyFilterApplying
-//            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
             self.viewModel.ratesData = self.viewModel.filteredData(rates: rates , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
             for singleRate in self.viewModel.ratesData {
                 self.viewModel.roomRates.append(singleRate.roomData)
