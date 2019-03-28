@@ -86,14 +86,14 @@ extension UserDefaults {
         return NSKeyedUnarchiver.unarchiveObject(with: data)
     }
     
-    func save<T:Encodable>(customObject object: T, inKey key: String) {
+    func save<T:Codable>(customObject object: T, inKey key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(object) {
             self.set(encoded, forKey: key)
         }
     }
     
-    func retrieve<T:Decodable>(object type:T.Type, fromKey key: String) -> T? {
+    func retrieve<T:Codable>(objectType type:T.Type, fromKey key: String) -> T? {
       if let data = self.data(forKey: key) {
             let decoder = JSONDecoder()
             if let object = try? decoder.decode(type, from: data) {

@@ -69,14 +69,20 @@ class CheckInOutView: UIView {
     }
     
     //yyyy-MM-dd
-    internal func fillPreviousData(viewModel: HotelsSearchVM) {
-        let checkInDate = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
+    internal func setDates(fromData searchData: HotelFormPreviosSearchData) {
+        let checkInDate = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
         self.checkInDateLabel.text = checkInDate
-        let checkOutDate = Date.getDateFromString(stringDate: viewModel.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
+        let checkOutDate = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
         self.checkOutDateLabel.text = checkOutDate
-        let totalNights = Date().daysBetweenDate(toDate: viewModel.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!, endDate: viewModel.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
-        self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) Night" : "\(totalNights) Nights"
-        self.checkInDay.text = Date.getDateFromString(stringDate: viewModel.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
-        self.checkOutDay.text = Date.getDateFromString(stringDate: viewModel.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
+        
+        var totalNights = 0, checkOutDayStr = ""
+        if !searchData.checkOutDate.isEmpty {
+            totalNights = searchData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(searchData.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+            checkOutDayStr = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE") ?? ""
+        }
+        self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        self.checkInDay.text = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
+        
+        self.checkOutDay.text = checkOutDayStr
     }
 }
