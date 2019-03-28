@@ -486,6 +486,7 @@ enum LocalizedString: String {
     case ContactUsAertrip = "ContactUsAertrip"
     case CopyrightAertrip = "CopyrightAertrip"
     case CheckoutMyFavouriteHotels = "CheckoutMyFavouriteHotels"
+    case SendWithSpace = "SendWithSpace"
     
     
     //Select Trip Screen

@@ -129,7 +129,7 @@ extension HotelResultVC {
     
     func fetchRequestWithoutFilter() {
         if self.predicateStr.isEmpty {
-            self.fetchedResultsController.fetchRequest.predicate = nil
+            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
             
         } else {
             let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])

@@ -69,7 +69,7 @@ class CityMarkerView: UIView {
     }
     
     private func addRippel() {
-        self.pulsAnimation.numPulse = 3
+        self.pulsAnimation.numPulse = 2
         self.pulsAnimation.radius = backgroundView.height
         self.pulsAnimation.currentAnimation = .opacity
         self.pulsAnimation.backgroundColor = AppColors.themeOrange.cgColor

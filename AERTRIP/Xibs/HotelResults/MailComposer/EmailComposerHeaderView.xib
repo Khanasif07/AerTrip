@@ -83,17 +83,17 @@
                                     <rect key="frame" x="76" y="32" width="224" height="30"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aertripGreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-jJ-n40">
-                                            <rect key="frame" x="0.0" y="0.0" width="31" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="31" id="Iue-RD-Xha"/>
-                                                <constraint firstAttribute="height" constant="25" id="x9C-Gk-ia5"/>
+                                                <constraint firstAttribute="height" constant="31" id="x9C-Gk-ia5"/>
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aertripGreenText" translatesAutoresizingMaskIntoConstraints="NO" id="kSY-Ce-4ki">
-                                            <rect key="frame" x="44" y="2.5" width="171" height="20"/>
+                                            <rect key="frame" x="44" y="8" width="140" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="171" id="PhK-jQ-lmC"/>
-                                                <constraint firstAttribute="height" constant="20" id="xOm-T0-b7Q"/>
+                                                <constraint firstAttribute="width" constant="140" id="PhK-jQ-lmC"/>
+                                                <constraint firstAttribute="height" constant="15" id="xOm-T0-b7Q"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>

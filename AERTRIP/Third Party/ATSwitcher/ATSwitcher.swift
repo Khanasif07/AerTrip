@@ -44,7 +44,7 @@ class ATSwitcher: UIView {
         button.addTarget(self, action: #selector(switcherButtonTouch(_:)), for: UIControl.Event.touchUpInside)
         button.setImage(originalImage, for: .normal)
         button.setImage(selectedImage, for: .selected)
-        offCenterPosition = self.bounds.height * 0.07
+          offCenterPosition = self.bounds.height
         onCenterPosition = self.bounds.width - (self.bounds.height * 0.9)
         
         if on == true {

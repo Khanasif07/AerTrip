@@ -222,6 +222,7 @@ class HotelResultVC: BaseVC {
         self.viewModel.hotelListOnPreferenceResult()
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
+      
         
         self.addMapView()
     }
@@ -274,7 +275,7 @@ class HotelResultVC: BaseVC {
     
     override func setupFonts() {
         self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.descriptionLabel.font = AppFonts.SemiBold.withSize(13.0)
+        self.descriptionLabel.font = AppFonts.Regular.withSize(13.0)
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
     }
     

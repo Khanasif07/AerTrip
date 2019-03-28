@@ -526,6 +526,7 @@
 "BalanceAmount" = "Balance Amount";
 "RequestRefund" = "Request refund";
 "BookingIncompleteBottomMessage" = "If you don’t take any action now, your amount will be auto-refunded to your";
+"SendWithSpace" = "Send  ";
 
 //Refund Requested
 "Requested" = "Requested";

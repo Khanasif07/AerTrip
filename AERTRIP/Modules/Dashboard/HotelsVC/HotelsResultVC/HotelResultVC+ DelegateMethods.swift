@@ -61,8 +61,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 self.shareButton.isHidden = false
             }
             self.animateButton()
+            self.loadSaveData()
         } else {
             self.hideButtons()
+            self.loadSaveData()
         }
     }
 }

@@ -70,7 +70,7 @@ public class HotelSearched: NSManagedObject {
             case 15..<20:
                 hotelSearched?.sectionTitle = "e16 to 20"
             default:
-                hotelSearched?.sectionTitle = "f20 above"
+                hotelSearched?.sectionTitle = "fbeyond 20"
                 hotelSearched?.isHotelBeyondTwentyKm = true
             }
         }

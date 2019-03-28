@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "combinedShapeCopy4.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "combinedShapeUnfilled.png",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
-      "filename" : "combinedShapeCopy4@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "combinedShapeUnfilled@2x.png",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
-      "filename" : "combinedShapeCopy4@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "combinedShapeUnfilled@3x.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -63,7 +63,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return 0.0
         }
         else {
-            return 53.0
+           return  section == 0 ?  0 :  53.0
         }
     }
     

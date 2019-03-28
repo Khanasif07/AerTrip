@@ -168,6 +168,7 @@ extension HotelResultVC {
         let checkOut = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkOut ?? " ", currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.hotelSearchRequest?.requestParameters.numOfRooms ?? ""
         self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
+
     }
     
     func reloadHotelList() {
