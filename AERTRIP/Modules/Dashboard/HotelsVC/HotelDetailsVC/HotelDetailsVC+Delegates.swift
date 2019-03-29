@@ -144,6 +144,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { [weak self](isGuest) in
                 guard let sSelf = self else {return}
+                if let vc = sSelf.parent {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
                 AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid)
             }
         }
@@ -182,8 +185,10 @@ extension HotelDetailsVC: HotelDetailDelegate {
         
     }
     
-    func saveHotelWithTripSuccess(trip: TripModel) {
-        let message = trip.isDefault ? "Added to default trip" : "Added to \(trip.name) trip"
+    func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool) {
+        
+        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
         AppToast.default.showToastMessage(message: message, onViewController: self)
     }
     
@@ -371,18 +376,25 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
 //==========================
 extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
-        AppFlowManager.default.selectTrip { (trip) in
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self](isGuest) in
             
-            delay(seconds: 0.3, completion: { [weak self] in
-                guard let sSelf = self else {return}
-                
-                if let indexPath = sSelf.hotelTableView.indexPath(for: sender) {
-                    let currentRatesData = sSelf.viewModel.ratesData[indexPath.section - 2]
-                    let currentRoomData = sSelf.viewModel.roomRates[indexPath.section - 2]
+            guard let sSelf = self else {return}
+            if let vc = sSelf.parent {
+                AppFlowManager.default.popToViewController(vc, animated: true)
+            }
+            
+            AppFlowManager.default.selectTrip { (trip) in
+                delay(seconds: 0.3, completion: { [weak self] in
+                    guard let sSelf = self else {return}
                     
-                    sSelf.viewModel.saveHotelWithTrip(toTrip: trip, forRate: currentRatesData, forRoomRate: Array(currentRoomData.keys)[indexPath.row])
-                }
-            })
+                    if let indexPath = sSelf.hotelTableView.indexPath(for: sender) {
+                        let currentRatesData = sSelf.viewModel.ratesData[indexPath.section - 2]
+                        let currentRoomData = sSelf.viewModel.roomRates[indexPath.section - 2]
+                        
+                        sSelf.viewModel.saveHotelWithTrip(toTrip: trip, forRate: currentRatesData, forRoomRate: Array(currentRoomData.keys)[indexPath.row])
+                    }
+                })
+            }
         }
     }
 }

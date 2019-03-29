@@ -19,7 +19,7 @@ protocol HotelDetailDelegate: class {
     func getHotelDistanceAndTimeFail()
     
     func willSaveHotelWithTrip()
-    func saveHotelWithTripSuccess(trip: TripModel)
+    func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool)
 }
 
 class HotelDetailsVM {
@@ -55,6 +55,9 @@ class HotelDetailsVM {
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    
+    private let defaultCheckInTime = "07:00"
+    private let defaultCheckOutTime = "07:00"
     
     ///Computed Property
     private var getHotelInfoParams: JSONDictionary {
@@ -421,26 +424,61 @@ class HotelDetailsVM {
     
     func saveHotelWithTrip(toTrip trip: TripModel, forRate: Rates, forRoomRate: RoomsRates) {
         
+        /*hotel_id: 145242
+         check_in: 2019-04-17 20:19
+         check_out: 2019-04-18 20:19
+         check_in_dt: 2019-04-17
+         check_in_time: 20:19
+         check_out_dt: 2019-04-18
+         check_out_time: 20:19
+         timezone: Automatic
+         total_cost: 6517
+         per_night_cost: 0
+         num_rooms: 3
+         num_guests: 12
+         currency_code: INR
+         rooms[0][room_type]: Deluxe Room
+         rooms[0][room_id]: 0
+         rooms[0][inclusions]:
+         trip_id: 535*/
+        
         var params: JSONDictionary = [APIKeys.timezone.rawValue: "Automatic"]
         params[APIKeys.trip_id.rawValue] = trip.id
         params[APIKeys.hotel_id.rawValue] = self.hotelData?.hid ?? ""
         params[APIKeys.check_in_dt.rawValue] = self.hotelData?.checkin ?? ""
         params[APIKeys.check_out_dt.rawValue] = self.hotelData?.checkout ?? ""
-        params[APIKeys.check_in_time.rawValue] = self.hotelData?.checkin_time ?? ""
-        params[APIKeys.check_out_time.rawValue] = self.hotelData?.checkout_time ?? ""
+        
+        if let time = self.hotelData?.checkin_time, !time.isEmpty {
+            params[APIKeys.check_in_time.rawValue] = time
+            params[APIKeys.check_in.rawValue] = "\(self.hotelData?.checkin ?? "") \(time)"
+        }
+        else {
+            params[APIKeys.check_in_time.rawValue] = defaultCheckInTime
+            params[APIKeys.check_in.rawValue] = "\(self.hotelData?.checkin ?? "") \(defaultCheckInTime)"
+        }
+        
+        if let time = self.hotelData?.checkout_time, !time.isEmpty {
+            params[APIKeys.check_out_time.rawValue] = time
+            params[APIKeys.check_out.rawValue] = "\(self.hotelData?.checkout ?? "") \(time)"
+        }
+        else {
+            params[APIKeys.check_out_time.rawValue] = defaultCheckOutTime
+            params[APIKeys.check_out.rawValue] = "\(self.hotelData?.checkout ?? "") \(defaultCheckOutTime)"
+        }
+        
         params[APIKeys.total_cost.rawValue] = "\(Int(self.hotelData?.price ?? 0.0))"
-        params[APIKeys.per_night_cost.rawValue] = "\(Int(self.hotelData?.per_night_price.toDouble ?? 0.0))"
+        params[APIKeys.per_night_cost.rawValue] = "\(Int(self.hotelData?.per_night_list_price.toDouble ?? 0.0))"
         params[APIKeys.num_rooms.rawValue] = self.hotelData?.num_rooms ?? 0
-        params[APIKeys.num_guests.rawValue] = 3
+        params[APIKeys.num_guests.rawValue] = self.hotelData?.totalOccupant ?? 0
         params[APIKeys.currency_code.rawValue] = self.currencyPreference
         params["rooms[0][room_type]"] = forRoomRate.name + forRoomRate.desc
-        params["rooms[0][room_id]"] = forRoomRate.rid
+        params["rooms[0][room_id]"] = 0
         params["rooms[0][inclusions]"] = ""
         
         self.delegate?.willSaveHotelWithTrip()
-        APICaller.shared.saveHotelWithTripAPI(params: params) { [weak self](success, errors) in
+        APICaller.shared.saveHotelWithTripAPI(params: params) { [weak self](success, errors, isAlreadyAdded) in
             if success {
-                self?.delegate?.saveHotelWithTripSuccess(trip: trip)
+                self?.delegate?.saveHotelWithTripSuccess(trip: trip, isAllreadyAdded: isAlreadyAdded)
             }
         }
     }

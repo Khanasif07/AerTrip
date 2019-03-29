@@ -31,7 +31,6 @@ struct HotelDetails {
     var address: String = ""
     var photos: [String] = []
     var amenities: Amenities? = nil
-    //    var amenities_group: [[String: Any]] = [[:]]
     var amenitiesGroups : [String : Any] = [:]
     var checkin_time: String = ""
     var checkout_time: String = ""
@@ -56,6 +55,7 @@ struct HotelDetails {
     var bc: String = ""
     var distance: String = ""
     var thumbnail: [String] = [String]()
+    var totalOccupant: Int = 0
     
     //Mark:- Initialization
     //=====================
@@ -104,8 +104,8 @@ struct HotelDetails {
                 //APIKeys.combine_rates.rawValue: self.combine_rates,
             APIKeys.info.rawValue: self.info,
             APIKeys.city.rawValue: self.city,
-            APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp
-            //APIKeys.occupant.rawValue: self.occupant
+            APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp,
+            APIKeys.occupant.rawValue: self.totalOccupant
         ]
     }
     
@@ -233,6 +233,17 @@ struct HotelDetails {
             //            for obj in arrObj {
             //                self.amenities_group.append(data)
             //            }
+        }
+        
+        if let obj = json[APIKeys.occupant.rawValue] as? [JSONDictionary] {
+            for dict in obj {
+                if let adults = dict["a"] {
+                    self.totalOccupant += ("\(adults)".toInt ?? 0)
+                }
+                if let childs = dict["c"] as? [String] {
+                    self.totalOccupant += childs.count
+                }
+            }
         }
     }
     

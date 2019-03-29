@@ -27,6 +27,7 @@ enum LocalizedString: String {
     case Undo = "Undo"
     case apply = "Apply"
     case For = "For"
+    case Already = "Already"
     
     // MARK:- TextField validation
     //MARK:-

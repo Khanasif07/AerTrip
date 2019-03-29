@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -55,8 +55,11 @@
                                 <state key="selected" image="saveHotelsSelected"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BW-oN-350">
-                                <rect key="frame" x="0.0" y="70.5" width="408" height="131"/>
+                                <rect key="frame" x="0.0" y="73.5" width="408" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.40531357019999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="dJQ-Yw-pNi"/>
+                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Residency Hotel, Fort" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-8M-2gD">
                                 <rect key="frame" x="16" y="163.5" width="195" height="28"/>
@@ -79,19 +82,19 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zp6-al-xXf">
-                                <rect key="frame" x="16" y="137.5" width="171" height="20"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Zp6-al-xXf">
+                                <rect key="frame" x="16" y="141.5" width="171" height="22"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k16-DZ-0Ue" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="4" width="68" height="12"/>
+                                        <rect key="frame" x="0.0" y="2" width="68" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="3hX-tU-Aty"/>
+                                            <constraint firstAttribute="height" constant="18" id="3hX-tU-Aty"/>
                                             <constraint firstAttribute="width" constant="68" id="eDb-P3-fYM"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfillShadow"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilledShadow"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                 <integer key="value" value="0"/>
                                             </userDefinedRuntimeAttribute>
@@ -101,24 +104,24 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sK9-x7-3aT">
-                                        <rect key="frame" x="76" y="0.0" width="95" height="20"/>
+                                        <rect key="frame" x="72" y="0.0" width="99" height="22"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-PQ-deH">
-                                                <rect key="frame" x="0.0" y="-8" width="43" height="24"/>
+                                                <rect key="frame" x="0.0" y="-10" width="43" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="43" id="AHp-7v-Czr"/>
                                                 </constraints>
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFI-LQ-Ef6" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="40" y="4" width="68" height="12"/>
+                                                <rect key="frame" x="38" y="2" width="68" height="18"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="68" id="MtE-yP-AzJ"/>
-                                                    <constraint firstAttribute="height" constant="12" id="S8U-9F-xgS"/>
+                                                    <constraint firstAttribute="height" constant="18" id="S8U-9F-xgS"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilledShadow"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFillShadow"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                         <integer key="value" value="0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -131,8 +134,8 @@
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="7G8-Lu-ZN6"/>
                                             <constraint firstItem="QFI-LQ-Ef6" firstAttribute="centerY" secondItem="sK9-x7-3aT" secondAttribute="centerY" id="7WC-06-aBO"/>
-                                            <constraint firstItem="QFI-LQ-Ef6" firstAttribute="leading" secondItem="1hw-PQ-deH" secondAttribute="trailing" constant="-3" id="S1i-xY-SUf"/>
-                                            <constraint firstItem="1hw-PQ-deH" firstAttribute="top" secondItem="sK9-x7-3aT" secondAttribute="top" constant="-8" id="UO8-xG-jRH"/>
+                                            <constraint firstItem="QFI-LQ-Ef6" firstAttribute="leading" secondItem="1hw-PQ-deH" secondAttribute="trailing" constant="-5" id="S1i-xY-SUf"/>
+                                            <constraint firstItem="1hw-PQ-deH" firstAttribute="top" secondItem="sK9-x7-3aT" secondAttribute="top" constant="-10" id="UO8-xG-jRH"/>
                                             <constraint firstAttribute="trailing" secondItem="QFI-LQ-Ef6" secondAttribute="trailing" priority="900" id="ZRn-gr-bga"/>
                                             <constraint firstItem="1hw-PQ-deH" firstAttribute="leading" secondItem="sK9-x7-3aT" secondAttribute="leading" id="tyM-sQ-cr6"/>
                                         </constraints>
@@ -140,7 +143,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="171" id="7re-dF-HFl"/>
-                                    <constraint firstAttribute="height" constant="20" id="jEz-ze-2U2"/>
+                                    <constraint firstAttribute="height" constant="22" id="jEz-ze-2U2"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -149,7 +152,7 @@
                             <constraint firstAttribute="bottom" secondItem="rRg-8o-Xqc" secondAttribute="bottom" id="2BR-Nx-WOs"/>
                             <constraint firstItem="1BW-oN-350" firstAttribute="leading" secondItem="PNM-tY-wc5" secondAttribute="leading" id="3Vm-lo-rkm"/>
                             <constraint firstAttribute="trailing" secondItem="V7t-bC-oq4" secondAttribute="trailing" constant="16" id="47U-rc-p8h"/>
-                            <constraint firstItem="QU2-8M-2gD" firstAttribute="top" secondItem="Zp6-al-xXf" secondAttribute="bottom" constant="6" id="8x5-W1-6TY"/>
+                            <constraint firstItem="QU2-8M-2gD" firstAttribute="top" secondItem="Zp6-al-xXf" secondAttribute="bottom" id="8x5-W1-6TY"/>
                             <constraint firstAttribute="trailing" secondItem="1BW-oN-350" secondAttribute="trailing" id="FCm-L0-en2"/>
                             <constraint firstItem="3Zw-Ux-PLh" firstAttribute="leading" secondItem="PNM-tY-wc5" secondAttribute="leading" id="I1M-gZ-2Jc"/>
                             <constraint firstItem="rRg-8o-Xqc" firstAttribute="leading" secondItem="PNM-tY-wc5" secondAttribute="leading" id="IHh-FO-loB"/>
@@ -171,7 +174,6 @@
                             <constraint firstAttribute="bottom" secondItem="QU2-8M-2gD" secondAttribute="bottom" constant="10" id="nYA-pk-R1a"/>
                             <constraint firstItem="rRg-8o-Xqc" firstAttribute="top" secondItem="PNM-tY-wc5" secondAttribute="top" id="uOd-Us-6fs"/>
                             <constraint firstItem="V7t-bC-oq4" firstAttribute="top" secondItem="3Ff-eM-qD7" secondAttribute="bottom" id="ycr-hs-Fv5"/>
-                            <constraint firstItem="1BW-oN-350" firstAttribute="height" secondItem="PNM-tY-wc5" secondAttribute="height" multiplier="0.65" id="yzN-LB-NQK"/>
                             <constraint firstItem="3Ff-eM-qD7" firstAttribute="trailing" secondItem="V7t-bC-oq4" secondAttribute="trailing" id="zg9-dD-yHv"/>
                         </constraints>
                     </view>
@@ -207,13 +209,13 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="14" height="14"/>
-        <image name="combinedShapeUnfilled" width="14" height="14"/>
+        <image name="combinedShapeFillShadow" width="30" height="42"/>
+        <image name="combinedShapeUnfilledShadow" width="30" height="42"/>
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
         <image name="saveHotels" width="27" height="27"/>
         <image name="saveHotelsSelected" width="27" height="27"/>
-        <image name="starRatingFilled" width="30" height="30"/>
-        <image name="starRatingUnfill" width="30" height="30"/>
+        <image name="starRatingFilledShadow" width="30" height="42"/>
+        <image name="starRatingUnfillShadow" width="30" height="42"/>
         <image name="tripAdviser" width="32" height="24"/>
     </resources>
 </document>
