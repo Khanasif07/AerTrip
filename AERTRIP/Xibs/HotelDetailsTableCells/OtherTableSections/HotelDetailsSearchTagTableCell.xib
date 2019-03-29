@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsSearchTagTableCell" id="KGk-i7-Jjw" customClass="HotelDetailsSearchTagTableCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="105.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BxV-6e-jjY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="105.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-ca-tDu">
                                 <rect key="frame" x="7.5" y="16" width="305" height="36"/>
@@ -51,10 +51,10 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="n7F-JS-gRz">
-                                <rect key="frame" x="0.0" y="52" width="320" height="57.5"/>
+                                <rect key="frame" x="0.0" y="52" width="320" height="53.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="57.5" id="S7g-oc-uNa"/>
+                                    <constraint firstAttribute="height" constant="53.5" id="vFg-Hk-rCk"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="8" id="uRc-Eg-ghY">
                                     <size key="itemSize" width="50" height="50"/>
@@ -69,7 +69,7 @@
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" id="3im-LK-Pkb"/>
                             <constraint firstAttribute="trailing" secondItem="Snn-ca-tDu" secondAttribute="trailing" constant="7.5" id="8Ds-E3-GIW"/>
                             <constraint firstItem="Snn-ca-tDu" firstAttribute="top" secondItem="BxV-6e-jjY" secondAttribute="top" constant="16" id="CyX-NJ-1df"/>
-                            <constraint firstAttribute="bottom" secondItem="n7F-JS-gRz" secondAttribute="bottom" constant="4" id="KAZ-BR-NkT"/>
+                            <constraint firstAttribute="bottom" secondItem="n7F-JS-gRz" secondAttribute="bottom" id="KAZ-BR-NkT"/>
                             <constraint firstItem="Snn-ca-tDu" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" constant="7.5" id="M4g-xo-mCb"/>
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="bottom" id="YMv-cA-Oid"/>
                             <constraint firstAttribute="trailing" secondItem="n7F-JS-gRz" secondAttribute="trailing" id="xqj-pp-90o"/>

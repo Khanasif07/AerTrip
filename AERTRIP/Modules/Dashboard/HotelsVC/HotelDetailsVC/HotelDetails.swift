@@ -230,9 +230,9 @@ struct HotelDetails {
         }
         if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
             self.amenitiesGroups = firstObj
-            //            for obj in arrObj {
-            //                self.amenities_group.append(data)
-            //            }
+//                        for obj in arrObj {
+//                            self.amenities_group.append(data)
+//                        }
         }
         
         if let obj = json[APIKeys.occupant.rawValue] as? [JSONDictionary] {
@@ -362,7 +362,7 @@ struct AmenitiesMain {
 //Mark:- Enums
 //============
 enum TableCellType {
-    case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell
 }
 
 //Mark:- Rates
@@ -427,25 +427,25 @@ struct Rates: Hashable {
         presentedCell.removeAll()
         if self.roomData.count > 0 {
             for _ in self.roomData {
-                presentedCell.append(.roomBedsType)
+                presentedCell.append(.roomBedsTypeCell)
             }
         }
         if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
-            presentedCell.append(.inclusion)
+            presentedCell.append(.inclusionCell)
         } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
-            presentedCell.append(.inclusion)
+            presentedCell.append(.inclusionCell)
         }
         if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
-            presentedCell.append(.otherInclusion)
+            presentedCell.append(.otherInclusionCell)
         }
         if self.cancellation_penalty != nil {
-            presentedCell.append(.cancellationPolicy)
+            presentedCell.append(.cancellationPolicyCell)
         }
-        presentedCell.append(.paymentPolicy)
+        presentedCell.append(.paymentPolicyCell)
         if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
-            presentedCell.append(.notes)
+            presentedCell.append(.notesCell)
         }
-        presentedCell.append(.checkOut)
+        presentedCell.append(.checkOutCell)
         return presentedCell
     }
     

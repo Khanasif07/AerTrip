@@ -15,13 +15,9 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var hotelFeesLabel: UILabel!
     @IBOutlet weak var bookLabel: UILabel!
-    @IBOutlet weak var shadowView: UIView! {
-        didSet {
-            self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeGray20, offset: CGSize(width: 3.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)
-            
-        }
-    }
-
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var shadowViewBottomConstraints: NSLayoutConstraint!
+    
     
     //Mark:- LifeCycle
     //================
@@ -37,16 +33,16 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     private func configureUI() {
         //Colors
         self.backgroundColor = AppColors.screensBackground.color
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 8.0)
+//        self.shadowView.addshadowOnSelectedEdge(top: false, left: true, bottom: true, right: true, opacity: 0.7, shadowRadius: 8.0, color: AppColors.themeBlack.withAlphaComponent(0.14))
         self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        let whiteColor = AppColors.themeWhite
         self.containerView.backgroundColor = AppColors.themeGreen
-        self.hotelFeesLabel.textColor = whiteColor
-        self.bookLabel.textColor = whiteColor
+        self.hotelFeesLabel.textColor = AppColors.themeWhite
+        self.bookLabel.textColor = AppColors.themeWhite
         self.containerView.roundBottomCorners(cornerRadius: 10.0)
         //Size
-        let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)
-        self.hotelFeesLabel.font = semiboldFontSize20
-        self.bookLabel.font = semiboldFontSize20
+        self.hotelFeesLabel.font = AppFonts.SemiBold.withSize(20.0)
+        self.bookLabel.font = AppFonts.SemiBold.withSize(20.0)
         
         //Text
         self.bookLabel.text = LocalizedString.Book.localized

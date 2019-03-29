@@ -189,8 +189,8 @@ class HotelsSearchVC: BaseVC {
         //self.containerView.layer.borderWidth = 1.0
         //        self.containerView.layer.borderColor = UIColor.black.cgColor
         // shadow
-        self.containerView.layer.shadowColor = AppColors.themeDarkGreen.cgColor// UIColor.black.cgColor
-        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
+        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
         self.containerView.layer.shadowOpacity = 0.7
         self.containerView.layer.shadowRadius = 6.0
     }

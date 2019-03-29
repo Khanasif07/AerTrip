@@ -16,7 +16,7 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateDescriptionLabel: UILabel!
-    @IBOutlet weak var resetButtonOutlet: UIButton!
+    @IBOutlet weak var resetFilterButtonOutlet: UIButton!
     
     //Mark:- LifeCycles
     //=================
@@ -27,40 +27,34 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
     
     //Mark:- Functions
     //================
-    
+    ///Config UI
     private func configUI() {
         self.containerView.backgroundColor = AppColors.screensBackground.color
         self.emptyStateImageView.image = #imageLiteral(resourceName: "HotelDetailsEmptyState")
         self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
         self.emptyStateDescriptionLabel.font = AppFonts.Regular.withSize(18.0)
-        self.resetButtonOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.resetFilterButtonOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.emptyStateTitleLabel.textColor = AppColors.textFieldTextColor51
         self.emptyStateDescriptionLabel.textColor = AppColors.themeGray60
-        self.resetButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.resetFilterButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         self.emptyStateTitleLabel.text = LocalizedString.Whoops.localized
         self.emptyStateDescriptionLabel.text = LocalizedString.HotelDetailsEmptyState.localized
-        self.resetButtonOutlet.setTitle(LocalizedString.ResetFilter.localized, for: .normal)
+        self.resetFilterButtonOutlet.setTitle(LocalizedString.ResetFilter.localized, for: .normal)
     }
 
     //Mark:- IBActions
     //================
-    @IBAction func resetButtonAction(_ sender: UIButton) {
+    @IBAction func resetFilterButtonAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
-            parentVC.viewModel.roomMealData = parentVC.viewModel.filterAppliedData.roomMeal
-            parentVC.viewModel.roomCancellationData = parentVC.viewModel.filterAppliedData.roomCancelation
-            parentVC.viewModel.roomOtherData = parentVC.viewModel.filterAppliedData.roomOther
-            parentVC.viewModel.permanentTagsForFilteration = parentVC.viewModel.roomMealData + parentVC.viewModel.roomCancellationData + parentVC.viewModel.roomOtherData
-            parentVC.viewModel.selectedTags = parentVC.viewModel.roomMealData + parentVC.viewModel.roomCancellationData + parentVC.viewModel.roomOtherData
-            if parentVC.viewModel.permanentTagsForFilteration.isEmpty {
-                parentVC.viewModel.roomMealData = ["Breakfast"]
-//                parentVC.viewModel.roomCancellationData = ["Refundable"]
-                parentVC.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
-                parentVC.viewModel.selectedTags = ["Breakfast"]
-//                parentVC.viewModel.currentlyFilterApplying = .roomMealTags
-            }
+            parentVC.viewModel.permanentTagsForFilteration.removeAll()
+            parentVC.viewModel.roomMealDataCopy.removeAll()
+            parentVC.viewModel.roomCancellationDataCopy.removeAll()
+            parentVC.viewModel.roomOtherDataCopy.removeAll()
+            parentVC.viewModel.selectedTags.removeAll()
+            parentVC.getSavedFilter()
+            parentVC.permanentTagsForFilteration()
             parentVC.filterdHotelData(tagList: [])
             parentVC.hotelTableView.reloadData()
         }
     }
-    
 }

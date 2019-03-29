@@ -34,23 +34,15 @@ extension APICaller {
     //
     
     func getHotelDistanceAndTravelTime (originLat: String,originLong: String , destinationLat: String, destinationLong : String, mode: String, completionBlock: @escaping (_ success: Bool, _ response: PlaceModel?) -> Void) {
-        let endPoint = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&travelMode=\(mode)&key=AIzaSyApXSYHgVAgLeXfWp6EbSai71dp7hxUulE&sensor=false"
-        AppNetworking.POSTWithString (endPoint: endPoint, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                printDebug(jsonData)
-                if sucess, let data = jsonData[APIKeys.routes.rawValue].arrayObject as? JSONDictionaryArray, let routes = data.first {
-                    let placeData = PlaceModel.placeInfo(response: routes)
-                    printDebug(placeData)
-                    completionBlock(true, placeData)
-                }
-                else {
-                    completionBlock(false, nil)
-                }
-            }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+        let endPoint = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&travelMode=\(mode)&key=\(AppConstants.kGoogleAPIKey)&sensor=false"
+        AppNetworking.POSTWithString (endPoint: endPoint, success: { (json) in
+            if let data = json[APIKeys.routes.rawValue].arrayObject as? JSONDictionaryArray, let routes = data.first, let legs = routes[APIKeys.legs.rawValue] as? JSONDictionaryArray , let finalRouteData = legs.first {
+                let placeData = PlaceModel.placeInfo(response: finalRouteData)
+                printDebug(placeData)
+                completionBlock(true, placeData)
+            } else {
                 completionBlock(false, nil)
-            })
+            }
         }) { (error) in
             printDebug(error)
             completionBlock(false, nil)

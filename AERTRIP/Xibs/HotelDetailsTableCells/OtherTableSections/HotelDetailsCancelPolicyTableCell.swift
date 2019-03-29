@@ -48,9 +48,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure UI
     private func configUI() {
         self.allDetailsLabel.isHidden = true
+//        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 8.0)
+        self.shadowView.addshadowOnSelectedEdge(top: false, left: true, bottom: false, right: true, opacity: 0.7, shadowRadius: 8.0, offset: CGSize.zero, color: AppColors.themeBlack.withAlphaComponent(0.14))
         //UIColor
         self.backgroundColor = AppColors.screensBackground.color
-        self.containerView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         ///Font
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
