@@ -14,8 +14,9 @@ import UIKit
 extension HotelResultVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
-        self.predicateStr = searchBar.text ?? ""
+        //self.predicateStr = searchBar.text ?? ""
         self.fetchRequestType = .Searching
+        self.searchForText(searchBar.text ?? "")
         self.loadSaveData()
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
@@ -29,9 +30,11 @@ extension HotelResultVC: UISearchBarDelegate {
             self.loadSaveData()
             self.searchForText(searchText)
             self.reloadHotelList()
+            noResultemptyView.searchTextLabel.text = ""
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
+            self.predicateStr = searchBar.text ?? ""
             self.searchForText(searchText)
         }
     }
@@ -96,7 +99,6 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
         self.loadSaveData()
         self.getFavouriteHotels()
-        let allHotels = self.getHotelsForMapView()
         self.getPinnedHotelTemplate()
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)

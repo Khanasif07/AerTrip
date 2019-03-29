@@ -40,6 +40,7 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
         self.addressLabel.font = AppFonts.Regular.withSize(18.0)
         self.cellBackgroundView.layer.cornerRadius = 5.0
         self.cellBackgroundView.layer.borderWidth = 0.5
+        self.cellBackgroundView.clipsToBounds = true
         self.cellBackgroundView.layer.borderColor = AppColors.themeGray40.cgColor
     }
     

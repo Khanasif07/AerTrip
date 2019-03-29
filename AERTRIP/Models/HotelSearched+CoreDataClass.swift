@@ -80,7 +80,7 @@ public class HotelSearched: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.fav.rawValue] {
-            hotelSearched!.fav = "\(obj)".removeNull
+            hotelSearched!.fav = "\(obj)".removeNull.isEmpty ? "0" : "\(obj)".removeNull
         }
         
         if let obj = dataDict[APIKeys.hid.rawValue] {

@@ -13,8 +13,18 @@ extension HotelResultVC {
     func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
             self.filterButton.isSelected = true
+//            if self.predicateStr.isEmpty {
+//                self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
+//                
+//            } else {
+//                let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
+//                self.fetchedResultsController.fetchRequest.predicate = andPredicate
+//            }
             let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
             self.fetchedResultsController.fetchRequest.predicate = andPredicate
+        } else if self.fetchRequestType == .Searching {
+             let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+             self.fetchedResultsController.fetchRequest.predicate = orPredicate
         } else {
             self.fetchRequestWithoutFilter()
         }
@@ -146,6 +156,7 @@ extension HotelResultVC {
             if !self.predicateStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+                
                 self.hotelSearchTableView.reloadData()
             } else {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []

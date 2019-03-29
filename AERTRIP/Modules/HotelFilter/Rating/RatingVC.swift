@@ -58,16 +58,15 @@ class RatingVC: BaseVC {
     }
     
     private func doInitialSetup() {
-        if HotelFilterVM.shared.ratingCount.isEmpty || (HotelFilterVM.shared.ratingCount == [1, 2, 3, 4, 5]) {
-            for starBtn in self.starButtonsOutlet {
-                starBtn.isHighlighted = true
-            }
+        
+        //setting stars
+        if !HotelFilterVM.shared.ratingCount.isEmpty, HotelFilterVM.shared.ratingCount.count < 5 {
+            HotelFilterVM.shared.ratingCount.removeAll()
         }
-        else {
-            for star in HotelFilterVM.shared.ratingCount {
-                self.starButtonsOutlet[star - 1].isSelected = true
-            }
+        for star in HotelFilterVM.shared.ratingCount {
+            self.updateStarButtonState(forStar: star)
         }
+        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         
         for rating in HotelFilterVM.shared.tripAdvisorRatingCount {
             self.tripAdvisorRatingButtons[rating - 1].isSelected = true
@@ -97,9 +96,9 @@ class RatingVC: BaseVC {
         HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
     }
     
-    /// Star Button State
+    ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
-        guard 1...5 ~= forStar else { return }
+        guard 1...5 ~= forStar else {return}
         if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
             button.tag == forStar
         }).first {
@@ -111,28 +110,29 @@ class RatingVC: BaseVC {
             }
             currentButton.isHighlighted = false
             if HotelFilterVM.shared.ratingCount.contains(forStar) {
-                HotelFilterVM.shared.ratingCount.remove(at: HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
+               HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
             }
             else {
-                HotelFilterVM.shared.ratingCount.append(forStar)
+               HotelFilterVM.shared.ratingCount.append(forStar)
             }
-            if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
-                delay(seconds: 0.1) {
-                    for starBtn in self.starButtonsOutlet {
-                        starBtn.isSelected = false
-                        starBtn.isHighlighted = true
-                    }
-                }
-            }
-            else {
+        }
+        if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
+            delay(seconds: 0.1) {
                 for starBtn in self.starButtonsOutlet {
-                    starBtn.isHighlighted = false
+                    starBtn.isSelected = false
+                    starBtn.isHighlighted = true
                 }
+               HotelFilterVM.shared.ratingCount.removeAll()
+            }
+        } else {
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isHighlighted = false
             }
         }
     }
     
-    /// Get Star Rating
+    
+    ///Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int,isForStarRating: Bool = true) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
@@ -141,11 +141,7 @@ class RatingVC: BaseVC {
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty {
-            final =  isForStarRating ? "0 \(LocalizedString.stars.localized)" : "0 \(LocalizedString.Ratings.localized)"
-            return final
-        }
-        else if arr.count == maxCount {
+        if arr.isEmpty || arr.count == maxCount {
             final = isForStarRating ? "All \(LocalizedString.stars.localized)" : "All \(LocalizedString.Ratings.localized)"
             return final
         }
@@ -154,18 +150,19 @@ class RatingVC: BaseVC {
             return final
         }
         
-        for (idx, value) in arr.enumerated() {
+        for (idx,value) in arr.enumerated() {
             let diff = value - (prev ?? 0)
             if diff == 1 {
-                // number is successor
+                //number is successor
                 if start == nil {
                     start = prev
                 }
                 end = value
             }
             else if diff > 1 {
-                // number is not successor
+                //number is not successor
                 if start == nil {
+                    
                     if let p = prev {
                         final += "\(p), "
                     }
@@ -200,7 +197,7 @@ class RatingVC: BaseVC {
             end = nil
         }
         final.removeLast(2)
-        return isForStarRating ? final + " \(LocalizedString.stars.localized)" : final + " \(LocalizedString.Ratings.localized)"
+        return final + " \(LocalizedString.stars.localized)"
     }
     
     /// Star Button State

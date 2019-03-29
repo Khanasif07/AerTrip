@@ -580,6 +580,7 @@ extension EditProfileVC {
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 // MARK: - EditProfileTwoPartTableViewCellDelegate method

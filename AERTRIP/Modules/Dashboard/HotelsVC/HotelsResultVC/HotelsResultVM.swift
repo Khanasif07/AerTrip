@@ -52,6 +52,7 @@ class HotelsResultVM: NSObject {
             guard let sSelf = self else { return }
             if success {
                 sSelf.hotelListResult = hotels
+                HotelFilterVM.shared.totalHotelCount = hotels.count
                 for hotel in hotels {
                     _ = HotelSearched.insert(dataDict: hotel.jsonDict)
                 }

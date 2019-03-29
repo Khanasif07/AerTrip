@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRm-VW-OrK">
                         <rect key="frame" x="10" y="0.0" width="300" height="394.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="228"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="228" id="xGY-Ot-ghr"/>
@@ -44,11 +44,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PI-2K-QFN" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="26" width="68" height="12"/>
+                                        <rect key="frame" x="0.0" y="33" width="85" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="Qu0-i1-gin"/>
-                                            <constraint firstAttribute="width" constant="68" id="qhj-Hc-wsa"/>
+                                            <constraint firstAttribute="height" constant="16" id="Qu0-i1-gin"/>
+                                            <constraint firstAttribute="width" constant="85" id="qhj-Hc-wsa"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
@@ -61,19 +61,19 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="YK7-ub-G8T">
-                                        <rect key="frame" x="78" y="26" width="32" height="18"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="YK7-ub-G8T">
+                                        <rect key="frame" x="99" y="33" width="32" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="Bdn-o7-TEv"/>
                                             <constraint firstAttribute="width" constant="32" id="URL-rP-YAO"/>
                                         </constraints>
                                     </imageView>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-Bf-oWk" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="110" y="26" width="68" height="12"/>
+                                        <rect key="frame" x="133" y="33" width="85" height="17"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="VXt-My-T51"/>
-                                            <constraint firstAttribute="width" constant="68" id="nt1-eQ-4aR"/>
+                                            <constraint firstAttribute="height" constant="17" id="VXt-My-T51"/>
+                                            <constraint firstAttribute="width" constant="85" id="nt1-eQ-4aR"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
@@ -87,7 +87,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUp-aA-uRJ">
-                                        <rect key="frame" x="0.0" y="55" width="280" height="91.5"/>
+                                        <rect key="frame" x="0.0" y="67" width="280" height="79.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -99,18 +99,18 @@
                                     <constraint firstItem="pPQ-Dl-3nm" firstAttribute="top" secondItem="PCv-vO-xhG" secondAttribute="top" id="2w2-kY-mBB"/>
                                     <constraint firstAttribute="trailing" secondItem="pPQ-Dl-3nm" secondAttribute="trailing" id="9IZ-PK-vWg"/>
                                     <constraint firstItem="YK7-ub-G8T" firstAttribute="top" secondItem="7PI-2K-QFN" secondAttribute="top" id="AdV-cG-oDb"/>
-                                    <constraint firstItem="7PI-2K-QFN" firstAttribute="top" secondItem="62p-l1-YzI" secondAttribute="bottom" constant="5" id="Azb-yk-M6d"/>
+                                    <constraint firstItem="7PI-2K-QFN" firstAttribute="top" secondItem="62p-l1-YzI" secondAttribute="bottom" constant="12" id="Azb-yk-M6d"/>
                                     <constraint firstAttribute="trailing" secondItem="dUp-aA-uRJ" secondAttribute="trailing" id="Hj1-UE-7fw"/>
-                                    <constraint firstItem="dUp-aA-uRJ" firstAttribute="top" secondItem="7PI-2K-QFN" secondAttribute="bottom" constant="17" id="JYU-n9-F5k"/>
                                     <constraint firstItem="9hv-Bf-oWk" firstAttribute="top" secondItem="YK7-ub-G8T" secondAttribute="top" id="Wfu-E3-VZz"/>
+                                    <constraint firstItem="dUp-aA-uRJ" firstAttribute="top" secondItem="9hv-Bf-oWk" secondAttribute="bottom" constant="17" id="X4p-Ge-8S8"/>
                                     <constraint firstItem="pPQ-Dl-3nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="62p-l1-YzI" secondAttribute="trailing" constant="10" id="aQo-fx-ZKe"/>
                                     <constraint firstItem="7PI-2K-QFN" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="eMw-B5-L0F"/>
                                     <constraint firstItem="dUp-aA-uRJ" firstAttribute="leading" secondItem="PCv-vO-xhG" secondAttribute="leading" id="hSg-4U-tT5"/>
                                     <constraint firstAttribute="bottom" secondItem="dUp-aA-uRJ" secondAttribute="bottom" id="jtC-u1-XuL"/>
                                     <constraint firstItem="62p-l1-YzI" firstAttribute="top" secondItem="PCv-vO-xhG" secondAttribute="top" id="k5x-EY-nuN"/>
-                                    <constraint firstItem="YK7-ub-G8T" firstAttribute="leading" secondItem="7PI-2K-QFN" secondAttribute="trailing" constant="10" id="nWP-zg-jPC"/>
+                                    <constraint firstItem="YK7-ub-G8T" firstAttribute="leading" secondItem="7PI-2K-QFN" secondAttribute="trailing" constant="14" id="nWP-zg-jPC"/>
                                     <constraint firstItem="62p-l1-YzI" firstAttribute="centerY" secondItem="pPQ-Dl-3nm" secondAttribute="centerY" id="nqG-or-wXO"/>
-                                    <constraint firstItem="9hv-Bf-oWk" firstAttribute="leading" secondItem="YK7-ub-G8T" secondAttribute="trailing" id="uaW-oy-7l0"/>
+                                    <constraint firstItem="9hv-Bf-oWk" firstAttribute="leading" secondItem="YK7-ub-G8T" secondAttribute="trailing" constant="2" id="uaW-oy-7l0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -147,11 +147,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="18" height="18"/>
-        <image name="combinedShapeUnfilled" width="18" height="18"/>
+        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
         <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="tripAdviser" width="32" height="24"/>
+        <image name="tripAdviserBig" width="32" height="18"/>
     </resources>
 </document>

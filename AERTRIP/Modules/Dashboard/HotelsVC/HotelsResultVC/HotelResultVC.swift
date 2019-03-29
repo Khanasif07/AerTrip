@@ -133,7 +133,6 @@ class HotelResultVC: BaseVC {
     // Request and View Type
     var fetchRequestType: FetchRequestType = .normal
     var hoteResultViewType: HotelResultViewType = .ListView
-    
     var favouriteHotels: [HotelSearched] = []
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     var searchedHotels: [HotelSearched] = []

@@ -23,66 +23,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hG-hj-JDI">
-                                <rect key="frame" x="16" y="11" width="42" height="20"/>
+                                <rect key="frame" x="16" y="11" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIY-kV-01k">
-                                <rect key="frame" x="263" y="11" width="42" height="20"/>
+                                <rect key="frame" x="263" y="11" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-E9-PRr" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="39" width="63" height="12"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="9M7-S0-mXC"/>
-                                    <constraint firstAttribute="width" constant="63" id="Ect-5c-gEq"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDs-x8-XRD" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="119" y="39" width="60" height="12"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="3nY-dl-zcK"/>
-                                    <constraint firstAttribute="height" constant="12" id="yNm-hc-VF9"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znu-St-GJd">
-                                <rect key="frame" x="16" y="58" width="288" height="38.5"/>
+                                <rect key="frame" x="16" y="76" width="288" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="mI0-WC-vBT">
-                                <rect key="frame" x="87" y="40" width="32" height="18"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FuG-ae-nF8">
+                                <rect key="frame" x="16" y="44" width="171" height="20"/>
+                                <subviews>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXx-IH-5TR" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="4" width="68" height="12"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="68" id="5OV-Pq-I6G"/>
+                                            <constraint firstAttribute="height" constant="12" id="RJw-pR-nmQ"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1a-xN-JO6">
+                                        <rect key="frame" x="68" y="-15" width="93" height="50"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="8nV-1U-WQE">
+                                                <rect key="frame" x="0.0" y="-8" width="43" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="43" id="C1h-8w-qNl"/>
+                                                </constraints>
+                                            </imageView>
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fi-8s-R3U" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="40" y="19" width="68" height="12"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="68" id="NzM-t3-JN3"/>
+                                                    <constraint firstAttribute="height" constant="12" id="e4f-fy-BQO"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="4fi-8s-R3U" firstAttribute="leading" secondItem="8nV-1U-WQE" secondAttribute="trailing" constant="-3" id="70n-pk-onj"/>
+                                            <constraint firstItem="8nV-1U-WQE" firstAttribute="top" secondItem="v1a-xN-JO6" secondAttribute="top" constant="-8" id="7v7-NH-DKf"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="D6Z-Jq-Bfx"/>
+                                            <constraint firstItem="8nV-1U-WQE" firstAttribute="leading" secondItem="v1a-xN-JO6" secondAttribute="leading" id="G4F-Nn-5c4"/>
+                                            <constraint firstItem="4fi-8s-R3U" firstAttribute="centerY" secondItem="v1a-xN-JO6" secondAttribute="centerY" id="GdK-fT-kJ4"/>
+                                            <constraint firstAttribute="trailing" secondItem="4fi-8s-R3U" secondAttribute="trailing" priority="900" id="uHG-rZ-mUw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="6Gt-I6-buQ"/>
-                                    <constraint firstAttribute="height" constant="18" id="dCy-TH-8hF"/>
+                                    <constraint firstItem="TXx-IH-5TR" firstAttribute="leading" secondItem="FuG-ae-nF8" secondAttribute="leading" id="JyF-Gl-X9h"/>
+                                    <constraint firstAttribute="height" constant="20" id="Kng-9W-dAs"/>
+                                    <constraint firstItem="v1a-xN-JO6" firstAttribute="leading" secondItem="TXx-IH-5TR" secondAttribute="trailing" id="Mcv-Dc-zwa"/>
+                                    <constraint firstAttribute="width" constant="171" id="QEp-R8-TAN"/>
                                 </constraints>
-                            </imageView>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8Z-rH-aPH" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="108.5" width="304" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,7 +114,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinHotelIcon" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-Fh-msf">
-                                <rect key="frame" x="66" y="12" width="18" height="18"/>
+                                <rect key="frame" x="66" y="12.5" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="6KE-OT-zqF"/>
                                     <constraint firstAttribute="width" constant="18" id="BhH-ob-UCl"/>
@@ -100,22 +123,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PDs-E9-PRr" firstAttribute="top" secondItem="KL0-Fh-msf" secondAttribute="bottom" constant="9" id="39u-7g-NSM"/>
-                            <constraint firstItem="PDs-E9-PRr" firstAttribute="top" secondItem="1hG-hj-JDI" secondAttribute="bottom" constant="8" id="3rm-le-G5H"/>
                             <constraint firstItem="g8Z-rH-aPH" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="62M-oP-asq"/>
-                            <constraint firstItem="PDs-E9-PRr" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="8hJ-Mn-ifM"/>
                             <constraint firstAttribute="trailing" secondItem="JIY-kV-01k" secondAttribute="trailing" constant="15" id="95C-0e-dnh"/>
-                            <constraint firstItem="mI0-WC-vBT" firstAttribute="centerY" secondItem="PDs-E9-PRr" secondAttribute="centerY" constant="4" id="BlY-SZ-QPO"/>
                             <constraint firstItem="KL0-Fh-msf" firstAttribute="centerY" secondItem="JIY-kV-01k" secondAttribute="centerY" id="CEV-Dn-Bpm"/>
+                            <constraint firstItem="znu-St-GJd" firstAttribute="top" secondItem="FuG-ae-nF8" secondAttribute="bottom" constant="12" id="Dh6-pX-Sec"/>
                             <constraint firstAttribute="trailing" secondItem="g8Z-rH-aPH" secondAttribute="trailing" id="UKm-YS-mmW"/>
-                            <constraint firstItem="znu-St-GJd" firstAttribute="top" secondItem="PDs-E9-PRr" secondAttribute="bottom" constant="7" id="W1h-QU-O13"/>
                             <constraint firstAttribute="trailing" secondItem="znu-St-GJd" secondAttribute="trailing" constant="16" id="WVq-Gh-0QK"/>
-                            <constraint firstItem="mI0-WC-vBT" firstAttribute="leading" secondItem="PDs-E9-PRr" secondAttribute="trailing" constant="8" symbolic="YES" id="XmW-lP-Tab"/>
                             <constraint firstItem="KL0-Fh-msf" firstAttribute="leading" secondItem="1hG-hj-JDI" secondAttribute="trailing" constant="8" id="dNk-D3-zyd"/>
+                            <constraint firstItem="FuG-ae-nF8" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="fUb-f4-Yak"/>
                             <constraint firstItem="1hG-hj-JDI" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="iIQ-UX-zc4"/>
                             <constraint firstItem="znu-St-GJd" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="icn-HA-X1M"/>
-                            <constraint firstItem="JDs-x8-XRD" firstAttribute="top" secondItem="PDs-E9-PRr" secondAttribute="top" id="jj1-OD-6Pc"/>
-                            <constraint firstItem="JDs-x8-XRD" firstAttribute="leading" secondItem="mI0-WC-vBT" secondAttribute="trailing" id="qer-SK-mKD"/>
+                            <constraint firstItem="FuG-ae-nF8" firstAttribute="top" secondItem="1hG-hj-JDI" secondAttribute="bottom" constant="12.5" id="nu8-hx-HJv"/>
                             <constraint firstItem="JIY-kV-01k" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KL0-Fh-msf" secondAttribute="trailing" constant="10" id="rwn-Ht-yTm"/>
                             <constraint firstAttribute="bottom" secondItem="g8Z-rH-aPH" secondAttribute="bottom" id="sNA-rE-CAz"/>
                             <constraint firstItem="1hG-hj-JDI" firstAttribute="top" secondItem="PwZ-aa-HBY" secondAttribute="top" constant="11" id="ukR-q5-0RM"/>
@@ -138,8 +156,10 @@
                 <outlet property="favouriteStatusImageView" destination="KL0-Fh-msf" id="fjy-K2-UjE"/>
                 <outlet property="hotelNameLabel" destination="1hG-hj-JDI" id="2Wk-4x-ue3"/>
                 <outlet property="hotelPriceLabel" destination="JIY-kV-01k" id="plz-Iw-nsA"/>
-                <outlet property="starRatingView" destination="PDs-E9-PRr" id="wQd-Qh-R1o"/>
-                <outlet property="tripAdvisorRatingView" destination="JDs-x8-XRD" id="oZT-RO-5Zu"/>
+                <outlet property="starRatingView" destination="TXx-IH-5TR" id="wOq-Mv-g8U"/>
+                <outlet property="tripAdvisorRatingView" destination="4fi-8s-R3U" id="Dxu-2s-Zg8"/>
+                <outlet property="tripLogoImage" destination="8nV-1U-WQE" id="4JJ-6Z-z6Q"/>
+                <outlet property="tripRatingView" destination="v1a-xN-JO6" id="c47-Y3-HdU"/>
             </connections>
             <point key="canvasLocation" x="80" y="26"/>
         </tableViewCell>

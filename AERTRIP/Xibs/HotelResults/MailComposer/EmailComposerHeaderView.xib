@@ -80,7 +80,7 @@
                                     </state>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDv-6g-COe">
-                                    <rect key="frame" x="76" y="32" width="224" height="30"/>
+                                    <rect key="frame" x="100" y="32" width="175" height="30"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aertripGreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-jJ-n40">
                                             <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
@@ -90,9 +90,9 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aertripGreenText" translatesAutoresizingMaskIntoConstraints="NO" id="kSY-Ce-4ki">
-                                            <rect key="frame" x="44" y="8" width="140" height="15"/>
+                                            <rect key="frame" x="44" y="8" width="130" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="140" id="PhK-jQ-lmC"/>
+                                                <constraint firstAttribute="width" constant="130" id="PhK-jQ-lmC"/>
                                                 <constraint firstAttribute="height" constant="15" id="xOm-T0-b7Q"/>
                                             </constraints>
                                         </imageView>
@@ -109,13 +109,13 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="259" id="28X-iz-ZCe"/>
-                                <constraint firstItem="bDv-6g-COe" firstAttribute="leading" secondItem="oRo-04-jGV" secondAttribute="leading" constant="76" id="8Rs-CQ-GTc"/>
+                                <constraint firstItem="bDv-6g-COe" firstAttribute="leading" secondItem="oRo-04-jGV" secondAttribute="leading" constant="100" id="8Rs-CQ-GTc"/>
                                 <constraint firstAttribute="trailing" secondItem="q7i-Bc-ECR" secondAttribute="trailing" constant="137" id="8cX-Md-Ito"/>
                                 <constraint firstItem="q7i-Bc-ECR" firstAttribute="leading" secondItem="oRo-04-jGV" secondAttribute="leading" constant="138" id="J2O-xf-98K"/>
                                 <constraint firstItem="bDv-6g-COe" firstAttribute="top" secondItem="oRo-04-jGV" secondAttribute="top" constant="32" id="JEc-PF-uls"/>
                                 <constraint firstItem="wtN-30-eUt" firstAttribute="top" secondItem="bDv-6g-COe" secondAttribute="bottom" constant="10" id="bho-He-SRX"/>
                                 <constraint firstItem="wtN-30-eUt" firstAttribute="leading" secondItem="oRo-04-jGV" secondAttribute="leading" constant="16" id="fG8-l8-Kaa"/>
-                                <constraint firstAttribute="trailing" secondItem="bDv-6g-COe" secondAttribute="trailing" constant="75" id="fse-Px-Uhg"/>
+                                <constraint firstAttribute="trailing" secondItem="bDv-6g-COe" secondAttribute="trailing" constant="100" id="fse-Px-Uhg"/>
                                 <constraint firstAttribute="bottom" secondItem="bDv-6g-COe" secondAttribute="bottom" constant="197" id="hhv-8h-qdm"/>
                                 <constraint firstItem="q7i-Bc-ECR" firstAttribute="top" secondItem="wtN-30-eUt" secondAttribute="bottom" id="m9H-wr-NXI"/>
                                 <constraint firstAttribute="trailing" secondItem="wtN-30-eUt" secondAttribute="trailing" constant="16" id="mbY-yG-w1z"/>
