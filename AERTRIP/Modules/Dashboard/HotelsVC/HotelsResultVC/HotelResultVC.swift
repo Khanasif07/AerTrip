@@ -270,6 +270,17 @@ class HotelResultVC: BaseVC {
         
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
+        
+        self.switchView.originalColor = AppColors.themeGray04
+        self.switchView.selectedColor = AppColors.themeRed
+        self.switchView.originalBorderColor = AppColors.themeGray20
+        self.switchView.selectedBorderColor = AppColors.themeRed
+        self.switchView.originalBorderWidth = 1.5
+        self.switchView.selectedBorderWidth = 1.5
+        self.switchView.iconBorderWidth = 0.0
+        self.switchView.iconBorderColor = AppColors.clear
+//        self.switchView.originalImage = #imageLiteral(resourceName: "ic_fav_hotel_text")
+//        self.switchView.selectedImage = #imageLiteral(resourceName: "save_icon_green")
     }
     
     override func setupFonts() {

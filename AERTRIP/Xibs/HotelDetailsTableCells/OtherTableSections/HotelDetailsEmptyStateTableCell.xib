@@ -55,7 +55,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Reset Filter"/>
                                 <connections>
-                                    <action selector="resetButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qAJ-RQ-qvE"/>
+                                    <action selector="resetFilterButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qAJ-RQ-qvE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -92,7 +92,7 @@
                 <outlet property="emptyStateDescriptionLabel" destination="PSO-aG-cHj" id="sen-2P-ja1"/>
                 <outlet property="emptyStateImageView" destination="Vh1-US-Oyq" id="DG3-ax-Pm6"/>
                 <outlet property="emptyStateTitleLabel" destination="2ql-8t-pCh" id="BAY-Ur-u8U"/>
-                <outlet property="resetButtonOutlet" destination="ntI-bh-kJ5" id="8mK-mE-SNl"/>
+                <outlet property="resetFilterButtonOutlet" destination="ntI-bh-kJ5" id="8mK-mE-SNl"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="224.4377811094453"/>
         </tableViewCell>

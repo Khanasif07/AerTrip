@@ -58,8 +58,10 @@ class HotelCardTableViewCell: UITableViewCell {
         
         self.gradientLayer = CAGradientLayer()
         self.gradientLayer.frame = self.gradientView.bounds
+        let gradientColor = AppColors.themeBlack
         self.gradientLayer.colors =
-            [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.3).cgColor, gradientColor.withAlphaComponent(0.4).cgColor]
+        self.gradientLayer.locations = [0.0, 0.5, 1.0]
         self.gradientView.layer.addSublayer(self.gradientLayer)
         self.gradientView.backgroundColor = AppColors.clear
         

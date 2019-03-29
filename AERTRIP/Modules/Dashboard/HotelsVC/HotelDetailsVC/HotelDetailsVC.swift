@@ -13,7 +13,7 @@ protocol HotelDetailsVCDelegate : class {
 }
 
 class HotelDetailsVC: BaseVC {
-    
+        
     //Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsVM()
@@ -67,8 +67,8 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.statusBarColor = AppColors.themeWhite
-        self.statusBarColor = AppColors.clear
+        self.statusBarColor = AppColors.themeWhite
+//        self.statusBarColor = AppColors.clear
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,18 +82,18 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
-        self.footerViewSetUp()
-        self.getSavedFilter()
-        if self.viewModel.permanentTagsForFilteration.isEmpty {
-            self.viewModel.roomMealData = ["Breakfast"]
-            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
-            self.viewModel.selectedTags = ["Breakfast"]
+        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
+            self.footerViewSetUp()
+            self.getSavedFilter()
+            self.permanentTagsForFilteration()
+            self.completion = { [weak self] in
+                self?.hotelTableView.reloadData()
+                self?.viewModel.getHotelInfoApi()
+            }
+            self.viewModel.getHotelInfoApi()
+        } else {
+            self.getCheckOutTableSectionData()
         }
-        self.completion = { [weak self] in
-            self?.hotelTableView.reloadData()
-            self?.viewModel.getHotelInfoApi()
-        }
-        self.viewModel.getHotelInfoApi()
     }
     
     override func bindViewModel() {
@@ -136,7 +136,9 @@ class HotelDetailsVC: BaseVC {
                 tableFooterView.hotelFeesLabel.isHidden = true
                 tableFooterView.selectRoomLabel.isHidden = true
             }
+            self.hotelTableView.tableFooterView?.isHidden = true
         } else {
+            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
@@ -158,12 +160,10 @@ class HotelDetailsVC: BaseVC {
     }
     
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
-        
         self.parentVC = onViewController
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        
         let newY = UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
         let newTableFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? newY : newY + 20, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
@@ -179,7 +179,6 @@ class HotelDetailsVC: BaseVC {
     }
     
     func hideOnScroll() {
-        
         self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
         self.hide(animated: true)
     }
@@ -251,12 +250,17 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)
-        self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
-        self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
-        self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
+        
+        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
+            self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
+            self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
+            self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
+        } else {
+            self.hotelTableView.registerCell(nibName: HCCheckInOutTableViewCell.reusableIdentifier)
+        }
     }
     
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
@@ -280,18 +284,27 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
-    private func getSavedFilter() {
+    internal func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("Filter not found")
             return
         }
         self.viewModel.filterAppliedData = filter
-        self.viewModel.roomMealData = filter.roomMeal
-        self.viewModel.roomOtherData = filter.roomOther
-        self.viewModel.roomCancellationData = filter.roomCancelation
+        self.viewModel.roomMealDataCopy = filter.roomMeal
+        self.viewModel.roomOtherDataCopy = filter.roomOther
+        self.viewModel.roomCancellationDataCopy = filter.roomCancelation
         self.viewModel.permanentTagsForFilteration = filter.roomMeal + filter.roomCancelation + filter.roomOther
         self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
-        self.viewModel.currentlyFilterApplying = .initialTags
+    }
+    
+    internal func permanentTagsForFilteration() {
+        if self.viewModel.permanentTagsForFilteration.isEmpty {
+            self.viewModel.filterAppliedData.roomMeal = ["Breakfast"]
+            self.viewModel.roomMealDataCopy = self.viewModel.filterAppliedData.roomMeal
+            self.viewModel.filterAppliedData.roomCancelation = ["Refundable"]
+            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
+            self.viewModel.selectedTags = ["Breakfast"]
+        }
     }
     
     internal func redirectToMap() {
@@ -352,17 +365,42 @@ class HotelDetailsVC: BaseVC {
         return 0.0
     }
     
+    private func getCheckOutTableSectionData() {
+        self.viewModel.hotelDetailsTableSectionData.append([.imageSlideCell,.hotelRatingCell,.addressCell, .checkInOutDateCell, .overViewCell , .amenitiesCell, .tripAdvisorRatingCell])
+        self.viewModel.hotelDetailsTableSectionData.append([.roomBedsTypeCell,. inclusionCell, .otherInclusionCell , .cancellationPolicyCell, .paymentPolicyCell, .notesCell])
+    }
+    
+    private func getFirstSectionData( hotelData: HotelDetails) -> [TableCellType] {
+        var cellsArray: [TableCellType] = []
+        cellsArray.append(.imageSlideCell)
+        cellsArray.append(.hotelRatingCell)
+        cellsArray.append(.addressCell)
+        if !hotelData.info.isEmpty {
+            cellsArray.append(.overViewCell)
+        }
+        if ((hotelData.amenities?.main) != nil) {
+            cellsArray.append(.amenitiesCell)
+        }
+        cellsArray.append(.tripAdvisorRatingCell)
+        return cellsArray
+    }
+    
     internal func filterdHotelData(tagList: [String]) {
         self.viewModel.ratesData.removeAll()
         self.viewModel.roomRates.removeAll()
-        self.viewModel.tableViewRowCell.removeAll()
-        if let rates = self.viewModel.hotelData?.rates {
-            //            self.viewModel.currentlyFilterApplying = currentlyFilterApplying
-//            self.viewModel.ratesData = self.viewModel.getFilteredRatesData(rates: rates, tagList: tagList , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
-            self.viewModel.ratesData = self.viewModel.filteredData(rates: rates , roomMealData: self.viewModel.roomMealData, roomOtherData: self.viewModel.roomOtherData, roomCancellationData: self.viewModel.roomCancellationData)
-            for singleRate in self.viewModel.ratesData {
-                self.viewModel.roomRates.append(singleRate.roomData)
-                self.viewModel.tableViewRowCell.append(singleRate.tableViewRowCell)
+        self.viewModel.hotelDetailsTableSectionData.removeAll()
+        
+        if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
+            self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
+            self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
+            self.viewModel.ratesData = self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
+            if self.viewModel.ratesData.isEmpty {
+                self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
+            } else {
+                for singleRate in self.viewModel.ratesData {
+                    self.viewModel.roomRates.append(singleRate.roomData)
+                    self.viewModel.hotelDetailsTableSectionData.append(singleRate.tableViewRowCell)
+                }
             }
         }
     }

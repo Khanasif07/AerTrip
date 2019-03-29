@@ -249,13 +249,16 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         if self.currentlyUsingFrom == .loginProcess {
             AppFlowManager.default.goToDashboard()
         }
-        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
-            popIfUsingFromCheckOut()
-        }
         else {
             self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
-            AppFlowManager.default.popToRootViewController(animated: true)
         }
+//        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
+//            popIfUsingFromCheckOut()
+//        }
+//        else {
+//            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+//            AppFlowManager.default.popToRootViewController(animated: true)
+//        }
     }
     
     func didLoginFail(errors: ErrorCodes) {

@@ -19,7 +19,7 @@ protocol HotelDetailDelegate: class {
     func getHotelDistanceAndTimeFail()
     
     func willSaveHotelWithTrip()
-    func saveHotelWithTripSuccess(trip: TripModel)
+    func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool)
 }
 
 class HotelDetailsVM {
@@ -29,12 +29,13 @@ class HotelDetailsVM {
         case driving = "DRIVING"
     }
     
-    enum FilterTagType {
-        case newTag, roomMealTags, roomOtherTags, roomCancellationTags, initialTags
+    enum HotelDetailsScreenUseFor {
+        case hotelDetailsScreen , checkOutScreen
     }
     
     //Mark:- Variables
     //================
+    internal var currentlyUsingFor: HotelDetailsScreenUseFor = .hotelDetailsScreen
     internal var hotelInfo: HotelSearched?
     internal var hotelData: HotelDetails?
     internal var hotelSearchRequest: HotelSearchRequestModel?
@@ -42,19 +43,19 @@ class HotelDetailsVM {
     internal weak var delegate: HotelDetailDelegate?
     var permanentTagsForFilteration: [String] = []
     var selectedTags: [String] = []
-    var roomMealData: [String] = []
-    var roomOtherData: [String] = []
-    var roomCancellationData: [String] = []
-    var currentlyFilterApplying: FilterTagType = .initialTags
+    var roomMealDataCopy: [String] = []
+    var roomOtherDataCopy: [String] = []
+    var roomCancellationDataCopy: [String] = []
     var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
-    var tableViewRowCell = [[TableCellType]]()
-    var vid: String = ""
-    var hid: String = ""
+    var hotelDetailsTableSectionData = [[TableCellType]]()
     var currencyPreference: String = ""
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    
+    private let defaultCheckInTime = "07:00"
+    private let defaultCheckOutTime = "07:00"
     
     ///Computed Property
     private var getHotelInfoParams: JSONDictionary {
@@ -62,292 +63,96 @@ class HotelDetailsVM {
         return params
     }
     
-    func filteredData(rates: [Rates] ,roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
+    /// Filtered Rates
+    func filteredRates(rates: [Rates] ,roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
         var filteredRates: [Rates] = []
+        if roomMealData.isEmpty && roomOtherData.isEmpty && roomCancellationData.isEmpty {
+            return rates
+        }
         for currentRate in rates {
             if !roomMealData.isEmpty {
-                if let inclusionInfo = currentRate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-                    if inclusionInfo.containsArray(array: roomMealData) {
-                        if !roomOtherData.isEmpty {
-                            if let internetInfo = currentRate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                                if internetInfo.containsArray(array: roomOtherData) {
-                                    if !roomCancellationData.isEmpty {
-                                        let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                                        let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                                        let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                                        if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                            filteredRates.append(currentRate)
-                                        } else {
-                                            if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
-                                                filteredRates.append(currentRate)
-                                            } else if isPartRefundable {
-                                                for penalty in currentRate.penalty_array! {
-                                                    if !penalty.to.isEmpty && !penalty.from.isEmpty {
-                                                        filteredRates.append(currentRate)
-                                                    }
-                                                }
-                                            } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
-                                                filteredRates.append(currentRate)
-                                            }
-                                        }
-                                    } else {
-                                        filteredRates.append(currentRate)
-                                    }
-                                }
-                            }
-                        } else if !roomCancellationData.isEmpty {
-                            let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                            let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                            let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                            if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                filteredRates.append(currentRate)
-                            } else {
-                                if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
-                                    filteredRates.append(currentRate)
-                                } else if isPartRefundable {
-                                    for penalty in currentRate.penalty_array! {
-                                        if !penalty.to.isEmpty && !penalty.from.isEmpty {
-                                            filteredRates.append(currentRate)
-                                        }
-                                    }
-                                } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
-                                    filteredRates.append(currentRate)
-                                }
-                            }
-                        } else {
-                            filteredRates.append(currentRate)
-                        }
-                    }
+                if let rate = self.filterationOnRoomMealData(currentRate: currentRate) {
+                    filteredRates.append(rate)
                 }
             } else if !roomOtherData.isEmpty {
-                if let internetInfo = currentRate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                    if internetInfo.containsArray(array: roomOtherData) {
-                        if !roomCancellationData.isEmpty {
-                            let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                            let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                            let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                            if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                filteredRates.append(currentRate)
-                            } else {
-                                if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
-                                    filteredRates.append(currentRate)
-                                } else if isPartRefundable {
-                                    for penalty in currentRate.penalty_array! {
-                                        if !penalty.to.isEmpty && !penalty.from.isEmpty {
-                                            filteredRates.append(currentRate)
-                                        }
-                                    }
-                                } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
-                                    filteredRates.append(currentRate)
-                                }
-                            }
-                        } else {
-                            filteredRates.append(currentRate)
-                        }
-                    }
+                if let rate = self.filterationOnRoomOtherData(currentRate: currentRate) {
+                    filteredRates.append(rate)
                 }
             }
             else if !roomCancellationData.isEmpty {
-                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                    filteredRates.append(currentRate)
-                } else {
-                    if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
-                        filteredRates.append(currentRate)
-                    } else if isPartRefundable {
-                        for penalty in currentRate.penalty_array! {
-                            if !penalty.to.isEmpty && !penalty.from.isEmpty {
-                                filteredRates.append(currentRate)
-                            }
-                        }
-                    } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
-                        filteredRates.append(currentRate)
-                    }
+                if let rate = self.filterationOnRoomCancellationData(currentRate: currentRate) {
+                    filteredRates.append(rate)
                 }
             }
         }
-//        if filteredRates.isEmpty {
-//            return rates
-//        }
         return filteredRates
     }
     
-    
-    
-    
-    func getFilteredRatesData(rates: [Rates], tagList: [String],roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
-        
-        let filteredRates = rates.filter { (rate: Rates) -> Bool in
-            
-            switch self.currentlyFilterApplying {
-                
-            case .newTag:
-                if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-                    if inclusionInfo.containsArray(array: tagList) { return true }
-                }
-            case .roomMealTags:
-                if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-                    if inclusionInfo.containsArray(array: roomMealData) {
-                        if !roomOtherData.isEmpty || !roomCancellationData.isEmpty {
-                            if !roomOtherData.isEmpty {
-                                if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                                    if internetInfo.containsArray(array: roomOtherData) {
-                                        return true
-                                    }
-                                    else {
-                                        return false
-                                    }
-                                }
-                            }
-                            else if !roomCancellationData.isEmpty  {
-                                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                                
-                                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                    return true
-                                } else {
-                                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
-                                        return true
-                                    } else if isPartRefundable {
-                                        for penalty in rate.penalty_array! {
-                                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
-                                        }
-                                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
-                                        return true
-                                    }
-                                }
-                            }
-                            
-                        }
-                        return true
+    /* Filteration on the basis of RoomMealData , RoomOtherData && RoomCancellationData if these are not empty.
+     If any of them is empty then filteration done on the basis on remianing non empty data
+     If all are empty then unfiltered rates will be returned because there is no need to filter the data
+     */
+    func filterationOnRoomMealData(currentRate: Rates) -> Rates? {
+        if let inclusionInfo = currentRate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
+            if inclusionInfo.containsArray(array: roomMealDataCopy) {
+                if !roomOtherDataCopy.isEmpty {
+                    if let rate = self.filterationOnRoomOtherData(currentRate: currentRate) {
+                        return rate
                     }
-                }
-            case .roomOtherTags:
-                if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                    if internetInfo.containsArray(array: roomOtherData) {
-                        return true
+                } else if !roomCancellationDataCopy.isEmpty {
+                    if let rate = self.filterationOnRoomCancellationData(currentRate: currentRate) {
+                        return rate
                     }
-                }
-            case .roomCancellationTags:
-                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                
-                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                    return true
                 } else {
-                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
-                        return true
-                    } else if isPartRefundable {
-                        for penalty in rate.penalty_array! {
-                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
-                        }
-                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
-                        return true
-                    }
-                }
-            case .initialTags:
-                if !roomMealData.isEmpty {
-                    if let inclusionInfo = rate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-                        if inclusionInfo.containsArray(array: roomMealData) {
-                            if !roomOtherData.isEmpty || !roomCancellationData.isEmpty {
-                                
-                                if !roomOtherData.isEmpty {
-                                    if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                                        if internetInfo.containsArray(array: roomOtherData) {
-                                            return true
-                                        }
-                                        else {
-                                            return false
-                                        }
-                                    }
-                                }
-                                else if !roomCancellationData.isEmpty  {
-                                    let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                                    let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                                    let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                                    
-                                    if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                        return true
-                                    } else {
-                                        if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
-                                            return true
-                                        } else if isPartRefundable {
-                                            for penalty in rate.penalty_array! {
-                                                if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
-                                            }
-                                        } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
-                                            return true
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                return true
-                            }
-                        } // return false
-                    } else {
-                        return false
-                    }
-                }
-                    
-                else if !roomOtherData.isEmpty {
-                    if let internetInfo = rate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-                        if internetInfo.containsArray(array: roomOtherData) {
-                            if !roomCancellationData.isEmpty {
-                                let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                                let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                                let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                                
-                                if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                                    return true
-                                } else {
-                                    if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
-                                        return true
-                                    } else if isPartRefundable {
-                                        for penalty in rate.penalty_array! {
-                                            if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
-                                        }
-                                    } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
-                                        return true
-                                    }
-                                }
-                            }
-                            else {
-                                return true
-                            }
-                        }
-                    }
-                }
-                else if !roomCancellationData.isEmpty {
-                    let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-                    let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-                    let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
-                    
-                    if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
-                        return true
-                    } else {
-                        if isRefundableSelected && rate.cancellation_penalty!.is_refundable {
-                            return true
-                        } else if isPartRefundable {
-                            for penalty in rate.penalty_array! {
-                                if !penalty.to.isEmpty && !penalty.from.isEmpty { return true }
-                            }
-                        } else if isNonRefundable && !rate.cancellation_penalty!.is_refundable {
-                            return true
-                        }
-                    }
+                    return currentRate
                 }
             }
-            return false
         }
-        if self.selectedTags.isEmpty{//roomMealData.isEmpty && roomOtherData.isEmpty && roomCancellationData.isEmpty
-            return rates
+        return nil
+    }
+    
+    /* Filteration on the basis of RoomOtherData && RoomCancellationData if these are not empty.
+     If any of them is empty then filteration done on the basis on remianing non empty data
+     If all are empty then unfiltered rates will be returned because there is no need to filter the data
+     */
+    func filterationOnRoomOtherData(currentRate: Rates) -> Rates? {
+        if let internetInfo = currentRate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
+            if internetInfo.containsArray(array: roomOtherDataCopy) {
+                if !roomCancellationDataCopy.isEmpty {
+                    if let rate = self.filterationOnRoomCancellationData(currentRate: currentRate) {
+                        return rate
+                    }
+                } else {
+                    return currentRate
+                }
+            }
         }
-        return filteredRates
+        return nil
+    }
+    
+    /* Filteration on the basis of RoomCancellationData if this is non empty.
+     If it is empty then unfiltered rates will be returned because there is no need to filter the data
+     */
+    func filterationOnRoomCancellationData(currentRate: Rates) -> Rates? {
+        let isRefundableSelected = roomCancellationDataCopy.contains(LocalizedString.Refundable.localized)
+        let isPartRefundable = roomCancellationDataCopy.contains(LocalizedString.PartRefundable.localized)
+        let isNonRefundable = roomCancellationDataCopy.contains(LocalizedString.NonRefundable.localized)
+        if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
+            return currentRate
+        } else {
+            if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
+                return currentRate
+            } else if isPartRefundable {
+                for penalty in currentRate.penalty_array! {
+                    if !penalty.to.isEmpty && !penalty.from.isEmpty {
+                        return currentRate
+                    }
+                }
+            } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
+                return currentRate
+            }
+        }
+        return nil
     }
     
     ///Get Hotel Info Api
@@ -421,26 +226,61 @@ class HotelDetailsVM {
     
     func saveHotelWithTrip(toTrip trip: TripModel, forRate: Rates, forRoomRate: RoomsRates) {
         
+        /*hotel_id: 145242
+         check_in: 2019-04-17 20:19
+         check_out: 2019-04-18 20:19
+         check_in_dt: 2019-04-17
+         check_in_time: 20:19
+         check_out_dt: 2019-04-18
+         check_out_time: 20:19
+         timezone: Automatic
+         total_cost: 6517
+         per_night_cost: 0
+         num_rooms: 3
+         num_guests: 12
+         currency_code: INR
+         rooms[0][room_type]: Deluxe Room
+         rooms[0][room_id]: 0
+         rooms[0][inclusions]:
+         trip_id: 535*/
+        
         var params: JSONDictionary = [APIKeys.timezone.rawValue: "Automatic"]
         params[APIKeys.trip_id.rawValue] = trip.id
         params[APIKeys.hotel_id.rawValue] = self.hotelData?.hid ?? ""
         params[APIKeys.check_in_dt.rawValue] = self.hotelData?.checkin ?? ""
         params[APIKeys.check_out_dt.rawValue] = self.hotelData?.checkout ?? ""
-        params[APIKeys.check_in_time.rawValue] = self.hotelData?.checkin_time ?? ""
-        params[APIKeys.check_out_time.rawValue] = self.hotelData?.checkout_time ?? ""
+        
+        if let time = self.hotelData?.checkin_time, !time.isEmpty {
+            params[APIKeys.check_in_time.rawValue] = time
+            params[APIKeys.check_in.rawValue] = "\(self.hotelData?.checkin ?? "") \(time)"
+        }
+        else {
+            params[APIKeys.check_in_time.rawValue] = defaultCheckInTime
+            params[APIKeys.check_in.rawValue] = "\(self.hotelData?.checkin ?? "") \(defaultCheckInTime)"
+        }
+        
+        if let time = self.hotelData?.checkout_time, !time.isEmpty {
+            params[APIKeys.check_out_time.rawValue] = time
+            params[APIKeys.check_out.rawValue] = "\(self.hotelData?.checkout ?? "") \(time)"
+        }
+        else {
+            params[APIKeys.check_out_time.rawValue] = defaultCheckOutTime
+            params[APIKeys.check_out.rawValue] = "\(self.hotelData?.checkout ?? "") \(defaultCheckOutTime)"
+        }
+        
         params[APIKeys.total_cost.rawValue] = "\(Int(self.hotelData?.price ?? 0.0))"
-        params[APIKeys.per_night_cost.rawValue] = "\(Int(self.hotelData?.per_night_price.toDouble ?? 0.0))"
+        params[APIKeys.per_night_cost.rawValue] = "\(Int(self.hotelData?.per_night_list_price.toDouble ?? 0.0))"
         params[APIKeys.num_rooms.rawValue] = self.hotelData?.num_rooms ?? 0
-        params[APIKeys.num_guests.rawValue] = 3
+        params[APIKeys.num_guests.rawValue] = self.hotelData?.totalOccupant ?? 0
         params[APIKeys.currency_code.rawValue] = self.currencyPreference
         params["rooms[0][room_type]"] = forRoomRate.name + forRoomRate.desc
-        params["rooms[0][room_id]"] = forRoomRate.rid
+        params["rooms[0][room_id]"] = 0
         params["rooms[0][inclusions]"] = ""
         
         self.delegate?.willSaveHotelWithTrip()
-        APICaller.shared.saveHotelWithTripAPI(params: params) { [weak self](success, errors) in
+        APICaller.shared.saveHotelWithTripAPI(params: params) { [weak self](success, errors, isAlreadyAdded) in
             if success {
-                self?.delegate?.saveHotelWithTripSuccess(trip: trip)
+                self?.delegate?.saveHotelWithTripSuccess(trip: trip, isAllreadyAdded: isAlreadyAdded)
             }
         }
     }

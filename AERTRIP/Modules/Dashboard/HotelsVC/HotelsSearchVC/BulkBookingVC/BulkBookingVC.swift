@@ -405,9 +405,13 @@ class BulkBookingVC: BaseVC {
         }
         else {
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
-                self?.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
+                guard let sSelf = self else {return}
+                if let vc = sSelf.parent {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
                 sender.isLoading = true
-                self?.viewModel.bulkBookingEnquiryApi()
+                sSelf.viewModel.bulkBookingEnquiryApi()
             }
         }
     }

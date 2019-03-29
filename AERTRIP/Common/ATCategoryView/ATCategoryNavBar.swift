@@ -28,7 +28,7 @@ public class ATCategoryNavBar: UIView {
     
     fileprivate var separators = [UIView]()
     
-    fileprivate lazy var buttons = [UIButton]()
+    fileprivate lazy var buttons = [ATCategoryButton]()
     
     // each key is the index from categories or buttons
     fileprivate lazy var badgeDict = [Int : BadgeInfo]()
@@ -39,7 +39,7 @@ public class ATCategoryNavBar: UIView {
     fileprivate var currentButtonTag: Int = 0
     
     // this button keeps track of which button being tapped previously
-    fileprivate weak var previousButton: UIButton?
+    fileprivate weak var previousButton: ATCategoryButton?
     
     fileprivate lazy var buttonHeight: CGFloat = self.bounds.height
     
@@ -159,7 +159,7 @@ public class ATCategoryNavBar: UIView {
         
     }
     
-    private func addBadgeToBtn(btn: UIButton, badgeInfo: BadgeInfo) {
+    private func addBadgeToBtn(btn: ATCategoryButton, badgeInfo: BadgeInfo) {
         // Removing process
         if badgeInfo.numberOfBadge == 0 {
             guard let badgeLabel = badgeInfo.badgeLabel else {
@@ -267,7 +267,7 @@ fileprivate extension ATCategoryNavBar {
     }
     
     
-    func setup(_ btn: UIButton, with item: ATCategoryItem, atIndex index:Int) {
+    func setup(_ btn: ATCategoryButton, with item: ATCategoryItem, atIndex index:Int) {
         btn.imageView?.contentMode = .scaleAspectFill
         btn.tag = index
         btn.isHighlighted = false
@@ -279,7 +279,15 @@ fileprivate extension ATCategoryNavBar {
                 btn.setTitleColor(barStyle.normalColor, for: .normal)
             }
             btn.titleLabel?.textAlignment = .center
-            btn.titleLabel?.font = buttonFont
+            btn.setTitleFont(font: barStyle.defaultFont, for: .normal)
+            btn.setTitleFont(font: barStyle.selectedFont, for: .selected)
+            if index == 0 {
+                btn.isSelected = true
+                previousButton = btn
+            }
+            else {
+                btn.isSelected = false
+            }
         }
         
         if let normalImage = item.normalImage {
@@ -293,7 +301,7 @@ fileprivate extension ATCategoryNavBar {
     
     func addButtons() {
         for i in 0..<categories.count {
-            let btn = UIButton()
+            let btn = ATCategoryButton()
             let item = categories[i]
             setup(btn, with: item, atIndex: i)
             
@@ -394,7 +402,7 @@ fileprivate extension ATCategoryNavBar {
 
 //MARK:- Event Handling
 private extension ATCategoryNavBar {
-    @objc func titleBtnTapped(_ btn: UIButton) {
+    @objc func titleBtnTapped(_ btn: ATCategoryButton) {
         guard btn.tag != currentButtonTag else {
             // prevent mutiple tapping on the same button
             return
@@ -403,7 +411,6 @@ private extension ATCategoryNavBar {
         previousButton?.isSelected = false
         btn.isSelected = true
         previousButton = btn
-        
         
         delegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
         internalDelegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
@@ -415,7 +422,7 @@ private extension ATCategoryNavBar {
         internalDelegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
     }
     
-    func handleBtnSwitching(currentBtn: UIButton) {
+    func handleBtnSwitching(currentBtn: ATCategoryButton) {
         
         let previousBtn = buttons[currentButtonTag]
         
@@ -430,7 +437,7 @@ private extension ATCategoryNavBar {
         }
     }
     
-    func handleIndicator(currentBtn: UIButton) {
+    func handleIndicator(currentBtn: ATCategoryButton) {
         guard barStyle.showIndicator else {
             return
         }
@@ -448,7 +455,7 @@ private extension ATCategoryNavBar {
         
     }
     
-    func handleBgMaskView(currentBtn: UIButton) {
+    func handleBgMaskView(currentBtn: ATCategoryButton) {
         guard barStyle.showBgMaskView else {
             return
         }
@@ -465,7 +472,7 @@ private extension ATCategoryNavBar {
         
     }
     
-    func scrollToCenter(currentBtn: UIButton, animated: Bool = true) {
+    func scrollToCenter(currentBtn: ATCategoryButton, animated: Bool = true) {
         guard barStyle.isScrollable else {
             return
         }

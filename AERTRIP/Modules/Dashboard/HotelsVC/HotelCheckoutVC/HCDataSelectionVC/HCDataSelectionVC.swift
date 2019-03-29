@@ -246,7 +246,8 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         var itine = ItineraryData(json: JSON([:]))
         itine.total_fare += (viewModel.itineraryData?.total_fare ?? 0.0) + 10.0
-//        fetchRecheckRatesDataSuccess(recheckedData: itine)
+        //        fetchRecheckRatesDataSuccess(recheckedData: itine)
+        AppFlowManager.default.presentHotelDetailsVCForCheckOut(self, sourceView: self.hotelDetailsContainerView, sid: "")
     }
 }
 

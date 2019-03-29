@@ -64,8 +64,10 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
 
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
-        gradientLayer.colors =
-            [AppColors.clear.cgColor, AppColors.themeBlack.withAlphaComponent(0.7).cgColor]
+        let gradientColor = AppColors.themeBlack
+        self.gradientLayer.colors =
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.3).cgColor, gradientColor.withAlphaComponent(0.4).cgColor]
+        self.gradientLayer.locations = [0.0, 0.5, 1.0]
         gradientView.layer.addSublayer(gradientLayer)
         gradientView.backgroundColor = AppColors.clear
         

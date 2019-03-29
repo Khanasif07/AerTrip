@@ -15,17 +15,41 @@ protocol ATSwitcherChangeValueDelegate {
 class ATSwitcher: UIView {
 
     var button: UIButton!
-    var buttonLeftConstraint: NSLayoutConstraint!
     var delegate: ATSwitcherChangeValueDelegate?
     
     @IBInspectable var on: Bool = false
-    @IBInspectable var originalImage:UIImage?
-    @IBInspectable var selectedImage:UIImage?
-    @IBInspectable var selectedColor:UIColor = UIColor(red: 126/255.0, green: 134/255.0, blue: 249/255.0, alpha: 1)
-    @IBInspectable var originalColor:UIColor = UIColor(red: 243/255.0, green: 229/255.0, blue: 211/255.0, alpha: 1)
     
-    private var offCenterPosition: CGFloat!
-    private var onCenterPosition: CGFloat!
+    @IBInspectable var originalImage:UIImage?{
+        didSet {
+            button.setImage(originalImage, for: .normal)
+        }
+    }
+    
+    @IBInspectable var selectedImage:UIImage?{
+        didSet {
+            button.setImage(selectedImage, for: .selected)
+        }
+    }
+    
+    @IBInspectable var selectedColor:UIColor = UIColor.green
+    @IBInspectable var originalColor:UIColor = UIColor.gray
+    @IBInspectable var selectedBorderColor:UIColor = UIColor.clear
+    @IBInspectable var originalBorderColor:UIColor = UIColor.lightGray
+    @IBInspectable var selectedBorderWidth:CGFloat = 0.0
+    @IBInspectable var originalBorderWidth:CGFloat = 1.5
+    @IBInspectable var iconPadding:CGFloat = 3.0
+    
+    @IBInspectable var iconBorderWidth:CGFloat = 1.0 {
+        didSet {
+            button.layer.borderWidth = iconBorderWidth
+        }
+    }
+    
+    @IBInspectable var iconBorderColor:UIColor = UIColor.lightGray {
+        didSet {
+            button.layer.borderColor = iconBorderColor.cgColor
+        }
+    }
     
      init(frame: CGRect, on: Bool) {
         super.init(frame: frame)
@@ -39,13 +63,19 @@ class ATSwitcher: UIView {
     
     private func commonInit() {
         button = UIButton(type: .custom)
+        button.frame = self.imageButtonFrame
         self.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = true
         button.addTarget(self, action: #selector(switcherButtonTouch(_:)), for: UIControl.Event.touchUpInside)
         button.setImage(originalImage, for: .normal)
         button.setImage(selectedImage, for: .selected)
-          offCenterPosition = self.bounds.height
-        onCenterPosition = self.bounds.width - (self.bounds.height * 0.9)
+        button.backgroundColor = originalColor
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowPath  = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.bounds.height / 2).cgPath
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        button.layer.shadowOpacity = 0.6
+        button.layer.shadowRadius = 2.0
         
         if on == true {
             self.backgroundColor = selectedColor
@@ -53,10 +83,7 @@ class ATSwitcher: UIView {
             self.backgroundColor = originalColor
         }
         
-        if self.backgroundColor == nil {
-            self.backgroundColor = .white
-        }
-        initLayout()
+        button.frame = self.imageButtonFrame
         animationSwitcherButton()
     }
     
@@ -65,14 +92,20 @@ class ATSwitcher: UIView {
         self.layer.cornerRadius = self.bounds.height / 2
         self.clipsToBounds = true
         button.layer.cornerRadius = button.bounds.height / 2
+        
+//        button.layer.shadowColor = UIColor.green.cgColor
+//        button.layer.shadowOpacity = 0.4
+//        button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+//        button.layer.shadowRadius = 5.0
+//
+//        button.layer.shadowPath = UIBezierPath(rect: button.bounds).cgPath
+//        button.layer.shouldRasterize = true
     }
     
-    private func initLayout() {
-        button.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        buttonLeftConstraint = button.leftAnchor.constraint(equalTo: self.leftAnchor)
-        buttonLeftConstraint.isActive = true
-        button.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.9).isActive = true
-        button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 1).isActive = true
+    private var imageButtonFrame: CGRect {
+        let iconH = (self.frame.height - (iconPadding * 2.0))
+        let switchWidth = (self.frame.width - (iconPadding * 2.0))
+        return CGRect(x: iconPadding + (on ? (switchWidth - iconH) : 0.0 ), y: iconPadding, width: iconH, height: iconH)
     }
     
     
@@ -93,23 +126,33 @@ class ATSwitcher: UIView {
     }
     
     func animationSwitcherButton() {
+        button.backgroundColor = originalColor
         if on == true {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
                 self.button.isSelected = true
-                self.buttonLeftConstraint.constant = self.onCenterPosition
-                self.layer.borderColor = AppColors.clear.cgColor
-                self.layoutIfNeeded()
+                
+                self.button.frame = self.imageButtonFrame
+                
+                self.layer.borderColor = self.selectedBorderColor.cgColor
+                self.layer.borderWidth = self.selectedBorderWidth
+                
                 self.backgroundColor = self.selectedColor
+                
+                self.layoutIfNeeded()
                 }, completion: { (finish:Bool) -> Void in
             })
         } else {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
                 self.button.isSelected = false
-                self.buttonLeftConstraint.constant = 0
-                self.layoutIfNeeded()
+                
+                self.button.frame = self.imageButtonFrame
+
+                self.layer.borderColor = self.originalBorderColor.cgColor
+                self.layer.borderWidth = self.originalBorderWidth
+                
                 self.backgroundColor = self.originalColor
-                self.layer.borderColor = AppColors.themeGray10.cgColor
-                self.layer.borderWidth = 1.5
+
+                self.layoutIfNeeded()
                 }, completion: { (finish:Bool) -> Void in
             })
         }

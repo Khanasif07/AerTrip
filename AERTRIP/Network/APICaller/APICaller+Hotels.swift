@@ -153,27 +153,27 @@ extension APICaller {
         }
     }
     
-    func saveHotelWithTripAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func saveHotelWithTripAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ isAlredyAdded: Bool)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.tripEventHotelsSave, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
-                    completionBlock(true, [])
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue].isEmpty)
                 } else {
-                    completionBlock(false, [])
+                    completionBlock(false, [], false)
                 }
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors)
+                completionBlock(false, errors, false)
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], false)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], false)
             }
         }
     }

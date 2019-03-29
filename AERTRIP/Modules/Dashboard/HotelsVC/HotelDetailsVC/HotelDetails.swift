@@ -31,7 +31,6 @@ struct HotelDetails {
     var address: String = ""
     var photos: [String] = []
     var amenities: Amenities? = nil
-    //    var amenities_group: [[String: Any]] = [[:]]
     var amenitiesGroups : [String : Any] = [:]
     var checkin_time: String = ""
     var checkout_time: String = ""
@@ -56,6 +55,7 @@ struct HotelDetails {
     var bc: String = ""
     var distance: String = ""
     var thumbnail: [String] = [String]()
+    var totalOccupant: Int = 0
     
     //Mark:- Initialization
     //=====================
@@ -104,8 +104,8 @@ struct HotelDetails {
                 //APIKeys.combine_rates.rawValue: self.combine_rates,
             APIKeys.info.rawValue: self.info,
             APIKeys.city.rawValue: self.city,
-            APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp
-            //APIKeys.occupant.rawValue: self.occupant
+            APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp,
+            APIKeys.occupant.rawValue: self.totalOccupant
         ]
     }
     
@@ -230,9 +230,20 @@ struct HotelDetails {
         }
         if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
             self.amenitiesGroups = firstObj
-            //            for obj in arrObj {
-            //                self.amenities_group.append(data)
-            //            }
+//                        for obj in arrObj {
+//                            self.amenities_group.append(data)
+//                        }
+        }
+        
+        if let obj = json[APIKeys.occupant.rawValue] as? [JSONDictionary] {
+            for dict in obj {
+                if let adults = dict["a"] {
+                    self.totalOccupant += ("\(adults)".toInt ?? 0)
+                }
+                if let childs = dict["c"] as? [String] {
+                    self.totalOccupant += childs.count
+                }
+            }
         }
     }
     
@@ -351,7 +362,7 @@ struct AmenitiesMain {
 //Mark:- Enums
 //============
 enum TableCellType {
-    case roomBedsType, inclusion, otherInclusion, cancellationPolicy, paymentPolicy, notes, checkOut
+    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell
 }
 
 //Mark:- Rates
@@ -416,25 +427,25 @@ struct Rates: Hashable {
         presentedCell.removeAll()
         if self.roomData.count > 0 {
             for _ in self.roomData {
-                presentedCell.append(.roomBedsType)
+                presentedCell.append(.roomBedsTypeCell)
             }
         }
         if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
-            presentedCell.append(.inclusion)
+            presentedCell.append(.inclusionCell)
         } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
-            presentedCell.append(.inclusion)
+            presentedCell.append(.inclusionCell)
         }
         if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
-            presentedCell.append(.otherInclusion)
+            presentedCell.append(.otherInclusionCell)
         }
         if self.cancellation_penalty != nil {
-            presentedCell.append(.cancellationPolicy)
+            presentedCell.append(.cancellationPolicyCell)
         }
-        presentedCell.append(.paymentPolicy)
+        presentedCell.append(.paymentPolicyCell)
         if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
-            presentedCell.append(.notes)
+            presentedCell.append(.notesCell)
         }
-        presentedCell.append(.checkOut)
+        presentedCell.append(.checkOutCell)
         return presentedCell
     }
     

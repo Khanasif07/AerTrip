@@ -76,27 +76,28 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         return attributedString
     }
     
-    private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String) {
-        if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
-            if !parentVC.viewModel.roomMealData.contains(currentTag) {
-                parentVC.viewModel.roomMealData.append(currentTag)
+    private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String, isAvailableInSource: Bool) {
+        if !isAvailableInSource {
+            if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
+                parentVC.viewModel.roomMealDataCopy.append(currentTag)
+                parentVC.viewModel.filterAppliedData.roomMeal.append(currentTag)
+            } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) {
+                parentVC.viewModel.roomOtherDataCopy.append(currentTag)
+            } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) {
+                parentVC.viewModel.roomCancellationDataCopy.append(currentTag)
             } else {
-                parentVC.viewModel.roomMealData.remove(object: currentTag)
+                //parentVC.viewModel.currentlyFilterApplying = .newTag
             }
-        } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) || parentVC.viewModel.roomOtherData.contains(currentTag) {
-            if !parentVC.viewModel.roomOtherData.contains(currentTag) {
-                parentVC.viewModel.roomOtherData.append(currentTag)
+        } else{
+            if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
+                parentVC.viewModel.roomMealDataCopy.remove(object: currentTag)
+            } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) {
+                parentVC.viewModel.roomOtherDataCopy.remove(object: currentTag)
+            } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) {
+                parentVC.viewModel.roomCancellationDataCopy.remove(object: currentTag)
             } else {
-                parentVC.viewModel.roomOtherData.remove(object: currentTag)
+                //            parentVC.viewModel.currentlyFilterApplying = .newTag
             }
-        } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) || parentVC.viewModel.roomCancellationData.contains(currentTag) {
-            if !parentVC.viewModel.roomCancellationData.contains(currentTag) {
-                parentVC.viewModel.roomCancellationData.append(currentTag)
-            } else {
-                parentVC.viewModel.roomCancellationData.remove(object: currentTag)
-            }
-        } else {
-//            parentVC.viewModel.currentlyFilterApplying = .newTag
         }
     }
     
@@ -135,13 +136,13 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             if !parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
                 parentVC.viewModel.selectedTags.append(self.availableTagsForFilterartion[indexPath.item])
-                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item])
+                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: false)
                 parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
                 self.tagCollectionView.reloadData()
                 parentVC.hotelTableView.reloadData()
             } else {
                 parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
-                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item])
+                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
                 parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
                 self.tagCollectionView.reloadData()
                 parentVC.hotelTableView.reloadData()
@@ -178,7 +179,7 @@ extension HotelDetailsSearchTagTableCell: DeleteTagButtonDelegate {
                 parentVC.viewModel.selectedTags.remove(at: indexPath.item)
             }
             self.tagCollectionView.reloadData()
-            self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item])
+            self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
             parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
             parentVC.hotelTableView.reloadData()
         }
@@ -192,7 +193,7 @@ extension HotelDetailsSearchTagTableCell: AddTagButtonDelegate {
             self.availableTagsForFilterartion.append(tagName)
             parentVC.viewModel.selectedTags.append(tagName)
             self.tagCollectionView.reloadData()
-            self.getTypeOfFIlteration(parentVC: parentVC, currentTag: tagName)
+            self.getTypeOfFIlteration(parentVC: parentVC, currentTag: tagName, isAvailableInSource: false)
             parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
             parentVC.hotelTableView.reloadData()
 //            let indexPath = IndexPath(row: self.allTagsForFilteration.count - 1, section: 0)

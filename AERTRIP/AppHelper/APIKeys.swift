@@ -203,6 +203,7 @@ enum APIKeys: String {
     case text = "text"
     case duration = "duration"
     case routes = "routes"
+    case legs
     case product = "product"
     case startDate = "start_date"
     case error = "error"

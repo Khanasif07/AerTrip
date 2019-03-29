@@ -204,12 +204,16 @@ extension LoginVC: LoginVMDelegate {
             delay(seconds: 0.3) {
                 AppFlowManager.default.goToDashboard()
             }
-        } else if self.currentlyUsingFrom == .loginVerificationForCheckout {
-            popIfUsingFromCheckOut()
-        } else {
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
-            AppFlowManager.default.popToRootViewController(animated: true)
         }
+        else {
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+        }
+//        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
+//            popIfUsingFromCheckOut()
+//        } else {
+//            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+//            AppFlowManager.default.popToRootViewController(animated: true)
+//        }
     }
     
     func didLoginFail(errors: ErrorCodes) {

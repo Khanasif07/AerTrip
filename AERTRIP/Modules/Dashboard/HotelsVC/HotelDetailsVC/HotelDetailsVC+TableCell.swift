@@ -26,8 +26,6 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
         if let placeData = self.viewModel.placeModel {
             cell.configureCell(hotelData: hotelInfo, placeData: placeData)
-        } else {
-            cell.configureCell(hotelData: hotelInfo)
         }
         return cell
     }
@@ -50,8 +48,6 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
         if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
             cell.configureCell(hotelData: hotelDetails, placeData: placeData)
-        } else if let hotelInfo = self.viewModel.hotelInfo {
-            cell.configureCell(hotelData: hotelInfo)
         }
         return cell
     }
@@ -200,12 +196,19 @@ extension HotelDetailsVC {
     
     internal func getCheckOutCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
+        cell.shadowViewBottomConstraints.constant = (indexPath.section  == self.viewModel.hotelDetailsTableSectionData.count - 1 ) ? 16.0 : 8.0
         cell.hotelFeesLabel.text = LocalizedString.rupeesText.localized + " \(ratesData.price.delimiter)"
         return cell
     }
     
     internal func getHotelDetailsEmptyStateCell(indexPath: IndexPath) -> HotelDetailsEmptyStateTableCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsEmptyStateTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsEmptyStateTableCell  else { return nil }
+        return cell
+    }
+    
+    internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
+        cell.configCell()
         return cell
     }
 }
