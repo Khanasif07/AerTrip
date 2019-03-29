@@ -549,3 +549,5 @@
 "View" = "View";
 "TellYourFriendsAboutYourPlan" = "Tell your friends about your plan!";
 "WhatNext" = "What next?";
+"InstantCashBackAppliedText" = " instant cashback will be applied to this booking.";
+"WalletCashBackAppliedText" = " will be credited to your Aertrip Walle within few hours of successful payment / travel date.";

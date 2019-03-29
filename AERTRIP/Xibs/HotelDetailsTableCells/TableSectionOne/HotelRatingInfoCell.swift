@@ -45,6 +45,7 @@ class HotelRatingInfoCell: UITableViewCell {
         
         //UI SetUp
         self.distanceLabel.isHidden = true
+        self.deviderView.isHidden = true
     }
 
         
@@ -59,6 +60,7 @@ class HotelRatingInfoCell: UITableViewCell {
 //        self.distanceLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(placeData.distanceText)  •", image: modeImage , endText: "  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins", font: AppFonts.Regular.withSize(16.0))
         self.distanceLabel.text = "\(placeData.distanceText)  \(modeImage)  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
         self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
+        self.deviderView.isHidden = false
         self.hotelRatingView.rating = hotelData.star
         self.hotelDotsView.rating = hotelData.rating
     }

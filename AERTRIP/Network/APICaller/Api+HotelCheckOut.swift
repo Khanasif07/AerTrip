@@ -30,4 +30,45 @@ extension APICaller {
             }
         }
     }
+    
+    func getCouponDetailsApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : [HCCouponModel])->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.getCoponDetails, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject , let couponsArray = response[APIKeys.coupons.rawValue] as? [JSONDictionary]  {
+                    let couponDetails = HCCouponModel.getHCCouponData(jsonArr: couponsArray)
+                    completionBlock(true, [], couponDetails)
+                } else {
+                    completionBlock(true, [], [])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, [])
+            })
+        }) { (error) in
+            completionBlock(false, [], [])
+        }
+    }
+    
+
+    func applyCoupnCodeApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : [HCCouponModel])->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.applyCouponCode, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject , let couponsArray = response[APIKeys.coupons.rawValue] as? [JSONDictionary]  {
+                    let couponDetails = HCCouponModel.getHCCouponData(jsonArr: couponsArray)
+                    completionBlock(true, [], couponDetails)
+                } else {
+                    completionBlock(true, [], [])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, [])
+            })
+        }) { (error) in
+            completionBlock(false, [], [])
+        }
+    }
 }

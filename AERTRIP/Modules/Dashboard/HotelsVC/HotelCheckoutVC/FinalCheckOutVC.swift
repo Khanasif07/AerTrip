@@ -16,7 +16,7 @@ class FinalCheckOutVC: BaseVC {
     @IBOutlet var payButton: ATButton!
     
     // MARK: - Properties
-    
+    let viewModel = FinalCheckOutVM()
     let cellIdentifier = "FareSectionHeader"
     
     // MARK: - View Life cycle
@@ -246,7 +246,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            AppFlowManager.default.presentHCCouponCodeVC()
+            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "")
         }
     }
 }

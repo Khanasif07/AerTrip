@@ -24,6 +24,7 @@ class HCEmailItinerariesVC: BaseVC {
             self.tableView.dataSource = self
             self.tableView.estimatedRowHeight = UITableView.automaticDimension
             self.tableView.rowHeight = UITableView.automaticDimension
+            self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         }
     }
     

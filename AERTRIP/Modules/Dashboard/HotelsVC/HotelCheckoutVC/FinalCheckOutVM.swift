@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class FinalCheckOutVM: NSObject {
+    
+    var itineraryData: ItineraryData?
+    
+}

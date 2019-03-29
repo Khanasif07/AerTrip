@@ -239,7 +239,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToFinalCheckoutVC()
+        AppFlowManager.default.moveToFinalCheckoutVC(itineraryData: self.viewModel.itineraryData ?? ItineraryData())
         
     }
     

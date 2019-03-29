@@ -320,6 +320,8 @@ enum APIKeys: String {
     case per_night_cost
     case num_guests
     case currency_code
+    case action
+    case coupons
 }
 
 
