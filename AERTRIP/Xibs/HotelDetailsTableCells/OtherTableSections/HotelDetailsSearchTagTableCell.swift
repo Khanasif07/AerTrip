@@ -79,22 +79,22 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String, isAvailableInSource: Bool) {
         if !isAvailableInSource {
             if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
-                parentVC.viewModel.roomMealData.append(currentTag)
+                parentVC.viewModel.roomMealDataCopy.append(currentTag)
                 parentVC.viewModel.filterAppliedData.roomMeal.append(currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) {
-                parentVC.viewModel.roomOtherData.append(currentTag)
+                parentVC.viewModel.roomOtherDataCopy.append(currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) {
-                parentVC.viewModel.roomCancellationData.append(currentTag)
+                parentVC.viewModel.roomCancellationDataCopy.append(currentTag)
             } else {
                 //parentVC.viewModel.currentlyFilterApplying = .newTag
             }
         } else{
             if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
-                parentVC.viewModel.roomMealData.remove(object: currentTag)
+                parentVC.viewModel.roomMealDataCopy.remove(object: currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) {
-                parentVC.viewModel.roomOtherData.remove(object: currentTag)
+                parentVC.viewModel.roomOtherDataCopy.remove(object: currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) {
-                parentVC.viewModel.roomCancellationData.remove(object: currentTag)
+                parentVC.viewModel.roomCancellationDataCopy.remove(object: currentTag)
             } else {
                 //            parentVC.viewModel.currentlyFilterApplying = .newTag
             }

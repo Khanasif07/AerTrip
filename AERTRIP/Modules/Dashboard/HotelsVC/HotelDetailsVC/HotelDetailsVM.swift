@@ -29,12 +29,13 @@ class HotelDetailsVM {
         case driving = "DRIVING"
     }
     
-    enum FilterTagType {
-        case newTag, roomMealTags, roomOtherTags, roomCancellationTags, initialTags
+    enum HotelDetailsScreenUseFor {
+        case hotelDetailsScreen , checkOutScreen
     }
     
     //Mark:- Variables
     //================
+    internal var currentlyUsingFor: HotelDetailsScreenUseFor = .hotelDetailsScreen
     internal var hotelInfo: HotelSearched?
     internal var hotelData: HotelDetails?
     internal var hotelSearchRequest: HotelSearchRequestModel?
@@ -42,15 +43,12 @@ class HotelDetailsVM {
     internal weak var delegate: HotelDetailDelegate?
     var permanentTagsForFilteration: [String] = []
     var selectedTags: [String] = []
-    var roomMealData: [String] = []
-    var roomOtherData: [String] = []
-    var roomCancellationData: [String] = []
-    var currentlyFilterApplying: FilterTagType = .initialTags
+    var roomMealDataCopy: [String] = []
+    var roomOtherDataCopy: [String] = []
+    var roomCancellationDataCopy: [String] = []
     var ratesData = [Rates]()
     var roomRates = [[RoomsRates : Int]]()
-    var tableViewRowCell = [[TableCellType]]()
-    var vid: String = ""
-    var hid: String = ""
+    var hotelDetailsTableSectionData = [[TableCellType]]()
     var currencyPreference: String = ""
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
@@ -62,7 +60,8 @@ class HotelDetailsVM {
         return params
     }
     
-    func filteredData(rates: [Rates] ,roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
+    /// Filtered Rates
+    func filteredRates(rates: [Rates] ,roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
         var filteredRates: [Rates] = []
         if roomMealData.isEmpty && roomOtherData.isEmpty && roomCancellationData.isEmpty {
             return rates
@@ -92,12 +91,12 @@ class HotelDetailsVM {
      */
     func filterationOnRoomMealData(currentRate: Rates) -> Rates? {
         if let inclusionInfo = currentRate.inclusion_array[APIKeys.boardType.rawValue] as? [String] {
-            if inclusionInfo.containsArray(array: roomMealData) {
-                if !roomOtherData.isEmpty {
+            if inclusionInfo.containsArray(array: roomMealDataCopy) {
+                if !roomOtherDataCopy.isEmpty {
                     if let rate = self.filterationOnRoomOtherData(currentRate: currentRate) {
                         return rate
                     }
-                } else if !roomCancellationData.isEmpty {
+                } else if !roomCancellationDataCopy.isEmpty {
                     if let rate = self.filterationOnRoomCancellationData(currentRate: currentRate) {
                         return rate
                     }
@@ -115,8 +114,8 @@ class HotelDetailsVM {
      */
     func filterationOnRoomOtherData(currentRate: Rates) -> Rates? {
         if let internetInfo = currentRate.inclusion_array[APIKeys.internet.rawValue] as? [String] {
-            if internetInfo.containsArray(array: roomOtherData) {
-                if !roomCancellationData.isEmpty {
+            if internetInfo.containsArray(array: roomOtherDataCopy) {
+                if !roomCancellationDataCopy.isEmpty {
                     if let rate = self.filterationOnRoomCancellationData(currentRate: currentRate) {
                         return rate
                     }
@@ -132,9 +131,9 @@ class HotelDetailsVM {
      If it is empty then unfiltered rates will be returned because there is no need to filter the data
      */
     func filterationOnRoomCancellationData(currentRate: Rates) -> Rates? {
-        let isRefundableSelected = roomCancellationData.contains(LocalizedString.Refundable.localized)
-        let isPartRefundable = roomCancellationData.contains(LocalizedString.PartRefundable.localized)
-        let isNonRefundable = roomCancellationData.contains(LocalizedString.NonRefundable.localized)
+        let isRefundableSelected = roomCancellationDataCopy.contains(LocalizedString.Refundable.localized)
+        let isPartRefundable = roomCancellationDataCopy.contains(LocalizedString.PartRefundable.localized)
+        let isNonRefundable = roomCancellationDataCopy.contains(LocalizedString.NonRefundable.localized)
         if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
             return currentRate
         } else {

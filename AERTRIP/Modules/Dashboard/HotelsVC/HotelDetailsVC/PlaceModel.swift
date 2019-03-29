@@ -29,7 +29,7 @@ struct PlaceModel {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json[APIKeys.destination.rawValue] as? JSONDictionary {
+        if let obj = json[APIKeys.distance.rawValue] as? JSONDictionary {
             if let distanceText = obj[APIKeys.text.rawValue] {
                 self.distanceText =  "\(distanceText)".removeNull
             }

@@ -43,28 +43,22 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
         self.distanceLabel.font = AppFonts.Regular.withSize(16.0)
         
-        //Text
-        //self.distanceLabel.text = "0.1 km •🚶🏻 4 min"
-        //self.distanceLabel.text = "U+1F698"
-    }
-    
-    internal func configureCell(hotelData: HotelSearched) {
-        self.hotelNameLabel.text = hotelData.hotelName
-        self.distanceLabel.text = "\(hotelData.distance) km •🚶🏻 4 min"
-        self.hotelRatingView.rating = hotelData.star
-        self.hotelDotsView.rating = hotelData.rating
+        //UI SetUp
+        self.distanceLabel.isHidden = true
     }
 
         
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel) {
         self.hotelNameLabel.text = hotelData.hotelName
-        let modeImage: String
+        let modeImage: String//UIImage
         if placeData.durationValue/60 <= 10 {
-            modeImage = " •🚶🏻 "
+            modeImage = " •🚶🏻 " //#imageLiteral(resourceName: "people")
         } else {
-            modeImage = " •🚘 "
+            modeImage = " •🚘 " //#imageLiteral(resourceName: "car")
         }
-        self.distanceLabel.text = "\(placeData.distanceText) + \(modeImage) + \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
+//        self.distanceLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(placeData.distanceText)  •", image: modeImage , endText: "  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins", font: AppFonts.Regular.withSize(16.0))
+        self.distanceLabel.text = "\(placeData.distanceText)  \(modeImage)  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
+        self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
         self.hotelRatingView.rating = hotelData.star
         self.hotelDotsView.rating = hotelData.rating
     }

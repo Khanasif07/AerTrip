@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsCheckOutTableViewCell" id="KGk-i7-Jjw" customClass="HotelDetailsCheckOutTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="65.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="57.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="je1-nR-6fo">
@@ -70,7 +70,7 @@
                     <constraint firstAttribute="trailing" secondItem="je1-nR-6fo" secondAttribute="trailing" constant="16" id="w3B-lW-fXR"/>
                     <constraint firstItem="je1-nR-6fo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="wlO-c9-mGY"/>
                     <constraint firstItem="je1-nR-6fo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x9n-c6-VfS"/>
-                    <constraint firstAttribute="bottom" secondItem="je1-nR-6fo" secondAttribute="bottom" constant="16" id="yhy-FA-JOA"/>
+                    <constraint firstAttribute="bottom" secondItem="je1-nR-6fo" secondAttribute="bottom" constant="8" id="yhy-FA-JOA"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,6 +80,7 @@
                 <outlet property="containerView" destination="xdE-jI-gOD" id="R2h-lQ-U1W"/>
                 <outlet property="hotelFeesLabel" destination="vaO-Hy-ELG" id="spu-aj-edN"/>
                 <outlet property="shadowView" destination="je1-nR-6fo" id="kSG-RT-4eV"/>
+                <outlet property="shadowViewBottomConstraints" destination="yhy-FA-JOA" id="VSp-d2-Yd2"/>
             </connections>
             <point key="canvasLocation" x="116.8" y="48.575712143928037"/>
         </tableViewCell>

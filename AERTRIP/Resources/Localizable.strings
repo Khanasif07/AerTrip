@@ -370,8 +370,7 @@
 "Refundable" = "Refundable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
-"NonRefundableExplanation" = "You will be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
-
+"NonRefundableExplanation" = "This booking is non-refundable. If this booking is cancelled, or modified, or in the case of no-show, the total price of the reservation will be charged.";
 "FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
 "FreeCancellation" = "FREE CANCELLATION";
 "FullPaymentNow" = "Full Payment Now";

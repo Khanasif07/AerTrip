@@ -13,103 +13,96 @@ import UIKit
 extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.viewModel.hotelData != nil {
-            return self.viewModel.ratesData.isEmpty ? 3 : self.viewModel.ratesData.count + 2
+        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
+            if self.viewModel.hotelData != nil {
+                return self.viewModel.hotelDetailsTableSectionData.count
+            }
+            return 1
+        } else {
+            return self.viewModel.hotelDetailsTableSectionData.count
         }
-        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.viewModel.hotelData != nil {
-            switch section {
-            case 0:
-                return 6
-            case 1:
-                return 1
-            default:
+        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
+            if self.viewModel.hotelData != nil {
                 self.updateStickyFooterView()
-                if self.viewModel.ratesData.isEmpty {
-                    return 1
-                } else {
-                    return self.viewModel.tableViewRowCell[section-2].count
-                }
+                return self.viewModel.hotelDetailsTableSectionData[section].count
             }
+            return 3
+        } else {
+            return self.viewModel.hotelDetailsTableSectionData[section].count
         }
-        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
+            
+        } else {
+            
+        }
         if let hotelDetails = self.viewModel.hotelData {
-            if indexPath.section == 0 {
-                switch indexPath.row {
-                case 0:
-                    let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
+            let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[indexPath.section]
+            switch tableViewRowCell[indexPath.row] {
+            case .imageSlideCell:
+                let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .hotelRatingCell:
+                let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .addressCell:
+                let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .checkInOutDateCell:
+                if let cell = self.getCheckInOutCell(tableView, indexPath: indexPath) {
                     return cell
-                case 1:
-                    let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 2:
-                    let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 3:
-                    let cell = self.getHotelOverViewCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 4:
-                    let cell = self.getHotelDetailsAmenitiesCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                case 5:
-                    let cell = self.getTripAdviserCell(indexPath: indexPath, hotelDetails: hotelDetails)
-                    return cell
-                default:
-                    return UITableViewCell()
                 }
-            } else if indexPath.section == 1 {
+            case .amenitiesCell:
+                let cell = self.getHotelDetailsAmenitiesCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .overViewCell:
+                let cell = self.getHotelOverViewCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .tripAdvisorRatingCell:
+                let cell = self.getTripAdviserCell(indexPath: indexPath, hotelDetails: hotelDetails)
+                return cell
+            case .searchTagCell:
                 let cell = self.getSearchBarTagCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
-            }
-            else {
-                if self.viewModel.ratesData.isEmpty {
-                    if let cell = self.getHotelDetailsEmptyStateCell(indexPath: indexPath) {
-                        return cell
-                    }
-                } else {
-                    
-                    let currentRatesData = self.viewModel.ratesData[indexPath.section - 2]
-                    let currentRoomData = self.viewModel.roomRates[indexPath.section - 2]
-                    let tableViewRowCell = self.viewModel.tableViewRowCell[indexPath.section - 2]
-                    
-                    switch tableViewRowCell[indexPath.row] {
-                    case .roomBedsType:
-                        if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: currentRatesData, roomData: currentRoomData){
-                            return cell
-                        }
-                    case .inclusion:
-                        if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    case .otherInclusion:
-                        if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    case .cancellationPolicy:
-                        if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    case .paymentPolicy:
-                        if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    case .notes:
-                        if let cell = self.getNotesCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    case .checkOut:
-                        if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: currentRatesData) {
-                            return cell
-                        }
-                    }
+            case .ratesEmptyStateCell:
+                if let cell = self.getHotelDetailsEmptyStateCell(indexPath: indexPath) {
+                    return cell
                 }
+            case .roomBedsTypeCell:
+                if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2], roomData: self.viewModel.roomRates[indexPath.section - 2]){
+                    return cell
+                }
+            case .inclusionCell:
+                if let cell = self.getInclusionCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .otherInclusionCell:
+                if let cell = self.otherInclusionCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .cancellationPolicyCell:
+                if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .paymentPolicyCell:
+                if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .notesCell:
+                if let cell = self.getNotesCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .checkOutCell:
+                if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                    return cell
+                }
+            case .roomDetailsCell:
+                printDebug(" room details cell ")
             }
         } else {
             guard let hotelInfo = self.viewModel.hotelInfo else { return UITableViewCell() }
@@ -223,13 +216,13 @@ extension HotelDetailsVC: HotelDetailDelegate {
         if errors.contains(array: [-1]) {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
         } else {
-             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
         
     }
     
     func getHotelDistanceAndTimeSuccess() {
-        if let placeModel = self.viewModel.placeModel {
+        if let placeModel = self.viewModel.placeModel , self.viewModel.mode == .walking {
             if !(placeModel.durationValue/60 < 10) {
                 self.viewModel.mode = .driving
                 self.viewModel.getHotelDistanceAndTimeInfo()
@@ -368,7 +361,7 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
 }
 
 //Mark:- HotelDetailsBedsTableViewCellDelegate
-//==========================
+//============================================
 extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
         AppFlowManager.default.selectTrip { (trip) in

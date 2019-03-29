@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC.swift"
-            timestampString = "575388694.0918961"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVM.swift"
+            timestampString = "575476244.3020591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
-            landmarkName = "permanentTagsForFilteration()"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "getHotelDistanceAndTimeInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC.swift"
-            timestampString = "575388694.092321"
+            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
+            timestampString = "575476244.302282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "getSavedFilter()"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "presentHotelDetailsVCForCheckOut(_:sourceView:sid:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

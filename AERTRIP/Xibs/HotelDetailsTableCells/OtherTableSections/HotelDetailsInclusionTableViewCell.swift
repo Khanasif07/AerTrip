@@ -18,11 +18,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var inclusionLabel: UILabel!
     @IBOutlet weak var inclusionTypeLabel: UILabel!
-    @IBOutlet weak var shadowView: UIView! {
-        didSet {
-            //self.shadowView.shadowOnHotelDetailsTabelCell(color: AppColors.themeGray20, offset: CGSize(width: 0.0, height: 3.0), opacity: 0.7, shadowRadius: 4.0)        }
-        }
-    }
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var inclusionLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var inclusionTypeLabelBottomConstraints: NSLayoutConstraint!
@@ -41,9 +37,10 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         self.dividerView.isHidden = true
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 8.0)
+//        self.shadowView.addshadowOnSelectedEdge(top: false, left: true, bottom: false, right: true, opacity: 0.7, shadowRadius: 8.0, color: AppColors.themeBlack.withAlphaComponent(0.14))
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-        self.containerView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         self.inclusionLabel.textColor = AppColors.themeGray40
         self.inclusionTypeLabel.textColor = AppColors.textFieldTextColor51
         

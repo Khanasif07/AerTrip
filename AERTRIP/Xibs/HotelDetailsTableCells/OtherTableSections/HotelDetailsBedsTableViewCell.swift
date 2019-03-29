@@ -38,6 +38,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.dropDownTextField.tintColor = .clear
         }
     }
+    @IBOutlet weak var dropDownStackView: UIStackView!
     
     //Mark:- LifeCycle
     //================
@@ -51,9 +52,9 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         //Color
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 4.0)
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 8.0)
+//         self.shadowView.addshadowOnSelectedEdge(top: true, left: true, bottom: false, right: true, opacity: 0.7, shadowRadius: 8.0, color: AppColors.themeBlack.withAlphaComponent(0.14))
         self.backgroundColor = AppColors.screensBackground.color
-        self.containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
         self.bedsLabel.textColor = AppColors.themeBlack
@@ -106,6 +107,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         if isOnlyOneRoom {
             self.bedTypeLabel.text = roomData.name //+ " " + roomData.desc
             self.bedDiscriptionLabel.text = roomData.desc
+            self.dropDownStackView.isHidden = roomData.desc.isEmpty
             self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.deviderView.isHidden = false
@@ -122,8 +124,10 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             }
         }
         if self.typesOfBed.isEmpty {
+            self.dropDownStackView.isHidden = true
             self.dropDownTextField.isHidden = true
         } else {
+            self.dropDownStackView.isHidden = false
             self.dropDownTextField.isHidden = false
             if self.typesOfBed.count == 1 {
                 self.dropDownTextField.rightViewMode = .never

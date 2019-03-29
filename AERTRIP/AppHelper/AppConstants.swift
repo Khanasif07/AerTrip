@@ -47,7 +47,7 @@ enum AppConstants {
     
     static var isStatusBarBlured = true
 
-    static let kGoogleAPIKey = "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
+    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64"//"AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
     
