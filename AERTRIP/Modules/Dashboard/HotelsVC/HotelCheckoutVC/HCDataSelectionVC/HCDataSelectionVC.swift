@@ -213,6 +213,12 @@ class HCDataSelectionVC: BaseVC {
                 var guest = GuestModal()
                 if j < hotelFormData.adultsCount[i] {
                     guest.passengerType = PassengersType.Adult
+                    //
+                    guest.firstName = "Doing"
+                    guest.lastName = "Testing"
+                    guest.salutation = "mr"
+                    guest.id = 0
+                    //
                     guest.numberInRoom = (j + 1)
                     guest.age = -1
                     guest.id = j + 1
@@ -223,6 +229,10 @@ class HCDataSelectionVC: BaseVC {
                     guest.numberInRoom = childIdx + 1
                     guest.age = hotelFormData.childrenAge[i][childIdx]
                     guest.id = childIdx
+                    guest.firstName = "Its"
+                    guest.lastName = "Child"
+                    guest.salutation = "Mr"
+                    guest.id = 0
                 }
                 temp.append(guest)
             }
@@ -239,7 +249,8 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToFinalCheckoutVC()
+        self.viewModel.webserviceForItenaryDataTraveller()
+       // AppFlowManager.default.moveToFinalCheckoutVC()
         
     }
     
@@ -252,6 +263,22 @@ class HCDataSelectionVC: BaseVC {
 }
 
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
+    
+    // ItenaryDataTraveller
+    
+    func willCallForItenaryDataTraveller() {
+        //
+    }
+    
+    func callForItenaryDataTravellerSuccess() {
+        //
+        AppFlowManager.default.moveToFinalCheckoutVC(self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
+    }
+    
+    func callForItenaryDataTravellerFail(errors: ErrorCodes) {
+        //
+    }
+    
     func willFetchConfirmItineraryData() {
         manageLoader(shouldStart: true)
     }

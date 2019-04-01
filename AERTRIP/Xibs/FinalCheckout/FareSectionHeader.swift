@@ -23,7 +23,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     private func setUpText() {
         self.grossFareTitleLabel.text = LocalizedString.GrossFare.localized
         self.discountsTitleLabel.text = LocalizedString.Discounts.localized
-        self.grossPriceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(65000).delimiter)"
+    //    self.grossPriceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(65000).delimiter)"
         self.discountPriceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(500).delimiter)"
     }
     

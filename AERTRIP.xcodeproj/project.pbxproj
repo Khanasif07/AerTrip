@@ -16,6 +16,9 @@
 		1804889121CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888F21CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift */; };
 		1804889221CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1804889021CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib */; };
 		1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804889321CA7AC300437C81 /* APICaller+ViewProfile.swift */; };
+		1806329F224E2793008B1F32 /* ResponseForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806329E224E2793008B1F32 /* ResponseForTesting.swift */; };
+		180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180632A02251D66E008B1F32 /* PaymentModal.swift */; };
+		180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180632A222521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift */; };
 		1807EFFB223F7FF70092E127 /* HotelResultVC+MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807EFFA223F7FF60092E127 /* HotelResultVC+MapDelegate.swift */; };
 		1807EFFD223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807EFFC223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift */; };
 		1807EFFF223F8AFC0092E127 /* HotelResultVC+CollectionViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807EFFE223F8AFC0092E127 /* HotelResultVC+CollectionViewDataSourceDelegateMethods.swift */; };
@@ -590,6 +593,9 @@
 		1804888F21CA734100437C81 /* ViewProfileMultiDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileMultiDetailTableViewCell.swift; sourceTree = "<group>"; };
 		1804889021CA734100437C81 /* ViewProfileMultiDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileMultiDetailTableViewCell.xib; sourceTree = "<group>"; };
 		1804889321CA7AC300437C81 /* APICaller+ViewProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+ViewProfile.swift"; sourceTree = "<group>"; };
+		1806329E224E2793008B1F32 /* ResponseForTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseForTesting.swift; sourceTree = "<group>"; };
+		180632A02251D66E008B1F32 /* PaymentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModal.swift; sourceTree = "<group>"; };
+		180632A222521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FinalCheckOutVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		1807EFFA223F7FF60092E127 /* HotelResultVC+MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelResultVC+MapDelegate.swift"; sourceTree = "<group>"; };
 		1807EFFC223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelResultVC+TableViewDataSourceDelegateMethods.swift"; sourceTree = "<group>"; };
 		1807EFFE223F8AFC0092E127 /* HotelResultVC+CollectionViewDataSourceDelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelResultVC+CollectionViewDataSourceDelegateMethods.swift"; sourceTree = "<group>"; };
@@ -1708,6 +1714,7 @@
 			isa = PBXGroup;
 			children = (
 				18F181D1223A3D2E00323775 /* GuestModal.swift */,
+				180632A02251D66E008B1F32 /* PaymentModal.swift */,
 			);
 			path = HotelCheckOut;
 			sourceTree = "<group>";
@@ -2274,6 +2281,7 @@
 				842EDE9F223A619300E99409 /* HCSpecialRequestsVC */,
 				842EDEA2223A61F700E99409 /* HCEmailItinerariesVC */,
 				18F181D3223BC13200323775 /* FinalCheckOutVC.swift */,
+				180632A222521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift */,
 				18E79719224A17CD00A7AC8B /* FinalCheckOutVM.swift */,
 				843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */,
 				843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */,
@@ -2665,6 +2673,7 @@
 			isa = PBXGroup;
 			children = (
 				18A01E4521CA765D0071E772 /* AERTRIP.entitlements */,
+				1806329E224E2793008B1F32 /* ResponseForTesting.swift */,
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,
@@ -3756,6 +3765,7 @@
 				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				18E7971A224A17CD00A7AC8B /* FinalCheckOutVM.swift in Sources */,
 				84254F48223A917400E3D120 /* HCEmailItinerariesVM.swift in Sources */,
+				180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */,
 				84FFDFAE21F9F67B005CA257 /* ATCategoryView.swift in Sources */,
 				1807EFFB223F7FF70092E127 /* HotelResultVC+MapDelegate.swift in Sources */,
 				840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */,
@@ -3779,6 +3789,7 @@
 				18E797072248F4B600A7AC8B /* WallletAmountCellTableViewCell.swift in Sources */,
 				18F967DC22327A9200B163C8 /* HotelsGroupExtendedVM.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
+				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
 				18F967FF2233945400B163C8 /* EmptyTableViewCell.swift in Sources */,
@@ -3788,6 +3799,7 @@
 				1807F003223F9E160092E127 /* HotelResultVC+animations.swift in Sources */,
 				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
 				842EDE98223A34A300E99409 /* HCSpecialRequestsVM.swift in Sources */,
+				1806329F224E2793008B1F32 /* ResponseForTesting.swift in Sources */,
 				1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
 				18EF5E81221D261B00EFFA6E /* GMUGeoJSONParser.m in Sources */,

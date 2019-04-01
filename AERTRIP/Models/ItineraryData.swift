@@ -46,7 +46,6 @@ struct ItineraryData {
     var special_requests: [SpecialRequest] = []
     var hotelDetails: HotelDetails?
 
-
 //    var part_payment = {  }
 //    var details = {  }
 //    var special_requests = [  ]
@@ -119,3 +118,27 @@ struct SpecialRequest {
         return all
     }
 }
+
+
+struct  ItenaryModel {
+    var id : String
+    var currencyPref: String
+    var grossAmount : String
+    var netAmount : String
+    var priceChange : String
+    
+    init() {
+        let json = JSON()
+        self.init(json:json)
+    }
+    
+    init(json: JSON) {
+        self.id = json[APIKeys.id.rawValue].stringValue
+        self.currencyPref = json[APIKeys.currencyPref.rawValue].stringValue
+        self.grossAmount = json[APIKeys.grossAmout.rawValue].stringValue
+        self.netAmount = json[APIKeys.netAmount.rawValue].stringValue
+        self.priceChange = json[APIKeys.priceChange.rawValue].stringValue
+    }
+}
+
+

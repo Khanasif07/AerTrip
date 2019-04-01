@@ -72,6 +72,11 @@ enum APIEndPoint : String {
     case tripsList                     = "trips/list"
     case addTrip                       = "trips/add"
     case tripEventHotelsSave           = "trips/event/hotels/save"
+    
+    // Final Checkout
+   
+    case hotelItinerary = "hotels/itinerary?action=traveller"    
+    case getPaymentMethod = "itinerary/get-payment-methods"
 }
 
 //MARK: - endpoint extension for url -

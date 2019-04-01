@@ -93,6 +93,17 @@ enum AppNetworking {
         request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
     }
     
+    static func POST(endPointPath : String,
+                     parameters : JSONDictionary = [:],
+                     headers : HTTPHeaders = [:],
+                     loader : Bool = true,
+                     success : @escaping Success,
+                     failure : @escaping Failure){
+        
+        
+        request(URLString: endPointPath.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "", httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+    }
+    
     static func POSTWithMultiPart(endPoint : APIEndPoint,
                                   parameters : JSONDictionary = [:],
                                   multipartData : [(key:String, filePath:String, fileExtention:String, fileType:MultiPartFileType)]? = [],

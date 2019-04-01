@@ -30,4 +30,65 @@ extension APICaller {
             }
         }
     }
+    
+    
+    
+    func callItenaryDataForTravellerAPI(itinaryId:String,params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String,_ itinerary : ItenaryModel)->Void ) {
+       
+        let urlPath = APIEndPoint.baseUrlPath.rawValue + APIEndPoint.hotelItinerary.rawValue + "&it_id=\(itinaryId)"
+        AppNetworking.POST(endPointPath:urlPath, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
+                if sucess, let data = jsonData[APIKeys.data.rawValue].dictionary {
+                    let itinary = ItenaryModel(json:data["itinerary"] ?? [])
+                     printDebug("itinary is \(itinary)")
+                    completionBlock(sucess, [], jsonData[APIKeys.data.rawValue][APIKeys.msg.rawValue].stringValue,itinary)
+                }
+                else {
+                    completionBlock(sucess, [], jsonData[APIKeys.data.rawValue][APIKeys.msg.rawValue].stringValue,ItenaryModel())
+                }
+                
+                
+            }, failure: { (errors) in
+                completionBlock(false, errors, "",ItenaryModel())
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "",ItenaryModel())
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "",ItenaryModel())
+            }
+        }
+    }
+    
+    func getPaymentMethods(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes,_ paymentDetail: PaymentModal) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.getPaymentMethod, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    let paymentDetail = PaymentModal(json: jsonData[APIKeys.data.rawValue])
+                    completionBlock(true, [],paymentDetail)
+                }
+                else {
+                    completionBlock(false, [],PaymentModal())
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false,[],PaymentModal())
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [],PaymentModal())
+            }
+            else {
+                completionBlock(false,[],PaymentModal())
+            }
+        }
+    }
+    
+    
 }

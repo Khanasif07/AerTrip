@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol WalletTableViewCellDelegate: class {
+    func valueForSwitch(isOn:Bool)
+}
+
 class WalletTableViewCell: UITableViewCell {
     
     @IBOutlet weak var walletTitleLabel: UILabel!
@@ -15,6 +19,10 @@ class WalletTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var walletSwitch: UISwitch!
     @IBOutlet weak var infoButton: UIButton!
+    
+    
+    // MARK: - Properties
+    weak var delegate : WalletTableViewCellDelegate?
     
     
 
@@ -49,5 +57,11 @@ class WalletTableViewCell: UITableViewCell {
         self.balanceLabel.text = LocalizedString.Balance.localized
         
     }
+   
     
+    
+    
+    @IBAction func switchValueChanged(_ sender: UISwitch) {
+        sender.isOn ? delegate?.valueForSwitch(isOn: true) : delegate?.valueForSwitch(isOn: false)
+    }
 }

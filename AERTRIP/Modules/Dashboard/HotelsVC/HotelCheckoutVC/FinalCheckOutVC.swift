@@ -15,9 +15,13 @@ class FinalCheckOutVC: BaseVC {
     @IBOutlet var checkOutTableView: ATTableView!
     @IBOutlet var payButton: ATButton!
     
+    
+    
     // MARK: - Properties
     
     let cellIdentifier = "FareSectionHeader"
+    let viewModel = FinalCheckoutVM()
+    var isWallet: Bool = false
     
     // MARK: - View Life cycle
     
@@ -26,6 +30,7 @@ class FinalCheckOutVC: BaseVC {
         
         self.setUpNavigationView()
         self.registerXib()
+        self.viewModel.webServiceGetPaymentMethods()
     }
     
     override func initialSetup() {
@@ -47,6 +52,11 @@ class FinalCheckOutVC: BaseVC {
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon"), for: .normal)
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
     }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
     
     // MARK: - Helper methods
     
@@ -98,7 +108,10 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WalletTableViewCell not found")
                 return UITableViewCell()
             }
-            walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + "\(Double(10000).delimiter)"
+            walletCell.delegate = self
+            if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
+                  walletCell.amountLabel.text = AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+            }
             return walletCell
         case 5:
             
@@ -125,7 +138,16 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
+//            if isWallet {
+//                return walletAmountCell
+//            } else {
+//               return UITableViewCell()
+//            }
+           
             return walletAmountCell
+
+           
+           // return
             
         case 2:
             guard let totalPayableNowCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TotalPayableNowCell.reusableIdentifier, for: indexPath) as? TotalPayableNowCell else {
@@ -138,6 +160,9 @@ class FinalCheckOutVC: BaseVC {
             guard let finalAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: FinalAmountTableViewCell.reusableIdentifier, for: indexPath) as? FinalAmountTableViewCell else {
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
+            }
+            if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount {
+                finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized + netAmount
             }
             return finalAmountCell
             
@@ -177,7 +202,11 @@ class FinalCheckOutVC: BaseVC {
         case 0:
             return 20.0
         case 1:
-            return 40.0
+            if isWallet {
+                return 40.0
+            } else {
+               return 0.0
+            }
         case 2:
             return 46.0
         case 3:
@@ -239,7 +268,11 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
                 fatalError("FareSectionHeader not found")
             }
-            headerView.backgroundColor = .red
+            
+            if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount {
+                 headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + grossAmount
+            }
+           
             return headerView
         }
     }
@@ -257,4 +290,22 @@ extension FinalCheckOutVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
+}
+
+extension FinalCheckOutVC : FinalCheckoutVMDelegate {
+    func willCallGetPayementMethods() {
+        //
+    }
+    
+    func getPaymentsMethodsSuccess() {
+        //
+        self.checkOutTableView.reloadData()
+        printDebug("Get Success")
+    }
+    
+    func getPaymentMethodsFails(errors: ErrorCodes) {
+        //
+    }
+    
+    
 }
