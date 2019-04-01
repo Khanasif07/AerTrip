@@ -10,6 +10,7 @@ import UIKit
 
 struct ItineraryData {
     
+//    details
     var payment_amount: Int = 0
     var pg_id: Int = 0
     var payment_method_id: Int = 0
@@ -46,12 +47,19 @@ struct ItineraryData {
     var special_requests: [SpecialRequest] = []
     var hotelDetails: HotelDetails?
 
-
-//    var part_payment = {  }
-//    var details = {  }
-//    var special_requests = [  ]
-//    var payment_billing_info = {  }
-//    var user_details = {  }
+    //Variables Used In HCCouponAppliedData
+    var id: String = ""
+    var part_payment: PartialPayment?
+    var travellers: [Travellers] = []
+    var payment_billing_info: PaymentBillingInfo?
+    var mobile_isd: String = ""
+    var mobile: String = ""
+    var special: String = ""
+    var other: String = ""
+    var coupons: [HCCouponModel] = []
+    var appliedCouponDetails: AppliedCouponDetails?
+    //    var details = {  }
+    //    var user_details = {  }
 
     init() {
         let json = JSON()
@@ -91,11 +99,23 @@ struct ItineraryData {
         is_combo = json[APIKeys.is_combo.rawValue].intValue
         vcode = json[APIKeys.vcode.rawValue].stringValue.removeNull
         it_id = json[APIKeys.it_id.rawValue].stringValue.removeNull
-        
         traveller_master = TravellerModel.models(jsonArr: json[APIKeys.traveller_master.rawValue]["aertrip"].arrayValue)
         special_requests = SpecialRequest.models(jsonArr: json[APIKeys.special_requests.rawValue].arrayValue)
-        
         hotelDetails = HotelDetails(json: json["details"]["processed_data"].dictionaryObject ?? [:])
+        
+        // Used In HCCouponAppliedDat
+        id = json[APIKeys.id.rawValue]["$oid"].stringValue.removeNull
+        part_payment = PartialPayment.getPartialPaymentData(json: json[APIKeys.part_payment.rawValue])
+        travellers = Travellers.getTravellersData(jsonArr: json[APIKeys.travellers.rawValue].arrayValue)
+        payment_billing_info = PaymentBillingInfo.getPaymentBillingInfo(json: json[APIKeys.payment_billing_info.rawValue])
+        mobile_isd = json[APIKeys.mobile_isd.rawValue].stringValue.removeNull
+        mobile = json[APIKeys.mobile.rawValue].stringValue.removeNull
+        special = json[APIKeys.special.rawValue].stringValue.removeNull
+        other = json[APIKeys.other.rawValue].stringValue.removeNull
+        if let couponsData = json[APIKeys.coupons.rawValue].arrayObject as? JSONDictionaryArray {
+            coupons = HCCouponModel.getHCCouponData(jsonArr: couponsData)
+        }
+        appliedCouponDetails = AppliedCouponDetails.getAppliedCouponDetails(json: json[APIKeys.applied_coupon_details.rawValue])
     }
 }
 
@@ -118,4 +138,145 @@ struct SpecialRequest {
         }
         return all
     }
+}
+
+
+struct  ItenaryModel {
+    var id : String
+    var currencyPref: String
+    var grossAmount : String
+    var netAmount : String
+    var priceChange : String
+    
+    init() {
+        let json = JSON()
+        self.init(json:json)
+    }
+    
+    init(json: JSON) {
+        self.id = json[APIKeys.id.rawValue].stringValue
+        self.currencyPref = json[APIKeys.currencyPref.rawValue].stringValue
+        self.grossAmount = json[APIKeys.grossAmout.rawValue].stringValue
+        self.netAmount = json[APIKeys.netAmount.rawValue].stringValue
+        self.priceChange = json[APIKeys.priceChange.rawValue].stringValue
+    }
+}
+
+
+struct PartialPayment {
+    var amount: Int = 0
+    var user_amount: Int = 0
+    var date: String = ""
+    var processing_fee: Int = 0
+    
+    init(json: JSON) {
+        self.amount = json[APIKeys.amount.rawValue].intValue
+        self.user_amount = json[APIKeys.user_amount.rawValue].intValue
+        self.date = json[APIKeys.date.rawValue].stringValue.removeNull
+        self.processing_fee = json[APIKeys.processing_fee.rawValue].intValue
+    }
+    
+    static func getPartialPaymentData(json: JSON) -> PartialPayment {
+        let partialPayment = PartialPayment(json: json)
+            return partialPayment
+    }
+}
+
+struct Travellers { //travellers
+    var travellersData: [TravellersData] = []
+    var rId: String = ""
+    var qId: String = ""
+    
+    init(json: JSON) {
+        self.travellersData = TravellersData.getTravellersData(jsonArr: json[APIKeys._t.rawValue].arrayValue)
+        self.rId = json[APIKeys.rid.rawValue].stringValue.removeNull
+        self.qId = json[APIKeys.qid.rawValue].stringValue.removeNull
+    }
+    
+    static func getTravellersData(jsonArr: [JSON]) -> [Travellers] {
+        var travellersData = [Travellers]()
+        for element in jsonArr {
+            travellersData.append(Travellers(json: element))
+        }
+        return travellersData
+    }
+    
+    struct TravellersData {
+        var fname: String = ""
+        var lname: String = ""
+        var sal: String = ""
+        var ptype: String = ""
+        var id: String = ""
+
+        init(json: JSON) {
+            self.fname = json[APIKeys.fname.rawValue].stringValue.removeNull
+            self.lname = json[APIKeys.lname.rawValue].stringValue.removeNull
+            self.sal = json[APIKeys.sal.rawValue].stringValue.removeNull
+            self.ptype = json[APIKeys.ptype.rawValue].stringValue.removeNull
+            self.id = json[APIKeys.id.rawValue].stringValue.removeNull
+        }
+        
+        static func getTravellersData(jsonArr: [JSON]) -> [TravellersData] {
+            var travellersData = [TravellersData]()
+            for element in jsonArr {
+                travellersData.append(TravellersData(json: element))
+            }
+            return travellersData
+        }
+    }
+}
+
+struct PaymentBillingInfo {
+    var name: String = ""
+    var address: String = ""
+    var city: String = ""
+    var state: String = ""
+    var zip: String = ""
+    var country: String = ""
+    var tel: String = ""
+    var email: String = ""
+    
+    init(json: JSON) {
+        self.name = json[APIKeys.name.rawValue].stringValue.removeNull
+        self.address = json[APIKeys.address.rawValue].stringValue.removeNull
+        self.city = json[APIKeys.city.rawValue].stringValue.removeNull
+        self.zip = json[APIKeys.zip.rawValue].stringValue.removeNull
+        self.country = json[APIKeys.country.rawValue].stringValue.removeNull
+        self.tel = json[APIKeys.telephone.rawValue].stringValue.removeNull
+        self.email = json[APIKeys.email.rawValue].stringValue.removeNull
+    }
+    
+    static func getPaymentBillingInfo(json: JSON) -> PaymentBillingInfo {
+        let paymentBillingInfo = PaymentBillingInfo(json: json)
+        return paymentBillingInfo
+    }
+}
+
+struct AppliedCouponDetails { //applied_coupon_details
+    
+    var coupon_id: String = ""
+    var coupon_code: String = ""
+    var total_usage_limit: String = ""
+    var per_user_usage_limit: String = ""
+    var is_payment_method_mapped: String = ""
+    var is_points_usage_allowed: String = ""
+    var is_partial_payment_allowed: String = ""
+    var payment_method_mapping: [String : Any] = [:]
+    
+    init(json: JSON) {
+        self.coupon_id = json[APIKeys.coupon_id.rawValue].stringValue.removeNull
+        self.coupon_code = json[APIKeys.coupon_code.rawValue].stringValue.removeNull
+        self.total_usage_limit = json[APIKeys.total_usage_limit.rawValue].stringValue.removeNull
+        self.per_user_usage_limit = json[APIKeys.per_user_usage_limit.rawValue].stringValue.removeNull
+        self.is_payment_method_mapped = json[APIKeys.is_payment_method_mapped.rawValue].stringValue.removeNull
+        self.is_points_usage_allowed = json[APIKeys.is_points_usage_allowed.rawValue].stringValue.removeNull
+        self.is_partial_payment_allowed = json[APIKeys.is_partial_payment_allowed.rawValue].stringValue.removeNull
+        self.payment_method_mapping = json[APIKeys.payment_method_mapping.rawValue].dictionaryObject ?? [:]
+    }
+    
+    static func getAppliedCouponDetails(json: JSON) -> AppliedCouponDetails {
+        let appliedCouponDetails = AppliedCouponDetails(json: json)
+        return appliedCouponDetails
+    }
+
 }

@@ -300,7 +300,7 @@ enum APIKeys: String {
     case CPD = "CPD"
     case CACB = "CACB"
     case CSPCFEE = "CSPCFEE"
-    case currency_pref = "currency_pref"
+    case currencyPref = "currency_pref"
     case booking_id = "booking_id"
     
     case trip_id
@@ -320,6 +320,38 @@ enum APIKeys: String {
     case per_night_cost
     case num_guests
     case currency_code
+    
+    // Final Checkout VC
+    case grossAmout = "gross_amount"
+    case netAmount = "net_amount"
+    case priceChange = "price_change"
+    
+    case action
+    case coupons
+    case amount
+    case user_amount
+    case date
+    case processing_fee
+    case _t
+    case fname
+    case lname
+    case sal
+    case ptype
+    case zip
+    case telephone = "tel"
+    case total_usage_limit
+    case per_user_usage_limit
+    case is_payment_method_mapped
+    case is_points_usage_allowed
+    case is_partial_payment_allowed
+    case payment_method_mapping
+    case part_payment
+    case travellers
+    case payment_billing_info
+    case mobile_isd
+    case special
+    case applied_coupon_details
+    case is_coupon_applied
+    case itinerary
 }
-
 

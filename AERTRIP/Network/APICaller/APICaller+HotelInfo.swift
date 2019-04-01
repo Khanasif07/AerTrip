@@ -16,7 +16,7 @@ extension APICaller {
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotel = response["results"] as? JSONDictionary, let currencyPref = response[APIKeys.currency_pref.rawValue] as? String {
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotel = response["results"] as? JSONDictionary, let currencyPref = response[APIKeys.currencyPref.rawValue] as? String {
                     let hotelInfo = HotelDetails.hotelInfo(response: hotel)
                     completionBlock(true, [], hotelInfo, currencyPref)
                 }

@@ -67,11 +67,19 @@ enum APIEndPoint : String {
 
     //Email Itineraries
     case emailItineraries              = "dashboard/booking-action"
+    //    case emailItineraries              = "dashboard/booking-action?booking_id=9035&type=email"
+    case getCoponDetails               = "itinerary/get-details?action=coupons"
+    case applyCouponCode               = "hotels/itinerary?action=coupons"
     
     //Trip
     case tripsList                     = "trips/list"
     case addTrip                       = "trips/add"
     case tripEventHotelsSave           = "trips/event/hotels/save"
+    
+    // Final Checkout
+   
+    case hotelItinerary = "hotels/itinerary?action=traveller"    
+    case getPaymentMethod = "itinerary/get-payment-methods"
 }
 
 //MARK: - endpoint extension for url -
