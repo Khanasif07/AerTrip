@@ -18,9 +18,8 @@ class FinalCheckOutVC: BaseVC {
     
     
     // MARK: - Properties
-    
-    let cellIdentifier = "FareSectionHeader"
     let viewModel = FinalCheckoutVM()
+    let cellIdentifier = "FareSectionHeader"
     var isWallet: Bool = false
     
     // MARK: - View Life cycle
@@ -279,7 +278,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            AppFlowManager.default.presentHCCouponCodeVC()
+            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self)
         }
     }
 }
@@ -306,6 +305,11 @@ extension FinalCheckOutVC : FinalCheckoutVMDelegate {
     func getPaymentMethodsFails(errors: ErrorCodes) {
         //
     }
+}
     
     
+extension FinalCheckOutVC: HCCouponCodeVCDelegate {
+    func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
+        printDebug(appliedCouponData)
+    }
 }

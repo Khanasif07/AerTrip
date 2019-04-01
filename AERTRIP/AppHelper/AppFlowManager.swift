@@ -417,8 +417,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func presentHCCouponCodeVC() {
+    func presentHCCouponCodeVC(itineraryId: String , vc: FinalCheckOutVC ) {
         let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.delegate = vc
+        obj.viewModel.itineraryId = itineraryId
         self.mainNavigationController.present(obj, animated: true)
     }
     

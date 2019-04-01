@@ -14,8 +14,9 @@ protocol PassSelectedCoupon: class {
 }
 
 class CouponCodeTableViewCell: UITableViewCell {
-    
-    var discountText: [String] = ["$ 10.00 (₹ 660) instant cashback will be applied to this booking.","$ 2.00 (₹ 132) will be credited to your Aertrip Walle within few hours of successful payment / travel date."]
+
+    let price: String = "12.00"
+    var discountText: [String] = [LocalizedString.InstantCashBackAppliedText.localized,LocalizedString.WalletCashBackAppliedText.localized]
     weak var delegate: PassSelectedCoupon?
     
     //Mark:- IBOutlets
@@ -77,23 +78,63 @@ class CouponCodeTableViewCell: UITableViewCell {
         self.coupanCodeLabel.attributedText = attributedString
     }
     
+    /*
+     let bulletList = NSMutableAttributedString()
+     for string in stringList {
+     let formattedString = "\(bullet)  \(string)\n"
+     let attributedString = NSMutableAttributedString(string: formattedString)
+     attributedString.addAttributes(
+     [NSAttributedString.Key.paragraphStyle : paragraphStyle],
+     range: NSMakeRange(0, attributedString.length))
+     attributedString.addAttributes(
+     textAttributes,
+     range: NSMakeRange(0, attributedString.length))
+     
+     let string:NSString = NSString(string: formattedString)
+     let rangeForBullet:NSRange = string.range(of: bullet)
+     attributedString.addAttributes(bulletAttributes, range: rangeForBullet)
+     bulletList.append(attributedString)
+     }
+     */
+    
     ///Bulleted Coupons Details
-    private func bulletedCouponsDetails(discountDetails: [String]) -> NSMutableAttributedString {
+    private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Int, walletCashBack: Int) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
-        for text in discountDetails {
-            let formattedString: String = "●  \(text)\n"
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+        for (index,text) in discountDetails.enumerated() {
+            let bulletedString = NSMutableAttributedString()
+            let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
+            let asStylizedPrice = (index == 0) ? instantCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)) : walletCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n\n", attributes: attributesDictionary)
+            bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))
+            asStylizedPrice.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, asStylizedPrice.length))
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
-            fullAttributedString.append(attributedString)
+            bulletedString.append(bulletedAttributedString)
+            bulletedString.append(asStylizedPrice)
+            bulletedString.append(attributedString)
+            fullAttributedString.append(bulletedString)
         }
+        self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         return fullAttributedString
     }
     
-    internal func configCell() {
-        self.attributeLabelSetUp(couponCode: "AERHDFC")
-        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText)
+    private func discountTextSetUp(price: String, endText: String) {
+        let attributedString = NSMutableAttributedString()
+        let orangeAttribut = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange] as [NSAttributedString.Key : Any]
+        let startTextAttributedString = NSAttributedString(string: "\(LocalizedString.Save.localized) \(LocalizedString.rupeesText.localized) ", attributes: orangeAttribut)
+        let asStylizedPrice = price.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        let endTextAttributedString = NSAttributedString(string: endText , attributes: orangeAttribut)
+        attributedString.append(startTextAttributedString)
+        attributedString.append(asStylizedPrice)
+        attributedString.append(endTextAttributedString)
+        self.discountLabel.attributedText = attributedString
+    }
+    
+    internal func configCell(currentCoupon: HCCouponModel) {
+        self.attributeLabelSetUp(couponCode: currentCoupon.couponTitle)
+        self.discountTextSetUp(price: currentCoupon.discountBreakUp?.totalCashBack.toString ?? "" , endText: "")
+        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0, walletCashBack: currentCoupon.discountBreakUp?.CACB ?? 0)
     }
     
     //Mark:- IBActions

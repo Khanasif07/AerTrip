@@ -583,5 +583,7 @@ enum LocalizedString: String {
     case View = "View"
     case TellYourFriendsAboutYourPlan = "TellYourFriendsAboutYourPlan"
     case WhatNext = "WhatNext"
+    case InstantCashBackAppliedText = "InstantCashBackAppliedText"
+    case WalletCashBackAppliedText = "WalletCashBackAppliedText"
 }
 

@@ -32,7 +32,6 @@ extension APICaller {
     }
     
     
-    
     func callItenaryDataForTravellerAPI(itinaryId:String,params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String,_ itinerary : ItenaryModel)->Void ) {
        
         let urlPath = APIEndPoint.baseUrlPath.rawValue + APIEndPoint.hotelItinerary.rawValue + "&it_id=\(itinaryId)"
@@ -91,4 +90,44 @@ extension APICaller {
     }
     
     
+    func getCouponDetailsApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : [HCCouponModel])->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.getCoponDetails, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject , let couponsArray = response[APIKeys.coupons.rawValue] as? [JSONDictionary]  {
+                    let couponDetails = HCCouponModel.getHCCouponData(jsonArr: couponsArray)
+                    completionBlock(true, [], couponDetails)
+                } else {
+                    completionBlock(true, [], [])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, [])
+            })
+        }) { (error) in
+            completionBlock(false, [], [])
+        }
+    }
+    
+    
+    func applyCoupnCodeApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : HCCouponAppliedModel?)->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.applyCouponCode, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    let appliedCouponData = HCCouponAppliedModel.getHCCouponAppliedModel(json: jsonData[APIKeys.data.rawValue] )
+                    completionBlock(true, [], appliedCouponData)
+                } else {
+                    completionBlock(true, [], nil)
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            completionBlock(false, [], nil)
+        }
+    }
 }

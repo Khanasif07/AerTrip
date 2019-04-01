@@ -26,7 +26,7 @@ struct HCCouponModel {
                 APIKeys.coupon_code.rawValue: self.couponCode,
                 APIKeys.coupon_title.rawValue: self.couponTitle,
                 APIKeys.description.rawValue: self.description,
-                APIKeys.discounts_breakup.rawValue: self.discountBreakUp ?? DiscountBreakUp.self]
+                APIKeys.discounts_breakup.rawValue: self.discountBreakUp ?? DiscountBreakUp()]
     }
     
     init(json: JSONDictionary) {
@@ -55,38 +55,40 @@ struct HCCouponModel {
         }
         return (arr)
     }
+}
 
+struct DiscountBreakUp {
+    var CPD: Int = 0
+    var CACB: Int = 0
+    var CSPCFEE: Int = 0
+    var totalCashBack: Int {
+        return CPD + CACB
+    }
     
-    struct DiscountBreakUp {
-        var CPD: Int = 0
-        var CACB: Int = 0
-        var CSPCFEE: Int = 0
-        
-        init() {
-            self.init(json: [:])
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.CPD.rawValue: self.CPD,
+                APIKeys.CACB.rawValue: self.CACB,
+                APIKeys.CSPCFEE.rawValue: self.CSPCFEE]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.CPD.rawValue] as? Int {
+            self.CPD = obj < 0 ? obj*(-1) : obj
         }
-        
-        var jsonDict: JSONDictionary {
-            return [APIKeys.CPD.rawValue: self.CPD,
-                    APIKeys.CACB.rawValue: self.CACB,
-                    APIKeys.CSPCFEE.rawValue: self.CSPCFEE]
+        if let obj = json[APIKeys.CACB.rawValue] as? Int {
+            self.CACB = obj < 0 ? obj*(-1) : obj
         }
-        
-        init(json: JSONDictionary) {
-            if let obj = json[APIKeys.CPD.rawValue] as? Int {
-                self.CPD = obj
-            }
-            if let obj = json[APIKeys.CACB.rawValue] as? Int {
-                self.CACB = obj
-            }
-            if let obj = json[APIKeys.CSPCFEE.rawValue] as? Int {
-                self.CSPCFEE = obj
-            }
+        if let obj = json[APIKeys.CSPCFEE.rawValue] as? Int {
+            self.CSPCFEE = obj < 0 ? obj*(-1) : obj
         }
-        
-        static func getDiscountBreakUps(json: JSONDictionary ) -> DiscountBreakUp {
-                let obj = DiscountBreakUp(json: json)
-                return obj
-        }
+    }
+    
+    static func getDiscountBreakUps(json: JSONDictionary ) -> DiscountBreakUp {
+        let obj = DiscountBreakUp(json: json)
+        return obj
     }
 }
