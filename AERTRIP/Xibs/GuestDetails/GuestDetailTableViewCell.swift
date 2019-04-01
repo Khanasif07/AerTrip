@@ -26,7 +26,7 @@ class GuestDetailTableViewCell: UITableViewCell {
     weak var delegate: GuestDetailTableViewCellDelegate?
     let salutationPicker = UIPickerView()
     
-    var guestDetail: GuestModal? {
+    var guestDetail: ATContact? {
         didSet {
             configureCell()
         }

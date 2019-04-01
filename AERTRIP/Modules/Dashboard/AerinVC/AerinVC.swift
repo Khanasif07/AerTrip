@@ -13,8 +13,6 @@ class AerinVC: BaseVC {
     
     // MARK: - Private
     
-    private var pulsAnimation = PKPulseAnimation()
-    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -46,7 +44,7 @@ class AerinVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.pulsAnimation.start()
+        AppFlowManager.default.aerInPulsAnimator.start()
         
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
             self.setupInitialAnimation()
@@ -74,13 +72,13 @@ class AerinVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.pulsAnimation.numPulse = 6
-        self.pulsAnimation.radius = 100.0
-        self.pulsAnimation.currentAnimation = .line
-        self.pulsAnimation.lineWidth = 2.0
-        self.pulsAnimation.lineColor = AppColors.themeDarkGreen
-        self.pulsAnimation.backgroundColor = AppColors.themeGray60.cgColor
-        self.aerinContainer.layer.insertSublayer(self.pulsAnimation, below: self.aerinButton.layer)
+        AppFlowManager.default.aerInPulsAnimator.numPulse = 6
+        AppFlowManager.default.aerInPulsAnimator.radius = 100.0
+        AppFlowManager.default.aerInPulsAnimator.currentAnimation = .line
+        AppFlowManager.default.aerInPulsAnimator.lineWidth = 2.0
+        AppFlowManager.default.aerInPulsAnimator.lineColor = AppColors.themeDarkGreen
+        AppFlowManager.default.aerInPulsAnimator.backgroundColor = AppColors.themeGray60.cgColor
+        self.aerinContainer.layer.insertSublayer(AppFlowManager.default.aerInPulsAnimator, below: self.aerinButton.layer)
         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
         self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
     }
@@ -93,7 +91,7 @@ class AerinVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.pulsAnimation.position = CGPoint(x: self.aerinContainer.frame.width / 2.0, y: self.aerinContainer.frame.height / 2.0)
+        AppFlowManager.default.aerInPulsAnimator.position = CGPoint(x: self.aerinContainer.frame.width / 2.0, y: self.aerinContainer.frame.height / 2.0)
     }
     
     override func setupTexts() {

@@ -19,7 +19,7 @@ class GuestDetailsVM {
     var salutation = [String]()
     
     // GuestModalArray for travellers
-    var guests: [[GuestModal]] = [[]]
+    var guests: [[ATContact]] = [[]]
     var travellerList: [TravellerModel] = []
     
     private init() {}

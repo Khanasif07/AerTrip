@@ -289,6 +289,13 @@ class HotelsSearchVC: BaseVC {
                     self.viewModel.searchedFormData.checkOutDate = ""
                 }
             }
+            else if checkInDate.daysFrom(date) == 0, let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(checkInDate) <= 0 {
+                /* if checkIn date is today then check if checkout date is not today
+                 
+                 */
+                //if checkOut date expired and not equal to checkIn date then make blank it.
+                self.viewModel.searchedFormData.checkOutDate = ""
+            }
         }
         self.checkInOutView?.setDates(fromData: self.viewModel.searchedFormData)
         

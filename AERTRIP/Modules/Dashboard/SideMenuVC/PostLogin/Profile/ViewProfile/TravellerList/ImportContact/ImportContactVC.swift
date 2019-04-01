@@ -406,6 +406,7 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
         default:
             cell.contact = nil
         }
+        cell.isUsingForGuest = false
         
         return cell
     }
@@ -450,7 +451,7 @@ extension ImportContactVC: SelectedContactCollectionCellDelegate {
 
 //MARK:- Collection View Custom Flow Layout
 //MARK:-
-class ContactListCollectionFlowLayout : UICollectionViewFlowLayout {
+class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 
     var insertingIndexPaths = [IndexPath]()
 

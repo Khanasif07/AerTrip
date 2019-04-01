@@ -26,7 +26,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         }
     }
     
-    var guestDetail: GuestModal? {
+    var isUsingForGuest: Bool = false {
         didSet {
             self.populateData()
         }
@@ -66,7 +66,44 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     
     private func populateData() {
         
-        if self.contact != nil {
+        if self.isUsingForGuest {
+            
+            self.profileImageView.layer.borderColor = AppColors.clear.cgColor
+            self.profileImageView.layer.borderWidth = 0.0
+            
+            self.nameLabel.text = ""
+            if let fName = self.contact?.firstName, !fName.isEmpty {
+                self.nameLabel.text = fName
+                self.crossButton.isHidden = false
+            }
+            else if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
+                self.crossButton.isHidden = true
+                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.contact?.age ?? 0))"
+            }
+            
+            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            if let ptype = self.contact?.passengerType {
+                if isSelectedForGuest {
+                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                }
+                else {
+                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                }
+            }
+            
+            self.profileImageView.image = placeHolder
+            if let img = self.contact?.profilePicture, !img.isEmpty {
+                self.profileImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
+                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                self.profileImageView.layer.borderWidth = 1.0
+            }
+            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
+                self.profileImageView.image = flImage
+                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                self.profileImageView.layer.borderWidth = 1.0
+            }
+        }
+        else {
             self.nameLabel.text = self.contact?.firstName ?? ""
             
             let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
@@ -80,36 +117,6 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             self.crossButton.isHidden = false
             self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
             self.profileImageView.layer.borderWidth = 1.0
-        }
-        else {
-            
-            self.profileImageView.layer.borderColor = AppColors.clear.cgColor
-            self.profileImageView.layer.borderWidth = 0.0
-
-            self.nameLabel.text = ""
-            if let fName = self.guestDetail?.firstName, !fName.isEmpty {
-                self.nameLabel.text = fName
-                self.crossButton.isHidden = false
-            }
-            else if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
-                self.crossButton.isHidden = true
-                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
-            }
-            
-            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
-            if let ptype = self.guestDetail?.passengerType {
-                if isSelectedForGuest {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
-                }
-                else {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
-                }
-            }
-            
-            self.profileImageView.image = placeHolder
-            if let img = self.guestDetail?.profilePicture, !img.isEmpty {
-                self.profileImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-            }
         }
     }
     

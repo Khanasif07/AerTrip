@@ -29,7 +29,7 @@ class HCSelectGuestsVC: BaseVC {
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
     fileprivate weak var categoryView: ATCategoryView!
     
-    private(set) var viewModel = ImportContactVM.shared
+    private(set) var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
         didSet {
         }
@@ -50,6 +50,8 @@ class HCSelectGuestsVC: BaseVC {
     
     private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
     
+    private var currentSelectedGuestIndex: IndexPath = IndexPath(item: 0, section: 0)
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -60,10 +62,24 @@ class HCSelectGuestsVC: BaseVC {
     }
     
     override func bindViewModel() {
+        self.viewModel.delegateCollection = self
     }
     
     override func dataChanged(_ note: Notification) {
-        
+        if let obj = note.object as? HCSelectGuestsVM.Notification {
+            if obj == .phoneContactFetched {
+                self.fetchPhoneContactsSuccess()
+            }
+            else if obj == .contactSavedFail {
+                self.contactSavedFail()
+            }
+            else if obj == .contactSavedSuccess {
+                self.contactSavedSuccess()
+            }
+            else if obj == .phoneContactSavedFail {
+                self.phoneContactSavedFail()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,9 +107,9 @@ class HCSelectGuestsVC: BaseVC {
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
         
-        self.viewModel.selectedPhoneContacts.removeAll()
-        self.viewModel.selectedFacebookContacts.removeAll()
-        self.viewModel.selectedGoogleContacts.removeAll()
+//        self.viewModel.selectedPhoneContacts.removeAll()
+//        self.viewModel.selectedFacebookContacts.removeAll()
+//        self.viewModel.selectedGoogleContacts.removeAll()
         
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
@@ -147,6 +163,49 @@ class HCSelectGuestsVC: BaseVC {
         }
     }
     
+    private func selectNextGuest() {
+        //update the currentSelected IndexPath according to the data
+        
+        //increasing selection for next only
+//        //setup item
+//        let maxItemInCurrentSection = (GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section].count - 1)
+//        let newItem = (currentSelectedGuestIndex.item + 1)
+//
+//        //setup section
+//        if (newItem > maxItemInCurrentSection) {
+//            //increase section and make item 0
+//            let maxSection = (GuestDetailsVM.shared.guests.count - 1)
+//            if currentSelectedGuestIndex.section >= maxSection {
+//                currentSelectedGuestIndex = IndexPath(item: maxItemInCurrentSection, section: maxSection)
+//            }
+//            else {
+//                currentSelectedGuestIndex = IndexPath(item: 0, section: min((currentSelectedGuestIndex.section + 1), maxSection))
+//            }
+//        }
+//        else {
+//            //increase item in current section
+//            currentSelectedGuestIndex = IndexPath(item: min(newItem, maxItemInCurrentSection), section: currentSelectedGuestIndex.section)
+//        }
+        
+        
+        //increasing next selection according to the selected data
+        var idxPath: IndexPath?
+        for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+            for (item, guest) in roomGuest.enumerated() {
+                if guest.firstName.isEmpty {
+                    idxPath = IndexPath(item: item, section: section)
+                    break
+                }
+            }
+            if let idx = idxPath {
+                currentSelectedGuestIndex = idx
+                break
+            }
+        }
+        
+        selectedContactsCollectionView.reloadData()
+    }
+    
     //MARK:- Public
     
     
@@ -179,6 +238,119 @@ extension HCSelectGuestsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.addButtonAction(sender)
+    }
+}
+
+//MARK:- ViewModel Delegate
+//MARK:-
+extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
+    
+    func contactSavedFail() {
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+    }
+    
+    func contactSavedSuccess() {
+        self.cancelButtonAction(self.topNavView.leftButton)
+    }
+    
+    func phoneContactSavedFail() {
+        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+    }
+    
+    func willFetchPhoneContacts() {
+        
+    }
+    
+    func fetchPhoneContactsSuccess() {
+        
+        let currentlyUsingFor = HCGuestListVC.UsingFor(rawValue: self.currentIndex)
+        if currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this phone.")
+        } else if currentlyUsingFor == .facebook, self.viewModel.facebookContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this facebook.")
+        } else if currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
+            AppToast.default.showToastMessage(message: "No contacts in this google.")
+        }
+    }
+    
+    private func scrollCollectionToEnd() {
+        let newOffsetX = self.selectedContactsCollectionView.contentSize.width - self.selectedContactsCollectionView.width
+        guard newOffsetX > 0 else {return}
+        
+        self.selectedContactsCollectionView.setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: true)
+    }
+    
+    func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+//        self.selectionDidChanged()
+        var item = ATContact(json: [:])
+        switch usingFor {
+        case .travellers:
+            item = self.viewModel._travellerContacts[index]
+
+        case .contacts:
+            item = self.viewModel._phoneContacts[index]
+
+        case .facebook:
+            item = self.viewModel._facebookContacts[index]
+
+        case .google:
+            item = self.viewModel._googleContacts[index]
+        }
+        
+        item.passengerType = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType
+        item.numberInRoom = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom
+        item.age = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age
+
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+        self.selectNextGuest()
+    }
+    
+    func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+//        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item] = ATContact(json: [:])
+        var indexPath: IndexPath?
+        switch usingFor {
+        case .travellers:
+            indexPath = getCollectionIndexPath(forContact: self.viewModel._travellerContacts[index])
+            
+        case .contacts:
+            indexPath = getCollectionIndexPath(forContact: self.viewModel._phoneContacts[index])
+
+        case .facebook:
+            indexPath = getCollectionIndexPath(forContact: self.viewModel._facebookContacts[index])
+
+        case .google:
+            indexPath = getCollectionIndexPath(forContact: self.viewModel._googleContacts[index])
+        }
+        
+        if let idx = indexPath {
+            removeContact(forIndexPath: idx)
+            currentSelectedGuestIndex = idx
+        }
+        
+        self.selectedContactsCollectionView.reloadData()
+    }
+    
+    private func removeContact(forIndexPath indexPath: IndexPath) {
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].salutation = ""
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].firstName = ""
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].lastName = ""
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].profilePicture = ""
+    }
+    
+    private func getCollectionIndexPath(forContact contact: ATContact) -> IndexPath? {
+        var indexPath: IndexPath?
+        for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+            for (item, guest) in roomGuest.enumerated() {
+                if guest.id == contact.id {
+                    indexPath = IndexPath(item: item, section: section)
+                    break
+                }
+            }
+            if let _ = indexPath {
+                break
+            }
+        }
+        return indexPath
     }
 }
 
@@ -221,7 +393,12 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         
         cell.contact = nil
         
-        cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
+        cell.contact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
+        cell.isUsingForGuest = true
+        cell.isSelectedForGuest = false
+        if (indexPath.section == currentSelectedGuestIndex.section) && (indexPath.item == currentSelectedGuestIndex.item){
+            cell.isSelectedForGuest = true
+        }
         
         return cell
     }
@@ -234,15 +411,68 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 0)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        currentSelectedGuestIndex = indexPath
+        collectionView.reloadData()
+    }
 }
 
 extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
     func crossButtonAction(_ sender: UIButton) {
         if let indexPath = self.selectedContactsCollectionView.indexPath(forItem: sender) {
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].salutation = ""
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].firstName = ""
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].lastName = ""
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].profilePicture = ""
+            removeContact(forIndexPath: indexPath)
+            let oldContact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
+            switch oldContact.label {
+            case .traveller:
+                if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.selectedTravellerContacts.remove(at: index)
+                }
+                if let index = self.viewModel.travellerContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.remove(atIndex: index, for: .travellers)
+                }
+                
+            case .phone:
+                if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.selectedPhoneContacts.remove(at: index)
+                }
+                
+                if let index = self.viewModel.phoneContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.remove(atIndex: index, for: .contacts)
+                }
+                
+            case .facebook:
+                if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.selectedFacebookContacts.remove(at: index)
+                }
+                if let index = self.viewModel.facebookContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.remove(atIndex: index, for: .facebook)
+                }
+                
+            case .google:
+                if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.selectedGoogleContacts.remove(at: index)
+                }
+                if let index = self.viewModel.googleContacts.firstIndex(where: { (contact) -> Bool in
+                    return oldContact.id == contact.id
+                }) {
+                    self.viewModel.remove(atIndex: index, for: .google)
+                }
+            }
         }
     }
 }

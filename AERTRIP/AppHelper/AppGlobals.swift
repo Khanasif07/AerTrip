@@ -27,7 +27,6 @@ func delay(seconds: Double, completion: @escaping () -> ()) {
     }
 }
 
-
 struct AppGlobals {
     static let shared = AppGlobals()
     private init() {}

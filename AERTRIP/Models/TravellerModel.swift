@@ -40,17 +40,17 @@ struct TravellerModel {
         }
     }
     
-    var guestModal: GuestModal {
-        var temp = GuestModal()
+    var contact: ATContact {
+        var contact = ATContact(json: [:])
+        contact.id = "\(self.id)"
+        contact.salutation = self.salutation
+        contact.firstName = self.firstName
+        contact.lastName = self.lastName
+        contact.dob = self.dob
         
-        temp.id = id
-        temp.salutation = salutation
-        temp.firstName = firstName
-        temp.lastName = lastName
-        temp.profilePicture = ""
-        
-        return temp
+        return contact
     }
+    
     
     init(json: JSON) {
         self.id = json["id"].intValue
