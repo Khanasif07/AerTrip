@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol HCCouponCodeVCDelegate: class {
+    func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel)
+}
+
 class HCCouponCodeVC: BaseVC {
     
     let viewModel = HCCouponCodeVM()
+    weak var delegate: HCCouponCodeVCDelegate?
     var selectedIndexPath: IndexPath?
     
     //Mark:- IBOutlets
@@ -191,14 +196,15 @@ extension HCCouponCodeVC {
                         self.selectedIndexPath = indexPath
                         self.viewModel.couponCode = coupon.couponCode
                         self.couponTableView.reloadData()
+                        return true
                     }
-                    return true
+                    //return true
                 } else {
                     self.selectedIndexPath = nil
                     self.couponValidationTextSetUp(isCouponValid: false)
                     self.viewModel.couponCode = ""
                     self.couponTableView.reloadData()
-                    return true
+                    //return true
                 }
             }
         }
@@ -231,6 +237,10 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     
     func applyCouponCodeSuccessful() {
         printDebug("Coupon Applied Successful")
+        if let safeDelegate = self.delegate , let appliedCouponData = self.viewModel.appliedCouponData {
+            safeDelegate.appliedCouponData(appliedCouponData)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func applyCouponCodeFailed() {

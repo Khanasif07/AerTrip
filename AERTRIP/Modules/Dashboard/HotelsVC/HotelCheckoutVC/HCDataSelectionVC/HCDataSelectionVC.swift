@@ -14,7 +14,6 @@ class HCDataSelectionVC: BaseVC {
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet weak var hotelDetailsContainerView: UIView!
     @IBOutlet weak var continueContainerView: UIView!
     
     //continue
@@ -27,6 +26,12 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var infoButton: UIButton!
     
     //minimized hotel details
+    @IBOutlet weak var hotelDetailsParentContainerView: UIView!
+    @IBOutlet weak var hotelDetailsParentContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hotelDetailsContainerView: UIView!
+    @IBOutlet weak var hotelDetailsContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hotelCheckOutDetailsContainerVIew: UIView!
+    @IBOutlet weak var hotelCheckOutDetailsContainerVIewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var checkInOutDate: UILabel!
     @IBOutlet weak var detailsButton: UIButton!
@@ -38,10 +43,15 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     
+    
     //MARK:- Properties
     //MARK:- Public
     let viewModel = HCDataSelectionVM()
-    
+    var hotelCheckOutDetailsVIew: HotelCheckOutDetailsVIew?
+    var statusBarHeight: CGFloat {
+        return UIApplication.shared.statusBarFrame.height
+    }
+
     // MARK: - Private
     
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -60,6 +70,7 @@ class HCDataSelectionVC: BaseVC {
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
+        configureHotelCheckOutDetailsVIew()
         viewModel.fetchConfirmItineraryData()
         fillData()
         viewModel.fetchConfirmItineraryData()
@@ -67,6 +78,13 @@ class HCDataSelectionVC: BaseVC {
         manageLoader(shouldStart: true)
 
         setupGuestArray()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            hotelCheckOutDetailsVIew.frame = self.hotelCheckOutDetailsContainerVIew.bounds
+        }
     }
     
     override func setupFonts() {
@@ -124,6 +142,16 @@ class HCDataSelectionVC: BaseVC {
         loaderContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.5)
         
         loaderContainerView.isHidden = !shouldStart
+    }
+    
+    private func configureHotelCheckOutDetailsVIew() {
+        self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: self.hotelCheckOutDetailsContainerVIew.bounds)
+        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            self.hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsVIew)
+        }
+        self.hotelDetailsContainerViewHeightConstraint.constant = 44.0
+//        self.hotelCheckOutDetailsContainerVIew.isHidden = true
+        self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = 0.0
     }
     
     private func fillData() {
@@ -240,14 +268,20 @@ class HCDataSelectionVC: BaseVC {
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
         AppFlowManager.default.moveToFinalCheckoutVC(itineraryData: self.viewModel.itineraryData ?? ItineraryData())
-        
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
-        var itine = ItineraryData(json: JSON([:]))
-        itine.total_fare += (viewModel.itineraryData?.total_fare ?? 0.0) + 10.0
-        //        fetchRecheckRatesDataSuccess(recheckedData: itine)
-        AppFlowManager.default.presentHotelDetailsVCForCheckOut(self, sourceView: self.hotelDetailsContainerView, sid: "")
+//        var itine = ItineraryData(json: JSON([:]))
+//        itine.total_fare += (viewModel.itineraryData?.total_fare ?? 0.0) + 10.0
+        self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.hotelDetailsParentContainerView.frame = CGRect(x: 0.0, y: self.statusBarHeight + 8.0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0))
+            self.hotelDetailsContainerViewHeightConstraint.constant = UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0)
+            self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0)
+            self.view.layoutIfNeeded()
+        }) { (isDone) in
+            self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
+        }
     }
 }
 

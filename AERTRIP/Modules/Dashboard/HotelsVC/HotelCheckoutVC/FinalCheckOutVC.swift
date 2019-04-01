@@ -246,7 +246,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "")
+            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self)
         }
     }
 }
@@ -256,5 +256,11 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
 extension FinalCheckOutVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
+    }
+}
+
+extension FinalCheckOutVC: HCCouponCodeVCDelegate {
+    func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
+        printDebug(appliedCouponData)
     }
 }

@@ -322,6 +322,30 @@ enum APIKeys: String {
     case currency_code
     case action
     case coupons
+    case amount
+    case user_amount
+    case date
+    case processing_fee
+    case _t
+    case fname
+    case lname
+    case sal
+    case ptype
+    case zip
+    case telephone = "tel"
+    case total_usage_limit
+    case per_user_usage_limit
+    case is_payment_method_mapped
+    case is_points_usage_allowed
+    case is_partial_payment_allowed
+    case payment_method_mapping
+    case part_payment
+    case travellers
+    case payment_billing_info
+    case mobile_isd
+    case special
+    case applied_coupon_details
+    case is_coupon_applied
+    case itinerary
 }
-
 
