@@ -142,6 +142,11 @@ class FinalCheckOutVC: BaseVC {
 //            } else {
 //               return UITableViewCell()
 //            }
+            
+            if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
+                walletAmountCell.walletAmountLabel.text =  AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+            }
+         
            
             return walletAmountCell
 
