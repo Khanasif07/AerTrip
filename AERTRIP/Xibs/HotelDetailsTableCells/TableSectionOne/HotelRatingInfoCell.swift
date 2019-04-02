@@ -47,22 +47,55 @@ class HotelRatingInfoCell: UITableViewCell {
         self.distanceLabel.isHidden = true
         self.deviderView.isHidden = true
     }
+    
+    private func textSetUp(hotelName: String , distanceText: String, durationValue: Int, starRating: Double , tripAdvisorRating: Double) {
+        self.hotelNameLabel.text = hotelName
+        let modeImage: String
+        if durationValue/60 <= 10 {
+            modeImage = " •🚶🏻 "
+        } else {
+            modeImage = " •🚘 "
+        }
+        self.distanceLabel.text = "\(distanceText)  \(modeImage)  \((Double(durationValue)/60.0).roundTo(places: 1)) mins"
+        self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
+        self.deviderView.isHidden = false
+        self.hotelRatingView.rating = starRating
+        self.hotelDotsView.rating = tripAdvisorRating
+        self.hotelDotsView.isHidden = tripAdvisorRating.isZero
+        self.tripadviserImageView.isHidden = tripAdvisorRating.isZero
+    }
 
         
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel) {
-        self.hotelNameLabel.text = hotelData.hotelName
-        let modeImage: String//UIImage
-        if placeData.durationValue/60 <= 10 {
-            modeImage = " •🚶🏻 " //#imageLiteral(resourceName: "people")
-        } else {
-            modeImage = " •🚘 " //#imageLiteral(resourceName: "car")
-        }
-//        self.distanceLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(placeData.distanceText)  •", image: modeImage , endText: "  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins", font: AppFonts.Regular.withSize(16.0))
-        self.distanceLabel.text = "\(placeData.distanceText)  \(modeImage)  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
-        self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
-        self.deviderView.isHidden = false
-        self.hotelRatingView.rating = hotelData.star
-        self.hotelDotsView.rating = hotelData.rating
+//        self.hotelNameLabel.text = hotelData.hotelName
+//        let modeImage: String
+//        if placeData.durationValue/60 <= 10 {
+//            modeImage = " •🚶🏻 "
+//        } else {
+//            modeImage = " •🚘 "
+//        }
+//        self.distanceLabel.text = "\(placeData.distanceText)  \(modeImage)  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
+//        self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
+//        self.deviderView.isHidden = false
+//        self.hotelRatingView.rating = hotelData.star
+//        self.hotelDotsView.rating = hotelData.rating
+        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+    }
+    
+    internal func configHCDetailsCell(hotelData: HotelDetails , placeData: PlaceModel) {
+//        self.hotelNameLabel.text = hotelData.hname
+//        let modeImage: String
+//        if placeData.durationValue/60 <= 10 {
+//            modeImage = " •🚶🏻 "
+//        } else {
+//            modeImage = " •🚘 "
+//        }
+//        self.distanceLabel.text = "\(placeData.distanceText)  \(modeImage)  \((Double(placeData.durationValue)/60.0).roundTo(places: 1)) mins"
+//        self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
+//        self.deviderView.isHidden = false
+//        self.hotelRatingView.rating = hotelData.star
+//        self.hotelDotsView.rating = hotelData.rating
+        self.textSetUp(hotelName: hotelData.hname , distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
     }
     
     //Mark:- IBActions

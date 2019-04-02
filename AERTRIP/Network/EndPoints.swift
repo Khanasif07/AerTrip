@@ -70,7 +70,7 @@ enum APIEndPoint : String {
     //    case emailItineraries              = "dashboard/booking-action?booking_id=9035&type=email"
     case getCoponDetails               = "itinerary/get-details?action=coupons"
     case applyCouponCode               = "hotels/itinerary?action=coupons"
-    
+    case removeCouponCode              = "itinerary/remove-coupon"
     //Trip
     case tripsList                     = "trips/list"
     case addTrip                       = "trips/add"

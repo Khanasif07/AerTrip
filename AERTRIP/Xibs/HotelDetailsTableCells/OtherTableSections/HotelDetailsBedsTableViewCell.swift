@@ -52,9 +52,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         //Color
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 8.0)
-//         self.shadowView.addshadowOnSelectedEdge(top: true, left: true, bottom: false, right: true, opacity: 0.7, shadowRadius: 8.0, color: AppColors.themeBlack.withAlphaComponent(0.14))
         self.backgroundColor = AppColors.screensBackground.color
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 8.0)
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
         self.bedsLabel.textColor = AppColors.themeBlack

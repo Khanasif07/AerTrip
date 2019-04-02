@@ -94,13 +94,13 @@ struct HotelDetails {
                 APIKeys.per_night_price.rawValue: self.per_night_price,
                 APIKeys.per_night_list_price.rawValue: self.per_night_list_price,
                 APIKeys.photos.rawValue: self.photos,
-                APIKeys.amenities.rawValue: self.amenities,
+                APIKeys.amenities.rawValue: self.amenities ?? Amenities(),
                 APIKeys.amenities_group.rawValue: self.amenitiesGroups,
                 APIKeys.checkin_time.rawValue: self.checkin_time,
                 APIKeys.checkout_time.rawValue: self.checkout_time,
                 APIKeys.checkin.rawValue: self.checkin,
                 APIKeys.checkout.rawValue: self.checkout,
-                APIKeys.rates.rawValue: self.rates,
+                APIKeys.rates.rawValue: self.rates ?? [Rates()],
                 //APIKeys.combine_rates.rawValue: self.combine_rates,
             APIKeys.info.rawValue: self.info,
             APIKeys.city.rawValue: self.city,
@@ -274,7 +274,7 @@ struct Amenities {
     }
     
     var jsonDict: JSONDictionary {
-        return [APIKeys.main.rawValue: self.main,
+        return [APIKeys.main.rawValue: self.main ?? [AmenitiesMain()],
                 APIKeys.basic.rawValue: self.basic,
                 APIKeys.other.rawValue: self.other]
     }
@@ -466,10 +466,10 @@ struct Rates: Hashable {
                 APIKeys.group_rooms.rawValue: self.group_rooms,
                 APIKeys.payment_info.rawValue: self.payment_info,
                 APIKeys.part_payment_last_date.rawValue: self.part_payment_last_date,
-                APIKeys.rooms.rawValue: self.roomsRates,
-                APIKeys.terms.rawValue: self.terms,
-                APIKeys.cancellation_penalty.rawValue: self.cancellation_penalty,
-                APIKeys.penalty_array.rawValue: self.penalty_array,
+                APIKeys.rooms.rawValue: self.roomsRates ?? [RoomsRates()],
+                APIKeys.terms.rawValue: self.terms ?? RatesTerms(),
+                APIKeys.cancellation_penalty.rawValue: self.cancellation_penalty ?? CancellationPenaltyRates(),
+                APIKeys.penalty_array.rawValue: self.penalty_array ?? [PenaltyRates()],
                 APIKeys.inclusion_array.rawValue: self.inclusion_array
         ]
     }
@@ -545,54 +545,7 @@ struct Rates: Hashable {
     
     //Mark:- Functions
     //================
-    ///GetRoomData
-    func getRoomData() -> [RoomsRates: Int] {
-        var tempData = [RoomsRates: Int] ()
-        guard let roomsRates = self.roomsRates else { return tempData }
-        for currentRoom in roomsRates {
-            var count = 1
-            var isNew = true
-            for otherRoom in roomsRates {
-                if otherRoom.uuRid != currentRoom.uuRid && !tempData.keys.contains(otherRoom) {
-                    if otherRoom == currentRoom {
-                        count = count + 1
-                    }
-                }
-            }
-            if !tempData.keys.contains(currentRoom) {
-                tempData[currentRoom] = count
-            }
-            
-        }
-        return tempData
-    }
-    
-    //
-    //    func getTotalNumberOfRows() -> Int {
-    //        var totalRows: Int = 0
-    //        let roomData = getRoomData()
-    //        if roomData.count > 0 {
-    //            totalRows += roomData.count
-    //        }
-    //        if let boardInclusion =  self.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
-    //            totalRows += 1
-    //        } else if let internetData =  self.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
-    //            totalRows += 1
-    //        }
-    //        if let otherInclusion =  self.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
-    //            totalRows += 1
-    //        }
-    //        if let notesData =  self.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
-    //            totalRows += 1
-    //        }
-    //        if self.cancellation_penalty != nil {
-    //            totalRows += 1
-    //        }
-    //        totalRows += 1 ///for payment cell
-    //        totalRows += 1 /// for checkout cell
-    //        return totalRows
-    //    }
-    
+    ///Get Full Refundable Data
     func getFullRefundableData() -> PenaltyRates {
         var penaltyRates = PenaltyRates()
         if let penaltyArray = self.penalty_array {
@@ -671,7 +624,7 @@ struct RoomsRates: Hashable {
                 APIKeys.thumbnail.rawValue: self.thumbnail,
                 APIKeys.name.rawValue: self.name,
                 APIKeys.desc.rawValue: self.desc,
-                APIKeys.bed_types.rawValue: self.roomBedTypes,
+                APIKeys.bed_types.rawValue: self.roomBedTypes ?? [RoomsBedTypes()],
                 APIKeys.type.rawValue: self.type,
                 APIKeys.id.rawValue: self.id,
                 APIKeys.max_adult.rawValue: self.max_adult,

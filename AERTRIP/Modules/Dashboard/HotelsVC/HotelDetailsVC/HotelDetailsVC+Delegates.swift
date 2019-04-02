@@ -36,11 +36,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
-            
-        } else {
-            
-        }
+        
         if let hotelDetails = self.viewModel.hotelData {
             let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[indexPath.section]
             switch tableViewRowCell[indexPath.row] {
@@ -140,13 +136,13 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let vc = sSelf.parent {
                     AppFlowManager.default.popToViewController(vc, animated: true)
                 }
-                AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid)
+                AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel())
             }
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.heightForRow(tableView: tableView, indexPath: indexPath)
+        return 100//self.heightForRow(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -396,7 +392,6 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
 //==========================
 extension HotelDetailsVC: GetFullInfoDelegate {
     func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
-        self.expandHeight = expandHeight
         if !allIndexPath.contains(indexPath) {
             self.allIndexPath.append(indexPath)
             self.hotelTableView.reloadData()
@@ -404,3 +399,12 @@ extension HotelDetailsVC: GetFullInfoDelegate {
     }
 }
 
+//Mark:- HotelDetailAmenitesCellDelegate
+//=======================================
+extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
+    func viewAllButtonAction() {
+        if let hotelData = self.viewModel.hotelData {
+            AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
+        }
+    }
+}

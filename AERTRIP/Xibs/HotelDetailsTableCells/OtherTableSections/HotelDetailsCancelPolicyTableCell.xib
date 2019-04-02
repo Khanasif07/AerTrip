@@ -108,7 +108,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="W6W-kV-aMW" secondAttribute="bottom" id="53p-nP-8vK"/>
                             <constraint firstItem="W6W-kV-aMW" firstAttribute="top" secondItem="EJp-l8-0bl" secondAttribute="top" id="MT0-wb-JOz"/>
@@ -135,6 +135,7 @@
                 <outlet property="moreBtnOutlet" destination="jrs-ce-14N" id="XQx-V8-IfI"/>
                 <outlet property="moreInfoContainerView" destination="gL2-Xc-Wig" id="Gkj-gO-XEd"/>
                 <outlet property="shadowView" destination="EJp-l8-0bl" id="RpE-QN-Hpg"/>
+                <outlet property="shadowViewBottomConstraints" destination="WfL-Bw-GF4" id="9tc-fc-7k4"/>
                 <outlet property="shadowViewLeadingConstraint" destination="chj-XC-HZc" id="UaK-hP-gve"/>
                 <outlet property="shadowViewTrailingConstraint" destination="VoK-9j-8dR" id="BAi-EN-DS4"/>
                 <outlet property="titleLabel" destination="G4V-Bk-Ypt" id="Vre-Ly-5n0"/>

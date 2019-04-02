@@ -19,7 +19,6 @@ class HotelDetailsVC: BaseVC {
     private(set) var viewModel = HotelDetailsVM()
     internal var completion: (() -> Void)? = nil
     internal weak var imagesCollectionView: UICollectionView?
-    internal var expandHeight: CGFloat = 0.0
     internal let hotelImageHeight: CGFloat = 211.0
     private var initialPanPoint: CGPoint = .zero
     private var sourceFrame: CGRect = .zero

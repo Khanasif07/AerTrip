@@ -13,7 +13,10 @@ protocol FinalCheckoutVMDelegate: class {
     func willCallGetPayementMethods()
     func getPaymentsMethodsSuccess()
     func getPaymentMethodsFails(errors: ErrorCodes)
-   
+    
+    
+    func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel)
+    func removeCouponCodeFailed()
 }
 
 class FinalCheckoutVM: NSObject {
@@ -23,7 +26,7 @@ class FinalCheckoutVM: NSObject {
     var itineraryData: ItineraryData?
     var itinaryPriceDetail: ItenaryModel?
     var paymentDetails: PaymentModal?
-
+    
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]
         printDebug(params)
@@ -37,6 +40,24 @@ class FinalCheckoutVM: NSObject {
                 sSelf.delegate?.getPaymentMethodsFails(errors: errors)
             }
         }
-}
+    }
+    
+    func removeCouponCode() {
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryData?.it_id ?? "" ]
+        APICaller.shared.removeCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            guard let sSelf = self else { return }
+            if success {
+                printDebug(appliedCouponData)
+                if let appliedCouponDetails = appliedCouponData {
+                    sSelf.delegate?.removeCouponCodeSuccessful(appliedCouponDetails)
+                }
+            } else {
+                printDebug(errors)
+                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                sSelf.delegate?.removeCouponCodeFailed()
+            }
+        }
+    }
+
     
 }

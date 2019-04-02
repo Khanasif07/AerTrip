@@ -130,4 +130,24 @@ extension APICaller {
             completionBlock(false, [], nil)
         }
     }
+    
+    func removeCouponApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : HCCouponAppliedModel?)->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.removeCouponCode, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    let appliedCouponData = HCCouponAppliedModel.getHCCouponAppliedModel(json: jsonData[APIKeys.data.rawValue] )
+                    completionBlock(true, [], appliedCouponData)
+                } else {
+                    completionBlock(true, [], nil)
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            completionBlock(false, [], nil)
+        }
+    }
 }
