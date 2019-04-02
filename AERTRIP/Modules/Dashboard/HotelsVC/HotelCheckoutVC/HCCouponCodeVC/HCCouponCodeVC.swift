@@ -67,7 +67,6 @@ class HCCouponCodeVC: BaseVC {
         self.applyButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.couponTextField.font = AppFonts.Regular.withSize(18.0)
-        //        self.enterCouponLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.noCouponsReqLabel.font = AppFonts.Regular.withSize(22.0)
         self.bestPriceLabel.font = AppFonts.Regular.withSize(18.0)
     }
@@ -87,7 +86,6 @@ class HCCouponCodeVC: BaseVC {
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTextField.textColor = AppColors.themeBlack
         self.couponTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.EnterCouponCode.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
-        //        self.enterCouponLabel.textColor = AppColors.themeRed
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
         self.couponValidationTextSetUp(isCouponValid: false)
@@ -123,7 +121,6 @@ class HCCouponCodeVC: BaseVC {
     //================
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        //        AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func applyButtonAction(_ sender: UIButton) {
@@ -131,7 +128,9 @@ class HCCouponCodeVC: BaseVC {
             printDebug("\(self.viewModel.couponCode) Applied")
             self.viewModel.applyCouponCode()
         } else {
-            printDebug("Select a coupons code")
+            self.enterCouponLabel.isHidden = false
+            self.couponValidationTextSetUp(isCouponValid: false)
+            printDebug("Enter a Valid code")
         }
     }
 }
@@ -149,7 +148,11 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         if let selectedIndexPath = self.selectedIndexPath {
             cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
-            self.viewModel.couponCode = self.viewModel.couponsData[indexPath.row].couponCode
+            self.viewModel.couponCode = self.viewModel.couponsData[selectedIndexPath.row].couponCode
+            self.couponTextField.text = self.viewModel.couponsData[selectedIndexPath.row].couponCode
+            self.enterCouponLabel.isHidden = false
+            self.couponValidationTextSetUp(isCouponValid: true)
+            self.couponTextField.becomeFirstResponder()
         } else {
             cell.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
         }
@@ -162,11 +165,6 @@ extension HCCouponCodeVC {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         self.enterCouponLabel.isHidden = true
-        //        if self.selectedIndexPath == nil {
-        //            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
-        //        } else {
-        //            self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        //        }
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.selectedIndexPath = nil
         self.couponValidationTextSetUp(isCouponValid: false)
@@ -198,13 +196,11 @@ extension HCCouponCodeVC {
                         self.couponTableView.reloadData()
                         return true
                     }
-                    //return true
                 } else {
                     self.selectedIndexPath = nil
                     self.couponValidationTextSetUp(isCouponValid: false)
                     self.viewModel.couponCode = ""
                     self.couponTableView.reloadData()
-                    //return true
                 }
             }
         }

@@ -35,6 +35,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var shadowViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var shadowViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shadowViewBottomConstraints: NSLayoutConstraint!
+    
     
     //Mark:- LifeCycle
     //================
@@ -48,8 +50,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure UI
     private func configUI() {
         self.allDetailsLabel.isHidden = true
-//        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 8.0)
-        self.shadowView.addshadowOnSelectedEdge(top: false, left: true, bottom: false, right: true, opacity: 0.7, shadowRadius: 8.0, offset: CGSize.zero, color: AppColors.themeBlack.withAlphaComponent(0.14))
+        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 8.0)
         //UIColor
         self.backgroundColor = AppColors.screensBackground.color
         ///Font
@@ -65,6 +66,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         //Text
         self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
     }
+    
+    
     
     ///AttributeLabelSetup
     private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Int) {
@@ -224,7 +227,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
         self.titleLabel.text = LocalizedString.PaymentPolicy.localized
-        if !ratesData.payment_info.isEmpty {
+        if !ratesData.payment_info.isEmpty && ratesData.payment_info != "payment_now" {
             self.infoBtnOutlet.isHidden = true
             let paymentAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
             let paymentAttributedString = NSAttributedString(string: ratesData.payment_info, attributes: paymentAttributes)

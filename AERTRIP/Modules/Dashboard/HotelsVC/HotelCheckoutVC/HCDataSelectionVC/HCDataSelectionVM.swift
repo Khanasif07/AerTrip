@@ -26,6 +26,9 @@ class HCDataSelectionVM {
     weak var delegate: HCDataSelectionVMDelegate?
     private(set) var itineraryData: ItineraryData?
     var itineraryPriceDetail:ItenaryModel = ItenaryModel()
+    var placeModel: PlaceModel?
+    var sectionData: [[TableCellType]] = []
+    var hotelSearchRequest: HotelSearchRequestModel?
     
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
@@ -108,6 +111,22 @@ class HCDataSelectionVM {
                 sSelf.delegate?.callForItenaryDataTravellerSuccess()
             } else {
                 sSelf.delegate?.callForItenaryDataTravellerFail(errors: errors)
+            }
+        }
+    }
+    
+    func getHotelDetailsSectionData() {
+        self.sectionData.removeAll()
+        self.sectionData.append([.imageSlideCell,.hotelRatingCell,.addressCell , .checkInOutDateCell , .amenitiesCell, .tripAdvisorRatingCell])
+        if let ratesData = self.itineraryData?.hotelDetails?.rates {
+            //Room details cell only for room label cell
+            self.sectionData.append([.roomDetailsCell])
+            for rate in ratesData {
+                var tableViewCell = rate.tableViewRowCell
+                if tableViewCell.contains(.checkOutCell) {
+                    tableViewCell.remove(object: .checkOutCell)
+                }
+                self.sectionData.append(tableViewCell)
             }
         }
     }

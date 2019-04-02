@@ -70,7 +70,7 @@ class HCDataSelectionVC: BaseVC {
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
-        configureHotelCheckOutDetailsVIew()
+        
         viewModel.fetchConfirmItineraryData()
         fillData()
         viewModel.fetchConfirmItineraryData()
@@ -147,11 +147,17 @@ class HCDataSelectionVC: BaseVC {
     private func configureHotelCheckOutDetailsVIew() {
         self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: self.hotelCheckOutDetailsContainerVIew.bounds)
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            hotelCheckOutDetailsVIew.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+            hotelCheckOutDetailsVIew.placeModel = self.viewModel.placeModel ?? PlaceModel()
             self.hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsVIew)
+            hotelCheckOutDetailsVIew.sectionData.removeAll()
+            hotelCheckOutDetailsVIew.sectionData = self.viewModel.sectionData
+//            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
         }
         self.hotelDetailsContainerViewHeightConstraint.constant = 44.0
-//        self.hotelCheckOutDetailsContainerVIew.isHidden = true
         self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = 0.0
+        self.hotelDetailsContainerView.isHidden = false
+        self.hotelCheckOutDetailsContainerVIew.isHidden = true
     }
     
     private func fillData() {
@@ -269,21 +275,21 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: UIButton) {
         self.viewModel.webserviceForItenaryDataTraveller()
        // AppFlowManager.default.moveToFinalCheckoutVC()
-        
-
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
-//        var itine = ItineraryData(json: JSON([:]))
-//        itine.total_fare += (viewModel.itineraryData?.total_fare ?? 0.0) + 10.0
+        self.hotelDetailsContainerView.isHidden = true
         self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
+        self.hotelCheckOutDetailsContainerVIew.isHidden = false
+        self.topNavView.isHidden = true
+        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.hotelDetailsParentContainerView.frame = CGRect(x: 0.0, y: self.statusBarHeight + 8.0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0))
-            self.hotelDetailsContainerViewHeightConstraint.constant = UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0)
-            self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = UIScreen.main.bounds.height - 50.0 - (self.statusBarHeight + 8.0)
-            self.view.layoutIfNeeded()
-        }) { (isDone) in
-            self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
+            self.hotelDetailsParentContainerView.frame = CGRect(x: 0.0, y: 0.0 + 8.0, width: self.view.frame.width, height: self.view.frame.height - 50.0)
+            self.hotelDetailsParentContainerViewHeightConstraint.constant = self.view.frame.height - 50.0
+            self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = self.view.frame.height - 50.0
+            self.hotelDetailsParentContainerView.layoutIfNeeded()
+        }) { [weak self]  (isDone) in
+            self?.hotelCheckOutDetailsContainerVIew.isHidden = false
         }
     }
 }
@@ -314,6 +320,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         manageLoader(shouldStart: false)
         fillData()
         viewModel.fetchRecheckRatesData()
+        self.viewModel.getHotelDetailsSectionData()
+        configureHotelCheckOutDetailsVIew()
     }
     
     func fetchConfirmItineraryDataFail() {
@@ -464,11 +472,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.downArrowImageView.isHidden = true
-                
                 cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
                 cell.titleLabel.textColor = AppColors.themeGray20
                 cell.titleLabel.text = LocalizedString.Email_ID.localized
-                
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.text = UserInfo.loggedInUser?.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)

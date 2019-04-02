@@ -344,6 +344,13 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func getPaymentMethodsFails(errors: ErrorCodes) {
         //
     }
+    
+    func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
+        printDebug(appliedCouponData)
+    }
+    func removeCouponCodeFailed() {
+        printDebug("Unable to remove Coupon Code")
+    }
 }
 
 extension FinalCheckOutVC: HCCouponCodeVCDelegate {

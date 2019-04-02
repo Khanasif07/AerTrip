@@ -66,6 +66,7 @@ extension HotelDetailsVC {
     
     internal func getHotelDetailsAmenitiesCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
+        cell.delegate = self
         cell.amenitiesDetails = hotelDetails.amenities
         return cell
     }
@@ -110,6 +111,7 @@ extension HotelDetailsVC {
                 cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
             }
         }
+        cell.clipsToBounds = true
         return cell
     }
     
@@ -117,10 +119,12 @@ extension HotelDetailsVC {
         if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
+            cell.clipsToBounds = true
             return cell
         } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
+            cell.clipsToBounds = true
             return cell
         }
         return nil
@@ -130,6 +134,7 @@ extension HotelDetailsVC {
         if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
+            cell.clipsToBounds = true
             return cell
         }
         return nil
@@ -149,6 +154,7 @@ extension HotelDetailsVC {
                 cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
             }
+            cell.clipsToBounds = true
             return cell
         }
         return nil
@@ -168,6 +174,7 @@ extension HotelDetailsVC {
             cell.allDetailsLabel.attributedText = nil
             cell.infoBtnOutlet.isHidden = false
         }
+        cell.clipsToBounds = true
         return cell
     }
     
@@ -189,6 +196,7 @@ extension HotelDetailsVC {
                 cell.allDetailsLabel.attributedText = nil
                 cell.moreBtnOutlet.isHidden = false
             }
+            cell.clipsToBounds = true
             return cell
         }
         return nil
@@ -198,6 +206,7 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
         cell.shadowViewBottomConstraints.constant = (indexPath.section  == self.viewModel.hotelDetailsTableSectionData.count - 1 ) ? 16.0 : 8.0
         cell.hotelFeesLabel.text = LocalizedString.rupeesText.localized + " \(ratesData.price.delimiter)"
+        cell.clipsToBounds = true
         return cell
     }
     
