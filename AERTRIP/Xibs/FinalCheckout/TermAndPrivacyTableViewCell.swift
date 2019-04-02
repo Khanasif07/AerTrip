@@ -27,16 +27,20 @@ class TermAndPrivacyTableViewCell: UITableViewCell {
 
 extension TermAndPrivacyTableViewCell {
     func linkSetupForTermsAndCondition(withLabel: ActiveLabel) {
-        let fareDetails = ActiveType.custom(pattern: "\\s\(LocalizedString.FareRules.localized)\\b")
+        // Commenting fare rules text as It is not required now - discussed with Nitesh.
+        
+       // let fareDetails = ActiveType.custom(pattern: "\\s\(LocalizedString.FareRules.localized)\\b")
         let privacyPolicy = ActiveType.custom(pattern: "\\s\(LocalizedString.privacy_policy.localized)\\b")
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         
-        withLabel.enabledTypes = [fareDetails, privacyPolicy, termsOfUse]
+      //  withLabel.enabledTypes = [fareDetails, privacyPolicy, termsOfUse]
+        
+        withLabel.enabledTypes = [privacyPolicy, termsOfUse]
         withLabel.customize { label in
             label.font = AppFonts.Regular.withSize(14.0)
             label.text = LocalizedString.CheckOutPrivacyAndPolicyTerms.localized
-            label.customColor[fareDetails] = AppColors.themeGreen
-            label.customSelectedColor[fareDetails] = AppColors.themeGreen
+           // label.customColor[fareDetails] = AppColors.themeGreen
+           // label.customSelectedColor[fareDetails] = AppColors.themeGreen
             label.customColor[privacyPolicy] = AppColors.themeGreen
             label.customSelectedColor[privacyPolicy] = AppColors.themeGreen
             label.customColor[termsOfUse] = AppColors.themeGreen
@@ -44,13 +48,13 @@ extension TermAndPrivacyTableViewCell {
             label.highlightFontName = AppFonts.SemiBold.rawValue
             label.highlightFontSize = 14.0
             
-            label.handleCustomTap(for: fareDetails) { _ in
-                
-                guard let url = URL(string: AppConstants.termsOfUse) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
-            }
+//            label.handleCustomTap(for: fareDetails) { _ in
+//
+//                guard let url = URL(string: AppConstants.termsOfUse) else { return }
+//                let safariVC = SFSafariViewController(url: url)
+//                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+//            }
             
             label.handleCustomTap(for: privacyPolicy) { _ in
                 

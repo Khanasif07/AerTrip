@@ -14,3 +14,10 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
         self.checkOutTableView.reloadData()
     }
 }
+
+
+extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
+    func removeCouponTapped() {
+        printDebug("Remove coupon tapped")
+    }
+}

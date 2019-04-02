@@ -167,6 +167,7 @@ class HotelFilterVC: BaseVC {
         style.badgeBorderColor = AppColors.clear
         style.badgeBorderWidth = 0.0
         
+        
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self

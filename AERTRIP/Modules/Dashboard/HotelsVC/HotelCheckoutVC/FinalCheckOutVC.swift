@@ -13,15 +13,30 @@ class FinalCheckOutVC: BaseVC {
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var checkOutTableView: ATTableView!
-    @IBOutlet var payButton: ATButton!
-    
-    
+    @IBOutlet var payButton: UIButton!
     
     // MARK: - Properties
+    
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
     var isWallet: Bool = false
+    private var gradientLayer: CAGradientLayer!
+    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+        didSet {
+            self.viewDidLayoutSubviews()
+        }
+    }
     
+    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+        didSet {
+            self.viewDidLayoutSubviews()
+        }
+    }
+    
+    // Boolean to check whether coupon is applied or Not
+    var isCouponApplied: Bool = false
+    // Save applied coupon data
+    var appliedCouponData: HCCouponAppliedModel?
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -36,26 +51,26 @@ class FinalCheckOutVC: BaseVC {
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
+        self.payButton.addGredient()
+        self.setUpImage()
     }
     
     override func setupFonts() {
-        self.payButton.fontForTitle = AppFonts.SemiBold.withSize(20.0)
+        self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
         self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + Double(60000).delimiter, for: .normal)
+        self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + Double(60000).delimiter, for: .highlighted)
     }
     
     override func setupColors() {
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon"), for: .normal)
-        self.payButton.spaceInTextAndImageOfButton(spacing: 2)
     }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
-    
     
     // MARK: - Helper methods
     
@@ -101,6 +116,16 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("ApplyCouponTableViewCell not found")
                 return UITableViewCell()
             }
+            if isCouponApplied {
+                if let discountBreakUp = self.appliedCouponData?.discountsBreakup {
+                    let saveAmount = discountBreakUp.CACB + discountBreakUp.CPD
+                    applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized + AppConstants.kRuppeeSymbol + Double(saveAmount).delimiter
+                    applyCouponCell.couponView.isHidden = false
+                }
+            } else {
+                applyCouponCell.couponView.isHidden = true
+            }
+            applyCouponCell.delegate = self
             return applyCouponCell
         case 3:
             guard let walletCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WalletTableViewCell.reusableIdentifier, for: indexPath) as? WalletTableViewCell else {
@@ -109,7 +134,7 @@ class FinalCheckOutVC: BaseVC {
             }
             walletCell.delegate = self
             if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-                  walletCell.amountLabel.text = AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+                walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + walletAmount.delimiter
             }
             return walletCell
         case 5:
@@ -144,14 +169,12 @@ class FinalCheckOutVC: BaseVC {
 //            }
             
             if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-                walletAmountCell.walletAmountLabel.text =  AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+                walletAmountCell.walletAmountLabel.text = AppConstants.kRuppeeSymbol + walletAmount.delimiter
             }
-         
-           
+            
             return walletAmountCell
-
-           
-           // return
+            
+            // return
             
         case 2:
             guard let totalPayableNowCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TotalPayableNowCell.reusableIdentifier, for: indexPath) as? TotalPayableNowCell else {
@@ -206,10 +229,10 @@ class FinalCheckOutVC: BaseVC {
         case 0:
             return 20.0
         case 1:
-            if isWallet {
+            if self.isWallet {
                 return 40.0
             } else {
-               return 0.0
+                return 0.0
             }
         case 2:
             return 46.0
@@ -222,6 +245,17 @@ class FinalCheckOutVC: BaseVC {
         default:
             return 44
         }
+    }
+    
+    private func setUpImage() {
+        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        self.payButton.spaceInTextAndImageOfButton(spacing: 2)
+    }
+    
+    private func updateAllData() {
+        self.checkOutTableView.reloadData()
     }
 }
 
@@ -274,9 +308,9 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount {
-                 headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + grossAmount
+                headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + grossAmount
             }
-           
+            
             return headerView
         }
     }
@@ -296,7 +330,7 @@ extension FinalCheckOutVC: TopNavigationViewDelegate {
     }
 }
 
-extension FinalCheckOutVC : FinalCheckoutVMDelegate {
+extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func willCallGetPayementMethods() {
         //
     }
@@ -311,10 +345,15 @@ extension FinalCheckOutVC : FinalCheckoutVMDelegate {
         //
     }
 }
-    
-    
+
 extension FinalCheckOutVC: HCCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
         printDebug(appliedCouponData)
+        self.appliedCouponData = appliedCouponData
+        self.isCouponApplied = true
+        delay(seconds: 0.5) { [weak self] in
+            self?.updateAllData()
+        }
+     
     }
 }
