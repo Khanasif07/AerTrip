@@ -34,7 +34,8 @@ class EmailComposerHeaderView: UIView {
     @IBOutlet var checkOutMessageLabel: UILabel!
     @IBOutlet var seeRatesButton: ATButton!
     @IBOutlet var numberOfNightsLabel: UILabel!
-    @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailHeightConatraint: NSLayoutConstraint!
+    @IBOutlet weak var subjectHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     

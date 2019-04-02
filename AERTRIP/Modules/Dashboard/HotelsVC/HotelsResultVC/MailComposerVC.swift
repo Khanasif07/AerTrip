@@ -177,9 +177,16 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
-        let size = textView.bounds.size
-        headerView.headerViewHeightConstraint.constant += size.height
-        headerView.layoutIfNeeded()
+        let minLines = 1, maxLines = 5
+        //for email textView (screenW-62)
+        //for message textView (screenW-32)
+        
+        let emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+
+        let msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
+        
+        headerView.emailHeightConatraint.constant = emailHeight
+        headerView.subjectHeightConstraint.constant = msgHeight
     }
     
     func textViewText(_ textView: UITextView) {
