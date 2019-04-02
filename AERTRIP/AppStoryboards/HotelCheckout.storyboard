@@ -221,7 +221,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="a76-4x-0W5" secondAttribute="trailing" id="0pZ-Jl-sFt"/>
                                             <constraint firstItem="8MW-fv-lmw" firstAttribute="top" secondItem="se2-Zr-Faa" secondAttribute="top" id="11f-W3-ov2"/>
@@ -237,24 +237,20 @@
                                             <constraint firstItem="mel-ki-lzv" firstAttribute="centerY" secondItem="se2-Zr-Faa" secondAttribute="centerY" id="uzS-Uu-0ZZ"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bH-R8-FdX">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="0.0"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" id="rcT-YR-cRe"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="3bH-R8-FdX" secondAttribute="bottom" id="5Yc-GQ-ttm"/>
                                     <constraint firstAttribute="height" constant="44" id="KMT-Yr-Sfj"/>
-                                    <constraint firstItem="3bH-R8-FdX" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="UIp-j6-yc1"/>
-                                    <constraint firstAttribute="trailing" secondItem="3bH-R8-FdX" secondAttribute="trailing" id="Xu8-YT-sTB"/>
                                     <constraint firstAttribute="trailing" secondItem="se2-Zr-Faa" secondAttribute="trailing" id="bP6-IO-Mw9"/>
                                     <constraint firstItem="se2-Zr-Faa" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="dbu-Mm-J8j"/>
-                                    <constraint firstItem="3bH-R8-FdX" firstAttribute="top" secondItem="se2-Zr-Faa" secondAttribute="bottom" id="hHZ-XF-RoW"/>
                                     <constraint firstItem="se2-Zr-Faa" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="ht6-a6-YRT"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bH-R8-FdX">
+                                <rect key="frame" x="0.0" y="495" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="29z-nN-UnY"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppY-MC-9bt">
@@ -404,12 +400,14 @@
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="bXX-Jv-Wqc" secondAttribute="trailing" id="12h-jb-aW1"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="bottom" id="1P7-NX-d4n"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="top" secondItem="bXX-Jv-Wqc" secondAttribute="bottom" id="1is-1F-BP8"/>
+                            <constraint firstItem="3bH-R8-FdX" firstAttribute="trailing" secondItem="ppY-MC-9bt" secondAttribute="trailing" id="2PQ-A9-tuk"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="trailing" secondItem="pDs-Hh-dQp" secondAttribute="trailing" id="2SN-gM-bTe"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="pDs-Hh-dQp" secondAttribute="trailing" id="6k3-TT-BPK"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="7xd-lw-0Hd"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="9Pl-Yz-GTl"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="Ff9-lJ-Xc4"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="bottom" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="KKc-xw-hQ9"/>
+                            <constraint firstItem="3bH-R8-FdX" firstAttribute="leading" secondItem="ppY-MC-9bt" secondAttribute="leading" id="MLX-dr-3WG"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ffZ-xz-8YE" secondAttribute="trailing" id="MyW-Re-Wik"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="Nhf-aN-4ut"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ppY-MC-9bt" secondAttribute="trailing" id="OjW-l4-mgK"/>
@@ -418,6 +416,7 @@
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="top" secondItem="ffZ-xz-8YE" secondAttribute="bottom" id="VbY-KC-ZB0"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="cyD-jk-S7l"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="top" secondItem="qGC-DP-rgu" secondAttribute="top" id="ljZ-aS-cxI"/>
+                            <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="3bH-R8-FdX" secondAttribute="bottom" id="oe1-1I-8Pk"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="zMl-TE-dRQ" secondAttribute="trailing" id="wlJ-ud-Cvi"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="xDG-ow-6vT"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="zUA-yo-GjA"/>
@@ -435,11 +434,9 @@
                         <outlet property="fareDetailContainerView" destination="zMl-TE-dRQ" id="12S-eq-jIJ"/>
                         <outlet property="fareDetailLabel" destination="6mh-b2-aJB" id="gYh-Yk-Ymc"/>
                         <outlet property="hotelCheckOutDetailsContainerVIew" destination="3bH-R8-FdX" id="shm-K8-obJ"/>
-                        <outlet property="hotelCheckOutDetailsContainerVIewHeightConstraint" destination="rcT-YR-cRe" id="MEt-cj-vIn"/>
                         <outlet property="hotelDetailsContainerView" destination="se2-Zr-Faa" id="F0v-2U-HAA"/>
-                        <outlet property="hotelDetailsContainerViewHeightConstraint" destination="cbH-Lg-eZQ" id="GeP-hW-FDy"/>
+                        <outlet property="hotelDetailsContainerViewHeightConstraint" destination="29z-nN-UnY" id="Tha-z3-D3I"/>
                         <outlet property="hotelDetailsParentContainerView" destination="pDs-Hh-dQp" id="yj2-YU-7qy"/>
-                        <outlet property="hotelDetailsParentContainerViewHeightConstraint" destination="KMT-Yr-Sfj" id="pja-GM-TR1"/>
                         <outlet property="hotelNameLabel" destination="mel-ki-lzv" id="Ysy-ZE-jbp"/>
                         <outlet property="infoButton" destination="CdW-ts-4Dd" id="Ta2-OO-059"/>
                         <outlet property="infoTextLabel" destination="yTr-kx-KUi" id="zlp-9I-uQO"/>
