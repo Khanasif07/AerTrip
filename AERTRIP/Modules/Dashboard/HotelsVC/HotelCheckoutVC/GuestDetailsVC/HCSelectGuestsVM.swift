@@ -99,6 +99,13 @@ class HCSelectGuestsVM: NSObject {
         super.init()
     }
     
+    func clearAllSelection() {
+        self.selectedTravellerContacts.removeAll()
+        self.selectedPhoneContacts.removeAll()
+        self.selectedFacebookContacts.removeAll()
+        self.selectedGoogleContacts.removeAll()
+    }
+    
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         self.delegateList?.add(atIndex: index, for: usingFor)
         self.delegateCollection?.add(atIndex: index, for: usingFor)

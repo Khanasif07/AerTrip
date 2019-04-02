@@ -351,7 +351,13 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         // plus button action
-        AppFlowManager.default.presentHCSelectGuestsVC()
+        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+    }
+}
+
+extension HCDataSelectionVC: HCSelectGuestsVCDelegate {
+    func didAddedContacts() {
+        self.tableView.reloadData()
     }
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -64,11 +64,14 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="91" height="97"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_add_adult" translatesAutoresizingMaskIntoConstraints="NO" id="aEk-z6-OzU">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_deselected_hotel_guest_adult" translatesAutoresizingMaskIntoConstraints="NO" id="aEk-z6-OzU">
                                                                         <rect key="frame" x="10" y="0.0" width="71" height="71"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="aEk-z6-OzU" secondAttribute="height" multiplier="1:1" id="8eV-g3-jlw"/>
                                                                         </constraints>
+                                                                    </imageView>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-O1-qkJ">
+                                                                        <rect key="frame" x="58" y="48" width="22" height="22"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-dU-kW9">
                                                                         <rect key="frame" x="3" y="76" width="85" height="21"/>
@@ -79,9 +82,11 @@
                                                                 </subviews>
                                                             </view>
                                                             <constraints>
+                                                                <constraint firstItem="LF4-O1-qkJ" firstAttribute="trailing" secondItem="aEk-z6-OzU" secondAttribute="trailing" constant="-1" id="BCL-OW-qQL"/>
                                                                 <constraint firstAttribute="trailing" secondItem="aEk-z6-OzU" secondAttribute="trailing" constant="10" id="HIa-Fx-x4c"/>
                                                                 <constraint firstItem="aEk-z6-OzU" firstAttribute="top" secondItem="u8L-iD-Kea" secondAttribute="top" id="QKF-f7-2vH"/>
                                                                 <constraint firstItem="lLP-dU-kW9" firstAttribute="top" secondItem="aEk-z6-OzU" secondAttribute="bottom" constant="5" id="QYp-nj-9Eh"/>
+                                                                <constraint firstItem="LF4-O1-qkJ" firstAttribute="bottom" secondItem="aEk-z6-OzU" secondAttribute="bottom" constant="-1" id="RgX-ve-43g"/>
                                                                 <constraint firstItem="aEk-z6-OzU" firstAttribute="leading" secondItem="u8L-iD-Kea" secondAttribute="leading" constant="10" id="T0D-Ae-5Rp"/>
                                                                 <constraint firstAttribute="bottom" secondItem="lLP-dU-kW9" secondAttribute="bottom" id="cVQ-S1-w23"/>
                                                                 <constraint firstItem="lLP-dU-kW9" firstAttribute="leading" secondItem="u8L-iD-Kea" secondAttribute="leading" constant="3" id="hFK-ew-lqp"/>
@@ -89,6 +94,7 @@
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="iconImageView" destination="aEk-z6-OzU" id="P7a-WZ-Vl2"/>
+                                                                <outlet property="infoImageView" destination="LF4-O1-qkJ" id="Cp7-A9-1ZM"/>
                                                                 <outlet property="titleLabel" destination="lLP-dU-kW9" id="UFE-q6-YHZ"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -1552,9 +1558,10 @@ Incomplete</string>
         </scene>
     </scenes>
     <resources>
+        <image name="add_icon" width="22" height="22"/>
         <image name="black_cross" width="24" height="24"/>
         <image name="emptyStateCoupon" width="192" height="104"/>
-        <image name="ic_add_adult" width="67" height="67"/>
+        <image name="ic_deselected_hotel_guest_adult" width="56" height="56"/>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>

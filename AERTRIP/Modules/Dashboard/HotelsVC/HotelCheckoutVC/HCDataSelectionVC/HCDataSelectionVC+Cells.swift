@@ -83,12 +83,27 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
             return UICollectionViewCell()
         }
         
-        if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
-            let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
-            cell.configData(isAdult: false, number: ((indexPath.item - hotelFormData.adultsCount[forIdx.row]) + 1), age: age)
+        if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
+            cell.contact = GuestDetailsVM.shared.guests[forIdx.row][indexPath.item]
         }
         else {
-            cell.configData(isAdult: true, number: (indexPath.item + 1), age: nil)
+            var contact = ATContact(json: [:])
+            
+            if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
+                let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
+                
+                contact.passengerType = .child
+                contact.numberInRoom = ((indexPath.item - hotelFormData.adultsCount[forIdx.row]) + 1)
+                contact.age = age
+            }
+            else {
+                
+                contact.passengerType = .Adult
+                contact.numberInRoom = (indexPath.item + 1)
+                contact.age = -1
+            }
+            cell.contact = contact
+            
         }
         
         return cell
@@ -166,8 +181,15 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     // Mark:-
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var infoImageView: UIImageView!
     
     private(set) var isForAdult: Bool = false
+    
+    var contact: ATContact? {
+        didSet {
+            self.configData()
+        }
+    }
     
     // Mark:- LifeCycles
     // Mark:-
@@ -187,16 +209,45 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         titleLabel.textColor = AppColors.themeBlack
     }
     
-    func configData(isAdult: Bool, number: Int, age: Int?) {
-        isForAdult = isAdult
-        
-        iconImageView.image = isAdult ? #imageLiteral(resourceName: "ic_add_adult") : #imageLiteral(resourceName: "ic_add_child")
-        
-        var finalText = "\(isAdult ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(number)"
-        if let year = age {
-            finalText += " (\(year))"
+    
+    private func configData() {
+        self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
+        if let name = self.contact?.firstName, !name.isEmpty {
+            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.isHidden = true
+            
+            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            self.iconImageView.image = placeHolder
+            if let img = self.contact?.profilePicture, !img.isEmpty {
+                self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
+                self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                self.iconImageView.layer.borderWidth = 1.0
+            }
+            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
+                self.iconImageView.image = flImage
+                self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                self.iconImageView.layer.borderWidth = 1.0
+            }
+            
+            infoImageView.isHidden = !((self.contact?.lastName ?? "").isEmpty || (self.contact?.salutation ?? "").isEmpty)
+            
+            titleLabel.text = self.contact?.fullName
         }
-        titleLabel.text = finalText
+        else {
+            infoImageView.image = #imageLiteral(resourceName: "add_icon")
+            var finalText = ""
+            if let type = self.contact?.passengerType {
+                iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                
+                finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
+            }
+            
+        
+            if let year = self.contact?.age, year >= 0 {
+                finalText += " (\(year))"
+            }
+            titleLabel.text = finalText
+        }
     }
     
     // Mark:- IBActions

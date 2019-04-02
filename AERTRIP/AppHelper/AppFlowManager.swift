@@ -352,9 +352,10 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCSelectGuestsVC() {
+    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate) {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+            ob.delegate = delegate
             topVC.present(ob, animated: true, completion: nil)
         }
     }
