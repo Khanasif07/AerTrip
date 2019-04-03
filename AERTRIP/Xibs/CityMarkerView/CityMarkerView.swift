@@ -81,7 +81,7 @@ class CityMarkerView: UIView {
     ///ConfigureUI
     private func configureUI() {
         
-        backgroundView.backgroundColor = shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.3)//AppColors.themeOrange.withAlphaComponent(0.1)
+        backgroundView.backgroundColor = shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.1)//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
         
         backgroundView.cornerRadius = backgroundView.height / 2.0

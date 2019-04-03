@@ -34,7 +34,7 @@ extension HotelResultVC {
         if let loc = self.viewModel.searchedCityLocation {
             let cityMarker = GMSMarker()
             
-            let iconView = CityMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 62.0, height: 62.0))
+            let iconView = CityMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 62.0, height: 62.0), shouldAddRippel: false)
             cityMarker.iconView = iconView
             cityMarker.position = loc
             cityMarker.map = self.mapView
