@@ -28,7 +28,7 @@ class HCSpecialRequestsVC: BaseVC {
         didSet {
             self.specialReqTableView.delegate = self
             self.specialReqTableView.dataSource = self
-            self.specialReqTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.specialReqTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
             self.specialReqTableView.estimatedRowHeight = UITableView.automaticDimension
             self.specialReqTableView.rowHeight = UITableView.automaticDimension
         }

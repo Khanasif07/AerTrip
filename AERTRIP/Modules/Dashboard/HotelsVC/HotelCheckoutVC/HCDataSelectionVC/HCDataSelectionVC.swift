@@ -27,11 +27,9 @@ class HCDataSelectionVC: BaseVC {
     
     //minimized hotel details
     @IBOutlet weak var hotelDetailsParentContainerView: UIView!
-    @IBOutlet weak var hotelDetailsParentContainerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var hotelDetailsContainerView: UIView!
     @IBOutlet weak var hotelDetailsContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hotelDetailsContainerView: UIView!
     @IBOutlet weak var hotelCheckOutDetailsContainerVIew: UIView!
-    @IBOutlet weak var hotelCheckOutDetailsContainerVIewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var checkInOutDate: UILabel!
     @IBOutlet weak var detailsButton: UIButton!
@@ -48,6 +46,7 @@ class HCDataSelectionVC: BaseVC {
     //MARK:- Public
     let viewModel = HCDataSelectionVM()
     var hotelCheckOutDetailsVIew: HotelCheckOutDetailsVIew?
+    var isHotelDetailsCheckOutViewOpen: Bool = false
     var statusBarHeight: CGFloat {
         return UIApplication.shared.statusBarFrame.height
     }
@@ -68,7 +67,7 @@ class HCDataSelectionVC: BaseVC {
         setupNavView()
         
         statusBarStyle = .default
-        
+        configureHotelCheckOutDetailsVIew()
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.addGredient(isVertical: false)
@@ -91,7 +90,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsVIew.frame = self.hotelCheckOutDetailsContainerVIew.bounds
+            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: 28.0, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - 28.0)
         }
     }
     
@@ -153,19 +152,21 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func configureHotelCheckOutDetailsVIew() {
-        self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: self.hotelCheckOutDetailsContainerVIew.bounds)
+        self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: CGRect(x: 0.0, y: 28.0, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - 28.0))
+        if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
+            hotelCheckOutDetailsView.delegate = self
+            self.hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsView)
+        }
+    }
+    
+    private func updateHotelCheckOutDetailsVIew() {
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            hotelCheckOutDetailsVIew.sectionData.removeAll()
             hotelCheckOutDetailsVIew.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
             hotelCheckOutDetailsVIew.placeModel = self.viewModel.placeModel ?? PlaceModel()
-            self.hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsVIew)
-            hotelCheckOutDetailsVIew.sectionData.removeAll()
             hotelCheckOutDetailsVIew.sectionData = self.viewModel.sectionData
-//            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
+            hotelCheckOutDetailsVIew.updateData()
         }
-        self.hotelDetailsContainerViewHeightConstraint.constant = 44.0
-        self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = 0.0
-        self.hotelDetailsContainerView.isHidden = false
-        self.hotelCheckOutDetailsContainerVIew.isHidden = true
     }
     
     private func fillData() {
@@ -231,6 +232,14 @@ class HCDataSelectionVC: BaseVC {
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if !isHidden {
             fareDetailContainerView.isHidden = false
+            if self.isHotelDetailsCheckOutViewOpen {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+            }
+        }
+        else {
+            if self.isHotelDetailsCheckOutViewOpen {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height )
+            }
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else { return }
@@ -283,27 +292,34 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: UIButton) {
         self.isFromFinalCheckout = false
         self.viewModel.webserviceForItenaryDataTraveller()
-       // AppFlowManager.default.moveToFinalCheckoutVC()
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         self.hotelDetailsContainerView.isHidden = true
-        self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
         self.hotelCheckOutDetailsContainerVIew.isHidden = false
-        self.topNavView.isHidden = true
-        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
+//        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.hotelDetailsParentContainerView.frame = CGRect(x: 0.0, y: 0.0 + 8.0, width: self.view.frame.width, height: self.view.frame.height - 50.0)
-            self.hotelDetailsParentContainerViewHeightConstraint.constant = self.view.frame.height - 50.0
-            self.hotelCheckOutDetailsContainerVIewHeightConstraint.constant = self.view.frame.height - 50.0
-            self.hotelDetailsParentContainerView.layoutIfNeeded()
-        }) { [weak self]  (isDone) in
-            self?.hotelCheckOutDetailsContainerVIew.isHidden = false
-        }
+            if self.fareDetailContainerView.isHidden {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height)
+            } else {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+            }
+            self.view.layoutIfNeeded()
+        }, completion: { [weak self] (isDone) in
+            self?.isHotelDetailsCheckOutViewOpen = true
+        })
     }
 }
 
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
+    
+    func updateFavouriteSuccess(withMessage: String) {
+        //
+    }
+    
+    func updateFavouriteFail(errors: ErrorCodes) {
+        //
+    }
     
     // ItenaryDataTraveller
     
@@ -332,7 +348,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         fillData()
         viewModel.fetchRecheckRatesData()
         self.viewModel.getHotelDetailsSectionData()
-        configureHotelCheckOutDetailsVIew()
+        self.updateHotelCheckOutDetailsVIew()
     }
     
     func fetchConfirmItineraryDataFail() {
@@ -526,7 +542,6 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
     func didPassSelectedRequestsId(ids: [Int], preferences: String, request: String) {
         printDebug("\(ids),\t\(preferences),\t\(request)")
@@ -536,5 +551,25 @@ extension HCDataSelectionVC: HCSpecialRequestsDelegate {
 extension HCDataSelectionVC : FinalCheckOutVCDelegate {
     func cancelButtonTapped() {
         self.isFromFinalCheckout = true
+    }
+}
+
+extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
+    
+    func addHotelInFevList() {
+        self.viewModel.updateFavourite()
+    }
+    
+    func crossButtonTapped() {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }) { [weak self] (isDone) in
+            guard let sSelf = self else { return }
+            sSelf.isHotelDetailsCheckOutViewOpen = false
+            sSelf.hotelDetailsContainerView.isHidden = false
+            sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
+//            sSelf.view.sendSubviewToBack(sSelf.hotelCheckOutDetailsContainerVIew)
+        }
     }
 }

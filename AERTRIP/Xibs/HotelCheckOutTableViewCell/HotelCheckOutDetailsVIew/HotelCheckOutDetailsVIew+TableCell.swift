@@ -1,0 +1,186 @@
+//
+//  HotelCheckOutDetailsVIew+TableCell.swift
+//  AERTRIP
+//
+//  Created by Admin on 02/04/19.
+//  Copyright © 2019 Pramod Kumar. All rights reserved.
+//
+
+import UIKit
+
+//Mark:- Hotel TableView Cells
+//============================
+extension HotelCheckOutDetailsVIew {
+    
+    internal func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
+        cell.imageUrls = hotelDetails.photos
+        cell.delegate = self
+        cell.configCell(imageUrls: hotelDetails.photos)
+        return cell
+    }
+    
+    internal func getHotelRatingInfoCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+        if let hotelDetails = self.viewModel, let placeData = self.placeModel {
+            cell.configHCDetailsCell(hotelData: hotelDetails, placeData: placeData)
+        }
+        return cell
+    }
+    
+    internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.configureAddressCell(hotelData: hotelDetails)
+        return cell
+    }
+    
+    internal func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.configureOverviewCell(hotelData: hotelDetails)
+        return cell
+    }
+    
+    internal func getHotelDetailsAmenitiesCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
+        cell.delegate = self
+        cell.amenitiesDetails = hotelDetails.amenities
+        return cell
+    }
+    
+    internal func getTripAdviserCell(indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+        return cell
+    }
+    
+    internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
+        
+        cell.delegate = self
+        let key = Array(roomData.keys).first//[indexPath.row]
+        let value = roomData[key ?? RoomsRates()]
+        var isOnlyOneRoom: Bool = false
+        if roomData.count == 1 && value == 1 {
+            isOnlyOneRoom = true
+        } else {
+            isOnlyOneRoom = false
+        }
+        cell.configCell(numberOfRooms: value ?? 0 , roomData: key ?? RoomsRates(), isOnlyOneRoom: isOnlyOneRoom)
+        if roomData.count == 1 {
+            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: false)
+        } else {
+            if indexPath.row == 0 {
+                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: true)
+            } else if indexPath.row < roomData.count - 1 {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: true)
+            } else {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
+            }
+        }
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+    internal func getInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
+        if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
+            guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
+            cell.configureCell(ratesData: ratesData)
+            cell.clipsToBounds = true
+            return cell
+        } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+            guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
+            cell.configureCell(ratesData: ratesData)
+            cell.clipsToBounds = true
+            return cell
+        }
+        return nil
+    }
+    
+    internal func otherInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
+        if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
+            guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
+            cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
+            cell.clipsToBounds = true
+            return cell
+        }
+        return nil
+    }
+    
+    internal func getCancellationCell(indexPath: IndexPath, ratesData: Rates) -> HotelDetailsCancelPolicyTableCell? {
+        if ratesData.cancellation_penalty != nil {
+            guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
+            cell.configureCancellationCell(ratesData: ratesData, isHotelDetailsScreen: true)
+            cell.containerView.roundBottomCorners(cornerRadius: 0.0)
+            cell.delegate = self
+            if self.allIndexPath.contains(indexPath) {
+                cell.allDetailsLabel.isHidden = false
+                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.infoBtnOutlet.isHidden = true
+            }
+            else {
+                cell.allDetailsLabel.isHidden = true
+                cell.allDetailsLabel.attributedText = nil
+            }
+            cell.shadowViewBottomConstraints.constant = 0.0
+            cell.clipsToBounds = true
+            return cell
+        }
+        return nil
+    }
+    
+    internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
+        cell.containerView.roundBottomCorners(cornerRadius: 00.0)
+        cell.delegate = self
+        cell.configurePaymentCell(ratesData: ratesData, isHotelDetailsScreen: true)
+        if self.allIndexPath.contains(indexPath) {
+            cell.allDetailsLabel.isHidden = false
+            cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()?.trimWhiteSpace()
+            cell.infoBtnOutlet.isHidden = true
+        }
+        else {
+            cell.allDetailsLabel.isHidden = true
+            cell.allDetailsLabel.attributedText = nil
+            cell.infoBtnOutlet.isHidden = false
+        }
+        cell.shadowViewBottomConstraints.constant = 0.0
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+    internal func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
+        if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
+            guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
+            cell.containerView.roundBottomCorners(cornerRadius: 10.0)
+            cell.delegate = self
+            cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: true)
+            if self.allIndexPath.contains(indexPath) {
+                cell.descriptionLabel.text = ""
+                cell.allDetailsLabel.isHidden = false
+                cell.moreInfoContainerView.isHidden = true
+                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.moreBtnOutlet.isHidden = true
+            }
+            else {
+                cell.moreInfoContainerView.isHidden = false
+                cell.allDetailsLabel.isHidden = true
+                cell.allDetailsLabel.attributedText = nil
+                cell.moreBtnOutlet.isHidden = false
+            }
+            cell.shadowViewBottomConstraints.constant = 26.0
+            cell.clipsToBounds = true
+            return cell
+        }
+        return nil
+    }
+    
+    internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
+        cell.configCell()
+        return cell
+    }
+    
+    internal func getRoomCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCRoomTableViewCell.reusableIdentifier, for: indexPath) as? HCRoomTableViewCell else { return nil }
+        return cell
+    }
+}
