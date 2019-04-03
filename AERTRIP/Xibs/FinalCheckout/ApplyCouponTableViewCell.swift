@@ -8,11 +8,24 @@
 
 import UIKit
 
+protocol ApplyCouponTableViewCellDelegate: class {
+    func removeCouponTapped()
+}
+
 class ApplyCouponTableViewCell: UITableViewCell {
     
+    // MARK: -  IBOutlet
+    
     @IBOutlet weak var couponLabel: UILabel!
+    @IBOutlet weak var couponView: UIView!
+    @IBOutlet weak var appliedCouponLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    
+    // MARK: - Properties
+    weak var delegate : ApplyCouponTableViewCellDelegate?
     
 
+    // MARK: - View life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -29,10 +42,16 @@ class ApplyCouponTableViewCell: UITableViewCell {
     
     private func setUpColors() {
        couponLabel.textColor = AppColors.themeBlack
+       appliedCouponLabel.textColor = AppColors.themeGreen
     }
     
     private func setUpText() {
         couponLabel.text = LocalizedString.ApplyCoupon.localized
     }
+    
+    @IBAction func removeCouponTapped(_ sender: Any) {
+        delegate?.removeCouponTapped()
+    }
+    
    
 }

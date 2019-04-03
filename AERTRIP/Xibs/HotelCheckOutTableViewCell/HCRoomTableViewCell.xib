@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HCRoomTableViewCell" rowHeight="82" id="KGk-i7-Jjw" customClass="HCRoomTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="336" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="336" height="47.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUq-k3-n8W">
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="47.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulQ-p8-kx0">
+                                <rect key="frame" x="16" y="20" width="304" height="19.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ulQ-p8-kx0" secondAttribute="bottom" constant="8" id="eQ2-sh-kJ3"/>
+                            <constraint firstAttribute="trailing" secondItem="ulQ-p8-kx0" secondAttribute="trailing" constant="16" id="gwf-R0-ufX"/>
+                            <constraint firstItem="ulQ-p8-kx0" firstAttribute="leading" secondItem="OUq-k3-n8W" secondAttribute="leading" constant="16" id="oxy-2e-veN"/>
+                            <constraint firstItem="ulQ-p8-kx0" firstAttribute="top" secondItem="OUq-k3-n8W" secondAttribute="top" constant="20" id="ufu-Ym-oWQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OUq-k3-n8W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bXg-g3-fCh"/>
+                    <constraint firstAttribute="bottom" secondItem="OUq-k3-n8W" secondAttribute="bottom" id="fmz-d5-uuR"/>
+                    <constraint firstItem="OUq-k3-n8W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jmN-Bb-aVk"/>
+                    <constraint firstAttribute="trailing" secondItem="OUq-k3-n8W" secondAttribute="trailing" id="rLm-ZJ-Hs3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cntainerView" destination="OUq-k3-n8W" id="JqH-ET-bbx"/>
+                <outlet property="roomTitleLabel" destination="ulQ-p8-kx0" id="G28-nD-tOU"/>
+            </connections>
+            <point key="canvasLocation" x="150.40000000000001" y="148.42578710644679"/>
+        </tableViewCell>
+    </objects>
+</document>

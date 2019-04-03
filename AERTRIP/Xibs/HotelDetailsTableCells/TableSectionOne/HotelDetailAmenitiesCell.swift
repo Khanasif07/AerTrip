@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol HotelDetailAmenitiesCellDelegate: class {
+    func viewAllButtonAction()
+}
+
 class HotelDetailAmenitiesCell: UITableViewCell {
 
     //Mark:- Variables
     //================
     private let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "ame-wi-fi"),#imageLiteral(resourceName: "ame-room-service"),#imageLiteral(resourceName: "ame-gym"),#imageLiteral(resourceName: "ame-coffee-shop"),#imageLiteral(resourceName: "ame-business-center"),#imageLiteral(resourceName: "ame-internet"),#imageLiteral(resourceName: "ame-pool"),#imageLiteral(resourceName: "ame-restaurant-bar"),#imageLiteral(resourceName: "ame-air-conditioner"),#imageLiteral(resourceName: "ame-spa")]
     internal var amenitiesDetails: Amenities?
+    weak var delegate: HotelDetailAmenitiesCellDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -63,9 +68,7 @@ class HotelDetailAmenitiesCell: UITableViewCell {
     }
     
     @IBAction func viewAllBtnAction(_ sender: UIButton) {
-        if let parentVC = self.parentViewController as? HotelDetailsVC , let hotelData = parentVC.viewModel.hotelData {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
-        }
+        delegate?.viewAllButtonAction()
     }
 }
 

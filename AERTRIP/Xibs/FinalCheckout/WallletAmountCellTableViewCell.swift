@@ -22,7 +22,6 @@ class WallletAmountCellTableViewCell: UITableViewCell {
     
     private func setUpText() {
         self.aertripWalletTitleLabel.text = LocalizedString.AertripWallet.localized
-        self.walletAmountLabel.text = "\(Double(100000).delimiter)"
     }
     
     private func setUpFont() {
@@ -32,7 +31,6 @@ class WallletAmountCellTableViewCell: UITableViewCell {
     
     private func setUpColor() {
         self.aertripWalletTitleLabel.textColor = AppColors.themeGreen
-        //self.walletAmountLabel.textColor = AppColors.themeGreen
-        self.walletAmountLabel.textColor = AppColors.themeRed
+        self.walletAmountLabel.textColor = AppColors.themeGreen
     }
 }

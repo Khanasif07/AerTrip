@@ -498,8 +498,8 @@
 "FareDetails" = "Fare Details";
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
-"CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \n You will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
-"PayableWalletMessage" = "₹ 100 will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
+"CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \n You will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
 "NetEffectiveFare" = "Net Effective Fare:";
 "GrossFare" = "Gross Fare";
 "Discounts"  = "Discounts";
@@ -551,3 +551,6 @@
 "WhatNext" = "What next?";
 "InstantCashBackAppliedText" = " instant cashback will be applied to this booking.";
 "WalletCashBackAppliedText" = " will be credited to your Aertrip Walle within few hours of successful payment / travel date.";
+"CouponApplied" = "Coupon Applied: ";
+"convenienceFee1" = "A non-refundable convenience fee of ";
+"convenienceFee2" = "is applicable on this transaction.";

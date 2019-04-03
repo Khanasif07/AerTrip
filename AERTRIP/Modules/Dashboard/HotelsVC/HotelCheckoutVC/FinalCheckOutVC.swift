@@ -8,20 +8,42 @@
 
 import UIKit
 
+protocol FinalCheckOutVCDelegate : class {
+   func cancelButtonTapped()
+}
+
 class FinalCheckOutVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var checkOutTableView: ATTableView!
-    @IBOutlet var payButton: ATButton!
-    
-    
+    @IBOutlet var payButton: UIButton!
     
     // MARK: - Properties
+    
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
     var isWallet: Bool = false
+    private var gradientLayer: CAGradientLayer!
+    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+        didSet {
+            self.viewDidLayoutSubviews()
+        }
+    }
     
+    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+        didSet {
+            self.viewDidLayoutSubviews()
+        }
+    }
+    
+    // Boolean to check whether coupon is applied or Not
+    var isCouponApplied: Bool = false
+    // Save applied coupon data
+    var appliedCouponData: HCCouponAppliedModel = HCCouponAppliedModel()
+    var previousAppliedCoupon: HCCouponModel?
+
+    weak var delegate: FinalCheckOutVCDelegate?
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -30,32 +52,33 @@ class FinalCheckOutVC: BaseVC {
         self.setUpNavigationView()
         self.registerXib()
         self.viewModel.webServiceGetPaymentMethods()
+        self.getAppliedCoupons()
     }
     
     override func initialSetup() {
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
+        self.payButton.addGredient()
+        self.setUpImage()
     }
     
     override func setupFonts() {
-        self.payButton.fontForTitle = AppFonts.SemiBold.withSize(20.0)
+        self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
         self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + Double(60000).delimiter, for: .normal)
+        self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + Double(60000).delimiter, for: .highlighted)
     }
     
     override func setupColors() {
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon"), for: .normal)
-        self.payButton.spaceInTextAndImageOfButton(spacing: 2)
     }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
-    
     
     // MARK: - Helper methods
     
@@ -88,6 +111,23 @@ class FinalCheckOutVC: BaseVC {
         self.checkOutTableView.tableFooterView = customView
     }
     
+    private func getAppliedCoupons() {
+        self.previousAppliedCoupon = self.viewModel.itinaryPriceDetail?.coupons.filter { $0.isCouponApplied == true }.first
+        
+        if self.previousAppliedCoupon != nil {
+            self.appliedCouponData.isCouponApplied = self.previousAppliedCoupon?.isCouponApplied ?? false
+            self.appliedCouponData.discountsBreakup = self.previousAppliedCoupon?.discountBreakUp
+            self.appliedCouponData.couponCode = self.previousAppliedCoupon?.couponCode ?? ""
+            self.isCouponApplied = true
+            self.updateAllData()
+            
+        }
+    }
+    
+    private func getRoomAndNightText() {
+        
+    }
+    
     private func getCellForFirstSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0, 2, 4:
@@ -101,6 +141,18 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("ApplyCouponTableViewCell not found")
                 return UITableViewCell()
             }
+            if isCouponApplied {
+                if let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                    let saveAmount = discountBreakUp.CACB + discountBreakUp.CPD
+                    applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized + " " + AppConstants.kRuppeeSymbol + Double(saveAmount).delimiter
+                    applyCouponCell.couponView.isHidden = false
+                    applyCouponCell.couponLabel.text = LocalizedString.CouponApplied.localized + self.appliedCouponData.couponCode
+                }
+            } else {
+                applyCouponCell.couponView.isHidden = true
+                applyCouponCell.couponLabel.text = LocalizedString.ApplyCoupon.localized
+            }
+            applyCouponCell.delegate = self
             return applyCouponCell
         case 3:
             guard let walletCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WalletTableViewCell.reusableIdentifier, for: indexPath) as? WalletTableViewCell else {
@@ -109,7 +161,7 @@ class FinalCheckOutVC: BaseVC {
             }
             walletCell.delegate = self
             if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-                  walletCell.amountLabel.text = AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+                walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + walletAmount.delimiter
             }
             return walletCell
         case 5:
@@ -131,6 +183,16 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("DiscountCell not found")
                 return UITableViewCell()
             }
+            if isCouponApplied {
+                if let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                    let saveAmount = discountBreakUp.CPD
+                       couponDiscountCell.amountLabel.text  = "-" + AppConstants.kRuppeeSymbol + Double(saveAmount).delimiter
+                        couponDiscountCell.clipsToBounds = true
+                }
+            } else {
+                couponDiscountCell.clipsToBounds = true
+                return UITableViewCell()
+            }
             return couponDiscountCell
         case 1:
             guard let walletAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WallletAmountCellTableViewCell.reusableIdentifier, for: indexPath) as? WallletAmountCellTableViewCell else {
@@ -143,15 +205,20 @@ class FinalCheckOutVC: BaseVC {
 //               return UITableViewCell()
 //            }
             
-            if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-                walletAmountCell.walletAmountLabel.text =  AppConstants.kRuppeeSymbol +  walletAmount.delimiter
+            if isWallet {
+                if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
+                    walletAmountCell.walletAmountLabel.text = AppConstants.kRuppeeSymbol + walletAmount.delimiter
+                }
+                walletAmountCell.clipsToBounds = true
+                return walletAmountCell
+            } else {
+                  walletAmountCell.clipsToBounds = true
+                 return UITableViewCell()
             }
-         
+            
            
-            return walletAmountCell
-
-           
-           // return
+            
+            // return
             
         case 2:
             guard let totalPayableNowCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TotalPayableNowCell.reusableIdentifier, for: indexPath) as? TotalPayableNowCell else {
@@ -165,10 +232,19 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
             }
-            if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount {
-                finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized + netAmount
+            if isCouponApplied {
+                if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount , let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                    finalAmountCell.payableWalletMessageLabel.text = AppConstants.kRuppeeSymbol + Double(discountBreakUp.CACB).delimiter + LocalizedString.PayableWalletMessage.localized
+                    finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized +
+                        AppConstants.kRuppeeSymbol + " " + "\(netAmount.toDouble?.delimiter ?? "0.0")"
+                }
+                finalAmountCell.clipsToBounds = true
+                return finalAmountCell
+            } else {
+                finalAmountCell.clipsToBounds = true
+                return UITableViewCell()
             }
-            return finalAmountCell
+       
             
         case 4:
             guard let currencyOptionCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: CurrencyOptionCell.reusableIdentifier, for: indexPath) as? CurrencyOptionCell else {
@@ -204,17 +280,26 @@ class FinalCheckOutVC: BaseVC {
     private func getHeightOfRowForSecondSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 20.0
+            if self.isCouponApplied {
+                return 20.0
+            } else {
+                return 0.0
+            }
         case 1:
-            if isWallet {
+            if self.isWallet {
                 return 40.0
             } else {
-               return 0.0
+                return 0.0
             }
         case 2:
             return 46.0
         case 3:
-            return 87.0
+            if self.isCouponApplied {
+                return 87.0
+            } else {
+                return 0
+            }
+           
         case 4:
             return 168.0
         case 5:
@@ -222,6 +307,17 @@ class FinalCheckOutVC: BaseVC {
         default:
             return 44
         }
+    }
+    
+    private func setUpImage() {
+        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        self.payButton.spaceInTextAndImageOfButton(spacing: 2)
+    }
+    
+    private func updateAllData() {
+        self.checkOutTableView.reloadData()
     }
 }
 
@@ -260,7 +356,11 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 0
         } else {
-            return 64
+            if isCouponApplied {
+                return 64.0
+            } else {
+                  return 35
+            }
         }
     }
     
@@ -273,10 +373,17 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("FareSectionHeader not found")
             }
             
-            if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount {
-                 headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + grossAmount
+            headerView.delegate = self
+            if isCouponApplied {
+                headerView.clipsToBounds = true
+            } else {
+                 headerView.clipsToBounds = true
             }
-           
+            if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount, let discountbreak = self.appliedCouponData.discountsBreakup {
+                headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol +  "\(grossAmount.toDouble?.delimiter ?? "0.0")"
+                headerView.discountPriceLabel.text = "-" + AppConstants.kRuppeeSymbol +  "\(Double(discountbreak.CPD).delimiter)"
+            }
+            
             return headerView
         }
     }
@@ -293,10 +400,11 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
 extension FinalCheckOutVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
+        delegate?.cancelButtonTapped()
     }
 }
 
-extension FinalCheckOutVC : FinalCheckoutVMDelegate {
+extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func willCallGetPayementMethods() {
         //
     }
@@ -310,11 +418,26 @@ extension FinalCheckOutVC : FinalCheckoutVMDelegate {
     func getPaymentMethodsFails(errors: ErrorCodes) {
         //
     }
+    
+    func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
+        self.viewModel.itineraryData = appliedCouponData.itinerary
+        isCouponApplied = false
+        updateAllData()
+        printDebug(appliedCouponData)
+    }
+    func removeCouponCodeFailed() {
+        printDebug("Unable to remove Coupon Code")
+    }
 }
-    
-    
+
 extension FinalCheckOutVC: HCCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
         printDebug(appliedCouponData)
+        self.appliedCouponData = appliedCouponData
+        self.isCouponApplied = true
+        delay(seconds: 0.3) { [weak self] in
+            self?.updateAllData()
+        }
+     
     }
 }

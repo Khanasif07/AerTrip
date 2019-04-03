@@ -411,11 +411,13 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     
-    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String) {
+    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String, placeModel: PlaceModel , hotelSearchRequest: HotelSearchRequestModel) {
         let obj = HCDataSelectionVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.sId = sid
         obj.viewModel.hId = hid
         obj.viewModel.qId = qid
+        obj.viewModel.placeModel = placeModel
+        obj.viewModel.hotelSearchRequest = hotelSearchRequest
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -483,9 +485,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFinalCheckoutVC(_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel()) {
+    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate ,_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel()) {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itineraryData = itinaryData
+        obj.delegate = delegate
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
         self.mainNavigationController.pushViewController(obj, animated: true)
     }

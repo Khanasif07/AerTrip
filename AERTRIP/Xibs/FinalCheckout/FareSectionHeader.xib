@@ -78,10 +78,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="arrowButton" destination="3vR-7f-6bF" id="KuI-eF-OH3"/>
                 <outlet property="discountPriceLabel" destination="6y9-eP-ASc" id="uAa-WN-TcC"/>
                 <outlet property="discountsTitleLabel" destination="K6q-3f-aq6" id="CFW-YO-RZA"/>
                 <outlet property="grossFareTitleLabel" destination="fx7-L8-x4N" id="nlh-yx-Ki3"/>
                 <outlet property="grossPriceLabel" destination="DZX-b8-BiC" id="DlG-ZJ-fcP"/>
+                <outlet property="topBackgroundView" destination="S5L-Wq-Vl1" id="Cmm-vx-ya7"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="416.0419790104948"/>
         </view>

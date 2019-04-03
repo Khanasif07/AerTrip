@@ -585,5 +585,8 @@ enum LocalizedString: String {
     case WhatNext = "WhatNext"
     case InstantCashBackAppliedText = "InstantCashBackAppliedText"
     case WalletCashBackAppliedText = "WalletCashBackAppliedText"
-}
+    case CouponApplied = "Coupon Applied:"
+    case convenienceFee1 = "convenienceFee1"
+    case convenienceFee2 = "convenienceFee2"
+ }
 

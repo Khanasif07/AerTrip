@@ -25,7 +25,7 @@ class FinalAmountTableViewCell: UITableViewCell {
     // MARK: - Helper Methods
     
     private func setUpText() {
-        self.payableWalletMessageLabel.text = LocalizedString.PayableWalletMessage.localized
+        //self.payableWalletMessageLabel.text = LocalizedString.PayableWalletMessage.localized
         self.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized + "\(Double(67000).delimiter)"
     }
     
