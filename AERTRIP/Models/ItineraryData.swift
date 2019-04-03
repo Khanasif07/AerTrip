@@ -147,6 +147,7 @@ struct  ItenaryModel {
     var grossAmount : String
     var netAmount : String
     var priceChange : String
+    var coupons : [HCCouponModel] = []
     
     init() {
         let json = JSON()
@@ -159,7 +160,13 @@ struct  ItenaryModel {
         self.grossAmount = json[APIKeys.grossAmout.rawValue].stringValue
         self.netAmount = json[APIKeys.netAmount.rawValue].stringValue
         self.priceChange = json[APIKeys.priceChange.rawValue].stringValue
+        if let arrDict = json[APIKeys.coupons.rawValue].arrayObject as? [JSONDictionary] {
+            self.coupons = HCCouponModel.getHCCouponData(jsonArr: arrDict)
+        }
     }
+    
+    
+    
 }
 
 

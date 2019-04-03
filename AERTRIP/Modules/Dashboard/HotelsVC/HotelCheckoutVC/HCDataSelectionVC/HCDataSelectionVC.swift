@@ -51,6 +51,8 @@ class HCDataSelectionVC: BaseVC {
     var statusBarHeight: CGFloat {
         return UIApplication.shared.statusBarFrame.height
     }
+    
+    var isFromFinalCheckout: Bool = false
 
     // MARK: - Private
     
@@ -78,6 +80,12 @@ class HCDataSelectionVC: BaseVC {
         manageLoader(shouldStart: true)
 
         setupGuestArray()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.viewModel.webserviceForItenaryDataTraveller()
     }
     
     override func viewDidLayoutSubviews() {
@@ -273,6 +281,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
+        self.isFromFinalCheckout = false
         self.viewModel.webserviceForItenaryDataTraveller()
        // AppFlowManager.default.moveToFinalCheckoutVC()
     }
@@ -304,7 +313,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func callForItenaryDataTravellerSuccess() {
         //
-        AppFlowManager.default.moveToFinalCheckoutVC(self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
+        if !isFromFinalCheckout {
+   AppFlowManager.default.moveToFinalCheckoutVC(delegate:self,self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
+        }
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
@@ -513,5 +524,11 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
     func didPassSelectedRequestsId(ids: [Int], preferences: String, request: String) {
         printDebug("\(ids),\t\(preferences),\t\(request)")
+    }
+}
+
+extension HCDataSelectionVC : FinalCheckOutVCDelegate {
+    func cancelButtonTapped() {
+        self.isFromFinalCheckout = true
     }
 }

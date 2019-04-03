@@ -40,6 +40,7 @@ enum AppConstants {
     static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
     static let privacyPolicy = "https://beta.aertrip.com/privacy"
     static let termsOfUse    = "https://beta.aertrip.com/terms"
+    static let walletAmountUrl = "https://beta.aertrip.com/wallet"
     
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 20

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol WalletTableViewCellDelegate: class {
     func valueForSwitch(isOn:Bool)
@@ -57,7 +58,15 @@ class WalletTableViewCell: UITableViewCell {
         self.balanceLabel.text = LocalizedString.Balance.localized
         
     }
-   
+    
+    
+    @IBAction func infoButtonTaped(_ sender: Any) {
+        guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+        safariVC.delegate = self
+    }
+    
     
     
     
@@ -65,3 +74,10 @@ class WalletTableViewCell: UITableViewCell {
         sender.isOn ? delegate?.valueForSwitch(isOn: true) : delegate?.valueForSwitch(isOn: false)
     }
 }
+
+extension WalletTableViewCell: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
+    }
+}
+

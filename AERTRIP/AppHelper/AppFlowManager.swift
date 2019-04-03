@@ -474,9 +474,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFinalCheckoutVC(_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel()) {
+    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate ,_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel()) {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itineraryData = itinaryData
+        obj.delegate = delegate
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
         self.mainNavigationController.pushViewController(obj, animated: true)
     }

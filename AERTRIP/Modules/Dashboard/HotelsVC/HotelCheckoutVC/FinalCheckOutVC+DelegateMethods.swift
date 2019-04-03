@@ -19,5 +19,14 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
 extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
     func removeCouponTapped() {
         printDebug("Remove coupon tapped")
+        self.viewModel.removeCouponCode()
     }
 }
+
+extension FinalCheckOutVC : FareSectionHeaderDelegate {
+    func headerViewTapped() {
+        printDebug("Header View Tapped")
+    }
+}
+
+

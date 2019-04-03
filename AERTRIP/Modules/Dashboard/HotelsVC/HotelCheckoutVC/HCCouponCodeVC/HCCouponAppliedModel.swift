@@ -9,11 +9,18 @@
 import Foundation
 
 struct HCCouponAppliedModel {
+    
     var isCouponApplied: Bool = false // is_coupon_applied
     var couponCode: String = ""       // coupon_code
     var discountsBreakup: DiscountBreakUp?   //discounts_breakup
     var itinerary: ItineraryData?        ///itinerary
-    var vCode: String = ""            //vcode
+    var vCode: String = ""
+    
+    //vcode
+    
+    init() {
+        self.init(json: [:])
+    }
     
     init(json: JSON) {
         self.isCouponApplied = json[APIKeys.is_coupon_applied.rawValue].boolValue

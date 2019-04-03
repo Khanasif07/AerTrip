@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVM.swift"
-            timestampString = "575813094.106235"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
+            timestampString = "575971443.070905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "webServiceGetPaymentMethods()"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/APICaller/Api+HotelCheckOut.swift"
-            timestampString = "575815845.69897"
+            filePath = "AERTRIP/Xibs/FinalCheckout/FareSectionHeader.swift"
+            timestampString = "575962071.6825041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "getPaymentMethods(params:loader:completionBlock:)"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "handleGesture(gesture:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,25 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.744687"
+            timestampString = "575971443.071044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.7453361"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360">
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "getCellForSecondSection(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -70,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVM.swift"
-            timestampString = "575894258.745828"
+            timestampString = "575971443.071128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "fetchConfirmItineraryData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -85,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC+DelegateMethods.swift"
-            timestampString = "575872628.035879"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
+            timestampString = "575971443.071216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "removeCouponTapped()"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "initialSetup()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -101,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Xibs/FinalCheckout/ApplyCouponTableViewCell.swift"
-            timestampString = "575894258.745948"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVM.swift"
+            timestampString = "575971443.071779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "removeCouponTapped(_:)"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "webserviceForItenaryDataTraveller()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -117,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Third Party/Multi Slider/MultiSlider.swift"
-            timestampString = "575883498.2772191"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVM.swift"
+            timestampString = "575971443.071862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "setupPanGesture()"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "webserviceForItenaryDataTraveller()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -133,12 +121,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.746055"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
+            timestampString = "575971443.071943"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360">
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "continueButtonAction(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -147,12 +137,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.746507"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
+            timestampString = "575971443.072336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360">
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -161,27 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.746919"
+            filePath = "AERTRIP/Network/APICaller/Api+HotelCheckOut.swift"
+            timestampString = "575966453.581908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.7473381"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "getCellForFirstSection(_:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "callItenaryDataForTravellerAPI(itinaryId:params:loader:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -192,13 +170,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.7476929"
+            timestampString = "575971443.0727201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "getCellForFirstSection(_:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "getAppliedCoupons()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.FinalCheckOutVC.(getAppliedCoupons in _C147C7B1B97096FA642C5DB66FF3E7FB)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
+                  timestampString = "575971443.6052181"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (AERTRIP.HCCouponModel) -&gt; Swift.Bool in AERTRIP.FinalCheckOutVC.(getAppliedCoupons in _C147C7B1B97096FA642C5DB66FF3E7FB)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
+                  timestampString = "575971443.607818"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -208,12 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.7480249"
+            timestampString = "575971443.072787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
-            landmarkName = "appliedCouponData(_:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "getAppliedCoupons()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,45 +233,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.748374"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
+            timestampString = "575971443.072847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "updateAllData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.748703"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "getCellForFirstSection(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "575894258.749033"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "appliedCouponData(_:)"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
+            landmarkName = "callForItenaryDataTravellerSuccess()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
