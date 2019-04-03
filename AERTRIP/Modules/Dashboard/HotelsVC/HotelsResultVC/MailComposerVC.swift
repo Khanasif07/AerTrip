@@ -95,6 +95,7 @@ class MailComposerVC: BaseVC {
         mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "")")
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
+        self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.toEmailTextView)
     }
     
     private func setUpFooter() {
@@ -176,17 +177,33 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: -  Mail Composer Header View Delegate methods
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
+
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
-        let minLines = 1, maxLines = 5
+        let minHeight = textView.font!.lineHeight * 1.0
+        let maxHeight = textView.font!.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
-        
-        let emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
 
-        let msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
-        
-        headerView.emailHeightConatraint.constant = emailHeight
-        headerView.subjectHeightConstraint.constant = msgHeight
+        var emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+
+        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
+
+        emailHeight = max(minHeight, emailHeight)
+        emailHeight = min(maxHeight, emailHeight)
+
+        msgHeight = max(minHeight, msgHeight)
+        msgHeight = min(maxHeight, msgHeight)
+
+        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (577.0 + emailHeight + msgHeight))
+
+        UIView.animate(withDuration: 0.3, animations: {
+            headerView.emailHeightConatraint.constant = emailHeight
+            headerView.subjectHeightConstraint.constant = msgHeight
+            self.view.layoutIfNeeded()
+        }, completion: { (isDone) in
+            headerView.toEmailTextView.isScrollEnabled = emailHeight >= maxHeight
+            headerView.messageSubjectTextView.isScrollEnabled = msgHeight >= maxHeight
+        })
     }
     
     func textViewText(_ textView: UITextView) {

@@ -23,10 +23,23 @@ enum SortUsing {
 class HotelFilterVM {
     static let shared = HotelFilterVM()
     
+    var defaultRatingCount: [Int] = [1,2,3,4,5]
+    var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
+    var defaultIsIncludeUnrated: Bool = true
+    var defaultDistanceRange: Double = 20.0
+    var defaultLeftRangePrice: Double = 0.0
+    var defaultRightRangePrice: Double = 0.0
+    var defaultAmenitites: [String] = []
+    var defaultRoomMeal: [String] = []
+    var defaultRoomCancelation: [String] = []
+    var defaultRoomOther: [String] = []
+    var defaultSortUsing: SortUsing = .BestSellers
+    var defaultPriceType: Price = .Total
+    
     var ratingCount: [Int] = [1,2,3,4,5]
     var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var isIncludeUnrated: Bool = true
-    var distanceRange: Double = 14.0
+    var distanceRange: Double = 20.0
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
     var leftRangePrice: Double = 0.0
@@ -65,7 +78,24 @@ class HotelFilterVM {
         }
     }
     
-    private init() {}
+    func resetToDefault() {
+        self.ratingCount = defaultRatingCount
+        self.tripAdvisorRatingCount = defaultTripAdvisorRatingCount
+        self.isIncludeUnrated = defaultIsIncludeUnrated
+        self.distanceRange = defaultDistanceRange
+        self.leftRangePrice = defaultLeftRangePrice
+        self.rightRangePrice = defaultRightRangePrice
+        self.amenitites = defaultAmenitites
+        self.roomMeal = defaultRoomMeal
+        self.roomCancelation = defaultRoomCancelation
+        self.roomOther = defaultRoomOther
+        self.sortUsing = defaultSortUsing
+        self.priceType = defaultPriceType
+    }
+    
+    private init() {
+        resetToDefault()
+    }
 }
 
 extension SortUsing: Codable {

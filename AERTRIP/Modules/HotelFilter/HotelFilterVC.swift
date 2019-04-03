@@ -175,7 +175,64 @@ class HotelFilterVC: BaseVC {
         
         // Set last Selected Index on Nav bar
         self.categoryView.select(at: HotelFilterVM.shared.lastSelectedIndex)
-        categoryView.setBadgeDot(atIndex: 1)
+        self.setBadgesOnAllCategories()
+    }
+    
+    private func setBadgesOnAllCategories() {
+
+        for (idx,tab) in self.allTabsStr.enumerated() {
+            
+            var badgeCount = 0
+            switch tab.lowercased() {
+            case LocalizedString.Sort.localized.lowercased():
+                badgeCount = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? 0 : 1
+                
+            case LocalizedString.Range.localized.lowercased():
+                badgeCount = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? 0 : 1
+
+            case LocalizedString.Price.localized.lowercased():
+                if HotelFilterVM.shared.leftRangePrice != HotelFilterVM.shared.defaultLeftRangePrice {
+                    badgeCount = 1
+                }
+                else if HotelFilterVM.shared.rightRangePrice != HotelFilterVM.shared.defaultRightRangePrice {
+                    badgeCount = 1
+                }
+                else if HotelFilterVM.shared.priceType != HotelFilterVM.shared.defaultPriceType {
+                    badgeCount = 1
+                }
+
+            case LocalizedString.Ratings.localized.lowercased():
+                if !HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty {
+                    badgeCount = 1
+                }
+                else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                    badgeCount = 1
+                }
+                else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
+                    badgeCount = 1
+                }
+            case LocalizedString.Amenities.localized.lowercased():
+                if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
+                    badgeCount = 1
+                }
+
+            case LocalizedString.Room.localized.lowercased():
+                if !HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty {
+                    badgeCount = 1
+                }
+                else if !HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty {
+                    badgeCount = 1
+                }
+                else if !HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty {
+                    badgeCount = 1
+                }
+
+            default:
+                printDebug("not useable case")
+            }
+            
+            self.categoryView.setBadge(atIndex: idx, badgeNumber: badgeCount)
+        }
     }
     
     private func setupGesture() {

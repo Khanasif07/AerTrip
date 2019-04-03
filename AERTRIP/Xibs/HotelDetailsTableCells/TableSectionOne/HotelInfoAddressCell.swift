@@ -77,7 +77,7 @@ class HotelInfoAddressCell: UITableViewCell {
 //
         let attrText = overview.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines() >= 3 ) ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3 ) ? false : true
     }
 
     

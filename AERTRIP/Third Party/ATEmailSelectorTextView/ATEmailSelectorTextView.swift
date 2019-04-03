@@ -135,7 +135,7 @@ class ATEmailSelectorTextView: UITextView {
     
     @objc private func textDidChange(_ sender : Foundation.Notification) {
         if text.count <= 1 {
-            attributedText = NSMutableAttributedString(string: text)
+            attributedText = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : tagSeparatorColor, NSAttributedString.Key.font: tagSeparatorFont])
         }
         if oldText.count < text.count {
             //adding chars
@@ -172,7 +172,7 @@ class ATEmailSelectorTextView: UITextView {
     private func heighlightAllTags() -> NSMutableAttributedString {
         let allTags = self.allTags
         
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: tagsString)
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: tagsString, attributes: [NSAttributedString.Key.foregroundColor : tagSeparatorColor, NSAttributedString.Key.font: tagSeparatorFont])
         
         for tag in allTags {
             attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : inactiveTagFontColor, NSAttributedString.Key.backgroundColor: inactiveTagBackgroundColor], range: (text as NSString).range(of: tag))

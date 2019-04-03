@@ -153,7 +153,8 @@ extension APICaller {
                     HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
                     HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
                     HotelFilterVM.shared.leftRangePrice = HotelFilterVM.shared.minimumPrice
-                    HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
+                    HotelFilterVM.shared.defaultLeftRangePrice = HotelFilterVM.shared.minimumPrice
+                    HotelFilterVM.shared.defaultRightRangePrice = HotelFilterVM.shared.maximumPrice
                    
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }

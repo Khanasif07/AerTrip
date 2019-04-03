@@ -218,6 +218,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.fetchRequestType = .normal
         self.filterButton.isSelected = false
         UserInfo.hotelFilter = nil
+        HotelFilterVM.shared.resetToDefault()
         self.loadSaveData()
     }
 

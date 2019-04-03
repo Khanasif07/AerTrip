@@ -67,6 +67,14 @@ class EmailComposerHeaderView: UIView {
         self.checkInCheckOutView.layer.borderColor = AppColors.themeGray40.cgColor
         self.messageSubjectTextView.delegate = self
         self.seeRatesButton.layer.cornerRadius = 5.0
+        
+        self.toEmailTextView.delegate = self
+        
+        self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
+//        self.toEmailTextView.textContainer.lineFragmentPadding = 0
+        
+        self.messageSubjectTextView.textContainerInset = UIEdgeInsets.zero
+//        self.messageSubjectTextView.textContainer.lineFragmentPadding = 0
     }
     
     private func setUpText() {
@@ -88,7 +96,7 @@ class EmailComposerHeaderView: UIView {
         // to Email Text View font
         self.toEmailTextView.inactiveTagFont = AppFonts.Regular.withSize(18.0)
         self.toEmailTextView.activeTagFont = AppFonts.Regular.withSize(18.0)
-        self.toEmailTextView.font = AppFonts.Regular.withSize(18.0)
+        self.toEmailTextView.tagSeparatorFont = AppFonts.Regular.withSize(18.0)
         
         self.messageSubjectTextView.font = AppFonts.Regular.withSize(18.0)
     }
