@@ -17,6 +17,7 @@ class HCCouponCodeVC: BaseVC {
     let viewModel = HCCouponCodeVM()
     weak var delegate: HCCouponCodeVCDelegate?
     var selectedIndexPath: IndexPath?
+    var currentIndexPath: IndexPath?
     
     //Mark:- IBOutlets
     //================
@@ -47,6 +48,18 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var noCouponsReqLabel: UILabel!
     @IBOutlet weak var bestPriceLabel: UILabel!
+    @IBOutlet weak var offerTermsView: UIView!
+    @IBOutlet weak var backGroundView: UIView!
+    @IBOutlet weak var offerTermsViewHeightConstraints: NSLayoutConstraint!
+    @IBOutlet weak var coupanCodeLabel: UILabel!
+    @IBOutlet weak var discountLabel: UILabel!
+    @IBOutlet weak var couponInfoTextView: UITextView!
+    @IBOutlet weak var dividerView: UIView! {
+        didSet {
+            self.dividerView.backgroundColor = AppColors.themeBlack
+        }
+    }
+    @IBOutlet weak var applyCouponButton: UIButton!
     
     //Mark:- LifeCycle
     //================
@@ -59,6 +72,8 @@ class HCCouponCodeVC: BaseVC {
         self.viewModel.getCouponsDetailsApi()
         self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+        self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
+        self.offerTermsViewSetUp()
         self.registerNibs()
     }
     
@@ -117,6 +132,46 @@ class HCCouponCodeVC: BaseVC {
         }
     }
     
+    private func offerTermsViewSetUp() {
+        self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
+        self.discountLabel.textColor = AppColors.themeOrange
+        self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.applyCouponButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.backGroundViewTapGesture(_:)))
+        self.backGroundView.addGestureRecognizer(tapGesture)
+        self.hideOfferTermsView(animated: false)
+    }
+    
+    ///Show View
+    private func showOfferTermsView(animated: Bool) {
+        self.backGroundView.isHidden = false
+        self.offerTermsView.isHidden = false
+        self.view.bringSubviewToFront(self.backGroundView)
+        self.view.bringSubviewToFront(self.offerTermsView)
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            self.offerTermsViewHeightConstraints.constant = 220.0
+            self.view.layoutIfNeeded()
+        }, completion: { [weak self] (isDone) in
+            self?.couponTableView.isUserInteractionEnabled = false
+        })
+    }
+    
+    ///Hide View
+    private func hideOfferTermsView(animated: Bool) {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            self.offerTermsViewHeightConstraints.constant = 0.0
+            self.view.layoutIfNeeded()
+        }, completion: { [weak self] (isDone) in
+            guard let sSelf = self else { return }
+            sSelf.couponTableView.isUserInteractionEnabled = true
+            sSelf.backGroundView.isHidden = true
+            sSelf.offerTermsView.isHidden = true
+            sSelf.view.bringSubviewToFront(sSelf.offerTermsView)
+            sSelf.view.sendSubviewToBack(sSelf.backGroundView)
+        })
+    }
+
+    
     //Mark:- IBActions
     //================
     @IBAction func cancelButtonAction(_ sender: UIButton) {
@@ -132,6 +187,17 @@ class HCCouponCodeVC: BaseVC {
             self.couponValidationTextSetUp(isCouponValid: false)
             printDebug("Enter a Valid code")
         }
+    }
+    
+    @IBAction func applyCouponButtonAction(_ sender: UIButton) {
+        self.currentIndexPath = self.selectedIndexPath
+        self.hideOfferTermsView(animated: true)
+        self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.couponTableView.reloadData()
+    }
+    
+    @IBAction func backGroundViewTapGesture(_ gesture: UITapGestureRecognizer) {
+        self.hideOfferTermsView(animated: true)
     }
 }
 
@@ -209,14 +275,20 @@ extension HCCouponCodeVC {
 }
 
 extension HCCouponCodeVC: PassSelectedCoupon {
-    func selectedCoupon(indexPath: IndexPath) {
+    func offerTermsInfo(indexPath: IndexPath, bulletedText: NSAttributedString, couponCode: NSAttributedString, discountText: NSAttributedString) {
         self.selectedIndexPath = indexPath
-        self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.couponTableView.reloadData()
+        self.coupanCodeLabel.attributedText = couponCode
+        self.discountLabel.attributedText = discountText
+        self.couponInfoTextView.attributedText = bulletedText
+        self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
+        self.showOfferTermsView(animated: true)
+        printDebug("offer terms for \(indexPath)")
     }
     
-    func offerTermsInfo(indexPath: IndexPath) {
-        printDebug("offer terms for \(indexPath)")
+    func selectedCoupon(indexPath: IndexPath) {
+        self.currentIndexPath = indexPath
+        self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.couponTableView.reloadData()
     }
 }
 

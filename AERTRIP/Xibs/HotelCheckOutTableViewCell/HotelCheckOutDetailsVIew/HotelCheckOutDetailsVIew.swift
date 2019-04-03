@@ -38,6 +38,13 @@ class HotelCheckOutDetailsVIew: UIView {
             self.headerView.roundTopCorners(cornerRadius: 10.0)
         }
     }
+    @IBOutlet weak var smallLineView: UIView! {
+        didSet {
+            self.smallLineView.cornerRadius = self.smallLineView.height/2.0
+            self.smallLineView.clipsToBounds = true
+        }
+    }
+
     
     
     //Mark:- LifeCycle

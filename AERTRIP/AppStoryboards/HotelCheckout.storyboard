@@ -13,6 +13,9 @@
         <array key="SourceSansPro-Regular.ttf">
             <string>SourceSansPro-Regular</string>
         </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Data SelectionVC-->
@@ -1272,6 +1275,13 @@ Incomplete</string>
                                     <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" constant="8" id="fBT-Q0-8NN"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="124" width="375" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="xtX-6X-Zbr"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-6h-E0A">
                                 <rect key="frame" x="67.5" y="237" width="240" height="202"/>
                                 <subviews>
@@ -1312,23 +1322,91 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="124.5" width="375" height="542.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="124" width="375" height="0.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1F-4q-n8L">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dlw-EG-3em">
+                                        <rect key="frame" x="0.0" y="447" width="375" height="220"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="CODE: AERHDFC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAj-eH-e4Y">
+                                                <rect key="frame" x="16" y="20.5" width="124.5" height="23"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save $ 12.00 (₹ 656)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ac7-4o-Tfo">
+                                                <rect key="frame" x="198" y="21.5" width="161" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeO-pL-fuX">
+                                                <rect key="frame" x="16" y="69.5" width="343" height="69.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9i-B2-tEL">
+                                                <rect key="frame" x="0.0" y="169" width="375" height="1"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="zIo-Qb-Sv9"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z66-1x-NXM">
+                                                <rect key="frame" x="0.0" y="170" width="375" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="B6y-dY-3Df"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                                <state key="normal" title="Apply Coupon"/>
+                                                <connections>
+                                                    <action selector="applyCouponButtonAction:" destination="a00-0y-1V4" eventType="touchUpInside" id="MWW-k4-EUB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="jIv-eH-duv" firstAttribute="trailing" secondItem="z66-1x-NXM" secondAttribute="trailing" id="0a8-7M-fIF"/>
+                                            <constraint firstItem="yeO-pL-fuX" firstAttribute="top" secondItem="QAj-eH-e4Y" secondAttribute="bottom" constant="26" id="BQg-E1-3q5"/>
+                                            <constraint firstItem="yeO-pL-fuX" firstAttribute="leading" secondItem="QAj-eH-e4Y" secondAttribute="leading" id="D42-zw-igu"/>
+                                            <constraint firstItem="z66-1x-NXM" firstAttribute="top" secondItem="y9i-B2-tEL" secondAttribute="bottom" id="I4E-ND-GH9"/>
+                                            <constraint firstItem="z66-1x-NXM" firstAttribute="leading" secondItem="jIv-eH-duv" secondAttribute="leading" id="ITw-1b-hlc"/>
+                                            <constraint firstItem="Ac7-4o-Tfo" firstAttribute="centerY" secondItem="QAj-eH-e4Y" secondAttribute="centerY" id="P5b-Q4-LwO"/>
+                                            <constraint firstAttribute="trailing" secondItem="y9i-B2-tEL" secondAttribute="trailing" id="Rix-AO-Lic"/>
+                                            <constraint firstItem="jIv-eH-duv" firstAttribute="bottom" secondItem="z66-1x-NXM" secondAttribute="bottom" id="Unp-eC-0l4"/>
+                                            <constraint firstItem="yeO-pL-fuX" firstAttribute="trailing" secondItem="Ac7-4o-Tfo" secondAttribute="trailing" id="Vnm-7V-1uA"/>
+                                            <constraint firstItem="Ac7-4o-Tfo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QAj-eH-e4Y" secondAttribute="trailing" constant="10" id="Vrp-oG-zBe"/>
+                                            <constraint firstItem="QAj-eH-e4Y" firstAttribute="top" secondItem="jIv-eH-duv" secondAttribute="top" constant="20.5" id="YS7-PS-Eph"/>
+                                            <constraint firstAttribute="height" constant="220" id="bXs-rX-n45"/>
+                                            <constraint firstItem="QAj-eH-e4Y" firstAttribute="leading" secondItem="jIv-eH-duv" secondAttribute="leading" constant="16" id="iVE-qi-9Yg"/>
+                                            <constraint firstItem="jIv-eH-duv" firstAttribute="trailing" secondItem="Ac7-4o-Tfo" secondAttribute="trailing" constant="16" id="mcM-SM-h62"/>
+                                            <constraint firstItem="y9i-B2-tEL" firstAttribute="leading" secondItem="Dlw-EG-3em" secondAttribute="leading" id="nvK-Cx-enP"/>
+                                            <constraint firstItem="y9i-B2-tEL" firstAttribute="top" secondItem="yeO-pL-fuX" secondAttribute="bottom" constant="30" id="wb0-YO-D8a"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="jIv-eH-duv"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="xtX-6X-Zbr"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dlw-EG-3em" secondAttribute="trailing" id="4yM-ws-NvK"/>
+                                    <constraint firstAttribute="bottom" secondItem="Dlw-EG-3em" secondAttribute="bottom" id="RmB-2h-1hS"/>
+                                    <constraint firstItem="Dlw-EG-3em" firstAttribute="leading" secondItem="G1F-4q-n8L" secondAttribute="leading" id="UeU-En-DfC"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="G1F-4q-n8L" secondAttribute="trailing" id="74F-oc-lpc"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" constant="67.5" id="F0V-PI-BU7"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Hkf-vf-e2U"/>
                             <constraint firstItem="VFj-MD-RgZ" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="I67-nI-TsO"/>
                             <constraint firstItem="9uT-Oo-DUc" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="LZa-py-Rr5"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="OBF-Bb-Qk6"/>
                             <constraint firstItem="VFj-MD-RgZ" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="QAZ-Vt-QOF"/>
+                            <constraint firstAttribute="bottom" secondItem="G1F-4q-n8L" secondAttribute="bottom" id="SYh-fz-dMo"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="centerY" secondItem="I3d-Xj-2CM" secondAttribute="centerY" constant="4.5" id="We5-3M-SZu"/>
+                            <constraint firstItem="G1F-4q-n8L" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="YCe-ud-lYW"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="top" secondItem="9uT-Oo-DUc" secondAttribute="bottom" id="YSw-dv-ji0"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="centerX" secondItem="I3d-Xj-2CM" secondAttribute="centerX" id="YsD-xV-tls"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="ZMg-6h-E0A" secondAttribute="trailing" constant="67.5" id="ZvK-Qo-DqC"/>
@@ -1337,6 +1415,7 @@ Incomplete</string>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="jZO-6z-rT4"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="9uT-Oo-DUc" secondAttribute="trailing" id="mgb-L7-6Ft"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="trailing" secondItem="5Az-SF-g0l" secondAttribute="trailing" id="nhX-hw-EjA"/>
+                            <constraint firstItem="G1F-4q-n8L" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="oHd-jl-XY8"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="nO1-9x-A83" secondAttribute="trailing" id="obC-Iw-cI5"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="VFj-MD-RgZ" secondAttribute="trailing" id="r6D-wy-TG8"/>
                         </constraints>
@@ -1344,20 +1423,28 @@ Incomplete</string>
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="U23-fz-joJ" id="PWq-bg-Lgy"/>
+                        <outlet property="applyCouponButton" destination="z66-1x-NXM" id="X3S-7W-c3c"/>
+                        <outlet property="backGroundView" destination="G1F-4q-n8L" id="b57-yv-WaY"/>
                         <outlet property="bestPriceLabel" destination="llj-Ng-uue" id="SzF-t4-AmY"/>
                         <outlet property="cancelButton" destination="dN2-Ht-qoz" id="Y7g-6t-BWn"/>
+                        <outlet property="coupanCodeLabel" destination="QAj-eH-e4Y" id="qoH-jH-1G5"/>
+                        <outlet property="couponInfoTextView" destination="yeO-pL-fuX" id="Op8-0Y-KRu"/>
                         <outlet property="couponLabel" destination="r6P-mU-234" id="TtB-XC-yFy"/>
                         <outlet property="couponTableView" destination="nO1-9x-A83" id="RDo-rI-gAd"/>
                         <outlet property="couponTextField" destination="4sX-zf-2aM" id="Rj9-I5-Z95"/>
+                        <outlet property="discountLabel" destination="Ac7-4o-Tfo" id="J8a-Vm-Z9f"/>
+                        <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
                         <outlet property="emptyStateView" destination="ZMg-6h-E0A" id="eAh-jb-hba"/>
                         <outlet property="enterCouponLabel" destination="f71-Kl-Zdi" id="9oj-iM-zv2"/>
                         <outlet property="noCouponsReqLabel" destination="lld-jP-V4u" id="6bL-z0-rZm"/>
+                        <outlet property="offerTermsView" destination="Dlw-EG-3em" id="8Za-4r-XLZ"/>
+                        <outlet property="offerTermsViewHeightConstraints" destination="bXs-rX-n45" id="7RX-7m-aKD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwL-zj-2KD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660" y="195.6521739130435"/>
+            <point key="canvasLocation" x="183" y="958"/>
         </scene>
         <!--Special RequestsVC-->
         <scene sceneID="vcM-1i-Cap">

@@ -224,7 +224,9 @@ class HCDataSelectionVC: BaseVC {
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if !isHidden {
             fareDetailContainerView.isHidden = false
-            self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+            if self.isHotelDetailsCheckOutViewOpen {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+            }
         }
         else {
             if self.isHotelDetailsCheckOutViewOpen {
@@ -286,9 +288,13 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         self.hotelDetailsContainerView.isHidden = true
         self.hotelCheckOutDetailsContainerVIew.isHidden = false
-        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
+//        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height)
+            if self.fareDetailContainerView.isHidden {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height)
+            } else {
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+            }
             self.view.layoutIfNeeded()
         }, completion: { [weak self] (isDone) in
             self?.isHotelDetailsCheckOutViewOpen = true
@@ -540,7 +546,7 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
             sSelf.isHotelDetailsCheckOutViewOpen = false
             sSelf.hotelDetailsContainerView.isHidden = false
             sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
-            sSelf.view.sendSubviewToBack(sSelf.hotelCheckOutDetailsContainerVIew)
+//            sSelf.view.sendSubviewToBack(sSelf.hotelCheckOutDetailsContainerVIew)
         }
     }
 }
