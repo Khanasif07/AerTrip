@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Razorpay
 
 class FlightsVC: BaseVC {
     // MARK: - Properties
     var subView = HotelCheckOutDetailsVIew()
     // MARK: -
+    
+    private var razorpay : Razorpay!
     
     @IBOutlet var myButton: UIButton!
     
@@ -28,6 +31,8 @@ class FlightsVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        
+        razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
     }
     
     // MARK: - Methods
@@ -41,5 +46,25 @@ class FlightsVC: BaseVC {
     // MARK: - Action
     
     @IBAction func myButtonAction(_ sender: UIButton) {
+        self.initializePayment(forAmount: 1.0)
+    }
+}
+
+
+extension FlightsVC: RazorpayPaymentCompletionProtocolWithData {
+    
+    func initializePayment(forAmount amount: Double) {
+        let options = [
+            "amount" : "\(amount)"
+        ]
+        razorpay.open(options)
+    }
+    
+    func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
+        printDebug("code: \(code) \ndescription \(str) \nresponse \(response) ")
+    }
+    
+    func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {
+        printDebug("payment_id: \(payment_id) \nresponse \(response) ")
     }
 }

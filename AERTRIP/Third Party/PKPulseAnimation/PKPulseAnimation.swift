@@ -128,12 +128,12 @@ open class PKPulseAnimation: CAReplicatorLayer, CAAnimationDelegate {
         repeatCount = MAXFLOAT
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(add),
+                                               selector: #selector(self.save),
                                                name: UIApplication.didEnterBackgroundNotification,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(resume),
+                                               selector: #selector(self.resume),
                                                name: UIApplication.willEnterForegroundNotification,
                                                object: nil)
     }
@@ -252,6 +252,8 @@ open class PKPulseAnimation: CAReplicatorLayer, CAAnimationDelegate {
     /// Stop the animation.
     @objc open func stop() {
         pulse.removeAllAnimations()
+        pulse.removeFromSuperlayer()
+        animationGroup?.timingFunction = nil
         animationGroup = nil
     }
     
