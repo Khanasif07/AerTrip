@@ -22,7 +22,6 @@ class AppFlowManager: NSObject {
         return self.mainHomeVC?.sideMenuController
     }
     var mainHomeVC: MainHomeVC?
-    var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
     
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool)->Void)? = nil

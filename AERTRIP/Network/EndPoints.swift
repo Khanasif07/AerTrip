@@ -76,6 +76,9 @@ enum APIEndPoint : String {
     case addTrip                       = "trips/add"
     case tripEventHotelsSave           = "trips/event/hotels/save"
     
+    //payment
+    case makePayment                   = "payment/make-payment"
+    
     // Final Checkout
    
     case hotelItinerary = "hotels/itinerary?action=traveller"    

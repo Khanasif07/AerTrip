@@ -53,7 +53,7 @@ enum AppConstants {
     static let kCopyrightSymbol = "\u{00A9}"
     
     //razor pay key
-    static let kRazorpayPublicKey = "\u{00A9}"
+    static let kRazorpayPublicKey = "rzp_test_QJYU8TtB6deJgb"
     
     // CellIdentifier
     

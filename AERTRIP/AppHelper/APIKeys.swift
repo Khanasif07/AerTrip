@@ -353,5 +353,11 @@ enum APIKeys: String {
     case applied_coupon_details
     case is_coupon_applied
     case itinerary
+    
+    //payment
+    case total_amount
+    case wallet_id
+    case part_payment_amount
+    case ret
 }
 
