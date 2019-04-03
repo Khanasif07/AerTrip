@@ -56,7 +56,7 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var couponInfoTextView: UITextView!
     @IBOutlet weak var dividerView: UIView! {
         didSet {
-            self.dividerView.backgroundColor = AppColors.themeBlack
+            self.dividerView.backgroundColor = AppColors.divider.color
         }
     }
     @IBOutlet weak var applyCouponButton: UIButton!
@@ -70,7 +70,7 @@ class HCCouponCodeVC: BaseVC {
     override func initialSetup() {
         self.statusBarStyle = .default
         self.viewModel.getCouponsDetailsApi()
-        self.enterCouponLabel.isHidden = true
+//        self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -103,7 +103,8 @@ class HCCouponCodeVC: BaseVC {
         self.couponTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.EnterCouponCode.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
-        self.couponValidationTextSetUp(isCouponValid: false)
+        self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
+        self.couponValidationTextSetUp(isCouponValid: true)
     }
     
     override func bindViewModel() {
@@ -149,7 +150,7 @@ class HCCouponCodeVC: BaseVC {
         self.view.bringSubviewToFront(self.backGroundView)
         self.view.bringSubviewToFront(self.offerTermsView)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.offerTermsViewHeightConstraints.constant = 220.0
+            self.offerTermsViewHeightConstraints.constant = 209.0 + AppFlowManager.default.safeAreaInsets.bottom
             self.view.layoutIfNeeded()
         }, completion: { [weak self] (isDone) in
             self?.couponTableView.isUserInteractionEnabled = false
@@ -179,21 +180,31 @@ class HCCouponCodeVC: BaseVC {
     }
     
     @IBAction func applyButtonAction(_ sender: UIButton) {
+        if (self.couponTextField.text == "") {
+            self.view.endEditing(true)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
+        }
         if !self.viewModel.couponCode.isEmpty {
             printDebug("\(self.viewModel.couponCode) Applied")
             self.viewModel.applyCouponCode()
         } else {
-            self.enterCouponLabel.isHidden = false
+//            self.enterCouponLabel.isHidden = false
             self.couponValidationTextSetUp(isCouponValid: false)
+            self.view.endEditing(true)
+            AppToast.default.showToastMessage(message: LocalizedString.InvalidCouponCodeText.localized)
             printDebug("Enter a Valid code")
         }
     }
     
     @IBAction func applyCouponButtonAction(_ sender: UIButton) {
-        self.currentIndexPath = self.selectedIndexPath
+        self.selectedIndexPath = self.currentIndexPath
         self.hideOfferTermsView(animated: true)
         self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTableView.reloadData()
+        if let indexPath = self.selectedIndexPath {
+            self.viewModel.couponCode = self.viewModel.couponsData[indexPath.row].couponCode
+            self.viewModel.applyCouponCode()
+        }
     }
     
     @IBAction func backGroundViewTapGesture(_ gesture: UITapGestureRecognizer) {
@@ -212,11 +223,11 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: CouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        if let selectedIndexPath = self.selectedIndexPath {
+        if let selectedIndexPath = self.selectedIndexPath  {
             cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
             self.viewModel.couponCode = self.viewModel.couponsData[selectedIndexPath.row].couponCode
             self.couponTextField.text = self.viewModel.couponsData[selectedIndexPath.row].couponCode
-            self.enterCouponLabel.isHidden = false
+//            self.enterCouponLabel.isHidden = false
             self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
@@ -230,13 +241,17 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
 extension HCCouponCodeVC {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        self.enterCouponLabel.isHidden = true
+//        self.enterCouponLabel.isHidden = true
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.selectedIndexPath = nil
-        self.couponValidationTextSetUp(isCouponValid: false)
+        self.couponValidationTextSetUp(isCouponValid: true)
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.couponValidationTextSetUp(isCouponValid: true)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -244,18 +259,18 @@ extension HCCouponCodeVC {
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         print(finalText)
         if finalText.isEmpty {
-            self.enterCouponLabel.isHidden = true
+//            self.enterCouponLabel.isHidden = true
             if self.selectedIndexPath == nil {
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
             self.viewModel.couponCode = ""
         } else {
-            self.enterCouponLabel.isHidden = false
+//            self.enterCouponLabel.isHidden = false
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
             for (index,coupon) in self.viewModel.couponsData.enumerated() {
                 if coupon.couponTitle == finalText {
                     let indexPath = IndexPath(row: index, section: 0)
-                    self.couponValidationTextSetUp(isCouponValid: true)
+                    //self.couponValidationTextSetUp(isCouponValid: true)
                     if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
                         self.selectedIndexPath = indexPath
                         self.viewModel.couponCode = coupon.couponCode
@@ -264,7 +279,7 @@ extension HCCouponCodeVC {
                     }
                 } else {
                     self.selectedIndexPath = nil
-                    self.couponValidationTextSetUp(isCouponValid: false)
+                    //self.couponValidationTextSetUp(isCouponValid: false)
                     self.viewModel.couponCode = ""
                     self.couponTableView.reloadData()
                 }
@@ -276,7 +291,7 @@ extension HCCouponCodeVC {
 
 extension HCCouponCodeVC: PassSelectedCoupon {
     func offerTermsInfo(indexPath: IndexPath, bulletedText: NSAttributedString, couponCode: NSAttributedString, discountText: NSAttributedString) {
-        self.selectedIndexPath = indexPath
+        self.currentIndexPath = indexPath
         self.coupanCodeLabel.attributedText = couponCode
         self.discountLabel.attributedText = discountText
         self.couponInfoTextView.attributedText = bulletedText
@@ -286,7 +301,7 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     }
     
     func selectedCoupon(indexPath: IndexPath) {
-        self.currentIndexPath = indexPath
+        self.selectedIndexPath = indexPath
         self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTableView.reloadData()
     }

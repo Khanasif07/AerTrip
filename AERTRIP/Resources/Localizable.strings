@@ -554,3 +554,5 @@
 "CouponApplied" = "Coupon Applied: ";
 "convenienceFee1" = "A non-refundable convenience fee of ";
 "convenienceFee2" = "is applicable on this transaction.";
+"InvalidCouponCodeText" = "Sorry, this coupon code is invalid";
+"PleaseEnterCouponCode" = "Please enter a coupon code";

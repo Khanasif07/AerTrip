@@ -411,13 +411,14 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     
-    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String, placeModel: PlaceModel , hotelSearchRequest: HotelSearchRequestModel) {
+    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String, placeModel: PlaceModel , hotelSearchRequest: HotelSearchRequestModel, hotelInfo: HotelSearched) {
         let obj = HCDataSelectionVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.sId = sid
         obj.viewModel.hId = hid
         obj.viewModel.qId = qid
         obj.viewModel.placeModel = placeModel
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.viewModel.hotelInfo = hotelInfo
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

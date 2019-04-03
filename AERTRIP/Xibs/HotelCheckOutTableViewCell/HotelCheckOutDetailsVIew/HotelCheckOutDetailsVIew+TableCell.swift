@@ -54,17 +54,16 @@ extension HotelCheckOutDetailsVIew {
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
-        
         cell.delegate = self
-        let key = Array(roomData.keys).first//[indexPath.row]
-        let value = roomData[key ?? RoomsRates()]
+        let key = Array(roomData.keys)[indexPath.row]
+        let value = roomData[key]
         var isOnlyOneRoom: Bool = false
         if roomData.count == 1 && value == 1 {
             isOnlyOneRoom = true
         } else {
             isOnlyOneRoom = false
         }
-        cell.configCell(numberOfRooms: value ?? 0 , roomData: key ?? RoomsRates(), isOnlyOneRoom: isOnlyOneRoom)
+        cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
         if roomData.count == 1 {
             cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: false)
         } else {

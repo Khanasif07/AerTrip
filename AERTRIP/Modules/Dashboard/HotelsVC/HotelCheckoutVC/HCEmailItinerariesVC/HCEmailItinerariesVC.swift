@@ -18,7 +18,7 @@ class HCEmailItinerariesVC: BaseVC {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var headerView: TopNavigationView!
-    @IBOutlet weak var tableView: ATTableView! {
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
             self.tableView.delegate = self
             self.tableView.dataSource = self
@@ -80,6 +80,7 @@ extension HCEmailItinerariesVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailItinerariesTableViewCell.reusableIdentifier, for: indexPath) as? HCEmailItinerariesTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.configureCell(emailInfo: self.viewModel.emailInfo[indexPath.row], name: (self.viewModel.guestModal[indexPath.row].firstName + self.viewModel.guestModal[indexPath.row].lastName), profileImage: self.viewModel.guestModal[indexPath.row].profilePicture)
+        cell.clipsToBounds = true
         return cell
     }
 }
@@ -184,5 +185,11 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
                 self.viewModel.sendEmailIdApi( emailId: [self.viewModel.emailInfo[currentEmailIndex].emailId], isMultipleEmailSending: isMultipleEmailSending, currentEmailIndex: currentEmailIndex)
             }
         }
+    }
+}
+
+extension HCEmailItinerariesVC {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0.0
     }
 }

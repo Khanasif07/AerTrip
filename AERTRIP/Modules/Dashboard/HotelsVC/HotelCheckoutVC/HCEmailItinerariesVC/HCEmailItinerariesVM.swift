@@ -21,6 +21,7 @@ class HCEmailItinerariesVM {
     var guestModal: [ATContact] = []
     var emailInfo: [HCEmailItinerariesModel] = []
     weak var delegate: HCEmailItinerariesVMDelegate?
+    var bookingId: String = ""
     
     //Mark:- Functions
     //================
@@ -29,8 +30,8 @@ class HCEmailItinerariesVM {
     }
     
     func sendEmailIdApi(emailId: [String], isMultipleEmailSending : Bool, currentEmailIndex: Int) {
-        let params: JSONDictionary = [APIKeys.booking_id.rawValue : "9035" , APIKeys.type.rawValue : "email", APIKeys.email.rawValue : emailId]
-        APICaller.shared.sendDashBoardEmailIDAPI(params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
+        let params: JSONDictionary = [APIKeys.email.rawValue : emailId]
+        APICaller.shared.sendDashBoardEmailIDAPI(bookingID: self.bookingId, params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.delegate?.emailSendingSuccess(isMultipleEmailSending : isMultipleEmailSending, currentEmailIndex: currentEmailIndex)

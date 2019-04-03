@@ -41,5 +41,6 @@ class FlightsVC: BaseVC {
     // MARK: - Action
     
     @IBAction func myButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.presentHCEmailItinerariesVC()
     }
 }

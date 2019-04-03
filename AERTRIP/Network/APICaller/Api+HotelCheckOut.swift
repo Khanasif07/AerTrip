@@ -10,9 +10,9 @@ import Foundation
 
 extension APICaller {
     
-    func sendDashBoardEmailIDAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
-        
-        AppNetworking.POST(endPoint: APIEndPoint.emailItineraries, parameters: params, success: { [weak self] (json) in
+    func sendDashBoardEmailIDAPI(bookingID: String ,params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
+        let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?booking_id=\(bookingID)&type=email"
+        AppNetworking.POST(endPointPath: endPoint, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in

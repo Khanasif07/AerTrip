@@ -90,7 +90,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: 28.0, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - 28.0)
+            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
         }
     }
     
@@ -152,7 +152,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func configureHotelCheckOutDetailsVIew() {
-        self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: CGRect(x: 0.0, y: 28.0, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - 28.0))
+        self.hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: self.hotelCheckOutDetailsContainerVIew.width, height: self.hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top))
         if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
             hotelCheckOutDetailsView.delegate = self
             self.hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsView)
@@ -160,12 +160,13 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func updateHotelCheckOutDetailsVIew() {
-        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsVIew.sectionData.removeAll()
-            hotelCheckOutDetailsVIew.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
-            hotelCheckOutDetailsVIew.placeModel = self.viewModel.placeModel ?? PlaceModel()
-            hotelCheckOutDetailsVIew.sectionData = self.viewModel.sectionData
-            hotelCheckOutDetailsVIew.updateData()
+        if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
+            hotelCheckOutDetailsView.sectionData.removeAll()
+            hotelCheckOutDetailsView.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+            hotelCheckOutDetailsView.hotelInfo = self.viewModel.hotelInfo ??  HotelSearched()
+            hotelCheckOutDetailsView.placeModel = self.viewModel.placeModel ?? PlaceModel()
+            hotelCheckOutDetailsView.sectionData = self.viewModel.sectionData
+            hotelCheckOutDetailsView.updateData()
         }
     }
     
@@ -233,12 +234,12 @@ class HCDataSelectionVC: BaseVC {
         if !isHidden {
             fareDetailContainerView.isHidden = false
             if self.isHotelDetailsCheckOutViewOpen {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             }
         }
         else {
             if self.isHotelDetailsCheckOutViewOpen {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height )
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             }
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
@@ -297,12 +298,11 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         self.hotelDetailsContainerView.isHidden = true
         self.hotelCheckOutDetailsContainerVIew.isHidden = false
-//        self.view.bringSubviewToFront(self.hotelCheckOutDetailsContainerVIew)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             if self.fareDetailContainerView.isHidden {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height)
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             } else {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height )
+                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             }
             self.view.layoutIfNeeded()
         }, completion: { [weak self] (isDone) in
@@ -314,11 +314,25 @@ class HCDataSelectionVC: BaseVC {
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func updateFavouriteSuccess(withMessage: String) {
-        //
+        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+//            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
+            self.sendDataChangedNotification(data: self)
+            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes) {
-        //
+        AppNetworking.hideLoader()
+        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+            if errors.contains(array: [-1]) {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            } else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            }
+        }
     }
     
     // ItenaryDataTraveller
@@ -569,7 +583,6 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
             sSelf.isHotelDetailsCheckOutViewOpen = false
             sSelf.hotelDetailsContainerView.isHidden = false
             sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
-//            sSelf.view.sendSubviewToBack(sSelf.hotelCheckOutDetailsContainerVIew)
         }
     }
 }
