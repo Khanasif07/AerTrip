@@ -24,7 +24,6 @@ class TotalPayableNowCell: UITableViewCell {
     
     private func setUpText() {
         self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
-        self.totalPriceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(67000).delimiter)"
     }
     
     private func setUpFont() {

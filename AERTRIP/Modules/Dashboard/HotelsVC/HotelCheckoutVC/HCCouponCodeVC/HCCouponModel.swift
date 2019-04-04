@@ -58,10 +58,10 @@ struct HCCouponModel {
 }
 
 struct DiscountBreakUp {
-    var CPD: Int = 0
-    var CACB: Int = 0
-    var CSPCFEE: Int = 0
-    var totalCashBack: Int {
+    var CPD: Double = 0
+    var CACB: Double = 0
+    var CSPCFEE: Double = 0
+    var totalCashBack: Double {
         return CPD + CACB
     }
     
@@ -76,13 +76,13 @@ struct DiscountBreakUp {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json[APIKeys.CPD.rawValue] as? Int {
+        if let obj = json[APIKeys.CPD.rawValue] as? Double {
             self.CPD = obj < 0 ? obj*(-1) : obj
         }
-        if let obj = json[APIKeys.CACB.rawValue] as? Int {
+        if let obj = json[APIKeys.CACB.rawValue] as? Double {
             self.CACB = obj < 0 ? obj*(-1) : obj
         }
-        if let obj = json[APIKeys.CSPCFEE.rawValue] as? Int {
+        if let obj = json[APIKeys.CSPCFEE.rawValue] as? Double {
             self.CSPCFEE = obj < 0 ? obj*(-1) : obj
         }
     }

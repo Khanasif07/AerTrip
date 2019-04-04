@@ -11,7 +11,9 @@ import Foundation
 extension FinalCheckOutVC : WalletTableViewCellDelegate {
     func valueForSwitch(isOn: Bool) {
         self.isWallet = isOn
-        self.checkOutTableView.reloadData()
+        delay(seconds: 0.3) { [weak self] in
+            self?.updateAllData()
+        }
     }
 }
 

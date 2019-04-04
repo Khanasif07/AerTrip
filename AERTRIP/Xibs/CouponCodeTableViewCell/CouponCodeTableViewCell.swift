@@ -98,7 +98,7 @@ class CouponCodeTableViewCell: UITableViewCell {
      */
     
     ///Bulleted Coupons Details
-    private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Int, walletCashBack: Int) -> NSMutableAttributedString {
+    private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Double, walletCashBack: Double) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
@@ -134,7 +134,7 @@ class CouponCodeTableViewCell: UITableViewCell {
     internal func configCell(currentCoupon: HCCouponModel) {
         self.attributeLabelSetUp(couponCode: currentCoupon.couponTitle)
         self.discountTextSetUp(price: currentCoupon.discountBreakUp?.totalCashBack.toString ?? "" , endText: "")
-        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0, walletCashBack: currentCoupon.discountBreakUp?.CACB ?? 0)
+        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0.0, walletCashBack: currentCoupon.discountBreakUp?.CACB ?? 0)
     }
     
     //Mark:- IBActions
