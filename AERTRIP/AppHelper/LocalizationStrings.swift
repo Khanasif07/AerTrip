@@ -590,5 +590,7 @@ enum LocalizedString: String {
     case convenienceFee2 = "convenienceFee2"
     case ConfirmBooking = "ConfirmBooking"
     case ConvenienceFee = "ConvenienceFee"
+    case InvalidCouponCodeText = "InvalidCouponCodeText"
+    case PleaseEnterCouponCode = "PleaseEnterCouponCode"
  }
 

@@ -333,20 +333,9 @@ extension AppFlowManager {
     func presentHotelDetailsVC(_ vc : HotelResultVC,hotelInfo: HotelSearched, sourceView: UIView, sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            ob.viewModel.currentlyUsingFor = .hotelDetailsScreen
             ob.viewModel.hotelInfo = hotelInfo
             ob.delegate = vc
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
-            ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
-        }
-    }
-    
-    func presentHotelDetailsVCForCheckOut(_ vc : HCDataSelectionVC, sourceView: UIView, sid: String) {
-        if let topVC = UIApplication.topViewController() {
-            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            ob.viewModel.currentlyUsingFor = .checkOutScreen
-            //ob.viewModel.hotelInfo = hotelInfo
-            //ob.delegate = vc
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
     }
@@ -410,13 +399,14 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated:true , completion: nil)
     }
     
-    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String, placeModel: PlaceModel , hotelSearchRequest: HotelSearchRequestModel) {
+    func moveToHCDataSelectionVC(sid: String, hid: String, qid:String, placeModel: PlaceModel , hotelSearchRequest: HotelSearchRequestModel, hotelInfo: HotelSearched) {
         let obj = HCDataSelectionVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.sId = sid
         obj.viewModel.hId = hid
         obj.viewModel.qId = qid
         obj.viewModel.placeModel = placeModel
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.viewModel.hotelInfo = hotelInfo
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

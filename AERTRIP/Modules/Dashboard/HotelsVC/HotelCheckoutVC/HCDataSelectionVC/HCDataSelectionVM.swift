@@ -31,6 +31,7 @@ class HCDataSelectionVM {
     var placeModel: PlaceModel?
     var sectionData: [[TableCellType]] = []
     var hotelSearchRequest: HotelSearchRequestModel?
+    internal var hotelInfo: HotelSearched?
     
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
@@ -140,9 +141,9 @@ class HCDataSelectionVM {
         APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] (isSuccess, errors, successMessage) in
             if let sSelf = self {
                 if isSuccess {
-                    sSelf.itineraryData?.hotelDetails?.fav = (sSelf.itineraryData?.hotelDetails?.fav == "0" ? "1" : "0")
+                    sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
-//                    _ = self?.hotelInfo?.afterUpdate
+                    _ = self?.hotelInfo?.afterUpdate
                 }
                 else {
                     sSelf.delegate?.updateFavouriteFail(errors:errors)

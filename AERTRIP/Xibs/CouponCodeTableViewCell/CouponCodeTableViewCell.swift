@@ -78,25 +78,6 @@ class CouponCodeTableViewCell: UITableViewCell {
         self.coupanCodeLabel.attributedText = attributedString
     }
     
-    /*
-     let bulletList = NSMutableAttributedString()
-     for string in stringList {
-     let formattedString = "\(bullet)  \(string)\n"
-     let attributedString = NSMutableAttributedString(string: formattedString)
-     attributedString.addAttributes(
-     [NSAttributedString.Key.paragraphStyle : paragraphStyle],
-     range: NSMakeRange(0, attributedString.length))
-     attributedString.addAttributes(
-     textAttributes,
-     range: NSMakeRange(0, attributedString.length))
-     
-     let string:NSString = NSString(string: formattedString)
-     let rangeForBullet:NSRange = string.range(of: bullet)
-     attributedString.addAttributes(bulletAttributes, range: rangeForBullet)
-     bulletList.append(attributedString)
-     }
-     */
-    
     ///Bulleted Coupons Details
     private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Double, walletCashBack: Double) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]

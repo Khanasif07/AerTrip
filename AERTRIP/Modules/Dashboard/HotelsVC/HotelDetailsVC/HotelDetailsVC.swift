@@ -13,7 +13,7 @@ protocol HotelDetailsVCDelegate : class {
 }
 
 class HotelDetailsVC: BaseVC {
-        
+    
     //Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsVM()
@@ -67,7 +67,7 @@ class HotelDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.themeWhite
-//        self.statusBarColor = AppColors.clear
+        //        self.statusBarColor = AppColors.clear
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,18 +81,14 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
-        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
-            self.footerViewSetUp()
-            self.getSavedFilter()
-            self.permanentTagsForFilteration()
-            self.completion = { [weak self] in
-                self?.hotelTableView.reloadData()
-                self?.viewModel.getHotelInfoApi()
-            }
-            self.viewModel.getHotelInfoApi()
-        } else {
-            self.getCheckOutTableSectionData()
+        self.footerViewSetUp()
+        self.getSavedFilter()
+        self.permanentTagsForFilteration()
+        self.completion = { [weak self] in
+            self?.hotelTableView.reloadData()
+            self?.viewModel.getHotelInfoApi()
         }
+        self.viewModel.getHotelInfoApi()
     }
     
     override func bindViewModel() {
@@ -252,14 +248,9 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsBedsTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
-        
-        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
-            self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
-            self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
-            self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
-        } else {
-            self.hotelTableView.registerCell(nibName: HCCheckInOutTableViewCell.reusableIdentifier)
-        }
+        self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
     }
     
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
@@ -362,11 +353,6 @@ class HotelDetailsVC: BaseVC {
     
     internal func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
         return 0.0
-    }
-    
-    private func getCheckOutTableSectionData() {
-        self.viewModel.hotelDetailsTableSectionData.append([.imageSlideCell,.hotelRatingCell,.addressCell, .checkInOutDateCell, .overViewCell , .amenitiesCell, .tripAdvisorRatingCell])
-        self.viewModel.hotelDetailsTableSectionData.append([.roomBedsTypeCell,. inclusionCell, .otherInclusionCell , .cancellationPolicyCell, .paymentPolicyCell, .notesCell])
     }
     
     private func getFirstSectionData( hotelData: HotelDetails) -> [TableCellType] {

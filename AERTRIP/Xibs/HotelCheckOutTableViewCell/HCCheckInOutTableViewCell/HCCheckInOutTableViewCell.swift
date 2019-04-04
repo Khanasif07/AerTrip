@@ -22,7 +22,7 @@ class HCCheckInOutTableViewCell: UITableViewCell {
     @IBOutlet weak var checkInDayLabel: UILabel!
     @IBOutlet weak var checkOutDayLabel: UILabel!
     @IBOutlet weak var moonImageView: UIImageView!
-    @IBOutlet weak var totlaNightsLabel: UILabel!
+    @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
     
@@ -44,7 +44,7 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         self.checkOutDateLabel.font = AppFonts.Regular.withSize(26.0)
         self.checkInDayLabel.font = AppFonts.Regular.withSize(16.0)
         self.checkOutDayLabel.font = AppFonts.Regular.withSize(16.0)
-        self.totlaNightsLabel.font = AppFonts.SemiBold.withSize(14.0)
+        self.totalNightsLabel.font = AppFonts.SemiBold.withSize(14.0)
         //Text
         self.checkInLabel.text = LocalizedString.CheckIn.localized
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
@@ -55,11 +55,25 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         self.checkOutDateLabel.textColor = AppColors.textFieldTextColor51
         self.checkInDayLabel.textColor = AppColors.textFieldTextColor51
         self.checkOutDayLabel.textColor = AppColors.textFieldTextColor51
-        self.totlaNightsLabel.textColor = AppColors.themeBlack
+        self.totalNightsLabel.textColor = AppColors.themeBlack
     }
     
     ///COnfigure Cell
-    internal func configCell() {
+    //yyyy-MM-dd
+    internal func configCell( checkInDate: String , checkOutDate: String , totalNights: Int) {
+        self.checkInDateLabel.text = Date.getDateFromString(stringDate: checkInDate , currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
+        self.checkOutDateLabel.text = Date.getDateFromString(stringDate: checkOutDate , currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
         
+        if totalNights == 0 {
+            var numberOfNights = 0
+            if !checkOutDate.isEmpty && !checkInDate.isEmpty{
+                numberOfNights = checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+            }
+            self.totalNightsLabel.text = (numberOfNights == 1) ? "\(numberOfNights) \(LocalizedString.Night.localized)" : "\(numberOfNights) \(LocalizedString.Nights.localized)"
+        } else {
+            self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        }
+        self.checkInDayLabel.text = Date.getDateFromString(stringDate: checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
+        self.checkOutDayLabel.text = Date.getDateFromString(stringDate: checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
     }
 }

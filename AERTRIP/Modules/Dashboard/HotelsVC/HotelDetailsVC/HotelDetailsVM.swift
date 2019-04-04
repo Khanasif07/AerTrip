@@ -29,13 +29,8 @@ class HotelDetailsVM {
         case driving = "DRIVING"
     }
     
-    enum HotelDetailsScreenUseFor {
-        case hotelDetailsScreen , checkOutScreen
-    }
-    
     //Mark:- Variables
     //================
-    internal var currentlyUsingFor: HotelDetailsScreenUseFor = .hotelDetailsScreen
     internal var hotelInfo: HotelSearched?
     internal var hotelData: HotelDetails?
     internal var hotelSearchRequest: HotelSearchRequestModel?

@@ -214,10 +214,4 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsEmptyStateTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsEmptyStateTableCell  else { return nil }
         return cell
     }
-    
-    internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
-        cell.configCell()
-        return cell
-    }
 }

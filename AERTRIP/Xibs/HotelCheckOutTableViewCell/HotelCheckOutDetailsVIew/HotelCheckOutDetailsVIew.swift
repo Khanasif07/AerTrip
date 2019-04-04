@@ -20,10 +20,11 @@ class HotelCheckOutDetailsVIew: UIView {
     internal var sectionData: [[TableCellType]] = []
     internal var viewModel: HotelDetails?
     internal var placeModel: PlaceModel?
+    internal var hotelInfo: HotelSearched?
     internal var allIndexPath = [IndexPath]()
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
     internal let hotelImageHeight: CGFloat = 211.0
-    
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelDetailsTableView: ATTableView! {
@@ -43,9 +44,7 @@ class HotelCheckOutDetailsVIew: UIView {
             self.smallLineView.cornerRadius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
         }
-    }
-
-    
+    }    
     
     //Mark:- LifeCycle
     //================
@@ -88,13 +87,11 @@ class HotelCheckOutDetailsVIew: UIView {
         self.backgroundColor = .clear
         self.headerView.delegate = self
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        let buttonImage: UIImage = self.viewModel?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        let selectedFevImage: UIImage = self.viewModel?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.hotelDetailsTableView.roundTopCorners(cornerRadius: 10.0)
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
-//        self.addGestureRecognizer(panGesture)
     }
     
     private func registerXibs() {

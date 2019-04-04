@@ -556,3 +556,6 @@
 "convenienceFee2" = "is applicable on  this transaction.";
 "ConfirmBooking" = "Confirm Booking";
 "ConvenienceFee" = "Convenience Fee";
+"convenienceFee2" = "is applicable on this transaction.";
+"InvalidCouponCodeText" = "Sorry, this coupon code is invalid";
+"PleaseEnterCouponCode" = "Please enter a coupon code";
