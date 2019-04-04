@@ -282,6 +282,12 @@ class HCDataSelectionVC: BaseVC {
         }
     }
     
+    private func sendToFinalCheckoutVC() {
+        if !isFromFinalCheckout {
+            AppFlowManager.default.moveToFinalCheckoutVC(delegate:self, self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
+        }
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -292,7 +298,7 @@ class HCDataSelectionVC: BaseVC {
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
         self.isFromFinalCheckout = false
-        self.viewModel.webserviceForItenaryDataTraveller()
+        viewModel.fetchRecheckRatesData()
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
@@ -342,10 +348,6 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func callForItenaryDataTravellerSuccess() {
-        //
-        if !isFromFinalCheckout {
-   AppFlowManager.default.moveToFinalCheckoutVC(delegate:self,self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
-        }
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
@@ -360,7 +362,6 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
         manageLoader(shouldStart: false)
         fillData()
-        viewModel.fetchRecheckRatesData()
         self.viewModel.getHotelDetailsSectionData()
         self.updateHotelCheckOutDetailsVIew()
     }
@@ -369,16 +370,27 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         manageLoader(shouldStart: false)
     }
     
+    func willFetchRecheckRatesData() {
+        manageLoader(shouldStart: true)
+    }
+    func fetchRecheckRatesDataFail() {
+        manageLoader(shouldStart: false)
+    }
+    
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
+        manageLoader(shouldStart: false)
+        self.viewModel.webserviceForItenaryDataTraveller()
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
+            
+            viewModel.itineraryData = recheckedData
             
             let diff = newAmount - oldAmount
             if diff > 0 {
                 //increased
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: {[weak self] in
                     guard let sSelf = self else {return}
-                    sSelf.continueButtonAction(sSelf.continueButton)
+                    sSelf.sendToFinalCheckoutVC()
                     }, goBackButtonAction: {[weak self] in
                         guard let sSelf = self else {return}
                         sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
@@ -387,6 +399,13 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             else if diff < 0 {
                 //dipped
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -(diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                delay(seconds: 0.5) {[weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.sendToFinalCheckoutVC()
+                }
+            }
+            else {
+                self.sendToFinalCheckoutVC()
             }
         }
     }

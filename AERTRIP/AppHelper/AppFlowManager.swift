@@ -433,7 +433,7 @@ extension AppFlowManager {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
-        self.mainNavigationController.present(obj, animated: true)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
     // Mail Composer

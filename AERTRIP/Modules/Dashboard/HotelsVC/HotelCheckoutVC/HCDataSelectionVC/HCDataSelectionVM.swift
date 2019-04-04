@@ -15,7 +15,11 @@ protocol HCDataSelectionVMDelegate: class {
     func willCallForItenaryDataTraveller()
     func callForItenaryDataTravellerSuccess()
     func callForItenaryDataTravellerFail(errors: ErrorCodes)
+    
+    func willFetchRecheckRatesData()
+    func fetchRecheckRatesDataFail()
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
+    
     func updateFavouriteSuccess(withMessage: String)
     func updateFavouriteFail(errors:ErrorCodes)
 }
@@ -26,7 +30,7 @@ class HCDataSelectionVM {
     // MARK: - Public
     
     weak var delegate: HCDataSelectionVMDelegate?
-    private(set) var itineraryData: ItineraryData?
+    var itineraryData: ItineraryData?
     var itineraryPriceDetail:ItenaryModel = ItenaryModel()
     var placeModel: PlaceModel?
     var sectionData: [[TableCellType]] = []
@@ -65,11 +69,13 @@ class HCDataSelectionVM {
         let params: JSONDictionary = [APIKeys.it_id.rawValue: itineraryData?.it_id ?? ""]
         printDebug(params)
         
+        self.delegate?.willFetchRecheckRatesData()
         APICaller.shared.fetchRecheckRatesData(params: params) { [weak self] success, errors, itData in
             guard let sSelf = self else { return }
             if success, let data = itData {
                 sSelf.delegate?.fetchRecheckRatesDataSuccess(recheckedData: data)
             } else {
+                sSelf.delegate?.fetchRecheckRatesDataFail()
                 printDebug(errors)
             }
         }

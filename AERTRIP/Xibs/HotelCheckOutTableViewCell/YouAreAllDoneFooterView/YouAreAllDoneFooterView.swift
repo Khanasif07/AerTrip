@@ -56,10 +56,7 @@ class YouAreAllDoneFooterView: UIView {
     //Mark:- IBActions
     //================
     @IBAction func returnHomeButtonAction(_ sender: UIButton) {
-        if let parentView = self.parentViewController as? YouAreAllDoneVC {
-            printDebug("Return To YouAreAllDoneVC")
-            parentView.dismiss(animated: true, completion: nil)
-        }
+        AppFlowManager.default.popToRootViewController(animated: true)
     }
 }
 
