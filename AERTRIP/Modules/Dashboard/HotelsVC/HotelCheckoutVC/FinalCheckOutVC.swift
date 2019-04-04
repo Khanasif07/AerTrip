@@ -165,6 +165,7 @@ class FinalCheckOutVC: BaseVC {
             }
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = self.getWalletAmount() > 0 && isWallet
+            walletCell.walletSwitch.isUserInteractionEnabled = self.getWalletAmount() > 0 && isWallet
             walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + self.getWalletAmount().delimiter
             return walletCell
         case 5:
@@ -533,7 +534,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
+        if indexPath.row == 1 && indexPath.section == 0 {
             AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self)
         }
     }
@@ -566,7 +567,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func getPaymentMethodsFails(errors: ErrorCodes) {
-        //
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {

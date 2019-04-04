@@ -111,7 +111,9 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let forIndex = forIndex {
-            AppFlowManager.default.moveToGuestDetailScreen(IndexPath(row: indexPath.item, section: forIndex.row))
+            if let controller = UIApplication.topViewController() as? HCDataSelectionVC {
+                AppFlowManager.default.moveToGuestDetailScreen(delegate:controller,IndexPath(row: indexPath.item, section: forIndex.row))
+            }
         }
     }
 }

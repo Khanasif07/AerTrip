@@ -349,7 +349,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
-        //
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
     
     func willFetchConfirmItineraryData() {

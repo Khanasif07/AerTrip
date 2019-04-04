@@ -75,8 +75,41 @@ class HCDataSelectionVM {
         }
     }
     
+    func isValidateData(vc: UIViewController) -> Bool {
+        
+        return true
+    }
+    
     func webserviceForItenaryDataTraveller() {
         var params = JSONDictionary()
+        
+//        for i in GuestDetailsVM.shared.guests.count {
+//            for j in GuestDetailsVM.shared.guests[i].count {
+//                
+//            }
+//        }
+//        
+//        for i in 0..<hotelFormData.adultsCount.count {
+//            var temp: [ATContact] = []
+//            for j in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
+//                var guest = ATContact()
+//                if j < hotelFormData.adultsCount[i] {
+//                    guest.passengerType = PassengersType.Adult
+//                    guest.numberInRoom = (j + 1)
+//                    guest.age = -1
+//                    guest.id = "\(j + 1)"
+//                }
+//                else {
+//                    guest.passengerType = PassengersType.child
+//                    let childIdx = (j - hotelFormData.adultsCount[i])
+//                    guest.numberInRoom = childIdx + 1
+//                    guest.age = hotelFormData.childrenAge[i][childIdx]
+//                    guest.id = "\(childIdx)"
+//                }
+//                temp.append(guest)
+//            }
+//            GuestDetailsVM.shared.guests.append(temp)
+//        }
         
 //
 //        for (idx, guest) in GuestDetailsVM.shared.guests {
@@ -84,6 +117,8 @@ class HCDataSelectionVM {
 //                params["contact[social][\(idx)][\(key)]"] = socialObj.jsonDict[key]
 //            }
 //        }
+        
+        // Guest User Array
         
         params["t[0][_t][0][fname]"] = "Pawan"
         params["t[0][_t][0][lname]"] =  "Kumar"
@@ -96,14 +131,15 @@ class HCDataSelectionVM {
         params["t[0][_t][1][ptype]"] =  "ADT"
         params["t[0][_t][1][id]"] = "0"
         
+        // rid and qid
         params["t[0][rid]"] = itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
         params["t[0][qid]"] = itineraryData?.hotelDetails?.rates?.first?.qid
         params["special"] = ""
         params["other"] = ""
         
-        // sending hard coded for now
-        params["mobile"] = "9716218820"
-        params["mobile_isd"] = "+91"
+        //
+        params["mobile"] = itineraryData?.mobile
+        params["mobile_isd"] = itineraryData?.mobile_isd
         params["it_id"] = itineraryData?.it_id
         
         self.delegate?.willCallForItenaryDataTraveller()
