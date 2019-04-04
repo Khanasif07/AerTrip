@@ -172,7 +172,6 @@ class FinalCheckOutVC: BaseVC {
             }
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = self.getWalletAmount() > 0 && isWallet
-            walletCell.walletSwitch.isUserInteractionEnabled = self.getWalletAmount() > 0 && isWallet
             walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + self.getWalletAmount().delimiter
             return walletCell
         case 5:
@@ -398,7 +397,7 @@ class FinalCheckOutVC: BaseVC {
                 if payableAmount > self.getWalletAmount() {
                     payableAmount = abs(payableAmount - self.getWalletAmount())
                 } else {
-                    payableAmount = abs(self.getWalletAmount() - payableAmount)
+                    payableAmount = 0
                 }
             }
             
@@ -412,7 +411,6 @@ class FinalCheckOutVC: BaseVC {
     // Get Available Wallet Amount
     private func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-            self.isWallet = walletAmount > 0
             return walletAmount
         } else {
             return 0
@@ -478,7 +476,9 @@ class FinalCheckOutVC: BaseVC {
                 self.isConvenienceFeeApplied = false
             }
         }
-        self.updateAllData()
+        delay(seconds: 0.3) { [weak self] in
+            self?.updateAllData()
+        }
     }
     
     // MARK: - Action

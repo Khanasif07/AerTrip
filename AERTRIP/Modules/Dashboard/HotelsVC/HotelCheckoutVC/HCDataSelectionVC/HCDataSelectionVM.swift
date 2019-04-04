@@ -144,8 +144,12 @@ class HCDataSelectionVM {
         params["other"] = ""
         
         //
-        params["mobile"] = itineraryData?.mobile
-        params["mobile_isd"] = itineraryData?.mobile_isd
+//        params["mobile"] = itineraryData?.mobile
+//        params["mobile_isd"] = itineraryData?.mobile_isd
+//        params["it_id"] = itineraryData?.it_id
+        
+        params["mobile"] = "9716218820"
+        params["mobile_isd"] = "+91"
         params["it_id"] = itineraryData?.it_id
         
         self.delegate?.willCallForItenaryDataTraveller()

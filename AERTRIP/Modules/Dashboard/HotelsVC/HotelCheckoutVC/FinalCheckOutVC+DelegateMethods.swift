@@ -12,9 +12,7 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
     func valueForSwitch(isOn: Bool) {
         self.isWallet = isOn
         self.setConvenienceFeeToBeApplied()
-        delay(seconds: 0.3) { [weak self] in
-            self?.updateAllData()
-        }
+        
     }
 }
 
