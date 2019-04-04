@@ -53,7 +53,7 @@ extension YouAreAllDoneVC {
     
     internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
-        cell.configCell()
+//        cell.configCell(checkInDate: <#String#>, checkOutDate: <#String#>, totalNights: <#Int#>)
         return cell
     }
     
@@ -156,6 +156,7 @@ extension YouAreAllDoneVC {
     
     internal func getGuestsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCGuestsTableViewCell.reusableIdentifier, for: indexPath) as? HCGuestsTableViewCell else { return nil }
+        cell.delegate = self
         cell.configCell()
         return cell
     }
@@ -179,4 +180,3 @@ extension YouAreAllDoneVC {
         return cell
     }
 }
-

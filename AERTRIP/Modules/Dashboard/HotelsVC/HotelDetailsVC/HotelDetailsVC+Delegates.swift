@@ -13,26 +13,18 @@ import UIKit
 extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
-            if self.viewModel.hotelData != nil {
-                return self.viewModel.hotelDetailsTableSectionData.count
-            }
-            return 1
-        } else {
+        if self.viewModel.hotelData != nil {
             return self.viewModel.hotelDetailsTableSectionData.count
         }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.viewModel.currentlyUsingFor == .hotelDetailsScreen {
-            if self.viewModel.hotelData != nil {
-                self.updateStickyFooterView()
-                return self.viewModel.hotelDetailsTableSectionData[section].count
-            }
-            return 3
-        } else {
+        if self.viewModel.hotelData != nil {
+            self.updateStickyFooterView()
             return self.viewModel.hotelDetailsTableSectionData[section].count
         }
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,10 +41,6 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case .addressCell:
                 let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
-            case .checkInOutDateCell:
-                if let cell = self.getCheckInOutCell(tableView, indexPath: indexPath) {
-                    return cell
-                }
             case .amenitiesCell:
                 let cell = self.getHotelDetailsAmenitiesCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
@@ -97,7 +85,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let cell = self.getCheckOutCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
                     return cell
                 }
-            case .roomDetailsCell:
+            default:
                 printDebug(" room details cell ")
             }
         } else {

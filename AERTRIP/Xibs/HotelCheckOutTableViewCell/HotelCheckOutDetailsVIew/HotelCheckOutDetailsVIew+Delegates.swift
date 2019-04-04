@@ -35,7 +35,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             let cell = self.getHotelInfoAddressCell(indexPath: indexPath, hotelDetails: hotelDetails)
             return cell
         case .checkInOutDateCell:
-            if let cell = self.getCheckInOutCell(tableView, indexPath: indexPath) {
+            if let cell = self.getCheckInOutCell(tableView, indexPath: indexPath, hotelDetails: hotelDetails) {
                 return cell
             }
         case .amenitiesCell:
@@ -75,11 +75,6 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
                 return cell
             }
-        case .checkOutCell:
-            //            if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
-            //                return cell
-            //            }
-            printDebug("cell is not in UI")
         default:
             printDebug("cell is not in UI")
         }
@@ -126,26 +121,6 @@ extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
         }
         printDebug(indexPath)
     }
-}
-
-
-extension HotelCheckOutDetailsVIew: HotelDetailsBedsTableViewCellDelegate {
-    
-    func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
-        printDebug("bookMarkButtonAction")
-    }
-}
-
-extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
-    
-    func hotelImageTapAction(at index: Int) {
-        printDebug("hotelImageTapAction")
-    }
-    
-    func willShowImage(at index: Int, image: UIImage?) {
-        printDebug("willShowImage")
-    }
-    
 }
 
 extension HotelCheckOutDetailsVIew: TopNavigationViewDelegate {
@@ -198,5 +173,43 @@ extension HotelCheckOutDetailsVIew: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageHeaderView(scrollView)
+    }
+}
+
+//Mark:- HotelDetailsImgSlideCellDelegate
+//=======================================
+extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
+    func hotelImageTapAction(at index: Int) {
+        // open gallery with show image at index
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard let cell = self.hotelDetailsTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+        if let topVC = UIApplication.topViewController() {
+            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
+        }
+    }
+
+    func willShowImage(at index: Int, image: UIImage?) {
+//        self.imageView.image = image
+    }
+}
+
+// Mark:- ATGallery Delegate And Datasource
+//========================================
+extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasource {
+
+    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
+        return self.viewModel?.photos.count ?? 0
+    }
+
+    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
+        var image = ATGalleryImage()
+        image.imagePath = self.viewModel?.photos[index]
+        return image
+    }
+
+    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard let cell = self.hotelDetailsTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+        cell.imageCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
     }
 }

@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol HCGuestsTableViewCellDelegate: class {
+    func emailItineraryButtonAction(_ sender: UIButton)
+}
+
 class HCGuestsTableViewCell: UITableViewCell {
     
     //Mark:- Variables
     //================
     internal var allGuests: [String] = ["Mrs. Julian Delgado","Mr. Clifford Hudson","Mast. Kevin Gilbert (10)","Miss. Ronnie Lyons (9)","Miss. Ronnie Lyons"]
     internal var allGuestProfileImageUrl: [String] = ["","","","",""]
+    internal var delegate: HCGuestsTableViewCellDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -56,17 +61,14 @@ class HCGuestsTableViewCell: UITableViewCell {
         self.guestsCollectionView.reloadData()
     }
     
-    ///
+    ///Email Itinerary Button Action
     @IBAction func emailItineraryButtonAction(_ sender: UIButton) {
-        if let _ = self.parentViewController as? YouAreAllDoneVC {
-            AppFlowManager.default.presentHCEmailItinerariesVC()
-        } else {
-            printDebug("Parent Not Found ")
-        }
+        self.delegate?.emailItineraryButtonAction(sender)
     }
 }
 
-
+//Mark:- UICollectionView Delegate DataSource DelegateFlowLayout
+//==============================================================
 extension HCGuestsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -204,3 +204,11 @@ extension YouAreAllDoneVC: GetFullInfoDelegate {
         }
     }
 }
+
+//Mark:- HCGuestsTableViewCell Delegate
+//=====================================
+extension YouAreAllDoneVC: HCGuestsTableViewCellDelegate {
+    func emailItineraryButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.presentHCEmailItinerariesVC()
+    }
+}

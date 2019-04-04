@@ -24,7 +24,7 @@ class HotelCheckOutDetailsVIew: UIView {
     internal var allIndexPath = [IndexPath]()
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
     internal let hotelImageHeight: CGFloat = 211.0
-    
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelDetailsTableView: ATTableView! {
@@ -44,9 +44,7 @@ class HotelCheckOutDetailsVIew: UIView {
             self.smallLineView.cornerRadius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
         }
-    }
-
-    
+    }    
     
     //Mark:- LifeCycle
     //================

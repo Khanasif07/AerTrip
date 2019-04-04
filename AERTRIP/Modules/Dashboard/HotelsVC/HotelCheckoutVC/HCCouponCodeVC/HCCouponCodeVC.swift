@@ -84,6 +84,7 @@ class HCCouponCodeVC: BaseVC {
         self.couponTextField.font = AppFonts.Regular.withSize(18.0)
         self.noCouponsReqLabel.font = AppFonts.Regular.withSize(22.0)
         self.bestPriceLabel.font = AppFonts.Regular.withSize(18.0)
+        self.applyCouponButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
     }
     
     override func setupTexts() {
@@ -93,6 +94,7 @@ class HCCouponCodeVC: BaseVC {
         self.enterCouponLabel.text = LocalizedString.EnterCouponCode.localized
         self.noCouponsReqLabel.text = LocalizedString.NoCouponRequired.localized
         self.bestPriceLabel.text = LocalizedString.YouAlreadyHaveBestPrice.localized
+        self.applyCouponButton.setTitle(LocalizedString.ApplyCoupon.localized, for: .normal)
     }
     
     override func setupColors() {
@@ -105,6 +107,7 @@ class HCCouponCodeVC: BaseVC {
         self.bestPriceLabel.textColor = AppColors.themeGray60
         self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
         self.couponValidationTextSetUp(isCouponValid: true)
+        self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
     override func bindViewModel() {
@@ -136,9 +139,8 @@ class HCCouponCodeVC: BaseVC {
     private func offerTermsViewSetUp() {
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         self.discountLabel.textColor = AppColors.themeOrange
-        self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.applyCouponButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.backGroundViewTapGesture(_:)))
+        tapGesture.numberOfTapsRequired = 1
         self.backGroundView.addGestureRecognizer(tapGesture)
         self.hideOfferTermsView(animated: false)
     }
@@ -291,6 +293,7 @@ extension HCCouponCodeVC {
 
 extension HCCouponCodeVC: PassSelectedCoupon {
     func offerTermsInfo(indexPath: IndexPath, bulletedText: NSAttributedString, couponCode: NSAttributedString, discountText: NSAttributedString) {
+        self.view.endEditing(true)
         self.currentIndexPath = indexPath
         self.coupanCodeLabel.attributedText = couponCode
         self.discountLabel.attributedText = discountText

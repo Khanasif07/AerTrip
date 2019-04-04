@@ -54,21 +54,23 @@ extension HotelCheckOutDetailsVIew {
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
-        cell.delegate = self
-        let key = Array(roomData.keys)[indexPath.row]
-        let value = roomData[key]
+//        cell.delegate = self
+//        let key = Array(roomData.keys)[indexPath.row]
+//        let value = roomData[key]
+        let key = Array(roomData)[indexPath.row].key
+        let value = Array(roomData)[indexPath.row].value
         var isOnlyOneRoom: Bool = false
         if roomData.count == 1 && value == 1 {
             isOnlyOneRoom = true
         } else {
             isOnlyOneRoom = false
         }
-        cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
+        cell.configCell(numberOfRooms: value , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
         if roomData.count == 1 {
-            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: false)
+            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: true, dividerViewHidden: false)
         } else {
             if indexPath.row == 0 {
-                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: true)
+                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: true, dividerViewHidden: true)
             } else if indexPath.row < roomData.count - 1 {
                 cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: true)
             } else {
@@ -172,9 +174,9 @@ extension HotelCheckOutDetailsVIew {
         return nil
     }
     
-    internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
+    internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
-        cell.configCell()
+        cell.configCell(checkInDate: hotelDetails.checkin, checkOutDate: hotelDetails.checkout, totalNights: hotelDetails.no_of_nights)
         return cell
     }
     

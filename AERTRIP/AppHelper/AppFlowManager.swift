@@ -334,20 +334,9 @@ extension AppFlowManager {
     func presentHotelDetailsVC(_ vc : HotelResultVC,hotelInfo: HotelSearched, sourceView: UIView, sid: String , hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            ob.viewModel.currentlyUsingFor = .hotelDetailsScreen
             ob.viewModel.hotelInfo = hotelInfo
             ob.delegate = vc
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
-            ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
-        }
-    }
-    
-    func presentHotelDetailsVCForCheckOut(_ vc : HCDataSelectionVC, sourceView: UIView, sid: String) {
-        if let topVC = UIApplication.topViewController() {
-            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            ob.viewModel.currentlyUsingFor = .checkOutScreen
-            //ob.viewModel.hotelInfo = hotelInfo
-            //ob.delegate = vc
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
     }
