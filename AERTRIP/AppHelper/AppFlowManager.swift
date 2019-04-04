@@ -439,8 +439,10 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentYouAreAllDoneVC() {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String]) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.viewModel.itId = itId
+        obj.viewModel.bookingIds = bookingIds
         self.mainNavigationController.present(obj, animated: true)
     }
     

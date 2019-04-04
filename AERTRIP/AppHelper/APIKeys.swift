@@ -359,5 +359,12 @@ enum APIKeys: String {
     case wallet_id
     case part_payment_amount
     case ret
+    case razorpay_signature
+    case razorpay_payment_id
+    case razorpay_order_id
+    case pid
+    case oid
+    case sig
+
 }
 

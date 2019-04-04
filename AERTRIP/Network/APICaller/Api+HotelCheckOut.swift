@@ -151,21 +151,58 @@ extension APICaller {
         }
     }
     
-    func makePaymentAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void) {
+    func makePaymentAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ options: JSONDictionary)->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.makePayment, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
-                    completionBlock(true, [])
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
                 } else {
-                    completionBlock(true, [])
+                    completionBlock(true, [], [:])
                 }
             }, failure:  { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors)
+                completionBlock(false, errors, [:])
             })
         }) { (error) in
-            completionBlock(false, [])
+            completionBlock(false, [], [:])
+        }
+    }
+    
+    func paymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ bookingIds: [String])->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [])
+                } else {
+                    completionBlock(true, [], [])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, [])
+            })
+        }) { (error) in
+            completionBlock(false, [], [])
+        }
+    }
+    
+    func bookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ options: JSONDictionary)->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
+                } else {
+                    completionBlock(true, [], [:])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, [:])
+            })
+        }) { (error) in
+            completionBlock(false, [], [:])
         }
     }
 }

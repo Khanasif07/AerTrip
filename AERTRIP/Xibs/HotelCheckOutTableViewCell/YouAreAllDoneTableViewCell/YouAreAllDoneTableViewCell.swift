@@ -82,8 +82,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.bookingIdAndDetailsLabel.attributedText = attributedString
     }
     
-    internal func configCell() {
-        self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingIDIs.localized, bookingId: "2324354657", postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+    internal func configCell(forBookingId: String) {
+        self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingIDIs.localized, bookingId: forBookingId, postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
     }
     
     //Mark:- IBActions

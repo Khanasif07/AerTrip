@@ -8,6 +8,12 @@
 
 import Foundation
 
+protocol YouAreAllDoneVMDelegate: class {
+    func willGetBookingReceipt()
+    func getBookingReceiptSuccess()
+    func getBookingReceiptFail()
+}
+
 class YouAreAllDoneVM: NSObject {
     
     //Mark:- Enums
@@ -20,6 +26,9 @@ class YouAreAllDoneVM: NSObject {
     //Mark:- Variables
     //================
     var sectionData: [[TableViewCellType]] = []
+    weak var delegate: YouAreAllDoneVMDelegate?
+    
+    var itId: String = "", bookingIds: [String] = []
     
     //Mark:- Functions
     //================
@@ -52,6 +61,21 @@ class YouAreAllDoneVM: NSObject {
         
         // TotalCharge Section Cells
         self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])
+    }
+    
+    func getBookingReceipt() {
+        
+        let params: JSONDictionary = [APIKeys.booking_id.rawValue: self.bookingIds.first ?? "", APIKeys.it_id.rawValue: self.itId]
+
+        self.delegate?.willGetBookingReceipt()
+        APICaller.shared.bookingReceiptAPI(params: params) { [weak self](success, errors, options)  in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.delegate?.getBookingReceiptSuccess()
+            } else {
+                sSelf.delegate?.getBookingReceiptFail()
+            }
+        }
     }
 }
 

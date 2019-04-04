@@ -16,10 +16,13 @@ extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
     }
     
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
-        printDebug("code: \(code) \ndescription \(str) \nresponse \(response) ")
+        AppToast.default.showToastMessage(message: "Sorry!, your payment faild.\nPlease try again.")
     }
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {
-        printDebug("payment_id: \(payment_id) \nresponse \(response) ")
+        //payment success by razorpay
+        if let res = response as? JSONDictionary {
+            self.viewModel.getPaymentResonse(forData: res, isRazorPayUsed: true)
+        }
     }
 }

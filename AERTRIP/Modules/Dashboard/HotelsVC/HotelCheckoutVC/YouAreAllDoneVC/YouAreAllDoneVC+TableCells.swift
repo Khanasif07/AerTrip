@@ -15,7 +15,7 @@ extension YouAreAllDoneVC {
     /* AllDone Section Cells */
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
-        cell.configCell()
+        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? LocalizedString.na.localized)
         return cell
     }
     

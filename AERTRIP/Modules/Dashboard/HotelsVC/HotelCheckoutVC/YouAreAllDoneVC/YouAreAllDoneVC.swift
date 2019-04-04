@@ -46,6 +46,12 @@ class YouAreAllDoneVC: BaseVC {
         self.viewModel.getTableViewSectionData()
         self.tableFooterViewSetUp()
         //self.allDoneTableView.reloadData()
+        
+        self.viewModel.getBookingReceipt()
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     //Mark:- Functions
@@ -202,5 +208,16 @@ extension YouAreAllDoneVC: GetFullInfoDelegate {
             self.allIndexPath.append(indexPath)
             self.allDoneTableView.reloadData()
         }
+    }
+}
+
+extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
+    func willGetBookingReceipt() {
+    }
+    
+    func getBookingReceiptSuccess() {
+    }
+    
+    func getBookingReceiptFail() {
     }
 }

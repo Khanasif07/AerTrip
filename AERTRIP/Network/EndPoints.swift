@@ -78,6 +78,10 @@ enum APIEndPoint : String {
     
     //payment
     case makePayment                   = "payment/make-payment"
+    case paymentResponse               = "payment/response"
+    
+    //booking
+    case bookingReceipt                = "booking/receipt"
     
     // Final Checkout
    

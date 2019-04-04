@@ -334,6 +334,7 @@ class FinalCheckOutVC: BaseVC {
     
     private func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
+            self.isWallet = walletAmount > 0
             return walletAmount
         } else {
             return 0
@@ -487,7 +488,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 // increased
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                     guard let sSelf = self else { return }
-                    sSelf.viewModel.makePayment()
+                    sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
                 }, goBackButtonAction: { [weak self] in
                     guard let sSelf = self else { return }
                     sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
@@ -495,20 +496,37 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
             } else if diff < 0 {
                 // dipped
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                self.viewModel.makePayment()
+                self.viewModel.makePayment(forAmount: getTotalPayableAmount(), useWallet: isWallet)
             }
         }
     }
     
     func willMakePayment() {}
     
-    func makePaymentSuccess(options: JSONDictionary) {
-        self.initializePayment(withOptions: options)
+    func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
+        if shouldGoForRazorPay {
+            self.initializePayment(withOptions: options)
+        }
+        else {
+            //payment successfully maid through wallet
+            self.viewModel.getPaymentResonse(forData: [:], isRazorPayUsed: false)
+        }
         AppToast.default.showToastMessage(message: "make Payment done")
     }
     
     func makePaymentFail() {
         AppToast.default.showToastMessage(message: "make Payment faild")
+    }
+    
+    func willGetPaymentResonse() {
+    }
+    func getPaymentResonseSuccess(bookingIds: [String]) {
+        //send to you are all donr screen
+        if let id = self.viewModel.itineraryData?.it_id {
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds)
+        }
+    }
+    func getPaymentResonseFail() {
     }
 }
 
