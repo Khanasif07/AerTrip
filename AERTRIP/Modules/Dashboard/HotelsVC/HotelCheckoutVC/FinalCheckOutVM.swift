@@ -37,6 +37,8 @@ class FinalCheckoutVM: NSObject {
     var itineraryData: ItineraryData?
     var itinaryPriceDetail: ItenaryModel?
     var paymentDetails: PaymentModal?
+    var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]
