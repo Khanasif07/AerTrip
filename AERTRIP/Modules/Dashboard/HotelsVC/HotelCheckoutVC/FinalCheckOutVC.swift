@@ -19,6 +19,8 @@ class FinalCheckOutVC: BaseVC {
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var checkOutTableView: ATTableView!
     @IBOutlet var payButton: UIButton!
+    @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Properties
     
@@ -39,6 +41,8 @@ class FinalCheckOutVC: BaseVC {
             self.viewDidLayoutSubviews()
         }
     }
+    
+    private var isReloadingAfterFareDipOrIncrease: Bool = false
     
     // Boolean to check whether coupon is applied or Not
     var isCouponApplied: Bool = false
@@ -67,6 +71,9 @@ class FinalCheckOutVC: BaseVC {
         self.viewModel.webServiceGetPaymentMethods()
         self.getAppliedCoupons()
         self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
+        
+        loaderContainer.addGredient()
+        manageLoader(shouldStart: false)
     }
     
     override func setupFonts() {
@@ -375,8 +382,9 @@ class FinalCheckOutVC: BaseVC {
     
     // Get Total Payable Amount based on conditions
     private func getTotalPayableAmount() -> Double {
-        if let itinaryPrice = self.viewModel.itinaryPriceDetail {
-            var payableAmount = itinaryPrice.grossAmount.toDouble ?? 0.0
+        
+        var payableAmount: Double = self.getGrossAmount()
+        if payableAmount > 0.0 {
             if self.isCouponApplied, let discountBreakUp = self.appliedCouponData.discountsBreakup {
                 payableAmount -= discountBreakUp.CPD
             }
@@ -425,11 +433,15 @@ class FinalCheckOutVC: BaseVC {
     // Get Gross Amount for Bill 
     
     private func getGrossAmount() -> Double {
-        if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount {
-            return grossAmount.toDouble ?? 0.0
-        } else {
-            return 0
+        
+        var grossAmount: Double = 0.0
+        if isReloadingAfterFareDipOrIncrease {
+            grossAmount = self.viewModel.itineraryData?.total_fare ?? 0.0
         }
+        else {
+            grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount.toDouble ?? 0.0
+        }
+        return grossAmount
     }
     
      // Get  Text based on number of rooms and nights
@@ -441,6 +453,17 @@ class FinalCheckOutVC: BaseVC {
         text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"
         
         return text
+    }
+    
+    private func loader(shouldShow: Bool) {
+        self.loaderContainer.isHidden = shouldShow
+    }
+    private func manageLoader(shouldStart: Bool) {
+        indicatorView.style = .white
+        indicatorView.color = AppColors.themeWhite
+        indicatorView.startAnimating()
+        
+        loaderContainer.isHidden = !shouldStart
     }
     
     // Set Boolean convenience fee to applied or Not
@@ -582,13 +605,22 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     // payment related methods
-    func willFetchRecheckRatesData() {}
+    func willFetchRecheckRatesData() {
+        manageLoader(shouldStart: true)
+    }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
+        manageLoader(shouldStart: false)
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
             
             let diff = newAmount - oldAmount
+            
+            //update UI
+            isReloadingAfterFareDipOrIncrease = diff != 0
+            viewModel.itineraryData = recheckedData
+            updateAllData()
+            
             if diff > 0 {
                 // increased
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
@@ -603,12 +635,18 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
                 self.viewModel.makePayment(forAmount: getTotalPayableAmount(), useWallet: isWallet)
             }
+            else {
+                self.viewModel.makePayment(forAmount: getTotalPayableAmount(), useWallet: isWallet)
+            }
         }
     }
     
-    func willMakePayment() {}
+    func willMakePayment() {
+        manageLoader(shouldStart: true)
+    }
     
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
+        manageLoader(shouldStart: false)
         if shouldGoForRazorPay {
             self.initializePayment(withOptions: options)
         }
@@ -619,18 +657,22 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func makePaymentFail() {
+        manageLoader(shouldStart: false)
         AppToast.default.showToastMessage(message: "make Payment faild")
     }
     
     func willGetPaymentResonse() {
+        manageLoader(shouldStart: true)
     }
     func getPaymentResonseSuccess(bookingIds: [String]) {
         //send to you are all donr screen
+        manageLoader(shouldStart: false)
         if let id = self.viewModel.itineraryData?.it_id {
             AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds)
         }
     }
     func getPaymentResonseFail() {
+        manageLoader(shouldStart: false)
     }
 }
 
