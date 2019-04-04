@@ -19,7 +19,7 @@ class ConvenienceFeeTableViewCell: UITableViewCell {
     }
     
     private func setUpFont() {
-        self.convenienceFeeLabel.font = AppFonts.Regular.withSize(20.0)
+        self.convenienceFeeLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     private func setUpColor() {

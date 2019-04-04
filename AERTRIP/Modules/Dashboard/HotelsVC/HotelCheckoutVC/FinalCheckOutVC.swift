@@ -26,7 +26,7 @@ class FinalCheckOutVC: BaseVC {
     
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
-    var isWallet: Bool = true
+    var isWallet: Bool = true // To check if using wallet or Not
     private var gradientLayer: CAGradientLayer!
     var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
         didSet {
@@ -47,16 +47,12 @@ class FinalCheckOutVC: BaseVC {
     var previousAppliedCoupon: HCCouponModel?
     var convenienceRate: Double = 0
     var convenienceFeesWallet: Double = 0
+    // Boolean to check if convenienceFeeToAppliedOrNot
+    var isConvenienceFeeApplied: Bool = false
     
     weak var delegate: FinalCheckOutVCDelegate?
     
     // MARK: - View Life cycle
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//
-//    }
     
     override func initialSetup() {
         self.razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
@@ -70,6 +66,7 @@ class FinalCheckOutVC: BaseVC {
         self.registerXib()
         self.viewModel.webServiceGetPaymentMethods()
         self.getAppliedCoupons()
+        self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
     }
     
     override func setupFonts() {
@@ -109,8 +106,12 @@ class FinalCheckOutVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: WallletAmountCellTableViewCell.reusableIdentifier)
         self.checkOutTableView.registerCell(nibName: FinalAmountTableViewCell.reusableIdentifier)
         self.checkOutTableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.cellIdentifier)
-        self.checkOutTableView.registerCell(nibName: CurrencyOptionCell.reusableIdentifier)
+        
+        // TODO: // will be done after currency KT
+        // self.checkOutTableView.registerCell(nibName: CurrencyOptionCell.reusableIdentifier)
+        
         self.checkOutTableView.registerCell(nibName: TotalPayableNowCell.reusableIdentifier)
+        self.checkOutTableView.registerCell(nibName: ConvenienceFeeTableViewCell.reusableIdentifier)
     }
     
     private func addFooterView() {
@@ -172,6 +173,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("FareDetailTableViewCell not found")
                 return UITableViewCell()
             }
+            fareDetailCell.numberOfRoomAndLabel.text = self.getRoomAndNightText()
             return fareDetailCell
         default:
             return UITableViewCell()
@@ -180,7 +182,7 @@ class FinalCheckOutVC: BaseVC {
     
     private func getCellForSecondSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
-        case 0:
+        case 0: // Coupon dicount Cell
             guard let couponDiscountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else {
                 printDebug("DiscountCell not found")
                 return UITableViewCell()
@@ -196,7 +198,28 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             return couponDiscountCell
-        case 1:
+        case 1: // Convenience Fee Cell
+            guard let convenieneCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WallletAmountCellTableViewCell.reusableIdentifier, for: indexPath) as? WallletAmountCellTableViewCell else {
+                printDebug("WallletAmountCellTableViewCell not found")
+                return UITableViewCell()
+            }
+            convenieneCell.walletAmountLabel.textColor = AppColors.themeBlack
+              convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
+            let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
+            if self.isConvenienceFeeApplied {
+                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
+                convenieneCell.walletAmountLabel.text =  AppConstants.kRuppeeSymbol + amount.delimiter
+                return convenieneCell
+            } else {
+                convenieneCell.clipsToBounds = true
+                return UITableViewCell()
+            }
+            
+            
+            // return
+            
+        case 2: // Aertip Wallet Cell
+            
             guard let walletAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WallletAmountCellTableViewCell.reusableIdentifier, for: indexPath) as? WallletAmountCellTableViewCell else {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
@@ -204,12 +227,16 @@ class FinalCheckOutVC: BaseVC {
             
             if self.isWallet {
                 var amount = getGrossAmount()
+                var amountFromWallet : Double = 0.0
                 if self.isCouponApplied, let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     amount -= discountBreakUp.CPD
-                } else {
-                    amount = self.getGrossAmount()
                 }
-                walletAmountCell.walletAmountLabel.text = "-" + AppConstants.kRuppeeSymbol + abs(amount).delimiter
+                if amount > getWalletAmount() {
+                    amountFromWallet = getWalletAmount()
+                } else {
+                    amountFromWallet = amount
+                }
+                walletAmountCell.walletAmountLabel.text = "-" + AppConstants.kRuppeeSymbol + abs(amountFromWallet).delimiter
                 walletAmountCell.clipsToBounds = true
                 return walletAmountCell
             } else {
@@ -217,9 +244,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             
-            // return
-            
-        case 2:
+        case 3: // Total pay now Cell
             guard let totalPayableNowCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TotalPayableNowCell.reusableIdentifier, for: indexPath) as? TotalPayableNowCell else {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
@@ -227,16 +252,34 @@ class FinalCheckOutVC: BaseVC {
             totalPayableNowCell.totalPriceLabel.text = AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter
             return totalPayableNowCell
             
-        case 4:
+        case 4: // Convenience Fee message Cell
+            guard let conveninceCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ConvenienceFeeTableViewCell.reusableIdentifier, for: indexPath) as? ConvenienceFeeTableViewCell else {
+                printDebug("ConvenienceFeeTableViewCell not found")
+                return UITableViewCell()
+            }
+            let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
+            if self.isConvenienceFeeApplied {
+                conveninceCell.convenienceFeeLabel.textColor = AppColors.themeBlack
+                conveninceCell.convenienceFeeLabel.text = LocalizedString.convenienceFee1.localized + AppConstants.kRuppeeSymbol + " \(amount.delimiter) " + LocalizedString.convenienceFee2.localized
+                return conveninceCell
+            } else {
+                conveninceCell.clipsToBounds = true
+                return UITableViewCell()
+            }
+            
+        case 5: // Final Amount Message cell
             guard let finalAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: FinalAmountTableViewCell.reusableIdentifier, for: indexPath) as? FinalAmountTableViewCell else {
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
             }
             if self.isCouponApplied {
                 if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount, let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                    
+                    // Net Effective fare
+                    let effectiveFare = abs(netAmount.toDouble ?? 0.0 - discountBreakUp.CPD)
                     finalAmountCell.payableWalletMessageLabel.text = AppConstants.kRuppeeSymbol + Double(discountBreakUp.CACB).delimiter + LocalizedString.PayableWalletMessage.localized
                     finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized +
-                        AppConstants.kRuppeeSymbol + " " + "\(netAmount.toDouble?.delimiter ?? "0.0")"
+                        AppConstants.kRuppeeSymbol + " " + "\(effectiveFare.delimiter)"
                 }
                 finalAmountCell.clipsToBounds = true
                 return finalAmountCell
@@ -245,7 +288,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             
-        case 5:
+        case 6: // Term and privacy Cell
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
                 return UITableViewCell()
             }
@@ -257,51 +300,65 @@ class FinalCheckOutVC: BaseVC {
     
     private func getHeightOfRowForFirstSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0, 2, 4:
+        case 0, 2, 4: // Empty Cell
             return 35.0
-        case 1:
+        case 1: // Apply Coupon Cell
             return 44.0
-        case 3:
+        case 3: // Pay by Wallet Cell
             return 75.0
-        case 5:
+        case 5: // Fare Detail Cell
             return 80.0
         default:
-            return 44
+            return 44 // Default Height Cell
         }
     }
     
     private func getHeightOfRowForSecondSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0:
+        case 0: // coupond discount cell
             if self.isCouponApplied {
                 return 20.0
             } else {
                 return 0.0
             }
-        case 1:
+        case 1: // Convenince Fee Cell
+            if self.isConvenienceFeeApplied {
+                 return 36.0
+            } else {
+                return 0.0
+            }
+           
+            
+        case 2: // Wallet amount Cell
             if self.isWallet {
                 return 40.0
             } else {
                 return 0.0
             }
-        case 2:
+        case 3: // total amount Cell
             return 46.0
-        case 3:
+            
+        case 4: // Convenience Cell Message
+            if self.isConvenienceFeeApplied {
+                  return 46.0
+            } else {
+                return 0.0
+            }
+        case 5: // Final amount message table view Cell
             if self.isCouponApplied {
                 return 87.0
             } else {
                 return 0
             }
             
-        case 4:
-            return 168.0
-        case 5:
+        case 6: // term and privacy cell
             return 115.0
         default:
             return 44
         }
     }
     
+    // Setup Image for Pay Button
     private func setUpImage() {
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
@@ -309,22 +366,33 @@ class FinalCheckOutVC: BaseVC {
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
     }
     
+    // Upadate All Data on Table View
     func updateAllData() {
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
     }
     
+    // Get Total Payable Amount based on conditions
     private func getTotalPayableAmount() -> Double {
         if let itinaryPrice = self.viewModel.itinaryPriceDetail {
             var payableAmount = itinaryPrice.grossAmount.toDouble ?? 0.0
             if self.isCouponApplied, let discountBreakUp = self.appliedCouponData.discountsBreakup {
-                payableAmount += discountBreakUp.CPD
-            } else {}
+                payableAmount -= discountBreakUp.CPD
+            }
+            let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
+            if self.isConvenienceFeeApplied {
+                payableAmount += amount
+            }
+            self.viewModel.grossTotalPayableAmount = payableAmount
+            
             if self.isWallet {
-                if payableAmount < self.getWalletAmount() {
-                    payableAmount = 0
+                if payableAmount > self.getWalletAmount() {
+                    payableAmount = abs(payableAmount - self.getWalletAmount())
+                } else {
+                    payableAmount = abs(self.getWalletAmount() - payableAmount)
                 }
             }
+            
             return payableAmount
             
         } else {
@@ -332,6 +400,7 @@ class FinalCheckOutVC: BaseVC {
         }
     }
     
+    // Get Available Wallet Amount
     private func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
             return walletAmount
@@ -340,6 +409,7 @@ class FinalCheckOutVC: BaseVC {
         }
     }
     
+    // Get Update Pay Button Text
     private func updatePayButtonText() {
         if self.getTotalPayableAmount() > 0 {
             self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter, for: .normal)
@@ -350,12 +420,40 @@ class FinalCheckOutVC: BaseVC {
         }
     }
     
+    // Get Gross Amount for Bill 
+    
     private func getGrossAmount() -> Double {
         if let grossAmount = self.viewModel.itinaryPriceDetail?.grossAmount {
             return grossAmount.toDouble ?? 0.0
         } else {
             return 0
         }
+    }
+    
+     // Get  Text based on number of rooms and nights
+    private func getRoomAndNightText() -> String {
+        let adultCount = self.viewModel.hotelFormData.adultsCount.count
+        var text = "For "
+        text += adultCount > 1 ? "\(adultCount) Rooms" : "\(adultCount) Room"
+        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-mm-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-mm-dd")!)
+        text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"
+        
+        return text
+    }
+    
+    // Set Boolean convenience fee to applied or Not
+    
+     func setConvenienceFeeToBeApplied() {
+        if isWallet && self.convenienceFeesWallet > 0 {
+            self.isConvenienceFeeApplied = true
+        } else {
+            if self.convenienceRate > 0 {
+                self.isConvenienceFeeApplied = true
+            } else {
+                self.isConvenienceFeeApplied = false
+            }
+        }
+        self.updateAllData()
     }
     
     // MARK: - Action
@@ -376,7 +474,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 6
         } else {
-            return 6
+            return 7
         }
     }
     
@@ -403,7 +501,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             if self.isCouponApplied {
                 return 64.0
             } else {
-                return 64.0
+                return 30.0
             }
         }
     }
@@ -422,7 +520,12 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             if let discountbreak = self.appliedCouponData.discountsBreakup {
                 headerView.discountPriceLabel.text = "-" + AppConstants.kRuppeeSymbol + "\(Double(discountbreak.CPD).delimiter)"
             }
-            
+            if isCouponApplied {
+                headerView.discountViewHeightConstraint.constant = 27
+            } else {
+                 headerView.discountViewHeightConstraint.constant = 0
+                 headerView.clipsToBounds = true
+            }
             headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + "\(self.getGrossAmount().delimiter)"
             return headerView
         }
@@ -454,6 +557,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
             self.convenienceRate = razorPay.convenienceFees
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
+            self.setConvenienceFeeToBeApplied()
         }
         
         self.updateAllData()
@@ -503,7 +607,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func willMakePayment() {}
     
     func makePaymentSuccess(options: JSONDictionary) {
-        self.initializePayment(withOptions: options)
+        // self.initializePayment(withOptions: options)
         AppToast.default.showToastMessage(message: "make Payment done")
     }
     

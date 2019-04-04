@@ -553,5 +553,6 @@
 "WalletCashBackAppliedText" = " will be credited to your Aertrip Walle within few hours of successful payment / travel date.";
 "CouponApplied" = "Coupon Applied: ";
 "convenienceFee1" = "A non-refundable convenience fee of ";
-"convenienceFee2" = "is applicable on this transaction.";
+"convenienceFee2" = "is applicable on  this transaction.";
 "ConfirmBooking" = "Confirm Booking";
+"ConvenienceFee" = "Convenience Fee";

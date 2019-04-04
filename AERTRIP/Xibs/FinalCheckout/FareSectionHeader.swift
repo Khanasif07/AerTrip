@@ -20,6 +20,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var topBackgroundView: UIView!
     
     @IBOutlet weak var arrowButton: UIButton!
+    @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     weak var delegate: FareSectionHeaderDelegate?
@@ -70,4 +71,9 @@ class FareSectionHeader: UITableViewHeaderFooterView {
         }
         delegate?.headerViewTapped()
     }
+    
+    @IBAction func arrowButtonTapped(_ sender: Any) {
+        delegate?.headerViewTapped()
+    }
+    
 }
