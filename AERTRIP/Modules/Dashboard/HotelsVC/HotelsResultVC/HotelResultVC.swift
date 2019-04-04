@@ -279,8 +279,8 @@ class HotelResultVC: BaseVC {
         self.switchView.selectedBorderWidth = 1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-//        self.switchView.originalImage = #imageLiteral(resourceName: "ic_fav_hotel_text")
-//        self.switchView.selectedImage = #imageLiteral(resourceName: "save_icon_green")
+        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
+        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
     }
     
     override func setupFonts() {

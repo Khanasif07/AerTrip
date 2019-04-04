@@ -22,7 +22,6 @@ class AppFlowManager: NSObject {
         return self.mainHomeVC?.sideMenuController
     }
     var mainHomeVC: MainHomeVC?
-    var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
     
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool)->Void)? = nil
@@ -342,9 +341,20 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCSelectGuestsVC() {
+    func presentHotelDetailsVCForCheckOut(_ vc : HCDataSelectionVC, sourceView: UIView, sid: String) {
+        if let topVC = UIApplication.topViewController() {
+            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+            ob.viewModel.currentlyUsingFor = .checkOutScreen
+            //ob.viewModel.hotelInfo = hotelInfo
+            //ob.delegate = vc
+            ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
+        }
+    }
+    
+    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate) {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+            ob.delegate = delegate
             topVC.present(ob, animated: true, completion: nil)
         }
     }

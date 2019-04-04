@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HCSelectGuestsVCDelegate: class {
+    func didAddedContacts()
+}
+
 class HCSelectGuestsVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -24,6 +28,7 @@ class HCSelectGuestsVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
+    weak var delegate: HCSelectGuestsVCDelegate?
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
@@ -51,6 +56,8 @@ class HCSelectGuestsVC: BaseVC {
     private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
     
     private var currentSelectedGuestIndex: IndexPath = IndexPath(item: 0, section: 0)
+    
+    private let oldGuestState = GuestDetailsVM.shared.guests
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -96,7 +103,8 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        
+        self.viewModel.clearAllSelection()
+
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
@@ -211,11 +219,13 @@ class HCSelectGuestsVC: BaseVC {
     
     //MARK:- Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
+        GuestDetailsVM.shared.guests = self.oldGuestState
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
-        
+        self.delegate?.didAddedContacts()
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

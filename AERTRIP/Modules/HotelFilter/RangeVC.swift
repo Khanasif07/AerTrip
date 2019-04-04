@@ -20,7 +20,6 @@ class RangeVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.doInitialSetup()
         self.setUpRangeView()
         self.addCurrentLocationView()

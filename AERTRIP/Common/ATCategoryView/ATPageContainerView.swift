@@ -64,6 +64,7 @@ class ATPageContainerView: UIView {
             if view.isKind(of: UIScrollView.self) {
                 pageScrollView = view as? UIScrollView
                 pageScrollView?.delegate = self
+                pageScrollView?.delaysContentTouches = false
             }
         }
         pageVC.view.backgroundColor = UIColor.clear

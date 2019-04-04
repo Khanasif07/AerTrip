@@ -16,6 +16,8 @@ protocol HCDataSelectionVMDelegate: class {
     func callForItenaryDataTravellerSuccess()
     func callForItenaryDataTravellerFail(errors: ErrorCodes)
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
+    func updateFavouriteSuccess(withMessage: String)
+    func updateFavouriteFail(errors:ErrorCodes)
 }
 
 class HCDataSelectionVM {
@@ -127,6 +129,24 @@ class HCDataSelectionVM {
                     tableViewCell.remove(object: .checkOutCell)
                 }
                 self.sectionData.append(tableViewCell)
+            }
+        }
+    }
+    
+    //MARK:- Mark Favourite
+    //MARK:-
+    func updateFavourite() {
+        let param: JSONDictionary = ["hid[0]": itineraryData?.hotelDetails?.hid ?? "0", "status": itineraryData?.hotelDetails?.fav == "0" ? 1 : 0]
+        APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] (isSuccess, errors, successMessage) in
+            if let sSelf = self {
+                if isSuccess {
+                    sSelf.itineraryData?.hotelDetails?.fav = (sSelf.itineraryData?.hotelDetails?.fav == "0" ? "1" : "0")
+                    sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+//                    _ = self?.hotelInfo?.afterUpdate
+                }
+                else {
+                    sSelf.delegate?.updateFavouriteFail(errors:errors)
+                }
             }
         }
     }

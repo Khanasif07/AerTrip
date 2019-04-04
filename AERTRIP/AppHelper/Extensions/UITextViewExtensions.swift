@@ -10,7 +10,7 @@ import UIKit
 
 extension UITextView{
     
-    func numberOfLines() -> Int{
+    var numberOfLines: Int{
         if let fontUnwrapped = self.font{
             return Int(self.contentSize.height / fontUnwrapped.lineHeight)
         }

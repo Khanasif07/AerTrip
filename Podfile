@@ -24,6 +24,7 @@ target 'AERTRIP' do
     pod 'GoogleMaps'
     pod 'GooglePlaces'
     pod 'FlexiblePageControl'
+    pod 'razorpay-pod', '1.1.0'
 
     pod 'ActiveLabel'
     pod 'TransitionButton'

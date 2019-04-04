@@ -93,7 +93,7 @@ extension UITextView{
         setContentOffsetCenterVerticaly()
     }
     func setContentOffsetCenterVerticaly(){
-        
+
         if (self.height < self.contentSize.height) {
             var contentOffset = self.contentOffset
             contentOffset.y = (self.contentSize.height - self.height) * 0.5

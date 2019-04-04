@@ -52,6 +52,9 @@ enum AppConstants {
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
     
+    //razor pay key
+    static let kRazorpayPublicKey = "rzp_test_QJYU8TtB6deJgb"
+    
     // CellIdentifier
     
     static let ktableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"

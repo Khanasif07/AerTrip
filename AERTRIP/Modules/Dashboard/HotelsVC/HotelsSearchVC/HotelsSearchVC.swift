@@ -466,6 +466,24 @@ class HotelsSearchVC: BaseVC {
         }
     }
     
+    private func validateData() -> Bool {
+        var flag = true
+        if self.viewModel.searchedFormData.destName.isEmpty {
+            AppToast.default.showToastMessage(message: "Please select destination name.")
+            flag = false
+        }
+        else if self.viewModel.searchedFormData.checkInDate.isEmpty {
+            AppToast.default.showToastMessage(message: "Please select check in date.")
+            flag = false
+        }
+        else if self.viewModel.searchedFormData.checkOutDate.isEmpty {
+            AppToast.default.showToastMessage(message: "Please select check out date.")
+            flag = false
+        }
+        
+        return flag
+    }
+    
     //MARK:- Public
     //MARK:- IBAction
     //===============
@@ -479,9 +497,11 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
-        self.view.isUserInteractionEnabled = false
-        sender.isLoading = true
-        self.viewModel.hotelListOnPreferencesApi()
+        if validateData() {
+            self.view.isUserInteractionEnabled = false
+            sender.isLoading = true
+            self.viewModel.hotelListOnPreferencesApi()
+        }
     }
     
     ///Tap Label Action

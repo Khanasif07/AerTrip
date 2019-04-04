@@ -28,6 +28,7 @@ class FlightsVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        
     }
     
     // MARK: - Methods
@@ -41,12 +42,5 @@ class FlightsVC: BaseVC {
     // MARK: - Action
     
     @IBAction func myButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.presentHCSpecialRequestsVC()
-        //  AppFlowManager.default.presentHCEmailItinerariesVC()
-//        AppFlowManager.default.moveToFinalCheckoutVC()
-//        AppFlowManager.default.presentHCCouponCodeVC()
-//        AppFlowManager.default.presentYouAreAllDoneVC()
-        self.subView = HotelCheckOutDetailsVIew(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 50))
-        self.view.addSubview(subView)
     }
 }

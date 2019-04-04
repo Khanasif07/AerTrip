@@ -150,4 +150,22 @@ extension APICaller {
             completionBlock(false, [], nil)
         }
     }
+    
+    func makePaymentAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void) {
+        AppNetworking.POST(endPoint:APIEndPoint.makePayment, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    completionBlock(true, [])
+                } else {
+                    completionBlock(true, [])
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors)
+            })
+        }) { (error) in
+            completionBlock(false, [])
+        }
+    }
 }

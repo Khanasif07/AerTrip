@@ -114,7 +114,6 @@ void withoutCAAnimation(withoutAnimationBlock code)
     _labelOffset        = 20.f;
     _labelColor         = [UIColor whiteColor];
     [self updateMaxRadius];
-    
     [self setNeedsLayout];
 }
 

@@ -98,21 +98,18 @@ class DashboardVC: BaseVC {
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
         if selectedOption == .aerin {return}
-        AppFlowManager.default.aerInPulsAnimator.start()
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
 
     @IBAction func flightsAction(_ sender: UIButton) {
 
         if selectedOption == .flight {return}
-        AppFlowManager.default.aerInPulsAnimator.stop()
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
 
     @IBAction func hotelsAction(_ sender: UIButton) {
 
         if selectedOption == .hotels {return}
-        AppFlowManager.default.aerInPulsAnimator.stop()
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
 
@@ -120,13 +117,11 @@ class DashboardVC: BaseVC {
     @IBAction func tripsAction(_ sender: UIButton) {
 
         if selectedOption == .trips {return}
-        AppFlowManager.default.aerInPulsAnimator.stop()
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        AppFlowManager.default.aerInPulsAnimator.stop()
         AppFlowManager.default.sideMenuController?.toggleMenu()
     }
     

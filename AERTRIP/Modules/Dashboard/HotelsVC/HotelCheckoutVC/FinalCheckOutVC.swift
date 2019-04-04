@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+import Razorpay
 import UIKit
 
 protocol FinalCheckOutVCDelegate: class {
@@ -20,6 +21,8 @@ class FinalCheckOutVC: BaseVC {
     @IBOutlet var payButton: UIButton!
     
     // MARK: - Properties
+    
+    private(set) var razorpay: Razorpay!
     
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
@@ -42,9 +45,8 @@ class FinalCheckOutVC: BaseVC {
     // Save applied coupon data
     var appliedCouponData: HCCouponAppliedModel = HCCouponAppliedModel()
     var previousAppliedCoupon: HCCouponModel?
-    var convenienceRate : Double = 0
-    var convenienceFeesWallet : Double = 0
-    
+    var convenienceRate: Double = 0
+    var convenienceFeesWallet: Double = 0
     
     weak var delegate: FinalCheckOutVCDelegate?
     
@@ -57,6 +59,8 @@ class FinalCheckOutVC: BaseVC {
 //    }
     
     override func initialSetup() {
+        self.razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
+        
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
@@ -220,7 +224,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            totalPayableNowCell.totalPriceLabel.text = AppConstants.kRuppeeSymbol +  self.getTotalPayableAmount().delimiter
+            totalPayableNowCell.totalPriceLabel.text = AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter
             return totalPayableNowCell
             
         case 4:
@@ -353,6 +357,12 @@ class FinalCheckOutVC: BaseVC {
             return 0
         }
     }
+    
+    // MARK: - Action
+    
+    @IBAction func payButtonAction(_ sender: UIButton) {
+        self.viewModel.fetchRecheckRatesData()
+    }
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate
@@ -463,6 +473,42 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func removeCouponCodeFailed() {
         printDebug("Unable to remove Coupon Code")
+    }
+    
+    // payment related methods
+    func willFetchRecheckRatesData() {}
+    
+    func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
+        if let oldAmount = viewModel.itineraryData?.total_fare {
+            let newAmount = recheckedData.total_fare
+            
+            let diff = newAmount - oldAmount
+            if diff > 0 {
+                // increased
+                FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                    guard let sSelf = self else { return }
+                    sSelf.viewModel.makePayment()
+                }, goBackButtonAction: { [weak self] in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                })
+            } else if diff < 0 {
+                // dipped
+                FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                self.viewModel.makePayment()
+            }
+        }
+    }
+    
+    func willMakePayment() {}
+    
+    func makePaymentSuccess(options: JSONDictionary) {
+        self.initializePayment(withOptions: options)
+        AppToast.default.showToastMessage(message: "make Payment done")
+    }
+    
+    func makePaymentFail() {
+        AppToast.default.showToastMessage(message: "make Payment faild")
     }
 }
 

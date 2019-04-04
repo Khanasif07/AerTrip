@@ -10,7 +10,7 @@ import UIKit
 
 protocol PassSelectedCoupon: class {
     func selectedCoupon(indexPath: IndexPath)
-    func offerTermsInfo(indexPath: IndexPath)
+    func offerTermsInfo(indexPath: IndexPath, bulletedText: NSAttributedString, couponCode: NSAttributedString, discountText: NSAttributedString)
 }
 
 class CouponCodeTableViewCell: UITableViewCell {
@@ -147,8 +147,7 @@ class CouponCodeTableViewCell: UITableViewCell {
     
     @IBAction func offerTermsButtonAction(_ sender: UIButton) {
         if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender), let safeDelegate = self.delegate {
-            safeDelegate.offerTermsInfo(indexPath: indexPath)
+            safeDelegate.offerTermsInfo(indexPath: indexPath, bulletedText: self.couponInfoTextView.attributedText, couponCode: self.coupanCodeLabel.attributedText ?? NSAttributedString(), discountText: self.discountLabel.attributedText ?? NSAttributedString())
         }
     }
-    
 }

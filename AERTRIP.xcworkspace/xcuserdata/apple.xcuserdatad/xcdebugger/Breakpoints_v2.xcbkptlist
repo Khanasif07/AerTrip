@@ -14,7 +14,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -44,7 +46,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,7 +190,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -232,7 +238,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -246,7 +254,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -260,7 +270,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
-            endingLineNumber = "495">
+            endingLineNumber = "495"
+            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -291,8 +303,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "348"
             endingLineNumber = "348"
-            landmarkName = "FinalCheckOutVC"
-            landmarkType = "3">
+            landmarkName = "updatePayButtonText()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -387,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "461"
             endingLineNumber = "461"
-            landmarkName = "removeCouponCodeSuccessful(_:)"
+            landmarkName = "getPaymentsMethodsSuccess()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -403,8 +415,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "462"
             endingLineNumber = "462"
-            landmarkName = "removeCouponCodeSuccessful(_:)"
-            landmarkType = "7">
+            landmarkName = "FinalCheckOutVC"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
