@@ -395,3 +395,9 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
         }
     }
 }
+
+extension HotelDetailsVC: HotelRatingInfoCellDelegate {
+    func shareButtonAction(_ sender: UIButton) {
+        AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: "https://beta.aertrip.com")
+    }
+}

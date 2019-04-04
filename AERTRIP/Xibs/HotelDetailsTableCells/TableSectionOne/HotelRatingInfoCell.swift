@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol HotelRatingInfoCellDelegate: class {
+    func shareButtonAction(_ sender: UIButton)
+}
+
 class HotelRatingInfoCell: UITableViewCell {
 
     //Mark:- Variables
     //================
+    internal var delegate: HotelRatingInfoCellDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -46,9 +51,13 @@ class HotelRatingInfoCell: UITableViewCell {
         //UI SetUp
         self.distanceLabel.isHidden = true
         self.deviderView.isHidden = true
+        self.hotelRatingView.isHidden = true
+        self.hotelDotsView.isHidden = true
+        self.tripadviserImageView.isHidden = true
     }
     
     private func textSetUp(hotelName: String , distanceText: String, durationValue: Int, starRating: Double , tripAdvisorRating: Double) {
+        self.hotelRatingView.isHidden = false
         self.hotelNameLabel.text = hotelName
         let modeImage: String
         if durationValue/60 <= 10 {
@@ -101,8 +110,6 @@ class HotelRatingInfoCell: UITableViewCell {
     //Mark:- IBActions
     //================
     @IBAction func shareButtonAction(_ sender: UIButton) {
-        if let parentVC = self.parentViewController as? HotelDetailsVC {
-            AppGlobals.shared.shareWithActivityViewController(VC: parentVC , shareData: "https://beta.aertrip.com")
-        }
+        self.delegate?.shareButtonAction(sender)
     }
 }

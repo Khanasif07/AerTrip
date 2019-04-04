@@ -2374,9 +2374,9 @@
 				842EDE602238E7D600E99409 /* PlaceModel.swift */,
 				842EDE662238E7D600E99409 /* HotelDetailsOverviewVC */,
 				842EDE622238E7D600E99409 /* HotelDetailsReviewsVC */,
+				842EDE702238E7D600E99409 /* HotelDetailsAmenitiesVC */,
 				842EDE6A2238E7D600E99409 /* SelectTripVC */,
 				842EDE6D2238E7D600E99409 /* CreateNewTripVC */,
-				842EDE702238E7D600E99409 /* HotelDetailsAmenitiesVC */,
 				842EDE732238E7D600E99409 /* SearchHotelTagVC */,
 			);
 			path = HotelDetailsVC;

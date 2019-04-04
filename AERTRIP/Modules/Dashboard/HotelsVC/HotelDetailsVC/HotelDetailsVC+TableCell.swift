@@ -46,6 +46,7 @@ extension HotelDetailsVC {
     
     internal func getHotelRatingInfoCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+        cell.delegate = self
         if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
             cell.configureCell(hotelData: hotelDetails, placeData: placeData)
         }

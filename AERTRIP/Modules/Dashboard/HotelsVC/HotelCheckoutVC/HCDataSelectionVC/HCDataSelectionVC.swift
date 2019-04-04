@@ -296,18 +296,20 @@ class HCDataSelectionVC: BaseVC {
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
-        self.hotelDetailsContainerView.isHidden = true
-        self.hotelCheckOutDetailsContainerVIew.isHidden = false
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            if self.fareDetailContainerView.isHidden {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
-            } else {
-                self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
-            }
-            self.view.layoutIfNeeded()
-        }, completion: { [weak self] (isDone) in
-            self?.isHotelDetailsCheckOutViewOpen = true
-        })
+        if self.viewModel.itineraryData != nil {
+            self.hotelDetailsContainerView.isHidden = true
+            self.hotelCheckOutDetailsContainerVIew.isHidden = false
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                if self.fareDetailContainerView.isHidden {
+                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                } else {
+                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                }
+                self.view.layoutIfNeeded()
+            }, completion: { [weak self] (isDone) in
+                self?.isHotelDetailsCheckOutViewOpen = true
+            })
+        }
     }
 }
 

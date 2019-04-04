@@ -213,3 +213,12 @@ extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasour
         cell.imageCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
     }
 }
+
+
+extension HotelCheckOutDetailsVIew: HotelRatingInfoCellDelegate {
+    func shareButtonAction(_ sender: UIButton) {
+        if let parentVC = self.parentViewController {
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC , shareData: "https://beta.aertrip.com")
+        }
+    }
+}

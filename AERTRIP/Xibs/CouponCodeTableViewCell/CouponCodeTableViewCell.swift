@@ -15,7 +15,6 @@ protocol PassSelectedCoupon: class {
 
 class CouponCodeTableViewCell: UITableViewCell {
 
-    let price: String = "12.00"
     var discountText: [String] = [LocalizedString.InstantCashBackAppliedText.localized,LocalizedString.WalletCashBackAppliedText.localized]
     weak var delegate: PassSelectedCoupon?
     
@@ -34,7 +33,6 @@ class CouponCodeTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var offerTermsButton: UIButton!
-    @IBOutlet weak var expiryTimeLabel: UILabel!
     @IBOutlet weak var dividerView: UIView! {
         didSet {
             self.dividerView.backgroundColor = AppColors.themeGray10
@@ -53,14 +51,11 @@ class CouponCodeTableViewCell: UITableViewCell {
     private func configUI() {
         //Text
         self.offerTermsButton.setTitle(LocalizedString.OfferTerms.localized, for: .normal)
-        
         //Font
         self.offerTermsButton.titleLabel?.font = AppFonts.SemiBold.withSize(14.0)
-        self.expiryTimeLabel.font = AppFonts.Regular.withSize(14.0)
         //Colors
         self.offerTermsButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.discountLabel.textColor = AppColors.themeOrange
-        self.expiryTimeLabel.textColor = AppColors.themeGray40
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         //Images
         self.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
@@ -82,12 +77,12 @@ class CouponCodeTableViewCell: UITableViewCell {
     private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Double, walletCashBack: Double) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
-        let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
+        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0)
         for (index,text) in discountDetails.enumerated() {
             let bulletedString = NSMutableAttributedString()
             let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
             let asStylizedPrice = (index == 0) ? instantCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)) : walletCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n\n", attributes: attributesDictionary)
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n", attributes: attributesDictionary)
             bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))
             asStylizedPrice.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, asStylizedPrice.length))
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
@@ -99,7 +94,7 @@ class CouponCodeTableViewCell: UITableViewCell {
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         return fullAttributedString
     }
-    
+
     private func discountTextSetUp(price: String, endText: String) {
         let attributedString = NSMutableAttributedString()
         let orangeAttribut = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange] as [NSAttributedString.Key : Any]
