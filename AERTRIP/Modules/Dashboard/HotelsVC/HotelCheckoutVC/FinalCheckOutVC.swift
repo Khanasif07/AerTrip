@@ -24,8 +24,6 @@ class FinalCheckOutVC: BaseVC {
     
     // MARK: - Properties
     
-    private(set) var razorpay: Razorpay!
-    
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
@@ -59,7 +57,6 @@ class FinalCheckOutVC: BaseVC {
     // MARK: - View Life cycle
     
     override func initialSetup() {
-        self.razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
         
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
@@ -171,7 +168,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             walletCell.delegate = self
-            walletCell.walletSwitch.isOn = self.getWalletAmount() > 0 && isWallet
+            walletCell.walletSwitch.isOn = isWallet
             walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + self.getWalletAmount().delimiter
             return walletCell
         case 5:
@@ -409,7 +406,7 @@ class FinalCheckOutVC: BaseVC {
     }
     
     // Get Available Wallet Amount
-    private func getWalletAmount() -> Double {
+    func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
             return walletAmount
         } else {
@@ -584,6 +581,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
             self.setConvenienceFeeToBeApplied()
         }
+        self.isWallet = self.getWalletAmount() > 0
         
         self.updateAllData()
         printDebug("Get Success")

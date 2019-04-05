@@ -24,6 +24,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gH7-Qy-K6H">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                     <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticket_down" translatesAutoresizingMaskIntoConstraints="NO" id="ltA-4b-Osx">
+                            <rect key="frame" x="0.0" y="56" width="375" height="7"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKING DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kN2-Ur-UhO">
                             <rect key="frame" x="16" y="36" width="343" height="18"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
@@ -34,9 +38,12 @@
                     <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="kN2-Ur-UhO" firstAttribute="leading" secondItem="gH7-Qy-K6H" secondAttribute="leading" constant="16" id="6tG-wd-6gv"/>
+                        <constraint firstItem="ltA-4b-Osx" firstAttribute="leading" secondItem="gH7-Qy-K6H" secondAttribute="leading" id="IIK-Nv-tYu"/>
+                        <constraint firstAttribute="trailing" secondItem="ltA-4b-Osx" secondAttribute="trailing" id="KpO-Su-Ynn"/>
                         <constraint firstItem="kN2-Ur-UhO" firstAttribute="top" secondItem="gH7-Qy-K6H" secondAttribute="top" constant="36" id="OtY-NF-XSP"/>
                         <constraint firstAttribute="bottom" secondItem="kN2-Ur-UhO" secondAttribute="bottom" constant="9" id="QRz-gB-qKN"/>
                         <constraint firstAttribute="trailing" secondItem="kN2-Ur-UhO" secondAttribute="trailing" constant="16" id="Xxt-vc-xBd"/>
+                        <constraint firstAttribute="bottom" secondItem="ltA-4b-Osx" secondAttribute="bottom" id="g92-nI-ujX"/>
                     </constraints>
                 </view>
             </subviews>
@@ -55,4 +62,7 @@
             </connections>
         </view>
     </objects>
+    <resources>
+        <image name="ic_ticket_down" width="640" height="7"/>
+    </resources>
 </document>

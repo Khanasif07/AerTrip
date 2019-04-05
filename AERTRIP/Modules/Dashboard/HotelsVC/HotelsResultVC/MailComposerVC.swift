@@ -228,6 +228,7 @@ extension MailComposerVC: CNContactPickerDelegate {
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
             self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
+            self.updateHeightOfHeader(self.mailComposerHeaderView, self.mailComposerHeaderView.toEmailTextView)
             self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
         }
     }
