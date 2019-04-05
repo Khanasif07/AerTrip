@@ -607,6 +607,10 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
 }
 
 extension HCDataSelectionVC : ContactTableCellDelegate {
+    func setIsdCode() {
+        //
+    }
+    
     func textFieldText(_ textField: UITextField) {
         self.viewModel.itineraryData?.mobile = textField.text ?? ""
     }
