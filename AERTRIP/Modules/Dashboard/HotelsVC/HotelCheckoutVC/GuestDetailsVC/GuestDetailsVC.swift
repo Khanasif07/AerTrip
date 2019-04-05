@@ -13,6 +13,10 @@ enum GuestTableViewType {
     case GuestDetails
 }
 
+protocol GuestDetailsVCDelegate: class {
+    func doneButtonTapped()
+}
+
 class GuestDetailsVC: BaseVC {
     // MARK: - IB Outlets
     
@@ -27,8 +31,8 @@ class GuestDetailsVC: BaseVC {
     
     // Mark: - Properties
     let viewModel = GuestDetailsVM.shared
-    var guestTableViewType: GuestTableViewType = .GuestDetails
     var indexPath: IndexPath?
+    weak var vcDelegate: GuestDetailsVCDelegate?
     
     // travellers for managing on table view
     var travellers: [TravellerModel] = []
@@ -47,7 +51,7 @@ class GuestDetailsVC: BaseVC {
         // setting delay of 1 sec because table view cell are creating
         
         delay(seconds: 2.0) { [weak self] in
-             self?.makeTableViewIndexSelectable()
+            self?.makeTableViewIndexSelectable()
         }
         self.viewModel.webserviceForGetSalutations()
     }
@@ -121,15 +125,14 @@ class GuestDetailsVC: BaseVC {
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.indexPath {
             printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
-                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[travellerIndexPath.row].salutation
-                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[travellerIndexPath.row].firstName
-                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[travellerIndexPath.row].lastName
-          
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[travellerIndexPath.row].salutation
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[travellerIndexPath.row].firstName
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[travellerIndexPath.row].lastName
+            
             printDebug("after updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
-          
-                printDebug("=====guest \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
-              self.guestDetailTableView.reloadData()
-
+            
+            printDebug("=====guest \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+            self.guestDetailTableView.reloadData()
         }
     }
 }
@@ -168,6 +171,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("cell not found")
                 return UITableViewCell()
             }
+            cell.separatorView.isHidden = indexPath.row == 0
             cell.travellerModelData = self.travellers[indexPath.row]
             return cell
         }
@@ -212,12 +216,10 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                     cell.salutationTextField.text = self.travellers[indexPath.row].salutation
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
-
                 }
-
             }
             self.editedGuest(indexPath)
-         self.travellers = self.viewModel.travellerList
+            self.travellers = self.viewModel.travellerList
         }
     }
 }
@@ -232,24 +234,43 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Done Button tapped")
         AppFlowManager.default.popViewController(animated: true)
+        self.vcDelegate?.doneButtonTapped()
     }
 }
 
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textFieldWhileEditing(_ textField: UITextField) {
+        self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if textField.text != "" {
             self.travellers = self.viewModel.travellerList.filter({ $0.firstName.lowercased().contains(textField.text?.lowercased() ?? "") })
+            
         } else {
             self.travellers = self.viewModel.travellerList
         }
-        
+        self.travellersTableView.isHidden = self.travellers.count == 0
         self.travellersTableView.reloadData()
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
+            switch textField {
+            case cell.firstNameTextField:
+                if let indexPath = self.indexPath {
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text ?? ""
+                }
+                
+            case cell.lastNameTextField:
+                if let indexPath = self.indexPath {
+                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text ?? ""
+                }
+                
+                
+            default:
+                break
+            }
+        }
     }
     
     func textField(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell , textField != cell.salutationTextField {
-            
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField != cell.salutationTextField {
             // get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             
@@ -259,8 +280,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             travellersTableView.isHidden = false
             travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
-        }
-
+        } 
     }
 }
 

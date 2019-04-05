@@ -435,7 +435,7 @@ extension AppFlowManager {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
-        self.mainNavigationController.present(obj, animated: true)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
     // Mail Composer
@@ -472,8 +472,9 @@ extension AppFlowManager {
 //        }
     }
     
-    func moveToGuestDetailScreen(_ indexPath:IndexPath) {
+    func moveToGuestDetailScreen(delegate: GuestDetailsVCDelegate,_ indexPath:IndexPath) {
         let obj = GuestDetailsVC.instantiate(fromAppStoryboard: .HotelCheckout)
+         obj.vcDelegate = delegate
          obj.viewModel.selectedIndexPath = indexPath
         self.mainNavigationController.pushViewController(obj, animated: true)
     }

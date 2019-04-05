@@ -952,10 +952,24 @@
                                     <action selector="payButtonAction:" destination="tl2-By-LWD" eventType="touchUpInside" id="8i4-mL-nFM"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5g5-WG-kiV">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cq2-QW-qs3">
+                                        <rect key="frame" x="177.5" y="15" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="cq2-QW-qs3" firstAttribute="centerX" secondItem="5g5-WG-kiV" secondAttribute="centerX" id="3oX-C1-vVi"/>
+                                    <constraint firstItem="cq2-QW-qs3" firstAttribute="centerY" secondItem="5g5-WG-kiV" secondAttribute="centerY" id="tsa-72-e4Z"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MQ0-cb-AYF" firstAttribute="top" secondItem="1Gs-hF-RSc" secondAttribute="top" id="1zS-8i-g44"/>
+                            <constraint firstItem="5g5-WG-kiV" firstAttribute="trailing" secondItem="N6Y-VX-9gh" secondAttribute="trailing" id="36K-fZ-2s1"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="bottom" secondItem="cLs-dS-5hC" secondAttribute="bottom" constant="50" id="6hu-XS-3pp"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="trailing" secondItem="cLs-dS-5hC" secondAttribute="trailing" id="9R2-Xo-pJJ"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="trailing" secondItem="N6Y-VX-9gh" secondAttribute="trailing" id="AYn-hr-IYA"/>
@@ -963,13 +977,18 @@
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="bottom" secondItem="N6Y-VX-9gh" secondAttribute="bottom" id="Vyo-RF-SZ0"/>
                             <constraint firstItem="MQ0-cb-AYF" firstAttribute="leading" secondItem="1Gs-hF-RSc" secondAttribute="leading" id="YQH-Uz-U1Z"/>
                             <constraint firstItem="N6Y-VX-9gh" firstAttribute="leading" secondItem="1Gs-hF-RSc" secondAttribute="leading" id="eHf-9J-k17"/>
+                            <constraint firstItem="5g5-WG-kiV" firstAttribute="leading" secondItem="N6Y-VX-9gh" secondAttribute="leading" id="fTE-D2-WsO"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="trailing" secondItem="MQ0-cb-AYF" secondAttribute="trailing" id="fgP-mK-T7a"/>
+                            <constraint firstItem="5g5-WG-kiV" firstAttribute="bottom" secondItem="N6Y-VX-9gh" secondAttribute="bottom" id="mJp-Ie-MTQ"/>
                             <constraint firstItem="cLs-dS-5hC" firstAttribute="top" secondItem="MQ0-cb-AYF" secondAttribute="bottom" id="r1V-VM-A1i"/>
+                            <constraint firstItem="5g5-WG-kiV" firstAttribute="top" secondItem="N6Y-VX-9gh" secondAttribute="top" id="uxq-wv-lI8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Gs-hF-RSc"/>
                     </view>
                     <connections>
                         <outlet property="checkOutTableView" destination="cLs-dS-5hC" id="eSh-Nc-ftp"/>
+                        <outlet property="indicatorView" destination="cq2-QW-qs3" id="M2t-az-PDw"/>
+                        <outlet property="loaderContainer" destination="5g5-WG-kiV" id="i8M-Z5-i5o"/>
                         <outlet property="payButton" destination="N6Y-VX-9gh" id="6f8-yC-RLg"/>
                         <outlet property="topNavView" destination="MQ0-cb-AYF" id="9xJ-TD-aZ4"/>
                     </connections>

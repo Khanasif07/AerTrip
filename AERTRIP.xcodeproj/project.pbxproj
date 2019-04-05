@@ -105,6 +105,7 @@
 		18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A2821D36761005442C8 /* TextEditableTableViewCell.xib */; };
 		18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A2B21D46E0D005442C8 /* TwoPartEditTableViewCell.swift */; };
 		18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A2C21D46E0D005442C8 /* TwoPartEditTableViewCell.xib */; };
+		1893299E22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893299D22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift */; };
 		1896D5922209538B003FC2B6 /* MultiSlider+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D58F2209538A003FC2B6 /* MultiSlider+Drag.swift */; };
 		1896D5932209538B003FC2B6 /* MultiSliderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D5902209538A003FC2B6 /* MultiSliderExtensions.swift */; };
 		1896D5942209538B003FC2B6 /* MultiSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D5912209538B003FC2B6 /* MultiSlider.swift */; };
@@ -692,6 +693,7 @@
 		18930A2821D36761005442C8 /* TextEditableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEditableTableViewCell.xib; sourceTree = "<group>"; };
 		18930A2B21D46E0D005442C8 /* TwoPartEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPartEditTableViewCell.swift; sourceTree = "<group>"; };
 		18930A2C21D46E0D005442C8 /* TwoPartEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoPartEditTableViewCell.xib; sourceTree = "<group>"; };
+		1893299D22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCDataSelectionVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		1896D58F2209538A003FC2B6 /* MultiSlider+Drag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MultiSlider+Drag.swift"; sourceTree = "<group>"; };
 		1896D5902209538A003FC2B6 /* MultiSliderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiSliderExtensions.swift; sourceTree = "<group>"; };
 		1896D5912209538B003FC2B6 /* MultiSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiSlider.swift; sourceTree = "<group>"; };
@@ -2575,6 +2577,7 @@
 				84271E822237A10700C1A70D /* HCDataSelectionVC.swift */,
 				84271E842237A13F00C1A70D /* HCDataSelectionVM.swift */,
 				84100A8B2238E13E006A05EC /* HCDataSelectionVC+Cells.swift */,
+				1893299D22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift */,
 			);
 			path = HCDataSelectionVC;
 			sourceTree = "<group>";
@@ -3861,6 +3864,7 @@
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
 				18EF5E81221D261B00EFFA6E /* GMUGeoJSONParser.m in Sources */,
 				842EDE7B2238E7D600E99409 /* HotelDetailsReviewsModel.swift in Sources */,
+				1893299E22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift in Sources */,
 				840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */,
 				84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */,
 				842EDE772238E7D600E99409 /* HotelDetails.swift in Sources */,

@@ -89,6 +89,22 @@ class GuestDetailTableViewCell: UITableViewCell {
     }
     
     private func configureCell() {
+        
+        self.firstNameTextField.text = ""
+        if let fName = self.guestDetail?.firstName, !fName.isEmpty {
+            self.firstNameTextField.text = fName
+        }
+        
+        self.lastNameTextField.text = ""
+        
+        if let lName = self.guestDetail?.lastName, !lName.isEmpty {
+            self.lastNameTextField.text = lName
+        }
+        
+        if let salutaion = self.guestDetail?.salutation, !salutaion.isEmpty {
+            self.salutationTextField.text = salutaion
+        }
+        
         if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
             self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
         }
@@ -145,7 +161,17 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
-        self.delegate?.textFieldWhileEditing(textField)
+        switch textField {
+        case self.salutationTextField:
+             self.delegate?.textFieldWhileEditing(salutationTextField)
+        case self.firstNameTextField:
+             self.delegate?.textFieldWhileEditing(firstNameTextField)
+        case self.lastNameTextField:
+            self.delegate?.textFieldWhileEditing(lastNameTextField)
+        default:
+            break
+        }
+       
     }
 }
 
@@ -167,6 +193,9 @@ extension GuestDetailTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = GuestDetailsVM.shared.salutation[row]
+        }
         printDebug(" selected title is \(GuestDetailsVM.shared.salutation[row])")
     }
 }

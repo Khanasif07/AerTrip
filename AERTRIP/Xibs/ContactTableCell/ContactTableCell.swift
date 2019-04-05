@@ -9,6 +9,12 @@
 import UIKit
 import PhoneNumberKit
 
+
+protocol ContactTableCellDelegate: class {
+    func textFieldText(_ textField:UITextField)
+    func setIsdCode()
+}
+
 class ContactTableCell: UITableViewCell {
     
     //MARK:- IBOutlet
@@ -20,8 +26,11 @@ class ContactTableCell: UITableViewCell {
     @IBOutlet weak var contactNumberTextField: PhoneNumberTextField!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var contactTitleLabel: UILabel!
+
     
     private var preSelectedCountry: PKCountryModel?
+    weak var delegate: ContactTableCellDelegate?
+    
     //MARK:- Life Cycle
     //MARK:-
     override func awakeFromNib() {
@@ -52,16 +61,19 @@ class ContactTableCell: UITableViewCell {
         contactTitleLabel.textColor = AppColors.themeGray40
         contactTitleLabel.text = LocalizedString.Mobile.localized
         
+         contactNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         contactNumberTextField.font = AppFonts.Regular.withSize(18.0)
         contactNumberTextField.textColor = AppColors.themeBlack
         contactNumberTextField.placeholder = LocalizedString.Mobile.localized
         contactNumberTextField.text = UserInfo.loggedInUser?.mobile
         
-        if let current = PKCountryPicker.default.getCurrentLocalCountryData() {
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: UserInfo.loggedInUser?.isd ?? "+91") {
             preSelectedCountry = current
             flagImageView.image = current.flagImage
             countryCodeLabel.text = current.countryCode
         }
+        
+        contactNumberTextField.delegate = self
     }
     
     //MARK:- Public
@@ -75,9 +87,14 @@ class ContactTableCell: UITableViewCell {
                 sSelf.countryCodeLabel.text = country.countryCode
                 sSelf.contactNumberTextField.defaultRegion = country.ISOCode
                 sSelf.contactNumberTextField.text = sSelf.contactNumberTextField.nationalNumber
-                
                 PKCountryPicker.default.closePicker(animated: true)
             }
         }
+    }
+}
+
+extension ContactTableCell : UITextFieldDelegate {
+    @objc func textFieldDidChanged(_ textField: UITextField) {
+        delegate?.textFieldText(textField)
     }
 }
