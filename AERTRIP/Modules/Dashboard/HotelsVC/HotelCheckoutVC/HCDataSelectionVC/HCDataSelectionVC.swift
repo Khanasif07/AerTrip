@@ -528,7 +528,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reusableIdentifier) as? ContactTableCell else {
                     return UITableViewCell()
                 }
-                
+                cell.delegate = self
                 return cell
                 
             case 5:
@@ -603,5 +603,11 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
             sSelf.hotelDetailsContainerView.isHidden = false
             sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
         }
+    }
+}
+
+extension HCDataSelectionVC : ContactTableCellDelegate {
+    func textFieldText(_ textField: UITextField) {
+        self.viewModel.itineraryData?.mobile = textField.text ?? ""
     }
 }

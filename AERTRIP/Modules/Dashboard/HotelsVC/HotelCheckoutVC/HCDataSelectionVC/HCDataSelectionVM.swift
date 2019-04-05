@@ -83,6 +83,7 @@ class HCDataSelectionVM {
     
     func isValidateData(vc: UIViewController) -> Bool {
         
+        
         return true
     }
     
