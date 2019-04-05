@@ -295,6 +295,10 @@ open class MultiSlider: UIControl {
     private func updateThumbViewShadowVisibility() {
         thumbViews.forEach {
             $0.layer.shadowOpacity = showsThumbImageShadow ? 0.30 : 0
+            $0.layer.borderColor = AppColors.themeGreen.cgColor
+            $0.layer.borderWidth = 0.8
+            $0.layer.cornerRadius = $0.layer.frame.size.width / 2
+            $0.clipsToBounds = true
         }
     }
 
