@@ -197,6 +197,9 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.heightForHeaderInSection(section: section)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
 }
 
 //Mark:- GetFullInfoDelegate

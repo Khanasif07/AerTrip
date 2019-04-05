@@ -359,7 +359,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
                 AppFlowManager.default.popToViewController(vc, animated: true)
             }
             
-            AppFlowManager.default.selectTrip { (trip) in
+            AppFlowManager.default.selectTrip(nil) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

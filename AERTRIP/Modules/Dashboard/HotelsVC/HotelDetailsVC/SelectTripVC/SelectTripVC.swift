@@ -29,7 +29,7 @@ struct TripDetails {
 }
 
 protocol SelectTripVCDelegate: class {
-    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel)
+    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?)
 }
 
 class SelectTripVC: BaseVC {
@@ -53,7 +53,7 @@ class SelectTripVC: BaseVC {
     //MARK:- Public
     let viewModel = SelectTripVM()
     weak var delegate: SelectTripVCDelegate?
-    var selectionComplition: ((TripModel)->Void)? = nil
+    var selectionComplition: ((TripModel, TripDetails?)->Void)? = nil
     
     //MARK:- Private
     private let cellIdentifier = "cellIdentifier"
@@ -67,7 +67,8 @@ class SelectTripVC: BaseVC {
         
         topNavView.configureLeftButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
-        topNavView.configureFirstRightButton(normalTitle: LocalizedString.Save.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        let btnTitle = self.viewModel.tripDetails == nil ? LocalizedString.Save.localized : LocalizedString.Move.localized
+        topNavView.configureFirstRightButton(normalTitle: btnTitle, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
         if viewModel.allTrips.isEmpty {
             viewModel.fetchAllTrips()
@@ -123,6 +124,16 @@ extension SelectTripVC: CreateNewTripVCDelegate {
 //MARK:- View Model delegat methods
 //MARK:-
 extension SelectTripVC: SelectTripVMDelegate{
+    func willMoveAndUpdateTripAPI() {
+    }
+    
+    func moveAndUpdateTripAPISuccess() {
+        self.selectionCompleted()
+    }
+    
+    func moveAndUpdateTripAPIFail() {
+    }
+    
     func willFetchAllTrips() {
     }
     
@@ -141,11 +152,21 @@ extension SelectTripVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if let indexPath = viewModel.selectedIndexPath {
+        if let _ = viewModel.tripDetails, let indexPath = viewModel.selectedIndexPath {
+            //move and update trip
+            self.viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
+        }
+        else {
+            self.selectionCompleted()
+        }
+    }
+    
+    func selectionCompleted() {
+        if let indexPath = viewModel.selectedIndexPath {            
             if let handler = self.selectionComplition {
-                handler(viewModel.allTrips[indexPath.row])
+                handler(viewModel.allTrips[indexPath.row], self.viewModel.tripDetails)
             }
-            self.delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row])
+            self.delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row], tripDetails: self.viewModel.tripDetails)
         }
         self.dismiss(animated: true, completion: nil)
     }

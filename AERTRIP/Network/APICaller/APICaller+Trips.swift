@@ -84,4 +84,54 @@ extension APICaller {
             }
         }
     }
+    
+    func tripsEventMoveAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ eventId: String?)->Void ) {
+        
+        AppNetworking.POST(endPoint: APIEndPoint.tripsEventMove, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if let ids = jsonData[APIKeys.data.rawValue]["event_id"].arrayObject, let id = ids.first {
+                    completionBlock(true, [], "\(id)")
+                }
+                else {
+                    completionBlock(sucess, [], "")
+                }
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
+    func tripsUpdateBookingAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.POST(endPoint: APIEndPoint.tripsUpdateBooking, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
+                completionBlock(sucess, [])
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
 }
