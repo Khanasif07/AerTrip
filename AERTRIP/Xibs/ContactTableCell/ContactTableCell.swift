@@ -67,7 +67,7 @@ class ContactTableCell: UITableViewCell {
         contactNumberTextField.placeholder = LocalizedString.Mobile.localized
         contactNumberTextField.text = UserInfo.loggedInUser?.mobile
         
-        if let current = PKCountryPicker.default.getCurrentLocalCountryData() {
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: UserInfo.loggedInUser?.isd ?? "+91") {
             preSelectedCountry = current
             flagImageView.image = current.flagImage
             countryCodeLabel.text = current.countryCode
