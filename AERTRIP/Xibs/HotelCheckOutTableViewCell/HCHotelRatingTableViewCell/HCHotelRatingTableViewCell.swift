@@ -34,14 +34,17 @@ class HCHotelRatingTableViewCell: UITableViewCell {
     private func configUI() {
         //Color
         self.hotelNameLabel.textColor = AppColors.themeBlack
-        
         //Size
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
+        self.tripadviserImageView.isHidden = true
+        self.hotelAdviserDotsView.isHidden = true
     }
     
-    internal func configCell() {
-        self.hotelNameLabel.text = "Grand Hyatt Mumbai"
-        self.hotelRatingView.rating = 3.5
-        self.hotelAdviserDotsView.rating = 3.5
+    internal func configCell(hotelName: String ,hotelRating: Double , tripAdvisorRating: Double) {
+        self.hotelNameLabel.text = hotelName
+        self.hotelRatingView.rating = hotelRating
+        self.hotelAdviserDotsView.rating = tripAdvisorRating
+        self.tripadviserImageView.isHidden = tripAdvisorRating.isZero
+        self.hotelAdviserDotsView.isHidden = tripAdvisorRating.isZero
     }
 }

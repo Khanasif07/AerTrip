@@ -103,23 +103,37 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     }
     
     ///Config HCBeds Cell
-    internal func configHCBedsCell() {
+    internal func configHCBedsCell(bedDetails: String) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
         self.inclusionLabel.text = LocalizedString.Beds.localized
-        self.inclusionTypeLabel.text = "2 Single Beds"
+        self.inclusionTypeLabel.text = bedDetails
     }
     
     ///Config HCInclusion Cell
-    internal func configHCInclusionCell() {
+    internal func configHCInclusionCell(roomInclusions: JSONDictionary) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
         self.inclusionLabel.text = LocalizedString.Inclusion.localized
-        self.inclusionTypeLabel.text = "Breakfast"
+        var inclusionText: [String] = []
+//        var internetText: [String] = []
+        if let inclusionData =  roomInclusions[APIKeys.Inclusions.rawValue] as? [String], !inclusionData.isEmpty {
+            inclusionText = inclusionData
+        }
+//        if let internetInclusion =  roomInclusions[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+//            internetText = internetInclusion
+//        }
+//        let setA = Set(inclusionText)
+//        let allSet = setA.union(internetText)
+         self.inclusionTypeLabel.text = inclusionText.joined(separator: ", ")
     }
     
     ///Config HCOtherInlusion Cell
-    internal func configHCOtherInlusionCell() {
+    internal func configHCOtherInlusionCell(roomInclusions: JSONDictionary) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
         self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
-        self.inclusionTypeLabel.text = "Valet Parking"
+        var otherInclusionText : [String] = []
+        if let otherInclusionData =  roomInclusions[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusionData.isEmpty {
+            otherInclusionText = otherInclusionData
+        }
+        self.inclusionTypeLabel.text = otherInclusionText.joined(separator: ", ")
     }
 }

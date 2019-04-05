@@ -18,6 +18,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
 
     //Mark:- Variables
     //================
+    var nextPlanString: [String] = []
     internal weak var delegate: HCWhatNextTableViewCellDelegate?
     
     //Mark:- IBOutlets
@@ -83,8 +84,10 @@ class HCWhatNextTableViewCell: UITableViewCell {
     }
     
     ///COnfigure Cell
-    internal func configCell() {
-        self.pageControl.numberOfPages = 10
+    internal func configCell(whatNextString: [String]) {
+        self.nextPlanString = whatNextString
+        self.pageControl.numberOfPages = nextPlanString.count
+        self.whatNextCollectionView.reloadData()
     }
     
     //Mark:- IBActions
@@ -111,6 +114,7 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
+//        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
         return cell
     }
     

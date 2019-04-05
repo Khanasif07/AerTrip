@@ -16,8 +16,7 @@ class HCGuestsTableViewCell: UITableViewCell {
     
     //Mark:- Variables
     //================
-    internal var allGuests: [String] = ["Mrs. Julian Delgado","Mr. Clifford Hudson","Mast. Kevin Gilbert (10)","Miss. Ronnie Lyons (9)","Miss. Ronnie Lyons"]
-    internal var allGuestProfileImageUrl: [String] = ["","","","",""]
+    internal var travellers = [TravellersList]()
     internal var delegate: HCGuestsTableViewCellDelegate?
     
     //Mark:- IBOutlets
@@ -56,11 +55,6 @@ class HCGuestsTableViewCell: UITableViewCell {
         self.guestsCollectionView.registerCell(nibName: HCGuestsDetailsCollectionViewCell.reusableIdentifier)
     }
     
-    ///Config Cell
-    internal func configCell() {
-        self.guestsCollectionView.reloadData()
-    }
-    
     ///Email Itinerary Button Action
     @IBAction func emailItineraryButtonAction(_ sender: UIButton) {
         self.delegate?.emailItineraryButtonAction(sender)
@@ -72,12 +66,12 @@ class HCGuestsTableViewCell: UITableViewCell {
 extension HCGuestsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.allGuests.count
+        return self.travellers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCGuestsDetailsCollectionViewCell.reusableIdentifier, for: indexPath) as? HCGuestsDetailsCollectionViewCell else { return UICollectionViewCell() }
-        cell.configCell(name: self.allGuests[indexPath.item], imageUrl: self.allGuestProfileImageUrl[indexPath.item])
+        cell.configCell(name: self.travellers[indexPath.item].first_name + self.travellers[indexPath.item].middle_name + self.travellers[indexPath.item].last_name, imageUrl: self.travellers[indexPath.item].profile_image)
         return cell
     }
     

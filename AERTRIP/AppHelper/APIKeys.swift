@@ -378,6 +378,7 @@ enum APIKeys: String {
     case num_adult
     case num_child
     case inclusions
+    case Inclusions
     case ref_table
     case ref_table_id
     case pax_type
@@ -399,4 +400,5 @@ enum APIKeys: String {
     case event_id
     case is_updated
     case trip_key
+    case receipt
 }

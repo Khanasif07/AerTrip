@@ -43,10 +43,7 @@ class YouAreAllDoneVC: BaseVC {
     
     override func initialSetup() {
         self.registerNibs()
-        self.viewModel.getTableViewSectionData()
         self.tableFooterViewSetUp()
-        //self.allDoneTableView.reloadData()
-        
         self.viewModel.getBookingReceipt()
     }
     
@@ -151,23 +148,23 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         case .inclusionCell:
-            if let cell = self.getInclusionCell(tableView, indexPath: indexPath) {
+            if let cell = self.getInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .otherInclusionCell:
-            if let cell = self.getOtherInclusionCell(tableView, indexPath: indexPath) {
+            if let cell = self.getOtherInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .cancellationPolicyCell:
-            if let cell = self.getCancellationCell(tableView, indexPath: indexPath, ratesData: Rates()) {
+            if let cell = self.getCancellationCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .paymentPolicyCell:
-            if let cell = self.getPaymentInfoCell(tableView, indexPath: indexPath, ratesData: Rates()) {
+            if let cell = self.getPaymentInfoCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .notesCell:
-            if let cell = self.getNotesCell(tableView, indexPath: indexPath, ratesData: Rates()) {
+            if let cell = self.getNotesCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .guestsCell:
@@ -217,6 +214,8 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
     }
     
     func getBookingReceiptSuccess() {
+        self.viewModel.getTableViewSectionData()
+        self.allDoneTableView.reloadData()
     }
     
     func getBookingReceiptFail() {

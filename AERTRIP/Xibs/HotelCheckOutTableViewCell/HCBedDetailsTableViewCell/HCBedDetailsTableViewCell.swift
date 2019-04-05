@@ -43,7 +43,8 @@ class HCBedDetailsTableViewCell: UITableViewCell {
     }
     
     ///Configure Cell
-    internal func configCell() {
-        self.roomDescLabel.text = "2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View"
+    internal func configCell(roomData: Room, index: String) {
+        self.roomNumberLabel.text = LocalizedString.Room.localized + " \(index)"
+        self.roomDescLabel.text = roomData.name
     }
 }

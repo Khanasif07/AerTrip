@@ -36,7 +36,7 @@ struct HotelReceiptModel {
 //    var cancellation_penalty: String
     var isRefundable: Bool = false //is_refundable
     var support_sla_time: SupportSlaTime?
-    var flight_link_param: JSONDictionaryArray = [[:]]
+    var flight_link_param: JSONDictionary = [:]
     var payment_details: PaymentDetails?
     var trip_details: TripDetails?
     
@@ -164,7 +164,7 @@ struct HotelReceiptModel {
         if let obj = json[APIKeys.support_sla_time.rawValue] as? JSONDictionary {
             self.support_sla_time = SupportSlaTime(json: obj)
         }
-        if let obj = json[APIKeys.flight_link_param.rawValue] as? JSONDictionaryArray {
+        if let obj = json[APIKeys.flight_link_param.rawValue] as? JSONDictionary {
             self.flight_link_param = obj
         }
         if let obj = json[APIKeys.payment_details.rawValue] as? JSONDictionary {

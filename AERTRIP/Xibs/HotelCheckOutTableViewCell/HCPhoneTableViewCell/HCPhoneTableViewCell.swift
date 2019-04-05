@@ -38,10 +38,12 @@ class HCPhoneTableViewCell: UITableViewCell {
         //Color
         self.phoneLabel.textColor = AppColors.themeBlack
         self.phoneNumberLabel.textColor = AppColors.themeBlack
+        self.countryImageView.backgroundColor = .clear
     }
     
     ///COnfigure Cell
-    internal func configCell() {
-        
+    internal func configCell(countryImage: UIImage , phoneNumber: String) {
+        self.countryImageView.image = countryImage
+        self.phoneNumberLabel.text = phoneNumber
     }
 }

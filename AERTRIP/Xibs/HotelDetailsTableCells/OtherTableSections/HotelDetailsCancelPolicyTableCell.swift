@@ -260,6 +260,75 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         }
     }
     
+    ///Configure Notes Cell
+    internal func configureHCNotesCell(notesInclusion: [String], isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
+        self.infoBtnOutlet.isHidden = true
+        self.moreInfoContainerView.isHidden = false
+        self.titleLabel.text = LocalizedString.Notes.localized
+        self.titleLabel.font = AppFonts.Regular.withSize(14.0)
+        self.descriptionLabel.textColor = AppColors.themeBlack
+        let attributedString = NSMutableAttributedString()
+        let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
+        let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
+        attributedString.append(dotAttributedString)
+        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let blackAttributedString = NSAttributedString(string: notesInclusion.first ?? "", attributes: blackAttribute)
+        attributedString.append(blackAttributedString)
+        self.descriptionLabel.attributedText = attributedString
+    }
+    
+    ///Full Notes Details
+    internal func fullHCNotesDetails(notesInclusion: [String]) -> NSMutableAttributedString {
+        let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
+        let fullAttributedString = NSMutableAttributedString()
+        for (note) in notesInclusion {
+            let formattedString: String = "●  \(note)\n"
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+            let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
+            attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+            fullAttributedString.append(attributedString)
+        }
+        return fullAttributedString
+    }
+    
+    ///Configure Payment Cell
+    internal func configureHCPaymentCell(isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
+        self.moreInfoContainerView.isHidden = true
+        self.titleLabel.text = LocalizedString.PaymentPolicy.localized
+        self.infoBtnOutlet.isHidden = true
+        self.allDetailsLabel.isHidden = true
+        self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
+        self.descriptionLabel.textColor = AppColors.textFieldTextColor51
+        self.descriptionLabel.text = LocalizedString.FullPaymentNow.localized
+    }
+    
+    ///Full Penalty Details
+    internal func fullHCPenaltyDetails(isRefundable: Bool) {
+        self.titleLabel.font = AppFonts.Regular.withSize(14.0)
+        self.titleLabel.text = LocalizedString.CancellationPolicy.localized
+        let attributedString = NSMutableAttributedString()
+        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.textFieldTextColor51] as [NSAttributedString.Key : Any]
+        var blackAttributedString: NSAttributedString
+        if isRefundable {
+            blackAttributedString = NSAttributedString(string: LocalizedString.Refundable.localized, attributes: blackAttribute)
+        } else {
+            blackAttributedString = NSAttributedString(string: LocalizedString.NonRefundable.localized, attributes: blackAttribute)
+        }
+        attributedString.append(blackAttributedString)
+        self.descriptionLabel.attributedText = attributedString
+    }
+
+    ///Full Penalty Details
+    internal func HCPenaltyDetailsExplanation(canclNotes: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString()
+        let blackAttribute =  [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
+        let blackAttributedString = NSAttributedString(string: canclNotes, attributes: blackAttribute)
+        attributedString.append(blackAttributedString)
+        return attributedString
+    }
+    
     //Mark:- IBActions
     //================
     @IBAction func infoBtnAction(_ sender: UIButton) {

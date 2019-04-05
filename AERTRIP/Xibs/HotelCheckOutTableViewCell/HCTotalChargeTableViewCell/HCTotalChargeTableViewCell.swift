@@ -17,7 +17,7 @@ class HCTotalChargeTableViewCell: UITableViewCell {
     //================
     @IBOutlet weak var totalChargeLabel: UILabel!
     @IBOutlet weak var totalCostLabel: UILabel!
-    @IBOutlet weak var paymentTypeLabel: UILabel!
+    @IBOutlet weak var paymentModeLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
@@ -34,16 +34,18 @@ class HCTotalChargeTableViewCell: UITableViewCell {
         //Font
         self.totalChargeLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.totalCostLabel.font = AppFonts.SemiBold.withSize(26.0)
-        self.paymentTypeLabel.font = AppFonts.Regular.withSize(16.0)
+        self.paymentModeLabel.font = AppFonts.Regular.withSize(16.0)
         //Text
         self.totalChargeLabel.text = LocalizedString.TotalCharge.localized
         //Color
         self.totalChargeLabel.textColor = AppColors.themeBlack
         self.totalCostLabel.textColor = AppColors.themeBlack
-        self.paymentTypeLabel.textColor = AppColors.themeGray40
+        self.paymentModeLabel.textColor = AppColors.themeGray40
     }
     
     ///COnfigure Cell
-    internal func configCell() {
+    internal func configCell(mode: String , totalCharge: Float) {
+        self.paymentModeLabel.text = mode
+        self.totalCostLabel.text = "\(LocalizedString.rupeesText.localized) \(totalCharge)"
     }
 }
