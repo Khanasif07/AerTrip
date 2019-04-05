@@ -74,7 +74,6 @@ class HCDataSelectionVC: BaseVC {
         
         viewModel.fetchConfirmItineraryData()
         fillData()
-        viewModel.fetchConfirmItineraryData()
         
         manageLoader(shouldStart: true)
 
@@ -84,7 +83,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.viewModel.webserviceForItenaryDataTraveller()
+//        self.viewModel.webserviceForItenaryDataTraveller()
     }
     
     override func viewDidLayoutSubviews() {

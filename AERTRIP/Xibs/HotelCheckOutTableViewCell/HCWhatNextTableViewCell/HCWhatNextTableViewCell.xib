@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,6 +30,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlB-gh-hoz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="427.5"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticket_up" translatesAutoresizingMaskIntoConstraints="NO" id="3Wl-Vk-v45">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="7"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tell your friends about your plan!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ur-1G-zdh">
                                 <rect key="frame" x="16" y="24" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -119,12 +123,15 @@
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5ub-hp-9qV" firstAttribute="top" secondItem="fIL-dy-Qqg" secondAttribute="bottom" constant="8" id="862-86-xHb"/>
+                            <constraint firstItem="3Wl-Vk-v45" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" id="D33-ZL-lpl"/>
                             <constraint firstItem="7Ur-1G-zdh" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" constant="24" id="HEY-27-Nwg"/>
                             <constraint firstItem="5ub-hp-9qV" firstAttribute="centerX" secondItem="fIL-dy-Qqg" secondAttribute="centerX" id="RsH-Es-0Lf"/>
                             <constraint firstItem="eOJ-1s-GYh" firstAttribute="centerX" secondItem="7Ur-1G-zdh" secondAttribute="centerX" id="SaW-b6-a6C"/>
+                            <constraint firstAttribute="trailing" secondItem="3Wl-Vk-v45" secondAttribute="trailing" id="VD6-T8-yfg"/>
                             <constraint firstItem="7Ur-1G-zdh" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" constant="16" id="X0j-4r-aMn"/>
                             <constraint firstAttribute="trailing" secondItem="7Ur-1G-zdh" secondAttribute="trailing" constant="16" id="Xwb-Y6-SNi"/>
                             <constraint firstItem="0ij-bR-3rD" firstAttribute="leading" secondItem="7Ur-1G-zdh" secondAttribute="leading" id="cIr-kR-8iQ"/>
+                            <constraint firstItem="3Wl-Vk-v45" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" id="cj0-Gk-ffK"/>
                             <constraint firstAttribute="trailing" secondItem="fIL-dy-Qqg" secondAttribute="trailing" id="e2B-0M-Z2Z"/>
                             <constraint firstItem="fIL-dy-Qqg" firstAttribute="top" secondItem="0ij-bR-3rD" secondAttribute="bottom" constant="18" id="eQN-uh-eUf"/>
                             <constraint firstItem="0ij-bR-3rD" firstAttribute="top" secondItem="eOJ-1s-GYh" secondAttribute="bottom" constant="64" id="ldU-6i-DJm"/>
@@ -155,4 +162,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_ticket_up" width="640" height="7"/>
+    </resources>
 </document>
