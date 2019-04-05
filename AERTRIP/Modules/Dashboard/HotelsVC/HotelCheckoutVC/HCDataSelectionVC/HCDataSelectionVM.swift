@@ -21,7 +21,7 @@ protocol HCDataSelectionVMDelegate: class {
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
     
     func updateFavouriteSuccess(withMessage: String)
-    func updateFavouriteFail(errors:ErrorCodes)
+    func updateFavouriteFail(errors: ErrorCodes)
 }
 
 class HCDataSelectionVM {
@@ -31,11 +31,14 @@ class HCDataSelectionVM {
     
     weak var delegate: HCDataSelectionVMDelegate?
     var itineraryData: ItineraryData?
-    var itineraryPriceDetail:ItenaryModel = ItenaryModel()
+    var itineraryPriceDetail: ItenaryModel = ItenaryModel()
     var placeModel: PlaceModel?
     var sectionData: [[TableCellType]] = []
     var hotelSearchRequest: HotelSearchRequestModel?
     internal var hotelInfo: HotelSearched?
+    var mobileNumber: String = ""
+    var mobileIsd: String = ""
+    var email: String = ""
     
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
@@ -82,79 +85,83 @@ class HCDataSelectionVM {
     }
     
     func isValidateData(vc: UIViewController) -> Bool {
+        var isValid = false
         
-        
-        return true
+        // check for guest details valid or not
+        for (_, room) in GuestDetailsVM.shared.guests.enumerated() {
+            for (_, guest) in room.enumerated() {
+                if guest.firstName.isEmpty || guest.lastName.isEmpty || guest.salutation.isEmpty {
+                    isValid = false
+                    AppToast.default.showToastMessage(message: LocalizedString.GuestDetailsMessage.localized)
+                    return isValid
+                } else {
+                    isValid = true
+                }
+            }
+        }
+        // check if mobile number is valid or Not
+        if self.mobileNumber.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
+            isValid = false
+        }
+        // check if mobile isd is valid or Not
+        if self.mobileIsd.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.EnterIsdMessage.localized)
+            isValid = false
+        }
+        // check if email is empty or Not
+        if self.email.isEmpty || !self.email.checkValidity(.Email) {
+            AppToast.default.showToastMessage(message: LocalizedString.EnterEmailAddressMessage.localized)
+            isValid = false
+        }
+        return isValid
     }
     
     func webserviceForItenaryDataTraveller() {
         var params = JSONDictionary()
         
-//        for i in GuestDetailsVM.shared.guests.count {
-//            for j in GuestDetailsVM.shared.guests[i].count {
-//                
-//            }
-//        }
-//        
-//        for i in 0..<hotelFormData.adultsCount.count {
-//            var temp: [ATContact] = []
-//            for j in 0..<hotelFormData.adultsCount[i] + hotelFormData.childrenCounts[i] {
-//                var guest = ATContact()
-//                if j < hotelFormData.adultsCount[i] {
-//                    guest.passengerType = PassengersType.Adult
-//                    guest.numberInRoom = (j + 1)
-//                    guest.age = -1
-//                    guest.id = "\(j + 1)"
-//                }
-//                else {
-//                    guest.passengerType = PassengersType.child
-//                    let childIdx = (j - hotelFormData.adultsCount[i])
-//                    guest.numberInRoom = childIdx + 1
-//                    guest.age = hotelFormData.childrenAge[i][childIdx]
-//                    guest.id = "\(childIdx)"
-//                }
-//                temp.append(guest)
-//            }
-//            GuestDetailsVM.shared.guests.append(temp)
-//        }
+        // Setting params for guest User Array
         
-//
-//        for (idx, guest) in GuestDetailsVM.shared.guests {
-//            for key in Array(socialObj.jsonDict.keys) {
-//                params["contact[social][\(idx)][\(key)]"] = socialObj.jsonDict[key]
-//            }
-//        }
+        for (i, room) in GuestDetailsVM.shared.guests.enumerated() {
+            for (j, guest) in room.enumerated() {
+                params["t[\(i)][_t][\(j)][fname]"] = guest.firstName
+                params["t[\(i)][_t][\(j)][lname]"] = guest.lastName
+                params["t[\(i)][_t][\(j)][sal]"] = guest.salutation
+                if guest.passengerType == .Adult {
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                } else {
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                    params["t[\(i)][_t][\(j)][age]"] = guest.age
+                }
+                params["t[\(i)][_t][\(j)][id]"] = guest.id
+            }
+        }
         
-        // Guest User Array
+        /* Hardcode guest params required for testing if required */
         
-        params["t[0][_t][0][fname]"] = "Pawan"
-        params["t[0][_t][0][lname]"] =  "Kumar"
-        params["t[0][_t][0][sal]:"] =  "Mr"
-        params["t[0][_t][0][ptype]"] =  "ADT"
-        params["t[0][_t][0][id]"] = "13332"
-        params["t[0][_t][1][fname]"] = "fdsfs"
-        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
-        params["t[0][_t][1][sal]"] =  "Mr"
-        params["t[0][_t][1][ptype]"] =  "ADT"
-        params["t[0][_t][1][id]"] = "0"
+//        params["t[0][_t][0][fname]"] = "Pawan"
+//        params["t[0][_t][0][lname]"] =  "Kumar"
+//        params["t[0][_t][0][sal]:"] =  "Mr"
+//        params["t[0][_t][0][ptype]"] =  "ADT"
+//        params["t[0][_t][0][id]"] = "13332"
+//        params["t[0][_t][1][fname]"] = "fdsfs"
+//        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
+//        params["t[0][_t][1][sal]"] =  "Mr"
+//        params["t[0][_t][1][ptype]"] =  "ADT"
+//        params["t[0][_t][1][id]"] = "0"
         
-        // rid and qid
-        params["t[0][rid]"] = itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
-        params["t[0][qid]"] = itineraryData?.hotelDetails?.rates?.first?.qid
+        // rid and qid in parameters
+        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
+        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
         params["special"] = ""
         params["other"] = ""
         
-        //
-//        params["mobile"] = itineraryData?.mobile
-//        params["mobile_isd"] = itineraryData?.mobile_isd
-//        params["it_id"] = itineraryData?.it_id
-        
-        params["mobile"] = "9716218820"
-        params["mobile_isd"] = "+91"
-        params["it_id"] = itineraryData?.it_id
+        params["mobile"] = self.mobileNumber
+        params["mobile_isd"] = self.mobileIsd
+        params["it_id"] = self.itineraryData?.it_id
         
         self.delegate?.willCallForItenaryDataTraveller()
-        APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: itineraryData?.it_id ?? "",params: params, loader: false) { [weak self] success, errors,message,itinerary in
+        APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: self.itineraryData?.it_id ?? "", params: params, loader: false) { [weak self] success, errors, _, itinerary in
             guard let sSelf = self else { return }
             if success {
                 sSelf.itineraryPriceDetail = itinerary
@@ -167,9 +174,9 @@ class HCDataSelectionVM {
     
     func getHotelDetailsSectionData() {
         self.sectionData.removeAll()
-        self.sectionData.append([.imageSlideCell,.hotelRatingCell,.addressCell , .checkInOutDateCell , .amenitiesCell, .tripAdvisorRatingCell])
+        self.sectionData.append([.imageSlideCell, .hotelRatingCell, .addressCell, .checkInOutDateCell, .amenitiesCell, .tripAdvisorRatingCell])
         if let ratesData = self.itineraryData?.hotelDetails?.rates {
-            //Room details cell only for room label cell
+            // Room details cell only for room label cell
             self.sectionData.append([.roomDetailsCell])
             for rate in ratesData {
                 var tableViewCell = rate.tableViewRowCell
@@ -181,19 +188,20 @@ class HCDataSelectionVM {
         }
     }
     
-    //MARK:- Mark Favourite
-    //MARK:-
+    // MARK: - Mark Favourite
+    
+    // MARK: -
+    
     func updateFavourite() {
         let param: JSONDictionary = ["hid[0]": itineraryData?.hotelDetails?.hid ?? "0", "status": itineraryData?.hotelDetails?.fav == "0" ? 1 : 0]
-        APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] (isSuccess, errors, successMessage) in
+        APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] isSuccess, errors, successMessage in
             if let sSelf = self {
                 if isSuccess {
                     sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
                     _ = self?.hotelInfo?.afterUpdate
-                }
-                else {
-                    sSelf.delegate?.updateFavouriteFail(errors:errors)
+                } else {
+                    sSelf.delegate?.updateFavouriteFail(errors: errors)
                 }
             }
         }

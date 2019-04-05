@@ -144,6 +144,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.guestDetailTableView {
             return GuestDetailsVM.shared.guests.count
         } else {
+            self.travellersTableView.isHidden = self.travellers.count == 0
             return 1
         }
     }

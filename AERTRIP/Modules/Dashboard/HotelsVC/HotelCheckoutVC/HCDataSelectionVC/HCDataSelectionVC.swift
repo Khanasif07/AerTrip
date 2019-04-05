@@ -74,17 +74,16 @@ class HCDataSelectionVC: BaseVC {
         
         viewModel.fetchConfirmItineraryData()
         fillData()
-        viewModel.fetchConfirmItineraryData()
         
         manageLoader(shouldStart: true)
-
+        self.setUpUserEmailMobile()
+        
         setupGuestArray()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.viewModel.webserviceForItenaryDataTraveller()
     }
     
     override func viewDidLayoutSubviews() {
@@ -298,7 +297,10 @@ class HCDataSelectionVC: BaseVC {
     
     @IBAction func continueButtonAction(_ sender: UIButton) {
         self.isFromFinalCheckout = false
-        viewModel.fetchRecheckRatesData()
+        if self.viewModel.isValidateData(vc: self) {
+               viewModel.fetchRecheckRatesData()
+        }
+     
     }
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
@@ -379,7 +381,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
         manageLoader(shouldStart: false)
-        self.viewModel.webserviceForItenaryDataTraveller()
+        if self.viewModel.isValidateData(vc: self) {
+              self.viewModel.webserviceForItenaryDataTraveller()
+        }
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
             
@@ -536,12 +540,13 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: TextEditableTableViewCell.reusableIdentifier) as? TextEditableTableViewCell else {
                     return UITableViewCell()
                 }
-                
+              
                 cell.downArrowImageView.isHidden = true
                 cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
                 cell.titleLabel.textColor = AppColors.themeGray20
                 cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
+                cell.delegate = self
                 cell.editableTextField.text = UserInfo.loggedInUser?.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
@@ -573,6 +578,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
             AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests, delegate: self)
         }
     }
+    
+    func setUpUserEmailMobile() {
+        self.viewModel.mobileNumber = UserInfo.loggedInUser?.mobile ?? ""
+        self.viewModel.mobileIsd = UserInfo.loggedInUser?.isd ?? ""
+        self.viewModel.email = UserInfo.loggedInUser?.email ?? ""
+    }
 }
 
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
@@ -584,6 +595,9 @@ extension HCDataSelectionVC: HCSpecialRequestsDelegate {
 extension HCDataSelectionVC : FinalCheckOutVCDelegate {
     func cancelButtonTapped() {
         self.isFromFinalCheckout = true
+        if self.viewModel.isValidateData(vc: self) {
+              self.viewModel.webserviceForItenaryDataTraveller()
+        }
     }
 }
 
@@ -607,11 +621,13 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
 }
 
 extension HCDataSelectionVC : ContactTableCellDelegate {
-    func setIsdCode() {
-        //
+    func setIsdCode(_ country:PKCountryModel) {
+        self.viewModel.mobileIsd = country.countryCode
     }
     
     func textFieldText(_ textField: UITextField) {
-        self.viewModel.itineraryData?.mobile = textField.text ?? ""
+        self.viewModel.mobileNumber = textField.text ?? ""
     }
 }
+
+

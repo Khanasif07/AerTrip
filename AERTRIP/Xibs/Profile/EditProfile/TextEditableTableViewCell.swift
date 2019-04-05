@@ -27,6 +27,8 @@ class TextEditableTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+         editableTextField.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,7 +42,7 @@ class TextEditableTableViewCell: UITableViewCell {
     func configureCell(_ title: String, _ text: String) {
         titleLabel.text = title
         editableTextField.text = text
-        editableTextField.delegate = self
+       
     }
     
 }
