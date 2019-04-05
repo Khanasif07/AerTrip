@@ -27,6 +27,7 @@ class YouAreAllDoneVM: NSObject {
     //================
     var sectionData: [[TableViewCellType]] = []
     weak var delegate: YouAreAllDoneVMDelegate?
+    var hotelReceiptData: HotelReceiptModel?
 //    var itinaryData : ItineraryData?
 //    var itinaryPriceDetail: ItenaryModel?
     
@@ -73,6 +74,7 @@ class YouAreAllDoneVM: NSObject {
         APICaller.shared.bookingReceiptAPI(params: params) { [weak self](success, errors, options)  in
             guard let sSelf = self else { return }
             if success {
+//                sSelf.hotelReceiptData
                 sSelf.delegate?.getBookingReceiptSuccess()
             } else {
                 sSelf.delegate?.getBookingReceiptFail()

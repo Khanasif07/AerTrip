@@ -42,6 +42,7 @@ enum APIKeys: String {
     case ref   = "ref"
     case isd   = "isd"
     case country    = "country"
+    case country_code = "country_code"
     case salutation = "salutation"
     case facebook   = "facebook"
     case google     = "google"
@@ -65,6 +66,7 @@ enum APIKeys: String {
     case hid
     case name
     case city_id
+    case state
     case stars
     case rating
     case ta_rating
@@ -365,6 +367,36 @@ enum APIKeys: String {
     case pid
     case oid
     case sig
-
+    case num_nights
+    case booking_number
+    case booking_params
+    case booking_status
+    case support_sla_time
+    case flight_link_param
+    case payment_details
+    case trip_details
+    case num_adult
+    case num_child
+    case inclusions
+    case ref_table
+    case ref_table_id
+    case pax_type
+    case pax_status
+    case middle_name
+    case status_id
+    case lead_pax
+    case pnr
+    case pnr_sector
+    case ticket_no
+    case crs_pnr
+    case added_while_booking
+    case pax_group
+    case updated_on
+    case booking_ts
+    case sla_ts
+    case transaction_id
+    case mode
+    case event_id
+    case is_updated
+    case trip_key
 }
-
