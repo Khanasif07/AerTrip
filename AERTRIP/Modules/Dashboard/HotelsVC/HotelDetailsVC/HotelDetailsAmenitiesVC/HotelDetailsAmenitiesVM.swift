@@ -7,13 +7,16 @@
 //
 
 import Foundation
+//About the Property ,  Internet and Business Services , Food and drinks , Things to Do , Services
 
+enum AmenitiesPriorities: Int{
+    case AboutTheProperty = 0 , InternetAndBusinessServices , FoodAndDrinks , ThingsToDo , Services
+}
 
 class HotelDetailsAmenitiesVM: NSObject {
     
     internal var hotelDetails: HotelDetails?
     var sections: [String] = []
-//    var rowData: [Any] = []
     var rowsData = [[String]]()
     
     internal func getAmenitiesSections() {
@@ -23,8 +26,8 @@ class HotelDetailsAmenitiesVM: NSObject {
                 if let value = amenities.value as? [String] {
                     self.rowsData.append(value)
                 }
-//                self.rowData.append(amenities.value)
             }
         }
     }
+    
 }

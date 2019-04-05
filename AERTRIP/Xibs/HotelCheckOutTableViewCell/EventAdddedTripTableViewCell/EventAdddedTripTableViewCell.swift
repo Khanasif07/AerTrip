@@ -46,7 +46,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
     }
 
     internal func configCell() {
-        
+
     }
     
     //Mark:- IBActions

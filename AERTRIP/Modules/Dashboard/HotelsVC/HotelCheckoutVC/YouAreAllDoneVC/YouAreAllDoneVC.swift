@@ -227,6 +227,6 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
 //=====================================
 extension YouAreAllDoneVC: HCGuestsTableViewCellDelegate {
     func emailItineraryButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.presentHCEmailItinerariesVC()
+        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "")
     }
 }
