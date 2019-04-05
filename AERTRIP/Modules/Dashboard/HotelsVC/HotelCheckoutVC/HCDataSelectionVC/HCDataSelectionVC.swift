@@ -558,6 +558,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//Mark:- HCSpecialRequestsDelegate
+//================================
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
     func didPassSelectedRequestsId(ids: [Int], preferences: String, request: String) {
         printDebug("\(ids),\t\(preferences),\t\(request)")

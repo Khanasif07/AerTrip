@@ -27,6 +27,8 @@ class YouAreAllDoneVM: NSObject {
     //================
     var sectionData: [[TableViewCellType]] = []
     weak var delegate: YouAreAllDoneVMDelegate?
+//    var itinaryData : ItineraryData?
+//    var itinaryPriceDetail: ItenaryModel?
     
     var itId: String = "", bookingIds: [String] = []
     

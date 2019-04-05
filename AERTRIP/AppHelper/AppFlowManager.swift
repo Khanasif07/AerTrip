@@ -427,10 +427,11 @@ extension AppFlowManager {
     func presentHCEmailItinerariesVC(forBookingId bId: String) {
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.bookingId = bId
-        self.mainNavigationController.pushViewController(obj, animated: true)
+//        self.mainNavigationController.pushViewController(obj, animated: true)
+        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String]) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] ) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds

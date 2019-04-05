@@ -212,6 +212,7 @@ extension YouAreAllDoneVC: GetFullInfoDelegate {
 }
 
 extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
+    
     func willGetBookingReceipt() {
     }
     
@@ -228,5 +229,22 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
 extension YouAreAllDoneVC: HCGuestsTableViewCellDelegate {
     func emailItineraryButtonAction(_ sender: UIButton) {
         AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "")
+    }
+}
+
+//Mark:- HCWhatNextTableViewCellDelegate Delegate
+//=====================================
+extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
+    
+    func shareOnFaceBook() {
+        printDebug("Share On FaceBook")
+    }
+    
+    func shareOnTwitter() {
+        printDebug("Share On Twitter")
+    }
+    
+    func shareOnLinkdIn() {
+        printDebug("Share On LinkdIn")
     }
 }

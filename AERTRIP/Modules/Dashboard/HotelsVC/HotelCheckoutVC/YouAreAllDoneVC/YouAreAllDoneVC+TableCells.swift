@@ -86,6 +86,7 @@ extension YouAreAllDoneVC {
     internal func getCancellationCell(_ tableView: UITableView, indexPath: IndexPath, ratesData: Rates) -> HotelDetailsCancelPolicyTableCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
         cell.delegate = self
+        cell.clipsToBounds = true
         cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: false)
         return cell
         /*
@@ -93,6 +94,7 @@ extension YouAreAllDoneVC {
          guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
          cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: false)
          cell.delegate = self
+         cell.clipsToBounds = true
          if self.allIndexPath.contains(indexPath) {
          cell.allDetailsLabel.isHidden = false
          cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
@@ -111,6 +113,7 @@ extension YouAreAllDoneVC {
     internal func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
         cell.delegate = self
+        cell.clipsToBounds = true
         cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: false)
         if self.allIndexPath.contains(indexPath) {
             cell.allDetailsLabel.isHidden = false
@@ -128,6 +131,7 @@ extension YouAreAllDoneVC {
     internal func getNotesCell(_ tableView: UITableView, indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
         cell.delegate = self
+        cell.clipsToBounds = true
         cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: false)
         return cell
         /*
@@ -137,6 +141,7 @@ extension YouAreAllDoneVC {
          cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: false)
          if self.allIndexPath.contains(indexPath) {
          cell.descriptionLabel.text = ""
+         cell.clipsToBounds = true
          cell.allDetailsLabel.isHidden = false
          cell.moreInfoContainerView.isHidden = true
          cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
@@ -175,7 +180,8 @@ extension YouAreAllDoneVC {
     }
     
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
+        cell.delegate = self
         cell.configCell()
         return cell
     }

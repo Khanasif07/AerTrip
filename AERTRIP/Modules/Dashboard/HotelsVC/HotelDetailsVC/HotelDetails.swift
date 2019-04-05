@@ -445,7 +445,7 @@ struct Rates: Hashable {
         presentedCell.append(.checkOutCell)
         return presentedCell
     }
-    
+        
     //Mark:- Initialization
     //=====================
     init() {

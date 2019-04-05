@@ -89,7 +89,7 @@ extension HCEmailItinerariesVC: UITableViewDelegate, UITableViewDataSource {
 //================================
 extension HCEmailItinerariesVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
