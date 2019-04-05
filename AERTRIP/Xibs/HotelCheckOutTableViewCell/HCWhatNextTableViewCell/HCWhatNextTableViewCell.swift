@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol HCWhatNextTableViewCellDelegate: class {
+    func shareOnFaceBook()
+    func shareOnTwitter()
+    func shareOnLinkdIn()
+}
+
 class HCWhatNextTableViewCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-
+    var nextPlanString: [String] = []
+    internal weak var delegate: HCWhatNextTableViewCellDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -26,6 +33,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         didSet {
             self.whatNextCollectionView.delegate = self
             self.whatNextCollectionView.dataSource = self
+            self.whatNextCollectionView.isPagingEnabled = true
             self.whatNextCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 0.0)
         }
     }
@@ -76,22 +84,24 @@ class HCWhatNextTableViewCell: UITableViewCell {
     }
     
     ///COnfigure Cell
-    internal func configCell() {
-        self.pageControl.numberOfPages = 10
+    internal func configCell(whatNextString: [String]) {
+        self.nextPlanString = whatNextString
+        self.pageControl.numberOfPages = nextPlanString.count
+        self.whatNextCollectionView.reloadData()
     }
     
     //Mark:- IBActions
     //================
     @IBAction func fbButtonAction(_ sender: UIButton) {
-        printDebug("fb button")
+        self.delegate?.shareOnFaceBook()
     }
     
     @IBAction func twitterButtonAction(_ sender: UIButton) {
-        printDebug("twitter button")
+        self.delegate?.shareOnTwitter()
     }
     
     @IBAction func linkedInButtonAction(_ sender: UIButton) {
-        printDebug("linkedin button")
+        self.delegate?.shareOnLinkdIn()
     }
 }
 
@@ -104,11 +114,13 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
+//        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.width - 12.0, height: collectionView.frame.height)
+        //collectionView.frame.width - 12.0
+        let size = CGSize(width: 363.0, height: collectionView.frame.height)
         return size
     }
     

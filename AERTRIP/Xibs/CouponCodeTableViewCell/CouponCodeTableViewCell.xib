@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,12 +53,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ends: 31 Dec 2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gu1-ND-mXy">
-                        <rect key="frame" x="131" y="109.5" width="228" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gz5-Np-WrO">
                         <rect key="frame" x="16" y="108" width="95" height="20"/>
                         <constraints>
@@ -82,7 +76,6 @@
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="top" secondItem="ot5-uX-JBu" secondAttribute="top" id="0l4-Bk-Xnm"/>
                     <constraint firstItem="dWR-oV-aZq" firstAttribute="centerY" secondItem="ot5-uX-JBu" secondAttribute="centerY" id="1lG-qJ-baq"/>
                     <constraint firstAttribute="trailing" secondItem="q5m-U6-gX4" secondAttribute="trailing" constant="16" id="4IS-jf-ccr"/>
-                    <constraint firstItem="Gu1-ND-mXy" firstAttribute="trailing" secondItem="7pl-QQ-PPZ" secondAttribute="trailing" id="8P6-ac-Tmd"/>
                     <constraint firstItem="gz5-Np-WrO" firstAttribute="top" secondItem="jSQ-sH-rA9" secondAttribute="bottom" id="BXr-Yl-ks3"/>
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="BmH-cN-kwt"/>
                     <constraint firstItem="dWR-oV-aZq" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="trailing" constant="11" id="Dz2-VQ-G3t"/>
@@ -91,13 +84,11 @@
                     <constraint firstItem="jSQ-sH-rA9" firstAttribute="trailing" secondItem="7pl-QQ-PPZ" secondAttribute="trailing" id="JNp-6C-0py"/>
                     <constraint firstAttribute="bottom" secondItem="q5m-U6-gX4" secondAttribute="bottom" id="PWw-RS-Jse"/>
                     <constraint firstItem="q5m-U6-gX4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Roy-Z8-4ie"/>
-                    <constraint firstItem="Gu1-ND-mXy" firstAttribute="centerY" secondItem="gz5-Np-WrO" secondAttribute="centerY" id="Y6g-72-Wnc"/>
                     <constraint firstItem="7pl-QQ-PPZ" firstAttribute="centerY" secondItem="ot5-uX-JBu" secondAttribute="centerY" id="aXW-Ed-aI8"/>
                     <constraint firstItem="jSQ-sH-rA9" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="bhs-y2-KZc"/>
                     <constraint firstItem="gz5-Np-WrO" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="egS-Jy-K8I"/>
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="bottom" secondItem="ot5-uX-JBu" secondAttribute="bottom" id="fco-kD-Kcw"/>
                     <constraint firstItem="ot5-uX-JBu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="kK8-XN-18d"/>
-                    <constraint firstItem="Gu1-ND-mXy" firstAttribute="leading" secondItem="gz5-Np-WrO" secondAttribute="trailing" constant="20" id="kZL-Kd-fOp"/>
                     <constraint firstItem="7pl-QQ-PPZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dWR-oV-aZq" secondAttribute="trailing" constant="10" id="mgH-We-EVg"/>
                     <constraint firstItem="ot5-uX-JBu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pHy-E4-a2b"/>
                     <constraint firstItem="q5m-U6-gX4" firstAttribute="top" secondItem="gz5-Np-WrO" secondAttribute="bottom" constant="12.5" id="r4s-mn-vRh"/>
@@ -111,7 +102,6 @@
                 <outlet property="couponInfoTextView" destination="jSQ-sH-rA9" id="a2Z-vt-KSY"/>
                 <outlet property="discountLabel" destination="7pl-QQ-PPZ" id="ekq-Qr-bj3"/>
                 <outlet property="dividerView" destination="q5m-U6-gX4" id="ISw-d7-Vlh"/>
-                <outlet property="expiryTimeLabel" destination="Gu1-ND-mXy" id="2it-X2-Tye"/>
                 <outlet property="offerTermsButton" destination="gz5-Np-WrO" id="4Lc-71-Haa"/>
             </connections>
             <point key="canvasLocation" x="16.800000000000001" y="123.23838080959521"/>

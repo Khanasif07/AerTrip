@@ -19,9 +19,10 @@ extension HotelCheckOutDetailsVIew {
         cell.configCell(imageUrls: hotelDetails.photos)
         return cell
     }
-    
+
     internal func getHotelRatingInfoCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+        cell.delegate = self
         if let hotelDetails = self.viewModel, let placeData = self.placeModel {
             cell.configHCDetailsCell(hotelData: hotelDetails, placeData: placeData)
         }

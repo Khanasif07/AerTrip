@@ -76,9 +76,9 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.viewModel.getHotelDistanceAndTimeInfo()
         self.view.backgroundColor = .clear
         self.headerView.shouldAddBlurEffect = true
-        self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
         self.footerViewSetUp()

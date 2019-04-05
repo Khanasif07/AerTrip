@@ -188,21 +188,22 @@ extension APICaller {
         }
     }
     
-    func bookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ options: JSONDictionary)->Void) {
+    func bookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelReceiptData : HotelReceiptModel?)->Void) {
         AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                if sucess {
-                    completionBlock(true, [], jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
+                if sucess , let data = jsonData[APIKeys.data.rawValue].dictionaryObject , let receiptData = data[APIKeys.receipt.rawValue] as? JSONDictionary {
+                    let receiptModel = HotelReceiptModel(json: receiptData)
+                    completionBlock(true, [] , receiptModel)
                 } else {
-                    completionBlock(true, [], [:])
+                    completionBlock(true, [], nil)
                 }
             }, failure:  { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors, [:])
+                completionBlock(false, errors, nil)
             })
         }) { (error) in
-            completionBlock(false, [], [:])
+            completionBlock(false, [], nil)
         }
     }
 }

@@ -8,26 +8,6 @@
 
 import UIKit
 
-struct TripDetails {
-    var booking_id: String = ""
-    var trip_id: String = ""
-    var event_id: String = ""
-    var is_updated: String = ""
-    var trip_key: String = ""
-    var name: String = ""
-    
-    init() {
-        self.init(json: [:])
-    }
-    
-    var jsonDict: JSONDictionary {
-        return [:]
-    }
-    
-    init(json: JSONDictionary) {
-    }
-}
-
 protocol SelectTripVCDelegate: class {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?)
 }
