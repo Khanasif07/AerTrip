@@ -78,7 +78,9 @@ class HotelSearchTableViewCell: UITableViewCell {
         self.starRatingView.isHidden = hotel.star == 0
         self.starRatingView.rating = hotel.star
         self.tripAdvisorRatingView.rating = hotel.rating
-        self.tripRatingView.isHidden = hotel.rating == 0
+//        self.tripRatingView.isHidden = hotel.rating == 0
+        self.tripAdvisorRatingView.isHidden = hotel.rating == 0
+        self.tripLogoImage.isHidden = hotel.rating == 0
         self.addressLabel.attributedText = getAttributeBoldTextForAddress(text: hotel.address ?? "", boldText: searchText)
     }
     
