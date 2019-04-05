@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -329,6 +329,9 @@
                                     <constraint firstAttribute="height" constant="44" id="hWb-EA-FrG"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="04V-iz-1tY">
+                                <rect key="frame" x="335" y="32" width="20" height="20"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lh2-kn-jTl">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -338,15 +341,19 @@
                         <constraints>
                             <constraint firstItem="kdY-AN-fBI" firstAttribute="top" secondItem="ahp-cC-pVe" secondAttribute="top" id="3Os-96-ed9"/>
                             <constraint firstItem="lh2-kn-jTl" firstAttribute="top" secondItem="kdY-AN-fBI" secondAttribute="bottom" id="3WI-NE-zJb"/>
+                            <constraint firstItem="04V-iz-1tY" firstAttribute="trailing" secondItem="kdY-AN-fBI" secondAttribute="trailing" constant="-20" id="52a-aO-z9C"/>
                             <constraint firstItem="kdY-AN-fBI" firstAttribute="leading" secondItem="ahp-cC-pVe" secondAttribute="leading" id="Jon-xW-YmJ"/>
                             <constraint firstItem="ahp-cC-pVe" firstAttribute="trailing" secondItem="lh2-kn-jTl" secondAttribute="trailing" id="OJa-46-gjg"/>
+                            <constraint firstItem="04V-iz-1tY" firstAttribute="centerY" secondItem="kdY-AN-fBI" secondAttribute="centerY" id="T8y-oQ-vax"/>
                             <constraint firstItem="ahp-cC-pVe" firstAttribute="bottom" secondItem="lh2-kn-jTl" secondAttribute="bottom" id="XQ1-L0-vpg"/>
                             <constraint firstItem="lh2-kn-jTl" firstAttribute="leading" secondItem="ahp-cC-pVe" secondAttribute="leading" id="ewX-R5-3ul"/>
                             <constraint firstItem="ahp-cC-pVe" firstAttribute="trailing" secondItem="kdY-AN-fBI" secondAttribute="trailing" id="fO9-mM-pCT"/>
+                            <constraint firstItem="kdY-AN-fBI" firstAttribute="leading" secondItem="ahp-cC-pVe" secondAttribute="leading" id="nU1-6Z-Hmt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ahp-cC-pVe"/>
                     </view>
                     <connections>
+                        <outlet property="acitivityIndicatorView" destination="04V-iz-1tY" id="OuL-E5-ZKf"/>
                         <outlet property="tableView" destination="lh2-kn-jTl" id="79v-Aj-QCv"/>
                         <outlet property="topNavView" destination="kdY-AN-fBI" id="ov8-nz-Ffz"/>
                     </connections>

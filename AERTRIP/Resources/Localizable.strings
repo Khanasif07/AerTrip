@@ -564,3 +564,4 @@
 "GuestDetailsMessage" = "Please fill all guest details";
 "EnterMobileNumberMessage" = "Please enter valid mobile number";
 "EnterEmailAddressMessage" = "Not a valid email address";
+"UnableToGetMail" = "Unable to get email of selected person";

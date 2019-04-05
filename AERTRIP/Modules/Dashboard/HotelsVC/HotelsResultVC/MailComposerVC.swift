@@ -15,6 +15,7 @@ class MailComposerVC: BaseVC {
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
     
     // MARK: Variables
     
@@ -23,6 +24,7 @@ class MailComposerVC: BaseVC {
     var mailComposerFooterView: EmailComposerFooterView = EmailComposerFooterView()
     var selectedMails: [String] = []
     let viewModel = MailComposerVM()
+    var selectedUserEmail = ""
     
     // MARK: - View Life cycle
     
@@ -71,6 +73,8 @@ class MailComposerVC: BaseVC {
     }
     
     private func navBarSetUp() {
+        self.acitivityIndicatorView.color = AppColors.themeGreen
+        self.acitivityIndicatorView.isHidden = true
         self.topNavView.backgroundColor = AppColors.clear
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.EmailFavouriteHotelInfo.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
@@ -218,6 +222,19 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
             [CNContactEmailAddressesKey]
         self.present(contactPicker, animated: true, completion: nil)
     }
+    
+    
+    func startLoading() {
+        acitivityIndicatorView.isHidden = false
+        acitivityIndicatorView.startAnimating()
+        topNavView.firstRightButton.isHidden = true
+    }
+    
+    func stopLoading() {
+        acitivityIndicatorView.isHidden = true
+        acitivityIndicatorView.stopAnimating()
+        topNavView.firstRightButton.isHidden = false
+    }
 }
 
 // MARK: Contact picker Delegate methods
@@ -227,9 +244,15 @@ extension MailComposerVC: CNContactPickerDelegate {
         picker.dismiss(animated: true, completion: nil)
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
-            self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
-            self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
+                printDebug("mail is \(_mail)")
+                self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
+                self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
+                self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.toEmailTextView)
+                self.selectedUserEmail = _mail
+        } else {
+            AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6, buttonTitle: "", buttonImage: nil)
         }
+       
     }
 }
 
@@ -237,14 +260,16 @@ extension MailComposerVC: CNContactPickerDelegate {
 
 extension MailComposerVC: MailComoserVMDelegate {
     func willSendEmail() {
-        //
+        startLoading()
     }
     
     func didSendEmailSuccess() {
+        stopLoading()
         dismiss(animated: true, completion: nil)
     }
     
-    func didSendemailFail() {
-        //
+    func didSendemailFail(_ error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+        stopLoading()
     }
 }

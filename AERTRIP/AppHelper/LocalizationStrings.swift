@@ -597,5 +597,6 @@ enum LocalizedString: String {
     case GuestDetailsMessage = "GuestDetailsMessage"
     case EnterMobileNumberMessage = "EnterMobileNumberMessage"
     case EnterEmailAddressMessage = "EnterEmailAddressMessage"
+    case UnableToGetMail = "UnableToGetMail"
  }
 

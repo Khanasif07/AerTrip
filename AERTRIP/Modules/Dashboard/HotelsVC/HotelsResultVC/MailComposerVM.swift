@@ -11,7 +11,7 @@ import Foundation
 protocol MailComoserVMDelegate: class {
     func willSendEmail()
     func didSendEmailSuccess()
-    func didSendemailFail()
+    func didSendemailFail(_ errors: ErrorCodes)
 }
 
 class MailComposerVM: NSObject {
@@ -20,7 +20,7 @@ class MailComposerVM: NSObject {
     var favouriteHotels: [HotelSearched] = []
     var hotelSearchRequest: HotelSearchRequestModel?
     weak var delegate: MailComoserVMDelegate?
-    var subject: String = ""
+    var subject: String = LocalizedString.CheckoutMyFavouriteHotels.localized
     var u: String = ""
     var fromEmails: [String] = []
     var pinnedEmails: [String] = []
@@ -42,11 +42,11 @@ class MailComposerVM: NSObject {
         param["u"] = self.u
         
         self.delegate?.willSendEmail()
-        APICaller.shared.callSendEmailAPI(params: param) { isSuccess, _, _ in
+        APICaller.shared.callSendEmailAPI(params: param) { isSuccess,errors, _ in
             if isSuccess {
                 self.delegate?.didSendEmailSuccess()
             } else {
-                self.delegate?.didSendemailFail()
+                self.delegate?.didSendemailFail(errors)
             }
         }
     }
