@@ -118,6 +118,13 @@ class GuestDetailsVC: BaseVC {
     private func makeTableViewIndexSelectable() {
         self.guestDetailTableView.scrollToRow(at: self.viewModel.selectedIndexPath, at: .top, animated: false)
         if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
+            let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
+            if self.travellers.count == 0 {
+                 self.travellersTableView.isHidden = true
+            } else {
+                self.travellersTableView.isHidden = !guest.firstName.isEmpty
+            }
+           
             cell.firstNameTextField.becomeFirstResponder()
         }
     }
@@ -144,7 +151,6 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.guestDetailTableView {
             return GuestDetailsVM.shared.guests.count
         } else {
-            self.travellersTableView.isHidden = self.travellers.count == 0
             return 1
         }
     }
@@ -254,14 +260,13 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             switch textField {
             case cell.firstNameTextField:
                 if let indexPath = self.indexPath {
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text ?? ""
+                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text ?? ""
                 }
                 
             case cell.lastNameTextField:
                 if let indexPath = self.indexPath {
                     GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text ?? ""
                 }
-                
                 
             default:
                 break
@@ -278,10 +283,9 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
             
             guestDetailTableView.isScrollEnabled = false
-            travellersTableView.isHidden = false
             travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
-        } 
+        }
     }
 }
 
