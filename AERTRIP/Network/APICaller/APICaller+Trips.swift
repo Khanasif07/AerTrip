@@ -10,6 +10,32 @@ import Foundation
 
 extension APICaller {
     
+    func getOwnedTripsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ trips: [TripModel], _ defaultTrip: TripModel?) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.ownedTrips, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    let (trips, defTrip) = TripModel.models(jsonArr: jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] ?? [[:]])
+                    completionBlock(true, [], trips, defTrip)
+                }
+                else {
+                    completionBlock(false, [], [], nil)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, [], nil)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [], nil)
+            }
+        }
+    }
+    
     func getAllTripsAPI(loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ trips: [TripModel], _ defaultTrip: TripModel?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.tripsList, parameters: [:], success: { [weak self] json in
             guard let sSelf = self else { return }

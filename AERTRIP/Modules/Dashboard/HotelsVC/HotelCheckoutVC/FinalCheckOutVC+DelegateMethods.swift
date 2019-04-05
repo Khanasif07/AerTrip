@@ -10,7 +10,7 @@ import Foundation
 
 extension FinalCheckOutVC : WalletTableViewCellDelegate {
     func valueForSwitch(isOn: Bool) {
-        self.isWallet = isOn
+        self.isWallet = (getWalletAmount() <= 0) ? false : isOn
         self.setConvenienceFeeToBeApplied()
         
     }

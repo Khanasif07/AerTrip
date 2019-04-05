@@ -499,18 +499,33 @@ extension AppFlowManager {
 //MARK:- Select Trip Flow Methods
 extension AppFlowManager {
 
-    func selectTrip(complition: @escaping ((TripModel)->Void)) {
-        APICaller.shared.getAllTripsAPI { [weak self](success, errors, trips, defaultTrip) in
-            
-            guard let sSelf = self else {return}
-            if let trip = defaultTrip {
-                complition(trip)
+    func selectTrip(_ tripDetails: TripDetails?, complition: @escaping ((TripModel)->Void)) {
+        
+        func openSelectTripScreen(trips: [TripModel]) {
+            let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+            obj.selectionComplition = complition
+            obj.viewModel.allTrips = trips
+            self.mainNavigationController.present(obj, animated: true)
+        }
+        
+        if let detail = tripDetails {
+            APICaller.shared.getOwnedTripsAPI(params: ["trip_id": detail.trip_id]) { [weak self](success, errors, trips, defaultTrip) in
+                if let trip = defaultTrip {
+                    complition(trip)
+                }
+                else {
+                    openSelectTripScreen(trips: trips)
+                }
             }
-            else {
-                let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
-                obj.selectionComplition = complition
-                obj.viewModel.allTrips = trips
-                sSelf.mainNavigationController.present(obj, animated: true)
+        }
+        else {
+            APICaller.shared.getAllTripsAPI { [weak self](success, errors, trips, defaultTrip) in
+                if let trip = defaultTrip {
+                    complition(trip)
+                }
+                else {
+                    openSelectTripScreen(trips: trips)
+                }
             }
         }
     }

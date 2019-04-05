@@ -56,6 +56,7 @@ class YouAreAllDoneFooterView: UIView {
     //Mark:- IBActions
     //================
     @IBAction func returnHomeButtonAction(_ sender: UIButton) {
+        GuestDetailsVM.shared.guests.removeAll()
         AppFlowManager.default.popToRootViewController(animated: true)
     }
 }
