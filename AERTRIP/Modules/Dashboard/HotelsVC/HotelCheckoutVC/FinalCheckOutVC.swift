@@ -666,7 +666,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         //send to you are all donr screen
         manageLoader(shouldStart: false)
         if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds)
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
         }
     }
     func getPaymentResonseFail() {

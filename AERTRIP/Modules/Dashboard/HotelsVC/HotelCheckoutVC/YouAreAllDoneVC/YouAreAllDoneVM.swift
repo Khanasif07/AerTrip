@@ -28,14 +28,18 @@ class YouAreAllDoneVM: NSObject {
     var sectionData: [[TableViewCellType]] = []
     weak var delegate: YouAreAllDoneVMDelegate?
     var hotelReceiptData: HotelReceiptModel?
-//    var itinaryData : ItineraryData?
-//    var itinaryPriceDetail: ItenaryModel?
-    
+    var originLat: String = ""
+    var originLong: String = ""
     var itId: String = "", bookingIds: [String] = []
     
     //Mark:- Functions
     //================
     ///Get GuestCellData
+    override init() {
+        self.originLat = ""
+        self.originLong = ""
+    }
+    
     private func getGuestCellData(room: Room) ->  [TableViewCellType] {
         var guestData: [TableViewCellType] = []
         if !room.name.isEmpty{
@@ -45,9 +49,9 @@ class YouAreAllDoneVM: NSObject {
         if let inclusion =  room.inclusions[APIKeys.Inclusions.rawValue] as? [String], !inclusion.isEmpty {
             guestData.append(.inclusionCell)
         }
-//        if room.OtherInclusion.isEmpty{
-//            guestData.append(.otherInclusionCell)
-//        }
+        if let otherInclusion =  room.inclusions[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
+            guestData.append(.otherInclusionCell)
+        }
         guestData.append(.cancellationPolicyCell)
         guestData.append(.paymentPolicyCell)
         if let notesInclusion =  room.inclusions[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {

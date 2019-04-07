@@ -44,7 +44,7 @@ class HCTotalChargeTableViewCell: UITableViewCell {
     }
     
     ///COnfigure Cell
-    internal func configCell(mode: String , totalCharge: Float) {
+    internal func configCell(mode: String , totalCharge: Double) {
         self.paymentModeLabel.text = mode
         self.totalCostLabel.text = "\(LocalizedString.rupeesText.localized) \(totalCharge)"
     }

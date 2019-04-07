@@ -53,6 +53,7 @@ extension YouAreAllDoneVC {
     
     internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
+        cell.topDividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.webSiteCell) ? true : false
         cell.configCell(checkInDate: self.viewModel.hotelReceiptData?.checkin ?? "", checkOutDate: self.viewModel.hotelReceiptData?.checkout ?? "", totalNights: self.viewModel.hotelReceiptData?.num_nights ?? 0)
         return cell
     }
@@ -60,8 +61,8 @@ extension YouAreAllDoneVC {
     /* Guest Sections Cells */
     internal func getBedDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCBedDetailsTableViewCell.reusableIdentifier, for: indexPath) as? HCBedDetailsTableViewCell else { return nil }
-        let index: String = (self.viewModel.hotelReceiptData?.rooms?.count ?? 0 > 1) ? "\(indexPath.row)" : ""
-        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.row] ?? Room(), index: index)
+        let index: String = (self.viewModel.hotelReceiptData?.rooms.count ?? 0 > 1) ? "\(indexPath.section - 1)" : ""
+        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index)
         return cell
     }
     
@@ -86,7 +87,7 @@ extension YouAreAllDoneVC {
     
     internal func getCancellationCell(_ tableView: UITableView, indexPath: IndexPath, roomData: Room) -> HotelDetailsCancelPolicyTableCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-        cell.fullHCPenaltyDetails(isRefundable: self.viewModel.hotelReceiptData?.isRefundable ?? false)
+        cell.fullHCPenaltyDetails(isRefundable: self.viewModel.hotelReceiptData?.isRefundable ?? false , isHotelDetailsScreen: false)
         cell.delegate = self
         cell.clipsToBounds = true
         if self.allIndexPath.contains(indexPath) {
@@ -95,6 +96,7 @@ extension YouAreAllDoneVC {
             cell.infoBtnOutlet.isHidden = true
         }
         else {
+            cell.infoBtnOutlet.isHidden = false
             cell.allDetailsLabel.isHidden = true
             cell.allDetailsLabel.attributedText = nil
         }
@@ -136,7 +138,7 @@ extension YouAreAllDoneVC {
     internal func getGuestsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCGuestsTableViewCell.reusableIdentifier, for: indexPath) as? HCGuestsTableViewCell else { return nil }
         cell.delegate = self
-        cell.travellers = self.viewModel.hotelReceiptData?.travellers?[indexPath.row] ?? [TravellersList]()
+        cell.travellers = self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] ?? [TravellersList]()
         cell.guestsCollectionView.reloadData()
         return cell
     }
@@ -157,7 +159,7 @@ extension YouAreAllDoneVC {
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
-        if let whatNextString: [String] = self.viewModel.hotelReceiptData?.flight_link_param as? [String] {
+        if let whatNextString = self.viewModel.hotelReceiptData?.flight_link_param {
 //        cell.configCell(whatNextString: whatNextString)
         }
         return cell

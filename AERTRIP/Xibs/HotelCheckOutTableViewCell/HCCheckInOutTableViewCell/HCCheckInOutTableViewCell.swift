@@ -15,6 +15,7 @@ class HCCheckInOutTableViewCell: UITableViewCell {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkOutLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!

@@ -22,6 +22,7 @@ class HCEmailItinerariesVM {
     var emailInfo: [HCEmailItinerariesModel] = []
     weak var delegate: HCEmailItinerariesVMDelegate?
     var bookingId: String = ""
+    var travellers: [TravellersList] = []
     
     //Mark:- Functions
     //================
@@ -51,6 +52,15 @@ class HCEmailItinerariesVM {
             }
         }
         return emailIds
+    }
+    
+    func emailIdSetUp() {
+        for _ in self.travellers {
+            var emailInfo = HCEmailItinerariesModel()
+            emailInfo.emailId = ""
+            emailInfo.emailStatus = .toBeSend
+            self.emailInfo.append(emailInfo)
+        }
     }
     
     func fillData() {
@@ -157,6 +167,6 @@ class HCEmailItinerariesVM {
         self.emailInfo.append(emailInfo8)
         self.emailInfo.append(emailInfo9)
         self.emailInfo.append(emailInfo10)
-
+        
     }
 }

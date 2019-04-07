@@ -107,6 +107,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             self.shadowViewLeadingConstraint.constant = 16.0
             self.shadowViewTrailingConstraint.constant = 16.0
          } else {
+            self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.clear, offset: CGSize(width: 0.0, height: 0.0), opacity: 0.0, shadowRadius: 0.0)
             self.shadowViewLeadingConstraint.constant = 0.0
             self.shadowViewTrailingConstraint.constant = 0.0
         }
@@ -305,7 +306,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     ///Full Penalty Details
-    internal func fullHCPenaltyDetails(isRefundable: Bool) {
+    internal func fullHCPenaltyDetails(isRefundable: Bool, isHotelDetailsScreen: Bool) {
+        self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
+        self.moreInfoContainerView.isHidden = true
+        self.moreBtnOutlet.isHidden = true
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.text = LocalizedString.CancellationPolicy.localized
         let attributedString = NSMutableAttributedString()

@@ -71,6 +71,11 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func initialSetup() {
         
         self.cityNameLabel.isHidden = true

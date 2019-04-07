@@ -1074,6 +1074,7 @@
 		8474CC2B22269DCB00C4F076 /* NotesTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTableCell.xib; sourceTree = "<group>"; };
 		8474CC2F222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsCheckOutTableViewCell.swift; sourceTree = "<group>"; };
 		8474CC30222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsCheckOutTableViewCell.xib; sourceTree = "<group>"; };
+		8474D2D02258BBC60042541D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVC.swift; sourceTree = "<group>"; };
 		8480683422099CC800CBF362 /* BulkRoomSelectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVM.swift; sourceTree = "<group>"; };
 		8480703722295A1B0061C642 /* HotelGroupCardCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelGroupCardCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2772,6 +2773,7 @@
 		8491D1D7222D3FC1001D0313 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8474D2D02258BBC60042541D /* Info.plist */,
 				8491D1D9222D3FC1001D0313 /* Assets.xcassets */,
 				8491D1DA222D3FC1001D0313 /* GoogleService-Info.plist */,
 				8491D1DB222D3FC1001D0313 /* Localizable.strings */,

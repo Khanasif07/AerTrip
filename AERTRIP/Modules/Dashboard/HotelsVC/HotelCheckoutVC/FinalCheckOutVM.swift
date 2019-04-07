@@ -37,6 +37,8 @@ class FinalCheckoutVM: NSObject {
     var itineraryData: ItineraryData?
     var itinaryPriceDetail: ItenaryModel?
     var paymentDetails: PaymentModal?
+    var originLat: String = ""
+    var originLong: String = ""
     var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     
