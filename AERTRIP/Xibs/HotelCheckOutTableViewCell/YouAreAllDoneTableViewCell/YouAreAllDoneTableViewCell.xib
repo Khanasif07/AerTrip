@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,19 +72,30 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVC-8D-YhN">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FTr-tR-uPT">
                         <rect key="frame" x="16" y="233" width="343" height="45"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="45" id="UfJ-Iw-3ld"/>
-                        </constraints>
-                        <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="Add to Apple Wallet" image="AddToAppleWallet"/>
-                        <connections>
-                            <action selector="addToAppleWalletButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KbL-Vb-G0S"/>
-                        </connections>
-                    </button>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVC-8D-YhN">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="UfJ-Iw-3ld"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Add to Apple Wallet" image="AddToAppleWallet"/>
+                                <connections>
+                                    <action selector="addToAppleWalletButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KbL-Vb-G0S"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rui-2D-zSr">
+                                <rect key="frame" x="0.0" y="45" width="343" height="0.0"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-jX-ddG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="294" width="375" height="1"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,22 +108,22 @@
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="top" secondItem="NZh-1Y-5dq" secondAttribute="bottom" constant="10" id="9HO-zU-lIy"/>
                     <constraint firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" constant="16" id="A2w-8t-lQS"/>
                     <constraint firstAttribute="bottom" secondItem="xAo-jX-ddG" secondAttribute="bottom" id="AW9-p3-y3z"/>
+                    <constraint firstItem="FTr-tR-uPT" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="DOJ-16-0XC"/>
                     <constraint firstAttribute="trailing" secondItem="xAo-jX-ddG" secondAttribute="trailing" id="EAc-Vw-08J"/>
                     <constraint firstItem="NZh-1Y-5dq" firstAttribute="top" secondItem="2QD-4J-MkZ" secondAttribute="bottom" constant="2" id="GzR-Rk-mab"/>
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="Qlf-ng-QVf"/>
-                    <constraint firstItem="AVC-8D-YhN" firstAttribute="top" secondItem="HwX-zX-t0U" secondAttribute="bottom" constant="12" id="RCF-BK-GCq"/>
-                    <constraint firstItem="AVC-8D-YhN" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="VjD-HD-2ae"/>
                     <constraint firstItem="NZh-1Y-5dq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZrW-rP-kew"/>
                     <constraint firstAttribute="trailing" secondItem="2QD-4J-MkZ" secondAttribute="trailing" id="aKk-2E-VLf"/>
                     <constraint firstItem="2QD-4J-MkZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="f5J-KF-lxg"/>
                     <constraint firstItem="xAo-jX-ddG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="imx-EX-ooS"/>
                     <constraint firstItem="HwX-zX-t0U" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="jiQ-NT-DjQ"/>
-                    <constraint firstItem="AVC-8D-YhN" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="mNC-LZ-Iui"/>
+                    <constraint firstItem="FTr-tR-uPT" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="k1g-Sd-8HR"/>
+                    <constraint firstItem="xAo-jX-ddG" firstAttribute="top" secondItem="FTr-tR-uPT" secondAttribute="bottom" constant="16" id="p78-Ah-Lu3"/>
                     <constraint firstItem="HwX-zX-t0U" firstAttribute="top" secondItem="nbM-hh-hIc" secondAttribute="bottom" constant="16" id="qpq-9Y-fBm"/>
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="rEb-be-RrZ"/>
-                    <constraint firstItem="xAo-jX-ddG" firstAttribute="top" secondItem="AVC-8D-YhN" secondAttribute="bottom" constant="16" id="rkP-la-Aee"/>
                     <constraint firstItem="HwX-zX-t0U" firstAttribute="leading" secondItem="NZh-1Y-5dq" secondAttribute="leading" id="vyt-Xf-ZY9"/>
                     <constraint firstItem="2QD-4J-MkZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x9R-2D-Xk5"/>
+                    <constraint firstItem="FTr-tR-uPT" firstAttribute="top" secondItem="HwX-zX-t0U" secondAttribute="bottom" constant="12" id="yDT-hq-sr6"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -122,6 +133,7 @@
                 <outlet property="aertripTitleImgView" destination="TAT-1N-Yla" id="ngx-xY-2rZ"/>
                 <outlet property="bookingIdAndDetailsLabel" destination="nbM-hh-hIc" id="6Wm-2i-SrA"/>
                 <outlet property="dividerView" destination="xAo-jX-ddG" id="VRZ-A9-f1m"/>
+                <outlet property="importantNoteLabel" destination="rui-2D-zSr" id="ld5-db-ehy"/>
                 <outlet property="thankYouLabel" destination="HwX-zX-t0U" id="jep-xv-dws"/>
                 <outlet property="youAreAllDoneLabel" destination="NZh-1Y-5dq" id="K7i-4C-tjz"/>
             </connections>

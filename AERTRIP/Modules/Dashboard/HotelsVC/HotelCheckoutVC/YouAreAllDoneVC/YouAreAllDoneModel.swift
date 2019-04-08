@@ -27,8 +27,8 @@ struct HotelReceiptModel {
     var num_rooms: Int = 0
     var num_nights: Int = 0
     var booking_number: String = "" // "B/19-20/119"
-    var rooms: [Room]?
-    var travellers: [[TravellersList]]?
+    var rooms: [Room] = []
+    var travellers: [[TravellersList]] = []
     var part_payment: JSONDictionaryArray = [[:]]
     //    var booking_params: BookingParams?
     var booking_status: String = ""
@@ -66,8 +66,8 @@ struct HotelReceiptModel {
                 APIKeys.num_rooms.rawValue: self.num_rooms,
                 APIKeys.num_nights.rawValue: self.num_nights,
                 APIKeys.booking_number.rawValue: self.booking_number,
-                APIKeys.rooms.rawValue: self.rooms ?? [Room](),
-                APIKeys.travellers.rawValue: self.travellers ?? [TravellersList](),
+                APIKeys.rooms.rawValue: self.rooms,
+                APIKeys.travellers.rawValue: self.travellers,
                 APIKeys.part_payment.rawValue: self.part_payment,
                 //                APIKeys.booking_params.rawValue: self.booking_params,
                 APIKeys.booking_status.rawValue: self.booking_status,
@@ -145,7 +145,8 @@ struct HotelReceiptModel {
         }
         if let obj = json[APIKeys.travellers.rawValue] as? [JSONDictionaryArray] {
             for jsonDict in obj {
-                self.travellers?.append(TravellersList.getTravellersList(response: jsonDict))
+                let trvlsData = TravellersList.getTravellersList(response: jsonDict)
+                self.travellers.append(trvlsData)
             }
 //            self.travellers = TravellersList.getTravellersList(response: obj)
         }
@@ -392,7 +393,7 @@ struct TravellersList {
     //Mark:- Functions
     //================
     ///Static Function
-    static func getTravellersList(response: [JSONDictionary]) -> [TravellersList] {
+    static func getTravellersList(response: JSONDictionaryArray) -> [TravellersList] {
         var travellersList = [TravellersList]()
         for json in response {
             travellersList.append( TravellersList(json: json))
@@ -449,7 +450,7 @@ struct PaymentDetails {
 
 struct PaymentInfo {
     var transaction_id: String = ""
-    var payment_amount: Float = 0.0
+    var payment_amount: Double = 0.0
     
     init() {
         self.init(json: [:])
@@ -464,7 +465,7 @@ struct PaymentInfo {
         if let obj = json[APIKeys.transaction_id.rawValue] {
             self.transaction_id = "\(obj)".removeNull
         }
-        if let obj = json[APIKeys.payment_amount.rawValue] as? Float {
+        if let obj = json[APIKeys.payment_amount.rawValue] as? Double {
             self.payment_amount = obj
         }
     }

@@ -26,7 +26,7 @@ protocol FinalCheckoutVMDelegate: class {
     func makePaymentFail()
     
     func willGetPaymentResonse()
-    func getPaymentResonseSuccess(bookingIds: [String])
+    func getPaymentResonseSuccess(bookingIds: [String] , cid: [String])
     func getPaymentResonseFail()
 }
 
@@ -37,6 +37,8 @@ class FinalCheckoutVM: NSObject {
     var itineraryData: ItineraryData?
     var itinaryPriceDetail: ItenaryModel?
     var paymentDetails: PaymentModal?
+    var originLat: String = ""
+    var originLong: String = ""
     var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     
@@ -141,10 +143,10 @@ extension FinalCheckoutVM {
         }
         
         self.delegate?.willGetPaymentResonse()
-        APICaller.shared.paymentResponseAPI(params: params) { [weak self](success, errors, bookingIds)  in
+        APICaller.shared.paymentResponseAPI(params: params) { [weak self](success, errors, bookingIds , cid)  in
             guard let sSelf = self else { return }
             if success {
-                sSelf.delegate?.getPaymentResonseSuccess(bookingIds: bookingIds)
+                sSelf.delegate?.getPaymentResonseSuccess(bookingIds: bookingIds, cid: cid)
             } else {
                 sSelf.delegate?.getPaymentResonseFail()
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)

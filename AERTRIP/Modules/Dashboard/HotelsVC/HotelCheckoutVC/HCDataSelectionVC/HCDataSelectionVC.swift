@@ -282,7 +282,7 @@ class HCDataSelectionVC: BaseVC {
     
     private func sendToFinalCheckoutVC() {
         if !isFromFinalCheckout {
-            AppFlowManager.default.moveToFinalCheckoutVC(delegate:self, self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail)
+            AppFlowManager.default.moveToFinalCheckoutVC(delegate:self, self.viewModel.itineraryData,self.viewModel.itineraryPriceDetail, originLat: self.viewModel.hotelInfo?.lat ?? "", originLong: self.viewModel.hotelInfo?.long ?? "")
         }
     }
     

@@ -44,6 +44,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
             self.pageControl.radius = 3.0
         }
     }
+    @IBOutlet weak var whatNextStackView: UIStackView!
 
     
     //Mark:- LifeCycle

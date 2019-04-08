@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HCGuestsTableViewCellDelegate: class {
-    func emailItineraryButtonAction(_ sender: UIButton)
+    func emailItineraryButtonAction(_ sender: UIButton , indexPath: IndexPath)
 }
 
 class HCGuestsTableViewCell: UITableViewCell {
@@ -57,7 +57,8 @@ class HCGuestsTableViewCell: UITableViewCell {
     
     ///Email Itinerary Button Action
     @IBAction func emailItineraryButtonAction(_ sender: UIButton) {
-        self.delegate?.emailItineraryButtonAction(sender)
+        if let tableView = self.superview as? UITableView, let indexPath = tableView.indexPath(forItem: sender) {        self.delegate?.emailItineraryButtonAction(sender, indexPath: indexPath)
+        }
     }
 }
 
@@ -71,7 +72,7 @@ extension HCGuestsTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCGuestsDetailsCollectionViewCell.reusableIdentifier, for: indexPath) as? HCGuestsDetailsCollectionViewCell else { return UICollectionViewCell() }
-        cell.configCell(name: self.travellers[indexPath.item].first_name + self.travellers[indexPath.item].middle_name + self.travellers[indexPath.item].last_name, imageUrl: self.travellers[indexPath.item].profile_image)
+        cell.configCell(name: "\(self.travellers[indexPath.item].first_name) \(self.travellers[indexPath.item].middle_name) \(self.travellers[indexPath.item].last_name)", imageUrl: self.travellers[indexPath.item].profile_image)
         return cell
     }
     

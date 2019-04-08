@@ -23,8 +23,6 @@ class YouAreAllDoneVC: BaseVC {
             self.allDoneTableView.contentInset = UIEdgeInsets.zero
             self.allDoneTableView.delegate = self
             self.allDoneTableView.dataSource = self
-            self.allDoneTableView.estimatedRowHeight = UITableView.automaticDimension
-            self.allDoneTableView.rowHeight = UITableView.automaticDimension
             self.allDoneTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.allDoneTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
@@ -42,6 +40,7 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     override func initialSetup() {
+    
         self.registerNibs()
         self.tableFooterViewSetUp()
         self.viewModel.getBookingReceipt()
@@ -201,23 +200,23 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         case .inclusionCell:
-            if let cell = self.getInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
+            if let cell = self.getInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .otherInclusionCell:
-            if let cell = self.getOtherInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
+            if let cell = self.getOtherInclusionCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .cancellationPolicyCell:
-            if let cell = self.getCancellationCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
+            if let cell = self.getCancellationCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .paymentPolicyCell:
-            if let cell = self.getPaymentInfoCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
+            if let cell = self.getPaymentInfoCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .notesCell:
-            if let cell = self.getNotesCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms?[indexPath.section - 2] ?? Room()) {
+            if let cell = self.getNotesCell(tableView, indexPath: indexPath, roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.section - 2] ?? Room()) {
                 return cell
             }
         case .guestsCell:
@@ -241,6 +240,22 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
+            if let hotelData = self.viewModel.hotelReceiptData {
+                let text = hotelData.address + "Maps   "
+                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                return size.height + 46.5
+                    + 14.0//y of textview 46.5 + bottom space 14.0
+            }
+        }
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return self.heightForHeaderInSection(section: section)
     }
@@ -250,6 +265,9 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
+            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
+        }
     }
 }
 
@@ -271,6 +289,7 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
     }
     
     func getBookingReceiptSuccess() {
+        self.viewModel.getWhatNextData()
         self.viewModel.getTableViewSectionData()
         self.allDoneTableView.reloadData()
     }
@@ -283,8 +302,8 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
 //Mark:- HCGuestsTableViewCell Delegate
 //=====================================
 extension YouAreAllDoneVC: HCGuestsTableViewCellDelegate {
-    func emailItineraryButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "")
+    func emailItineraryButtonAction(_ sender: UIButton , indexPath: IndexPath) {
+        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] ?? [])
     }
 }
 

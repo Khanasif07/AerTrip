@@ -28,14 +28,20 @@ class YouAreAllDoneVM: NSObject {
     var sectionData: [[TableViewCellType]] = []
     weak var delegate: YouAreAllDoneVMDelegate?
     var hotelReceiptData: HotelReceiptModel?
-//    var itinaryData : ItineraryData?
-//    var itinaryPriceDetail: ItenaryModel?
-    
-    var itId: String = "", bookingIds: [String] = []
+    var originLat: String = ""
+    var originLong: String = ""
+    var whatNext: [String] = []
+    var whatNextValues: [String] = []
+    var itId: String = "", bookingIds: [String] = [], cId: [String] = []
     
     //Mark:- Functions
     //================
     ///Get GuestCellData
+    override init() {
+        self.originLat = ""
+        self.originLong = ""
+    }
+    
     private func getGuestCellData(room: Room) ->  [TableViewCellType] {
         var guestData: [TableViewCellType] = []
         if !room.name.isEmpty{
@@ -45,9 +51,9 @@ class YouAreAllDoneVM: NSObject {
         if let inclusion =  room.inclusions[APIKeys.Inclusions.rawValue] as? [String], !inclusion.isEmpty {
             guestData.append(.inclusionCell)
         }
-//        if room.OtherInclusion.isEmpty{
-//            guestData.append(.otherInclusionCell)
-//        }
+        if let otherInclusion =  room.inclusions[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
+            guestData.append(.otherInclusionCell)
+        }
         guestData.append(.cancellationPolicyCell)
         guestData.append(.paymentPolicyCell)
         if let notesInclusion =  room.inclusions[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
@@ -78,7 +84,11 @@ class YouAreAllDoneVM: NSObject {
         }
         
         // TotalCharge Section Cells
-        self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])
+        if self.bookingIds.isEmpty && !self.cId.isEmpty {
+            self.sectionData.append([.totalChargeCell , .whatNextCell])
+        } else {
+            self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])
+        }
     }
     
     func getBookingReceipt() {
@@ -93,6 +103,19 @@ class YouAreAllDoneVM: NSObject {
                 sSelf.delegate?.getBookingReceiptSuccess()
             } else {
                 sSelf.delegate?.getBookingReceiptFail()
+            }
+        }
+    }
+    
+    func getWhatNextData() {
+        self.whatNext.removeAll()
+        self.whatNextValues.removeAll()
+        if let flightsData = self.hotelReceiptData?.flight_link_param {
+            for flightData in flightsData{
+                self.whatNext.append(flightData.key)
+                if let value = flightData.value as? String {
+                    self.whatNextValues.append(value)
+                }
             }
         }
     }

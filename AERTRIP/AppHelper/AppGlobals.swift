@@ -32,7 +32,7 @@ struct AppGlobals {
     private init() {}
     
     func showSuccess(message: String) {
-       printDebug(message)
+        printDebug(message)
     }
     
     func showError(message: String) {
@@ -91,7 +91,7 @@ struct AppGlobals {
         let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: UIColor.white, size: CGSize(width: size, height: size), offset: offSet)!
     }
-
+    
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
@@ -161,7 +161,7 @@ struct AppGlobals {
         let fullString = NSMutableAttributedString(string: startText)
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
-
+        
         //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
         image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
         image1Attachment.image = image
@@ -176,7 +176,7 @@ struct AppGlobals {
         
         return fullString
     }
-
+    
     func getTextWithImageWithLink(startText: String, startTextColor: UIColor, middleText: String , image: UIImage, endText: String,endTextColor: UIColor , middleTextColor: UIColor , font: UIFont) -> NSMutableAttributedString {
         
         let fullString = NSMutableAttributedString()
@@ -188,7 +188,7 @@ struct AppGlobals {
         //Middle Text SetUp
         let middleTextAttribute = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: middleTextColor] as [NSAttributedString.Key : Any]
         let middleAttributedString = NSAttributedString(string: middleText, attributes: middleTextAttribute)
-
+        
         //Image SetUp
         let image1Attachment = NSTextAttachment()
         image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
@@ -255,6 +255,48 @@ struct AppGlobals {
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore
         paragraphStyle.paragraphSpacing = paragraphStyle.paragraphSpacingBefore + 0.0
         return paragraphStyle
+    }
+    
+    
+    //    protocol RedirectToMapDelegate: class {
+    //        func redirectToMap()
+    //        func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String)
+    //        func openGoogleMaps(originLat: String, originLong: String, destLat: String, destLong: String)
+    //    }
+    
+    
+    private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+            if let url = URL(string:
+                "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+        }
+    }
+    
+    private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("Can't use apple map://")
+        }
+    }
+    
+    func redirectToMap(parentVC: UIViewController? = nil , sourceView: UIView , originLat: String, originLong: String, destLat: String, destLong: String) {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
+        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
+        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
+        
+        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            if index == 0 {
+                self.openAppleMap(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
+            } else {
+                self.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
+            }
+        }
     }
 }
 

@@ -445,17 +445,20 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentHCEmailItinerariesVC(forBookingId bId: String) {
+    func presentHCEmailItinerariesVC(forBookingId bId: String , travellers: [TravellersList]) {
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.bookingId = bId
-//        self.mainNavigationController.pushViewController(obj, animated: true)
+        obj.viewModel.travellers = travellers
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] ) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] , cid: [String] , originLat: String , originLong: String) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
+        obj.viewModel.cId = cid
+        obj.viewModel.originLat = originLat
+        obj.viewModel.originLong = originLong
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -500,10 +503,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate ,_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel()) {
+    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate ,_ itinaryData : ItineraryData? = ItineraryData(),_ itinaryPriceDetail: ItenaryModel? = ItenaryModel() , originLat: String, originLong: String ) {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itineraryData = itinaryData
         obj.delegate = delegate
+        obj.viewModel.originLat = originLat
+        obj.viewModel.originLong = originLong
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
