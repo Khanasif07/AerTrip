@@ -114,7 +114,18 @@ class SelectDestinationVM: NSObject {
             guard let sSelf = self else {return}
             
             if success {
-                sSelf.popularHotels = hotels
+                
+                //check and remove the data from popular if it exist in recents.
+                var tamp = [SearchedDestination]()
+                for hotel in hotels {
+                    if let recent = sSelf._recentSearches, !recent.contains(where: { (dest) -> Bool in
+                        dest.dest_id == hotel.dest_id
+                    }) {
+                        tamp.append(hotel)
+                    }
+                }
+                
+                sSelf.popularHotels = tamp
                 sSelf.delegate?.getAllPopularHotelsSuccess()
             }
             else {
@@ -126,15 +137,33 @@ class SelectDestinationVM: NSObject {
     
     func updateRecentSearch(hotel: SearchedDestination) {
         if let recent = self._recentSearches {
+            
+            //hold all the recent data
             var temp = recent
-            if recent.count < self._recentSearchLimit {
-                temp.insert(hotel, at: 0)
+            
+            //check if it is already added or not, if not added then add otherwise update the position
+            if let index = recent.firstIndex(where: { (dest) -> Bool in
+                dest.dest_id == hotel.dest_id
+            }) {
+                
+                //if index is greater than 0 than update.
+                if index > 0 {
+                    let toUpdate = temp.remove(at: index)
+                    temp.insert(toUpdate, at: 0)
+                }
+                self._recentSearches = temp
             }
             else {
-                temp.insert(hotel, at: 0)
-                temp.removeLast()
+                //insert the recnt on the first position
+                if recent.count < self._recentSearchLimit {
+                    temp.insert(hotel, at: 0)
+                }
+                else {
+                    temp.insert(hotel, at: 0)
+                    temp.removeLast()
+                }
+                self._recentSearches = temp
             }
-            self._recentSearches = temp
         }
         else {
             self._recentSearches = [hotel]
