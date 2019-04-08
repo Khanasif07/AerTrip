@@ -148,7 +148,7 @@ extension YouAreAllDoneVC {
         return cell
     }
     
-    internal func getConfirmationVoucherCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
+    internal func getConfirmationVoucherCell(_ tableView: UITableView, indexPath: IndexPath) -> HCConfirmationVoucherTableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCConfirmationVoucherTableViewCell.reusableIdentifier, for: indexPath) as? HCConfirmationVoucherTableViewCell else { return nil }
         cell.configCell()
         return cell
