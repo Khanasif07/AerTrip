@@ -52,6 +52,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     var isFromFinalCheckout: Bool = false
+    var apiCount: Int = 0
 
     // MARK: - Private
     
@@ -351,6 +352,10 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func callForItenaryDataTravellerSuccess() {
+       if apiCount <= 5, self.viewModel.itineraryPriceDetail.grossAmount.toDouble ?? 0 <= 0 {
+            self.viewModel.webserviceForItenaryDataTraveller()
+            apiCount += 1
+        }
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {

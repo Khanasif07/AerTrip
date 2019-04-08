@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>10</string>
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -121,12 +121,12 @@
 	<string>This app will need the access to your camera.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>This app will need the access to your contacts.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app will need the access to photo library.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app will need the access to your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app will need the access to your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app will need the access to your location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app will need the access to photo library.</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>

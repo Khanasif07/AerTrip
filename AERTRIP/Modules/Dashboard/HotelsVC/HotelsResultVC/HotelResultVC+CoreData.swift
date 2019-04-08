@@ -13,13 +13,6 @@ extension HotelResultVC {
     func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
             self.filterButton.isSelected = true
-//            if self.predicateStr.isEmpty {
-//                self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
-//                
-//            } else {
-//                let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
-//                self.fetchedResultsController.fetchRequest.predicate = andPredicate
-//            }
             let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
             self.fetchedResultsController.fetchRequest.predicate = andPredicate
         } else if self.fetchRequestType == .Searching {

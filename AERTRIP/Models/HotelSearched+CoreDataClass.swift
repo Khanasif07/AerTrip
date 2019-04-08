@@ -131,9 +131,9 @@ public class HotelSearched: NSManagedObject {
         func getRoundedValue(value: Double) -> String {
             let difference = value - floor(value)
             if difference <= 0.5 {
-                return "\(floor(value))"
+                return "\(floor(value).toInt)"
             } else {
-                return "\(ceil(value))"
+                return "\(ceil(value).toInt)"
             }
         }
         
