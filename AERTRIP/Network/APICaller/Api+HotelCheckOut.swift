@@ -169,22 +169,22 @@ extension APICaller {
         }
     }
     
-    func paymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ bookingIds: [String])->Void) {
+    func paymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ bookingIds: [String] , _ cid: [String])->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
                     
-                    completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [])
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [], jsonData[APIKeys.data.rawValue][APIKeys.cid.rawValue].arrayObject as? [String] ?? [])
                 } else {
-                    completionBlock(true, [], [])
+                    completionBlock(true, [], [], [])
                 }
             }, failure:  { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors, [])
+                completionBlock(false, errors, [], [])
             })
         }) { (error) in
-            completionBlock(false, [], [])
+            completionBlock(false, [], [], [])
         }
     }
     

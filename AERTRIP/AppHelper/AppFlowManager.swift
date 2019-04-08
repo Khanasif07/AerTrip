@@ -431,10 +431,11 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] , originLat: String , originLong: String) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] , cid: [String] , originLat: String , originLong: String) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
+        obj.viewModel.cId = cid
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         self.mainNavigationController.pushViewController(obj, animated: true)

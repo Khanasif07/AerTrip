@@ -572,6 +572,7 @@ enum LocalizedString: String {
 
     case Change = "Change"
     case YourBookingIDIs = "YourBookingIDIs"
+    case YourCaseIDIs = "YourCaseIDIs"
     case AndAllDetailsWillBeSentToYourEmail = "AndAllDetailsWillBeSentToYourEmail"
     case YouAreAllDoneLabel = "YouAreAllDoneLabel"
     case AddToAppleWallet = "AddToAppleWallet"
@@ -599,5 +600,9 @@ enum LocalizedString: String {
     case EnterMobileNumberMessage = "EnterMobileNumberMessage"
     case EnterEmailAddressMessage = "EnterEmailAddressMessage"
     case UnableToGetMail = "UnableToGetMail"
+    case ImportantNote = "ImportantNote"
+    case YourBookingIdStmt = "YourBookingIdStmt"
+    case AertripEmailId = "AertripEmailId"
+    case ThankYouStmtForBookingId = "ThankYouStmtForBookingId"
+    case ThankYouStmtForCId = "ThankYouStmtForCId"
  }
-

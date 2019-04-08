@@ -15,7 +15,7 @@ extension YouAreAllDoneVC {
     /* AllDone Section Cells */
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
-        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? LocalizedString.na.localized)
+        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized)
         return cell
     }
     
@@ -146,7 +146,8 @@ extension YouAreAllDoneVC {
     /* TotalCharge Section Cells */
     internal func getTotalChargeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCTotalChargeTableViewCell.reusableIdentifier, for: indexPath) as? HCTotalChargeTableViewCell else { return nil }
-        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0)
+        cell.dividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.confirmationVoucherCell) ? false : true
+        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount.delimiter ?? "")
         return cell
     }
     
@@ -159,8 +160,10 @@ extension YouAreAllDoneVC {
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
-        if let whatNextString = self.viewModel.hotelReceiptData?.flight_link_param {
-//        cell.configCell(whatNextString: whatNextString)
+        if !self.viewModel.whatNextValues.isEmpty {
+            cell.configCell(whatNextString: self.viewModel.whatNextValues)
+        } else {
+            cell.whatNextStackView.isHidden = true
         }
         return cell
     }

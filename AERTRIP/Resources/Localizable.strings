@@ -537,6 +537,7 @@
 
 "Change" = "Change";
 "YourBookingIDIs" = "Your booking ID is";
+"YourCaseIDIs" = "Your case ID is";
 "AndAllDetailsWillBeSentToYourEmail" = "and all details will be sent to your email.";
 "YouAreAllDoneLabel" = "You’re all done!";
 "AddToAppleWallet" = "Add to Apple Wallet";
@@ -565,3 +566,8 @@
 "EnterMobileNumberMessage" = "Please enter valid mobile number";
 "EnterEmailAddressMessage" = "Not a valid email address";
 "UnableToGetMail" = "Unable to get email of selected person";
+"ImportantNote" = "Important Note:";
+"YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on ";
+"AertripEmailId" = "support@aertrip.com";
+"ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
+"ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";

@@ -40,6 +40,7 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     override func initialSetup() {
+    
         self.registerNibs()
         self.tableFooterViewSetUp()
         self.viewModel.getBookingReceipt()
@@ -234,6 +235,7 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
     }
     
     func getBookingReceiptSuccess() {
+        self.viewModel.getWhatNextData()
         self.viewModel.getTableViewSectionData()
         self.allDoneTableView.reloadData()
     }
