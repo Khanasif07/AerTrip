@@ -78,8 +78,10 @@ class HotelsSearchVC: BaseVC {
     
     override func initialSetup() {
         
-        self.cityNameLabel.isHidden = true
-        self.stateNameLabel.isHidden = true
+        self.cityNameLabel.text = ""
+        self.stateNameLabel.text = ""
+        self.manageAddressLabels()
+        
         self.shadowSetUp()
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
@@ -121,7 +123,6 @@ class HotelsSearchVC: BaseVC {
     
     override func setupFonts() {
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.whereLabel.font = AppFonts.Regular.withSize(20.0)
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
         self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
         self.starRatingLabel.font = regularFontSize16
@@ -261,6 +262,12 @@ class HotelsSearchVC: BaseVC {
         }
     }
     
+    private func manageAddressLabels() {
+        self.whereLabel.font = (self.cityNameLabel.text ?? "").isEmpty ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
+        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
+        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+    }
+    
     ///GetDataFromPreviousSearch
     private func getDataFromPreviousSearch() {
         let date = Date()
@@ -271,8 +278,7 @@ class HotelsSearchVC: BaseVC {
         //set selected city
         self.cityNameLabel.text = self.viewModel.searchedFormData.cityName
         self.stateNameLabel.text = self.viewModel.searchedFormData.stateName
-        self.cityNameLabel.isHidden = self.viewModel.searchedFormData.cityName.isEmpty
-        self.stateNameLabel.isHidden = self.viewModel.searchedFormData.stateName.isEmpty
+        self.manageAddressLabels()
         
         //set checkIn/Out Date
         if let checkInDate = oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") {
@@ -664,11 +670,9 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
             self.cityNameLabel.text = "\(newValue.first ?? "")"
             self.viewModel.searchedFormData.cityName = "\(newValue.first ?? "")"
         }
-        self.whereLabel.font = AppFonts.Regular.withSize(16.0)
         self.stateNameLabel.text = hotel.value
         self.viewModel.searchedFormData.stateName = hotel.value
-        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
-        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+        self.manageAddressLabels()
         self.dataForApi(hotel: hotel)
     }
 }
