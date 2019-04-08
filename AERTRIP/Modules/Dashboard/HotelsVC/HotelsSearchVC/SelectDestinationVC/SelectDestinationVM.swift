@@ -10,6 +10,7 @@ import UIKit
 
 protocol SelectDestinationVMDelegate: class {
     
+    func willSearchDestination()
     func searchDestinationSuccess()
     func searchDestinationFail()
     
@@ -83,6 +84,7 @@ class SelectDestinationVM: NSObject {
     //MARK:- Methods
     //MARK:- Public
     func searchDestination(forText: String) {
+        self.delegate?.willSearchDestination()
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(callSearchDestinationAPI(_:)), with: forText, afterDelay: 0.5)
     }

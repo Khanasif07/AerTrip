@@ -30,6 +30,9 @@ extension APICaller {
                     
                     completionBlock(true, [], dict)
                 }
+                else if sucess, let dict = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    completionBlock(sucess, [], dict)
+                }
                 else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [:])
                 }

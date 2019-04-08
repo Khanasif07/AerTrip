@@ -49,6 +49,12 @@ class SelectDestinationVC: BaseVC {
     
     private var isInSearchMode: Bool = false
     
+    private lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -99,6 +105,8 @@ class SelectDestinationVC: BaseVC {
         }
         
         self.viewModel.getAllPopularHotels()
+        
+        self.tableView.backgroundView = self.noResultemptyView
     }
     
     private func registerXib() {
@@ -154,7 +162,19 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
         self.reloadData()
     }
     
+    func willSearchDestination() {
+        self.tableView.backgroundView?.isHidden = true
+    }
+    
     func searchDestinationSuccess() {
+        if isInSearchMode, let searchText = self.searchBar.text {
+            self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(searchText)'"
+            self.tableView.backgroundView?.isHidden = !self.viewModel.allTypes.isEmpty
+        }
+        else {
+            self.noResultemptyView.messageLabel.text = ""
+            self.tableView.backgroundView?.isHidden = true
+        }
         self.reloadData()
     }
     
@@ -199,6 +219,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             return self.viewModel.allTypes.count
         }
         else {
+            tableView.backgroundView?.isHidden = true
             return (self.viewModel.recentSearchLimit > 0) ? 3 : 2
         }
     }

@@ -2002,14 +2002,11 @@ been sent</string>
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="EbN-QB-Hvy" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="5" width="295" height="60"/>
+                                                <rect key="frame" x="0.0" y="5" width="311" height="60"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLr-Lb-Qik">
-                                                <rect key="frame" x="305" y="0.0" width="70" height="70"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="9t6-uc-Qag"/>
-                                                </constraints>
+                                                <rect key="frame" x="311" y="0.0" width="48" height="70"/>
                                                 <state key="normal" title="Cancel"/>
                                                 <connections>
                                                     <action selector="cancelButtonAction:" destination="ZWw-dZ-KR8" eventType="touchUpInside" id="Do1-We-FSW"/>
@@ -2025,7 +2022,7 @@ been sent</string>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="EbN-QB-Hvy" firstAttribute="leading" secondItem="Xee-TG-VUX" secondAttribute="leading" constant="10" id="53b-pu-YUM"/>
+                                            <constraint firstItem="EbN-QB-Hvy" firstAttribute="leading" secondItem="Xee-TG-VUX" secondAttribute="leading" id="53b-pu-YUM"/>
                                             <constraint firstAttribute="bottom" secondItem="MCD-s8-G7E" secondAttribute="bottom" id="5mG-fo-8gJ"/>
                                             <constraint firstAttribute="bottom" secondItem="EbN-QB-Hvy" secondAttribute="bottom" constant="5" id="8zp-rL-oNU"/>
                                             <constraint firstItem="EbN-QB-Hvy" firstAttribute="top" secondItem="Xee-TG-VUX" secondAttribute="top" constant="5" id="A4M-Dg-gey"/>
@@ -2034,7 +2031,7 @@ been sent</string>
                                             <constraint firstItem="CLr-Lb-Qik" firstAttribute="top" secondItem="Xee-TG-VUX" secondAttribute="top" id="I4M-Jr-hDo"/>
                                             <constraint firstAttribute="bottom" secondItem="CLr-Lb-Qik" secondAttribute="bottom" id="IQJ-Wr-M3L"/>
                                             <constraint firstAttribute="height" constant="70" id="Ifn-Tf-WcJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="CLr-Lb-Qik" secondAttribute="trailing" id="yRP-KU-o5V"/>
+                                            <constraint firstAttribute="trailing" secondItem="CLr-Lb-Qik" secondAttribute="trailing" constant="16" id="yRP-KU-o5V"/>
                                             <constraint firstAttribute="trailing" secondItem="MCD-s8-G7E" secondAttribute="trailing" id="zVM-Pa-40G"/>
                                         </constraints>
                                     </view>
@@ -2050,13 +2047,13 @@ been sent</string>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8U-Gh-wXg">
-                                                            <rect key="frame" x="16" y="0.0" width="294" height="55"/>
+                                                            <rect key="frame" x="16" y="0.0" width="288" height="55"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dD-KY-m9s">
-                                                            <rect key="frame" x="310" y="0.0" width="55" height="55"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dD-KY-m9s">
+                                                            <rect key="frame" x="304" y="0.0" width="55" height="55"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="2dD-KY-m9s" secondAttribute="height" multiplier="1:1" id="qi8-jy-2GF"/>
                                                             </constraints>
@@ -2068,7 +2065,7 @@ been sent</string>
                                                         <constraint firstAttribute="bottom" secondItem="o8U-Gh-wXg" secondAttribute="bottom" id="86W-Gs-jxK"/>
                                                         <constraint firstItem="2dD-KY-m9s" firstAttribute="top" secondItem="fq8-cv-7Tn" secondAttribute="top" id="KqH-Qb-AfZ"/>
                                                         <constraint firstAttribute="bottom" secondItem="2dD-KY-m9s" secondAttribute="bottom" id="PQb-mK-0Z3"/>
-                                                        <constraint firstAttribute="trailing" secondItem="2dD-KY-m9s" secondAttribute="trailing" constant="10" id="d7C-dR-d0C"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2dD-KY-m9s" secondAttribute="trailing" constant="16" id="d7C-dR-d0C"/>
                                                         <constraint firstItem="o8U-Gh-wXg" firstAttribute="leading" secondItem="fq8-cv-7Tn" secondAttribute="leading" constant="16" id="iju-kM-GiG"/>
                                                         <constraint firstItem="2dD-KY-m9s" firstAttribute="leading" secondItem="o8U-Gh-wXg" secondAttribute="trailing" id="k6s-VC-JRb"/>
                                                     </constraints>
