@@ -24,6 +24,13 @@ class ATGalleryViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var verticalCollectionTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var verticalCollectionBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageControl: ISPageControl! {
+        didSet {
+            self.pageControl.tintColor = AppColors.themeGray220
+            self.pageControl.currentPageTintColor = AppColors.themeWhite
+            self.pageControl.radius = 3.0
+        }
+    }
     
     //MARK:- Properties
     //MARK:- Public
@@ -64,6 +71,8 @@ class ATGalleryViewController: UIViewController {
         
         //setup collection view
         self.setupCollectionView()
+        
+        self.setupPageDots()
     }
     
     private func setupChangeModeButton() {
@@ -223,6 +232,13 @@ class ATGalleryViewController: UIViewController {
         
         self.modeChangeButton.isSelected = ATGalleryViewConfiguration.viewMode != .vertical
         self.modeChangeButton.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
+        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
+    }
+    
+    private func setupPageDots(){
+        self.pageControl.backgroundColor = AppColors.clear
+        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
+        self.pageControl.numberOfPages = self.numberOfImages
     }
     
     //MARK:- Public
@@ -256,6 +272,7 @@ class ATGalleryViewController: UIViewController {
 extension ATGalleryViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.numberOfImages = self.datasource?.numberOfImages(in: self) ?? 0
+        self.setupPageDots()
         return self.numberOfImages
     }
     
@@ -305,6 +322,15 @@ extension ATGalleryViewController: UICollectionViewDelegate {
         
         if let myCell = cell as? ATGalleryScrollCell, let img = myCell.imageData {
             self.delegate?.galleryView(galleryView: self, willShow: img, for: indexPath.item)
+        }
+    }
+}
+
+extension ATGalleryViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView === horizontalCollectionView {
+            let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+            pageControl.currentPage = Int(pageNumber)
         }
     }
 }
