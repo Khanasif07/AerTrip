@@ -32,7 +32,6 @@ protocol FinalCheckoutVMDelegate: class {
 
 class FinalCheckoutVM: NSObject {
     
-    
     weak var delegate: FinalCheckoutVMDelegate?
     var itineraryData: ItineraryData?
     var itinaryPriceDetail: ItenaryModel?

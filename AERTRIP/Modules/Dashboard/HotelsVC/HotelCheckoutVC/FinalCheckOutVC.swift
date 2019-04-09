@@ -555,7 +555,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 && indexPath.section == 0 {
-            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self)
+            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponCode: self.appliedCouponData.couponCode)
         }
     }
 }
@@ -593,6 +593,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
         self.viewModel.itineraryData = appliedCouponData.itinerary
+        self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.updateAllData()
         printDebug(appliedCouponData)
