@@ -34,8 +34,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         manageViewForSearchAndFilterMode()
-        
         if tableView === hotelSearchTableView {
+            searchBar.enablesReturnKeyAutomatically = self.searchedHotels.count < 0
             return 1
         }
         else {
@@ -45,6 +45,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === hotelSearchTableView {
+          
             return self.searchedHotels.count
         } else {
             guard let sections = self.fetchedResultsController.sections else {
