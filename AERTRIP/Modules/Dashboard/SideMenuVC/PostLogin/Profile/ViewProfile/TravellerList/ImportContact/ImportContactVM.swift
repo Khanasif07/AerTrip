@@ -133,10 +133,10 @@ class ImportContactVM: NSObject {
         self.delegateCollection?.willFetchPhoneContacts()
         forVC.fetchContacts { [weak self] (contacts) in
             DispatchQueue.mainAsync {
+                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
                 if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
                 }
-                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
             }
         }
     }

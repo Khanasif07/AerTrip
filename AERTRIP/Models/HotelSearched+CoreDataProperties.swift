@@ -98,6 +98,4 @@ extension HotelSearched {
     public var afterUpdate: HotelSearched {
         return HotelSearched.insert(dataDict: self.dict)
     }
-    
-  
 }
