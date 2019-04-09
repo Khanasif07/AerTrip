@@ -46,6 +46,8 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainerInset = UIEdgeInsets.zero
         self.addressInfoTextView.textContainer.lineFragmentPadding = 0.0
         self.configureUI()
+        var image = UIImageView()
+        image.setImageWithUrl(<#T##imageUrl: String##String#>, placeholder: <#T##UIImage#>, showIndicator: <#T##Bool#>)
     }
     
     ///COnfigure UI

@@ -151,8 +151,15 @@ class HCDataSelectionVM {
 //        params["t[0][_t][1][id]"] = "0"
         
         // rid and qid in parameters
-        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
-        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
+        if let rate = self.itineraryData?.hotelDetails?.rates?.first , let roomRates = rate.roomsRates {
+            for(x,roomRate) in roomRates.enumerated() {
+                params["t\([x])[rid]"] = roomRate.rid
+                params["t\([x])[qid]"] = rate.qid
+            }
+        }
+        
+//        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
+//        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
         params["special"] = ""
         params["other"] = ""
         
