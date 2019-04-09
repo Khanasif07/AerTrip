@@ -94,7 +94,8 @@ class HotelsSearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getRecentSearchData()
+//        self.getRecentSearchData()
+        self.viewModel.getRecentSearchesData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,10 +139,10 @@ class HotelsSearchVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.firstLineView.backgroundColor = AppColors.themeGray10
-        self.secondLineView.backgroundColor = AppColors.themeGray10
-        self.thirdLineView.backgroundColor = AppColors.themeGray10
-        self.fourthLineView.backgroundColor = AppColors.themeGray10
+        self.firstLineView.backgroundColor = AppColors.divider.color
+        self.secondLineView.backgroundColor = AppColors.divider.color
+        self.thirdLineView.backgroundColor = AppColors.divider.color
+        self.fourthLineView.backgroundColor = AppColors.divider.color
         self.starRatingLabel.textColor = AppColors.themeGray40
         self.allStarLabel.textColor = AppColors.themeGray40
         self.oneStarLabel.textColor = AppColors.themeGray40
@@ -213,6 +214,7 @@ class HotelsSearchVC: BaseVC {
     private func configureRecentSearchesView() {
         self.recentSearchesView = RecentHotelSearcheView(frame: self.recentSearchesContainerView.bounds)
         if let view = self.recentSearchesView {
+            view.delegate = self
             self.recentSearchesContainerView.addSubview(view)
         }
     }
@@ -673,17 +675,15 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
-            self.cityNameLabel.text = "\(newValue.first ?? "")"
-            self.viewModel.searchedFormData.cityName = "\(newValue.first ?? "")"
-            if hotel.value.contains(newValue.first ?? "") {
-                let replacingString = (newValue.first ?? "").appending(", ")
-                state = hotel.value.replacingOccurrences(of: replacingString, with:  "")
-            } else {
-                state = hotel.value
-            }
+            self.cityNameLabel.text = newValue.first ?? ""
+            self.viewModel.searchedFormData.cityName = newValue.first ?? ""
         }
-        self.stateNameLabel.text = hotel.value
-        self.viewModel.searchedFormData.stateName = hotel.value
+        //Logic for after string
+        var splittedStringArray = hotel.value.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        self.stateNameLabel.text = stateName//hotel.value
+        self.viewModel.searchedFormData.stateName = stateName//hotel.value
         self.manageAddressLabels()
         self.dataForApi(hotel: hotel)
     }
@@ -728,3 +728,34 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     }
 }
 
+extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
+    
+    func passRecentSearchesData(recentSearch: RecentSearchesModel) {
+        for (indexX,roomData) in recentSearch.room?.enumerated() ?? [].enumerated() {
+            if roomData.isPresent , let adultCounts = roomData.adultCounts.toInt {
+                self.viewModel.searchedFormData.adultsCount.append(adultCounts)
+            }
+            
+            for (indexY,child) in roomData.child?.enumerated() ?? [].enumerated() {
+//                if roomData.isPresent , child.isPresent
+                self.viewModel.searchedFormData.childrenAge[indexX][indexY] = child.childAge
+            }
+        }
+        self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
+        if recentSearch.filter?.noStar ?? false {
+            self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
+        }
+        self.viewModel.searchedFormData.ratingCount[0] = (recentSearch.filter?.firstStar ?? false) ? 1 : 0
+        self.viewModel.searchedFormData.ratingCount[1] = recentSearch.filter?.secondStar ?? false ? 2 : 0
+        self.viewModel.searchedFormData.ratingCount[2] = recentSearch.filter?.thirdStar ?? false ? 3 : 0
+        self.viewModel.searchedFormData.ratingCount[3] = recentSearch.filter?.fourthStar ?? false ? 4 : 0
+        self.viewModel.searchedFormData.ratingCount[4] = recentSearch.filter?.fifthStar ?? false ? 5 : 0
+        self.viewModel.searchedFormData.checkInDate = Date.getDateFromString(stringDate: recentSearch.checkInDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
+        self.viewModel.searchedFormData.checkOutDate = Date.getDateFromString(stringDate: recentSearch.checkOutDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
+        self.viewModel.searchedFormData.destId = recentSearch.dest_id
+        self.viewModel.searchedFormData.destType = recentSearch.dest_type
+        self.viewModel.searchedFormData.destName = recentSearch.dest_name
+        printDebug("searching again for \(recentSearch.dest_name)")
+        self.viewModel.hotelListOnPreferencesApi()
+    }
+}

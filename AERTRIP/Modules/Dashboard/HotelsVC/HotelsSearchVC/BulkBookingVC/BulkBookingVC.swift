@@ -135,11 +135,11 @@ class BulkBookingVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.firstLineView.backgroundColor = AppColors.themeGray10
-        self.secondLineView.backgroundColor = AppColors.themeGray10
-        self.thirdLineView.backgroundColor = AppColors.themeGray10
-        self.fourthLineView.backgroundColor = AppColors.themeGray10
-        self.fifthLineView.backgroundColor = AppColors.themeGray10
+        self.firstLineView.backgroundColor = AppColors.divider.color
+        self.secondLineView.backgroundColor = AppColors.divider.color
+        self.thirdLineView.backgroundColor = AppColors.divider.color
+        self.fourthLineView.backgroundColor = AppColors.divider.color
+        self.fifthLineView.backgroundColor = AppColors.divider.color
         self.starRatingLabel.textColor = AppColors.themeGray40
         self.allStarLabel.textColor = AppColors.themeGray40
         self.oneStarLabel.textColor = AppColors.themeGray40
@@ -207,6 +207,7 @@ class BulkBookingVC: BaseVC {
         let oldData = self.viewModel.oldData
         
         self.viewModel.destination = oldData.destName
+        self.viewModel.source = oldData.destName
         self.viewModel.checkInDate = oldData.checkInDate
         self.viewModel.checkOutDate = oldData.checkOutDate
         self.viewModel.roomCounts = 5
@@ -440,10 +441,14 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
-            self.cityNameLabel.text = "\(newValue.first ?? "")"
+            self.cityNameLabel.text = newValue.first ?? ""
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
-        self.stateNameLabel.text = hotel.value
+        var splittedStringArray = hotel.value.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        self.stateNameLabel.text = stateName//hotel.value
+//        self.stateNameLabel.text = hotel.value
         self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
         self.dataForApi(hotel: hotel)

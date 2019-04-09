@@ -209,8 +209,9 @@ class HotelDetailsVM {
                 if let sSelf = self {
                     if success {
                         sSelf.placeModel = placeData
-                        sSelf.delegate?.getHotelDistanceAndTimeSuccess()
                         printDebug(placeData)
+                        sSelf.delegate?.getHotelDistanceAndTimeSuccess()
+                        
                     } else {
                         sSelf.delegate?.getHotelDistanceAndTimeFail()
                     }

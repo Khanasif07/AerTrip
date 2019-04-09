@@ -605,4 +605,7 @@ enum LocalizedString: String {
     case AertripEmailId = "AertripEmailId"
     case ThankYouStmtForBookingId = "ThankYouStmtForBookingId"
     case ThankYouStmtForCId = "ThankYouStmtForCId"
+    case WriteReviews = "WriteReviews"
+    case Photos = "Photos"
+    case ReadReviews = "ReadReviews"
  }

@@ -297,7 +297,9 @@ class HotelResultVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.titleLabel.text = self.viewModel.hotelSearchRequest?.requestParameters.city
+        let title = self.viewModel.hotelSearchRequest?.requestParameters.destName.components(separatedBy: ",")
+        self.titleLabel.text = title?.first ?? ""
+//        self.titleLabel.text = self.viewModel.hotelSearchRequest?.requestParameters.city
         self.searchBar.placeholder = LocalizedString.SearchHotelsOrLandmark.localized
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
         self.setupNavigationTitleLabelText()
