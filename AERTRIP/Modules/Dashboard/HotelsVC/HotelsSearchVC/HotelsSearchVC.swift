@@ -721,14 +721,21 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
 extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
     
     func passRecentSearchesData(recentSearch: RecentSearchesModel) {
-        for (indexX,roomData) in recentSearch.room?.enumerated() ?? [].enumerated() {
-            if roomData.isPresent , let adultCounts = roomData.adultCounts.toInt {
-                self.viewModel.searchedFormData.adultsCount.append(adultCounts)
-            }
-            
-            for (indexY,child) in roomData.child?.enumerated() ?? [].enumerated() {
-//                if roomData.isPresent , child.isPresent
-                self.viewModel.searchedFormData.childrenAge[indexX][indexY] = child.childAge
+        self.viewModel.searchedFormData.adultsCount.removeAll()
+        self.viewModel.searchedFormData.childrenAge.removeAll()
+        for roomData in recentSearch.room ?? [] {
+            if roomData.isPresent {
+                if let adultCounts = roomData.adultCounts.toInt {
+                    self.viewModel.searchedFormData.adultsCount.append(adultCounts)
+                }
+                var childrenArray: [Int] = []
+                childrenArray.removeAll()
+                for child in roomData.child ?? [] {
+                    if child.isPresent {
+                        childrenArray.append(child.childAge)
+                    }
+                }
+                self.viewModel.searchedFormData.childrenAge.append(childrenArray)
             }
         }
         self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]

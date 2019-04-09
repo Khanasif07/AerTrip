@@ -229,7 +229,6 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
             cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
             self.viewModel.couponCode = self.viewModel.couponsData[selectedIndexPath.row].couponCode
             self.couponTextField.text = self.viewModel.couponsData[selectedIndexPath.row].couponCode
-//            self.enterCouponLabel.isHidden = false
             self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
@@ -304,8 +303,16 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     }
     
     func selectedCoupon(indexPath: IndexPath) {
-        self.selectedIndexPath = indexPath
-        self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        if self.selectedIndexPath == indexPath {
+            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            self.selectedIndexPath = nil
+            self.couponValidationTextSetUp(isCouponValid: true)
+            self.couponTextField.text = ""
+            self.viewModel.couponCode = ""
+        } else {
+            self.selectedIndexPath = indexPath
+            self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
         self.couponTableView.reloadData()
     }
 }
