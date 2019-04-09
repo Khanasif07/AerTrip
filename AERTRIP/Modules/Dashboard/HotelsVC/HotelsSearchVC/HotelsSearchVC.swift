@@ -655,18 +655,32 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
+         var state : String = ""
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
             self.viewModel.searchedFormData.cityName = hotel.city
+            if hotel.value.contains(hotel.city) {
+                state = hotel.value.replacingOccurrences(of: hotel.city+",", with:  "")
+            } else {
+                state = hotel.value
+            }
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
             self.cityNameLabel.text = "\(newValue.first ?? "")"
             self.viewModel.searchedFormData.cityName = "\(newValue.first ?? "")"
+            if hotel.value.contains(newValue.first ?? "") {
+                let replacingString = (newValue.first ?? "").appending(", ")
+                state = hotel.value.replacingOccurrences(of: replacingString, with:  "")
+            } else {
+                state = hotel.value
+            }
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
-        self.stateNameLabel.text = hotel.value
-        self.viewModel.searchedFormData.stateName = hotel.value
+       
+       
+        self.stateNameLabel.text = state
+        self.viewModel.searchedFormData.stateName = state
         self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
         self.dataForApi(hotel: hotel)

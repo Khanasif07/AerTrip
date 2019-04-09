@@ -64,12 +64,12 @@ class RangeVC: BaseVC {
         }
         let range = UserInfo.hotelFilter != nil ? filter.distanceRange : HotelFilterVM.shared.distanceRange
         self.stepSlider.index = UInt(range.toInt)
-        self.rangeLabel.text = "Within " + "\((range.toInt))" + "Km"
+        self.rangeLabel.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "Km"
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         let value = (sender as AnyObject).index ?? 0
-        self.rangeLabel.text = value >= 20 ? "\(value)Km above " : "Within " + "\(value)" + "Km"
-        HotelFilterVM.shared.distanceRange = Double((sender as AnyObject).index ?? 0)
+        self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "Km"
+        HotelFilterVM.shared.distanceRange = Double((sender as AnyObject).index)
     }
 }

@@ -277,6 +277,7 @@ class HotelDetailsVC: BaseVC {
     internal func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("Filter not found")
+            HotelFilterVM.shared.resetToDefault()
             return
         }
         self.viewModel.filterAppliedData = filter

@@ -75,6 +75,7 @@ class PriceVC: BaseVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            HotelFilterVM.shared.resetToDefault()
             HotelFilterVM.shared.priceType = .Total
             return
         }

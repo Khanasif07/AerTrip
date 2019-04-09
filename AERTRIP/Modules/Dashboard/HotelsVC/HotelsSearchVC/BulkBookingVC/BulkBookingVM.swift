@@ -10,7 +10,7 @@ import UIKit
 
 protocol BulkBookingVMDelegate: class {
     func bulkBookingEnquirySuccess(enquiryId: String)
-    func bulkBookingEnquiryFail()
+    func bulkBookingEnquiryFail(errors:ErrorCodes)
 }
 
 class BulkBookingVM {
@@ -65,7 +65,7 @@ class BulkBookingVM {
                 sSelf.delegate?.bulkBookingEnquirySuccess(enquiryId: enquiryId)
             } else {
                 printDebug(errors)
-                sSelf.delegate?.bulkBookingEnquiryFail()
+                sSelf.delegate?.bulkBookingEnquiryFail(errors: errors)
             }
         }
     }

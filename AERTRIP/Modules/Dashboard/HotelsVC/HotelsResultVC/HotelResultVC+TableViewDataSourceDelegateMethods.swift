@@ -27,8 +27,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             self.hotelSearchTableView.backgroundView?.isHidden = count > 0
         }
         else {
-            self.hotelSearchView.isHidden = true
-        }
+                 self.hotelSearchView.isHidden = true
+            }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

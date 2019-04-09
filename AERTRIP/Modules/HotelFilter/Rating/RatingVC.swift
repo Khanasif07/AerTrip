@@ -48,6 +48,7 @@ class RatingVC: BaseVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            HotelFilterVM.shared.resetToDefault()
             self.doInitialSetup()
             return
         }
@@ -111,7 +112,8 @@ class RatingVC: BaseVC {
             }
             currentButton.isHighlighted = false
             if HotelFilterVM.shared.ratingCount.contains(forStar) {
-               HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
+                 HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
+             
             }
             else {
                HotelFilterVM.shared.ratingCount.append(forStar)

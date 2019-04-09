@@ -94,6 +94,32 @@ extension HotelResultVC: GMSMapViewDelegate {
         printDebug("didChange position \(position)")
     }
     
+  
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        if hoteResultViewType == .MapView {
+            if self.isMapInFullView == false {
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    self?.collectionView.isHidden = true
+                    self?.collectionViewHeightConstraint.constant = 0
+                    self?.collectionView.alpha = 0
+                    self?.floatingViewBottomConstraint.constant = 10
+                    self?.isMapInFullView = true
+                }
+           
+            } else {
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    self?.collectionView.isHidden = false
+                    self?.collectionViewHeightConstraint.constant = 230
+                    self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
+                    self?.isMapInFullView = false
+                    self?.collectionView.alpha = 1
+                }
+               
+            }
+        }
+        printDebug("Coordinate on tapped")
+    }
     // MARK: - GMSMarker Dragging
     
     func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {

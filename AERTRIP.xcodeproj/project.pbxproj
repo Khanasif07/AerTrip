@@ -111,7 +111,6 @@
 		1896D5942209538B003FC2B6 /* MultiSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D5912209538B003FC2B6 /* MultiSlider.swift */; };
 		1896D596220957CA003FC2B6 /* RangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D595220957CA003FC2B6 /* RangeExtension.swift */; };
 		1896D59B220995BF003FC2B6 /* RatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D59A220995BF003FC2B6 /* RatingVC.swift */; };
-		1896D59E220998CF003FC2B6 /* RatingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1896D59D220998CF003FC2B6 /* RatingVM.swift */; };
 		18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D8C21E48D6500E66072 /* OrderTableViewCell.swift */; };
 		18999D8F21E48D6500E66072 /* OrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D8D21E48D6500E66072 /* OrderTableViewCell.xib */; };
 		18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9021E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift */; };
@@ -700,7 +699,6 @@
 		1896D5912209538B003FC2B6 /* MultiSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiSlider.swift; sourceTree = "<group>"; };
 		1896D595220957CA003FC2B6 /* RangeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeExtension.swift; sourceTree = "<group>"; };
 		1896D59A220995BF003FC2B6 /* RatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingVC.swift; sourceTree = "<group>"; };
-		1896D59D220998CF003FC2B6 /* RatingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingVM.swift; sourceTree = "<group>"; };
 		18999D8C21E48D6500E66072 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		18999D8D21E48D6500E66072 /* OrderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderTableViewCell.xib; sourceTree = "<group>"; };
 		18999D9021E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorisedByGroupsTableViewCell.swift; sourceTree = "<group>"; };
@@ -1477,7 +1475,6 @@
 			isa = PBXGroup;
 			children = (
 				1896D59A220995BF003FC2B6 /* RatingVC.swift */,
-				1896D59D220998CF003FC2B6 /* RatingVM.swift */,
 			);
 			path = Rating;
 			sourceTree = "<group>";
@@ -3900,7 +3897,6 @@
 				183E3F6B21DA00D70032DEBA /* FloatRatingView.swift in Sources */,
 				18EF5E7F221D261B00EFFA6E /* GMUPoint.m in Sources */,
 				84085D1621F59C0E00F1E844 /* SideMenuViewAccountCell.swift in Sources */,
-				1896D59E220998CF003FC2B6 /* RatingVM.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
 				84085D0821F59C0E00F1E844 /* ViewProfileDetailVC.swift in Sources */,
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
