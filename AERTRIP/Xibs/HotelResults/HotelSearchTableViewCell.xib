@@ -72,7 +72,7 @@
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fi-8s-R3U" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="19" width="68" height="12"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.98823529409999999" green="0.21176470589999999" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="68" id="NzM-t3-JN3"/>
                                                     <constraint firstAttribute="height" constant="12" id="e4f-fy-BQO"/>
@@ -89,6 +89,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="4fi-8s-R3U" firstAttribute="leading" secondItem="8nV-1U-WQE" secondAttribute="trailing" constant="-3" id="70n-pk-onj"/>
                                             <constraint firstItem="8nV-1U-WQE" firstAttribute="top" secondItem="v1a-xN-JO6" secondAttribute="top" constant="-8" id="7v7-NH-DKf"/>
@@ -168,7 +169,7 @@
         <image name="combinedShapeFill" width="14" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="pinHotelIcon" width="27" height="27"/>
-        <image name="starRatingFilled" width="30" height="42"/>
+        <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviser" width="32" height="24"/>
     </resources>

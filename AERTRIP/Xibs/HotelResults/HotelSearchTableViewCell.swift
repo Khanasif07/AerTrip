@@ -66,6 +66,8 @@ class HotelSearchTableViewCell: UITableViewCell {
         if hotel.star > 0.0 {
             self.starRatingView.isHidden = false
             self.starRatingView.rating = hotel.star
+        } else {
+            self.starRatingView.isHidden = true
         }
         
         self.tripAdvisorRatingView.isHidden = true
@@ -74,13 +76,13 @@ class HotelSearchTableViewCell: UITableViewCell {
             self.tripAdvisorRatingView.isHidden = false
             self.tripLogoImage.isHidden = false
             self.tripAdvisorRatingView.rating = hotel.rating
+        } else {
+            self.tripAdvisorRatingView.isHidden = true
+            self.tripLogoImage.isHidden = true
         }
-        self.starRatingView.isHidden = hotel.star == 0
-        self.starRatingView.rating = hotel.star
-        self.tripAdvisorRatingView.rating = hotel.rating
-//        self.tripRatingView.isHidden = hotel.rating == 0
-        self.tripAdvisorRatingView.isHidden = hotel.rating == 0
-        self.tripLogoImage.isHidden = hotel.rating == 0
+       
+
+    
         self.addressLabel.attributedText = getAttributeBoldTextForAddress(text: hotel.address ?? "", boldText: searchText)
     }
     
