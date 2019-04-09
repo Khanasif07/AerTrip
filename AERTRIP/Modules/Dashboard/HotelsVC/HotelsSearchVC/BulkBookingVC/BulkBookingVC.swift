@@ -135,11 +135,11 @@ class BulkBookingVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.firstLineView.backgroundColor = AppColors.themeGray10
-        self.secondLineView.backgroundColor = AppColors.themeGray10
-        self.thirdLineView.backgroundColor = AppColors.themeGray10
-        self.fourthLineView.backgroundColor = AppColors.themeGray10
-        self.fifthLineView.backgroundColor = AppColors.themeGray10
+        self.firstLineView.backgroundColor = AppColors.divider.color
+        self.secondLineView.backgroundColor = AppColors.divider.color
+        self.thirdLineView.backgroundColor = AppColors.divider.color
+        self.fourthLineView.backgroundColor = AppColors.divider.color
+        self.fifthLineView.backgroundColor = AppColors.divider.color
         self.starRatingLabel.textColor = AppColors.themeGray40
         self.allStarLabel.textColor = AppColors.themeGray40
         self.oneStarLabel.textColor = AppColors.themeGray40
