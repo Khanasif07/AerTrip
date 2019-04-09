@@ -201,6 +201,9 @@ struct HotelDetails {
         if let obj = json[APIKeys.photos.rawValue] as? [String] {
             self.photos = obj
         }
+        else if let dict = json[APIKeys.photos.rawValue] as? JSONDictionary {
+            self.photos = dict.map {"\($0.1)"}
+        }
         if let obj = json[APIKeys.checkin_time.rawValue] {
             self.checkin_time = "\(obj)".removeNull
         }
