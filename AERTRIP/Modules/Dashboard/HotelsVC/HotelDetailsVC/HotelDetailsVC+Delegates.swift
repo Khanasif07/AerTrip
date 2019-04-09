@@ -14,6 +14,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.viewModel.hotelData != nil {
+            self.hotelTableView.tableFooterView?.isHidden = self.viewModel.hotelDetailsTableSectionData.count <= 3
             return self.viewModel.hotelDetailsTableSectionData.count
         }
         return 1
