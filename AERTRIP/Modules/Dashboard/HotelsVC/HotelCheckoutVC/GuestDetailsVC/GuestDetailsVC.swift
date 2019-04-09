@@ -36,6 +36,7 @@ class GuestDetailsVC: BaseVC {
     
     // travellers for managing on table view
     var travellers: [TravellerModel] = []
+    var keyboardHeight: CGFloat = 0.0
     
     // MARK: - View Life cycle
     
@@ -112,6 +113,14 @@ class GuestDetailsVC: BaseVC {
     
     private func getRoomDetails() {
         self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
+    }
+    
+    
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            printDebug("notification: Keyboard will show")
+           self.keyboardHeight = keyboardSize.height
+        }
     }
     
     // Make table view particular index selectable or Editable
@@ -260,12 +269,23 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             switch textField {
             case cell.firstNameTextField:
                 if let indexPath = self.indexPath {
-                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text ?? ""
+                    if textField.text?.count ?? 0 < 30 {
+                        GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text?.removeAllWhiteSpacesAndNewLines ?? ""
+                    } else {
+                        AppToast.default.showToastMessage(message: "First Name show be less than 30 characters", spaceFromBottom : keyboardHeight)
+                        return
+                    }
                 }
                 
             case cell.lastNameTextField:
                 if let indexPath = self.indexPath {
-                    GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text ?? ""
+                    if textField.text?.count ?? 0 < 30 {
+                        GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text?.removeAllWhiteSpacesAndNewLines ?? ""
+                    } else {
+                        AppToast.default.showToastMessage(message: "Last Name show be less than 30 characters", spaceFromBottom: keyboardHeight)
+                        return
+                    }
+                    
                 }
                 
             default:

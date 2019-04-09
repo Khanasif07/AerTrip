@@ -42,11 +42,7 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.doInitalSetup()
     }
     
-//    override func prepareForReuse() {
-//        self.salutationTextField.text = ""
-//        self.firstNameTextField.text = ""
-//        self.lastNameTextField.text = ""
-//    }
+
     
     // MARK: - Helper methods
     
@@ -58,6 +54,7 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         self.salutationPicker.delegate = self
+       
         self.salutationTextField.inputView = self.salutationPicker
         self.salutationTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.salutationTextField.tintColor = UIColor.clear
@@ -161,6 +158,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
+        if let txtStr = textField.text, txtStr.count > 30 {
+            textField.text = txtStr.substring(to: 30)
+            return 
+        }
         switch textField {
         case self.salutationTextField:
              self.delegate?.textFieldWhileEditing(salutationTextField)
@@ -172,6 +173,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
             break
         }
        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
 }
 
