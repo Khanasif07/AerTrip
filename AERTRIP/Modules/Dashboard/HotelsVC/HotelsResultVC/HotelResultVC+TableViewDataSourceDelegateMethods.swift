@@ -103,17 +103,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.searchText = self.predicateStr
             if self.searchedHotels.count > 0 {
-                var data = self.searchedHotels[indexPath.row]
-                if indexPath.row%2 == 0 {
-                    data.star = 0
-                    data.rating = 3.5
-                }
-                else {
-                    data.star = 0
-                    data.rating = 0.0
-                }
-                cell.hotelData = data
-//                cell.hotelData = self.searchedHotels[indexPath.row]
+                cell.hotelData = self.searchedHotels[indexPath.row]
             }
             return cell
         } else {

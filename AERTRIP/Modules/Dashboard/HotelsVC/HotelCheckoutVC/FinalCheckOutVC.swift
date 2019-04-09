@@ -656,7 +656,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func makePaymentFail() {
         manageLoader(shouldStart: false)
-        AppToast.default.showToastMessage(message: "make Payment faild")
+        AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
