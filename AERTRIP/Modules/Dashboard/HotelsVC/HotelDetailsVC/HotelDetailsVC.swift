@@ -67,7 +67,7 @@ class HotelDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.themeWhite
-        //        self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
