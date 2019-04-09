@@ -52,6 +52,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     var isFromFinalCheckout: Bool = false
+    var confirmationCall: Int = 1
 
     // MARK: - Private
     
@@ -324,7 +325,6 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func updateFavouriteSuccess(withMessage: String) {
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-//            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
             self.sendDataChangedNotification(data: self)
             let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
@@ -362,15 +362,25 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchConfirmItineraryDataSuccess() {
-        GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
-        manageLoader(shouldStart: false)
-        fillData()
-        self.viewModel.getHotelDetailsSectionData()
-        self.updateHotelCheckOutDetailsVIew()
+        if viewModel.itineraryData == nil, confirmationCall < 5 {
+            confirmationCall += 1
+            viewModel.fetchConfirmItineraryData()
+        }
+        else {
+            GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
+            manageLoader(shouldStart: false)
+            fillData()
+            self.viewModel.getHotelDetailsSectionData()
+            self.updateHotelCheckOutDetailsVIew()
+        }
     }
     
     func fetchConfirmItineraryDataFail() {
         manageLoader(shouldStart: false)
+        if viewModel.itineraryData == nil, confirmationCall < 5 {
+            confirmationCall += 1
+            viewModel.fetchConfirmItineraryData()
+        }
     }
     
     func willFetchRecheckRatesData() {
