@@ -70,6 +70,7 @@ class HotelRatingInfoCell: UITableViewCell {
         self.deviderView.isHidden = false
         self.hotelRatingView.rating = starRating
         self.hotelDotsView.rating = tripAdvisorRating
+        self.hotelRatingView.isHidden = starRating.isZero
         self.hotelDotsView.isHidden = tripAdvisorRating.isZero
         self.tripadviserImageView.isHidden = tripAdvisorRating.isZero
     }
