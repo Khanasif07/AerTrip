@@ -50,6 +50,9 @@ class BulkBookingVM {
         params[APIKeys.preferred.rawValue] = self.preferred
         params[APIKeys.special_request.rawValue] = self.specialRequest
         params[APIKeys.pType.rawValue] = self.pType
+        if self.ratingCount.isEmpty {
+            self.ratingCount = [1,2,3,4,5]
+        }
         params[APIKeys.stars.rawValue] = self.ratingCount
         return params
     }

@@ -114,7 +114,7 @@ class HotelsSearchVM: NSObject{
     func  getRecentSearchesData() {
         let params: JSONDictionary = [APIKeys.product.rawValue : "hotel"]
         printDebug(params)
-        APICaller.shared.recentHotelsSearchesApi(params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
+        APICaller.shared.recentHotelsSearchesApi(loader: false) { [weak self] (success, errors, recentSearchesHotels) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.recentSearchesData = recentSearchesHotels

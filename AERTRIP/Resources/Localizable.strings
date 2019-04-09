@@ -292,7 +292,7 @@
 "Age" = "Age";
 "Ages" = "Ages";
 "AdultsAges" = "Ages 12+";
-"ChildAges" = "Ages 1 - 12";
+"ChildAges" = "Ages 0 - 12";
 "MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
 
@@ -460,7 +460,7 @@
 "Guests" = "Guests";
 
 //Hotel Checkout Guest Details screen
-"GuestDetails" = "GuestDetails";
+"GuestDetails" = "Guest Details";
 "CancelWithSpace" = " Cancel";
 "DoneWithSpace" = "Done ";
 "FirstName" = "First Name";
@@ -571,3 +571,6 @@
 "AertripEmailId" = "support@aertrip.com";
 "ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
 "ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";
+"WriteReviews" = "WriteReviews";
+"Photos" = "Photos";
+"ReadReviews" = "ReadReviews";

@@ -160,6 +160,14 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
+    func showURLOnATWebView(_ url: URL, screenTitle: String) {
+        let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
+        obj.urlToLoad = url
+        obj.navTitle = screenTitle
+//        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
+    }
+    
     func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email

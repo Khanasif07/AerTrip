@@ -207,6 +207,7 @@ class BulkBookingVC: BaseVC {
         let oldData = self.viewModel.oldData
         
         self.viewModel.destination = oldData.destName
+        self.viewModel.source = oldData.destName
         self.viewModel.checkInDate = oldData.checkInDate
         self.viewModel.checkOutDate = oldData.checkOutDate
         self.viewModel.roomCounts = 5
@@ -390,7 +391,8 @@ class BulkBookingVC: BaseVC {
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
     }
     
-    @IBAction func bulkBookingPopUpAction(_ sender: Any) {
+    @IBAction func bulkBookingPopUpAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
     }
     
@@ -439,10 +441,14 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
-            self.cityNameLabel.text = "\(newValue.first ?? "")"
+            self.cityNameLabel.text = newValue.first ?? ""
         }
         self.whereLabel.font = AppFonts.Regular.withSize(16.0)
-        self.stateNameLabel.text = hotel.value
+        var splittedStringArray = hotel.value.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        self.stateNameLabel.text = stateName//hotel.value
+//        self.stateNameLabel.text = hotel.value
         self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
         self.dataForApi(hotel: hotel)

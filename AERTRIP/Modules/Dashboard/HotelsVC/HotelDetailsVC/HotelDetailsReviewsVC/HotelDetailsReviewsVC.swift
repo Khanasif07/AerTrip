@@ -181,6 +181,27 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 {
+            var urlString = ""
+            var screenTitle = ""
+            switch indexPath.row {
+            case 0:
+                urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.writeReview ?? "")"
+                screenTitle = LocalizedString.WriteReviews.localized
+            case 1:
+                urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.seeAllPhotos ?? "")"
+                screenTitle = LocalizedString.Photos.localized
+            case 2:
+                urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
+                screenTitle = LocalizedString.ReadReviews.localized
+            default:
+                return
+            }
+            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return self.getHeightForHeaderInSection(section: section)
     }
