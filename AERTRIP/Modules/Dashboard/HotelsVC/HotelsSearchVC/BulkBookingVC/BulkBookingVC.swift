@@ -391,6 +391,7 @@ class BulkBookingVC: BaseVC {
     }
     
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {
+        dismissKeyboard()
         AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
     }
     
@@ -471,8 +472,9 @@ extension BulkBookingVC: BulkBookingVMDelegate {
         AppFlowManager.default.showBulkEnquiryVC()
     }
     
-    func bulkBookingEnquiryFail() {
+    func bulkBookingEnquiryFail(errors:ErrorCodes) {
         self.searchButtonOutlet.isLoading = false
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
 }
 

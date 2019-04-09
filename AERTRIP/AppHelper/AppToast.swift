@@ -30,7 +30,7 @@ struct AppToast {
     
     private let spaceFromBottom: CGFloat = 10.0
     
-    func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil) {
+    func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil, spaceFromBottom: CGFloat = 10.0) {
         
         if !AppToast.isPreviousView {
             
@@ -46,16 +46,16 @@ struct AppToast {
                 ob.setupToastMessage(title: title, message: message, buttonTitle: buttonTitle, buttonImage: buttonImage, buttonAction: buttonAction)
             }
             let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
-            self.showToast(vc: onViewController!, ob: ob, height: height, duration: duration)
+            self.showToast(vc: onViewController!, ob: ob, height: height, duration: duration,spaceFromBottom: spaceFromBottom)
         }
     }
     
-    private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double) {
+    private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double,spaceFromBottom: CGFloat) {
         
         vc.view.addSubview(ob)
         ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + AppFlowManager.default.safeAreaInsets.bottom + self.spaceFromBottom) , width: UIDevice.screenWidth - 20, height: CGFloat(height))
+            ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height - (CGFloat(height) + AppFlowManager.default.safeAreaInsets.bottom + spaceFromBottom) , width: UIDevice.screenWidth - 20, height: CGFloat(height))
         }
         
         delay(seconds: duration) {

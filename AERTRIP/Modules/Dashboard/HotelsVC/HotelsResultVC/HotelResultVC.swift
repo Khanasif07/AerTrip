@@ -74,6 +74,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet var floatingButtonOnMapView: UIButton!
     @IBOutlet var cancelButton: UIButton!
     
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
     // Searching View
     @IBOutlet var hotelSearchView: UIView! {
         didSet {
@@ -112,6 +114,8 @@ class HotelResultVC: BaseVC {
     let mapIntitalZoomLabel: Float = 12.0
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForHotelSearch: IndexPath?
+    var isMapInFullView: Bool = false
+    var floatingViewInitialConstraint : CGFloat = 0.0
     
     // fetch result controller
     
@@ -136,6 +140,7 @@ class HotelResultVC: BaseVC {
     var favouriteHotels: [HotelSearched] = []
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     var searchedHotels: [HotelSearched] = []
+    var andPredicate : NSCompoundPredicate?
     
     // Empty State view
     
@@ -281,6 +286,8 @@ class HotelResultVC: BaseVC {
         self.switchView.iconBorderColor = AppColors.clear
         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+        
+        self.addTapGestureOnMap()
     }
     
     override func setupFonts() {

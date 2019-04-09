@@ -67,10 +67,10 @@ public class HotelSearched: NSManagedObject {
                 hotelSearched?.sectionTitle = "c5 to 10"
             case 10..<15:
                 hotelSearched?.sectionTitle = "d11 to 15"
-            case 15..<20:
+            case 15...20:
                 hotelSearched?.sectionTitle = "e16 to 20"
             default:
-                hotelSearched?.sectionTitle = "fbeyond 20"
+                hotelSearched?.sectionTitle = "fBeyond 20"
                 hotelSearched?.isHotelBeyondTwentyKm = true
             }
         }
@@ -131,9 +131,9 @@ public class HotelSearched: NSManagedObject {
         func getRoundedValue(value: Double) -> String {
             let difference = value - floor(value)
             if difference <= 0.5 {
-                return "\(floor(value))"
+                return "\(floor(value).toInt)"
             } else {
-                return "\(ceil(value))"
+                return "\(ceil(value).toInt)"
             }
         }
         

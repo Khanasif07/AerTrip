@@ -9,27 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
-            timestampString = "576168239.857197"
+            filePath = "AERTRIP/Xibs/HotelResults/HotelSearchTableViewCell.swift"
+            timestampString = "576508119.136031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/MailComposerVC.swift"
-            timestampString = "576162844.177479"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "contactPicker(_:didSelect:)"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "configureCell()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -40,13 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
-            timestampString = "576168239.8576241"
+            timestampString = "576508119.136526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
-            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
-            landmarkType = "7">
+            startingLineNumber = "642"
+            endingLineNumber = "642">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -55,45 +39,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
-            timestampString = "576168239.857689"
+            filePath = "AERTRIP/AppHelper/AppToast.swift"
+            timestampString = "576508119.136825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
-            timestampString = "576168239.857748"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/FinalCheckOutVC.swift"
-            timestampString = "576163703.9009809"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
-            landmarkName = "fetchRecheckRatesDataSuccess(recheckedData:)"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "showToast(vc:ob:height:duration:spaceFromBottom:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -104,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
-            timestampString = "576168239.8578269"
+            timestampString = "576508119.137121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "textFieldWhileEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>

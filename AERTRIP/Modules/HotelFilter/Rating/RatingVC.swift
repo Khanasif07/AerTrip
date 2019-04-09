@@ -48,6 +48,7 @@ class RatingVC: BaseVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            HotelFilterVM.shared.resetToDefault()
             self.doInitialSetup()
             return
         }
@@ -61,9 +62,10 @@ class RatingVC: BaseVC {
         
         //setting stars
         if !HotelFilterVM.shared.ratingCount.isEmpty, HotelFilterVM.shared.ratingCount.count < 5 {
-            HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
+            HotelFilterVM.shared.ratingCount.removeAll()
         }
-        for star in HotelFilterVM.shared.ratingCount {
+        
+        for star in self.filterApplied.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
@@ -110,7 +112,8 @@ class RatingVC: BaseVC {
             }
             currentButton.isHighlighted = false
             if HotelFilterVM.shared.ratingCount.contains(forStar) {
-               HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
+                 HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
+             
             }
             else {
                HotelFilterVM.shared.ratingCount.append(forStar)
@@ -122,7 +125,6 @@ class RatingVC: BaseVC {
                     starBtn.isSelected = false
                     starBtn.isHighlighted = true
                 }
-               HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
             }
         } else {
             for starBtn in self.starButtonsOutlet {
@@ -130,6 +132,8 @@ class RatingVC: BaseVC {
             }
         }
     }
+    
+    
     
     
     ///Get Star Rating
@@ -197,7 +201,7 @@ class RatingVC: BaseVC {
             end = nil
         }
         final.removeLast(2)
-        return final + " \(LocalizedString.stars.localized)"
+        return isForStarRating ?  final + " \(LocalizedString.stars.localized)" :  final + " \(LocalizedString.Ratings.localized)"
     }
     
     /// Star Button State

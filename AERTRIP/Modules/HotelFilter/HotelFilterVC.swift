@@ -146,6 +146,7 @@ class HotelFilterVC: BaseVC {
         })
     }
     
+    
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 50.0

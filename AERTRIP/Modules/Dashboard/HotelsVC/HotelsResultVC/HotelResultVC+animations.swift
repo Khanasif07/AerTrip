@@ -73,7 +73,7 @@ extension HotelResultVC {
             // vertical list animation
             self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
             self.collectionView.alpha = isHidden ? 0.0 : 1.0
-            
+            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
             self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
             self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0

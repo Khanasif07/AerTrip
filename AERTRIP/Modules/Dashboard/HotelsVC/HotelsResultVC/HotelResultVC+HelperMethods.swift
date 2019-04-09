@@ -31,6 +31,7 @@ extension HotelResultVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            HotelFilterVM.shared.resetToDefault()
             return
         }
         self.filterApplied = filter
@@ -234,6 +235,12 @@ extension HotelResultVC {
         self.floatingView.isHidden = isHidden
     }
     
+    func addTapGestureOnMap() {
+        //Add tap gesture to your view
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleGestureOnMap))
+        self.mapContainerView.addGestureRecognizer(tap)
+    }
+    
     // MARK: - Manage Header animation
     
     func manageTopHeader(_ scrollView: UIScrollView) {
@@ -403,5 +410,12 @@ extension HotelResultVC {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
+    }
+    
+    // GestureRecognizer
+    @objc func handleGestureOnMap(gesture: UITapGestureRecognizer) -> Void {
+        if hoteResultViewType == .MapView {
+            
+        }
     }
 }

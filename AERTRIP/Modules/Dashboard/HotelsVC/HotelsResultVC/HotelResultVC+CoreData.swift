@@ -13,18 +13,16 @@ extension HotelResultVC {
     func loadSaveData() {
         if self.fetchRequestType == .FilterApplied {
             self.filterButton.isSelected = true
-//            if self.predicateStr.isEmpty {
-//                self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
-//                
-//            } else {
-//                let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
-//                self.fetchedResultsController.fetchRequest.predicate = andPredicate
-//            }
-            let andPredicate = NSCompoundPredicate(type: .and, subpredicates: createSubPredicates())
+            andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
             self.fetchedResultsController.fetchRequest.predicate = andPredicate
         } else if self.fetchRequestType == .Searching {
-             let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
-             self.fetchedResultsController.fetchRequest.predicate = orPredicate
+            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+            if let andPredicate = self.andPredicate {
+                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
+            } else {
+                self.fetchedResultsController.fetchRequest.predicate = orPredicate
+            }
+            
         } else {
             self.fetchRequestWithoutFilter()
         }
@@ -60,7 +58,7 @@ extension HotelResultVC {
         let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
-        if self.filterApplied.distanceRange > 0 {
+        if self.filterApplied.distanceRange >= 0 {
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             subpredicates.append(distancePredicate)
         }

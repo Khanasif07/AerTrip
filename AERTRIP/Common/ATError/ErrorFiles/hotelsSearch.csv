@@ -12,7 +12,7 @@
 12,,5,Error saving bulk enquiry,
 13,,6,Type is required,
 14,,7,User ID required,
-15,,8,Source is required,
+15,,8,Source is required,Please select location.
 16,,9,from_date is required,
 17,,47,to_date id required,
 18,,44,pax_count is required,
