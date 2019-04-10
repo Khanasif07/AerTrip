@@ -37,6 +37,13 @@ class YouAreAllDoneVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarStyle = .default
+        
+        AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     override func initialSetup() {
