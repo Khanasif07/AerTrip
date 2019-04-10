@@ -178,3 +178,18 @@ extension APICaller {
         }
     }
 }
+
+
+extension APICaller {
+    func saveLocallyFavToServer() {
+        var param: JSONDictionary = ["status": 1]
+        for (idx,id) in UserInfo.locallyFavHotels.enumerated() {
+            param["hid[\(idx)]"] = id
+        }
+        APICaller.shared.callUpdateFavouriteAPI(params: param) { (isSuccess, errors, successMessage) in
+            if isSuccess {
+                UserInfo.locallyFavHotels.removeAll()
+            }
+        }
+    }
+}

@@ -85,6 +85,11 @@ public class HotelSearched: NSManagedObject {
         
         if let obj = dataDict[APIKeys.hid.rawValue] {
             hotelSearched!.hid = "\(obj)".removeNull
+            
+            //update fav if it is locally saved for logged out user
+            if UserInfo.loggedInUserId == nil, UserInfo.locallyFavHotels.contains("\(obj)".removeNull) {
+                hotelSearched!.fav = "1"
+            }
         }
         
         if let obj = dataDict[APIKeys.hname.rawValue] {

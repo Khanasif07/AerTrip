@@ -115,17 +115,30 @@ class HotelsResultVM: NSObject {
                 if isUnpinHotels {  AppToast.default.showToastMessage(message: successMessage) }
                 self.delegate?.updateFavouriteSuccess()
             } else {
-                
-                //revert back in API not success fav/unfav locally
-                for hotel in forHotels {
-                    if !isUnpinHotels {
-                        hotel.fav = hotel.fav == "1" ? "0" : "1"
-                    } else {
-                        hotel.fav = "1"
+                if let _ = UserInfo.loggedInUserId {
+                    //revert back in API not success fav/unfav locally
+                    for hotel in forHotels {
+                        if !isUnpinHotels {
+                            hotel.fav = hotel.fav == "1" ? "0" : "1"
+                        } else {
+                            hotel.fav = "1"
+                        }
+                        _ = hotel.afterUpdate
                     }
-                    _ = hotel.afterUpdate
                 }
-
+                else {
+                    //if user is not logged in save them locally
+                    for hotel in forHotels {
+                        if let id = hotel.hid, !id.isEmpty {
+                            if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
+                                UserInfo.locallyFavHotels.remove(at: idx)
+                            }
+                            else {
+                                UserInfo.locallyFavHotels.append(id)
+                            }
+                        }
+                    }
+                }
                 self.delegate?.updateFavouriteFail(errors: errors)
             }
         }

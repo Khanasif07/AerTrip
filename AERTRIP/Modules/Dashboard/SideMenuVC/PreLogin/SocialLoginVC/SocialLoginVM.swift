@@ -177,6 +177,7 @@ extension SocialLoginVM {
                 }
                 
                 self.delegate?.didLoginSuccess()
+                APICaller.shared.saveLocallyFavToServer()
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)

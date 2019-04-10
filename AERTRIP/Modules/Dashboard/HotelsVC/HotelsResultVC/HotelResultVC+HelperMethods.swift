@@ -51,13 +51,7 @@ extension HotelResultVC {
     
     func getFavouriteHotels() {
         self.favouriteHotels = self.searchedHotels.filter { $0.fav == "1" }
-        
-        if let _ = UserInfo.loggedInUserId {
-            self.manageSwitchContainer(isHidden: self.favouriteHotels.isEmpty)
-        }
-        else {
-            self.manageSwitchContainer(isHidden: true)
-        }
+        self.manageSwitchContainer(isHidden: self.favouriteHotels.isEmpty)
     }
     
     func getPinnedHotelTemplate() {

@@ -652,3 +652,14 @@ class UserInfo {
     }
 }
 
+
+extension UserInfo {
+    class var locallyFavHotels: [String] {
+        get {
+            return UserDefaults.getCustomObject(forKey: APIKeys.LocallyFavHotels.rawValue) as? [String] ?? []
+        }
+        set {
+            UserDefaults.saveCustomObject(customObject: newValue, forKey: APIKeys.LocallyFavHotels.rawValue)
+        }
+    }
+}

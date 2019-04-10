@@ -152,22 +152,7 @@ class HotelDetailsVM {
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-        /*   let frameworkBundle = Bundle(for: PKCountryPicker.self)
-         if let jsonPath = frameworkBundle.path(forResource: "hotelData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
-         do {
-         if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any] {
-         if let hotel = jsonObjects["data"] as? JSONDictionary, let data = hotel["results"] as? JSONDictionary  {
-         self.hotelData = HotelDetails.hotelInfo(response: data)
-         self.delegate?.getHotelDetailsSuccess()
-         }
-         }
-         }
-         catch {
-         printDebug("error")
-         //self.hotelData = hotelData
-         }
-         } */
-        
+
         APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData, currencyPref) in
             guard let sSelf = self else {return}
             if success {
@@ -188,14 +173,34 @@ class HotelDetailsVM {
     //MARK:-
     func updateFavourite() {
         let param: JSONDictionary = ["hid[0]": hotelInfo?.hid ?? "0", "status": hotelInfo?.fav == "0" ? 1 : 0]
+        
+        //save locally and update ui
+        self.hotelInfo?.fav = self.hotelInfo?.fav == "0" ? "1" : "0"
+        _ = self.hotelInfo?.afterUpdate
+        self.delegate?.updateFavouriteSuccess(withMessage: "")
+        
         APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] (isSuccess, errors, successMessage) in
             if let sSelf = self {
                 if isSuccess {
-                    sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
-                    _ = self?.hotelInfo?.afterUpdate
                 }
                 else {
+                    if let _ = UserInfo.loggedInUserId {
+                        //revert back in API not success fav/unfav locally
+                        sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
+                        _ = sSelf.hotelInfo?.afterUpdate
+                    }
+                    else {
+                        //if user is not logged in save them locally
+                        if let id = sSelf.hotelInfo?.hid, !id.isEmpty {
+                            if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
+                                UserInfo.locallyFavHotels.remove(at: idx)
+                            }
+                            else {
+                                UserInfo.locallyFavHotels.append(id)
+                            }
+                        }
+                    }
                     sSelf.delegate?.updateFavouriteFail(errors:errors)
                 }
             }

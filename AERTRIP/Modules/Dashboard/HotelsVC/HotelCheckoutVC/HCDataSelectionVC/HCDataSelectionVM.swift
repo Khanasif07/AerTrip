@@ -201,13 +201,34 @@ class HCDataSelectionVM {
     
     func updateFavourite() {
         let param: JSONDictionary = ["hid[0]": itineraryData?.hotelDetails?.hid ?? "0", "status": itineraryData?.hotelDetails?.fav == "0" ? 1 : 0]
+        
+        
+        //save locally and update ui
+        self.hotelInfo?.fav = self.hotelInfo?.fav == "0" ? "1" : "0"
+        self.delegate?.updateFavouriteSuccess(withMessage: "")
+        _ = self.hotelInfo?.afterUpdate
+        
         APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] isSuccess, errors, successMessage in
             if let sSelf = self {
                 if isSuccess {
-                    sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
-                    _ = self?.hotelInfo?.afterUpdate
                 } else {
+                    if let _ = UserInfo.loggedInUserId {
+                        //revert back in API not success fav/unfav locally
+                        sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
+                        _ = sSelf.hotelInfo?.afterUpdate
+                    }
+                    else {
+                        //if user is not logged in save them locally
+                        if let id = sSelf.hotelInfo?.hid, !id.isEmpty {
+                            if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
+                                UserInfo.locallyFavHotels.remove(at: idx)
+                            }
+                            else {
+                                UserInfo.locallyFavHotels.append(id)
+                            }
+                        }
+                    }
                     sSelf.delegate?.updateFavouriteFail(errors: errors)
                 }
             }

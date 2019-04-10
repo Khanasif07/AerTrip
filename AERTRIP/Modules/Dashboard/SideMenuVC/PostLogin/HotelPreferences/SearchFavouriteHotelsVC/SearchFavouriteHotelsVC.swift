@@ -172,6 +172,8 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
         self.startLoading()
+        self.collectionView.reloadData()
+        self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteSuccess(withMessage: String) {

@@ -242,6 +242,7 @@ enum APIKeys: String {
     case response = "response"
     case shortUrl = "short_url"
     case hotelFormPreviosSearchData = "hotelFormPreviosSearchData"
+    case LocallyFavHotels = "locallyFavHotels"
     case webUrl = "web_url"
     case ratingImgUrl = "rating_img_url"
     case numReviews = "num_reviews"
