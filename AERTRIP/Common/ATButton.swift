@@ -211,12 +211,17 @@ class ATButton: UIButton {
         self.loaderIndicator.hidesWhenStopped = true
         
         self.loaderIndicator.color = AppColors.themeGray40
+        self.setLoaderColor()
+    }
+    
+    private func setLoaderColor() {
         if let clr = self.titleLabel?.textColor {
-            self.loaderIndicator.color = (clr == AppColors.themeBlack) ? AppColors.themeGray40 : AppColors.themeWhite
+            self.loaderIndicator.color = (clr == AppColors.themeBlack) ? AppColors.themeGray40 : clr
         }
     }
     
     private func startLoading() {
+        self.setLoaderColor()
         self.loaderContainer.isHidden = false
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false

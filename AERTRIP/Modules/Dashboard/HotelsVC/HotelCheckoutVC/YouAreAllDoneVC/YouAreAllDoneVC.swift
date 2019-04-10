@@ -126,12 +126,14 @@ class YouAreAllDoneVC: BaseVC {
     
     //Mark:- IBActions
     //================
-    @objc func viewConfirmationVoucherAction(_ sender: UIButton) {
+    @objc func viewConfirmationVoucherAction(_ sender: ATButton) {
         //open pdf for booking id
         if let bId = self.viewModel.bookingIds.first {
+            sender.isLoading = true
             downloadPdf(forBookingId: bId) { (localPdf) in
                 if let url = localPdf {
                     DispatchQueue.mainSync {
+                        sender.isLoading = false
                         AppFlowManager.default.openDocument(atURL: url, screenTitle: LocalizedString.ConfirmationVoucher.localized)
                     }
                 }

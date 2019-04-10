@@ -650,8 +650,13 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
             self.initializePayment(withOptions: options)
         }
         else {
-            //payment successfully maid through wallet
-            self.viewModel.getPaymentResonse(forData: [:], isRazorPayUsed: false)
+            //payment successfully maid through wallet, send to the You are all done
+            if let bIds = options[APIKeys.booking_id.rawValue] as? [String] {
+                self.getPaymentResonseSuccess(bookingIds: bIds, cid: [])
+            }
+            else if let cIds = options[APIKeys.cid.rawValue] as? [String] {
+                self.getPaymentResonseSuccess(bookingIds: [], cid: cIds)
+            }
         }
     }
     
