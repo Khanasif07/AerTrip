@@ -23,6 +23,7 @@ class HotelCheckOutDetailsVIew: UIView {
     internal var hotelInfo: HotelSearched?
     internal var allIndexPath = [IndexPath]()
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
+    internal var roomRates = [[RoomsRates : Int]]()
     internal let hotelImageHeight: CGFloat = 211.0
 
     //Mark:- IBOutlets

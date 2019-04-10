@@ -21,6 +21,9 @@ class HotelRatingInfoCell: UITableViewCell {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var ratingStackView: UIStackView!
+    @IBOutlet weak var hotelNameAndDistanceStackView: UIStackView!
+    @IBOutlet weak var allStackView: UIStackView!
     @IBOutlet weak var hotelRatingView: FloatRatingView!
     @IBOutlet weak var tripadviserImageView: UIImageView!
     @IBOutlet weak var hotelDotsView: FloatRatingView!
@@ -73,6 +76,15 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelRatingView.isHidden = starRating.isZero
         self.hotelDotsView.isHidden = tripAdvisorRating.isZero
         self.tripadviserImageView.isHidden = tripAdvisorRating.isZero
+        if starRating.isZero , tripAdvisorRating.isZero {
+            ratingStackView.isHidden = true
+        }
+        if hotelName.isEmpty , (self.distanceLabel.text ?? "").isEmpty {
+            self.hotelNameAndDistanceStackView.isHidden = true
+        }
+//        if starRating.isZero , tripAdvisorRating.isZero , hotelName.isEmpty , (self.distanceLabel.text ?? "").isEmpty {
+//            self.allStackView.isHidden = true
+//        }
     }
 
         

@@ -216,9 +216,7 @@ extension HotelDetailsReviewsVC {
     
     internal func getTripAdvisorTravelerRatingCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
-        cell.reviewsLabel.text = tripAdviserDetails.numReviews + " " + LocalizedString.Reviews.localized
-        cell.tripAdviserRatingView.rating = Double(tripAdviserDetails.rating) ?? 0.0
-        cell.hotelNumberLabel.text = tripAdviserDetails.rankingData?.rankingString
+        cell.configCell(reviewsLabel: "\(tripAdviserDetails.numReviews.toDouble?.delimiter ?? "") \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
         return cell
     }
     

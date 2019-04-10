@@ -202,6 +202,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Cancellation Cell
     internal func configureCancellationCell(ratesData: Rates , isHotelDetailsScreen: Bool) {
+        self.titleLabel.numberOfLines = 0
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
         self.infoBtnOutlet.isHidden = false
@@ -225,6 +226,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Payment Cell
     internal func configurePaymentCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
+        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
         self.titleLabel.text = LocalizedString.PaymentPolicy.localized
@@ -243,6 +245,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Notes Cell
     internal func configureNotesCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
+        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] {
             self.infoBtnOutlet.isHidden = true
@@ -263,6 +266,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Notes Cell
     internal func configureHCNotesCell(notesInclusion: [String], isHotelDetailsScreen: Bool) {
+        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.infoBtnOutlet.isHidden = true
         self.moreInfoContainerView.isHidden = false
@@ -281,6 +285,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Full Notes Details
     internal func fullHCNotesDetails(notesInclusion: [String]) -> NSMutableAttributedString {
+        self.titleLabel.numberOfLines = 1
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
         let fullAttributedString = NSMutableAttributedString()
         for (note) in notesInclusion {
@@ -307,6 +312,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Full Penalty Details
     internal func fullHCPenaltyDetails(isRefundable: Bool, isHotelDetailsScreen: Bool) {
+        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.moreInfoContainerView.isHidden = true
         self.moreBtnOutlet.isHidden = true
@@ -326,6 +332,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
 
     ///Full Penalty Details
     internal func HCPenaltyDetailsExplanation(canclNotes: String) -> NSMutableAttributedString {
+        self.titleLabel.numberOfLines = 1
         let attributedString = NSMutableAttributedString()
         let blackAttribute =  [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
         let blackAttributedString = NSAttributedString(string: canclNotes, attributes: blackAttribute)
