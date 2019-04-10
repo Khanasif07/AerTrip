@@ -133,8 +133,10 @@ class GuestDetailsVC: BaseVC {
             } else {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
-           
-            cell.firstNameTextField.becomeFirstResponder()
+            if guest.firstName.isEmpty {
+                  cell.firstNameTextField.becomeFirstResponder()
+            }
+          
         }
     }
     
@@ -295,6 +297,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textField(_ textField: UITextField) {
+        self.travellersTableView.isHidden = self.travellers.count == 0
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField != cell.salutationTextField {
             // get item position

@@ -24,7 +24,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/AppHelper/AppToast.swift"
-            timestampString = "576582888.713358"
+            timestampString = "576584058.995851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
@@ -39,13 +39,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
-            timestampString = "576582888.713724"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+animations.swift"
+            timestampString = "576584058.996299"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
-            landmarkName = "textFieldWhileEditing(_:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "animateCollectionView(isHidden:animated:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -55,13 +55,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+animations.swift"
-            timestampString = "576582888.713972"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
+            timestampString = "576584058.996623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "animateCollectionView(isHidden:animated:)"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
+            landmarkName = "textField(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
