@@ -439,7 +439,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             else if diff < 0 {
                 // dipped
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                delay(seconds: 0.5) { [weak self] in
+                delay(seconds: 2.0) { [weak self] in
                     guard let sSelf = self else { return }
                     sSelf.sendToFinalCheckoutVC()
                 }
