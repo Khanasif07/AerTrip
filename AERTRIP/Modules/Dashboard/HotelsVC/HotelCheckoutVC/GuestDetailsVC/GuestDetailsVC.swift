@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 enum GuestTableViewType {
     case Searching
@@ -49,12 +50,27 @@ class GuestDetailsVC: BaseVC {
         self.getRoomDetails()
         self.addFooterViewToTravellerTableView()
         
-        // setting delay of 1 sec because table view cell are creating
         
-        delay(seconds: 2.0) { [weak self] in
-            self?.makeTableViewIndexSelectable()
-        }
+      
         self.viewModel.webserviceForGetSalutations()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        delay(seconds: 1.0) { [weak self] in
+              self?.makeTableViewIndexSelectable()
+        }
+        
+        IQKeyboardManager.shared().isEnabled = false
+      
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+         IQKeyboardManager.shared().isEnabled = true
     }
     
     override func bindViewModel() {
@@ -137,10 +153,29 @@ class GuestDetailsVC: BaseVC {
             } else {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
-            if guest.firstName.isEmpty {
-                  cell.firstNameTextField.becomeFirstResponder()
+            delay(seconds: 0.2) { [weak cell] in
+                if guest.firstName.isEmpty {
+                    cell?.firstNameTextField.becomeFirstResponder()
+                }
             }
+            
           
+        }
+    }
+    
+    
+    private func makeTextFieldResponder() {
+        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
+            let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
+            if self.travellers.count == 0 {
+                self.travellersTableView.isHidden = true
+            } else {
+                self.travellersTableView.isHidden = !guest.firstName.isEmpty
+            }
+            if guest.firstName.isEmpty {
+                cell.firstNameTextField.becomeFirstResponder()
+            }
+            
         }
     }
     
