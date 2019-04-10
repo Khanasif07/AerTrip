@@ -23,6 +23,8 @@ class AppFlowManager: NSObject {
     }
     var mainHomeVC: MainHomeVC?
     
+    var documentInteractionController = UIDocumentInteractionController()
+
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool)->Void)? = nil
     
@@ -38,9 +40,21 @@ class AppFlowManager: NSObject {
     
     var mainNavigationController: SwipeNavigationController! {
         didSet {
-            mainNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            mainNavigationController.navigationBar.backgroundColor = AppColors.themeBlack
-            mainNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] as [NSAttributedString.Key : Any]
+            let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
+                                  NSAttributedString.Key.foregroundColor: AppColors.themeWhite
+            ]
+            
+            mainNavigationController.navigationBar.titleTextAttributes = textAttributes
+            mainNavigationController.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+            mainNavigationController.navigationBar.shadowImage = nil
+            mainNavigationController.navigationBar.barTintColor = AppColors.themeWhite
+            mainNavigationController.navigationBar.backgroundColor = AppColors.themeWhite
+            mainNavigationController.navigationBar.tintColor = AppColors.themeGreen
+            mainNavigationController.navigationBar.isTranslucent = false
+            
+            //        let yourBackImage = #imageLiteral(resourceName: "backGreen")
+            //        navVC.navigationBar.backIndicatorImage = yourBackImage
+            //        navVC.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         }
     }
     
@@ -137,6 +151,21 @@ class AppFlowManager: NSObject {
 extension AppFlowManager {
     func moveToLogoutNavigation() {
         
+    }
+    
+    func openURLOnATWebView(_ url: URL, screenTitle: String) {
+        let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
+        obj.urlToLoad = url
+        obj.navTitle = screenTitle
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
+    func showURLOnATWebView(_ url: URL, screenTitle: String) {
+        let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
+        obj.urlToLoad = url
+        obj.navTitle = screenTitle
+//        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
     func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
@@ -431,10 +460,11 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] , originLat: String , originLong: String) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String] , cid: [String] , originLat: String , originLong: String) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
+        obj.viewModel.cId = cid
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -535,6 +565,24 @@ extension AppFlowManager {
                 }
             }
         }
+    }
+}
+
+extension AppFlowManager: UIDocumentInteractionControllerDelegate {
+    
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        guard let navVC = AppFlowManager.default.mainNavigationController else {
+            return AppFlowManager.default.mainNavigationController
+        }
+
+        return navVC
+    }
+    
+    func openDocument(atURL url: URL, screenTitle: String) {
+        self.documentInteractionController.url = url
+        self.documentInteractionController.name = LocalizedString.ConfirmationVoucher.localized
+        self.documentInteractionController.delegate = self
+        self.documentInteractionController.presentPreview(animated: true)
     }
 }
 

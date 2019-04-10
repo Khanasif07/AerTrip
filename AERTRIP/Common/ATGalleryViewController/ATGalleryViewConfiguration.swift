@@ -12,12 +12,12 @@ struct ATGalleryViewConfiguration {
     /* placeholderImage
      * - used to show while image is downloading from web.
      */
-    static var placeholderImage: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
+    static var placeholderImage: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
     
     /* placeholderImage
      * - used in close button
      */
-    static var closeButtonImage: UIImage = #imageLiteral(resourceName: "ic_toast_cross")
+    static var closeButtonImage: UIImage = #imageLiteral(resourceName: "ic_close_gallery")
     
     /* changeModeNormalImage
      * - used in change scrolldirection mode button button

@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol RecentHotelSearcheViewDelegate: class {
+    func passRecentSearchesData(recentSearch: RecentSearchesModel)
+}
+
 class RecentHotelSearcheView: UIView {
     
     //Mark:- Variables
     //================
     internal var recentSearchesData: [RecentSearchesModel]?
+    weak var delegate: RecentHotelSearcheViewDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -77,6 +82,10 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
             cell.configureCell(recentSearchesData: safeRecentData[indexPath.item])
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.passRecentSearchesData(recentSearch: self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel())
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

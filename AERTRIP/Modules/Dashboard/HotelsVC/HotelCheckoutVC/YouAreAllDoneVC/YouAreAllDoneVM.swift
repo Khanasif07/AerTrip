@@ -30,7 +30,9 @@ class YouAreAllDoneVM: NSObject {
     var hotelReceiptData: HotelReceiptModel?
     var originLat: String = ""
     var originLong: String = ""
-    var itId: String = "", bookingIds: [String] = []
+    var whatNext: [String] = []
+    var whatNextValues: [String] = []
+    var itId: String = "", bookingIds: [String] = [], cId: [String] = []
     
     //Mark:- Functions
     //================
@@ -82,7 +84,11 @@ class YouAreAllDoneVM: NSObject {
         }
         
         // TotalCharge Section Cells
-        self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])
+        if self.bookingIds.isEmpty && !self.cId.isEmpty {
+            self.sectionData.append([.totalChargeCell , .whatNextCell])
+        } else {
+            self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])
+        }
     }
     
     func getBookingReceipt() {
@@ -97,6 +103,19 @@ class YouAreAllDoneVM: NSObject {
                 sSelf.delegate?.getBookingReceiptSuccess()
             } else {
                 sSelf.delegate?.getBookingReceiptFail()
+            }
+        }
+    }
+    
+    func getWhatNextData() {
+        self.whatNext.removeAll()
+        self.whatNextValues.removeAll()
+        if let flightsData = self.hotelReceiptData?.flight_link_param {
+            for flightData in flightsData{
+                self.whatNext.append(flightData.key)
+                if let value = flightData.value as? String {
+                    self.whatNextValues.append(value)
+                }
             }
         }
     }

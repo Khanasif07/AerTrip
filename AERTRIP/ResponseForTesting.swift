@@ -16,8 +16,4 @@ import Foundation
 
 // {"success":true,"errors":[],"data":{"itinerary":{"id":"5c9de61e9e795e17a67e6fa7","currency_pref":"INR","gross_amount":"6858","net_amount":"6858","price_change":"0","coupons":[]},"vcode":"gn"}}
 
-
-
 // confirmation api Response
-
-

@@ -63,6 +63,8 @@ class DashboardVC: BaseVC {
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         self.addOverlayView()
+        
+        mainScrollView.delaysContentTouches = false
     }
 
     override func viewDidLayoutSubviews() {

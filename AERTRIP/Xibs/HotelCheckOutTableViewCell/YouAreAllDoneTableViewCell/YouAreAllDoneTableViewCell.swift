@@ -22,6 +22,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     @IBOutlet weak var bookingIdAndDetailsLabel: UILabel!
     @IBOutlet weak var thankYouLabel: UILabel!
     @IBOutlet weak var addToAppleWalletButton: UIButton!
+    @IBOutlet weak var importantNoteLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- Lifecycle
@@ -63,27 +64,38 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     }
     
     ///AttributeLabelSetup
-    private func attributeLabelSetUp(prefixText: String, bookingId: String, postfixText: String) {
+    private func attributeLabelSetUp(prefixText: String , prefixTextColor: UIColor = AppColors.themeBlack, prefixFont: UIFont = AppFonts.Regular.withSize(18.0) , id: String, middleTextColor: UIColor = AppColors.themeBlack, middleFont: UIFont = AppFonts.SemiBold.withSize(18.0) ,postfixText: String , postfixTextColor: UIColor = AppColors.themeBlack, postfixFont: UIFont = AppFonts.Regular.withSize(18.0)) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
         
-        let prefixRegularAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let prefixRegularAttribute = [NSAttributedString.Key.font: prefixFont, NSAttributedString.Key.foregroundColor: prefixTextColor] as [NSAttributedString.Key : Any]
         let prefixRegularAttributedString = NSAttributedString(string: prefixText, attributes: prefixRegularAttribute)
         
-        let semiBoldAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
-        let semiBoldAttributedString = NSAttributedString(string: " " + bookingId + " ", attributes: semiBoldAttribute)
+        let semiBoldAttribute = [NSAttributedString.Key.font: middleFont, NSAttributedString.Key.foregroundColor: middleTextColor]
+        let semiBoldAttributedString = NSAttributedString(string: " \(id) ", attributes: semiBoldAttribute)
         
-        let postfixTextRegularAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let postfixTextRegularAttribute = [NSAttributedString.Key.font: postfixFont, NSAttributedString.Key.foregroundColor: postfixTextColor] as [NSAttributedString.Key : Any]
         let postfixTextRegularAttributedString = NSAttributedString(string: postfixText, attributes: postfixTextRegularAttribute)
 
         attributedString.append(prefixRegularAttributedString)
         attributedString.append(semiBoldAttributedString)
         attributedString.append(postfixTextRegularAttributedString)
         
-        self.bookingIdAndDetailsLabel.attributedText = attributedString
+        return attributedString
     }
-    
-    internal func configCell(forBookingId: String) {
-        self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingIDIs.localized, bookingId: forBookingId, postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+
+    internal func configCell(forBookingId: String, forCid: String) {
+        if !forBookingId.isEmpty {
+            self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingIDIs.localized, id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+            self.thankYouLabel.text = LocalizedString.ThankYouStmtForBookingId.localized
+            self.importantNoteLabel.isHidden = true
+            self.addToAppleWalletButton.isHidden = false
+        } else {
+            self.thankYouLabel.text = LocalizedString.ThankYouStmtForCId.localized
+            self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourCaseIDIs.localized, id: forCid, postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.ImportantNote.localized, prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(18.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(18.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeGreen , postfixFont: AppFonts.SemiBold.withSize(18.0))
+            self.importantNoteLabel.isHidden = false
+            self.addToAppleWalletButton.isHidden = true
+        }
     }
     
     //Mark:- IBActions

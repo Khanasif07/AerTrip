@@ -53,6 +53,8 @@ class HCDataSelectionVC: BaseVC {
     }
     
     var isFromFinalCheckout: Bool = false
+    var confirmationCall: Int = 1
+
     var apiCount: Int = 0
     
     // MARK: - Private
@@ -368,15 +370,25 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchConfirmItineraryDataSuccess() {
-        GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
-        manageLoader(shouldStart: false)
-        fillData()
-        viewModel.getHotelDetailsSectionData()
-        updateHotelCheckOutDetailsVIew()
+        if viewModel.itineraryData == nil, confirmationCall < 5 {
+            confirmationCall += 1
+            viewModel.fetchConfirmItineraryData()
+        }
+        else {
+            GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
+            manageLoader(shouldStart: false)
+            fillData()
+            self.viewModel.getHotelDetailsSectionData()
+            self.updateHotelCheckOutDetailsVIew()
+        }
     }
     
     func fetchConfirmItineraryDataFail() {
         manageLoader(shouldStart: false)
+        if viewModel.itineraryData == nil, confirmationCall < 5 {
+            confirmationCall += 1
+            viewModel.fetchConfirmItineraryData()
+        }
     }
     
     func willFetchRecheckRatesData() {

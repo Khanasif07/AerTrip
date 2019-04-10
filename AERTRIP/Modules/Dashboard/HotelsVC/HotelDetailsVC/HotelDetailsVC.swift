@@ -67,7 +67,7 @@ class HotelDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.themeWhite
-        //        self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -159,9 +159,9 @@ class HotelDetailsVC: BaseVC {
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        let newY = UIDevice.isIPhoneX ? UIApplication.shared.statusBarFrame.height : 0.0
+        let newY = UIApplication.shared.statusBarFrame.height
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: UIDevice.isIPhoneX ? newY : newY + 20, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
+        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame

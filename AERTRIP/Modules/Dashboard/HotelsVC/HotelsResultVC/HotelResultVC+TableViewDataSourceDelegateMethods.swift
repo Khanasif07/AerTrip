@@ -91,7 +91,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView === hotelSearchTableView {
-            return UITableView.automaticDimension
+            return 110.0
         } else {
             return 203.0
         }

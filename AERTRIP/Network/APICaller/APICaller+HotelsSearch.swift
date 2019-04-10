@@ -30,6 +30,9 @@ extension APICaller {
                     
                     completionBlock(true, [], dict)
                 }
+                else if sucess, let dict = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    completionBlock(sucess, [], dict)
+                }
                 else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [:])
                 }
@@ -196,8 +199,9 @@ extension APICaller {
         }
     }
     
-    func recentHotelsSearchesApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]) -> Void) {
-        AppNetworking.GET(endPoint: APIEndPoint.hotelRecentSearches, parameters: params, loader: loader, success: { [weak self] json in
+    func recentHotelsSearchesApi( loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]) -> Void) {
+        let endPoints = "https://beta.aertrip.com/api/v1/recent-search/get?product=hotel"
+        AppNetworking.GET(endPoint: endPoints, loader: loader, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in

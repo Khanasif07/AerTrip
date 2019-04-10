@@ -39,6 +39,10 @@ class SearchHotelTagVC: BaseVC {
     
     //Mark:- LifeCycle
     //================
+    
+    deinit {
+        print("ssd")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }

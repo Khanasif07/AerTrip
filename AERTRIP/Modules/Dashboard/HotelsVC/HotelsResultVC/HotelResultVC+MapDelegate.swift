@@ -133,6 +133,13 @@ extension HotelResultVC: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
         printDebug("didEndDragging")
     }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
+            AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        }
+        return true
+    }
 }
 
 // MARK: - GMUClusterManagerDelegate

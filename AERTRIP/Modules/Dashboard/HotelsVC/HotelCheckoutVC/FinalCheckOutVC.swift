@@ -656,17 +656,18 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func makePaymentFail() {
         manageLoader(shouldStart: false)
-        AppToast.default.showToastMessage(message: "make Payment faild")
+        AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
         manageLoader(shouldStart: true)
     }
-    func getPaymentResonseSuccess(bookingIds: [String]) {
+    
+    func getPaymentResonseSuccess(bookingIds: [String] , cid: [String]) {
         //send to you are all donr screen
         manageLoader(shouldStart: false)
         if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid ,originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
         }
     }
     func getPaymentResonseFail() {

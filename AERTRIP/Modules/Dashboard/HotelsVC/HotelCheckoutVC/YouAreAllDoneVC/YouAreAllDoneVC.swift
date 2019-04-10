@@ -15,7 +15,7 @@ class YouAreAllDoneVC: BaseVC {
     let viewModel = YouAreAllDoneVM()
     var allIndexPath = [IndexPath]()
     var tableFooterView: YouAreAllDoneFooterView?
-    
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var allDoneTableView: ATTableView! {
@@ -40,6 +40,7 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     override func initialSetup() {
+    
         self.registerNibs()
         self.tableFooterViewSetUp()
         self.viewModel.getBookingReceipt()
@@ -82,8 +83,61 @@ class YouAreAllDoneVC: BaseVC {
         }
     }
     
+    private func downloadPdf(forBookingId bookingId: String, complition: @escaping ((URL?)->Void)) {
+        // Create destination URL
+        if let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationFileUrl = documentsUrl.appendingPathComponent("confirmationVoucher.pdf")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
+            //Create URL to the source file you want to download
+            let fileURL = URL(string: "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(bookingId)")
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url:fileURL!)
+            
+            let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        print("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch (let writeError) {
+                        print("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                } else {
+                    print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+                }
+            }
+            task.resume()
+        }
+        else {
+            complition(nil)
+        }
+    }
+    
     //Mark:- IBActions
     //================
+    @objc func viewConfirmationVoucherAction(_ sender: UIButton) {
+        //open pdf for booking id
+        if let bId = self.viewModel.bookingIds.first {
+            downloadPdf(forBookingId: bId) { (localPdf) in
+                if let url = localPdf {
+                    DispatchQueue.mainSync {
+                        AppFlowManager.default.openDocument(atURL: url, screenTitle: LocalizedString.ConfirmationVoucher.localized)
+                    }
+                }
+            }
+        }
+    }
 }
 
 //Mark:- UITableView Delegate DataSource
@@ -175,6 +229,7 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
             }
         case .confirmationVoucherCell:
             if let cell = self.getConfirmationVoucherCell(tableView, indexPath: indexPath) {
+                cell.viewButton.addTarget(self, action: #selector(viewConfirmationVoucherAction(_:)), for: .touchUpInside)
                 return cell
             }
         case .whatNextCell:
@@ -234,6 +289,7 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
     }
     
     func getBookingReceiptSuccess() {
+        self.viewModel.getWhatNextData()
         self.viewModel.getTableViewSectionData()
         self.allDoneTableView.reloadData()
     }
