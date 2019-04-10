@@ -123,6 +123,10 @@ class GuestDetailsVC: BaseVC {
         }
     }
     
+    override func keyboardWillHide(notification: Notification) {
+        self.guestDetailTableView.isScrollEnabled = true
+    }
+    
     // Make table view particular index selectable or Editable
     private func makeTableViewIndexSelectable() {
         self.guestDetailTableView.scrollToRow(at: self.viewModel.selectedIndexPath, at: .top, animated: false)
