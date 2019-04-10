@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol HotelResultDelegate: class {
     func getAllHotelsListResultSuccess(_ isDone: Bool)
@@ -26,6 +27,7 @@ class HotelsResultVM: NSObject {
     internal var hotelListResult = [HotelsSearched]()
     var hotelSearchRequest: HotelSearchRequestModel?
     var shortUrl: String = ""
+    private(set) var collectionViewList: [String: Any] = [String: Any]()
     
     weak var delegate: HotelResultDelegate?
     
@@ -71,6 +73,21 @@ class HotelsResultVM: NSObject {
     // MARK: - Private
     
     // MARK: - Public
+    func fetchHotelsDataForCollectionView(fromController: NSFetchedResultsController<HotelSearched>) {
+        self.collectionViewList.removeAll()
+        if let allHotels = fromController.fetchedObjects {
+            for hs in allHotels {
+                if let lat = hs.lat, let long = hs.long {
+                    if var allHotles = self.collectionViewList["\(lat)\(long)"] as? [HotelSearched] {
+                        allHotles.append(hs)
+                        self.collectionViewList["\(lat)\(long)"] = allHotles
+                    } else {
+                        self.collectionViewList["\(lat)\(long)"] = [hs]
+                    }
+                }
+            }
+        }
+    }
     
     func updateFavourite(forHotels: [HotelSearched], isUnpinHotels: Bool) {
         var param = JSONDictionary()

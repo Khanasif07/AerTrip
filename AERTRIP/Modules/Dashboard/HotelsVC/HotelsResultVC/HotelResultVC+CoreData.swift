@@ -160,6 +160,7 @@ extension HotelResultVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
             }
             self.reloadHotelList()
+            self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
         } catch {
             printDebug(error.localizedDescription)
             print("Fetch failed")

@@ -29,8 +29,7 @@ extension HotelResultVC {
         self.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
         self.searchBarContainerView.backgroundColor = AppColors.clear
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = CGRect(x: self.searchIntitialFrame.origin.x + 20
-                , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - 80, height: 50)
+            self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: (self.hoteResultViewType == .ListView))
             self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
             self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
             self.view.layoutIfNeeded()
@@ -39,16 +38,33 @@ extension HotelResultVC {
         })
     }
     
+    func searchBarFrame(isInSearchMode: Bool) -> CGRect {
+        return CGRect(x: self.searchIntitialFrame.origin.x + 20
+            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 80.0 : 95.0), height: 50)
+    }
+    
     func showSearchAnimation() {
         self.filterButton.isHidden = true
         self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: true)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     func hideSearchAnimation() {
         self.filterButton.isHidden = false
         self.mapButton.isHidden = false
         self.cancelButton.alpha = 0
+        
+        if self.hoteResultViewType == .MapView {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+                self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: false)
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     func animateCollectionView(isHidden: Bool, animated: Bool) {

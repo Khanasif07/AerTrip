@@ -100,7 +100,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
-    func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
+    func loadFinalDataOnScreen() {
         self.loadSaveData()
         self.getFavouriteHotels()
         self.getPinnedHotelTemplate()
@@ -112,6 +112,10 @@ extension HotelResultVC: HotelResultDelegate {
             self.fetchRequestType = .FilterApplied
             self.getSavedFilter()
         }
+    }
+    
+    func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
+        loadFinalDataOnScreen()
     }
     
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
@@ -154,16 +158,7 @@ extension HotelResultVC: HotelResultDelegate {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
-            self.loadSaveData()
-            self.getPinnedHotelTemplate()
-            self.time += 1
-            self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
-            self.updateMarkers()
-            if UserInfo.hotelFilter != nil {
-                self.applyPreviousFilter()
-                self.fetchRequestType = .FilterApplied
-                self.getSavedFilter()
-            }
+            loadFinalDataOnScreen()
         }
     }
 

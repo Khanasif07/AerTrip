@@ -49,7 +49,17 @@ class CustomMarker: UIView {
     
     private func configureData() {
         self.isFavourite = (hotel?.fav ?? "0") == "1"
-        self.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(hotel?.price.delimiter ?? "0")").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+        
+        var price : String = "\(hotel?.price.delimiter ?? "")"
+        if  let filter = UserInfo.hotelFilter  {
+            switch filter.priceType {
+            case .Total :
+                price = "\(hotel?.price.delimiter ?? "")"
+            case .PerNight:
+                price  = "\(hotel?.perNightPrice.delimiter ?? "")"
+            }
+        }
+        self.priceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(price)").addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
     }
     
     private func updateFav() {

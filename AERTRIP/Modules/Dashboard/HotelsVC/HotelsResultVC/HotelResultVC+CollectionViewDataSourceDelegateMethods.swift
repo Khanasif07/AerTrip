@@ -14,19 +14,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        guard let sections = self.fetchedResultsController.sections else {
-        //            printDebug("No sections in fetchedResultsController")
-        //            return 0
-        //        }
-        //        let sectionInfo = sections[section]
-        //        if sectionInfo.numberOfObjects > 0 {
-        //            self.shimmerView.removeFromSuperview()
-        //        }
-        return self.getHotelsForMapView().keys.count
+        return self.viewModel.collectionViewList.keys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])
+        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
         
         //        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
         //        self.isFotterVisible = self.isAboveTwentyKm
@@ -55,7 +47,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])
+        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
         
         if hData?.count ?? 1 > 1 {
             // grouped cell
@@ -68,7 +60,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
-            self.expandGroup((Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched] ?? []))
+            self.expandGroup((Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched] ?? []))
         }
         else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let data = cell.hotelListData {
             AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
@@ -77,7 +69,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         printDebug("willDisplay")
-        let hData = (Array(self.getHotelsForMapView().values)[indexPath.row] as? [HotelSearched])?.first
+        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])?.first
         let loc = CLLocationCoordinate2D(latitude: hData!.lat?.toDouble ?? 0.0, longitude: hData?.long?.toDouble ?? 0)
         self.displayingHotelLocation = loc
         updateMarker(coordinates: loc)

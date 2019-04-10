@@ -180,23 +180,6 @@ class HotelResultVC: BaseVC {
     
     // MARK: - ViewLifeCycle
     
-    func getHotelsForMapView() -> [String: Any] {
-        var temp = [String: Any]()
-        if let allHotels = self.fetchedResultsController.fetchedObjects {
-            for hs in allHotels {
-                if let lat = hs.lat, let long = hs.long {
-                    if var allHotles = temp["\(lat)\(long)"] as? [HotelSearched] {
-                        allHotles.append(hs)
-                        temp["\(lat)\(long)"] = allHotles
-                    } else {
-                        temp["\(lat)\(long)"] = [hs]
-                    }
-                }
-            }
-        }
-        return temp
-    }
-    
     // MARK: -
     
     override func initialSetup() {
