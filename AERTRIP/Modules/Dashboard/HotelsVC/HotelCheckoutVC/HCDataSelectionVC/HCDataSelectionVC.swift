@@ -164,10 +164,12 @@ class HCDataSelectionVC: BaseVC {
     private func updateHotelCheckOutDetailsVIew() {
         if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
             hotelCheckOutDetailsView.sectionData.removeAll()
-            hotelCheckOutDetailsView.viewModel = viewModel.itineraryData?.hotelDetails ?? HotelDetails()
-            hotelCheckOutDetailsView.hotelInfo = viewModel.hotelInfo ?? HotelSearched()
-            hotelCheckOutDetailsView.placeModel = viewModel.placeModel ?? PlaceModel()
-            hotelCheckOutDetailsView.sectionData = viewModel.sectionData
+            hotelCheckOutDetailsView.roomRates.removeAll()
+            hotelCheckOutDetailsView.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+            hotelCheckOutDetailsView.hotelInfo = self.viewModel.hotelInfo ?? HotelSearched()
+            hotelCheckOutDetailsView.placeModel = self.viewModel.placeModel ?? PlaceModel()
+            hotelCheckOutDetailsView.sectionData = self.viewModel.sectionData
+            hotelCheckOutDetailsView.roomRates = self.viewModel.roomRates
             hotelCheckOutDetailsView.updateData()
         }
     }

@@ -166,7 +166,7 @@ struct HotelDetails {
             self.country = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.star.rawValue] as? String {
-            self.rating = Double(obj.removeNull) ?? 0.0
+            self.star = Double(obj.removeNull) ?? 0.0
         }
         if let obj = json[APIKeys.rating.rawValue] as? String {
             self.rating =   Double(obj.removeNull) ?? 0.0
@@ -612,6 +612,9 @@ struct RoomsRates: Hashable {
     var max_child: String = ""
     var room_reference: String = ""
     var per_night_price: String = ""
+    var guests: Guest?
+    var bedtype_id: String = ""
+    
     
     //Mark:- Initialization
     //=====================
@@ -630,8 +633,9 @@ struct RoomsRates: Hashable {
                 APIKeys.max_adult.rawValue: self.max_adult,
                 APIKeys.max_child.rawValue: self.max_child,
                 APIKeys.room_reference.rawValue: self.room_reference,
-                APIKeys.per_night_price.rawValue: self.per_night_price
-        ]
+                APIKeys.per_night_price.rawValue: self.per_night_price,
+                APIKeys.guests.rawValue: self.guests ?? Guest(),
+                APIKeys.bedtype_id.rawValue: self.bedtype_id]
     }
     
     init(json: JSONDictionary) {
@@ -669,6 +673,13 @@ struct RoomsRates: Hashable {
         if let obj = json[APIKeys.per_night_price.rawValue] {
             self.per_night_price = "\(obj)".removeNull
         }
+        if let obj = json[APIKeys.guests.rawValue] as? JSONDictionary {
+            self.guests = Guest(json: obj)
+        }
+        if let obj = json[APIKeys.bedtype_id.rawValue] {
+            self.bedtype_id = "\(obj)".removeNull
+        }
+
     }
     
     //Mark:- Functions
@@ -866,5 +877,34 @@ struct PenaltyRates {
             penaltyRatesArray.append(obj)
         }
         return penaltyRatesArray
+    }
+}
+
+struct Guest {
+    
+    //Mark:- Variables
+    //================
+    var max_adult: String = ""
+    var max_child: String = ""
+    
+    //Mark:- Initialization
+    //=====================
+    init() {
+        self.init(json: [:])
+    }
+    
+    var jsonDict: JSONDictionary {
+        return [APIKeys.max_adult.rawValue: self.max_adult,
+                APIKeys.max_child.rawValue: self.max_child
+        ]
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json[APIKeys.max_adult.rawValue] {
+            self.max_adult = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.max_child.rawValue] {
+            self.max_child = "\(obj)".removeNull
+        }
     }
 }
