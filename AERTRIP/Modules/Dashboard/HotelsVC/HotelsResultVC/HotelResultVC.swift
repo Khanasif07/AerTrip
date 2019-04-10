@@ -206,12 +206,11 @@ class HotelResultVC: BaseVC {
             self?.loadSaveData()
         }
         
-        self.viewModel.hotelListOnPreferenceResult()
+        //call API to get vcode, sid
+        self.viewModel.hotelListOnPreferencesApi()
+        
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
-      
-        
-        self.addMapView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -224,6 +223,15 @@ class HotelResultVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
+            //re-hit the search API
+            self.manageShimmer(isHidden: false)
+            _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            self.viewModel.hotelListOnPreferencesApi()
+        }
     }
     
     // MARK: - Methods
@@ -304,6 +312,18 @@ class HotelResultVC: BaseVC {
         AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
     }
     
+    func manageShimmer(isHidden: Bool) {
+        self.shimmerView.isHidden = isHidden
+        self.tableViewVertical.isHidden = !isHidden
+        self.collectionView.isHidden = !isHidden
+        self.switchView.isHidden = true
+        if isHidden {
+            self.view.sendSubviewToBack(self.shimmerView)
+        }
+        else {
+            self.view.bringSubviewToFront(self.shimmerView)
+        }
+    }
     // MARK: - Public
     
     // MARK: - Action

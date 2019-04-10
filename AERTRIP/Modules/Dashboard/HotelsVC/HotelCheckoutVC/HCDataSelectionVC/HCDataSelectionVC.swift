@@ -395,7 +395,23 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         manageLoader(shouldStart: true)
     }
     
-    func fetchRecheckRatesDataFail() {
+    func fetchRecheckRatesDataFail(errors: ErrorCodes) {
+        if errors.contains(array: [11]) {
+            //send to result screen and re-hit the search API
+            self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
+            for vc in AppFlowManager.default.mainNavigationController.viewControllers {
+                if let obj = vc as? HotelResultVC {
+                    //close hotel details if open
+                    for vc in obj.children {
+                        if let detailVC = vc as? HotelDetailsVC {
+                            detailVC.hide(animated: true)
+                            break
+                        }
+                    }
+                    AppFlowManager.default.popViewController(animated: true)
+                }
+            }
+        }
         manageLoader(shouldStart: false)
     }
     

@@ -17,7 +17,7 @@ protocol HCDataSelectionVMDelegate: class {
     func callForItenaryDataTravellerFail(errors: ErrorCodes)
     
     func willFetchRecheckRatesData()
-    func fetchRecheckRatesDataFail()
+    func fetchRecheckRatesDataFail(errors: ErrorCodes)
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
     
     func updateFavouriteSuccess(withMessage: String)
@@ -78,7 +78,7 @@ class HCDataSelectionVM {
             if success, let data = itData {
                 sSelf.delegate?.fetchRecheckRatesDataSuccess(recheckedData: data)
             } else {
-                sSelf.delegate?.fetchRecheckRatesDataFail()
+                sSelf.delegate?.fetchRecheckRatesDataFail(errors: errors)
                 printDebug(errors)
             }
         }

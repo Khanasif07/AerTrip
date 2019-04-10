@@ -80,7 +80,7 @@ class AppFlowManager: NSObject {
             if noti == .userAsGuest {
                 com(true)
             }
-            else {
+            else if noti == .userLoggedInSuccess {
                 com(false)
             }
         }
@@ -314,9 +314,9 @@ extension AppFlowManager {
         }
     }
     
-    func moveToHotelsResultVc(_ hotelSearchRequest: HotelSearchRequestModel) {
+    func moveToHotelsResultVc(withFormData: HotelFormPreviosSearchData) {
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
-        obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.viewModel.searchedFormData = withFormData
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
