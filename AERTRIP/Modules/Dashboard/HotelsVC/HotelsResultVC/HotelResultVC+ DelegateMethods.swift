@@ -140,6 +140,7 @@ extension HotelResultVC: HotelResultDelegate {
 
     func willUpdateFavourite() {
         //
+        self.reloadHotelList()
     }
 
     func updateFavouriteSuccess() {
@@ -147,6 +148,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func updateFavouriteFail(errors:ErrorCodes) {
+        self.reloadHotelList()
         if errors.contains(array: [-1]) {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
         } else {
