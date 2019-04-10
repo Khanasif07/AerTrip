@@ -39,7 +39,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     
     func configData(forIndexPath idxPath: IndexPath) {
         forIndex = idxPath
-        roomNumberLabel.text = LocalizedString.Room.localized + "\(idxPath.row + 1)"
+        roomNumberLabel.text = LocalizedString.Room.localized + " \(idxPath.row + 1)"
         collectionView.reloadData()
     }
     
@@ -69,7 +69,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         let width = collectionView.width / 4.0
         let totalCount = hotelFormData.adultsCount[forIdx.row] + hotelFormData.childrenCounts[forIdx.row]
         
-        let height = collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0)
+        let height = (collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0)) + 10.0
         
         return CGSize(width: width, height: height)
     }
