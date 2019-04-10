@@ -35,7 +35,9 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
         self.hotelNumberLabel.textColor = AppColors.themeBlack
     }
     
-    internal func configCell() {
-        
+    internal func configCell(reviewsLabel: String , tripAdvisorRating: Double , ranking: String) {
+        self.reviewsLabel.text = reviewsLabel
+        self.tripAdviserRatingView.rating = tripAdvisorRating
+        self.hotelNumberLabel.text = ranking
     }
 }
