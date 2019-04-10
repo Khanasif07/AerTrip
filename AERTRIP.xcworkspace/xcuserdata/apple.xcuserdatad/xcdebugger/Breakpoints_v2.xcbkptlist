@@ -10,11 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVC.swift"
-            timestampString = "576567759.471107"
+            timestampString = "576597950.771262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "642"
-            endingLineNumber = "642">
+            endingLineNumber = "642"
+            landmarkName = "crossButtonTapped()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/AppHelper/AppToast.swift"
-            timestampString = "576589860.236533"
+            timestampString = "576597707.6494319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
@@ -40,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Xibs/GuestDetails/GuestDetailTableViewCell.swift"
-            timestampString = "576589860.236899"
+            timestampString = "576597707.64966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "180"
@@ -56,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
-            timestampString = "576589860.237139"
+            timestampString = "576597707.649883"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "textField(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -72,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/GuestDetailsVC/GuestDetailsVC.swift"
-            timestampString = "576589860.237761"
+            timestampString = "576597707.650108"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "textField(_:)"
             landmarkType = "7">
          </BreakpointContent>

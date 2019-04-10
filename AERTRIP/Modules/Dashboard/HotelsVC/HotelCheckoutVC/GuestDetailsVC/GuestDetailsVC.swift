@@ -141,6 +141,8 @@ class GuestDetailsVC: BaseVC {
     
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
+        self.travellersTableView.isHidden = true
+        self.travellers = self.viewModel.travellerList
     }
     
     // Make table view particular index selectable or Editable
