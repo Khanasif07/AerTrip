@@ -47,6 +47,9 @@ extension APICaller {
                 
                 completionBlock(true, [])
                 
+                //remove Previos Search Form Data
+                HotelsSearchVM.hotelFormData = HotelFormPreviosSearchData()
+                
             }, failure: { errors in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, errors)
