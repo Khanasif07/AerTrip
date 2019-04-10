@@ -122,7 +122,7 @@ class EmailComposerHeaderView: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
-        shapeLayer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
+        shapeLayer.lineDashPattern = [3, 2] // 3 is the length of dash, 2 is length of the gap.
         
         let path = CGMutablePath()
         path.addLines(between: [p0, p1])

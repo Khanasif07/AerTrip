@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5TB-xZ-J7t">
-                                <rect key="frame" x="16" y="43.5" width="288" height="148"/>
+                                <rect key="frame" x="16" y="35.5" width="288" height="156"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Xt0-iS-iJi">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
@@ -48,8 +48,8 @@
                                                     <constraint firstAttribute="height" constant="18" id="oWZ-UY-BPv"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfillShadow"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilledShadow"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                         <integer key="value" value="0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -75,8 +75,8 @@
                                                             <constraint firstAttribute="width" constant="68" id="n2I-gy-Ei7"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilledShadow"/>
-                                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFillShadow"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                                 <integer key="value" value="0"/>
                                                             </userDefinedRuntimeAttribute>
@@ -99,8 +99,8 @@
                                             <constraint firstAttribute="height" constant="22" id="QxC-Vx-6ic"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dhjfg vjadgvj kdga jvgdaj vgjhasdg cjshadg vhjsag vjhsadg vjsag dvjhsagd vjhsagd vjhgsa djvhg sajdgvsad" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z0-hG-6q3">
-                                        <rect key="frame" x="0.0" y="22" width="288" height="126"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dhjfg vjadgvj kdga jvgdaj vgjhasdg cjshadg vhjsag vjhsadg vjsag dvjhsagd vjhsagd vjhgsa djvhg sajdgvsad" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z0-hG-6q3">
+                                        <rect key="frame" x="0.0" y="22" width="288" height="134"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -133,7 +133,7 @@
                             <constraint firstItem="KL0-Fh-msf" firstAttribute="leading" secondItem="1hG-hj-JDI" secondAttribute="trailing" constant="8" id="dNk-D3-zyd"/>
                             <constraint firstItem="1hG-hj-JDI" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="iIQ-UX-zc4"/>
                             <constraint firstItem="JIY-kV-01k" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KL0-Fh-msf" secondAttribute="trailing" constant="10" id="rwn-Ht-yTm"/>
-                            <constraint firstItem="5TB-xZ-J7t" firstAttribute="top" secondItem="1hG-hj-JDI" secondAttribute="bottom" constant="12" id="s7o-v5-6H1"/>
+                            <constraint firstItem="5TB-xZ-J7t" firstAttribute="top" secondItem="1hG-hj-JDI" secondAttribute="bottom" constant="4" id="s7o-v5-6H1"/>
                             <constraint firstAttribute="bottom" secondItem="g8Z-rH-aPH" secondAttribute="bottom" id="sNA-rE-CAz"/>
                             <constraint firstItem="1hG-hj-JDI" firstAttribute="top" secondItem="PwZ-aa-HBY" secondAttribute="top" constant="11" id="ukR-q5-0RM"/>
                             <constraint firstItem="KL0-Fh-msf" firstAttribute="centerY" secondItem="1hG-hj-JDI" secondAttribute="centerY" id="upn-iP-Zbd"/>
@@ -165,11 +165,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFillShadow" width="30" height="42"/>
-        <image name="combinedShapeUnfilledShadow" width="30" height="42"/>
+        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="pinHotelIcon" width="27" height="27"/>
-        <image name="starRatingFilledShadow" width="30" height="42"/>
-        <image name="starRatingUnfillShadow" width="30" height="42"/>
+        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviser" width="32" height="24"/>
     </resources>
 </document>
