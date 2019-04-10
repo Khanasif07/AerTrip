@@ -108,7 +108,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     internal func configCell(numberOfRooms: Int , roomData: RoomsRates , isOnlyOneRoom: Bool ) {
         self.typesOfBed.removeAll()
         if isOnlyOneRoom {
-            self.bedTypeLabel.text = roomData.name //+ " " + roomData.desc
+            self.bedTypeLabel.text = roomData.name
             self.bedDiscriptionLabel.text = roomData.desc
             self.dropDownStackView.isHidden = roomData.desc.isEmpty
             self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)

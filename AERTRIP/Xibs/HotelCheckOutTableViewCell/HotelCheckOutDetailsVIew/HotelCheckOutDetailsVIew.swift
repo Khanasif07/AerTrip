@@ -107,46 +107,4 @@ class HotelCheckOutDetailsVIew: UIView {
         self.hotelDetailsTableView.registerCell(nibName: HCCheckInOutTableViewCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HCRoomTableViewCell.reusableIdentifier)
     }
-    
-    private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        
-        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-        if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("Can't use apple map://")
-        }
-    }
-
-    
-    private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-            if let url = URL(string:
-                "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        } else {
-            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
-        }
-    }
-
-    
-    internal func redirectToMap() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
-        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
-        
-        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: self, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-            guard let parentVC = self.parentViewController as? HCDataSelectionVC else { return }
-            if index == 0 {
-                if let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel {
-                    self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            } else {
-                if let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel {
-                    self.openGoogleMaps(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            }
-        }
-    }
 }

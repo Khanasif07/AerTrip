@@ -33,6 +33,7 @@ class HCDataSelectionVM {
     var itineraryData: ItineraryData?
     var itineraryPriceDetail: ItenaryModel = ItenaryModel()
     var placeModel: PlaceModel?
+    internal var roomRates = [[RoomsRates : Int]]()
     var sectionData: [[TableCellType]] = []
     var hotelSearchRequest: HotelSearchRequestModel?
     internal var hotelInfo: HotelSearched?
@@ -179,19 +180,69 @@ class HCDataSelectionVM {
         }
     }
     
+    func dataForTableCell(rate: Rates, currentRoom: RoomsRates) -> [TableCellType] {
+        var presentedCell = [TableCellType]()
+        presentedCell.removeAll()
+        if (rate.roomsRates?.count ?? 0) > 0 {
+            presentedCell.append(.roomBedsTypeCell)
+        }
+//        } else {
+//            for room in rate.roomsRates ?? [] {
+//                if room.name != currentRoom.name {
+//                    presentedCell.append(.roomBedsTypeCell)
+//                }
+//            }
+//        }
+        if let boardInclusion =  rate.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
+            presentedCell.append(.inclusionCell)
+        } else if let internetData =  rate.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
+            presentedCell.append(.inclusionCell)
+        }
+        if let otherInclusion =  rate.inclusion_array[APIKeys.other_inclusions.rawValue] as? [Any], !otherInclusion.isEmpty {
+            presentedCell.append(.otherInclusionCell)
+        }
+        if rate.cancellation_penalty != nil {
+            presentedCell.append(.cancellationPolicyCell)
+        }
+        presentedCell.append(.paymentPolicyCell)
+        if let notesData =  rate.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [Any], !notesData.isEmpty {
+            presentedCell.append(.notesCell)
+        }
+        return presentedCell
+    }
+    
     func getHotelDetailsSectionData() {
         self.sectionData.removeAll()
+        self.roomRates.removeAll()
         self.sectionData.append([.imageSlideCell, .hotelRatingCell, .addressCell, .checkInOutDateCell, .amenitiesCell, .tripAdvisorRatingCell])
         if let ratesData = self.itineraryData?.hotelDetails?.rates {
             // Room details cell only for room label cell
             self.sectionData.append([.roomDetailsCell])
             for rate in ratesData {
-                var tableViewCell = rate.tableViewRowCell
-                if tableViewCell.contains(.checkOutCell) {
-                    tableViewCell.remove(object: .checkOutCell)
+                self.sectionData.append(self.dataForTableCell(rate: rate, currentRoom: rate.roomsRates?.first ?? RoomsRates()))
+                var tempData = [RoomsRates: Int] ()
+                for currentRoom in rate.roomsRates ?? [] {
+                    var count = 1
+                    for otherRoom in rate.roomsRates ?? [] {
+                        if (otherRoom.uuRid != currentRoom.uuRid) , currentRoom.rid == otherRoom.rid {
+                            if otherRoom == currentRoom {
+                                count = count + 1
+                            }
+                        }
+                    }
+                    tempData[currentRoom] = count
+                    //                    if  !tempData.contains(where: { (currentRoom,count) -> Bool in
+                    //                        return true
+                    //                    }) {
+                    //                        tempData[currentRoom] = count
+                    //                    }
                 }
-                self.sectionData.append(tableViewCell)
+                //                self.roomRates.append(rate.roomData)
+                if !roomRates.contains(array: [tempData]) {
+                    self.roomRates.append(tempData)
+                }
             }
+            printDebug(self.roomRates)
         }
     }
     
