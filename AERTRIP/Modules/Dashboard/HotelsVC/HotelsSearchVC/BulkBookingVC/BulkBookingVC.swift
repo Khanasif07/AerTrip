@@ -95,26 +95,24 @@ class BulkBookingVC: BaseVC {
     }
     
     override func setupFonts() {
-        let semiBold18 = AppFonts.SemiBold.withSize(18.0)
-        let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.whereLabel.font = AppFonts.Regular.withSize(20.0)
-        self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
+        self.whereLabel.font = ((self.cityNameLabel.text ?? "").isEmpty && (self.stateNameLabel.text ?? "").isEmpty ) ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
+        self.cityNameLabel.font = (self.cityNameLabel.text ?? "").isEmpty ? AppFonts.SemiBold.withSize(26.0) : AppFonts.SemiBold.withSize(20.0)
         self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
-        self.starRatingLabel.font = regularFontSize16
+        self.starRatingLabel.font = AppFonts.Regular.withSize(16.0)
         self.allStarLabel.font = AppFonts.Regular.withSize(14.0)
-        self.oneStarLabel.font = regularFontSize16
-        self.twoStarLabel.font = regularFontSize16
-        self.threeStarLabel.font = regularFontSize16
-        self.fourStarLabel.font = regularFontSize16
-        self.fiveStarLabel.font = regularFontSize16
-        self.bulkBookingLabel.font = regularFontSize16
-        self.preferredHotelsLabel.font = regularFontSize16
-        self.specialReqLabel.font = regularFontSize16
-        self.roomCountLabel.font = semiBold18
-        self.adultCountLabel.font = semiBold18
-        self.childCountLabel.font = semiBold18
-        self.preferredTextField.font = regularFontSize16
-        self.specialReqTextField.font = regularFontSize16
+        self.oneStarLabel.font = AppFonts.Regular.withSize(16.0)
+        self.twoStarLabel.font = AppFonts.Regular.withSize(16.0)
+        self.threeStarLabel.font = AppFonts.Regular.withSize(16.0)
+        self.fourStarLabel.font = AppFonts.Regular.withSize(16.0)
+        self.fiveStarLabel.font = AppFonts.Regular.withSize(16.0)
+        self.bulkBookingLabel.font = AppFonts.Regular.withSize(16.0)
+        self.preferredHotelsLabel.font = AppFonts.Regular.withSize(16.0)
+        self.specialReqLabel.font = AppFonts.Regular.withSize(16.0)
+        self.roomCountLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.adultCountLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.childCountLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.preferredTextField.font = AppFonts.Regular.withSize(16.0)
+        self.specialReqTextField.font = AppFonts.Regular.withSize(16.0)
     }
     
     override func setupTexts() {
