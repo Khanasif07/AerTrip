@@ -511,10 +511,10 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
         if validateData() {
-            self.view.isUserInteractionEnabled = false
             sender.isLoading = true
             //send to result screen for current selected form data
             _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
             AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
             sender.isLoading = false
         }
