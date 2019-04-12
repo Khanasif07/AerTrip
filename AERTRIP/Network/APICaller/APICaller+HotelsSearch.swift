@@ -25,7 +25,7 @@ extension APICaller {
                     var dict: JSONDictionary = JSONDictionary()
                     
                     for type in types {
-                        dict[type] = hotels.filter { $0.dest_type == type }
+                        dict[type.lowercased()] = hotels.filter { $0.dest_type == type }
                     }
                     
                     completionBlock(true, [], dict)

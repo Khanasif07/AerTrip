@@ -39,17 +39,17 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="logoIconRightWhite" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-bs-S52">
-                                                        <rect key="frame" x="15" y="8.5" width="30" height="27"/>
+                                                        <rect key="frame" x="18" y="8.5" width="30" height="27"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="JwK-ib-k3z"/>
                                                             <constraint firstAttribute="width" secondItem="5KX-bs-S52" secondAttribute="height" multiplier="140:124" id="SuB-d3-Nmp"/>
                                                         </constraints>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6A-oH-74k" customClass="ATNotificationButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="330" y="7" width="30" height="30"/>
+                                                        <rect key="frame" x="336" y="7" width="30" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="30" id="FL7-0F-iBz"/>
-                                                            <constraint firstAttribute="height" constant="30" id="KoL-5A-AcC"/>
+                                                            <constraint firstAttribute="height" constant="30" id="Ddp-38-qIN"/>
+                                                            <constraint firstAttribute="width" secondItem="k6A-oH-74k" secondAttribute="height" multiplier="1:1" id="iCj-pW-hr1"/>
                                                         </constraints>
                                                         <state key="normal" image="userPlaceholder"/>
                                                         <connections>
@@ -57,17 +57,17 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="55" y="15.5" width="111" height="13"/>
+                                                        <rect key="frame" x="58" y="15.5" width="111" height="13"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="9tg-jb-NUO"/>
-                                                    <constraint firstItem="5KX-bs-S52" firstAttribute="leading" secondItem="x1e-WT-TPs" secondAttribute="leading" constant="15" id="RsZ-0f-WLW"/>
+                                                    <constraint firstItem="5KX-bs-S52" firstAttribute="leading" secondItem="x1e-WT-TPs" secondAttribute="leading" constant="18" id="RsZ-0f-WLW"/>
                                                     <constraint firstItem="dc0-cl-wv6" firstAttribute="leading" secondItem="5KX-bs-S52" secondAttribute="trailing" constant="10" id="cSz-4f-mCC"/>
                                                     <constraint firstItem="dc0-cl-wv6" firstAttribute="centerY" secondItem="5KX-bs-S52" secondAttribute="centerY" id="gC2-Q0-26X"/>
                                                     <constraint firstItem="5KX-bs-S52" firstAttribute="centerY" secondItem="x1e-WT-TPs" secondAttribute="centerY" id="kOD-Ld-rTH"/>
-                                                    <constraint firstAttribute="trailing" secondItem="k6A-oH-74k" secondAttribute="trailing" constant="15" id="m84-ih-4zz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="k6A-oH-74k" secondAttribute="trailing" constant="9" id="m84-ih-4zz"/>
                                                     <constraint firstItem="k6A-oH-74k" firstAttribute="centerY" secondItem="x1e-WT-TPs" secondAttribute="centerY" id="t28-cy-uxc"/>
                                                 </constraints>
                                             </view>
@@ -81,7 +81,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="365" height="112"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="th6-Ex-zMh">
-                                                                        <rect key="frame" x="11" y="19" width="354" height="92"/>
+                                                                        <rect key="frame" x="11" y="10" width="354" height="92"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-Vp-DEf">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="73.5" height="92"/>
@@ -242,7 +242,7 @@
                                                                 <constraints>
                                                                     <constraint firstItem="th6-Ex-zMh" firstAttribute="height" secondItem="KsR-KY-HZ5" secondAttribute="height" constant="-20" id="JGi-YF-Bgp"/>
                                                                     <constraint firstAttribute="trailing" secondItem="th6-Ex-zMh" secondAttribute="trailing" id="SAB-4n-DTH"/>
-                                                                    <constraint firstItem="th6-Ex-zMh" firstAttribute="centerY" secondItem="KsR-KY-HZ5" secondAttribute="centerY" constant="9" id="WgE-Bf-Pnq"/>
+                                                                    <constraint firstItem="th6-Ex-zMh" firstAttribute="centerY" secondItem="KsR-KY-HZ5" secondAttribute="centerY" id="WgE-Bf-Pnq"/>
                                                                     <constraint firstItem="th6-Ex-zMh" firstAttribute="leading" secondItem="KsR-KY-HZ5" secondAttribute="leading" constant="11" id="uKe-7H-t3E"/>
                                                                 </constraints>
                                                             </view>

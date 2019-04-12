@@ -226,8 +226,8 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isInSearchMode {
-            let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[section]] as? [SearchedDestination] ?? []
-            return hotelsForSection.count
+            let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[section].rawValue] as? [SearchedDestination] ?? []
+            return min(hotelsForSection.count, 4)
         }
         else {
             
@@ -268,7 +268,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
         if isInSearchMode {
             view.headerLabel.font = AppFonts.Regular.withSize(14.0)
             view.headerLabel.textColor = AppColors.themeGray60
-            view.configureCell(self.viewModel.allTypes[section].uppercased())
+            view.configureCell(self.viewModel.allTypes[section].title.uppercased())
         }
         else {
             
@@ -318,7 +318,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section]] as? [SearchedDestination] ?? []
+            let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
             
             cell.configureData(data: hotelsForSection[indexPath.row], forText: self.searchBar.text ?? "")
             cell.dividerView.isHidden = (hotelsForSection.count - 1) == indexPath.row
@@ -367,7 +367,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             var selected = SearchedDestination(json: [:])
             if isInSearchMode {
-                let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section]] as? [SearchedDestination] ?? []
+                let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
                 selected = hotelsForSection[indexPath.row]
             }
             else {

@@ -23,6 +23,56 @@ protocol SelectDestinationVMDelegate: class {
 
 class SelectDestinationVM: NSObject {
     
+    enum DestinationType: RawRepresentable {
+        case city
+        case area
+        case poi
+        case hotel
+        case custom(name: String)
+        
+        init?(rawValue: String) {
+            switch (rawValue){
+            case "city".lowercased(): self = .city
+            case "area".lowercased(): self = .area
+            case "poi".lowercased(): self = .poi
+            case "hotel".lowercased(): self = .hotel
+            default: self = .custom(name: rawValue.lowercased())
+            }
+        }
+        var rawValue: String{
+            switch(self){
+            case .city: return "city".lowercased()
+            case .area: return "area".lowercased()
+            case .poi: return "poi".lowercased()
+            case .hotel: return "hotel".lowercased()
+            case .custom(let ttl): return ttl.lowercased()
+            }
+        }
+        
+        var title: String {
+            switch(self){
+            case .city: return "city".lowercased()
+            case .area: return "area".lowercased()
+            case .poi: return "point of interest".lowercased()
+            case .hotel: return "hotel".lowercased()
+            case .custom(let ttl): return ttl.lowercased()
+            }
+        }
+        
+        var priority: Int {
+            switch(self){
+            case .city: return 0
+            case .area: return 1
+            case .poi: return 2
+            case .hotel: return 3
+            case .custom(let ttl):
+                if ttl.lowercased().contains("top".lowercased()) {
+                    return 4
+                }
+                return 5
+            }
+        }
+    }
     //MARK:- Properties
     //MARK:- Public
     var recentSearchLimit: Int {
@@ -33,8 +83,12 @@ class SelectDestinationVM: NSObject {
     }
     
     var searchedHotels = JSONDictionary()
-    var allTypes: [String] {
-        return Array(searchedHotels.keys)
+    var allTypes: [DestinationType] {
+        var temp = Array(searchedHotels.keys).map { DestinationType(rawValue: $0)! }
+        temp.sort { (ds1, ds2) -> Bool in
+            ds1.priority < ds2.priority
+        }
+        return temp
     }
     
     var popularHotels = [SearchedDestination]()
