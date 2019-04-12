@@ -71,6 +71,36 @@ struct SearchedDestination: Codable {
         }
     }
     
+    static func modelsDict(jsonArr: [JSONDictionary]) -> JSONDictionary {
+        
+        var temp: JSONDictionary = JSONDictionary()
+        
+        for json in jsonArr {
+            let obj = SearchedDestination(json: json)
+            
+            if obj.category.lowercased() == SelectDestinationVM.DestinationType.didYouMean.rawValue {
+                
+                if var arr = temp[obj.category.lowercased()] as? [SearchedDestination], !arr.isEmpty {
+                    arr.append(obj)
+                    temp[obj.category.lowercased()] = arr
+                }
+                else {
+                    temp[obj.category.lowercased()] = [obj]
+                }
+            }
+            else {
+                if var arr = temp[obj.dest_type.lowercased()] as? [SearchedDestination], !arr.isEmpty {
+                    arr.append(obj)
+                    temp[obj.dest_type.lowercased()] = arr
+                }
+                else {
+                    temp[obj.dest_type.lowercased()] = [obj]
+                }
+            }
+        }
+        return temp
+    }
+    
     static func models(jsonArr: [JSONDictionary]) -> ([SearchedDestination], [String]) {
         var arr = [SearchedDestination]()
         var allType = [String]()
@@ -86,6 +116,4 @@ struct SearchedDestination: Codable {
         }
         return (arr, allType)
     }
-    
-   
 }

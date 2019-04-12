@@ -20,15 +20,8 @@ extension APICaller {
             
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
-                    let (hotels, types) = SearchedDestination.models(jsonArr: arr)
-                    
-                    var dict: JSONDictionary = JSONDictionary()
-                    
-                    for type in types {
-                        dict[type.lowercased()] = hotels.filter { $0.dest_type == type }
-                    }
-                    
-                    completionBlock(true, [], dict)
+                    let all = SearchedDestination.modelsDict(jsonArr: arr)
+                    completionBlock(true, [], all)
                 }
                 else if sucess, let dict = jsonData[APIKeys.data.rawValue].dictionaryObject {
                     completionBlock(sucess, [], dict)

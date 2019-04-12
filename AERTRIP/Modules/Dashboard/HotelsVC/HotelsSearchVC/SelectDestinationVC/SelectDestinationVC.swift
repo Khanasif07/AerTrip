@@ -48,6 +48,7 @@ class SelectDestinationVC: BaseVC {
     private let searchedCellId = "DestinationSearchedTableCell"
     
     private var isInSearchMode: Bool = false
+    private let maxItemInCategory: Int = 4
     
     private lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
@@ -227,7 +228,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isInSearchMode {
             let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[section].rawValue] as? [SearchedDestination] ?? []
-            return min(hotelsForSection.count, 4)
+            return min(hotelsForSection.count, maxItemInCategory)
         }
         else {
             
@@ -321,7 +322,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
             
             cell.configureData(data: hotelsForSection[indexPath.row], forText: self.searchBar.text ?? "")
-            cell.dividerView.isHidden = (hotelsForSection.count - 1) == indexPath.row
+            cell.dividerView.isHidden = (maxItemInCategory - 1) == indexPath.row
             
             return cell
         }

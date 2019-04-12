@@ -24,6 +24,7 @@ protocol SelectDestinationVMDelegate: class {
 class SelectDestinationVM: NSObject {
     
     enum DestinationType: RawRepresentable {
+        case didYouMean
         case city
         case area
         case poi
@@ -32,6 +33,7 @@ class SelectDestinationVM: NSObject {
         
         init?(rawValue: String) {
             switch (rawValue){
+            case "Did you mean?".lowercased(): self = .didYouMean
             case "city".lowercased(): self = .city
             case "area".lowercased(): self = .area
             case "poi".lowercased(): self = .poi
@@ -41,6 +43,7 @@ class SelectDestinationVM: NSObject {
         }
         var rawValue: String{
             switch(self){
+            case .didYouMean: return "Did you mean?".lowercased()
             case .city: return "city".lowercased()
             case .area: return "area".lowercased()
             case .poi: return "poi".lowercased()
@@ -51,6 +54,7 @@ class SelectDestinationVM: NSObject {
         
         var title: String {
             switch(self){
+            case .didYouMean: return "Did you mean?".lowercased()
             case .city: return "city".lowercased()
             case .area: return "area".lowercased()
             case .poi: return "point of interest".lowercased()
@@ -61,15 +65,16 @@ class SelectDestinationVM: NSObject {
         
         var priority: Int {
             switch(self){
-            case .city: return 0
-            case .area: return 1
-            case .poi: return 2
-            case .hotel: return 3
+            case .didYouMean: return 0
+            case .city: return 1
+            case .area: return 2
+            case .poi: return 3
+            case .hotel: return 4
             case .custom(let ttl):
                 if ttl.lowercased().contains("top".lowercased()) {
-                    return 4
+                    return 5
                 }
-                return 5
+                return 6
             }
         }
     }
