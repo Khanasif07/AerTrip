@@ -158,7 +158,7 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
-        if let txtStr = textField.text, txtStr.count > AppConstants.kMaxFirstLastNameCharactersCount {
+        if let txtStr = textField.text, txtStr.count > AppConstants.kFirstLastNameTextLimit {
             textField.text = txtStr.substring(to: 30)
             return
         }

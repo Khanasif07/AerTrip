@@ -312,7 +312,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             switch textField {
             case cell.firstNameTextField:
                 if let indexPath = self.indexPath {
-                    if textField.text?.count ?? 0 < AppConstants.kMaxFirstLastNameCharactersCount {
+                    if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
                         GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text?.removeAllWhiteSpacesAndNewLines ?? ""
                     } else {
                         AppToast.default.showToastMessage(message: "First Name show be less than 30 characters", spaceFromBottom : keyboardHeight)
@@ -322,7 +322,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
                 
             case cell.lastNameTextField:
                 if let indexPath = self.indexPath {
-                    if textField.text?.count ?? 0 < AppConstants.kMaxFirstLastNameCharactersCount {
+                    if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
                         GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text?.removeAllWhiteSpacesAndNewLines ?? ""
                     } else {
                         AppToast.default.showToastMessage(message: "Last Name show be less than 30 characters", spaceFromBottom: keyboardHeight)

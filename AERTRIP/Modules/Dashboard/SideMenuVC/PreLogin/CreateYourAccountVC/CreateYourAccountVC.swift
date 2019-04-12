@@ -177,6 +177,11 @@ extension CreateYourAccountVC {
         self.registerButton.isEnabled = self.viewModel.email.count > 0
         
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return ((textField.text ?? "") + string).count <= AppConstants.kEmailIdTextLimit
+    }
+    
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.emailTextField.resignFirstResponder()

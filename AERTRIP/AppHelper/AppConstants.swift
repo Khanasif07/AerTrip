@@ -45,7 +45,8 @@ enum AppConstants {
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 20
     static let kAnimationDuration = 0.4
-    static let kMaxFirstLastNameCharactersCount = 30 // On Guest detail VC
+    static let kFirstLastNameTextLimit = 30 // On Guest detail VC
+    static let kEmailIdTextLimit = 40
     
     static var isStatusBarBlured = true
 
