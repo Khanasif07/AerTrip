@@ -511,9 +511,12 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
         if validateData() {
-            self.view.isUserInteractionEnabled = false
             sender.isLoading = true
-            self.viewModel.hotelListOnPreferencesApi()
+            //send to result screen for current selected form data
+            _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+            AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
+            sender.isLoading = false
         }
     }
     
@@ -692,20 +695,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
-    
-    func getAllHotelsOnPreferenceSuccess() {
-        self.viewModel.saveFormDataToUserDefaults()
-        self.view.isUserInteractionEnabled = true
-        self.searchBtnOutlet.isLoading = false
-        AppFlowManager.default.moveToHotelsResultVc(self.viewModel.hotelSearchRequst ?? HotelSearchRequestModel())
-    }
-    
-    func getAllHotelsOnPreferenceFail() {
-        printDebug("getAllHotelsOnPreferenceFail")
-        self.searchBtnOutlet.isLoading = false
-        self.view.isUserInteractionEnabled = true
-    }
-    
+
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
             if !(recentSearchesData.count > 0) {
@@ -763,6 +753,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.destType = recentSearch.dest_type
         self.viewModel.searchedFormData.destName = recentSearch.dest_name
         printDebug("searching again for \(recentSearch.dest_name)")
-        self.viewModel.hotelListOnPreferencesApi()
+        //open result screen for the recent
+        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
     }
 }

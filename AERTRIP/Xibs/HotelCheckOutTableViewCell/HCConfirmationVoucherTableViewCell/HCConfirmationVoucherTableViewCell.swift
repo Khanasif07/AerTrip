@@ -16,7 +16,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var confirmationVoucherLabel: UILabel!
-    @IBOutlet weak var viewButton: UIButton!
+    @IBOutlet weak var viewButton: ATButton!
     
     //Mark:- LifeCycle
     //================
@@ -29,6 +29,12 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
     //==============
     ///COnfigure UI
     private func configUI() {
+        
+        //view button
+        self.viewButton.shadowColor = AppColors.themeWhite
+        self.viewButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.viewButton.setTitle(LocalizedString.View.localized, for: .normal)
+        
         //Font
         self.confirmationVoucherLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.viewButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)

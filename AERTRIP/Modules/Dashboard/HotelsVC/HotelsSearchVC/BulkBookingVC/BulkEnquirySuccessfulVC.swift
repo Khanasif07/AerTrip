@@ -50,7 +50,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     override func setupFonts() {
         self.bulkEnquiryLabel.font = AppFonts.Bold.withSize(31.0)
-        self.customerServiceLabel.font = AppFonts.Regular.withSize(15.0)
+        self.customerServiceLabel.font = AppFonts.Regular.withSize(16.0)
         self.doneBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
@@ -116,7 +116,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
             let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + self.view.safeAreaInsets.bottom //+ 26.0
-            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
+            let tY = ((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0//- yPerSafeArea
+//            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY )
             UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {

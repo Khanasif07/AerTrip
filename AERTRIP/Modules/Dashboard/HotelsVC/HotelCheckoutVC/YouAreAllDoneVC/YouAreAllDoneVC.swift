@@ -37,6 +37,13 @@ class YouAreAllDoneVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarStyle = .default
+        
+        AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     override func initialSetup() {
@@ -126,12 +133,14 @@ class YouAreAllDoneVC: BaseVC {
     
     //Mark:- IBActions
     //================
-    @objc func viewConfirmationVoucherAction(_ sender: UIButton) {
+    @objc func viewConfirmationVoucherAction(_ sender: ATButton) {
         //open pdf for booking id
         if let bId = self.viewModel.bookingIds.first {
+            sender.isLoading = true
             downloadPdf(forBookingId: bId) { (localPdf) in
                 if let url = localPdf {
                     DispatchQueue.mainSync {
+                        sender.isLoading = false
                         AppFlowManager.default.openDocument(atURL: url, screenTitle: LocalizedString.ConfirmationVoucher.localized)
                     }
                 }

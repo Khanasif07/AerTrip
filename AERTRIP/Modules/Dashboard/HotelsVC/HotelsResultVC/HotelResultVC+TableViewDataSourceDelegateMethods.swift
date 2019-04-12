@@ -53,9 +53,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             let sectionInfo = sections[section]
-            if sectionInfo.numberOfObjects > 0 {
-                self.shimmerView.removeFromSuperview()
-            }
+            self.manageShimmer(isHidden: sectionInfo.numberOfObjects > 0)
             return sectionInfo.numberOfObjects
         }
     }

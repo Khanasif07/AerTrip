@@ -20,12 +20,17 @@ protocol HotelResultDelegate: class {
     func getPinnedTemplateFail()
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool)
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes)
+    
+    func getAllHotelsOnPreferenceSuccess()
+    func getAllHotelsOnPreferenceFail()
 }
 
 class HotelsResultVM: NSObject {
     var sid: String = ""
     internal var hotelListResult = [HotelsSearched]()
     var hotelSearchRequest: HotelSearchRequestModel?
+    var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    
     var shortUrl: String = ""
     private(set) var collectionViewList: [String: Any] = [String: Any]()
     
@@ -180,4 +185,62 @@ class HotelsResultVM: NSObject {
         }
     }
    
+}
+
+
+extension HotelsResultVM {
+    
+    ///Params For Api
+    func paramsForApi() -> JSONDictionary {
+        if self.searchedFormData.ratingCount.isEmpty {
+            self.searchedFormData.ratingCount = [1,2,3,4,5]
+        }
+        var params = JSONDictionary()
+        let _adultsCount = self.searchedFormData.adultsCount
+        let _starRating = self.searchedFormData.ratingCount
+        let _chidrenAge = self.searchedFormData.childrenAge
+        params[APIKeys.check_in.rawValue] = self.searchedFormData.checkInDate
+        params[APIKeys.check_out.rawValue] = self.searchedFormData.checkOutDate
+        params[APIKeys.dest_id.rawValue] = self.searchedFormData.destId
+        params[APIKeys.dest_type.rawValue] = self.searchedFormData.destType
+        params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
+        params[APIKeys.isPageRefereshed.rawValue] = true
+        
+        for (idx , data ) in _starRating.enumerated() {
+            //            params["filter[star][\(idx)star]"] = true
+            params["filter[star][\(data)star]"] = true
+            
+        }
+        
+        for (idx ,  data) in _adultsCount.enumerated() {
+            params["r[\(idx)][a]"] = data
+        }
+        
+        for (idx , dataX) in _chidrenAge.enumerated() {
+            for (idy , dataY) in dataX.enumerated() {
+                if dataY != 0 {
+                    params["r[\(idx)][c][\(idy)]"] = dataY
+                }
+            }
+        }
+        
+        printDebug(params)
+        return params
+    }
+    
+    ///Hotel List Api
+    func hotelListOnPreferencesApi() {
+        APICaller.shared.getHotelsListOnPreference(params: self.paramsForApi() ) { [weak self] (success, errors, sid, vCodes,searhRequest) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.hotelSearchRequest = searhRequest
+                sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
+            } else {
+                printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                sSelf.delegate?.getAllHotelsOnPreferenceFail()
+            }
+        }
+    }
+    
 }

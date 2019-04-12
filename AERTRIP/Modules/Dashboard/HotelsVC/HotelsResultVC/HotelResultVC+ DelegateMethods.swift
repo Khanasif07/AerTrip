@@ -100,6 +100,16 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func getAllHotelsOnPreferenceSuccess() {
+        self.addMapView()
+        self.setupTexts()
+        self.viewModel.hotelListOnPreferenceResult()
+    }
+    
+    func getAllHotelsOnPreferenceFail() {
+        
+    }
+    
     func loadFinalDataOnScreen() {
         self.loadSaveData()
         self.getFavouriteHotels()
@@ -121,7 +131,7 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
         self.hotelSearchView.isHidden = false
         self.progressView.removeFromSuperview()
-        self.shimmerView.removeFromSuperview()
+        self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }

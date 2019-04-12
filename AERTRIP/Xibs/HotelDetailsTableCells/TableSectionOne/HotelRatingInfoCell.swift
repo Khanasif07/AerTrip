@@ -77,19 +77,19 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelDotsView.isHidden = tripAdvisorRating.isZero
         self.tripadviserImageView.isHidden = tripAdvisorRating.isZero
         if starRating.isZero , tripAdvisorRating.isZero {
-            ratingStackView.isHidden = true
+            self.ratingStackView.isHidden = true
         }
         if hotelName.isEmpty , (self.distanceLabel.text ?? "").isEmpty {
             self.hotelNameAndDistanceStackView.isHidden = true
         }
-//        if starRating.isZero , tripAdvisorRating.isZero , hotelName.isEmpty , (self.distanceLabel.text ?? "").isEmpty {
-//            self.allStackView.isHidden = true
-//        }
     }
 
         
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel) {
-        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+//        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+        
+        //sending the distabce as we are getting from aertrip data base not from google API as discussed with Nitesh
+        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: "\(hotelData.distance) km", durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
     }
     
     internal func configHCDetailsCell(hotelData: HotelDetails , placeData: PlaceModel) {

@@ -403,4 +403,5 @@ enum APIKeys: String {
     case is_updated
     case trip_key
     case receipt
+    case bedtype_id
 }

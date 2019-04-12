@@ -100,7 +100,7 @@ class HotelSearchTableViewCell: UITableViewCell {
         attString.addAttributes([
             .font: AppFonts.SemiBold.withSize(18.0),
             .foregroundColor: AppColors.themeGreen
-            ], range:(text as NSString).range(of: boldText))
+            ], range:(text.lowercased() as NSString).range(of: boldText.lowercased()))
         return attString
     }
     

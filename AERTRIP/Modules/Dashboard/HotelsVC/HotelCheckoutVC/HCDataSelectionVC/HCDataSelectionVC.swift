@@ -164,10 +164,12 @@ class HCDataSelectionVC: BaseVC {
     private func updateHotelCheckOutDetailsVIew() {
         if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
             hotelCheckOutDetailsView.sectionData.removeAll()
-            hotelCheckOutDetailsView.viewModel = viewModel.itineraryData?.hotelDetails ?? HotelDetails()
-            hotelCheckOutDetailsView.hotelInfo = viewModel.hotelInfo ?? HotelSearched()
-            hotelCheckOutDetailsView.placeModel = viewModel.placeModel ?? PlaceModel()
-            hotelCheckOutDetailsView.sectionData = viewModel.sectionData
+            hotelCheckOutDetailsView.roomRates.removeAll()
+            hotelCheckOutDetailsView.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+            hotelCheckOutDetailsView.hotelInfo = self.viewModel.hotelInfo ?? HotelSearched()
+            hotelCheckOutDetailsView.placeModel = self.viewModel.placeModel ?? PlaceModel()
+            hotelCheckOutDetailsView.sectionData = self.viewModel.sectionData
+            hotelCheckOutDetailsView.roomRates = self.viewModel.roomRates
             hotelCheckOutDetailsView.updateData()
         }
     }
@@ -395,7 +397,23 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         manageLoader(shouldStart: true)
     }
     
-    func fetchRecheckRatesDataFail() {
+    func fetchRecheckRatesDataFail(errors: ErrorCodes) {
+        if errors.contains(array: [11]) {
+            //send to result screen and re-hit the search API
+            self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
+            for vc in AppFlowManager.default.mainNavigationController.viewControllers {
+                if let obj = vc as? HotelResultVC {
+                    //close hotel details if open
+                    for vc in obj.children {
+                        if let detailVC = vc as? HotelDetailsVC {
+                            detailVC.hide(animated: true)
+                            break
+                        }
+                    }
+                    AppFlowManager.default.popViewController(animated: true)
+                }
+            }
+        }
         manageLoader(shouldStart: false)
     }
     
@@ -423,7 +441,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             else if diff < 0 {
                 // dipped
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                delay(seconds: 0.5) { [weak self] in
+                delay(seconds: 2.0) { [weak self] in
                     guard let sSelf = self else { return }
                     sSelf.sendToFinalCheckoutVC()
                 }

@@ -52,7 +52,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         case .roomBedsTypeCell:
-            if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: rates, roomData: rates.roomData){
+            if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: rates, roomData: self.roomRates[indexPath.section - 2]){
                 return cell
             }
         case .inclusionCell:
@@ -81,11 +81,14 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
-                    self.redirectToMap()
+                    guard let parentVC = self.parentViewController as? HCDataSelectionVC , let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel else { return }
+                    AppGlobals.shared.redirectToMap(parentVC: parentVC,sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                    //                    self.redirectToMap()
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
                 }
@@ -100,7 +103,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0, indexPath.row == 2 {
+        if indexPath.section == 0 , indexPath.row == 2 {
             if let hotelData = self.viewModel {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
@@ -187,26 +190,26 @@ extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
             ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
         }
     }
-
+    
     func willShowImage(at index: Int, image: UIImage?) {
-//        self.imageView.image = image
+        //        self.imageView.image = image
     }
 }
 
 // Mark:- ATGallery Delegate And Datasource
 //========================================
 extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasource {
-
+    
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel?.photos.count ?? 0
     }
-
+    
     func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
         var image = ATGalleryImage()
         image.imagePath = self.viewModel?.photos[index]
         return image
     }
-
+    
     func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
         let indexPath = IndexPath(row: 0, section: 0)
         guard let cell = self.hotelDetailsTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
