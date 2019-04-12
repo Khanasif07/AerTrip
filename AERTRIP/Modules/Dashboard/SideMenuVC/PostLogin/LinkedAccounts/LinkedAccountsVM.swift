@@ -74,7 +74,7 @@ extension LinkedAccountsVM {
             
             if result.email.isEmpty {
                 //show toast
-                AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInFacebook.localized)
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseLoginByEmailId.localized)
                 completionBlock?(false)
             }
             else {

@@ -40,7 +40,7 @@ extension HotelResultVC {
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
         return CGRect(x: self.searchIntitialFrame.origin.x + 20
-            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 80.0 : 95.0), height: 50)
+            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 80.0 : 100.0), height: 50)
     }
     
     func showSearchAnimation() {

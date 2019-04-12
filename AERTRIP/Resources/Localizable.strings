@@ -111,11 +111,12 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
+"PleaseLoginByEmailId" = "Please login by using email id";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
-"ForgotYourPassword"  = "Forgot Your\n Password?";
-"EmailIntruction" = "Don’t worry. We’ll email you instructions on how to reset your password.";
+"ForgotYourPassword"  = "Forgot Your\nPassword?";
+"EmailIntruction" = "Don’t worry. We’ll email you instructions\non how to reset your password.";
 "Continue" = "Continue";
 
 // MARK:- SuccessPopupVC

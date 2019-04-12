@@ -69,7 +69,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         let width = collectionView.width / 4.0
         let totalCount = hotelFormData.adultsCount[forIdx.row] + hotelFormData.childrenCounts[forIdx.row]
         
-        let height = (collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0)) + 10.0
+        let height = (collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0)) - 5.0
         
         return CGSize(width: width, height: height)
     }
@@ -77,6 +77,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5.0
     }
+
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let forIdx = forIndex, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCDataSelectionRoomDetailsCollectionCell.reusableIdentifier, for: indexPath) as? HCDataSelectionRoomDetailsCollectionCell else {
