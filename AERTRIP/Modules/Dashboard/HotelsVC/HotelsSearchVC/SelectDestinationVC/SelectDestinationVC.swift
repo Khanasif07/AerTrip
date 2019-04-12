@@ -320,9 +320,8 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
-            
             cell.configureData(data: hotelsForSection[indexPath.row], forText: self.searchBar.text ?? "")
-            cell.dividerView.isHidden = (maxItemInCategory - 1) == indexPath.row
+            cell.dividerView.isHidden = (min(hotelsForSection.count, maxItemInCategory) - 1) == indexPath.row
             
             return cell
         }

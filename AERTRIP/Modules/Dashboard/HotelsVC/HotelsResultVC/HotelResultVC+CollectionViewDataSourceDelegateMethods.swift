@@ -23,11 +23,14 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         //        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
         //        self.isFotterVisible = self.isAboveTwentyKm
         
-        if hData?.count ?? 1 > 1 {
+        if (hData?.count ?? 1) > 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
             
+//            cell.contentView.backgroundColor = .green
+//            cell.containerTopConstraint.constant = 29.0
+//            cell.containerBottomConstraint.constant = -29.0
             cell.hotelListData = hData?.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
@@ -38,6 +41,9 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
                 fatalError("HotelCardCollectionViewCell not found")
             }
             
+//            cell.contentView.backgroundColor = .red
+//            cell.containerTopConstraint.constant = 29.0
+//            cell.containerBottomConstraint.constant = -29.0
             cell.hotelListData = hData?.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
