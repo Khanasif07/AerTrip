@@ -46,7 +46,12 @@ class MainHomeVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.statusBarStyle = .lightContent
+        if let sideMenu = AppFlowManager.default.sideMenuController, sideMenu.isOpen {
+            self.statusBarStyle = .default
+        }
+        else {
+            self.statusBarStyle = .lightContent
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
