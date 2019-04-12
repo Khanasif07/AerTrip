@@ -172,13 +172,16 @@ private extension CreateYourAccountVC {
 extension CreateYourAccountVC {
   
     @objc func textFieldValueChanged(_ textField: UITextField) {
-        
-        self.viewModel.email = textField.text ?? ""
+
+         self.viewModel.email = textField.text ?? ""
         self.registerButton.isEnabled = self.viewModel.email.count > 0
         
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.elementsEqual(" ") {
+            return false
+        }
         return ((textField.text ?? "") + string).count <= AppConstants.kEmailIdTextLimit
     }
     

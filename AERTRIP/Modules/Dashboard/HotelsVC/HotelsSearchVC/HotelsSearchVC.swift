@@ -506,7 +506,7 @@ class HotelsSearchVC: BaseVC {
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.showSelectDestinationVC(delegate: self)
+        AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {

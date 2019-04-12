@@ -48,6 +48,8 @@ enum LocalizedString: String {
     case Continue_with_Linkedin  = "Continue_with_Linkedin"
     case AllowEmailInFacebook = "AllowEmailInFacebook"
     case AllowEmailInLinkedIn = "AllowEmailInLinkedIn"
+    case PleaseLoginByEmailId = "PleaseLoginByEmailId"
+    
     
     // MARK:- LoginVC
     //MARK:-

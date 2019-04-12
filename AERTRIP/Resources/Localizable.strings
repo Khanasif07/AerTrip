@@ -111,11 +111,12 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
+"PleaseLoginByEmailId" = "Please login by using email id";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
-"ForgotYourPassword"  = "Forgot Your\n Password?";
-"EmailIntruction" = "Don’t worry. We’ll email you instructions on how to reset your password.";
+"ForgotYourPassword"  = "Forgot Your\nPassword?";
+"EmailIntruction" = "Don’t worry. We’ll email you instructions\non how to reset your password.";
 "Continue" = "Continue";
 
 // MARK:- SuccessPopupVC
@@ -310,7 +311,7 @@
 "IfAny" = "(If Any)";
 "Rooms" = "Rooms";
 "BulkEnquirySent" = "Bulk enquiry has been sent";
-"CustomerServicesShallConnect" = "Our Customer service team shall contact you soon regarding this enquiry.";
+"CustomerServicesShallConnect" = "Our Customer service team shall contact \n you soon regarding this enquiry.";
 "Submit" = "Submit";
 
 //MARK:- FF Search

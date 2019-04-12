@@ -54,7 +54,6 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
-        
         if hData?.count ?? 1 > 1 {
             // grouped cell
             return CGSize(width: UIDevice.screenWidth, height: 230.0)
