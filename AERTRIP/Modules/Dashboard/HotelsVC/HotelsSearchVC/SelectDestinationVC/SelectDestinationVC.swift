@@ -14,6 +14,12 @@ protocol SelectDestinationVCDelegate: class {
 
 class SelectDestinationVC: BaseVC {
     
+    enum CurrentlyUsingFor {
+        case hotelForm, bulkBooking
+    }
+    
+    var currentlyUsingFor: CurrentlyUsingFor = .hotelForm
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var bottomView: UIView!
@@ -34,6 +40,7 @@ class SelectDestinationVC: BaseVC {
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
 
     
     
@@ -118,6 +125,7 @@ class SelectDestinationVC: BaseVC {
         self.bottomView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = 0.0
+            self.mainContainerViewHeightConstraint.constant = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - self.view.safeAreaInsets.top) : (self.view.height - 15.0 - self.view.safeAreaInsets.top)
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             self.reloadData()
@@ -242,7 +250,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isInSearchMode {
-            return 30.0
+            return 28.0
         }
         else {
             switch section {
@@ -252,7 +260,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 
             case 1, 2:
                 //recent search, popular destination
-                return 30.0
+                return 28.0
                 
             default:
                 return 0
@@ -299,7 +307,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             case 0:
                 //my location
-                return 50.0
+                return 44.5//50.0
                 
             case 1, 2:
                 //recent search, popular destination

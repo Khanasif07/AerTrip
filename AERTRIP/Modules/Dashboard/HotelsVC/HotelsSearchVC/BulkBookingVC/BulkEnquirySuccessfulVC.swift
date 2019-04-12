@@ -116,8 +116,14 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
             let yPerSafeArea = self.bulkEnquiryLabel.frame.origin.y + self.view.safeAreaInsets.bottom //+ 26.0
-            let tY = ((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0//- yPerSafeArea
-//            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
+            let tY: CGFloat
+            if UIDevice.isIPhoneX {
+                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
+            } else {
+                tY = (((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
+            }
+            //- yPerSafeArea
+            //            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY )
             UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {

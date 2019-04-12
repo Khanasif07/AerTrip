@@ -306,9 +306,10 @@ extension AppFlowManager {
         }
     }
     
-    func showSelectDestinationVC(delegate: SelectDestinationVCDelegate) {
+    func showSelectDestinationVC(delegate: SelectDestinationVCDelegate , currentlyUsingFor: SelectDestinationVC.CurrentlyUsingFor) {
         if let mVC = self.mainHomeVC {
             let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentlyUsingFor = currentlyUsingFor
             ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
