@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
+            timestampString = "577023138.9807349"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "textSetUp(hotelName:distanceText:durationValue:starRating:tripAdvisorRating:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelRatingInfoCell.(textSetUp in _08263624A49C83A57C9B98E126A7C820)(hotelName: Swift.String, distanceText: Swift.String, durationValue: Swift.Int, starRating: Swift.Double, tripAdvisorRating: Swift.Double) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
+                  timestampString = "577022230.435549"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "968">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelRatingInfoCell.(textSetUp in _08263624A49C83A57C9B98E126A7C820)(hotelName: Swift.String, distanceText: Swift.String, durationValue: Swift.Int, starRating: Swift.Double, tripAdvisorRating: Swift.Double) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
+                  timestampString = "577022230.440401"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "990">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

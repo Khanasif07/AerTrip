@@ -682,7 +682,7 @@
                                 </constraints>
                             </imageView>
                             <view alpha="0.20000000298023224" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTV-wO-rS4">
-                                <rect key="frame" x="169.5" y="26" width="36" height="4"/>
+                                <rect key="frame" x="169.5" y="34" width="36" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="2nz-0m-sax"/>
@@ -690,7 +690,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANB-l9-Z0x" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="G9S-91-MVA"/>
@@ -714,7 +714,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="ANB-l9-Z0x" secondAttribute="trailing" id="05p-Aq-Z8X"/>
-                            <constraint firstItem="jTV-wO-rS4" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" constant="6" id="0BG-c2-IMN"/>
                             <constraint firstItem="jTV-wO-rS4" firstAttribute="centerX" secondItem="o3c-bA-alK" secondAttribute="centerX" id="2tE-Dx-2Xa"/>
                             <constraint firstItem="HEm-JA-4lE" firstAttribute="leading" secondItem="eae-Cy-l88" secondAttribute="leading" id="43F-VU-b5A"/>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="Imk-Nt-2ie" secondAttribute="trailing" id="9Ug-oZ-jhG"/>
@@ -723,9 +722,10 @@
                             <constraint firstItem="HEm-JA-4lE" firstAttribute="trailing" secondItem="eae-Cy-l88" secondAttribute="trailing" id="IXM-D5-5lG"/>
                             <constraint firstItem="vo7-sE-vfA" firstAttribute="leading" secondItem="eae-Cy-l88" secondAttribute="leading" id="JSC-zR-2hk"/>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="bottom" secondItem="HEm-JA-4lE" secondAttribute="bottom" id="K27-ZW-UCm"/>
+                            <constraint firstItem="jTV-wO-rS4" firstAttribute="top" secondItem="ANB-l9-Z0x" secondAttribute="top" constant="6" id="Lhf-D8-gcu"/>
                             <constraint firstAttribute="bottom" secondItem="vo7-sE-vfA" secondAttribute="bottom" id="MIt-7a-YrQ"/>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="vo7-sE-vfA" secondAttribute="trailing" id="NUh-QN-STC"/>
-                            <constraint firstItem="ANB-l9-Z0x" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" id="duB-Ks-NmL"/>
+                            <constraint firstItem="ANB-l9-Z0x" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" constant="8" id="duB-Ks-NmL"/>
                             <constraint firstItem="ANB-l9-Z0x" firstAttribute="leading" secondItem="eae-Cy-l88" secondAttribute="leading" id="fcb-dj-yxK"/>
                             <constraint firstItem="Zkk-es-ieH" firstAttribute="top" secondItem="Imk-Nt-2ie" secondAttribute="top" id="rzH-vq-8jL"/>
                             <constraint firstItem="Zkk-es-ieH" firstAttribute="leading" secondItem="Imk-Nt-2ie" secondAttribute="leading" id="vUy-OI-H0a"/>
@@ -736,6 +736,7 @@
                     </view>
                     <connections>
                         <outlet property="footerView" destination="HEm-JA-4lE" id="B6n-ui-PYX"/>
+                        <outlet property="headerTopConstraint" destination="duB-Ks-NmL" id="siX-bn-BTn"/>
                         <outlet property="headerView" destination="ANB-l9-Z0x" id="UEO-vn-rBE"/>
                         <outlet property="hotelTableView" destination="Imk-Nt-2ie" id="F4B-L3-9fw"/>
                         <outlet property="imageView" destination="Zkk-es-ieH" id="b5s-TO-sUD"/>
