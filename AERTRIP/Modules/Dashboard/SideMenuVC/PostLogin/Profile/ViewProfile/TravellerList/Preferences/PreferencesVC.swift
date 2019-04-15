@@ -332,6 +332,14 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - GroupTableViewCellDelegate methods
 
 extension PreferencesVC: GroupTableViewCellDelegate {
+    func textField(_ textField: UITextField) {
+        // Text field for begin editing
+    }
+    
+    func textFieldWhileEditing(_ textField: UITextField, _ indexPath: IndexPath) {
+        viewModel.groups[indexPath.row] = textField.text ?? ""
+    }
+    
     func deleteCellTapped(_ indexPath: IndexPath) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
         _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
