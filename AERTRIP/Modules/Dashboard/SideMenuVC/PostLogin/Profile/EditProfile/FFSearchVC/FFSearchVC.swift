@@ -38,6 +38,12 @@ class FFSearchVC: BaseVC {
     
     // MARK: - View Life cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
  
