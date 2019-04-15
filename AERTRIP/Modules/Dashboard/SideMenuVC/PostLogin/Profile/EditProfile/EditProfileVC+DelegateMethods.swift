@@ -921,8 +921,10 @@ extension EditProfileVC: TextEditableTableViewCellDelegate {
             // viewModel.notes = text
             break
         case LocalizedString.PassportDetails.localized:
-            if indexPath.row == 0 {
-                viewModel.passportNumber = text
+            if indexPath.row == 0, let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell {
+                let final = text.substring(to: AppConstants.kPassportNoLimit-1)
+                viewModel.passportNumber = final
+                cell.editableTextField.text = final
             }
         default:
             break

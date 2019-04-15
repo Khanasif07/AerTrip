@@ -124,9 +124,11 @@ class SelectDestinationVC: BaseVC {
     
     private func show(animated: Bool) {
         self.bottomView.isHidden = false
+        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainCintainerBottomConstraint.constant = 0.0
-            self.mainContainerViewHeightConstraint.constant = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - self.view.safeAreaInsets.top) : (self.view.height - 15.0 - self.view.safeAreaInsets.top)
+            self.mainContainerViewHeightConstraint.constant = finalValue
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             self.reloadData()

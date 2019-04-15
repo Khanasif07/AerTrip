@@ -60,7 +60,7 @@ class EditProfileVM {
     var emailTypes: [String] = []
     var mobileTypes: [String] = []
     var addressTypes: [String] = []
-    var salutationTypes: [String] = []
+    var salutationTypes: [String] = ["Mrs", "Mr", "Mast", "Miss", "Ms"]
     var socialTypes: [String] = []
     var travelData: TravelDetailModel? {
         didSet {
