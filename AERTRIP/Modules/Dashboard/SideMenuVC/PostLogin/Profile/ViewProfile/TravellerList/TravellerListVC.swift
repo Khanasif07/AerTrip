@@ -38,6 +38,7 @@ class TravellerListVC: BaseVC {
     var container: NSPersistentContainer!
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var predicateStr: String = ""
+    var didTapCrossKey: Bool = false
     
     // MARK: - View Life cycle
     
@@ -559,9 +560,29 @@ extension TravellerListVC: UISearchBarDelegate {
         } else {
             searchTraveller(forText: searchText)
         }
+        if !didTapCrossKey && searchText.isEmpty {
+             self.searchBar.isMicEnabled = true
+        }
+        
+        didTapCrossKey = false
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {}
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        searchBar.micButton.isHidden = false
+//        return true
+//    }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        didTapCrossKey = text.isEmpty
+        return true
+    }
+    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate Methods
