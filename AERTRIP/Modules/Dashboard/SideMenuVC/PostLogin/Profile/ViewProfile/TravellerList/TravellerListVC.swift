@@ -245,6 +245,25 @@ class TravellerListVC: BaseVC {
         return attString
     }
     
+    
+    // create label Predicate
+    
+    func labelPredicate() -> NSPredicate? {
+        var labelPredicate: NSPredicate?
+        var labelPredicates = [AnyHashable]()
+        if let generalPref = UserInfo.loggedInUser?.generalPref {
+            for group in generalPref.labels {
+                labelPredicates.append(NSPredicate(format: "label CONTAINS[c] '\(group)'"))
+            }
+        }
+        if labelPredicates.count > 0 {
+            if let labelPredicates = labelPredicates as? [NSPredicate] {
+                labelPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
+            }
+        }
+        return labelPredicate
+    }
+    
     func loadSavedData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
@@ -267,8 +286,11 @@ class TravellerListVC: BaseVC {
         }
         fetchedResultsController.delegate = self
         if predicateStr.isEmpty {
-            fetchedResultsController.fetchRequest.predicate = nil
-
+            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+               fetchedResultsController.fetchRequest.predicate = labelPredicate()
+            } else {
+                 fetchedResultsController.fetchRequest.predicate = nil
+            }
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
