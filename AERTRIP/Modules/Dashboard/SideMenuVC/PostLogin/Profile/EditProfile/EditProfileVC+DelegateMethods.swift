@@ -431,14 +431,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func textFieldText(_ textfield: UITextField) {
+        let text = textfield.text ?? ""
         switch textfield {
         case editProfileImageHeaderView.firstNameTextField:
-            editProfileImageHeaderView.firstNameTextField.text = textfield.text
-            
-            self.viewModel.firstName = textfield.text ?? ""
+            editProfileImageHeaderView.firstNameTextField.text = text.removeSpaceAsSentence
+            self.viewModel.firstName = text.removeSpaceAsSentence
         case editProfileImageHeaderView.lastNameTextField:
-            editProfileImageHeaderView.lastNameTextField.text = textfield.text ?? ""
-            self.viewModel.lastName = textfield.text ?? ""
+            editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence
+            self.viewModel.lastName = text.removeSpaceAsSentence
         default:
             break
         }
@@ -528,14 +528,14 @@ extension EditProfileVC {
         switch textField {
         case self.editProfileImageHeaderView.firstNameTextField:
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""
-            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
+            if let textFieldString = textField.text?.removeSpaceAsSentence, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                viewModel.firstName = fullString
+                viewModel.firstName = fullString.removeSpaceAsSentence
             }
             
         case self.editProfileImageHeaderView.lastNameTextField:
-            self.editProfileImageHeaderView.lastNameTextField.text = textField.text ?? ""
-            viewModel.lastName = textField.text ?? ""
+            self.editProfileImageHeaderView.lastNameTextField.text = textField.text?.removeSpaceAsSentence ?? ""
+            viewModel.lastName = textField.text?.removeSpaceAsSentence ?? ""
             
         default:
             break
