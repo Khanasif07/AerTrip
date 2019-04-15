@@ -25,7 +25,7 @@ class CoreDataManager {
          */
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let url = urls[urls.count-1]
-        printDebug("Aertrip Traveller  Data at: \(url)")
+        printDebug("Aertrip Traveller Data at: \(url)")
         return url
     }()
 
