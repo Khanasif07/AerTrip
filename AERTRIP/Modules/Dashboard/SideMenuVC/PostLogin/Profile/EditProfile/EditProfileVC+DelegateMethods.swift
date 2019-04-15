@@ -866,11 +866,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
-            controller.delgate = self
-            controller.defaultAirlines = self.viewModel.defaultAirlines
-            self.present(controller, animated: true, completion: nil)
-            
+            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"

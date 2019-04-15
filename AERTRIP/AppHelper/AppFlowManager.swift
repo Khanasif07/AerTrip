@@ -262,6 +262,13 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+        let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+        controller.delgate = delegate
+        controller.defaultAirlines = defaultAirlines
+        self.mainNavigationController.present(controller, animated: true, completion: nil)
+    }
+    
     func moveToHotelSearchVC(){
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
