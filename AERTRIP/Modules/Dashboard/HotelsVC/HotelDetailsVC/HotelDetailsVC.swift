@@ -46,7 +46,7 @@ class HotelDetailsVC: BaseVC {
     }
     @IBOutlet weak var headerView: TopNavigationView! {
         didSet{
-//            self.headerView.roundTopCorners(cornerRadius: 10.0)
+            self.headerView.roundTopCorners(cornerRadius: 10.0)
         }
     }
     @IBOutlet weak var smallLineView: UIView! {
@@ -227,7 +227,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func configUI() {
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")

@@ -711,7 +711,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="ANB-l9-Z0x" secondAttribute="trailing" id="05p-Aq-Z8X"/>
                             <constraint firstItem="jTV-wO-rS4" firstAttribute="centerX" secondItem="o3c-bA-alK" secondAttribute="centerX" id="2tE-Dx-2Xa"/>
