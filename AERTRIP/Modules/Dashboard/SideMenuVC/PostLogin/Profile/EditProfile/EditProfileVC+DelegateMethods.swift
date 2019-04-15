@@ -20,7 +20,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
             return 270.0
         } else
-        if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
+            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
             return 80
         } else {
             return UITableView.automaticDimension
@@ -65,7 +65,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.editProfilTwoPartTableViewCelldelegate = self
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
-                    // make disable
+                    //make disable
                     cell.rightViewTextField.isEnabled = false
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
@@ -73,7 +73,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightViewTextField.textColor = AppColors.themeGray40
                     cell.blackDownImageView.isHidden = true
                 } else {
-                    // make enable
+                    //make enable
                     cell.rightViewTextField.delegate = self
                     cell.blackDownImageView.isHidden = false
                 }
@@ -105,14 +105,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else {
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
-                    // make disable
+                    //make disable
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
                     cell.leftTitleLabel.textColor = AppColors.themeGray40
                     cell.blackDownImageView.isHidden = true
                     
                 } else {
-                    // make enable
+                    //make enable
                     cell.deleteButton.isHidden = false
                     cell.blackDownImageView.isHidden = false
                     cell.leftView.isUserInteractionEnabled = true
@@ -172,9 +172,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.downArrowImageView.isHidden = indexPath.row == 0
                 cell.editableTextField.placeholder = LocalizedString.passportNo.localized
                 
-                // index 0: passport no, index 1: passport country
+                //index 0: passport no, index 1: passport country
                 cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
-                
+
                 return cell
             }
             
@@ -184,7 +184,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
-                
+
                 cell.configureCell(LocalizedString.AddAddress.localized)
                 cell.topDividerView.isHidden = true
                 return cell
@@ -223,8 +223,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.downArrowImageView.isHidden = true
                 
-                // index 0: dob, index 1: doa
-                cell.configureCell(moreInformation[indexPath.row].rawValue, (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
+                //index 0: dob, index 1: doa
+                cell.configureCell(moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
                 cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
                 return cell
             }
@@ -307,7 +307,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var email = Email()
                 email.type = "email"
                 var label = LocalizedString.Home.localized
-                if self.viewModel.emailTypes.count > 0, self.viewModel.currentlyUsinfFor == .viewProfile {
+                if self.viewModel.emailTypes.count > 0 , self.viewModel.currentlyUsinfFor == .viewProfile {
                     if self.viewModel.email.count == 1 {
                         label = self.viewModel.emailTypes[0]
                     } else if self.viewModel.email.count == 2 {
@@ -470,11 +470,13 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         printDebug("edit button tapped")
         
         if self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId {
-            self.editLoggedInUserProfilePhoto()
+            editLoggedInUserProfilePhoto()
         } else {
-            self.editProfilePhotoForTraveller()
+            editProfilePhotoForTraveller()
         }
+        
     }
+    
     
     func editProfilePhotoForTraveller() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
@@ -495,7 +497,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         }
     }
     
-    func editLoggedInUserProfilePhoto() {
+    func editLoggedInUserProfilePhoto(){
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
@@ -578,6 +580,7 @@ extension EditProfileVC {
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 // MARK: - EditProfileTwoPartTableViewCellDelegate method
@@ -587,7 +590,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         self.view.endEditing(true)
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            if !text.isEmpty, !text.checkValidity(.Email) {
+            if !text.isEmpty && !text.checkValidity(.Email) {
                 AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             }
         default:
@@ -649,7 +652,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                 self.tableView.reloadData()
                 return
             }
-            
+           
         case LocalizedString.SocialAccounts.localized:
             if self.viewModel.social[indexPath.row].value.isEmpty {
                 self.viewModel.social.remove(at: indexPath.row)
@@ -705,10 +708,10 @@ extension EditProfileVC: EditProfileVMDelegate {
     func deleteTravellerAPISuccess() {
         for viewController in self.navigationController?.viewControllers ?? [] {
             if viewController is TravellerListVC {
-                AppFlowManager.default.popToViewController(viewController, animated: true)
+                  AppFlowManager.default.popToViewController(viewController, animated: true)
             }
         }
-        self.stopLoading()
+      self.stopLoading()
     }
     
     func deleteTravellerAPIFailure() {
@@ -750,8 +753,8 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-        self.stopLoading()
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+         self.stopLoading()
+         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }
 
@@ -773,7 +776,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         }
     }
     
-    func threePartLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
+    func threePartLeftViewTap(_ indexPath:IndexPath,_ gesture: UITapGestureRecognizer) {
         guard let indexPathRow = gesture.view?.tag else {
             return
         }
@@ -792,6 +795,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func middleViewTap(_ gesture: UITapGestureRecognizer) {
+
         self.closeGenricAndDatePicker(completion: nil)
         
         guard let indexPathRow = gesture.view?.tag else {
@@ -800,7 +804,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         
         PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPathRow].isd)) { [weak self] selectedCountry in
             printDebug("selected country data: \(selectedCountry)")
-            
+
             printDebug(indexPathRow)
             guard indexPathRow >= 0 else {
                 printDebug("Array index must be greater than zero. Going to  return")
@@ -855,7 +859,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
-        self.deleteCellTapped(indexPath)
+       self.deleteCellTapped(indexPath)
     }
     
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
@@ -870,7 +874,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
             viewType = .leftView
-            showDatePicker(formatter.date(from: viewModel.passportIssueDate), nil, maximumDate: Date())
+            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: Date())
         }
     }
     
@@ -880,7 +884,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             viewType = .rightView
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.passportExpiryDate), Date(), maximumDate: nil)
+            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),Date(), maximumDate: nil)
         }
     }
 }
