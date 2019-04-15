@@ -65,6 +65,7 @@ class RatingVC: BaseVC {
             HotelFilterVM.shared.ratingCount.removeAll()
         }
         
+        HotelFilterVM.shared.ratingCount.removeAll()
         for star in self.filterApplied.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
