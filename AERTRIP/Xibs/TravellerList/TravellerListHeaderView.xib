@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,14 +31,17 @@
                                 <constraint firstAttribute="height" constant="20" id="eF6-nl-KE6"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAP-JF-PeG">
-                            <rect key="frame" x="52" y="10.5" width="118.5" height="23"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher sdjhf afhjka fdg gf er er er" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAP-JF-PeG">
+                            <rect key="frame" x="52" y="10.5" width="279.5" height="23"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEB-Pr-RQX">
                             <rect key="frame" x="336.5" y="10.5" width="22.5" height="23"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22.5" id="8lA-Tg-ZPj"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -50,6 +53,7 @@
                         <constraint firstItem="gAP-JF-PeG" firstAttribute="leading" secondItem="F5x-Tb-XGw" secondAttribute="trailing" constant="16" id="6et-G0-wOI"/>
                         <constraint firstItem="qEB-Pr-RQX" firstAttribute="centerY" secondItem="gAP-JF-PeG" secondAttribute="centerY" id="ARx-pl-O6R"/>
                         <constraint firstAttribute="height" constant="44" id="H3S-fK-fZK"/>
+                        <constraint firstItem="qEB-Pr-RQX" firstAttribute="leading" secondItem="gAP-JF-PeG" secondAttribute="trailing" constant="5" id="IUU-WX-ndV"/>
                         <constraint firstAttribute="trailing" secondItem="qEB-Pr-RQX" secondAttribute="trailing" constant="16" id="Knu-uC-hq2"/>
                         <constraint firstItem="gAP-JF-PeG" firstAttribute="centerY" secondItem="mnu-CP-o4A" secondAttribute="centerY" id="Va7-bz-7RM"/>
                         <constraint firstItem="F5x-Tb-XGw" firstAttribute="leading" secondItem="mnu-CP-o4A" secondAttribute="leading" constant="16" id="aFn-Dp-rVM"/>
@@ -83,6 +87,6 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
+        <image name="profilePlaceholder" width="64" height="64"/>
     </resources>
 </document>
