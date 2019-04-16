@@ -666,15 +666,9 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
-         var state : String = ""
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
             self.viewModel.searchedFormData.cityName = hotel.city
-            if hotel.value.contains(hotel.city) {
-                state = hotel.value.replacingOccurrences(of: hotel.city+",", with:  "")
-            } else {
-                state = hotel.value
-            }
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)

@@ -41,6 +41,9 @@ class HotelResultVC: BaseVC {
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
     
+
+    
+    
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)

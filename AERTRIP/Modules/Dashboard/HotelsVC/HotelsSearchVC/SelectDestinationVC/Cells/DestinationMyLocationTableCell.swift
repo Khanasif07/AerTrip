@@ -24,6 +24,7 @@ class DestinationMyLocationTableCell: UITableViewCell {
         
         self.selectionStyle = .none
         self.setupFontAndColor()
+        self.locationButton.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

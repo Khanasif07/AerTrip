@@ -92,6 +92,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }, completion: { (isDone) in
             if shouldRemove {
                 self.removeFromParentVC
+                NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
             }
         })
     }

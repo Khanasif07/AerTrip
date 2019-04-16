@@ -143,7 +143,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        self.mainContainerHeight = self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom
+        self.mainContainerHeight = (self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
 //            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0

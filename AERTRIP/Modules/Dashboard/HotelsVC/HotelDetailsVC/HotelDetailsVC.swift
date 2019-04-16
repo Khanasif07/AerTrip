@@ -58,6 +58,7 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainView: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -189,7 +190,9 @@ class HotelDetailsVC: BaseVC {
             sSelf.hotelTableView.frame = sSelf.tableFrameHidden
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
+                sSelf.mainView.alpha = 0
                 sSelf.removeFromParentVC
+                sSelf.headerView.isHidden = false
         })
     }
     
@@ -396,6 +399,7 @@ class HotelDetailsVC: BaseVC {
     //Mark:- IBOActions
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
+        self.headerView.isHidden = true
         self.hide(animated: true)
     }
     
