@@ -318,7 +318,7 @@ class EditProfileVM {
         }
         
         self.delegate?.willApiCall()
-        APICaller.shared.callSaveProfileAPI(params: params, filePath: self.filePath, loader: true, completionBlock: { success, errors in
+        APICaller.shared.callSaveProfileAPI(params: params, filePath: self.filePath, loader: false, completionBlock: { success, errors in
             
             if success {
                 self.delegate?.getSuccess()
