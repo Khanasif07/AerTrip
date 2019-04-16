@@ -1,5 +1,5 @@
 //
-//  AccountDetailsVM.swift
+//  AccountLegderVM.swift
 //  AERTRIP
 //
 //  Created by Admin on 16/04/19.
@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol AccountDetailsVMDelegate: class {
-    func willGetAccountDetails()
-    func getAccountDetailsSuccess()
-    func getAccountDetailsFail()
+protocol AccountLegderVMDelegate: class {
+    func willGetAccountLedger()
+    func getAccountLedgerSuccess()
+    func getAccountLedgerFail()
 }
 
-class AccountDetailsVM {
+class AccountLegderVM {
     //MARK:- Properties
     //MARK:- Public
     var walletAmount: Double = 0.0
-    var accountDetails: JSONDictionary = JSONDictionary()
+    var accountLedger: JSONDictionary = JSONDictionary()
     var allDates: [String] {
-        return Array(accountDetails.keys)
+        return Array(accountLedger.keys)
     }
     
-    weak var delegate: AccountDetailsVMDelegate? = nil
+    weak var delegate: AccountLegderVMDelegate? = nil
     
     //MARK:- Private
     
@@ -31,12 +31,12 @@ class AccountDetailsVM {
     
     //MARK:- Methods
     //MARK:- Public
-    func getAccountDetails() {
-        self.delegate?.willGetAccountDetails()
+    func getAccountLedger() {
+        self.delegate?.willGetAccountLedger()
         
         delay(seconds: 0.8) { [weak self] in
             guard let sSelf = self else {
-                self?.delegate?.getAccountDetailsFail()
+                self?.delegate?.getAccountLedgerFail()
                 return
             }
             
@@ -82,9 +82,9 @@ class AccountDetailsVM {
                            ]
                           ]
             
-            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountLedger = AccountDetailEvent.modelsDict(data: allData)
             
-            sSelf.delegate?.getAccountDetailsSuccess()
+            sSelf.delegate?.getAccountLedgerSuccess()
         }
         
     }

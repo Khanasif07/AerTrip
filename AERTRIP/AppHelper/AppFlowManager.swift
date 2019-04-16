@@ -566,6 +566,11 @@ extension AppFlowManager {
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    func moveToAccountLedgerVC() {
+        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
 }
 
 //MARK:- Select Trip Flow Methods

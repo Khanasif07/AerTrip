@@ -525,6 +525,13 @@
 		84C0BE1E224E22850034E9EA /* HCSelectGuestsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0BE1D224E22850034E9EA /* HCSelectGuestsVM.swift */; };
 		84C47735220D98BE00B75FA0 /* ATCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C47734220D98BE00B75FA0 /* ATCardView.swift */; };
 		84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */; };
+		84D157F722660A5200393528 /* AccountLegderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D157F422660A5100393528 /* AccountLegderVC.swift */; };
+		84D157F822660A5200393528 /* AccountLegderVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D157F522660A5100393528 /* AccountLegderVC+Delegates.swift */; };
+		84D157F922660A5200393528 /* AccountLegderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D157F622660A5100393528 /* AccountLegderVM.swift */; };
+		84D157FF22660B3900393528 /* AccountDetailEventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D157FD22660B3900393528 /* AccountDetailEventDescriptionCell.swift */; };
+		84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */; };
+		84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */; };
+		84D1580422660B4F00393528 /* AccountDetailEventHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */; };
 		84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB7921BE351E00011000 /* PKCountryView.xib */; };
 		84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */; };
 		84D2FB8221BE351E00011000 /* PKCountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7B21BE351E00011000 /* PKCountryModel.swift */; };
@@ -1193,6 +1200,13 @@
 		84C0BE1D224E22850034E9EA /* HCSelectGuestsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSelectGuestsVM.swift; sourceTree = "<group>"; };
 		84C47734220D98BE00B75FA0 /* ATCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCardView.swift; sourceTree = "<group>"; };
 		84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATBedgeLabel.swift; sourceTree = "<group>"; };
+		84D157F422660A5100393528 /* AccountLegderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLegderVC.swift; sourceTree = "<group>"; };
+		84D157F522660A5100393528 /* AccountLegderVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountLegderVC+Delegates.swift"; sourceTree = "<group>"; };
+		84D157F622660A5100393528 /* AccountLegderVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLegderVM.swift; sourceTree = "<group>"; };
+		84D157FD22660B3900393528 /* AccountDetailEventDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailEventDescriptionCell.swift; sourceTree = "<group>"; };
+		84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventDescriptionCell.xib; sourceTree = "<group>"; };
+		84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailEventHeaderCell.swift; sourceTree = "<group>"; };
+		84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventHeaderCell.xib; sourceTree = "<group>"; };
 		84D2FB7921BE351E00011000 /* PKCountryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKCountryView.xib; sourceTree = "<group>"; };
 		84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryPicker.swift; sourceTree = "<group>"; };
 		84D2FB7B21BE351E00011000 /* PKCountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryModel.swift; sourceTree = "<group>"; };
@@ -1351,6 +1365,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				84D157FA22660B1400393528 /* Accounts */,
 				18F181D5223BC86D00323775 /* FinalCheckout */,
 				1882905D2238D4C80000C118 /* GuestDetails */,
 				84100A8D22391B4C006A05EC /* ContactTableCell */,
@@ -2822,6 +2837,7 @@
 		8477755A2265C4E900EAB8B0 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				84D157F322660A5100393528 /* AccountLegderVC */,
 				8477755B2265C50400EAB8B0 /* AccountDetailsVC */,
 			);
 			path = Accounts;
@@ -3030,6 +3046,43 @@
 				846856B02233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib */,
 			);
 			path = TripAdviserReviewsCell;
+			sourceTree = "<group>";
+		};
+		84D157F322660A5100393528 /* AccountLegderVC */ = {
+			isa = PBXGroup;
+			children = (
+				84D157F422660A5100393528 /* AccountLegderVC.swift */,
+				84D157F522660A5100393528 /* AccountLegderVC+Delegates.swift */,
+				84D157F622660A5100393528 /* AccountLegderVM.swift */,
+			);
+			path = AccountLegderVC;
+			sourceTree = "<group>";
+		};
+		84D157FA22660B1400393528 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				84D157FB22660B1400393528 /* AccountDetailEventDescriptionCell */,
+				84D157FC22660B1400393528 /* AccountDetailEventHeaderCell */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
+		84D157FB22660B1400393528 /* AccountDetailEventDescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				84D157FD22660B3900393528 /* AccountDetailEventDescriptionCell.swift */,
+				84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */,
+			);
+			path = AccountDetailEventDescriptionCell;
+			sourceTree = "<group>";
+		};
+		84D157FC22660B1400393528 /* AccountDetailEventHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */,
+				84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */,
+			);
+			path = AccountDetailEventHeaderCell;
 			sourceTree = "<group>";
 		};
 		84D2FB7821BE351E00011000 /* PKCountryPicker */ = {
@@ -3602,6 +3655,7 @@
 				18F181E5223BC97300323775 /* FareDetailTableViewCell.xib in Resources */,
 				842EDE9C223A3B3500E99409 /* HCSpecialRequestTextfieldCell.xib in Resources */,
 				18C31F0B2227E40D0052162C /* EmailComposerHeaderView.xib in Resources */,
+				84D1580422660B4F00393528 /* AccountDetailEventHeaderCell.xib in Resources */,
 				84DD24652265AFBA0013F77E /* FlightTableViewCell.xib in Resources */,
 				84314225224DFA250021F5BC /* HotelCheckOutDetailsVIew.xib in Resources */,
 				842E048C221583F800C482DC /* RecentHotelSearcheView.xib in Resources */,
@@ -3609,6 +3663,7 @@
 				18E797042248ED8300A7AC8B /* FareSectionHeader.xib in Resources */,
 				18C31F092227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.xib in Resources */,
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
+				84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */,
 				84100A9122391B60006A05EC /* ContactTableCell.xib in Resources */,
 				8491D1F7222D3FC2001D0313 /* SourceSansPro-Black.ttf in Resources */,
 				18999D9B21E4A8B600E66072 /* GroupTableViewCell.xib in Resources */,
@@ -3802,6 +3857,7 @@
 				18F181D4223BC13200323775 /* FinalCheckOutVC.swift in Sources */,
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				8402210C2202E23A00A95CAA /* UITapGestureRecogniser.swift in Sources */,
+				84D157F822660A5200393528 /* AccountLegderVC+Delegates.swift in Sources */,
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
@@ -3853,6 +3909,7 @@
 				18F181DC223BC8EE00323775 /* WalletTableViewCell.swift in Sources */,
 				1809A47B21CDFA7E0018AB2F /* TableViewAddActionCell.swift in Sources */,
 				18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */,
+				84D157FF22660B3900393528 /* AccountDetailEventDescriptionCell.swift in Sources */,
 				842EDE7E2238E7D600E99409 /* HotelDetailsOverviewVM.swift in Sources */,
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				1807EFFF223F8AFC0092E127 /* HotelResultVC+CollectionViewDataSourceDelegateMethods.swift in Sources */,
@@ -4025,6 +4082,7 @@
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
 				18EF5E71221D261B00EFFA6E /* GMUDefaultClusterRenderer.m in Sources */,
 				84534E9F2248AB8F009FF536 /* HCHotelRatingTableViewCell.swift in Sources */,
+				84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,
 				842E048A221583F000C482DC /* RecentHotelSearcheView.swift in Sources */,
 				84F92889221A9BF700679349 /* TripAdviserReviewsCell.swift in Sources */,
@@ -4119,6 +4177,7 @@
 				18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */,
 				18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
+				84D157F922660A5200393528 /* AccountLegderVM.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				84534EA52248B83E009FF536 /* HCPhoneTableViewCell.swift in Sources */,
@@ -4208,6 +4267,7 @@
 				1870AD21220C769400FB32C8 /* SocialUserModel.swift in Sources */,
 				84534ED52249E8FD009FF536 /* YouAreAllDoneFooterView.swift in Sources */,
 				84100A8C2238E13E006A05EC /* HCDataSelectionVC+Cells.swift in Sources */,
+				84D157F722660A5200393528 /* AccountLegderVC.swift in Sources */,
 				841DD1E92202DC690055FEBB /* SelectDestinationVC.swift in Sources */,
 				18EF5E83221D261B00EFFA6E /* GQTPointQuadTreeChild.m in Sources */,
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,

@@ -26,12 +26,12 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
-                  timestampString = "577107670.010291"
+                  timestampString = "577111931.357703"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
                   endingLineNumber = "67"
-                  offsetFromSymbolStart = "920">
+                  offsetFromSymbolStart = "1026">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
-                  timestampString = "577107670.014227"
+                  timestampString = "577111931.365918"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
                   endingLineNumber = "67"
-                  offsetFromSymbolStart = "936">
+                  offsetFromSymbolStart = "1048">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -90,43 +90,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC+Delegates.swift"
-            timestampString = "577110029.22448"
+            timestampString = "577113971.2779059"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  symbolName = "AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, numberOfRowsInSection: Swift.Int) -&gt; Swift.Int"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC+Delegates.swift"
-                  timestampString = "577107670.19653"
+                  timestampString = "577112117.1050529"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "812">
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "620">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  symbolName = "closure #1 (Swift.Int, AERTRIP.AccountDetailEvent) -&gt; Swift.Int in AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, numberOfRowsInSection: Swift.Int) -&gt; Swift.Int"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC+Delegates.swift"
-                  timestampString = "577107670.200528"
+                  timestampString = "577112117.110154"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "952">
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "83">
                </Location>
             </Locations>
          </BreakpointContent>

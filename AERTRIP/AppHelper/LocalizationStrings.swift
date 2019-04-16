@@ -613,6 +613,7 @@ enum LocalizedString: String {
     
     //AccountDetails Screen
     case Accounts = "Accounts"
+    case AccountsLegder = "AccountsLegder"
     case Amount = "Amount"
     case Voucher = "Voucher"
     

@@ -1,5 +1,5 @@
 //
-//  AccountDetailsVC.swift
+//  AccountLegderVC.swift
 //  AERTRIP
 //
 //  Created by Admin on 16/04/19.
@@ -8,24 +8,16 @@
 
 import UIKit
 
-class AccountDetailsVC: BaseVC {
+class AccountLegderVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var balanceContainerView: UIView!
-    @IBOutlet weak var balanceTextLabel: UILabel!
-    @IBOutlet weak var balanceAmountLabel: UILabel!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet var searchContainerView: UIView!
-    @IBOutlet weak var blankSpaceView: UIView!
-    @IBOutlet weak var searchBarContainerView: UIView!
-    @IBOutlet weak var searchBar: ATSearchBar!
-    
     
     //MARK:- Properties
     //MARK:- Public
-    let viewModel = AccountDetailsVM()
+    let viewModel = AccountLegderVM()
     
     //MARK:- Private
     
@@ -36,7 +28,7 @@ class AccountDetailsVC: BaseVC {
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.AccountsLegder.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: true)
         
         self.topNavView.delegate = self
         
@@ -44,16 +36,13 @@ class AccountDetailsVC: BaseVC {
         self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "ic_hotel_filter"), selectedImage: #imageLiteral(resourceName: "ic_hotel_filter_applied"))
         
         //add search view in tableView header
-        self.tableView.tableHeaderView = self.searchContainerView
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
-        self.searchBar.isMicEnabled = true
-        
         self.topNavView.firstRightButton.isEnabled = false
         self.topNavView.secondRightButton.isEnabled = false
-        self.viewModel.getAccountDetails()
+        self.viewModel.getAccountLedger()
     }
     
     override func bindViewModel() {
@@ -61,25 +50,13 @@ class AccountDetailsVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.balanceTextLabel.font = AppFonts.Regular.withSize(14.0)
-        self.balanceAmountLabel.font = AppFonts.SemiBold.withSize(28.0)
     }
     
     override func setupTexts() {
-        self.balanceTextLabel.text = LocalizedString.Balance.localized
-        self.balanceAmountLabel.text = "\(AppConstants.kRuppeeSymbol) \(18992.0.delimiter)"
-        
-        self.searchBar.placeholder = LocalizedString.search.localized
     }
     
     override func setupColors() {
-        self.balanceTextLabel.textColor = AppColors.themeGray40
-        
         self.tableView.backgroundColor = AppColors.themeWhite
-        
-        self.searchContainerView.backgroundColor = AppColors.themeWhite
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
-        self.blankSpaceView.backgroundColor = AppColors.themeGray04
     }
     
     //MARK:- Methods
@@ -96,7 +73,7 @@ class AccountDetailsVC: BaseVC {
 
 //MARK:- Nav bar delegate methods
 //MARK:-
-extension AccountDetailsVC: TopNavigationViewDelegate {
+extension AccountLegderVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
         AppFlowManager.default.popViewController(animated: true)
@@ -108,23 +85,22 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToAccountLedgerVC()
     }
 }
 
 
 //MARK:- View model delegate methods
 //MARK:-
-extension AccountDetailsVC: AccountDetailsVMDelegate {
-    func willGetAccountDetails() {
+extension AccountLegderVC: AccountLegderVMDelegate {
+    func willGetAccountLedger() {
     }
     
-    func getAccountDetailsSuccess() {
+    func getAccountLedgerSuccess() {
         self.topNavView.firstRightButton.isEnabled = true
         self.topNavView.secondRightButton.isEnabled = true
         self.reloadList()
     }
     
-    func getAccountDetailsFail() {
+    func getAccountLedgerFail() {
     }
 }

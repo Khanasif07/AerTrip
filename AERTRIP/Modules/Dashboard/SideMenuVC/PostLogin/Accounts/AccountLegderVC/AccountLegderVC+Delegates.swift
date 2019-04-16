@@ -1,5 +1,5 @@
 //
-//  AccountDetailsVC+Delegates.swift
+//  AccountLegderVC+Delegates.swift
 //  AERTRIP
 //
 //  Created by Admin on 16/04/19.
@@ -10,7 +10,7 @@ import UIKit
 
 //MARK:- tableView datasource and delegate methods
 //MARK:-
-extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
+extension AccountLegderVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.allDates.count
     }
@@ -31,7 +31,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
+        if let allEvent = self.viewModel.accountLedger[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
             
             return (allEvent.reduce(0) { $0 + $1.numOfRows})
         }
@@ -44,7 +44,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent] else {
+        guard let allEvent = self.viewModel.accountLedger[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent] else {
             return UITableViewCell()
         }
         
