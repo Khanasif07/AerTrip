@@ -34,12 +34,16 @@ class QueryStatusTableViewCell: UITableViewCell {
         self.statusLabel.textColor = AppColors.themeBlack
         self.statusLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.screensBackground.color
-//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 2.0), opacity: 0.7, shadowRadius: 2.0)
     }
     
-    internal func configCell(status: String , statusImage: UIImage) {
+    internal func configCell(status: String , statusImage: UIImage , isLastCell: Bool) {
         self.statusLabel.text = status
         self.statusImageView.image = statusImage
+        if isLastCell {
+            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 2.0), opacity: 0.7, shadowRadius: 2.0)
+        } else {
+            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 2.0), opacity: 0.7, shadowRadius: 2.0)
+        }
     }
     
     //Mark:- IBActions
