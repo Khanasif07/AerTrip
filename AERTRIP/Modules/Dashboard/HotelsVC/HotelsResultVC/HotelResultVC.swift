@@ -183,6 +183,10 @@ class HotelResultVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
+        
+        self.filterButton.isEnabled = false
+        self.mapButton.isEnabled = false
+        
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         

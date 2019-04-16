@@ -577,8 +577,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             printDebug("date of birth")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.dob), nil, maximumDate: Date())
-            
+            showDatePicker(formatter.date(from: viewModel.dob) ?? formatter.date(from: viewModel.doa),nil , maximumDate: formatter.date(from: viewModel.doa) ?? Date())            
         case 1:
             printDebug("date of aniversary")
             let formatter = DateFormatter()
@@ -586,6 +585,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             showDatePicker(formatter.date(from: viewModel.doa), formatter.date(from: viewModel.dob), maximumDate: Date())
         case 2:
             printDebug("show notes ")
+            closeAllPicker(completion: nil)
             
         default:
             break
@@ -697,16 +697,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             if viewType == .leftView {
                 cell.leftTextField.text = formatter.string(from: datePicker.date)
                 viewModel.passportIssueDate = formatter.string(from: datePicker.date)
-                
+
             } else {
                 cell.rightTextField.text = formatter.string(from: datePicker.date)
                 viewModel.passportExpiryDate = formatter.string(from: datePicker.date)
             }
-            
+
         default:
             break
         }
-        
         closeDatePicker(completion: nil)
     }
     
