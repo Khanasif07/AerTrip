@@ -39,7 +39,7 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
         let nib = UINib(nibName: "DateTableHeaderView", bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         view.frame = bounds
-        view.backgroundColor =  AppColors.screensBackground.color
+        view.backgroundColor =  AppColors.themeWhite
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         self.configUI()
@@ -47,7 +47,7 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     
     ///ConfigureUI
     private func configUI() {
-        self.parentView.backgroundColor = AppColors.screensBackground.color
+        self.parentView.backgroundColor = AppColors.themeWhite
         self.dateLabel.textColor = AppColors.themeBlack
         self.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
     }

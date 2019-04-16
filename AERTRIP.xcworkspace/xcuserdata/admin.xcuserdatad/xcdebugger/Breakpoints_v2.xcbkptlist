@@ -25,13 +25,13 @@
                   symbolName = "AERTRIP.HotelRatingInfoCell.(textSetUp in _08263624A49C83A57C9B98E126A7C820)(hotelName: Swift.String, distanceText: Swift.String, durationValue: Swift.Int, starRating: Swift.Double, tripAdvisorRating: Swift.Double) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
-                  timestampString = "577107670.010291"
+                  urlString = "file:///Users/Shared/Git%20Code/Aertrip/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
+                  timestampString = "577128340.391355"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
                   endingLineNumber = "67"
-                  offsetFromSymbolStart = "920">
+                  offsetFromSymbolStart = "1026">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -40,13 +40,13 @@
                   symbolName = "AERTRIP.HotelRatingInfoCell.(textSetUp in _08263624A49C83A57C9B98E126A7C820)(hotelName: Swift.String, distanceText: Swift.String, durationValue: Swift.Int, starRating: Swift.Double, tripAdvisorRating: Swift.Double) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
-                  timestampString = "577107670.014227"
+                  urlString = "file:///Users/Shared/Git%20Code/Aertrip/AERTRIP/Xibs/HotelDetailsTableCells/TableSectionOne/HotelRatingInfoCell.swift"
+                  timestampString = "577128340.393517"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
                   endingLineNumber = "67"
-                  offsetFromSymbolStart = "936">
+                  offsetFromSymbolStart = "1048">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -97,38 +97,6 @@
             endingLineNumber = "48"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "AERTRIP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC+Delegates.swift"
-                  timestampString = "577107670.19653"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "812">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.AccountDetailsVC.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "AERTRIP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC+Delegates.swift"
-                  timestampString = "577107670.200528"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "952">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

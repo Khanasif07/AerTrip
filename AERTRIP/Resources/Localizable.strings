@@ -590,3 +590,8 @@
 "BookingDate" = "Booking Date";
 "FromDate" = "From Date";
 "ToDate" = "To Date";
+"Upcoming" = "Upcoming";
+"Completed" = "Completed";
+"Cancelled" = "Cancelled";
+"YouHaveNoUpcomingBookings" = "You have no upcoming bookings";
+"NewDestinationsAreAwaiting"  = "New destinations are awaiting";

@@ -625,4 +625,9 @@ enum LocalizedString: String {
     case BookingDate = "BookingDate"
     case FromDate = "FromDate"
     case ToDate = "ToDate"
+    case Upcoming = "Upcoming"
+    case Completed = "Completed"
+    case Cancelled = "Cancelled"
+    case YouHaveNoUpcomingBookings = "YouHaveNoUpcomingBookings"
+    case NewDestinationsAreAwaiting = "NewDestinationsAreAwaiting"
  }
