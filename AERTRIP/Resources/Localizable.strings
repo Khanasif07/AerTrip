@@ -259,6 +259,11 @@
 "Mobile" = "Mobile";
 "Default" = "Default";
 "Email" = "Email";
+"EnterValidMobileNumber" = "Please enter Valid Mobile number";
+"AllMobileNumberShouldUnique" = "All mobile number should be unique";
+"EnterValidContactNumber" = "Please enter all valid contact numbers.";
+"EnterAirlineNumberForAllFrequentFlyer" = "Please enter the airline number for all frequent flyer.";
+"SelectAirlineForAllFrequentFlyer" = "Please select the airline for all frequent flyer.";
 
 //MARK:- Favourite Hotels
 //MARK:-

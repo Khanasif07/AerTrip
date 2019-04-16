@@ -257,6 +257,12 @@ enum LocalizedString: String {
     case Ms = "Ms"
     case Miss = "Miss"
     case Mast = "Mast"
+    case EnterValidMobileNumber = "EnterValidMobileNumber"
+    case AllMobileNumberShouldUnique = "AllMobileNumberShouldUnique"
+    case EnterValidContactNumber = "EnterValidContactNumber"
+    case EnterAirlineNumberForAllFrequentFlyer = "EnterAirlineNumberForAllFrequentFlyer"
+    case SelectAirlineForAllFrequentFlyer = "SelectAirlineForAllFrequentFlyer"
+    
     
     //MARK:- Hotel Search
     //MARK:-

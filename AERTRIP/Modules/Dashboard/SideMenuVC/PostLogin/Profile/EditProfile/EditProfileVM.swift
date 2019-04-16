@@ -138,21 +138,26 @@ class EditProfileVM {
         }
         
         if !self.mobile.isEmpty {
-//            var isValid = true
-//            for (index, _) in self.mobile.enumerated() {
-//                isValid = self.mobile[index].isValide
-//                if index > 0 {
-//                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-//                        AppToast.default.showToastMessage(message: "All mobile should be unique")
-//                        flag = false
-//                    }
-//                }
-//            }
+            var isValid = true
+            for (index, _) in self.mobile.enumerated() {
+                isValid = self.mobile[index].isValide
+                if index > 0 {
+                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
+                        AppToast.default.showToastMessage(message: LocalizedString.AllMobileNumberShouldUnique.localized)
+                        flag = false
+                    }
+                }
+                if self.mobile[index].value.count < 10 {
+                      AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+                    flag = false
+                }
+            }
             
-//            if !isValid {
-//                AppToast.default.showToastMessage(message: "Please enter all valid contact numbers.")
-//                flag = false
-//            }
+            
+            if !isValid {
+                AppToast.default.showToastMessage(message:LocalizedString.EnterValidContactNumber.localized )
+                flag = false
+            }
         }
         if !self.frequentFlyer.isEmpty {
             for (index, _) in self.frequentFlyer.enumerated() {
@@ -163,11 +168,11 @@ class EditProfileVM {
 //                    }
 //                }
                 if !self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
-                    AppToast.default.showToastMessage(message: "Please enter the airline number for all frequent flyer.")
+                    AppToast.default.showToastMessage(message: LocalizedString.EnterAirlineNumberForAllFrequentFlyer.localized)
                     flag = false
                 }
                 else if (self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty || self.frequentFlyer[index].airlineName == LocalizedString.SelectAirline.localized), !self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
-                    AppToast.default.showToastMessage(message: "Please select the airline for all frequent flyer.")
+                    AppToast.default.showToastMessage(message: LocalizedString.SelectAirlineForAllFrequentFlyer.localized)
                     flag = false
                 }
             }
