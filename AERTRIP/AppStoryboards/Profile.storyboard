@@ -292,16 +292,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-Ak-SKz" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qqB-SK-D7p">
-                                        <rect key="frame" x="335" y="7.5" width="20" height="20"/>
+                                        <rect key="frame" x="335" y="12" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qqB-SK-D7p" firstAttribute="centerY" secondItem="s0p-Ak-SKz" secondAttribute="centerY" id="LIF-KG-pA0"/>
-                                    <constraint firstAttribute="height" constant="35" id="V3i-2r-gug"/>
+                                    <constraint firstAttribute="height" constant="44" id="V3i-2r-gug"/>
                                     <constraint firstAttribute="trailing" secondItem="qqB-SK-D7p" secondAttribute="trailing" constant="20" id="fcJ-RK-na3"/>
                                 </constraints>
                             </view>
@@ -310,7 +310,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9">
-                                <rect key="frame" x="0.0" y="55" width="375" height="612"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="arZ-2I-Bsv">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

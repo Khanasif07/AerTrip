@@ -214,12 +214,13 @@
 "PreferencesSavedSuccessfully" = "Preferences saved successfully";
 "GroupNameCanNotEmpty" = "Group name can not be empty";
 
-//MARK:- Edit profile VC
+//MARK: - Edit profile VC
 //MARK:-
 
 "Group" = "Group";
 "SelectMealPreference" = "Select meal preference";
 "SelectSeatPreference" = "Select seat preference";
+"SaveWithSpace" = "Save ";
 
 //MARK:- Traveller VC
 //MARK:-

@@ -215,6 +215,7 @@ enum LocalizedString: String {
     // MARK: - Edit Profile VC
     
     case Save = "Save"
+    case SaveWithSpace = "SaveWithSpace"
     case Move = "Move"
     case FirstName = "FirstName"
     case LastName = "LastName"
