@@ -532,6 +532,20 @@ extension AppFlowManager {
         let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    func moveToMyBookingsVC() {
+        let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func showBookingFilterVC(_ vc : MyBookingsVC ) {
+        if let obj = UIApplication.topViewController() {
+            let ob = MyBookingFilterVC.instantiate(fromAppStoryboard: .Bookings)
+//            ob.delegate = vc
+            obj.add(childViewController: ob)
+        }
+    }
+
 }
 
 //MARK:- Select Trip Flow Methods
