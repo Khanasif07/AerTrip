@@ -252,6 +252,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             return
         }
         
+        
+        if travel.id == UserInfo.loggedInUser?.paxId,let userEmail = UserInfo.loggedInUser?.email {
+            var email = Email()
+            email.label = LocalizedString.Default.localized
+            email.value = userEmail
+            viewModel.email.append(email)
+        }
         if travel.contact.email.isEmpty {
             var email = Email()
             email.label = LocalizedString.Home.localized
@@ -259,12 +266,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         viewModel.email.append(contentsOf: travel.contact.email)
         
+       
         if travel.contact.mobile.isEmpty {
             var mobile = Mobile()
             mobile.label = LocalizedString.Home.localized
             mobile.isd = LocalizedString.IndiaIsdCode.localized
             viewModel.mobile.append(mobile)
         }
+        
         viewModel.mobile.append(contentsOf: travel.contact.mobile)
         
         if travel.contact.social.isEmpty {

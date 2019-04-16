@@ -107,6 +107,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
 extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
        
+//        if (textField.text ?? "").count > 12 {
+//            return false
+//        }
 //        if let indexPath = indexPath, let swtRange = Range(range, in: self.rightViewTextField.nationalNumber) {
 //            let fullString = self.rightViewTextField.nationalNumber.replacingCharacters(in: swtRange, with: string)
 //            delegate?.editProfileThreePartTableViewCellTextFieldText(indexPath, fullString, isValide: self.rightViewTextField.isValidNumber)
