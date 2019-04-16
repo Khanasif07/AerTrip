@@ -111,6 +111,8 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.filterButton.isEnabled = true
+        self.mapButton.isEnabled = true
         self.loadSaveData()
         self.getFavouriteHotels()
         self.getPinnedHotelTemplate()

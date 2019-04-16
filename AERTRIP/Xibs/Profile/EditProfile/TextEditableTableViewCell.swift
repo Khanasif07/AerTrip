@@ -17,7 +17,11 @@ class TextEditableTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var editableTextField: UITextField!
+    @IBOutlet weak var editableTextField: UITextField! {
+        didSet {
+            editableTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: UIControl.Event.editingChanged)
+        }
+    }
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var downArrowImageView: UIImageView!
     
@@ -28,7 +32,7 @@ class TextEditableTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-         editableTextField.delegate = self
+//         editableTextField.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,15 +53,11 @@ class TextEditableTableViewCell: UITableViewCell {
 
 
 extension TextEditableTableViewCell: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    @objc func textFieldDidChanged(_ textField: UITextField) {
         printDebug("text field text \(textField.text ?? " ")")
-        if let idxPath = indexPath {
-            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
-                let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                delegate?.textEditableTableViewCellTextFieldText(idxPath, fullString)
-            }
+        if let idxPath = indexPath, let textFieldString = textField.text {
+            delegate?.textEditableTableViewCellTextFieldText(idxPath, textFieldString)
         }
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -262,6 +262,13 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+        let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+        controller.delgate = delegate
+        controller.defaultAirlines = defaultAirlines
+        self.mainNavigationController.present(controller, animated: true, completion: nil)
+    }
+    
     func moveToHotelSearchVC(){
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
@@ -532,7 +539,7 @@ extension AppFlowManager {
         let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
-    
+
     func moveToMyBookingsVC() {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -551,6 +558,13 @@ extension AppFlowManager {
             let ob = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
             obj.add(childViewController: ob)
         }
+    }
+
+    //MARK:- Account Section
+    //MARK:-
+    func moveToAccountDetailsVC() {
+        let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

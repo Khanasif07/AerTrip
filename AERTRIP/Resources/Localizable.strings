@@ -495,7 +495,7 @@
 "CheckoutTitle" = "Checkout";
 "ApplyCoupon" = "Apply Coupon";
 "PayByAertripWallet" = "Pay by Aertrip Wallet";
-"Balance" = "Balance:";
+"Balance" = "Balance";
 "FareDetails" = "Fare Details";
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
@@ -576,6 +576,10 @@
 "Photos" = "Photos";
 "ReadReviews" = "ReadReviews";
 
+//AccountDetails Screen
+"Accounts" = "Accounts";
+"Voucher" = "Voucher";
+"Amount" = "Amount";
 
 //MARK:- BookingVC
 "MyBookings" = "My Bookings";

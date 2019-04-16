@@ -37,6 +37,7 @@ class HotelDetailsVC: BaseVC {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var hotelTableView: UITableView! {
         didSet {
             hotelTableView.delegate = self
@@ -159,7 +160,8 @@ class HotelDetailsVC: BaseVC {
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
         self.setupBeforeAnimation()
-        let newY = UIApplication.shared.statusBarFrame.height
+        let newY = UIApplication.shared.statusBarFrame.height + 8.0
+        self.headerTopConstraint.constant = 8.0
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
         let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
@@ -225,7 +227,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func configUI() {
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
@@ -323,7 +325,7 @@ class HotelDetailsVC: BaseVC {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0//y of textview 46.5 + bottom space 14.0
             }
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
@@ -341,7 +343,7 @@ class HotelDetailsVC: BaseVC {
                 height = max(height, minH)
                 height = min(height, maxH)
                 return height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0//y of textview 46.5 + bottom space 14.0
             }
             return UITableView.automaticDimension
         }

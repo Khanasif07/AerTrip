@@ -60,7 +60,7 @@ class EditProfileVM {
     var emailTypes: [String] = []
     var mobileTypes: [String] = []
     var addressTypes: [String] = []
-    var salutationTypes: [String] = []
+    var salutationTypes: [String] = ["Mrs", "Mr", "Mast", "Miss", "Ms"]
     var socialTypes: [String] = []
     var travelData: TravelDetailModel? {
         didSet {
@@ -85,13 +85,13 @@ class EditProfileVM {
         if self.salutation == LocalizedString.Title.rawValue {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             flag = false
-        } else if self.firstName.isEmpty {
+        } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
-        } else if self.lastName.isEmpty {
+        } else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
             flag = false
-        } else if !self.passportIssueDate.isEmpty || !self.passportExpiryDate.isEmpty {
+        } else if !self.passportIssueDate.removeAllWhiteSpacesAndNewLines.isEmpty || !self.passportExpiryDate.removeAllWhiteSpacesAndNewLines.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let date = Date()
@@ -110,7 +110,7 @@ class EditProfileVM {
             
         }
         
-        if !self.dob.isEmpty || !self.doa.isEmpty {
+        if !self.dob.removeAllWhiteSpacesAndNewLines.isEmpty || !self.doa.removeAllWhiteSpacesAndNewLines.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let date = Date()
@@ -162,11 +162,11 @@ class EditProfileVM {
 //                        flag = false
 //                    }
 //                }
-                if !self.frequentFlyer[index].airlineName.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.isEmpty {
+                if !self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
                     AppToast.default.showToastMessage(message: "Please enter the airline number for all frequent flyer.")
                     flag = false
                 }
-                else if (self.frequentFlyer[index].airlineName.isEmpty || self.frequentFlyer[index].airlineName == LocalizedString.SelectAirline.localized), !self.frequentFlyer[index].number.isEmpty {
+                else if (self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty || self.frequentFlyer[index].airlineName == LocalizedString.SelectAirline.localized), !self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
                     AppToast.default.showToastMessage(message: "Please select the airline for all frequent flyer.")
                     flag = false
                 }

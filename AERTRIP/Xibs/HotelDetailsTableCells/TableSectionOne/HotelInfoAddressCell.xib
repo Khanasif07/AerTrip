@@ -37,13 +37,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
-                                <rect key="frame" x="17" y="47" width="342" height="74.5"/>
+                                <rect key="frame" x="17" y="47" width="342" height="67.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cje-PF-AVP">
-                                <rect key="frame" x="299" y="102.5" width="60" height="22"/>
+                                <rect key="frame" x="299" y="95.5" width="60" height="22"/>
                                 <subviews>
                                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-Et-57A">
                                         <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
@@ -95,7 +95,7 @@
                             <constraint firstAttribute="height" constant="136.5" id="bMq-7T-4XF"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
                             <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
-                            <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="14.5" id="vCk-5P-wmf"/>
+                            <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="21.5" id="vCk-5P-wmf"/>
                         </constraints>
                     </view>
                 </subviews>

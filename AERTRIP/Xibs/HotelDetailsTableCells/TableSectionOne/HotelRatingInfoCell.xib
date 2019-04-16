@@ -28,10 +28,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-KP-Jl8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vf-MQ-qaM">
-                                <rect key="frame" x="332" y="16" width="27" height="27"/>
+                                <rect key="frame" x="336" y="16" width="27" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="EAg-gR-q9z"/>
                                     <constraint firstAttribute="width" secondItem="6Vf-MQ-qaM" secondAttribute="height" multiplier="1:1" id="oVP-Fr-1Qd"/>
@@ -42,8 +42,8 @@
                                     <action selector="shareButtonAction:" destination="Rpy-CL-tHE" eventType="touchUpInside" id="ggW-vp-veN"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-GA-wMF">
-                                <rect key="frame" x="16" y="20" width="308" height="80.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-GA-wMF">
+                                <rect key="frame" x="16" y="20" width="312" height="84.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="fEe-NI-Hmf">
                                         <rect key="frame" x="0.0" y="0.0" width="138" height="16"/>
@@ -102,16 +102,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eTp-rb-uxv">
-                                        <rect key="frame" x="0.0" y="27" width="303" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="31" width="52" height="53.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Nr-iFo">
-                                                <rect key="frame" x="0.0" y="0.0" width="303" height="25.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="52" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-ZZ-l7g">
-                                                <rect key="frame" x="0.0" y="30.5" width="303" height="23"/>
+                                                <rect key="frame" x="0.0" y="30.5" width="52" height="23"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -130,7 +130,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSk-NW-CWC">
-                                <rect key="frame" x="16" y="121.5" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="125.5" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="GVx-kp-6lu"/>
@@ -146,7 +146,7 @@
                             <constraint firstAttribute="bottom" secondItem="gSk-NW-CWC" secondAttribute="bottom" id="mYR-gq-EOz"/>
                             <constraint firstItem="6Vf-MQ-qaM" firstAttribute="leading" secondItem="oEU-GA-wMF" secondAttribute="trailing" constant="8" id="oeD-2o-1Jh"/>
                             <constraint firstItem="gSk-NW-CWC" firstAttribute="top" secondItem="oEU-GA-wMF" secondAttribute="bottom" constant="21" id="pwQ-68-cwb"/>
-                            <constraint firstAttribute="trailing" secondItem="6Vf-MQ-qaM" secondAttribute="trailing" constant="16" id="u85-ID-F43"/>
+                            <constraint firstAttribute="trailing" secondItem="6Vf-MQ-qaM" secondAttribute="trailing" constant="12" id="u85-ID-F43"/>
                             <constraint firstAttribute="trailing" secondItem="gSk-NW-CWC" secondAttribute="trailing" constant="16" id="zyR-0U-YyT"/>
                         </constraints>
                     </view>

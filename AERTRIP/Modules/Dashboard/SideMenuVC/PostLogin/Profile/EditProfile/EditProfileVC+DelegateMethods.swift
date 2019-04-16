@@ -498,7 +498,12 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func editLoggedInUserProfilePhoto(){
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        
+        if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        }
+
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
@@ -861,11 +866,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
-            controller.delgate = self
-            controller.defaultAirlines = self.viewModel.defaultAirlines
-            self.present(controller, animated: true, completion: nil)
-            
+            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
@@ -916,8 +917,10 @@ extension EditProfileVC: TextEditableTableViewCellDelegate {
             // viewModel.notes = text
             break
         case LocalizedString.PassportDetails.localized:
-            if indexPath.row == 0 {
-                viewModel.passportNumber = text
+            if indexPath.row == 0, let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell {
+                let final = text.substring(to: AppConstants.kPassportNoLimit-1)
+                viewModel.passportNumber = final
+                cell.editableTextField.text = final
             }
         default:
             break

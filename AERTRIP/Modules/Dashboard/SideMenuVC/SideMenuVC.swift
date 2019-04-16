@@ -304,6 +304,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0, let _ = UserInfo.loggedInUserId {
             self.viewProfileButtonAction(ATButton())
         }
+        else if indexPath.row == 1 {
+            //view account
+            AppFlowManager.default.moveToAccountDetailsVC()
+        }
         else if indexPath.row == 2 , UserInfo.loggedInUser != nil {
             AppFlowManager.default.moveToMyBookingsVC()
         }

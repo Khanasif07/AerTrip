@@ -611,6 +611,10 @@ enum LocalizedString: String {
     case Photos = "Photos"
     case ReadReviews = "ReadReviews"
     
+    //AccountDetails Screen
+    case Accounts = "Accounts"
+    case Amount = "Amount"
+    case Voucher = "Voucher"
     
     //MARK:- BookingVC
     case MyBookings = "MyBookings"

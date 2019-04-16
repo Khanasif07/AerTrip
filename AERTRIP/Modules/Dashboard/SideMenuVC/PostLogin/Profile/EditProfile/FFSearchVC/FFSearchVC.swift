@@ -38,6 +38,12 @@ class FFSearchVC: BaseVC {
     
     // MARK: - View Life cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
  
@@ -72,16 +78,21 @@ class FFSearchVC: BaseVC {
     }
     
     private func searchForText(_ searchText: String) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+        if searchText.isEmpty {
+            searchData.removeAll()
+            searchData = defaultAirlines
+            tableView.reloadData()
+        }
+        else {
+            NSObject.cancelPreviousPerformRequests(withTarget: self)
+            perform(#selector(performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+        }
     }
     
     @objc private func performSearchForText(_ searchText: String) {
-        if let text: String = searchText as? String {
-            searchData.removeAll()
-            tableView.reloadData()
-            viewModel.webserviceForGetTravelDetail(text)
-        }
+        searchData.removeAll()
+        tableView.reloadData()
+        viewModel.webserviceForGetTravelDetail(searchText)
     }
 }
 
@@ -122,7 +133,6 @@ extension FFSearchVC: UISearchBarDelegate {
         searchForText(searchText)
         emptyView.searchTextLabel.isHidden = false
         emptyView.searchTextLabel.text = "for \(searchText.quoted)"
-        
         tableView.backgroundView = searchText.isEmpty ? nil : emptyView
     }
 }
