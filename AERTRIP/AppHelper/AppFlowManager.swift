@@ -545,7 +545,13 @@ extension AppFlowManager {
             obj.add(childViewController: ob)
         }
     }
-
+    
+    func showUpcomingVC(_ vc : UIViewController ) {
+        if let obj = UIApplication.topViewController() {
+            let ob = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+            obj.add(childViewController: ob)
+        }
+    }
 }
 
 //MARK:- Select Trip Flow Methods

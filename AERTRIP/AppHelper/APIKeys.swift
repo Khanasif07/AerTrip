@@ -404,4 +404,9 @@ enum APIKeys: String {
     case trip_key
     case receipt
     case bedtype_id
+    case placeName
+    case travellersName
+    case queries
+    case creationDate
+    case currentEvent
 }
