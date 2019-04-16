@@ -539,6 +539,14 @@ extension AppFlowManager {
         let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    
+    //MARK:- Account Section
+    //MARK:-
+    func moveToAccountDetailsVC() {
+        let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
 }
 
 //MARK:- Select Trip Flow Methods

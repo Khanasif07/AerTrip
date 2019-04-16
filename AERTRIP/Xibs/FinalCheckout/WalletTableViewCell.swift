@@ -55,7 +55,7 @@ class WalletTableViewCell: UITableViewCell {
     
     private func setUpText() {
         self.walletTitleLabel.text = LocalizedString.PayByAertripWallet.localized
-        self.balanceLabel.text = LocalizedString.Balance.localized
+        self.balanceLabel.text = "\(LocalizedString.Balance.localized):"
         
     }
     
