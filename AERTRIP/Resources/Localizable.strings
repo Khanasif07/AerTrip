@@ -580,3 +580,13 @@
 "Accounts" = "Accounts";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
+
+//MARK:- BookingVC
+"MyBookings" = "My Bookings";
+"NoBookingsYet" = "No Bookings yet";
+"StartYourWanderlustJourneyWithUs" = "Start your ‘Wanderlust’ journey with us!";
+"TravelDate" = "Travel Date";
+"Event Type" = "Event Type";
+"BookingDate" = "Booking Date";
+"FromDate" = "From Date";
+"ToDate" = "To Date";

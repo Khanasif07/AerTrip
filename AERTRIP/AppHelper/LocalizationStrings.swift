@@ -615,4 +615,14 @@ enum LocalizedString: String {
     case Accounts = "Accounts"
     case Amount = "Amount"
     case Voucher = "Voucher"
+    
+    //MARK:- BookingVC
+    case MyBookings = "MyBookings"
+    case NoBookingsYet = "NoBookingsYet"
+    case StartYourWanderlustJourneyWithUs = "StartYourWanderlustJourneyWithUs"
+    case TravelDate = "TravelDate"
+    case EventType  = "Event Type"
+    case BookingDate = "BookingDate"
+    case FromDate = "FromDate"
+    case ToDate = "ToDate"
  }

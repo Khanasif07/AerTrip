@@ -308,6 +308,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             //view account
             AppFlowManager.default.moveToAccountDetailsVC()
         }
+        else if indexPath.row == 2 , UserInfo.loggedInUser != nil {
+            AppFlowManager.default.moveToMyBookingsVC()
+        }
         else if indexPath.row == 6 {
             //Settings
             AppFlowManager.default.moveToSettingsVC()

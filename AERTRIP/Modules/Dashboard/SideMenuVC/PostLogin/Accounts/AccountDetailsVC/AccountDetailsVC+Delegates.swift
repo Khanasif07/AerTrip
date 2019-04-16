@@ -20,10 +20,13 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = self.viewModel.allDates[section]
-        label.font = AppFonts.SemiBold.withSize(16.0)
-        return label
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DateTableHeaderView") as? DateTableHeaderView else {
+            return nil
+        }
+        
+        headerView.dateLabel.text = self.viewModel.allDates[section]
+        
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

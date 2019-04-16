@@ -45,6 +45,7 @@ class AccountDetailsVC: BaseVC {
         
         //add search view in tableView header
         self.tableView.tableHeaderView = self.searchContainerView
+        self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         
         self.searchBar.isMicEnabled = true
         
