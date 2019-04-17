@@ -27,6 +27,10 @@ func delay(seconds: Double, completion: @escaping () -> ()) {
     }
 }
 
+func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    return ((lhs.longitude == rhs.longitude) && (lhs.latitude == rhs.latitude))
+}
+
 struct AppGlobals {
     static let shared = AppGlobals()
     private init() {}

@@ -122,6 +122,9 @@ class HotelResultVC: BaseVC {
     var isMapInFullView: Bool = false
     var floatingViewInitialConstraint : CGFloat = 0.0
     
+    var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
+    var isCollectionScrollingInc: Bool = false
+    
     //Map Related
     var clusterManager: GMUClusterManager!
     let useGoogleCluster: Bool = true

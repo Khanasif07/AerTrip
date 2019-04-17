@@ -133,7 +133,7 @@ extension HotelResultVC {
     
     func moveMapToCurrentCity() {
         if let loc = self.viewModel.searchedCityLocation {
-            self.updateMarker(coordinates: loc)
+            self.focusMarker(coordinates: loc)
         }
     }
     
@@ -395,6 +395,19 @@ extension HotelResultVC {
         self.manageTopHeader(scrollView)
         self.manageMapViewOnScroll(scrollView)
         // self.manageFloatingButtonOnPaginationScroll(scrollView)
+        
+        //for map re-focusing
+        let currentX = scrollView.contentOffset.x
+        guard currentX > 0 else {
+            return
+        }
+        if currentX > self.oldOffset.x {
+            self.isCollectionScrollingInc = true
+        }
+        else if currentX < self.oldOffset.x {
+            self.isCollectionScrollingInc = false
+        }
+        self.oldOffset = scrollView.contentOffset
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -404,6 +417,39 @@ extension HotelResultVC {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
+        self.manageForCollectionView(scrollView)
+    }
+    
+    func manageForCollectionView(_ scrollView: UIScrollView) {
+        if scrollView === self.collectionView {
+            let currentX = scrollView.contentOffset.x
+            
+            guard 0..<(scrollView.contentSize.width - scrollView.width) ~= currentX else {
+                return
+            }
+            var item = 0
+            if self.isCollectionScrollingInc {
+                item = Int(ceil(currentX / scrollView.width))
+            }
+            else {
+                item = Int(floor(currentX / scrollView.width))
+            }
+            let locStr = Array(self.viewModel.collectionViewList.keys)[item]
+            
+            print("\(currentX), \(oldOffset) index \(item)")
+            if let loc = self.getLocationObject(fromLocation: locStr) {
+                if let oldLoc = self.displayingHotelLocation, !(loc == oldLoc) {
+                    self.displayingHotelLocation = loc
+                    focusMarker(coordinates: loc)
+                }
+                else {
+                    self.displayingHotelLocation = loc
+                    focusMarker(coordinates: loc)
+                }
+            }
+            
+//            self.oldOffset = scrollView.contentOffset
+        }
     }
     
     // GestureRecognizer

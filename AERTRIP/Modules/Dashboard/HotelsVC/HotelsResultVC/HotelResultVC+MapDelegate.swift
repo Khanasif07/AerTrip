@@ -13,22 +13,22 @@ extension HotelResultVC {
         self.locManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
-        
+
         let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
-        
+
         let mapRact = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: visibleMapHeightInVerticalMode)
         let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
         mapView = mapV
-        
+
         mapV.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
         mapV.animate(toZoom: self.defaultZoomLabel)
         mapV.isMyLocationEnabled = false
         mapV.delegate = self
-        
+
         mapContainerView.addSubview(mapV)
-        
+
         self.prevZoomLabel = self.minZoomLabel
-        
+
         if self.useGoogleCluster {
             self.setUpClusterManager()
         }
@@ -60,7 +60,7 @@ extension HotelResultVC {
         self.mapView?.clear()
     }
     
-    func updateMarker(coordinates: CLLocationCoordinate2D) {
+    func focusMarker(coordinates: CLLocationCoordinate2D) {
         self.mapView?.animate(toLocation: coordinates)
     }
     
