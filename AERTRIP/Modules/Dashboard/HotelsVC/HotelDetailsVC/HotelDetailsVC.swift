@@ -187,10 +187,11 @@ class HotelDetailsVC: BaseVC {
             guard let sSelf = self else {return}
             sSelf.imageView.frame = sSelf.sourceFrame
             sSelf.hotelTableView.alpha = 0.0
+             sSelf.mainView.alpha = 0
             sSelf.hotelTableView.frame = sSelf.tableFrameHidden
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
-                sSelf.mainView.alpha = 0
+               
                 sSelf.removeFromParentVC
                 sSelf.headerView.isHidden = false
         })
@@ -230,7 +231,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     private func configUI() {
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.clear
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
