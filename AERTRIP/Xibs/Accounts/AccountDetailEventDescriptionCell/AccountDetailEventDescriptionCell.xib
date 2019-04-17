@@ -100,6 +100,7 @@
                 <outlet property="amountValueLabel" destination="OmQ-f3-tIx" id="3dW-EJ-3BK"/>
                 <outlet property="balanceTitleLabel" destination="ULU-YL-tUe" id="2cf-or-oCC"/>
                 <outlet property="balanceValueLabel" destination="4lO-az-EKc" id="QMr-jF-7g2"/>
+                <outlet property="mainContainerBottomConstraint" destination="BSN-ej-LfQ" id="w7M-Fx-Lsu"/>
                 <outlet property="mainContainerView" destination="zOu-fS-rVF" id="Sgp-Pc-KsV"/>
                 <outlet property="voucherTitleLabel" destination="2oS-Sg-xCb" id="Ued-E4-0CK"/>
                 <outlet property="voucherValueLabel" destination="Lw9-6r-lXf" id="YY6-Ru-Dm6"/>

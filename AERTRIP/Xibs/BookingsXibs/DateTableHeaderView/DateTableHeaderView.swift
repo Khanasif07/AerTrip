@@ -18,6 +18,7 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dataLabelBottomConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

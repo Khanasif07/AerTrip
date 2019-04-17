@@ -16,7 +16,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+        return AppFonts.SemiBold.withSize(16.0).lineHeight + 32.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -24,8 +24,11 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
         
+        headerView.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
         headerView.dateLabel.text = self.viewModel.allDates[section]
         headerView.parentView.backgroundColor = AppColors.themeWhite
+        headerView.dateLabelTopConstraint.constant = 20.0
+        headerView.dataLabelBottomConstraint.constant = 7.0
         
         return headerView
     }
@@ -39,7 +42,17 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90.0
+
+        let allCount = 2
+        if (indexPath.row % allCount) == 0 {
+            //event header cell + (for top space)
+            return 64.0 + 5.0
+        }
+        else if (indexPath.row % allCount) == 1 {
+            //event description cell + (for bottom space)
+            return 67.0 + 10.0
+        }
+        return 0.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,7 +68,10 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         else if (indexPath.row % allCount) == 1 {
             //event description cell
-            return self.getEventDescriptionCell(forData: allEvent[Int(indexPath.row/allCount)])
+            let idx = Int(indexPath.row/allCount)
+            let cell = self.getEventDescriptionCell(forData: allEvent[idx]) as! AccountDetailEventDescriptionCell
+            cell.mainContainerBottomConstraint.constant = (idx == (allEvent.count-1)) ? 5.0 : 10.0
+            return cell
         }
         
         return UITableViewCell()

@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DateTableHeaderView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
+                <outlet property="dataLabelBottomConstraint" destination="7gL-kQ-gDO" id="zcM-Jv-mGJ"/>
                 <outlet property="dateLabel" destination="vqI-ud-bKw" id="Ogr-9X-itO"/>
                 <outlet property="dateLabelTopConstraint" destination="oIz-Fe-cI0" id="zob-7v-5e4"/>
                 <outlet property="parentView" destination="FCB-It-Ot6" id="Hvc-qn-Ne7"/>
