@@ -20,6 +20,12 @@ class ClusterMarkerView: UIView {
         }
     }
     
+    var hotelTtems: [HotelSearched] = [] {
+        didSet {
+            self.configureUIForHotelItems()
+        }
+    }
+    
     private(set) var isFavourite: Bool = false {
         didSet {
             self.updateFav()
@@ -68,6 +74,26 @@ class ClusterMarkerView: UIView {
         
         for item in items {
             if let hotel = item.hotelDetails, (hotel.fav ?? "0") == "1" {
+                self.isFavourite = true
+                break
+            }
+        }
+    }
+    
+    private func configureUIForHotelItems() {
+        self.isFavourite = false
+        
+        countLabel.font = AppFonts.SemiBold.withSize(14.0)
+        
+        if hotelTtems.count > maxItemCount {
+            countLabel.text = "\(maxItemCount)+"
+        }
+        else {
+            countLabel.text = "\(hotelTtems.count)"
+        }
+        
+        for hotel in hotelTtems {
+            if (hotel.fav ?? "0") == "1" {
                 self.isFavourite = true
                 break
             }

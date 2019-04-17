@@ -69,29 +69,29 @@ class CustomMarker: UIView {
 
         if isFavourite {
             priceView.layer.borderColor = AppColors.themeRed.cgColor
-            priceLabel.textColor = AppColors.themeRed
+            priceView.backgroundColor = AppColors.themeRed
+            priceLabel.textColor = AppColors.themeWhite
             connectorView.backgroundColor = AppColors.themeRed
             iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
         }
         else {
-            priceView.layer.borderColor = AppColors.themeGreen.cgColor
-            priceLabel.textColor = AppColors.themeGreen
-            connectorView.backgroundColor = AppColors.themeGreen
             iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
+            self.updateSelection()
         }
     }
     
     private func updateSelection() {
-        guard isSelected else {
+        guard !isFavourite else {
             self.updateFav()
             return
         }
         
+        connectorView.backgroundColor = AppColors.themeGreen
         
-        priceView.layer.borderColor = AppColors.clear.cgColor
-        priceView.layer.borderWidth = 0.0
-        priceView.backgroundColor = isFavourite ? AppColors.themeRed : AppColors.themeGreen
+        priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
+        priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
+        priceView.backgroundColor = isSelected ? AppColors.themeGreen : AppColors.themeWhite
 
-        priceLabel.textColor = AppColors.themeWhite
+        priceLabel.textColor = isSelected ? AppColors.themeWhite : AppColors.themeGreen
     }
 }

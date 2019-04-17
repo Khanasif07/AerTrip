@@ -95,9 +95,6 @@ class HotelResultVC: BaseVC {
     
     // MARK: - Properties
     
-    var clusterManager: GMUClusterManager!
-    var mapView: GMSMapView?
-    
     var container: NSPersistentContainer!
     var predicateStr: String = ""
     var time: Float = 0.0
@@ -107,18 +104,36 @@ class HotelResultVC: BaseVC {
     var searchIntitialFrame: CGRect = .zero
     var completion: (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
-    var displayingHotelLocation: CLLocationCoordinate2D?
+    var displayingHotelLocation: CLLocationCoordinate2D? {
+        didSet {
+            if let oLoc = oldValue {
+                self.updateMarker(atLocation: oLoc, isSelected: false)
+            }
+            if let loc = displayingHotelLocation {
+                self.updateMarker(atLocation: loc)
+            }
+        }
+    }
     
     var visibleMapHeightInVerticalMode: CGFloat = 160.0
     var oldScrollPosition: CGPoint = CGPoint.zero
-    let mapIntitalZoomLabel: Float = 12.0
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForHotelSearch: IndexPath?
     var isMapInFullView: Bool = false
     var floatingViewInitialConstraint : CGFloat = 0.0
     
-    // fetch result controller
+    //Map Related
+    var clusterManager: GMUClusterManager!
+    let useGoogleCluster: Bool = true
+    var mapView: GMSMapView?
+    let minZoomLabel: Float = 1.0
+    let maxZoomLabel: Float = 30.0
+    let defaultZoomLabel: Float = 11.0
+    let thresholdZoomLabel: Float = 12.0
+    var prevZoomLabel: Float = 1.0
+    var markersOnLocations: JSONDictionary = JSONDictionary()
     
+    // fetch result controller
     var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
         var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
         
@@ -404,6 +419,6 @@ class HotelResultVC: BaseVC {
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
         self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: self.mapIntitalZoomLabel + 5.0)
+        self.mapView?.animate(toZoom: self.defaultZoomLabel + 5.0)
     }
 }

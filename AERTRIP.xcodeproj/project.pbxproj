@@ -381,6 +381,8 @@
 		843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */; };
 		843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
+		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
+		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D502212BB07002C1374 /* UITextViewExtensions.swift */; };
 		84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */; };
 		84504D552212E436002C1374 /* TripAdvisorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */; };
@@ -1053,6 +1055,8 @@
 		843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBookingIncompleteVC.swift; sourceTree = "<group>"; };
 		843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRefundRequestedVC.swift; sourceTree = "<group>"; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
+		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
+		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		84504D502212BB07002C1374 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
 		84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorTableViewCell.swift; sourceTree = "<group>"; };
 		84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdvisorTableViewCell.xib; sourceTree = "<group>"; };
@@ -1531,6 +1535,8 @@
 		188E930A221A8CD5008FE50A /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				84409E5C2266F969005A5487 /* CustomDotMarker.swift */,
+				84409E5D2266F969005A5487 /* CustomDotMarker.xib */,
 				188E930B221A8F9A008FE50A /* CustomMarker.xib */,
 				188E930D221A957A008FE50A /* CustomMarker.swift */,
 			);
@@ -3559,6 +3565,7 @@
 				84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */,
 				84534EC622490D15009FF536 /* HCConfirmationVoucherTableViewCell.xib in Resources */,
 				8491D1F9222D3FC2001D0313 /* SourceSansPro-BoldItalic.ttf in Resources */,
+				84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */,
 				8483AFAB22119A44009F7600 /* HotelInfoAddressCell.xib in Resources */,
 				18E79718224A06B100A7AC8B /* TotalPayableNowCell.xib in Resources */,
 				846856A922339607001B9E13 /* ReviewTableViewCell.xib in Resources */,
@@ -4040,6 +4047,7 @@
 				842EDE7F2238E7D600E99409 /* HotelDetailsVM.swift in Sources */,
 				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
+				84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */,
 				84C0BE1E224E22850034E9EA /* HCSelectGuestsVM.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
