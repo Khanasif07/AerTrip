@@ -260,7 +260,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
-
+        
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
             self.viewModel.selectedAdults = sender.tag
@@ -274,16 +274,26 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
+        self.checkForMaximumGuest()
+        
+        
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
-
         var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection()
+        self.checkForMaximumGuest()
+       
+    }
+    
+    func checkForMaximumGuest() {
+        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
+            AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
+        }
     }
 }
 

@@ -334,7 +334,7 @@ enum LocalizedString: String {
     case AddRoom = "AddRoom"
     case StarRating = "StarRating"
     case AllStars = "AllStars"
-    case WantMoreRooms = "Want More Rooms?"
+    case WantMoreRooms = "WantMoreRooms"
     case RequestBulkBooking = "RequestBulkBooking"
     case LoginAndSubmit = "Login & Submit"
     
