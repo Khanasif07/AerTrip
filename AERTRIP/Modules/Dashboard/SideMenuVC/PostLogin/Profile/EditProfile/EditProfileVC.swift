@@ -191,8 +191,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
-        
-        //  addFooterView()
     }
     
     func registerXib() {
@@ -762,12 +760,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60))
-        customView.backgroundColor = AppColors.themeGray04
-        
-        tableView.tableFooterView = customView
-    }
     
     func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
         let imageData = image.jpegData(compressionQuality: 0.2)
