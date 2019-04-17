@@ -258,23 +258,38 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             email.label = LocalizedString.Default.localized
             email.value = userEmail
             viewModel.email.append(email)
-        }
-        if travel.contact.email.isEmpty {
+        } else if travel.contact.email.isEmpty {
             var email = Email()
             email.label = LocalizedString.Home.localized
             viewModel.email.append(email)
         }
-        viewModel.email.append(contentsOf: travel.contact.email)
+        
+        for travel in travel.contact.email {
+            if travel.label.lowercased() != LocalizedString.Default.localized.lowercased() {
+                viewModel.email.append(travel)
+            }
+        }
+        
         
        
-        if travel.contact.mobile.isEmpty {
+        if travel.id == UserInfo.loggedInUser?.paxId,let userMobile = UserInfo.loggedInUser?.mobile {
+            var mobile = Mobile()
+            mobile.label = LocalizedString.Default.localized
+            mobile.value = userMobile
+            viewModel.mobile.append(mobile)
+        } else if travel.contact.mobile.isEmpty {
             var mobile = Mobile()
             mobile.label = LocalizedString.Home.localized
             mobile.isd = LocalizedString.IndiaIsdCode.localized
             viewModel.mobile.append(mobile)
         }
         
-        viewModel.mobile.append(contentsOf: travel.contact.mobile)
+        for travel in travel.contact.mobile {
+            if travel.label.lowercased() != LocalizedString.Default.localized.lowercased() {
+                viewModel.mobile.append(travel)
+            }
+        }
+      
         
         if travel.contact.social.isEmpty {
             var social = Social()
