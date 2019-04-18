@@ -41,7 +41,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     private func initialSetUp() {
         
         self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
-        self.cityImageView.tintColor = AppColors.themeGreenWithBlur
+        self.cityImageView.tintColor = AppColors.shadowBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
         self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
@@ -54,7 +54,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         ///Colors
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
-        let greenColor = AppColors.themeGreenWithBlur
+        let greenColor = AppColors.shadowBlue
         self.searchTypeLabel.textColor = greenColor
         self.timeLabel.textColor = greenColor
         self.cityNameLabel.textColor = blackColor
