@@ -95,6 +95,8 @@ extension HotelResultVC {
     }
     
     func removeAllFavouritesHotels() {
+        self.switchView.setOn(isOn: false)
+        self.manageSwitchContainer(isHidden: true)
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
@@ -181,6 +183,22 @@ extension HotelResultVC {
         }
         else {
             self.collectionView.reloadData()
+        }
+    }
+    
+    func reloadListForFavUpdation() {
+        guard let index = self.indexPathForUpdateFav else {
+            return
+        }
+        if self.hoteResultViewType == .ListView {
+            //reload tableView
+            if let cell = self.tableViewVertical.cellForRow(at: index) as? HotelCardTableViewCell {
+                cell.hotelListData = self.fetchedResultsController.object(at: index)
+            }
+        }
+        else {
+            //reload collectionView
+            self.reloadHotelList()
         }
     }
     
@@ -416,42 +434,26 @@ extension HotelResultVC {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
         self.oldScrollPosition = scrollView.contentOffset
+        
+        indexOfCellBeforeDragging = indexOfMajorCell()
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
-        self.manageForCollectionView(scrollView)
     }
     
-    func manageForCollectionView(_ scrollView: UIScrollView) {
-        if scrollView === self.collectionView {
-            let currentX = scrollView.contentOffset.x
-            
-            guard 0..<(scrollView.contentSize.width - scrollView.width) ~= currentX else {
-                return
-            }
-            var item = 0
-            if self.isCollectionScrollingInc {
-                item = Int(ceil(currentX / scrollView.width))
+    func manageForCollectionView(atIndex: Int) {
+        let locStr = Array(self.viewModel.collectionViewList.keys)[atIndex]
+        
+        if let loc = self.getLocationObject(fromLocation: locStr) {
+            if let oldLoc = self.displayingHotelLocation, !(loc == oldLoc) {
+                self.displayingHotelLocation = loc
+                focusMarker(coordinates: loc)
             }
             else {
-                item = Int(floor(currentX / scrollView.width))
+                self.displayingHotelLocation = loc
+                focusMarker(coordinates: loc)
             }
-            let locStr = Array(self.viewModel.collectionViewList.keys)[item]
-            
-            print("\(currentX), \(oldOffset) index \(item)")
-            if let loc = self.getLocationObject(fromLocation: locStr) {
-                if let oldLoc = self.displayingHotelLocation, !(loc == oldLoc) {
-                    self.displayingHotelLocation = loc
-                    focusMarker(coordinates: loc)
-                }
-                else {
-                    self.displayingHotelLocation = loc
-                    focusMarker(coordinates: loc)
-                }
-            }
-            
-//            self.oldOffset = scrollView.contentOffset
         }
     }
     
@@ -460,5 +462,68 @@ extension HotelResultVC {
         if hoteResultViewType == .MapView {
             
         }
+    }
+}
+
+
+//MARK:- Make colection view item in center
+extension HotelResultVC {
+    
+    func calculateSectionInset() -> CGFloat {
+        return CGFloat(16.0)
+    }
+    
+    func configureCollectionViewLayoutItemSize() {
+        //call this methods in viewDidLayoutSubviews
+        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        
+        collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - (inset * 2), height: 200.0)
+    }
+    
+    func indexOfMajorCell() -> Int {
+        let itemWidth = collectionViewLayout.itemSize.width
+        let proportionalOffset = collectionViewLayout.collectionView!.contentOffset.x / itemWidth
+        let index = Int(round(proportionalOffset))
+        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
+        let safeIndex = max(0, min(numberOfItemInCollection, index))
+        return safeIndex
+    }
+    
+    //ScrollView Delegate methods
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        indexOfCellBeforeDragging = indexOfMajorCell()
+//    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count
+        
+        // Stop scrollView sliding:
+        targetContentOffset.pointee = scrollView.contentOffset
+        
+        // calculate where scrollView should snap to:
+        var indexOfMajorCell = self.indexOfMajorCell()
+        
+        // calculate conditions:
+        let swipeVelocityThreshold: CGFloat = 0.5 // after some trail and error
+        let swipeVelocityThresholdToMove: CGFloat = 1.0
+        let hasEnoughVelocityToSlideToTheNextCell = ((indexOfCellBeforeDragging + 1) < numberOfItemInCollection) && (velocity.x > swipeVelocityThreshold)
+        let hasEnoughVelocityToSlideToThePreviousCell = ((indexOfCellBeforeDragging - 1) >= 0) && (velocity.x < -swipeVelocityThreshold)
+        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
+        
+        let absVelocity = abs(velocity.x)
+        if absVelocity >= swipeVelocityThresholdToMove {
+            if velocity.x < 0 {
+                indexOfMajorCell -= 1
+            }
+            else {
+                indexOfMajorCell += 1
+            }
+        }
+        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        
+        self.manageForCollectionView(atIndex: indexOfMajorCell)
     }
 }

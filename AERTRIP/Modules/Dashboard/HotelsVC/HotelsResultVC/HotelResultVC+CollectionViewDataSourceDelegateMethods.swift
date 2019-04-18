@@ -52,16 +52,16 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
-        if hData?.count ?? 1 > 1 {
-            // grouped cell
-            return CGSize(width: UIDevice.screenWidth, height: 230.0)
-        } else {
-            // single cell
-            return CGSize(width: UIDevice.screenWidth, height: 200.0)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
+//        if hData?.count ?? 1 > 1 {
+//            // grouped cell
+//            return CGSize(width: UIDevice.screenWidth - 20.0, height: 230.0)
+//        } else {
+//            // single cell
+//            return CGSize(width: UIDevice.screenWidth - 20.0, height: 200.0)
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {

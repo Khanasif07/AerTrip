@@ -44,6 +44,7 @@ class HotelResultVC: BaseVC {
 
     
     
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
@@ -199,6 +200,11 @@ class HotelResultVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     
+    var indexPathForUpdateFav: IndexPath?
+    
+    //used for making collection view centerlized
+    var indexOfCellBeforeDragging = 0
+    
     // MARK: - ViewLifeCycle
     
     // MARK: -
@@ -236,6 +242,8 @@ class HotelResultVC: BaseVC {
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
+        
+        collectionViewLayout.minimumLineSpacing = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -248,6 +256,8 @@ class HotelResultVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        self.configureCollectionViewLayoutItemSize()
     }
     
     override func dataChanged(_ note: Notification) {
