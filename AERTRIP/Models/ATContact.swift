@@ -27,7 +27,13 @@ struct ATContact {
     var image: String
     var imageData: Data?
     var contact: String
-    var email: String
+    var email: String {
+        didSet {
+            if !email.isEmpty, self.firstName.isEmpty {
+                self.firstName = email.capitalizedFirst()
+            }
+        }
+    }
     var emailLabel: String
     var isd: String
     private var _fullName: String
@@ -128,6 +134,7 @@ struct ATContact {
                 contact.email = email.value as String
                 contact.emailLabel = "internet"
             }
+
             
             if let phone = obj.phoneNumbers.first {
                 let tempNumber = phone.value.stringValue
