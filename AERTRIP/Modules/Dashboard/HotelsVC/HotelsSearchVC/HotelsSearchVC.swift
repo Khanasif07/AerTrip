@@ -274,7 +274,7 @@ class HotelsSearchVC: BaseVC {
     private func getDataFromPreviousSearch() {
         let date = Date()
 
-        let oldData = HotelsSearchVM.hotelFormData
+        var oldData = HotelsSearchVM.hotelFormData
         self.viewModel.searchedFormData = oldData
         
         //set selected city
@@ -315,6 +315,9 @@ class HotelsSearchVC: BaseVC {
         //setting stars
         if !self.viewModel.searchedFormData.ratingCount.isEmpty, self.viewModel.searchedFormData.ratingCount.count < 5 {
             self.viewModel.searchedFormData.ratingCount.removeAll()
+        }
+        if oldData.ratingCount.isEmpty {
+            oldData.ratingCount = [1,2,3,4,5]
         }
         for star in oldData.ratingCount {
             self.updateStarButtonState(forStar: star)
