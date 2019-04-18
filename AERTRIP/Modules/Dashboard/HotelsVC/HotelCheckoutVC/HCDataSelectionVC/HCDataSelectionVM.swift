@@ -211,11 +211,25 @@ class HCDataSelectionVM {
         return presentedCell
     }
     
+    private func getFirstSectionCell(hotelData: HotelDetails) -> [TableCellType] {
+        var firstSectionCells: [TableCellType] = []
+        firstSectionCells.append(.imageSlideCell)
+        firstSectionCells.append(.hotelRatingCell)
+        firstSectionCells.append(.addressCell)
+        firstSectionCells.append(.checkInOutDateCell)
+        firstSectionCells.append(.amenitiesCell)
+        if !hotelData.locid.isEmpty {
+            firstSectionCells.append(.tripAdvisorRatingCell)
+        }
+        return firstSectionCells
+    }
+    
     func getHotelDetailsSectionData() {
         self.sectionData.removeAll()
         self.roomRates.removeAll()
-        self.sectionData.append([.imageSlideCell, .hotelRatingCell, .addressCell, .checkInOutDateCell, .amenitiesCell, .tripAdvisorRatingCell])
-        if let ratesData = self.itineraryData?.hotelDetails?.rates {
+        
+        if let hotelData = self.itineraryData?.hotelDetails , let ratesData = hotelData.rates {
+            self.sectionData.append(getFirstSectionCell(hotelData: hotelData))
             // Room details cell only for room label cell
             self.sectionData.append([.roomDetailsCell])
             for rate in ratesData {
@@ -231,13 +245,7 @@ class HCDataSelectionVM {
                         }
                     }
                     tempData[currentRoom] = count
-                    //                    if  !tempData.contains(where: { (currentRoom,count) -> Bool in
-                    //                        return true
-                    //                    }) {
-                    //                        tempData[currentRoom] = count
-                    //                    }
                 }
-                //                self.roomRates.append(rate.roomData)
                 if !roomRates.contains(array: [tempData]) {
                     self.roomRates.append(tempData)
                 }

@@ -602,3 +602,8 @@
 "Cancelled" = "Cancelled";
 "YouHaveNoUpcomingBookings" = "You have no upcoming bookings";
 "NewDestinationsAreAwaiting"  = "New destinations are awaiting";
+"BookingIDAndDate" = "Booking ID & Date";
+"Documents" = "DOCUMENTS";
+"PaymentInfo" = "Payment Info";
+"Booking" = "Booking";
+"Paid" = "Paid";

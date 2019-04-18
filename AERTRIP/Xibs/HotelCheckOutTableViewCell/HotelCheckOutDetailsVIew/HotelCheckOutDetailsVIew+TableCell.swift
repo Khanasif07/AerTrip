@@ -45,6 +45,13 @@ extension HotelCheckOutDetailsVIew {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell  else { return UITableViewCell() }
         cell.delegate = self
         cell.amenitiesDetails = hotelDetails.amenities
+        if self.sectionData[0].contains(.tripAdvisorRatingCell) {
+            cell.dividerViewLeadingCons.constant = 16.0
+            cell.dividerViewTrailingCons.constant = 16.0
+        } else {
+            cell.dividerViewLeadingCons.constant = 0.0
+            cell.dividerViewTrailingCons.constant = 0.0
+        }
         return cell
     }
     

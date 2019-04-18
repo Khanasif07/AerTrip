@@ -150,7 +150,7 @@ class MyBookingsVC: BaseVC {
         if self.allChildVCs.count == 1 {
             self.setupPagerView(headerHeight: 0.0, interItemSpace: 0.0, itemPadding: 0.0 , isScrollable: false)
         } else if self.allChildVCs.count == 2 {
-            self.setupPagerView(interItemSpace: 45.0, itemPadding: 30.0)
+            self.setupPagerView(interItemSpace: 45.0, itemPadding: 32.0)
         } else {
             self.setupPagerView(interItemSpace: 21.8, itemPadding: 12.8)
         }

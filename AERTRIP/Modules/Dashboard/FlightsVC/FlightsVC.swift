@@ -43,7 +43,7 @@ class FlightsVC: BaseVC {
     
     @IBAction func myButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentHCEmailItinerariesVC()
-        AppFlowManager.default.showUpcomingVC(self)
+        AppFlowManager.default.moveToOtherBookingsDetailsVC()
         
     }
 }

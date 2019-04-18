@@ -559,6 +559,12 @@ extension AppFlowManager {
             obj.add(childViewController: ob)
         }
     }
+    
+    func moveToOtherBookingsDetailsVC() {
+        let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+
 
     //MARK:- Account Section
     //MARK:-

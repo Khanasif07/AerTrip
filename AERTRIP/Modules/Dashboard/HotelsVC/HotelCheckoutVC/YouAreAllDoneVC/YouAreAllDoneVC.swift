@@ -256,10 +256,10 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
             if let hotelData = self.viewModel.hotelReceiptData {
-                let text = hotelData.address + "Maps   "
+                let text = hotelData.address + "Maps    "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0//y of textview 46.5 + bottom space 21.0
             }
         }
         return UITableView.automaticDimension

@@ -18,6 +18,21 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="9.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZE6-df-WUf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="9.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9.5" id="jpS-Nf-PP5"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ZE6-df-WUf" secondAttribute="bottom" id="2fB-Cf-51p"/>
+                    <constraint firstAttribute="trailing" secondItem="ZE6-df-WUf" secondAttribute="trailing" id="OAh-S3-8AV"/>
+                    <constraint firstItem="ZE6-df-WUf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Yh2-x3-bAQ"/>
+                    <constraint firstItem="ZE6-df-WUf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tnU-jG-fEf"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
         </tableViewCell>
