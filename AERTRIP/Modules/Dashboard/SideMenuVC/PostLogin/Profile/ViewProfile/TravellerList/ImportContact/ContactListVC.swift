@@ -92,6 +92,7 @@ class ContactListVC: BaseVC {
         if let obj = note.object as? ImportContactVM.Notification {
             if obj == .phoneContactFetched {
                 self.fetchPhoneContactsSuccess()
+                self.viewModel.createSectionWiseDataForContacts(for: .contacts)
                 tableView.backgroundView = noResultemptyView
             }
             else if obj == .selectionChanged {
@@ -307,6 +308,12 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
+    // Return section Index For titles
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+            return ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    }
+
 }
 
 //MARK:- ViewModel Delegate

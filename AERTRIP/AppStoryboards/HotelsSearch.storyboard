@@ -2396,9 +2396,6 @@ been sent</string>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aE2-Wr-Lry">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="88"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="88" id="ZgL-hN-6Mo"/>
-                                                        </constraints>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qDc-9w-xpf">
                                                             <size key="itemSize" width="50" height="50"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -2414,7 +2411,6 @@ been sent</string>
                                                     <constraint firstItem="aE2-Wr-Lry" firstAttribute="top" secondItem="U1o-5W-zit" secondAttribute="top" id="FZJ-og-Vtr"/>
                                                     <constraint firstAttribute="trailing" secondItem="aE2-Wr-Lry" secondAttribute="trailing" id="Uzc-6S-T4i"/>
                                                     <constraint firstItem="aE2-Wr-Lry" firstAttribute="leading" secondItem="U1o-5W-zit" secondAttribute="leading" id="cs8-G0-dEx"/>
-                                                    <constraint firstAttribute="height" constant="88" id="wHs-Yr-Dw2"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9c-cE-Fqh" userLabel="Third Line View">
@@ -2454,16 +2450,16 @@ been sent</string>
                                                         <rect key="frame" x="38.5" y="39.5" width="266" height="60.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YXY-Wr-6vm">
-                                                                <rect key="frame" x="0.0" y="5.5" width="16" height="49.5"/>
+                                                                <rect key="frame" x="0.0" y="1.5" width="30" height="57.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-pH-ypH">
-                                                                        <rect key="frame" x="4.5" y="0.0" width="7.5" height="19.5"/>
+                                                                        <rect key="frame" x="11.5" y="0.0" width="7.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63n-ft-3nA">
-                                                                        <rect key="frame" x="0.0" y="27.5" width="16" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="27.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
@@ -2474,16 +2470,16 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cPs-VX-y92">
-                                                                <rect key="frame" x="62.5" y="5.5" width="16" height="49.5"/>
+                                                                <rect key="frame" x="59" y="1.5" width="30" height="57.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPU-fz-WW0">
-                                                                        <rect key="frame" x="3.5" y="0.0" width="9.5" height="19.5"/>
+                                                                        <rect key="frame" x="10.5" y="0.0" width="9.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HB4-2a-G5Y">
-                                                                        <rect key="frame" x="0.0" y="27.5" width="16" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="27.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
@@ -2494,16 +2490,16 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="x2O-OL-Q0f">
-                                                                <rect key="frame" x="125" y="5.5" width="16" height="49.5"/>
+                                                                <rect key="frame" x="118" y="1.5" width="30" height="57.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugw-LE-I7M">
-                                                                        <rect key="frame" x="3" y="0.0" width="10" height="19.5"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abP-p2-XL0">
-                                                                        <rect key="frame" x="0.0" y="27.5" width="16" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="27.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
@@ -2514,16 +2510,16 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kr9-EU-Hk7">
-                                                                <rect key="frame" x="187.5" y="5.5" width="16" height="49.5"/>
+                                                                <rect key="frame" x="177" y="1.5" width="30" height="57.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffo-fL-CRr">
-                                                                        <rect key="frame" x="3" y="0.0" width="10" height="19.5"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jt-4r-dka">
-                                                                        <rect key="frame" x="0.0" y="27.5" width="16" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="27.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
@@ -2534,16 +2530,16 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fMI-Fh-noo">
-                                                                <rect key="frame" x="250" y="5.5" width="16" height="49.5"/>
+                                                                <rect key="frame" x="236" y="1.5" width="30" height="57.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLe-Xp-q4W">
-                                                                        <rect key="frame" x="3" y="0.0" width="10" height="19.5"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="10" height="19.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHp-KU-tFg">
-                                                                        <rect key="frame" x="0.0" y="27.5" width="16" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="27.5" width="30" height="30"/>
                                                                         <state key="normal" image="starRatingUnfill"/>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>

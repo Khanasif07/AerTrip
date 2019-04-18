@@ -409,10 +409,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TravellerListTableViewCell else {
-        //            fatalError("TravellerListTableViewCell not found")
-        //        }
-        
         let cell = UITableViewCell()
         let data = fetchedResultsController.object(at: indexPath) as? TravellerData
         self.configureCell(cell: cell, travellerData: data)

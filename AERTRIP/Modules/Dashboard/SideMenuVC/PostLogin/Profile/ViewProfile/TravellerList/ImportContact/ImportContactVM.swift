@@ -88,6 +88,15 @@ class ImportContactVM: NSObject {
     weak var delegateList: ImportContactVMDelegate?
     weak var delegateCollection: ImportContactVMDelegate?
     
+    // section array  for Making header wise list
+    var sections = [Section]()
+    
+    private(set) var contactListWithHeaderForPhone: [String: Any] = [String: Any]()
+    private(set) var contactListWithHeaderForFacebook: [String: Any] = [String: Any]()
+    private(set) var contactListWithHeaderForGoogle: [String: Any] = [String: Any]()
+    
+
+    
     //MARK:- Methods
     //MARK:- Public
     private override init() {
@@ -141,6 +150,8 @@ class ImportContactVM: NSObject {
         }
     }
     
+    
+    
     //MARK:- Fetch Facebook Contacts
     //MARK:-
     func fetchFacebookContacts(forVC: UIViewController) {
@@ -174,6 +185,30 @@ class ImportContactVM: NSObject {
             print(error)
         })
     }
+    
+    func createSectionWiseDataForContacts(for usingFor: ContactListVC.UsingFor) {
+        switch usingFor {
+        case .contacts:
+            let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)) })
+            let keys = groupedDictionary.keys.sorted()
+            sections = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
+                return ct1.firstName < ct2.firstName
+            })) }
+        case .facebook:
+            let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)) })
+            let keys = groupedDictionary.keys.sorted()
+            sections = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
+                return ct1.firstName < ct2.firstName
+            })) }
+        case .google:
+            let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)) })
+            let keys = groupedDictionary.keys.sorted()
+            sections = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
+                return ct1.firstName < ct2.firstName
+            })) }
+        }
+        
+        }
     
     //MARK:- Search
     //MARK:-
@@ -280,4 +315,10 @@ class ImportContactVM: NSObject {
             saveSocialContacts()
         }
     }
+}
+
+
+struct Section {
+    let letter : String
+    let contacts : [ATContact]
 }
