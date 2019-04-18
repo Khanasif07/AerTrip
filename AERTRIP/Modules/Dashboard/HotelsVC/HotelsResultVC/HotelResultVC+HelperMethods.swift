@@ -158,9 +158,12 @@ extension HotelResultVC {
     }
     
     func setupNavigationTitleLabelText() {
-        let checkIn = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
-        let checkOut = Date.getDateFromString(stringDate: viewModel.hotelSearchRequest?.requestParameters.checkOut ?? " ", currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
-        let numberOfRoom = self.viewModel.hotelSearchRequest?.requestParameters.numOfRooms ?? ""
+        
+        self.titleLabel.text = self.viewModel.searchedFormData.cityName
+        
+        let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+        let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+        let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
         self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
 
     }
