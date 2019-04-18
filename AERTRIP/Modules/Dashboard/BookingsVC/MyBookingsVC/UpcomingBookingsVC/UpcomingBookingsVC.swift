@@ -23,7 +23,7 @@ class UpcomingBookingsVC: BaseVC {
         didSet {
             self.upcomingBookingsTableView.delegate = self
             self.upcomingBookingsTableView.dataSource = self
-            self.upcomingBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
+//            self.upcomingBookingsTableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.upcomingBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.upcomingBookingsTableView.rowHeight = UITableView.automaticDimension
             self.upcomingBookingsTableView.estimatedSectionHeaderHeight = 41.0
@@ -127,6 +127,7 @@ extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let currentSecData = self.viewModel.upcomingBookingData[section]
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
@@ -135,6 +136,7 @@ extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
 //            headerView.configView(date: currentSecData[0].creationDate, isFirstHeaderView: T##Bool)
             headerView.dateLabelTopConstraint.constant = 11.0
         }
+        headerView.contentView.backgroundColor = AppColors.themeWhite
         headerView.backgroundColor = AppColors.themeWhite
         return headerView
     }

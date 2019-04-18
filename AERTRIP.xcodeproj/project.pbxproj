@@ -1484,6 +1484,7 @@
 		1870AD03220C769400FB32C8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8415160E2268A08F00C6E52F /* HotelDetailsModel */,
 				18F181D0223A3D0900323775 /* HotelCheckOut */,
 				1870AD30220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift */,
 				1870AD31220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift */,
@@ -2318,6 +2319,15 @@
 			path = FareUpdatedPopUpVC;
 			sourceTree = "<group>";
 		};
+		8415160E2268A08F00C6E52F /* HotelDetailsModel */ = {
+			isa = PBXGroup;
+			children = (
+				842EDE5F2238E7D600E99409 /* HotelDetails.swift */,
+				842EDE602238E7D600E99409 /* PlaceModel.swift */,
+			);
+			path = HotelDetailsModel;
+			sourceTree = "<group>";
+		};
 		841DD1CF2202DC680055FEBB /* HotelsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -2476,8 +2486,6 @@
 				842EDE5D2238E7D600E99409 /* HotelDetailsVC+Delegates.swift */,
 				842EDE612238E7D600E99409 /* HotelDetailsVC+TableCell.swift */,
 				842EDE692238E7D600E99409 /* HotelDetailsVM.swift */,
-				842EDE5F2238E7D600E99409 /* HotelDetails.swift */,
-				842EDE602238E7D600E99409 /* PlaceModel.swift */,
 				842EDE662238E7D600E99409 /* HotelDetailsOverviewVC */,
 				842EDE622238E7D600E99409 /* HotelDetailsReviewsVC */,
 				842EDE702238E7D600E99409 /* HotelDetailsAmenitiesVC */,

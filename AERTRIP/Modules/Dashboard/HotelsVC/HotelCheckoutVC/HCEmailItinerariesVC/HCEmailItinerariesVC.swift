@@ -156,6 +156,7 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
         } else {
             self.viewModel.emailInfo[currentEmailIndex].emailStatus = .toBeSend
         }
+        AppToast.default.showToastMessage(message: "Some thing went wrong!")
         self.tableView.reloadData()
     }
     
