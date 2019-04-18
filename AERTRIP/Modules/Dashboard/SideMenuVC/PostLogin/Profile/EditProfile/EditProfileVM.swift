@@ -147,17 +147,18 @@ class EditProfileVM {
                         flag = false
                     }
                 }
-                if self.mobile[index].value.count < 10 {
+                
+                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) {
                       AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
                     flag = false
                 }
             }
             
             
-            if !isValid {
-                AppToast.default.showToastMessage(message:LocalizedString.EnterValidContactNumber.localized )
-                flag = false
-            }
+//            if !isValid {
+//                AppToast.default.showToastMessage(message:LocalizedString.EnterAllValidMobileNumber.localized )
+//                flag = false
+//            }
         }
         if !self.frequentFlyer.isEmpty {
             for (index, _) in self.frequentFlyer.enumerated() {

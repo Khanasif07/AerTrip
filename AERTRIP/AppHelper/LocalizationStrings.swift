@@ -260,7 +260,7 @@ enum LocalizedString: String {
     case Mast = "Mast"
     case EnterValidMobileNumber = "EnterValidMobileNumber"
     case AllMobileNumberShouldUnique = "AllMobileNumberShouldUnique"
-    case EnterValidContactNumber = "EnterValidContactNumber"
+    case EnterAllValidMobileNumber = "EnterAllValidMobileNumber"
     case EnterAirlineNumberForAllFrequentFlyer = "EnterAirlineNumberForAllFrequentFlyer"
     case SelectAirlineForAllFrequentFlyer = "SelectAirlineForAllFrequentFlyer"
     
