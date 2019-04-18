@@ -497,7 +497,7 @@ extension HotelResultVC {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count
+        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
         
         // Stop scrollView sliding:
         targetContentOffset.pointee = scrollView.contentOffset
@@ -506,11 +506,7 @@ extension HotelResultVC {
         var indexOfMajorCell = self.indexOfMajorCell()
         
         // calculate conditions:
-        let swipeVelocityThreshold: CGFloat = 0.5 // after some trail and error
         let swipeVelocityThresholdToMove: CGFloat = 1.0
-        let hasEnoughVelocityToSlideToTheNextCell = ((indexOfCellBeforeDragging + 1) < numberOfItemInCollection) && (velocity.x > swipeVelocityThreshold)
-        let hasEnoughVelocityToSlideToThePreviousCell = ((indexOfCellBeforeDragging - 1) >= 0) && (velocity.x < -swipeVelocityThreshold)
-        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
         
         let absVelocity = abs(velocity.x)
         if absVelocity >= swipeVelocityThresholdToMove {
@@ -520,6 +516,9 @@ extension HotelResultVC {
             else {
                 indexOfMajorCell += 1
             }
+            
+            indexOfMajorCell = max(0,indexOfMajorCell)
+            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
         }
         let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
         collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
