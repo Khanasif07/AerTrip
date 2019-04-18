@@ -138,11 +138,10 @@ class ContactListVC: BaseVC {
     private func initialSetups() {
         
         self.tableView.backgroundView = self.emptyView
-        
+        self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
         noResultemptyView.mainImageViewTopConstraint.constant = 300
-    //    self.bottomHeaderTopDiverView.isHidden = true
     }
     
     //MARK:- Public
@@ -299,7 +298,6 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell") as? ContactDetailsTableCell else {
             return UITableViewCell()
         }
-        cell.tintColor = AppColors.themeGreen
         if self.currentlyUsingFor == .contacts {
             cell.contact = self.viewModel.sections[indexPath.section].contacts[indexPath.row]
             cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
