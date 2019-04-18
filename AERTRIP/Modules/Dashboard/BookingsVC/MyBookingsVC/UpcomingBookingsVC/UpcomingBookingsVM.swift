@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol UpcomingBookingsVMDelegate {
+protocol UpcomingBookingsVMDelegate: class {
     func willGetUpcomingBookingData()
     func UpcomingBookingDataSuccess()
     func UpcomingBookingDataFail()
@@ -20,37 +20,81 @@ class UpcomingBookingsVM {
         case eventTypeCell , spaceCell , queryCell
     }
     var upcomingBookingData: [UpComingBookingEvent] = []
-    var upcomingBooking: JSONDictionary = [:]
-    
-    init() {
+    var upcomingDetails: JSONDictionary = JSONDictionary()
+    var allDates: [String] {
+        return Array(upcomingDetails.keys)
     }
+    weak var delegate: UpcomingBookingsVMDelegate?
+    
+    init() {}
     
     func getSectionData() {
         let jsonData: [JSONDictionary] = [
             [
                 "creationDate":  "Tue, 30 Apr",
-                "currentEvent" : "flight",
+                "currentEvent" : "others",
                 "placeName": "Burj Khalifa - At the Top",
                 "travellersName": "You and Bhushan",
+                "status": "na",
                 "queries": []
             ],
             [
                 "creationDate":  "Wed, 1 May",
                 "currentEvent" : "flight",
                 "placeName": "Mumbai → Delhi",
-                "travellersName": "YYou are flying",
+                "travellersName": "You are flying",
+                "status": "pending",
                 "queries": ["Booking in process" , "Booking on hold - Confirm by Sat, 25 Mar 2017"]
             ],
             [
                 "creationDate":  "1 Jan 2019",
-                "currentEvent" : "flight",
+                "currentEvent" : "hotel",
+                "status": "na",
                 "placeName": "Burj Khalifa - At the Top",
                 "travellersName": "You and Bhushan",
                 "queries": []
             ]
             
         ]
-        self.upcomingBookingData = UpComingBookingEvent.getEventData(jsonDictArray: jsonData)
-        //        "Mumbai → Delhi","BOM → DEL → GOI → MAA → BLR → BOM ","BOM → DEL, CCU → BLR, HYD → MAA, DEL → BOM, BLR → GOI","Mumbai → Delhi","Mumbai → Delhi"], subtitles: ["You are flying","You are flying","You are flying","You are flying","You are flying"], allQueries: [["Add-ons request in process" , "Rescheduling request in process" , "Cancellation request in process"],["Add-ons request on hold","Rescheduling request on hold","Cancellation request on hold"],["Add-ons successful","Rescheduling Successful","Cancellation Successful"],["Add-ons payment required","Rescheduling payment pending","Cancellation confirmation required"],["Add-ons request aborted","Rescheduling request aborted","Cancellation request aborted"]]),"1 Jan 2019" : EventData(title: "Burj Khalifa - At the Top", subtitle: "You and Bhushan",queries: [])]
+//        self.upcomingBookingData = UpComingBookingEvent.getEventData(jsonDictArray: jsonData)
+        self.upcomingDetails = UpComingBookingEvent.getEventJsondict(jsonDictArray: jsonData)
     }
 }
+
+/*
+ 
+ [
+ "creationDate":  "Wed, 1 May",
+ "currentEvent" : "flight",
+ "placeName": "Mumbai → Delhi",
+ "travellersName": "You are flying",
+ "status": "pending",
+ "queries": ["Add-ons request in process" , "Rescheduling request in process" , "Cancellation request in process"]
+ ],
+ [
+ "creationDate":  "Wed, 1 May",
+ "currentEvent" : "flight",
+ "placeName": "BOM → DEL → GOI → MAA → BLR → BOM ",
+ "travellersName": "You are flying",
+ "status": "done",
+ "queries": ["Add-ons successful","Rescheduling Successful","Cancellation Successful"]
+ ],
+ [
+ "creationDate":  "Wed, 1 May",
+ "currentEvent" : "flight",
+ "placeName": "BOM → DEL, CCU → BLR, HYD → MAA, DEL → BOM, BLR → GOI",
+ "travellersName": "You are flying",
+ "status": "pending",
+ "queries": ["Add-ons payment required","Rescheduling payment pending","Cancellation confirmation required"]
+ ],
+ [
+ "creationDate":  "Wed, 1 May",
+ "currentEvent" : "flight",
+ "placeName": "Mumbai → Delhi",
+ "travellersName": "You are flying",
+ "status": "pending",
+ "queries": ["Add-ons request aborted","Rescheduling request aborted","Cancellation request aborted"]
+ ],
+
+ 
+ */

@@ -72,6 +72,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerView" destination="PHy-GC-XCT" id="iXi-OT-fM9"/>
+                <outlet property="containerViewBottomConstraint" destination="guM-mg-pv1" id="sUF-ri-nAS"/>
                 <outlet property="dividerView" destination="Tkb-Cc-2Oa" id="tjH-8B-M4n"/>
                 <outlet property="statusImageView" destination="eIE-FJ-uJe" id="fmf-VA-HA0"/>
                 <outlet property="statusLabel" destination="3Nc-WR-BhC" id="rLQ-vn-wMT"/>

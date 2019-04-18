@@ -90,6 +90,8 @@
                 <outlet property="amenitiesLabel" destination="8LL-W6-Lte" id="VHO-UD-umm"/>
                 <outlet property="containerView" destination="H2p-sc-9uM" id="vQc-r6-iSz"/>
                 <outlet property="dividerView" destination="V8b-P2-zTO" id="HNS-On-jDC"/>
+                <outlet property="dividerViewLeadingCons" destination="Ire-h0-BoD" id="5tp-M2-slQ"/>
+                <outlet property="dividerViewTrailingCons" destination="YRD-NS-NGw" id="JsW-RM-oA7"/>
                 <outlet property="viewAllButtonOutlet" destination="3Ka-1i-QHg" id="p47-6C-EhV"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="48.575712143928037"/>

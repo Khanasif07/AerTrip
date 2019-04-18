@@ -260,9 +260,9 @@
 "Mobile" = "Mobile";
 "Default" = "Default";
 "Email" = "Email";
-"EnterValidMobileNumber" = "Please enter Valid Mobile number";
+"EnterValidMobileNumber" = "Please enter valid mobile number";
 "AllMobileNumberShouldUnique" = "All mobile number should be unique";
-"EnterValidContactNumber" = "Please enter all valid contact numbers.";
+"EnterAllValidMobileNumber" = "Please enter all valid mobile numbers.";
 "EnterAirlineNumberForAllFrequentFlyer" = "Please enter the airline number for all frequent flyer.";
 "SelectAirlineForAllFrequentFlyer" = "Please select the airline for all frequent flyer.";
 
@@ -597,3 +597,13 @@
 "BookingDate" = "Booking Date";
 "FromDate" = "From Date";
 "ToDate" = "To Date";
+"Upcoming" = "Upcoming";
+"Completed" = "Completed";
+"Cancelled" = "Cancelled";
+"YouHaveNoUpcomingBookings" = "You have no upcoming bookings";
+"NewDestinationsAreAwaiting"  = "New destinations are awaiting";
+"BookingIDAndDate" = "Booking ID & Date";
+"Documents" = "DOCUMENTS";
+"PaymentInfo" = "Payment Info";
+"Booking" = "Booking";
+"Paid" = "Paid";

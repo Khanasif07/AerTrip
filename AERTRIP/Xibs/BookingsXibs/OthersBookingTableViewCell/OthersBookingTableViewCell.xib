@@ -18,10 +18,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OthersBookingTableViewCell" id="KGk-i7-Jjw" customClass="OthersBookingTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fP2-dV-8J0">
@@ -65,7 +65,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="fP2-dV-8J0" secondAttribute="trailing" constant="16" id="TBS-BM-TwD"/>
-                    <constraint firstAttribute="bottom" secondItem="fP2-dV-8J0" secondAttribute="bottom" id="d6a-2w-eN7"/>
+                    <constraint firstAttribute="bottom" secondItem="fP2-dV-8J0" secondAttribute="bottom" constant="5" id="d6a-2w-eN7"/>
                     <constraint firstItem="fP2-dV-8J0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="vlV-bL-H0R"/>
                     <constraint firstItem="fP2-dV-8J0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="z5N-tS-aGP"/>
                 </constraints>
@@ -74,6 +74,7 @@
             <connections>
                 <outlet property="bookingTypeImgView" destination="Vnh-M9-I15" id="wOm-TU-9EQ"/>
                 <outlet property="containerView" destination="fP2-dV-8J0" id="ehJ-fE-fh3"/>
+                <outlet property="containerViewBottomConstraint" destination="d6a-2w-eN7" id="xVT-v9-Ukv"/>
                 <outlet property="plcaeNameLabel" destination="KKx-eO-RBL" id="T2q-Tw-h6C"/>
                 <outlet property="travellersNameLabel" destination="DtD-ig-vT8" id="rKe-NP-FX4"/>
             </connections>

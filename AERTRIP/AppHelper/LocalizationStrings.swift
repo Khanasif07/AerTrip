@@ -260,7 +260,7 @@ enum LocalizedString: String {
     case Mast = "Mast"
     case EnterValidMobileNumber = "EnterValidMobileNumber"
     case AllMobileNumberShouldUnique = "AllMobileNumberShouldUnique"
-    case EnterValidContactNumber = "EnterValidContactNumber"
+    case EnterAllValidMobileNumber = "EnterAllValidMobileNumber"
     case EnterAirlineNumberForAllFrequentFlyer = "EnterAirlineNumberForAllFrequentFlyer"
     case SelectAirlineForAllFrequentFlyer = "SelectAirlineForAllFrequentFlyer"
     
@@ -633,4 +633,14 @@ enum LocalizedString: String {
     case BookingDate = "BookingDate"
     case FromDate = "FromDate"
     case ToDate = "ToDate"
+    case Upcoming = "Upcoming"
+    case Completed = "Completed"
+    case Cancelled = "Cancelled"
+    case YouHaveNoUpcomingBookings = "YouHaveNoUpcomingBookings"
+    case NewDestinationsAreAwaiting = "NewDestinationsAreAwaiting"
+    case BookingIDAndDate = "BookingIDAndDate"
+    case Documents = "Documents"
+    case PaymentInfo = "PaymentInfo"
+    case Booking = "Booking"
+    case Paid = "Paid"
  }

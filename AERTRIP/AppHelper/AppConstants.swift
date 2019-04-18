@@ -26,8 +26,8 @@ enum AppConstants {
     static let kMaxTextFieldCharLength     =         32
     static let kMinPassLength              =         6
     static let kMaxPassLength              =         32
-    static let kMinPhoneLength             =         7
-    static let kMaxPhoneLength             =         15
+    static let kMinPhoneLength: Int        =         7
+    static let kMaxPhoneLength: Int        =         15
     static let kOtpTimeOutSeconds          =         60
     static let kMaxDescriptionLength       =         250
     

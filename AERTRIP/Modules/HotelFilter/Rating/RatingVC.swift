@@ -49,6 +49,7 @@ class RatingVC: BaseVC {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             HotelFilterVM.shared.resetToDefault()
+            HotelFilterVM.shared.ratingCount.removeAll()
             self.doInitialSetup()
             return
         }
@@ -81,6 +82,9 @@ class RatingVC: BaseVC {
     }
     
     @IBAction func starButtonsAction(_ sender: UIButton) {
+        if HotelFilterVM.shared.ratingCount.count == 5 {
+            HotelFilterVM.shared.ratingCount.removeAll()
+        }
         self.updateStarButtonState(forStar: sender.tag)
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         sender.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)

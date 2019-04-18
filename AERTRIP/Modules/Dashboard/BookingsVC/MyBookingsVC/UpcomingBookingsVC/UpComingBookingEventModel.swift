@@ -11,9 +11,30 @@ import Foundation
 struct UpComingBookingEvent {
     
     enum EventType: String {
+        
+        case none
         case flight
         case hotel
         case others
+        
+        var image: UIImage? {
+            switch self {
+            case .flight:
+                return #imageLiteral(resourceName: "ic_acc_flight")
+            case .hotel:
+                return #imageLiteral(resourceName: "ic_acc_hotels")
+            case .others:
+                return #imageLiteral(resourceName: "others")
+            default:
+                return nil
+            }
+        }
+    }
+    
+    enum StatusType: String {
+        case done
+        case pending
+        case na
     }
     
     enum TableViewCellType {
@@ -21,7 +42,25 @@ struct UpComingBookingEvent {
     }
     
     var creationDate: String = ""
-    var currentEvent: EventType = .flight
+    private var currentEvent : String = ""
+    var eventType: EventType {
+        get {
+            return EventType(rawValue: self.currentEvent) ?? EventType.none
+        }
+        
+        set {
+            self.currentEvent = newValue.rawValue
+        }
+    }
+    private var status: String = ""
+    var statusType: StatusType {
+        get {
+            return StatusType(rawValue: self.status) ?? StatusType.na
+        }
+        set {
+            self.status = newValue.rawValue
+        }
+    }
     var placeName: String = ""
     var travellersName: String = ""
     var queries: [String] = []
@@ -38,7 +77,8 @@ struct UpComingBookingEvent {
                 APIKeys.travellersName.rawValue: self.travellersName,
                 APIKeys.queries.rawValue: self.queries,
                 APIKeys.creationDate.rawValue: self.creationDate,
-                APIKeys.currentEvent.rawValue: self.currentEvent]
+                APIKeys.currentEvent.rawValue: self.currentEvent,
+                APIKeys.status.rawValue: self.status]
     }
     
     init(json: JSONDictionary) {
@@ -59,8 +99,12 @@ struct UpComingBookingEvent {
             self.creationDate = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.currentEvent.rawValue] {
-//            self.currentEvent = "\(obj)".removeNull == "flight"
+            self.currentEvent = "\(obj)".removeNull
         }
+        if let obj = json[APIKeys.status.rawValue] {
+            self.status = "\(obj)".removeNull
+        }
+        
     }
     
     func cellType() -> [TableViewCellType] {
@@ -77,6 +121,20 @@ struct UpComingBookingEvent {
         var allEventData: [UpComingBookingEvent] = []
         for jsonDict in jsonDictArray {
             allEventData.append(UpComingBookingEvent(json: jsonDict))
+        }
+        return allEventData
+    }
+    
+    static func getEventJsondict(jsonDictArray: [JSONDictionary]) -> JSONDictionary {
+        var allEventData: JSONDictionary = [:]
+        for jsonDict in jsonDictArray {
+            let obj = UpComingBookingEvent(json: jsonDict)
+            if var data = allEventData[obj.creationDate] as? [UpComingBookingEvent] {
+                data.append(obj)
+                allEventData[obj.creationDate] = data
+            } else {
+                allEventData[obj.creationDate] = [obj]
+            }
         }
         return allEventData
     }

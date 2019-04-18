@@ -766,8 +766,12 @@ extension EditProfileVC: EditProfileVMDelegate {
 // MARK: - EditProfileThreePartTableViewCellDelegate
 
 extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
-    func editProfileThreePartTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String, isValide: Bool) {
-        self.viewModel.mobile[indexPath.row].value = text
+
+    func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool) {
+        
+        let final = text.substring(to: AppConstants.kMaxPhoneLength-1)
+        textField.text = final
+        self.viewModel.mobile[indexPath.row].value = final
         self.viewModel.mobile[indexPath.row].isValide = isValide
     }
     

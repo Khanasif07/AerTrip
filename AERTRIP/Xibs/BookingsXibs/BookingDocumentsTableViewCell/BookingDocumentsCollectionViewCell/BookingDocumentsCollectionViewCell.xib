@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BookingDocumentsCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vk2-pY-Cpx">
+                        <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="va" translatesAutoresizingMaskIntoConstraints="NO" id="jU3-9v-rtM">
+                                <rect key="frame" x="19.5" y="10" width="70" height="91"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="dIU-uK-cvt"/>
+                                    <constraint firstAttribute="height" constant="91" id="rsX-5S-mir"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-hA-4ZW">
+                                <rect key="frame" x="2" y="107" width="105" height="43"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kjh" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kY-6J-AJC">
+                                        <rect key="frame" x="0.0" y="0.0" width="105" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="293.03 KB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="663-DD-XcJ">
+                                        <rect key="frame" x="0.0" y="22.5" width="105" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bgK-hA-4ZW" firstAttribute="leading" secondItem="Vk2-pY-Cpx" secondAttribute="leading" constant="2" id="Jd4-4z-zSP"/>
+                            <constraint firstItem="jU3-9v-rtM" firstAttribute="top" secondItem="Vk2-pY-Cpx" secondAttribute="top" constant="10" id="QKE-dc-0Ir"/>
+                            <constraint firstItem="bgK-hA-4ZW" firstAttribute="top" secondItem="jU3-9v-rtM" secondAttribute="bottom" constant="6" id="Yah-Dk-MBx"/>
+                            <constraint firstAttribute="trailing" secondItem="bgK-hA-4ZW" secondAttribute="trailing" constant="2" id="auw-gy-Ief"/>
+                            <constraint firstItem="jU3-9v-rtM" firstAttribute="centerX" secondItem="Vk2-pY-Cpx" secondAttribute="centerX" id="oPn-2h-SFD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Vk2-pY-Cpx" secondAttribute="trailing" id="R4w-zs-LeY"/>
+                <constraint firstItem="Vk2-pY-Cpx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cRT-rS-3Ji"/>
+                <constraint firstItem="Vk2-pY-Cpx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qaQ-FS-Rfk"/>
+                <constraint firstAttribute="bottom" secondItem="Vk2-pY-Cpx" secondAttribute="bottom" id="xk6-9h-OHw"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="containerView" destination="Vk2-pY-Cpx" id="vDZ-tD-cZe"/>
+                <outlet property="documentsImageView" destination="jU3-9v-rtM" id="y34-6W-L7d"/>
+                <outlet property="documentsSizeLabel" destination="663-DD-XcJ" id="bPx-46-6TL"/>
+                <outlet property="nameLabel" destination="3kY-6J-AJC" id="9rC-Pz-AN9"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="va" width="100" height="100"/>
+    </resources>
+</document>

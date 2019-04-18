@@ -108,7 +108,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 14.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0//y of textview 46.5 + bottom space 14.0 + 7.0
             }
         }
         return UITableView.automaticDimension

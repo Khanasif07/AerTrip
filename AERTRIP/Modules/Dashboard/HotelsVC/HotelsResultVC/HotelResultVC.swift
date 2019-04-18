@@ -44,6 +44,7 @@ class HotelResultVC: BaseVC {
 
     
     
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
@@ -199,6 +200,11 @@ class HotelResultVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     
+    var indexPathForUpdateFav: IndexPath?
+    
+    //used for making collection view centerlized
+    var indexOfCellBeforeDragging = 0
+    
     // MARK: - ViewLifeCycle
     
     // MARK: -
@@ -236,6 +242,8 @@ class HotelResultVC: BaseVC {
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
+        
+        collectionViewLayout.minimumLineSpacing = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -248,6 +256,8 @@ class HotelResultVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        self.configureCollectionViewLayoutItemSize()
     }
     
     override func dataChanged(_ note: Notification) {
@@ -317,9 +327,6 @@ class HotelResultVC: BaseVC {
     }
     
     override func setupTexts() {
-        let title = self.viewModel.hotelSearchRequest?.requestParameters.destName.components(separatedBy: ",")
-        self.titleLabel.text = title?.first ?? ""
-//        self.titleLabel.text = self.viewModel.hotelSearchRequest?.requestParameters.city
         self.searchBar.placeholder = LocalizedString.SearchHotelsOrLandmark.localized
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
         self.setupNavigationTitleLabelText()
@@ -345,11 +352,11 @@ class HotelResultVC: BaseVC {
         self.shimmerView.isHidden = isHidden
         self.tableViewVertical.isHidden = !isHidden
         self.collectionView.isHidden = !isHidden
-        self.switchView.isHidden = true
         if isHidden {
             self.view.sendSubviewToBack(self.shimmerView)
         }
         else {
+            self.manageSwitchContainer(isHidden: true)
             self.view.bringSubviewToFront(self.shimmerView)
         }
     }

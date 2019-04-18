@@ -33,7 +33,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-kr-yMO" customClass="ISPageControl" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="167.5" y="164" width="40" height="13"/>
+                        <rect key="frame" x="167.5" y="188" width="40" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="Fsq-OC-MaD"/>
@@ -47,7 +47,7 @@
                     <constraint firstAttribute="trailing" secondItem="KjR-TN-84W" secondAttribute="trailing" id="AVR-c2-ozm"/>
                     <constraint firstAttribute="bottom" secondItem="KjR-TN-84W" secondAttribute="bottom" id="BcV-9H-t3R"/>
                     <constraint firstItem="KjR-TN-84W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DAq-rq-LsT"/>
-                    <constraint firstAttribute="bottom" secondItem="iOg-kr-yMO" secondAttribute="bottom" constant="34" id="UOl-mZ-EHG"/>
+                    <constraint firstAttribute="bottom" secondItem="iOg-kr-yMO" secondAttribute="bottom" constant="10" id="UOl-mZ-EHG"/>
                     <constraint firstItem="KjR-TN-84W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="myi-di-EhI"/>
                 </constraints>
             </tableViewCellContentView>

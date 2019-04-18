@@ -3340,6 +3340,7 @@ been sent</string>
                         <outlet property="cancelButton" destination="yZE-ic-PI4" id="hkf-DP-zJq"/>
                         <outlet property="collectionView" destination="oLY-cZ-RG2" id="5Cn-uS-fQq"/>
                         <outlet property="collectionViewHeightConstraint" destination="rUd-SU-sdm" id="ANc-kc-mcR"/>
+                        <outlet property="collectionViewLayout" destination="TS7-Ln-F1l" id="R3i-p2-9KP"/>
                         <outlet property="currentLocationButton" destination="qCE-3h-xC4" id="dfk-nh-1jt"/>
                         <outlet property="descriptionLabel" destination="f3A-mR-AwX" id="07J-4u-chM"/>
                         <outlet property="dividerView" destination="7Tu-mg-zuM" id="6zD-dB-uoD"/>
