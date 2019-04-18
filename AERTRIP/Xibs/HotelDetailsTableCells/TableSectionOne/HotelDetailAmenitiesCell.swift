@@ -36,6 +36,8 @@ class HotelDetailAmenitiesCell: UITableViewCell {
             self.dividerView.backgroundColor = AppColors.divider.color
         }
     }
+    @IBOutlet weak var dividerViewLeadingCons: NSLayoutConstraint!
+    @IBOutlet weak var dividerViewTrailingCons: NSLayoutConstraint!
     
     
     //Mark:- LifeCycle

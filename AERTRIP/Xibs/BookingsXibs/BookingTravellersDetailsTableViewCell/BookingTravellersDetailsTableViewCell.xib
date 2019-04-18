@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BookingTravellersDetailsTableViewCell" id="KGk-i7-Jjw" customClass="BookingTravellersDetailsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2C-4L-r9v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travellers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySf-5Y-gDM">
+                                <rect key="frame" x="16" y="8" width="343" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ayg-Y1-nWW">
+                                <rect key="frame" x="16" y="38" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ayg-Y1-nWW" secondAttribute="height" multiplier="1:1" id="fHD-6I-hom"/>
+                                    <constraint firstAttribute="height" constant="30" id="fLx-jJ-tmv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mrs. Julian Delgado" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTY-8k-8zj">
+                                <rect key="frame" x="56" y="42.5" width="303" height="21"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcn-7O-9h5" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="84" width="343" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="qDG-fh-gVC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ySf-5Y-gDM" secondAttribute="trailing" constant="16" id="0JL-48-i9R"/>
+                            <constraint firstItem="qcn-7O-9h5" firstAttribute="leading" secondItem="ySf-5Y-gDM" secondAttribute="leading" id="8O1-fv-mSm"/>
+                            <constraint firstItem="ySf-5Y-gDM" firstAttribute="top" secondItem="f2C-4L-r9v" secondAttribute="top" constant="8" id="9eu-JX-M1W"/>
+                            <constraint firstItem="ySf-5Y-gDM" firstAttribute="leading" secondItem="f2C-4L-r9v" secondAttribute="leading" constant="16" id="A5D-ea-re0"/>
+                            <constraint firstItem="ayg-Y1-nWW" firstAttribute="leading" secondItem="ySf-5Y-gDM" secondAttribute="leading" id="C5q-Ye-Lgx"/>
+                            <constraint firstAttribute="bottom" secondItem="qcn-7O-9h5" secondAttribute="bottom" id="QZf-Jz-7pB"/>
+                            <constraint firstItem="qTY-8k-8zj" firstAttribute="leading" secondItem="ayg-Y1-nWW" secondAttribute="trailing" constant="10" id="TjV-nP-gId"/>
+                            <constraint firstItem="qTY-8k-8zj" firstAttribute="centerY" secondItem="ayg-Y1-nWW" secondAttribute="centerY" id="Toc-v7-K62"/>
+                            <constraint firstItem="ayg-Y1-nWW" firstAttribute="top" secondItem="ySf-5Y-gDM" secondAttribute="bottom" constant="12" id="bme-L2-0ZV"/>
+                            <constraint firstItem="qcn-7O-9h5" firstAttribute="top" secondItem="ayg-Y1-nWW" secondAttribute="bottom" constant="16" id="d5P-wR-S9r"/>
+                            <constraint firstItem="qcn-7O-9h5" firstAttribute="trailing" secondItem="ySf-5Y-gDM" secondAttribute="trailing" id="dg3-7R-NGK"/>
+                            <constraint firstItem="qTY-8k-8zj" firstAttribute="trailing" secondItem="ySf-5Y-gDM" secondAttribute="trailing" id="xba-CU-96W"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="f2C-4L-r9v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GuO-KN-6F7"/>
+                    <constraint firstAttribute="trailing" secondItem="f2C-4L-r9v" secondAttribute="trailing" id="IL4-rR-qJd"/>
+                    <constraint firstAttribute="bottom" secondItem="f2C-4L-r9v" secondAttribute="bottom" id="c9F-G5-BOi"/>
+                    <constraint firstItem="f2C-4L-r9v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="d6n-uJ-Rfz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="f2C-4L-r9v" id="P2j-Pw-0wR"/>
+                <outlet property="dividerView" destination="qcn-7O-9h5" id="QWv-Ft-oxR"/>
+                <outlet property="travellerImageView" destination="ayg-Y1-nWW" id="IBR-n4-0B6"/>
+                <outlet property="travellerNameLabel" destination="qTY-8k-8zj" id="Qz4-Oa-qeE"/>
+                <outlet property="travellersLabel" destination="ySf-5Y-gDM" id="UFT-pu-qJy"/>
+            </connections>
+            <point key="canvasLocation" x="112.31884057971016" y="35.825892857142854"/>
+        </tableViewCell>
+    </objects>
+</document>

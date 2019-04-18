@@ -322,10 +322,10 @@ class HotelDetailsVC: BaseVC {
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0, indexPath.row == 2 {
             if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps   "
+                let text = hotelData.address + "Maps    "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 21.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0//y of textview 46.5 + bottom space 14.0 + 7.0
             }
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
@@ -369,7 +369,9 @@ class HotelDetailsVC: BaseVC {
         if ((hotelData.amenities?.main) != nil) {
             cellsArray.append(.amenitiesCell)
         }
-        cellsArray.append(.tripAdvisorRatingCell)
+        if !hotelData.locid.isEmpty {
+            cellsArray.append(.tripAdvisorRatingCell)
+        }
         return cellsArray
     }
     

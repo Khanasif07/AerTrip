@@ -28,16 +28,17 @@ class OthersBookingTableViewCell: UITableViewCell {
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)
         self.travellersNameLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.themeWhite
+        self.clipsToBounds = true
     }
     
-    internal func configCell(plcaeName: String , travellersName: String , bookingTypeImg: UIImage , isOnlyOneCell: Bool ) {
+    internal func configCell(plcaeName: String , travellersName: String , bookingTypeImg: UIImage? = nil , isOnlyOneCell: Bool ) {
         self.plcaeNameLabel.text = plcaeName
         self.travellersNameLabel.text = travellersName
         self.bookingTypeImgView.image = bookingTypeImg
         if isOnlyOneCell {
-            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.5), opacity: 0.7, shadowRadius: 1.5)
+            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         } else {
-            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.5), opacity: 0.7, shadowRadius: 1.5)
+            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         }
         self.containerViewBottomConstraint.constant = isOnlyOneCell ? 5.0 : 0.0
     }
