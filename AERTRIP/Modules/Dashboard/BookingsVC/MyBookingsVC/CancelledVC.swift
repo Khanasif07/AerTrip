@@ -1,5 +1,5 @@
 //
-//  UpcomingBookingsVC.swift
+//  CancelledVC.swift
 //  AERTRIP
 //
 //  Created by Admin on 16/04/19.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class UpcomingBookingsVC: BaseVC {
-    
+class CancelledVC: BaseVC {
+
     //Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
@@ -19,17 +19,17 @@ class UpcomingBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
-    @IBOutlet weak var upcomingBookingsTableView: UITableView! {
+    @IBOutlet weak var cancelledBookingsTableView: UITableView! {
         didSet {
-            self.upcomingBookingsTableView.delegate = self
-            self.upcomingBookingsTableView.dataSource = self
-            self.upcomingBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
-            self.upcomingBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
-            self.upcomingBookingsTableView.rowHeight = UITableView.automaticDimension
-            self.upcomingBookingsTableView.estimatedSectionHeaderHeight = 41.0
-            self.upcomingBookingsTableView.sectionHeaderHeight = 41.0
-            self.upcomingBookingsTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.upcomingBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.cancelledBookingsTableView.delegate = self
+            self.cancelledBookingsTableView.dataSource = self
+            self.cancelledBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.cancelledBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
+            self.cancelledBookingsTableView.rowHeight = UITableView.automaticDimension
+            self.cancelledBookingsTableView.estimatedSectionHeaderHeight = 41.0
+            self.cancelledBookingsTableView.sectionHeaderHeight = 41.0
+            self.cancelledBookingsTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.cancelledBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
     }
     
@@ -44,7 +44,7 @@ class UpcomingBookingsVC: BaseVC {
         self.registerXibs()
         self.viewModel.getSectionData()
         printDebug(self.viewModel.upcomingBookingData)
-//        self.viewModel.upcomingBookingData.removeAll()
+        //        self.viewModel.upcomingBookingData.removeAll()
         self.emptyStateSetUp()
     }
     
@@ -62,17 +62,17 @@ class UpcomingBookingsVC: BaseVC {
     override func setupColors() {
         self.emptyStateTitleLabel.textColor = AppColors.themeBlack
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
-        self.upcomingBookingsTableView.backgroundColor = AppColors.themeWhite
+        self.cancelledBookingsTableView.backgroundColor = AppColors.themeWhite
     }
-
+    
     
     //Mark:- Functions
     //================
     private func registerXibs() {
-        self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
-        self.upcomingBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
-        self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
+        self.cancelledBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+        self.cancelledBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
+        self.cancelledBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }
     
     private func emptyStateSetUp() {
@@ -80,12 +80,12 @@ class UpcomingBookingsVC: BaseVC {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
-            self.upcomingBookingsTableView.isHidden = true
+            self.cancelledBookingsTableView.isHidden = true
         } else {
             self.emptyStateImageView.isHidden = true
             self.emptyStateTitleLabel.isHidden = true
             self.emptyStateSubTitleLabel.isHidden = true
-            self.upcomingBookingsTableView.isHidden = false
+            self.cancelledBookingsTableView.isHidden = false
         }
     }
     
@@ -95,7 +95,7 @@ class UpcomingBookingsVC: BaseVC {
 
 //Mark:- Extensions
 //=================
-extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
+extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.upcomingBookingData.count
@@ -129,7 +129,7 @@ extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
     }
 }
 
-extension UpcomingBookingsVC {
+extension CancelledVC {
     internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
         cell.configCell(plcaeName: eventData.placeName, travellersName: eventData.travellersName, bookingTypeImg: #imageLiteral(resourceName: "flight_blue_icon"), isOnlyOneCell: eventData.queries.isEmpty)

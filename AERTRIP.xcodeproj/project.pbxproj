@@ -560,6 +560,8 @@
 		84DD24732265BB300013F77E /* SpaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD24712265BB300013F77E /* SpaceTableViewCell.swift */; };
 		84DD24742265BB300013F77E /* SpaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD24722265BB300013F77E /* SpaceTableViewCell.xib */; };
 		84DD24772265EA8E0013F77E /* UpComingBookingEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD24762265EA8E0013F77E /* UpComingBookingEventModel.swift */; };
+		84DD24792266100C0013F77E /* CompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD24782266100C0013F77E /* CompletedVC.swift */; };
+		84DD247B2266102F0013F77E /* CancelledVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD247A2266102F0013F77E /* CancelledVC.swift */; };
 		84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */; };
 		84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */; };
 		84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */; };
@@ -1238,6 +1240,8 @@
 		84DD24712265BB300013F77E /* SpaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTableViewCell.swift; sourceTree = "<group>"; };
 		84DD24722265BB300013F77E /* SpaceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpaceTableViewCell.xib; sourceTree = "<group>"; };
 		84DD24762265EA8E0013F77E /* UpComingBookingEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingBookingEventModel.swift; sourceTree = "<group>"; };
+		84DD24782266100C0013F77E /* CompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedVC.swift; sourceTree = "<group>"; };
+		84DD247A2266102F0013F77E /* CancelledVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelledVC.swift; sourceTree = "<group>"; };
 		84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerOptions.swift; sourceTree = "<group>"; };
 		84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerTabView.swift; sourceTree = "<group>"; };
 		84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerController.swift; sourceTree = "<group>"; };
@@ -3252,6 +3256,8 @@
 				84F2DC992264730800212F05 /* TravelDateVC */,
 				84F2DC9E2264738100212F05 /* EventTypeVC */,
 				84F2DCA3226473CA00212F05 /* BookingDateVC */,
+				84DD24782266100C0013F77E /* CompletedVC.swift */,
+				84DD247A2266102F0013F77E /* CancelledVC.swift */,
 			);
 			path = MyBookingsVC;
 			sourceTree = "<group>";
@@ -4142,6 +4148,7 @@
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				8431405822291521006C672A /* HotelResultSectionHeader.swift in Sources */,
 				842BA835223BBB4300EED7B0 /* HCGuestListVC.swift in Sources */,
+				84DD24792266100C0013F77E /* CompletedVC.swift in Sources */,
 				847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
 				18EF5E6C221D261B00EFFA6E /* GMUClusterManager.m in Sources */,
@@ -4189,6 +4196,7 @@
 				18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
 				84D157F922660A5200393528 /* AccountLegderVM.swift in Sources */,
+				84DD247B2266102F0013F77E /* CancelledVC.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				84534EA52248B83E009FF536 /* HCPhoneTableViewCell.swift in Sources */,

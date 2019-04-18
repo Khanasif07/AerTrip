@@ -9,5 +9,7 @@
 import Foundation
 
 class MyBookingsVM {
-    
+    var upComingBookingsData: [String] = ["1"]
+    var completedBookingsData: [String] = ["1"]
+    var cancelledBookingData: [String] = []
 }
