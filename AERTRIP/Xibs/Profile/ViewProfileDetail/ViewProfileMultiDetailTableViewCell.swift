@@ -26,6 +26,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var frequentFlyerLabel: UILabel!
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var separatorLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentStackView: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +40,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         self.secondTitleLabel.text = LocalizedString.ExpiryDate.localized
         self.firstSubtTitleLabel.text = issueDate
         self.secondSubTitleLabel.text = expiryDate
+        self.contentStackView.spacing = 0.0
     }
     
     
@@ -49,18 +51,15 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         
             self.secondSubTitleLabel.text = flightNo
         
+        self.contentStackView.spacing = -20.0
         if indexPath.row == 2 {
             firstTitleLabel.isHidden = false
-            firstTitleLabel.text = "Frequent Flyer"
+            firstTitleLabel.text = LocalizedString.FrequentFlyer.localized
             firstTitleLabelHeightConstraint.constant = 20.0
         } else {
             firstTitleLabel.isHidden = true
             firstTitleLabelHeightConstraint.constant = 0
         }
         
-        
     }
-    
-    
-    
 }

@@ -104,10 +104,21 @@ class TopNavigationView: UIView {
     
     private func updateTitleFrames() {
         
-        let trail = (!self.firstRightButton.isHidden && !self.secondRightButton.isHidden) ? CGFloat(self.firstRightButton.width + self.secondRightButton.width) : CGFloat(self.leftButton.width)
+        var trail: CGFloat = 10.0, lead: CGFloat = 10.0
         
+        if !self.leftButton.isHidden {
+            lead = CGFloat(self.leftButton.width)
+        }
+        
+        if !self.firstRightButton.isHidden {
+            trail = self.firstRightButton.width
+        }
+        if !self.secondRightButton.isHidden {
+            trail += self.secondRightButton.width
+        }
+
         self.titleTrailingConstraint.constant = trail
-        self.titleLeadingConstraint.constant = trail
+        self.titleLeadingConstraint.constant = lead
     }
     
     //MARK:- Public
