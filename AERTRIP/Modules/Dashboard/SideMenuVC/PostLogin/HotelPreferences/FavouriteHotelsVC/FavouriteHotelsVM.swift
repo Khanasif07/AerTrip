@@ -70,6 +70,9 @@ class FavouriteHotelsVM {
                 self.delegate?.updateFavouriteSuccess()
             }
             else {
+                if errors.contains(ATErrorManager.LocalError.noInternet.rawValue) {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                }
                 self.delegate?.updateFavouriteFail()
             }
         }

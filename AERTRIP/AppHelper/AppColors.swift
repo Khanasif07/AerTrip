@@ -31,8 +31,6 @@ enum AppColors {
     /// RGB - 51, 153, 255
     static let themeBlue = #colorLiteral(red: 0.2, green: 0.6, blue: 1, alpha: 1)
     
-    static let themeGreenWithBlur = #colorLiteral(red: 0.09411764706, green: 0.6235294118, blue: 0.6509803922, alpha: 1)
-    
     /// RGB - 0, 160, 168
     static let shadowBlue = #colorLiteral(red: 0, green: 0.6274509804, blue: 0.6588235294, alpha: 1)
     
