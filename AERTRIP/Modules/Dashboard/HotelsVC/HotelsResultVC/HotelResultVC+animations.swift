@@ -80,7 +80,7 @@ extension HotelResultVC {
         // resize the map view for map/list view
         let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
         
-        self.mapView?.animate(toZoom: isHidden ? mapIntitalZoomLabel : (mapIntitalZoomLabel + 5.0))
+        self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel + 5.0))
         self.moveMapToCurrentCity()
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             // map resize animation

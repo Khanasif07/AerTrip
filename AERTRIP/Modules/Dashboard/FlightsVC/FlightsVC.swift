@@ -43,6 +43,7 @@ class FlightsVC: BaseVC {
     
     @IBAction func myButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentHCEmailItinerariesVC()
-//        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5cadccb0a5736f1abd07347d", bookingIds: ["10345"], cid: [], originLat: "", originLong: "")
+        AppFlowManager.default.showUpcomingVC(self)
+        
     }
 }

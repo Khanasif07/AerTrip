@@ -72,11 +72,21 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        printDebug("willDisplay")
-        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])?.first
-        let loc = CLLocationCoordinate2D(latitude: hData!.lat?.toDouble ?? 0.0, longitude: hData?.long?.toDouble ?? 0)
-        self.displayingHotelLocation = loc
-        updateMarker(coordinates: loc)
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        printDebug("willDisplay")
+//        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])?.first
+//        let loc = CLLocationCoordinate2D(latitude: hData!.lat?.toDouble ?? 0.0, longitude: hData?.long?.toDouble ?? 0)
+//        self.displayingHotelLocation = loc
+//        updateMarker(coordinates: loc)
+//    }
+    
+    
+    
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        printDebug("willDisplay")
+//        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])?.first
+//        let loc = CLLocationCoordinate2D(latitude: hData!.lat?.toDouble ?? 0.0, longitude: hData?.long?.toDouble ?? 0)
+//        self.displayingHotelLocation = loc
+//        updateMarker(coordinates: loc)
+//    }
 }

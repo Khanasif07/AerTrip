@@ -83,11 +83,11 @@ class HotelsResultVM: NSObject {
         if let allHotels = fromController.fetchedObjects {
             for hs in allHotels {
                 if let lat = hs.lat, let long = hs.long {
-                    if var allHotles = self.collectionViewList["\(lat)\(long)"] as? [HotelSearched] {
+                    if var allHotles = self.collectionViewList["\(lat),\(long)"] as? [HotelSearched] {
                         allHotles.append(hs)
-                        self.collectionViewList["\(lat)\(long)"] = allHotles
+                        self.collectionViewList["\(lat),\(long)"] = allHotles
                     } else {
-                        self.collectionViewList["\(lat)\(long)"] = [hs]
+                        self.collectionViewList["\(lat),\(long)"] = [hs]
                     }
                 }
             }

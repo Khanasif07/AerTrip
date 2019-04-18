@@ -501,7 +501,7 @@
 "CheckoutTitle" = "Checkout";
 "ApplyCoupon" = "Apply Coupon";
 "PayByAertripWallet" = "Pay by Aertrip Wallet";
-"Balance" = "Balance:";
+"Balance" = "Balance";
 "FareDetails" = "Fare Details";
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
@@ -581,3 +581,19 @@
 "WriteReviews" = "WriteReviews";
 "Photos" = "Photos";
 "ReadReviews" = "ReadReviews";
+
+//AccountDetails Screen
+"Accounts" = "Accounts";
+"AccountsLegder" = "Accounts Legder";
+"Voucher" = "Voucher";
+"Amount" = "Amount";
+
+//MARK:- BookingVC
+"MyBookings" = "My Bookings";
+"NoBookingsYet" = "No Bookings yet";
+"StartYourWanderlustJourneyWithUs" = "Start your ‘Wanderlust’ journey with us!";
+"TravelDate" = "Travel Date";
+"Event Type" = "Event Type";
+"BookingDate" = "Booking Date";
+"FromDate" = "From Date";
+"ToDate" = "To Date";
