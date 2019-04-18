@@ -64,6 +64,7 @@ class DashboardVC: BaseVC {
         aerinView.alpha = 1.0
         self.addOverlayView()
         
+        
         mainScrollView.delaysContentTouches = false
     }
 
@@ -80,6 +81,7 @@ class DashboardVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        registerBulkEnquiryNotification()
         if firstTime{
             firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
@@ -91,10 +93,29 @@ class DashboardVC: BaseVC {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.deRegisterBulkEnquiryNotification()
+    }
+    
     override func dataChanged(_ note: Notification) {
         printDebug("data changed notfication received")
 //        resetItems()
         updateProfileButton()
+    }
+    
+    private func registerBulkEnquiryNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(bulkEnguirySent), name: .bulkEnquirySent, object: nil)
+    }
+    
+    private func deRegisterBulkEnquiryNotification() {
+        NotificationCenter.default.removeObserver(self, name: .bulkEnquirySent, object: nil)
+    }
+    
+    @objc final func bulkEnguirySent() {
+        if selectedOption == .hotels {return}
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     //MARK:- IBAction

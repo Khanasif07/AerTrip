@@ -214,12 +214,13 @@
 "PreferencesSavedSuccessfully" = "Preferences saved successfully";
 "GroupNameCanNotEmpty" = "Group name can not be empty";
 
-//MARK:- Edit profile VC
+//MARK: - Edit profile VC
 //MARK:-
 
 "Group" = "Group";
 "SelectMealPreference" = "Select meal preference";
 "SelectSeatPreference" = "Select seat preference";
+"SaveWithSpace" = "Save ";
 
 //MARK:- Traveller VC
 //MARK:-
@@ -259,6 +260,11 @@
 "Mobile" = "Mobile";
 "Default" = "Default";
 "Email" = "Email";
+"EnterValidMobileNumber" = "Please enter Valid Mobile number";
+"AllMobileNumberShouldUnique" = "All mobile number should be unique";
+"EnterValidContactNumber" = "Please enter all valid contact numbers.";
+"EnterAirlineNumberForAllFrequentFlyer" = "Please enter the airline number for all frequent flyer.";
+"SelectAirlineForAllFrequentFlyer" = "Please select the airline for all frequent flyer.";
 
 //MARK:- Favourite Hotels
 //MARK:-
@@ -280,7 +286,7 @@
 "StarRating" = "Star Rating";
 "AllStars" = "All Stars";
 "WantMoreRooms" = "Want more rooms?";
-"RequestBulkBooking" = "Request Bulk Booking";
+"RequestBulkBooking" = " Request Bulk Booking";
 "LoginAndSubmit" = "Login & Submit";
 
 //MARK:- Room Guest Selection

@@ -164,6 +164,8 @@ extension String {
         return scalars.map { $0.map { String($0) }.reduce("", +) }
     }
     
+    
+    
     func hilightAsterisk(withFont font: UIFont, textColor: UIColor = .black, asteriskColor: UIColor = .red) -> NSMutableAttributedString {
         guard self.hasSuffix("*") else {
             return NSMutableAttributedString(string: self)
@@ -260,6 +262,20 @@ extension String {
     // Removing All WhiteSpaces
     var removeAllWhitespaces: String {
         return components(separatedBy: .whitespaces).joined()
+    }
+    
+    // Removing Spacing as Sentence
+    
+    var removeSpaceAsSentence : String {
+        let seprator = " "
+        let final = self
+            .components(separatedBy: " ").filter({$0.count > 0}).map{ $0.trimmingCharacters(in: .whitespacesAndNewlines)}.joined(separator: seprator)
+        if let last = self.last, "\(last)" == " "{
+            return final + seprator
+        }
+        else {
+            return final
+        }
     }
     
     var localized: String {

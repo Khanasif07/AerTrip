@@ -36,6 +36,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var deleteTravellerView: UIView!
     @IBOutlet var deleteButton: UIButton!
+    @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
     
@@ -109,13 +110,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.statusBarStyle = .default
+        statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.statusBarStyle = .lightContent
+        statusBarStyle = .lightContent
     }
     
     override func viewDidLayoutSubviews() {
@@ -144,20 +145,19 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - IB Actions
     
     @IBAction func deleteTravellButtonTapped(_ sender: Any) {
-          printDebug("delete from Traveller")
-          viewModel.callDeleteTravellerAPI()
+        printDebug("delete from Traveller")
+        viewModel.callDeleteTravellerAPI()
     }
-    
-    
     
     // MARK: - Helper Methods
     
     func doInitialSetUp() {
-        
-        self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Save.rawValue, selectedTitle: LocalizedString.Save.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        activityIndicatorView.color = AppColors.themeGreen
+        activityIndicatorView.isHidden = true
+        topNavView.delegate = self
+        topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SaveWithSpace.localized, selectedTitle: LocalizedString.SaveWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
 //        deleteTravellerView.isHidden = self.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
         deleteTravellerView.isHidden = true
@@ -191,8 +191,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
-        
-        //  addFooterView()
     }
     
     func registerXib() {
@@ -211,7 +209,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            self.checkAndOpenCamera(delegate: self)
+            checkAndOpenCamera(delegate: self)
         } else {
             let alert = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -220,13 +218,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func openGallery() {
-        self.checkAndOpenLibrary(delegate: self)
+        checkAndOpenLibrary(delegate: self)
     }
     
     func getPhotoFromFacebook() {
         let socialModel = SocialLoginVM()
         socialModel.fbLogin(vc: self) { [weak self] success in
-            guard let sSelf = self else {return}
+            guard let sSelf = self else { return }
             if success {
                 sSelf.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: sSelf.defaultPlaceHolder, showIndicator: true)
                 sSelf.viewModel.profilePicture = socialModel.userData.picture
@@ -251,21 +249,45 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         guard var travel = self.viewModel.travelData else {
             return
         }
-
-        if travel.contact.email.isEmpty {
+        
+        
+        if travel.id == UserInfo.loggedInUser?.paxId,let userEmail = UserInfo.loggedInUser?.email {
+            var email = Email()
+            email.label = LocalizedString.Default.localized
+            email.value = userEmail
+            viewModel.email.append(email)
+        } else if travel.contact.email.isEmpty {
             var email = Email()
             email.label = LocalizedString.Home.localized
             viewModel.email.append(email)
         }
-        viewModel.email.append(contentsOf: travel.contact.email)
         
-        if travel.contact.mobile.isEmpty {
+        for travel in travel.contact.email {
+            if travel.label.lowercased() != LocalizedString.Default.localized.lowercased() {
+                viewModel.email.append(travel)
+            }
+        }
+        
+        
+       
+        if travel.id == UserInfo.loggedInUser?.paxId,let userMobile = UserInfo.loggedInUser?.mobile {
+            var mobile = Mobile()
+            mobile.label = LocalizedString.Default.localized
+            mobile.value = userMobile
+            viewModel.mobile.append(mobile)
+        } else if travel.contact.mobile.isEmpty {
             var mobile = Mobile()
             mobile.label = LocalizedString.Home.localized
             mobile.isd = LocalizedString.IndiaIsdCode.localized
             viewModel.mobile.append(mobile)
         }
-        viewModel.mobile.append(contentsOf: travel.contact.mobile)
+        
+        for travel in travel.contact.mobile {
+            if travel.label.lowercased() != LocalizedString.Default.localized.lowercased() {
+                viewModel.mobile.append(travel)
+            }
+        }
+      
         
         if travel.contact.social.isEmpty {
             var social = Social()
@@ -306,7 +328,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let imageFromText: UIImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         viewModel.frequentFlyer = travel.frequestFlyer
-        self.ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
+        ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
         
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: imageFromText, showIndicator: false)
@@ -322,7 +344,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.value
         editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst()
-        if self.viewModel.travelData?.preferences != nil {
+        if viewModel.travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences.localized)
         }
         
@@ -335,8 +357,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.label = travel.label
         
         // hide select group view on EditProfileImageHeaderView
-        if viewModel.paxId == UserInfo.loggedInUser?.paxId  {
-              editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
+        if viewModel.paxId == UserInfo.loggedInUser?.paxId {
+            editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
         }
         tableView.reloadData()
     }
@@ -379,11 +401,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         viewModel.label = "Others"
         
-        self.ffExtraCount = 3
+        ffExtraCount = 3
         
         var emptyFF = FrequentFlyer(json: [:])
         emptyFF.airlineName = LocalizedString.SelectAirline.localized
-        self.viewModel.frequentFlyer.append(emptyFF)
+        viewModel.frequentFlyer.append(emptyFF)
         
         setUpProfilePhotoInitials()
         tableView.reloadData()
@@ -441,7 +463,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         dismissKeyboard()
         pickerView.reloadAllComponents()
         
-        self.closeDatePicker(completion: nil)
+        closeDatePicker(completion: nil)
         PKCountryPicker.default.closePicker()
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
@@ -456,12 +478,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func closePicker(completion: ((Bool) -> Void)?) {
-        
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.genericPickerView.frame = hiddenFrame
-        }) { (isDone) in
+        }) { isDone in
             self.genericPickerView.removeFromSuperview()
             self.pickerView.selectRow(0, inComponent: 0, animated: true)
             completion?(isDone)
@@ -469,7 +490,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func closeGenricAndDatePicker(completion: ((Bool) -> Void)?) {
-        
         let genricFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
         let dateFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
@@ -477,8 +497,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.genericPickerView.frame = genricFrame
             self.datePickerView.frame = dateFrame
-
-        }) { (isDone) in
+            
+        }) { isDone in
             self.genericPickerView.removeFromSuperview()
             self.datePickerView.removeFromSuperview()
             completion?(isDone)
@@ -488,7 +508,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func closeAllPicker(completion: ((Bool) -> Void)?) {
         dismissKeyboard()
         PKCountryPicker.default.closePicker()
-        self.closeGenricAndDatePicker(completion: nil)
+        closeGenricAndDatePicker(completion: nil)
     }
     
     @objc func cancelGenericPicker() {
@@ -579,13 +599,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             printDebug("date of birth")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.dob) ?? formatter.date(from: viewModel.doa),nil , maximumDate: formatter.date(from: viewModel.doa) ?? Date())
-            
+            showDatePicker(formatter.date(from: viewModel.dob) ?? formatter.date(from: viewModel.doa),nil , maximumDate: formatter.date(from: viewModel.doa) ?? Date())            
         case 1:
             printDebug("date of aniversary")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.doa),formatter.date(from: viewModel.dob), maximumDate: Date())
+            showDatePicker(formatter.date(from: viewModel.doa), formatter.date(from: viewModel.dob), maximumDate: Date())
         case 2:
             printDebug("show notes ")
             closeAllPicker(completion: nil)
@@ -604,8 +623,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 pickerType = .country
                 let countries = Array(viewModel.countries.values)
                 pickerData = countries
-
-                self.closeGenricAndDatePicker(completion: nil)
+                
+                closeGenricAndDatePicker(completion: nil)
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
                 PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
@@ -649,7 +668,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func showDatePicker(_ pickerDate : Date?, _ minimumDate: Date?, maximumDate: Date?) {
+    func showDatePicker(_ pickerDate: Date?, _ minimumDate: Date?, maximumDate: Date?) {
         // Formate Date
 //        var components = DateComponents()
 //        components.year = -100
@@ -718,7 +737,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func openDatePicker() {
         dismissKeyboard()
-        self.closePicker(completion: nil)
+        closePicker(completion: nil)
         PKCountryPicker.default.closePicker()
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
@@ -735,18 +754,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.datePickerView.frame = hiddenFrame
-        }) { (isDone) in
+        }) { isDone in
             self.datePickerView.removeFromSuperview()
             completion?(isDone)
         }
     }
     
-    func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60))
-        customView.backgroundColor = AppColors.themeGray04
-        
-        tableView.tableFooterView = customView
-    }
     
     func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
         let imageData = image.jpegData(compressionQuality: 0.2)
@@ -759,26 +772,21 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func setUpProfilePhotoInitials() {
         if viewModel.profilePicture.isEmpty {
-            
             var flText = ""
             if !viewModel.firstName.isEmpty, !viewModel.lastName.isEmpty {
                 flText = "\(viewModel.firstName.firstCharacter)\(viewModel.lastName.firstCharacter)"
-            }
-            else if !viewModel.firstName.isEmpty, viewModel.lastName.isEmpty {
+            } else if !viewModel.firstName.isEmpty, viewModel.lastName.isEmpty {
                 flText = "\(viewModel.firstName.firstCharacter)"
-            }
-            else if viewModel.firstName.isEmpty, !viewModel.lastName.isEmpty {
+            } else if viewModel.firstName.isEmpty, !viewModel.lastName.isEmpty {
                 flText = "\(viewModel.lastName.firstCharacter)"
             }
             
             if flText.isEmpty {
                 editProfileImageHeaderView.profileImageView.image = defaultPlaceHolder
             } else {
-                editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0))            }
+                editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
     }
-    
-    
 }
 
 extension EditProfileVC: TopNavigationViewDelegate {

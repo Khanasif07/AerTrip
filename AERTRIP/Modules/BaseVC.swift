@@ -124,10 +124,15 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(logoutDone), name: .logOut, object: nil)
     }
     
+   
+    
     private func deRegisterLogoutNotification() {
         NotificationCenter.default.removeObserver(self, name: .sessionExpired, object: nil)
         NotificationCenter.default.removeObserver(self, name: .logOut, object: nil)
+       
     }
+    
+   
     
     final func addTapGestureOnView(view:UIView) {
         

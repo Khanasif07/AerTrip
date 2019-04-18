@@ -51,6 +51,13 @@ extension AddNotesTableViewCell: UITextViewDelegate {
         }
     }
 
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == " "{
+            return false
+        }
+        return true
+    }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = LocalizedString.AddNotes.localized

@@ -108,12 +108,12 @@ enum AppNetworking {
                                   parameters : JSONDictionary = [:],
                                   multipartData : [(key:String, filePath:String, fileExtention:String, fileType:MultiPartFileType)]? = [],
                                   headers : HTTPHeaders = [:],
-                                  loader : Bool = true,
+                                  loader : Bool = false,
                                   success : @escaping Success,
                                   progress : @escaping Progress,
                                   failure : @escaping Failure) {
         
-        upload(URLString: endPoint.path, httpMethod: .post, parameters: parameters,multipartData: multipartData ,headers: headers, success: success, progress: progress, failure: failure )
+        upload(URLString: endPoint.path, httpMethod: .post, parameters: parameters,multipartData: multipartData ,headers: headers,loader:loader, success: success, progress: progress, failure: failure )
     }
     
     static func GET(endPoint : APIEndPoint,

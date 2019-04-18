@@ -344,7 +344,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 address.country = LocalizedString.SelectedCountrySymbol.localized
                 address.countryName = LocalizedString.selectedCountry.localized
                 self.viewModel.addresses.append(address)
-                tableView.reloadData()
+                tableView.reloadSection(section: indexPath.section, with: .none)
             }
             
         case LocalizedString.MoreInformation.localized:
@@ -431,14 +431,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func textFieldText(_ textfield: UITextField) {
+        let text = textfield.text ?? ""
         switch textfield {
         case editProfileImageHeaderView.firstNameTextField:
-            editProfileImageHeaderView.firstNameTextField.text = textfield.text
-            
-            self.viewModel.firstName = textfield.text ?? ""
+            editProfileImageHeaderView.firstNameTextField.text = text.removeSpaceAsSentence
+            self.viewModel.firstName = text.removeSpaceAsSentence
         case editProfileImageHeaderView.lastNameTextField:
-            editProfileImageHeaderView.lastNameTextField.text = textfield.text ?? ""
-            self.viewModel.lastName = textfield.text ?? ""
+            editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence
+            self.viewModel.lastName = text.removeSpaceAsSentence
         default:
             break
         }
@@ -533,14 +533,14 @@ extension EditProfileVC {
         switch textField {
         case self.editProfileImageHeaderView.firstNameTextField:
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""
-            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
+            if let textFieldString = textField.text?.removeSpaceAsSentence, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                viewModel.firstName = fullString
+                viewModel.firstName = fullString.removeSpaceAsSentence
             }
             
         case self.editProfileImageHeaderView.lastNameTextField:
-            self.editProfileImageHeaderView.lastNameTextField.text = textField.text ?? ""
-            viewModel.lastName = textField.text ?? ""
+            self.editProfileImageHeaderView.lastNameTextField.text = textField.text?.removeSpaceAsSentence ?? ""
+            viewModel.lastName = textField.text?.removeSpaceAsSentence ?? ""
             
         default:
             break
@@ -707,6 +707,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
 extension EditProfileVC: EditProfileVMDelegate {
     func willCallDeleteTravellerAPI() {
         //
+        self.startLoading()
     }
     
     func deleteTravellerAPISuccess() {
@@ -715,11 +716,12 @@ extension EditProfileVC: EditProfileVMDelegate {
                   AppFlowManager.default.popToViewController(viewController, animated: true)
             }
         }
-      
+      self.stopLoading()
     }
     
     func deleteTravellerAPIFailure() {
         //
+        self.stopLoading()
     }
     
     func getDefaultAirlineSuccess(_ data: [FlyerModel]) {
@@ -727,12 +729,13 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getSuccess() {
+        self.stopLoading()
         self.sendDataChangedNotification(data: ATNotification.profileChanged)
         self.topNavBarLeftButtonAction(UIButton())
     }
     
     func willApiCall() {
-        //
+        self.startLoading()
     }
     
     func getPreferenceListSuccess(_ seatPreferences: [String: String], _ mealPreferences: [String: String]) {
@@ -755,6 +758,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
+         self.stopLoading()
          AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

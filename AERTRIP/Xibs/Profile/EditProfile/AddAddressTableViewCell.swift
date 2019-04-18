@@ -115,13 +115,20 @@ class AddAddressTableViewCell: UITableViewCell {
 extension AddAddressTableViewCell:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
+        
         if let idxPath = indexPath {
             if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
                 let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
                 delegate?.addAddressTextField(textField, idxPath, fullString)
             }
         }
-        return true
+        switch textField {
+        case self.postalCodeTextField:
+            let set = NSCharacterSet.alphanumerics.inverted
+            return string.rangeOfCharacter(from: set) == nil
+        default:
+            return true
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

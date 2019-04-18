@@ -38,8 +38,18 @@ class DestinationSearchedTableCell: UITableViewCell {
     }
     
     func configureData(data: SearchedDestination, forText: String) {
-        self.titleLabel.attributedText = self.getAttributedBoldText(text: data.dest_name, boldText: forText, fullTextColor: AppColors.themeBlack)
-        self.addressLabel.attributedText = self.getAttributedBoldText(text: data.value, boldText: forText, fullTextColor: AppColors.themeGray40)
+        if !data.city.isEmpty {
+            self.titleLabel.attributedText =  self.getAttributedBoldText(text: data.city, boldText: forText, fullTextColor: AppColors.themeBlack)
+        } else {
+            let newValue = data.value.components(separatedBy: ",")
+            printDebug(newValue.first)
+            self.titleLabel.text = newValue.first ?? ""
+        }
+        //Logic for after string
+        var splittedStringArray = data.value.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        self.addressLabel.attributedText = self.getAttributedBoldText(text: stateName, boldText: forText, fullTextColor: AppColors.themeBlack)
     }
     
     private func getAttributedBoldText(text: String, boldText: String, fullTextColor: UIColor) -> NSMutableAttributedString {

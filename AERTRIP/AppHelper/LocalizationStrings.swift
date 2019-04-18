@@ -215,6 +215,7 @@ enum LocalizedString: String {
     // MARK: - Edit Profile VC
     
     case Save = "Save"
+    case SaveWithSpace = "SaveWithSpace"
     case Move = "Move"
     case FirstName = "FirstName"
     case LastName = "LastName"
@@ -257,6 +258,12 @@ enum LocalizedString: String {
     case Ms = "Ms"
     case Miss = "Miss"
     case Mast = "Mast"
+    case EnterValidMobileNumber = "EnterValidMobileNumber"
+    case AllMobileNumberShouldUnique = "AllMobileNumberShouldUnique"
+    case EnterValidContactNumber = "EnterValidContactNumber"
+    case EnterAirlineNumberForAllFrequentFlyer = "EnterAirlineNumberForAllFrequentFlyer"
+    case SelectAirlineForAllFrequentFlyer = "SelectAirlineForAllFrequentFlyer"
+    
     
     //MARK:- Hotel Search
     //MARK:-
@@ -327,7 +334,7 @@ enum LocalizedString: String {
     case AddRoom = "AddRoom"
     case StarRating = "StarRating"
     case AllStars = "AllStars"
-    case WantMoreRooms = "Want More Rooms?"
+    case WantMoreRooms = "WantMoreRooms"
     case RequestBulkBooking = "RequestBulkBooking"
     case LoginAndSubmit = "Login & Submit"
     

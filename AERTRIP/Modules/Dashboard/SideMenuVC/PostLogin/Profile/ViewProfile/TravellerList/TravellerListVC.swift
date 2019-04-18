@@ -38,6 +38,7 @@ class TravellerListVC: BaseVC {
     var container: NSPersistentContainer!
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var predicateStr: String = ""
+    var didTapCrossKey: Bool = false
     
     // MARK: - View Life cycle
     
@@ -245,6 +246,25 @@ class TravellerListVC: BaseVC {
         return attString
     }
     
+    
+    // create label Predicate
+    
+    func labelPredicate() -> NSPredicate? {
+        var labelPredicate: NSPredicate?
+        var labelPredicates = [AnyHashable]()
+        if let generalPref = UserInfo.loggedInUser?.generalPref {
+            for group in generalPref.labels {
+                labelPredicates.append(NSPredicate(format: "label CONTAINS[c] '\(group)'"))
+            }
+        }
+        if labelPredicates.count > 0 {
+            if let labelPredicates = labelPredicates as? [NSPredicate] {
+                labelPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
+            }
+        }
+        return labelPredicate
+    }
+    
     func loadSavedData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
@@ -267,8 +287,11 @@ class TravellerListVC: BaseVC {
         }
         fetchedResultsController.delegate = self
         if predicateStr.isEmpty {
-            fetchedResultsController.fetchRequest.predicate = nil
-
+            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+               fetchedResultsController.fetchRequest.predicate = labelPredicate()
+            } else {
+                 fetchedResultsController.fetchRequest.predicate = nil
+            }
         } else {
             fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
         }
@@ -537,9 +560,29 @@ extension TravellerListVC: UISearchBarDelegate {
         } else {
             searchTraveller(forText: searchText)
         }
+        if !didTapCrossKey && searchText.isEmpty {
+             self.searchBar.isMicEnabled = true
+        }
+        
+        didTapCrossKey = false
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {}
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        searchBar.micButton.isHidden = false
+//        return true
+//    }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        didTapCrossKey = text.isEmpty
+        return true
+    }
+    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate Methods

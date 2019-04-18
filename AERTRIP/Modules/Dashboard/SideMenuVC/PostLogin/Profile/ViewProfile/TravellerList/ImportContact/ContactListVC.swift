@@ -138,11 +138,19 @@ class ContactListVC: BaseVC {
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all
-                self.viewModel.selectedPhoneContacts.removeAll()
                 self.viewModel.removeAll(for: .contacts)
+                self.viewModel.selectedPhoneContacts.removeAll()
             }
             else {
                 //add all
+                //remove all preselected items
+                for contact in self.viewModel.selectedPhoneContacts {
+                    if let index = self.viewModel.phoneContacts.firstIndex(where: { (cntc) -> Bool in
+                        cntc.id == contact.id
+                    }) {
+                        self.tableView(self.tableView, didSelectRowAt: IndexPath(row: index, section: 0))
+                    }
+                }
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                 self.viewModel.addAll(for: .contacts)
             }

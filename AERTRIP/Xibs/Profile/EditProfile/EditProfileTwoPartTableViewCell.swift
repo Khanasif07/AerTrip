@@ -103,14 +103,19 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
 extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
-        if let idxPath = indexPath {
-            if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
-                let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
-                editProfilTwoPartTableViewCelldelegate?.textFieldText(idxPath, fullString)
+       
+            if let idxPath = indexPath {
+                if let textFieldString = textField.text, let swtRange = Range(range, in: textFieldString) {
+                    if  string == " " {
+                        return false
+                    }
+                    let fullString = textFieldString.replacingCharacters(in: swtRange, with: string)
+                    editProfilTwoPartTableViewCelldelegate?.textFieldText(idxPath, fullString)
+                }
             }
-        }
         return true
     }
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

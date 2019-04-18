@@ -143,7 +143,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
-        self.mainContainerHeight = self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom
+        self.mainContainerHeight = (self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
 //            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
@@ -260,7 +260,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
-
+        
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
             self.viewModel.selectedAdults = sender.tag
@@ -274,16 +274,26 @@ class RoomGuestSelectionVC: BaseVC {
             self.viewModel.selectedAdults = tag
             self.updateSelection()
         }
+        self.checkForMaximumGuest()
+        
+        
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
-
         var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection()
+        self.checkForMaximumGuest()
+       
+    }
+    
+    func checkForMaximumGuest() {
+        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
+            AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
+        }
     }
 }
 
