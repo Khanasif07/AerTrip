@@ -26,7 +26,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Network/APICaller/APICaller+Hotels.swift"
-                  timestampString = "577266701.42523"
+                  timestampString = "577267494.548767"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
@@ -41,7 +41,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Network/APICaller/APICaller+Hotels.swift"
-                  timestampString = "577266701.429716"
+                  timestampString = "577267494.553455"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -64,22 +64,6 @@
             startingLineNumber = "121"
             endingLineNumber = "121"
             landmarkName = "callUpdateFavouriteAPI(params:loader:completionBlock:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
-            timestampString = "577267018.1628619"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "updateStarButtonState(forStar:isSettingFirstTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

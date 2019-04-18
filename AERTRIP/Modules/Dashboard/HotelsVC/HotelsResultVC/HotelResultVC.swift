@@ -342,11 +342,11 @@ class HotelResultVC: BaseVC {
         self.shimmerView.isHidden = isHidden
         self.tableViewVertical.isHidden = !isHidden
         self.collectionView.isHidden = !isHidden
-        self.switchView.isHidden = true
         if isHidden {
             self.view.sendSubviewToBack(self.shimmerView)
         }
         else {
+            self.manageSwitchContainer(isHidden: true)
             self.view.bringSubviewToFront(self.shimmerView)
         }
     }
