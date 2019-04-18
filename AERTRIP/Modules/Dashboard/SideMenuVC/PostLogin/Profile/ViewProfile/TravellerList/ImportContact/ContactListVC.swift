@@ -142,7 +142,6 @@ class ContactListVC: BaseVC {
                 self.viewModel.selectedPhoneContacts.removeAll()
             }
             else {
-                //add all
                 //remove all preselected items
                 for contact in self.viewModel.selectedPhoneContacts {
                     if let index = self.viewModel.phoneContacts.firstIndex(where: { (cntc) -> Bool in
@@ -152,30 +151,49 @@ class ContactListVC: BaseVC {
                     }
                 }
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+                 //add all
                 self.viewModel.addAll(for: .contacts)
             }
         }
         else if self.currentlyUsingFor == .facebook {
             if sender.isSelected {
                 //remove all
-                self.viewModel.selectedFacebookContacts.removeAll()
                 self.viewModel.removeAll(for: .facebook)
+                self.viewModel.selectedFacebookContacts.removeAll()
+               
             }
             else {
-                //add all
+                // remove all preselected facebook Items
+                for contact in self.viewModel.selectedFacebookContacts {
+                    if let index = self.viewModel.facebookContacts.firstIndex(where: { (cntc) -> Bool in
+                        cntc.id == contact.id
+                    }) {
+                        self.tableView(self.tableView, didSelectRowAt: IndexPath(row: index, section: 0))
+                    }
+                }
                 self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+                 //add all
                 self.viewModel.addAll(for: .facebook)
             }
         }
         else if self.currentlyUsingFor == .google {
             if sender.isSelected {
                 //remove all
-                self.viewModel.selectedGoogleContacts.removeAll()
                 self.viewModel.removeAll(for: .google)
+                self.viewModel.selectedGoogleContacts.removeAll()
+              
             }
             else {
-                //add all
+                // remove all preselected google Contacts Items
+                for contact in self.viewModel.selectedGoogleContacts {
+                    if let index = self.viewModel.googleContacts.firstIndex(where: { (cntc) -> Bool in
+                        cntc.id == contact.id
+                    }) {
+                        self.tableView(self.tableView, didSelectRowAt: IndexPath(row: index, section: 0))
+                    }
+                }
                 self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
+                //add all
                 self.viewModel.addAll(for: .google)
             }
         }
