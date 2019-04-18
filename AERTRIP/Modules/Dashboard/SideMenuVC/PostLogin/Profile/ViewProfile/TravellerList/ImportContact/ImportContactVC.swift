@@ -349,9 +349,7 @@ extension ImportContactVC: ImportContactVMDelegate {
             
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
-            
-        default:
-            item = 0
+    
         }
         
         self.selectedContactsCollectionView.performBatchUpdates({
