@@ -355,7 +355,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         }
         
         self.selectedContactsCollectionView.performBatchUpdates({
-            for idx in 1...item {
+            for idx in 0..<item {
                 self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
                 self.itemsCounts[usingFor.rawValue] -= 1
             }
