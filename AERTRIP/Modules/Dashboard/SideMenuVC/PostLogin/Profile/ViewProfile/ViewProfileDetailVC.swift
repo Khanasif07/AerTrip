@@ -120,7 +120,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         tableView.parallaxHeader.height = parallexHeaderHeight
-        tableView.parallaxHeader.mode = MXParallaxHeaderMode.bottom
+        tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         tableView.parallaxHeader.delegate = self
         
         
