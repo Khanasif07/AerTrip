@@ -50,7 +50,7 @@ class FavouriteHotelsListVM {
             if !isSuccess {
                 if let _ = UserInfo.loggedInUserId {
                     //revert back in API not success fav/unfav locally
-                    if hIndex >= 0 {
+                    if hIndex >= 0, hIndex < (self.forCity?.holetList.count ?? 0)  {
                         var updated = forHotel
                         updated.isFavourite = !updated.isFavourite
                         self.forCity?.holetList[hIndex] = updated

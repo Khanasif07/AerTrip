@@ -257,6 +257,10 @@ class HotelResultVC: BaseVC {
             _ = CoreDataManager.shared.deleteAllData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
+        else if let noti = note.object as? HotelDetailsVC {
+            //fav updated from hotel details
+            self.hotelSearchTableView.reloadData()
+        }
     }
     
     // MARK: - Methods
