@@ -167,7 +167,7 @@ extension UIView {
         }, completion: { (_: Bool) -> Void in
             self.alpha = 1.0
             let transition = CATransition()
-            transition.duration = 0.5
+            transition.duration = AppConstants.kAnimationDuration
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             self.layer.add(transition, forKey: nil)
@@ -182,7 +182,7 @@ extension UIView {
         }, completion: { (_: Bool) -> Void in
             self.alpha = 0.0
             let transition = CATransition()
-            transition.duration = 0.5
+            transition.duration = AppConstants.kAnimationDuration
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             self.layer.add(transition, forKey: nil)

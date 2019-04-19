@@ -206,6 +206,7 @@ class HotelsSearchVC: BaseVC {
     private func configureCheckInOutView() {
         self.checkInOutView = CheckInOutView(frame: self.datePickerView.bounds)
         if let view = self.checkInOutView {
+            view.delegate = self
             self.datePickerView.addSubview(view)
         }
     }
@@ -503,6 +504,7 @@ class HotelsSearchVC: BaseVC {
     //MARK:- Public
     //MARK:- IBAction
     //===============
+    
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
@@ -752,5 +754,17 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         printDebug("searching again for \(recentSearch.dest_name)")
         //open result screen for the recent
         AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
+    }
+}
+
+
+extension HotelsSearchVC: CheckInOutViewDelegate {
+    
+    func selectCheckInDate(_ sender: UIButton) {
+        AppFlowManager.default.moveCalenderVC()
+    }
+    
+    func selectCheckOutDate(_ sender: UIButton) {
+        AppFlowManager.default.moveCalenderVC()
     }
 }

@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol CheckInOutViewDelegate: class {
+    func selectCheckInDate(_ sender: UIButton)
+    func selectCheckOutDate(_ sender: UIButton)
+}
+
 class CheckInOutView: UIView {
+    
+    //Mark:- Variables
+    //================
+    weak var delegate: CheckInOutViewDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -19,6 +28,8 @@ class CheckInOutView: UIView {
     @IBOutlet weak var checkOutLabel: UILabel!
     @IBOutlet weak var checkOutDateLabel: UILabel!
     @IBOutlet weak var checkOutDay: UILabel!
+    @IBOutlet weak var checkInButton: UIButton!
+    @IBOutlet weak var checkOutButton: UIButton!
     
     //Mark:- LifeCycle
     //================
@@ -84,5 +95,13 @@ class CheckInOutView: UIView {
         self.checkInDay.text = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
         
         self.checkOutDay.text = checkOutDayStr
+    }
+    
+    @IBAction func checkInDateButtonAction(_ sender: UIButton) {
+        self.delegate?.selectCheckInDate(sender)
+    }
+    
+    @IBAction func checkOutDateButtonAction(_ sender: UIButton) {
+        self.delegate?.selectCheckOutDate(sender)
     }
 }

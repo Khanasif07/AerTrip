@@ -12,9 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckInOutView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
+                <outlet property="checkInButton" destination="1E5-XZ-FeR" id="rYD-mP-mdt"/>
                 <outlet property="checkInDateLabel" destination="cnt-2q-YBA" id="zv4-p5-Bmd"/>
                 <outlet property="checkInDay" destination="AvT-bK-czU" id="uU2-42-MbY"/>
                 <outlet property="checkInLabel" destination="QBt-L6-jVN" id="yHj-vx-m5U"/>
+                <outlet property="checkOutButton" destination="n8X-oV-72R" id="ENG-lH-uZX"/>
                 <outlet property="checkOutDateLabel" destination="AYY-yl-qEv" id="uG1-LP-Utu"/>
                 <outlet property="checkOutDay" destination="EMz-CP-Y4f" id="9BA-Oi-vEp"/>
                 <outlet property="checkOutLabel" destination="Rjb-L0-GXv" id="bjk-yK-1vS"/>
@@ -72,6 +74,9 @@
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E5-XZ-FeR">
                                     <rect key="frame" x="0.0" y="0.0" width="179" height="104"/>
+                                    <connections>
+                                        <action selector="checkInDateButtonAction:" destination="-1" eventType="touchUpInside" id="W13-Ty-KQ0"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,6 +126,9 @@
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-oV-72R">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="104"/>
+                                    <connections>
+                                        <action selector="checkOutDateButtonAction:" destination="-1" eventType="touchUpInside" id="jke-G3-vEh"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

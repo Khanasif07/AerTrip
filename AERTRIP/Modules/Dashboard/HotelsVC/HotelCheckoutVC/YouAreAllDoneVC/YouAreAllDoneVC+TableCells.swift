@@ -160,11 +160,12 @@ extension YouAreAllDoneVC {
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
-        if !self.viewModel.whatNextValues.isEmpty {
-            cell.configCell(whatNextString: self.viewModel.whatNextValues)
-        } else {
-            cell.whatNextStackView.isHidden = true
-        }
+//        if !self.viewModel.whatNextValues.isEmpty {
+//            cell.configCell(whatNextString: self.viewModel.whatNextValues)
+//        } else {
+//            cell.whatNextStackView.isHidden = true
+//        }
+        cell.whatNextStackView.isHidden = false
         return cell
     }
 }

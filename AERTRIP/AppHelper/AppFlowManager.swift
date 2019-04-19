@@ -577,6 +577,17 @@ extension AppFlowManager {
         let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    func moveCalenderVC(){
+//        let ob = AertripCalendarViewController.instantiate(fromAppStoryboard: .AertripCalendar)
+//        let calendarVM = CalendarVM()
+//        calendarVM.isHotelCalendar = false
+//        calendarVM.isReturn = false
+//        calendarVM.isMultiCity = false
+//        calendarVM.date1 = Date()
+//        ob.viewModel = calendarVM
+//        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
 }
 
 //MARK:- Select Trip Flow Methods

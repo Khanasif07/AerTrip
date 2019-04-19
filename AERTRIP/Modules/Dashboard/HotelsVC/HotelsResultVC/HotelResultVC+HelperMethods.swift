@@ -470,7 +470,7 @@ extension HotelResultVC {
 extension HotelResultVC {
     
     func calculateSectionInset() -> CGFloat {
-        return CGFloat(16.0)
+        return CGFloat(12.0)
     }
     
     func configureCollectionViewLayoutItemSize() {
@@ -478,7 +478,7 @@ extension HotelResultVC {
         let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
-        collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - (inset * 2), height: 200.0)
+        collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - (inset * 2), height: 192.0)
     }
     
     func indexOfMajorCell() -> Int {
