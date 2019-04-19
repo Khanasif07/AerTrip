@@ -358,7 +358,7 @@ extension ImportContactVC: ImportContactVMDelegate {
                 self.itemsCounts[usingFor.rawValue] -= 1
             }
         }, completion: { (isDone) in
-            self.itemsCounts = [0, 0, 0]
+            self.itemsCounts[usingFor.rawValue] = 0
             self.selectedContactsCollectionView.reloadData()
             self.selectionDidChanged()
         })

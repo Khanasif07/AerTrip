@@ -497,6 +497,8 @@ extension HotelResultVC {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
+        guard scrollView === self.collectionView else {return}
+        
         let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
         
         // Stop scrollView sliding:

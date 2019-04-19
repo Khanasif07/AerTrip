@@ -14,7 +14,7 @@ protocol SelectedContactCollectionCellDelegate: class {
 
 class SelectedContactCollectionCell: UICollectionViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var crossButton: UIButton!
+    @IBOutlet weak var crossButton: ATBlurButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
 
@@ -52,10 +52,9 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     }
     
     private func initialSetup() {
-        self.crossButton.layer.cornerRadius = self.crossButton.height / 2.0
-        self.crossButton.layer.masksToBounds = true
-        self.crossButton.layer.borderColor = AppColors.themeWhite.cgColor
-        self.crossButton.layer.borderWidth = 1.0
+        self.crossButton.blurColor = AppColors.themeGray60
+        self.crossButton.blurAlpha = 0.6
+        self.crossButton.borderWidth = 2.0
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
     }
     

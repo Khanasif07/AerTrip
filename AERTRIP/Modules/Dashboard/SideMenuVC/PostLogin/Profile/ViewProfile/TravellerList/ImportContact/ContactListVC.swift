@@ -184,6 +184,7 @@ class ContactListVC: BaseVC {
         return index
     }
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
+        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all

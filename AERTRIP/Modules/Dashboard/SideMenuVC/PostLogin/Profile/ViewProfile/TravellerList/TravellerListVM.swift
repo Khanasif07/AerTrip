@@ -33,9 +33,12 @@ class TravellerListVM: NSObject {
         APICaller.shared.callTravellerListAPI { [weak self] isSuccess, errorCodes, travellers in
             if isSuccess {
                 // self?.travellersDict = travellers
-                TravellerData.insert(dataDictArray: travellers, completionBlock: { (all) in
-                    self?.delegate?.searchTravellerSuccess()
-                })
+                    TravellerData.insert(dataDictArray: travellers, completionBlock: { (all) in
+                        DispatchQueue.mainAsync {
+                            self?.delegate?.searchTravellerSuccess()
+                        }
+                    })
+
 //                for traveller in travellers {
 //                    if let logId = UserInfo.loggedInUserId, traveller.id.lowercased() != logId.lowercased(), traveller.label.lowercased() != AppConstants.kMe.lowercased() {
 //                         _ = TravellerData.insert(dataDict: traveller.jsonDict)

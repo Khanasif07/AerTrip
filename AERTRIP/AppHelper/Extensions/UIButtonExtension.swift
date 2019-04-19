@@ -11,6 +11,13 @@ import UIKit
 
 extension UIButton {
     
+    func disable(forSeconds: TimeInterval) {
+        self.isEnabled = false
+        delay(seconds: forSeconds) { [weak self] in
+            self?.isEnabled = true
+        }
+    }
+    
     func addRequiredActionToShowAnimation() {
         self.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControl.Event.touchDown)
         self.addTarget(self, action: #selector(buttonTappedReleased(_:)), for: UIControl.Event.touchUpInside)
