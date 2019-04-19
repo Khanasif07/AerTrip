@@ -33,6 +33,7 @@ class PreferencesVC: BaseVC {
     let addActionCellIdentifier = "TableViewAddActionCell"
     weak var delegate: PreferencesVCDelegate?
     let viewModel = PreferencesVM()
+    var keyboardHeight : CGFloat = 0.0
     
     var labelsCountDict: [JSONDictionary] = []
     
@@ -103,6 +104,7 @@ class PreferencesVC: BaseVC {
             
             if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
                 self.viewModel.groups.append(groupName)
+                self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
             }
@@ -151,6 +153,14 @@ class PreferencesVC: BaseVC {
         indicatorView.stopAnimating()
         topNavView.firstRightButton.isHidden = false
     }
+    
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            printDebug("notification: Keyboard will show")
+            self.keyboardHeight = keyboardSize.height
+        }
+    }
+    
 }
 
 extension PreferencesVC: TopNavigationViewDelegate {
@@ -300,9 +310,17 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // get modified Object
         let movedObject = viewModel.groups[sourceIndexPath.row]
+        let movedModifiedObject = viewModel.modifiedGroups[sourceIndexPath.row]
+        
+        // remove element at Particular index
         viewModel.groups.remove(at: sourceIndexPath.row)
+        viewModel.modifiedGroups.remove(at: sourceIndexPath.row)
+        
+        // Insert element at Particular index
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
+        viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -337,7 +355,12 @@ extension PreferencesVC: GroupTableViewCellDelegate {
     }
     
     func textFieldWhileEditing(_ textField: UITextField, _ indexPath: IndexPath) {
-        viewModel.groups[indexPath.row] = textField.text ?? ""
+        if !self.viewModel.groups.contains(where: { $0.compare(textField.text ?? "", options: .caseInsensitive) == .orderedSame }) {
+            viewModel.groups[indexPath.row] = textField.text ?? ""
+            viewModel.modifiedGroups[indexPath.row].modifiedGroupName = textField.text ?? ""
+        } else {
+            AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized,spaceFromBottom:self.keyboardHeight)
+        }
     }
     
     func deleteCellTapped(_ indexPath: IndexPath) {
@@ -346,7 +369,8 @@ extension PreferencesVC: GroupTableViewCellDelegate {
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
-                    self.viewModel.groups.remove(at: indexPath.row)
+                   self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
+                    self.viewModel.modifiedGroups.remove(at: indexPath.row)
                     self.tableView.reloadData()
                 default:
                     break
