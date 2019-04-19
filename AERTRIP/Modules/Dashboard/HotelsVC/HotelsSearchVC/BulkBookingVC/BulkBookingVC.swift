@@ -405,9 +405,11 @@ class BulkBookingVC: BaseVC {
             self.viewModel.bulkBookingEnquiryApi()
         }
         else {
+            self.statusBarStyle = .default
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
                 guard let sSelf = self else {return}
                 if let vc = sSelf.parent {
+                    sSelf.statusBarStyle = .lightContent
                     AppFlowManager.default.popToViewController(vc, animated: true)
                 }
                 sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)

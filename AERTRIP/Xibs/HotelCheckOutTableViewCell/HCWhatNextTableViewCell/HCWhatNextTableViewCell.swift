@@ -20,7 +20,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     //================
     var nextPlanString: [String] = []
     internal weak var delegate: HCWhatNextTableViewCellDelegate?
-    private let collectionMargin: CGFloat  = 3.0
+    private let collectionMargin: CGFloat  = 11.0
     private let itemSpacing : CGFloat = 0.0
     private var itemHeight: CGFloat {
         return self.whatNextCollectionView.bounds.height
@@ -103,7 +103,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
         layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
-        layout.minimumLineSpacing = CGFloat.leastNonzeroMagnitude
+        layout.minimumLineSpacing = itemSpacing
         layout.scrollDirection = .horizontal
         self.whatNextCollectionView.collectionViewLayout = layout
         self.whatNextCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
