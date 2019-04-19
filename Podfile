@@ -29,4 +29,8 @@ target 'AERTRIP' do
     pod 'ActiveLabel'
     pod 'TransitionButton'
 
+    pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git'
+    pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
+    pod 'FSCalendar'
+    
 end
