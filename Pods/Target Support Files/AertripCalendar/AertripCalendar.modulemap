@@ -1,0 +1,6 @@
+framework module AertripCalendar {
+  umbrella header "AertripCalendar-umbrella.h"
+
+  export *
+  module * { export * }
+}
