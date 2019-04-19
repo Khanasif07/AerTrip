@@ -254,7 +254,7 @@ class TravellerListVC: BaseVC {
         var labelPredicates = [AnyHashable]()
         if let generalPref = UserInfo.loggedInUser?.generalPref {
             for group in generalPref.labels {
-                labelPredicates.append(NSPredicate(format: "label CONTAINS[c] '\(group)'"))
+                labelPredicates.append(NSPredicate(format: "label == '\(group)'"))
             }
         }
         if labelPredicates.count > 0 {
