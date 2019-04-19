@@ -63,6 +63,7 @@ class PreferencesVM: NSObject {
         delegate?.willSavePreferences()
         APICaller.shared.callSavePreferencesAPI(params: params) { [weak self] (success, erroCodes) in
             if success {
+                
                 self?.delegate?.savePreferencesSuccess()
             } else {
                 self?.delegate?.savePreferencesFail(errors: erroCodes)
