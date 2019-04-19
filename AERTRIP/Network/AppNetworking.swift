@@ -192,13 +192,13 @@ enum AppNetworking {
             printDebug(data)
         }
         
-        self.addCookies(toRequest: request)
+        self.addCookies(forUrl: request.request?.url)
         
         request.responseData { (response:DataResponse<Data>) in
                             
                             printDebug(headers)
             
-            AppNetworking.saveCookies(fromResponse: response)
+            AppNetworking.saveCookies(fromUrl: response.response?.url)
             
                             if loader { hideLoader() }
                             
@@ -277,13 +277,13 @@ enum AppNetworking {
         }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
-//        let url = try! URLRequest(url: "https://encryptorapp.000webhostapp.com/test.php", method: httpMethod, headers: header)
         
         guard self.isConnectedToNetwork else {
             failure(self.noInternetError)
             return
         }
         
+        self.addCookies(forUrl: url.url)
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
             if let mltiprtData = multipartData {
@@ -327,6 +327,7 @@ enum AppNetworking {
                                 
                                 upload.responseData(completionHandler: { (response:DataResponse<Data>) in
                                     
+                                    AppNetworking.saveCookies(fromUrl: response.response?.url)
                                     switch response.result{
                                         
                                     case .success(let value):
@@ -372,25 +373,14 @@ enum AppNetworking {
 
 
 extension AppNetworking {
-    private static func addCookies(toRequest request: DataRequest) {
-//        if let allCkStr = UserDefaults.getObject(forKey: "aertrip_cookies") as? [String] {
-//
-//            var allcks: [HTTPCookie] = []
-//            for ck in allCkStr {
-//                if let obj = HTTPCookie(properties: [HTTPCookiePropertyKey("Cookie") : ck]) {
-//                    allcks.append(obj)
-//                }
-//            }
-//            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allcks, for: request.request?.url, mainDocumentURL: nil)
-//        }
-        
+    private static func addCookies(forUrl: URL?) {
         if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
-        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: request.request?.url, mainDocumentURL: nil)
+        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: forUrl, mainDocumentURL: nil)
         }
     }
     
-    private static func saveCookies(fromResponse response: DataResponse<Data>) {
-        if let url = response.response?.url, let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies(for: url) {
+    private static func saveCookies(fromUrl: URL?) {
+        if let url = fromUrl, let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies(for: url) {
             
             var finalNew = cookies
             if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
@@ -400,17 +390,6 @@ extension AppNetworking {
             }
             UserDefaults.saveCustomObject(customObject: finalNew, forKey: UserDefaults.Key.currentUserCookies.rawValue)
         }
-//        if let headerFields = response.response?.allHeaderFields as? [String: String], let cookie = headerFields["Set-Cookie"], !cookie.isEmpty {
-//
-//            if var allCk = UserDefaults.getObject(forKey: "aertrip_cookies") as? [String] {
-//                allCk.append(cookie)
-//                let newCk = Array(Set(allCk))
-//                UserDefaults.setObject(newCk, forKey: "aertrip_cookies")
-//            }
-//            else {
-//                UserDefaults.setObject([cookie], forKey: "aertrip_cookies")
-//            }
-//        }
     }
 }
 
