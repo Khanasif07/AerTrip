@@ -50,6 +50,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     private func configUI() {
         //UI
         self.profileImageView.makeCircular()
+//        self.profileImageView.backgroundColor = AppColors.themeGray60
         self.sendButton.layer.cornerRadius = 14.0
         self.sendButton.layer.masksToBounds = true
         self.activityIndicator.isHidden = true
@@ -84,9 +85,10 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         }
     }
     
-    internal func configureCell(emailInfo: HCEmailItinerariesModel, name: String, profileImage: String) {
+    internal func configureCell(emailInfo: HCEmailItinerariesModel, name: String, firstName: String , lastName: String , profileImage: String) {
         self.nameLabel.text = name
-        self.profileImageView.setImageWithUrl(profileImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+        let placeholderImage = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName , font: AppFonts.Regular.withSize(36.0), textColor: AppColors.themeGray60 , backGroundColor: AppColors.imageBackGroundColor)
+        self.profileImageView.setImageWithUrl(profileImage, placeholder: placeholderImage, showIndicator: true)
         self.emailTextField.text = emailInfo.emailId
         switch emailInfo.emailStatus {
         case .toBeSend:

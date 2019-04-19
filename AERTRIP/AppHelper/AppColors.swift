@@ -49,6 +49,9 @@ enum AppColors {
     /// RGB - 204, 204, 204
     static let themeGray20  = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
+    /// RGB - 138, 138, 143, with alpha 0.22
+    static let imageBackGroundColor = #colorLiteral(red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1).withAlphaComponent(0.22)
+    
     /// RGB - 230, 230, 230
     static let themeGray10  = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     

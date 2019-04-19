@@ -28,6 +28,7 @@ class HCGuestsDetailsCollectionViewCell: UICollectionViewCell {
     private func configUI() {
         //UI
         self.guestImageView.makeCircular()
+//        self.guestImageView.backgroundColor = AppColors.themeGray60
         //Font
         self.guestNameLabel.font = AppFonts.Regular.withSize(14.0)
         //Color
@@ -35,8 +36,9 @@ class HCGuestsDetailsCollectionViewCell: UICollectionViewCell {
     }
     
     ///Config Cell
-    internal func configCell(name: String, imageUrl: String) {
+    internal func configCell(name: String, firstName: String , lastName: String , imageUrl: String) {
         self.guestNameLabel.text = name
-        self.guestImageView.setImageWithUrl(imageUrl, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: false)
+        let placeholderImage = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName , font: AppFonts.Light.withSize(36.0), textColor: AppColors.themeGray60 , backGroundColor: AppColors.imageBackGroundColor)
+        self.guestImageView.setImageWithUrl(imageUrl, placeholder: placeholderImage, showIndicator: false)
     }
 }
