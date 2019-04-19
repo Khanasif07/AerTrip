@@ -346,7 +346,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
-                    self.viewModel.groups.remove(at: indexPath.row)
+                   self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row)) 
                     self.tableView.reloadData()
                 default:
                     break

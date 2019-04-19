@@ -18,9 +18,12 @@ class PreferencesVM: NSObject {
     weak var delegate: PreferencesVMDelegate?
     
     var groups: [String] = []
+    var removedGroups: [String] = []
     var isCategorizeByGroup : Bool = false
     var sortOrder:String = ""
     var displayOrder:String = ""
+    var modifiedGroups: [(originalGroupName: String, modifiedGroupName: String)] = []
+    
 
     
     func setUpData() {
@@ -40,6 +43,7 @@ class PreferencesVM: NSObject {
         params["display_order"] = self.displayOrder
         params["categorize_by_group"] = self.isCategorizeByGroup
         params["labels"] = self.groups
+        params["removed"] = self.removedGroups
         delegate?.willSavePreferences()
         APICaller.shared.callSavePreferencesAPI(params: params) { [weak self] (success, erroCodes) in
             if success {
