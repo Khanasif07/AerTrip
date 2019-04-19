@@ -25,6 +25,8 @@ class ImportContactVM: NSObject {
     enum Notification {
         case selectionChanged
         case phoneContactFetched
+        case facebookContactFetched
+        case googleContactFetched
         case searchDone
         case contactSavedSuccess
         case contactSavedFail
@@ -163,7 +165,7 @@ class ImportContactVM: NSObject {
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                    obj.sendDataChangedNotification(data: Notification.facebookContactFetched)
                 }
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
@@ -180,7 +182,7 @@ class ImportContactVM: NSObject {
         GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
             if let obj = self?.delegateCollection as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                obj.sendDataChangedNotification(data: Notification.googleContactFetched)
             }
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
         }, failure: { (error) in

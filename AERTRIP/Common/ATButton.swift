@@ -248,3 +248,115 @@ class ATButton: UIButton {
         }
     }
 }
+
+
+
+
+//MARK:- ATBlurButton
+class ATBlurButton: UIButton {
+    //MARK:- Properties
+    //MARK:- Private
+    private var blurView: UIVisualEffectView?
+    
+    //MARK:- Public
+    var isCircular: Bool = true {
+        didSet {
+            self.makeCircle()
+        }
+    }
+    
+    var borderWidth: CGFloat = 2.0 {
+        didSet {
+            self.updateBorder()
+        }
+    }
+    
+    var borderColor: UIColor = .white {
+        didSet {
+            self.updateBorder()
+        }
+    }
+    
+    var blurStyle: UIBlurEffect.Style = .dark {
+        didSet {
+            self.removeBlurEffect()
+            self.updateBlurEffect()
+        }
+    }
+    
+    var blurColor: UIColor = .white {
+        didSet {
+            self.updateBlurEffect()
+        }
+    }
+    
+    var blurAlpha: CGFloat = 1.0 {
+        didSet {
+            self.updateBlurEffect()
+        }
+    }
+    
+    //MARK:- Life Cycle
+    //MARK:-
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.initialSetup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.initialSetup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let bv = self.blurView {
+            self.sendSubviewToBack(bv)
+        }
+    }
+    
+    //MARK:- Methods
+    //MARK:- Private
+    private func initialSetup() {
+        
+        self.updateBlurEffect()
+        self.makeCircle()
+        self.updateBorder()
+    }
+    
+    private func updateBlurEffect() {
+        
+        if let blrV = self.blurView {
+            blrV.frame = self.bounds
+        }
+        else {
+            let bv = self.getBlurView(style: self.blurStyle)
+            bv.isUserInteractionEnabled = false
+            self.blurView = bv
+            
+            self.insertSubview(bv, at: 0)
+        }
+        
+        self.blurView?.alpha = self.blurAlpha
+        self.blurView?.backgroundColor = self.blurColor
+    }
+    
+    private func removeBlurEffect() {
+        self.blurView?.removeFromSuperview()
+        self.blurView = nil
+    }
+    
+    private func makeCircle() {
+        self.cornerRadius = self.isCircular ? (self.width / 2.0) : 0.0
+    }
+    
+    private func updateBorder() {
+        self.layer.borderColor = self.borderColor.cgColor
+        self.layer.borderWidth = self.borderWidth
+    }
+    
+    //MARK:- Public
+}

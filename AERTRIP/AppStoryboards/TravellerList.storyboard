@@ -244,13 +244,13 @@
                                                                         <constraint firstAttribute="width" secondItem="xbJ-Fc-g2g" secondAttribute="height" multiplier="1:1" id="IrJ-CJ-9uz"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXQ-sQ-lBJ">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXQ-sQ-lBJ" customClass="ATBlurButton" customModule="AERTRIP" customModuleProvider="target">
                                                                     <rect key="frame" x="36.5" y="5" width="25" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="KXQ-sQ-lBJ" secondAttribute="height" multiplier="1:1" id="XbU-In-0hm"/>
                                                                         <constraint firstAttribute="height" constant="25" id="eQ0-qG-EOa"/>
                                                                     </constraints>
-                                                                    <state key="normal" image="black_cross"/>
+                                                                    <state key="normal" image="ic_white_cross"/>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL4-Xr-qvc">
                                                                     <rect key="frame" x="0.0" y="53" width="77" height="25"/>
@@ -568,8 +568,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="black_cross" width="24" height="24"/>
         <image name="greenButton" width="22" height="22"/>
+        <image name="ic_white_cross" width="24" height="24"/>
         <image name="tick" width="22" height="22"/>
         <image name="untick" width="22" height="22"/>
     </resources>

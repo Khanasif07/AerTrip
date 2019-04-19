@@ -14,8 +14,6 @@ typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
 
 
-
-
 enum AppNetworking {
     
     enum MultiPartFileType:String {
@@ -57,26 +55,6 @@ enum AppNetworking {
         
         var temp = params
         temp["_"] = Int(Date().timeIntervalSince1970)
-//        temp["device_type"] = UIDevice.deviceOSType
-//        if let remotePushToken = UIDevice.remotePushToken{
-//            temp["device_token"] = remotePushToken
-//        }
-//        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-//            temp["app_version"] = "\(version)"
-//        }
-//        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
-//            temp["user_id"] = "\(user_id)"
-//        }
-//
-//        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
-//        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
-//            temp["device_id"] = "\(deviceId)"
-//        }
-//        else {
-//            let uuid = UUID().uuidString
-//            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
-//            temp["device_id"] = "\(uuid)"
-//        }
         
         return temp
     }
@@ -180,13 +158,11 @@ enum AppNetworking {
             guard let data = "\(username):\(password)".data(using: String.Encoding.utf8) else { return  }
             
             let base64LoginString = data.base64EncodedString()
-//            header["api-key"] = "3a457a74be76d6c3603059b559f6addf"
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
                 
                 header["Access-Token"] = accessToken
-                //            printDebug("Access-Token: \(accessToken)")
             }
             else {
                 header["api-key"] = APIEndPoint.apiKey.rawValue
@@ -215,10 +191,15 @@ enum AppNetworking {
         request.responseString { (data) in
             printDebug(data)
         }
+        
+        self.addCookies(forUrl: request.request?.url)
+        
         request.responseData { (response:DataResponse<Data>) in
                             
                             printDebug(headers)
-                            
+            
+            AppNetworking.saveCookies(fromUrl: response.response?.url)
+            
                             if loader { hideLoader() }
                             
                             switch(response.result) {
@@ -296,13 +277,13 @@ enum AppNetworking {
         }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
-//        let url = try! URLRequest(url: "https://encryptorapp.000webhostapp.com/test.php", method: httpMethod, headers: header)
         
         guard self.isConnectedToNetwork else {
             failure(self.noInternetError)
             return
         }
         
+        self.addCookies(forUrl: url.url)
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
             if let mltiprtData = multipartData {
@@ -346,6 +327,7 @@ enum AppNetworking {
                                 
                                 upload.responseData(completionHandler: { (response:DataResponse<Data>) in
                                     
+                                    AppNetworking.saveCookies(fromUrl: response.response?.url)
                                     switch response.result{
                                         
                                     case .success(let value):
@@ -386,6 +368,28 @@ enum AppNetworking {
                                 failure(e as NSError)
                             }
         })
+    }
+}
+
+
+extension AppNetworking {
+    private static func addCookies(forUrl: URL?) {
+        if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
+            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: forUrl, mainDocumentURL: nil)
+        }
+    }
+    
+    private static func saveCookies(fromUrl: URL?) {
+        if let url = fromUrl, let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies(for: url) {
+            
+            var finalNew = cookies
+            if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
+                for ck in allCk {
+                    finalNew.append(ck)
+                }
+            }
+            UserDefaults.saveCustomObject(customObject: finalNew, forKey: UserDefaults.Key.currentUserCookies.rawValue)
+        }
     }
 }
 

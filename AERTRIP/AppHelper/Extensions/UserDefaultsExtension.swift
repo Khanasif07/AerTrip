@@ -29,6 +29,7 @@ extension UserDefaults {
         case recentGroupSearchesForPropertyName
         case recentGroupSearchesForLlName
         case recentGroupSearchesForLocation
+        case currentUserCookies
     }
 }
 extension UserDefaults {

@@ -346,6 +346,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         UserInfo.loggedInUserId = nil
         AppFlowManager.default.goToDashboard()
         CoreDataManager.shared.deleteCompleteDB()
+        UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
     }
     
     func didLogOutFail(errors: ErrorCodes) {
