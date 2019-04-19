@@ -375,7 +375,7 @@ enum AppNetworking {
 extension AppNetworking {
     private static func addCookies(forUrl: URL?) {
         if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
-        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: forUrl, mainDocumentURL: nil)
+            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: forUrl, mainDocumentURL: nil)
         }
     }
     

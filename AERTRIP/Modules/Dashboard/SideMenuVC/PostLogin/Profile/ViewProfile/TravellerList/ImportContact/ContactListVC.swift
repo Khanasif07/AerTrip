@@ -33,7 +33,7 @@ class ContactListVC: BaseVC {
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
-
+        
         if self.currentlyUsingFor == .contacts {
             newEmptyView.vType = .importPhoneContacts
         }
@@ -91,23 +91,25 @@ class ContactListVC: BaseVC {
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? ImportContactVM.Notification {
             if obj == .phoneContactFetched {
-                if self.currentlyUsingFor == .contacts {
-                    self.viewModel.createSectionWiseDataForContacts(for: .contacts)
-                    self.fetchPhoneContactsSuccess()
-                    tableView.backgroundView = noResultemptyView
-                } else if self.currentlyUsingFor == .facebook {
-                    self.viewModel.createSectionWiseDataForContacts(for: .facebook)
-                    self.fetchPhoneContactsSuccess()
-                    tableView.backgroundView = noResultemptyView
-                } else if self.currentlyUsingFor == .google {
-                    self.viewModel.createSectionWiseDataForContacts(for: .google)
-                    self.fetchPhoneContactsSuccess()
-                    tableView.backgroundView = noResultemptyView
-                }
-                
+                self.isPermissionGiven = !self.viewModel.sections.isEmpty
+                self.viewModel.createSectionWiseDataForContacts(for: .contacts)
+                self.fetchPhoneContactsSuccess()
+                tableView.backgroundView = noResultemptyView
+            }
+            else if obj == .facebookContactFetched {
+                self.isPermissionGiven = !self.viewModel.facebookSection.isEmpty
+                self.viewModel.createSectionWiseDataForContacts(for: .facebook)
+                self.fetchPhoneContactsSuccess()
+                tableView.backgroundView = noResultemptyView
+            }
+            else if obj == .googleContactFetched {
+                self.isPermissionGiven = !self.viewModel.googleSection.isEmpty
+                self.viewModel.createSectionWiseDataForContacts(for: .google)
+                self.fetchPhoneContactsSuccess()
+                tableView.backgroundView = noResultemptyView
             }
             else if obj == .selectionChanged {
-                self.tableView.reloadData()
+                self.reloadList()
             }
             else if obj == .searchDone {
                 if self.currentlyUsingFor == .contacts && !self.viewModel.phoneContacts.isEmpty {
@@ -124,7 +126,7 @@ class ContactListVC: BaseVC {
                     self.viewModel.createSectionWiseDataForContacts(for: .google)
                     tableView.backgroundView = noResultemptyView
                 }
-                self.tableView.reloadData()
+                self.reloadList()
             }
         }
     }
@@ -144,6 +146,18 @@ class ContactListVC: BaseVC {
         noResultemptyView.mainImageViewTopConstraint.constant = 300
     }
     
+    private func reloadList() {
+        self.tableView.reloadData()
+    }
+    
+    private func hideSelectAllButton(isHidden: Bool = true) {
+        self.bottomHeaderTopDiverView.isHidden = isHidden
+        self.selectAllButton.isHidden = isHidden
+
+        tableView.backgroundView?.isHidden = !isHidden
+        self.isPermissionGiven = !isHidden
+    }
+    
     //MARK:- Public
     
     
@@ -161,14 +175,14 @@ class ContactListVC: BaseVC {
                 }
             }
             
-       case .facebook:
-        if let section = self.viewModel.facebookSection.firstIndex(where: { $0.letter == "\(contact.firstName.firstCharacter)" }) {
-            
-            if let row = self.viewModel.facebookSection[section].contacts.firstIndex(where: { (cntc) -> Bool in
-                cntc.id == contact.id
-            }) {
-                index = IndexPath(row: row, section: section)
-            }
+        case .facebook:
+            if let section = self.viewModel.facebookSection.firstIndex(where: { $0.letter == "\(contact.firstName.firstCharacter)" }) {
+                
+                if let row = self.viewModel.facebookSection[section].contacts.firstIndex(where: { (cntc) -> Bool in
+                    cntc.id == contact.id
+                }) {
+                    index = IndexPath(row: row, section: section)
+                }
             }
         case .google:
             if let section = self.viewModel.googleSection.firstIndex(where: { $0.letter == "\(contact.firstName.firstCharacter)" }) {
@@ -200,7 +214,7 @@ class ContactListVC: BaseVC {
                 }
                 
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
-                 //add all
+                //add all
                 self.viewModel.addAll(for: .contacts)
             }
         }
@@ -209,7 +223,7 @@ class ContactListVC: BaseVC {
                 //remove all
                 self.viewModel.removeAll(for: .facebook)
                 self.viewModel.selectedFacebookContacts.removeAll()
-               
+                
             }
             else {
                 // remove all preselected facebook Items
@@ -220,7 +234,7 @@ class ContactListVC: BaseVC {
                 }
                 
                 self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
-                 //add all
+                //add all
                 self.viewModel.addAll(for: .facebook)
             }
         }
@@ -229,7 +243,7 @@ class ContactListVC: BaseVC {
                 //remove all
                 self.viewModel.removeAll(for: .google)
                 self.viewModel.selectedGoogleContacts.removeAll()
-              
+                
             }
             else {
                 // remove all preselected google Contacts Items
@@ -255,39 +269,30 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.currentlyUsingFor == .contacts {
-             return self.viewModel.sections.count
+            self.hideSelectAllButton(isHidden: self.viewModel.sections.isEmpty)
+            return self.viewModel.sections.count
         } else if self.currentlyUsingFor == .facebook {
-             return self.viewModel.facebookSection.count
+            self.hideSelectAllButton(isHidden: self.viewModel.facebookSection.isEmpty)
+            return self.viewModel.facebookSection.count
         } else if self.currentlyUsingFor == .google {
-             return self.viewModel.googleSection.count
+            self.hideSelectAllButton(isHidden: self.viewModel.googleSection.isEmpty)
+            return self.viewModel.googleSection.count
         }
         
         return 0
-       
+        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentlyUsingFor == .contacts {
-            tableView.backgroundView?.isHidden = !self.viewModel.sections[section].contacts.isEmpty
-            self.selectAllButton.isHidden = self.viewModel.sections[section].contacts.isEmpty
-            self.bottomHeaderTopDiverView.isHidden = self.viewModel.sections[section].contacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.sections[section].contacts.isEmpty
             return self.viewModel.sections[section].contacts.count
         }
         else if self.currentlyUsingFor == .facebook {
-            tableView.backgroundView?.isHidden = !self.viewModel.facebookSection[section].contacts.isEmpty
-            self.selectAllButton.isHidden = self.viewModel.facebookSection[section].contacts.isEmpty
-            self.bottomHeaderTopDiverView.isHidden = self.viewModel.facebookSection[section].contacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.facebookSection[section].contacts.isEmpty
             return self.viewModel.facebookSection[section].contacts.count
         }
         else if self.currentlyUsingFor == .google {
-            tableView.backgroundView?.isHidden = !self.viewModel.googleSection[section].contacts.isEmpty
-            self.selectAllButton.isHidden = self.viewModel.googleSection[section].contacts.isEmpty
-            self.bottomHeaderTopDiverView.isHidden = self.viewModel.googleSection[section].contacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.googleSection[section].contacts.isEmpty
             return self.viewModel.googleSection[section].contacts.count
         }
-
+        
         return 0
     }
     
@@ -374,27 +379,27 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     // Return section Index For titles
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if self.currentlyUsingFor == .contacts {
-               return self.viewModel.sections.map{$0.letter}
+            return self.viewModel.sections.map{$0.letter}
         } else if self.currentlyUsingFor == .facebook {
-               return self.viewModel.facebookSection.map{$0.letter}
+            return self.viewModel.facebookSection.map{$0.letter}
         } else if self.currentlyUsingFor == .google {
-               return self.viewModel.googleSection.map{$0.letter}
+            return self.viewModel.googleSection.map{$0.letter}
         }
         return []
     }
-   
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if self.currentlyUsingFor == .contacts {
-             return self.viewModel.sections[section].letter
+            return self.viewModel.sections[section].letter
         } else if self.currentlyUsingFor == .facebook {
-             return self.viewModel.facebookSection[section].letter
+            return self.viewModel.facebookSection[section].letter
         } else if self.currentlyUsingFor == .google {
-             return self.viewModel.googleSection[section].letter
+            return self.viewModel.googleSection[section].letter
         }
         return nil
     }
-
+    
 }
 
 //MARK:- ViewModel Delegate
@@ -417,19 +422,19 @@ extension ContactListVC: EmptyScreenViewDelegate {
 //MARK:-
 extension ContactListVC: ImportContactVMDelegate {
     func add(for usingFor: ContactListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func addAll(for usingFor: ContactListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func removeAll(for usingFor: ContactListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func willSaveContacts() {
@@ -449,7 +454,6 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
-        self.isPermissionGiven = true
-        self.tableView.reloadData()
+        self.reloadList()
     }
 }

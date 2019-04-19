@@ -107,18 +107,16 @@ class FacebookController {
         
         // FOR MORE PARAMETERS:- https://developers.facebook.com/docs/graph-api/reference/user
         let params = ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"]
-        if let request = FBSDKGraphRequest(graphPath: "me", parameters: params) {
-            request.start(completionHandler: {
-                connection, result, error in
-                
-                if let result = result {
-                    success(FacebookModel(withJSON: JSON(result)))
-                } else {
-                    failure(error)
-                }
-            })
-        }
-        
+        let request = self.getGraphRequest(graphPath: "me", parameters: params, httpMethod: "GET")
+        request.start(completionHandler: {
+            connection, result, error in
+            
+            if let result = result {
+                success(FacebookModel(withJSON: JSON(result)))
+            } else {
+                failure(error)
+            }
+        })
     }
     
     // MARK:- GET IMAGE FROM FACEBOOK
@@ -152,7 +150,8 @@ class FacebookController {
                 if error == nil,let token = result?.token,let tokenString = token.tokenString {
                     let param: [String:Any] = ["message" : message, "access_token" : tokenString]
                     
-                    FBSDKGraphRequest(graphPath: "me/feed", parameters: param, httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                    let request = self.getGraphRequest(graphPath: "me/feed", parameters: param, httpMethod: "POST")
+                    request.start(completionHandler: { (connection, result, error) -> Void in
                         if let error = error {
                             failure(error)
                         } else {
@@ -180,8 +179,8 @@ class FacebookController {
             
             if error == nil,let token = result?.token,let tokenString = token.tokenString {
                 let param: [String:Any] = [ "url" : imageUrl, "caption" : captionText, "access_token" : tokenString]
-                
-                FBSDKGraphRequest(graphPath: "me/photos", parameters: param, httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                let request = self.getGraphRequest(graphPath: "me/photos", parameters: param, httpMethod: "POST")
+                request.start(completionHandler: { (connection, result, error) -> Void in
                     if let error = error {
                         failure(error)
                     } else {
@@ -210,7 +209,8 @@ class FacebookController {
             if error == nil,let token = result?.token,let tokenString = token.tokenString {
                 let param: [String:Any] = [ "url" : videoUrl, "caption" : captionText, "access_token" : tokenString]
                 
-                FBSDKGraphRequest(graphPath: "me/videos", parameters: param, httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                let request = self.getGraphRequest(graphPath: "me/videos", parameters: param, httpMethod: "POST")
+                request.start(completionHandler: { (connection, result, error) -> Void in
                     if let error = error {
                         failure(error)
                     } else {
@@ -251,8 +251,9 @@ class FacebookController {
     
     private func fetchFriends(success: @escaping (([String:Any]) -> Void),
                               failure: @escaping ((Error?) -> Void)){
-        
-        let request: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"])
+
+        let params = ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"]
+        let request: FBSDKGraphRequest = self.getGraphRequest(graphPath: "me/friends", parameters: params, httpMethod: "GET")
         
         request.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
             
@@ -265,6 +266,10 @@ class FacebookController {
 
     }
     
+    private func getGraphRequest(graphPath: String, parameters: [String: Any], httpMethod: String) -> FBSDKGraphRequest {
+        return FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: FBSDKAccessToken.current()?.tokenString, version: nil, httpMethod: "httpMethod")
+    }
+    
     func fetchFacebookFriendsNotUsingThisAPP(viewController : UIViewController, success: @escaping (([String:Any]) -> Void),
                                           failure: @escaping ((Error?) -> Void)){
         
@@ -274,7 +279,7 @@ class FacebookController {
                 failure(error)
             }else{
                 if error == nil {
-                    let request: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/taggable_friends", parameters: ["fields": "name"])
+                    let request: FBSDKGraphRequest = self.getGraphRequest(graphPath: "me/taggable_friends", parameters: ["fields": "name"], httpMethod: "GET")
                     
                     request.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
                         
