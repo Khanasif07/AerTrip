@@ -14,8 +14,6 @@ typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
 
 
-
-
 enum AppNetworking {
     
     enum MultiPartFileType:String {
@@ -57,26 +55,6 @@ enum AppNetworking {
         
         var temp = params
         temp["_"] = Int(Date().timeIntervalSince1970)
-//        temp["device_type"] = UIDevice.deviceOSType
-//        if let remotePushToken = UIDevice.remotePushToken{
-//            temp["device_token"] = remotePushToken
-//        }
-//        if let version: Any = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-//            temp["app_version"] = "\(version)"
-//        }
-//        if let user_id = (UserInfo.loggedInUser?.userId), temp["user_id"] == nil{
-//            temp["user_id"] = "\(user_id)"
-//        }
-//
-//        let keyChainMngr = PKKeyChainManager(keyPrefix: "\(AppConstant.AppName)")
-//        if let deviceId = keyChainMngr.get(UserDefaultKeys.deviceID) {
-//            temp["device_id"] = "\(deviceId)"
-//        }
-//        else {
-//            let uuid = UUID().uuidString
-//            keyChainMngr.set(uuid, forKey: UserDefaultKeys.deviceID)
-//            temp["device_id"] = "\(uuid)"
-//        }
         
         return temp
     }
@@ -180,13 +158,11 @@ enum AppNetworking {
             guard let data = "\(username):\(password)".data(using: String.Encoding.utf8) else { return  }
             
             let base64LoginString = data.base64EncodedString()
-//            header["api-key"] = "3a457a74be76d6c3603059b559f6addf"
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
                 
                 header["Access-Token"] = accessToken
-                //            printDebug("Access-Token: \(accessToken)")
             }
             else {
                 header["api-key"] = APIEndPoint.apiKey.rawValue
@@ -215,10 +191,15 @@ enum AppNetworking {
         request.responseString { (data) in
             printDebug(data)
         }
+        
+        self.addCookies(toRequest: request)
+        
         request.responseData { (response:DataResponse<Data>) in
                             
                             printDebug(headers)
-                            
+            
+            AppNetworking.saveCookies(fromResponse: response)
+            
                             if loader { hideLoader() }
                             
                             switch(response.result) {
@@ -386,6 +367,50 @@ enum AppNetworking {
                                 failure(e as NSError)
                             }
         })
+    }
+}
+
+
+extension AppNetworking {
+    private static func addCookies(toRequest request: DataRequest) {
+//        if let allCkStr = UserDefaults.getObject(forKey: "aertrip_cookies") as? [String] {
+//
+//            var allcks: [HTTPCookie] = []
+//            for ck in allCkStr {
+//                if let obj = HTTPCookie(properties: [HTTPCookiePropertyKey("Cookie") : ck]) {
+//                    allcks.append(obj)
+//                }
+//            }
+//            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allcks, for: request.request?.url, mainDocumentURL: nil)
+//        }
+        
+        if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
+        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: request.request?.url, mainDocumentURL: nil)
+        }
+    }
+    
+    private static func saveCookies(fromResponse response: DataResponse<Data>) {
+        if let url = response.response?.url, let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies(for: url) {
+            
+            var finalNew = cookies
+            if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
+                for ck in allCk {
+                    finalNew.append(ck)
+                }
+            }
+            UserDefaults.saveCustomObject(customObject: finalNew, forKey: UserDefaults.Key.currentUserCookies.rawValue)
+        }
+//        if let headerFields = response.response?.allHeaderFields as? [String: String], let cookie = headerFields["Set-Cookie"], !cookie.isEmpty {
+//
+//            if var allCk = UserDefaults.getObject(forKey: "aertrip_cookies") as? [String] {
+//                allCk.append(cookie)
+//                let newCk = Array(Set(allCk))
+//                UserDefaults.setObject(newCk, forKey: "aertrip_cookies")
+//            }
+//            else {
+//                UserDefaults.setObject([cookie], forKey: "aertrip_cookies")
+//            }
+//        }
     }
 }
 
