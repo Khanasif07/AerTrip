@@ -115,7 +115,7 @@ class TravellerListVC: BaseVC {
             } else {
                 title = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
             }
-            self.topNavView.configureNavBar(title: title, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+            self.topNavView.configureNavBar(title: title, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
             self.topNavView.configureLeftButton(normalTitle: LocalizedString.SelectAll.localized, selectedTitle: LocalizedString.SelectAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
             self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         }
@@ -136,7 +136,9 @@ class TravellerListVC: BaseVC {
         AppFlowManager.default.showEditProfileVC(travelData: nil, usingFor: .addNewTravellerList)
     }
     
-    func selectAllTapped() {}
+    func selectAllTapped() {
+        
+    }
     
     func doneButtonTapped() {
         setTravellerMode()
