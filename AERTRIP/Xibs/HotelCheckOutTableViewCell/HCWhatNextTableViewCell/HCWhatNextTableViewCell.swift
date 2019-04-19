@@ -20,11 +20,12 @@ class HCWhatNextTableViewCell: UITableViewCell {
     //================
     var nextPlanString: [String] = []
     internal weak var delegate: HCWhatNextTableViewCellDelegate?
-//    let collectionMargin: CGFloat = 32.0
-//    let itemSpacing = CGFloat.leastNonzeroMagnitude
-//    let itemHeight = CGFloat(322)
-//    var itemWidth = CGFloat(0)
-//    var currentItem = 0
+    private let collectionMargin: CGFloat  = 0.0
+    private let itemSpacing : CGFloat = 10.0
+    private var itemHeight: CGFloat {
+        return self.whatNextCollectionView.bounds.height
+    }
+    private var itemWidth: CGFloat  = 0
     
     //Mark:- IBOutlets
     //================
@@ -38,8 +39,6 @@ class HCWhatNextTableViewCell: UITableViewCell {
         didSet {
             self.whatNextCollectionView.delegate = self
             self.whatNextCollectionView.dataSource = self
-//            self.whatNextCollectionView.isPagingEnabled = true
-            self.whatNextCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 0.0)
         }
     }
     @IBOutlet weak var pageControl: ISPageControl! {
@@ -87,6 +86,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.twitterButton.backgroundColor = AppColors.twitterBackgroundColor
         self.linkdInButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
+        self.flowLayOut()
     }
     
     ///COnfigure Cell
@@ -94,6 +94,19 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.nextPlanString = whatNextString
         self.pageControl.numberOfPages = nextPlanString.count
         self.whatNextCollectionView.reloadData()
+    }
+    
+    private func flowLayOut() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        itemWidth =  343.0//self.whatNextCollectionView.bounds.width - collectionMargin * 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
+        layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
+        layout.minimumLineSpacing = itemSpacing
+        layout.scrollDirection = .horizontal
+        self.whatNextCollectionView.collectionViewLayout = layout
+        self.whatNextCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
     }
     
     //Mark:- IBActions
@@ -124,19 +137,19 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //collectionView.frame.width - 12.0
-        let size = CGSize(width: 363.0, height: collectionView.frame.height)
-        return size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        //collectionView.frame.width - 12.0
+//        let size = CGSize(width: 363.0, height: collectionView.frame.height)
+//        return size
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return CGFloat.leastNonzeroMagnitude
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return CGFloat.leastNonzeroMagnitude
+//    }
 
 }
 
@@ -148,12 +161,10 @@ extension HCWhatNextTableViewCell: UIScrollViewDelegate {
 //    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        let pageWidth: Float = Float(343.0)
-        let targetXContentOffset: Float = Float(targetContentOffset.pointee.x)
-        let contentWidth = Float(self.whatNextCollectionView.contentSize.width )
+        let pageWidth = Float(itemWidth + itemSpacing)
+        let targetXContentOffset = Float(targetContentOffset.pointee.x)
+        let contentWidth = Float(self.whatNextCollectionView.contentSize.width  )
         var newPage = Float(self.pageControl.currentPage)
-        
         if velocity.x == 0 {
             newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
         } else {
@@ -165,38 +176,8 @@ extension HCWhatNextTableViewCell: UIScrollViewDelegate {
                 newPage = ceil(contentWidth / pageWidth) - 1.0
             }
         }
-        
         self.pageControl.currentPage = Int(newPage)
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
     }
-    
-
 }
-
-
-
-
-
-//func setup() {
-//    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-//
-//    itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
-//
-//    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-//    layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0)
-//    layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0)
-//
-//    layout.minimumLineSpacing = itemSpacing
-//    layout.scrollDirection = .horizontal
-//    collectionView!.collectionViewLayout = layout
-//    collectionView?.decelerationRate = UIScrollView.DecelerationRate.fast
-//
-//
-//}
-
-
-
-// MARK: - UIScrollViewDelegate protocol
-
