@@ -432,6 +432,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-eF-3hM">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <state key="normal" image="aerinTapLogo"/>
+                                                        <connections>
+                                                            <action selector="aerinButtonAction:" destination="bYL-Ms-OZy" eventType="touchUpInside" id="xWR-Nx-fvl"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -175,4 +175,10 @@ class AerinVC: BaseVC {
     // MARK: - Public
     
     // MARK: - Action
+    @IBAction func aerinButtonAction(_ sender: Any) {
+        if !AppConstants.isReleasingToClient {
+                    // move to Aerin VC
+            }
+        }
+    
 }
