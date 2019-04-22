@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
+		18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18038CEF226D90C000A4D1DD /* Aerin.storyboard */; };
 		1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */; };
 		1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1804888921CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib */; };
 		1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888B21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift */; };
@@ -657,6 +658,7 @@
 /* Begin PBXFileReference section */
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
+		18038CEF226D90C000A4D1DD /* Aerin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Aerin.storyboard; sourceTree = "<group>"; };
 		1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailTableViewSectionView.swift; sourceTree = "<group>"; };
 		1804888921CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileDetailTableViewSectionView.xib; sourceTree = "<group>"; };
 		1804888B21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -3553,6 +3555,7 @@
 				84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */,
 				847775582265BE6900EAB8B0 /* Account.storyboard */,
 				84F2DC8D22644BCF00212F05 /* Bookings.storyboard */,
+				18038CEF226D90C000A4D1DD /* Aerin.storyboard */,
 			);
 			path = AppStoryboards;
 			sourceTree = "<group>";
@@ -3668,6 +3671,7 @@
 				846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */,
 				846856B12233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib in Resources */,
 				1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */,
+				18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */,
 				1804888E21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.xib in Resources */,
 				84F983F421B51A070018DFED /* PreLogin.storyboard in Resources */,
 				84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */,
