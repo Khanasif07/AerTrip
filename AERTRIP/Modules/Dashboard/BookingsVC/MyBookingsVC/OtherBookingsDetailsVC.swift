@@ -41,7 +41,13 @@ class OtherBookingsDetailsVC: BaseVC {
         self.viewModel.getSectionData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.statusBarStyle = .lightContent
+    }
+    
     override func initialSetup() {
+        self.statusBarStyle = .default
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true , isDivider: false)
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
@@ -60,6 +66,7 @@ class OtherBookingsDetailsVC: BaseVC {
     override func setupColors() {
         self.bookingIdAndDateTitleLabel.textColor = AppColors.themeGray40
         self.bookingIdAndDateLabel.textColor = AppColors.themeBlack
+        self.topNavBar.backgroundColor = AppColors.clear
     }
     
     override func bindViewModel() {
@@ -141,6 +148,7 @@ extension OtherBookingsDetailsVC {
         cell.configCell(title: "Travel Insurance", subTitle: "Non Refundable")
         cell.dividerView.isHidden = true
         cell.containerView.backgroundColor = AppColors.themeWhite
+//        cell.titleLabelTopConstraint.constant = 16.0
         return cell
     }
     
