@@ -579,14 +579,17 @@ extension AppFlowManager {
     }
     
     func moveCalenderVC(){
-//        let ob = AertripCalendarViewController.instantiate(fromAppStoryboard: .AertripCalendar)
-//        let calendarVM = CalendarVM()
-//        calendarVM.isHotelCalendar = false
-//        calendarVM.isReturn = false
-//        calendarVM.isMultiCity = false
-//        calendarVM.date1 = Date()
-//        ob.viewModel = calendarVM
-//        self.mainNavigationController.present(ob, animated: true, completion: nil)
+       if let ob = UIStoryboard(name: "AertripCalendar", bundle: nil).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
+        let ob = AertripCalendarViewController.instantiate(fromAppStoryboard: .AertripCalendar)
+        let calendarVM = CalendarVM()
+        calendarVM.isHotelCalendar = false
+        calendarVM.isReturn = false
+        calendarVM.isMultiCity = false
+        calendarVM.date1 = Date()
+        ob.viewModel = calendarVM
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        }
+       
     }
 }
 
