@@ -35,6 +35,14 @@
                                     <constraint firstAttribute="height" constant="91" id="rsX-5S-mir"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22U-fb-3OX" customClass="CircularProgress" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="37" y="38" width="35" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="7RC-Al-6co"/>
+                                    <constraint firstAttribute="width" secondItem="22U-fb-3OX" secondAttribute="height" multiplier="1:1" id="cuR-gZ-MxI"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-hA-4ZW">
                                 <rect key="frame" x="2" y="107" width="105" height="43"/>
                                 <subviews>
@@ -55,10 +63,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="22U-fb-3OX" firstAttribute="centerX" secondItem="jU3-9v-rtM" secondAttribute="centerX" id="BoQ-sz-SF4"/>
                             <constraint firstItem="bgK-hA-4ZW" firstAttribute="leading" secondItem="Vk2-pY-Cpx" secondAttribute="leading" constant="2" id="Jd4-4z-zSP"/>
                             <constraint firstItem="jU3-9v-rtM" firstAttribute="top" secondItem="Vk2-pY-Cpx" secondAttribute="top" constant="10" id="QKE-dc-0Ir"/>
                             <constraint firstItem="bgK-hA-4ZW" firstAttribute="top" secondItem="jU3-9v-rtM" secondAttribute="bottom" constant="6" id="Yah-Dk-MBx"/>
                             <constraint firstAttribute="trailing" secondItem="bgK-hA-4ZW" secondAttribute="trailing" constant="2" id="auw-gy-Ief"/>
+                            <constraint firstItem="22U-fb-3OX" firstAttribute="centerY" secondItem="jU3-9v-rtM" secondAttribute="centerY" id="g29-gi-Xhx"/>
                             <constraint firstItem="jU3-9v-rtM" firstAttribute="centerX" secondItem="Vk2-pY-Cpx" secondAttribute="centerX" id="oPn-2h-SFD"/>
                         </constraints>
                     </view>
@@ -76,6 +86,7 @@
                 <outlet property="documentsImageView" destination="jU3-9v-rtM" id="y34-6W-L7d"/>
                 <outlet property="documentsSizeLabel" destination="663-DD-XcJ" id="bPx-46-6TL"/>
                 <outlet property="nameLabel" destination="3kY-6J-AJC" id="9rC-Pz-AN9"/>
+                <outlet property="progressView" destination="22U-fb-3OX" id="ca4-TO-0O6"/>
             </connections>
         </collectionViewCell>
     </objects>

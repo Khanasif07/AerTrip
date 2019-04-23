@@ -12,7 +12,7 @@ class BookingDateVC: BaseVC {
 
     //Mark:- Variables
     //================
-    private var datePickerViewHeightConstraint: CGFloat = 0.0
+    private var datePickerViewHeightConstraint: CGFloat = 215.0
     
     //Mark:- IBOutlets
     //================
@@ -36,10 +36,6 @@ class BookingDateVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.datePickerViewHeightConstraint = self.fromDatePickerHeightCons.constant
     }
     
     override func initialSetup() {

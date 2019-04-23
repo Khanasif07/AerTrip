@@ -647,4 +647,5 @@ enum LocalizedString: String {
     //MARK: - AerinVC
     case Hi = "Hi"
     case HelpMessage = "HelpMessage"
+    case ShowPendingActionsOnly = "ShowPendingActionsOnly"
  }

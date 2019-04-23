@@ -146,6 +146,7 @@ extension OtherBookingsDetailsVC {
     func getInsurenceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: "Travel Insurance", subTitle: "Non Refundable")
+        cell.titleLabelBottomConstraint.constant = 0.0
         cell.dividerView.isHidden = true
         cell.containerView.backgroundColor = AppColors.themeWhite
 //        cell.titleLabelTopConstraint.constant = 16.0
@@ -176,12 +177,14 @@ extension OtherBookingsDetailsVC {
     func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewTopConstraint.constant = 26.0
+        cell.titleBottomConstraint.constant = 6.0
         cell.configCell(title: LocalizedString.PaymentInfo.localized, titleFont: AppFonts.Regular.withSize(14.0) , titleColor: AppColors.themeGray40 , isFirstCell: true, isLastCell: false)
         return cell
     }
     
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
+        cell.titleTopConstraint.constant = 6.0
         cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 10,000", isLastCell: false)
         return cell
     }
@@ -199,6 +202,8 @@ extension OtherBookingsDetailsVC {
         cell.dividerView.isHidden = false
         cell.configCell(title: "Billing Name", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: "Rosa Luettgen", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
+        cell.titleLabelBottomConstraint.constant = 2.0
+        cell.subtitleLabelBottomConstraint.constant = 9.0
         return cell
     }
     
@@ -206,6 +211,8 @@ extension OtherBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: "Email", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: "rosa.luettgen@gmail.com", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
+        cell.subtitleLabelBottomConstraint.constant = 9.0
+        cell.titleLabelBottomConstraint.constant = 2.0
         return cell
     }
     
@@ -213,18 +220,24 @@ extension OtherBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: "Mobile", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: "+91 12345 67890", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
+        cell.titleLabelBottomConstraint.constant = 2.0
+        cell.subtitleLabelBottomConstraint.constant = 9.0
         return cell
     }
     
     func getGstCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: "GSTIN", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: "-", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.titleLabelBottomConstraint.constant = 2.0
+        cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         return cell
     }
     
     func getBillingAddressCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
+        cell.titleLabelBottomConstraint.constant = 2.0
+        cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.configCell(title: "Billing Address", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: "21/22, Y.A Chunawala Industrial Estate, Kondivita Lane, Andheri East, Mumbai - 400059, Maharashtra, IN", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         return cell
@@ -263,9 +276,7 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     func downloadDocument(url: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
         self.viewModel.urlOfDocuments = url
         guard let url = URL(string: url) else { return }
-        
         let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
-        
         let downloadTask = urlSession.downloadTask(with: url)
         downloadTask.resume()
     }

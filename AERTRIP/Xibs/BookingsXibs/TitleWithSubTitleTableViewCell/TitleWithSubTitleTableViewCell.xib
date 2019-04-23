@@ -77,6 +77,7 @@
                 <outlet property="containerView" destination="Qus-RW-xb4" id="YCt-zw-MO6"/>
                 <outlet property="dividerView" destination="fN1-41-WIC" id="iEt-HP-nDl"/>
                 <outlet property="subTitleLabel" destination="9xQ-gh-DHR" id="Mgc-M6-W85"/>
+                <outlet property="subtitleLabelBottomConstraint" destination="lBA-es-91s" id="BCz-jc-mfy"/>
                 <outlet property="titleLabel" destination="O1N-iv-Ufk" id="tXU-cA-B62"/>
                 <outlet property="titleLabelBottomConstraint" destination="Z3s-TF-APO" id="KP8-Vv-oLZ"/>
                 <outlet property="titleLabelLeadingConstraint" destination="cwl-rs-i1n" id="2Nd-cD-iMb"/>
