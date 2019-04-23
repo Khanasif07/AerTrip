@@ -29,12 +29,22 @@ class PreferencesVM: NSObject {
     func setUpData() {
         if let generalPref = UserInfo.loggedInUser?.generalPref {
             groups = generalPref.labels
+            self.setUpModifiedGroups()
             isCategorizeByGroup = generalPref.categorizeByGroup
             sortOrder = generalPref.sortOrder
             displayOrder = generalPref.displayOrder
         }
     }
     
+    func setUpModifiedGroups() {
+        for group in groups {
+            self.modifiedGroups.append((originalGroupName: group, modifiedGroupName: group))
+        }
+    }
+    
+    func getFinalModifiedGroups() {
+        self.modifiedGroups = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
+    }
    
     func callSavePreferencesAPI() {
         var params = JSONDictionary()
@@ -44,9 +54,16 @@ class PreferencesVM: NSObject {
         params["categorize_by_group"] = self.isCategorizeByGroup
         params["labels"] = self.groups
         params["removed"] = self.removedGroups
+        
+        getFinalModifiedGroups()
+        
+        for modified in self.modifiedGroups  {
+            params["modified[\(modified.originalGroupName)]"] = modified.modifiedGroupName
+        }
         delegate?.willSavePreferences()
         APICaller.shared.callSavePreferencesAPI(params: params) { [weak self] (success, erroCodes) in
             if success {
+                
                 self?.delegate?.savePreferencesSuccess()
             } else {
                 self?.delegate?.savePreferencesFail(errors: erroCodes)

@@ -12,7 +12,20 @@ import UIKit
 //MARK:-
 extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.allDates.count
+        if tableView === self.tableView {
+            return self.viewModel.allDates.count
+        }
+        else {
+            let allDates = self.viewModel.searchedAllDates
+            if (self.mainSearchBar.text ?? "").isEmpty {
+                self.searchTableView.isHidden = allDates.isEmpty
+            }
+            else {
+                self.searchTableView.isHidden = false
+                self.searchTableView.backgroundView?.isHidden = !allDates.isEmpty
+            }
+            return allDates.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -25,7 +38,14 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         headerView.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
-        headerView.dateLabel.text = self.viewModel.allDates[section]
+        var titleStr = ""
+        if tableView === self.tableView {
+            titleStr = self.viewModel.allDates[section]
+        }
+        else {
+            titleStr = self.viewModel.searchedAllDates[section]
+        }
+        headerView.dateLabel.text = titleStr
         headerView.parentView.backgroundColor = AppColors.themeWhite
         headerView.dateLabelTopConstraint.constant = 20.0
         headerView.dataLabelBottomConstraint.constant = 7.0
@@ -34,10 +54,19 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
-            
-            return (allEvent.reduce(0) { $0 + $1.numOfRows})
+        if tableView === self.tableView {
+            if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
+                
+                return (allEvent.reduce(0) { $0 + $1.numOfRows})
+            }
         }
+        else {
+            if let allEvent = self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[section]] as? [AccountDetailEvent] {
+                
+                return (allEvent.reduce(0) { $0 + $1.numOfRows})
+            }
+        }
+
         return 0
     }
     
@@ -57,7 +86,15 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent] else {
+        var allEvent: [AccountDetailEvent] = []
+        if tableView === self.tableView {
+            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        else {
+            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        
+        guard !allEvent.isEmpty else {
             return UITableViewCell()
         }
         
@@ -95,5 +132,8 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.event = forData
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

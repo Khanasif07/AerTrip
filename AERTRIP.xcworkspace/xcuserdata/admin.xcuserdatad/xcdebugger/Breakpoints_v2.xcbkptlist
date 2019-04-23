@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/AppNetworking.swift"
-            timestampString = "577370300.515352"
+            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
+            timestampString = "577729746.14421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
-            landmarkName = "addCookies(forUrl:)"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
+            landmarkName = "openWith3DAnimation(mainFrame:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
+            timestampString = "577729746.1458549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
+            landmarkName = "closeWith3DAnimation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

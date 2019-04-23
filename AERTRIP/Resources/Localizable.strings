@@ -587,6 +587,8 @@
 "AccountsLegder" = "Accounts Legder";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
+"DateSpan" = "Date Span";
+"VoucherType" = "Voucher Type";
 
 //MARK:- BookingVC
 "MyBookings" = "My Bookings";

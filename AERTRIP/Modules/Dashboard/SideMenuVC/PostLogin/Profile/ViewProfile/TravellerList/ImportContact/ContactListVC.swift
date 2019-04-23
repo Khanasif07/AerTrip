@@ -155,7 +155,7 @@ class ContactListVC: BaseVC {
         self.selectAllButton.isHidden = isHidden
 
         tableView.backgroundView?.isHidden = !isHidden
-        self.isPermissionGiven = !isHidden
+//        self.isPermissionGiven = !isHidden
     }
     
     //MARK:- Public

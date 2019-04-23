@@ -12,9 +12,11 @@ open class PKAlertButton {
     
     var title: String = ""
     var titleColor: UIColor = .black
+    var titleFont: UIFont = UIFont.systemFont(ofSize: 20.0)
     
-    init(title: String = "", titleColor: UIColor = .black) {
+    init(title: String = "", titleColor: UIColor = .black, titleFont: UIFont = AppFonts.Regular.withSize(20.0)) {
         self.title = title
         self.titleColor = titleColor
+        self.titleFont = titleFont
     }
 }

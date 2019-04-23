@@ -65,6 +65,8 @@ class ATSearchBar: UISearchBar {
             textField.tintColor = AppColors.themeGreen
         }
         
+        self.tintColor = AppColors.themeGreen
+        
         self.micButton = UIButton(frame: CGRect(x: (self.width - self.height), y: 0.0, width: self.height, height: self.height))
         self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
         self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)

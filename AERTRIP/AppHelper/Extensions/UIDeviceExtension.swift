@@ -81,6 +81,12 @@ extension UIDevice{
         return UIApplication.shared.statusBarFrame.height != 20.0
     }
     
+    static var isPlusDevice: Bool {
+        let plusRatio: Double = 414.0/736.0
+        let currentRatio: Double = Double(self.screenWidth / self.screenHeight)
+        return plusRatio == currentRatio
+    }
+    
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)

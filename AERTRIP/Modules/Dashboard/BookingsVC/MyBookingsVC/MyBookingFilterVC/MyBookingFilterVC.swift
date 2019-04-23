@@ -10,9 +10,8 @@ import UIKit
 
 class MyBookingFilterVC: BaseVC {
     
-    //Mark:- Variables
-    //================
-    //- Private
+    //MARK:- Variables
+    //MARK:- Private
     private var currentIndex: Int = 0
     fileprivate weak var categoryView: ATCategoryView!
     private let allTabsStr: [String] = [LocalizedString.TravelDate.localized, LocalizedString.EventType.localized, LocalizedString.BookingDate.localized]
@@ -27,8 +26,7 @@ class MyBookingFilterVC: BaseVC {
     }
     private var allChildVCs: [UIViewController] = [UIViewController]()
     
-    //Mark:- IBOutlets
-    //================
+    //MARK:- IBOutlets
     @IBOutlet var topNavBar: TopNavigationView!{
         didSet {
             self.topNavBar.delegate = self
@@ -40,8 +38,7 @@ class MyBookingFilterVC: BaseVC {
     @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
     
     
-    //Mark:- LifeCycle
-    //================
+    //MARK:- LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -93,8 +90,7 @@ class MyBookingFilterVC: BaseVC {
         self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
     }
     
-    //Mark:- Functions
-    //================
+    //MARK:- Functions
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
@@ -158,15 +154,13 @@ class MyBookingFilterVC: BaseVC {
         view.addGestureRecognizer(gestureRecognizer)
     }
     
-    //Mark:- IBActions
-    //===============
+    //MARK:- IBActions
     @objc func  outsideAreaTapped() {
         self.hide(animated: true, shouldRemove: true)
     }
 }
 
-//Mark:- Extensions
-//=================
+//MARK:- Extensions
 extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
@@ -174,17 +168,15 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     }
 }
 
-// MARK: - ATCategoryNavBarDelegate
-
+//MARK:- ATCategoryNavBarDelegate
 extension MyBookingFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
-        HotelFilterVM.shared.lastSelectedIndex = toIndex
+//        HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
 
-// MARK: - UIGestureRecognizerDelegate Method
-
+//MARK:- UIGestureRecognizerDelegate Method
 extension MyBookingFilterVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view === self.view)

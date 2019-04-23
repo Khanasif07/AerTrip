@@ -573,9 +573,28 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountLedgerVC() {
-        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+//    func moveToAccountLedgerVC() {
+//        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
+//        self.mainNavigationController.pushViewController(obj, animated: true)
+//    }
+    
+    func moveToADEventFilterVC(_ vc : AccountDetailsVC ) {
+        if let obj = UIApplication.topViewController() {
+            let ob = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
+            //            ob.delegate = vc
+            obj.add(childViewController: ob)
+        }
+    }
+    
+    func moveCalenderVC(){
+//        let ob = AertripCalendarViewController.instantiate(fromAppStoryboard: .AertripCalendar)
+//        let calendarVM = CalendarVM()
+//        calendarVM.isHotelCalendar = false
+//        calendarVM.isReturn = false
+//        calendarVM.isMultiCity = false
+//        calendarVM.date1 = Date()
+//        ob.viewModel = calendarVM
+//        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
 }
 

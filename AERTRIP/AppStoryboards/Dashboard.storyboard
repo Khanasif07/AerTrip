@@ -412,62 +412,85 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="484.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Bl-Z0-ANd">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="699"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="631"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, I’m Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scz-4i-JRa">
-                                                <rect key="frame" x="0.0" y="50" width="375" height="33.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your personal travel assistant" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-ox-irL">
-                                                <rect key="frame" x="0.0" y="88.5" width="375" height="23"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBE-4e-7Yr">
-                                                <rect key="frame" x="112.5" y="146.5" width="150" height="150"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLb-Sc-c5h">
+                                                <rect key="frame" x="32" y="35" width="311" height="293"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-eF-3hM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                        <state key="normal" image="aerinTapLogo"/>
-                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, I’m Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scz-4i-JRa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="311" height="33.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your personal travel assistant" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-ox-irL">
+                                                        <rect key="frame" x="0.0" y="38.5" width="311" height="23"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBE-4e-7Yr">
+                                                        <rect key="frame" x="70.5" y="71.5" width="170" height="170"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-eF-3hM">
+                                                                <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                                                                <state key="normal" image="aerinTapLogo"/>
+                                                                <connections>
+                                                                    <action selector="aerinButtonAction:" destination="bYL-Ms-OZy" eventType="touchUpInside" id="xWR-Nx-fvl"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Jou-eF-3hM" firstAttribute="leading" secondItem="FBE-4e-7Yr" secondAttribute="leading" id="9K5-2R-Umz"/>
+                                                            <constraint firstAttribute="height" constant="170" id="CYg-c3-AOn"/>
+                                                            <constraint firstAttribute="width" secondItem="FBE-4e-7Yr" secondAttribute="height" multiplier="1:1" id="Stl-Iy-Vh8"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Jou-eF-3hM" secondAttribute="trailing" id="bAT-xp-LJ3"/>
+                                                            <constraint firstItem="Jou-eF-3hM" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="top" id="cGO-ow-Lla"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Jou-eF-3hM" secondAttribute="bottom" id="qMj-Y6-Kz9"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJN-Be-u7u">
+                                                        <rect key="frame" x="0.0" y="249.5" width="311" height="68.5"/>
+                                                        <string key="text">“Try asking for Flights from Mumbai to Delhi
+on Christmas”</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="Jou-eF-3hM" firstAttribute="leading" secondItem="FBE-4e-7Yr" secondAttribute="leading" id="9K5-2R-Umz"/>
-                                                    <constraint firstAttribute="height" constant="150" id="CYg-c3-AOn"/>
-                                                    <constraint firstAttribute="width" secondItem="FBE-4e-7Yr" secondAttribute="height" multiplier="1:1" id="Stl-Iy-Vh8"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Jou-eF-3hM" secondAttribute="trailing" id="bAT-xp-LJ3"/>
-                                                    <constraint firstItem="Jou-eF-3hM" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="top" id="cGO-ow-Lla"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Jou-eF-3hM" secondAttribute="bottom" id="qMj-Y6-Kz9"/>
+                                                    <constraint firstItem="ese-ox-irL" firstAttribute="top" secondItem="Scz-4i-JRa" secondAttribute="bottom" constant="5" id="1MV-i1-hbm"/>
+                                                    <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="10" id="4ZN-cv-yIa"/>
+                                                    <constraint firstItem="ese-ox-irL" firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="712-se-abv"/>
+                                                    <constraint firstItem="bJN-Be-u7u" firstAttribute="trailing" secondItem="ese-ox-irL" secondAttribute="trailing" id="ETI-N1-1uN"/>
+                                                    <constraint firstItem="Scz-4i-JRa" firstAttribute="top" secondItem="GLb-Sc-c5h" secondAttribute="top" id="HEO-kD-ryQ"/>
+                                                    <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="Id6-XX-y2C"/>
+                                                    <constraint firstItem="Scz-4i-JRa" firstAttribute="leading" secondItem="GLb-Sc-c5h" secondAttribute="leading" id="PGt-5H-Y7z"/>
+                                                    <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="8" id="ReB-5E-Ji9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="aEo-og-g7i"/>
+                                                    <constraint firstItem="bJN-Be-u7u" firstAttribute="leading" secondItem="ese-ox-irL" secondAttribute="leading" id="afz-Me-d8J"/>
+                                                    <constraint firstItem="ese-ox-irL" firstAttribute="leading" secondItem="Scz-4i-JRa" secondAttribute="leading" id="bMz-rD-46B"/>
+                                                    <constraint firstAttribute="height" constant="293" id="gJm-lO-vKj"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJN-Be-u7u">
-                                                <rect key="frame" x="15" y="331.5" width="345" height="68.5"/>
-                                                <string key="text">“Try asking for Flights from Mumbai to Delhi
-on Christmas”</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekend Getaway!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG4-JY-83S">
-                                                <rect key="frame" x="10" y="470" width="355" height="21"/>
+                                                <rect key="frame" x="10" y="402" width="355" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlh-E7-sSR">
-                                                <rect key="frame" x="60" y="506" width="255" height="178"/>
+                                                <rect key="frame" x="60" y="438" width="255" height="178"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zr9-Sf-iGr">
-                                                <rect key="frame" x="40" y="514" width="295" height="170"/>
+                                                <rect key="frame" x="40" y="446" width="295" height="170"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-aV-lTD">
-                                                <rect key="frame" x="10" y="524" width="355" height="160"/>
+                                                <rect key="frame" x="10" y="456" width="355" height="160"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gettyimages" translatesAutoresizingMaskIntoConstraints="NO" id="ghO-aZ-vI6">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="160"/>
@@ -485,32 +508,24 @@ on Christmas”</string>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="GLb-Sc-c5h" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="32" id="0Jd-oS-ur8"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="Zr9-Sf-iGr" secondAttribute="top" constant="-8" id="3vQ-rr-X5y"/>
-                                            <constraint firstItem="FBE-4e-7Yr" firstAttribute="centerX" secondItem="ese-ox-irL" secondAttribute="centerX" id="5rZ-LR-yJq"/>
-                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="top" secondItem="FBE-4e-7Yr" secondAttribute="bottom" constant="35" id="6Ic-CZ-Qwm"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="leading" secondItem="Zr9-Sf-iGr" secondAttribute="leading" constant="20" id="6q1-Ea-wqq"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZaM-aV-lTD" secondAttribute="bottom" constant="15" id="8DM-Eg-KIw"/>
-                                            <constraint firstItem="Scz-4i-JRa" firstAttribute="top" secondItem="8Bl-Z0-ANd" secondAttribute="top" constant="50" id="A11-5H-2mE"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="bottom" secondItem="Zr9-Sf-iGr" secondAttribute="bottom" id="APf-JF-GmX"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" constant="-30" id="C7V-mv-zwu"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" id="IZE-6N-K2G"/>
-                                            <constraint firstItem="FBE-4e-7Yr" firstAttribute="top" secondItem="ese-ox-irL" secondAttribute="bottom" constant="35" id="OMK-Va-R3H"/>
-                                            <constraint firstItem="Scz-4i-JRa" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" id="Q21-27-dso"/>
+                                            <constraint firstAttribute="trailing" secondItem="GLb-Sc-c5h" secondAttribute="trailing" constant="32" id="S02-VO-ip5"/>
+                                            <constraint firstItem="GLb-Sc-c5h" firstAttribute="top" secondItem="8Bl-Z0-ANd" secondAttribute="top" constant="35" id="Scq-LJ-THj"/>
                                             <constraint firstItem="DG4-JY-83S" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" id="UzB-W0-FFD"/>
-                                            <constraint firstItem="ese-ox-irL" firstAttribute="leading" secondItem="Scz-4i-JRa" secondAttribute="leading" id="XAH-7s-eUj"/>
-                                            <constraint firstItem="ese-ox-irL" firstAttribute="top" secondItem="Scz-4i-JRa" secondAttribute="bottom" constant="5" id="Xkm-a9-aMb"/>
                                             <constraint firstAttribute="trailing" secondItem="ZaM-aV-lTD" secondAttribute="trailing" constant="10" id="Z1t-N9-rv6"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" constant="30" id="ZeQ-OS-Eoe"/>
-                                            <constraint firstItem="DG4-JY-83S" firstAttribute="top" secondItem="bJN-Be-u7u" secondAttribute="bottom" constant="70" id="daZ-Wt-uGN"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="trailing" secondItem="Zr9-Sf-iGr" secondAttribute="trailing" constant="-20" id="fHP-UV-gED"/>
                                             <constraint firstItem="tlh-E7-sSR" firstAttribute="top" secondItem="DG4-JY-83S" secondAttribute="bottom" constant="15" id="i5n-ah-2B5"/>
-                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="trailing" secondItem="ese-ox-irL" secondAttribute="trailing" constant="-15" id="jxu-N8-RkT"/>
-                                            <constraint firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="kWb-g8-wmH"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="bottom" secondItem="ZaM-aV-lTD" secondAttribute="bottom" id="tNb-d4-7TC"/>
                                             <constraint firstItem="ZaM-aV-lTD" firstAttribute="leading" secondItem="8Bl-Z0-ANd" secondAttribute="leading" constant="10" id="tkU-EY-dy5"/>
-                                            <constraint firstItem="bJN-Be-u7u" firstAttribute="leading" secondItem="ese-ox-irL" secondAttribute="leading" constant="15" id="u1V-He-MDk"/>
                                             <constraint firstItem="Zr9-Sf-iGr" firstAttribute="top" secondItem="ZaM-aV-lTD" secondAttribute="top" constant="-10" id="uN4-pU-7kx"/>
-                                            <constraint firstItem="ese-ox-irL" firstAttribute="trailing" secondItem="Scz-4i-JRa" secondAttribute="trailing" id="xEZ-I7-Sqd"/>
+                                            <constraint firstItem="DG4-JY-83S" firstAttribute="top" secondItem="GLb-Sc-c5h" secondAttribute="bottom" constant="74" id="zPl-j1-kSu"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -612,14 +627,14 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-kJ-uNo" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="109" y="0.0" width="266" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="266" height="257"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
-                                            <rect key="frame" x="0.0" y="0.0" width="266" height="257"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sr-St-Vaq">
@@ -669,10 +684,10 @@ on Christmas”</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuViewAccountCell" rowHeight="62" id="jo2-Cw-Idk" customClass="SideMenuViewAccountCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="285" width="266" height="62"/>
+                                        <rect key="frame" x="0.0" y="285" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jo2-Cw-Idk" id="TmU-Fr-dt0">
-                                            <rect key="frame" x="0.0" y="0.0" width="266" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-f2-KsG">
@@ -747,8 +762,8 @@ on Christmas”</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" id="3d2-8h-COt"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="bottom" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="NtU-XG-gff"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="width" secondItem="y8S-Y4-E4n" secondAttribute="width" multiplier="0.71" id="ZPa-oV-JPv"/>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="y8S-Y4-E4n" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
                         </constraints>

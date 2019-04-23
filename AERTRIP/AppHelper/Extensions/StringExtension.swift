@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVKit
 
 extension UnicodeScalar {
     var isEmoji: Bool {

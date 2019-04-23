@@ -69,6 +69,7 @@ class SocialLoginVC: BaseVC {
         super.viewDidAppear(animated)
         
         self.topNavView.leftButton.isHidden = false
+        
     }
     
     override func viewWillLayoutSubviews() {

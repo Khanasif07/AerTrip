@@ -14,7 +14,7 @@ protocol HotelFilteVCDelegate: class {
 }
 
 class HotelFilterVC: BaseVC {
-    // MARK: - IB Outlets
+    // MARK:- IB Outlets
     
     @IBOutlet var clearAllButton: UIButton!
     @IBOutlet var navigationTitleLabel: UILabel!

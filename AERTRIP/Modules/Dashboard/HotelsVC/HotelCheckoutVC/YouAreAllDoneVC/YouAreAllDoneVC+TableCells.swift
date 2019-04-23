@@ -165,6 +165,7 @@ extension YouAreAllDoneVC {
         } else {
             cell.whatNextStackView.isHidden = true
         }
+//        cell.whatNextStackView.isHidden = false
         return cell
     }
 }
