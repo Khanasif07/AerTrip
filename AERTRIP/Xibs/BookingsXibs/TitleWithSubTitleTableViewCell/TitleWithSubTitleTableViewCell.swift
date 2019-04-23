@@ -25,7 +25,7 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleLabelBottomConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

@@ -607,3 +607,4 @@
 "PaymentInfo" = "Payment Info";
 "Booking" = "Booking";
 "Paid" = "Paid";
+"ShowPendingActionsOnly" = "Show pending actions only";

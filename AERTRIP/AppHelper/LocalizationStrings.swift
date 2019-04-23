@@ -643,4 +643,5 @@ enum LocalizedString: String {
     case PaymentInfo = "PaymentInfo"
     case Booking = "Booking"
     case Paid = "Paid"
+    case ShowPendingActionsOnly = "ShowPendingActionsOnly"
  }

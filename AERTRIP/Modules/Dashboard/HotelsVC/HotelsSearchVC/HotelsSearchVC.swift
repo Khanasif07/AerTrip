@@ -272,11 +272,14 @@ class HotelsSearchVC: BaseVC {
     }
     
     ///GetDataFromPreviousSearch
-    private func getDataFromPreviousSearch() {
+    private func getDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil) {
         let date = Date()
-
         var oldData = HotelsSearchVM.hotelFormData
-        self.viewModel.searchedFormData = oldData
+        if olddata != nil {
+            self.viewModel.searchedFormData = olddata ?? HotelFormPreviosSearchData()
+        } else {
+            self.viewModel.searchedFormData = oldData
+        }
         
         //set selected city
         self.cityNameLabel.text = self.viewModel.searchedFormData.cityName
@@ -720,6 +723,8 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
 extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
     
     func passRecentSearchesData(recentSearch: RecentSearchesModel) {
+        self.searchBtnOutlet.isLoading = true
+        _ = CoreDataManager.shared.deleteAllData("HotelSearched")
         self.viewModel.searchedFormData.adultsCount.removeAll()
         self.viewModel.searchedFormData.childrenAge.removeAll()
         for roomData in recentSearch.room ?? [] {
@@ -751,9 +756,16 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.destId = recentSearch.dest_id
         self.viewModel.searchedFormData.destType = recentSearch.dest_type
         self.viewModel.searchedFormData.destName = recentSearch.dest_name
+        self.viewModel.searchedFormData.cityName = recentSearch.dest_name.components(separatedBy: ",").first ?? ""
+        var splittedStringArray = recentSearch.dest_name.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        self.viewModel.searchedFormData.stateName = stateName
         printDebug("searching again for \(recentSearch.dest_name)")
+        self.getDataFromPreviousSearch(olddata: self.viewModel.searchedFormData)
         //open result screen for the recent
         AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
+        self.searchBtnOutlet.isLoading = false
     }
 }
 
@@ -761,10 +773,28 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveCalenderVC()
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
-        AppFlowManager.default.moveCalenderVC()
+        
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+}
+
+extension HotelsSearchVC: CalendarDataHandler {
+    func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
+        if startDate != nil {
+            self.viewModel.searchedFormData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+        }
+        if endDate != nil {
+            self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+        }
+        if let checkInOutVw = self.checkInOutView {
+            checkInOutVw.setDates(fromData: self.viewModel.searchedFormData)
+        }
+        printDebug(startDate)
+        printDebug(endDate)
+        printDebug(isHotelCalendar)
+        printDebug(isReturn)
     }
 }

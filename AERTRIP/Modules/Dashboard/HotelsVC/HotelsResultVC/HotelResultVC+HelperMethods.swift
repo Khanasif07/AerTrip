@@ -162,7 +162,6 @@ extension HotelResultVC {
     func setupNavigationTitleLabelText() {
         
         self.titleLabel.text = self.viewModel.searchedFormData.cityName
-        
         let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
