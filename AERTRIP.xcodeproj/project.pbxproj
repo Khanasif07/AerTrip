@@ -10,6 +10,12 @@
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
 		18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18038CEF226D90C000A4D1DD /* Aerin.storyboard */; };
+		18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */; };
+		18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */; };
+		18038D17226DCB4600A4D1DD /* AerinTextSpeechVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */; };
+		18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */; };
+		18038D1D226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */; };
+		18038D1E226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */; };
 		1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */; };
 		1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1804888921CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib */; };
 		1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888B21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift */; };
@@ -659,6 +665,12 @@
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
 		18038CEF226D90C000A4D1DD /* Aerin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Aerin.storyboard; sourceTree = "<group>"; };
+		18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinSuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
+		18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinSuggestionCollectionViewCell.xib; sourceTree = "<group>"; };
+		18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinTextSpeechVC.swift; sourceTree = "<group>"; };
+		18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinTextSpeechDetailVC.swift; sourceTree = "<group>"; };
+		18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinCurrentStateTableViewCell.swift; sourceTree = "<group>"; };
+		18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinCurrentStateTableViewCell.xib; sourceTree = "<group>"; };
 		1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailTableViewSectionView.swift; sourceTree = "<group>"; };
 		1804888921CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileDetailTableViewSectionView.xib; sourceTree = "<group>"; };
 		1804888B21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -1364,6 +1376,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18038D10226DC2C700A4D1DD /* Aerin */ = {
+			isa = PBXGroup;
+			children = (
+				18038D1A226DE67400A4D1DD /* AerinTableViewCell */,
+				18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */,
+				18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */,
+			);
+			path = Aerin;
+			sourceTree = "<group>";
+		};
+		18038D15226DCABA00A4D1DD /* Aerin */ = {
+			isa = PBXGroup;
+			children = (
+				18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */,
+				18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */,
+			);
+			path = Aerin;
+			sourceTree = "<group>";
+		};
+		18038D1A226DE67400A4D1DD /* AerinTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */,
+				18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */,
+			);
+			path = AerinTableViewCell;
+			sourceTree = "<group>";
+		};
 		1804888521CA58B900437C81 /* ViewProfileDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1405,6 +1445,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				18038D10226DC2C700A4D1DD /* Aerin */,
 				84D157FA22660B1400393528 /* Accounts */,
 				18F181D5223BC86D00323775 /* FinalCheckout */,
 				1882905D2238D4C80000C118 /* GuestDetails */,
@@ -1989,6 +2030,7 @@
 		84085C6C21F59C0C00F1E844 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				18038D15226DCABA00A4D1DD /* Aerin */,
 				18B435622202C9AA000C5E31 /* HotelFilter */,
 				84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */,
 				84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */,
@@ -3692,6 +3734,7 @@
 				84534ED72249E906009FF536 /* YouAreAllDoneFooterView.xib in Resources */,
 				849F31F021FF1AC60076BB3D /* login.csv in Resources */,
 				84534EAE2248E099009FF536 /* HCBedDetailsTableViewCell.xib in Resources */,
+				18038D1E226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib in Resources */,
 				84DD24852267042A0013F77E /* TitleWithSubTitleTableViewCell.xib in Resources */,
 				8491D1F3222D3FC2001D0313 /* SourceSansPro-Regular.ttf in Resources */,
 				84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */,
@@ -3814,6 +3857,7 @@
 				849F31EF21FF1AC60076BB3D /* profile.csv in Resources */,
 				8417772C223F6DF700DAC087 /* hotelsSearch.csv in Resources */,
 				84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */,
+				18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */,
 				84F983F521B51A070018DFED /* Splash.storyboard in Resources */,
 				187F9EAF22314F3F005B6027 /* HotelsSearch.storyboard in Resources */,
 				84DD245A2265A5FA0013F77E /* DateTableHeaderView.xib in Resources */,
@@ -4017,6 +4061,7 @@
 				84085CE521F59C0E00F1E844 /* CreateProfileVC.swift in Sources */,
 				84085D1421F59C0E00F1E844 /* ViewProfileDetailVM.swift in Sources */,
 				84827650223A6DA5007B6A27 /* GuestDetailsVC.swift in Sources */,
+				18038D1D226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift in Sources */,
 				18EF5E7C221D261B00EFFA6E /* GMUFeature.m in Sources */,
 				84085D1121F59C0E00F1E844 /* ImportContactVC.swift in Sources */,
 				1871B67822084B580066636E /* PriceVC.swift in Sources */,
@@ -4125,6 +4170,7 @@
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
 				1807EFFD223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift in Sources */,
 				84DD24772265EA8E0013F77E /* UpComingBookingEventModel.swift in Sources */,
+				18038D17226DCB4600A4D1DD /* AerinTextSpeechVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18E7970F2249092A00A7AC8B /* CurrencyOptionCell.swift in Sources */,
 				18EF5E7E221D261B00EFFA6E /* GMUStyle.m in Sources */,
@@ -4189,6 +4235,7 @@
 				84271E852237A13F00C1A70D /* HCDataSelectionVM.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
 				84534ECF22491991009FF536 /* HCWhatNextCollectionViewCell.swift in Sources */,
+				18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */,
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
 				18D4C417220AC515005E1E37 /* RoomVC.swift in Sources */,
 				84085CE021F59C0E00F1E844 /* SideMenuVC.swift in Sources */,
@@ -4328,6 +4375,7 @@
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
+				18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
 				18F967FF2233945400B163C8 /* EmptyTableViewCell.swift in Sources */,
 				8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */,

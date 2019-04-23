@@ -101,6 +101,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
 
 extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsOnPreferenceSuccess() {
+        self.fetchRequestType = .normal
         self.addMapView()
         self.setupTexts()
         self.viewModel.hotelListOnPreferenceResult()
@@ -265,8 +266,9 @@ extension HotelResultVC: CLLocationManagerDelegate {
 extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         if let indexPath = selectedIndexPath {
-             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                selectedIndexPath = nil 
+            self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+            self.collectionView.reloadItems(at: indexPath)
+            selectedIndexPath = nil
         }
        
     }

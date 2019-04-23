@@ -588,7 +588,7 @@
 "Voucher" = "Voucher";
 "Amount" = "Amount";
 
-//MARK:- BookingVC
+//MARK: - BookingVC
 "MyBookings" = "My Bookings";
 "NoBookingsYet" = "No Bookings yet";
 "StartYourWanderlustJourneyWithUs" = "Start your ‘Wanderlust’ journey with us!";
@@ -607,3 +607,8 @@
 "PaymentInfo" = "Payment Info";
 "Booking" = "Booking";
 "Paid" = "Paid";
+
+//MARK: - Aerin VC
+"Hi" = "Hi";
+"HelpMessage" = "How can I help you?";
+

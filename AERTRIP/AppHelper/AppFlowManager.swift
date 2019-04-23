@@ -588,6 +588,24 @@ extension AppFlowManager {
         ob.viewModel = calendarVM
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
+    
+    // MARK: - Aerin
+    
+    func showAerinTextToSpeechVC() {
+        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func moveToAerinTextSpeechDetailVC() {
+       
+          let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
+        // Doing for temporary
+        self.mainNavigationController.pushViewController(ob, animated: true)
+      
+
+//        }
+    
+    }
 }
 
 //MARK:- Select Trip Flow Methods
