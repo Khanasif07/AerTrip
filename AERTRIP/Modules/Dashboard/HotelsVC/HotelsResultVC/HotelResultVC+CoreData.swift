@@ -11,21 +11,49 @@ extension HotelResultVC {
     // Load Save Data from core data
     
     func loadSaveData() {
-        if self.fetchRequestType == .FilterApplied {
+        
+        // Predicate for searching based on Hotel Name and a
+         let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+        switch self.fetchRequestType {
+        case .FilterApplied:
+            addSortDescriptors()
             self.filterButton.isSelected = true
-            andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
-            self.fetchedResultsController.fetchRequest.predicate = andPredicate
-        } else if self.fetchRequestType == .Searching {
-            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+            if self.predicateStr == " " {
+                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
+                self.fetchedResultsController.fetchRequest.predicate = andPredicate
+            } else {
+                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
+                if let andPredicate = andPredicate {
+                    self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
+                }
+            }
+        case .Searching:
             if let andPredicate = self.andPredicate {
                 self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
             } else {
                 self.fetchedResultsController.fetchRequest.predicate = orPredicate
             }
-            
-        } else {
-            self.fetchRequestWithoutFilter()
+        case .normal :
+          self.fetchRequestWithoutFilter()
         }
+//        if self.fetchRequestType == .FilterApplied {
+////            addSortDescriptors()
+////            self.filterButton.isSelected = true
+////            if self.predicateStr == " " {
+////                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
+////                self.fetchedResultsController.fetchRequest.predicate = andPredicate
+////            } else {
+////                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
+////                if let andPredicate = andPredicate {
+////                     self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
+////                }
+////            }
+//        } else if self.fetchRequestType == .Searching {
+//
+//
+//        } else {
+//
+//        }
         self.fetchDataFromCoreData()
         self.reloadHotelList()
     }
@@ -53,7 +81,6 @@ extension HotelResultVC {
     
     func createSubPredicates() -> [NSPredicate] {
         var subpredicates: [NSPredicate] = []
-        addSortDescriptors()
         let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
         let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
