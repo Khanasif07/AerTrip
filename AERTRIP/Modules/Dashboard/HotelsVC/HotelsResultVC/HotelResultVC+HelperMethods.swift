@@ -38,7 +38,7 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion)
+        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion,toastDidClose: self.toastDidClose)
     }
     
     func convertToMapView() {
@@ -461,6 +461,18 @@ extension HotelResultVC {
         if hoteResultViewType == .MapView {
             
         }
+    }
+    
+    // Disable mapButton and search bar when no data found on filter
+    func noHotelFoundOnFilter() {
+        self.mapButton.isUserInteractionEnabled = false
+        self.searchBar.isUserInteractionEnabled = false
+    }
+    
+    // enable mapButton and search bar when no data found on filter
+    func dataFounOnFilter() {
+        self.mapButton.isUserInteractionEnabled = true
+        self.searchBar.isUserInteractionEnabled = true
     }
 }
 

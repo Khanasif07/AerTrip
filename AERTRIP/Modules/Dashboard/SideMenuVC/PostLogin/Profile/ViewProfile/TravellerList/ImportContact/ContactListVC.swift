@@ -125,6 +125,8 @@ class ContactListVC: BaseVC {
                 else if self.currentlyUsingFor == .google && !self.viewModel.googleContacts.isEmpty {
                     self.viewModel.createSectionWiseDataForContacts(for: .google)
                     tableView.backgroundView = noResultemptyView
+                } else {
+                    tableView.backgroundView = noResultemptyView
                 }
                 self.reloadList()
             }

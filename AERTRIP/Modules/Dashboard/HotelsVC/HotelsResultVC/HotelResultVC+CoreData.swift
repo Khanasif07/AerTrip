@@ -18,7 +18,7 @@ extension HotelResultVC {
         case .FilterApplied:
             addSortDescriptors()
             self.filterButton.isSelected = true
-            if self.predicateStr == " " {
+            if self.predicateStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 self.fetchedResultsController.fetchRequest.predicate = andPredicate
             } else {
@@ -36,24 +36,6 @@ extension HotelResultVC {
         case .normal :
           self.fetchRequestWithoutFilter()
         }
-//        if self.fetchRequestType == .FilterApplied {
-////            addSortDescriptors()
-////            self.filterButton.isSelected = true
-////            if self.predicateStr == " " {
-////                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
-////                self.fetchedResultsController.fetchRequest.predicate = andPredicate
-////            } else {
-////                andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
-////                if let andPredicate = andPredicate {
-////                     self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
-////                }
-////            }
-//        } else if self.fetchRequestType == .Searching {
-//
-//
-//        } else {
-//
-//        }
         self.fetchDataFromCoreData()
         self.reloadHotelList()
     }
@@ -85,7 +67,7 @@ extension HotelResultVC {
         let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
-        if self.filterApplied.distanceRange >= 0 {
+        if self.filterApplied.distanceRange <= 20 {
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             subpredicates.append(distancePredicate)
         }

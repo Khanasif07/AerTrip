@@ -111,6 +111,13 @@ extension HotelResultVC: HotelResultDelegate {
         
     }
     
+    func noHotelFound() {
+        self.hotelSearchView.isHidden = false
+        self.progressView.removeFromSuperview()
+        self.manageShimmer(isHidden: true)
+        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+    }
+    
     func loadFinalDataOnScreen() {
         self.filterButton.isEnabled = true
         self.mapButton.isEnabled = true
@@ -122,7 +129,6 @@ extension HotelResultVC: HotelResultDelegate {
         self.updateMarkers()
         if UserInfo.hotelFilter != nil {
             self.applyPreviousFilter()
-            self.fetchRequestType = .FilterApplied
             self.getSavedFilter()
         }
     }
@@ -132,10 +138,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
-        self.hotelSearchView.isHidden = false
-        self.progressView.removeFromSuperview()
-        self.manageShimmer(isHidden: true)
-        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+        self.noHotelFound()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
@@ -163,8 +166,10 @@ extension HotelResultVC: HotelResultDelegate {
 
     func updateFavouriteFail(errors:ErrorCodes) {
         self.reloadHotelList()
-        if errors.contains(array: [-1]) {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if errors.contains(array: [-1]){
+            if let _  = UserInfo.loggedInUser?.userId {
+                  AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
         } else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
@@ -181,6 +186,8 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         if errors.contains(array: [37]) {
             self.viewModel.hotelListOnResultFallback()
+        } else if errors.isEmpty {
+            self.noHotelFound()
         }
     }
 }
@@ -270,7 +277,6 @@ extension HotelResultVC: HotelDetailsVCDelegate {
             self.collectionView.reloadItems(at: indexPath)
             selectedIndexPath = nil
         }
-       
     }
     
     

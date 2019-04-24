@@ -349,6 +349,8 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             guestDetailTableView.isScrollEnabled = false
             travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
+        } else {
+            travellersTableView.isHidden = true
         }
     }
 }

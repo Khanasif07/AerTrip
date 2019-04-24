@@ -107,6 +107,7 @@ class HotelResultVC: BaseVC {
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
     var completion: (() -> Void)?
+    var toastDidClose : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
     var displayingHotelLocation: CLLocationCoordinate2D? {
         didSet {
@@ -234,7 +235,13 @@ class HotelResultVC: BaseVC {
         
         self.startProgress()
         self.completion = { [weak self] in
+            self?.fetchRequestType = .FilterApplied
             self?.loadSaveData()
+        }
+        
+        self.toastDidClose = {
+            UserInfo.hotelFilter = nil
+            HotelFilterVM.shared.resetToDefault()
         }
         
         //call API to get vcode, sid
@@ -270,6 +277,13 @@ class HotelResultVC: BaseVC {
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             self.hotelSearchTableView.reloadData()
+        } else if let _ = note.object as? HCDataSelectionVC {
+            // fav updated from HCDataSelectionVC
+            if let indexPath = selectedIndexPath {
+                self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+                selectedIndexPath = nil
+            }
+            
         }
     }
     

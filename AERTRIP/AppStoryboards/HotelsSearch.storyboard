@@ -995,6 +995,7 @@
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="cj0-P0-cCO"/>
+                                                                            <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpOutside" id="p6R-dU-bvu"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1014,6 +1015,7 @@
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpOutside" id="hYU-zQ-COl"/>
                                                                             <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="oMx-cX-Uhk"/>
                                                                         </connections>
                                                                     </button>
@@ -1035,6 +1037,7 @@
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="1AA-qg-NhY"/>
+                                                                            <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpOutside" id="eM3-gp-0x5"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1055,6 +1058,7 @@
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="eV3-Pt-mr6"/>
+                                                                            <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpOutside" id="g4O-DD-bM7"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1075,6 +1079,7 @@
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="Xdg-zQ-kz2"/>
+                                                                            <action selector="starButtonsAction:" destination="65J-aL-6gx" eventType="touchUpOutside" id="xhV-Vt-FAP"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2464,6 +2469,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="48Q-XT-pCx"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="oeI-uH-L4f"/>
                                                                         </connections>
                                                                     </button>
@@ -2484,6 +2490,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="I3F-1r-MDR"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="sYV-H4-S0b"/>
                                                                         </connections>
                                                                     </button>
@@ -2504,6 +2511,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="eo9-tk-a6o"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="jCx-2l-gz7"/>
                                                                         </connections>
                                                                     </button>
@@ -2525,6 +2533,7 @@ been sent</string>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="bPB-bB-mZ8"/>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="uz5-EC-Dtq"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2545,6 +2554,7 @@ been sent</string>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="Tyn-AI-xnF"/>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="kdE-MN-kFC"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
