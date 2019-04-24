@@ -64,7 +64,7 @@ open class PKSideMenuController: UIViewController {
         return PKSideMenuOptions.currentOpeningSide == .left ? -(PKSideMenuOptions.sideDistanceForOpenMenu) : PKSideMenuOptions.sideDistanceForOpenMenu
     }
     
-    private var visibleSpace: CGFloat {
+    var visibleSpace: CGFloat {
         let extra = PKSideMenuOptions.sideDistanceForOpenMenu - (PKSideMenuOptions.sideDistanceForOpenMenu * 0.85)
         return self.view.bounds.size.width - (PKSideMenuOptions.sideDistanceForOpenMenu + extra + 10.0)
     }

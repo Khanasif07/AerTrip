@@ -282,7 +282,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension HCGuestListVC: EmptyScreenViewDelegate {
-    func firstButtonAction(sender: UIButton) {
+    func firstButtonAction(sender: ATButton) {
         if self.currentlyUsingFor == .travellers {
             self.viewModel.fetchTravellersContact()
         }

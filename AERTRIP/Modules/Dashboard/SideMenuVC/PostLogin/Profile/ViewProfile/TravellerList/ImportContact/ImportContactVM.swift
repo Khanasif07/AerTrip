@@ -37,7 +37,7 @@ class ImportContactVM: NSObject {
     //MARK:- Public
     static let shared = ImportContactVM()
     
-    private var _phoneContacts: [ATContact] = [] {
+    private var _phoneContacts: [CNContact] = [] {
         didSet {
             self.phoneContacts = self._phoneContacts
         }
@@ -53,7 +53,7 @@ class ImportContactVM: NSObject {
         }
     }
     
-    var phoneContacts: [ATContact] = [] {
+    var phoneContacts: [CNContact] = [] {
         didSet {
             phoneContacts.sort { (ct1, ct2) -> Bool in
                 ct1.fullName < ct2.fullName
@@ -75,7 +75,7 @@ class ImportContactVM: NSObject {
         }
     }
     
-    var selectedPhoneContacts: [ATContact] = []
+    var selectedPhoneContacts: [CNContact] = []
     
     var selectedFacebookContacts: [ATContact] = []
     
@@ -146,7 +146,7 @@ class ImportContactVM: NSObject {
         self.delegateCollection?.willFetchPhoneContacts()
         forVC.fetchContacts { [weak self] (contacts) in
             DispatchQueue.mainAsync {
-                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
+                self?._phoneContacts = contacts
                 if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
                 }
@@ -195,7 +195,7 @@ class ImportContactVM: NSObject {
         case .contacts:
             let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)).capitalizedFirst() })
             let keys = groupedDictionary.keys.sorted()
-            sections = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
+            sections = keys.map{ Section(letter: $0, contacts: [], cnContacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
                 return ct1.firstName.lowercased() < ct2.firstName.lowercased()
             })) }
         case .facebook:
@@ -283,6 +283,7 @@ class ImportContactVM: NSObject {
             var params = JSONDictionary()
 
             for (idx, contact) in self.selectedPhoneContacts.enumerated() {
+//                let contact = ATContact(contact: cnContact)
                 params["data[\(idx)][last_name]"] = contact.lastName
                 params["data[\(idx)][first_name]"] = contact.firstName
                 
@@ -292,8 +293,9 @@ class ImportContactVM: NSObject {
                 
                 params["data[\(idx)][mobile][0][contact_label]"] = "cell"
                 params["data[\(idx)][mobile][0][contact_type]"] = contact.label.rawValue
-                params["data[\(idx)][mobile][0][contact_value]"] = contact.contact
-                params["data[\(idx)][mobile][0][isd]"] = contact.isd
+                let fullContact = contact.fullContact
+                params["data[\(idx)][mobile][0][contact_value]"] = fullContact.contact
+                params["data[\(idx)][mobile][0][isd]"] = fullContact.isd
             }
             
             APICaller.shared.callSavePhoneContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
@@ -307,6 +309,11 @@ class ImportContactVM: NSObject {
                 }
                 saveSocialContacts()
             }
+        }
+        
+        guard self.totalSelectedContacts <= 100 else {
+            AppToast.default.showToastMessage(message: "Please select 100 contacts at a time.")
+            return
         }
         
         if !self.selectedPhoneContacts.isEmpty {
@@ -323,6 +330,13 @@ class ImportContactVM: NSObject {
 
 
 struct Section {
-    let letter : String
-    let contacts : [ATContact]
+    var letter : String
+    var contacts : [ATContact]
+    var cnContacts : [CNContact] = []
+    
+    init(letter : String, contacts : [ATContact], cnContacts : [CNContact]? = nil) {
+        self.letter = letter
+        self.contacts = contacts
+        self.cnContacts = cnContacts ?? []
+    }
 }
