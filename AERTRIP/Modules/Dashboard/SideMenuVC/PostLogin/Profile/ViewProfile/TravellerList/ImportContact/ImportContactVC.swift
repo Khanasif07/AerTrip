@@ -391,7 +391,7 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
         switch indexPath.section {
         case 0:
             //phone
-            cell.contact = self.viewModel.selectedPhoneContacts[indexPath.item]
+            cell.contact = ATContact(contact: self.viewModel.selectedPhoneContacts[indexPath.item])
 
         case 1:
             //facebook

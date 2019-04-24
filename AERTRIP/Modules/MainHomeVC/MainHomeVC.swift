@@ -191,6 +191,11 @@ class MainHomeVC: BaseVC {
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
         sideMenu.delegate = self
         self.sideMenuVC = sideMenu
+        
+//        delay(seconds: 1.0) {
+//            sideMenu.sideMenuTableView.setContentOffset(CGPoint.zero, animated: false)
+//        }
+        
         sideMenuVC.menuViewController(sideMenu)
         
         self.sideMenuController = sideMenuVC
@@ -218,10 +223,10 @@ class MainHomeVC: BaseVC {
     private func setupLogoView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.logoView = sideMenu.getAppLogoView()
-        
+
         self.logoView?.isHidden = true
         
-        self.logoView?.frame.origin = CGPoint(x: sideMenu.sideMenuTableView.x, y: 30.0)
+        self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
         self.mainContainerView.addSubview(self.logoView!)
     }
     
@@ -230,7 +235,7 @@ class MainHomeVC: BaseVC {
         self.profileView = sideMenu.getProfileView()
         
         let newFrame = self.sideMenuVC?.profileSuperView?.convert(self.sideMenuVC?.profileSuperView?.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
         self.profileView?.frame = finalFrame
         
@@ -292,7 +297,7 @@ class MainHomeVC: BaseVC {
         self.sideMenuVC?.profileContainerView.isHidden = true
 
         let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
         
         self.statusBarStyle = .default
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
@@ -362,7 +367,7 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
 
-        let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 30.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
+        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 30.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
 
         self.socialLoginVC?.animateContentOnPop()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -405,7 +410,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     }
     
     func willOpenSideMenu() {
-        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
+//        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
     }
@@ -443,7 +448,7 @@ extension MainHomeVC {
                 self.sideMenuVC?.profileContainerView.isHidden = true
                 
                 let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
-                let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+                let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
                 
                 self.transitionAnimator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
                     self.scrollView.contentOffset = popPoint
@@ -472,7 +477,7 @@ extension MainHomeVC {
             self.logoView?.isHidden = false
             self.sideMenuVC?.logoContainerView.isHidden = true
             
-            let finalFrame = CGRect(x: self.sideMenuVC?.sideMenuTableView.x ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
+            let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 0.0, y: self.sideMenuVC?.sideMenuTableView.y ?? 0.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
             
             self.socialLoginVC?.animateContentOnPop()
             

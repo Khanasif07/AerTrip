@@ -12,15 +12,21 @@ protocol AccountDetailsVMDelegate: class {
     func willGetAccountDetails()
     func getAccountDetailsSuccess()
     func getAccountDetailsFail()
+    
+    func searchEventsSuccess()
 }
 
-class AccountDetailsVM {
+class AccountDetailsVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
     var walletAmount: Double = 0.0
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         return Array(accountDetails.keys)
+    }
+    var searchedAccountDetails: JSONDictionary = JSONDictionary()
+    var searchedAllDates: [String] {
+        return Array(searchedAccountDetails.keys)
     }
     
     weak var delegate: AccountDetailsVMDelegate? = nil
@@ -31,6 +37,24 @@ class AccountDetailsVM {
     
     //MARK:- Methods
     //MARK:- Public
+    func searchEvent(forText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.callSearchEvent(_:)), with: forText, afterDelay: 0.5)
+    }
+    
+    @objc private func callSearchEvent(_ forText: String) {
+        printDebug("search text for: \(forText)")
+        
+        self.searchedAccountDetails = self.accountDetails.filter { (date, evnts) -> Bool in
+            if let events = evnts as? [AccountDetailEvent] {
+                return events.contains(where: { $0.title.contains(forText) })
+            }
+            return false
+        }
+        
+        self.delegate?.searchEventsSuccess()
+    }
+    
     func getAccountDetails() {
         self.delegate?.willGetAccountDetails()
         

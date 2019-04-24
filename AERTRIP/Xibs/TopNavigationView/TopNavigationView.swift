@@ -117,8 +117,8 @@ class TopNavigationView: UIView {
             trail += self.secondRightButton.width
         }
 
-        self.titleTrailingConstraint.constant = trail
-        self.titleLeadingConstraint.constant = lead
+        self.titleTrailingConstraint.constant = max(trail, lead)
+        self.titleLeadingConstraint.constant = max(trail, lead)
     }
     
     //MARK:- Public

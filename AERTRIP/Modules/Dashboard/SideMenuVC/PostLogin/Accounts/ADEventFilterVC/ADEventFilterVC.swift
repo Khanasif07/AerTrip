@@ -1,20 +1,34 @@
 //
-//  MyBookingFilterVC.swift
+//  ADEventFilterVC.swift
 //  AERTRIP
 //
-//  Created by Admin on 15/04/19.
+//  Created by Admin on 22/04/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class MyBookingFilterVC: BaseVC {
+class ADEventFilterVC: BaseVC {
     
-    //MARK:- Variables
+    //MARK:- IBOutlets
+    //MARK:-
+    @IBOutlet var topNavBar: TopNavigationView!{
+        didSet {
+            self.topNavBar.delegate = self
+        }
+    }
+    @IBOutlet var childContainerView: UIView!
+    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var mainContainerView: UIView!
+    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    
+    //MARK:- Properties
+    //MARK:- Public
+    
     //MARK:- Private
     private var currentIndex: Int = 0
     fileprivate weak var categoryView: ATCategoryView!
-    private let allTabsStr: [String] = [LocalizedString.TravelDate.localized, LocalizedString.EventType.localized, LocalizedString.BookingDate.localized]
+    private let allTabsStr: [String] = [LocalizedString.DateSpan.localized, LocalizedString.VoucherType.localized]
     private var allTabs: [ATCategoryItem] {
         var temp = [ATCategoryItem]()
         for title in self.allTabsStr {
@@ -26,39 +40,20 @@ class MyBookingFilterVC: BaseVC {
     }
     private var allChildVCs: [UIViewController] = [UIViewController]()
     
-    //MARK:- IBOutlets
-    @IBOutlet var topNavBar: TopNavigationView!{
-        didSet {
-            self.topNavBar.delegate = self
-        }
-    }
-    @IBOutlet var childContainerView: UIView!
-    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var mainContainerView: UIView!
-    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
-    
-    
-    //MARK:- LifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    //MARK:- ViewLifeCycle
+    //MARK:-
     override func initialSetup() {
-        self.topNavBar.configureNavBar(title: "2230 of 3000 Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
+        self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        
-        self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
-        self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
+        self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
-            } else if i == 1 {
-                let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
-                self.allChildVCs.append(vc)
             } else {
-                let vc = BookingDateVC.instantiate(fromAppStoryboard: .Bookings)
+                let vc = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
+                vc.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
                 self.allChildVCs.append(vc)
             }
         }
@@ -90,7 +85,8 @@ class MyBookingFilterVC: BaseVC {
         self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
     }
     
-    //MARK:- Functions
+    //MARK:- Methods
+    //MARK:- Private
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
@@ -113,8 +109,8 @@ class MyBookingFilterVC: BaseVC {
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 50.0
-        style.interItemSpace = 21.8
-        style.itemPadding = 12.8
+        style.interItemSpace = 50.0
+        style.itemPadding = 25.0
         style.isScrollable = true
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
@@ -129,7 +125,7 @@ class MyBookingFilterVC: BaseVC {
         style.badgeBackgroundColor = AppColors.themeGreen
         style.badgeBorderColor = AppColors.clear
         style.badgeBorderWidth = 0.0
-        
+
         
         let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
@@ -153,15 +149,19 @@ class MyBookingFilterVC: BaseVC {
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
     }
+
+    //MARK:- Public
     
-    //MARK:- IBActions
+    
+    //MARK:- Action
     @objc func  outsideAreaTapped() {
+        
         self.hide(animated: true, shouldRemove: true)
     }
 }
 
 //MARK:- Extensions
-extension MyBookingFilterVC: TopNavigationViewDelegate {
+extension ADEventFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.hide(animated: true, shouldRemove: true)
@@ -169,15 +169,14 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
 }
 
 //MARK:- ATCategoryNavBarDelegate
-extension MyBookingFilterVC: ATCategoryNavBarDelegate {
+extension ADEventFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
-//        HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
 
 //MARK:- UIGestureRecognizerDelegate Method
-extension MyBookingFilterVC {
+extension ADEventFilterVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view === self.view)
     }

@@ -72,7 +72,7 @@ class LoginVC: BaseVC {
         self.welcomeLabel.font = AppFonts.Bold.withSize(38)
         self.forgotPasswordButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
-        self.registerHereLabel.font = AppFonts.SemiBold.withSize(16)
+        self.registerHereLabel.font = AppFonts.Regular.withSize(16)
     }
     
     override func setupTexts() {

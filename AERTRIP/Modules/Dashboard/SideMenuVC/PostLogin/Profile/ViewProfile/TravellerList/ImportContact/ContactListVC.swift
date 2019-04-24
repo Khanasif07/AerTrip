@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Contacts
 
 class ContactListVC: BaseVC {
     
@@ -164,13 +165,32 @@ class ContactListVC: BaseVC {
     
     
     //MARK:- Action
+    func getIndexPath(contact: CNContact) -> IndexPath? {
+        var index: IndexPath?
+        switch self.currentlyUsingFor {
+        case .contacts:
+            if let section = self.viewModel.sections.firstIndex(where: { $0.letter == "\(contact.firstName.firstCharacter)" }) {
+                
+                if let row = self.viewModel.sections[section].cnContacts.firstIndex(where: { (cntc) -> Bool in
+                    cntc.id == contact.id
+                }) {
+                    index = IndexPath(row: row, section: section)
+                }
+            }
+            
+        default:
+            return nil
+        }
+        
+        return index
+    }
     func getIndexPath(contact: ATContact) -> IndexPath? {
         var index: IndexPath?
         switch self.currentlyUsingFor {
         case .contacts:
             if let section = self.viewModel.sections.firstIndex(where: { $0.letter == "\(contact.firstName.firstCharacter)" }) {
                 
-                if let row = self.viewModel.sections[section].contacts.firstIndex(where: { (cntc) -> Bool in
+                if let row = self.viewModel.sections[section].cnContacts.firstIndex(where: { (cntc) -> Bool in
                     cntc.id == contact.id
                 }) {
                     index = IndexPath(row: row, section: section)
@@ -199,6 +219,7 @@ class ContactListVC: BaseVC {
         
         return index
     }
+    
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
@@ -214,6 +235,7 @@ class ContactListVC: BaseVC {
                         self.tableView(self.tableView, didSelectRowAt: index)
                     }
                 }
+                
                 
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                 //add all
@@ -286,7 +308,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentlyUsingFor == .contacts {
-            return self.viewModel.sections[section].contacts.count
+            return self.viewModel.sections[section].cnContacts.count
         }
         else if self.currentlyUsingFor == .facebook {
             return self.viewModel.facebookSection[section].contacts.count
@@ -307,11 +329,11 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         if self.currentlyUsingFor == .contacts {
-            cell.contact = self.viewModel.sections[indexPath.section].contacts[indexPath.row]
+            cell.contact = ATContact(contact: self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
             cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
-                contact.id == self.viewModel.sections[indexPath.section].contacts[indexPath.row].id
+                contact.id == self.viewModel.sections[indexPath.section].cnContacts[indexPath.row].id
             })
-            cell.dividerView.isHidden = indexPath.row == (self.viewModel.sections[indexPath.section].contacts.count - 1)
+            cell.dividerView.isHidden = indexPath.row == (self.viewModel.sections[indexPath.section].cnContacts.count - 1)
         }
         else if self.currentlyUsingFor == .facebook {
             cell.contact = self.viewModel.facebookSection[indexPath.section].contacts[indexPath.row]
@@ -335,14 +357,14 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.currentlyUsingFor == .contacts {
             if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
-                contact.id == self.viewModel.sections[indexPath.section].contacts[indexPath.row].id
+                contact.id == self.viewModel.sections[indexPath.section].cnContacts[indexPath.row].id
             }) {
                 self.viewModel.selectedPhoneContacts.remove(at: index)
                 self.selectAllButton.isSelected = false
                 self.viewModel.remove(fromIndex: index, for: .contacts)
             }
             else {
-                self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].contacts[indexPath.row])
+            self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
                 self.viewModel.add(for: .contacts)
                 self.selectAllButton.isSelected = self.viewModel.selectedPhoneContacts.count >= self.viewModel.sections.count
             }
@@ -407,8 +429,9 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ContactListVC: EmptyScreenViewDelegate {
-    func firstButtonAction(sender: UIButton) {
+    func firstButtonAction(sender: ATButton) {
         if self.currentlyUsingFor == .contacts {
+            sender.isLoading = true
             self.viewModel.fetchPhoneContacts(forVC: self)
         }
         else if self.currentlyUsingFor == .facebook {

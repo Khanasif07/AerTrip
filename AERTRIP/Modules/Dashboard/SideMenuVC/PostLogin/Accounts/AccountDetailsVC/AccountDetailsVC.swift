@@ -10,6 +10,11 @@ import UIKit
 
 class AccountDetailsVC: BaseVC {
     
+    enum UsingMode {
+        case normal
+        case search
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -21,6 +26,11 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var balanceContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchDataContainerView: UIView!
+    @IBOutlet weak var searchTableView: ATTableView!
+    @IBOutlet weak var mainSearchBar: ATSearchBar!
+    @IBOutlet weak var searchModeSearchBarTopConstraint: NSLayoutConstraint!
     
     
     //MARK:- Properties
@@ -28,6 +38,18 @@ class AccountDetailsVC: BaseVC {
     let viewModel = AccountDetailsVM()
     
     //MARK:- Private
+    private var currentUsingMode = UsingMode.normal {
+        didSet {
+            self.manageHeader(animated: true)
+        }
+    }
+    
+    // Empty State view
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -54,6 +76,20 @@ class AccountDetailsVC: BaseVC {
         self.topNavView.firstRightButton.isEnabled = false
         self.topNavView.secondRightButton.isEnabled = false
         self.viewModel.getAccountDetails()
+        
+        self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.mainSearchBar.showsCancelButton = true
+        self.searchBar.delegate = self
+        self.mainSearchBar.delegate = self
+        
+        self.searchTableView.delegate = self
+        self.searchTableView.dataSource = self
+        self.searchTableView.backgroundView = self.noResultemptyView
+        self.searchTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.searchTableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
+        self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
+        
+        self.manageHeader(animated: false)
     }
     
     override func bindViewModel() {
@@ -70,6 +106,7 @@ class AccountDetailsVC: BaseVC {
         self.balanceAmountLabel.text = "\(AppConstants.kRuppeeSymbol) \(18992.0.delimiter)"
         
         self.searchBar.placeholder = LocalizedString.search.localized
+        self.mainSearchBar.placeholder = LocalizedString.search.localized
     }
     
     override func setupColors() {
@@ -84,14 +121,80 @@ class AccountDetailsVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
-    
+    private func manageHeader(animated: Bool) {
+
+        if (self.currentUsingMode == .normal) {
+            self.balanceContainerView.isHidden = false
+            self.view.endEditing(true)
+        }
+
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            guard let sSelf = self else {return}
+            
+            if (sSelf.currentUsingMode == .search) {
+                sSelf.mainSearchBar.text = ""
+                sSelf.balanceContainerTopConstraint.constant = -(sSelf.balanceContainerView.height)
+                sSelf.balanceContainerView.alpha = 0.0
+                sSelf.tableView.tableHeaderView = nil
+                sSelf.searchDataContainerView.isHidden = false
+                sSelf.searchModeSearchBarTopConstraint.constant = 0.0
+                
+            }
+            else {
+                sSelf.balanceContainerTopConstraint.constant = 0.0
+                sSelf.balanceContainerView.alpha = 1.0
+                sSelf.tableView.tableHeaderView = sSelf.searchContainerView
+                sSelf.searchDataContainerView.isHidden = true
+                sSelf.searchModeSearchBarTopConstraint.constant = (sSelf.topNavView.height + sSelf.balanceContainerView.height + 35.0)
+            }
+            
+            sSelf.view.layoutIfNeeded()
+            
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                sSelf.balanceContainerView.isHidden = (sSelf.currentUsingMode == .search)
+                if (sSelf.currentUsingMode == .search) {
+                    sSelf.mainSearchBar.becomeFirstResponder()
+                }
+        })
+    }
     
     //MARK:- Public
     func reloadList() {
         self.tableView.reloadData()
     }
     
+    func reloadSearchList() {
+        self.searchTableView.reloadData()
+    }
+    
     //MARK:- Action
+}
+
+//MARK:- SearchBar delegate Methods
+//MARK:-
+extension AccountDetailsVC: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar === self.mainSearchBar {
+            self.currentUsingMode = .normal
+        }
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+//        if searchBar === self.searchBar {
+//            self.currentUsingMode = .search
+//            return false
+//        }
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
+            self.noResultemptyView.searchTextLabel.isHidden = false
+            self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
+            self.viewModel.searchEvent(forText: searchText)
+        }
+    }
 }
 
 //MARK:- Nav bar delegate methods
@@ -108,7 +211,9 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToAccountLedgerVC()
+//        AppFlowManager.default.moveToAccountLedgerVC()
+        AppFlowManager.default.moveToADEventFilterVC(self)
+
     }
 }
 
@@ -126,5 +231,9 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail() {
+    }
+    
+    func searchEventsSuccess() {
+        self.reloadSearchList()
     }
 }

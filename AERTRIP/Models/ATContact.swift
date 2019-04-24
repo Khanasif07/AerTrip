@@ -26,7 +26,13 @@ struct ATContact {
     var lastName: String
     var image: String
     var imageData: Data?
-    var contact: String
+    var contact: String{
+        didSet {
+            if !contact.isEmpty, self.firstName.isEmpty {
+                self.firstName = contact
+            }
+        }
+    }
     var email: String {
         didSet {
             if !email.isEmpty, self.firstName.isEmpty {
@@ -110,49 +116,42 @@ struct ATContact {
         self.age = 0
     }
     
+    init(contact: CNContact) {
+        self.init()
+
+        self.id = contact.identifier
+        self._label = Label.phone.rawValue
+
+        self.firstName = contact.firstName
+        self.lastName = contact.lastName
+
+        if let email = contact.emailAddresses.first {
+            self.email = email.value as String
+            self.emailLabel = "internet"
+        }
+
+
+        if let phone = contact.phoneNumbers.first {
+            let tempNumber = phone.value.stringValue
+            self.contact = phone.value.stringValue
+            do {
+                let temp = try PhoneNumberKit().parse(tempNumber)
+                self.contact = "\(temp.nationalNumber)"
+                self.isd = "+\(temp.countryCode)"
+            }
+            catch {
+                printDebug("not able to parse the number")
+                self.contact = ""
+            }
+        }
+
+        self.imageData = contact.imageData
+    }
+    
     static func fetchModels(phoneContactsArr: [CNContact]) -> [ATContact] {
         var temp = [ATContact]()
         for obj in phoneContactsArr {
-            var contact = ATContact()
-            contact._label = Label.phone.rawValue
-            if obj.givenName.contains(" ") {
-                let arr = obj.givenName.components(separatedBy: " ")
-                if arr.count > 1 {
-                    contact.firstName = arr[0]
-                    contact.lastName = arr[1]
-                }
-                else if arr.count == 1{
-                    contact.firstName = arr[0]
-                }
-            }
-            else {
-                contact.firstName = obj.givenName
-                contact.lastName = obj.familyName
-            }
-
-            if let email = obj.emailAddresses.first {
-                contact.email = email.value as String
-                contact.emailLabel = "internet"
-            }
-
-            
-            if let phone = obj.phoneNumbers.first {
-                let tempNumber = phone.value.stringValue
-                contact.contact = phone.value.stringValue
-                do {
-                    let temp = try PhoneNumberKit().parse(tempNumber)
-                    contact.contact = "\(temp.nationalNumber)"
-                    contact.isd = "+\(temp.countryCode)"
-                }
-                catch {
-                    printDebug("not able to parse the number")
-                    contact.contact = ""
-                }
-            }
-            
-            contact.imageData = obj.imageData
-            
-            temp.append(contact)
+            temp.append(ATContact(contact: obj))
         }
         return temp
     }
@@ -227,5 +226,86 @@ struct ATContact {
         }
 
         return temp
+    }
+}
+
+
+extension CNContact {
+    var firstName: String {
+        var fName = ""
+        if self.givenName.contains(" ") {
+            let arr = self.givenName.components(separatedBy: " ")
+            if arr.count > 1 {
+                fName = arr[0]
+            }
+            else if arr.count == 1{
+                fName = arr[0]
+            }
+        }
+        fName = self.givenName
+        
+        //if name is empty then set email's first char as name
+        if fName.isEmpty {
+            fName = self.email.capitalizedFirst()
+        }
+        
+        //if name is empty then set email's first char as name
+        if fName.isEmpty {
+            fName = self.fullContact.contact
+        }
+        
+        return fName
+    }
+    
+    var lastName: String {
+        if self.givenName.contains(" ") {
+            let arr = self.givenName.components(separatedBy: " ")
+            if arr.count > 1 {
+                return arr[1]
+            }
+        }
+        return self.familyName
+    }
+    
+    var fullName: String {
+        return "\(self.firstName) \(self.lastName)"
+    }
+    
+    var id: String {
+        return self.identifier
+    }
+    
+    var email: String {
+        if let email = self.emailAddresses.first {
+            return (email.value as String)
+        }
+        return ""
+    }
+    
+    var emailLabel: String {
+        return "internet"
+    }
+    
+    
+    var fullContact: (isd: String, contact: String) {
+        if let phone = self.phoneNumbers.first {
+            let tempNumber = phone.value.stringValue
+            do {
+                let temp = try PhoneNumberKit().parse(tempNumber)
+                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
+            }
+            catch {
+                printDebug("not able to parse the number")
+            }
+        }
+        
+        if let currentIsd = PKCountryPicker.default.getCurrentLocalCountryData()?.countryCode {
+            return (currentIsd, "")
+        }
+        return ("", "")
+    }
+    
+    var label: ATContact.Label {
+        return ATContact.Label.phone
     }
 }

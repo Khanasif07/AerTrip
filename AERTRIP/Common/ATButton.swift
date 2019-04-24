@@ -10,6 +10,12 @@ import UIKit
 
 class ATButton: UIButton {
     
+    enum ActionState {
+        case pressing
+        case pressed
+        case releasing
+        case released
+    }
     //MARK:- Properties
     //MARK:- Private
     private var shadowLayer: CAShapeLayer!
@@ -17,6 +23,9 @@ class ATButton: UIButton {
     private var loaderContainer:UIView!
     private var loaderIndicator:UIActivityIndicatorView!
     private var loaderGradientLayer: CAGradientLayer!
+    
+    private var isFingerUp: Bool = false
+    private(set) var currentActionState: ActionState = ActionState.released
     
     //MARK:- Public
     var shadowColor: UIColor = AppColors.themeGreen {
@@ -223,6 +232,7 @@ class ATButton: UIButton {
     private func startLoading() {
         self.setLoaderColor()
         self.loaderContainer.isHidden = false
+        self.loaderIndicator.isHidden = false
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
         self.bringSubviewToFront(self.loaderContainer)
@@ -234,18 +244,48 @@ class ATButton: UIButton {
         self.loaderIndicator.stopAnimating()
     }
     
-    @objc private func buttonPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0) { [weak self] in
+    private func animateToPressedSatate() {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
+        }) { (isDone) in
+            if self.currentActionState == .releasing {
+                self.currentActionState = .pressed
+                self.animateToReleasedSatate()
+            }
+            else {
+                self.currentActionState = .pressed
+            }
+        }
+    }
+    
+    @objc private func animateToReleasedSatate() {
+        guard (self.currentActionState == .pressed) || self.isFingerUp else {return}
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
+            self?.transform = CGAffineTransform.identity
+            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
+        }) { (isDone) in
+            self.currentActionState = .released
+            self.isFingerUp = false
+        }
+    }
+    
+    @objc private func buttonPressed(_ sender: UIButton) {
+        self.currentActionState = .pressing
+        self.animateToPressedSatate()
+        
+        delay(seconds: 0.3) { [weak self] in
+            guard let sSelf = self, sSelf.isFingerUp else {return}
+            sSelf.currentActionState = .pressed
+            sSelf.animateToReleasedSatate()
         }
     }
     
     @objc private func buttonReleased(_ sender: UIButton) {
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0) { [weak self] in
-            self?.transform = CGAffineTransform.identity
-            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
-        }
+        
+        self.isFingerUp = self.currentActionState == .pressed
+        self.currentActionState = .releasing
+        self.animateToReleasedSatate()
     }
 }
 

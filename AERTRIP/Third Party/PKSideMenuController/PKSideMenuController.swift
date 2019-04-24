@@ -64,6 +64,11 @@ open class PKSideMenuController: UIViewController {
         return PKSideMenuOptions.currentOpeningSide == .left ? -(PKSideMenuOptions.sideDistanceForOpenMenu) : PKSideMenuOptions.sideDistanceForOpenMenu
     }
     
+    var visibleSpace: CGFloat {
+        let extra = PKSideMenuOptions.sideDistanceForOpenMenu - (PKSideMenuOptions.sideDistanceForOpenMenu * 0.85)
+        return self.view.bounds.size.width - (PKSideMenuOptions.sideDistanceForOpenMenu + extra + 10.0)
+    }
+    
     //MARK:- View Controller Life Cycle
     //MARK:-
     override open func viewDidLoad() {
@@ -236,7 +241,8 @@ open class PKSideMenuController: UIViewController {
         }
         
         self.menuViewController = menuVC
-        self.menuViewController!.view.frame = self.view.bounds
+        let newFrame = CGRect(x: self.visibleSpace, y: 0.0, width: (self.view.bounds.size.width - self.visibleSpace), height: self.view.bounds.size.height)
+        self.menuViewController!.view.frame = newFrame
         self.menuViewController!.view.layer.masksToBounds = true
         self.addChild(self.menuViewController!)
         self.menuContainer?.addSubview(menuVC.view)
@@ -361,8 +367,12 @@ extension PKSideMenuController {
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
 
             self.mainContainer?.frame = mainFrame
-
-            self.menuContainer?.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
+            
+            var finalX = PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width
+            if UIDevice.isPlusDevice {
+                finalX += 78.0
+            }
+            self.menuContainer?.transform = CGAffineTransform(translationX: finalX, y: 0.0)
 
         }) { (finished: Bool) -> Void in
         }
@@ -379,14 +389,14 @@ extension PKSideMenuController {
             layerTemp.zPosition = 1000
             
             var tRotate : CATransform3D = CATransform3DIdentity
-            tRotate.m34 = 1.0 / (-500.0)
+            tRotate.m34 = 1.0 / (-800.0)
             
             let aXpos: CGFloat = CGFloat(0.0 * (.pi / 180.0))
             tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
             layerTemp.transform = tRotate
             
             var tScale : CATransform3D = CATransform3DIdentity
-            tScale.m34 = 1.0 / (-500.0)
+            tScale.m34 = 1.0 / (-800.0)
             tScale = CATransform3DScale(tScale, 1.0, 1.0, 1.0)
             layerTemp.transform = tScale
             layerTemp.transform = CATransform3DConcat(tRotate, tScale)

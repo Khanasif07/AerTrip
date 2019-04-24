@@ -430,7 +430,7 @@ extension UIViewController {
                     printDebug("Error in fetching contacts: \(error)")
                 }
             }
-        } else if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+        } else if self.isContactsAuthorized {
             retrieveContactsWithStore(store)
         }
     }

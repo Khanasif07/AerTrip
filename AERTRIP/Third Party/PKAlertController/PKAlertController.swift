@@ -36,12 +36,46 @@ open class PKAlertController {
     
     //MARK:- Methods
     //MARK:- Private
-
+    private func getAttributedString(string: String, font: UIFont?, color: UIColor?) -> NSMutableAttributedString {
+        
+        let myMutableString = NSMutableAttributedString(string: string)
+        
+        let range = NSRange(location: 0, length: string.count)
+        if let fnt = font {
+            myMutableString.addAttributes([NSAttributedString.Key.font : fnt], range: range)
+        }
+        
+        if let clr = color {
+            myMutableString.addAttributes([NSAttributedString.Key.foregroundColor : clr], range: range)
+        }
+        
+        return myMutableString
+    }
+    private func changeControllerTitle(title: String?, font: UIFont?, color: UIColor?) {
+        
+        // Change Title With Color and Font:
+        guard let str = title else {return}
+        alertController.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedTitle")
+    }
+    
+    private func changeControllerMessage(message: String?, font: UIFont?, color: UIColor?) {
+        
+        // Change Message With Color and Font:
+        guard let str = message else {return}
+        alertController.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedMessage")
+    }
+    
+    private func configureAlertAction(action: UIAlertAction, withData data: PKAlertButton) {
+        action.setValue(data.titleColor, forKey: "titleTextColor")
+    }
     
     //MARK:- Public
-    func presentActionSheet(_ title: String?, message: String?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+    func presentActionSheet(_ title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.SemiBold.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
         
-        alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        self.changeControllerTitle(title: title, font: titleFont, color: titleColor)
+        self.changeControllerMessage(message: message, font: messageFont, color: messageColor)
         
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
@@ -55,7 +89,7 @@ open class PKAlertController {
         
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
-            alertAction.setValue(button.titleColor, forKey: "titleTextColor")
+            self.configureAlertAction(action: alertAction, withData: button)
             alertController.addAction(alertAction)
         }
         
@@ -63,7 +97,7 @@ open class PKAlertController {
         let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { (alert) in
             self.dismissActionSheet()
         }
-        cancelAction.setValue(cancelButton.titleColor, forKey: "titleTextColor")
+        self.configureAlertAction(action: cancelAction, withData: cancelButton)
         alertController.addAction(cancelAction)
         
         alertController.popoverPresentationController?.sourceView = sourceView
