@@ -48,6 +48,7 @@ enum AppConstants {
     static let kFirstLastNameTextLimit = 30 // On Guest detail VC
     static let kEmailIdTextLimit = 40
     static let kPassportNoLimit = 30
+    static let kMaximumGroupNameCount = 30
     
     static var isStatusBarBlured = true
 

@@ -25,7 +25,7 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleLabelBottomConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -41,8 +41,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.titleLabel.textColor = AppColors.themeBlack
         self.subTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.subTitleLabel.textColor = AppColors.themeGray40
-        self.titleLabelBottomConstraint.constant = 0.0
-        self.titleLabelTopConstraint.constant = 0.0
+        self.titleLabelBottomConstraint.constant = 8.0
+        self.titleLabelTopConstraint.constant = 8.0
         self.dividerView.isHidden = true
     }
     

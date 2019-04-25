@@ -38,7 +38,7 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion)
+        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion,toastDidClose: self.toastDidClose)
     }
     
     func convertToMapView() {
@@ -162,7 +162,6 @@ extension HotelResultVC {
     func setupNavigationTitleLabelText() {
         
         self.titleLabel.text = self.viewModel.searchedFormData.cityName
-        
         let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
@@ -462,6 +461,18 @@ extension HotelResultVC {
         if hoteResultViewType == .MapView {
             
         }
+    }
+    
+    // Disable mapButton and search bar when no data found on filter
+    func noHotelFoundOnFilter() {
+        self.mapButton.isUserInteractionEnabled = false
+        self.searchBar.isUserInteractionEnabled = false
+    }
+    
+    // enable mapButton and search bar when no data found on filter
+    func dataFounOnFilter() {
+        self.mapButton.isUserInteractionEnabled = true
+        self.searchBar.isUserInteractionEnabled = true
     }
 }
 

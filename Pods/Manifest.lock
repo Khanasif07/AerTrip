@@ -1,5 +1,8 @@
 PODS:
   - ActiveLabel (1.0.1)
+  - AertripCalendar (0.0.1):
+    - FSCalendar
+  - AertripCalendarDataModel (0.0.1)
   - AFNetworking (3.2.1):
     - AFNetworking/NSURLSession (= 3.2.1)
     - AFNetworking/Reachability (= 3.2.1)
@@ -30,36 +33,38 @@ PODS:
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.38.1):
     - FBSDKCoreKit
-  - Firebase/Core (5.13.0):
+  - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.3.0)
-  - Firebase/CoreOnly (5.13.0):
-    - FirebaseCore (= 5.1.8)
-  - Firebase/DynamicLinks (5.13.0):
+    - FirebaseAnalytics (= 5.8.1)
+  - Firebase/CoreOnly (5.20.2):
+    - FirebaseCore (= 5.4.1)
+  - Firebase/DynamicLinks (5.20.2):
     - Firebase/CoreOnly
-    - FirebaseDynamicLinks (= 3.2.0)
-  - FirebaseAnalytics (5.3.0):
-    - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.3)
-    - GoogleAppMeasurement (~> 5.3)
+    - FirebaseDynamicLinks (= 3.4.3)
+  - FirebaseAnalytics (5.8.1):
+    - FirebaseCore (~> 5.4)
+    - FirebaseInstanceID (~> 3.8)
+    - GoogleAppMeasurement (= 5.8.1)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseAnalyticsInterop (1.1.0)
-  - FirebaseCore (5.1.8):
+  - FirebaseAnalyticsInterop (1.2.0)
+  - FirebaseCore (5.4.1):
+    - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseDynamicLinks (3.2.0):
+  - FirebaseDynamicLinks (3.4.3):
     - FirebaseAnalytics (~> 5.1)
     - FirebaseAnalyticsInterop (~> 1.0)
-    - FirebaseCore (~> 5.1)
-  - FirebaseInstanceID (3.3.0):
-    - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.3)
-    - GoogleUtilities/UserDefaults (~> 5.3)
+    - FirebaseCore (~> 5.2)
+  - FirebaseInstanceID (3.8.1):
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
   - FlexiblePageControl (1.0.7)
-  - GoogleAppMeasurement (5.3.0):
+  - FSCalendar (2.8.0)
+  - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
@@ -84,23 +89,23 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.4)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
-  - GoogleUtilities/AppDelegateSwizzler (5.3.6):
+  - GoogleUtilities/AppDelegateSwizzler (5.7.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.6)
-  - GoogleUtilities/Logger (5.3.6):
+  - GoogleUtilities/Environment (5.7.0)
+  - GoogleUtilities/Logger (5.7.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.6):
+  - GoogleUtilities/MethodSwizzler (5.7.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.6):
+  - GoogleUtilities/Network (5.7.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.6)"
-  - GoogleUtilities/Reachability (5.3.6):
+  - "GoogleUtilities/NSData+zlib (5.7.0)"
+  - GoogleUtilities/Reachability (5.7.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.6):
+  - GoogleUtilities/UserDefaults (5.7.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
   - IOSLinkedInAPIFix (2.0.4):
@@ -129,6 +134,8 @@ PODS:
 
 DEPENDENCIES:
   - ActiveLabel
+  - "AertripCalendar (from `git@gitlab.com:aertrip/ios-calendar.git`)"
+  - "AertripCalendarDataModel (from `git@gitlab.com:aertrip/ios-shared-rep.git`, commit `38ef98df8d00a76bf09f37fffd1905c60d22c58e`)"
   - Alamofire
   - AvailableHapticFeedback
   - Crashlytics
@@ -137,6 +144,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/DynamicLinks
   - FlexiblePageControl
+  - FSCalendar
   - GoogleMaps
   - GooglePlaces
   - GoogleSignIn
@@ -168,6 +176,7 @@ SPEC REPOS:
     - FirebaseDynamicLinks
     - FirebaseInstanceID
     - FlexiblePageControl
+    - FSCalendar
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
@@ -187,8 +196,25 @@ SPEC REPOS:
     - SwiftyJSON
     - TransitionButton
 
+EXTERNAL SOURCES:
+  AertripCalendar:
+    :git: "git@gitlab.com:aertrip/ios-calendar.git"
+  AertripCalendarDataModel:
+    :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
+    :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+
+CHECKOUT OPTIONS:
+  AertripCalendar:
+    :commit: c5f28f740909546aabb339f60ff48ff6eede69f5
+    :git: "git@gitlab.com:aertrip/ios-calendar.git"
+  AertripCalendarDataModel:
+    :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
+    :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
+  AertripCalendar: e6bf7810dfc20e0a5c3d0e4601c8def62a9a3531
+  AertripCalendarDataModel: 52eb9d654ff2145e55b247ad72f7d14641a791b2
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AvailableHapticFeedback: dbd483684e693281b85e671d95ac3593dfbad34f
@@ -197,19 +223,20 @@ SPEC CHECKSUMS:
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
-  Firebase: 6df9a6114bc9f106a98fe83d5438d4d9833c2019
-  FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
-  FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
-  FirebaseCore: fba2bfaa691c49028309b92e4dd37cc4b5512fbe
-  FirebaseDynamicLinks: bf911771a3cd80a2ceb8c03dc5afc5b125c31a94
-  FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
+  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
+  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
+  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
+  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
+  FirebaseDynamicLinks: f7a8717e2c7ea652923882a2d60b0045d6fd99d5
+  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   FlexiblePageControl: 2ce8446da3d75df6432dbad7b9e19151629dae62
-  GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
+  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
+  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
+  GoogleUtilities: 273e67030e0de313e7304f6dcfa96fc5214f6c23
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IOSLinkedInAPIFix: a520fd805a03dade35f42904c7d89ded2a84c752
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
@@ -223,6 +250,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: fe4f99fb2099bf6364cd47cf2977d73f16a4660f
+PODFILE CHECKSUM: f5b65f203da38ce1ca585ed0599710c03a7989a6
 
 COCOAPODS: 1.6.0

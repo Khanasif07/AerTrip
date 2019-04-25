@@ -13,7 +13,7 @@ protocol BookingDocumentsTableViewCellDelegate: class {
 }
 
 class BookingDocumentsTableViewCell: UITableViewCell {
-
+    
     weak var delegate: BookingDocumentsTableViewCellDelegate?
     
     //Mark:- IBOutlets
@@ -62,7 +62,8 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let superVw = self.superview as? UITableView , let index = superVw.indexPath(for: self) , let safeDelegate = self.delegate {
+        if let superVw = self.superview as? UITableView , let index = superVw.indexPath(for: self) , let safeDelegate = self.delegate , let cell = collectionView.cellForItem(at: indexPath) as? BookingDocumentsCollectionViewCell {
+            cell.animateProgressBar()
             safeDelegate.downloadDocument(url: "https://www.tutorialspoint.com/swift/swift_tutorial.pdf", tableIndex: index, collectionIndex: indexPath)
         }
     }

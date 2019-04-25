@@ -39,7 +39,9 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.clipsToBounds = true
         self.dividerView.isHidden = true
         self.rightArrowImageView.isHidden = true
-        self.containerViewTopConstraint.constant = 0.0
+        self.titleTopConstraint.constant = 11.0
+        self.containerViewBottomConstraint.constant = 13.0
+        self.titleBottomConstraint.constant = 0.0
         self.containerViewBottomConstraint.constant = 0.0
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
     }

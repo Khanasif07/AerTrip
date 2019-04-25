@@ -12,7 +12,7 @@ class TravelDateVC: BaseVC {
     
     //Mark:- Variables
     //================
-    private var datePickerViewHeightConstraint: CGFloat = 0.0
+    private var datePickerViewHeightConstraint: CGFloat = 215.0
     
     //Mark:- IBOutlets
     //================
@@ -31,15 +31,13 @@ class TravelDateVC: BaseVC {
     @IBOutlet weak var fromDatePickerHeightCons: NSLayoutConstraint!
     @IBOutlet weak var toDatePicker: UIDatePicker!
     @IBOutlet weak var toDatePickerHeightCons: NSLayoutConstraint!
+    @IBOutlet weak var fromDatePickerBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var toDatePickerBottomConstraints: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.datePickerViewHeightConstraint = self.fromDatePickerHeightCons.constant
     }
     
     override func initialSetup() {
@@ -80,8 +78,8 @@ class TravelDateVC: BaseVC {
     @objc func toTapGestureAction(_ gesture: UITapGestureRecognizer) {
         self.toDatePicker.isHidden = false
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.fromDatePickerHeightCons.constant = CGFloat.leastNonzeroMagnitude
-            self.toDatePickerHeightCons.constant = self.datePickerViewHeightConstraint//215.0
+            self.fromDatePickerHeightCons.constant = 0.0
+            self.toDatePickerHeightCons.constant = self.datePickerViewHeightConstraint
             self.view.layoutIfNeeded()
         }) { (isDone) in
             self.secondDividerView.isHidden = true
@@ -93,8 +91,8 @@ class TravelDateVC: BaseVC {
         self.fromDatePicker.isHidden = false
         self.secondDividerView.isHidden = false
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.fromDatePickerHeightCons.constant = self.datePickerViewHeightConstraint//215.0
-            self.toDatePickerHeightCons.constant = CGFloat.leastNonzeroMagnitude
+            self.fromDatePickerHeightCons.constant = self.datePickerViewHeightConstraint
+            self.toDatePickerHeightCons.constant = 0.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
             self.toDatePicker.isHidden = true

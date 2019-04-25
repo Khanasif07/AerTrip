@@ -24,13 +24,12 @@ struct AppToast {
         
     }
     
-    static let `default` = AppToast()
+    static var `default` = AppToast()
     private init() {}
     static private var isPreviousView = false
-    
     private let spaceFromBottom: CGFloat = 10.0
     
-    func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil, buttonAction: (()->Void)? = nil, spaceFromBottom: CGFloat = 10.0) {
+     func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil,spaceFromBottom: CGFloat = 10.0, buttonAction: (()->Void)? = nil,toastDidClose: (()->Void)? = nil) {
         
         if !AppToast.isPreviousView {
             
@@ -38,7 +37,6 @@ struct AppToast {
             let ob  = ToastView.instanceFromNib()
 
             ob.buttonAction = buttonAction
-
             if message.lowercased() == LocalizedString.Deleted.localized.lowercased() {
                 ob.setupToastForDelete(buttonAction: buttonAction)
             }
@@ -46,11 +44,11 @@ struct AppToast {
                 ob.setupToastMessage(title: title, message: message, buttonTitle: buttonTitle, buttonImage: buttonImage, buttonAction: buttonAction)
             }
             let height = AppGlobals.lines(label: ob.messageLabel) * 25 + 20
-            self.showToast(vc: onViewController!, ob: ob, height: height, duration: duration,spaceFromBottom: spaceFromBottom)
+            self.showToast(vc: onViewController!, ob: ob, height: height, duration: duration,spaceFromBottom: spaceFromBottom,toastDidClose: toastDidClose)
         }
     }
     
-    private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double,spaceFromBottom: CGFloat) {
+    private func showToast(vc: UIViewController, ob: UIView, height: Int, duration: Double,spaceFromBottom: CGFloat,toastDidClose: (()->Void)? = nil) {
         
         vc.view.addSubview(ob)
         ob.frame  = CGRect(x: 10, y: UIScreen.main.bounds.height , width: UIDevice.screenWidth - 20, height: CGFloat(height))
@@ -62,7 +60,9 @@ struct AppToast {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 ob.frame = CGRect(x: 10, y: UIScreen.main.bounds.height, width: UIDevice.screenWidth - 20, height: CGFloat(height))
             }) { (success) in
-                
+                if let handel = toastDidClose {
+                    handel()
+                }
                 AppToast.isPreviousView = false
                 ob.removeFromSuperview()
             }

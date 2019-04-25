@@ -45,6 +45,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet var childContainerView: UIView!
+    @IBOutlet var footerView: MyBookingFooterView!
     
     //Mark:- LifeCycle
     //================
@@ -81,7 +82,7 @@ class MyBookingsVC: BaseVC {
     }
     
     override func bindViewModel() {
-        
+        self.footerView.delegate = self
     }
     
     //Mark:- Functions
@@ -213,7 +214,20 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+        if toIndex == 1 , self.viewModel.completedBookingsData.isEmpty {
+            self.footerView.isHidden = true
+        } else {
+            self.footerView.isHidden = false
+        }
         self.currentIndex = toIndex
-        HotelFilterVM.shared.lastSelectedIndex = toIndex
+//        HotelFilterVM.shared.lastSelectedIndex = toIndex
+    }
+    
+}
+
+// MARK: - MyBookingFooterViewDelegate
+extension MyBookingsVC: MyBookingFooterViewDelegate {
+    func showPendingActionsOnly() {
+        printDebug("MyBookingFooterViewDelegate")
     }
 }

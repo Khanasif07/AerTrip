@@ -11,6 +11,7 @@ import UIKit
 class ToastView: UIView {
     
     internal var buttonAction: (()->Void)? = nil
+    
     private var isSettingForDelete: Bool = false
     
     @IBOutlet weak var messageLabel: UILabel!

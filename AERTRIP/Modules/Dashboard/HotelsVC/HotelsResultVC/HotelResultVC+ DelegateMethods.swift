@@ -101,6 +101,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
 
 extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsOnPreferenceSuccess() {
+        self.fetchRequestType = .normal
         self.addMapView()
         self.setupTexts()
         self.viewModel.hotelListOnPreferenceResult()
@@ -108,6 +109,13 @@ extension HotelResultVC: HotelResultDelegate {
     
     func getAllHotelsOnPreferenceFail() {
         
+    }
+    
+    func noHotelFound() {
+        self.hotelSearchView.isHidden = false
+        self.progressView.removeFromSuperview()
+        self.manageShimmer(isHidden: true)
+        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
     }
     
     func loadFinalDataOnScreen() {
@@ -121,7 +129,6 @@ extension HotelResultVC: HotelResultDelegate {
         self.updateMarkers()
         if UserInfo.hotelFilter != nil {
             self.applyPreviousFilter()
-            self.fetchRequestType = .FilterApplied
             self.getSavedFilter()
         }
     }
@@ -131,10 +138,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
-        self.hotelSearchView.isHidden = false
-        self.progressView.removeFromSuperview()
-        self.manageShimmer(isHidden: true)
-        self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+        self.noHotelFound()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
@@ -162,8 +166,10 @@ extension HotelResultVC: HotelResultDelegate {
 
     func updateFavouriteFail(errors:ErrorCodes) {
         self.reloadHotelList()
-        if errors.contains(array: [-1]) {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if errors.contains(array: [-1]){
+            if let _  = UserInfo.loggedInUser?.userId {
+                  AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
         } else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
@@ -180,6 +186,8 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         if errors.contains(array: [37]) {
             self.viewModel.hotelListOnResultFallback()
+        } else if errors.isEmpty {
+            self.noHotelFound()
         }
     }
 }
@@ -265,10 +273,10 @@ extension HotelResultVC: CLLocationManagerDelegate {
 extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         if let indexPath = selectedIndexPath {
-             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                selectedIndexPath = nil 
+            self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+            self.collectionView.reloadItems(at: indexPath)
+            selectedIndexPath = nil
         }
-       
     }
     
     

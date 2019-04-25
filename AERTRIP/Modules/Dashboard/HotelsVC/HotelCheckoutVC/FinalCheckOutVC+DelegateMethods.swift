@@ -27,6 +27,14 @@ extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
 extension FinalCheckOutVC : FareSectionHeaderDelegate {
     func headerViewTapped() {
         printDebug("Header View Tapped")
+        if self.isCouponApplied {
+            if self.isCouponSectionExpanded {
+                  self.isCouponSectionExpanded = false
+            } else {
+                self.isCouponSectionExpanded = true
+            }
+          self.checkOutTableView.reloadData()
+        }
     }
 }
 

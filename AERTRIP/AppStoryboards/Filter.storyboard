@@ -401,6 +401,7 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="06G-Fx-1PW"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="Fw8-7k-yvA"/>
                                                         </connections>
                                                     </button>
@@ -421,6 +422,7 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="HZW-mV-8y4"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="ooG-ui-C4i"/>
                                                         </connections>
                                                     </button>
@@ -442,6 +444,7 @@
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="N9u-MB-WSs"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="bxO-xK-khu"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -462,6 +465,7 @@
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="0rN-8R-aq9"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="rea-Va-fR8"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -481,6 +485,7 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="Wgm-8z-LAa"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="pWz-wT-r1t"/>
                                                         </connections>
                                                     </button>
@@ -598,7 +603,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-KN-MfJ">
-                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
+                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>

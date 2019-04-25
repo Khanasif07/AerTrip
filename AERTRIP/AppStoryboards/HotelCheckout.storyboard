@@ -74,7 +74,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-O1-qkJ">
-                                                                        <rect key="frame" x="64" y="54" width="16" height="16"/>
+                                                                        <rect key="frame" x="58" y="48" width="22" height="22"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-dU-kW9">
                                                                         <rect key="frame" x="3" y="71" width="85" height="26"/>
@@ -127,16 +127,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_preferences" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-5U-cR2">
-                                                    <rect key="frame" x="16" y="37" width="16" height="16"/>
+                                                    <rect key="frame" x="16" y="26.5" width="36" height="37"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-u6-Ltz">
-                                                    <rect key="frame" x="48" y="25" width="306" height="20.5"/>
+                                                    <rect key="frame" x="68" y="25" width="262" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Optionsl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rn0-d3-WHq">
-                                                    <rect key="frame" x="48" y="45.5" width="306" height="20"/>
+                                                    <rect key="frame" x="68" y="45.5" width="262" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="rIH-8y-xoq"/>
                                                     </constraints>
@@ -145,7 +145,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="haj-h5-8Cz">
-                                                    <rect key="frame" x="354" y="37" width="16" height="16"/>
+                                                    <rect key="frame" x="330" y="23" width="40" height="44"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -701,7 +701,7 @@
                                                                         <constraint firstAttribute="width" secondItem="csG-Ag-ZDE" secondAttribute="height" multiplier="1:1" id="Haa-na-4Eb"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-gG-YiJ">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-gG-YiJ" customClass="ATBlurButton" customModule="AERTRIP" customModuleProvider="target">
                                                                     <rect key="frame" x="36.5" y="5" width="25" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="25" id="4xL-wP-xC1"/>

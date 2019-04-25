@@ -61,14 +61,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     
     // GestureRecognizer
     @objc func handleGesture(gesture: UITapGestureRecognizer) -> Void {
-         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        if isTappedFirstTime {
-            arrowButton.transform = .identity
-            isTappedFirstTime = false
-        } else {
-            arrowButton.transform = rotateTrans
-            isTappedFirstTime = true
-        }
+       
         delegate?.headerViewTapped()
     }
     
