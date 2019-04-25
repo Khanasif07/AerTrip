@@ -26,11 +26,7 @@ class FacebookController {
     //=========================
     func loginWithFacebook(fromViewController viewController: UIViewController, shouldFetchFriends: Bool = false, completion: @escaping FBSDKLoginManagerRequestTokenHandler) {
         
-        if let _ = FBSDKAccessToken.current() {
-            
-            facebookLogout()
-            
-        }
+        facebookLogout()
         
         var permissions = ["email", "public_profile"]
         
@@ -107,6 +103,7 @@ class FacebookController {
         
         // FOR MORE PARAMETERS:- https://developers.facebook.com/docs/graph-api/reference/user
         let params = ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"]
+
         let request = self.getGraphRequest(graphPath: "me", parameters: params, httpMethod: "GET")
         request.start(completionHandler: {
             connection, result, error in
@@ -267,7 +264,7 @@ class FacebookController {
     }
     
     private func getGraphRequest(graphPath: String, parameters: [String: Any], httpMethod: String) -> FBSDKGraphRequest {
-        return FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: FBSDKAccessToken.current()?.tokenString, version: nil, httpMethod: "httpMethod")
+        return FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: FBSDKAccessToken.current()?.tokenString, version: nil, httpMethod: httpMethod)
     }
     
     func fetchFacebookFriendsNotUsingThisAPP(viewController : UIViewController, success: @escaping (([String:Any]) -> Void),
@@ -300,7 +297,7 @@ class FacebookController {
     // MARK:- FACEBOOK LOGOUT
     //=========================
     func facebookLogout(){
-        FBSDKAccessToken.current()
+        FBSDKAccessToken.setCurrent(nil)
         FBSDKLoginManager().logOut()
         let cooki  : HTTPCookieStorage! = HTTPCookieStorage.shared
         if let strorage = HTTPCookieStorage.shared.cookies{
