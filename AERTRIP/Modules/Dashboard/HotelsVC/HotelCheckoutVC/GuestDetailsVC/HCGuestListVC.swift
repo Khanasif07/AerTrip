@@ -302,7 +302,11 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
             self.viewModel.fetchTravellersContact()
         }
         else if self.currentlyUsingFor == .contacts {
-            self.viewModel.fetchPhoneContacts(forVC: self)
+            sender.isLoading = true
+            delay(seconds: 0.1) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.viewModel.fetchPhoneContacts(forVC: sSelf)
+            }
         }
         else if self.currentlyUsingFor == .facebook {
             self.viewModel.fetchFacebookContacts(forVC: self)
