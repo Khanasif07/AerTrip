@@ -17,8 +17,11 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
     @IBOutlet var starRatingView: FloatRatingView!
     @IBOutlet var tripRatingView: FloatRatingView!
     @IBOutlet var addressLabel: UILabel!
+    @IBOutlet weak var tripAdvisorImageView: UIImageView!
     @IBOutlet weak var cellBackgroundView: UIView!
+    @IBOutlet weak var starContainerView: UIStackView!
     
+    @IBOutlet weak var taImageLeadingConstraint: NSLayoutConstraint!
     var favHotel: HotelSearched? {
         didSet {
             self.configureCell()
@@ -62,7 +65,37 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
         self.hotelPriceLabel.text = AppConstants.kRuppeeSymbol + "\(favHotel.price.delimiter)"
         self.starRatingView.rating = favHotel.star
         self.tripRatingView.rating = favHotel.rating
-        self.addressLabel.text = favHotel.address
+        
+        
+       
+        self.starRatingView.isHidden = true
+        self.starContainerView.isHidden = true
+        if favHotel.star > 0.0 {
+            self.starContainerView.isHidden = false
+            self.starRatingView.isHidden = false
+            self.starRatingView.rating = favHotel.star
+        } else {
+            self.starRatingView.isHidden = true
+        }
+        
+        self.tripRatingView.isHidden = true
+        self.tripAdvisorImageView.isHidden = true
+        if favHotel.rating > 0.0 {
+            self.taImageLeadingConstraint.constant = (favHotel.star > 0.0) ? 0.0 : -10.0
+            self.starContainerView.isHidden = false
+            self.tripRatingView.isHidden = false
+            self.tripAdvisorImageView.isHidden = false
+            self.tripRatingView.rating = favHotel.rating
+        } else {
+            self.tripRatingView.isHidden = true
+            self.tripAdvisorImageView.isHidden = true
+        }
+        self.starRatingView.isHidden = favHotel.star == 0
+        self.starRatingView.rating = favHotel.star
+        self.tripRatingView.rating = favHotel.rating
+        self.tripRatingView.isHidden = favHotel.rating == 0
+        self.tripAdvisorImageView.isHidden = favHotel.rating == 0
+         self.addressLabel.text = favHotel.address
         
     }
     

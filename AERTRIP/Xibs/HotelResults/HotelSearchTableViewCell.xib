@@ -97,6 +97,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="QxC-Vx-6ic"/>
+                                            <constraint firstItem="DoC-5C-Wgw" firstAttribute="leading" secondItem="Iny-3B-8St" secondAttribute="trailing" constant="4" id="r28-Aa-tFm"/>
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dhjfg vjadgvj kdga jvgdaj vgjhasdg cjshadg vhjsag vjhsadg vjsag dvjhsagd vjhsagd vjhgsa djvhg sajdgvsad" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z0-hG-6q3">

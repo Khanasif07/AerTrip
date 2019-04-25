@@ -158,9 +158,15 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
+       
+       
         if let txtStr = textField.text, txtStr.count > AppConstants.kFirstLastNameTextLimit {
-            textField.text = txtStr.substring(to: 30)
+            let text = txtStr.removeSpaceAsSentence
+            textField.text = text.substring(to: 30)
             return
+        } else {
+            let txtStr = textField.text ?? ""
+            textField.text = txtStr.removeSpaceAsSentence
         }
         switch textField {
         case self.salutationTextField:
@@ -175,6 +181,7 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
        
     }
     
+  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

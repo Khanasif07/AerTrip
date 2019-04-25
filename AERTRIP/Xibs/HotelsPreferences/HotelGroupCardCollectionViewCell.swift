@@ -169,8 +169,8 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateMutiPhotos() {
-        self.scrollView.isHidden = !self.shouldShowMultiPhotos
-        self.pageControl.isHidden = !self.shouldShowMultiPhotos
+        self.scrollView.isHidden = self.shouldShowMultiPhotos
+        self.pageControl.isHidden = !self.shouldShowMultiPhotos 
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
