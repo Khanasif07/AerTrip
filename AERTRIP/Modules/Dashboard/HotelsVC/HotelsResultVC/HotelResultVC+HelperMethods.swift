@@ -257,24 +257,24 @@ extension HotelResultVC {
     
     // MARK: - Manage Header animation
     
-    func manageTopHeader(_ scrollView: UIScrollView) {
+    func manageTopHeader(_ scrollView: UIScrollView, velocity: CGPoint? = nil) {
         guard scrollView === tableViewVertical else {
             return
         }
         
-        let yPosition = scrollView.contentOffset.y
-        if yPosition < 20 {
-            // show
-            guard self.headerContainerViewTopConstraint.constant != 0 else {return}
+        let animationThreshold: CGFloat = 10.0
+        
+        func showHeader() {
+            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.headerContainerViewTopConstraint.constant = 0
-                self.tableViewTopConstraint.constant = 100
-                self.mapContainerTopConstraint.constant = 100
+                self.tableViewTopConstraint.constant = 100.0
+                self.mapContainerTopConstraint.constant = 100.0
                 self.view.layoutIfNeeded()
             })
         }
-        else {
-            // hide
+        
+        func hideHeader() {
             guard self.headerContainerViewTopConstraint.constant != -140 else {return}
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.headerContainerViewTopConstraint.constant = -140
@@ -284,23 +284,29 @@ extension HotelResultVC {
             })
         }
         
-        //        if 20...30 ~= yPosition {
-        //            // hide
-        //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-        //                self.headerContainerViewTopConstraint.constant = -140
-        //                self.tableViewTopConstraint.constant = 0
-        //                self.mapContainerTopConstraint.constant = 0
-        //                self.view.layoutIfNeeded()
-        //            })
-        //        } else if yPosition < 20 {
-        //            // show
-        //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-        //                self.headerContainerViewTopConstraint.constant = 0
-        //                self.tableViewTopConstraint.constant = 100
-        //                self.mapContainerTopConstraint.constant = 100
-        //                self.view.layoutIfNeeded()
-        //            })
-        //        }
+        let yPosition = scrollView.contentOffset.y
+        guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
+            if yPosition > 0 {
+                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            }
+            return
+        }
+        
+        if 0...animationThreshold ~= yPosition {
+            self.headerContainerViewTopConstraint.constant = -(yPosition)
+        }
+        else if yPosition < 0 {
+            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
+        }
+
+        if yPosition <= animationThreshold {
+            // show
+            showHeader()
+        }
+        else {
+            // hide
+            hideHeader()
+        }
     }
     
     func manageFloatingButtonOnPaginationScroll(_ scrollView: UIScrollView) {

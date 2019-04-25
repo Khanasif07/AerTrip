@@ -278,6 +278,4 @@ extension HotelResultVC: HotelDetailsVCDelegate {
             selectedIndexPath = nil
         }
     }
-    
-    
 }
