@@ -270,8 +270,8 @@ extension String {
     var removeSpaceAsSentence : String {
         let seprator = " "
         let final = self
-            .components(separatedBy: " ").filter({$0.count > 0}).map{ $0.trimmingCharacters(in: .whitespacesAndNewlines)}.joined(separator: seprator)
-        if let last = self.last, "\(last)" == " "{
+            .components(separatedBy: seprator).filter({$0.count > 0}).map{ $0.trimmingCharacters(in: .whitespacesAndNewlines)}.joined(separator: seprator)
+        if let last = self.last, "\(last)" == seprator, !final.isEmpty {
             return final + seprator
         }
         else {

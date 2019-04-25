@@ -885,25 +885,14 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66w-YE-C7S">
-                                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="86"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <connections>
-                                                                    <action selector="preferredButtonAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="pb6-e4-dlz"/>
-                                                                </connections>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="dll-Z1-rJa" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="2gW-PZ-tfC"/>
                                                             <constraint firstItem="dll-Z1-rJa" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="76d-c9-0ZE"/>
-                                                            <constraint firstItem="66w-YE-C7S" firstAttribute="top" secondItem="moU-Lg-VN7" secondAttribute="top" id="Dyh-lb-3qL"/>
                                                             <constraint firstItem="dll-Z1-rJa" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="Eom-Nb-2jB"/>
                                                             <constraint firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" constant="20" id="F7R-xO-8Bd"/>
-                                                            <constraint firstItem="66w-YE-C7S" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" id="Oby-c6-0g4"/>
                                                             <constraint firstItem="dll-Z1-rJa" firstAttribute="centerX" secondItem="yma-yu-t5i" secondAttribute="centerX" id="Vje-dS-Qje"/>
-                                                            <constraint firstAttribute="bottom" secondItem="66w-YE-C7S" secondAttribute="bottom" id="YQ4-Hf-DbF"/>
-                                                            <constraint firstAttribute="trailing" secondItem="66w-YE-C7S" secondAttribute="trailing" id="sZB-5U-uvO"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" constant="20" id="vVe-Ax-5g7"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="centerY" secondItem="moU-Lg-VN7" secondAttribute="centerY" multiplier="0.57" id="wvY-fO-Hd0"/>
                                                         </constraints>
@@ -938,25 +927,14 @@
                                                             <constraint firstItem="mcA-QP-eGU" firstAttribute="trailing" secondItem="Eze-iu-ZCH" secondAttribute="trailing" id="zUJ-sR-vXw"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTC-qS-lhJ">
-                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="86"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <connections>
-                                                            <action selector="specialReqAction:" destination="65J-aL-6gx" eventType="touchUpInside" id="QX0-w2-1GN"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="moU-Lg-VN7" firstAttribute="leading" secondItem="BoL-F4-rJK" secondAttribute="leading" id="2bF-xs-XRt"/>
                                                     <constraint firstItem="ruh-Xl-2j4" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="trailing" id="4QL-Ys-udX"/>
-                                                    <constraint firstItem="DTC-qS-lhJ" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="trailing" id="9of-5r-9Oi"/>
-                                                    <constraint firstItem="DTC-qS-lhJ" firstAttribute="top" secondItem="BoL-F4-rJK" secondAttribute="top" id="JUg-ir-FpH"/>
                                                     <constraint firstAttribute="trailing" secondItem="ruh-Xl-2j4" secondAttribute="trailing" id="Qdh-fb-F6m"/>
                                                     <constraint firstItem="ruh-Xl-2j4" firstAttribute="top" secondItem="BoL-F4-rJK" secondAttribute="top" id="UJm-Sp-wOE"/>
-                                                    <constraint firstAttribute="trailing" secondItem="DTC-qS-lhJ" secondAttribute="trailing" id="Ydr-77-saK"/>
                                                     <constraint firstItem="moU-Lg-VN7" firstAttribute="width" secondItem="BoL-F4-rJK" secondAttribute="width" multiplier="0.5" id="bJ2-um-LNS"/>
-                                                    <constraint firstAttribute="bottom" secondItem="DTC-qS-lhJ" secondAttribute="bottom" id="cXT-hY-68f"/>
                                                     <constraint firstAttribute="bottom" secondItem="ruh-Xl-2j4" secondAttribute="bottom" id="jFB-1A-Sur"/>
                                                     <constraint firstItem="moU-Lg-VN7" firstAttribute="top" secondItem="BoL-F4-rJK" secondAttribute="top" id="oQL-dT-EZO"/>
                                                     <constraint firstAttribute="bottom" secondItem="moU-Lg-VN7" secondAttribute="bottom" id="tUa-bB-iJV"/>
@@ -1243,17 +1221,17 @@
                         <outlet property="mainCintainerBottomConstraint" destination="V1w-o0-KjH" id="1Ms-Gl-eGJ"/>
                         <outlet property="mainContainerView" destination="bwF-zP-HlZ" id="2XN-1C-DAV"/>
                         <outlet property="oneStarLabel" destination="nKQ-8F-ZtB" id="Vwd-5w-xTv"/>
-                        <outlet property="preferredButtonOutlet" destination="66w-YE-C7S" id="JEX-3C-bPP"/>
                         <outlet property="preferredHotelsLabel" destination="yma-yu-t5i" id="AyJ-TQ-A9K"/>
                         <outlet property="preferredTextField" destination="dll-Z1-rJa" id="PXR-I5-9w6"/>
+                        <outlet property="prefredTextContainer" destination="moU-Lg-VN7" id="UMm-Xw-j7o"/>
                         <outlet property="rectangleView" destination="H64-5R-dwG" id="tQl-P7-9eA"/>
                         <outlet property="roomCountLabel" destination="Sfs-hR-X2I" id="Kkf-j5-TnD"/>
                         <outlet property="searchButtonOutlet" destination="m11-sx-COe" id="Pw1-51-Dkm"/>
                         <outlet property="searchView" destination="MHv-h5-ukA" id="YLx-T0-6q9"/>
                         <outlet property="secondLineView" destination="NWW-Hr-7CI" id="ADt-0e-yY0"/>
-                        <outlet property="specialReqButtonOutlet" destination="DTC-qS-lhJ" id="FV6-5x-ZfJ"/>
                         <outlet property="specialReqLabel" destination="Eze-iu-ZCH" id="dc0-RE-N53"/>
                         <outlet property="specialReqTextField" destination="mcA-QP-eGU" id="yPs-jf-0eR"/>
+                        <outlet property="specialTextContainer" destination="ruh-Xl-2j4" id="nOM-IS-HyO"/>
                         <outlet property="starRatingLabel" destination="rdy-2M-UaC" id="jZb-gG-BQ3"/>
                         <outlet property="starView" destination="Gar-In-dDF" id="5Sm-80-C8w"/>
                         <outlet property="stateNameLabel" destination="zyC-0e-Ndg" id="QkS-8Z-ak6"/>

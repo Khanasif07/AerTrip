@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class BulkBookingVC: BaseVC {
     
@@ -59,8 +60,6 @@ class BulkBookingVC: BaseVC {
             self.preferredTextField.delegate = self
         }
     }
-    @IBOutlet weak var preferredButtonOutlet: UIButton!
-    @IBOutlet weak var specialReqButtonOutlet: UIButton!
     @IBOutlet weak var specialReqTextField: UITextField! {
         didSet{
             self.specialReqTextField.delegate = self
@@ -69,6 +68,8 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var whereLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var prefredTextContainer: UIView!
+    @IBOutlet weak var specialTextContainer: UIView!
     
     
     //MARK:- Properties
@@ -88,6 +89,18 @@ class BulkBookingVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -152,20 +165,10 @@ class BulkBookingVC: BaseVC {
         self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
-        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        print(finalText)
-        (textField === self.preferredTextField) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
-        return true
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let finalText = textField.text , finalText.containsWhitespace {
-            textField.text = ""
-        } else {
-            printDebug("There is a text")
-        }
+        let finalText = (textField.text ?? "").removeSpaceAsSentence
+        textField.text = finalText
+        (textField === self.preferredTextField) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
     }
     
     //MARK:- Methods
@@ -196,6 +199,13 @@ class BulkBookingVC: BaseVC {
         }
         
         self.setSearchFormData()
+        
+        let prefTapGest = UITapGestureRecognizer(target: self, action: #selector(preferredButtonAction))
+        self.prefredTextContainer.addGestureRecognizer(prefTapGest)
+        
+        let specTapGest = UITapGestureRecognizer(target: self, action: #selector(specialReqAction))
+        self.specialTextContainer.addGestureRecognizer(specTapGest)
+
     }
     
     private func setSearchFormData() {
@@ -394,6 +404,7 @@ class BulkBookingVC: BaseVC {
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .bulkBooking)
     }
     
@@ -417,12 +428,12 @@ class BulkBookingVC: BaseVC {
         }
     }
     
-    @IBAction func preferredButtonAction(_ sender: UIButton) {
+    @objc func preferredButtonAction() {
         self.view.endEditing(true)
         self.preferredTextField.becomeFirstResponder()
     }
     
-    @IBAction func specialReqAction(_ sender: UIButton) {
+    @objc func specialReqAction() {
         self.view.endEditing(true)
         self.specialReqTextField.becomeFirstResponder()
     }

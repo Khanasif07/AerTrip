@@ -123,7 +123,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.setOldAges()
         self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
+        delay(seconds: 0.05) { [weak self] in
             self?.show(animated: true)
         }
         

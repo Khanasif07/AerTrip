@@ -197,7 +197,18 @@ extension HotelResultVC {
         }
         else {
             //reload collectionView
-            self.reloadHotelList()
+//            self.animateZoomLabel()
+            
+            let key = Array(self.viewModel.collectionViewList.keys)[index.item]
+            if let allHotels = self.viewModel.collectionViewList[key] as? [HotelSearched], let hotel = allHotels.first {
+//                self.animateZoomLabel()
+                if let cell = self.collectionView.cellForItem(at: index) as? HotelCardCollectionViewCell {
+                    cell.hotelListData = hotel
+                }
+                else if let cell = self.collectionView.cellForItem(at: index) as? HotelGroupCardCollectionViewCell {
+                    cell.hotelListData = hotel
+                }
+            }
         }
     }
     

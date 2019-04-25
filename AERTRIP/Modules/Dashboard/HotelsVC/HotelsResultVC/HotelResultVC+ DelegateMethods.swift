@@ -196,7 +196,7 @@ extension HotelResultVC: HotelResultDelegate {
 
 extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
-        if let indexPath = self.fetchedResultsController.indexPath(forObject: forHotel) {
+        if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.indexPathForUpdateFav = indexPath
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)

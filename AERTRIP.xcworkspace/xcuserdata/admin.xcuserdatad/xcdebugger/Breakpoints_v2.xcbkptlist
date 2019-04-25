@@ -2,4 +2,22 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+HelperMethods.swift"
+            timestampString = "577895360.334084"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
+            landmarkName = "scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
