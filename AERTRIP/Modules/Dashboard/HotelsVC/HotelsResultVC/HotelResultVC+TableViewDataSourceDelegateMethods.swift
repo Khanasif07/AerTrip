@@ -25,7 +25,12 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             self.manageFloatingView(isHidden: true)
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
-            self.hotelSearchTableView.backgroundView?.isHidden = (self.searchBar.text ?? "").isEmpty
+            if !self.searchedHotels.isEmpty {
+                self.hotelSearchTableView.backgroundView?.isHidden = true
+            }
+            else {
+                self.hotelSearchTableView.backgroundView?.isHidden = ((self.searchBar.text ?? "").isEmpty && self.searchedHotels.isEmpty)
+            }
         }
         else {
             self.dataFounOnFilter()

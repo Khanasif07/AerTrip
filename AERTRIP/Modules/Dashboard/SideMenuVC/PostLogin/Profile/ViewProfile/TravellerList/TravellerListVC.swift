@@ -12,7 +12,12 @@ import UIKit
 class TravellerListVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet var tableView: ATTableView! {
+        didSet {
+            tableView.delegate = nil
+            tableView.dataSource = nil
+        }
+    }
     @IBOutlet var bottomView: UIView!
     
     @IBOutlet var assignGroupButton: UIButton!
@@ -64,6 +69,7 @@ class TravellerListVC: BaseVC {
         
         tableView.sectionIndexColor = AppColors.themeGreen
         tableView.backgroundView = self.noTravEmptyView
+        tableView.backgroundView?.isHidden = true
         
         loadSavedData()
         doInitialSetUp()
@@ -575,6 +581,8 @@ extension TravellerListVC: TravellerListVMDelegate {
     func willSearchForTraveller() {}
     
     func searchTravellerSuccess() {
+        tableView.delegate = self
+        tableView.dataSource = self
         shouldHitAPI = true
         loadSavedData()
     }

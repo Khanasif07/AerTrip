@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+HelperMethods.swift"
-            timestampString = "577899053.327276"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
+            timestampString = "577904663.682964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "528"
-            endingLineNumber = "528"
-            landmarkName = "scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "manageViewForSearchAndFilterMode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
