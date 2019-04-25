@@ -22,6 +22,12 @@ class TravellerListVC: BaseVC {
     @IBOutlet var topNavView: TopNavigationView!
     
     // MARK: - Variables
+    private lazy var noTravEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noTravellerWithAddButton
+        newEmptyView.delegate = self
+        return newEmptyView
+    }()
     
     private var shouldHitAPI: Bool = true
     var travellerListHeaderView: TravellerListHeaderView = TravellerListHeaderView()
@@ -57,6 +63,7 @@ class TravellerListVC: BaseVC {
         }
         
         tableView.sectionIndexColor = AppColors.themeGreen
+        tableView.backgroundView = self.noTravEmptyView
         
         loadSavedData()
         doInitialSetUp()
@@ -401,6 +408,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
+        
+        tableView.backgroundView?.isHidden = !sections.isEmpty
+        tableView.isScrollEnabled = !sections.isEmpty
         return sections.count
     }
     
@@ -469,7 +479,13 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             return []
         } else {
-            return ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            
+            guard let sections = self.fetchedResultsController.sections else {
+                return []
+            }
+            
+            let all = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            return sections.isEmpty ? [] : all
         }
     }
     
@@ -637,5 +653,16 @@ extension TravellerListVC: AssignGroupVCDelegate {
 extension TravellerListVC: TravellerListHeaderViewDelegate {
     func headerViewTapped() {
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
+    }
+}
+
+
+extension TravellerListVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+        //not required
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.topNavBarSecondRightButtonAction(sender)
     }
 }

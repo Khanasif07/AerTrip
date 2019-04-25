@@ -40,13 +40,13 @@ class HCSelectGuestsVC: BaseVC {
         }
     }
     
-    private var allTabsStr: [String] = []
+    private var allTabsStr: [HCGuestListVC.UsingFor] = []
     private var allTabs: [ATCategoryItem] {
         var temp = [ATCategoryItem]()
         
-        for title in allTabsStr {
+        for item in allTabsStr {
             var obj = ATCategoryItem()
-            obj.title = title
+            obj.title = item.title
             temp.append(obj)
         }
         
@@ -128,15 +128,15 @@ class HCSelectGuestsVC: BaseVC {
         self.selectedContactsCollectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
         if let _ = UserInfo.loggedInUserId {
-            allTabsStr = [LocalizedString.Travellers.localized, LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+            allTabsStr = [HCGuestListVC.UsingFor.travellers, HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
         else {
-            allTabsStr = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+            allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
         
-        for idx in 0..<allTabsStr.count {
+        for item in allTabsStr {
             let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-            vc.currentlyUsingFor = HCGuestListVC.UsingFor(rawValue: idx) ?? .contacts
+            vc.currentlyUsingFor = item
             self.allChildVCs.append(vc)
         }
         

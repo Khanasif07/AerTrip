@@ -15,6 +15,22 @@ class HCGuestListVC: BaseVC {
         case contacts = 1
         case facebook = 2
         case google = 3
+        
+        var title: String {
+            switch self {
+            case .travellers:
+                return LocalizedString.Travellers.localized
+                
+            case .contacts:
+                return LocalizedString.Contacts.localized
+                
+            case .facebook:
+                return LocalizedString.Facebook.localized
+                
+            case .google:
+                return LocalizedString.Google.localized
+            }
+        }
     }
     
     //MARK:- IBOutlets
@@ -31,7 +47,10 @@ class HCGuestListVC: BaseVC {
     private lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
-        if self.currentlyUsingFor == .contacts {
+        if self.currentlyUsingFor == .travellers {
+            newEmptyView.vType = .noTraveller
+        }
+        else if self.currentlyUsingFor == .contacts {
             newEmptyView.vType = .importPhoneContacts
         }
         else if self.currentlyUsingFor == .facebook {
@@ -120,7 +139,6 @@ class HCGuestListVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         noResultemptyView.mainImageViewTopConstraint.constant = 300
-        //    self.bottomHeaderTopDiverView.isHidden = true
     }
     
     private func reloadList() {
