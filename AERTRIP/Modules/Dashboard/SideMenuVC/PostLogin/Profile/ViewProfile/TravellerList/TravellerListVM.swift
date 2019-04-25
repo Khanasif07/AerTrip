@@ -32,7 +32,7 @@ class TravellerListVM: NSObject {
         self.delegate?.willSearchForTraveller()
         APICaller.shared.callTravellerListAPI { [weak self] isSuccess, errorCodes, travellers in
             if isSuccess {
-                // self?.travellersDict = travellers
+//                 self?.travellersDict = travellers
                     TravellerData.insert(dataDictArray: travellers, completionBlock: { (all) in
                         DispatchQueue.mainAsync {
                             self?.delegate?.searchTravellerSuccess()

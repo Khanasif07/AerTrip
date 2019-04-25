@@ -67,7 +67,7 @@ class ImportContactVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? ImportContactVM.Notification {
-            if obj == .phoneContactFetched {
+            if obj == .contactFetched {
                 self.fetchPhoneContactsSuccess()
             }
             else if obj == .contactSavedFail {
@@ -166,23 +166,20 @@ class ImportContactVC: BaseVC {
     
     private func updateNavTitle() {
         
-        if self.allChildVCs[self.currentIndex].isPermissionGiven, self.viewModel.totalSelectedContacts == 0 {
-            self.topNavView.navTitleLabel.text = LocalizedString.SelectContactsToImport.localized
-        }
-        else if self.viewModel.totalSelectedContacts <= 0 {
+        if self.viewModel.totalSelectedContacts <= 0 {
             self.topNavView.firstRightButton.isEnabled = false
             switch self.currentIndex {
             case 0:
                 //phone
-                self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.sections.isEmpty ? LocalizedString.AllowContacts.localized : LocalizedString.SelectContactsToImport.localized
                 
             case 1:
                 //facebook
-                self.topNavView.navTitleLabel.text = LocalizedString.ConnectWithFB.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithFB.localized : LocalizedString.SelectContactsToImport.localized
                 
             case 2:
                 //google
-                self.topNavView.navTitleLabel.text = LocalizedString.ConnectWithGoogle.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithGoogle.localized : LocalizedString.SelectContactsToImport.localized
                 
             default:
                 self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
@@ -256,11 +253,11 @@ extension ImportContactVC: ImportContactVMDelegate {
         
         let currentlyUsingFor = ContactListVC.UsingFor(rawValue: self.currentIndex)
         if currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts in this phone.")
+            AppToast.default.showToastMessage(message: "No contacts found in this phone.")
         } else if currentlyUsingFor == .facebook, self.viewModel.facebookContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts in this facebook.")
+            AppToast.default.showToastMessage(message: "No contacts found on your facebook.")
         } else if currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts in this google.")
+            AppToast.default.showToastMessage(message: "No contacts found on your google.")
         }
     }
     

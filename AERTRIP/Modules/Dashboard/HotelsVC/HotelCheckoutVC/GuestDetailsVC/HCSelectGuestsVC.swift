@@ -40,13 +40,13 @@ class HCSelectGuestsVC: BaseVC {
         }
     }
     
-    private let allTabsStr: [String] = [LocalizedString.Travellers.localized, LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+    private var allTabsStr: [HCGuestListVC.UsingFor] = []
     private var allTabs: [ATCategoryItem] {
         var temp = [ATCategoryItem]()
         
-        for title in allTabsStr {
+        for item in allTabsStr {
             var obj = ATCategoryItem()
-            obj.title = title
+            obj.title = item.title
             temp.append(obj)
         }
         
@@ -74,7 +74,7 @@ class HCSelectGuestsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? HCSelectGuestsVM.Notification {
-            if obj == .phoneContactFetched {
+            if obj == .contactFetched {
                 self.fetchPhoneContactsSuccess()
             }
             else if obj == .contactSavedFail {
@@ -127,9 +127,16 @@ class HCSelectGuestsVC: BaseVC {
         
         self.selectedContactsCollectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
-        for idx in 0..<allTabsStr.count {
+        if let _ = UserInfo.loggedInUserId {
+            allTabsStr = [HCGuestListVC.UsingFor.travellers, HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
+        }
+        else {
+            allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
+        }
+        
+        for item in allTabsStr {
             let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-            vc.currentlyUsingFor = HCGuestListVC.UsingFor(rawValue: idx) ?? .contacts
+            vc.currentlyUsingFor = item
             self.allChildVCs.append(vc)
         }
         

@@ -21,7 +21,7 @@ class HCSelectGuestsVM: NSObject {
     
     enum Notification {
         case selectionChanged
-        case phoneContactFetched
+        case contactFetched
         case searchDone
         case contactSavedSuccess
         case contactSavedFail
@@ -81,6 +81,10 @@ class HCSelectGuestsVM: NSObject {
             }
         }
     }
+    
+    var isPhoneContactsAllowed: Bool = false
+    var isFacebookContactsAllowed: Bool = false
+    var isGoogleContactsAllowed: Bool = false
     
     var selectedPhoneContacts: [ATContact] = []
 
@@ -175,8 +179,9 @@ class HCSelectGuestsVM: NSObject {
         forVC.fetchContacts { [weak self] (contacts) in
             DispatchQueue.mainAsync {
                 if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
+                self?.isPhoneContactsAllowed = true
                 self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
             }
         }
@@ -191,8 +196,9 @@ class HCSelectGuestsVM: NSObject {
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
+                self?.isFacebookContactsAllowed = true
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
             }, failure: { (error) in
@@ -208,8 +214,9 @@ class HCSelectGuestsVM: NSObject {
         GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
             if let obj = self?.delegateCollection as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                obj.sendDataChangedNotification(data: Notification.contactFetched)
             }
+            self?.isGoogleContactsAllowed = true
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
             }, failure: { (error) in
                 print(error)

@@ -10,6 +10,11 @@ import UIKit
 
 protocol EmptyScreenViewDelegate: class {
     func firstButtonAction(sender: ATButton)
+    func bottomButtonAction(sender: UIButton)
+}
+
+extension EmptyScreenViewDelegate {
+    func bottomButtonAction(sender: UIButton) {}
 }
 
 class EmptyScreenView: UIView {
@@ -20,6 +25,8 @@ class EmptyScreenView: UIView {
         case importFacebookContacts
         case importGoogleContacts
         case none
+        case noTraveller
+        case noTravellerWithAddButton
         case noResult
         case noHotelFound
         case noHotelFoundOnFilter
@@ -48,6 +55,7 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var messageLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainImageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchTextLabel: UILabel!
+    @IBOutlet weak var bottomButton: UIButton!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,11 +89,16 @@ class EmptyScreenView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        
+        bottomButton.isHidden = true
     }
     
     //MARK:- Private Function -
     @IBAction func firstButtonAction(_ sender: ATButton) {
         self.delegate?.firstButtonAction(sender: sender)
+    }
+    @IBAction func bottomButtonAction(_ sender: UIButton) {
+        self.delegate?.bottomButtonAction(sender: sender)
     }
 }
 
@@ -109,12 +122,22 @@ extension EmptyScreenView {
             
         case .importGoogleContacts:
             self.setupForImportGoogleContacts()
+            
         case .none:
             self.setupForNone()
+            
+        case .noTraveller:
+            self.setupForNoTraveller()
+            
+        case .noTravellerWithAddButton:
+            self.setupForNoTravellerWithAddButton()
+            
         case .noResult:
             self.setUpNoResult()
+            
         case .noHotelFound:
             self.setUpNoHotelFound()
+            
         case .noHotelFoundOnFilter:
             self.setUpNoHotelFoundOnFilter()
         }
@@ -127,6 +150,43 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
         self.messageLabel.text = LocalizedString.noData.localized
+    }
+    
+    private func setupForNoTraveller() {
+        self.firstButton.isHidden = true
+        
+        self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
+        
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.textFieldTextColor51
+        self.messageLabel.text = "Friends that travel together, stay together!"
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(16.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = "Make a list of your travel companions, and access it on all platforms"
+    }
+    
+    private func setupForNoTravellerWithAddButton() {
+        self.firstButton.isHidden = true
+        
+        self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
+        
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.textFieldTextColor51
+        self.messageLabel.text = "Friends that travel together, stay together!"
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(16.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = "Make a list of your travel companions, and access it on all platforms"
+        
+        self.bottomButton.isHidden = false
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle("\(LocalizedString.Add.localized) \(LocalizedString.Travellers.localized)", for: .normal)
+        self.bottomButton.setTitle("\(LocalizedString.Add.localized) \(LocalizedString.Travellers.localized)", for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     private func setupForHotelPreferences() {
