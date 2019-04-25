@@ -147,4 +147,14 @@ extension EmailComposerHeaderView: UITextViewDelegate {
         
         self.delegate?.updateHeightOfHeader(self, textView)
     }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if textView.text == " " {
+            return false
+        }
+        return true
+    }
+  
+    
 }

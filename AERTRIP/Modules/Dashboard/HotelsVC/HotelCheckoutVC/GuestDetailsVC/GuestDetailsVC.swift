@@ -141,7 +141,6 @@ class GuestDetailsVC: BaseVC {
     
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
-        self.travellersTableView.isHidden = true
         self.travellers = self.viewModel.travellerList
     }
     
@@ -339,6 +338,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     
     func textField(_ textField: UITextField) {
         self.travellersTableView.isHidden = self.travellers.count == 0
+        self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField !== cell.salutationTextField {
             // get item position

@@ -22,6 +22,12 @@ struct HotelFormPreviosSearchData: Codable {
     var cityName: String = ""
     var ratingCount: [Int] = []
     
+    var totalGuestCount: Int {
+        let totalAd = adultsCount.reduce(0) { $0 + $1 }
+        let totalCh =  childrenCounts.reduce(0) { $0 + $1 }
+        return totalAd + totalCh
+    }
+    
     init() {
         self.roomNumber     =  1
         self.adultsCount    = [1]

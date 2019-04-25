@@ -455,10 +455,11 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentHCSpecialRequestsVC(specialRequests: [SpecialRequest], delegate: HCSpecialRequestsDelegate) {
+    func presentHCSpecialRequestsVC(specialRequests: [SpecialRequest], selectedRequestIds: [Int], delegate: HCSpecialRequestsDelegate) {
         let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = delegate
         obj.viewModel.specialRequests = specialRequests
+        obj.viewModel.selectedRequestsId  = selectedRequestIds
         self.mainNavigationController.present(obj, animated: true)
     }
     

@@ -498,6 +498,7 @@ enum LocalizedString: String {
     case CopyrightAertrip = "CopyrightAertrip"
     case CheckoutMyFavouriteHotels = "CheckoutMyFavouriteHotels"
     case SendWithSpace = "SendWithSpace"
+    case PleaseEnterEmail = "PleaseEnterEmail"
     
     
     //Select Trip Screen

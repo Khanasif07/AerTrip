@@ -54,6 +54,7 @@ class FavouriteHotelsListVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundView = self.emptyView
+        self.collectionView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
     }
     
@@ -147,6 +148,7 @@ extension FavouriteHotelsListVC: FavouriteHotelsListVMDelegate {
         if let city = self.viewModel.forCity {
             self.delegate?.updatedFavourite(forCity: city, forHotelAtIndex: atIndex)
         }
+        
     }
     
     func updateFavouriteFail() {

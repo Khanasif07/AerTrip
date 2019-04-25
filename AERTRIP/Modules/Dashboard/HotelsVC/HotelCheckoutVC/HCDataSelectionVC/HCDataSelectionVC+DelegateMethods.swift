@@ -16,7 +16,7 @@ extension HCDataSelectionVC : GuestDetailsVCDelegate {
 }
 
 
-extension HCDataSelectionVC : TextEditableTableViewCellDelegate {
+extension HCDataSelectionVC : HCEmailTextFieldCellDelegate {
     func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String) {
         self.viewModel.email = text
     }
