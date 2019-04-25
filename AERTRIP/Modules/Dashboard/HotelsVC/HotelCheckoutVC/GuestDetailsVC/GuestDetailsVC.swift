@@ -340,14 +340,13 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textField(_ textField: UITextField) {
         self.travellersTableView.isHidden = self.travellers.count == 0
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField != cell.salutationTextField {
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField !== cell.salutationTextField {
             // get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             
             self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
             
-            guestDetailTableView.isScrollEnabled = false
-            travellersTableView.reloadData()
+            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)//false            travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
         }
     }

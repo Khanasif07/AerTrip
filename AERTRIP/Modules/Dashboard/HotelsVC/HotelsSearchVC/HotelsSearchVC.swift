@@ -15,8 +15,8 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
-    private var collectionViewHeight: CGFloat = 86.0
-    private var containerViewHeight: CGFloat = 548.0
+    private var collectionViewHeight: CGFloat = 85.5
+    private var containerViewHeight: CGFloat = 544.0
     private var scrollViewContentSize: CGSize = CGSize.zero
     private var recentSearchHeight: CGFloat = 194.0
     private var addRoomPicIndex: IndexPath?
@@ -38,10 +38,10 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var whereBtnOutlet: UIButton!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var stateNameLabel: UILabel!
-    @IBOutlet weak var firstLineView: UIView!
-    @IBOutlet weak var secondLineView: UIView!
-    @IBOutlet weak var thirdLineView: UIView!
-    @IBOutlet weak var fourthLineView: UIView!
+    @IBOutlet weak var firstLineView: ATDividerView!
+    @IBOutlet weak var secondLineView: ATDividerView!
+    @IBOutlet weak var thirdLineView: ATDividerView!
+    @IBOutlet weak var fourthLineView: ATDividerView!
     @IBOutlet weak var starRatingLabel: UILabel!
     @IBOutlet weak var allStarLabel: UILabel!
     @IBOutlet weak var oneStarLabel: UILabel!
@@ -94,12 +94,7 @@ class HotelsSearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.getRecentSearchData()
         self.viewModel.getRecentSearchesData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,8 +112,8 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func bindViewModel() {
-        self.addRoomCollectionView.registerCell(nibName: "AddRoomCell")
-        self.addRoomCollectionView.registerCell(nibName: "AddRoomPictureCell")
+        self.addRoomCollectionView.registerCell(nibName: AddRoomCell.reusableIdentifier)
+        self.addRoomCollectionView.registerCell(nibName: AddRoomPictureCell.reusableIdentifier)
         self.viewModel.delegate = self
     }
     
@@ -139,10 +134,6 @@ class HotelsSearchVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.firstLineView.backgroundColor = AppColors.divider.color
-        self.secondLineView.backgroundColor = AppColors.divider.color
-        self.thirdLineView.backgroundColor = AppColors.divider.color
-        self.fourthLineView.backgroundColor = AppColors.divider.color
         self.starRatingLabel.textColor = AppColors.themeGray40
         self.allStarLabel.textColor = AppColors.themeGray40
         self.oneStarLabel.textColor = AppColors.themeGray40
@@ -451,7 +442,6 @@ class HotelsSearchVC: BaseVC {
             }
             prev = value
         }
-        
         if let s = start, let e = end {
             final += (s != e) ? "\(s)-\(e), " : "\(s), "
             start = nil
@@ -468,7 +458,7 @@ class HotelsSearchVC: BaseVC {
         if let recentSearchesView = self.recentSearchesView {
             recentSearchesView.isHidden = true
         }
-        self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + 20.0
+        self.setScrollViewHeight(isRcentSearches: false)
     }
     
     ///Show Recent Search View
@@ -478,11 +468,22 @@ class HotelsSearchVC: BaseVC {
         if let recentSearchesView = self.recentSearchesView {
             recentSearchesView.isHidden = false
         }
-        //        self.scrollView.contentSize.height = self.scrollView.contentSize.height + 95.0//214.0
-        if self.viewModel.searchedFormData.adultsCount.count < 2 {
-            self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
+        self.setScrollViewHeight(isRcentSearches: true)
+    }
+    
+    private func setScrollViewHeight(isRcentSearches: Bool) {
+        if isRcentSearches {
+            if self.viewModel.searchedFormData.adultsCount.count < 2 {
+                self.scrollView.contentSize.height = self.containerViewHeight + self.recentSearchHeight + 20.0
+            } else {
+                self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+            }
         } else {
-            self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + self.recentSearchHeight + 20.0
+            if self.viewModel.searchedFormData.adultsCount.count < 2 {
+                self.scrollView.contentSize.height = self.containerViewHeight + 20.0
+            } else {
+                self.scrollView.contentSize.height = self.containerViewHeight + self.collectionViewHeight + 20.0
+            }
         }
     }
     
@@ -579,7 +580,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        return 0.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -588,13 +589,11 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch self.viewModel.searchedFormData.adultsCount.count {
-        case 1:
-            return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height)
         case 2:
             let width = (indexPath.item == 2) ? collectionView.frame.width : collectionView.frame.width/2
-            return CGSize(width: width , height: collectionView.frame.height/2)
+            return CGSize(width: width , height: self.collectionViewHeight)
         default:
-            return CGSize(width: collectionView.frame.width/2 , height: collectionView.frame.height/2)
+            return CGSize(width: collectionView.frame.width/2 , height: self.collectionViewHeight)
         }
     }
 }
@@ -763,6 +762,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.stateName = stateName
         printDebug("searching again for \(recentSearch.dest_name)")
         self.getDataFromPreviousSearch(olddata: self.viewModel.searchedFormData)
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         //open result screen for the recent
         AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
         self.searchBtnOutlet.isLoading = false

@@ -8,8 +8,8 @@
 
 import UIKit
 
-//Mark:- Hotel TableView Cells
-//============================
+//MARK:- Hotel TableView Cells
+//MARK:-
 extension HotelDetailsVC {
     
     internal func getImageSlideCellWithInfo(indexPath: IndexPath, hotelInfo: HotelSearched) -> UITableViewCell {
@@ -55,12 +55,14 @@ extension HotelDetailsVC {
     
     internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+//        cell.addressInfoTextView.isSelectable = true
         cell.configureAddressCell(hotelData: hotelDetails)
         return cell
     }
     
     internal func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+//        cell.addressInfoTextView.isSelectable = false
         cell.configureOverviewCell(hotelData: hotelDetails)
         return cell
     }

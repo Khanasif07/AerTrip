@@ -47,7 +47,7 @@ class HotelDetailsOverviewVC: BaseVC {
     
     override func setupFonts() {
         self.titleLabel.font = AppFonts.SemiBold.withSize(22.0)
-        self.stickyTitleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.stickyTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
     }
     
     override func setupTexts() {
@@ -58,6 +58,12 @@ class HotelDetailsOverviewVC: BaseVC {
     override func initialSetup() {
         self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 16.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
+        //Heading
+//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
+//        // subheadline
+//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
+//        // body
+//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body).withSize(16.0)
     }
     
     //Mark:- Functions

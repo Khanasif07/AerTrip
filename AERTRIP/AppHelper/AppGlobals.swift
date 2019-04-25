@@ -215,11 +215,11 @@ struct AppGlobals {
     
     
     func shareWithActivityViewController(VC:UIViewController, shareData: Any) {
-        
         var sharingData = [Any]()
         sharingData.append(shareData)
         let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = VC.view
+        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
         VC.present(activityViewController, animated: true, completion: nil)
         printDebug(sharingData)
     }
@@ -262,13 +262,6 @@ struct AppGlobals {
     }
     
     
-    //    protocol RedirectToMapDelegate: class {
-    //        func redirectToMap()
-    //        func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String)
-    //        func openGoogleMaps(originLat: String, originLong: String, destLat: String, destLong: String)
-    //    }
-    
-    
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             if let url = URL(string:
@@ -289,7 +282,7 @@ struct AppGlobals {
         }
     }
     
-    func redirectToMap(parentVC: UIViewController? = nil , sourceView: UIView , originLat: String, originLong: String, destLat: String, destLong: String) {
+    func redirectToMap(sourceView: UIView , originLat: String, originLong: String, destLat: String, destLong: String) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
         let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
         let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)

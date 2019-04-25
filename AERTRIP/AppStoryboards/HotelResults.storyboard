@@ -583,8 +583,8 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="58"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6d-ac-rCT">
-                                        <rect key="frame" x="50" y="19" width="275" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="50" y="18.5" width="275" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -629,7 +629,7 @@
                                     <constraint firstAttribute="trailing" secondItem="P6d-ac-rCT" secondAttribute="trailing" constant="50" id="yrg-UG-BOX"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HJS-91-wMs">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJS-91-wMs">
                                 <rect key="frame" x="0.0" y="78" width="375" height="589"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -641,7 +641,7 @@
                             <constraint firstItem="BCJ-yj-6gr" firstAttribute="trailing" secondItem="Fup-iT-fJN" secondAttribute="trailing" id="K5P-fm-2i7"/>
                             <constraint firstItem="HJS-91-wMs" firstAttribute="top" secondItem="BCJ-yj-6gr" secondAttribute="bottom" id="Ppw-2d-EUQ"/>
                             <constraint firstItem="BCJ-yj-6gr" firstAttribute="top" secondItem="Fup-iT-fJN" secondAttribute="top" id="tTa-xP-Cmw"/>
-                            <constraint firstAttribute="bottom" secondItem="HJS-91-wMs" secondAttribute="bottom" id="v1x-zZ-Gyc"/>
+                            <constraint firstItem="Fup-iT-fJN" firstAttribute="bottom" secondItem="HJS-91-wMs" secondAttribute="bottom" id="v1x-zZ-Gyc"/>
                             <constraint firstItem="BCJ-yj-6gr" firstAttribute="leading" secondItem="Fup-iT-fJN" secondAttribute="leading" id="v8T-xX-olS"/>
                             <constraint firstItem="Fup-iT-fJN" firstAttribute="trailing" secondItem="HJS-91-wMs" secondAttribute="trailing" id="xdR-08-uvp"/>
                         </constraints>

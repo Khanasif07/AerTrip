@@ -87,8 +87,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
                     guard let parentVC = self.parentViewController as? HCDataSelectionVC , let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel else { return }
-                    AppGlobals.shared.redirectToMap(parentVC: parentVC,sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                    //                    self.redirectToMap()
+                    AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
                 }
@@ -108,7 +107,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 21.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
             }
         }
         return UITableView.automaticDimension

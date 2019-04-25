@@ -87,7 +87,7 @@ class ContactTableCell: UITableViewCell {
                 sSelf.countryCodeLabel.text = country.countryCode
                 sSelf.contactNumberTextField.defaultRegion = country.ISOCode
                 sSelf.contactNumberTextField.text = sSelf.contactNumberTextField.nationalNumber
-                PKCountryPicker.default.closePicker(animated: true)
+//                PKCountryPicker.default.closePicker(animated: true)
                  sSelf.delegate?.setIsdCode(country)
             }
         }

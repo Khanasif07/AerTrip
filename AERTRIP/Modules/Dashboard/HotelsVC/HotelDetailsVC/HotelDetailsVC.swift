@@ -70,6 +70,7 @@ class HotelDetailsVC: BaseVC {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.themeWhite
         self.statusBarStyle = .default
+        self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -259,27 +260,6 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
     }
     
-    private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-            if let url = URL(string:
-                "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        } else {
-            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
-        }
-    }
-    
-    private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        
-        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-        if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("Can't use apple map://")
-        }
-    }
-    
     internal func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("Filter not found")
@@ -303,33 +283,14 @@ class HotelDetailsVC: BaseVC {
             self.viewModel.selectedTags = ["Breakfast"]
         }
     }
-    
-    internal func redirectToMap() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized,LocalizedString.GMap.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
-        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
         
-        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-            
-            if index == 0 {
-                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
-                    self.openAppleMap(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            } else {
-                if let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData {
-                    self.openGoogleMaps(originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                }
-            }
-        }
-    }
-    
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0, indexPath.row == 2 {
             if let hotelData = self.viewModel.hotelData {
                 let text = hotelData.address + "Maps    "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 21.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
             }
             else {
                 return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
@@ -347,7 +308,7 @@ class HotelDetailsVC: BaseVC {
                 height = max(height, minH)
                 height = min(height, maxH)
                 return height + 46.5
-                    + 21.0//y of textview 46.5 + bottom space 14.0
+                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
             }
             return UITableView.automaticDimension
         }

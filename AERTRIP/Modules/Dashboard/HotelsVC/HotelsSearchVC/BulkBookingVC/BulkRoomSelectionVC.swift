@@ -24,7 +24,7 @@ class BulkRoomSelectionVC: BaseVC {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var headerView: UIView!
+//    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var roomLabel: UILabel!
     @IBOutlet weak var adultLabel: UILabel!
@@ -104,8 +104,8 @@ class BulkRoomSelectionVC: BaseVC {
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        self.headerView.cornerRadius = 15.0
-        self.headerView.layer.masksToBounds = true
+        self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
+//        self.headerView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         self.hide(animated: false)
