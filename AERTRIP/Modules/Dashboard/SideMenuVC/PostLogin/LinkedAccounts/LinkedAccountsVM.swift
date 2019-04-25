@@ -65,8 +65,7 @@ extension LinkedAccountsVM {
     
     //MARK:- Actions
     //MARK:-
-    func fbLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? ) {
-        
+    func fbLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())?) {
         vc.view.endEditing(true)
         FacebookController.shared.getFacebookUserInfo(fromViewController: vc, success: { (result) in
             
@@ -125,10 +124,10 @@ extension LinkedAccountsVM {
         }){ (err : Error) in
             completionBlock?(false)
             printDebug(err.localizedDescription)
-        }
+        } 
     }
     
-    func linkedLogin(vc: UIViewController) {
+    func linkedLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? ) {
         
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
@@ -157,19 +156,21 @@ extension LinkedAccountsVM {
                     self.userData.picture   = data["pictureUrl"] as? String ?? ""
                     
                     printDebug(response)
-                    
+                    completionBlock?(true)
                     self.webserviceForSocialLogin()
                     linkedinHelper.logout()
                 }
             }) { [unowned self] (error) -> Void in
-                
+                completionBlock?(false)
                 //Encounter error
             }
             
         }, error: { (error) -> Void in
             //Encounter error: error.localizedDescription
+             completionBlock?(false)
         }, cancel: { () -> Void in
             //User Cancelled!
+             completionBlock?(false)
         })
     }
 }

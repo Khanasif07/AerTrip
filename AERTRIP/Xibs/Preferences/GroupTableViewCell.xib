@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,8 +37,8 @@
                                     <action selector="deleteCellTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tjw-4Q-qPa"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Me" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5I-MI-BSY">
-                                <rect key="frame" x="51" y="10" width="234" height="17"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Me" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5I-MI-BSY">
+                                <rect key="frame" x="51" y="10" width="228" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -79,7 +79,7 @@
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="centerY" secondItem="G5a-fe-ECO" secondAttribute="centerY" id="s8j-ee-2n2"/>
                             <constraint firstAttribute="trailing" secondItem="tSw-xN-ckt" secondAttribute="trailing" constant="16" id="sZs-IO-Mkc"/>
                             <constraint firstItem="uex-2P-muU" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" constant="17" id="u8I-Aq-vR3"/>
-                            <constraint firstItem="tSw-xN-ckt" firstAttribute="leading" secondItem="l5I-MI-BSY" secondAttribute="trailing" constant="10" id="xLk-h7-biR"/>
+                            <constraint firstItem="tSw-xN-ckt" firstAttribute="leading" secondItem="l5I-MI-BSY" secondAttribute="trailing" constant="16" id="xLk-h7-biR"/>
                             <constraint firstItem="5T4-2p-Fgf" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="54" id="yX7-yW-x1V"/>
                         </constraints>
                     </view>

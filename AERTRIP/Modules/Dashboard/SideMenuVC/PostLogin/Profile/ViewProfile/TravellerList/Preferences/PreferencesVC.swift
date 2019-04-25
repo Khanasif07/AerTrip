@@ -34,7 +34,7 @@ class PreferencesVC: BaseVC {
     weak var delegate: PreferencesVCDelegate?
     let viewModel = PreferencesVM()
     var keyboardHeight : CGFloat = 0.0
-    
+    var isKeyboardOpen: Bool = false
     var labelsCountDict: [JSONDictionary] = []
     
     // MARK: - View LifeCycle
@@ -158,7 +158,12 @@ class PreferencesVC: BaseVC {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             printDebug("notification: Keyboard will show")
             self.keyboardHeight = keyboardSize.height
+            self.isKeyboardOpen = true
         }
+    }
+    
+    override func keyboardWillHide(notification: Notification) {
+        self.isKeyboardOpen = false
     }
     
 }
@@ -170,7 +175,12 @@ extension PreferencesVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        viewModel.callSavePreferencesAPI()
+        if self.viewModel.isValidateData(vc: self) {
+              viewModel.callSavePreferencesAPI()
+        } else {
+            AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized,spaceFromBottom:self.isKeyboardOpen ? self.keyboardHeight : 10.0)
+        }
+      
     }
 }
 
@@ -355,13 +365,10 @@ extension PreferencesVC: GroupTableViewCellDelegate {
     }
     
     func textFieldWhileEditing(_ textField: UITextField, _ indexPath: IndexPath) {
-        if !self.viewModel.groups.contains(where: { $0.compare(textField.text ?? "", options: .caseInsensitive) == .orderedSame }) {
             viewModel.groups[indexPath.row] = textField.text ?? ""
             viewModel.modifiedGroups[indexPath.row].modifiedGroupName = textField.text ?? ""
-        } else {
-            AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized,spaceFromBottom:self.keyboardHeight)
         }
-    }
+    
     
     func deleteCellTapped(_ indexPath: IndexPath) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])

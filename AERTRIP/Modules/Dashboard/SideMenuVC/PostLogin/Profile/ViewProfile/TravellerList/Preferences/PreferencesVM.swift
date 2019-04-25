@@ -24,6 +24,19 @@ class PreferencesVM: NSObject {
     var displayOrder:String = ""
     var modifiedGroups: [(originalGroupName: String, modifiedGroupName: String)] = []
     
+    
+      func isValidateData(vc: UIViewController) -> Bool {
+        
+        let duplicates =  Array(Set(self.groups.filter({ (i: String) in self.groups.filter({ $0 == i }).count > 1})))
+        
+        if duplicates.count > 0 {
+            return false
+        } else {
+            return true
+        }
+        
+    }
+    
 
     
     func setUpData() {
@@ -70,4 +83,6 @@ class PreferencesVM: NSObject {
             }
         }
     }
+    
+    
 }

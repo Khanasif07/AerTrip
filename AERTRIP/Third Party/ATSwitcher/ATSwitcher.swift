@@ -71,6 +71,11 @@ class ATSwitcher: UIView {
         button.setImage(selectedImage, for: .selected)
         button.backgroundColor = originalColor
         
+        button.isUserInteractionEnabled = false
+        self.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(switcherButtonTouch(_:)))
+        self.addGestureRecognizer(tapGesture)
+        
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowPath  = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.bounds.height / 2).cgPath
         button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)

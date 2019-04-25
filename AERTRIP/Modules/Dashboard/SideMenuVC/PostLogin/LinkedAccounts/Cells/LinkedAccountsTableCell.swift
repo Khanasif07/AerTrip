@@ -9,7 +9,7 @@
 import UIKit
 
 protocol LinkedAccountsCellDelegate: class {
-    func connect(_ sender: UIButton, forType: LinkedAccount.SocialType)
+    func connect(_ sender: ATButton, forType: LinkedAccount.SocialType)
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType)
 }
 
@@ -24,7 +24,7 @@ class LinkedAccountsTableCell: UITableViewCell {
     @IBOutlet weak var disconnectButton: UIButton!
     
     @IBOutlet weak var disConnectedContainerView: UIView!
-    @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var connectButton: ATButton!
     @IBOutlet weak var buttonBackgroundView: UIView!
     
     //MARK:- Properties
@@ -58,7 +58,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         }
     }
     
-    @objc private func connectButtonAction(_ sender: UIButton) {
+    @objc private func connectButtonAction(_ sender: ATButton) {
         if let type = self.linkedAccount?.socialType {
             self.delegate?.connect(sender, forType: type)
         }
@@ -123,40 +123,43 @@ class LinkedAccountsTableCell: UITableViewCell {
     
     private func setupForFacobook() {
         self.connectButton.isHidden = false
-        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.fbButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
-        self.connectButton.backgroundColor = AppColors.fbButtonBackgroundColor
+//        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.fbButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
-        self.connectButton.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.isSocial = true
     }
     
     private func setupForGoogle() {
         self.connectButton.isHidden = false
-        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite, offset: CGSize(width: -1.0, height: 1.0))
-        self.connectButton.backgroundColor = AppColors.themeWhite
+//        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeBlack, for: .selected)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
-        self.connectButton.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.isSocial = true
     }
     
     private func setupForLinkedIn() {
         self.connectButton.isHidden = false
-        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.linkedinButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
-        self.connectButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+//        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.linkedinButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
+        self.connectButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
-        self.connectButton.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.isSocial = true
     }
 }

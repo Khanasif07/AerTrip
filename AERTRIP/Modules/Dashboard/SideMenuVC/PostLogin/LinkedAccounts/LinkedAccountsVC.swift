@@ -23,6 +23,9 @@ class LinkedAccountsVC: BaseVC {
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var backButton: UIButton!
     
+    var atButton: ATButton?
+    
+
     //MARK:- Properties
     //MARK:- Public
     
@@ -36,6 +39,16 @@ class LinkedAccountsVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let atButton = atButton {
+            atButton.isLoading = false
+        }
+        
+        
     }
     
     override func setupFonts() {
@@ -116,16 +129,26 @@ extension LinkedAccountsVC: UITableViewDelegate, UITableViewDataSource {
 
 extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     
-    func connect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
+    func connect(_ sender: ATButton, forType: LinkedAccount.SocialType) {
+        atButton = sender
         switch forType {
         case .facebook:
-            self.viewModel.fbLogin(vc: self, completionBlock: nil)
+            sender.isLoading = true
+            self.viewModel.fbLogin(vc: self) { (_) in
+                sender.isLoading = false
+            }
             
         case .linkedin:
-            self.viewModel.linkedLogin(vc: self)
+            sender.isLoading = true
+            self.viewModel.linkedLogin(vc: self) { (_) in
+                sender.isLoading = false
+            }
             
         case .google:
-            self.viewModel.googleLogin(vc: self, completionBlock: nil)
+            sender.isLoading = true
+            self.viewModel.googleLogin(vc: self) { (_) in
+                sender.isLoading = false
+            }
             
         default:
             printDebug("not required")

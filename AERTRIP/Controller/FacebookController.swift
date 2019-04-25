@@ -96,7 +96,7 @@ class FacebookController {
                         success(result)
                     }, failure: { (e) in
                         failure(e)
-                    })
+                    }) 
                     
                 }
             })
