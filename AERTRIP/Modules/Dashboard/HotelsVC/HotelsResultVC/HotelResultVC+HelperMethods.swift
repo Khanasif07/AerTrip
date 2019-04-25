@@ -170,7 +170,7 @@ extension HotelResultVC {
     }
     
     func reloadHotelList() {
-        self.tableViewVertical.isHidden = true
+//        self.tableViewVertical.isHidden = true
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }

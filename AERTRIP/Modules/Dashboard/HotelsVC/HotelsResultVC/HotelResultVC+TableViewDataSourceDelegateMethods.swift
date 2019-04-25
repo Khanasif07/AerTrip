@@ -25,13 +25,12 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             self.manageFloatingView(isHidden: true)
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
-            self.hotelSearchTableView.backgroundView?.isHidden = count > 0
+            self.hotelSearchTableView.backgroundView?.isHidden = (self.searchBar.text ?? "").isEmpty
         }
         else {
-                 self.dataFounOnFilter()
-                 self.hotelSearchView.isHidden = true
-            }
-        
+            self.dataFounOnFilter()
+            self.hotelSearchView.isHidden = true
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
