@@ -521,7 +521,7 @@ class HotelsSearchVC: BaseVC {
     @IBAction func searchButtonAction(_ sender: ATButton) {
         if validateData() {
             sender.isLoading = true
-            
+            self.viewModel.setRecentSearchesData()
             delay(seconds: 0.1) {
                 //send to result screen for current selected form data
                 _ = CoreDataManager.shared.deleteAllData("HotelSearched")
@@ -719,6 +719,14 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     func getRecentSearchesDataFail() {
         self.hideRecentSearchesView()
         printDebug("recent searches data parsing failed")
+    }
+    
+    func setRecentSearchesDataSuccess() {
+        printDebug("setRecentSearchesDataSuccess")
+    }
+    
+    func setRecentSearchesDataFail() {
+        printDebug("setRecentSearchesDataFail")
     }
 }
 

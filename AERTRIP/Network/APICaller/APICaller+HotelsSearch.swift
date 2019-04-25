@@ -217,6 +217,28 @@ extension APICaller {
         }
     }
     
+    func setRecentHotelsSearchesApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ response: JSONDictionary?, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.setRecentSearch, parameters: params, loader: loader, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    completionBlock(true, response, [])
+                }
+                else {
+                    completionBlock(true, nil , [])
+                }
+            }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, nil, errors)
+            })
+        }) { _ in
+            completionBlock(false, nil , [])
+        }
+    }
+    
+    
+    
     func fetchConfirmItineraryData(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ data: ItineraryData?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.confirmation, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
