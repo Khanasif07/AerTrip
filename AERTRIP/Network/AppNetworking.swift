@@ -382,13 +382,13 @@ extension AppNetworking {
     private static func saveCookies(fromUrl: URL?) {
         if let url = fromUrl, let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies(for: url) {
             
-            var finalNew = cookies
-            if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
-                for ck in allCk {
-                    finalNew.append(ck)
-                }
-            }
-            UserDefaults.saveCustomObject(customObject: finalNew, forKey: UserDefaults.Key.currentUserCookies.rawValue)
+//            let finalNew = cookies
+//            if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
+//                for ck in allCk {
+//                    finalNew.append(ck)
+//                }
+//            }
+            UserDefaults.saveCustomObject(customObject: cookies, forKey: UserDefaults.Key.currentUserCookies.rawValue)
         }
     }
 }
