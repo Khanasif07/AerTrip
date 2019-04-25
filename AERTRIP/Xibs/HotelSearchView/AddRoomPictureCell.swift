@@ -32,6 +32,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     @IBOutlet weak var childPopUpBtn: UIButton!
     @IBOutlet weak var lineViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var lineViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewLeadingConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -58,6 +59,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     //==============
     ///Configure UI
     private func configureUI() {
+        self.stackViewLeadingConstraint.constant = 16.5
         self.lineView.backgroundColor = AppColors.divider.color
         self.lineView.isHidden = true
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
@@ -82,7 +84,9 @@ class AddRoomPictureCell: UICollectionViewCell {
         if viewModel.searchedFormData.adultsCount.count == 1 {
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
+            self.stackViewLeadingConstraint.constant = 16.5
         } else{
+            self.stackViewLeadingConstraint.constant = 20.0
             if idxPath.item == 0 || idxPath.item == 1 {
                 self.lineView.isHidden = false
                 if idxPath.item == 0 {

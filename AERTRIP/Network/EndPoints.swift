@@ -85,7 +85,7 @@ enum APIEndPoint : String {
     
     //booking
     case bookingReceipt                = "booking/receipt"
-    
+    case setRecentSearch               = "recent-search/set"
     // Final Checkout
    
     case hotelItinerary = "hotels/itinerary?action=traveller"    
