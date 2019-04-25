@@ -24,9 +24,7 @@ class ImportContactVM: NSObject {
     
     enum Notification {
         case selectionChanged
-        case phoneContactFetched
-        case facebookContactFetched
-        case googleContactFetched
+        case contactFetched
         case searchDone
         case contactSavedSuccess
         case contactSavedFail
@@ -74,6 +72,10 @@ class ImportContactVM: NSObject {
             }
         }
     }
+    
+    var isPhoneContactsAllowed: Bool = false
+    var isFacebookContactsAllowed: Bool = false
+    var isGoogleContactsAllowed: Bool = false
     
     var selectedPhoneContacts: [CNContact] = []
     
@@ -146,15 +148,14 @@ class ImportContactVM: NSObject {
         self.delegateCollection?.willFetchPhoneContacts()
         forVC.fetchContacts { [weak self] (contacts) in
             DispatchQueue.mainAsync {
+                self?.isPhoneContactsAllowed = true
                 self?._phoneContacts = contacts
                 if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.phoneContactFetched)
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
             }
         }
     }
-    
-    
     
     //MARK:- Fetch Facebook Contacts
     //MARK:-
@@ -165,8 +166,9 @@ class ImportContactVM: NSObject {
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.facebookContactFetched)
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
+                self?.isFacebookContactsAllowed = true
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
         }, failure: { (error) in
@@ -182,8 +184,9 @@ class ImportContactVM: NSObject {
         GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
             if let obj = self?.delegateCollection as? BaseVC {
-                obj.sendDataChangedNotification(data: Notification.googleContactFetched)
+                obj.sendDataChangedNotification(data: Notification.contactFetched)
             }
+            self?.isGoogleContactsAllowed = true
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
         }, failure: { (error) in
             print(error)

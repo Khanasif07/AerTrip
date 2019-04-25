@@ -29,10 +29,9 @@ class ContactListVC: BaseVC {
     //MARK:- Public
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
-    var isPermissionGiven: Bool = false
     
     //MARK:- Private
-    private lazy var emptyView: EmptyScreenView = {
+    private lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -91,23 +90,8 @@ class ContactListVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? ImportContactVM.Notification {
-            if obj == .phoneContactFetched {
-                self.isPermissionGiven = !self.viewModel.sections.isEmpty
-                self.viewModel.createSectionWiseDataForContacts(for: .contacts)
+            if obj == .contactFetched {
                 self.fetchPhoneContactsSuccess()
-                tableView.backgroundView = noResultemptyView
-            }
-            else if obj == .facebookContactFetched {
-                self.isPermissionGiven = !self.viewModel.facebookSection.isEmpty
-                self.viewModel.createSectionWiseDataForContacts(for: .facebook)
-                self.fetchPhoneContactsSuccess()
-                tableView.backgroundView = noResultemptyView
-            }
-            else if obj == .googleContactFetched {
-                self.isPermissionGiven = !self.viewModel.googleSection.isEmpty
-                self.viewModel.createSectionWiseDataForContacts(for: .google)
-                self.fetchPhoneContactsSuccess()
-                tableView.backgroundView = noResultemptyView
             }
             else if obj == .selectionChanged {
                 self.reloadList()
@@ -142,7 +126,7 @@ class ContactListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
-        self.tableView.backgroundView = self.emptyView
+        self.tableView.backgroundView = self.allowEmptyView
         self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -158,7 +142,6 @@ class ContactListVC: BaseVC {
         self.selectAllButton.isHidden = isHidden
 
         tableView.backgroundView?.isHidden = !isHidden
-//        self.isPermissionGiven = !isHidden
     }
     
     //MARK:- Public
@@ -479,6 +462,45 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
+        
+        switch self.currentlyUsingFor {
+        case .contacts:
+            self.viewModel.createSectionWiseDataForContacts(for: .contacts)
+            if !self.viewModel.isPhoneContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.phoneContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+            
+        case .facebook:
+            self.viewModel.createSectionWiseDataForContacts(for: .facebook)
+            if !self.viewModel.isFacebookContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.facebookContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+            
+        case .google:
+            self.viewModel.createSectionWiseDataForContacts(for: .google)
+            if !self.viewModel.isGoogleContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.googleContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+        }
+        
         self.reloadList()
     }
 }

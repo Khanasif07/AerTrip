@@ -26,10 +26,9 @@ class HCGuestListVC: BaseVC {
     //MARK:- Public
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = HCSelectGuestsVM.shared //only used for fetching the contacts from diffrent sources
-    var isPermissionGiven: Bool = false
 
     //MARK:- Private
-    private lazy var emptyView: EmptyScreenView = {
+    private lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -82,12 +81,11 @@ class HCGuestListVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let obj = note.object as? HCSelectGuestsVM.Notification {
-            if obj == .phoneContactFetched {
+            if obj == .contactFetched {
                 self.fetchPhoneContactsSuccess()
-                tableView.backgroundView = noResultemptyView
             }
             else if obj == .selectionChanged {
-                self.tableView.reloadData()
+                self.reloadList()
             }
             else if obj == .searchDone {
                 if self.currentlyUsingFor == .travellers && !self.viewModel.travellerContacts.isEmpty {
@@ -104,7 +102,7 @@ class HCGuestListVC: BaseVC {
                 else if self.currentlyUsingFor == .google && !self.viewModel.googleContacts.isEmpty {
                     tableView.backgroundView = noResultemptyView
                 }
-                self.tableView.reloadData()
+                self.reloadList()
             }
         }
     }
@@ -117,12 +115,16 @@ class HCGuestListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.fetchTravellersContact()
-        self.tableView.backgroundView = self.emptyView
+        self.tableView.backgroundView = self.allowEmptyView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         noResultemptyView.mainImageViewTopConstraint.constant = 300
         //    self.bottomHeaderTopDiverView.isHidden = true
+    }
+    
+    private func reloadList() {
+        self.tableView.reloadData()
     }
     
     //MARK:- Public
@@ -136,25 +138,20 @@ class HCGuestListVC: BaseVC {
 extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentlyUsingFor == .travellers {
-            
-            tableView.backgroundView?.isHidden = true
-            self.isPermissionGiven = !self.viewModel.travellerContacts.isEmpty
+            tableView.backgroundView?.isHidden = !self.viewModel.travellerContacts.isEmpty
             return self.viewModel.travellerContacts.count
         }
         else if self.currentlyUsingFor == .contacts {
             
             tableView.backgroundView?.isHidden = !self.viewModel.phoneContacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.phoneContacts.isEmpty
             return self.viewModel.phoneContacts.count
         }
         else if self.currentlyUsingFor == .facebook {
             tableView.backgroundView?.isHidden = !self.viewModel.facebookContacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.facebookContacts.isEmpty
             return self.viewModel.facebookContacts.count
         }
         else if self.currentlyUsingFor == .google {
             tableView.backgroundView?.isHidden = !self.viewModel.googleContacts.isEmpty
-            self.isPermissionGiven = !self.viewModel.googleContacts.isEmpty
             return self.viewModel.googleContacts.count
         }
         
@@ -303,11 +300,11 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
 extension HCGuestListVC: HCSelectGuestsVMDelegate {
 
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-        self.tableView.reloadData()
+        self.reloadList()
     }
     
     func willSaveContacts() {
@@ -327,7 +324,51 @@ extension HCGuestListVC: HCSelectGuestsVMDelegate {
     }
     
     func fetchPhoneContactsSuccess() {
-        self.isPermissionGiven = true
-        self.tableView.reloadData()
+        
+        switch self.currentlyUsingFor {
+            
+        case .travellers:
+            if self.viewModel.travellerContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+            
+        case .contacts:
+            if !self.viewModel.isPhoneContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.phoneContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+            
+        case .facebook:
+            if !self.viewModel.isFacebookContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.facebookContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+            
+        case .google:
+            if !self.viewModel.isGoogleContactsAllowed {
+                tableView.backgroundView = allowEmptyView
+            }
+            else if self.viewModel.googleContacts.isEmpty {
+                tableView.backgroundView = noResultemptyView
+            }
+            else {
+                tableView.backgroundView = nil
+            }
+        }
+        
+        self.reloadList()
     }
 }

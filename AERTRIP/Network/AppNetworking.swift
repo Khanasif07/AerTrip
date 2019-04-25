@@ -375,25 +375,14 @@ enum AppNetworking {
 extension AppNetworking {
     private static func addCookies(forUrl: URL?) {
         if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
-            
             for cookie in allCookies {
                 HTTPCookieStorage.shared.setCookie(cookie)
             }
-//            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookies(allCk, for: forUrl, mainDocumentURL: nil)
         }
     }
     
     private static func saveCookies(fromUrl: URL?) {
         if let cookies = HTTPCookieStorage.shared.cookies {
-            
-            
-            
-//            let finalNew = cookies
-//            if let allCk = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
-//                for ck in allCk {
-//                    finalNew.append(ck)
-//                }
-//            }
             UserDefaults.saveCustomObject(customObject: cookies, forKey: UserDefaults.Key.currentUserCookies.rawValue)
         }
     }
