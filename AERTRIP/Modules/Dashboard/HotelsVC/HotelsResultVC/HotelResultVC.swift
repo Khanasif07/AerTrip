@@ -274,16 +274,13 @@ class HotelResultVC: BaseVC {
             _ = CoreDataManager.shared.deleteAllData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
-        else if let _ = note.object as? HotelDetailsVC {
+        else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
             //fav updated from hotel details
-            self.hotelSearchTableView.reloadData()
-        } else if let _ = note.object as? HCDataSelectionVC {
-            // fav updated from HCDataSelectionVC
-            if let indexPath = selectedIndexPath {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
                 selectedIndexPath = nil
-            }
-            
+        } else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
+            self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+            selectedIndexPath = nil
         }
     }
     

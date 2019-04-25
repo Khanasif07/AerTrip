@@ -19,13 +19,14 @@ class BulkEnquirySuccessfulVC: BaseVC {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var textContainerView: UIView!
+//    @IBOutlet weak var textContainerView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var bulkEnquiryLabel: UILabel!
     @IBOutlet weak var customerServiceLabel: UILabel!
     @IBOutlet weak var doneBtnOutlet: UIButton!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
     
     private var tickLayer: CAShapeLayer!
     private var tickImageSize: CGSize {
@@ -69,6 +70,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
+        self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
@@ -80,7 +83,6 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.bulkEnquiryLabel.isHidden = true
         self.customerServiceLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true
-        
     }
     //Mark:- Methods
     //==============

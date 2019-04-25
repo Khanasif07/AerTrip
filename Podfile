@@ -13,7 +13,7 @@ target 'AERTRIP' do
     pod 'GoogleSignIn'
     pod 'LinkedinSwift'
     pod 'Firebase/Core'
-    pod 'Firebase/DynamicLinks'
+    pod 'Firebase/DynamicLinks'  
     pod 'MXParallaxHeader'
     pod 'PhoneNumberKit', '~> 2.5'
     pod 'IQKeyboardManager'

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,29 +13,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsCancelPolicyTableCell" rowHeight="150" id="KwK-cX-BjT" customClass="HotelDetailsCancelPolicyTableCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KwK-cX-BjT" id="wtr-NW-jzd">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJp-l8-0bl">
-                        <rect key="frame" x="16" y="0.0" width="343" height="59.5"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="57.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6W-kV-aMW">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="59.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="57.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4V-Bk-Ypt">
-                                        <rect key="frame" x="16" y="8" width="269" height="17"/>
+                                        <rect key="frame" x="16" y="8" width="246" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-s7-hxd">
-                                        <rect key="frame" x="295" y="5.5" width="32" height="22"/>
+                                        <rect key="frame" x="272" y="6" width="55" height="19"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="Y0O-xz-BaS"/>
-                                            <constraint firstAttribute="height" constant="22" id="opk-XA-Vn8"/>
+                                            <constraint firstAttribute="width" constant="55" id="Y0O-xz-BaS"/>
+                                            <constraint firstAttribute="height" constant="19" id="opk-XA-Vn8"/>
                                         </constraints>
                                         <state key="normal" title="Info"/>
                                         <connections>
@@ -43,16 +43,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="hvk-Za-tMH">
-                                        <rect key="frame" x="16" y="31.5" width="311" height="19"/>
+                                        <rect key="frame" x="16" y="27" width="311" height="21.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FREE CANCELLATION by 07 Feb’ 18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vti-KP-miw">
-                                                <rect key="frame" x="0.0" y="0.0" width="311" height="19"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="311" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CId-uh-vzW">
-                                                <rect key="frame" x="0.0" y="19" width="311" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="21.5" width="311" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                                         </subviews>
                                     </stackView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gL2-Xc-Wig">
-                                        <rect key="frame" x="272" y="31.5" width="55" height="19"/>
+                                        <rect key="frame" x="272" y="28.5" width="55" height="19"/>
                                         <subviews>
                                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axn-hz-RqW">
                                                 <rect key="frame" x="0.0" y="0.0" width="15" height="19"/>
@@ -94,14 +94,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="hvk-Za-tMH" firstAttribute="top" secondItem="Kzb-s7-hxd" secondAttribute="bottom" constant="4" id="065-xA-9IA"/>
                                     <constraint firstAttribute="trailing" secondItem="gL2-Xc-Wig" secondAttribute="trailing" constant="16" id="1Rf-1s-03g"/>
+                                    <constraint firstAttribute="bottom" secondItem="hvk-Za-tMH" secondAttribute="bottom" constant="9" id="2Ad-Q5-uaG"/>
                                     <constraint firstItem="G4V-Bk-Ypt" firstAttribute="top" secondItem="W6W-kV-aMW" secondAttribute="top" constant="8" id="66X-Tq-Uxg"/>
                                     <constraint firstItem="hvk-Za-tMH" firstAttribute="leading" secondItem="W6W-kV-aMW" secondAttribute="leading" constant="16" id="EA9-fZ-8zU"/>
                                     <constraint firstAttribute="trailing" secondItem="Kzb-s7-hxd" secondAttribute="trailing" constant="16" id="SCu-XB-C2j"/>
-                                    <constraint firstAttribute="bottom" secondItem="hvk-Za-tMH" secondAttribute="bottom" constant="9" id="d9n-Bb-9iS"/>
+                                    <constraint firstItem="hvk-Za-tMH" firstAttribute="top" secondItem="G4V-Bk-Ypt" secondAttribute="bottom" constant="2" id="eMy-oF-unk"/>
                                     <constraint firstItem="G4V-Bk-Ypt" firstAttribute="leading" secondItem="W6W-kV-aMW" secondAttribute="leading" constant="16" id="flQ-iN-9C1"/>
-                                    <constraint firstItem="Kzb-s7-hxd" firstAttribute="centerY" secondItem="G4V-Bk-Ypt" secondAttribute="centerY" id="jmf-rb-PDN"/>
+                                    <constraint firstItem="Kzb-s7-hxd" firstAttribute="centerY" secondItem="G4V-Bk-Ypt" secondAttribute="centerY" constant="-1" id="jmf-rb-PDN"/>
                                     <constraint firstAttribute="trailing" secondItem="hvk-Za-tMH" secondAttribute="trailing" constant="16" id="pGL-QJ-Uwp"/>
                                     <constraint firstItem="gL2-Xc-Wig" firstAttribute="centerY" secondItem="Vti-KP-miw" secondAttribute="centerY" id="uJ5-H2-ePu"/>
                                     <constraint firstItem="Kzb-s7-hxd" firstAttribute="leading" secondItem="G4V-Bk-Ypt" secondAttribute="trailing" constant="10" id="y5H-pA-5tN"/>

@@ -10,12 +10,12 @@ import UIKit
 
 class OtherBookingsDetailsVC: BaseVC {
 
-    //Mark:- Variables
-    //================
+    //MARK:- Variables
+    //MARK
     let viewModel = OtherBookingsDetailsVM()
     
-    //Mark:- IBOutlets
-    //================
+    //MARK:- IBOutlets
+    //MARK
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var bookingDataContainerView: UIView!
     @IBOutlet weak var bookingEventTypeImageView: UIImageView!
@@ -32,9 +32,8 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    
-    //Mark:- LifeCycle
-    //================
+    //MARK:- LifeCycle
+    //MARK
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -73,8 +72,8 @@ class OtherBookingsDetailsVC: BaseVC {
         self.topNavBar.delegate = self
     }
     
-    //Mark:- Functions
-    //================
+    //MARK:- Functions
+    //MARK
     private func registerNibs() {
         self.dataTableView.registerCell(nibName: TitleWithSubTitleTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingTravellersDetailsTableViewCell.reusableIdentifier)
@@ -82,12 +81,12 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
     }
     
-    //Mark:- IBActions
-    //================
+    //MARK:- IBActions
+    //MARK
 }
 
-//Mark:- Extensions
-//=================
+//MARK:- Extensions
+//MARK=
 extension OtherBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

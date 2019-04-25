@@ -33,11 +33,11 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var whereBtnOutlet: UIButton!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var stateNameLabel: UILabel!
-    @IBOutlet weak var firstLineView: UIView!
-    @IBOutlet weak var secondLineView: UIView!
-    @IBOutlet weak var thirdLineView: UIView!
-    @IBOutlet weak var fourthLineView: UIView!
-    @IBOutlet weak var fifthLineView: UIView!
+    @IBOutlet weak var firstLineView: ATDividerView!
+    @IBOutlet weak var secondLineView: ATDividerView!
+    @IBOutlet weak var thirdLineView: ATDividerView!
+    @IBOutlet weak var fourthLineView: ATDividerView!
+    @IBOutlet weak var fifthLineView: ATDividerView!
     @IBOutlet weak var starRatingLabel: UILabel!
     @IBOutlet weak var allStarLabel: UILabel!
     @IBOutlet weak var oneStarLabel: UILabel!
@@ -59,6 +59,8 @@ class BulkBookingVC: BaseVC {
             self.preferredTextField.delegate = self
         }
     }
+    @IBOutlet weak var preferredButtonOutlet: UIButton!
+    @IBOutlet weak var specialReqButtonOutlet: UIButton!
     @IBOutlet weak var specialReqTextField: UITextField! {
         didSet{
             self.specialReqTextField.delegate = self
@@ -133,11 +135,6 @@ class BulkBookingVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.firstLineView.backgroundColor = AppColors.divider.color
-        self.secondLineView.backgroundColor = AppColors.divider.color
-        self.thirdLineView.backgroundColor = AppColors.divider.color
-        self.fourthLineView.backgroundColor = AppColors.divider.color
-        self.fifthLineView.backgroundColor = AppColors.divider.color
         self.starRatingLabel.textColor = AppColors.themeGray40
         self.allStarLabel.textColor = AppColors.themeGray40
         self.oneStarLabel.textColor = AppColors.themeGray40
@@ -418,6 +415,16 @@ class BulkBookingVC: BaseVC {
                 sSelf.viewModel.bulkBookingEnquiryApi()
             }
         }
+    }
+    
+    @IBAction func preferredButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.preferredTextField.becomeFirstResponder()
+    }
+    
+    @IBAction func specialReqAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.specialReqTextField.becomeFirstResponder()
     }
 }
 

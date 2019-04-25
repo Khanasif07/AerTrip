@@ -42,11 +42,11 @@ class HotelsSearchVM: NSObject{
     
     //MARK:- Public
     
-    ///SaveFormDataToUserDefaults
-    func saveFormDataToUserDefaults() {
-        HotelsSearchVM.hotelFormData = self.searchedFormData
-        printDebug(HotelsSearchVM.hotelFormData)
-    }
+//    ///SaveFormDataToUserDefaults
+//    func saveFormDataToUserDefaults() {
+//        HotelsSearchVM.hotelFormData = self.searchedFormData
+//        printDebug(HotelsSearchVM.hotelFormData)
+//    }
     
     ///Get Recent Searches Data
     func getRecentSearchesData() {
