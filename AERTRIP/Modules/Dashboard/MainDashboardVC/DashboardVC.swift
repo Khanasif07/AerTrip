@@ -40,6 +40,8 @@ class DashboardVC: BaseVC {
     private var alreadyTransformedValue : CGFloat = 0.0
     private var identitySize = CGSize.zero
     private var smallerSize = CGSize.zero
+    
+    private var isInitialAminationDone: Bool = false
 
     var itemWidth : CGFloat {
         return aerinView.width
@@ -88,7 +90,8 @@ class DashboardVC: BaseVC {
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
         
-        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
+        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true), !isInitialAminationDone {
+            isInitialAminationDone = true
             self.setupInitialAnimation()
         }
     }

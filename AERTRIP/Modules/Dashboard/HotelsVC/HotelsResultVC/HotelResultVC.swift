@@ -88,7 +88,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var hotelSearchTableView: UITableView!
+    @IBOutlet var hotelSearchTableView: ATTableView!
     @IBOutlet var currentLocationButton: UIButton!
     @IBOutlet var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var floatingButtonBackView: UIView!

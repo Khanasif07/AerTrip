@@ -62,7 +62,6 @@ class HotelRatingInfoCell: UITableViewCell {
     private func textSetUp(hotelName: String , distanceText: String, durationValue: Int, starRating: Double , tripAdvisorRating: Double) {
         self.hotelRatingView.isHidden = false
         self.hotelNameLabel.text = hotelName
-        UITextView().numberOfLines
         let modeImage: String
         if durationValue/60 <= 10 {
             modeImage = "• 🚶🏻 "

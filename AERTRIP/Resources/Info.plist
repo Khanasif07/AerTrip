@@ -99,6 +99,7 @@
 		<string>fbshareextension</string>
 		<string>googlegmail</string>
 		<string>comgooglemaps</string>
+        <string>linkedin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

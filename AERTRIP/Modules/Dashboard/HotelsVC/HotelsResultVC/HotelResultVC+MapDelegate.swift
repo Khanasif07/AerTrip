@@ -64,6 +64,17 @@ extension HotelResultVC {
         self.mapView?.animate(toLocation: coordinates)
     }
     
+    
+    func animateZoomLabel() {
+        if let currentZoom = self.mapView?.camera.zoom {
+            self.mapView?.animate(toZoom: currentZoom + 4.0)
+
+            delay(seconds: 0.3) {[weak self] in
+                self?.mapView?.animate(toZoom: currentZoom)
+            }
+        }
+    }
+    
     private func setUpClusterManager() {
         // Set up the cluster manager with the supplied icon generator and
         // renderer.
