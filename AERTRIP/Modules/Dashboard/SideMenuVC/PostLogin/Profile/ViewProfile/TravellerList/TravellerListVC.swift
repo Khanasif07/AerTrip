@@ -561,8 +561,10 @@ extension TravellerListVC: TravellerListVMDelegate {
     }
     
     private func deleteAllSelectedTravllers() {
-        for travellerId in selectedTravller {
-            _ = CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(travellerId)'")
+        for traveller in selectedTravller {
+            if let id = traveller.id, !id.isEmpty {
+                _ = CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(id)'")
+            }
         }
     }
     
