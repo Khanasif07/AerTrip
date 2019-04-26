@@ -35,6 +35,12 @@ class MailComposerVC: BaseVC {
         self.setupEmail()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }

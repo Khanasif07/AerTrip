@@ -123,10 +123,11 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { [weak self](isGuest) in
                 guard let sSelf = self else {return}
-                if let vc = sSelf.parent {
-                    AppFlowManager.default.popToViewController(vc, animated: true)
-                }
+//                if let vc = sSelf.parent {
+//                    AppFlowManager.default.popToViewController(vc, animated: true)
+//                }
                 AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched())
+                AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             }
         }
     }
@@ -262,14 +263,21 @@ extension HotelDetailsVC {
                     self.initialStickyPosition = finalY
                 }
                 
-                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
-                if 0...self.footerView.height ~= bottomCons {
+                let bottomCons = (scrollView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+                if (scrollView.contentSize.height - scrollView.height) <= scrollView.contentOffset.y {
+                    //if table view scrolled till end then hide sticky view
+                    self.stickyBottomConstraint.constant = -(self.footerView.height)
+                }
+                else if 0...self.footerView.height ~= bottomCons {
+                    //hiding
                     self.stickyBottomConstraint.constant = -(bottomCons)
                 }
                 else if self.initialStickyPosition <= 0.0 {
+                    //shown
                     self.stickyBottomConstraint.constant = 0.0
                 }
                 else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                    //hidden
                     self.stickyBottomConstraint.constant = -(self.footerView.height)
                 }
             }

@@ -78,16 +78,6 @@ class HotelDetailsVC: BaseVC {
         self.statusBarColor = AppColors.clear
     }
     
-    override func dataChanged(_ note: Notification) {
-        if let _ = note.object as? HCDataSelectionVC{
-//            self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
-            self.hotelTableView.reloadData()
-        }
-//        else if let _ = note.object as? HotelDetailsVC {
-//            self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
-//        }
-    }
-    
     override func initialSetup() {
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.headerView.shouldAddBlurEffect = true
@@ -105,6 +95,12 @@ class HotelDetailsVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let _ = note.object as? HCDataSelectionVC {
+            self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+        }
     }
     
     override func setupColors() {

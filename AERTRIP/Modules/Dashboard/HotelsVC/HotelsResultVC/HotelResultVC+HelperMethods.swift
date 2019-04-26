@@ -50,8 +50,18 @@ extension HotelResultVC {
     }
     
     func getFavouriteHotels() {
-        self.favouriteHotels = self.searchedHotels.filter { $0.fav == "1" }
-        self.manageSwitchContainer(isHidden: self.favouriteHotels.isEmpty)
+        
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched], !allFavs.isEmpty {
+            self.isLoadingListAfterUpdatingAllFav = false
+            self.manageSwitchContainer(isHidden: allFavs.isEmpty)
+            self.favouriteHotels = allFavs
+        } else if !isLoadingListAfterUpdatingAllFav {
+            self.fetchRequestType = .normal
+            self.isLoadingListAfterUpdatingAllFav = true
+            self.loadSaveData()
+        }
+        
+
     }
     
     func getPinnedHotelTemplate() {
@@ -97,6 +107,7 @@ extension HotelResultVC {
     func removeAllFavouritesHotels() {
         self.switchView.setOn(isOn: false)
         self.manageSwitchContainer(isHidden: true)
+        self.viewModel.isUnpinHotelTapped = true
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
@@ -210,11 +221,15 @@ extension HotelResultVC {
                 }
             }
         }
+        
+        self.getFavouriteHotels()
     }
     
-    func searchForText(_ searchText: String) {
+    func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(self.performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+        if shouldPerformAction {
+            perform(#selector(self.performSearchForText(_:)), with: searchText, afterDelay: 0.5)
+        }
     }
     
     @objc private func performSearchForText(_ searchText: String) {
@@ -224,7 +239,7 @@ extension HotelResultVC {
     private func searchHotels(forText: String) {
         self.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
-        self.predicateStr = forText
+        self.searchTextStr = forText
         self.loadSaveData()
         self.reloadHotelList()
     }
@@ -258,6 +273,7 @@ extension HotelResultVC {
     
     func manageFloatingView(isHidden: Bool) {
         self.floatingView.isHidden = isHidden
+        self.floatingButtonBackView.isHidden = isHidden
     }
     
     func addTapGestureOnMap() {
@@ -274,6 +290,10 @@ extension HotelResultVC {
         }
         
         let animationThreshold: CGFloat = 10.0
+        
+        var isHeaderHidden: Bool {
+            return self.headerContainerViewTopConstraint.constant < 0
+        }
         
         func showHeader() {
             guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
@@ -297,8 +317,11 @@ extension HotelResultVC {
         
         let yPosition = scrollView.contentOffset.y
         guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
-            if yPosition > 0 {
+            if yPosition >= 0 {
                 scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            }
+            else if yPosition < 0, isHeaderHidden {
+                showHeader()
             }
             return
         }

@@ -30,7 +30,7 @@ class HotelsResultVM: NSObject {
     internal var hotelListResult = [HotelsSearched]()
     var hotelSearchRequest: HotelSearchRequestModel?
     var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
-    
+    var isUnpinHotelTapped : Bool = false
     var shortUrl: String = ""
     private(set) var collectionViewList: [String: Any] = [String: Any]()
     
@@ -105,21 +105,30 @@ class HotelsResultVM: NSObject {
             param[APIKeys.status.rawValue] = 0
         }
         
-        //make fav/unfav locally
-        for hotel in forHotels {
-            if !isUnpinHotels {
-                hotel.fav = hotel.fav == "1" ? "0" : "1"
-            } else {
-                hotel.fav = "0"
+       
+     
+             //make fav/unfav locally
+            for hotel in forHotels {
+                if !isUnpinHotels {
+                    hotel.fav = hotel.fav == "1" ? "0" : "1"
+                } else {
+                    hotel.fav = "0"
+                }
+                _ = hotel.afterUpdate
             }
-            _ = hotel.afterUpdate
-        }
+        
+      
         self.delegate?.willUpdateFavourite()
         APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess,errors, successMessage in
             if isSuccess {
-                if isUnpinHotels {  AppToast.default.showToastMessage(message: successMessage) }
+                if isUnpinHotels {
+                    AppToast.default.showToastMessage(message: successMessage)
+                }
                 self.delegate?.updateFavouriteSuccess()
             } else {
+                if isUnpinHotels {
+                    self.isUnpinHotelTapped = false
+                }
                 if let _ = UserInfo.loggedInUserId {
                     //revert back in API not success fav/unfav locally
                     for hotel in forHotels {
@@ -134,13 +143,16 @@ class HotelsResultVM: NSObject {
                 else {
                     //if user is not logged in save them locally
                     for hotel in forHotels {
-                        if let id = hotel.hid, !id.isEmpty {
+                        if !isUnpinHotels, let id = hotel.hid, !id.isEmpty {
                             if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
                                 UserInfo.locallyFavHotels.remove(at: idx)
                             }
                             else {
                                 UserInfo.locallyFavHotels.append(id)
                             }
+                        }
+                        else {
+                            UserInfo.locallyFavHotels.removeAll()
                         }
                     }
                 }

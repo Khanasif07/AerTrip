@@ -95,6 +95,8 @@ class BulkBookingVC: BaseVC {
         super.viewWillAppear(animated)
         
         IQKeyboardManager.shared().isEnableAutoToolbar = false
+        
+        self.searchButtonOutlet.isLoading = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -415,6 +417,7 @@ class BulkBookingVC: BaseVC {
         }
         else {
             self.statusBarStyle = .default
+            sender.isLoading = true
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
                 guard let sSelf = self else {return}
                 if let vc = sSelf.parent {

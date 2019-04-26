@@ -22,6 +22,7 @@ class ATErrorManager {
         case `default` = -4561
         case noInternet = -4562
         case requestTimeOut = -4563
+        case userNotLoggedIn = -4564 //if backend send -1 then we are converting it to -4564
         
         var message: String {
             switch self {
@@ -30,6 +31,9 @@ class ATErrorManager {
                 
             case .requestTimeOut:
                 return "Request time out. Please try again."
+                
+            case .userNotLoggedIn:
+                return "You are using as guest."
                 
             default:
                 return "Something went wrong"
@@ -96,10 +100,11 @@ class ATErrorManager {
     func error(forCode: Int, module: ATErrorManager.Module) -> ATError {
         var error = ATError()
         
+        let forCode = (forCode == -1) ? LocalError.userNotLoggedIn.rawValue : forCode
         error.code = "\(forCode)"
         error.module = module.rawValue
         
-        if (-4563)...(-4561) ~= forCode {
+        if (-4564)...(-4561) ~= forCode {
             let err = LocalError(rawValue: forCode) ?? .default
             
             error.message = err.message

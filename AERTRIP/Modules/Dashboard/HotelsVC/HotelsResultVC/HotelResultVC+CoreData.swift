@@ -7,18 +7,36 @@
 //
 
 import Foundation
+import CoreData
+
 extension HotelResultVC {
     // Load Save Data from core data
+    func getSearchTextPredicate() -> NSCompoundPredicate {
+//        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
+        return NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.searchTextStr), NSPredicate(format: "address CONTAINS[cd] %@", self.searchTextStr)])
+//        }
+//        else {
+//            return NSCompoundPredicate(format: "")
+//        }
+    }
     
     func loadSaveData() {
         
         // Predicate for searching based on Hotel Name and a
-         let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+        let orPredicate = getSearchTextPredicate()
         switch self.fetchRequestType {
         case .FilterApplied:
-            addSortDescriptors()
+            switch self.filterApplied.sortUsing {
+            case .DistanceNearestFirst:
+                addSortDescriptors()
+                self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
+            default:
+                addSortDescriptors()
+                self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+            }
+           
             self.filterButton.isSelected = true
-            if self.predicateStr == "" {
+            if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 self.fetchedResultsController.fetchRequest.predicate = andPredicate
             } else {
@@ -33,6 +51,11 @@ extension HotelResultVC {
             } else {
                 self.fetchedResultsController.fetchRequest.predicate = orPredicate
             }
+            
+        case .normalInSearching :
+            self.searchedHotels.removeAll()
+            self.fetchRequestWithoutFilter()
+            
         case .normal :
           self.fetchRequestWithoutFilter()
         }
@@ -47,21 +70,30 @@ extension HotelResultVC {
         
         switch self.filterApplied.sortUsing {
         case .BestSellers:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "bc", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
         case .PriceLowToHigh:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "price", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: true)]
         case .TripAdvisorRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "rating", ascending: false))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
         case .StartRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "star", ascending: false))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: false)]
         case .DistanceNearestFirst:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "distance", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: true)]
+            
         }
     }
     
     // Create Sub Predicates
     
     func createSubPredicates() -> [NSPredicate] {
+        
+        
+        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
+            return []
+        }
+
+        
+        
         var subpredicates: [NSPredicate] = []
         let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
         let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
@@ -145,11 +177,11 @@ extension HotelResultVC {
     // Fetch Request Without Filters
     
     func fetchRequestWithoutFilter() {
-        if self.predicateStr.isEmpty {
+        if self.searchTextStr.isEmpty {
             self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
             
         } else {
-            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+            let orPredicate = getSearchTextPredicate()
             self.fetchedResultsController.fetchRequest.predicate = orPredicate
         }
     }
@@ -160,14 +192,13 @@ extension HotelResultVC {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
-            if !self.predicateStr.isEmpty {
+            if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 
                 self.hotelSearchTableView.reloadData()
-            } else {
-                self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
             }
+            
             self.reloadHotelList()
             self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
         } catch {

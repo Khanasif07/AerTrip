@@ -124,7 +124,7 @@ class AppFlowManager: NSObject {
         self.window.makeKeyAndVisible()
     }
     
-    //check and manage the further processing if user logged-in or note
+    //check and manage the further processing if user logged-in or not
     func proccessIfUserLoggedIn(verifyingFor: LoginFlowUsingFor, completion: ((_ isGuest: Bool)->Void)?) {
         loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {
@@ -667,6 +667,32 @@ extension AppFlowManager {
                 }
             }
         }
+    }
+    
+    func removeLoginConfirmationScreenFromStack() {
+        delay(seconds: 0.5, completion: {[weak self] in
+            guard let _ = self else {return}
+            
+            //after going to the Data selection screen remove login screen from navigation stack
+            var updatedNavStack = AppFlowManager.default.mainNavigationController.viewControllers
+            let navStack = AppFlowManager.default.mainNavigationController.viewControllers
+            var isSocialFound = false, isLoginFound = false
+            for (idx, obj) in navStack.enumerated() {
+                
+                if let _ = obj as? SocialLoginVC {
+                    updatedNavStack.removeObject(obj)
+                    isSocialFound = true
+                }
+                else if let _ = obj as? LoginVC {
+                    updatedNavStack.removeObject(obj)
+                    isLoginFound = true
+                }
+                
+                if (idx == (navStack.count - 1)), (isSocialFound || isLoginFound) {
+                    AppFlowManager.default.mainNavigationController.viewControllers = updatedNavStack
+                }
+            }
+        })
     }
 }
 

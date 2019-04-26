@@ -13,6 +13,7 @@ import UIKit
 enum FetchRequestType {
     case FilterApplied
     case Searching
+    case normalInSearching
     case normal
 }
 
@@ -40,10 +41,6 @@ class HotelResultVC: BaseVC {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
-    
-
-    
-    
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
@@ -100,7 +97,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Properties
     
     var container: NSPersistentContainer!
-    var predicateStr: String = ""
+    var searchTextStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
     var isAboveTwentyKm: Bool = false
@@ -140,15 +137,15 @@ class HotelResultVC: BaseVC {
     let thresholdZoomLabel: Float = 12.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
+     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
-    var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
-        var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
-        
+   lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
+       
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
+      
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -158,6 +155,7 @@ class HotelResultVC: BaseVC {
     }()
     
     // Request and View Type
+    var isLoadingListAfterUpdatingAllFav: Bool = false
     var fetchRequestType: FetchRequestType = .normal
     var hoteResultViewType: HotelResultViewType = .ListView
     var favouriteHotels: [HotelSearched] = []
@@ -276,8 +274,13 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
             //fav updated from hotel details
+            if self.hoteResultViewType == .ListView {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                selectedIndexPath = nil
+            }
+            else if self.hoteResultViewType == .ListView {
+                self.collectionView.reloadItems(at: indexPath)
+            }
+            selectedIndexPath = nil
         } else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
             selectedIndexPath = nil
@@ -306,7 +309,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = false
+        self.manageFloatingView(isHidden: false)
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
@@ -359,7 +362,11 @@ class HotelResultVC: BaseVC {
     }
     
     private func presentEmailVC() {
-        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+        
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
+             AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+        }
     }
     
     func manageShimmer(isHidden: Bool) {
@@ -443,7 +450,7 @@ class HotelResultVC: BaseVC {
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.predicateStr = ""
+        self.searchTextStr = ""
         self.loadSaveData()
         self.reloadHotelList()
     }
