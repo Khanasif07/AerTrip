@@ -160,8 +160,12 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func updateFavouriteSuccess() {
-        self.reloadListForFavUpdation()
-//        self.reloadHotelList()
+        if self.viewModel.isUnpinHotelTapped {
+             self.reloadHotelList()
+             self.viewModel.isUnpinHotelTapped = false
+        } else {
+             self.reloadListForFavUpdation()
+        }
     }
 
     func updateFavouriteFail(errors:ErrorCodes) {
@@ -198,6 +202,8 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.indexPathForUpdateFav = indexPath
+        } else if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
+             self.indexPathForUpdateFav = indexPath
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)

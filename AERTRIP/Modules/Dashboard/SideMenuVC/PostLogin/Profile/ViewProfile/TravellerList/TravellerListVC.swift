@@ -277,7 +277,7 @@ class TravellerListVC: BaseVC {
         var labelPredicates = [AnyHashable]()
         if let generalPref = UserInfo.loggedInUser?.generalPref {
             for group in generalPref.labels {
-                labelPredicates.append(NSPredicate(format: "label == '\(group)'"))
+                labelPredicates.append(NSPredicate(format: "label == '\(group.removeAllWhiteSpacesAndNewLines)'"))
             }
         }
         if labelPredicates.count > 0 {
@@ -329,7 +329,8 @@ class TravellerListVC: BaseVC {
     }
     
     func reloadList() {
-        tableView.reloadData()
+       
+       self.tableView.reloadData()
         
         for result in selectedTravller {
             if let indexPath = self.fetchedResultsController.indexPath(forObject: result) {

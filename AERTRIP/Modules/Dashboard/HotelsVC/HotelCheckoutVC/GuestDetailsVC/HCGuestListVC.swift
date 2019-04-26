@@ -218,12 +218,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount else {
-          return
-        }
-        
-        
+
         if self.currentlyUsingFor == .travellers {
             
             if let oIndex = self.viewModel.originalIndex(forContact: self.viewModel.travellerContacts[indexPath.row], forType: .travellers) {
@@ -234,8 +229,8 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                     self.viewModel.selectedTravellerContacts.remove(at: index)
                     self.viewModel.remove(atIndex: oIndex, for: .travellers)
                 }
-                else {
-                self.viewModel.selectedTravellerContacts.append(self.viewModel.travellerContacts[indexPath.row])
+                else if HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                    self.viewModel.selectedTravellerContacts.append(self.viewModel.travellerContacts[indexPath.row])
                     self.viewModel.add(atIndex: oIndex, for: .travellers)
                 }
             }
@@ -253,7 +248,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 self.viewModel.selectedPhoneContacts.append(newContact)
                 if let index = self.viewModel._phoneContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }) {
+                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .contacts)
                 }
@@ -272,7 +267,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 self.viewModel.selectedFacebookContacts.append(newContact)
                 if let index = self.viewModel._facebookContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }) {
+                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .facebook)
                 }
@@ -291,7 +286,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 self.viewModel.selectedGoogleContacts.append(newContact)
                 if let index = self.viewModel._googleContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }) {
+                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .google)
                 }

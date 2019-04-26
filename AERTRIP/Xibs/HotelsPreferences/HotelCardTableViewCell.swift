@@ -66,6 +66,7 @@ class HotelCardTableViewCell: UITableViewCell {
         self.gradientView.backgroundColor = AppColors.clear
         
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
         
