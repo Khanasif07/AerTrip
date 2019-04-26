@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+
 extension HotelResultVC {
     // Load Save Data from core data
     func getSearchTextPredicate() -> NSCompoundPredicate {
@@ -24,7 +26,15 @@ extension HotelResultVC {
         let orPredicate = getSearchTextPredicate()
         switch self.fetchRequestType {
         case .FilterApplied:
-            addSortDescriptors()
+            switch self.filterApplied.sortUsing {
+            case .DistanceNearestFirst:
+                addSortDescriptors()
+                self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
+            default:
+                addSortDescriptors()
+                self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+            }
+           
             self.filterButton.isSelected = true
             if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
@@ -60,21 +70,30 @@ extension HotelResultVC {
         
         switch self.filterApplied.sortUsing {
         case .BestSellers:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "bc", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
         case .PriceLowToHigh:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "price", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: true)]
         case .TripAdvisorRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "rating", ascending: false))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
         case .StartRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "star", ascending: false))
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: false)]
         case .DistanceNearestFirst:
-            self.fetchedResultsController.fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "distance", ascending: true))
+            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: true)]
+            
         }
     }
     
     // Create Sub Predicates
     
     func createSubPredicates() -> [NSPredicate] {
+        
+        
+        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
+            return []
+        }
+
+        
+        
         var subpredicates: [NSPredicate] = []
         let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
         let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")

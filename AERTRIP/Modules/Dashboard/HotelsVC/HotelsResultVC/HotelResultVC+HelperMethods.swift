@@ -103,6 +103,7 @@ extension HotelResultVC {
     func removeAllFavouritesHotels() {
         self.switchView.setOn(isOn: false)
         self.manageSwitchContainer(isHidden: true)
+        self.viewModel.isUnpinHotelTapped = true
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
@@ -216,6 +217,8 @@ extension HotelResultVC {
                 }
             }
         }
+        
+        self.getFavouriteHotels()
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
