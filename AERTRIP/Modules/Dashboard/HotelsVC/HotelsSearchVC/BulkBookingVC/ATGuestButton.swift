@@ -49,7 +49,6 @@ class ATGuestButton: UIButton {
                        options: .allowAnimatedContent,
                        animations: { [weak self] in
                         self?.placeholderImage.image = selectedImage
-                        //self?.placeholderImage.image = #imageLiteral(resourceName: "adult_selected")
                         self?.placeholderImage.transform = .identity
         }){ (isDone) in
             self.isStateAnimating = false
@@ -58,7 +57,6 @@ class ATGuestButton: UIButton {
     
     public func deselectedState() {
         guard !self.isStateAnimating else {return}
-
         self.isStateAnimating = true
         self.placeholderImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.placeholderImage.transform = .identity
@@ -75,5 +73,4 @@ class ATGuestButton: UIButton {
             self.placeholderImage.transform = .identity
         }
     }
-    
 }

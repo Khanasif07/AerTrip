@@ -137,7 +137,7 @@ extension APICaller {
                     let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
                     completionBlock(true, [],shortUrl ?? "")
                 } else {
-                     completionBlock(false, [],"")
+                    completionBlock(false, [],"")
                 }
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
@@ -174,6 +174,31 @@ extension APICaller {
             }
             else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], false)
+            }
+        }
+    }
+    
+    func loginForPaymentAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,_ logInId: String , _ isGuestUser: String  ,_ errorCodes: ErrorCodes)->Void ) {
+        AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    if let data = jsonData[APIKeys.data.rawValue].dictionaryObject, let email = data[APIKeys.loginid.rawValue] as? String , let isGuestUser = data[APIKeys.isGuestUser.rawValue] as? String {
+                        completionBlock(true, email , isGuestUser , [])
+                    }
+                    completionBlock(true, "" , "true" , [])
+                } else {
+                    completionBlock(false, "" , "true" , [])
+                }
+            }, failure: { (errors) in
+                completionBlock(false, "" , "false" , errors)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, "" , "false" ,[ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, "" , "false" , [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }

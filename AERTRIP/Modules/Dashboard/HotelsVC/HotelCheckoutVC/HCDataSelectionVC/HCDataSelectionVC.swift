@@ -56,7 +56,7 @@ class HCDataSelectionVC: BaseVC {
     var confirmationCall: Int = 1
 
     var apiCount: Int = 0
-    
+    var isGrossValueZero: Bool = false
     // MARK: - Private
     
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -288,7 +288,13 @@ class HCDataSelectionVC: BaseVC {
     
     private func sendToFinalCheckoutVC() {
         if !isFromFinalCheckout {
-            AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
+//            AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
+            if !isGrossValueZero {
+                AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
+            }
+            else {
+                AppToast.default.showToastMessage(message: "Formated mobile is required")
+            }
         }
     }
     
@@ -303,7 +309,11 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: UIButton) {
         isFromFinalCheckout = false
         if viewModel.isValidateData(vc: self) {
-            viewModel.fetchRecheckRatesData()
+            if UserInfo.loggedInUser != nil {
+                self.viewModel.fetchRecheckRatesData()
+            } else {
+                self.viewModel.logInUserApi()
+            }
         }
     }
     
@@ -357,6 +367,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func callForItenaryDataTravellerSuccess() {
+        self.isGrossValueZero = false
         if apiCount <= 5, viewModel.itineraryPriceDetail.grossAmount.toDouble ?? 0 <= 0 {
             viewModel.webserviceForItenaryDataTraveller()
             apiCount += 1
@@ -364,6 +375,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
+        self.isGrossValueZero = true
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
     
@@ -433,9 +445,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                     guard let sSelf = self else { return }
                     sSelf.sendToFinalCheckoutVC()
-                }, goBackButtonAction: { [weak self] in
-                    guard let sSelf = self else { return }
-                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                    }, goBackButtonAction: { [weak self] in
+                        guard let sSelf = self else { return }
+                        sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
                 })
             }
             else if diff < 0 {
@@ -451,6 +463,19 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             }
         }
     }
+    
+    func userLoginApiSuccess() {
+        self.viewModel.fetchRecheckRatesData()
+    }
+    
+    func userLoginFailed(errors: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+    }
+    
+    /*
+     user login success
+
+     */
 }
 
 extension HCDataSelectionVC: TopNavigationViewDelegate {

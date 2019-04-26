@@ -99,9 +99,14 @@ extension FinalCheckoutVM {
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
         params[APIKeys.currency_code.rawValue] = self.itineraryData?.booking_currency ?? ""
         params[APIKeys.use_points.rawValue] = 0
+        if UserInfo.loggedInUser != nil {
+            params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
+            params[APIKeys.wallet_id.rawValue] = useWallet ? (self.paymentDetails?.paymentModes.wallet.id ?? "") : ""
+        } else {
+            params[APIKeys.use_wallet.rawValue] = 0
+            printDebug("No wallet id required.")
+        }
         
-        params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
-        params[APIKeys.wallet_id.rawValue] = useWallet ? (self.paymentDetails?.paymentModes.wallet.id ?? "") : ""
         
         var paymentMethod = ""
         if (useWallet && forAmount <= 0) {

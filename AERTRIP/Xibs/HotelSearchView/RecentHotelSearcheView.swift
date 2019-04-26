@@ -26,7 +26,7 @@ class RecentHotelSearcheView: UIView {
         didSet {
             self.recentCollectionView.delegate = self
             self.recentCollectionView.dataSource = self
-            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 0.0)
+            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         }
     }
     @IBOutlet weak var recentSearchLabel: UILabel!

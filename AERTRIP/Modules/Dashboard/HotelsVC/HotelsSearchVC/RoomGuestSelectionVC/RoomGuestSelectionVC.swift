@@ -77,7 +77,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.roomNumberLabel.text = "\(LocalizedString.Room.localized) \(self.viewModel.roomNumber)"
         delay(seconds: 0.1) {
-            self.updateSelection(animated: false)
+            self.updateSelection(animated: false, needToChangePickerViewHeight: true)
         }
         
         self.messageLabel.text = LocalizedString.MostHotelsTypicallyAllow.localized
@@ -163,14 +163,18 @@ class RoomGuestSelectionVC: BaseVC {
         })
     }
     
-    private func updateSelection(animated: Bool = true) {
+    private func updateSelection(animated: Bool = true , needToChangePickerViewHeight: Bool) {
+        if needToChangePickerViewHeight { 
+            if self.viewModel.selectedChilds > 0 {
+                self.showAgesPicker(animated: animated)
+            }
+            else {
+                self.hideAgesPicker(animated: animated)
+            }
+        } else {
+            printDebug("Adult Button Pressed")
+        }
         
-        if self.viewModel.selectedChilds > 0 {
-            self.showAgesPicker(animated: animated)
-        }
-        else {
-            self.hideAgesPicker(animated: animated)
-        }
         
         //update adults buttons
         for button in self.adultsButtons {
@@ -191,6 +195,7 @@ class RoomGuestSelectionVC: BaseVC {
                 button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "child_selected")) : button.deselectedState()
             }
         }
+        
         self.guestSelectionLabel.text = self.viewModel.selectionString
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
     }
@@ -264,7 +269,7 @@ class RoomGuestSelectionVC: BaseVC {
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
             self.viewModel.selectedAdults = sender.tag
-            self.updateSelection()
+            self.updateSelection(needToChangePickerViewHeight: false)
         }
         else {
             var tag = (self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
@@ -272,7 +277,7 @@ class RoomGuestSelectionVC: BaseVC {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
             }
             self.viewModel.selectedAdults = tag
-            self.updateSelection()
+            self.updateSelection(needToChangePickerViewHeight: false)
         }
         self.checkForMaximumGuest()
         
@@ -285,9 +290,8 @@ class RoomGuestSelectionVC: BaseVC {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)
         }
         self.viewModel.selectedChilds = tag
-        self.updateSelection()
+        self.updateSelection(needToChangePickerViewHeight: true)
         self.checkForMaximumGuest()
-       
     }
     
     func checkForMaximumGuest() {
