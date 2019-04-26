@@ -123,10 +123,34 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { [weak self](isGuest) in
                 guard let sSelf = self else {return}
-                if let vc = sSelf.parent {
-                    AppFlowManager.default.popToViewController(vc, animated: true)
-                }
+//                if let vc = sSelf.parent {
+//                    AppFlowManager.default.popToViewController(vc, animated: true)
+//                }
                 AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched())
+                
+                delay(seconds: 0.5, completion: {[weak self] in
+                    guard let _ = self else {return}
+                    
+                    //after going to the Data selection screen remove login screen from navigation stack
+                    var updatedNavStack = AppFlowManager.default.mainNavigationController.viewControllers
+                    let navStack = AppFlowManager.default.mainNavigationController.viewControllers
+                    var isSocialFound = false, isLoginFound = false
+                    for (idx, obj) in navStack.enumerated() {
+                        
+                        if let _ = obj as? SocialLoginVC {
+                            updatedNavStack.removeObject(obj)
+                            isSocialFound = true
+                        }
+                        else if let _ = obj as? LoginVC {
+                            updatedNavStack.removeObject(obj)
+                            isLoginFound = true
+                        }
+                        
+                        if (idx == (navStack.count - 1)), (isSocialFound || isLoginFound) {
+                            AppFlowManager.default.mainNavigationController.viewControllers = updatedNavStack
+                        }
+                    }
+                })
             }
         }
     }
