@@ -193,7 +193,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func updateFavouriteSuccess(withMessage: String) {
-        self.hotelTableView.reloadData()
+//        self.hotelTableView.reloadData()
+        self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
         self.sendDataChangedNotification(data: self)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         self.headerView.leftButton.setImage(buttonImage, for: .normal)
