@@ -273,8 +273,13 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
             //fav updated from hotel details
+            if self.hoteResultViewType == .ListView {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                selectedIndexPath = nil
+            }
+            else if self.hoteResultViewType == .ListView {
+                self.collectionView.reloadItems(at: indexPath)
+            }
+            selectedIndexPath = nil
         } else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
             selectedIndexPath = nil
