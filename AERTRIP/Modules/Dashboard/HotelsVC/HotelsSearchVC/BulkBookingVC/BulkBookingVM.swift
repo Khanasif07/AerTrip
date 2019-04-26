@@ -53,7 +53,8 @@ class BulkBookingVM {
         if self.ratingCount.isEmpty {
             self.ratingCount = [1,2,3,4,5]
         }
-        params[APIKeys.stars.rawValue] = self.ratingCount
+        
+        params[APIKeys.stars.rawValue] = self.ratingCount.joined(separator: ",")
         return params
     }
     

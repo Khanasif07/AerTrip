@@ -127,3 +127,8 @@ extension Array where Element: Hashable {
     }
 }
 
+extension Array {
+    public func joined(separator: String = "") -> String {
+        return self.reduce("") { $0 + ("\($0)".isEmpty ? "\($1)" : "\(separator)\($1)") }
+    }
+}
