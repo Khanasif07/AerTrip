@@ -986,8 +986,9 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
             
+            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country)
             self.closeGenricAndDatePicker(completion: nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let cell = self?.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else {
