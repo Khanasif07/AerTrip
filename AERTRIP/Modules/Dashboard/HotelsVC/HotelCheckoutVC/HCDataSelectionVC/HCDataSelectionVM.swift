@@ -19,7 +19,8 @@ protocol HCDataSelectionVMDelegate: class {
     func willFetchRecheckRatesData()
     func fetchRecheckRatesDataFail(errors: ErrorCodes)
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData)
-    
+    func userLoginApiSuccess()
+    func userLoginFailed(errors: ErrorCodes)
     func updateFavouriteSuccess(withMessage: String)
     func updateFavouriteFail(errors: ErrorCodes)
 }
@@ -40,6 +41,7 @@ class HCDataSelectionVM {
     var mobileNumber: String = ""
     var mobileIsd: String = ""
     var email: String = ""
+    var isGuestUser: String = "false"
     var selectedSpecialRequest : [Int] = []
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
@@ -154,8 +156,8 @@ class HCDataSelectionVM {
         // rid and qid in parameters
         if let rate = self.itineraryData?.hotelDetails?.rates?.first , let roomRates = rate.roomsRates {
             for(x,roomRate) in roomRates.enumerated() {
-                params["t\([x])[rid]"] = roomRate.rid
-                params["t\([x])[qid]"] = rate.qid
+                params["t[\(x)][rid]"] = roomRate.rid
+                params["t[\(x)][qid]"] = rate.qid
             }
         }
         
@@ -168,7 +170,7 @@ class HCDataSelectionVM {
         params["mobile_isd"] = self.mobileIsd
         params["it_id"] = self.itineraryData?.it_id
         
-        self.delegate?.willCallForItenaryDataTraveller()
+//        self.delegate?.willCallForItenaryDataTraveller()
         APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: self.itineraryData?.it_id ?? "", params: params, loader: false) { [weak self] success, errors, _, itinerary in
             guard let sSelf = self else { return }
             if success {
@@ -290,6 +292,21 @@ class HCDataSelectionVM {
                     }
                     sSelf.delegate?.updateFavouriteFail(errors: errors)
                 }
+            }
+        }
+    }
+    
+    func logInUserApi() {
+        let params: JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces , APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
+        printDebug(params)
+        APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.isGuestUser = isGuestUser
+                printDebug("\(logInId) , \(isGuestUser)")
+                sSelf.delegate?.userLoginApiSuccess()
+            } else {
+                sSelf.delegate?.userLoginFailed(errors: errors)
             }
         }
     }

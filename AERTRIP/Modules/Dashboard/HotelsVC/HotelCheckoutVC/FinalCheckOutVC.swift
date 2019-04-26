@@ -145,6 +145,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("Cell not found")
                 return UITableViewCell()
             }
+            emptyCell.clipsToBounds = true
             return emptyCell
         case 1:
             guard let applyCouponCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ApplyCouponTableViewCell.reusableIdentifier, for: indexPath) as? ApplyCouponTableViewCell else {
@@ -169,6 +170,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WalletTableViewCell not found")
                 return UITableViewCell()
             }
+            walletCell.clipsToBounds = true
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = isWallet
             walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + self.getWalletAmount().delimiter
@@ -304,12 +306,14 @@ class FinalCheckOutVC: BaseVC {
     
     private func getHeightOfRowForFirstSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0, 2, 4: // Empty Cell
+        case 0, 2: // Empty Cell
             return 35.0
+        case 4: // Empty Cell
+            return (UserInfo.loggedInUser != nil) ? 35.0 : 0.0
         case 1: // Apply Coupon Cell
             return 44.0
         case 3: // Pay by Wallet Cell
-            return 75.0
+            return (UserInfo.loggedInUser != nil) ? 75.0 : 0.0
         case 5: // Fare Detail Cell
             return 80.0
         default:
