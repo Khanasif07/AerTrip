@@ -134,6 +134,9 @@ class GuestDetailTableViewCell: UITableViewCell {
     @objc func pickerViewDoneButtonAction(_ sender: UITextField) {
         let index = self.salutationPicker.selectedRow(inComponent: 0)
         self.salutationTextField.text = GuestDetailsVM.shared.salutation[index]
+        if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = GuestDetailsVM.shared.salutation[index]
+        }
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
     }
     

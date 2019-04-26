@@ -218,6 +218,8 @@
 		18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */; };
 		18FAA502220DB907001454DE /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FAA500220DB907001454DE /* SectionHeader.swift */; };
 		18FAA503220DB907001454DE /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FAA501220DB907001454DE /* SectionHeader.xib */; };
+		18FD91442271F0F300269268 /* HCEmailTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD91422271F0F200269268 /* HCEmailTextFieldCell.swift */; };
+		18FD91452271F0F300269268 /* HCEmailTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FD91432271F0F300269268 /* HCEmailTextFieldCell.xib */; };
 		18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD22221E973D00EF01FC /* HotelFilter.swift */; };
 		18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FDDD24221FF52F00EF01FC /* SectionFooter.xib */; };
 		18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD25221FF52F00EF01FC /* SectionFooter.swift */; };
@@ -923,6 +925,8 @@
 		18FA223721EC948C0024B91E /* APICaller+AssignGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+AssignGroup.swift"; sourceTree = "<group>"; };
 		18FAA500220DB907001454DE /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		18FAA501220DB907001454DE /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
+		18FD91422271F0F200269268 /* HCEmailTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEmailTextFieldCell.swift; sourceTree = "<group>"; };
+		18FD91432271F0F300269268 /* HCEmailTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCEmailTextFieldCell.xib; sourceTree = "<group>"; };
 		18FDDD22221E973D00EF01FC /* HotelFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilter.swift; sourceTree = "<group>"; };
 		18FDDD24221FF52F00EF01FC /* SectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionFooter.xib; sourceTree = "<group>"; };
 		18FDDD25221FF52F00EF01FC /* SectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionFooter.swift; sourceTree = "<group>"; };
@@ -2678,6 +2682,8 @@
 		842EDE9E223A616E00E99409 /* HotelCheckOutTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				18FD91422271F0F200269268 /* HCEmailTextFieldCell.swift */,
+				18FD91432271F0F300269268 /* HCEmailTextFieldCell.xib */,
 				842EDE9D223A614E00E99409 /* HCSpecialRequestCell */,
 				842EDEA7223A624B00E99409 /* HCEmailItinerariesTableViewCell */,
 				84F162702240E2D000AA183F /* YouAreAllDoneTableViewCell */,
@@ -3831,6 +3837,7 @@
 				8491D1F4222D3FC2001D0313 /* SourceSansPro-Bold.ttf in Resources */,
 				84F1626F2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
+				18FD91452271F0F300269268 /* HCEmailTextFieldCell.xib in Resources */,
 				84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */,
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
 				84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */,
@@ -4168,6 +4175,7 @@
 				84F2DC9B2264736E00212F05 /* EventTypeVC.swift in Sources */,
 				1896D59B220995BF003FC2B6 /* RatingVC.swift in Sources */,
 				84F9288F221B305400679349 /* AmenitiesDetailsTableViewCell.swift in Sources */,
+				18FD91442271F0F300269268 /* HCEmailTextFieldCell.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				18C31F0D2227FFB60052162C /* EmailComposerHeaderView.swift in Sources */,
 				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,

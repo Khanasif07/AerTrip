@@ -24,7 +24,7 @@ class BulkRoomSelectionVC: BaseVC {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var roomLabel: UILabel!
     @IBOutlet weak var adultLabel: UILabel!
@@ -117,12 +117,14 @@ class BulkRoomSelectionVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraint.constant = 0.0
+            self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
         })
     }
 
     private func hide(animated: Bool, shouldRemove: Bool = false) {
+        self.headerView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
             self.view.layoutIfNeeded()

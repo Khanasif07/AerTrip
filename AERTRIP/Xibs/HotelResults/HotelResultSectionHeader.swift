@@ -13,12 +13,16 @@ class HotelResultSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var labelBackgroundView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         titleLabel.layer.cornerRadius = titleLabel.frame.size.height / 2
+        labelBackgroundView.layer.cornerRadius =  labelBackgroundView.frame.size.height / 2
+        labelBackgroundView.layer.masksToBounds = true
         titleLabel.layer.masksToBounds = true
-        titleLabel.backgroundColor = AppColors.themeGray10
+        labelBackgroundView.addBlurEffect(backgroundColor: AppColors.themeGray10, style:  UIBlurEffect.Style.dark)
         titleLabel.font = AppFonts.Regular.withSize(14.0)
     }
 }

@@ -97,6 +97,10 @@ class HCSelectGuestsVM: NSObject {
     weak var delegateList: HCSelectGuestsVMDelegate?
     weak var delegateCollection: HCSelectGuestsVMDelegate?
     
+    var allSelectedCount: Int {
+        return selectedPhoneContacts.count + selectedFacebookContacts.count + selectedGoogleContacts.count + selectedTravellerContacts.count
+    }
+    
     //MARK:- Methods
     //MARK:- Public
     private override init() {

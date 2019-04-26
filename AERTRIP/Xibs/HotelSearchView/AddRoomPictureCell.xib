@@ -123,6 +123,7 @@
                 <outlet property="lineViewLeadingConstraint" destination="nzo-JV-E7x" id="EdW-hr-I4P"/>
                 <outlet property="lineViewTrailingConstraint" destination="ndE-XK-9wq" id="IWO-sy-O6y"/>
                 <outlet property="roomCountLabel" destination="eSa-H8-9A1" id="wsc-71-Y4S"/>
+                <outlet property="stackViewLeadingConstraint" destination="oBc-eu-e8u" id="pXk-EC-zrC"/>
             </connections>
             <point key="canvasLocation" x="292" y="17"/>
         </collectionViewCell>

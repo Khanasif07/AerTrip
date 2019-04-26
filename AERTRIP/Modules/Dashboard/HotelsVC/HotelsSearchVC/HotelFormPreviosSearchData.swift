@@ -21,7 +21,26 @@ struct HotelFormPreviosSearchData: Codable {
     var stateName: String = ""
     var cityName: String = ""
     var ratingCount: [Int] = []
-    
+    var totalGuestCount: Int {
+        let totalAd = adultsCount.reduce(0) { $0 + $1 }
+        let totalCh =  childrenCounts.reduce(0) { $0 + $1 }
+        return totalAd + totalCh
+    }
+    var totalNights: Int {
+        if !self.checkInDate.isEmpty , !self.checkOutDate.isEmpty {
+            return self.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(self.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+        }
+        return 0
+    }
+    var checkInDateWithDay: String {
+        let checkInDate = self.checkInDate.toDate(dateFormat: "yyyy-MM-dd")
+        return checkInDate?.toString(dateFormat: "E, dd MMM yy") ?? ""
+    }
+    var checkOutDateWithDay: String {
+        let checkOutDate = self.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")
+        return checkOutDate?.toString(dateFormat: "E, dd MMM yy") ?? ""
+    }
+
     init() {
         self.roomNumber     =  1
         self.adultsCount    = [1]

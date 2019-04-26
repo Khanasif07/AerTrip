@@ -143,7 +143,7 @@ struct RecentSearchesModel {
 
 struct RecentRoom {
     var adultCounts: String = ""//adults
-    var child: [Child]?
+    var child: [Child] = []
     var isPresent: Bool = false //show
     
     //Mark:- Initialization

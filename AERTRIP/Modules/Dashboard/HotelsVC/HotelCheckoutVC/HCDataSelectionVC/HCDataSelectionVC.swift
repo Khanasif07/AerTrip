@@ -211,7 +211,7 @@ class HCDataSelectionVC: BaseVC {
         tableView.backgroundColor = AppColors.themeGray04
         
         tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
-        tableView.registerCell(nibName: TextEditableTableViewCell.reusableIdentifier)
+        tableView.registerCell(nibName: HCEmailTextFieldCell.reusableIdentifier)
         tableView.registerCell(nibName: ContactTableCell.reusableIdentifier)
     }
     
@@ -575,14 +575,14 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 5:
                 // email
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: TextEditableTableViewCell.reusableIdentifier) as? TextEditableTableViewCell else {
+           guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
                     return UITableViewCell()
                 }
                 
-                cell.downArrowImageView.isHidden = true
-                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-                cell.titleLabel.textColor = AppColors.themeGray20
-                cell.titleLabel.text = LocalizedString.Email_ID.localized
+//                cell.downArrowImageView.isHidden = true
+//                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
+//                cell.titleLabel.textColor = AppColors.themeGray20
+//                cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.delegate = self
                 cell.editableTextField.text = UserInfo.loggedInUser?.email
@@ -590,6 +590,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
                 cell.editableTextField.placeholder = LocalizedString.Email_ID.localized
+           
                 
                 return cell
                 
@@ -613,13 +614,13 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Redirect to Selection Preference VC
         if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
-            AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests, delegate: self)
+            AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest,delegate: self)
         }
     }
     
     func setUpUserEmailMobile() {
         viewModel.mobileNumber = UserInfo.loggedInUser?.mobile ?? ""
-        viewModel.mobileIsd = UserInfo.loggedInUser?.isd ?? ""
+        viewModel.mobileIsd = AppConstants.kIndianIsdCode
         viewModel.email = UserInfo.loggedInUser?.email ?? ""
     }
 }
@@ -629,6 +630,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
     func didPassSelectedRequestsId(ids: [Int], preferences: String, request: String) {
         printDebug("\(ids),\t\(preferences),\t\(request)")
+        self.viewModel.selectedSpecialRequest = ids
     }
 }
 

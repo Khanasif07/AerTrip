@@ -15,4 +15,5 @@ class HCSpecialRequestsVM {
     var selectedRequestsId: [Int] = []
     var specialRequests: [SpecialRequest] = []
     
+    
 }

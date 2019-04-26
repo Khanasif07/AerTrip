@@ -11,6 +11,9 @@ import UIKit
 protocol SearchHoteslOnPreferencesDelegate: class {
     func getRecentSearchesDataSuccess()
     func getRecentSearchesDataFail()
+    
+    func setRecentSearchesDataSuccess()
+    func setRecentSearchesDataFail()
 }
 
 class HotelsSearchVM: NSObject{
@@ -35,19 +38,7 @@ class HotelsSearchVM: NSObject{
     //================
     //MARK:- Private
     
-    ///Validations
-    internal func validationForHotelsForm() {
-        
-    }
-    
     //MARK:- Public
-    
-//    ///SaveFormDataToUserDefaults
-//    func saveFormDataToUserDefaults() {
-//        HotelsSearchVM.hotelFormData = self.searchedFormData
-//        printDebug(HotelsSearchVM.hotelFormData)
-//    }
-    
     ///Get Recent Searches Data
     func getRecentSearchesData() {
         let params: JSONDictionary = [APIKeys.product.rawValue : "hotel"]
@@ -64,4 +55,47 @@ class HotelsSearchVM: NSObject{
             }
         }
     }
+    
+    func setRecentSearchesData() {
+        let place: JSONDictionary = [APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : "" , APIKeys.dest_id.rawValue : self.searchedFormData.destId , APIKeys.dest_type.rawValue : self.searchedFormData.destType , APIKeys.dest_name.rawValue : self.searchedFormData.destName ]
+        let checkInDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkInDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        let checkOutDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkOutDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        let nights: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.totalNights, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        let guests: JSONDictionary = [APIKeys.value.rawValue : "\(self.searchedFormData.adultsCount.count) Room,\(self.searchedFormData.totalGuestCount) Guests", APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        
+        var room: JSONDictionaryArray = []
+        for (index,adultData) in self.searchedFormData.adultsCount.enumerated() {
+            var childArrayData: JSONDictionaryArray = []
+            if index < self.searchedFormData.childrenAge.count {
+                for child in self.searchedFormData.childrenAge[index] {
+                    let show: Int = child >= 1 ? 1 : 0
+                    let childData: JSONDictionary = [APIKeys.show.rawValue : show , APIKeys.age.rawValue : child , APIKeys.error.rawValue : false]
+                    childArrayData.append(childData)
+                }
+            }
+            let roomData: JSONDictionary = [APIKeys.adults.rawValue : adultData , APIKeys.child.rawValue : childArrayData , APIKeys.show.rawValue : 1]
+            room.append(roomData)
+        }
+        
+        let query: JSONDictionary = [APIKeys.place.rawValue : place , APIKeys.checkInDate.rawValue : checkInDate , APIKeys.checkOutDate.rawValue : checkOutDate , APIKeys.nights.rawValue : nights , APIKeys.guests.rawValue : guests, APIKeys.room.rawValue : room]
+        
+        let params: JSONDictionary = [
+            APIKeys.product.rawValue : "hotel",
+            "data[start_date]" : self.searchedFormData.checkInDate,
+            "data[query]" : AppGlobals.shared.json(from: query) ?? ""
+        ]
+        printDebug(params)
+        APICaller.shared.setRecentHotelsSearchesApi(params: params) { [weak self] (success, response, errors) in
+            guard let sSelf = self else { return }
+            if success {
+                printDebug(response)
+                sSelf.delegate?.setRecentSearchesDataSuccess()
+            } else {
+                printDebug(errors)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                sSelf.delegate?.setRecentSearchesDataFail()
+            }
+        }
+    }
 }
+

@@ -153,7 +153,12 @@ extension MailComposerVC: TopNavigationViewDelegate {
         let mail = self.mailComposerHeaderView.toEmailTextView.text
         let mailsArray = mail?.components(separatedBy: ",") ?? []
         self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })
-        self.viewModel.callSendEmailMail()
+        if self.viewModel.pinnedEmails.contains("") {
+           AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
+        } else {
+              self.viewModel.callSendEmailMail()
+        }
+      
     }
 }
 
