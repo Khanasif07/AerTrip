@@ -9,16 +9,24 @@
 import Foundation
 extension HotelResultVC {
     // Load Save Data from core data
+    func getSearchTextPredicate() -> NSCompoundPredicate {
+//        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
+        return NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.searchTextStr), NSPredicate(format: "address CONTAINS[cd] %@", self.searchTextStr)])
+//        }
+//        else {
+//            return NSCompoundPredicate(format: "")
+//        }
+    }
     
     func loadSaveData() {
         
         // Predicate for searching based on Hotel Name and a
-         let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+        let orPredicate = getSearchTextPredicate()
         switch self.fetchRequestType {
         case .FilterApplied:
             addSortDescriptors()
             self.filterButton.isSelected = true
-            if self.predicateStr == "" {
+            if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 self.fetchedResultsController.fetchRequest.predicate = andPredicate
             } else {
@@ -33,6 +41,11 @@ extension HotelResultVC {
             } else {
                 self.fetchedResultsController.fetchRequest.predicate = orPredicate
             }
+            
+        case .normalInSearching :
+            self.searchedHotels.removeAll()
+            self.fetchRequestWithoutFilter()
+            
         case .normal :
           self.fetchRequestWithoutFilter()
         }
@@ -145,11 +158,11 @@ extension HotelResultVC {
     // Fetch Request Without Filters
     
     func fetchRequestWithoutFilter() {
-        if self.predicateStr.isEmpty {
+        if self.searchTextStr.isEmpty {
             self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
             
         } else {
-            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.predicateStr), NSPredicate(format: "address CONTAINS[cd] %@", self.predicateStr)])
+            let orPredicate = getSearchTextPredicate()
             self.fetchedResultsController.fetchRequest.predicate = orPredicate
         }
     }
@@ -160,14 +173,13 @@ extension HotelResultVC {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
-            if !self.predicateStr.isEmpty {
+            if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
                 
                 self.hotelSearchTableView.reloadData()
-            } else {
-                self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
             }
+            
             self.reloadHotelList()
             self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
         } catch {

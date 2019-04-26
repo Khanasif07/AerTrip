@@ -16,8 +16,8 @@ extension HotelResultVC: UISearchBarDelegate {
         animateHeaderToMapView()
         //self.predicateStr = searchBar.text ?? ""
         self.fetchRequestType = .Searching
-        self.searchForText(searchBar.text ?? "")
-        self.loadSaveData()
+//        self.searchForText(searchBar.text ?? "")
+//        self.loadSaveData()
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
@@ -26,15 +26,17 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.fetchRequestType = .Searching
         if searchText.isEmpty {
-            self.predicateStr = ""
+            self.searchTextStr = ""
+            
+            self.fetchRequestType = .normalInSearching //for getting all the data in search mode when the search text is blank
             self.loadSaveData()
-            self.searchForText(searchText)
+            self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.predicateStr = searchBar.text ?? ""
+            self.searchTextStr = searchBar.text ?? ""
             self.searchForText(searchText)
         }
     }
@@ -45,7 +47,12 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchedHotels.count > 0 {
             self.fetchRequestType = .normal
-            self.animateHeaderToListView()
+            if self.hoteResultViewType == .ListView {
+                self.animateHeaderToListView()
+            }
+            else {
+                self.animateHeaderToMapView()
+            }
             self.hideSearchAnimation()
             self.view.endEditing(true)
             self.reloadHotelList()

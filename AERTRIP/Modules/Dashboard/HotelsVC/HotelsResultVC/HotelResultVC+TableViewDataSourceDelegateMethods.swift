@@ -14,9 +14,10 @@ import Foundation
 
 extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func manageViewForSearchAndFilterMode() {
-        self.getFavouriteHotels()
+        
         let count = self.fetchedResultsController.sections?.count ?? 0
         if (self.fetchRequestType == .FilterApplied), count <= 0 {
+            self.getFavouriteHotels()
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
@@ -29,10 +30,19 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
             }
             else {
-                self.hotelSearchTableView.backgroundView?.isHidden = ((self.searchBar.text ?? "").isEmpty && self.searchedHotels.isEmpty)
+                self.hotelSearchTableView.backgroundView?.isHidden = (self.searchTextStr.isEmpty && self.searchedHotels.isEmpty)
             }
+            manageFloatingView(isHidden: true)
+        }
+        else if (self.fetchRequestType == .normalInSearching) {
+            self.searchedHotels.removeAll()
+            self.hotelSearchView.isHidden = false
+            hotelSearchTableView.backgroundColor = AppColors.clear
+            self.hotelSearchTableView.backgroundView?.isHidden = true
+            manageFloatingView(isHidden: true)
         }
         else {
+            self.getFavouriteHotels()
             self.dataFounOnFilter()
             self.hotelSearchView.isHidden = true
         }
@@ -107,7 +117,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("HotelSearchTableViewCell not found")
                 return UITableViewCell()
             }
-            cell.searchText = self.predicateStr
+            cell.searchText = self.searchTextStr
             if self.searchedHotels.count > 0 {
                 cell.hotelData = self.searchedHotels[indexPath.row]
             }

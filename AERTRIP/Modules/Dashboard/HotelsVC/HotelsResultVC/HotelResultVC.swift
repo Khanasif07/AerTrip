@@ -13,6 +13,7 @@ import UIKit
 enum FetchRequestType {
     case FilterApplied
     case Searching
+    case normalInSearching
     case normal
 }
 
@@ -40,10 +41,6 @@ class HotelResultVC: BaseVC {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var switchView: ATSwitcher!
-    
-
-    
-    
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
@@ -100,7 +97,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Properties
     
     var container: NSPersistentContainer!
-    var predicateStr: String = ""
+    var searchTextStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
     var isAboveTwentyKm: Bool = false
@@ -303,7 +300,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.floatingView.isHidden = false
+        self.manageFloatingView(isHidden: false)
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
@@ -440,7 +437,7 @@ class HotelResultVC: BaseVC {
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.predicateStr = ""
+        self.searchTextStr = ""
         self.loadSaveData()
         self.reloadHotelList()
     }
