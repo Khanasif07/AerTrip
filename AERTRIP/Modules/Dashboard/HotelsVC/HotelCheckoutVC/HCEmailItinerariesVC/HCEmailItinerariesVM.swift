@@ -31,7 +31,11 @@ class HCEmailItinerariesVM {
     }
     
     func sendEmailIdApi(emailId: [String], isMultipleEmailSending : Bool, currentEmailIndex: Int) {
-        let params: JSONDictionary = [APIKeys.email.rawValue : emailId]
+        
+        var params: JSONDictionary = [:]
+        for email in emailId {
+            params["\(APIKeys.email.rawValue)[]"] = email
+        }
         APICaller.shared.sendDashBoardEmailIDAPI(bookingID: self.bookingId, params: params, loader: false) { [weak self] (success, errors, recentSearchesHotels) in
             guard let sSelf = self else { return }
             if success {
