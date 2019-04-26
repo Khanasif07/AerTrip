@@ -69,7 +69,6 @@ class HotelDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarStyle = .default
-        self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
         self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
     }
     
@@ -95,6 +94,12 @@ class HotelDetailsVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let _ = note.object as? HCDataSelectionVC {
+            self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+        }
     }
     
     override func setupColors() {
