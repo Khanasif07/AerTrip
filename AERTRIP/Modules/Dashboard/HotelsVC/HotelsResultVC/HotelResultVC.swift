@@ -140,15 +140,15 @@ class HotelResultVC: BaseVC {
     let thresholdZoomLabel: Float = 12.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
+     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
-    var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
-        var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionTitle", ascending: true)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
-        
+   lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
+       
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
+      
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
