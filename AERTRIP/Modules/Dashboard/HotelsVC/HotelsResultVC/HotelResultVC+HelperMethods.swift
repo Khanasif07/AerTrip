@@ -51,8 +51,9 @@ extension HotelResultVC {
     
     func getFavouriteHotels() {
         
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'") {
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched] {
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
+            self.favouriteHotels = allFavs
         }
         
         
