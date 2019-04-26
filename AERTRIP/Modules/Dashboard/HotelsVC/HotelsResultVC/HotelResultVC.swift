@@ -155,6 +155,7 @@ class HotelResultVC: BaseVC {
     }()
     
     // Request and View Type
+    var isLoadingListAfterUpdatingAllFav: Bool = false
     var fetchRequestType: FetchRequestType = .normal
     var hoteResultViewType: HotelResultViewType = .ListView
     var favouriteHotels: [HotelSearched] = []
@@ -353,7 +354,12 @@ class HotelResultVC: BaseVC {
     }
     
     private func presentEmailVC() {
-        AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+        
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginProcess) { (_) in
+             AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+        }
+        
+      
     }
     
     func manageShimmer(isHidden: Bool) {

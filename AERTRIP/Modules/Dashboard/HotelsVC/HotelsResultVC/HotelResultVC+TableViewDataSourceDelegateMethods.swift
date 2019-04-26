@@ -69,7 +69,12 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             let sectionInfo = sections[section]
-            self.manageShimmer(isHidden: sectionInfo.numberOfObjects > 0)
+            if (fetchRequestType != .FilterApplied) || (fetchRequestType != .Searching) {
+                self.manageShimmer(isHidden: sectionInfo.numberOfObjects > 0)
+            }
+            else {
+                self.manageShimmer(isHidden: true)
+            }
             return sectionInfo.numberOfObjects
         }
     }

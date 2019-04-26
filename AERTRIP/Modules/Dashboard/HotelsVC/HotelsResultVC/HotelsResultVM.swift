@@ -143,13 +143,16 @@ class HotelsResultVM: NSObject {
                 else {
                     //if user is not logged in save them locally
                     for hotel in forHotels {
-                        if let id = hotel.hid, !id.isEmpty {
+                        if !isUnpinHotels, let id = hotel.hid, !id.isEmpty {
                             if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
                                 UserInfo.locallyFavHotels.remove(at: idx)
                             }
                             else {
                                 UserInfo.locallyFavHotels.append(id)
                             }
+                        }
+                        else {
+                            UserInfo.locallyFavHotels.removeAll()
                         }
                     }
                 }

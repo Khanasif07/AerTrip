@@ -124,7 +124,7 @@ class AppFlowManager: NSObject {
         self.window.makeKeyAndVisible()
     }
     
-    //check and manage the further processing if user logged-in or note
+    //check and manage the further processing if user logged-in or not
     func proccessIfUserLoggedIn(verifyingFor: LoginFlowUsingFor, completion: ((_ isGuest: Bool)->Void)?) {
         loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {

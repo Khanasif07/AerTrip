@@ -51,14 +51,17 @@ extension HotelResultVC {
     
     func getFavouriteHotels() {
         
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched] {
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched], !allFavs.isEmpty {
+            self.isLoadingListAfterUpdatingAllFav = false
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs
+        } else if !isLoadingListAfterUpdatingAllFav {
+            self.fetchRequestType = .normal
+            self.isLoadingListAfterUpdatingAllFav = true
+            self.loadSaveData()
         }
         
-        
-//        self.favouriteHotels = self.searchedHotels.filter { $0.fav == "1" }
-//        self.manageSwitchContainer(isHidden: self.favouriteHotels.isEmpty)
+
     }
     
     func getPinnedHotelTemplate() {
