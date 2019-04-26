@@ -261,14 +261,21 @@ extension HotelDetailsVC {
                     self.initialStickyPosition = finalY
                 }
                 
-                let bottomCons = (scrollView.contentOffset.y - self.initialStickyPosition)
-                if 0...self.footerView.height ~= bottomCons {
+                let bottomCons = (scrollView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+                if (scrollView.contentSize.height - scrollView.height) <= scrollView.contentOffset.y {
+                    //if table view scrolled till end then hide sticky view
+                    self.stickyBottomConstraint.constant = -(self.footerView.height)
+                }
+                else if 0...self.footerView.height ~= bottomCons {
+                    //hiding
                     self.stickyBottomConstraint.constant = -(bottomCons)
                 }
                 else if self.initialStickyPosition <= 0.0 {
+                    //shown
                     self.stickyBottomConstraint.constant = 0.0
                 }
                 else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                    //hidden
                     self.stickyBottomConstraint.constant = -(self.footerView.height)
                 }
             }

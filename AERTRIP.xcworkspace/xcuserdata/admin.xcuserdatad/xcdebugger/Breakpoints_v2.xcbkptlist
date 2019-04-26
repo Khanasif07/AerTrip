@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
-            timestampString = "577949129.65544"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelCheckoutVC/HCDataSelectionVC/HCDataSelectionVM.swift"
+            timestampString = "577952564.511988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "manageViewForSearchAndFilterMode()"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
+            landmarkName = "updateFavourite()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
