@@ -178,15 +178,20 @@ class SelectDestinationVM: NSObject {
                 
                 //check and remove the data from popular if it exist in recents.
                 var tamp = [SearchedDestination]()
-                for hotel in hotels {
-                    if let recent = sSelf._recentSearches, !recent.contains(where: { (dest) -> Bool in
-                        dest.dest_id == hotel.dest_id
-                    }) {
-                        tamp.append(hotel)
+                if let recent = sSelf._recentSearches {
+                    for hotel in hotels {
+                        if !recent.contains(where: { (dest) -> Bool in
+                            dest.dest_id == hotel.dest_id
+                        }) {
+                            tamp.append(hotel)
+                        }
                     }
+                    sSelf.popularHotels = tamp
+                }
+                else {
+                    sSelf.popularHotels = hotels
                 }
                 
-                sSelf.popularHotels = tamp
                 sSelf.delegate?.getAllPopularHotelsSuccess()
             }
             else {

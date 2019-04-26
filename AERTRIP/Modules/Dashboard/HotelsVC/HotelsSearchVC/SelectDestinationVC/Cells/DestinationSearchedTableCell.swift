@@ -48,7 +48,7 @@ class DestinationSearchedTableCell: UITableViewCell {
         //Logic for after string
         var splittedStringArray = data.value.components(separatedBy: ",")
         splittedStringArray.removeFirst()
-        let stateName = splittedStringArray.joined(separator: ",")
+        let stateName = splittedStringArray.joined(separator: ",").removeLeadingTrailingWhitespaces
         self.addressLabel.attributedText = self.getAttributedBoldText(text: stateName, boldText: forText, fullTextColor: AppColors.themeBlack)
     }
     
