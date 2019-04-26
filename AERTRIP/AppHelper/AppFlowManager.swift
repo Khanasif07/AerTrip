@@ -588,10 +588,8 @@ extension AppFlowManager {
     }
     
     func moveHotelCalenderVC(isHotelCalendar: Bool = false ,isReturn: Bool = false ,isMultiCity: Bool = false , checkInDate: Date =  Date() , checkOutDate: Date? = nil , delegate: CalendarDataHandler ){
-                let podBundle = Bundle(for: AertripCalendarViewController.self)
-        if let bundleUrl = podBundle.url(forResource: "AertripCalendar", withExtension: "bundle") , let bundle = Bundle(url: bundleUrl) {
-            let styBd = UIStoryboard(name: "AertripCalendar", bundle: bundle)
-            guard let ob = styBd.instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController else { return }
+
+        if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
             let calendarVM = CalendarVM()
             calendarVM.isHotelCalendar = isHotelCalendar
             calendarVM.isReturn = isReturn
@@ -602,17 +600,6 @@ extension AppFlowManager {
             ob.viewModel?.delegate = delegate
             self.mainNavigationController.present(ob, animated: true, completion: nil)
         }
-//        if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
-//            let calendarVM = CalendarVM()
-//            calendarVM.isHotelCalendar = isHotelCalendar
-//            calendarVM.isReturn = isReturn
-//            calendarVM.isMultiCity = isMultiCity
-//            calendarVM.date1 = checkInDate
-//            calendarVM.date2 = checkOutDate
-//            ob.viewModel = calendarVM
-//            ob.viewModel?.delegate = delegate
-//            self.mainNavigationController.present(ob, animated: true, completion: nil)
-//        }
     }
     
     // MARK: - Aerin
