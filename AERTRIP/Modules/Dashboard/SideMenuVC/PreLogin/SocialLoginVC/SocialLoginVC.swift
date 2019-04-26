@@ -148,11 +148,11 @@ class SocialLoginVC: BaseVC {
     
     private func popIfUsingFromCheckOut() {
         self.sendDataChangedNotification(data: ATNotification.userAsGuest)
-        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
-            return vc.isKind(of: HotelResultVC.self)
-        }) {
-            AppFlowManager.default.popToViewController(obj, animated: true)
-        }
+//        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
+//            return vc.isKind(of: HotelResultVC.self)
+//        }) {
+//            AppFlowManager.default.popToViewController(obj, animated: true)
+//        }
     }
 }
 
