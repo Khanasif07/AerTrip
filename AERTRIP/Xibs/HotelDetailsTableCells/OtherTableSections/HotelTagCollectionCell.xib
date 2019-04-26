@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,16 +23,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-Hx-fbZ">
-                                <rect key="frame" x="8" y="3" width="107" height="22"/>
+                                <rect key="frame" x="10" y="0.0" width="101" height="28"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcxcxcxcxc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjd-vP-gef">
-                                        <rect key="frame" x="0.0" y="1.5" width="81" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcxcxcxcxc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjd-vP-gef">
+                                        <rect key="frame" x="0.0" y="4.5" width="101" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-f7-Z2T">
-                                        <rect key="frame" x="85" y="0.0" width="22" height="22"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-f7-Z2T">
+                                        <rect key="frame" x="0.0" y="3" width="0.0" height="22"/>
                                         <state key="normal" image="cross_icon"/>
                                         <connections>
                                             <action selector="cancelBtnAction:" destination="Off-ko-IjY" eventType="touchUpInside" id="WAQ-pF-P1c"/>
@@ -43,9 +43,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="centerY" secondItem="wew-bM-4h1" secondAttribute="centerY" id="OOE-bq-h24"/>
-                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="leading" secondItem="wew-bM-4h1" secondAttribute="leading" constant="8" id="T0U-OY-AZr"/>
-                            <constraint firstAttribute="trailing" secondItem="JhX-Hx-fbZ" secondAttribute="trailing" constant="6" id="YCx-u8-l2q"/>
+                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="leading" secondItem="wew-bM-4h1" secondAttribute="leading" constant="10" id="T0U-OY-AZr"/>
+                            <constraint firstItem="JhX-Hx-fbZ" firstAttribute="top" secondItem="wew-bM-4h1" secondAttribute="top" id="Wgm-qG-sCb"/>
+                            <constraint firstAttribute="trailing" secondItem="JhX-Hx-fbZ" secondAttribute="trailing" constant="10" id="YCx-u8-l2q"/>
+                            <constraint firstAttribute="bottom" secondItem="JhX-Hx-fbZ" secondAttribute="bottom" id="xXj-fX-nug"/>
                         </constraints>
                     </view>
                 </subviews>

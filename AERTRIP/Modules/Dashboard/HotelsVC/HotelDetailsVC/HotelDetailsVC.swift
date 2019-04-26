@@ -68,9 +68,9 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.themeWhite
         self.statusBarStyle = .default
         self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+        self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,7 +80,6 @@ class HotelDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.viewModel.getHotelDistanceAndTimeInfo()
-        self.view.backgroundColor = .clear
         self.headerView.shouldAddBlurEffect = true
         self.configUI()
         self.registerNibs()
@@ -188,7 +187,7 @@ class HotelDetailsVC: BaseVC {
             guard let sSelf = self else {return}
             sSelf.imageView.frame = sSelf.sourceFrame
             sSelf.hotelTableView.alpha = 0.0
-             sSelf.mainView.alpha = 0
+//            sSelf.mainView.alpha = 0
             sSelf.hotelTableView.frame = sSelf.tableFrameHidden
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
@@ -233,6 +232,7 @@ class HotelDetailsVC: BaseVC {
     
     private func configUI() {
         self.view.backgroundColor = AppColors.clear
+        self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")

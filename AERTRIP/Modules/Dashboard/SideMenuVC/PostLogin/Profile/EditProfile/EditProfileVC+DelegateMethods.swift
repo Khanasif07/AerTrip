@@ -434,10 +434,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         let text = textfield.text ?? ""
         switch textfield {
         case editProfileImageHeaderView.firstNameTextField:
-            editProfileImageHeaderView.firstNameTextField.text = text.removeSpaceAsSentence
+            editProfileImageHeaderView.firstNameTextField.text = text.removeSpaceAsSentence.substring(to: AppConstants.kNameTextLimit)
             self.viewModel.firstName = text.removeSpaceAsSentence
         case editProfileImageHeaderView.lastNameTextField:
-            editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence
+            editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence.substring(to: AppConstants.kNameTextLimit)
             self.viewModel.lastName = text.removeSpaceAsSentence
         default:
             break

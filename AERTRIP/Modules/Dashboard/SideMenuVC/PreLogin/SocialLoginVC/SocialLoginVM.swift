@@ -114,24 +114,26 @@ class SocialLoginVM {
                     self.userData.firstName  = data["firstName"] as? String ?? ""
                     self.userData.lastName  = data["lastName"]  as? String ?? ""
                     self.userData.id            = data["id"] as? String ?? ""
-                    self.userData.service   = "linkedin"
+                    self.userData.service   = "linkedin_oauth2"
                     self.userData.email      =  data["emailAddress"] as? String ?? ""
                     self.userData.picture   = data["pictureUrl"] as? String ?? ""
                     
                     printDebug(response)
-                    
+//                    completionBlock?(true)
                     self.webserviceForSocialLogin()
                     linkedinHelper.logout()
                 }
             }) { [unowned self] (error) -> Void in
-                
+//                completionBlock?(false)
                 //Encounter error
             }
             
         }, error: { (error) -> Void in
             //Encounter error: error.localizedDescription
+//            completionBlock?(false)
         }, cancel: { () -> Void in
             //User Cancelled!
+//            completionBlock?(false)
         })
     }
 }

@@ -75,6 +75,11 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
+        
+        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.8), offset: CGSize.zero, opacity: 0.7, shadowRadius: 2.0)
+        self.hotelImageView.cornerRadius = 10.0
+        self.scrollView.cornerRadius = 10.0
+        self.gradientView.cornerRadius = 10.0
     }
     
     override func layoutSubviews() {
@@ -106,7 +111,6 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        self.bgView.cornerRadius = 10.0
     }
     
     private func populateData() {

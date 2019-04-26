@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,8 +25,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="473" height="69"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nXv-TY-9Ju">
+                    <rect key="frame" x="220.5" y="24" width="32.5" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Av-fi-5Tj">
                     <rect key="frame" x="220.5" y="24" width="32.5" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32.5" id="qZZ-4q-omr"/>
                         <constraint firstAttribute="height" constant="21" id="sux-gc-za2"/>
@@ -38,9 +43,14 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="nXv-TY-9Ju" firstAttribute="trailing" secondItem="8Av-fi-5Tj" secondAttribute="trailing" id="C0T-SN-Jig"/>
+                <constraint firstItem="nXv-TY-9Ju" firstAttribute="leading" secondItem="8Av-fi-5Tj" secondAttribute="leading" id="GTM-Hk-MaL"/>
                 <constraint firstItem="8Av-fi-5Tj" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Qta-m2-diU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="Y26-EA-bsf" secondAttribute="top" id="Rrj-c0-q45"/>
+                <constraint firstItem="nXv-TY-9Ju" firstAttribute="width" secondItem="8Av-fi-5Tj" secondAttribute="width" id="a0c-pQ-ruu"/>
                 <constraint firstItem="8Av-fi-5Tj" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="irs-L6-7pe"/>
+                <constraint firstItem="nXv-TY-9Ju" firstAttribute="height" secondItem="8Av-fi-5Tj" secondAttribute="height" id="jnO-m3-aUz"/>
+                <constraint firstItem="nXv-TY-9Ju" firstAttribute="centerY" secondItem="8Av-fi-5Tj" secondAttribute="centerY" id="l0U-d4-uc3"/>
                 <constraint firstItem="Y26-EA-bsf" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ndA-PB-QYQ"/>
                 <constraint firstItem="Y26-EA-bsf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="qS1-fO-UxQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y26-EA-bsf" secondAttribute="trailing" id="sUe-oa-XhE"/>
@@ -48,6 +58,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="labelBackgroundView" destination="nXv-TY-9Ju" id="MwF-3w-pas"/>
                 <outlet property="titleLabel" destination="8Av-fi-5Tj" id="bzm-Kf-YHw"/>
                 <outlet property="titleLabelWidthConstraint" destination="qZZ-4q-omr" id="VNg-ME-29s"/>
             </connections>

@@ -41,8 +41,6 @@ struct HotelFormPreviosSearchData: Codable {
         return checkOutDate?.toString(dateFormat: "E, dd MMM yy") ?? ""
     }
 
-
-    
     init() {
         self.roomNumber     =  1
         self.adultsCount    = [1]

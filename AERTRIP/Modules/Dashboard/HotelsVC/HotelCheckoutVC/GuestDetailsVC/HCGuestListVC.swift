@@ -218,6 +218,12 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount else {
+          return
+        }
+        
+        
         if self.currentlyUsingFor == .travellers {
             
             if let oIndex = self.viewModel.originalIndex(forContact: self.viewModel.travellerContacts[indexPath.row], forType: .travellers) {

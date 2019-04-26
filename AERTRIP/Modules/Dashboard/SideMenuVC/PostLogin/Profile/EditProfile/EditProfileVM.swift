@@ -148,7 +148,7 @@ class EditProfileVM {
                     }
                 }
                 
-                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) {
+                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
                       AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
                     flag = false
                 }

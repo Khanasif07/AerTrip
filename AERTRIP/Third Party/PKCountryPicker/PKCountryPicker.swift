@@ -222,9 +222,12 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentSelectedIndex = row
         selection.selectionChanged()
-        if let handler = self.selectionHandler {
-            handler(self.countries[self.currentSelectedIndex])
-            
-        }
+        
+        //  Commented because ,Requirement was not to update country when selection changed
+        
+        //        if let handler = self.selectionHandler {
+//            handler(self.countries[self.currentSelectedIndex])
+//
+//        }
     }
 }

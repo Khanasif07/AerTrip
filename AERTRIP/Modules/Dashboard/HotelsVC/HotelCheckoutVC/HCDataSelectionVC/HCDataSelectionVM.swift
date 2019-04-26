@@ -40,7 +40,7 @@ class HCDataSelectionVM {
     var mobileNumber: String = ""
     var mobileIsd: String = ""
     var email: String = ""
-    
+    var selectedSpecialRequest : [Int] = []
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
     

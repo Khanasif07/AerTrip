@@ -18,7 +18,6 @@ class HCSpecialRequestsVC: BaseVC {
     //================
     internal let viewModel = HCSpecialRequestsVM()
     internal weak var delegate: HCSpecialRequestsDelegate?
-    private var selectedIndexPath: [IndexPath] = []
     private let textFieldPlaceHolder: [String] = [LocalizedString.AirlineNameFlightNumberArrivalTime.localized,LocalizedString.SpecialRequestIfAny.localized]
     
     //Mark:- IBOutlets
@@ -95,12 +94,12 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = tableView.cellForRow(at: indexPath) as? RoomTableViewCell {
-            if !self.selectedIndexPath.contains(indexPath) {
-                self.selectedIndexPath.append(indexPath)
+            if !self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
+                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
                 self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
             }
             else {
-                self.selectedIndexPath.remove(object: indexPath)
+                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
                 self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
             }
         }
@@ -114,7 +113,7 @@ extension HCSpecialRequestsVC {
     
     internal func getRoomTableViewCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoomTableViewCell.reusableIdentifier, for: indexPath) as? RoomTableViewCell else { return UITableViewCell() }
-        if self.selectedIndexPath.contains(indexPath) {
+        if self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
            cell.statusButton.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
         } else {
             cell.statusButton.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
