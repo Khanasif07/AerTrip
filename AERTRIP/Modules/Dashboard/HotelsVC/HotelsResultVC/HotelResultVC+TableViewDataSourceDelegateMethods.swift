@@ -15,7 +15,7 @@ import Foundation
 extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func manageViewForSearchAndFilterMode() {
         
-        let count = self.fetchedResultsController.sections?.count ?? 0
+        let count = self.fetchedResultsController.fetchedObjects?.count ?? 0
         if (self.fetchRequestType == .FilterApplied), count <= 0 {
             self.getFavouriteHotels()
             self.hotelSearchView.isHidden = false
@@ -69,7 +69,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             let sectionInfo = sections[section]
-            self.manageShimmer(isHidden: sectionInfo.numberOfObjects > 0)
+            let dbData = CoreDataManager.shared.fetchData("HotelSearched") ?? []
+            self.manageShimmer(isHidden: !dbData.isEmpty)
+            manageViewForSearchAndFilterMode()
             return sectionInfo.numberOfObjects
         }
     }
@@ -97,8 +99,6 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let text = removeFirstChar + " kms"
             hView.titleLabel.text = "\(text)"
             hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 9
-           
-            
             return hView
         }
     }

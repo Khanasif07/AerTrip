@@ -306,6 +306,11 @@ extension HotelResultVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
+            
+            
+            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
+                self.selectedIndexPath = IndexPath(item: index, section: 0)
+            }
             AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
         return true

@@ -26,6 +26,7 @@ class HotelFilterVC: BaseVC {
     @IBOutlet var mainContainerView: UIView!
     @IBOutlet var navigationView: UIView!
     @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainBackView: UIView!
     
     // MARK: - Private
     
@@ -243,7 +244,7 @@ class HotelFilterVC: BaseVC {
         gestureRecognizer.numberOfTapsRequired = 1
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
+        mainBackView.addGestureRecognizer(gestureRecognizer)
     }
     
     // MARK: - IB Action
@@ -272,14 +273,5 @@ extension HotelFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
         HotelFilterVM.shared.lastSelectedIndex = toIndex
-    }
-}
-
-// MARK: - UIGestureRecognizerDelegate Method
-
-extension HotelFilterVC {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === self.view)
     }
 }

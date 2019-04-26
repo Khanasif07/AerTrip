@@ -26,6 +26,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYJ-ic-F1i">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-5g-yVs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                 <subviews>
@@ -98,8 +102,12 @@
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="5E7-et-eDD"/>
                             <constraint firstItem="e2I-lS-6Bs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="404:667" id="84b-iL-w0d"/>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="top" secondItem="vJy-po-FUp" secondAttribute="top" id="V6S-9b-TaK"/>
+                            <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="TYJ-ic-F1i" secondAttribute="trailing" id="YmA-2G-lqp"/>
+                            <constraint firstItem="TYJ-ic-F1i" firstAttribute="top" secondItem="dxU-Fm-YZC" secondAttribute="top" id="a2E-2L-Dot"/>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="518:667" id="ftN-Rc-5Uc"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="4cd-5g-yVs" secondAttribute="trailing" id="mjY-eN-O01"/>
+                            <constraint firstItem="dxU-Fm-YZC" firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
+                            <constraint firstItem="TYJ-ic-F1i" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="pfW-E5-EJh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dxU-Fm-YZC"/>
                     </view>
@@ -107,6 +115,7 @@
                         <outlet property="clearAllButton" destination="ni6-VP-icC" id="RSJ-5A-uDC"/>
                         <outlet property="dataContainerView" destination="e2I-lS-6Bs" id="sf8-ve-iAc"/>
                         <outlet property="doneButton" destination="yTY-5z-BDT" id="DEe-1n-vdp"/>
+                        <outlet property="mainBackView" destination="TYJ-ic-F1i" id="xdd-2L-JGX"/>
                         <outlet property="mainContainerView" destination="4cd-5g-yVs" id="Xhf-70-lDO"/>
                         <outlet property="mainContainerViewTopConstraint" destination="V6S-9b-TaK" id="hDy-Xg-Igy"/>
                         <outlet property="navigationTitleLabel" destination="dQl-Kf-1et" id="8Ia-ph-dw0"/>
@@ -417,7 +426,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyY-ed-ygo">
-                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
+                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
                                                         <state key="normal" image="starRatingUnfill"/>
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
