@@ -77,7 +77,15 @@ class HotelsSearchVM: NSObject{
             room.append(roomData)
         }
         
-        let query: JSONDictionary = [APIKeys.place.rawValue : place , APIKeys.checkInDate.rawValue : checkInDate , APIKeys.checkOutDate.rawValue : checkOutDate , APIKeys.nights.rawValue : nights , APIKeys.guests.rawValue : guests, APIKeys.room.rawValue : room]
+        var star: JSONDictionary = [:]
+        for (index,rating) in self.searchedFormData.ratingCount.enumerated() {
+            star["\(index)\(APIKeys.star.rawValue)"] = rating == 1 ? 1 : 0
+        }
+        
+        let filter: JSONDictionary = [APIKeys.star.rawValue : star]
+        
+        let query: JSONDictionary = [APIKeys.place.rawValue : place , APIKeys.checkInDate.rawValue : checkInDate , APIKeys.checkOutDate.rawValue : checkOutDate , APIKeys.nights.rawValue : nights , APIKeys.guests.rawValue : guests, APIKeys.room.rawValue : room , APIKeys.filter.rawValue : filter]
+
         
         let params: JSONDictionary = [
             APIKeys.product.rawValue : "hotel",

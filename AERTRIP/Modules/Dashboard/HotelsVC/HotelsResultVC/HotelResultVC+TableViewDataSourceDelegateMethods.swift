@@ -145,6 +145,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let hData = self.searchedHotels[indexPath.row]
             if let cell = tableView.cellForRow(at: indexPath) {
                 AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                self.selectedIndexPath = indexPath
             }
         } else {
             let hData = fetchedResultsController.object(at: indexPath)

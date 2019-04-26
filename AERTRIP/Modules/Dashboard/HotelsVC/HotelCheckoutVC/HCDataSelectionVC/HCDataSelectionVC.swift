@@ -293,7 +293,7 @@ class HCDataSelectionVC: BaseVC {
                 AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
             }
             else {
-                AppToast.default.showToastMessage(message: "Formated mobile is required")
+                AppToast.default.showToastMessage(message: "Please enter a valid phone number")
             }
         }
     }

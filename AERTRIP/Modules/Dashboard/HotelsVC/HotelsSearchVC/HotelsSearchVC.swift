@@ -744,7 +744,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
                 }
                 var childrenArray: [Int] = []
                 childrenArray.removeAll()
-                for child in roomData.child ?? [] {
+                for child in roomData.child {
                     if child.isPresent {
                         childrenArray.append(child.childAge)
                     }
@@ -755,12 +755,13 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
         if recentSearch.filter?.noStar ?? false {
             self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
+        } else {
+            self.viewModel.searchedFormData.ratingCount[0] = (recentSearch.filter?.firstStar ?? false) ? 1 : 0
+            self.viewModel.searchedFormData.ratingCount[1] = recentSearch.filter?.secondStar ?? false ? 2 : 0
+            self.viewModel.searchedFormData.ratingCount[2] = recentSearch.filter?.thirdStar ?? false ? 3 : 0
+            self.viewModel.searchedFormData.ratingCount[3] = recentSearch.filter?.fourthStar ?? false ? 4 : 0
+            self.viewModel.searchedFormData.ratingCount[4] = recentSearch.filter?.fifthStar ?? false ? 5 : 0
         }
-        self.viewModel.searchedFormData.ratingCount[0] = (recentSearch.filter?.firstStar ?? false) ? 1 : 0
-        self.viewModel.searchedFormData.ratingCount[1] = recentSearch.filter?.secondStar ?? false ? 2 : 0
-        self.viewModel.searchedFormData.ratingCount[2] = recentSearch.filter?.thirdStar ?? false ? 3 : 0
-        self.viewModel.searchedFormData.ratingCount[3] = recentSearch.filter?.fourthStar ?? false ? 4 : 0
-        self.viewModel.searchedFormData.ratingCount[4] = recentSearch.filter?.fifthStar ?? false ? 5 : 0
         self.viewModel.searchedFormData.checkInDate = Date.getDateFromString(stringDate: recentSearch.checkInDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
         self.viewModel.searchedFormData.checkOutDate = Date.getDateFromString(stringDate: recentSearch.checkOutDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
         self.viewModel.searchedFormData.destId = recentSearch.dest_id
