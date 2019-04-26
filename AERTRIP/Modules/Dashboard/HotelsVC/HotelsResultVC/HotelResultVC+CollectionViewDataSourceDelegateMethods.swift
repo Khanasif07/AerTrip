@@ -68,6 +68,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             self.expandGroup((Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched] ?? []))
         }
         else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let data = cell.hotelListData {
+            self.selectedIndexPath = indexPath
             AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
     }

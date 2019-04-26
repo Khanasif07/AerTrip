@@ -104,7 +104,7 @@ class ATErrorManager {
         error.code = "\(forCode)"
         error.module = module.rawValue
         
-        if (-4563)...(-4561) ~= forCode {
+        if (-4564)...(-4561) ~= forCode {
             let err = LocalError(rawValue: forCode) ?? .default
             
             error.message = err.message

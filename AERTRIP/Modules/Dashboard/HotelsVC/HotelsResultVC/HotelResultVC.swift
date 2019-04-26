@@ -274,8 +274,13 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
             //fav updated from hotel details
+            if self.hoteResultViewType == .ListView {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                selectedIndexPath = nil
+            }
+            else if self.hoteResultViewType == .ListView {
+                self.collectionView.reloadItems(at: indexPath)
+            }
+            selectedIndexPath = nil
         } else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
             selectedIndexPath = nil
@@ -355,11 +360,10 @@ class HotelResultVC: BaseVC {
     
     private func presentEmailVC() {
         
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginProcess) { (_) in
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
              AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
         }
-        
-      
     }
     
     func manageShimmer(isHidden: Bool) {
