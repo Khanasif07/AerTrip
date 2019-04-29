@@ -442,7 +442,7 @@ class FinalCheckOutVC: BaseVC {
         let adultCount = self.viewModel.hotelFormData.adultsCount.count
         var text = "For "
         text += adultCount > 1 ? "\(adultCount) Rooms" : "\(adultCount) Room"
-        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-mm-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-mm-dd")!)
+        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
         text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"
         
         return text

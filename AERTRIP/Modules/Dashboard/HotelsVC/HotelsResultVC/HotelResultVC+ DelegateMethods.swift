@@ -261,12 +261,13 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 
     func doneButtonTapped() {
+        
         self.fetchRequestType = .FilterApplied
         HotelFilterVM.shared.saveDataToUserDefaults()
         printDebug("done button tapped")
-        self.filterButton.isSelected = true
         self.getSavedFilter()
         self.loadSaveData()
+        self.filterButton.isSelected = HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount ? false : true
     }
 }
 

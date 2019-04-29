@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>14</string>
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -99,7 +99,7 @@
 		<string>fbshareextension</string>
 		<string>googlegmail</string>
 		<string>comgooglemaps</string>
-        <string>linkedin</string>
+		<string>linkedin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
