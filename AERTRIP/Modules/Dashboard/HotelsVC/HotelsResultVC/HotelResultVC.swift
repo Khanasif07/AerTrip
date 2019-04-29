@@ -265,6 +265,12 @@ class HotelResultVC: BaseVC {
         self.configureCollectionViewLayoutItemSize()
     }
     
+    override func keyboardWillHide(notification: Notification) {
+        if self.searchedHotels.isEmpty {
+            self.cancelButtonTapped(self.cancelButton)
+        }
+    }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
