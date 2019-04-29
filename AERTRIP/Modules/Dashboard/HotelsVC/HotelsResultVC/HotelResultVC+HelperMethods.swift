@@ -49,19 +49,25 @@ extension HotelResultVC {
         self.animateCollectionView(isHidden: true, animated: true)
     }
     
-    func getFavouriteHotels() {
-        
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched], !allFavs.isEmpty {
+    func getFavouriteHotels(shouldReloadData: Bool = false) {
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs
-        } else if !isLoadingListAfterUpdatingAllFav {
+            
+            if shouldReloadData {
+                //using shouldReloadData for breaking the func calling cycle from numberOfRows
+                //load data after hiding/closing the switch button
+                delay(seconds: 0.3) { [weak self] in
+                    self?.loadSaveData()
+                }
+            }
+        }
+        else if !isLoadingListAfterUpdatingAllFav {
             self.fetchRequestType = .normal
             self.isLoadingListAfterUpdatingAllFav = true
             self.loadSaveData()
         }
-        
-
     }
     
     func getPinnedHotelTemplate() {
@@ -244,7 +250,7 @@ extension HotelResultVC {
         self.reloadHotelList()
     }
     
-    func hideButtons() {
+    func hideFavsButtons() {
         if self.hoteResultViewType == .ListView {
             self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
             self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -261,13 +267,17 @@ extension HotelResultVC {
     func manageSwitchContainer(isHidden: Bool) {
         if hoteResultViewType == .ListView {
             manageFloatingView(isHidden: isHidden)
-            switchContainerView.isHidden = isHidden
             self.currentLocationButton.isHidden = hoteResultViewType == .ListView
         }
         else {
             manageFloatingView(isHidden: false)
-            switchContainerView.isHidden = isHidden
             self.currentLocationButton.isHidden = false
+        }
+        switchContainerView.isHidden = isHidden
+        if isHidden {
+            //if switch is hidden then it must be off, otherwise it should be as it is.
+            self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
+            self.hideFavsButtons()
         }
     }
     

@@ -44,13 +44,27 @@ extension HotelResultVC {
                 if let andPredicate = andPredicate {
                     self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
                 }
+                if self.switchView.on {
+                    //if switch is on then all the operations must be only on fav data
+                    let favPred = NSPredicate(format: "fav == '1'")
+                    self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, favPred])
+                }
             }
         case .Searching:
+            var finalPred: NSCompoundPredicate!
             if let andPredicate = self.andPredicate {
-                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
+                finalPred = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
             } else {
-                self.fetchedResultsController.fetchRequest.predicate = orPredicate
+                finalPred = orPredicate
             }
+            
+            if self.switchView.on {
+                //if switch is on then all the operations must be only on fav data
+                let favPred = NSPredicate(format: "fav == '1'")
+                finalPred = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred, finalPred])
+            }
+            
+            self.fetchedResultsController.fetchRequest.predicate = finalPred
             
         case .normalInSearching :
             self.searchedHotels.removeAll()
@@ -178,7 +192,7 @@ extension HotelResultVC {
     
     func fetchRequestWithoutFilter() {
         if self.searchTextStr.isEmpty {
-            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == \(1)") : nil
+            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == '1'") : nil
             
         } else {
             let orPredicate = getSearchTextPredicate()

@@ -124,16 +124,18 @@ class ATSwitcher: UIView {
         delegate?.switcherDidChangeValue(switcher: self, value: on)
     }
     
-    func setOn(isOn: Bool) {
+    func setOn(isOn: Bool, animated: Bool = true, shouldNotify: Bool = true) {
         on = isOn
-        animationSwitcherButton()
-        delegate?.switcherDidChangeValue(switcher: self, value: on)
+        animationSwitcherButton(animated: animated)
+        if shouldNotify {
+            delegate?.switcherDidChangeValue(switcher: self, value: on)
+        }
     }
     
-    func animationSwitcherButton() {
+    func animationSwitcherButton(animated: Bool = true) {
         button.backgroundColor = originalColor
         if on == true {
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
                 self.button.isSelected = true
                 
                 self.button.frame = self.imageButtonFrame
@@ -147,7 +149,7 @@ class ATSwitcher: UIView {
                 }, completion: { (finish:Bool) -> Void in
             })
         } else {
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
                 self.button.isSelected = false
                 
                 self.button.frame = self.imageButtonFrame

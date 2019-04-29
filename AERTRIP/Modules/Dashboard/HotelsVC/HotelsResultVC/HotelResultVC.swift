@@ -277,8 +277,12 @@ class HotelResultVC: BaseVC {
             if self.hoteResultViewType == .ListView {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
             }
-            else if self.hoteResultViewType == .ListView {
+            else if self.hoteResultViewType == .MapView {
                 self.collectionView.reloadItems(at: indexPath)
+            }
+            
+            if self.fetchRequestType == .Searching {
+                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
             }
             selectedIndexPath = nil
         }
@@ -397,7 +401,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        self.hideButtons()
+        self.hideFavsButtons()
         self.switchView.setOn(isOn: false)
         self.fetchRequestType = .normal
         if self.hoteResultViewType == .ListView {
@@ -448,6 +452,7 @@ class HotelResultVC: BaseVC {
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToListView()
         }
+        self.searchedHotels.removeAll()
         self.fetchRequestType = .normal
         self.hideSearchAnimation()
         self.view.endEditing(true)

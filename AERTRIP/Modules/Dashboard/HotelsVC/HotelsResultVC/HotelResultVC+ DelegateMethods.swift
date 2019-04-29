@@ -77,7 +77,8 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             self.animateButton()
             self.loadSaveData()
         } else {
-            self.hideButtons()
+            self.favouriteHotels.removeAll()
+            self.hideFavsButtons()
             self.loadSaveData()
         }
     }
@@ -176,13 +177,15 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func updateFavouriteFail(errors:ErrorCodes) {
-        self.reloadHotelList()
-        if errors.contains(array: [-1]){
-            if let _  = UserInfo.loggedInUser?.userId {
-                  AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button after updating favs.
+        if let _ = UserInfo.loggedInUser {
+            if errors.contains(array: [-1]){
+                if let _  = UserInfo.loggedInUser?.userId {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                }
+            } else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
-        } else {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
     }
 
@@ -289,7 +292,6 @@ extension HotelResultVC: HotelDetailsVCDelegate {
         if let indexPath = selectedIndexPath {
             self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
             self.collectionView.reloadItems(at: indexPath)
-            selectedIndexPath = nil
         }
     }
 }

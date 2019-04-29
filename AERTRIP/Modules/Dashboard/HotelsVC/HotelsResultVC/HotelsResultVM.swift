@@ -104,10 +104,8 @@ class HotelsResultVM: NSObject {
         } else {
             param[APIKeys.status.rawValue] = 0
         }
-        
-       
-     
-             //make fav/unfav locally
+
+            //make fav/unfav locally
             for hotel in forHotels {
                 if !isUnpinHotels {
                     hotel.fav = hotel.fav == "1" ? "0" : "1"
@@ -116,7 +114,6 @@ class HotelsResultVM: NSObject {
                 }
                 _ = hotel.afterUpdate
             }
-        
       
         self.delegate?.willUpdateFavourite()
         APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess,errors, successMessage in
@@ -126,9 +123,7 @@ class HotelsResultVM: NSObject {
                 }
                 self.delegate?.updateFavouriteSuccess()
             } else {
-                if isUnpinHotels {
-                    self.isUnpinHotelTapped = false
-                }
+                
                 if let _ = UserInfo.loggedInUserId {
                     //revert back in API not success fav/unfav locally
                     for hotel in forHotels {
@@ -141,19 +136,32 @@ class HotelsResultVM: NSObject {
                     }
                 }
                 else {
-                    //if user is not logged in save them locally
+                    if isUnpinHotels {
+                        self.isUnpinHotelTapped = false
+                        UserInfo.locallyFavHotels.removeAll()
+                    }
+                    else {
+                        //if user is not logged in save them locally
+                        for hotel in forHotels {
+                            if let id = hotel.hid, !id.isEmpty {
+                                if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
+                                    UserInfo.locallyFavHotels.remove(at: idx)
+                                }
+                                else {
+                                    UserInfo.locallyFavHotels.append(id)
+                                }
+                            }
+                        }
+                    }
+                    
+                    //save fav/unfav locally
                     for hotel in forHotels {
-                        if !isUnpinHotels, let id = hotel.hid, !id.isEmpty {
-                            if let idx = UserInfo.locallyFavHotels.firstIndex(of: id) {
-                                UserInfo.locallyFavHotels.remove(at: idx)
-                            }
-                            else {
-                                UserInfo.locallyFavHotels.append(id)
-                            }
+                        if !isUnpinHotels {
+                            hotel.fav = hotel.fav == "1" ? "0" : "1"
+                        } else {
+                            hotel.fav = "0"
                         }
-                        else {
-                            UserInfo.locallyFavHotels.removeAll()
-                        }
+                        _ = hotel.afterUpdate
                     }
                 }
                 self.delegate?.updateFavouriteFail(errors: errors)
