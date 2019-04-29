@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
-            timestampString = "577996120.408023"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
+            timestampString = "578219180.802714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "setDataFromPreviousSearch(olddata:isSettingForFirstTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
-            timestampString = "577996120.408578"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
+            timestampString = "578219180.803905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "manageViewForSearchAndFilterMode()"
+            startingLineNumber = "762"
+            endingLineNumber = "762"
+            landmarkName = "passRecentSearchesData(recentSearch:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -89,7 +89,7 @@ class HotelsSearchVC: BaseVC {
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
-        self.getDataFromPreviousSearch()
+        self.setDataFromPreviousSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -263,9 +263,9 @@ class HotelsSearchVC: BaseVC {
     }
     
     ///GetDataFromPreviousSearch
-    private func getDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil) {
+    private func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
         let date = Date()
-        var oldData = HotelsSearchVM.hotelFormData
+        var oldData = olddata ?? HotelsSearchVM.hotelFormData
         if olddata != nil {
             self.viewModel.searchedFormData = olddata ?? HotelFormPreviosSearchData()
         } else {
@@ -314,8 +314,14 @@ class HotelsSearchVC: BaseVC {
         if oldData.ratingCount.isEmpty {
             oldData.ratingCount = [1,2,3,4,5]
         }
+        
+        //reset all the buttons first
+        for starBtn in self.starButtonsOutlet {
+            starBtn.isSelected = false
+            starBtn.isHighlighted = false
+        }
         for star in oldData.ratingCount {
-            self.updateStarButtonState(forStar: star)
+            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
         }
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
         
@@ -518,16 +524,18 @@ class HotelsSearchVC: BaseVC {
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
     }
     
-    @IBAction func searchButtonAction(_ sender: ATButton) {
+    @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {
-            sender.isLoading = true
-            self.viewModel.setRecentSearchesData()
+            sender?.isLoading = true
+            if let _ = sender {
+                self.viewModel.setRecentSearchesData()
+            }
             delay(seconds: 0.1) {
                 //send to result screen for current selected form data
                 _ = CoreDataManager.shared.deleteAllData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                 AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
-                sender.isLoading = false
+                sender?.isLoading = false
             }
         }
     }
@@ -733,8 +741,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
 extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
     
     func passRecentSearchesData(recentSearch: RecentSearchesModel) {
-        self.searchBtnOutlet.isLoading = true
-        _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+
         self.viewModel.searchedFormData.adultsCount.removeAll()
         self.viewModel.searchedFormData.childrenAge.removeAll()
         for roomData in recentSearch.room ?? [] {
@@ -752,16 +759,8 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
                 self.viewModel.searchedFormData.childrenAge.append(childrenArray)
             }
         }
-        self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
-        if recentSearch.filter?.noStar ?? false {
-            self.viewModel.searchedFormData.ratingCount = [1,2,3,4,5]
-        } else {
-            self.viewModel.searchedFormData.ratingCount[0] = (recentSearch.filter?.firstStar ?? false) ? 1 : 0
-            self.viewModel.searchedFormData.ratingCount[1] = recentSearch.filter?.secondStar ?? false ? 2 : 0
-            self.viewModel.searchedFormData.ratingCount[2] = recentSearch.filter?.thirdStar ?? false ? 3 : 0
-            self.viewModel.searchedFormData.ratingCount[3] = recentSearch.filter?.fourthStar ?? false ? 4 : 0
-            self.viewModel.searchedFormData.ratingCount[4] = recentSearch.filter?.fifthStar ?? false ? 5 : 0
-        }
+        self.viewModel.searchedFormData.ratingCount = recentSearch.filter?.stars ?? []
+
         self.viewModel.searchedFormData.checkInDate = Date.getDateFromString(stringDate: recentSearch.checkInDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
         self.viewModel.searchedFormData.checkOutDate = Date.getDateFromString(stringDate: recentSearch.checkOutDate, currentFormat: "E, dd MMM yy", requiredFormat: "yyyy-MM-dd") ?? ""
         self.viewModel.searchedFormData.destId = recentSearch.dest_id
@@ -773,11 +772,12 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         let stateName = splittedStringArray.joined(separator: ",")
         self.viewModel.searchedFormData.stateName = stateName
         printDebug("searching again for \(recentSearch.dest_name)")
-        self.getDataFromPreviousSearch(olddata: self.viewModel.searchedFormData)
-        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
+        self.searchButtonAction(nil)
+//        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         //open result screen for the recent
-        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
-        self.searchBtnOutlet.isLoading = false
+//        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
+//        self.searchBtnOutlet.isLoading = false
     }
 }
 

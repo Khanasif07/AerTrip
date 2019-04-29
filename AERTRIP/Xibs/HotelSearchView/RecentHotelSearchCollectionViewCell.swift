@@ -16,8 +16,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         didSet {
             self.containerView.layer.cornerRadius = 10.0
             self.containerView.layer.masksToBounds = true
-            self.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.5)
-            self.containerView.addBlurEffect()
+            self.containerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.3))
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!

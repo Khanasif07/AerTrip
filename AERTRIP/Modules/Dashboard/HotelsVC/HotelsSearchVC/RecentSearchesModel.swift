@@ -228,12 +228,7 @@ struct Child {
 
 struct RecentSearchesFilter {
     //star
-    var noStar: Bool = false
-    var firstStar: Bool = false
-    var secondStar: Bool = false
-    var thirdStar: Bool = false
-    var fourthStar: Bool = false
-    var fifthStar: Bool = false
+    var stars: [Int] = []
     
     //tripAdvisorRatings
     var noTripAdvisorStar: Bool = false
@@ -274,55 +269,14 @@ struct RecentSearchesFilter {
         self.init(json: [:])
     }
     
-    var jsonDict: JSONDictionary {
-        return ["\(0)\(APIKeys.star.rawValue)" : self.noStar,
-                "\(1)\(APIKeys.star.rawValue)" : self.firstStar,
-                "\(2)\(APIKeys.star.rawValue)" : self.secondStar,
-                "\(3)\(APIKeys.star.rawValue)" : self.thirdStar,
-                "\(4)\(APIKeys.star.rawValue)" : self.fourthStar,
-                "\(5)\(APIKeys.star.rawValue)" : self.fifthStar,
-                "\(0)\(APIKeys.star.rawValue)" : self.noTripAdvisorStar,
-                "\(1)\(APIKeys.star.rawValue)" : self.firstTripAdvisorStar,
-                "\(2)\(APIKeys.star.rawValue)" : self.secondTripAdvisorStar,
-                "\(3)\(APIKeys.star.rawValue)" : self.thirdTripAdvisorStar,
-                "\(4)\(APIKeys.star.rawValue)" : self.fourthTripAdvisorStar,
-                "\(5)\(APIKeys.star.rawValue)" : self.fifthTripAdvisorStar,
-                APIKeys.amenities.rawValue: self.amenities,
-                APIKeys.boundaryMin.rawValue: self.boundaryMinPrice,
-                APIKeys.boundaryMax.rawValue: self.boundaryMaxPrice,
-                APIKeys.minPrice.rawValue: self.minPrice,
-                APIKeys.maxPrice.rawValue: self.maxPrice,
-                APIKeys.no_meals.rawValue: self.no_meals,
-                APIKeys.breakfast.rawValue: self.breakfast,
-                APIKeys.half_board.rawValue: self.half_board,
-                APIKeys.full_board.rawValue: self.full_board,
-                APIKeys.others.rawValue: self.otherMeals,
-                APIKeys.refundable.rawValue: self.refundable,
-                APIKeys.partiallyRefundable.rawValue: self.partiallyRefundable,
-                APIKeys.nonRefundable.rawValue: self.nonRefundable,
-                APIKeys.others.rawValue: self.others]
-    }
-    
     init(json: JSONDictionary) {
         
         if let starData = json[APIKeys.star.rawValue] as? JSONDictionary {
-            if let noStar = starData["\(0)\(APIKeys.star.rawValue)"] as? Bool {
-                self.noStar = noStar
-            }
-            if let firstStar = starData["\(1)\(APIKeys.star.rawValue)"] as? Bool {
-                self.firstStar = firstStar
-            }
-            if let secondStar = starData["\(2)\(APIKeys.star.rawValue)"] as? Bool {
-                self.secondStar = secondStar
-            }
-            if let thirdStar = starData["\(3)\(APIKeys.star.rawValue)"] as? Bool {
-                self.thirdStar = thirdStar
-            }
-            if let fourthStar = starData["\(4)\(APIKeys.star.rawValue)"] as? Bool {
-                self.fourthStar = fourthStar
-            }
-            if let fifthStar = starData["\(5)\(APIKeys.star.rawValue)"] as? Bool {
-                self.fifthStar = fifthStar
+            self.stars.removeAll()
+            for index in 1...5 {
+                if let isInclude = starData["\(index)\(APIKeys.star.rawValue.lowercased())"] as? Bool, isInclude {
+                    self.stars.append(index)
+                }
             }
         }
         

@@ -78,8 +78,8 @@ class HotelsSearchVM: NSObject{
         }
         
         var star: JSONDictionary = [:]
-        for (index,rating) in self.searchedFormData.ratingCount.enumerated() {
-            star["\(index)\(APIKeys.star.rawValue)"] = rating == 1 ? 1 : 0
+        for rating in self.searchedFormData.ratingCount {
+            star["\(rating)\(APIKeys.star.rawValue.lowercased())"] = true
         }
         
         let filter: JSONDictionary = [APIKeys.star.rawValue : star]
