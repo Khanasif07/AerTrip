@@ -351,11 +351,14 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
             let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
-            if errors.contains(array: [-1]) {
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
-            }
-            else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            
+            if let _ = UserInfo.loggedInUser {
+                if errors.contains(array: [-1]) {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                }
+                else {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                }
             }
         }
     }

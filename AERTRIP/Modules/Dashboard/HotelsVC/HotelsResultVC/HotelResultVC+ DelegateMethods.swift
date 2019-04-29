@@ -289,9 +289,6 @@ extension HotelResultVC: CLLocationManagerDelegate {
 
 extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
-        if let indexPath = selectedIndexPath {
-            self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-            self.collectionView.reloadItems(at: indexPath)
-        }
+        //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
     }
 }

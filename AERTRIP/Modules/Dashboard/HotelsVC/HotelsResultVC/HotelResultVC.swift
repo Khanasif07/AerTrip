@@ -272,6 +272,21 @@ class HotelResultVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
+        func updateFavOnList(indexPath: IndexPath) {
+            if self.fetchRequestType == .Searching {
+                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
+            }
+            else {
+                if self.hoteResultViewType == .ListView {
+                    self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+                }
+                else if self.hoteResultViewType == .MapView {
+                    self.collectionView.reloadItems(at: indexPath)
+                }
+            }
+            selectedIndexPath = nil
+        }
+        
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
@@ -280,21 +295,10 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
             //fav updated from hotel details
-            if self.hoteResultViewType == .ListView {
-                self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-            }
-            else if self.hoteResultViewType == .MapView {
-                self.collectionView.reloadItems(at: indexPath)
-            }
-            
-            if self.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
-            }
-            selectedIndexPath = nil
+            updateFavOnList(indexPath: indexPath)
         }
         else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
-            self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-            selectedIndexPath = nil
+            updateFavOnList(indexPath: indexPath)
         }
         else if let _ = note.object as? HotelResultVC, let indexPath = selectedIndexPath {
             self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)

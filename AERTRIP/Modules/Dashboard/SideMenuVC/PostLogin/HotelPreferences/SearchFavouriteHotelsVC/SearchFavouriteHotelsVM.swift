@@ -83,7 +83,7 @@ class SearchFavouriteHotelsVM: NSObject {
                         else {
                             UserInfo.locallyFavHotels.append(forHotel.hotelId)
                         }
-                    }
+                    }                    
                 }
                 self.delegate?.updateFavouriteFail()
             }

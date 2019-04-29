@@ -266,8 +266,8 @@ class HCDataSelectionVM {
         
         //save locally and update ui
         self.hotelInfo?.fav = self.hotelInfo?.fav == "0" ? "1" : "0"
-        self.delegate?.updateFavouriteSuccess(withMessage: "")
         _ = self.hotelInfo?.afterUpdate
+        self.delegate?.updateFavouriteSuccess(withMessage: "")
         
         APICaller.shared.callUpdateFavouriteAPI(params: param) { [weak self] isSuccess, errors, successMessage in
             if let sSelf = self {
@@ -289,6 +289,10 @@ class HCDataSelectionVM {
                                 UserInfo.locallyFavHotels.append(id)
                             }
                         }
+                        
+                        //save fav/unfav locally
+                        sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
+                        _ = sSelf.hotelInfo?.afterUpdate
                     }
                     sSelf.delegate?.updateFavouriteFail(errors: errors)
                 }

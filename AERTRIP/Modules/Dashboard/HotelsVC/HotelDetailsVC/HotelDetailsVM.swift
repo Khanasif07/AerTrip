@@ -200,7 +200,12 @@ class HotelDetailsVM {
                                 UserInfo.locallyFavHotels.append(id)
                             }
                         }
+                        
+                        //save fav/unfav locally
+                        sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
+                        _ = sSelf.hotelInfo?.afterUpdate
                     }
+            
                     sSelf.delegate?.updateFavouriteFail(errors:errors)
                 }
             }
