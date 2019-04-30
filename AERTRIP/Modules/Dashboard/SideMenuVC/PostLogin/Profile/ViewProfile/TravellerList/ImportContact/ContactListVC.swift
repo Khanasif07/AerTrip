@@ -97,22 +97,25 @@ class ContactListVC: BaseVC {
                 self.reloadList()
             }
             else if obj == .searchDone {
-                if self.currentlyUsingFor == .contacts && !self.viewModel.phoneContacts.isEmpty {
+                noResultemptyView.messageLabel.isHidden = false
+                noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchingFor)'"
+                if self.currentlyUsingFor == .contacts, self.viewModel.isPhoneContactsAllowed {
+                    
                     self.viewModel.createSectionWiseDataForContacts(for: .contacts)
                     tableView.backgroundView = noResultemptyView
-                    
                 }
-                else if self.currentlyUsingFor == .facebook && !self.viewModel.facebookContacts.isEmpty {
+                else if self.currentlyUsingFor == .facebook, self.viewModel.isFacebookContactsAllowed {
+                    
                     self.viewModel.createSectionWiseDataForContacts(for: .facebook)
                     tableView.backgroundView = noResultemptyView
                     
                 }
-                else if self.currentlyUsingFor == .google && !self.viewModel.googleContacts.isEmpty {
+                else if self.currentlyUsingFor == .google, self.viewModel.isGoogleContactsAllowed {
+                    
                     self.viewModel.createSectionWiseDataForContacts(for: .google)
                     tableView.backgroundView = noResultemptyView
-                } else {
-                    tableView.backgroundView = noResultemptyView
                 }
+                
                 self.reloadList()
             }
         }

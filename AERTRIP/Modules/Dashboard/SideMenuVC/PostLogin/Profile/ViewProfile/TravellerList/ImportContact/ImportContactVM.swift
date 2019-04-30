@@ -73,6 +73,7 @@ class ImportContactVM: NSObject {
         }
     }
     
+    var searchingFor = "" //used to show the not result
     var isPhoneContactsAllowed: Bool = false
     var isFacebookContactsAllowed: Bool = false
     var isGoogleContactsAllowed: Bool = false
@@ -222,6 +223,7 @@ class ImportContactVM: NSObject {
     func search(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         if !_phoneContacts.isEmpty || !_googleContacts.isEmpty || !_facebookContacts.isEmpty {
+            self.searchingFor = forText
             perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
         }
         
