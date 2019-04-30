@@ -55,7 +55,7 @@ extension HotelResultVC {
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs
             
-            if shouldReloadData {
+            if shouldReloadData, allFavs.isEmpty {
                 //using shouldReloadData for breaking the func calling cycle from numberOfRows
                 //load data after hiding/closing the switch button
                 delay(seconds: 0.3) { [weak self] in

@@ -86,6 +86,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             //if user in map view then update map focus as fav switch changed.
             self.animateMapToFirstHotelInMapMode()
         }
+        else {
+            //if user in list view then scroll the list till top as fav switch changed.
+            self.tableViewVertical.setContentOffset(CGPoint.zero, animated: true)
+        }
     }
 }
 
