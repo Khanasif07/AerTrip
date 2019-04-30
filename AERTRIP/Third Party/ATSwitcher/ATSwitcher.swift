@@ -71,6 +71,7 @@ class ATSwitcher: UIView {
         button.setImage(selectedImage, for: .selected)
         button.backgroundColor = originalColor
         
+        //add a tap gesture on full switch button, so that it'll be easy to tap.
         button.isUserInteractionEnabled = false
         self.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(switcherButtonTouch(_:)))
@@ -97,14 +98,6 @@ class ATSwitcher: UIView {
         self.layer.cornerRadius = self.bounds.height / 2
         self.clipsToBounds = true
         button.layer.cornerRadius = button.bounds.height / 2
-        
-//        button.layer.shadowColor = UIColor.green.cgColor
-//        button.layer.shadowOpacity = 0.4
-//        button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-//        button.layer.shadowRadius = 5.0
-//
-//        button.layer.shadowPath = UIBezierPath(rect: button.bounds).cgPath
-//        button.layer.shouldRasterize = true
     }
     
     private var imageButtonFrame: CGRect {
@@ -118,7 +111,7 @@ class ATSwitcher: UIView {
         super.init(coder: aDecoder)
     }
     
-    @objc func switcherButtonTouch(_ sender: AnyObject) {
+    @objc func switcherButtonTouch(_ sender: UIGestureRecognizer) {
         on = !on
         animationSwitcherButton()
         delegate?.switcherDidChangeValue(switcher: self, value: on)
