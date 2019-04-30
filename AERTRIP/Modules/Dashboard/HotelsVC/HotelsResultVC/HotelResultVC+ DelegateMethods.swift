@@ -173,6 +173,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func updateFavouriteSuccess() {
+        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         if self.viewModel.isUnpinHotelTapped {
              self.reloadHotelList()
              self.viewModel.isUnpinHotelTapped = false
@@ -182,7 +183,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
 
     func updateFavouriteFail(errors:ErrorCodes) {
-        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button after updating favs.
+        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]){
                 if let _  = UserInfo.loggedInUser?.userId {
