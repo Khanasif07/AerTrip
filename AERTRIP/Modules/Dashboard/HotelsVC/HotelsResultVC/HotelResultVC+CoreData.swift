@@ -44,12 +44,14 @@ extension HotelResultVC {
                 if let andPredicate = andPredicate {
                     self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
                 }
-                if self.switchView.on {
-                    //if switch is on then all the operations must be only on fav data
-                    let favPred = NSPredicate(format: "fav == '1'")
-                    self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, favPred])
-                }
             }
+            
+            //if switch is on then all the operations must be only on fav data
+            if self.switchView.on, let oldPred = self.fetchedResultsController.fetchRequest.predicate {
+                let favPred = NSPredicate(format: "fav == '1'")
+                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+            }
+            
         case .Searching:
             var finalPred: NSCompoundPredicate!
             if let andPredicate = self.andPredicate {
@@ -143,7 +145,7 @@ extension HotelResultVC {
         var amentitiesPredicate: NSPredicate?
         var predicates = [AnyHashable]()
         for amentity in self.filterApplied.amentities {
-            predicates.append(NSPredicate(format: "amenities CONTAINS ',\(amentity),'"))
+            predicates.append(NSPredicate(format: "amenities CONTAINS[c] ',\(amentity),'"))
         }
         if predicates.count > 0 {
             if let predicates = predicates as? [NSPredicate] {
