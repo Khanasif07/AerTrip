@@ -74,10 +74,10 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     internal func configureCell(recentSearchesData: RecentSearchesModel) {
         self.timeLabel.text = recentSearchesData.time_ago
         self.searchTypeLabel.text = recentSearchesData.dest_type
-        let cityName = recentSearchesData.dest_name.split(separator: ",")
-        self.cityNameLabel.text = "\(cityName.first ?? "")"
-        let prefix: String = recentSearchesData.dest_name.firstWord + " "
-        self.stateNameLabel.text = recentSearchesData.dest_name.deletingPrefix(prefix: prefix)
+        let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
+        self.cityNameLabel.text = "\(cityName)"
+        let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
+        self.stateNameLabel.text = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
         let totalNights = (recentSearchesData.totalNights == 1 ? " (\(recentSearchesData.totalNights) Night)" : " (\(recentSearchesData.totalNights) Nights)")
         if let checkInDate = self.getDateFromString(stringDate: recentSearchesData.checkInDate), let checkOutDate = self.getDateFromString(stringDate: recentSearchesData.checkOutDate) {
             self.totalNightsLabel.text = checkInDate + " - " + checkOutDate + "\(totalNights)"
