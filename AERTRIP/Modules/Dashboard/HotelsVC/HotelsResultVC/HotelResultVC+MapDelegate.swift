@@ -21,7 +21,7 @@ extension HotelResultVC {
         mapView = mapV
 
         mapV.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
-        mapV.animate(toZoom: self.defaultZoomLabel)
+        mapV.animate(toZoom: self.defaultZoomLabel - 4.0)
         mapV.isMyLocationEnabled = false
         mapV.delegate = self
 
@@ -96,6 +96,14 @@ extension HotelResultVC {
         for hotel in hotels {
             let item = ATClusterItem(position: CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0), hotel: hotel)
             clusterManager.add(item)
+        }
+        
+        if !hotels.isEmpty {
+            // if there are some hotels in search result then need to animate the map, to render the markers for first time
+            delay(seconds: 0.6) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.mapView?.animate(toZoom: sSelf.defaultZoomLabel)
+            }
         }
     }
 }

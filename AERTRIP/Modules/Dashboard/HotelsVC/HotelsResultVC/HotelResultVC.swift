@@ -133,11 +133,12 @@ class HotelResultVC: BaseVC {
     var mapView: GMSMapView?
     let minZoomLabel: Float = 1.0
     let maxZoomLabel: Float = 30.0
-    let defaultZoomLabel: Float = 11.0
+    let defaultZoomLabel: Float = 15.0
+    let extraZoomLabelForMapView: Float = 1.0
     let thresholdZoomLabel: Float = 12.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
-     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
+    var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
    lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {

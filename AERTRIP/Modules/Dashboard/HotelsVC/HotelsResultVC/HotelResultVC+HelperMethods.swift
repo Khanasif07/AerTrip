@@ -156,6 +156,12 @@ extension HotelResultVC {
         }
     }
     
+    func animateMapToFirstHotelInMapMode() {
+        if let locStr = self.viewModel.collectionViewList.keys.first, let loc = self.getLocationObject(fromLocation: locStr) {
+            self.focusMarker(coordinates: loc)
+        }
+    }
+    
     func getHotelsCount() {
         HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
     }
