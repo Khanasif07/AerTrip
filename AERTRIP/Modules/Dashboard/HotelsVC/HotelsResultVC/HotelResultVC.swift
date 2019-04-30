@@ -96,7 +96,7 @@ class HotelResultVC: BaseVC {
     
     // MARK: - Properties
     
-    var container: NSPersistentContainer!
+//    var container: NSPersistentContainer!
     var searchTextStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
@@ -219,15 +219,14 @@ class HotelResultVC: BaseVC {
         
         self.view.backgroundColor = AppColors.themeWhite
         
-        self.container = NSPersistentContainer(name: "AERTRIP")
-        
-        self.container.loadPersistentStores { _, error in
-            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            
-            if let error = error {
-                print("Unresolved error \(error.localizedDescription)")
-            }
-        }
+//        self.container = NSPersistentContainer(name: "AERTRIP")
+//        self.container.loadPersistentStores { _, error in
+//            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//
+//            if let error = error {
+//                print("Unresolved error \(error.localizedDescription)")
+//            }
+//        }
         
         self.initialSetups()
         self.registerXib()
@@ -274,6 +273,7 @@ class HotelResultVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         func updateFavOnList(indexPath: IndexPath) {
+            //update the current opened list as user make fav/unfav
             if self.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
             }
