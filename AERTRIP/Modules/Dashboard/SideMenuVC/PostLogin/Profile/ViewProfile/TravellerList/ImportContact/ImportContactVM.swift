@@ -315,7 +315,7 @@ class ImportContactVM: NSObject {
         }
         
         guard self.totalSelectedContacts <= 100 else {
-            AppToast.default.showToastMessage(message: "Please select 100 contacts at a time.")
+            AppToast.default.showToastMessage(message: LocalizedString.SelectMaxNContacts.localized)
             return
         }
         

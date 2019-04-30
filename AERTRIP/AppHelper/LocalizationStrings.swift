@@ -644,10 +644,18 @@ enum LocalizedString: String {
     case PaymentInfo = "PaymentInfo"
     case Booking = "Booking"
     case Paid = "Paid"
+    
     //MARK: - AerinVC
     case Hi = "Hi"
     case HelpMessage = "HelpMessage"
     case ShowPendingActionsOnly = "ShowPendingActionsOnly"
     case DateSpan = "DateSpan"
     case VoucherType = "VoucherType"
+    
+    //MARK: - Import Contact Screen
+    case NoContactFoundInDevice
+    case NoContactFoundInFB
+    case NoContactFoundInGoogle
+    case NotAbleToSaveContactTryAgain
+    case SelectMaxNContacts
  }

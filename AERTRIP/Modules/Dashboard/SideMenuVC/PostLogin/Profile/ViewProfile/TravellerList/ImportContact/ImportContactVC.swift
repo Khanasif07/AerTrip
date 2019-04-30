@@ -231,7 +231,7 @@ extension ImportContactVC: TopNavigationViewDelegate {
 extension ImportContactVC: ImportContactVMDelegate {
     
     func contactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func contactSavedSuccess() {
@@ -239,7 +239,7 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func phoneContactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func willFetchPhoneContacts() {
@@ -253,11 +253,11 @@ extension ImportContactVC: ImportContactVMDelegate {
         
         let currentlyUsingFor = ContactListVC.UsingFor(rawValue: self.currentIndex)
         if currentlyUsingFor == .contacts, self.viewModel.phoneContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts found in this phone.")
+            AppToast.default.showToastMessage(message: LocalizedString.NoContactFoundInDevice.localized)
         } else if currentlyUsingFor == .facebook, self.viewModel.facebookContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts found on your facebook.")
+            AppToast.default.showToastMessage(message: LocalizedString.NoContactFoundInFB.localized)
         } else if currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
-            AppToast.default.showToastMessage(message: "No contacts found on your google.")
+            AppToast.default.showToastMessage(message: LocalizedString.NoContactFoundInGoogle.localized)
         }
     }
     

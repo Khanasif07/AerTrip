@@ -616,3 +616,10 @@
 "HelpMessage" = "How can I help you?";
 
 "ShowPendingActionsOnly" = "Show pending actions only";
+
+//MARK: - Import Contact Screen
+"NoContactFoundInDevice" = "No contacts found in this phone.";
+"NoContactFoundInFB" = "No contacts found on your facebook.";
+"NoContactFoundInGoogle" = "No contacts found on your google.";
+"NotAbleToSaveContactTryAgain" = "Not able to save contacts. Please try again.";
+"SelectMaxNContacts" = "Please select 100 contacts at a time.";
