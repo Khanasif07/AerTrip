@@ -23,6 +23,7 @@ extension HotelResultVC {
     func loadSaveData() {
         
         // Predicate for searching based on Hotel Name and a
+        var finalPredicate: NSCompoundPredicate?
         let orPredicate = getSearchTextPredicate()
         switch self.fetchRequestType {
         case .FilterApplied:
@@ -38,18 +39,18 @@ extension HotelResultVC {
             self.filterButton.isSelected = true
             if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
-                self.fetchedResultsController.fetchRequest.predicate = andPredicate
+                finalPredicate = andPredicate
             } else {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 if let andPredicate = andPredicate {
-                    self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
+                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
                 }
             }
             
             //if switch is on then all the operations must be only on fav data
             if self.switchView.on, let oldPred = self.fetchedResultsController.fetchRequest.predicate {
                 let favPred = NSPredicate(format: "fav == '1'")
-                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
             }
             
         case .Searching:
@@ -66,7 +67,7 @@ extension HotelResultVC {
                 finalPred = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred, finalPred])
             }
             
-            self.fetchedResultsController.fetchRequest.predicate = finalPred
+            finalPredicate = finalPred
             
         case .normalInSearching :
             self.searchedHotels.removeAll()
@@ -75,6 +76,24 @@ extension HotelResultVC {
         case .normal :
           self.fetchRequestWithoutFilter()
         }
+        
+        if let pred = finalPredicate {
+            self.fetchedResultsController.fetchRequest.predicate = pred
+        }
+        
+        
+//        if let pred = finalPredicate {
+//            if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
+//                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [starPred, pred])
+//            }
+//            else {
+//                self.fetchedResultsController.fetchRequest.predicate = pred
+//            }
+//        }
+//        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
+//            self.fetchedResultsController.fetchRequest.predicate = starPred
+//        }
+        
         self.fetchDataFromCoreData()
         self.reloadHotelList()
     }
@@ -158,10 +177,11 @@ extension HotelResultVC {
     
     // Star Predicacate
     
-    func starPredicate() -> NSPredicate? {
+    func starPredicate(forStars: [Int]? = nil) -> NSPredicate? {
         var starPredicate: NSPredicate?
         var starPredicates = [AnyHashable]()
-        for star in self.filterApplied.ratingCount {
+        let finalStars = forStars ?? self.filterApplied.ratingCount
+        for star in finalStars {
             starPredicates.append(NSPredicate(format: "filterStar CONTAINS[c] '\(star)'"))
         }
         
