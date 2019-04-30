@@ -181,7 +181,7 @@ public class HotelSearched: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.amenities.rawValue] as? [String], !obj.isEmpty {
-            let str = ",\(obj.joined(separator: ","))"
+            let str = ",\(obj.joined(separator: ",")),"
             hotelSearched!.amenities = str
         }
         

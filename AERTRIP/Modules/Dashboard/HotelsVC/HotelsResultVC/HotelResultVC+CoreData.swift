@@ -143,7 +143,7 @@ extension HotelResultVC {
         var amentitiesPredicate: NSPredicate?
         var predicates = [AnyHashable]()
         for amentity in self.filterApplied.amentities {
-            predicates.append(NSPredicate(format: "amenities CONTAINS[c] ',\(amentity)'"))
+            predicates.append(NSPredicate(format: "amenities CONTAINS ',\(amentity),'"))
         }
         if predicates.count > 0 {
             if let predicates = predicates as? [NSPredicate] {
