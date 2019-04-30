@@ -23,22 +23,7 @@ class PreferencesVM: NSObject {
     var sortOrder:String = ""
     var displayOrder:String = ""
     var modifiedGroups: [(originalGroupName: String, modifiedGroupName: String)] = []
-    
-    
-      func isValidateData(vc: UIViewController) -> Bool {
-        
-        let duplicates =  Array(Set(self.groups.filter({ (i: String) in self.groups.filter({ $0 == i }).count > 1})))
-        
-        if duplicates.count > 0 {
-            return false
-        } else {
-            return true
-        }
-        
-    }
-    
 
-    
     func setUpData() {
         if let generalPref = UserInfo.loggedInUser?.generalPref {
             groups = generalPref.labels
@@ -58,7 +43,7 @@ class PreferencesVM: NSObject {
     func getFinalModifiedGroups() {
         self.modifiedGroups = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
     }
-   
+    
     func callSavePreferencesAPI() {
         var params = JSONDictionary()
         

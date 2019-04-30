@@ -166,6 +166,36 @@ class PreferencesVC: BaseVC {
         self.isKeyboardOpen = false
     }
     
+    private func isValidateData() -> Bool {
+        var flag = true
+        
+        
+        //        let duplicates =  Array(Set(self.groups.filter({ (i: String) in self.groups.filter({ $0 == i }).count > 1})))
+        //
+        //        if duplicates.count > 0 {
+        //            flag = false
+        //        }
+        
+        
+        for (originalGroupName, modifiedGroupName) in self.viewModel.modifiedGroups {
+            if originalGroupName.lowercased() != modifiedGroupName.lowercased() {
+                if modifiedGroupName.lowercased().isEmpty {
+                    AppToast.default.showToastMessage(message: "Group name can't be empty.", spaceFromBottom:self.isKeyboardOpen ? self.keyboardHeight : 10.0)
+                    flag = false
+                    break
+                }
+                else if let _ = self.viewModel.groups.firstIndex(where: { (str) -> Bool in
+                    str.lowercased() == modifiedGroupName.lowercased()
+                }) {
+                    AppToast.default.showToastMessage(message: "\(modifiedGroupName) \(LocalizedString.GroupAlreadyExist.localized.lowercased())", spaceFromBottom:self.isKeyboardOpen ? self.keyboardHeight : 10.0)
+                    flag = false
+                    break
+                }
+            }
+        }
+        
+        return flag
+    }
 }
 
 extension PreferencesVC: TopNavigationViewDelegate {
@@ -175,12 +205,9 @@ extension PreferencesVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if self.viewModel.isValidateData(vc: self) {
-              viewModel.callSavePreferencesAPI()
-        } else {
-            AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized,spaceFromBottom:self.isKeyboardOpen ? self.keyboardHeight : 10.0)
+        if self.isValidateData() {
+            viewModel.callSavePreferencesAPI()
         }
-      
     }
 }
 
@@ -255,8 +282,9 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
             groupCell.delegate = self
             
-            let totalCount = getCount(forLabel: viewModel.groups[indexPath.row])
-            groupCell.configureCell(viewModel.groups[indexPath.row], totalCount)
+            let (orgnlName, mdfdName) = self.viewModel.modifiedGroups[indexPath.row]
+            let totalCount = getCount(forLabel: orgnlName)
+            groupCell.configureCell(mdfdName, totalCount)
             return groupCell
             
         default:
@@ -365,8 +393,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
     }
     
     func textFieldWhileEditing(_ textField: UITextField, _ indexPath: IndexPath) {
-            viewModel.groups[indexPath.row] = textField.text ?? ""
-            viewModel.modifiedGroups[indexPath.row].modifiedGroupName = textField.text ?? ""
+            viewModel.modifiedGroups[indexPath.row].modifiedGroupName = (textField.text ?? "").removeAllWhitespaces
         }
     
     

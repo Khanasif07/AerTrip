@@ -42,6 +42,12 @@ class GroupTableViewCell: UITableViewCell {
     // MARK: - Helper methods
     
     func configureCell(_ groupName: String, _ totalContactsCount: Int) {
+        
+        groupNameTextField.isEnabled = true
+        if groupName.removeAllWhitespaces.lowercased() ==  LocalizedString.Others.localized.removeAllWhitespaces.lowercased() {
+            groupNameTextField.isEnabled = false
+        }
+
         groupNameTextField.text = groupName
         
         groupCountLabel.text = "\(totalContactsCount)"
