@@ -48,9 +48,14 @@ extension HotelResultVC {
             }
             
             //if switch is on then all the operations must be only on fav data
-            if self.switchView.on, let oldPred = self.fetchedResultsController.fetchRequest.predicate {
+            if self.switchView.on {
                 let favPred = NSPredicate(format: "fav == '1'")
-                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                if let oldPred = finalPredicate {
+                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                }
+                else {
+                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
+                }
             }
             
         case .Searching:
