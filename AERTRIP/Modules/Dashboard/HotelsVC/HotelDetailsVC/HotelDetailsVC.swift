@@ -99,7 +99,11 @@ class HotelDetailsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
-            self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+            delay(seconds: 1.0) { [weak self] in
+                self?.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+                self?.manageFavIcon()
+            }
+          
         }
     }
     

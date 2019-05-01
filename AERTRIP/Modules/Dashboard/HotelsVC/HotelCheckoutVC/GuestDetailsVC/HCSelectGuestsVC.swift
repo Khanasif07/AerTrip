@@ -68,6 +68,12 @@ class HCSelectGuestsVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegateCollection = self
     }

@@ -53,7 +53,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         ///Colors
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
-        let greenColor = AppColors.shadowBlue
+        let greenColor = AppColors.recentSeachesSearchTypeBlue
         self.searchTypeLabel.textColor = greenColor
         self.timeLabel.textColor = greenColor
         self.cityNameLabel.textColor = blackColor
@@ -73,7 +73,12 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     ///ConfigureCell
     internal func configureCell(recentSearchesData: RecentSearchesModel) {
         self.timeLabel.text = recentSearchesData.time_ago
-        self.searchTypeLabel.text = recentSearchesData.dest_type
+        if recentSearchesData.dest_type != "popular_destination" {
+              self.searchTypeLabel.text = recentSearchesData.dest_type
+        } else {
+             self.searchTypeLabel.text = LocalizedString.PopularDestinations.localized
+        }
+      
         let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
         self.cityNameLabel.text = "\(cityName)"
         let prefix: String = cityName.isEmpty ? "" : "\(cityName),"

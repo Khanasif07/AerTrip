@@ -71,6 +71,8 @@ class HCGuestListVC: BaseVC {
         return newEmptyView
     }()
     
+    private var atButton : ATButton?
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -79,6 +81,17 @@ class HCGuestListVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let atButton = self.atButton {
+            atButton.isLoading = false
+        }
+        
+    }
+    
+  
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -299,6 +312,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
 //MARK:-
 extension HCGuestListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
+        atButton = sender
         if self.currentlyUsingFor == .travellers {
             self.viewModel.fetchTravellersContact()
         }
@@ -306,15 +320,18 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
             sender.isLoading = true
             delay(seconds: 0.1) { [weak self] in
                 guard let sSelf = self else {return}
-                sSelf.viewModel.fetchPhoneContacts(forVC: sSelf)
+                sSelf.viewModel.fetchPhoneContacts(forVC: sSelf,sender: sender)
             }
         }
         else if self.currentlyUsingFor == .facebook {
-            self.viewModel.fetchFacebookContacts(forVC: self)
+            sender.isLoading = true
+            self.viewModel.fetchFacebookContacts(forVC: self,sender: sender)
         }
         else if self.currentlyUsingFor == .google {
+            sender.isLoading = true
             self.viewModel.fetchGoogleContacts(forVC: self)
         }
+        
     }
 }
 

@@ -177,23 +177,29 @@ class HCSelectGuestsVM: NSObject {
     
     //MARK:- Fetch Phone Contacts
     //MARK:-
-    func fetchPhoneContacts(forVC: UIViewController) {
+    func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         forVC.fetchContacts { [weak self] (contacts) in
-            DispatchQueue.mainAsync {
-                if let obj = self?.delegateCollection as? BaseVC {
-                    obj.sendDataChangedNotification(data: Notification.contactFetched)
+            if contacts.isEmpty {
+                sender?.isLoading = false
+            } else {
+                DispatchQueue.mainAsync {
+                    if let obj = self?.delegateCollection as? BaseVC {
+                        obj.sendDataChangedNotification(data: Notification.contactFetched)
+                    }
+                    self?.isPhoneContactsAllowed = true
+                    self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
                 }
-                self?.isPhoneContactsAllowed = true
-                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
             }
+            
+           
         }
     }
     
     //MARK:- Fetch Facebook Contacts
     //MARK:-
-    func fetchFacebookContacts(forVC: UIViewController) {
+    func fetchFacebookContacts(forVC: UIViewController,sender: ATButton? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         FacebookController.shared.facebookLogout()
@@ -206,13 +212,16 @@ class HCSelectGuestsVM: NSObject {
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
             }, failure: { (error) in
+                if let sender = sender {
+                    sender.isLoading = false
+                }
                 printDebug(error)
         })
     }
     
     //MARK:- Fetch Google Contacts
     //MARK:-
-    func fetchGoogleContacts(forVC: UIViewController) {
+    func fetchGoogleContacts(forVC: UIViewController,sender: ATButton? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         GoogleLoginController.shared.logout()
@@ -223,6 +232,9 @@ class HCSelectGuestsVM: NSObject {
             self?.isGoogleContactsAllowed = true
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
             }, failure: { (error) in
+                if let sender = sender {
+                    sender.isLoading = false
+                }
                 print(error)
         })
     }

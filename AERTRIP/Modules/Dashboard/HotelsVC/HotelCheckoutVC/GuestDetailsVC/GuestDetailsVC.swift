@@ -58,7 +58,7 @@ class GuestDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delay(seconds: 1.0) { [weak self] in
+        delay(seconds: 1.2) { [weak self] in
               self?.makeTableViewIndexSelectable()
         }
         

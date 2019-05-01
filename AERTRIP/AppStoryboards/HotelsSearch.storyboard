@@ -1560,7 +1560,7 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="232"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="231.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="232"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
@@ -1605,10 +1605,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="99"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="99.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="99"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="99.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2062,6 +2062,7 @@ been sent</string>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="48Q-XT-pCx"/>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchDragExit" id="RLO-lg-etq"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="oeI-uH-L4f"/>
                                                                         </connections>
                                                                     </button>
@@ -2083,6 +2084,7 @@ been sent</string>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="I3F-1r-MDR"/>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchDragExit" id="NBM-6U-iYi"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="sYV-H4-S0b"/>
                                                                         </connections>
                                                                     </button>
@@ -2103,6 +2105,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchDragExit" id="dvc-DB-sm1"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="eo9-tk-a6o"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="jCx-2l-gz7"/>
                                                                         </connections>
@@ -2124,6 +2127,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchDragExit" id="P0L-Ys-mTw"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="bPB-bB-mZ8"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="uz5-EC-Dtq"/>
                                                                         </connections>
@@ -2145,6 +2149,7 @@ been sent</string>
                                                                         <state key="selected" image="starRatingFilled"/>
                                                                         <state key="highlighted" image="UnselectedStar"/>
                                                                         <connections>
+                                                                            <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchDragExit" id="DbD-jC-Xh8"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpInside" id="Tyn-AI-xnF"/>
                                                                             <action selector="starButtonsAction:" destination="5c9-sE-259" eventType="touchUpOutside" id="kdE-MN-kFC"/>
                                                                         </connections>

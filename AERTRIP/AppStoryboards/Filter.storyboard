@@ -411,6 +411,7 @@
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="06G-Fx-1PW"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="7gS-Lf-F2J"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="Fw8-7k-yvA"/>
                                                         </connections>
                                                     </button>
@@ -426,13 +427,14 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyY-ed-ygo">
-                                                        <rect key="frame" x="15" y="31.5" width="0.0" height="30"/>
+                                                        <rect key="frame" x="0.0" y="31.5" width="30" height="30"/>
                                                         <state key="normal" image="starRatingUnfill"/>
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="HZW-mV-8y4"/>
-                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="ooG-ui-C4i"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="ZZ7-CG-j9m"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="xRK-Q4-ylg"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -452,7 +454,8 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
-                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="N9u-MB-WSs"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="90O-gZ-M8e"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="LSl-rL-4d0"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="bxO-xK-khu"/>
                                                         </connections>
                                                     </button>
@@ -473,7 +476,8 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
-                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="0rN-8R-aq9"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="bQi-dR-YmV"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="lVh-cG-6PY"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="rea-Va-fR8"/>
                                                         </connections>
                                                     </button>
@@ -494,8 +498,9 @@
                                                         <state key="selected" image="starRatingFilled"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="9OI-ub-xCa"/>
+                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="FUA-ti-ebK"/>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="Wgm-8z-LAa"/>
-                                                            <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="pWz-wT-r1t"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
