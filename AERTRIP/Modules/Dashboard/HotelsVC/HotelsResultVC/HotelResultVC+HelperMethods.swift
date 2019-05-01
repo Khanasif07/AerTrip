@@ -9,6 +9,7 @@
 import Foundation
 
 extension HotelResultVC {
+    
     func setUpFloatingView() {
         self.switchView.delegate = self
         self.unPinAllFavouriteButton.isHidden = true
@@ -55,15 +56,17 @@ extension HotelResultVC {
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs
             
-            if shouldReloadData, allFavs.isEmpty {
+            if shouldReloadData {
                 //using shouldReloadData for breaking the func calling cycle from numberOfRows
                 //load data after hiding/closing the switch button
-                delay(seconds: 0.3) { [weak self] in
-                    self?.loadSaveData()
+                if allFavs.isEmpty {
+                    delay(seconds: 0.3) { [weak self] in
+                        self?.loadSaveData()
+                    }
                 }
-            }
-            else {
-                self.updateFavOnList(forIndexPath: nil)
+                else {
+                    self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+                }
             }
         }
         else if !isLoadingListAfterUpdatingAllFav {
@@ -117,6 +120,7 @@ extension HotelResultVC {
         self.switchView.setOn(isOn: false)
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
+        self.selectedIndexPath = nil
         self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
     }
     
@@ -157,12 +161,10 @@ extension HotelResultVC {
             }
             else {
                 if self.hoteResultViewType == .ListView {
-                    self.fetchRequestWithoutFilter()
                     self.fetchDataFromCoreData(isUpdatingFav: true)
                     self.tableViewVertical.reloadData()
                 }
                 else if self.hoteResultViewType == .MapView {
-                    self.fetchRequestWithoutFilter()
                     self.fetchDataFromCoreData(isUpdatingFav: true)
                     self.collectionView.reloadData()
                 }
@@ -232,9 +234,9 @@ extension HotelResultVC {
     
     func reloadHotelList(isUpdatingFav: Bool = false) {
         
-        if !isUpdatingFav {
-            self.getFavouriteHotels()
-        }
+//        if !isUpdatingFav {
+//            self.getFavouriteHotels()
+//        }
         
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
@@ -283,7 +285,7 @@ extension HotelResultVC {
         }
     }
     
-    func manageSwitchContainer(isHidden: Bool) {
+    func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
         if hoteResultViewType == .ListView {
             manageFloatingView(isHidden: isHidden)
             self.currentLocationButton.isHidden = hoteResultViewType == .ListView
@@ -293,7 +295,7 @@ extension HotelResultVC {
             self.currentLocationButton.isHidden = false
         }
         switchContainerView.isHidden = isHidden
-        if isHidden {
+        if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
             self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
             self.hideFavsButtons()

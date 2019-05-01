@@ -66,6 +66,7 @@ extension HotelResultVC: UISearchBarDelegate {
 
 extension HotelResultVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+        self.loadSaveData()
         if value {
             if self.hoteResultViewType == .MapView {
                 self.floatingButtonOnMapView.isHidden = false
@@ -75,11 +76,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 self.shareButton.isHidden = false
             }
             self.animateButton()
-            self.loadSaveData()
-        } else {
-            self.favouriteHotels.removeAll()
+            self.getFavouriteHotels(shouldReloadData: false)
+        }
+        else {
             self.hideFavsButtons()
-            self.loadSaveData()
         }
         
         if self.hoteResultViewType == .MapView {
@@ -88,7 +88,9 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         }
         else {
             //if user in list view then scroll the list till top as fav switch changed.
-            self.tableViewVertical.setContentOffset(CGPoint.zero, animated: true)
+            delay(seconds: 0.2) { [weak self] in
+                self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
+            }
         }
     }
 }
@@ -138,8 +140,18 @@ extension HotelResultVC: HotelResultDelegate {
     func loadFinalDataOnScreen() {
         self.filterButton.isEnabled = true
         self.mapButton.isEnabled = true
-        self.loadSaveData()
-        self.getFavouriteHotels()
+        
+        if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
+            delay(seconds: 1.0) { [weak self] in
+                HotelFilterVM.shared.ratingCount = HotelsSearchVM.hotelFormData.ratingCount
+                self?.doneButtonTapped()
+            }
+        }
+        else {
+            self.loadSaveData()
+            self.getFavouriteHotels()
+        }
+        
         self.getPinnedHotelTemplate()
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
@@ -173,7 +185,7 @@ extension HotelResultVC: HotelResultDelegate {
 
     func willUpdateFavourite() {
         //
-        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+//        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
     }
 
     func updateFavouriteSuccess() {
@@ -182,13 +194,13 @@ extension HotelResultVC: HotelResultDelegate {
              self.reloadHotelList()
              self.viewModel.isUnpinHotelTapped = false
         } else {
-             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+//             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
     }
 
     func updateFavouriteFail(errors:ErrorCodes) {
         self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
-        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+//        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]){
                 if let _  = UserInfo.loggedInUser?.userId {
@@ -222,9 +234,9 @@ extension HotelResultVC: HotelResultDelegate {
 extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
-            self.indexPathForUpdateFav = indexPath
+            self.selectedIndexPath = indexPath
         } else if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
-             self.indexPathForUpdateFav = indexPath
+             self.selectedIndexPath = indexPath
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
@@ -272,6 +284,9 @@ extension HotelResultVC: HotelFilteVCDelegate {
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.loadSaveData()
+        
+        //manage switch button when clear all filters
+        self.getFavouriteHotels(shouldReloadData: false)
     }
 
     func doneButtonTapped() {
@@ -281,6 +296,14 @@ extension HotelResultVC: HotelFilteVCDelegate {
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()
+        
+        //manage switch button for the filttred data.
+        if let all = self.fetchedResultsController.fetchedObjects {
+            self.manageSwitchContainer(isHidden: all.isEmpty, shouldOff: false)
+        }
+        else {
+            self.manageSwitchContainer(isHidden: true, shouldOff: false)
+        }
         self.filterButton.isSelected = HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount ? false : true
     }
 }

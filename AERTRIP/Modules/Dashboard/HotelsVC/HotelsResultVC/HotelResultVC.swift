@@ -199,9 +199,7 @@ class HotelResultVC: BaseVC {
     let defaultDuration: CGFloat = 1.2
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
-    
-    var indexPathForUpdateFav: IndexPath?
-    
+        
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
@@ -238,8 +236,15 @@ class HotelResultVC: BaseVC {
         }
         
         self.toastDidClose = {
-            UserInfo.hotelFilter = nil
-            HotelFilterVM.shared.resetToDefault()
+            if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
+                var filter = UserInfo.HotelFilter()
+                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
+                UserInfo.hotelFilter = filter
+            }
+            else {
+                UserInfo.hotelFilter = nil
+                HotelFilterVM.shared.resetToDefault()
+            }
         }
         
         //call API to get vcode, sid
@@ -453,7 +458,7 @@ class HotelResultVC: BaseVC {
         self.searchBar.text = ""
         self.searchTextStr = ""
         self.loadSaveData()
-        self.reloadHotelList()
+        self.getFavouriteHotels(shouldReloadData: false)
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {

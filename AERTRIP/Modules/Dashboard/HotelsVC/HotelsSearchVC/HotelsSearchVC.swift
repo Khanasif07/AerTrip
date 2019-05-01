@@ -534,6 +534,12 @@ class HotelsSearchVC: BaseVC {
                 //send to result screen for current selected form data
                 _ = CoreDataManager.shared.deleteAllData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+                
+                var filter = UserInfo.HotelFilter()
+                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
+                UserInfo.hotelFilter = filter
+                UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
+                
                 AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
                 sender?.isLoading = false
             }
