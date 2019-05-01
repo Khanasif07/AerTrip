@@ -164,7 +164,7 @@ class UserInfo {
         var ratingCount: [Int] = [1,2,3,4,5]
         var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
         var isIncludeUnrated: Bool = true
-        var distanceRange : Double = 0.0
+        var distanceRange : Double = 20
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
         var leftRangePrice : Double = 0.0
@@ -181,7 +181,7 @@ class UserInfo {
             ratingCount =  [1,2,3,4,5]
             tripAdvisorRatingCount  = [1,2,3,4,5]
             isIncludeUnrated  = true
-            distanceRange  = 0.0
+            distanceRange  = 20
             minimumPrice  = 0.0
             maximumPrice  = 0.0
             leftRangePrice = 0.0

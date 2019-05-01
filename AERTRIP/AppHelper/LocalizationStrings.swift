@@ -401,6 +401,8 @@ enum LocalizedString: String {
     case WriteYourOwnReview = "WriteYourOwnReview"
     case ViewAll = "ViewAll"
     case ReadAll = "ReadAll"
+    case Within = "Within"
+    case Kms = "Kms"
     
     
     //MARK: - RangeVC
@@ -461,7 +463,7 @@ enum LocalizedString: String {
     case CheckTripAdvisor = "CheckTripAdvisor"
     case hotelFilterSearchBar = "hotelFilterSearchBar"
     case InformationUnavailable = "Information unavailable"
-    case ApplyPreviousFilter = "Apply prevoius filters \n 5 stars, within 2 kms, Wi-Fi..."
+    case ApplyPreviousFilter = "ApplyPreviousFilter"
     case ReloadResults = "Reload results"
     case ShowHotelsBeyond = "ShowHotelsBeyond"
     case HideHotelBeyond = "HideHotelsBeyond"

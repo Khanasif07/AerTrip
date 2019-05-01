@@ -38,7 +38,13 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion,toastDidClose: self.toastDidClose)
+        let starStar = self.getStarString(fromArr: self.filterApplied.ratingCount, maxCount: 5)
+        
+        let distanceStr = self.filterApplied.distanceRange > 20 ? "beyond \(self.filterApplied.distanceRange.toInt) " : " within \(self.filterApplied.distanceRange.toInt) "
+        
+        let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
+        
+        AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion, toastDidClose: self.toastDidClose)
     }
     
     func convertToMapView() {
@@ -50,14 +56,14 @@ extension HotelResultVC {
     }
     
     func getFavouriteHotels(shouldReloadData: Bool = false) {
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched] {
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'") as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs
             
             if shouldReloadData, allFavs.isEmpty {
-                //using shouldReloadData for breaking the func calling cycle from numberOfRows
-                //load data after hiding/closing the switch button
+                // using shouldReloadData for breaking the func calling cycle from numberOfRows
+                // load data after hiding/closing the switch button
                 delay(seconds: 0.3) { [weak self] in
                     self?.loadSaveData()
                 }
@@ -183,13 +189,11 @@ extension HotelResultVC {
     }
     
     func setupNavigationTitleLabelText() {
-        
         self.titleLabel.text = self.viewModel.searchedFormData.cityName
         let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
         self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
-
     }
     
     func reloadHotelList() {
@@ -213,13 +217,13 @@ extension HotelResultVC {
             return
         }
         if self.hoteResultViewType == .ListView {
-            //reload tableView
+            // reload tableView
             if let cell = self.tableViewVertical.cellForRow(at: index) as? HotelCardTableViewCell {
                 cell.hotelListData = self.fetchedResultsController.object(at: index)
             }
         }
         else {
-            //reload collectionView
+            // reload collectionView
 //            self.animateZoomLabel()
             
             let key = Array(self.viewModel.collectionViewList.keys)[index.item]
@@ -264,7 +268,8 @@ extension HotelResultVC {
             self.unPinAllFavouriteButton.isHidden = true
             self.emailButton.isHidden = true
             self.shareButton.isHidden = true
-        } else {
+        }
+        else {
             self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
             self.floatingButtonOnMapView.isHidden = true
         }
@@ -272,16 +277,16 @@ extension HotelResultVC {
     
     func manageSwitchContainer(isHidden: Bool) {
         if hoteResultViewType == .ListView {
-            manageFloatingView(isHidden: isHidden)
+            self.manageFloatingView(isHidden: isHidden)
             self.currentLocationButton.isHidden = hoteResultViewType == .ListView
         }
         else {
-            manageFloatingView(isHidden: false)
+            self.manageFloatingView(isHidden: false)
             self.currentLocationButton.isHidden = false
         }
         switchContainerView.isHidden = isHidden
         if isHidden {
-            //if switch is hidden then it must be off, otherwise it should be as it is.
+            // if switch is hidden then it must be off, otherwise it should be as it is.
             self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
             self.hideFavsButtons()
         }
@@ -293,8 +298,8 @@ extension HotelResultVC {
     }
     
     func addTapGestureOnMap() {
-        //Add tap gesture to your view
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleGestureOnMap))
+        // Add tap gesture to your view
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleGestureOnMap))
         self.mapContainerView.addGestureRecognizer(tap)
     }
     
@@ -312,7 +317,7 @@ extension HotelResultVC {
         }
         
         func showHeader() {
-            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
+            guard self.headerContainerViewTopConstraint.constant <= -animationThreshold else { return }
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.headerContainerViewTopConstraint.constant = 0
                 self.tableViewTopConstraint.constant = 100.0
@@ -322,7 +327,7 @@ extension HotelResultVC {
         }
         
         func hideHeader() {
-            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
+            guard self.headerContainerViewTopConstraint.constant != -140 else { return }
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.headerContainerViewTopConstraint.constant = -140
                 self.tableViewTopConstraint.constant = 0
@@ -343,12 +348,12 @@ extension HotelResultVC {
         }
         
         if 0...animationThreshold ~= yPosition {
-            self.headerContainerViewTopConstraint.constant = -(yPosition)
+            self.headerContainerViewTopConstraint.constant = -yPosition
         }
         else if yPosition < 0 {
-            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
+            self.headerContainerViewTopConstraint.constant = -animationThreshold
         }
-
+        
         if yPosition <= animationThreshold {
             // show
             showHeader()
@@ -376,7 +381,8 @@ extension HotelResultVC {
                 // current grouped cell
                 self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                 self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-            } else {
+            }
+            else {
                 // current normal cell
                 self.relocateSwitchButton(shouldMoveUp: false, animated: true)
                 self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
@@ -396,30 +402,36 @@ extension HotelResultVC {
                     // next grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                } else {
+                }
+                else {
                     // next normal cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                    } else {
+                    }
+                    else {
                         self.relocateSwitchButton(shouldMoveUp: false, animated: true)
                     }
                 }
-            } else {
+            }
+            else {
                 // current normal cell
                 if self.collectionView.indexPathForItem(at: nextPoint) != nil {
                     // next grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                    } else {
+                    }
+                    else {
                         self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     }
-                } else {
+                }
+                else {
                     // next normal cell
                     self.relocateSwitchButton(shouldMoveUp: false, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
                 }
             }
-        } else {
+        }
+        else {
             // backward
             printDebug("backward, \(fractional)")
             
@@ -429,24 +441,29 @@ extension HotelResultVC {
                     // prev grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                } else {
+                }
+                else {
                     // prev normal cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                    } else {
+                    }
+                    else {
                         self.relocateSwitchButton(shouldMoveUp: false, animated: true)
                     }
                 }
-            } else {
+            }
+            else {
                 // current normal cell
                 if self.collectionView.indexPathForItem(at: prevPoint) != nil {
                     // prev grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                    } else {
+                    }
+                    else {
                         self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     }
-                } else {
+                }
+                else {
                     // prev normal cell
                     self.relocateSwitchButton(shouldMoveUp: false, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
@@ -472,7 +489,7 @@ extension HotelResultVC {
         self.manageMapViewOnScroll(scrollView)
         // self.manageFloatingButtonOnPaginationScroll(scrollView)
         
-        //for map re-focusing
+        // for map re-focusing
         let currentX = scrollView.contentOffset.x
         guard currentX > 0 else {
             return
@@ -513,10 +530,8 @@ extension HotelResultVC {
     }
     
     // GestureRecognizer
-    @objc func handleGestureOnMap(gesture: UITapGestureRecognizer) -> Void {
-        if hoteResultViewType == .MapView {
-            
-        }
+    @objc func handleGestureOnMap(gesture: UITapGestureRecognizer) {
+        if hoteResultViewType == .MapView {}
     }
     
     // Disable mapButton and search bar when no data found on filter
@@ -532,16 +547,15 @@ extension HotelResultVC {
     }
 }
 
+// MARK: - Make colection view item in center
 
-//MARK:- Make colection view item in center
 extension HotelResultVC {
-    
     func calculateSectionInset() -> CGFloat {
         return CGFloat(12.0)
     }
     
     func configureCollectionViewLayoutItemSize() {
-        //call this methods in viewDidLayoutSubviews
+        // call this methods in viewDidLayoutSubviews
         let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
@@ -557,14 +571,13 @@ extension HotelResultVC {
         return safeIndex
     }
     
-    //ScrollView Delegate methods
+    // ScrollView Delegate methods
 //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 //        indexOfCellBeforeDragging = indexOfMajorCell()
 //    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        guard scrollView === self.collectionView else {return}
+        guard scrollView === self.collectionView else { return }
         
         let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
         
@@ -586,12 +599,82 @@ extension HotelResultVC {
                 indexOfMajorCell += 1
             }
             
-            indexOfMajorCell = max(0,indexOfMajorCell)
-            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
+            indexOfMajorCell = max(0, indexOfMajorCell)
+            indexOfMajorCell = min(indexOfMajorCell, numberOfItemInCollection)
         }
         let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
         collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         self.manageForCollectionView(atIndex: indexOfMajorCell)
+    }
+    
+    /// Get Star Rating
+    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+        var arr = Array(Set(fromArr))
+        arr.sort()
+        var final = ""
+        var start: Int?
+        var end: Int?
+        var prev: Int?
+        
+        if arr.isEmpty || arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)" // "0 \(LocalizedString.stars.localized)"
+            return final
+        }
+        //        else if arr.count == maxCount {
+        //            final = "All \(LocalizedString.stars.localized)"
+        //            return final
+        //        }
+        else if arr.count == 1 {
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            return final
+        }
+        
+        for (idx, value) in arr.enumerated() {
+            let diff = value - (prev ?? 0)
+            if diff == 1 {
+                // number is successor
+                if start == nil {
+                    start = prev
+                }
+                end = value
+            }
+            else if diff > 1 {
+                // number is not successor
+                if start == nil {
+                    if let p = prev {
+                        final += "\(p), "
+                    }
+                    
+                    if idx == (arr.count - 1) {
+                        final += "\(value), "
+                    }
+                }
+                else {
+                    if let s = start, let e = end {
+                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        start = nil
+                        end = nil
+                        prev = nil
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                    else {
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                }
+            }
+            prev = value
+        }
+        if let s = start, let e = end {
+            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            start = nil
+            end = nil
+        }
+        final.removeLast(2)
+        return final + " \(LocalizedString.stars.localized)"
     }
 }

@@ -50,6 +50,7 @@ enum AppConstants {
     static let kPassportNoLimit = 30
     static let kMaximumGroupNameCount = 30
     static let kIndianIsdCode = "+91"
+    static let kEllipses = "..."
     
     static var isStatusBarBlured = true
 

@@ -420,6 +420,9 @@
 "PaymentPolicy" = "Payment Policy";
 "Notes" = "Notes";
 "Info" = "Info";
+"ApplyPreviousFilter" = "Apply prevoius filters \n ";
+"Within" = "within";
+"Kms" = "kms";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
