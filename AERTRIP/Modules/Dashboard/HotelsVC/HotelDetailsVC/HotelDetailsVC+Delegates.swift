@@ -203,6 +203,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     
     func updateFavouriteFail(errors:ErrorCodes) {
         AppNetworking.hideLoader()
+        self.sendDataChangedNotification(data: self)
         self.manageFavIcon()
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]) {

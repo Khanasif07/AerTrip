@@ -100,7 +100,6 @@ extension HotelResultVC {
 //        }
         
         self.fetchDataFromCoreData()
-        self.reloadHotelList()
     }
     
     // Add Sort Descriptors to fetch request
@@ -218,30 +217,33 @@ extension HotelResultVC {
     // Fetch Request Without Filters
     
     func fetchRequestWithoutFilter() {
+        
+        let favPred = NSPredicate(format: "fav == '1'")
         if self.searchTextStr.isEmpty {
-            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == '1'") : nil
+            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? favPred : nil
             
         } else {
             let orPredicate = getSearchTextPredicate()
-            self.fetchedResultsController.fetchRequest.predicate = orPredicate
+            self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: switchView.on ? [orPredicate, favPred] : [orPredicate])
         }
     }
     
     // Fetch Data from core data
     
-    func fetchDataFromCoreData() {
+    func fetchDataFromCoreData(isUpdatingFav: Bool = false) {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
-                
-                self.hotelSearchTableView.reloadData()
             }
             
-            self.reloadHotelList()
             self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+            
+            if !isUpdatingFav {
+                self.reloadHotelList()
+            }
         } catch {
             printDebug(error.localizedDescription)
             print("Fetch failed")

@@ -271,39 +271,22 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    override func dataChanged(_ note: Notification) {
-        func updateFavOnList(indexPath: IndexPath) {
-            //update the current opened list as user make fav/unfav
-            if self.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
-            }
-            else {
-                if self.hoteResultViewType == .ListView {
-                    self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                }
-                else if self.hoteResultViewType == .MapView {
-                    self.collectionView.reloadItems(at: indexPath)
-                }
-            }
-            selectedIndexPath = nil
-        }
-        
+    override func dataChanged(_ note: Notification) {        
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
             _ = CoreDataManager.shared.deleteAllData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
-        else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
+        else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
-            updateFavOnList(indexPath: indexPath)
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
-        else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
-            updateFavOnList(indexPath: indexPath)
+        else if let _ = note.object as? HCDataSelectionVC {
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
-        else if let _ = note.object as? HotelResultVC, let indexPath = selectedIndexPath {
-            self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
-            selectedIndexPath = nil
+        else if let _ = note.object as? HotelResultVC {
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
     }
     

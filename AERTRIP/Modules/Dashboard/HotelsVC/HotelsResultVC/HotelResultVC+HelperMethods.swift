@@ -62,6 +62,9 @@ extension HotelResultVC {
                     self?.loadSaveData()
                 }
             }
+            else {
+                self.updateFavOnList(forIndexPath: nil)
+            }
         }
         else if !isLoadingListAfterUpdatingAllFav {
             self.fetchRequestType = .normal
@@ -132,6 +135,41 @@ extension HotelResultVC {
         }
     }
     
+    func updateFavOnList(forIndexPath: IndexPath?) {
+        //update the current opened list as user make fav/unfav
+        if let indexPath = forIndexPath, !self.switchView.on {
+            if self.fetchRequestType == .Searching {
+                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
+            }
+            else {
+                if self.hoteResultViewType == .ListView {
+                    self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+                }
+                else if self.hoteResultViewType == .MapView {
+                    self.collectionView.reloadItems(at: indexPath)
+                }
+            }
+            selectedIndexPath = nil
+        }
+        else {
+            if self.fetchRequestType == .Searching {
+                self.hotelSearchTableView.reloadData()
+            }
+            else {
+                if self.hoteResultViewType == .ListView {
+                    self.fetchRequestWithoutFilter()
+                    self.fetchDataFromCoreData(isUpdatingFav: true)
+                    self.tableViewVertical.reloadData()
+                }
+                else if self.hoteResultViewType == .MapView {
+                    self.fetchRequestWithoutFilter()
+                    self.fetchDataFromCoreData(isUpdatingFav: true)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+
     func relocateSwitchButton(shouldMoveUp: Bool, animated: Bool) {
         let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
         
@@ -192,8 +230,12 @@ extension HotelResultVC {
 
     }
     
-    func reloadHotelList() {
-//        self.tableViewVertical.isHidden = true
+    func reloadHotelList(isUpdatingFav: Bool = false) {
+        
+        if !isUpdatingFav {
+            self.getFavouriteHotels()
+        }
+        
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }
@@ -206,35 +248,6 @@ extension HotelResultVC {
         else {
             self.collectionView.reloadData()
         }
-    }
-    
-    func reloadListForFavUpdation() {
-        guard let index = self.indexPathForUpdateFav else {
-            return
-        }
-        if self.hoteResultViewType == .ListView {
-            //reload tableView
-            if let cell = self.tableViewVertical.cellForRow(at: index) as? HotelCardTableViewCell {
-                cell.hotelListData = self.fetchedResultsController.object(at: index)
-            }
-        }
-        else {
-            //reload collectionView
-//            self.animateZoomLabel()
-            
-            let key = Array(self.viewModel.collectionViewList.keys)[index.item]
-            if let allHotels = self.viewModel.collectionViewList[key] as? [HotelSearched], let hotel = allHotels.first {
-//                self.animateZoomLabel()
-                if let cell = self.collectionView.cellForItem(at: index) as? HotelCardCollectionViewCell {
-                    cell.hotelListData = hotel
-                }
-                else if let cell = self.collectionView.cellForItem(at: index) as? HotelGroupCardCollectionViewCell {
-                    cell.hotelListData = hotel
-                }
-            }
-        }
-        
-        self.getFavouriteHotels()
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
