@@ -156,7 +156,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         self.updateMarkers()
-       
+
         if UserInfo.hotelFilter != nil {
              self.getSavedFilter()
             self.applyPreviousFilter()
