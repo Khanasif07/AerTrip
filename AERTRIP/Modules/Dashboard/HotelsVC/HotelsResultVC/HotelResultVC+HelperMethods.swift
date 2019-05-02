@@ -39,7 +39,14 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        AppToast.default.showToastMessage(message: LocalizedString.ApplyPreviousFilter.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion,toastDidClose: self.toastDidClose)
+        let starStar = self.getStarString(fromArr: self.filterApplied.ratingCount, maxCount: 5)
+        
+        let distanceStr = self.filterApplied.distanceRange > 20 ? "beyond \(self.filterApplied.distanceRange.toInt) " : " within \(self.filterApplied.distanceRange.toInt) "
+        
+        let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
+        
+        AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion, toastDidClose: self.toastDidClose)
+
     }
     
     func convertToMapView() {
@@ -609,4 +616,75 @@ extension HotelResultVC {
         
         self.manageForCollectionView(atIndex: indexOfMajorCell)
     }
+    
+    /// Get Star Rating
+    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+        var arr = Array(Set(fromArr))
+        arr.sort()
+        var final = ""
+        var start: Int?
+        var end: Int?
+        var prev: Int?
+        
+        if arr.isEmpty || arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)" // "0 \(LocalizedString.stars.localized)"
+            return final
+        }
+            //        else if arr.count == maxCount {
+            //            final = "All \(LocalizedString.stars.localized)"
+            //            return final
+            //        }
+        else if arr.count == 1 {
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            return final
+        }
+        
+        for (idx, value) in arr.enumerated() {
+            let diff = value - (prev ?? 0)
+            if diff == 1 {
+                // number is successor
+                if start == nil {
+                    start = prev
+                }
+                end = value
+            }
+            else if diff > 1 {
+                // number is not successor
+                if start == nil {
+                    if let p = prev {
+                        final += "\(p), "
+                    }
+                    
+                    if idx == (arr.count - 1) {
+                        final += "\(value), "
+                    }
+                }
+                else {
+                    if let s = start, let e = end {
+                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        start = nil
+                        end = nil
+                        prev = nil
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                    else {
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                }
+            }
+            prev = value
+        }
+        if let s = start, let e = end {
+            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            start = nil
+            end = nil
+        }
+        final.removeLast(2)
+        return final + " \(LocalizedString.stars.localized)"
+    }
+
 }
