@@ -301,7 +301,26 @@ extension HotelResultVC {
             manageFloatingView(isHidden: false)
             self.currentLocationButton.isHidden = false
         }
-        switchContainerView.isHidden = isHidden
+        
+        if !isHidden {
+            self.switchContainerView.isHidden = false
+        }
+        let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: switchContainerView.width, height: switchContainerView.height)
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.switchContainerView.frame = newFrame
+            sSelf.view.layoutIfNeeded()
+            
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                
+                if isHidden {
+                    sSelf.switchContainerView.isHidden = true
+                }
+        })
+        
+        
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
             self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)

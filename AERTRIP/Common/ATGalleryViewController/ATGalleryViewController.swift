@@ -57,7 +57,7 @@ class ATGalleryViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.view.frame = self.parentVC.view.bounds
+        self.view.frame = self.parentVC?.view.bounds ?? UIScreen.main.bounds
     }
 
     //MARK:- Methods
@@ -119,8 +119,6 @@ class ATGalleryViewController: UIViewController {
         self.parentVC.view.addSubview(self.view)
         self.didMove(toParent: self.parentVC)
         
-        self.hideMe(isShowing: true)
-        
         UIApplication.shared.isStatusBarHidden = ATGalleryViewConfiguration.isStatusBarHidden
         
         self.mainImageView.translatesAutoresizingMaskIntoConstraints = true
@@ -137,20 +135,25 @@ class ATGalleryViewController: UIViewController {
             self.mainImageView.image = simg.image
         }
         
-        self.horizontalCollectionView.isHidden = true
-        self.horizontalCollectionView.isHidden = true
-        
         self.scrollCollectionView(toIndex: self.startShowingFrom)
+        
+        
+        self.horizontalCollectionView.alpha = 0.0
+        self.verticalCollectionView.alpha = 0.0
+        self.mainImageView.alpha = 1.0
+        self.horizontalCollectionView.isHidden = !(ATGalleryViewConfiguration.viewMode == .horizontal)
+        self.verticalCollectionView.isHidden = (ATGalleryViewConfiguration.viewMode == .horizontal)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainImageView.frame = newFrame
+            sSelf.mainImageView.alpha = 0.0
+            sSelf.horizontalCollectionView.alpha = 1.0
+            sSelf.verticalCollectionView.alpha = 1.0
             
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
                 self.mainImageView.isHidden = true
-                self.horizontalCollectionView.isHidden = ATGalleryViewConfiguration.viewMode != .horizontal
-                self.verticalCollectionView.isHidden = ATGalleryViewConfiguration.viewMode != .vertical
         })
     }
     
@@ -161,7 +164,7 @@ class ATGalleryViewController: UIViewController {
         }
     }
     
-    private func hideMe(isShowing: Bool = false) {
+    private func hideMe() {
         
         UIApplication.shared.isStatusBarHidden = false
         
@@ -171,19 +174,21 @@ class ATGalleryViewController: UIViewController {
         let newFrame = self.parentVC.view.convert(self.sourceView.frame, from: self.sourceView.superview)
         
         self.mainImageView.isHidden = false
-        self.horizontalCollectionView.isHidden = true
-        self.verticalCollectionView.isHidden = true
+        self.horizontalCollectionView.isHidden = !(ATGalleryViewConfiguration.viewMode == .horizontal)
+        self.verticalCollectionView.isHidden = (ATGalleryViewConfiguration.viewMode == .horizontal)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainImageView.frame = newFrame
+            sSelf.horizontalCollectionView.alpha = 1.0
+            sSelf.verticalCollectionView.alpha = 1.0
             
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
-                if !isShowing {
+                delay(seconds: 2.0, completion: {
                     self.view.removeFromSuperview()
                     self.removeFromParent()
-                }
+                })
         })
     }
     
@@ -231,8 +236,6 @@ class ATGalleryViewController: UIViewController {
         }
         
         self.modeChangeButton.isSelected = ATGalleryViewConfiguration.viewMode != .vertical
-        self.modeChangeButton.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
-        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
     }
     
     private func setupPageDots(){
@@ -244,7 +247,7 @@ class ATGalleryViewController: UIViewController {
     //MARK:- Public
     public class func show(onViewController: UIViewController, sourceView: UIView?, startShowingFrom: Int = 0, datasource: ATGalleryViewDatasource, delegate: ATGalleryViewDelegate) {
         
-        ATGalleryViewConfiguration.viewMode = .horizontal
+        ATGalleryViewConfiguration.viewMode = .vertical
         let gVC = ATGalleryViewController.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = onViewController
         gVC.sourceView = sourceView ?? onViewController.view
