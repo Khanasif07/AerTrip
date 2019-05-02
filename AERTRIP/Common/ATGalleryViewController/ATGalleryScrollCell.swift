@@ -37,9 +37,7 @@ class ATGalleryScrollCell: UICollectionViewCell {
         scrollView.zoomScale = 1.0
         scrollView.delegate = self
         
-        if ATGalleryViewConfiguration.viewMode == .horizontal {
-            self.makeImageInCenter()
-        }
+        self.makeImageInCenter()
     }
     
     override func prepareForReuse() {

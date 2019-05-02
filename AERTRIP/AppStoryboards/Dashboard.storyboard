@@ -926,7 +926,11 @@ on Christmas”</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-VL-6kM">
-                                        <rect key="frame" x="315" y="607" width="30" height="30"/>
+                                        <rect key="frame" x="318" y="593" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="V4c-VL-6kM" secondAttribute="height" multiplier="1:1" id="7NB-6k-t9e"/>
+                                            <constraint firstAttribute="height" constant="44" id="lek-hS-BsA"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="modeChangeButtonAction:" destination="5O9-Ns-cNh" eventType="touchUpInside" id="1Ru-o9-Pjm"/>
                                         </connections>
@@ -956,7 +960,7 @@ on Christmas”</string>
                                     <constraint firstItem="l6T-fI-Rl8" firstAttribute="top" secondItem="F0W-FG-3d7" secondAttribute="top" id="WcW-ud-Sp6"/>
                                     <constraint firstItem="4Fm-Pv-wwB" firstAttribute="leading" secondItem="F0W-FG-3d7" secondAttribute="leading" id="YmW-DU-S35"/>
                                     <constraint firstAttribute="trailing" secondItem="J2b-mR-d8D" secondAttribute="trailing" constant="20" id="gZi-47-bGK"/>
-                                    <constraint firstAttribute="trailing" secondItem="V4c-VL-6kM" secondAttribute="trailing" constant="30" id="nbg-Ce-QW1"/>
+                                    <constraint firstAttribute="trailing" secondItem="V4c-VL-6kM" secondAttribute="trailing" constant="13" id="nbg-Ce-QW1"/>
                                     <constraint firstItem="J2b-mR-d8D" firstAttribute="top" secondItem="F0W-FG-3d7" secondAttribute="top" constant="20" id="pbu-Yx-TnE"/>
                                     <constraint firstItem="88j-mj-HHC" firstAttribute="top" secondItem="F0W-FG-3d7" secondAttribute="top" id="qaD-nZ-78s"/>
                                 </constraints>
@@ -973,10 +977,13 @@ on Christmas”</string>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="J2b-mR-d8D" id="TPy-Qy-6tx"/>
+                        <outlet property="closeButtonTopConstraint" destination="pbu-Yx-TnE" id="BtT-Xo-56R"/>
                         <outlet property="horizontalCollectionView" destination="l6T-fI-Rl8" id="Yl8-6P-7H6"/>
                         <outlet property="mainImageView" destination="4Fm-Pv-wwB" id="Ooy-6e-rOT"/>
                         <outlet property="modeChangeButton" destination="V4c-VL-6kM" id="N37-9N-VeS"/>
+                        <outlet property="modeChangeButtonTraillingConstraint" destination="nbg-Ce-QW1" id="4v3-WM-Ndr"/>
                         <outlet property="pageControl" destination="5XY-td-ljY" id="ygE-le-VaE"/>
+                        <outlet property="pageControllerBottomConstraint" destination="JO8-ho-WhF" id="6oj-ke-JEj"/>
                         <outlet property="verticalCollectionBottomConstraint" destination="9Uk-Mi-re1" id="0NN-am-LZJ"/>
                         <outlet property="verticalCollectionTopConstraint" destination="qaD-nZ-78s" id="II2-qF-aHN"/>
                         <outlet property="verticalCollectionView" destination="88j-mj-HHC" id="Iyl-m5-2RH"/>
