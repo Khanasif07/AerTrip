@@ -77,6 +77,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             }
             self.animateButton()
             self.getFavouriteHotels(shouldReloadData: false)
+            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
             self.hideFavsButtons()
