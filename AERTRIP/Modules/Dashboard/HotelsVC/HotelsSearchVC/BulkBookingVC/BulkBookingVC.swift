@@ -478,6 +478,13 @@ extension BulkBookingVC: PKTextFieldDelegate {
         pkTextField.text = finalText
         (pkTextField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
     }
+    
+    func pkTextField(_ pkTextField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if pkTextField.text?.count == AppConstants.kMaxTextLimit {
+            return false
+        }
+        return true
+    }
 }
 
 //MARK:- TopNavigationViewDelegate

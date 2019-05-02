@@ -329,7 +329,8 @@ extension HotelResultVC {
     }
     
     func manageFloatingView(isHidden: Bool) {
-        self.floatingView.isHidden = isHidden
+        self.currentLocationButton.isHidden = isHidden
+        self.switchContainerView.isHidden = isHidden
         self.floatingButtonBackView.isHidden = isHidden
     }
     
@@ -356,8 +357,8 @@ extension HotelResultVC {
             guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.headerContainerViewTopConstraint.constant = 0
-                self.tableViewTopConstraint.constant = 100.0
-                self.mapContainerTopConstraint.constant = 100.0
+                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
                 self.view.layoutIfNeeded()
             })
         }

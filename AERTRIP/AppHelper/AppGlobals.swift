@@ -11,7 +11,7 @@ import UIKit
 import IQKeyboardManager
 
 func printDebug<T>(_ obj : T) {
-  // print(obj)
+   print(obj)
 }
 
 func printFonts() {
@@ -264,8 +264,12 @@ struct AppGlobals {
     
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-            if let url = URL(string:
-                "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"), !url.absoluteString.isEmpty {
+            //to show the route between source and destination uncomment the next line
+//            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+            
+            let urlStr = "comgooglemaps://\(destLat),\(destLong)"
+
+            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
@@ -274,7 +278,9 @@ struct AppGlobals {
     }
     
     private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        let directionsURL = "http://maps.apple.com/\(destLat),\(destLong)"
+        //to show the route between source and destination uncomment the next line
+//        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
         if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {

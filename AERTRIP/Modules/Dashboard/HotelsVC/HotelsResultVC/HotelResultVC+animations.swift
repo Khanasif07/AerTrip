@@ -138,7 +138,7 @@ extension HotelResultVC {
                        initialSpringVelocity: self.defaultVelocity,
                        options: .allowUserInteraction,
                        animations: {
-                           self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 65, y: 0)
+                           self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")
