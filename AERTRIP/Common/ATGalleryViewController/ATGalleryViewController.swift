@@ -31,6 +31,9 @@ class ATGalleryViewController: UIViewController {
             self.pageControl.radius = 3.0
         }
     }
+    @IBOutlet weak var closeButtonTopConstraint: NSLayoutConstraint! //default 20.0
+    @IBOutlet weak var modeChangeButtonTraillingConstraint: NSLayoutConstraint! //default 30.0
+    @IBOutlet weak var pageControllerBottomConstraint: NSLayoutConstraint! //default 20.0
     
     //MARK:- Properties
     //MARK:- Public
@@ -40,6 +43,7 @@ class ATGalleryViewController: UIViewController {
     private var sourceView: UIView!
     private let scrollCellIdentifier = "ATGalleryScrollCell"
     private let cellIdentifier = "ATGalleryCell"
+    private var originalImageFrame = CGRect.zero
     weak var datasource: ATGalleryViewDatasource?
     weak var delegate: ATGalleryViewDelegate?
     var startShowingFrom: Int = 0
@@ -73,6 +77,17 @@ class ATGalleryViewController: UIViewController {
         self.setupCollectionView()
         
         self.setupPageDots()
+        
+        self.addTapGesture()
+    }
+    
+    private func addTapGesture() {
+        self.horizontalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
+        self.verticalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
+    }
+    
+    @objc private func tapHandeler(_ sender: UIGestureRecognizer) {
+        self.toggleControls(animated: true)
     }
     
     private func setupChangeModeButton() {
@@ -128,7 +143,11 @@ class ATGalleryViewController: UIViewController {
 
         
         //showing animation
-        let newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
+        self.originalImageFrame = self.parentVC.view.convert(self.sourceView.frame, from: self.sourceView.superview)
+        var newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
+        if ATGalleryViewConfiguration.viewMode == .vertical {
+            newFrame = self.originalImageFrame
+        }
         
         self.mainImageView.image = ATGalleryViewConfiguration.placeholderImage
         if let simg = self.sourceView as? UIImageView {
@@ -137,6 +156,9 @@ class ATGalleryViewController: UIViewController {
         
         self.scrollCollectionView(toIndex: self.startShowingFrom)
         
+        self.pageControl.isHidden = true
+        self.modeChangeButton.isHidden = true
+        self.closeButton.isHidden = true
         
         self.horizontalCollectionView.alpha = 0.0
         self.verticalCollectionView.alpha = 0.0
@@ -153,6 +175,9 @@ class ATGalleryViewController: UIViewController {
             
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
+                self.pageControl.isHidden = false
+                self.modeChangeButton.isHidden = false
+                self.closeButton.isHidden = false
                 self.mainImageView.isHidden = true
         })
     }
@@ -166,69 +191,85 @@ class ATGalleryViewController: UIViewController {
     
     private func hideMe() {
         
-        UIApplication.shared.isStatusBarHidden = false
-        
-        self.mainImageView.isHidden = true
-        
         //closing animation
-        let newFrame = self.parentVC.view.convert(self.sourceView.frame, from: self.sourceView.superview)
+        let newFrame = self.originalImageFrame
         
         self.mainImageView.isHidden = false
+        self.mainImageView.alpha = 1.0
         self.horizontalCollectionView.isHidden = !(ATGalleryViewConfiguration.viewMode == .horizontal)
         self.verticalCollectionView.isHidden = (ATGalleryViewConfiguration.viewMode == .horizontal)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.mainImageView.frame = newFrame
-            sSelf.horizontalCollectionView.alpha = 1.0
-            sSelf.verticalCollectionView.alpha = 1.0
+            sSelf.horizontalCollectionView.alpha = 0.0
+            sSelf.verticalCollectionView.alpha = 0.0
             
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
-                delay(seconds: 2.0, completion: {
-                    self.view.removeFromSuperview()
-                    self.removeFromParent()
-                })
+                UIApplication.shared.isStatusBarHidden = false
+                self.view.removeFromSuperview()
+                self.removeFromParent()
         })
     }
     
     private func changeViewMode() {
+        
+        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
 
         if ATGalleryViewConfiguration.viewMode == .vertical {
             //show vertical collection
-            self.horizontalCollectionView.reloadData()
-            self.horizontalCollectionView.isHidden = true
+            self.verticalCollectionView.reloadData()
+            
+            self.horizontalCollectionView.isHidden = false
+            self.horizontalCollectionView.alpha = 1.0
             self.verticalCollectionView.isHidden = false
+            self.verticalCollectionView.alpha = 0.0
             self.mainImageView.isHidden = false
+            self.mainImageView.alpha = 1.0
             let newFrame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
                 guard let sSelf = self else {return}
                 sSelf.mainImageView.frame = newFrame
+                sSelf.mainImageView.alpha = 0.0
+                sSelf.horizontalCollectionView.alpha = 0.0
+                sSelf.verticalCollectionView.alpha = 1.0
                 sSelf.verticalCollectionTopConstraint.constant = 0
                 sSelf.verticalCollectionBottomConstraint.constant = 0
                 
                 sSelf.view.layoutIfNeeded()
                 }, completion: { (isDone) in
-                self.mainImageView.isHidden = true
+                    self.mainImageView.isHidden = true
+                    self.horizontalCollectionView.isHidden = true
+                    self.verticalCollectionView.isHidden = false
             })
         }
         else {
             //show horizontal collection
-            self.horizontalCollectionView.isHidden = true
+            self.horizontalCollectionView.reloadData()
+            
+            self.horizontalCollectionView.isHidden = false
+            self.horizontalCollectionView.alpha = 0.0
             self.verticalCollectionView.isHidden = false
+            self.verticalCollectionView.alpha = 1.0
             self.mainImageView.isHidden = false
+            self.mainImageView.alpha = 1.0
             
             let newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
                 guard let sSelf = self else {return}
                 sSelf.mainImageView.frame = newFrame
+                sSelf.mainImageView.alpha = 0.0
+                sSelf.horizontalCollectionView.alpha = 1.0
+                sSelf.verticalCollectionView.alpha = 0.0
                 sSelf.verticalCollectionTopConstraint.constant = newFrame.origin.y
                 sSelf.verticalCollectionBottomConstraint.constant = -(newFrame.origin.y)
                 
                 sSelf.view.layoutIfNeeded()
                 }, completion: { (isDone) in
+                    
                     self.mainImageView.isHidden = true
                     self.horizontalCollectionView.isHidden = false
                     self.verticalCollectionView.isHidden = true
@@ -242,6 +283,32 @@ class ATGalleryViewController: UIViewController {
         self.pageControl.backgroundColor = AppColors.clear
         self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
         self.pageControl.numberOfPages = self.numberOfImages
+    }
+    
+    private func toggleControls(animated: Bool) {
+        if self.closeButtonTopConstraint.constant < 0 {
+            //show
+            self.hideControls(isHidden: false, animated: animated)
+        }
+        else {
+            //hide
+            self.hideControls(isHidden: true, animated: animated)
+        }
+    }
+    
+    private func hideControls(isHidden: Bool, animated: Bool) {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.closeButtonTopConstraint.constant = isHidden ? -70.0 : 20.0
+            sSelf.pageControllerBottomConstraint.constant = isHidden ? -70.0 : 20.0
+            sSelf.modeChangeButtonTraillingConstraint.constant = isHidden ? -70.0 : 15.0
+            
+            sSelf.view.layoutIfNeeded()
+            
+            }, completion: { (isDone) in
+        })
     }
     
     //MARK:- Public
@@ -286,7 +353,7 @@ extension ATGalleryViewController: UICollectionViewDataSource, UICollectionViewD
             }
             
             cell.imageData = self.datasource?.galleryView(galleryView: self, galleryImageAt: indexPath.item)
-            cell.imageHeightConstraint.constant = ATGalleryViewConfiguration.imageViewHeight
+            cell.makeImageInCenter()
             
             return cell
         }
