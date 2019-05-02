@@ -22,12 +22,12 @@ struct ATGalleryViewConfiguration {
     /* changeModeNormalImage
      * - used in change scrolldirection mode button button
      */
-    static var changeModeNormalImage: UIImage = #imageLiteral(resourceName: "plusButton")
+    static var changeModeNormalImage: UIImage = #imageLiteral(resourceName: "ic_gallery_horizontal_view")
     
     /* changeModeSelectedImage
      * - used in change scrolldirection mode button button
      */
-    static var changeModeSelectedImage: UIImage = #imageLiteral(resourceName: "ic_gallery_list_view")
+    static var changeModeSelectedImage: UIImage = #imageLiteral(resourceName: "ic_gallery_vertical_view")
     
     /* placeholderImage
      * - used to show while image is downloading from web.
@@ -37,7 +37,7 @@ struct ATGalleryViewConfiguration {
     /* placeholderImage
      * - used to show while image is downloading from web.
      */
-    static var viewMode: ATGalleryViewController.ViewMode = .horizontal
+    static var viewMode: ATGalleryViewController.ViewMode = .vertical
     
     /* imageViewHeight
      * - used to give the height for the image view

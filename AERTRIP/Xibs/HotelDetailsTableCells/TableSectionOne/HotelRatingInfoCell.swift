@@ -67,8 +67,10 @@ class HotelRatingInfoCell: UITableViewCell {
             modeImage = "• 🚶🏻 "
             self.distanceLabel.text = "\(distanceText) \(modeImage) \((Double(durationValue)/60.0).roundTo(places: 1)) mins"
         } else {
-            self.distanceLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(distanceText) • ", image: #imageLiteral(resourceName: "car"), endText: " \((Double(durationValue)/60.0).roundTo(places: 1)) mins", font: AppFonts.Regular.withSize(16.0))
+            modeImage = "• 🚘 "
+            self.distanceLabel.text = "\(distanceText) \(modeImage) \((Double(durationValue)/60.0).roundTo(places: 1)) mins"
         }
+        
         self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
         self.deviderView.isHidden = false
         self.hotelRatingView.rating = starRating
