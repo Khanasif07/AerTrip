@@ -33,9 +33,9 @@ extension HotelResultVC {
                 self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "sectionTitle", cacheName: nil)
             default:
                 addSortDescriptors()
-                self.fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+                self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             }
-           
+            
             self.filterButton.isSelected = true
             if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
@@ -74,12 +74,20 @@ extension HotelResultVC {
             
             finalPredicate = finalPred
             
-        case .normalInSearching :
-            self.searchedHotels.removeAll()
-            self.fetchRequestWithoutFilter()
+        case .normalInSearching, .normal :
             
-        case .normal :
-          self.fetchRequestWithoutFilter()
+            if self.fetchRequestType == .normalInSearching {
+                self.searchedHotels.removeAll()
+            }
+            
+            if self.switchView.on {
+                //if switch is on then all the operations must be only on fav data
+                let favPred = NSPredicate(format: "fav == '1'")
+                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
+            }
+            else {
+                self.fetchRequestWithoutFilter()
+            }
         }
         
         if let pred = finalPredicate {
@@ -100,7 +108,6 @@ extension HotelResultVC {
 //        }
         
         self.fetchDataFromCoreData()
-        self.reloadHotelList()
     }
     
     // Add Sort Descriptors to fetch request
@@ -135,8 +142,8 @@ extension HotelResultVC {
         
         
         var subpredicates: [NSPredicate] = []
-        let minimumPricePredicate = NSPredicate(format: "price >= \(filterApplied.leftRangePrice)")
-        let maximumPricePredicate = NSPredicate(format: "price <= \(filterApplied.rightRangePrice)")
+        let minimumPricePredicate = NSPredicate(format: "perNightPrice >= \(filterApplied.leftRangePrice)")
+        let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
         if self.filterApplied.distanceRange <= 20 {
@@ -219,29 +226,29 @@ extension HotelResultVC {
     
     func fetchRequestWithoutFilter() {
         if self.searchTextStr.isEmpty {
-            self.fetchedResultsController.fetchRequest.predicate = switchView.on ? NSPredicate(format: "fav == '1'") : nil
+            self.fetchedResultsController.fetchRequest.predicate = nil
             
         } else {
-            let orPredicate = getSearchTextPredicate()
-            self.fetchedResultsController.fetchRequest.predicate = orPredicate
+            self.fetchedResultsController.fetchRequest.predicate = getSearchTextPredicate()
         }
     }
     
     // Fetch Data from core data
     
-    func fetchDataFromCoreData() {
+    func fetchDataFromCoreData(isUpdatingFav: Bool = false) {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
-                
-                self.hotelSearchTableView.reloadData()
             }
             
-            self.reloadHotelList()
             self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+            
+            if !isUpdatingFav {
+                self.reloadHotelList()
+            }
         } catch {
             printDebug(error.localizedDescription)
             print("Fetch failed")

@@ -55,16 +55,26 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var preferredHotelsLabel: UILabel!
     @IBOutlet weak var specialReqLabel: UILabel!
     @IBOutlet weak var bulkBookingPopUpBtn: UIButton!
-    @IBOutlet weak var preferredTextField: UITextField! {
+    @IBOutlet weak var preferredTextView: PKTextField! {
         didSet {
-            self.preferredTextField.delegate = self
+            preferredTextView.pkDelegate = self
         }
     }
-    @IBOutlet weak var specialReqTextField: UITextField! {
-        didSet{
-            self.specialReqTextField.delegate = self
+    @IBOutlet weak var specialReqTextView: PKTextField!{
+        didSet {
+            specialReqTextView.pkDelegate = self
         }
     }
+//    @IBOutlet weak var preferredTextField: UITextField! {
+//        didSet {
+//            self.preferredTextField.delegate = self
+//        }
+//    }
+//    @IBOutlet weak var specialReqTextField: UITextField! {
+//        didSet{
+//            self.specialReqTextField.delegate = self
+//        }
+//    }
     @IBOutlet weak var whereLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
@@ -128,8 +138,8 @@ class BulkBookingVC: BaseVC {
         self.roomCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.adultCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.childCountLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.preferredTextField.font = AppFonts.Regular.withSize(16.0)
-        self.specialReqTextField.font = AppFonts.Regular.withSize(16.0)
+        self.preferredTextView.font = AppFonts.Regular.withSize(16.0)
+        self.specialReqTextView.font = AppFonts.Regular.withSize(16.0)
     }
     
     override func setupTexts() {
@@ -160,19 +170,17 @@ class BulkBookingVC: BaseVC {
         self.bulkBookingLabel.textColor = AppColors.themeGray40
         self.preferredHotelsLabel.textColor = AppColors.themeGray40
         self.specialReqLabel.textColor = AppColors.themeGray40
-        self.specialReqTextField.textColor = AppColors.textFieldTextColor51
-        self.preferredTextField.textColor = AppColors.textFieldTextColor51
+        self.specialReqTextView.textColor = AppColors.textFieldTextColor51
+        self.preferredTextView.textColor = AppColors.textFieldTextColor51
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
-        self.specialReqTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
-        self.preferredTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
+        
+        self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
+        self.preferredTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
+        
+        self.specialReqTextView.text = ""
+        self.preferredTextView.text = ""
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let finalText = (textField.text ?? "").removeSpaceAsSentence
-        textField.text = finalText
-        (textField === self.preferredTextField) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
-    }
-    
+
     //MARK:- Methods
     //MARK:- Private
     ///InitialSetUp
@@ -433,12 +441,21 @@ class BulkBookingVC: BaseVC {
     
     @objc func preferredButtonAction() {
         self.view.endEditing(true)
-        self.preferredTextField.becomeFirstResponder()
+        self.preferredTextView.becomeFirstResponder()
     }
     
     @objc func specialReqAction() {
         self.view.endEditing(true)
-        self.specialReqTextField.becomeFirstResponder()
+        self.specialReqTextView.becomeFirstResponder()
+    }
+}
+
+//MARK:- TextView delegate
+extension BulkBookingVC: PKTextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: PKTextField) {
+        let finalText = (textField.text ?? "").removeSpaceAsSentence
+        textField.text = finalText
+        (textField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
     }
 }
 

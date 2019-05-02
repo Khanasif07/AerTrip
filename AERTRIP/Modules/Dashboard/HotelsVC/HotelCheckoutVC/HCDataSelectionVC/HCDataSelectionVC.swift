@@ -349,6 +349,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func updateFavouriteFail(errors: ErrorCodes) {
         AppNetworking.hideLoader()
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+            sendDataChangedNotification(data: self)
             let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
             

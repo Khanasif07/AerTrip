@@ -31,7 +31,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-5g-yVs">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="469"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2I-lS-6Bs">
                                         <rect key="frame" x="0.0" y="64" width="375" height="404"/>
@@ -104,7 +104,7 @@
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="top" secondItem="vJy-po-FUp" secondAttribute="top" id="V6S-9b-TaK"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="TYJ-ic-F1i" secondAttribute="trailing" id="YmA-2G-lqp"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="top" secondItem="dxU-Fm-YZC" secondAttribute="top" id="a2E-2L-Dot"/>
-                            <constraint firstItem="4cd-5g-yVs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="518:667" id="ftN-Rc-5Uc"/>
+                            <constraint firstItem="4cd-5g-yVs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="405:667" constant="64" id="ftN-Rc-5Uc"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="4cd-5g-yVs" secondAttribute="trailing" id="mjY-eN-O01"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="pfW-E5-EJh"/>

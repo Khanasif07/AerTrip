@@ -876,23 +876,20 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(If Any)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dll-Z1-rJa">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BET-uw-EjT" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="20" y="48.5" width="147.5" height="24"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="tBG-LT-ZaQ"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="b62-xk-t1D"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                            </textField>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="dll-Z1-rJa" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="2gW-PZ-tfC"/>
-                                                            <constraint firstItem="dll-Z1-rJa" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="76d-c9-0ZE"/>
-                                                            <constraint firstItem="dll-Z1-rJa" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="Eom-Nb-2jB"/>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="8Ab-XX-2Av"/>
                                                             <constraint firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" constant="20" id="F7R-xO-8Bd"/>
-                                                            <constraint firstItem="dll-Z1-rJa" firstAttribute="centerX" secondItem="yma-yu-t5i" secondAttribute="centerX" id="Vje-dS-Qje"/>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="GZT-GW-nME"/>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="JTX-Eb-uRs"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" constant="20" id="vVe-Ax-5g7"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="centerY" secondItem="moU-Lg-VN7" secondAttribute="centerY" multiplier="0.57" id="wvY-fO-Hd0"/>
                                                         </constraints>
@@ -906,25 +903,22 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(If Any)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mcA-QP-eGU">
-                                                                <rect key="frame" x="20" y="48.5" width="147.5" height="24"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rpH-Zd-yJw" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                                <rect key="frame" x="20" y="48.5" width="147.5" height="27"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="7p2-qY-c1e"/>
+                                                                    <constraint firstAttribute="height" constant="27" id="rFN-EK-zgj"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                            </textField>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="Eze-iu-ZCH" secondAttribute="trailing" constant="20" id="37H-eK-bvi"/>
-                                                            <constraint firstItem="mcA-QP-eGU" firstAttribute="centerX" secondItem="Eze-iu-ZCH" secondAttribute="centerX" id="M8b-qc-1NF"/>
-                                                            <constraint firstItem="mcA-QP-eGU" firstAttribute="leading" secondItem="Eze-iu-ZCH" secondAttribute="leading" id="kDx-oS-s1S"/>
+                                                            <constraint firstItem="rpH-Zd-yJw" firstAttribute="top" secondItem="Eze-iu-ZCH" secondAttribute="bottom" constant="14" id="3ZV-Hd-yUe"/>
+                                                            <constraint firstItem="rpH-Zd-yJw" firstAttribute="trailing" secondItem="Eze-iu-ZCH" secondAttribute="trailing" id="LJR-wE-SKx"/>
+                                                            <constraint firstItem="rpH-Zd-yJw" firstAttribute="leading" secondItem="Eze-iu-ZCH" secondAttribute="leading" id="Ybn-Jw-8fw"/>
                                                             <constraint firstItem="Eze-iu-ZCH" firstAttribute="centerY" secondItem="ruh-Xl-2j4" secondAttribute="centerY" multiplier="0.57" id="l0Q-6w-3Qt"/>
                                                             <constraint firstItem="Eze-iu-ZCH" firstAttribute="leading" secondItem="ruh-Xl-2j4" secondAttribute="leading" constant="20" id="rE1-Qd-npg"/>
-                                                            <constraint firstItem="mcA-QP-eGU" firstAttribute="top" secondItem="Eze-iu-ZCH" secondAttribute="bottom" constant="14" id="xsN-Ei-h2H"/>
-                                                            <constraint firstItem="mcA-QP-eGU" firstAttribute="trailing" secondItem="Eze-iu-ZCH" secondAttribute="trailing" id="zUJ-sR-vXw"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1222,7 +1216,7 @@
                         <outlet property="mainContainerView" destination="bwF-zP-HlZ" id="2XN-1C-DAV"/>
                         <outlet property="oneStarLabel" destination="nKQ-8F-ZtB" id="Vwd-5w-xTv"/>
                         <outlet property="preferredHotelsLabel" destination="yma-yu-t5i" id="AyJ-TQ-A9K"/>
-                        <outlet property="preferredTextField" destination="dll-Z1-rJa" id="PXR-I5-9w6"/>
+                        <outlet property="preferredTextView" destination="BET-uw-EjT" id="WCS-HR-jGd"/>
                         <outlet property="prefredTextContainer" destination="moU-Lg-VN7" id="UMm-Xw-j7o"/>
                         <outlet property="rectangleView" destination="H64-5R-dwG" id="tQl-P7-9eA"/>
                         <outlet property="roomCountLabel" destination="Sfs-hR-X2I" id="Kkf-j5-TnD"/>
@@ -1230,7 +1224,7 @@
                         <outlet property="searchView" destination="MHv-h5-ukA" id="YLx-T0-6q9"/>
                         <outlet property="secondLineView" destination="NWW-Hr-7CI" id="ADt-0e-yY0"/>
                         <outlet property="specialReqLabel" destination="Eze-iu-ZCH" id="dc0-RE-N53"/>
-                        <outlet property="specialReqTextField" destination="mcA-QP-eGU" id="yPs-jf-0eR"/>
+                        <outlet property="specialReqTextView" destination="rpH-Zd-yJw" id="3Aa-7a-dlV"/>
                         <outlet property="specialTextContainer" destination="ruh-Xl-2j4" id="nOM-IS-HyO"/>
                         <outlet property="starRatingLabel" destination="rdy-2M-UaC" id="jZb-gG-BQ3"/>
                         <outlet property="starView" destination="Gar-In-dDF" id="5Sm-80-C8w"/>

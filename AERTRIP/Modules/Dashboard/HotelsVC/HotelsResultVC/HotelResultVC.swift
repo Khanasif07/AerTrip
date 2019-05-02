@@ -199,9 +199,7 @@ class HotelResultVC: BaseVC {
     let defaultDuration: CGFloat = 1.2
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
-    
-    var indexPathForUpdateFav: IndexPath?
-    
+        
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
@@ -238,8 +236,15 @@ class HotelResultVC: BaseVC {
         }
         
         self.toastDidClose = {
-            UserInfo.hotelFilter = nil
-            HotelFilterVM.shared.resetToDefault()
+            if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
+                var filter = UserInfo.HotelFilter()
+                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
+                UserInfo.hotelFilter = filter
+            }
+            else {
+                UserInfo.hotelFilter = nil
+                HotelFilterVM.shared.resetToDefault()
+            }
         }
         
         //call API to get vcode, sid
@@ -271,39 +276,22 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    override func dataChanged(_ note: Notification) {
-        func updateFavOnList(indexPath: IndexPath) {
-            //update the current opened list as user make fav/unfav
-            if self.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
-            }
-            else {
-                if self.hoteResultViewType == .ListView {
-                    self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
-                }
-                else if self.hoteResultViewType == .MapView {
-                    self.collectionView.reloadItems(at: indexPath)
-                }
-            }
-            selectedIndexPath = nil
-        }
-        
+    override func dataChanged(_ note: Notification) {        
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
             _ = CoreDataManager.shared.deleteAllData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
-        else if let _ = note.object as? HotelDetailsVC , let indexPath = selectedIndexPath {
+        else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
-            updateFavOnList(indexPath: indexPath)
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
-        else if let _ = note.object as? HCDataSelectionVC, let indexPath = selectedIndexPath {
-            updateFavOnList(indexPath: indexPath)
+        else if let _ = note.object as? HCDataSelectionVC {
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
-        else if let _ = note.object as? HotelResultVC, let indexPath = selectedIndexPath {
-            self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
-            selectedIndexPath = nil
+        else if let _ = note.object as? HotelResultVC {
+            updateFavOnList(forIndexPath: selectedIndexPath)
         }
     }
     
@@ -470,7 +458,7 @@ class HotelResultVC: BaseVC {
         self.searchBar.text = ""
         self.searchTextStr = ""
         self.loadSaveData()
-        self.reloadHotelList()
+        self.getFavouriteHotels(shouldReloadData: false)
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {

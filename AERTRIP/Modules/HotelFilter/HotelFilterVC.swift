@@ -205,7 +205,10 @@ class HotelFilterVC: BaseVC {
                 }
 
             case LocalizedString.Ratings.localized.lowercased():
-                if !HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty {
+                
+                
+                let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+                if 1...4 ~= diff.count {
                     badgeCount = 1
                 }
                 else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {

@@ -60,7 +60,12 @@ class HotelFilterVM {
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
-        filter.ratingCount =  ratingCount
+        if 1...4 ~= ratingCount.count {
+            filter.ratingCount = ratingCount
+        }
+        else {
+            filter.ratingCount = defaultRatingCount
+        }
         filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         filter.isIncludeUnrated = isIncludeUnrated
         filter.distanceRange = distanceRange
