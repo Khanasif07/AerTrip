@@ -535,10 +535,16 @@ class HotelsSearchVC: BaseVC {
                 _ = CoreDataManager.shared.deleteAllData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                 
-                var filter = UserInfo.HotelFilter()
-                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
-                UserInfo.hotelFilter = filter
-                UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
+                if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {
+                    var filter = UserInfo.HotelFilter()
+                    filter.ratingCount = self.viewModel.searchedFormData.ratingCount
+                    UserInfo.hotelFilter = filter
+                    UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
+                }
+                else {
+                    UserInfo.hotelFilter = nil
+                    UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
+                }
                 
                 AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
                 sender?.isLoading = false
