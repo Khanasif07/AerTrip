@@ -65,16 +65,7 @@ class BulkBookingVC: BaseVC {
             specialReqTextView.pkDelegate = self
         }
     }
-//    @IBOutlet weak var preferredTextField: UITextField! {
-//        didSet {
-//            self.preferredTextField.delegate = self
-//        }
-//    }
-//    @IBOutlet weak var specialReqTextField: UITextField! {
-//        didSet{
-//            self.specialReqTextField.delegate = self
-//        }
-//    }
+
     @IBOutlet weak var whereLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
@@ -119,6 +110,27 @@ class BulkBookingVC: BaseVC {
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        self.view.endEditing(true)
+    }
+    
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            let expectedScreenH = self.preferredTextView.convert(self.preferredTextView.frame, to: self.view).origin.y + keyboardSize.height
+            let difH = expectedScreenH - UIDevice.screenHeight
+            if difH > 0 {
+                self.view.frame = CGRect(x: 0.0, y: -difH, width: self.view.width, height: self.view.height)
+            }
+        }
+    }
+    
+    override func keyboardWillHide(notification: Notification) {
+        self.view.frame = CGRect(x: 0.0, y: 0.0, width: self.view.width, height: self.view.height)
     }
     
     override func setupFonts() {
@@ -177,8 +189,11 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
         self.preferredTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
         
-        self.specialReqTextView.text = ""
-        self.preferredTextView.text = ""
+        self.specialReqTextView.textAlignment = .center
+        self.preferredTextView.textAlignment = .center
+        
+        self.specialReqTextView.returnKeyType = .done
+        self.preferredTextView.returnKeyType = .done
     }
 
     //MARK:- Methods
@@ -452,10 +467,16 @@ class BulkBookingVC: BaseVC {
 
 //MARK:- TextView delegate
 extension BulkBookingVC: PKTextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: PKTextField) {
-        let finalText = (textField.text ?? "").removeSpaceAsSentence
-        textField.text = finalText
-        (textField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
+    
+    func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool {
+        pkTextField.endEditing(true)
+        return true
+    }
+    
+    func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) {
+        let finalText = (pkTextField.text ?? "").removeSpaceAsSentence
+        pkTextField.text = finalText
+        (pkTextField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
     }
 }
 
