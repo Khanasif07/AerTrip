@@ -310,7 +310,8 @@ extension HotelResultVC {
     }
     
     func manageFloatingView(isHidden: Bool) {
-        self.floatingView.isHidden = isHidden
+        self.currentLocationButton.isHidden = isHidden
+        self.switchContainerView.isHidden = isHidden
         self.floatingButtonBackView.isHidden = isHidden
     }
     

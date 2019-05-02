@@ -51,6 +51,7 @@ enum AppConstants {
     static let kMaximumGroupNameCount = 30
     static let kIndianIsdCode = "+91"
     static let kEllipses = "..."
+    static let kMaxTextLimit = 256 // max limit for special request and preferred hotels
     
     static var isStatusBarBlured = true
 
