@@ -54,7 +54,8 @@ class BulkRoomSelectionVC: BaseVC {
             self.childrenPicker.selectRow(self.viewModel.childrenCounts, inComponent: 0, animated: true)
         }
     }
-
+    @IBOutlet weak var safeAreaBackView: UIView!
+    
     
     //Mark:- LifeCycles
     //=================
@@ -115,8 +116,10 @@ class BulkRoomSelectionVC: BaseVC {
     }
     
     private func show(animated: Bool) {
+        self.safeAreaBackView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraint.constant = 0.0
+            self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
@@ -127,8 +130,10 @@ class BulkRoomSelectionVC: BaseVC {
         self.headerView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+            self.safeAreaBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
+            self.safeAreaBackView.isHidden = true
             if shouldRemove {
                 self.removeFromParentVC
             }
