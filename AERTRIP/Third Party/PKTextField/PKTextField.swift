@@ -7,58 +7,50 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
-@objc protocol PKTextFieldDelegate: class {
+protocol PKTextFieldDelegate: class {
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldDidChanged(_ textField: PKTextField) // on changing text
+    func pkTextFieldDidChanged(_ pkTextField: PKTextField) // on changing text
 
-    @objc @available(iOS 2.0, *)
-    optional func textFieldShouldBeginEditing(_ textField: PKTextField) -> Bool // return NO to disallow editing.
+    func pkTextFieldShouldBeginEditing(_ pkTextField: PKTextField) -> Bool // return NO to disallow editing.
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldDidBeginEditing(_ textField: PKTextField) // became first responder
+    func pkTextFieldDidBeginEditing(_ pkTextField: PKTextField) // became first responder
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldShouldEndEditing(_ textField: PKTextField) -> Bool // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+    func pkTextFieldShouldEndEditing(_ pkTextField: PKTextField) -> Bool // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldDidEndEditing(_ textField: PKTextField) // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+    func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
     
-    @objc @available(iOS 10.0, *)
-    optional func textFieldDidEndEditing(_ textField: PKTextField, reason: UITextField.DidEndEditingReason) // if implemented, called in place of textFieldDidEndEditing:
+    func pkTextFieldDidEndEditing(_ pkTextField: PKTextField, reason: UITextField.DidEndEditingReason) // if implemented, called in place of textFieldDidEndEditing:
     
     
-    @objc @available(iOS 2.0, *)
-    optional func textField(_ textField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool // return NO to not change text
+    func pkTextField(_ pkTextField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool // return NO to not change text
     
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldShouldClear(_ textField: PKTextField) -> Bool // called when clear button pressed. return NO to ignore (no notifications)
+    func pkTextFieldShouldClear(_ pkTextField: PKTextField) -> Bool // called when clear button pressed. return NO to ignore (no notifications)
     
-    @objc @available(iOS 2.0, *)
-    optional func textFieldShouldReturn(_ textField: PKTextField) -> Bool // called when 'return' key pressed. return NO to ignore.
+    func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool // called when 'return' key pressed. return NO to ignore.
 }
 
 extension PKTextFieldDelegate {
     
-    func textFieldDidChanged(_ textField: PKTextField) {}
+    func pkTextFieldDidChanged(_ pkTextField: PKTextField) {}
 
-    func textFieldShouldBeginEditing(_ textField: PKTextField) -> Bool { return true }
+    func pkTextFieldShouldBeginEditing(_ pkTextField: PKTextField) -> Bool { return true }
     
-    func textFieldDidBeginEditing(_ textField: PKTextField) {}
+    func pkTextFieldDidBeginEditing(_ pkTextField: PKTextField) {}
     
-    func textFieldShouldEndEditing(_ textField: PKTextField) -> Bool { return true }
+    func pkTextFieldShouldEndEditing(_ pkTextField: PKTextField) -> Bool { return true }
     
-    func textFieldDidEndEditing(_ textField: PKTextField) {}
+    func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) {}
     
-    func textFieldDidEndEditing(_ textField: PKTextField, reason: UITextField.DidEndEditingReason) {}
+    func pkTextFieldDidEndEditing(_ pkTextField: PKTextField, reason: UITextField.DidEndEditingReason) {}
     
-    func textField(_ textField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool { return true }
+    func pkTextField(_ pkTextField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool { return true }
     
-    func textFieldShouldClear(_ textField: PKTextField) -> Bool { return true }
+    func pkTextFieldShouldClear(_ pkTextField: PKTextField) -> Bool { return true }
     
-    func textFieldShouldReturn(_ textField: PKTextField) -> Bool { return true }
+    func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool { return true }
 }
 
 @IBDesignable
@@ -82,7 +74,7 @@ class PKTextField: UIScrollView {
             return self.textField.text
         }
         set {
-            self.textField.text = text
+            self.textField.text = newValue
         }
     }
     
@@ -91,7 +83,7 @@ class PKTextField: UIScrollView {
             return self.textField.attributedText
         }
         set {
-            self.textField.attributedText = attributedText
+            self.textField.attributedText = newValue
         }
     }
     
@@ -100,7 +92,7 @@ class PKTextField: UIScrollView {
             return self.textField.placeholder
         }
         set {
-            self.textField.placeholder = placeholder
+            self.textField.placeholder = newValue
         }
     }
     
@@ -109,7 +101,7 @@ class PKTextField: UIScrollView {
             return self.textField.attributedPlaceholder
         }
         set {
-            self.textField.attributedPlaceholder = attributedPlaceholder
+            self.textField.attributedPlaceholder = newValue
         }
     }
     
@@ -118,7 +110,7 @@ class PKTextField: UIScrollView {
             return self.textField.font
         }
         set {
-            self.textField.font = font
+            self.textField.font = newValue
         }
     }
     
@@ -127,7 +119,7 @@ class PKTextField: UIScrollView {
             return self.textField.textColor
         }
         set {
-            self.textField.textColor = textColor
+            self.textField.textColor = newValue
         }
     }
     
@@ -136,7 +128,16 @@ class PKTextField: UIScrollView {
             return self.textField.textAlignment
         }
         set {
-            self.textField.textAlignment = textAlignment
+            self.textField.textAlignment = newValue
+        }
+    }
+    
+    @IBInspectable var returnKeyType: UIReturnKeyType {
+        get {
+            return self.textField.returnKeyType
+        }
+        set {
+            self.textField.returnKeyType = newValue
         }
     }
     
@@ -229,7 +230,7 @@ class PKTextField: UIScrollView {
     
     private func updateTextField() {
         
-        self.textField.backgroundColor = UIColor.red.withAlphaComponent(0.4)//.clear
+        self.textField.backgroundColor = .clear
         guard let txt = self.text, !txt.isEmpty, let fnt = self.font else {
             self.textField.frame = self.bounds
             return
@@ -279,41 +280,45 @@ class PKTextField: UIScrollView {
 
 extension PKTextField: UITextFieldDelegate {
     
-    @objc internal func textFieldDidChanged(_ textField: PKTextField) {
+    @objc internal func textFieldDidChanged(_ pkTextField: PKTextField) {
         self.updateTextField()
         self.scrollToEnd()
-        self.pkDelegate?.textFieldDidChanged(self)
+        self.pkDelegate?.pkTextFieldDidChanged(self)
     }
     
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return self.pkDelegate?.textFieldShouldBeginEditing(self) ?? true
+        return self.pkDelegate?.pkTextFieldShouldBeginEditing(self) ?? true
     }
     
     internal func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.pkDelegate?.textFieldDidBeginEditing(self)
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        self.pkDelegate?.pkTextFieldDidBeginEditing(self)
     }
     
     internal func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return self.pkDelegate?.textFieldShouldEndEditing(self) ?? true
+        return self.pkDelegate?.pkTextFieldShouldEndEditing(self) ?? true
     }
     
     internal func textFieldDidEndEditing(_ textField: UITextField) {
-        self.pkDelegate?.textFieldDidEndEditing(self)
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        self.pkDelegate?.pkTextFieldDidEndEditing(self)
     }
     
     internal func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        self.pkDelegate?.textFieldDidEndEditing(self, reason: reason)
+        self.pkDelegate?.pkTextFieldDidEndEditing(self, reason: reason)
     }
     
     internal func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return self.pkDelegate?.textField?(self, shouldChangeCharactersIn: range, replacementString: string) ?? true
+        return self.pkDelegate?.pkTextField(self, shouldChangeCharactersIn: range, replacementString: string) ?? true
     }
     
     internal func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return self.pkDelegate?.textFieldShouldClear(self) ?? true
+        return self.pkDelegate?.pkTextFieldShouldClear(self) ?? true
     }
     
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return self.pkDelegate?.textFieldShouldReturn(self) ?? true
+        return self.pkDelegate?.pkTextFieldShouldReturn(self) ?? true
     }
 }

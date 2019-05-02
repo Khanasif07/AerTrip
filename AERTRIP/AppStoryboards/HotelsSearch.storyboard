@@ -212,13 +212,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
+                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1561,16 +1561,16 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="232"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="232"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="239"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="120"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="19.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1586,10 +1586,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58"/>
+                                                                        <rect key="frame" x="0.0" y="62" width="99.5" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="34.5" y="0.0" width="31" height="58"/>
+                                                                                <rect key="frame" x="42" y="18" width="16" height="22"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -1606,7 +1606,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="99.5"/>
+                                                                <rect key="frame" x="0.0" y="139.5" width="99.5" height="99.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="99.5"/>
@@ -1675,7 +1675,7 @@ been sent</string>
                                                                         <rect key="frame" x="0.0" y="57" width="100" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="26" y="5" width="48" height="48"/>
+                                                                                <rect key="frame" x="42" y="18" width="16" height="22"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -1752,7 +1752,7 @@ been sent</string>
                                                                 <rect key="frame" x="0.0" y="62.5" width="100" height="58"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="26" y="5" width="48" height="48"/>
+                                                                        <rect key="frame" x="42" y="18" width="16" height="22"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
