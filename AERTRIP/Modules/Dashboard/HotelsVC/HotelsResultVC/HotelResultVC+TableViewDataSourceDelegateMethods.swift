@@ -89,17 +89,41 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
         else {
-            guard let sections = fetchedResultsController.sections, let hView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelResultSectionHeader") as? HotelResultSectionHeader else {
+            guard let hView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelResultSectionHeader") as? HotelResultSectionHeader else {
                 return nil
             }
             
-            var removeFirstChar = sections[section].name
-            _ = removeFirstChar.removeFirst()
-            let text = removeFirstChar + " kms"
-            hView.titleLabel.text = "\(text)"
+            hView.titleLabel.text = self.getSectionTitle(forSection: section)
             hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 9
             return hView
         }
+    }
+    
+    func getSectionTitle(forSection section: Int) -> String {
+        guard let allSections = self.fetchedResultsController.sections else {
+            return ""
+        }
+        
+        var finalText = "a" // for handling empty case
+        if section >= (allSections.count - 1) {
+            //it's a last section updated this
+            
+            var titleArr = allSections[section].name.components(separatedBy: "to")
+            titleArr[1] = " \(Int((self.filterApplied.distanceRange < 1.0) ? 1.0 : self.filterApplied.distanceRange))"
+            
+            finalText = titleArr.joined(separator: "to")
+        }
+        else {
+            //not a last section return as it is
+            finalText = allSections[section].name
+        }
+        
+        _ = finalText.removeFirst()
+        if !finalText.isEmpty {
+            finalText += " kms"
+        }
+        
+        return finalText
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
