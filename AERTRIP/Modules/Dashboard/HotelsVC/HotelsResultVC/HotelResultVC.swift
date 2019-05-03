@@ -232,20 +232,18 @@ class HotelResultVC: BaseVC {
         
         self.startProgress()
         self.completion = { [weak self] in
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.fetchRequestType = .FilterApplied
-            self?.loadSaveData()
+            if let old = UserInfo.hotelFilterApplied {
+                HotelFilterVM.shared.setData(from: old)
+            }
+            self?.doneButtonTapped()
         }
         
         self.toastDidClose = {
-            if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
-                var filter = UserInfo.HotelFilter()
-                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
-                UserInfo.hotelFilter = filter
-            }
-            else {
-                UserInfo.hotelFilter = nil
-                HotelFilterVM.shared.resetToDefault()
-            }
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
+            UserInfo.hotelFilterApplied = nil
+            HotelFilterVM.shared.resetToDefault()
         }
         
         //call API to get vcode, sid

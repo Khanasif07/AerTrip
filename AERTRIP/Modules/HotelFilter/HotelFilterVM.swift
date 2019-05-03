@@ -58,6 +58,23 @@ class HotelFilterVM {
         return !(HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
     }
     
+    func setData(from: UserInfo.HotelFilter) {
+        ratingCount = from.ratingCount
+        tripAdvisorRatingCount = from.tripAdvisorRatingCount
+        isIncludeUnrated = from.isIncludeUnrated
+        distanceRange = from.distanceRange
+        minimumPrice = from.minimumPrice
+        maximumPrice = from.maximumPrice
+        leftRangePrice = from.leftRangePrice
+        rightRangePrice = from.rightRangePrice
+        amenitites = from.amentities
+        roomMeal = from.roomMeal
+        roomCancelation = from.roomCancelation
+        roomOther = from.roomOther
+        sortUsing = from.sortUsing
+        priceType = from.priceType
+    }
+    
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
         if 1...4 ~= ratingCount.count {

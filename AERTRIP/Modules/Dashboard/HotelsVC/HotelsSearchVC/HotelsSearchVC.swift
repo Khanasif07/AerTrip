@@ -538,11 +538,11 @@ class HotelsSearchVC: BaseVC {
                 if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {
                     var filter = UserInfo.HotelFilter()
                     filter.ratingCount = self.viewModel.searchedFormData.ratingCount
-                    UserInfo.hotelFilter = filter
+                    UserInfo.hotelFilterApplied = filter
                     UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
                 }
                 else {
-                    UserInfo.hotelFilter = nil
+                    UserInfo.hotelFilterApplied = nil
                     UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
                 }
                 
