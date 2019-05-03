@@ -232,8 +232,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //Mark:- ScrollView Delegate
 //==========================
 extension HotelDetailsVC {
-    private func manageHeaderView(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y
+     func manageHeaderView() {
+        let yOffset = self.hotelTableView.contentOffset.y
         if (hotelImageHeight - headerView.height) < yOffset {
             //show
             self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
@@ -252,7 +252,7 @@ extension HotelDetailsVC {
         }
     }
     
-    func manageBottomRateView(_ scrollView: UIScrollView) {
+    func manageBottomRateView() {
         if hotelTableView.numberOfSections > 2 {
             let rows = hotelTableView.numberOfRows(inSection: 2)
             let indexPath = IndexPath(row: rows-1, section: 2)
@@ -264,8 +264,8 @@ extension HotelDetailsVC {
                     self.initialStickyPosition = finalY
                 }
                 
-                let bottomCons = (scrollView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
-                if (scrollView.contentSize.height - scrollView.height) <= scrollView.contentOffset.y {
+                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+                if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
                     //if table view scrolled till end then hide sticky view
                     self.stickyBottomConstraint.constant = -(self.footerView.height)
                 }
@@ -283,7 +283,7 @@ extension HotelDetailsVC {
                 }
             }
             else {
-                if (self.initialStickyPosition + self.footerView.height) > scrollView.contentOffset.y {
+                if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
                     self.stickyBottomConstraint.constant = 0.0
                 }
                 self.initialStickyPosition = -1.0
@@ -292,7 +292,7 @@ extension HotelDetailsVC {
         else {
             self.stickyBottomConstraint.constant = 0.0
         }
-        self.oldScrollPosition = scrollView.contentOffset
+        self.oldScrollPosition = self.hotelTableView.contentOffset
     }
     
     private func closeOnScroll(_ scrollView: UIScrollView) {
@@ -305,24 +305,23 @@ extension HotelDetailsVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-        self.manageBottomRateView(scrollView)
+        self.manageHeaderView()
+        self.manageBottomRateView()
         self.closeOnScroll(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate {
             self.closeOnScroll(scrollView)
-            self.manageBottomRateView(scrollView)
+            self.manageBottomRateView()
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.closeOnScroll(scrollView)
-        self.manageHeaderView(scrollView)
-        self.manageBottomRateView(scrollView)
+        self.manageHeaderView()
+        self.manageBottomRateView()
     }
-    
 }
 
 //Mark:- HotelDetailsImgSlideCellDelegate

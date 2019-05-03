@@ -93,6 +93,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return nil
             }
             
+            if (sections.last != nil) {
+                
+            }
             var removeFirstChar = sections[section].name
             _ = removeFirstChar.removeFirst()
             let text = removeFirstChar + " kms"
