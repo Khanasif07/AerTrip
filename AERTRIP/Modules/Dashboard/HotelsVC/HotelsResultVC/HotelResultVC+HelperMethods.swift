@@ -361,6 +361,7 @@ extension HotelResultVC {
                 self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
                 self.view.layoutIfNeeded()
             })
+            self.view.addBlurEffect()
         }
         
         func hideHeader() {

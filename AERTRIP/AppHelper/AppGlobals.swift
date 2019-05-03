@@ -267,7 +267,7 @@ struct AppGlobals {
             //to show the route between source and destination uncomment the next line
 //            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
             
-            let urlStr = "comgooglemaps://\(destLat),\(destLong)"
+            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
 
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)

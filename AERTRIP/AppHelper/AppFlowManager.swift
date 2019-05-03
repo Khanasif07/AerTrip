@@ -25,6 +25,7 @@ class AppFlowManager: NSObject {
     
     var documentInteractionController = UIDocumentInteractionController()
 
+    private var blurEffectView: UIVisualEffectView?
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool)->Void)? = nil
     
@@ -108,8 +109,23 @@ class AppFlowManager: NSObject {
     //        self.mainNavigationController.captureImage(delegate: ctx, sender: sender)
     //    }
     
+    private func addBlurToStatusBar() {
+//        if self.blurEffectView == nil {
+//            let bEffect = UIBlurEffect(style: .regular)
+//            let bEffectView = UIVisualEffectView(effect: bEffect)
+//            bEffectView.frame = UIApplication.shared.statusBarFrame
+//            bEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            bEffectView.alpha = 0.8
+//
+//            self.blurEffectView = bEffectView
+//            self.window.addSubview(bEffectView)
+//        }
+    }
+    
     func setupInitialFlow() {
         self.goToDashboard()
+        
+        self.addBlurToStatusBar()
     }
     
     func goToDashboard() {

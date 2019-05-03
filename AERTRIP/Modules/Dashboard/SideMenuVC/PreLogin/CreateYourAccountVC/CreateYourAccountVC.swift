@@ -172,9 +172,16 @@ private extension CreateYourAccountVC {
 extension CreateYourAccountVC {
   
     @objc func textFieldValueChanged(_ textField: UITextField) {
-
-         self.viewModel.email = textField.text ?? ""
+        
+        self.viewModel.email = (textField.text ?? "").removeAllWhitespaces
         self.registerButton.isEnabled = self.viewModel.email.count > 0
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        //for verify the data
+        self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
         
     }
     
