@@ -258,10 +258,12 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let newContact = self.viewModel.phoneContacts[indexPath.row]
-                self.viewModel.selectedPhoneContacts.append(newContact)
+
                 if let index = self.viewModel._phoneContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
                 }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                    
+                    self.viewModel.selectedPhoneContacts.append(newContact)
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .contacts)
                 }
@@ -277,10 +279,10 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let newContact = self.viewModel.facebookContacts[indexPath.row]
-                self.viewModel.selectedFacebookContacts.append(newContact)
                 if let index = self.viewModel._facebookContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
                 }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                    self.viewModel.selectedFacebookContacts.append(newContact)
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .facebook)
                 }
@@ -296,10 +298,10 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let newContact = self.viewModel.googleContacts[indexPath.row]
-                self.viewModel.selectedGoogleContacts.append(newContact)
                 if let index = self.viewModel._googleContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
                 }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                    self.viewModel.selectedGoogleContacts.append(newContact)
                     //get the original index of the contact
                     self.viewModel.add(atIndex: index, for: .google)
                 }
