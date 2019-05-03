@@ -146,13 +146,12 @@ extension HotelResultVC {
         let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
-        if self.filterApplied.distanceRange <= 20 {
+        if self.filterApplied.distanceRange < 20 {
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             subpredicates.append(distancePredicate)
         }
         if self.filterApplied.isIncludeUnrated {
             self.filterApplied.ratingCount.append(0)
-            self.filterApplied.tripAdvisorRatingCount.append(0)
         }
         
         if let amentitiesPredicate = amentitiesPredicate() {
@@ -210,8 +209,14 @@ extension HotelResultVC {
     func tripAdvisonPredicate() -> NSPredicate? {
         var tripAdvisorPredicate: NSPredicate?
         var tripAdvisorPredicates = [AnyHashable]()
-        for rating in self.filterApplied.tripAdvisorRatingCount {
-            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
+        
+        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
+            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        }
+        else {
+            for rating in self.filterApplied.tripAdvisorRatingCount {
+                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
+            }
         }
         
         if tripAdvisorPredicates.count > 0 {
