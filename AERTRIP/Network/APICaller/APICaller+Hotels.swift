@@ -202,6 +202,37 @@ extension APICaller {
             }
         }
     }
+    
+    
+    func callShareTextAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String,_ shareText: String)->Void ) {
+        
+        AppNetworking.POST(endPoint: APIEndPoint.shareText, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    if let data = jsonData[APIKeys.data.rawValue].dictionaryObject, let su = data["su"] as? String {
+                        completionBlock(true,[],"",su)
+                    }
+                  
+                } else {
+                    completionBlock(false,[], "" ,"")
+                }
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors,"","")
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "","")
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "","")
+            }
+        }
+    }
+    
 }
 
 

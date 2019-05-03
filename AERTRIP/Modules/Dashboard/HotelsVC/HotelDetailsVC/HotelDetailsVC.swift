@@ -122,6 +122,11 @@ class HotelDetailsVC: BaseVC {
     
     @objc func selectRoomAction() {
         self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+        delay(seconds: 0.6) { [weak self] in
+            self?.manageHeaderView()
+            self?.manageBottomRateView()
+        }
+        
     }
     
     internal func updateStickyFooterView() {

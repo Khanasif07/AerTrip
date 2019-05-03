@@ -90,6 +90,8 @@ enum APIEndPoint : String {
    
     case hotelItinerary = "hotels/itinerary?action=traveller"    
     case getPaymentMethod = "itinerary/get-payment-methods"
+    case shareText = "su/create"
+    
     
 }
 
