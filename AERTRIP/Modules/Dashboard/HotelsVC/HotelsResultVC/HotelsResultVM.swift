@@ -23,6 +23,9 @@ protocol HotelResultDelegate: class {
     
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
+    
+    func callShareTextSuccess()
+    func callShareTextfail(errors:ErrorCodes)
 }
 
 class HotelsResultVM: NSObject {
@@ -32,6 +35,7 @@ class HotelsResultVM: NSObject {
     var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var isUnpinHotelTapped : Bool = false
     var shortUrl: String = ""
+    var shareText: String = ""
     private(set) var collectionViewList: [String: Any] = [String: Any]()
     
     weak var delegate: HotelResultDelegate?
@@ -201,6 +205,58 @@ class HotelsResultVM: NSObject {
             } else {
                 printDebug(errors)
                 sSelf.delegate?.getAllHotelsOnResultFallbackFail(errors: errors)
+            }
+        }
+    }
+    
+    
+    //
+
+    func getShareText() {
+        
+        // create params 
+        var params = JSONDictionary()
+        if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
+            self.searchedFormData.ratingCount = [1,2,3,4,5]
+        }
+        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
+            params["filter[star][\(idx+1)star]"] = true
+        }
+        let _adultsCount = self.searchedFormData.adultsCount
+        let _chidrenAge = self.searchedFormData.childrenAge
+        params["p"] = "hotels"
+        params["dest_id"] = self.hotelSearchRequest?.requestParameters.destinationId
+        params["check_in"] = self.hotelSearchRequest?.requestParameters.checkIn
+        params["check_out"] = self.hotelSearchRequest?.requestParameters.checkOut
+        params["dest_type"] = self.hotelSearchRequest?.requestParameters.destType
+        params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
+        params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
+        params["long"] = self.hotelSearchRequest?.requestParameters.longitude
+        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+        
+        // get number of adult count
+        
+        for (idx ,  data) in _adultsCount.enumerated() {
+            params["r[\(idx)][a]"] = data
+        }
+        
+        // get number of children
+        for (idx , dataX) in _chidrenAge.enumerated() {
+            for (idy , dataY) in dataX.enumerated() {
+                if dataY != 0 {
+                    params["r[\(idx)][c][\(idy)]"] = dataY
+                }
+            }
+        }
+  
+        // Get share text Api
+        
+        APICaller.shared.callShareTextAPI(params: params) { [weak self ] (success, error, message,shareText) in
+            if success {
+                self?.shareText = shareText
+                self?.delegate?.callShareTextSuccess()
+            } else {
+                self?.delegate?.callShareTextfail(errors: error)
             }
         }
     }

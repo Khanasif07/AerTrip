@@ -120,6 +120,20 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func callShareTextSuccess() {
+        printDebug("get the share text")
+        let textToShare = [self.viewModel.shareText]
+        let activityViewController =
+            UIActivityViewController(activityItems: textToShare as [Any],
+                                     applicationActivities: nil)
+        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+        present(activityViewController, animated: true)
+    }
+    
+    func callShareTextfail(errors: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+    }
+    
     func getAllHotelsOnPreferenceSuccess() {
         self.fetchRequestType = .normal
         self.addMapView()

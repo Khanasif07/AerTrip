@@ -115,12 +115,7 @@ extension HotelResultVC {
     }
     
     func openSharingSheet() {
-        let textToShare = [self.viewModel.shortUrl]
-        let activityViewController =
-            UIActivityViewController(activityItems: textToShare as [Any],
-                                     applicationActivities: nil)
-        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
-        present(activityViewController, animated: true)
+       self.viewModel.getShareText()
     }
     
     func removeAllFavouritesHotels() {
