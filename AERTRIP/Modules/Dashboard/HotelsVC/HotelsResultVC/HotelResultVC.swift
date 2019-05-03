@@ -271,7 +271,8 @@ class HotelResultVC: BaseVC {
     }
     
     override func keyboardWillHide(notification: Notification) {
-        if self.searchedHotels.isEmpty {
+        if let _ = self.view.window, self.searchedHotels.isEmpty {
+            //checking if the screen in window only then this method should call
             self.cancelButtonTapped(self.cancelButton)
         }
     }

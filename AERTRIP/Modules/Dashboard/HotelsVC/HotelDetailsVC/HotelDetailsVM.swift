@@ -58,6 +58,20 @@ class HotelDetailsVM {
         return params
     }
     
+    func syncPermanentTagsWithSelectedFilter() {
+        guard let filter = UserInfo.hotelFilter else {
+            printDebug("Filter not found")
+            HotelFilterVM.shared.resetToDefault()
+            return
+        }
+        let selected = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        for element in selected {
+            if !self.permanentTagsForFilteration.contains(element) {
+                self.permanentTagsForFilteration.append(element)
+            }
+        }
+    }
+    
     /// Filtered Rates
     func filteredRates(rates: [Rates] ,roomMealData: [String],roomOtherData: [String],roomCancellationData: [String]) -> [Rates] {
         var filteredRates: [Rates] = []
