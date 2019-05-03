@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC.swift"
-            timestampString = "578565157.324266"
+            timestampString = "578573648.181076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "124"
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
-            timestampString = "578565157.3244129"
+            timestampString = "578573648.181218"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "getSectionTitle(forSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
