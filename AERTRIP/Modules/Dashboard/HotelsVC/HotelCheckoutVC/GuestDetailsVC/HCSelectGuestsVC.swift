@@ -333,16 +333,16 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         var indexPath: IndexPath?
         switch usingFor {
         case .travellers:
-            indexPath = getCollectionIndexPath(forContact: self.viewModel._travellerContacts[index])
+            indexPath = getCollectionIndexPath(forContact: self.viewModel.travellerContacts[index])
             
         case .contacts:
-            indexPath = getCollectionIndexPath(forContact: self.viewModel._phoneContacts[index])
+            indexPath = getCollectionIndexPath(forContact: self.viewModel.phoneContacts[index])
 
         case .facebook:
-            indexPath = getCollectionIndexPath(forContact: self.viewModel._facebookContacts[index])
+            indexPath = getCollectionIndexPath(forContact: self.viewModel.facebookContacts[index])
 
         case .google:
-            indexPath = getCollectionIndexPath(forContact: self.viewModel._googleContacts[index])
+            indexPath = getCollectionIndexPath(forContact: self.viewModel.googleContacts[index])
         }
         
         if let idx = indexPath {

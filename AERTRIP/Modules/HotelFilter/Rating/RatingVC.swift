@@ -62,11 +62,10 @@ class RatingVC: BaseVC {
     private func doInitialSetup() {
         
         //setting stars
-        if !HotelFilterVM.shared.ratingCount.isEmpty, HotelFilterVM.shared.ratingCount.count < 5 {
+        if 1...4 ~= HotelFilterVM.shared.ratingCount.count {
             HotelFilterVM.shared.ratingCount.removeAll()
         }
-        
-        if HotelFilterVM.shared.ratingCount.isEmpty {
+        else if HotelFilterVM.shared.ratingCount.isEmpty {
             HotelFilterVM.shared.ratingCount = [1,2,3,4,5]
         }
         
@@ -86,7 +85,7 @@ class RatingVC: BaseVC {
         }
         
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
-        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5,isForStarRating: false)
+        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
     }
     
@@ -102,7 +101,7 @@ class RatingVC: BaseVC {
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
         self.updateTripAdvisorRatingButtonState(forStar: sender.tag)
-        self.tripAdvisorStarLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5,isForStarRating: false)
+        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
         sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
     }
@@ -151,20 +150,22 @@ class RatingVC: BaseVC {
     
     
     ///Get Star Rating
-    private func getStarString(fromArr: [Int], maxCount: Int,isForStarRating: Bool = true) -> String {
-        var arr = Array(Set(fromArr))
-        arr.sort()
+    private func getTARatingString(fromArr arr: [Int], maxCount: Int) -> String {
         var final = ""
         var start: Int?
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty || arr.count == maxCount {
-            final = isForStarRating ? "All \(LocalizedString.stars.localized)" : "All \(LocalizedString.Ratings.localized)"
+        if arr.isEmpty {
+            final = "0 \(LocalizedString.Ratings.localized)"
+            return final
+        }
+        else if arr.count == maxCount {
+            final = "All \(LocalizedString.Ratings.localized)"
             return final
         }
         else if arr.count == 1 {
-            final = isForStarRating ? "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")" : "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.Rating.localized)" : "\(LocalizedString.Ratings.localized)")"
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.Rating.localized)" : "\(LocalizedString.Ratings.localized)")"
             return final
         }
         
@@ -215,7 +216,75 @@ class RatingVC: BaseVC {
             end = nil
         }
         final.removeLast(2)
-        return isForStarRating ?  final + " \(LocalizedString.stars.localized)" :  final + " \(LocalizedString.Ratings.localized)"
+        return final + " \(LocalizedString.Ratings.localized)"
+        
+    }
+    
+    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+        var arr = Array(Set(fromArr))
+        arr.sort()
+        var final = ""
+        var start: Int?
+        var end: Int?
+        var prev: Int?
+        
+        if arr.isEmpty || arr.count == maxCount {
+            final = "All \(LocalizedString.stars.localized)"
+            return final
+        }
+        else if arr.count == 1 {
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            return final
+        }
+        
+        for (idx,value) in arr.enumerated() {
+            let diff = value - (prev ?? 0)
+            if diff == 1 {
+                //number is successor
+                if start == nil {
+                    start = prev
+                }
+                end = value
+            }
+            else if diff > 1 {
+                //number is not successor
+                if start == nil {
+                    
+                    if let p = prev {
+                        final += "\(p), "
+                    }
+                    
+                    if idx == (arr.count - 1) {
+                        final += "\(value), "
+                    }
+                }
+                else {
+                    if let s = start, let e = end {
+                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        start = nil
+                        end = nil
+                        prev = nil
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                    else {
+                        if idx == (arr.count - 1) {
+                            final += "\(value), "
+                        }
+                    }
+                }
+            }
+            prev = value
+        }
+        
+        if let s = start, let e = end {
+            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            start = nil
+            end = nil
+        }
+        final.removeLast(2)
+        return final + " \(LocalizedString.stars.localized)"
     }
     
     /// Star Button State

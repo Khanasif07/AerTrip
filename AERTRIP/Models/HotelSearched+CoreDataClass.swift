@@ -152,7 +152,7 @@ public class HotelSearched: NSManagedObject {
         // star rating value
         
         if let obj = dataDict[APIKeys.star.rawValue] {
-            let star = obj as! Double
+            let star = "\(obj)".toDouble ?? 0.0
             hotelSearched!.star = star
             hotelSearched?.filterStar = getRoundedValue(value: star)
         }
