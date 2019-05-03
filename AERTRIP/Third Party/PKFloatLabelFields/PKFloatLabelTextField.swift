@@ -37,6 +37,8 @@ import UIKit
         }
     }
     
+    @IBInspectable dynamic open var lineErrorColor: UIColor = AppColors.divider.color
+    
     // MARK: Line height
     
     /// A CGFloat value that determines the height for the bottom line when the control is in the normal state
@@ -115,6 +117,14 @@ import UIKit
 			}
 		}
 	}
+    
+    @IBInspectable var titleErrorTextColour: UIColor = AppColors.themeRed
+    
+    var isError: Bool = false{
+        didSet {
+            self.layoutSubviews()
+        }
+    }
 		
 	// MARK:- Init
 	required init?(coder aDecoder:NSCoder) {
@@ -131,14 +141,21 @@ import UIKit
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		setTitlePositionForTextAlignment()
-		let isResp = isFirstResponder
-		if let txt = text , !txt.isEmpty && isResp {
-			title.textColor = titleActiveTextColour
-            lineView.backgroundColor = selectedLineColor
-		} else {
-			title.textColor = titleTextColour
-            lineView.backgroundColor = lineColor
-		}
+        
+        let isResp = isFirstResponder
+        if self.isError {
+            self.title.textColor = self.titleErrorTextColour
+            self.lineView.backgroundColor = self.lineErrorColor
+        }
+        else {
+            if let txt = text , !txt.isEmpty && isResp {
+                title.textColor = titleActiveTextColour
+                lineView.backgroundColor = selectedLineColor
+            } else {
+                title.textColor = titleTextColour
+                lineView.backgroundColor = lineColor
+            }
+        }
 		// Should we show or hide the title label?
 		if let txt = text , txt.isEmpty {
 			// Hide
@@ -200,8 +217,15 @@ import UIKit
         self.createLineView()
         
 		self.addSubview(title)
+        
+        self.addTarget(self, action: #selector(self.textDidBeginEditing), for: .editingDidBegin)
 	}
-
+    
+    @objc func textDidBeginEditing() {
+        //set the appropriate state while editing
+        self.isError = false
+    }
+    
 	fileprivate func maxTopInset()->CGFloat {
 		if let fnt = font {
 			return max(0, floor(bounds.size.height - fnt.lineHeight - 4.0))
@@ -219,7 +243,7 @@ import UIKit
 		}
 		title.frame = CGRect(x:x, y:title.frame.origin.y, width:title.frame.size.width, height:title.frame.size.height)
 	}
-	
+
 	fileprivate func showTitle(_ animated:Bool) {
 		let dur = animated ? animationDuration : 0
         UIView.animate(withDuration: dur, delay:0, options: [UIView.AnimationOptions.beginFromCurrentState, UIView.AnimationOptions.curveEaseOut], animations:{

@@ -20,6 +20,7 @@ class HCEmailTextFieldCell: UITableViewCell {
     @IBOutlet weak var editableTextField: PKFloatLabelTextField! {
         didSet {
             editableTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: UIControl.Event.editingChanged)
+            editableTextField.delegate = self
         }
     }
     @IBOutlet weak var separatorView: ATDividerView!
@@ -58,12 +59,17 @@ class HCEmailTextFieldCell: UITableViewCell {
 extension HCEmailTextFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         printDebug("text field text \(textField.text ?? " ")")
-        if let idxPath = indexPath, let textFieldString = textField.text {
-            delegate?.textEditableTableViewCellTextFieldText(idxPath, textFieldString)
+        
+        let finalTxt = (textField.text ?? "").removeAllWhitespaces
+        if let idxPath = indexPath, !finalTxt.isEmpty {
+            delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
         }
     }
     
-  
-    
-   
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        //for verify the data
+        let finalTxt = (textField.text ?? "").removeAllWhitespaces
+        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+    }
 }

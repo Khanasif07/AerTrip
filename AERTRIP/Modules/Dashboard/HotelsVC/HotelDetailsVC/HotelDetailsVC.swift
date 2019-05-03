@@ -84,8 +84,8 @@ class HotelDetailsVC: BaseVC {
         self.configUI()
         self.registerNibs()
         self.footerViewSetUp()
-        self.getSavedFilter()
         self.permanentTagsForFilteration()
+        self.getSavedFilter()
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
@@ -284,7 +284,9 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomMealDataCopy = filter.roomMeal
         self.viewModel.roomOtherDataCopy = filter.roomOther
         self.viewModel.roomCancellationDataCopy = filter.roomCancelation
-        self.viewModel.permanentTagsForFilteration = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        
+        let selected = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        self.viewModel.permanentTagsForFilteration.append(contentsOf: selected)
         self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
     }
     
@@ -293,7 +295,6 @@ class HotelDetailsVC: BaseVC {
             self.viewModel.filterAppliedData.roomMeal = ["Breakfast"]
             self.viewModel.roomMealDataCopy = self.viewModel.filterAppliedData.roomMeal
             self.viewModel.filterAppliedData.roomCancelation = ["Refundable"]
-            self.viewModel.permanentTagsForFilteration = ["Breakfast","Refundable"]
             self.viewModel.selectedTags = ["Breakfast"]
         }
     }

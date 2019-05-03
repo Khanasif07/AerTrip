@@ -30,8 +30,8 @@ class HotelFilterVM {
     var defaultLeftRangePrice: Double = 0.0
     var defaultRightRangePrice: Double = 0.0
     var defaultAmenitites: [String] = []
-    var defaultRoomMeal: [String] = []
-    var defaultRoomCancelation: [String] = []
+    var defaultRoomMeal: [String] = [ATMeal.Breakfast.title]
+    var defaultRoomCancelation: [String] = [ATCancellationPolicy.Refundable.title]
     var defaultRoomOther: [String] = []
     var defaultSortUsing: SortUsing = .BestSellers
     var defaultPriceType: Price = .Total

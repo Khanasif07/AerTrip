@@ -230,12 +230,23 @@ extension LoginVC {
         
         if textField === self.emailTextField {
             
-            self.viewModel.email = textField.text ?? ""
+            self.viewModel.email = (textField.text ?? "").removeAllWhitespaces
         } else {
             
-            self.viewModel.password = textField.text ?? ""
+            self.viewModel.password = (textField.text ?? "").removeAllWhitespaces
         }
          self.loginButton.isEnabled = self.viewModel.email.count > 0 && self.viewModel.password.count > 0 
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        //for verify the data
+        if textField === self.emailTextField {
+            self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+        } else {
+            
+            self.passwordTextField.isError = self.viewModel.password.checkInvalidity(.Password)
+        }
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

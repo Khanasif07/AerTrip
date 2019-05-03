@@ -121,12 +121,21 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
                 HotelFilterVM.shared.roomMeal.append(meal[indexPath.row].title)
             }
             
+            if HotelFilterVM.shared.roomMeal.isEmpty {
+                HotelFilterVM.shared.roomMeal = HotelFilterVM.shared.defaultRoomMeal
+            }
+            
         case .cancellationPolicy:
             if HotelFilterVM.shared.roomCancelation.contains(cancellationPolicy[indexPath.row].title) {
                 HotelFilterVM.shared.roomCancelation.remove(at: HotelFilterVM.shared.roomCancelation.firstIndex(of: cancellationPolicy[indexPath.row].title)!)
             } else {
                 HotelFilterVM.shared.roomCancelation.append(cancellationPolicy[indexPath.row].title)
             }
+            
+            if HotelFilterVM.shared.roomCancelation.isEmpty {
+                HotelFilterVM.shared.roomCancelation = HotelFilterVM.shared.defaultRoomCancelation
+            }
+            
         case .others:
             if HotelFilterVM.shared.roomOther.contains(others[indexPath.row].title) {
                 HotelFilterVM.shared.roomOther.remove(at: HotelFilterVM.shared.roomOther.firstIndex(of: others[indexPath.row].title)!)
