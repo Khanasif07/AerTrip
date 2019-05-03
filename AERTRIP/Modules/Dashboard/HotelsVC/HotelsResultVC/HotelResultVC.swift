@@ -218,15 +218,6 @@ class HotelResultVC: BaseVC {
         
         self.view.backgroundColor = AppColors.themeWhite
         
-//        self.container = NSPersistentContainer(name: "AERTRIP")
-//        self.container.loadPersistentStores { _, error in
-//            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-//
-//            if let error = error {
-//                print("Unresolved error \(error.localizedDescription)")
-//            }
-//        }
-        
         self.initialSetups()
         self.registerXib()
         
@@ -270,7 +261,8 @@ class HotelResultVC: BaseVC {
     }
     
     override func keyboardWillHide(notification: Notification) {
-        if self.searchedHotels.isEmpty {
+        if let _ = self.view.window, self.searchedHotels.isEmpty {
+            //checking if the screen in window only then this method should call
             self.cancelButtonTapped(self.cancelButton)
         }
     }

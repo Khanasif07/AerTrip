@@ -143,7 +143,7 @@ extension HotelResultVC {
     
     func updateFavOnList(forIndexPath: IndexPath?) {
         //update the current opened list as user make fav/unfav
-        if let indexPath = forIndexPath, !self.switchView.on {
+        if let indexPath = forIndexPath {
             if self.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
             }
@@ -289,7 +289,7 @@ extension HotelResultVC {
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
         if hoteResultViewType == .ListView {
-            manageFloatingView(isHidden: isHidden)
+            manageFloatingView(isHidden: false)
             self.currentLocationButton.isHidden = hoteResultViewType == .ListView
         }
         else {

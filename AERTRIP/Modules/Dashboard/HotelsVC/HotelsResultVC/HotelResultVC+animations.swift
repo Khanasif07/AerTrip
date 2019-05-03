@@ -105,6 +105,7 @@ extension HotelResultVC {
                 self.collectionView.isHidden = true
                 self.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
+            self.view.bringSubviewToFront(self.collectionView)
         })
     }
     

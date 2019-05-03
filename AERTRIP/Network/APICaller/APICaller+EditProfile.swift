@@ -197,7 +197,7 @@ extension APICaller {
 
         } else {
             AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: { (data) in
-                print(data)
+                printDebug(data)
                 completionBlock(true,[])
             }, progress: { (progress) in
             }) { (error) in

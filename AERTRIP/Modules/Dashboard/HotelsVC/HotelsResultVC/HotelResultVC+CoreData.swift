@@ -256,7 +256,7 @@ extension HotelResultVC {
             }
         } catch {
             printDebug(error.localizedDescription)
-            print("Fetch failed")
+            printDebug("Fetch failed")
         }
     }
 }

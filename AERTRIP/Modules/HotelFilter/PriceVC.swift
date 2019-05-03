@@ -106,7 +106,7 @@ class PriceVC: BaseVC {
     }
     
     @objc func sliderChanged(_ slider: MultiSlider) {
-        print("\(slider.value)")
+        printDebug("\(slider.value)")
         // "\u{20B9} " +
         minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         HotelFilterVM.shared.leftRangePrice = Double(slider.value.first ?? 0.0).roundTo(places: 2)

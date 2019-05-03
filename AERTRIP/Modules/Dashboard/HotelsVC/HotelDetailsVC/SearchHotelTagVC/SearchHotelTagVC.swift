@@ -41,7 +41,7 @@ class SearchHotelTagVC: BaseVC {
     //================
     
     deinit {
-        print("ssd")
+        printDebug("ssd")
     }
     override func viewDidLoad() {
         super.viewDidLoad()

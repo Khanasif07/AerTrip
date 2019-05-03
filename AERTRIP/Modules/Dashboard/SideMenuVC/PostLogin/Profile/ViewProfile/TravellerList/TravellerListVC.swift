@@ -63,7 +63,7 @@ class TravellerListVC: BaseVC {
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             
             if let error = error {
-                print("Unresolved error \(error.localizedDescription)")
+                printDebug("Unresolved error \(error.localizedDescription)")
             }
         }
         
@@ -324,7 +324,7 @@ class TravellerListVC: BaseVC {
             reloadList()
         } catch {
             reloadList()
-            print("Fetch failed")
+            printDebug("Fetch failed")
         }
     }
     

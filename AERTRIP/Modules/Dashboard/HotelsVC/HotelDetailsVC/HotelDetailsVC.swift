@@ -290,17 +290,17 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomOtherDataCopy = filter.roomOther
         self.viewModel.roomCancellationDataCopy = filter.roomCancelation
         
-        let selected = filter.roomMeal + filter.roomCancelation + filter.roomOther
-        self.viewModel.permanentTagsForFilteration.append(contentsOf: selected)
+        self.viewModel.syncPermanentTagsWithSelectedFilter()
         self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
     }
     
     internal func permanentTagsForFilteration() {
         if self.viewModel.permanentTagsForFilteration.isEmpty {
-            self.viewModel.filterAppliedData.roomMeal = ["Breakfast"]
+            self.viewModel.filterAppliedData.roomMeal = [ATMeal.Breakfast.title]
             self.viewModel.roomMealDataCopy = self.viewModel.filterAppliedData.roomMeal
-            self.viewModel.filterAppliedData.roomCancelation = ["Refundable"]
-            self.viewModel.selectedTags = ["Breakfast"]
+            self.viewModel.filterAppliedData.roomCancelation = [ATCancellationPolicy.Refundable.title]
+            self.viewModel.permanentTagsForFilteration = [ATMeal.Breakfast.title, ATCancellationPolicy.Refundable.title]
+            self.viewModel.selectedTags = [ATMeal.Breakfast.title]
         }
     }
         

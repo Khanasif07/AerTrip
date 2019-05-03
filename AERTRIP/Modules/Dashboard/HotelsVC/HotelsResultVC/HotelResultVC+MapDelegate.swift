@@ -255,8 +255,8 @@ extension HotelResultVC: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        // draw all markers as the zoom labels
-        print("zoom label \(position.zoom)")
+        //draw all markers as the zoom labels
+        printDebug("zoom label \(position.zoom)")
         
         if !self.useGoogleCluster {
             let current = position.zoom

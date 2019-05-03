@@ -114,7 +114,7 @@ extension GoogleLoginController {
             }
             let urlString = "https://www.google.com/m8/feeds/contacts/default/full?access_token=\(token)&alt=json"
             
-            print(GIDSignIn.sharedInstance().scopes)
+            printDebug(GIDSignIn.sharedInstance().scopes)
             
             let request = Alamofire.request(urlString, method: .get)
             request.responseString { (data) in

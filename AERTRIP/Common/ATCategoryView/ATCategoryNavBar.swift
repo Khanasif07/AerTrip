@@ -189,7 +189,7 @@ public class ATCategoryNavBar: UIView {
         }else if let _ = item.title, let labelFrame = btn.titleLabel?.frame{
             referenceFrame = labelFrame
         }else{
-            print("category at section:(badgeInfo.index) doesn't have a valid AHCategoryItem")
+            printDebug("category at section:(badgeInfo.index) doesn't have a valid AHCategoryItem")
             return
         }
         
@@ -540,7 +540,7 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
 
         let deltaX = ((toBtn.x - fromBtn.x) * 1.0) * progress
 
-        print("scroll.x \(scrollView.contentOffset.x) add \(deltaX) = \(oldNavScrollPosition.x)")
+        printDebug("scroll.x \(scrollView.contentOffset.x) add \(deltaX) = \(oldNavScrollPosition.x)")
         scrollView.setContentOffset(CGPoint(x: (oldNavScrollPosition.x + deltaX), y: scrollView.contentOffset.y), animated: false)
     }
     

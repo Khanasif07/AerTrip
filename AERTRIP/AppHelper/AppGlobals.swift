@@ -87,7 +87,21 @@ struct AppGlobals {
     
     func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12) , backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
         
-        let string = "\((firstName ?? "F").firstCharacter)\((lastName ?? "L").firstCharacter)".uppercased()
+        var fName = firstName ?? ""
+        var lName = lastName ?? ""
+        
+        if fName.isEmpty, lName.isEmpty {
+            fName = "F"
+            lName = "L"
+        }
+        else if !fName.isEmpty, lName.isEmpty {
+            lName = ""
+        }
+        else if fName.isEmpty, !lName.isEmpty {
+            fName = ""
+        }
+        
+        let string = "\(fName.firstCharacter)\(lName.firstCharacter)".uppercased()
         return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet , backGroundColor: backGroundColor)
     }
     
@@ -265,9 +279,9 @@ struct AppGlobals {
     private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             //to show the route between source and destination uncomment the next line
-//            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
             
-            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
+//            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
 
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -278,13 +292,13 @@ struct AppGlobals {
     }
     
     private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-        let directionsURL = "http://maps.apple.com/\(destLat),\(destLong)"
+//        let directionsURL = "http://maps.apple.com/?\(destLat),\(destLong)"
         //to show the route between source and destination uncomment the next line
-//        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
         if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
-            print("Can't use apple map://")
+            printDebug("Can't use apple map://")
         }
     }
     

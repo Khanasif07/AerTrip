@@ -107,6 +107,17 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         var finalText = "a" // for handling empty case
         if section >= (allSections.count - 1) {
             //it's a last section updated this
+            
+            let title = allSections[section].name
+            if title.contains("to") {
+                var titleArr = allSections[section].name.components(separatedBy: "to")
+                titleArr[1] = " \(Int((self.filterApplied.distanceRange < 1.0) ? 1.0 : self.filterApplied.distanceRange))"
+                
+                finalText = titleArr.joined(separator: "to")
+            }
+            else {
+                finalText = title
+            }
         }
         else {
             //not a last section return as it is

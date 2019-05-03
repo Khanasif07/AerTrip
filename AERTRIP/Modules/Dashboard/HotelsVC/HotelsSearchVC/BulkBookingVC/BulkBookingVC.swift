@@ -539,7 +539,7 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
 //============================
 extension BulkBookingVC: BulkBookingVMDelegate {
     func bulkBookingEnquirySuccess(enquiryId: String) {
-        print(enquiryId)
+        printDebug(enquiryId)
         self.searchButtonOutlet.isLoading = false
         self.hide(animated: true, shouldRemove: true)
         AppFlowManager.default.showBulkEnquiryVC()

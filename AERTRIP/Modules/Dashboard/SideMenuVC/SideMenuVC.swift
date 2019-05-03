@@ -94,7 +94,7 @@ class SideMenuVC: BaseVC {
     }
     
     @objc func profileTapped() {
-        print("dfasdfasdf")
+        printDebug("dfasdfasdf")
     }
     
     func getAppLogoView() -> SideMenuLogoView {

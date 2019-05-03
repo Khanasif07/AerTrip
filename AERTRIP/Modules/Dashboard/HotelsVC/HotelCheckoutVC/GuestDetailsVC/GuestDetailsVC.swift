@@ -155,8 +155,14 @@ class GuestDetailsVC: BaseVC {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
             delay(seconds: 0.2) { [weak cell] in
-                if guest.firstName.isEmpty {
+                if guest.salutation.isEmpty {
+                    cell?.salutationTextField.becomeFirstResponder()
+                }
+                else if guest.firstName.isEmpty {
                     cell?.firstNameTextField.becomeFirstResponder()
+                }
+                else if guest.lastName.isEmpty {
+                    cell?.lastNameTextField.becomeFirstResponder()
                 }
             }
             
