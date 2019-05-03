@@ -56,7 +56,7 @@ extension APICaller {
             })
             
         }) { error in
-            print(error)
+            printDebug(error)
         }
     }
     

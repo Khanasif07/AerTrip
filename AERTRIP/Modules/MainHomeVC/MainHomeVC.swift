@@ -504,7 +504,7 @@ extension MainHomeVC {
     func animationInProgress(_ recognizer: UIPanGestureRecognizer) {
         let position = recognizer.translation(in: self.view)
         var fraction = position.x / self.scrollView.width
-        print("animationInProgress: \(position.x / self.scrollView.width)")
+        printDebug("animationInProgress: \(position.x / self.scrollView.width)")
         
         
         if self.transitionAnimator?.isReversed == true { fraction *= -1}
@@ -537,7 +537,7 @@ extension MainHomeVC {
     }
     
     func animationComplete(_ recognizer: UIPanGestureRecognizer) {
-        print("animationComplete")
+        printDebug("animationComplete")
         self.transitionAnimator?.continueAnimation(withTimingParameters: nil, durationFactor: 0)
 
         let position = recognizer.translation(in: self.view)

@@ -190,7 +190,7 @@ class ImportContactVM: NSObject {
             self?.isGoogleContactsAllowed = true
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
         }, failure: { (error) in
-            print(error)
+            printDebug(error)
         })
     }
     

@@ -258,7 +258,7 @@ extension HCCouponCodeVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        print(finalText)
+        printDebug(finalText)
         if finalText.isEmpty {
             //            self.enterCouponLabel.isHidden = true
             if self.selectedIndexPath == nil {

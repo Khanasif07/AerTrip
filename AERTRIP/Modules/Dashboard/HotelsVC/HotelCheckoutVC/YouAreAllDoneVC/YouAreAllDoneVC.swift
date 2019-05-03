@@ -110,18 +110,18 @@ class YouAreAllDoneVC: BaseVC {
                 if let tempLocalUrl = tempLocalUrl, error == nil {
                     // Success
                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                        print("Successfully downloaded. Status code: \(statusCode)")
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
                     }
                     
                     do {
                         try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
                         complition(destinationFileUrl)
                     } catch (let writeError) {
-                        print("Error creating a file \(destinationFileUrl) : \(writeError)")
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
                     }
                     
                 } else {
-                    print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription)")
                 }
             }
             task.resume()

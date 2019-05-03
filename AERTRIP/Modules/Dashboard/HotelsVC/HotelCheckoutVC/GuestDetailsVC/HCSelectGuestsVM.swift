@@ -235,7 +235,7 @@ class HCSelectGuestsVM: NSObject {
                 if let sender = sender {
                     sender.isLoading = false
                 }
-                print(error)
+                printDebug(error)
         })
     }
     

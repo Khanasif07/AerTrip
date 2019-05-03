@@ -158,7 +158,7 @@ class ATEmailSelectorTextView: UITextView {
                 }
             }
         }
-        print(text)
+        printDebug(text)
         oldText = text
     }
     

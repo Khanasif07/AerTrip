@@ -104,21 +104,21 @@ extension HotelDetailsOverviewVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        print("scrollViewDidScroll")
+        printDebug("scrollViewDidScroll")
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        print("scrollViewDidEndDecelerating")
+        printDebug("scrollViewDidEndDecelerating")
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         manageHeaderView(scrollView)
-        print("scrollViewDidEndDragging")
+        printDebug("scrollViewDidEndDragging")
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        print("scrollViewDidEndScrollingAnimation")
+        printDebug("scrollViewDidEndScrollingAnimation")
     }
 }

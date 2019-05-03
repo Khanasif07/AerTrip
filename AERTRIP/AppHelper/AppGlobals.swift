@@ -284,7 +284,7 @@ struct AppGlobals {
         if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
-            print("Can't use apple map://")
+            printDebug("Can't use apple map://")
         }
     }
     

@@ -253,7 +253,7 @@ extension OtherBookingsDetailsVC: TopNavigationViewDelegate {
 extension OtherBookingsDetailsVC:  URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print("downloadLocation:", location)
+        printDebug("downloadLocation: \(location)")
         // create destination URL with the original pdf name
         guard let url = downloadTask.originalRequest?.url else { return }
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -265,7 +265,7 @@ extension OtherBookingsDetailsVC:  URLSessionDownloadDelegate {
             try FileManager.default.copyItem(at: location, to: destinationURL)
             self.viewModel.urlLink = destinationURL
         } catch let error {
-            print("Copy Error: \(error.localizedDescription)")
+            printDebug("Copy Error: \(error.localizedDescription)")
         }
     }
 }

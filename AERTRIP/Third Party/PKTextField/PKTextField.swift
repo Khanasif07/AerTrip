@@ -198,7 +198,7 @@ class PKTextField: UIScrollView {
                 let tempY = (self.contentOffset.y - diffY) + self.contentOffset.y
                 
                 let finalY = min(max(0, tempY), maxY)
-                print("finalY \(finalY)")
+                printDebug("finalY \(finalY)")
                 self.setContentOffset(CGPoint(x: 0.0, y: finalY), animated: false)
             }
             else {
@@ -207,7 +207,7 @@ class PKTextField: UIScrollView {
                 let tempX = (self.contentOffset.y - diffX) + self.contentOffset.x
                 
                 let finalX = min(max(0, tempX), maxX)
-                print("finalX \(finalX)")
+                printDebug("finalX \(finalX)")
                 self.setContentOffset(CGPoint(x: finalX, y: 0.0), animated: false)
             }
         }

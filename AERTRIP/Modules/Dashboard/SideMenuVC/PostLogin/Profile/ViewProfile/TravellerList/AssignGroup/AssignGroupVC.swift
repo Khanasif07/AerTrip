@@ -71,7 +71,7 @@ class AssignGroupVC: BaseVC {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            print("Canelled")
+            printDebug("Canelled")
         }
         
         let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in

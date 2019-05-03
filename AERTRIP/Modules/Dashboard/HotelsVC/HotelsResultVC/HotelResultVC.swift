@@ -222,7 +222,7 @@ class HotelResultVC: BaseVC {
 //            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 //
 //            if let error = error {
-//                print("Unresolved error \(error.localizedDescription)")
+//                printDebug("Unresolved error \(error.localizedDescription)")
 //            }
 //        }
         

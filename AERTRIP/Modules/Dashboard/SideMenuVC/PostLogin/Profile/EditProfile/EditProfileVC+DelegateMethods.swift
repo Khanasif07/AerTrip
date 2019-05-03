@@ -623,9 +623,9 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         guard let indexPathRow = gesture.view?.tag else {
             return
         }
-        print(indexPathRow)
+        printDebug(indexPathRow)
         guard indexPathRow >= 0 else {
-            print("Array index must be greater than zero. Going to  return")
+            printDebug("Array index must be greater than zero. Going to  return")
             return
         }
         self.indexPathRow = indexPathRow
@@ -789,9 +789,9 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         guard let indexPathRow = gesture.view?.tag else {
             return
         }
-        print(indexPathRow)
+        printDebug(indexPathRow)
         guard indexPathRow >= 0 else {
-            print("Array index must be greater than zero. Going to  return")
+            printDebug("Array index must be greater than zero. Going to  return")
             return
         }
         self.indexPathRow = indexPathRow

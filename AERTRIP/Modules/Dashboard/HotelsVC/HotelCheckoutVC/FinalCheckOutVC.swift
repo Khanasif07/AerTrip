@@ -63,7 +63,7 @@ class FinalCheckOutVC: BaseVC {
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
-        self.payButton.addGredient()
+        self.payButton.addGredient(isVertical: false)
         self.setUpImage()
         self.setUpNavigationView()
         self.registerXib()

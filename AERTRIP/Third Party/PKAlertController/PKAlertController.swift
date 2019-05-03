@@ -23,7 +23,7 @@ open class PKAlertController {
         }
         
         if presentedVC == nil {
-             print("PKAlertController Error: You don't have any views set. You may be calling in viewdidload. Try viewdidappear.")
+             printDebug("PKAlertController Error: You don't have any views set. You may be calling in viewdidload. Try viewdidappear.")
         }
         return presentedVC
     }
@@ -79,7 +79,7 @@ open class PKAlertController {
         
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
-            print(alert.title ?? "")
+            printDebug(alert.title ?? "")
             if let handel = tapBlock, let idx = alertButtons.firstIndex(where: { (button) -> Bool in
                 (alert.title ?? "") == button.title
             }) {
@@ -113,7 +113,7 @@ open class PKAlertController {
         
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
-            print(alert.title ?? "")
+            printDebug(alert.title ?? "")
             if let handel = tapBlock, let idx = alertButtons.firstIndex(where: { (button) -> Bool in
                 (alert.title ?? "") == button.title
             }) {
@@ -152,7 +152,7 @@ open class PKAlertController {
         alertController.setValue(message, forKey: "attributedMessage")
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
-            print(alert.title ?? "")
+            printDebug(alert.title ?? "")
             if let handel = tapBlock, let idx = alertButtons.firstIndex(where: { (button) -> Bool in
                 (alert.title ?? "") == button.title
             }) {
