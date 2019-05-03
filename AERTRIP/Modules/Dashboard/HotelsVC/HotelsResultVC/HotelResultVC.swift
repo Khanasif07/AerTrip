@@ -71,9 +71,10 @@ class HotelResultVC: BaseVC {
     @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var shimmerView: UIView!
     @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingView: UIView!
     @IBOutlet var floatingButtonOnMapView: UIButton!
     @IBOutlet var cancelButton: UIButton!
+    
+    @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
@@ -216,15 +217,6 @@ class HotelResultVC: BaseVC {
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
-        
-//        self.container = NSPersistentContainer(name: "AERTRIP")
-//        self.container.loadPersistentStores { _, error in
-//            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-//
-//            if let error = error {
-//                printDebug("Unresolved error \(error.localizedDescription)")
-//            }
-//        }
         
         self.initialSetups()
         self.registerXib()

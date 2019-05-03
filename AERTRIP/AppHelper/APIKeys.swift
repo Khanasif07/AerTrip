@@ -90,6 +90,7 @@ enum APIKeys: String {
     case notes = "notes"
     case eid = "eid"
     case hotelFilter = "hotelFilter"
+    case hotelFilterApplied = "hotelFilterApplied"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"

@@ -511,6 +511,25 @@ class UserInfo {
         }
     }
     
+    // hotel Filter Applied from All filter VC
+    
+    class var hotelFilterApplied: HotelFilter? {
+        get {
+            if let obj = UserDefaults.standard.retrieve(objectType: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilterApplied.rawValue) {
+                return obj
+            }
+            return nil
+        }
+        set {
+            if let vlaue = newValue {
+                UserDefaults.standard.save(customObject: vlaue, inKey: APIKeys.hotelFilterApplied.rawValue)
+            }
+            else{
+                UserDefaults.removeObject(forKey: APIKeys.hotelFilterApplied.rawValue)
+            }
+        }
+    }
+    
     var address: Address? {
         get {
             
