@@ -71,9 +71,10 @@ class HotelResultVC: BaseVC {
     @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var shimmerView: UIView!
     @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingView: UIView!
     @IBOutlet var floatingButtonOnMapView: UIButton!
     @IBOutlet var cancelButton: UIButton!
+    
+    @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
