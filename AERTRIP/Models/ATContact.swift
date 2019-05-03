@@ -52,7 +52,7 @@ struct ATContact {
     var age: Int
     
     var flImage: UIImage? {
-        return AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName)
+        return AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, offSet: CGPoint(x: 0, y: 9))
     }
     
     var passengerType: PassengersType {

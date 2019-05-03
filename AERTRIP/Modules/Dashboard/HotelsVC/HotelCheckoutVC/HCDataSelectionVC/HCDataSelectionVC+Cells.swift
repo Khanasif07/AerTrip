@@ -214,29 +214,8 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     
     
     private func configData() {
-        self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
-        if let name = self.contact?.firstName, !name.isEmpty {
-            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
-            infoImageView.isHidden = true
-            
-            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
-            self.iconImageView.image = placeHolder
-            if let img = self.contact?.profilePicture, !img.isEmpty {
-                self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-                self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.iconImageView.layer.borderWidth = 1.0
-            }
-            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
-                self.iconImageView.image = flImage
-                self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.iconImageView.layer.borderWidth = 1.0
-            }
-            
-            infoImageView.isHidden = !((self.contact?.lastName ?? "").isEmpty || (self.contact?.salutation ?? "").isEmpty)
-            
-            titleLabel.text = self.contact?.fullName
-        }
-        else {
+        
+        func setupForAdd() {
             infoImageView.image = #imageLiteral(resourceName: "add_icon")
             var finalText = ""
             if let type = self.contact?.passengerType {
@@ -245,11 +224,42 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
             
-        
+            
             if let year = self.contact?.age, year >= 0 {
                 finalText += " (\(year))"
             }
             titleLabel.text = finalText
+        }
+        
+        self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
+        if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
+            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.isHidden = true
+            
+            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            self.iconImageView.image = placeHolder
+
+            if (fName.isEmpty && lName.isEmpty && saltn.isEmpty) {
+                infoImageView.isHidden = false
+                setupForAdd()
+            }
+            else {
+                infoImageView.isHidden = !(fName.isEmpty || lName.isEmpty || saltn.isEmpty)
+                titleLabel.text = self.contact?.fullName
+                if let img = self.contact?.profilePicture, !img.isEmpty {
+                    self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
+                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                    self.iconImageView.layer.borderWidth = 1.0
+                }
+                else {
+                    self.iconImageView.image = self.contact?.flImage
+                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+                    self.iconImageView.layer.borderWidth = 1.0
+                }
+            }
+        }
+        else {
+            setupForAdd()
         }
     }
     

@@ -12,7 +12,6 @@ extension HCDataSelectionVC : GuestDetailsVCDelegate {
     func doneButtonTapped() {
         self.tableView.reloadData()
     }
-    
 }
 
 

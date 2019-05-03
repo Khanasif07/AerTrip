@@ -87,7 +87,21 @@ struct AppGlobals {
     
     func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12) , backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
         
-        let string = "\((firstName ?? "F").firstCharacter)\((lastName ?? "L").firstCharacter)".uppercased()
+        var fName = firstName ?? ""
+        var lName = lastName ?? ""
+        
+        if fName.isEmpty, lName.isEmpty {
+            fName = "F"
+            lName = "L"
+        }
+        else if !fName.isEmpty, lName.isEmpty {
+            lName = ""
+        }
+        else if fName.isEmpty, !lName.isEmpty {
+            fName = ""
+        }
+        
+        let string = "\(fName.firstCharacter)\(lName.firstCharacter)".uppercased()
         return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet , backGroundColor: backGroundColor)
     }
     
