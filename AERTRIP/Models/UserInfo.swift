@@ -501,7 +501,7 @@ class UserInfo {
         }
     }
     
-    var userType: UserType = .regular
+    var userType: UserType = .statement
     
     class var hotelFilter: HotelFilter? {
         get {

@@ -596,15 +596,15 @@ extension AppFlowManager {
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .billWise:
-            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .statement:
-            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .topUp:
-            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
         }
     }
@@ -631,18 +631,11 @@ extension AppFlowManager {
             ob.viewModel?.delegate = delegate
             self.mainNavigationController.present(ob, animated: true, completion: nil)
         }
-        
-//        if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
-//            let calendarVM = CalendarVM()
-//            calendarVM.isHotelCalendar = isHotelCalendar
-//            calendarVM.isReturn = isReturn
-//            calendarVM.isMultiCity = isMultiCity
-//            calendarVM.date1 = checkInDate
-//            calendarVM.date2 = checkOutDate
-//            ob.viewModel = calendarVM
-//            ob.viewModel?.delegate = delegate
-//            self.mainNavigationController.present(ob, animated: true, completion: nil)
-//        }
+    }
+    
+    func presentAccountChargeInfoVC() {
+        let obj = AccountChargeInfoVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
     // MARK: - Aerin

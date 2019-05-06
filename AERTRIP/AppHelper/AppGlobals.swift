@@ -321,14 +321,29 @@ struct AppGlobals {
 //MARK:- Project Used Extensions
 extension Double {
     var amountInDelimeterWithSymbol: String {
-        return "\(AppConstants.kRuppeeSymbol)\(self.delimiter)"
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(self).delimiter)"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(self.delimiter)"
+        }
     }
     
     var amountInDoubleWithSymbol: String {
-        return "\(AppConstants.kRuppeeSymbol)\(self)"
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(self))"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(self)"
+        }
     }
     
     var amountInIntWithSymbol: String {
-        return "\(AppConstants.kRuppeeSymbol)\(Int(self))"
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(Int(self)))"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(Int(self))"
+        }
     }
 }
