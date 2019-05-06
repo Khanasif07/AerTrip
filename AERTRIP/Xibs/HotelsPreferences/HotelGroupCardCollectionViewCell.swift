@@ -154,16 +154,11 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         }
         
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
-        var price : String = "\(self.hotelListData?.price.delimiter ?? "")"
-        if  let filter = UserInfo.hotelFilter  {
-            switch filter.priceType {
-            case .Total :
-                price = "\(self.hotelListData?.price.delimiter ?? "")"
-            case .PerNight:
-                price  = "\(self.hotelListData?.perNightPrice.delimiter ?? "")"
-            }
+        var price : Double = self.hotelListData?.price ?? 0.0
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
+            price = self.hotelListData?.perNightPrice ?? 0.0
         }
-        self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + price
+        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
     }
     

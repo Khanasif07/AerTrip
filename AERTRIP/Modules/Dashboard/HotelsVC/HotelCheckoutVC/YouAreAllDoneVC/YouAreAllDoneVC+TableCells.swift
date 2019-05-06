@@ -147,7 +147,7 @@ extension YouAreAllDoneVC {
     internal func getTotalChargeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCTotalChargeTableViewCell.reusableIdentifier, for: indexPath) as? HCTotalChargeTableViewCell else { return nil }
         cell.dividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.confirmationVoucherCell) ? false : true
-        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount.delimiter ?? "")
+        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: (self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0).amountInDelimeterWithSymbol)
         return cell
     }
     

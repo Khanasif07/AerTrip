@@ -64,7 +64,7 @@ class AccountDetailEventDescriptionCell: UITableViewCell {
     
     private func setData() {
         self.voucherValueLabel.text = "Sales"
-        self.amountValueLabel.text = "\(AppConstants.kRuppeeSymbol)\((self.event?.amount ?? 0.0).delimiter)"
-        self.balanceValueLabel.text = "\(AppConstants.kRuppeeSymbol)\((self.event?.balance ?? 0.0).delimiter)"
+        self.amountValueLabel.text = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol
+        self.balanceValueLabel.text = (self.event?.balance ?? 0.0).amountInDelimeterWithSymbol
     }
 }

@@ -62,7 +62,7 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
             self.hotelCardImageView.setImageWithUrl(self.favHotel?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
         }
         self.hotelNameLabel.text = self.favHotel?.hotelName
-        self.hotelPriceLabel.text = AppConstants.kRuppeeSymbol + "\(favHotel.price.delimiter)"
+        self.hotelPriceLabel.text = favHotel.price.amountInDelimeterWithSymbol
         self.starRatingView.rating = favHotel.star
         self.tripRatingView.rating = favHotel.rating
         

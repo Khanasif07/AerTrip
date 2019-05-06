@@ -215,7 +215,7 @@ extension HotelDetailsVC {
     internal func getCheckOutCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
         cell.shadowViewBottomConstraints.constant = (indexPath.section  == self.viewModel.hotelDetailsTableSectionData.count - 1 ) ? 16.0 : 8.0
-        cell.hotelFeesLabel.text = LocalizedString.rupeesText.localized + " \(ratesData.price.delimiter)"
+        cell.hotelFeesLabel.text = ratesData.price.amountInDelimeterWithSymbol
         cell.clipsToBounds = true
         return cell
     }

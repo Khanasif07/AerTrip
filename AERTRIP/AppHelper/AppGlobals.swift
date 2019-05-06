@@ -315,31 +315,20 @@ struct AppGlobals {
             }
         }
     }
-    
-//    func nativePopUp(vc: UIViewController) {
-//        let actionSheetAlertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-////        actionSheetAlertController.addAction(cancelActionButton)
-//        
-//        let documentsActionButton = UIAlertAction(title: "Documents", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(documentsActionButton)
-//        documentsActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        documentsActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        let cameraActionButton = UIAlertAction(title: "Camera", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(cameraActionButton)
-//        cameraActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        cameraActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        let galleryActionButton = UIAlertAction(title: "Gallery", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(galleryActionButton)
-//        galleryActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        galleryActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        
-//        actionSheetAlertController.view.tintColor = AppColors.themeWhite.withAlphaComponent(0.85)
-//        vc.present(actionSheetAlertController, animated: true, completion: nil)
-//    }
 }
 
 
+//MARK:- Project Used Extensions
+extension Double {
+    var amountInDelimeterWithSymbol: String {
+        return "\(AppConstants.kRuppeeSymbol)\(self.delimiter)"
+    }
+    
+    var amountInDoubleWithSymbol: String {
+        return "\(AppConstants.kRuppeeSymbol)\(self)"
+    }
+    
+    var amountInIntWithSymbol: String {
+        return "\(AppConstants.kRuppeeSymbol)\(Int(self))"
+    }
+}

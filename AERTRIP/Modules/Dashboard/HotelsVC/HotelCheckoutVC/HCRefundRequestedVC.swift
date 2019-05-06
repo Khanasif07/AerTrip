@@ -56,10 +56,10 @@ class HCRefundRequestedVC: BaseVC {
         
         tickButton.setTitle(nil, for: .normal)
         
-        let messageText = "\(LocalizedString.WeNotedYourRequestToRefund.localized) \(AppConstants.kRuppeeSymbol)\(2000.0.delimiter) \(LocalizedString.ToYour.localized) \(paymentMethod)"
+        let messageText = "\(LocalizedString.WeNotedYourRequestToRefund.localized) \(2000.0.amountInDelimeterWithSymbol) \(LocalizedString.ToYour.localized) \(paymentMethod)"
         
         let attrMessageText = NSMutableAttributedString(string: messageText)
-        attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(AppConstants.kRuppeeSymbol)\(2000.0.delimiter)"))
+        attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(2000.0.amountInDelimeterWithSymbol)"))
         attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(paymentMethod)"))
         
         messageLabel.attributedText = attrMessageText

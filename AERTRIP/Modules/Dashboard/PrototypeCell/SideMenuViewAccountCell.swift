@@ -14,6 +14,7 @@ class SideMenuViewAccountCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var viewAccountButton: UIButton!
     @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -50,11 +51,16 @@ extension SideMenuViewAccountCell {
         self.viewAccountButton.titleLabel?.textColor = AppColors.themeGreen
         self.viewAccountButton.setTitle(LocalizedString.ViewAccounts.localized, for: .normal)
         
+        self.dateLabel.font = AppFonts.Regular.withSize(12)
+        self.dateLabel.textColor = AppColors.themeRed
+        
     }
     
     func populateData() {
         // FIXME:  Amount would be in double ,doing it for temporary as per QA
         let amount = (UserInfo.loggedInUser?.accountData?.statements.amountDue ?? 0)
-        self.amountLabel.text = "\u{20B9} "+"\(Int(amount))"
+        self.amountLabel.text = amount.amountInDelimeterWithSymbol
+        
+        self.dateLabel.text = "Before Fri, 12 May 2017"
     }
 }

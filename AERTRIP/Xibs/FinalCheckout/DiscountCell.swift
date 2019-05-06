@@ -24,7 +24,7 @@ class DiscountCell: UITableViewCell {
     
     private func setUpText() {
         self.titleLabel.text = LocalizedString.CouponDiscount.localized
-        self.amountLabel.text = AppConstants.kRuppeeSymbol + "\(Double(500).delimiter)"
+        self.amountLabel.text = 500.0.amountInDelimeterWithSymbol
     }
     
     private func setUpFont() {

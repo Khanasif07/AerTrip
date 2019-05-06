@@ -585,15 +585,29 @@ extension AppFlowManager {
 
     //MARK:- Account Section
     //MARK:-
-    func moveToAccountDetailsVC() {
-        let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+    func moveToAccountDetailsScreen() {
+        guard let user = UserInfo.loggedInUser else {
+            return
+        }
+        
+        switch user.userType {
+        case .regular:
+            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+            
+        case .billWise:
+            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+            
+        case .statement:
+            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+            
+        case .topUp:
+            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+        }
     }
-    
-//    func moveToAccountLedgerVC() {
-//        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
-//        self.mainNavigationController.pushViewController(obj, animated: true)
-//    }
     
     func moveToADEventFilterVC(_ vc : AccountDetailsVC ) {
         if let obj = UIApplication.topViewController() {

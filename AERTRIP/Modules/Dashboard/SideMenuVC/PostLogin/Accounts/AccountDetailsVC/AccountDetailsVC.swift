@@ -103,7 +103,7 @@ class AccountDetailsVC: BaseVC {
     
     override func setupTexts() {
         self.balanceTextLabel.text = LocalizedString.Balance.localized
-        self.balanceAmountLabel.text = "\(AppConstants.kRuppeeSymbol) \(18992.0.delimiter)"
+        self.balanceAmountLabel.text = "\(18992.0.amountInDelimeterWithSymbol)"
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
@@ -132,13 +132,11 @@ class AccountDetailsVC: BaseVC {
             guard let sSelf = self else {return}
             
             if (sSelf.currentUsingMode == .search) {
-                sSelf.mainSearchBar.text = ""
                 sSelf.balanceContainerTopConstraint.constant = -(sSelf.balanceContainerView.height)
                 sSelf.balanceContainerView.alpha = 0.0
                 sSelf.tableView.tableHeaderView = nil
                 sSelf.searchDataContainerView.isHidden = false
                 sSelf.searchModeSearchBarTopConstraint.constant = 0.0
-                
             }
             else {
                 sSelf.balanceContainerTopConstraint.constant = 0.0
@@ -153,6 +151,7 @@ class AccountDetailsVC: BaseVC {
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 sSelf.balanceContainerView.isHidden = (sSelf.currentUsingMode == .search)
+                sSelf.searchTableView.reloadData()
                 if (sSelf.currentUsingMode == .search) {
                     sSelf.mainSearchBar.becomeFirstResponder()
                 }
@@ -181,10 +180,10 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-//        if searchBar === self.searchBar {
-//            self.currentUsingMode = .search
-//            return false
-//        }
+        if searchBar === self.searchBar {
+            self.currentUsingMode = .search
+            return false
+        }
         return true
     }
     
@@ -193,6 +192,10 @@ extension AccountDetailsVC: UISearchBarDelegate {
             self.noResultemptyView.searchTextLabel.isHidden = false
             self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
             self.viewModel.searchEvent(forText: searchText)
+        }
+        else {
+            //reset tot the old state
+            self.searchTableView.reloadData()
         }
     }
 }
@@ -211,7 +214,6 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-//        AppFlowManager.default.moveToAccountLedgerVC()
         AppFlowManager.default.moveToADEventFilterVC(self)
 
     }
