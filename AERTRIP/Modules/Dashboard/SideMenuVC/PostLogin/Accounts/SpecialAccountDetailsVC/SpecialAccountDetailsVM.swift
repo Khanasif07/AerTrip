@@ -13,9 +13,29 @@ struct SpecialAccountEvent {
     var description: String? = nil
     var amount: String = ""
     var symbol: String? = nil
-    var height: CGFloat = 0.0
+    
+    private var _height: CGFloat = 0.0
+    var height: CGFloat {
+        set {
+            self._height = newValue
+        }
+        
+        get {
+            var newH = self._height
+            
+            if self.isDevider {
+                newH += 7.0
+                
+                if let desc = self.description, !desc.isEmpty {
+                    newH += 10.0
+                }
+            }
+            return newH
+        }
+    }
     
     var isNext: Bool = false
+    var isLastNext: Bool = false
     var isDevider: Bool = false
     var isForTitle: Bool = false
 }
@@ -37,7 +57,7 @@ class SpecialAccountDetailsVM {
     private(set) var creditSummery: [SpecialAccountEvent] = []
     private(set) var otherAction: [SpecialAccountEvent] = []
     
-    let depositCellHeight: CGFloat = 101.0
+    let depositCellHeight: CGFloat = 99.0
     
     //MARK:- Private
     
@@ -51,10 +71,10 @@ class SpecialAccountDetailsVM {
         guard let usr = UserInfo.loggedInUser else {
             return
         }
-        let titleH: CGFloat = 42.0
-        let detailH: CGFloat = 30.0
-        let detailWithDescH: CGFloat = 50.0
-        let grandTotalH: CGFloat = 50.0
+        let titleH: CGFloat = 40.0
+        let detailH: CGFloat = 37.0
+        let detailWithDescH: CGFloat = 40.0
+        let grandTotalH: CGFloat = 41.0
         
         let stmtSummery = ["Statement Summery", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
         let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
@@ -102,10 +122,12 @@ class SpecialAccountDetailsVM {
             }
             else if idx == 1 {
                 obj.amount = (0.0).amountInDelimeterWithSymbol
+                obj.height = tpupSummeryHeight[idx] - 13.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
                 obj.amount = (5953.0).amountInDelimeterWithSymbol
+                obj.height = tpupSummeryHeight[idx] - 4.0
                 obj.isDevider = true
             }
             else if idx == 3 {
@@ -130,6 +152,7 @@ class SpecialAccountDetailsVM {
             }
             else if idx == 1 {
                 obj.amount = (0.0).amountInDelimeterWithSymbol
+                obj.height = tpupSummeryHeight[idx] - 13.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
@@ -154,13 +177,16 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = crdSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 obj.amount = ((usr.userType == UserInfo.UserType.statement) ? 2500000.0 : 0.0).amountInDelimeterWithSymbol
+                obj.height = crdSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
                 obj.amount = ((usr.userType == UserInfo.UserType.statement) ? -41253.0 : 0.0).amountInDelimeterWithSymbol
+                obj.height = crdSummeryHeight[idx]
                 obj.isDevider = true
             }
             else if idx == 3 {
@@ -173,7 +199,6 @@ class SpecialAccountDetailsVM {
         
         
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
-        let otrActionHeight: [CGFloat] = [grandTotalH, grandTotalH, grandTotalH]
         
         if usr.userType == UserInfo.UserType.statement {
             otrAction.append("Periodic statement")
@@ -182,10 +207,11 @@ class SpecialAccountDetailsVM {
         for (idx, str) in otrAction.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
-            obj.height = otrActionHeight[idx]
+            obj.height = 32.0
             
             obj.isDevider = true
             obj.isNext = true
+            obj.isLastNext = (idx == (otrAction.count - 1))
             self.otherAction.append(obj)
         }
         

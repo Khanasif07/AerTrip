@@ -33,7 +33,11 @@ class SpecialAccountDetailsVC: BaseVC {
         self.tableView.backgroundColor = AppColors.screensBackground.color
         self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         
-        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        
+        if let user = UserInfo.loggedInUser, (user.userType == .statement || user.userType == .billWise) {
+            self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        }
         
         self.topNavView.delegate = self
         

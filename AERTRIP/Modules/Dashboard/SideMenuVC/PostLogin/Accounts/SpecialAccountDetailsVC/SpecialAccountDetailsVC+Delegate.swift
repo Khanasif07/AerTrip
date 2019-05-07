@@ -155,7 +155,16 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //topup summery
             case 0:
-                return getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row])
+                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row]) as! AccountSummeryCell
+                
+                if indexPath.row == 1 {
+                    cell.stackViewTop.constant = -4.0
+                }
+                else if let sym = self.viewModel.topUpSummery[indexPath.row].symbol, sym == "=" {
+                    cell.stackViewTop.constant = 4.0
+                }
+                
+                return cell
                 
             //deposit cell
             case 1:
@@ -174,7 +183,13 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //bilwise summery
             case 0:
-                return getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row])
+                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row]) as! AccountSummeryCell
+                
+                if indexPath.row == 1 {
+                    cell.stackViewTop.constant = -4.0
+                }
+                
+                return cell
                 
             //credit summery
             case 1:
@@ -231,6 +246,9 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewTop: NSLayoutConstraint!
+    @IBOutlet weak var amountLabelTraillingConstant: NSLayoutConstraint!
     
     
     //MARK:- Life Cycle
@@ -249,7 +267,7 @@ class AccountSummeryCell: UITableViewCell {
     
     //MARK:- Properties
     //MARK:- Private
-    private func hideAll() {
+    private func resetAllSubViews() {
         titleLabel.isHidden = true
         descLabel.isHidden = true
         symbolLabel.isHidden = true
@@ -261,6 +279,14 @@ class AccountSummeryCell: UITableViewCell {
         symbolLabel.text = ""
         amountLabel.text = ""
         amountLabel.attributedText = nil
+        
+        dividerViewLeadingConstraint.constant = 16.0
+        dividerViewTrailingConstraint.constant = 16.0
+        amountLabelTraillingConstant.constant = 16.0
+        
+        if let user = UserInfo.loggedInUser, (user.userType == .topUp) {
+            stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
+        }
     }
     
     //MARK:- Public
@@ -270,18 +296,18 @@ class AccountSummeryCell: UITableViewCell {
     //MARK:- Private
     private func setupData() {
         guard let evnt = self.event else {
-            self.hideAll()
+            self.resetAllSubViews()
             return
         }
         
         if evnt.isForTitle {
-            self.configure(title: evnt.title)
-        }
-        else if evnt.isDevider {
-            self.configure(title: evnt.title, totalAmount: evnt.amount)
+            self.configureHeader(title: evnt.title)
         }
         else if evnt.isNext {
             self.configureNext(title: evnt.title)
+        }
+        else if let sym = evnt.symbol, sym == "=" {
+            self.configureGrandTotal(title: evnt.title, totalAmount: evnt.amount)
         }
         else {
             self.configure(detail: evnt.title, amount: evnt.amount, descp: evnt.description, symbol: evnt.symbol)
@@ -289,8 +315,8 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     //MARK:- Public
-    private func configure(title: String) {
-        self.hideAll()
+    private func configureHeader(title: String) {
+        self.resetAllSubViews()
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
@@ -299,7 +325,10 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configure(detail: String, amount: String, descp: String? = nil, symbol: String? = nil) {
-        self.hideAll()
+        self.resetAllSubViews()
+        
+        self.dividerView.isHidden = !(self.event!.isDevider)
+        self.dividerViewTrailingConstraint.constant = 16.0
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(16.0)
@@ -308,7 +337,7 @@ class AccountSummeryCell: UITableViewCell {
         
         if let sym = symbol {
             self.symbolLabel.isHidden = false
-            self.symbolLabel.font = AppFonts.SemiBold.withSize(16.0)
+            self.symbolLabel.font = AppFonts.SemiBold.withSize(20.0)
             self.symbolLabel.textColor = AppColors.themeBlack
             self.symbolLabel.text = sym
         }
@@ -326,11 +355,8 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.text = amount
     }
     
-    private func configure(title: String, totalAmount: String) {
-        self.hideAll()
-        
-        self.dividerView.isHidden = false
-        self.dividerViewTrailingConstraint.constant = 16.0
+    private func configureGrandTotal(title: String, totalAmount: String) {
+        self.resetAllSubViews()
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
@@ -338,7 +364,7 @@ class AccountSummeryCell: UITableViewCell {
         self.titleLabel.text = title
         
         self.symbolLabel.isHidden = false
-        self.symbolLabel.font = AppFonts.SemiBold.withSize(16.0)
+        self.symbolLabel.font = AppFonts.SemiBold.withSize(20.0)
         self.symbolLabel.textColor = AppColors.themeBlack
         self.symbolLabel.text = "="
         
@@ -349,10 +375,13 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configureNext(title: String) {
-        self.hideAll()
+        self.resetAllSubViews()
         
         self.dividerView.isHidden = false
         self.dividerViewTrailingConstraint.constant = 0.0
+        if self.event!.isLastNext {
+            self.dividerViewLeadingConstraint.constant = 0.0
+        }
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
@@ -362,7 +391,8 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "rightArrow"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        self.amountLabelTraillingConstant.constant = 0.0
     }
 }
 
