@@ -661,5 +661,10 @@ enum LocalizedString: String {
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
     
+    //MARK:- Account Ladger
     case DownloadAsPdf
+    case NoTransactions
+    case NoResultsFound
+    case Oops
+    case ClearFilters
  }

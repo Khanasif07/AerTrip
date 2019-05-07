@@ -592,8 +592,7 @@ extension AppFlowManager {
         
         switch user.userType {
         case .regular:
-            let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
-            self.mainNavigationController.pushViewController(obj, animated: true)
+            self.moveToAccountDetailsVC(usingFor: .account)
             
         case .billWise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
@@ -609,8 +608,9 @@ extension AppFlowManager {
         }
     }
     
-    func moveToAccountLadgerVC() {
-        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
+    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor) {
+        let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.currentUsingAs = usingFor
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

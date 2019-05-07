@@ -30,6 +30,8 @@ class EmptyScreenView: UIView {
         case noResult
         case noHotelFound
         case noHotelFoundOnFilter
+        case noAccountTransection
+        case noAccountResult
     }
     
     //MARK:- properties -
@@ -140,6 +142,12 @@ extension EmptyScreenView {
             
         case .noHotelFoundOnFilter:
             self.setUpNoHotelFoundOnFilter()
+            
+        case .noAccountTransection :
+            self.setupForNoAccountTransection()
+            
+        case .noAccountResult :
+            self.setupForNoAccountResult()
         }
     }
     
@@ -150,6 +158,34 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
         self.messageLabel.text = LocalizedString.noData.localized
+    }
+    
+    private func setupForNoAccountTransection() {
+        self.firstButton.isHidden = true
+        self.mainImageView.image = nil
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.NoTransactions.localized
+    }
+    
+    private func setupForNoAccountResult() {
+        self.firstButton.isHidden = true
+        self.mainImageView.image = nil
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoResultsFound.localized
+        
+        self.bottomButton.isHidden = false
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     private func setupForNoTraveller() {

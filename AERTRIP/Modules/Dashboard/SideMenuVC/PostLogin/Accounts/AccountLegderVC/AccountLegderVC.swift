@@ -10,6 +10,12 @@ import UIKit
 
 class AccountLegderVC: BaseVC {
     
+    enum ViewState {
+        case searching
+        case filterApplied
+        case normal
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -18,8 +24,20 @@ class AccountLegderVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountLegderVM()
+    var currentViewState = ViewState.normal
     
     //MARK:- Private
+    private lazy var noAccountTransectionView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noAccountTransection
+        return newEmptyView
+    }()
+    
+    private lazy var noAccountResultView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noAccountResult
+        return newEmptyView
+    }()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -77,6 +95,9 @@ class AccountLegderVC: BaseVC {
     
     //MARK:- Public
     func reloadList() {
+        self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
+        
+        self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
         self.tableView.reloadData()
     }
     

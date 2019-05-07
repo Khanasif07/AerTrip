@@ -627,4 +627,9 @@
 "NotAbleToSaveContactTryAgain" = "Not able to save contacts. Please try again.";
 "SelectMaxNContacts" = "Please select 100 contacts at a time.";
 
+//MARK:- Account Ladger
 "DownloadAsPdf" = "Download as PDF";
+"NoTransactions" = "No transactions";
+"NoResultsFound" = "No results found";
+"Oops" = "Oops!";
+"ClearFilters" = "Clear Filters";

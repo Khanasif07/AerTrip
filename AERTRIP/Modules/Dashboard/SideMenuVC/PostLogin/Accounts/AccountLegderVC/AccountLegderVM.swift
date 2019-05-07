@@ -82,7 +82,7 @@ class AccountLegderVM {
                            ]
                           ]
             
-            sSelf.accountLedger = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountLedger = [:]//AccountDetailEvent.modelsDict(data: allData)
             
             sSelf.delegate?.getAccountLedgerSuccess()
         }

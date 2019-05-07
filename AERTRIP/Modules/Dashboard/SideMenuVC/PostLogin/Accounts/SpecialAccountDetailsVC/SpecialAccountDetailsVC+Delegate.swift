@@ -236,17 +236,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         switch self.currentUserType {
         case .statement:
             if (indexPath.section == 3), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountLadgerVC()
+                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
             }
 
         case .topUp:
             if (indexPath.section == 2), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountLadgerVC()
+                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
             }
 
         case .billWise:
             if (indexPath.section == 3), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountLadgerVC()
+                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
             }
             
         default:
