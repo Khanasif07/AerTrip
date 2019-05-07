@@ -112,6 +112,8 @@ enum AppColors {
     // RGB - 24,159,166
       static let recentSeachesSearchTypeBlue = #colorLiteral(red: 0.09411764706, green: 0.6235294118, blue: 0.6509803922, alpha: 1)
     
+    
+    
     case headlines
     case body
     case subheads

@@ -660,4 +660,12 @@ enum LocalizedString: String {
     case NoContactFoundInGoogle
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
+    
+    //MARK: - Aerin Text Speech Detail VC
+    
+    case Departure = "Departure"
+    case Return = "Return"
+    case Class = "Class"
+   
+    
  }

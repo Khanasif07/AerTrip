@@ -626,3 +626,8 @@
 "NoContactFoundInGoogle" = "No contacts found on your google.";
 "NotAbleToSaveContactTryAgain" = "Not able to save contacts. Please try again.";
 "SelectMaxNContacts" = "Please select 100 contacts at a time.";
+
+//MARK: - Aerin Speech Text Detail VC
+"Departure" = "Departure";
+"Return" = "Return";
+"Class" = "Class";

@@ -35,6 +35,7 @@ class AerinTextSpeechVC: BaseVC {
         self.setupFonts()
         self.setupColors()
         self.configureNavigationBar()
+        self.setupWaterWaveView()
     }
     
     override func setupTexts() {
@@ -56,6 +57,20 @@ class AerinTextSpeechVC: BaseVC {
         self.aerinTitleLabel.textColor = AppColors.themeTextColor
     }
     
+    
+    private func setupWaterWaveView() {
+        let frame = CGRect(x: 0, y: UIDevice.screenHeight - 250, width: self.view.frame.size.width, height: 250)
+        
+        let waterWaveView = PKWaterWaveView(frame: frame, color: AppColors.themeGreen.withAlphaComponent(0.20))
+        waterWaveView.waveHeight = 100
+        waterWaveView.waveSpeed = 0.2
+        waterWaveView.waveCurvature = 0.2
+       
+        self.view.addSubview(waterWaveView)
+        
+        waterWaveView.start()
+       
+    }
   
     
     //MARK: - IBAction

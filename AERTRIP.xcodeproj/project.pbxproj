@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
+		18020ADA2280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020AD82280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift */; };
+		18020ADB2280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020AD92280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib */; };
+		18020ADE2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020ADC2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift */; };
+		18020ADF2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020ADD2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.xib */; };
+		18020AE2228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020AE0228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift */; };
+		18020AE3228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020AE1228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.xib */; };
+		18020AE6228197F900DE5FE0 /* AerinTextSpeechInfoHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020AE5228197F900DE5FE0 /* AerinTextSpeechInfoHelpView.swift */; };
+		18020AE82281980F00DE5FE0 /* AerinTextSpeechInfoHelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020AE72281980F00DE5FE0 /* AerinTextSpeechInfoHelpView.xib */; };
+		18020AF42281A63C00DE5FE0 /* AerinInfoSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020AF32281A63C00DE5FE0 /* AerinInfoSectionHeader.xib */; };
+		18020AF62281A64400DE5FE0 /* AerinInfoSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020AF52281A64400DE5FE0 /* AerinInfoSectionHeader.swift */; };
+		18020AF92281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020AF72281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift */; };
+		18020AFA2281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020AF82281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib */; };
 		18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18038CEF226D90C000A4D1DD /* Aerin.storyboard */; };
 		18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */; };
 		18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */; };
@@ -196,6 +208,9 @@
 		18EF5E83221D261B00EFFA6E /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E67221D261B00EFFA6E /* GQTPointQuadTreeChild.m */; };
 		18EF5E86221D265100EFFA6E /* ATClusterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E85221D265100EFFA6E /* ATClusterItem.swift */; };
 		18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */; };
+		18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */; };
+		18EF753A228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF7538228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift */; };
+		18EF753B228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EF7539228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib */; };
 		18F181D4223BC13200323775 /* FinalCheckOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F181D3223BC13200323775 /* FinalCheckOutVC.swift */; };
 		18F181D8223BC8C900323775 /* ApplyCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F181D6223BC8C900323775 /* ApplyCouponTableViewCell.swift */; };
 		18F181D9223BC8C900323775 /* ApplyCouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F181D7223BC8C900323775 /* ApplyCouponTableViewCell.xib */; };
@@ -676,6 +691,18 @@
 /* Begin PBXFileReference section */
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
+		18020AD82280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFlightResultTableViewCell.swift; sourceTree = "<group>"; };
+		18020AD92280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleFlightResultTableViewCell.xib; sourceTree = "<group>"; };
+		18020ADC2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomesticReturnFlightResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		18020ADD2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomesticReturnFlightResultCollectionViewCell.xib; sourceTree = "<group>"; };
+		18020AE0228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternationalRetunrFlightResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		18020AE1228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InternationalRetunrFlightResultCollectionViewCell.xib; sourceTree = "<group>"; };
+		18020AE5228197F900DE5FE0 /* AerinTextSpeechInfoHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinTextSpeechInfoHelpView.swift; sourceTree = "<group>"; };
+		18020AE72281980F00DE5FE0 /* AerinTextSpeechInfoHelpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinTextSpeechInfoHelpView.xib; sourceTree = "<group>"; };
+		18020AF32281A63C00DE5FE0 /* AerinInfoSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AerinInfoSectionHeader.xib; sourceTree = "<group>"; };
+		18020AF52281A64400DE5FE0 /* AerinInfoSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AerinInfoSectionHeader.swift; sourceTree = "<group>"; };
+		18020AF72281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinInfoTableViewCell.swift; sourceTree = "<group>"; };
+		18020AF82281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinInfoTableViewCell.xib; sourceTree = "<group>"; };
 		18038CEF226D90C000A4D1DD /* Aerin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Aerin.storyboard; sourceTree = "<group>"; };
 		18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinSuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinSuggestionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -904,6 +931,9 @@
 		18EF5E6B221D261B00EFFA6E /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
 		18EF5E85221D265100EFFA6E /* ATClusterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATClusterItem.swift; sourceTree = "<group>"; };
 		18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelSearchRequestModel.swift; sourceTree = "<group>"; };
+		18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKWaterWaveView.swift; sourceTree = "<group>"; };
+		18EF7538228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		18EF7539228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneWayCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		18F181D3223BC13200323775 /* FinalCheckOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalCheckOutVC.swift; sourceTree = "<group>"; };
 		18F181D6223BC8C900323775 /* ApplyCouponTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyCouponTableViewCell.swift; sourceTree = "<group>"; };
 		18F181D7223BC8C900323775 /* ApplyCouponTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplyCouponTableViewCell.xib; sourceTree = "<group>"; };
@@ -1400,12 +1430,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18020AE42281976B00DE5FE0 /* AerinUIView */ = {
+			isa = PBXGroup;
+			children = (
+				18020AE5228197F900DE5FE0 /* AerinTextSpeechInfoHelpView.swift */,
+				18020AE72281980F00DE5FE0 /* AerinTextSpeechInfoHelpView.xib */,
+			);
+			path = AerinUIView;
+			sourceTree = "<group>";
+		};
 		18038D10226DC2C700A4D1DD /* Aerin */ = {
 			isa = PBXGroup;
 			children = (
+				18020AE42281976B00DE5FE0 /* AerinUIView */,
 				18038D1A226DE67400A4D1DD /* AerinTableViewCell */,
 				18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */,
 				18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */,
+				18EF7538228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift */,
+				18020AF52281A64400DE5FE0 /* AerinInfoSectionHeader.swift */,
+				18020AF32281A63C00DE5FE0 /* AerinInfoSectionHeader.xib */,
+				18EF7539228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib */,
 			);
 			path = Aerin;
 			sourceTree = "<group>";
@@ -1424,6 +1468,14 @@
 			children = (
 				18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */,
 				18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */,
+				18020AD82280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift */,
+				18020AD92280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib */,
+				18020ADC2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift */,
+				18020ADD2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.xib */,
+				18020AE0228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift */,
+				18020AE1228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.xib */,
+				18020AF72281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift */,
+				18020AF82281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib */,
 			);
 			path = AerinTableViewCell;
 			sourceTree = "<group>";
@@ -1924,6 +1976,14 @@
 				18EF5E25221D261B00EFFA6E /* src */,
 			);
 			path = GooleMapCluster;
+			sourceTree = "<group>";
+		};
+		18EF75352280144100FCBBE6 /* PKWaterWaveView */ = {
+			isa = PBXGroup;
+			children = (
+				18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */,
+			);
+			path = PKWaterWaveView;
 			sourceTree = "<group>";
 		};
 		18F181D0223A3D0900323775 /* HotelCheckOut */ = {
@@ -3517,6 +3577,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				18EF75352280144100FCBBE6 /* PKWaterWaveView */,
 				847F7EB62279DB75009BE02F /* PKTextField */,
 				18FDF3252236A988009CC909 /* ATEmailSelectorTextView */,
 				18FDF3242236A974009CC909 /* ISPageControl */,
@@ -3777,6 +3838,7 @@
 				8491D1F8222D3FC2001D0313 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				84534EBC2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.xib in Resources */,
 				182E8ED321DB6AAC0089C02D /* HotelCardTableViewCell.xib in Resources */,
+				18020AE82281980F00DE5FE0 /* AerinTextSpeechInfoHelpView.xib in Resources */,
 				84534EA62248B83E009FF536 /* HCPhoneTableViewCell.xib in Resources */,
 				846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */,
 				846856B12233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib in Resources */,
@@ -3845,6 +3907,7 @@
 				8474CC32222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.xib in Resources */,
 				18E797142249EB6B00A7AC8B /* CurrenyCollectionViewCell.xib in Resources */,
 				1809A47C21CDFA7E0018AB2F /* TableViewAddActionCell.xib in Resources */,
+				18020AFA2281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib in Resources */,
 				8491D1F4222D3FC2001D0313 /* SourceSansPro-Bold.ttf in Resources */,
 				84F1626F2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
@@ -3855,6 +3918,7 @@
 				18D4C41E220ACD06005E1E37 /* RoomTableViewCell.xib in Resources */,
 				84534ECB22490F91009FF536 /* HCWhatNextTableViewCell.xib in Resources */,
 				848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */,
+				18EF753B228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib in Resources */,
 				18E797082248F4B600A7AC8B /* WallletAmountCellTableViewCell.xib in Resources */,
 				18FAA503220DB907001454DE /* SectionHeader.xib in Resources */,
 				84F162742240FA1B00AA183F /* EventAdddedTripTableViewCell.xib in Resources */,
@@ -3887,12 +3951,14 @@
 				84B23F78222FFA9E00C952ED /* ClusterMarkerView.xib in Resources */,
 				18F181E5223BC97300323775 /* FareDetailTableViewCell.xib in Resources */,
 				842EDE9C223A3B3500E99409 /* HCSpecialRequestTextfieldCell.xib in Resources */,
+				18020ADF2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.xib in Resources */,
 				84D11CC822702BE500FADD29 /* BookingUserInfoTableViewCell.xib in Resources */,
 				18C31F0B2227E40D0052162C /* EmailComposerHeaderView.xib in Resources */,
 				84D1580422660B4F00393528 /* AccountDetailEventHeaderCell.xib in Resources */,
 				84DD24652265AFBA0013F77E /* FlightTableViewCell.xib in Resources */,
 				84314225224DFA250021F5BC /* HotelCheckOutDetailsVIew.xib in Resources */,
 				842E048C221583F800C482DC /* RecentHotelSearcheView.xib in Resources */,
+				18020AE3228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.xib in Resources */,
 				8491D1FB222D3FC2001D0313 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				18E797042248ED8300A7AC8B /* FareSectionHeader.xib in Resources */,
 				18C31F092227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.xib in Resources */,
@@ -3917,6 +3983,7 @@
 				84534E9C2248A188009FF536 /* HCBookingDetailsTableViewHeaderFooterView.xib in Resources */,
 				188290612238D51A0000C118 /* GuestDetailTableViewCell.xib in Resources */,
 				18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */,
+				18020ADB2280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib in Resources */,
 				84BDE9CB222D2B37006B9926 /* hotelData.json in Resources */,
 				188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */,
 				8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */,
@@ -3940,6 +4007,7 @@
 				8491D1FA222D3FC2001D0313 /* SourceSansPro-SemiBold.ttf in Resources */,
 				8491D1F5222D3FC2001D0313 /* SourceSansPro-LightItalic.ttf in Resources */,
 				8464FD64226DDB230021AF2B /* MyBookingFooterView.xib in Resources */,
+				18020AF42281A63C00DE5FE0 /* AerinInfoSectionHeader.xib in Resources */,
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */,
@@ -4179,6 +4247,7 @@
 				841DD1E72202DC690055FEBB /* DestinationMyLocationTableCell.swift in Sources */,
 				84DD0D1D220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift in Sources */,
 				84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */,
+				18020ADA2280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift in Sources */,
 				84B9B9DE225B5449007A4C94 /* HCSocialShareTripTableViewCell.swift in Sources */,
 				84DD245F2265A9B50013F77E /* OthersBookingTableViewCell.swift in Sources */,
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
@@ -4200,6 +4269,7 @@
 				8483806C2249EC8000202828 /* APICaller+Trips.swift in Sources */,
 				84F983C521B51A070018DFED /* LanguageEnum.swift in Sources */,
 				84085CFF21F59C0E00F1E844 /* FavouriteHotelsVM.swift in Sources */,
+				18020ADE2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift in Sources */,
 				847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
 				8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */,
@@ -4225,6 +4295,7 @@
 				84DD249A226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift in Sources */,
 				8422728422118C6C00D4F065 /* ATGalleryViewController.swift in Sources */,
 				180F9BDC222D055100518D3B /* HotelResultVC+ DelegateMethods.swift in Sources */,
+				18EF753A228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift in Sources */,
 				846FB592222541AD007F70F9 /* HotelsGroupExpendedVC.swift in Sources */,
 				84085CE721F59C0E00F1E844 /* CreateProfileSuccessVC.swift in Sources */,
 				84840A60224CA18500FE83A8 /* ATCategoryButton.swift in Sources */,
@@ -4236,6 +4307,7 @@
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
 				84534EC522490D15009FF536 /* HCConfirmationVoucherTableViewCell.swift in Sources */,
+				18020AE2228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift in Sources */,
 				18EF5E70221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				1871B672220823E30066636E /* ATGuestButton.swift in Sources */,
 				1870AD14220C769400FB32C8 /* UserInfo.swift in Sources */,
@@ -4265,6 +4337,7 @@
 				84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */,
 				18E79717224A06B100A7AC8B /* TotalPayableNowCell.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
+				18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */,
 				8455A67E2232920900CEE2B3 /* ReviewsOptionTableViewCell.swift in Sources */,
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
 				8483AFA622118549009F7600 /* HotelRatingInfoCell.swift in Sources */,
@@ -4358,6 +4431,7 @@
 				840494F82253203900983F5E /* HCRoomTableViewCell.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
+				18020AF62281A64400DE5FE0 /* AerinInfoSectionHeader.swift in Sources */,
 				84504D572212F375002C1374 /* AmenitiesDescriptionHeaderView.swift in Sources */,
 				841DD1E52202DC690055FEBB /* HotelsSearchVC.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
@@ -4369,6 +4443,7 @@
 				84F983C621B51A070018DFED /* AssetController.swift in Sources */,
 				18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */,
 				84085D0921F59C0E00F1E844 /* PreferencesVC.swift in Sources */,
+				18020AE6228197F900DE5FE0 /* AerinTextSpeechInfoHelpView.swift in Sources */,
 				8422727D2211631D00D4F065 /* ATGalleryImage.swift in Sources */,
 				84F9EADE226EDCD7005A1B8B /* AppBeautifier.swift in Sources */,
 				84F162732240FA1B00AA183F /* EventAdddedTripTableViewCell.swift in Sources */,
@@ -4474,6 +4549,7 @@
 				840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */,
 				84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */,
 				842EDE772238E7D600E99409 /* HotelDetails.swift in Sources */,
+				18020AF92281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift in Sources */,
 				842EDE752238E7D600E99409 /* HotelDetailsVC+Delegates.swift in Sources */,
 				1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */,
 				84F983D821B51A070018DFED /* UIViewExtension.swift in Sources */,

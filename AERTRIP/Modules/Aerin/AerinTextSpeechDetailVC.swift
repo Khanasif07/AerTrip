@@ -15,13 +15,28 @@ class AerinTextSpeechDetailVC: BaseVC {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var aerinTableView: UITableView!
+    @IBOutlet weak var bottomView: UIView!
+    
+    @IBOutlet weak var aerinInfoHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var aerinInfoContainerView: UIView!
+    
     
     let images = ["flightIcon","ic_acc_hotels","flightIcon","flightIcon","ic_acc_hotels","flightIcon","flightIcon","ic_acc_hotels","flightIcon"]
     let text = ["BOM","Goa","Goa","BOM","Goa","Goa","BOM","Goa","Goa"]
     
     
+    
+    // MARK: - Variables
+     var aerinInfoView: AerinTextSpeechInfoHelpView?
+    
+    var isAerinInfoViewOpen: Bool = false
+    var statusBarHeight: CGFloat {
+        return UIApplication.shared.statusBarFrame.height
+    }
+    
     //MARK: - Cell Identifier
     let cellIdentifier = "AerinSuggestionCollectionViewCell"
+    
     
     override func initialSetup() {
         self.registerXib()
@@ -29,10 +44,23 @@ class AerinTextSpeechDetailVC: BaseVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.reloadData()
-        self.aerinTableView.separatorStyle = .none
+       
+      self.configureAerinInfoView()
+      self.aerinTableView.separatorStyle = .none
         self.aerinTableView.dataSource = self
         self.aerinTableView.delegate = self
         self.aerinTableView.reloadData()
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let aerinInfoContainerView = self.aerinInfoContainerView {
+            aerinInfoContainerView.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: bottomView.width, height: 667)
+        }
+        updateAerinInfoView()
+        
     }
     
     //MARK: - IB Action
@@ -45,8 +73,14 @@ class AerinTextSpeechDetailVC: BaseVC {
     
     
     @IBAction func infoIconTappped(_ sender: Any) {
+            bottomView.isHidden = true
         
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
+            self?.aerinInfoHeightConstraint.constant = self?.view.height ?? 0 - (self?.bottomView.height ?? 0 + AppFlowManager.default.safeAreaInsets.top)
+            self?.view.layoutIfNeeded()
+        }
     }
+        
     
     
     //MARK: - Helper Methods
@@ -60,6 +94,22 @@ class AerinTextSpeechDetailVC: BaseVC {
         self.topNavigationView.delegate = self
         
     }
+    
+    private func configureAerinInfoView() {
+        aerinInfoView = AerinTextSpeechInfoHelpView(frame: CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: bottomView.width, height: bottomView.bounds.height - AppFlowManager.default.safeAreaInsets.top))
+        if let aerinInfoView = self.aerinInfoView {
+            aerinInfoView.delegate = self
+            aerinInfoContainerView.addSubview(aerinInfoView)
+        }
+        updateAerinInfoView()
+    }
+    
+    private func updateAerinInfoView() {
+        if let aerinInfoView = self.aerinInfoView {
+            aerinInfoView.updateData()
+        }
+    }
+
 }
 
 
@@ -113,6 +163,30 @@ extension AerinTextSpeechDetailVC : UITableViewDataSource, UITableViewDelegate {
         }
         
         return cell
+    }
+    
+    
+}
+
+extension AerinTextSpeechDetailVC: AerinTextSpeechInfoHelpViewDelegate {
+    func keyboardButtonTapped() {
+        printDebug("keyboard button Tapped")
+    }
+    
+    func speakerButtonTapped() {
+        printDebug("speaker button tapped")
+    }
+    
+    func downArrowTapped() {
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            self.aerinInfoHeightConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }) { [weak self] _ in
+            guard let sSelf = self else { return }
+            sSelf.isAerinInfoViewOpen = false
+            sSelf.bottomView.isHidden = false
+        }
+        printDebug("down arrow tapped")
     }
     
     
