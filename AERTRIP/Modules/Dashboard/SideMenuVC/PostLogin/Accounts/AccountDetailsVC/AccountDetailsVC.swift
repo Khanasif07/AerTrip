@@ -158,6 +158,20 @@ class AccountDetailsVC: BaseVC {
         })
     }
     
+    private func showMoreOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            if index == 0 {
+                //email tapped
+                printDebug("email tapped")
+            } else {
+                //download pdf tapped
+                printDebug("download pdf tapped")
+            }
+        }
+    }
+    
     //MARK:- Public
     func reloadList() {
         self.tableView.reloadData()
@@ -210,11 +224,12 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+        self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(self)
+        AppFlowManager.default.moveToADEventFilterVC()
 
     }
 }

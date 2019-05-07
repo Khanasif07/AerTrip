@@ -609,10 +609,14 @@ extension AppFlowManager {
         }
     }
     
-    func moveToADEventFilterVC(_ vc : AccountDetailsVC ) {
+    func moveToAccountLadgerVC() {
+        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToADEventFilterVC() {
         if let obj = UIApplication.topViewController() {
             let ob = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
-            //            ob.delegate = vc
             obj.add(childViewController: ob)
         }
     }

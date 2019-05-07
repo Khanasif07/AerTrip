@@ -660,4 +660,6 @@ enum LocalizedString: String {
     case NoContactFoundInGoogle
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
+    
+    case DownloadAsPdf
  }

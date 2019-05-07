@@ -231,6 +231,28 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch self.currentUserType {
+        case .statement:
+            if (indexPath.section == 3), (indexPath.row == 0) {
+                AppFlowManager.default.moveToAccountLadgerVC()
+            }
+
+        case .topUp:
+            if (indexPath.section == 2), (indexPath.row == 0) {
+                AppFlowManager.default.moveToAccountLadgerVC()
+            }
+
+        case .billWise:
+            if (indexPath.section == 3), (indexPath.row == 0) {
+                AppFlowManager.default.moveToAccountLadgerVC()
+            }
+            
+        default:
+            printDebug("No need to implement")
+        }
+    }
 }
 
 
