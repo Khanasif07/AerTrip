@@ -668,4 +668,15 @@ enum LocalizedString: String {
     case Oops
     case ClearFilters
     case BookingID
+    
+    //MARK:- OutStanding Ladger
+    case Summary
+    case OutstandingLedger
+    case GrossOutstanding
+    case OnAccount
+    case NetOutstanding
+    case DebitShort
+    case CreditShort
+    case SelectBookingsPay
+    case MakePayment
  }

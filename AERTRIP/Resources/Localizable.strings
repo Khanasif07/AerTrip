@@ -634,3 +634,14 @@
 "Oops" = "Oops!";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
+
+//MARK:- OutStanding Ladger
+"Summary" = "Summary";
+"OutstandingLedger" = "Outstanding Ledger";
+"GrossOutstanding" = "Gross Outstanding";
+"OnAccount" = "On Account";
+"NetOutstanding" = "Net Outstanding";
+"DebitShort" = "Dr.";
+"CreditShort" = "Cr.";
+"SelectBookingsPay" = "Select bookings & pay";
+"MakePayment" = "Make Payment";

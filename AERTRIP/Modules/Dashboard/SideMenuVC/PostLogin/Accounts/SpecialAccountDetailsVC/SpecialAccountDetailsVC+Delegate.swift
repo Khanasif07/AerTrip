@@ -235,18 +235,48 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.currentUserType {
         case .statement:
-            if (indexPath.section == 3), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+            if (indexPath.section == 3) {
+                switch indexPath.row {
+                case 0:
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    
+                case 1:
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC()
+                    
+                case 2:
+                    printDebug("predioc statement")
+                    
+                default:
+                    printDebug("no need to implement")
+                }
             }
 
         case .topUp:
-            if (indexPath.section == 2), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+            if (indexPath.section == 2) {
+                switch indexPath.row {
+                case 0:
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    
+                case 1:
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC()
+                    
+                default:
+                    printDebug("no need to implement")
+                }
             }
 
         case .billWise:
-            if (indexPath.section == 3), (indexPath.row == 0) {
-                AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+            if (indexPath.section == 3) {
+                switch indexPath.row {
+                case 0:
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    
+                case 1:
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC()
+                    
+                default:
+                    printDebug("no need to implement")
+                }
             }
             
         default:
