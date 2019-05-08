@@ -29,11 +29,13 @@ class AerinTextSpeechInfoHelpView: UIView {
     //MARK: - Variables
     weak var delegate: AerinTextSpeechInfoHelpViewDelegate?
     let cellIdenitfier = "AerinInfoTableViewCell"
+    let headerCellIdentifier = "AerinInfoSectionHeader"
     
     
     // Test Data
     
     let sections = ["Flight","Hotel"]
+    let sectionImages = ["flight","hotelAerinIcon"]
     let sectionsFlight = ["Flight from Mumbai to Delhi", "Flight from Mumbai to Delhi","Bombay to Delhi flight tomorrow","Bombay to Delhi flight tomorrow","Flight on diwali from New York to Mumbai","Flight on diwali from New York to Mumbai"]
     
     let sectionHotel = ["Find hotels near me","Find hotels in Dubai on 30th June","5 star hotels in New York","Hotels with good Wi-Fi in Andheri","Check Taj hotels in Mumbai","Find stay near Shirdi for 6 peoples with 2 rooms on this friday"]
@@ -82,6 +84,9 @@ class AerinTextSpeechInfoHelpView: UIView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         self.configureUI()
+        self.setUpFont()
+        self.setUpText()
+        self.setUpColor()
     }
     
     
@@ -96,7 +101,20 @@ class AerinTextSpeechInfoHelpView: UIView {
     
     private func registerXib() {
          self.infoTableView.registerCell(nibName: AerinInfoTableViewCell.reusableIdentifier)
-         self.infoTableView.register(AerinInfoSectionHeader.self, forHeaderFooterViewReuseIdentifier: "AerinInfoSectionHeader")
+         self.infoTableView.register(UINib(nibName: self.headerCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerCellIdentifier)
+    }
+    
+    
+    private func setUpText() {
+        self.titleLabel.text = LocalizedString.ThingsYouCanAskMe.localized
+    }
+    
+    private func setUpColor() {
+       self.titleLabel.textColor = AppColors.themeTextColor
+    }
+    
+    private func setUpFont() {
+        self.titleLabel.font = AppFonts.Regular.withSize(28.0)
     }
     
 
@@ -123,7 +141,7 @@ extension AerinTextSpeechInfoHelpView : UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 32.0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -148,11 +166,12 @@ extension AerinTextSpeechInfoHelpView : UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let infoHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AerinInfoSectionHeader") as? AerinInfoSectionHeader else {
-            return nil
+            fatalError("AerinInfoSectionHeader not found")
         }
         
+        
         infoHeader.sectionTitleLabel.text = self.sections[section]
-    
+        infoHeader.sectionImageView.image = #imageLiteral(resourceName: self.sectionImages[section])
         return infoHeader
     }
     

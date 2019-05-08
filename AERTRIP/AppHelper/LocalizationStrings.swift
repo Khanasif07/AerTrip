@@ -666,6 +666,10 @@ enum LocalizedString: String {
     case Departure = "Departure"
     case Return = "Return"
     case Class = "Class"
+    case TapToEdit = "TapToEdit"
+    case ThingsYouCanAskMe
+    
+    
    
     
  }
