@@ -614,6 +614,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent) {
+        let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.ladgerEvent = forEvent
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func moveToADEventFilterVC() {
         if let obj = UIApplication.topViewController() {
             let ob = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)

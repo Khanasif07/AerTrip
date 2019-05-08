@@ -68,6 +68,16 @@ struct AccountDetailEvent {
             default: return nil
             }
         }
+        
+        var title: String {
+            switch self {
+            case .hotels: return "Sales"
+            case .flight: return "Sales"
+            case .creditNote: return "Receipt"
+                
+            default: return "Sales"
+            }
+        }
     }
 
     var id : String = ""
@@ -86,10 +96,20 @@ struct AccountDetailEvent {
     var amount : Double = 0.0
     var balance : Double = 0.0
     
+    var voucherNo: String = ""
+    var date: Date?
+    var checkIn: Date?
+    var checkOut: Date?
+    var room: String = ""
+    var inclusion: String = ""
+    var confirmationId: String = ""
+    var names: [String] = []
+    
+    var bookingId: String = "B/16-17/6859403"
+
     var numOfRows: Int {
         return 2
     }
-    
     
     init() {
         self.init(json: [:])
@@ -119,6 +139,15 @@ struct AccountDetailEvent {
         if let obj = json["balance"] {
             self.balance = "\(obj)".toDouble ?? 0.0
         }
+        
+        self.voucherNo = "S/18-19/881"
+        self.date = Date().add(days: 1)
+        self.checkIn = Date()
+        self.checkOut = Date().add(days: 4)
+        self.room = "ROOM"
+        self.inclusion = "Deluxe King Room"
+        self.confirmationId = "427524"
+        self.names = ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
     }
     
     static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {

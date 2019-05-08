@@ -667,4 +667,5 @@ enum LocalizedString: String {
     case NoResultsFound
     case Oops
     case ClearFilters
+    case BookingID
  }

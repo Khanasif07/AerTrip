@@ -276,8 +276,7 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-//        AppFlowManager.default.moveToADEventFilterVC()
-        AppFlowManager.default.moveToAccountDetailsVC(usingFor: .account)
+        AppFlowManager.default.moveToADEventFilterVC()
     }
 }
 

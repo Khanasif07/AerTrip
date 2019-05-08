@@ -6,4 +6,17 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class AccountLadgerDetailsVM {
+    //MARK:- Properties
+    //MARK:- Public
+    var ladgerEvent: AccountDetailEvent?
+    //MARK:- Private
+
+    
+    //MARK:- Methods
+    //MARK:- Private
+    
+    //MARK:- Public
+}

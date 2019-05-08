@@ -77,6 +77,8 @@ class TopNavigationView: UIView {
         containerView.frame = self.bounds
         containerView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         
+        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
+        
         //add blur on backView
         self.addBlurEffect()
         
@@ -84,6 +86,7 @@ class TopNavigationView: UIView {
     }
     
     private func addBlurEffect() {
+        self.backView.backgroundColor = AppColors.clear
         guard shouldAddBlurEffect else {return}
         if let backClr = self.backgroundColor, backClr != AppColors.clear {
             self.insertSubview(getBlurView(forView: self), at: 0)
@@ -91,7 +94,6 @@ class TopNavigationView: UIView {
         }
         
         self.backView.addSubview(getBlurView(forView: self.backView))
-        self.backView.backgroundColor = AppColors.clear
     }
     
     private func getBlurView(forView: UIView) -> UIVisualEffectView {
