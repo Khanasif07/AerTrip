@@ -106,6 +106,8 @@ struct AccountDetailEvent {
     var names: [String] = []
     
     var bookingId: String = "B/16-17/6859403"
+    
+    var creditCardNo: String = "XXXX - XXXX - XXXX - 0008"
 
     var numOfRows: Int {
         return 2
@@ -140,6 +142,10 @@ struct AccountDetailEvent {
             self.balance = "\(obj)".toDouble ?? 0.0
         }
         
+        if let obj = json["names"] as? [String] {
+            self.names = obj
+        }
+        
         self.voucherNo = "S/18-19/881"
         self.date = Date().add(days: 1)
         self.checkIn = Date()
@@ -147,7 +153,6 @@ struct AccountDetailEvent {
         self.room = "ROOM"
         self.inclusion = "Deluxe King Room"
         self.confirmationId = "427524"
-        self.names = ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
     }
     
     static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {

@@ -15,7 +15,10 @@ class AccountLadgerDetailHeader: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bookingIdKeyLabel: UILabel!
     @IBOutlet weak var bookingIdValueLabel: UILabel!
-    
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var bottomDetailContainer: UIView!
+    @IBOutlet weak var bottomDetailContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
     //MARK:- Properties
     //MARK:- Private
     
@@ -67,9 +70,22 @@ class AccountLadgerDetailHeader: UIView {
         }
         
         self.imageView.image = event.voucher.image
-        self.titleLabel.text = event.title
-        self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
-        self.bookingIdValueLabel.text = event.bookingId
+        if event.voucher == .creditNote {
+            self.titleLabel.text = event.title + "\n" + event.creditCardNo
+            self.bookingIdKeyLabel.text = ""
+            self.bookingIdValueLabel.text = ""
+            self.bottomDetailContainer.isHidden = true
+            self.bottomDetailContainerHeightConstraint.constant = 0.0
+            self.bottomContainerBottomConstraint.constant = 0.0
+        }
+        else {
+            self.titleLabel.text = event.title
+            self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
+            self.bookingIdValueLabel.text = event.bookingId
+            self.bottomDetailContainer.isHidden = false
+            self.bottomDetailContainerHeightConstraint.constant = 38.0
+            self.bottomContainerBottomConstraint.constant = 22.0
+        }
     }
     
     //MARK:- Public

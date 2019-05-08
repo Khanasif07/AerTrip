@@ -60,12 +60,22 @@
                         <constraint firstAttribute="width" secondItem="hXS-Wr-WUL" secondAttribute="height" multiplier="1:1" id="z8T-mR-aFM"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfC-tD-zen" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                    <rect key="frame" x="16" y="274" width="441" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="eC4-7T-EAC"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Pif-8b-45l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="7ZN-N6-IRE"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" constant="50" id="9oD-HM-q4M"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tfC-tD-zen" secondAttribute="trailing" constant="16" id="HYG-rh-72H"/>
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="top" secondItem="hXS-Wr-WUL" secondAttribute="bottom" constant="20" id="I2V-gr-xwB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tfC-tD-zen" secondAttribute="bottom" id="Po1-xo-ZCg"/>
+                <constraint firstItem="tfC-tD-zen" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="V3D-Cj-2bb"/>
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" id="h8g-4m-LIf"/>
                 <constraint firstItem="hXS-Wr-WUL" firstAttribute="centerX" secondItem="MOw-oT-9fe" secondAttribute="centerX" id="iMa-4h-eOa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pif-8b-45l" secondAttribute="bottom" constant="22" id="lN3-uj-4zU"/>
@@ -77,6 +87,10 @@
             <connections>
                 <outlet property="bookingIdKeyLabel" destination="ne9-EH-Eo6" id="e9Z-M5-PGC"/>
                 <outlet property="bookingIdValueLabel" destination="Agv-1S-Tzc" id="Icb-tg-0SN"/>
+                <outlet property="bottomContainerBottomConstraint" destination="lN3-uj-4zU" id="hMT-e4-rhS"/>
+                <outlet property="bottomDetailContainer" destination="Pif-8b-45l" id="CBH-jm-DCZ"/>
+                <outlet property="bottomDetailContainerHeightConstraint" destination="gjL-sf-16I" id="lkU-Z3-rKL"/>
+                <outlet property="dividerView" destination="tfC-tD-zen" id="rtp-KN-15V"/>
                 <outlet property="imageView" destination="hXS-Wr-WUL" id="N2L-on-Vjv"/>
                 <outlet property="titleLabel" destination="MOw-oT-9fe" id="Xrs-bf-qfY"/>
             </connections>

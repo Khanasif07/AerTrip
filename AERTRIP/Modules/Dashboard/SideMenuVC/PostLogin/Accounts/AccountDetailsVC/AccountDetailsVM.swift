@@ -70,13 +70,14 @@ class AccountDetailsVM: NSObject {
                             "creationDate":"Tue 30 Apr",
                             "voucher":"hotels",
                             "amount":-2314.51,
-                            "balance":-345
+                            "balance":-345,
+                            "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
                            ],
                            [
                             "id":"11",
                             "title":"11 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"flight",
+                            "voucher":"hotelCancellation",
                             "amount":-2314.51,
                             "balance":-345
                             ],
@@ -84,7 +85,7 @@ class AccountDetailsVM: NSObject {
                             "id":"12",
                             "title":"12 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"receipt",
+                            "voucher":"journalVoucher",
                             "amount":-2314.51,
                             "balance":-345
                             ],
@@ -92,15 +93,16 @@ class AccountDetailsVM: NSObject {
                             "id":"2",
                             "title":"DEL → BOM → DEL → GOA",
                             "creationDate":"Mon 29 Apr",
-                            "voucher":"cashback",
+                            "voucher":"flight",
                             "amount":-3452.2,
-                            "balance":-7856.2
+                            "balance":-7856.2,
+                            "names": ["Mrs. Shashi Poddar"]
                            ],
                            [
                             "id":"3",
                             "title":"Credit Card",
                             "creationDate":"Sat 27 Apr",
-                            "voucher":"journalVoucher",
+                            "voucher":"creditNote",
                             "amount":-645.2,
                             "balance":-6354.0
                            ]

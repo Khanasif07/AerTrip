@@ -23,7 +23,8 @@ class AccountLadgerDetailsVC: BaseVC {
     
     //MARK:- Private
     private var headerView: AccountLadgerDetailHeader!
-    private let parallexHeaderHeight: CGFloat = 185.0
+    private let headerHeightForNormal: CGFloat = 185.0
+    private let headerHeightForCredit: CGFloat = 122.0
     private let parallexHeaderMinHeight: CGFloat = 0.0
     
     //MARK:- ViewLifeCycle
@@ -40,6 +41,12 @@ class AccountLadgerDetailsVC: BaseVC {
         if let event = self.viewModel.ladgerEvent, let img = event.voucher.image {
             self.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
         }
+        
+        self.viewModel.fetchLadgerDetails()
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +54,12 @@ class AccountLadgerDetailsVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        //after loading the data check if table view scrollable or not
+        delay(seconds: 0.4) { [weak self] in
+            guard let sSelf = self else {return}
+            sSelf.tableView.isScrollEnabled = (sSelf.tableView.contentSize.height > sSelf.tableView.height)
+        }
     }
     
     //MARK:- Methods
@@ -59,7 +72,12 @@ class AccountLadgerDetailsVC: BaseVC {
         
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
-        self.tableView.parallaxHeader.height = self.parallexHeaderHeight
+        
+        self.tableView.parallaxHeader.height = self.headerHeightForNormal
+        if let event = self.viewModel.ladgerEvent, event.voucher == .creditNote {
+            self.tableView.parallaxHeader.height = self.headerHeightForCredit
+        }
+
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
@@ -102,7 +120,7 @@ class AccountLadgerDetailsVC: BaseVC {
             
             sSelf.topNavView.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(isHidden ? 0.001 : 1.0)
             
-            }, completion: { [weak self](isDone) in
+            }, completion: { (isDone) in
         })
     }
     
@@ -110,6 +128,20 @@ class AccountLadgerDetailsVC: BaseVC {
     
     
     //MARK:- Action
+}
+
+//MARK:- ViewModel delegate methods
+//MARK:-
+extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
+    func willFetchLadgerDetails() {
+    }
+    
+    func fetchLadgerDetailsSuccess() {
+        self.tableView.reloadData()
+    }
+    
+    func fetchLadgerDetailsFail() {
+    }
 }
 
 //MARK:- Nav bar delegate methods

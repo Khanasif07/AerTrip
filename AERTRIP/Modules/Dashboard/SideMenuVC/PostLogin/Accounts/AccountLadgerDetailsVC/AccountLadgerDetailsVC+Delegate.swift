@@ -11,111 +11,73 @@ import UIKit
 extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let _ = self.viewModel.ladgerEvent else {
-            return 0
-        }
-        return 2
+        return self.viewModel.ladgerDetails.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
-            //booking details (5) + bottom divider + total names
-            return 6 + (self.viewModel.ladgerEvent?.names.count ?? 0)
+        let dict = self.viewModel.ladgerDetails[section]
+        if !dict.isEmpty {
+            //extra 1 is for divider
+            return dict.keys.count + 1
         }
-        else {
-            //amount details (5) + top and bottom divider
-            return 7
-        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            //booking details (5) + bottom divider + total names
-            switch indexPath.row {
-            case (6 + (self.viewModel.ladgerEvent?.names.count ?? 0) - 1) :
-                //bottom devider
-                return 43.0
-            default:
-                return 60.0
-            }
+        let dict = self.viewModel.ladgerDetails[indexPath.section]
+        if indexPath.row == dict.keys.count {
+            //devider
+            return 13.0
         }
         else {
-            //amount details (5) + top and bottom divider
-            switch indexPath.row {
-            case 0, 6 :
-                //top and bottom devider
-                return 33.0
-            default:
-                return 60.0
-            }
+            //details
+            return 30.0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            //booking details (5) + bottom divider + total names
-            switch indexPath.row {
-            case (6 + (self.viewModel.ladgerEvent?.names.count ?? 0) - 1) :
-                //bottom devider
-                return self.getDeviderCell()
-                
-            case 0:
-                //cehck in
-                return self.getDetailCell(title: "Check-in", description: self.viewModel.ladgerEvent?.checkIn?.toString(dateFormat: "dd-MM-YYYY") ?? "")
-                
-            case 1:
-                //check out
-                return self.getDetailCell(title: "Check-out", description: self.viewModel.ladgerEvent?.checkOut?.toString(dateFormat: "dd-MM-YYYY") ?? "")
-                
-            case 2:
-                //room
-                return self.getDetailCell(title: "Room", description: self.viewModel.ladgerEvent?.room ?? "")
-                
-            case 3:
-                //inclusion
-                return self.getDetailCell(title: "Inclusion", description: self.viewModel.ladgerEvent?.inclusion ?? "")
-                
-            case 4:
-                //confrm Id
-                return self.getDetailCell(title: "Confirmation ID", description: self.viewModel.ladgerEvent?.confirmationId ?? "")
-                
-            default:
-                let idx = indexPath.row - 5
-                let title = (idx == 0) ? "Names" : ""
-                let name = self.viewModel.ladgerEvent?.names[idx] ?? ""
-                return self.getDetailCell(title: title, description: name)
-            }
+        
+        let dict = self.viewModel.ladgerDetails[indexPath.section]
+        if indexPath.row == dict.keys.count {
+            //devider
+            return self.getDeviderCell()
         }
         else {
-            //amount details (5) + top and bottom divider
-            switch indexPath.row {
-            case 0, 6 :
-                //top and bottom devider
-                return self.getDeviderCell()
-                
-            case 1:
-                //Date
-                return self.getDetailCell(title: "Date", description: self.viewModel.ladgerEvent?.date?.toString(dateFormat: "dd-MM-YYYY") ?? "")
-                
-            case 2:
-                //Voucher
-                return self.getDetailCell(title: "Voucher", description: "Sales")
-                
-            case 3:
-                //Voucher No.
-                return self.getDetailCell(title: "Voucher No.", description: self.viewModel.ladgerEvent?.voucherNo ?? "")
-                
-            case 4:
-                //Amount
-                return self.getDetailCell(title: "Amount", description: (self.viewModel.ladgerEvent?.amount ?? 0.0).amountInDelimeterWithSymbol)
-                
-            case 5:
-                //Balance
-                return self.getDetailCell(title: "Balance", description: (self.viewModel.ladgerEvent?.balance ?? 0.0).amountInDelimeterWithSymbol)
-                
-            default:
-                return UITableViewCell()
+            //details
+            var key = "", value = ""
+            
+            if let event = self.viewModel.ladgerEvent {
+                if event.voucher == .creditNote {
+                    switch indexPath.section {
+                    case 0:
+                        key = self.viewModel.amountDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        
+                    default: key = ""
+                    }
+                }
+                else if event.voucher == .flight {
+                }
+                else {
+                    switch indexPath.section {
+                    case 0:
+                        key = self.viewModel.amountDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        
+                    case 1:
+                        key = self.viewModel.bookingDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        if key.contains("Names"), key != "Names" {
+                            key = ""
+                        }
+                        
+                    default: key = ""
+                    }
+                }
             }
+            
+            return self.getDetailCell(title: key, description: value)
+
         }
     }
     
