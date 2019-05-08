@@ -15,7 +15,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let dict = self.viewModel.ladgerDetails[section]
+        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
+            return 0
+        }
         if !dict.isEmpty {
             //extra 1 is for divider
             return dict.keys.count + 1
@@ -24,7 +26,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let dict = self.viewModel.ladgerDetails[indexPath.section]
+        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section)"] as? JSONDictionary else {
+            return 0.0
+        }
         if indexPath.row == dict.keys.count {
             //devider
             return 13.0
@@ -37,7 +41,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let dict = self.viewModel.ladgerDetails[indexPath.section]
+        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section)"] as? JSONDictionary else {
+            return UITableViewCell()
+        }
         if indexPath.row == dict.keys.count {
             //devider
             return self.getDeviderCell()
@@ -45,6 +51,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         else {
             //details
             var key = "", value = ""
+            var descColor: UIColor? = nil
             
             if let event = self.viewModel.ladgerEvent {
                 if event.voucher == .creditNote {
@@ -57,6 +64,28 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                 else if event.voucher == .flight {
+                    switch indexPath.section {
+                    case 0:
+                        key = self.viewModel.flightAmountDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        
+                        if key.lowercased() == "Over Due by days".lowercased() {
+                            descColor = AppColors.themeRed
+                        }
+                        
+                    case 1:
+                        key = self.viewModel.voucherDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        
+                    case 2:
+                        key = self.viewModel.flightDetailKeys[indexPath.row]
+                        value = (dict[key] as? String) ?? ""
+                        if key.contains("Names"), (key != "Names") {
+                            key = ""
+                        }
+                        
+                    default: key = ""
+                    }
                 }
                 else {
                     switch indexPath.section {
@@ -67,7 +96,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     case 1:
                         key = self.viewModel.bookingDetailKeys[indexPath.row]
                         value = (dict[key] as? String) ?? ""
-                        if key.contains("Names"), key != "Names" {
+                        if key.contains("Names"), (key != "Names") {
                             key = ""
                         }
                         
@@ -76,7 +105,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            return self.getDetailCell(title: key, description: value)
+            return self.getDetailCell(title: key, description: value, descriptionColor: descColor)
 
         }
     }
@@ -89,12 +118,15 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func getDetailCell(title: String, description: String) -> UITableViewCell {
+    func getDetailCell(title: String, description: String, descriptionColor: UIColor? = nil) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLadgerDetailCell.reusableIdentifier) as? AccountLadgerDetailCell else {
             return UITableViewCell()
         }
         
         cell.configure(title: title, description: description)
+        if let color = descriptionColor {
+            cell.descLabel.textColor = color
+        }
         
         return cell
     }

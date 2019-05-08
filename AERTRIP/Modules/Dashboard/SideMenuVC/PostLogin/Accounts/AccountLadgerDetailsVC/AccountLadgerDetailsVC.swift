@@ -56,10 +56,10 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.dataSource = self
         
         //after loading the data check if table view scrollable or not
-        delay(seconds: 0.4) { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.tableView.isScrollEnabled = (sSelf.tableView.contentSize.height > sSelf.tableView.height)
-        }
+//        delay(seconds: 0.4) { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.tableView.isScrollEnabled = (sSelf.tableView.contentSize.height > sSelf.tableView.height)
+//        }
     }
     
     //MARK:- Methods

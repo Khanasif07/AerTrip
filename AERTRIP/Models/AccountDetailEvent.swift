@@ -93,8 +93,8 @@ struct AccountDetailEvent {
             self._voucher = newValue.rawValue
         }
     }
-    var amount : Double = 0.0
-    var balance : Double = 0.0
+    var amount: Double = 0.0
+    var balance: Double = 0.0
     
     var voucherNo: String = ""
     var date: Date?
@@ -107,7 +107,22 @@ struct AccountDetailEvent {
     
     var bookingId: String = "B/16-17/6859403"
     
-    var creditCardNo: String = "XXXX - XXXX - XXXX - 0008"
+    var creditCardNo: String = ""
+    
+    //flight details related
+    var billNumber: String = ""
+    var totalAmount: Double = 0.0
+    var pendingAmount: Double = 0.0
+    var dueDate: Date?
+    var overDueDays: Int = 0
+    
+    var voucherDate: Date?
+    
+    var travelDate: Date?
+    var airline: String = ""
+    var sector: String = ""
+    var pnr: String = ""
+    var ticketNo: String = ""
 
     var numOfRows: Int {
         return 2
@@ -153,6 +168,22 @@ struct AccountDetailEvent {
         self.room = "ROOM"
         self.inclusion = "Deluxe King Room"
         self.confirmationId = "427524"
+        self.creditCardNo = "XXXX - XXXX - XXXX - 0008"
+        
+        //flight related
+        self.billNumber = "S/18-19/881"
+        self.totalAmount = 4368.0
+        self.pendingAmount = 44.0
+        self.dueDate = Date().add(days: 12)
+        self.overDueDays = 1866
+        
+        self.voucherDate = Date().add(days: 5)
+
+        self.travelDate = Date().add(months: 22)
+        self.airline = "SpiceJet"
+        self.sector = "BOM → BLR"
+        self.pnr = "DGH4HR"
+        self.ticketNo = "280Q26P-1"
     }
     
     static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {
