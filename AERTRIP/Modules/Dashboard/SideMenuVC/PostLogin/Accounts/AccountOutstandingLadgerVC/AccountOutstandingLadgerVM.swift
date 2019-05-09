@@ -107,7 +107,7 @@ class AccountOutstandingLadgerVM: NSObject {
                            ]
                           ]
             
-//            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
             
             sSelf.delegate?.getAccountDetailsSuccess()
         }

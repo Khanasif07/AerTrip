@@ -37,6 +37,10 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var searchTableView: ATTableView!
     @IBOutlet weak var mainSearchBar: ATSearchBar!
     @IBOutlet weak var searchModeSearchBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var makePaymentContainerView: UIView!
+    @IBOutlet weak var payableAmountLabel: UILabel!
+    @IBOutlet weak var makePaymentTitleLabel: UILabel!
+    @IBOutlet weak var makePaymentContainerHeightConstraint: NSLayoutConstraint!
     
     
     //MARK:- Properties
@@ -100,6 +104,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
+        self.manageMakePaymentView(isHidden: true, animated: true)
     }
     
     override func bindViewModel() {
@@ -116,6 +121,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.grossOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.onAccountValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
+        
+        self.payableAmountLabel.font = AppFonts.SemiBold.withSize(20.0)
+        self.makePaymentTitleLabel.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
@@ -125,12 +133,26 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
-        self.grossOutstandingValueLabel.text = Double(675640.74).amountInDelimeterWithSymbol + LocalizedString.DebitShort.localized
-        self.onAccountValueLabel.text = Double(675640.74).amountInDelimeterWithSymbol + LocalizedString.CreditShort.localized
-        self.netOutstandingValueLabel.text = Double(675640.74).amountInDelimeterWithSymbol + LocalizedString.CreditShort.localized
+        let drAttr = NSMutableAttributedString(string: LocalizedString.DebitShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
+        let crAttr = NSMutableAttributedString(string: LocalizedString.CreditShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
+
+        let gross = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        gross.append(drAttr)
+        self.grossOutstandingValueLabel.attributedText = gross
+        
+        let onAcc = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        gross.append(crAttr)
+        self.onAccountValueLabel.attributedText = onAcc
+        
+        let netOut = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        netOut.append(crAttr)
+        self.netOutstandingValueLabel.attributedText = netOut
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
+        
+        self.payableAmountLabel.attributedText = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     
     override func setupColors() {
@@ -141,6 +163,11 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
+        
+        self.payableAmountLabel.textColor = AppColors.themeWhite
+        self.makePaymentTitleLabel.textColor = AppColors.themeWhite
+        
+        self.makePaymentContainerView.addGredient(isVertical: false)
     }
     
     //MARK:- Methods
@@ -201,12 +228,29 @@ class AccountOutstandingLadgerVC: BaseVC {
         }
     }
     
+    private func manageMakePaymentView(isHidden: Bool, animated: Bool) {
+        
+        if isHidden {
+            self.makePaymentContainerView.isHidden = false
+        }
+        
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            guard let sSelf = self else {return}
+            sSelf.makePaymentContainerHeightConstraint.constant = isHidden ? 0.0 : 50.0
+        }) { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            
+            sSelf.makePaymentContainerView.isHidden = isHidden
+        }
+    }
+    
     //MARK:- Public
     func reloadList() {
         self.tableView.backgroundView = self.noAccountTransectionView
         
         self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
         self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
+        self.manageMakePaymentView(isHidden: self.viewModel.allDates.isEmpty, animated: true)
         self.tableView.reloadData()
     }
     

@@ -686,7 +686,7 @@ extension String {
     func asStylizedPrice(using font: UIFont) -> NSMutableAttributedString {
         let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
         
-        guard var changeRange = self.range(of: ".")?.asNSRange() else {
+        guard var changeRange = self.range(of: ".")?.asNSRange(inString: self) else {
             return stylizedPrice
         }
         

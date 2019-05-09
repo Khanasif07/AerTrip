@@ -325,16 +325,16 @@ extension Double {
             return "-\(AppConstants.kRuppeeSymbol)\(abs(self).delimiter)"
         }
         else {
-            return "\(AppConstants.kRuppeeSymbol)\(self.delimiter)"
+            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2).delimiter)"
         }
     }
     
     var amountInDoubleWithSymbol: String {
         if self < 0 {
-            return "-\(AppConstants.kRuppeeSymbol)\(abs(self))"
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(self.roundTo(places: 2)))"
         }
         else {
-            return "\(AppConstants.kRuppeeSymbol)\(self)"
+            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2))"
         }
     }
     
