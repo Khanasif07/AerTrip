@@ -680,4 +680,7 @@ enum LocalizedString: String {
     case CreditShort
     case SelectBookingsPay
     case MakePayment
+    
+    //MARK:- On Account Screen
+    case ason
  }

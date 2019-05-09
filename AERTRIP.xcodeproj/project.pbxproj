@@ -463,6 +463,10 @@
 		8477163522843546000E1BB6 /* OnAccountDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163222843545000E1BB6 /* OnAccountDetailVM.swift */; };
 		8477163622843546000E1BB6 /* OnAccountDetailVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163322843545000E1BB6 /* OnAccountDetailVC+Delegates.swift */; };
 		8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163422843545000E1BB6 /* OnAccountDetailVC.swift */; };
+		8477163D22844AC0000E1BB6 /* PeriodicStatementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163922844AC0000E1BB6 /* PeriodicStatementVC.swift */; };
+		8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163A22844AC0000E1BB6 /* PeriodicStatementListVM.swift */; };
+		8477163F22844AC0000E1BB6 /* PeriodicStatementVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163B22844AC0000E1BB6 /* PeriodicStatementVM.swift */; };
+		8477164022844AC0000E1BB6 /* PeriodicStatementListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163C22844AC0000E1BB6 /* PeriodicStatementListVC.swift */; };
 		847775592265BE6900EAB8B0 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847775582265BE6900EAB8B0 /* Account.storyboard */; };
 		8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */; };
 		8477755F2265DE7100EAB8B0 /* AccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */; };
@@ -1191,6 +1195,10 @@
 		8477163222843545000E1BB6 /* OnAccountDetailVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnAccountDetailVM.swift; sourceTree = "<group>"; };
 		8477163322843545000E1BB6 /* OnAccountDetailVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OnAccountDetailVC+Delegates.swift"; sourceTree = "<group>"; };
 		8477163422843545000E1BB6 /* OnAccountDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnAccountDetailVC.swift; sourceTree = "<group>"; };
+		8477163922844AC0000E1BB6 /* PeriodicStatementVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodicStatementVC.swift; sourceTree = "<group>"; };
+		8477163A22844AC0000E1BB6 /* PeriodicStatementListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodicStatementListVM.swift; sourceTree = "<group>"; };
+		8477163B22844AC0000E1BB6 /* PeriodicStatementVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodicStatementVM.swift; sourceTree = "<group>"; };
+		8477163C22844AC0000E1BB6 /* PeriodicStatementListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodicStatementListVC.swift; sourceTree = "<group>"; };
 		847775582265BE6900EAB8B0 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVC.swift; sourceTree = "<group>"; };
 		8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVM.swift; sourceTree = "<group>"; };
@@ -3016,9 +3024,21 @@
 			path = OnAccountDetailVC;
 			sourceTree = "<group>";
 		};
+		8477163822844AC0000E1BB6 /* PeriodicStatementVC */ = {
+			isa = PBXGroup;
+			children = (
+				8477163922844AC0000E1BB6 /* PeriodicStatementVC.swift */,
+				8477163B22844AC0000E1BB6 /* PeriodicStatementVM.swift */,
+				8477163A22844AC0000E1BB6 /* PeriodicStatementListVM.swift */,
+				8477163C22844AC0000E1BB6 /* PeriodicStatementListVC.swift */,
+			);
+			path = PeriodicStatementVC;
+			sourceTree = "<group>";
+		};
 		8477755A2265C4E900EAB8B0 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				8477163822844AC0000E1BB6 /* PeriodicStatementVC */,
 				8477163122843545000E1BB6 /* OnAccountDetailVC */,
 				841E75C32282E6BA003CE1CF /* AccountOutstandingLadgerVC */,
 				84791ED3228195FE00472E54 /* AccountLadgerDetailsVC */,
@@ -4203,6 +4223,7 @@
 				8402210C2202E23A00A95CAA /* UITapGestureRecogniser.swift in Sources */,
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
+				8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				8477163522843546000E1BB6 /* OnAccountDetailVM.swift in Sources */,
@@ -4494,10 +4515,12 @@
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18EF5E7D221D261B00EFFA6E /* GMUGroundOverlay.m in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
+				8477164022844AC0000E1BB6 /* PeriodicStatementListVC.swift in Sources */,
 				84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */,
 				84B841212223F24900CAA226 /* RecentSearchesModel.swift in Sources */,
 				842EDE7C2238E7D600E99409 /* HotelDetailsReviewsVM.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
+				8477163D22844AC0000E1BB6 /* PeriodicStatementVC.swift in Sources */,
 				841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */,
 				84D2FB9121BE353E00011000 /* PKSideMenuController.swift in Sources */,
 				8431405822291521006C672A /* HotelResultSectionHeader.swift in Sources */,
@@ -4652,6 +4675,7 @@
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
 				84F2DCA8226477E700212F05 /* MyBookingFilterVM.swift in Sources */,
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
+				8477163F22844AC0000E1BB6 /* PeriodicStatementVM.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,
 				8477163622843546000E1BB6 /* OnAccountDetailVC+Delegates.swift in Sources */,
 				84DD24842267042A0013F77E /* TitleWithSubTitleTableViewCell.swift in Sources */,

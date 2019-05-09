@@ -285,7 +285,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
-        printDebug("onAccountButtonAction")
+        AppFlowManager.default.moveToOnAccountDetailVC()
     }
 }
 

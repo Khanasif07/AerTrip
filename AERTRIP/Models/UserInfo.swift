@@ -501,7 +501,7 @@ class UserInfo {
         }
     }
     
-    var userType: UserType = .topUp
+    var userType: UserType = .statement
     
     class var hotelFilter: HotelFilter? {
         get {
