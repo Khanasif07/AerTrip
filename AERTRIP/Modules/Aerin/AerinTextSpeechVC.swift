@@ -67,6 +67,7 @@ class AerinTextSpeechVC: BaseVC {
         waterWaveView.waveCurvature = 0.2
        
         self.view.addSubview(waterWaveView)
+        waterWaveView.bringSubviewToFront(self.view)
         
         waterWaveView.start()
        
@@ -76,6 +77,7 @@ class AerinTextSpeechVC: BaseVC {
     //MARK: - IBAction
     
     @IBAction func keyboardButtonTapped(_ sender: Any) {
+        
     }
     
 

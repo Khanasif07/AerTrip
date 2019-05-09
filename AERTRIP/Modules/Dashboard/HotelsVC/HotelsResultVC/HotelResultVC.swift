@@ -242,8 +242,10 @@ class HotelResultVC: BaseVC {
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
-        
         collectionViewLayout.minimumLineSpacing = 0
+        
+        self.setUpLongPressOnFilterButton()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -377,6 +379,12 @@ class HotelResultVC: BaseVC {
             self.view.bringSubviewToFront(self.shimmerView)
         }
     }
+    
+    private func setUpLongPressOnFilterButton() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_ :)))
+        self.filterButton.addGestureRecognizer(longPressGesture)
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -456,4 +464,12 @@ class HotelResultVC: BaseVC {
         self.moveMapToCurrentCity()
         self.mapView?.animate(toZoom: self.defaultZoomLabel + 5.0)
     }
+    
+    @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+             printDebug("Long press tapped")
+        }
+       
+    }
 }
+

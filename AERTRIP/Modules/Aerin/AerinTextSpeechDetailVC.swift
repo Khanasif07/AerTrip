@@ -294,7 +294,6 @@ extension AerinTextSpeechDetailVC {
         
         if !chatArray.isEmpty {
             self.chatArray[self.indexPath.row] = textView.text
-            self.aerinTableView.reloadData()
         }
        
     }
