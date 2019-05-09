@@ -649,3 +649,5 @@
 
 //MARK:- On Account Screen
 "ason" = "as on";
+"PeriodicStatement" = "Periodic Statement";
+"NoStatementGenerated" = "No statement generated";

@@ -1150,6 +1150,139 @@
             </objects>
             <point key="canvasLocation" x="54" y="747"/>
         </scene>
+        <!--Periodic StatementVC-->
+        <scene sceneID="RXl-PL-5uO">
+            <objects>
+                <viewController storyboardIdentifier="PeriodicStatementVC" id="IdW-Fs-Psp" customClass="PeriodicStatementVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QVH-h9-pSv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXy-nf-VU3" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="i4O-s2-waM"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84N-mg-dBn">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="84N-mg-dBn" firstAttribute="leading" secondItem="Pye-PP-PgX" secondAttribute="leading" id="N1A-Nl-XBl"/>
+                            <constraint firstItem="Pye-PP-PgX" firstAttribute="trailing" secondItem="LXy-nf-VU3" secondAttribute="trailing" id="VIf-eD-2rc"/>
+                            <constraint firstItem="Pye-PP-PgX" firstAttribute="trailing" secondItem="84N-mg-dBn" secondAttribute="trailing" id="aSS-gm-ldX"/>
+                            <constraint firstItem="84N-mg-dBn" firstAttribute="top" secondItem="LXy-nf-VU3" secondAttribute="bottom" id="hUz-lr-9ui"/>
+                            <constraint firstItem="Pye-PP-PgX" firstAttribute="bottom" secondItem="84N-mg-dBn" secondAttribute="bottom" id="mR9-lK-jgn"/>
+                            <constraint firstItem="LXy-nf-VU3" firstAttribute="top" secondItem="Pye-PP-PgX" secondAttribute="top" id="vkE-6o-5Bk"/>
+                            <constraint firstItem="LXy-nf-VU3" firstAttribute="leading" secondItem="Pye-PP-PgX" secondAttribute="leading" id="x86-y4-vtL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pye-PP-PgX"/>
+                    </view>
+                    <connections>
+                        <outlet property="dataContainerView" destination="84N-mg-dBn" id="VTH-HI-6g1"/>
+                        <outlet property="topNavView" destination="LXy-nf-VU3" id="6Mc-Yh-0A5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L4Z-bP-7NA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3135" y="25"/>
+        </scene>
+        <!--Periodic Statement ListVC-->
+        <scene sceneID="IeE-aX-L0H">
+            <objects>
+                <viewController storyboardIdentifier="PeriodicStatementListVC" id="AJq-35-9CZ" customClass="PeriodicStatementListVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Gj-yU-f3w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jD-iR-X1F" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="1"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Dqa-VW-AeF"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="du2-Z8-c7h" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="45" width="414" height="817"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PeriodicStatementCell" id="Fum-Wt-pKY" customClass="PeriodicStatementCell" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fum-Wt-pKY" id="ARX-zQ-15D">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3a-9b-MiB">
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9z4-tE-hRg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="191" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIE-sa-2Zi">
+                                                            <rect key="frame" x="191" y="0.0" width="191" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVx-ea-dVd" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="43" width="398" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="C2g-RE-XaW"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nVx-ea-dVd" firstAttribute="leading" secondItem="ARX-zQ-15D" secondAttribute="leading" constant="16" id="3iv-ak-hpn"/>
+                                                <constraint firstItem="x3a-9b-MiB" firstAttribute="leading" secondItem="ARX-zQ-15D" secondAttribute="leading" constant="16" id="5vM-oy-zUa"/>
+                                                <constraint firstAttribute="bottom" secondItem="nVx-ea-dVd" secondAttribute="bottom" id="KEB-Yz-33z"/>
+                                                <constraint firstAttribute="trailing" secondItem="nVx-ea-dVd" secondAttribute="trailing" id="gAF-d3-b0y"/>
+                                                <constraint firstItem="x3a-9b-MiB" firstAttribute="top" secondItem="ARX-zQ-15D" secondAttribute="top" id="iUN-4t-MKr"/>
+                                                <constraint firstAttribute="trailing" secondItem="x3a-9b-MiB" secondAttribute="trailing" constant="16" id="tKq-E4-ZQa"/>
+                                                <constraint firstAttribute="bottom" secondItem="x3a-9b-MiB" secondAttribute="bottom" id="uj4-cA-DBw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="tIE-sa-2Zi" id="d2w-Iy-LPk"/>
+                                            <outlet property="dividerView" destination="nVx-ea-dVd" id="nTv-3G-zLs"/>
+                                            <outlet property="dividerViewLeadingConstraint" destination="3iv-ak-hpn" id="y2J-S1-FoU"/>
+                                            <outlet property="titleLabel" destination="9z4-tE-hRg" id="Eb6-jg-obS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JWn-o4-NrI" firstAttribute="bottom" secondItem="du2-Z8-c7h" secondAttribute="bottom" id="SS7-Ed-Kf6"/>
+                            <constraint firstItem="JWn-o4-NrI" firstAttribute="trailing" secondItem="du2-Z8-c7h" secondAttribute="trailing" id="a67-qk-m12"/>
+                            <constraint firstItem="3jD-iR-X1F" firstAttribute="leading" secondItem="JWn-o4-NrI" secondAttribute="leading" id="byP-Si-Z7C"/>
+                            <constraint firstItem="du2-Z8-c7h" firstAttribute="leading" secondItem="JWn-o4-NrI" secondAttribute="leading" id="f7u-eu-LhN"/>
+                            <constraint firstItem="du2-Z8-c7h" firstAttribute="top" secondItem="3jD-iR-X1F" secondAttribute="bottom" id="kPy-t9-mzR"/>
+                            <constraint firstItem="JWn-o4-NrI" firstAttribute="trailing" secondItem="3jD-iR-X1F" secondAttribute="trailing" id="lAG-aq-6Xe"/>
+                            <constraint firstItem="3jD-iR-X1F" firstAttribute="top" secondItem="JWn-o4-NrI" secondAttribute="top" id="nNa-KG-Gyc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JWn-o4-NrI"/>
+                    </view>
+                    <connections>
+                        <outlet property="dividerView" destination="3jD-iR-X1F" id="Fnv-BU-QPX"/>
+                        <outlet property="tableView" destination="du2-Z8-c7h" id="y5h-bl-7WK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Jt-kK-RXN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3810" y="25"/>
+        </scene>
     </scenes>
     <resources>
         <image name="rightArrow" width="40" height="44"/>

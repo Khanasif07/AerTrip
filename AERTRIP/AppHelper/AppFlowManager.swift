@@ -637,6 +637,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func moveToPeriodicStatementVC() {
+        let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func moveHotelCalenderVC(isHotelCalendar: Bool = false ,isReturn: Bool = false ,isMultiCity: Bool = false , checkInDate: Date =  Date() , checkOutDate: Date? = nil , delegate: CalendarDataHandler ){
         
         

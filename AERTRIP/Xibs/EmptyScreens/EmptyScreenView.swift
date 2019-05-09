@@ -31,6 +31,7 @@ class EmptyScreenView: UIView {
         case noHotelFound
         case noHotelFoundOnFilter
         case noAccountTransection
+        case noStatementGenrated
         case noAccountResult
     }
     
@@ -146,6 +147,9 @@ extension EmptyScreenView {
         case .noAccountTransection :
             self.setupForNoAccountTransection()
             
+        case .noStatementGenrated :
+            self.setupForNoStatementGenrated()
+            
         case .noAccountResult :
             self.setupForNoAccountResult()
         }
@@ -166,6 +170,14 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.NoTransactions.localized
+    }
+    
+    private func setupForNoStatementGenrated() {
+        self.firstButton.isHidden = true
+        self.mainImageView.image = nil
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.NoStatementGenerated.localized
     }
     
     private func setupForNoAccountResult() {

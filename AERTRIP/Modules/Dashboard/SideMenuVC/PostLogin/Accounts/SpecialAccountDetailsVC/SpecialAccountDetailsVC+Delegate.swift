@@ -244,7 +244,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC()
                     
                 case 2:
-                    printDebug("predioc statement")
+                    AppFlowManager.default.moveToPeriodicStatementVC()
                     
                 default:
                     printDebug("no need to implement")

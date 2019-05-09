@@ -683,4 +683,6 @@ enum LocalizedString: String {
     
     //MARK:- On Account Screen
     case ason
+    case PeriodicStatement
+    case NoStatementGenerated
  }
