@@ -29,7 +29,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return AppFonts.SemiBold.withSize(16.0).lineHeight + 32.0
+        return AppFonts.SemiBold.withSize(16.0).lineHeight + 20.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -75,40 +75,31 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         let allCount = 2
         if (indexPath.row % allCount) == 0 {
             //event header cell + (for top space)
-            return 64.0 + 5.0
+            return 67.0 + 5.0
         }
         else if (indexPath.row % allCount) == 1 {
             //event description cell + (for bottom space)
-            return 67.0 + 10.0
+            return 86.0 + 19.0
         }
         return 0.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var allEvent: [AccountDetailEvent] = []
-        if tableView === self.tableView {
-            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
-        else {
-            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
-        
-        guard !allEvent.isEmpty else {
-            return UITableViewCell()
-        }
-        
-        let allCount = 2
-        if (indexPath.row % allCount) == 0 {
-            //event header cell
-            return self.getEventHeaderCell(forData: allEvent[Int(indexPath.row/allCount)])
-        }
-        else if (indexPath.row % allCount) == 1 {
-            //event description cell
-            let idx = Int(indexPath.row/allCount)
-            let cell = self.getEventDescriptionCell(forData: allEvent[idx]) as! AccountDetailEventDescriptionCell
-            cell.mainContainerBottomConstraint.constant = (idx == (allEvent.count-1)) ? 5.0 : 10.0
-            return cell
+        let (currentEvent, count) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
+        if let event = currentEvent, count > 0 {
+            let allCount = 2
+            if (indexPath.row % allCount) == 0 {
+                //event header cell
+                return self.getEventHeaderCell(forData: event)
+            }
+            else if (indexPath.row % allCount) == 1 {
+                //event description cell
+                let idx = Int(indexPath.row/allCount)
+                let cell = self.getEventDescriptionCell(forData: event) as! AccountOutstandingEventDescriptionCell
+                cell.mainContainerBottomConstraint.constant = (idx == (count-1)) ? 5.0 : 10.0
+                return cell
+            }
         }
         
         return UITableViewCell()
@@ -121,11 +112,18 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         
         cell.event = forData
         
+        cell.isHotelSelected = false
+        if let _ = self.viewModel.selectedArrayIndex(forEvent: forData) {
+            //already selected
+            cell.isHotelSelected = true
+        }
+        cell.isSelectable = self.currentViewState == .selecting
+        
         return cell
     }
     
     func getEventDescriptionCell(forData: AccountDetailEvent) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountDetailEventDescriptionCell.reusableIdentifier) as? AccountDetailEventDescriptionCell else {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountOutstandingEventDescriptionCell.reusableIdentifier) as? AccountOutstandingEventDescriptionCell else {
             return UITableViewCell()
         }
         
@@ -136,5 +134,52 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        guard let event = self.getEvent(forIndexPath: indexPath, forTableView: tableView).event else {
+            return
+        }
+        
+        if let index = self.viewModel.selectedArrayIndex(forEvent: event) {
+            //already selected
+            self.viewModel.selectedEvent.remove(at: index)
+        }
+        else {
+            //select it
+            self.viewModel.selectedEvent.append(event)
+        }
+        self.reloadList()
+    }
+    
+    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: AccountDetailEvent?, allCount: Int){
+        var allEvent: [AccountDetailEvent] = []
+        if forTableView === self.searchTableView {
+            guard !self.viewModel.searchedAccountDetails.isEmpty else {
+                return (nil, 0)
+            }
+            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        else {
+            guard !self.viewModel.accountDetails.isEmpty else {
+                return (nil, 0)
+            }
+            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        
+        guard !allEvent.isEmpty else {
+            return (nil, 0)
+        }
+        
+        let allCount = 2
+        var currentEvent: AccountDetailEvent?
+        if (indexPath.row % allCount) == 0 {
+            //event header cell
+            currentEvent = allEvent[Int(indexPath.row/allCount)]
+        }
+        else if (indexPath.row % allCount) == 1 {
+            //event description cell
+            let idx = Int(indexPath.row/allCount)
+            currentEvent = allEvent[idx]
+        }
+        
+        return (currentEvent, allEvent.count)
     }
 }

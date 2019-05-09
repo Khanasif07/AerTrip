@@ -20,6 +20,7 @@ class AccountDetailsVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
     var walletAmount: Double = 0.0
+    var _accountDetails: JSONDictionary = JSONDictionary()
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         return Array(accountDetails.keys)
@@ -45,7 +46,7 @@ class AccountDetailsVM: NSObject {
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
         
-        self.searchedAccountDetails = self.accountDetails.filter { (date, evnts) -> Bool in
+        self.searchedAccountDetails = self._accountDetails.filter { (date, evnts) -> Bool in
             if let events = evnts as? [AccountDetailEvent] {
                 return events.contains(where: { $0.title.contains(forText) })
             }
@@ -108,7 +109,8 @@ class AccountDetailsVM: NSObject {
                            ]
                           ]
             
-            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = sSelf._accountDetails
             
             sSelf.delegate?.getAccountDetailsSuccess()
         }

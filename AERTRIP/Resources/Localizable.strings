@@ -591,6 +591,7 @@
 "AccountsLegder" = "Accounts Legder";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
+"Pending" = "Pending";
 "DateSpan" = "Date Span";
 "VoucherType" = "Voucher Type";
 

@@ -19,6 +19,7 @@ protocol AccountOutstandingLadgerVMDelegate: class {
 class AccountOutstandingLadgerVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
+    var _accountDetails: JSONDictionary = JSONDictionary()
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         return Array(accountDetails.keys)
@@ -28,7 +29,13 @@ class AccountOutstandingLadgerVM: NSObject {
         return Array(searchedAccountDetails.keys)
     }
     
+    var selectedEvent: [AccountDetailEvent] = []
+    
     weak var delegate: AccountOutstandingLadgerVMDelegate? = nil
+    
+    var totalAmountForSelected: Double {
+        return self.selectedEvent.reduce(0.0) { $0 + $1.pendingAmount}
+    }
     
     //MARK:- Private
     
@@ -36,6 +43,9 @@ class AccountOutstandingLadgerVM: NSObject {
     
     //MARK:- Methods
     //MARK:- Public
+    func selectedArrayIndex(forEvent: AccountDetailEvent) -> Int?{
+        return self.selectedEvent.firstIndex { $0.id == forEvent.id}
+    }
     func searchEvent(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.callSearchEvent(_:)), with: forText, afterDelay: 0.5)
@@ -44,7 +54,7 @@ class AccountOutstandingLadgerVM: NSObject {
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
         
-        self.searchedAccountDetails = self.accountDetails.filter { (date, evnts) -> Bool in
+        self.searchedAccountDetails = self._accountDetails.filter { (date, evnts) -> Bool in
             if let events = evnts as? [AccountDetailEvent] {
                 return events.contains(where: { $0.title.contains(forText) })
             }
@@ -68,8 +78,8 @@ class AccountOutstandingLadgerVM: NSObject {
                             "title":"Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
                             "voucher":"hotels",
-                            "amount":-2314.51,
-                            "balance":-345,
+                            "amount":24425.01,
+                            "pendingAmount":24425.01,
                             "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
                            ],
                            [
@@ -77,24 +87,24 @@ class AccountOutstandingLadgerVM: NSObject {
                             "title":"11 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
                             "voucher":"hotelCancellation",
-                            "amount":-2314.51,
-                            "balance":-345
+                            "amount":2314.51,
+                            "pendingAmount":2314.51
                             ],
                            [
                             "id":"12",
                             "title":"12 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
                             "voucher":"journalVoucher",
-                            "amount":-2314.51,
-                            "balance":-345
+                            "amount":2314.51,
+                            "pendingAmount":2314.51
                             ],
                            [
                             "id":"2",
                             "title":"DEL → BOM → DEL → GOA",
                             "creationDate":"Mon 29 Apr",
                             "voucher":"flight",
-                            "amount":-3452.2,
-                            "balance":-7856.2,
+                            "amount":3452.2,
+                            "pendingAmount":3452.2,
                             "names": ["Mrs. Shashi Poddar"]
                            ],
                            [
@@ -102,12 +112,13 @@ class AccountOutstandingLadgerVM: NSObject {
                             "title":"Credit Card",
                             "creationDate":"Sat 27 Apr",
                             "voucher":"creditNote",
-                            "amount":-645.2,
-                            "balance":-6354.0
+                            "amount":645.2,
+                            "pendingAmount":645.2
                            ]
                           ]
             
-            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = sSelf._accountDetails
             
             sSelf.delegate?.getAccountDetailsSuccess()
         }

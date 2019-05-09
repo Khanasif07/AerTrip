@@ -121,7 +121,7 @@ extension Date {
     }
     
     ///Converts a given Date into String based on the date format and timezone provided
-    func toString(dateFormat:String,timeZone:TimeZone = TimeZone.current)->String{
+    func toString(dateFormat:String,timeZone:TimeZone = TimeZone.current)->String {
         
         let frmtr = DateFormatter()
         frmtr.locale = Locale(identifier: "en_US_POSIX")

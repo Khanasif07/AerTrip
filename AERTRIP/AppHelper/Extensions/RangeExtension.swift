@@ -11,7 +11,7 @@ import Foundation
 extension Range where Bound == String.Index {
     func asNSRange(inString: String) -> NSRange {
         let location = self.lowerBound.utf16Offset(in: inString)
-        let length = location - self.upperBound.utf16Offset(in: inString)
+        let length = self.upperBound.utf16Offset(in: inString) - location
         return NSRange(location: location, length: length)
     }
 }

@@ -173,7 +173,9 @@ struct AccountDetailEvent {
         //flight related
         self.billNumber = "S/18-19/881"
         self.totalAmount = 4368.0
-        self.pendingAmount = 44.0
+        if let obj = json["pendingAmount"] {
+            self.pendingAmount = "\(obj)".toDouble ?? 0.0
+        }
         self.dueDate = Date().add(days: 12)
         self.overDueDays = 1866
         

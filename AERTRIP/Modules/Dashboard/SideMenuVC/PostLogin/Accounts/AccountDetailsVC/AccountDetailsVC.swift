@@ -216,15 +216,11 @@ class AccountDetailsVC: BaseVC {
     
     //MARK:- Public
     func reloadList() {
-        self.currentViewState = .filterApplied
         self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
         
         self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
         self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
         self.tableView.reloadData()
-    }
-    
-    func reloadSearchList() {
         self.searchTableView.reloadData()
     }
     
@@ -234,9 +230,27 @@ class AccountDetailsVC: BaseVC {
 //MARK:- SearchBar delegate Methods
 //MARK:-
 extension AccountDetailsVC: UISearchBarDelegate {
+    
+    func clearSearchData() {
+        self.mainSearchBar.text = ""
+        self.searchBar.text = ""
+        self.ladgerDummySearchBar.text = ""
+        self.viewModel.searchedAccountDetails.removeAll()
+        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.reloadList()
+    }
+    
+    func preserveSearchData() {
+        self.searchBar.text = self.mainSearchBar.text
+        self.ladgerDummySearchBar.text = self.mainSearchBar.text
+        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.reloadList()
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
+            self.clearSearchData()
         }
     }
     
@@ -248,6 +262,12 @@ extension AccountDetailsVC: UISearchBarDelegate {
         return true
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.preserveSearchData()
+        self.currentViewState = .normal
+        self.view.endEditing(true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
             self.noResultemptyView.searchTextLabel.isHidden = false
@@ -256,7 +276,12 @@ extension AccountDetailsVC: UISearchBarDelegate {
         }
         else {
             //reset tot the old state
-            self.searchTableView.reloadData()
+            if (searchBar.text ?? "").isEmpty {
+                self.clearSearchData()
+            }
+            else {
+                self.reloadList()
+            }
         }
     }
 }
@@ -297,6 +322,6 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func searchEventsSuccess() {
-        self.reloadSearchList()
+        self.reloadList()
     }
 }

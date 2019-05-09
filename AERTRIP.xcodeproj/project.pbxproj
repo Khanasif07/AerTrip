@@ -458,6 +458,11 @@
 		8474CC2D22269DCB00C4F076 /* NotesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8474CC2B22269DCB00C4F076 /* NotesTableCell.xib */; };
 		8474CC31222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8474CC2F222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift */; };
 		8474CC32222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8474CC30222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.xib */; };
+		847716282283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847716262283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift */; };
+		847716292283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847716272283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib */; };
+		8477163522843546000E1BB6 /* OnAccountDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163222843545000E1BB6 /* OnAccountDetailVM.swift */; };
+		8477163622843546000E1BB6 /* OnAccountDetailVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163322843545000E1BB6 /* OnAccountDetailVC+Delegates.swift */; };
+		8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477163422843545000E1BB6 /* OnAccountDetailVC.swift */; };
 		847775592265BE6900EAB8B0 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847775582265BE6900EAB8B0 /* Account.storyboard */; };
 		8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */; };
 		8477755F2265DE7100EAB8B0 /* AccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */; };
@@ -1181,6 +1186,11 @@
 		8474CC2F222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsCheckOutTableViewCell.swift; sourceTree = "<group>"; };
 		8474CC30222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsCheckOutTableViewCell.xib; sourceTree = "<group>"; };
 		8474D2D02258BBC60042541D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		847716262283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOutstandingEventDescriptionCell.swift; sourceTree = "<group>"; };
+		847716272283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountOutstandingEventDescriptionCell.xib; sourceTree = "<group>"; };
+		8477163222843545000E1BB6 /* OnAccountDetailVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnAccountDetailVM.swift; sourceTree = "<group>"; };
+		8477163322843545000E1BB6 /* OnAccountDetailVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OnAccountDetailVC+Delegates.swift"; sourceTree = "<group>"; };
+		8477163422843545000E1BB6 /* OnAccountDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnAccountDetailVC.swift; sourceTree = "<group>"; };
 		847775582265BE6900EAB8B0 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVC.swift; sourceTree = "<group>"; };
 		8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVM.swift; sourceTree = "<group>"; };
@@ -2987,9 +2997,29 @@
 			path = PKBottomSheet;
 			sourceTree = "<group>";
 		};
+		847716252283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				847716262283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift */,
+				847716272283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib */,
+			);
+			path = AccountOutstandingEventDescriptionCell;
+			sourceTree = "<group>";
+		};
+		8477163122843545000E1BB6 /* OnAccountDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				8477163222843545000E1BB6 /* OnAccountDetailVM.swift */,
+				8477163322843545000E1BB6 /* OnAccountDetailVC+Delegates.swift */,
+				8477163422843545000E1BB6 /* OnAccountDetailVC.swift */,
+			);
+			path = OnAccountDetailVC;
+			sourceTree = "<group>";
+		};
 		8477755A2265C4E900EAB8B0 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				8477163122843545000E1BB6 /* OnAccountDetailVC */,
 				841E75C32282E6BA003CE1CF /* AccountOutstandingLadgerVC */,
 				84791ED3228195FE00472E54 /* AccountLadgerDetailsVC */,
 				84B6DEA322805D4F0042D902 /* AccountChargeInfoVC */,
@@ -3264,6 +3294,7 @@
 		84D157FA22660B1400393528 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				847716252283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell */,
 				84D157FB22660B1400393528 /* AccountDetailEventDescriptionCell */,
 				84D157FC22660B1400393528 /* AccountDetailEventHeaderCell */,
 			);
@@ -4018,6 +4049,7 @@
 				84DD248A226715530013F77E /* BookingTravellersDetailsTableViewCell.xib in Resources */,
 				84BBEEA32214232D00844034 /* HotelDetailsBedsTableViewCell.xib in Resources */,
 				840A84202229B9B70040EB99 /* HotelTagCollectionCell.xib in Resources */,
+				847716292283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4173,6 +4205,7 @@
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
+				8477163522843546000E1BB6 /* OnAccountDetailVM.swift in Sources */,
 				1807F005223F9F060092E127 /* HotelResultVC+HelperMethods.swift in Sources */,
 				841A75F0226F320F00D5C47A /* CircularProgress.swift in Sources */,
 				842EDE782238E7D600E99409 /* PlaceModel.swift in Sources */,
@@ -4262,6 +4295,7 @@
 				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				84AD5F23222D51C60095EA5D /* SearchFavouriteHotelsVM.swift in Sources */,
+				8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */,
 				846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				84F983F921B540370018DFED /* APICaller+Login.swift in Sources */,
@@ -4527,6 +4561,7 @@
 				1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */,
 				18E797072248F4B600A7AC8B /* WallletAmountCellTableViewCell.swift in Sources */,
 				18F967DC22327A9200B163C8 /* HotelsGroupExtendedVM.swift in Sources */,
+				847716282283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
@@ -4618,6 +4653,7 @@
 				84F2DCA8226477E700212F05 /* MyBookingFilterVM.swift in Sources */,
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,
+				8477163622843546000E1BB6 /* OnAccountDetailVC+Delegates.swift in Sources */,
 				84DD24842267042A0013F77E /* TitleWithSubTitleTableViewCell.swift in Sources */,
 				84BF46C22211E611000AA6E3 /* HotelDetailAmenitiesCell.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,

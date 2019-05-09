@@ -15,10 +15,25 @@ class AccountDetailEventHeaderCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var selectionButton: UIButton!
+    @IBOutlet weak var selectButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
     
     var event: AccountDetailEvent? {
         didSet {
             self.setData()
+        }
+    }
+    
+    var isSelectable: Bool = false {
+        didSet {
+            self.manageSelectable()
+        }
+    }
+    
+    var isHotelSelected: Bool = false {
+        didSet {
+            self.manageSelectedState()
         }
     }
     
@@ -46,6 +61,17 @@ class AccountDetailEventHeaderCell: UITableViewCell {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         
         self.titleLabel.textColor = AppColors.themeBlack
+        
+        self.isSelectable = false
+    }
+    
+    private func manageSelectable() {
+        self.selectButtonHeightConstraint.constant = self.isSelectable ? 22.0 : 0.0
+        self.selectButtonLeadingConstraint.constant = self.isSelectable ? 16.0 : 0.0
+    }
+    
+    private func manageSelectedState() {
+        self.selectionButton.isSelected = self.isHotelSelected
     }
     
     private func setData() {

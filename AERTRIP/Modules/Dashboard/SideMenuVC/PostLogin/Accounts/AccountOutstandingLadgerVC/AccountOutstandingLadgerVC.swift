@@ -12,6 +12,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     enum ViewState {
         case searching
+        case selecting
         case normal
     }
 
@@ -48,7 +49,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     let viewModel = AccountOutstandingLadgerVM()
     
     //MARK:- Private
-    private var currentViewState = ViewState.normal {
+    private(set) var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
         }
@@ -83,7 +84,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         //add search view in tableView header
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
-        self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         
         self.searchBar.isMicEnabled = true
         
@@ -101,7 +102,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchTableView.backgroundView = self.noResultemptyView
         self.searchTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.searchTableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
-        self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
+        self.searchTableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
         self.manageMakePaymentView(isHidden: true, animated: true)
@@ -141,7 +142,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.grossOutstandingValueLabel.attributedText = gross
         
         let onAcc = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        gross.append(crAttr)
+        onAcc.append(crAttr)
         self.onAccountValueLabel.attributedText = onAcc
         
         let netOut = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
@@ -150,9 +151,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
-        
-        self.payableAmountLabel.attributedText = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-        self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     
     override func setupColors() {
@@ -210,11 +208,26 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func showMoreOptions() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.SelectBookingsPay.localized, LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        
+        var titles = [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized]
+        if self.currentViewState == .selecting {
+            titles.insert("De\(LocalizedString.SelectBookingsPay.localized.lowercased())", at: 0)
+        }
+        else {
+            titles.insert(LocalizedString.SelectBookingsPay.localized, at: 0)
+        }
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //select bookings pay
+                if self.currentViewState == .selecting {
+                    self.currentViewState = .normal
+                }
+                else {
+                    self.currentViewState = .selecting
+                }
+                self.reloadList()
                 printDebug("select bookings pay")
             }
             else if index == 1 {
@@ -244,17 +257,29 @@ class AccountOutstandingLadgerVC: BaseVC {
         }
     }
     
+    private func setPayableAmount() {
+        var totalAmount: Double = Double(675640.74)
+        
+        let selected = self.viewModel.totalAmountForSelected
+        if self.currentViewState == .selecting, selected > 0.0 {
+            totalAmount = selected
+        }
+        
+        self.payableAmountLabel.attributedText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
+    }
+    
     //MARK:- Public
     func reloadList() {
+        
+        self.setPayableAmount()
+        
         self.tableView.backgroundView = self.noAccountTransectionView
         
         self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
         self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
         self.manageMakePaymentView(isHidden: self.viewModel.allDates.isEmpty, animated: true)
         self.tableView.reloadData()
-    }
-    
-    func reloadSearchList() {
         self.searchTableView.reloadData()
     }
     
@@ -267,9 +292,24 @@ class AccountOutstandingLadgerVC: BaseVC {
 //MARK:- SearchBar delegate Methods
 //MARK:-
 extension AccountOutstandingLadgerVC: UISearchBarDelegate {
+    func clearSearchData() {
+        self.mainSearchBar.text = ""
+        self.searchBar.text = ""
+        self.viewModel.searchedAccountDetails.removeAll()
+        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.reloadList()
+    }
+    
+    func preserveSearchData() {
+        self.searchBar.text = self.mainSearchBar.text
+        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.reloadList()
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
+            self.clearSearchData()
         }
     }
     
@@ -281,6 +321,12 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         return true
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.preserveSearchData()
+        self.currentViewState = .normal
+        self.view.endEditing(true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
             self.noResultemptyView.searchTextLabel.isHidden = false
@@ -289,7 +335,12 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         }
         else {
             //reset tot the old state
-            self.searchTableView.reloadData()
+            if (searchBar.text ?? "").isEmpty {
+                self.clearSearchData()
+            }
+            else {
+                self.reloadList()
+            }
         }
     }
 }
@@ -330,6 +381,6 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     }
     
     func searchEventsSuccess() {
-        self.reloadSearchList()
+        self.reloadList()
     }
 }
