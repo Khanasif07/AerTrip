@@ -135,5 +135,22 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var allEvent: [AccountDetailEvent] = []
+        if tableView === self.tableView {
+            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        else {
+            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        }
+        
+        guard !allEvent.isEmpty else {
+            return
+        }
+        
+        let allCount = 2
+        
+        let idx = Int(indexPath.row/allCount)
+
+        AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx])
     }
 }

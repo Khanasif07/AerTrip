@@ -144,16 +144,11 @@ class HotelCardTableViewCell: UITableViewCell {
         }
 
         self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
-        var price : String = "\(hotel.price.delimiter)"
-        if  let filter = UserInfo.hotelFilter  {
-            switch filter.priceType {
-            case .Total :
-                  price = "\(hotel.price.delimiter)"
-            case .PerNight:
-                  price  = "\(hotel.perNightPrice.delimiter)"
-            }
+        var price : Double = hotel.price
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight  {
+            price = hotel.perNightPrice
         }
-        self.discountedPriceLabel.text = AppConstants.kRuppeeSymbol + price
+        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
         //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)

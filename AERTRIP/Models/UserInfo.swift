@@ -15,6 +15,13 @@ extension Notification {
 
 class UserInfo {
     
+    enum UserType {
+        case regular
+        case statement
+        case billWise
+        case topUp
+    }
+    
     enum Gender: Int {
         case male = 0
         case female = 1
@@ -493,6 +500,8 @@ class UserInfo {
             }
         }
     }
+    
+    var userType: UserType = .statement
     
     class var hotelFilter: HotelFilter? {
         get {

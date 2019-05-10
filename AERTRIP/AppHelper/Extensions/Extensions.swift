@@ -290,7 +290,6 @@ extension Double{
     var delimiter: String {
         return Double.numberFormatter.string(from: NSNumber(value: self)) ?? ""
     }
-    
 }
 
 extension CGFloat{

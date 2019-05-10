@@ -10,9 +10,15 @@ import UIKit
 
 class AccountDetailsVC: BaseVC {
     
-    enum UsingMode {
+    enum ViewState {
+        case searching
+        case filterApplied
         case normal
-        case search
+    }
+    
+    enum UsingFor {
+        case account
+        case accountLadger
     }
     
     //MARK:- IBOutlets
@@ -26,25 +32,42 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
-    @IBOutlet weak var balanceContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subHeaderContainer: UIView!
+    @IBOutlet weak var subHeaderContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subHeaderContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchDataContainerView: UIView!
     @IBOutlet weak var searchTableView: ATTableView!
     @IBOutlet weak var mainSearchBar: ATSearchBar!
     @IBOutlet weak var searchModeSearchBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ladgerDummySearchView: UIView!
+    @IBOutlet weak var ladgerDummySearchBar: ATSearchBar!
     
     
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountDetailsVM()
+    var currentUsingAs = UsingFor.account
     
     //MARK:- Private
-    private var currentUsingMode = UsingMode.normal {
+    private var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
         }
     }
     
     // Empty State view
+    private lazy var noAccountTransectionView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noAccountTransection
+        return newEmptyView
+    }()
+    
+    private lazy var noAccountResultView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noAccountResult
+        return newEmptyView
+    }()
+    
     lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
@@ -58,7 +81,9 @@ class AccountDetailsVC: BaseVC {
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
+        self.manageSubView()
+        let navTitle = (self.currentUsingAs == .account) ? LocalizedString.Accounts.localized : LocalizedString.AccountsLegder.localized
+        self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
         
         self.topNavView.delegate = self
         
@@ -66,7 +91,6 @@ class AccountDetailsVC: BaseVC {
         self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "ic_hotel_filter"), selectedImage: #imageLiteral(resourceName: "ic_hotel_filter_applied"))
         
         //add search view in tableView header
-        self.tableView.tableHeaderView = self.searchContainerView
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
@@ -81,6 +105,7 @@ class AccountDetailsVC: BaseVC {
         self.mainSearchBar.showsCancelButton = true
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
+        self.ladgerDummySearchBar.delegate = self
         
         self.searchTableView.delegate = self
         self.searchTableView.dataSource = self
@@ -103,10 +128,11 @@ class AccountDetailsVC: BaseVC {
     
     override func setupTexts() {
         self.balanceTextLabel.text = LocalizedString.Balance.localized
-        self.balanceAmountLabel.text = "\(AppConstants.kRuppeeSymbol) \(18992.0.delimiter)"
+        self.balanceAmountLabel.text = "\(18992.0.amountInDelimeterWithSymbol)"
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
+        self.ladgerDummySearchBar.placeholder = LocalizedString.search.localized
     }
     
     override func setupColors() {
@@ -121,9 +147,25 @@ class AccountDetailsVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
+    private func manageSubView() {
+        if self.currentUsingAs == .account {
+            self.subHeaderContainerHeightConstraint.constant = 76.0
+            self.balanceContainerView.isHidden = false
+            self.ladgerDummySearchView.isHidden = true
+            self.searchModeSearchBarTopConstraint.constant = 155.0
+            self.tableView.tableHeaderView = self.searchContainerView
+        }
+        else {
+            self.subHeaderContainerHeightConstraint.constant = 52.0
+            self.balanceContainerView.isHidden = true
+            self.ladgerDummySearchView.isHidden = false
+            self.searchModeSearchBarTopConstraint.constant = 44.0
+            self.tableView.tableHeaderView = nil
+        }
+    }
     private func manageHeader(animated: Bool) {
 
-        if (self.currentUsingMode == .normal) {
+        if (self.currentViewState == .normal) {
             self.balanceContainerView.isHidden = false
             self.view.endEditing(true)
         }
@@ -131,40 +173,54 @@ class AccountDetailsVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             
-            if (sSelf.currentUsingMode == .search) {
-                sSelf.mainSearchBar.text = ""
-                sSelf.balanceContainerTopConstraint.constant = -(sSelf.balanceContainerView.height)
+            if (sSelf.currentViewState == .searching) {
+                sSelf.subHeaderContainerTopConstraint.constant = -(sSelf.subHeaderContainer.height)
                 sSelf.balanceContainerView.alpha = 0.0
                 sSelf.tableView.tableHeaderView = nil
                 sSelf.searchDataContainerView.isHidden = false
                 sSelf.searchModeSearchBarTopConstraint.constant = 0.0
-                
             }
             else {
-                sSelf.balanceContainerTopConstraint.constant = 0.0
+                sSelf.subHeaderContainerTopConstraint.constant = 0.0
                 sSelf.balanceContainerView.alpha = 1.0
-                sSelf.tableView.tableHeaderView = sSelf.searchContainerView
+                sSelf.tableView.tableHeaderView = (sSelf.currentUsingAs == .account) ? sSelf.searchContainerView : nil
                 sSelf.searchDataContainerView.isHidden = true
-                sSelf.searchModeSearchBarTopConstraint.constant = (sSelf.topNavView.height + sSelf.balanceContainerView.height + 35.0)
+                sSelf.searchModeSearchBarTopConstraint.constant = (sSelf.currentUsingAs == .account) ? 155.0 : 44.0
             }
             
             sSelf.view.layoutIfNeeded()
             
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
-                sSelf.balanceContainerView.isHidden = (sSelf.currentUsingMode == .search)
-                if (sSelf.currentUsingMode == .search) {
+                sSelf.balanceContainerView.isHidden = (sSelf.currentViewState == .searching)
+                sSelf.searchTableView.reloadData()
+                if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
                 }
         })
     }
     
-    //MARK:- Public
-    func reloadList() {
-        self.tableView.reloadData()
+    private func showMoreOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            if index == 0 {
+                //email tapped
+                printDebug("email tapped")
+            } else {
+                //download pdf tapped
+                printDebug("download pdf tapped")
+            }
+        }
     }
     
-    func reloadSearchList() {
+    //MARK:- Public
+    func reloadList() {
+        self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
+        
+        self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
+        self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
+        self.tableView.reloadData()
         self.searchTableView.reloadData()
     }
     
@@ -174,18 +230,42 @@ class AccountDetailsVC: BaseVC {
 //MARK:- SearchBar delegate Methods
 //MARK:-
 extension AccountDetailsVC: UISearchBarDelegate {
+    
+    func clearSearchData() {
+        self.mainSearchBar.text = ""
+        self.searchBar.text = ""
+        self.ladgerDummySearchBar.text = ""
+        self.viewModel.searchedAccountDetails.removeAll()
+        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.reloadList()
+    }
+    
+    func preserveSearchData() {
+        self.searchBar.text = self.mainSearchBar.text
+        self.ladgerDummySearchBar.text = self.mainSearchBar.text
+        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.reloadList()
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchBar === self.mainSearchBar {
-            self.currentUsingMode = .normal
+            self.currentViewState = .normal
+            self.clearSearchData()
         }
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-//        if searchBar === self.searchBar {
-//            self.currentUsingMode = .search
-//            return false
-//        }
+        if (searchBar === self.searchBar) || (searchBar === self.ladgerDummySearchBar) {
+            self.currentViewState = .searching
+            return false
+        }
         return true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.preserveSearchData()
+        self.currentViewState = .normal
+        self.view.endEditing(true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -193,6 +273,15 @@ extension AccountDetailsVC: UISearchBarDelegate {
             self.noResultemptyView.searchTextLabel.isHidden = false
             self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
             self.viewModel.searchEvent(forText: searchText)
+        }
+        else {
+            //reset tot the old state
+            if (searchBar.text ?? "").isEmpty {
+                self.clearSearchData()
+            }
+            else {
+                self.reloadList()
+            }
         }
     }
 }
@@ -207,13 +296,12 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+        self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-//        AppFlowManager.default.moveToAccountLedgerVC()
-        AppFlowManager.default.moveToADEventFilterVC(self)
-
+        AppFlowManager.default.moveToADEventFilterVC()
     }
 }
 
@@ -234,6 +322,6 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func searchEventsSuccess() {
-        self.reloadSearchList()
+        self.reloadList()
     }
 }

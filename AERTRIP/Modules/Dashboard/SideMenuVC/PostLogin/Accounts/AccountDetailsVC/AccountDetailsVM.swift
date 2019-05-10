@@ -20,6 +20,7 @@ class AccountDetailsVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
     var walletAmount: Double = 0.0
+    var _accountDetails: JSONDictionary = JSONDictionary()
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         return Array(accountDetails.keys)
@@ -45,7 +46,7 @@ class AccountDetailsVM: NSObject {
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
         
-        self.searchedAccountDetails = self.accountDetails.filter { (date, evnts) -> Bool in
+        self.searchedAccountDetails = self._accountDetails.filter { (date, evnts) -> Bool in
             if let events = evnts as? [AccountDetailEvent] {
                 return events.contains(where: { $0.title.contains(forText) })
             }
@@ -70,13 +71,14 @@ class AccountDetailsVM: NSObject {
                             "creationDate":"Tue 30 Apr",
                             "voucher":"hotels",
                             "amount":-2314.51,
-                            "balance":-345
+                            "balance":-345,
+                            "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
                            ],
                            [
                             "id":"11",
                             "title":"11 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"flight",
+                            "voucher":"hotelCancellation",
                             "amount":-2314.51,
                             "balance":-345
                             ],
@@ -84,7 +86,7 @@ class AccountDetailsVM: NSObject {
                             "id":"12",
                             "title":"12 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"receipt",
+                            "voucher":"journalVoucher",
                             "amount":-2314.51,
                             "balance":-345
                             ],
@@ -92,21 +94,23 @@ class AccountDetailsVM: NSObject {
                             "id":"2",
                             "title":"DEL → BOM → DEL → GOA",
                             "creationDate":"Mon 29 Apr",
-                            "voucher":"cashback",
+                            "voucher":"flight",
                             "amount":-3452.2,
-                            "balance":-7856.2
+                            "balance":-7856.2,
+                            "names": ["Mrs. Shashi Poddar"]
                            ],
                            [
                             "id":"3",
                             "title":"Credit Card",
                             "creationDate":"Sat 27 Apr",
-                            "voucher":"journalVoucher",
+                            "voucher":"creditNote",
                             "amount":-645.2,
                             "balance":-6354.0
                            ]
                           ]
             
-            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = sSelf._accountDetails
             
             sSelf.delegate?.getAccountDetailsSuccess()
         }

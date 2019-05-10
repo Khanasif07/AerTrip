@@ -585,22 +585,61 @@ extension AppFlowManager {
 
     //MARK:- Account Section
     //MARK:-
-    func moveToAccountDetailsVC() {
+    func moveToAccountDetailsScreen() {
+        guard let user = UserInfo.loggedInUser else {
+            return
+        }
+        
+        switch user.userType {
+        case .regular:
+            self.moveToAccountDetailsVC(usingFor: .account)
+            
+        case .billWise:
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+            
+        case .statement:
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+            
+        case .topUp:
+            let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            self.mainNavigationController.pushViewController(obj, animated: true)
+        }
+    }
+    
+    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor) {
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.currentUsingAs = usingFor
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-//    func moveToAccountLedgerVC() {
-//        let obj = AccountLegderVC.instantiate(fromAppStoryboard: .Account)
-//        self.mainNavigationController.pushViewController(obj, animated: true)
-//    }
+    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent) {
+        let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.ladgerEvent = forEvent
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
     
-    func moveToADEventFilterVC(_ vc : AccountDetailsVC ) {
+    func moveToADEventFilterVC() {
         if let obj = UIApplication.topViewController() {
             let ob = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
-            //            ob.delegate = vc
             obj.add(childViewController: ob)
         }
+    }
+    
+    func moveToAccountOutstandingLadgerVC() {
+        let obj = AccountOutstandingLadgerVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToOnAccountDetailVC() {
+        let obj = OnAccountDetailVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToPeriodicStatementVC() {
+        let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
     func moveHotelCalenderVC(isHotelCalendar: Bool = false ,isReturn: Bool = false ,isMultiCity: Bool = false , checkInDate: Date =  Date() , checkOutDate: Date? = nil , delegate: CalendarDataHandler ){
@@ -617,18 +656,11 @@ extension AppFlowManager {
             ob.viewModel?.delegate = delegate
             self.mainNavigationController.present(ob, animated: true, completion: nil)
         }
-        
-//        if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
-//            let calendarVM = CalendarVM()
-//            calendarVM.isHotelCalendar = isHotelCalendar
-//            calendarVM.isReturn = isReturn
-//            calendarVM.isMultiCity = isMultiCity
-//            calendarVM.date1 = checkInDate
-//            calendarVM.date2 = checkOutDate
-//            ob.viewModel = calendarVM
-//            ob.viewModel?.delegate = delegate
-//            self.mainNavigationController.present(ob, animated: true, completion: nil)
-//        }
+    }
+    
+    func presentAccountChargeInfoVC() {
+        let obj = AccountChargeInfoVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
     // MARK: - Aerin

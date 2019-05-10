@@ -1,5 +1,5 @@
 //
-//  AccountLegderVM.swift
+//  OnAccountDetailVM.swift
 //  AERTRIP
 //
 //  Created by Admin on 16/04/19.
@@ -8,35 +8,32 @@
 
 import UIKit
 
-protocol AccountLegderVMDelegate: class {
-    func willGetAccountLedger()
-    func getAccountLedgerSuccess()
-    func getAccountLedgerFail()
+protocol OnAccountDetailVMDelegate: class {
+    func willGetOnAccountDetails()
+    func getOnAccountDetailsSuccess()
+    func getOnAccountDetailsFail()
 }
 
-class AccountLegderVM {
+class OnAccountDetailVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
-    var walletAmount: Double = 0.0
-    var accountLedger: JSONDictionary = JSONDictionary()
+    var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
-        return Array(accountLedger.keys)
+        return Array(accountDetails.keys)
     }
-    
-    weak var delegate: AccountLegderVMDelegate? = nil
+    weak var delegate: OnAccountDetailVMDelegate? = nil
     
     //MARK:- Private
     
     
-    
     //MARK:- Methods
     //MARK:- Public
-    func getAccountLedger() {
-        self.delegate?.willGetAccountLedger()
+    func getOnAccountDetails() {
+        self.delegate?.willGetOnAccountDetails()
         
         delay(seconds: 0.8) { [weak self] in
             guard let sSelf = self else {
-                self?.delegate?.getAccountLedgerFail()
+                self?.delegate?.getOnAccountDetailsFail()
                 return
             }
             
@@ -45,48 +42,49 @@ class AccountLegderVM {
                             "title":"Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
                             "voucher":"hotels",
-                            "amount":-2314.51,
-                            "balance":-345
+                            "amount":24425.01,
+                            "pendingAmount":24425.01,
+                            "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
                            ],
                            [
                             "id":"11",
                             "title":"11 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"flight",
-                            "amount":-2314.51,
-                            "balance":-345
+                            "voucher":"hotelCancellation",
+                            "amount":2314.51,
+                            "pendingAmount":2314.51
                             ],
                            [
                             "id":"12",
                             "title":"12 Ramada Powai Hotel And Convention Centre",
                             "creationDate":"Tue 30 Apr",
-                            "voucher":"receipt",
-                            "amount":-2314.51,
-                            "balance":-345
+                            "voucher":"journalVoucher",
+                            "amount":2314.51,
+                            "pendingAmount":2314.51
                             ],
                            [
                             "id":"2",
                             "title":"DEL → BOM → DEL → GOA",
                             "creationDate":"Mon 29 Apr",
-                            "voucher":"cashback",
-                            "amount":-3452.2,
-                            "balance":-7856.2
+                            "voucher":"flight",
+                            "amount":3452.2,
+                            "pendingAmount":3452.2,
+                            "names": ["Mrs. Shashi Poddar"]
                            ],
                            [
                             "id":"3",
                             "title":"Credit Card",
                             "creationDate":"Sat 27 Apr",
-                            "voucher":"journalVoucher",
-                            "amount":-645.2,
-                            "balance":-6354.0
+                            "voucher":"creditNote",
+                            "amount":645.2,
+                            "pendingAmount":645.2
                            ]
                           ]
             
-            sSelf.accountLedger = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
             
-            sSelf.delegate?.getAccountLedgerSuccess()
+            sSelf.delegate?.getOnAccountDetailsSuccess()
         }
-        
     }
     
     //MARK:- Private

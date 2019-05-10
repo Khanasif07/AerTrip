@@ -175,7 +175,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func fillData() {
-        totalFareLabel.text = AppConstants.kRuppeeSymbol + "\((viewModel.itineraryData?.total_fare ?? 0.0).delimiter)"
+        totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
         setupFareBreakup()
         
         hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""

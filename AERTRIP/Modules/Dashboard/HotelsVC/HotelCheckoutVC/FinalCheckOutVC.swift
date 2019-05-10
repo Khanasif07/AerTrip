@@ -153,7 +153,7 @@ class FinalCheckOutVC: BaseVC {
             if self.isCouponApplied {
                 if let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     let saveAmount = discountBreakUp.CACB + discountBreakUp.CPD
-                    applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized + " " + AppConstants.kRuppeeSymbol + Double(saveAmount).delimiter
+                    applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized + " " + Double(saveAmount).amountInDelimeterWithSymbol
                     applyCouponCell.couponView.isHidden = false
                     applyCouponCell.couponLabel.text = LocalizedString.CouponApplied.localized + self.appliedCouponData.couponCode
                 }
@@ -171,7 +171,7 @@ class FinalCheckOutVC: BaseVC {
             walletCell.clipsToBounds = true
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = isWallet
-            walletCell.amountLabel.text = AppConstants.kRuppeeSymbol + self.getWalletAmount().delimiter
+            walletCell.amountLabel.text = self.getWalletAmount().amountInDelimeterWithSymbol
             return walletCell
         case 5:
             
@@ -196,7 +196,7 @@ class FinalCheckOutVC: BaseVC {
             if self.isCouponApplied, self.isCouponSectionExpanded {
                 if let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     let saveAmount = discountBreakUp.CPD
-                    couponDiscountCell.amountLabel.text = "-" + AppConstants.kRuppeeSymbol + Double(saveAmount).delimiter
+                    couponDiscountCell.amountLabel.text = "-" + Double(saveAmount).amountInDelimeterWithSymbol
                     couponDiscountCell.clipsToBounds = true
                 }
             } else {
@@ -214,7 +214,7 @@ class FinalCheckOutVC: BaseVC {
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
-                convenieneCell.walletAmountLabel.text = AppConstants.kRuppeeSymbol + amount.delimiter
+                convenieneCell.walletAmountLabel.text = amount.amountInDelimeterWithSymbol
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -241,7 +241,7 @@ class FinalCheckOutVC: BaseVC {
                 } else {
                     amountFromWallet = amount
                 }
-                walletAmountCell.walletAmountLabel.text = "-" + AppConstants.kRuppeeSymbol + abs(amountFromWallet).delimiter
+                walletAmountCell.walletAmountLabel.text = "-" + abs(amountFromWallet).amountInDelimeterWithSymbol
                 walletAmountCell.clipsToBounds = true
                 return walletAmountCell
             } else {
@@ -254,7 +254,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            totalPayableNowCell.totalPriceLabel.text = AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter
+            totalPayableNowCell.totalPriceLabel.text = self.getTotalPayableAmount().amountInDelimeterWithSymbol
             return totalPayableNowCell
             
         case 4: // Convenience Fee message Cell
@@ -265,7 +265,7 @@ class FinalCheckOutVC: BaseVC {
             let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 conveninceCell.convenienceFeeLabel.textColor = AppColors.themeBlack
-                conveninceCell.convenienceFeeLabel.text = LocalizedString.convenienceFee1.localized + AppConstants.kRuppeeSymbol + " \(amount.delimiter) " + LocalizedString.convenienceFee2.localized
+                conveninceCell.convenienceFeeLabel.text = LocalizedString.convenienceFee1.localized + " \(amount.amountInDelimeterWithSymbol) " + LocalizedString.convenienceFee2.localized
                 return conveninceCell
             } else {
                 conveninceCell.clipsToBounds = true
@@ -281,9 +281,8 @@ class FinalCheckOutVC: BaseVC {
                 if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount, let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     // Net Effective fare
                     let effectiveFare = abs(netAmount.toDouble ?? 0.0 - discountBreakUp.CPD)
-                    finalAmountCell.payableWalletMessageLabel.text = AppConstants.kRuppeeSymbol + Double(discountBreakUp.CACB).delimiter + LocalizedString.PayableWalletMessage.localized
-                    finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized +
-                        AppConstants.kRuppeeSymbol + " " + "\(effectiveFare.delimiter)"
+                    finalAmountCell.payableWalletMessageLabel.text = Double(discountBreakUp.CACB).amountInDelimeterWithSymbol + LocalizedString.PayableWalletMessage.localized
+                    finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized + "\(effectiveFare.amountInDelimeterWithSymbol)"
                 }
                 finalAmountCell.clipsToBounds = true
                 return finalAmountCell
@@ -417,8 +416,8 @@ class FinalCheckOutVC: BaseVC {
     // Get Update Pay Button Text
     private func updatePayButtonText() {
         if self.getTotalPayableAmount() > 0 {
-            self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter, for: .normal)
-            self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + AppConstants.kRuppeeSymbol + self.getTotalPayableAmount().delimiter, for: .highlighted)
+            self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().amountInDelimeterWithSymbol, for: .normal)
+            self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().amountInDelimeterWithSymbol, for: .highlighted)
         } else {
             self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .normal)
             self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .highlighted)
@@ -539,7 +538,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             headerView.delegate = self
             self.handleDiscountArrowAnimation(headerView)
             if let discountbreak = self.appliedCouponData.discountsBreakup {
-                headerView.discountPriceLabel.text = "-" + AppConstants.kRuppeeSymbol + "\(Double(discountbreak.CPD).delimiter)"
+                headerView.discountPriceLabel.text = "-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)"
             }
             
             if self.isCouponApplied {
@@ -548,7 +547,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.discountViewHeightConstraint.constant = 0
                 headerView.clipsToBounds = true
             }
-            headerView.grossPriceLabel.text = AppConstants.kRuppeeSymbol + "\(self.getGrossAmount().delimiter)"
+            headerView.grossPriceLabel.text = "\(self.getGrossAmount().amountInDelimeterWithSymbol)"
             return headerView
         }
     }

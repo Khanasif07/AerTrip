@@ -591,6 +591,7 @@
 "AccountsLegder" = "Accounts Legder";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
+"Pending" = "Pending";
 "DateSpan" = "Date Span";
 "VoucherType" = "Voucher Type";
 
@@ -644,3 +645,27 @@
 //MARK: - Booking Details Info
 "ForwardArrow" = "→";
 "Dimensions" = "Dimensions";
+
+//MARK:- Account Ladger
+"DownloadAsPdf" = "Download as PDF";
+"NoTransactions" = "No transactions";
+"NoResultsFound" = "No results found";
+"Oops" = "Oops!";
+"ClearFilters" = "Clear Filters";
+"BookingID" = "Booking ID";
+
+//MARK:- OutStanding Ladger
+"Summary" = "Summary";
+"OutstandingLedger" = "Outstanding Ledger";
+"GrossOutstanding" = "Gross Outstanding";
+"OnAccount" = "On Account";
+"NetOutstanding" = "Net Outstanding";
+"DebitShort" = "Dr.";
+"CreditShort" = "Cr.";
+"SelectBookingsPay" = "Select bookings & pay";
+"MakePayment" = "Make Payment";
+
+//MARK:- On Account Screen
+"ason" = "as on";
+"PeriodicStatement" = "Periodic Statement";
+"NoStatementGenerated" = "No statement generated";

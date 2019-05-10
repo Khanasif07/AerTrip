@@ -62,7 +62,7 @@ class HotelSearchTableViewCell: UITableViewCell {
         }
         self.favouriteStatusImageView.isHidden = hotel.fav == "0"
         self.hotelNameLabel.attributedText = getAttributeBoldTextForHotelName(text: hotel.hotelName ?? "", boldText: searchText)
-        self.hotelPriceLabel.text = AppConstants.kRuppeeSymbol + "\(hotel.price.delimiter)"
+        self.hotelPriceLabel.text = hotel.price.amountInDelimeterWithSymbol
         self.starRatingView.isHidden = true
         self.starContainerView.isHidden = true
         if hotel.star > 0.0 {

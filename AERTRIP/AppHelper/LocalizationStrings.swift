@@ -625,6 +625,7 @@ enum LocalizedString: String {
     case Accounts = "Accounts"
     case AccountsLegder = "AccountsLegder"
     case Amount = "Amount"
+    case Pending
     case Voucher = "Voucher"
     
     //MARK:- BookingVC
@@ -684,4 +685,27 @@ enum LocalizedString: String {
     
    
     
+    //MARK:- Account Ladger
+    case DownloadAsPdf
+    case NoTransactions
+    case NoResultsFound
+    case Oops
+    case ClearFilters
+    case BookingID
+    
+    //MARK:- OutStanding Ladger
+    case Summary
+    case OutstandingLedger
+    case GrossOutstanding
+    case OnAccount
+    case NetOutstanding
+    case DebitShort
+    case CreditShort
+    case SelectBookingsPay
+    case MakePayment
+    
+    //MARK:- On Account Screen
+    case ason
+    case PeriodicStatement
+    case NoStatementGenerated
  }

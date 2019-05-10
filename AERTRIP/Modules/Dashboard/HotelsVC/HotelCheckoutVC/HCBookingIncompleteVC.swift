@@ -73,16 +73,16 @@ class HCBookingIncompleteVC: BaseVC {
     
     override func setupTexts() {
         titleLabel.text = LocalizedString.BookingIncomplete.localized
-        messageLabel.text = "\(LocalizedString.YourWalletMoneyOf.localized) \(AppConstants.kRuppeeSymbol)\(2000.0.delimiter) \(LocalizedString.WasUsedForAnotherTransaction.localized)"
+        messageLabel.text = "\(LocalizedString.YourWalletMoneyOf.localized) \(2000.0.amountInDelimeterWithSymbol) \(LocalizedString.WasUsedForAnotherTransaction.localized)"
         
         bookingAmountTextLabel.text = LocalizedString.BookingAmount.localized
-        bookingAmountLabel.text = "\(AppConstants.kRuppeeSymbol)\(10000.0.delimiter)"
+        bookingAmountLabel.text = "\(10000.0.amountInDelimeterWithSymbol)"
         
         paidAmountTextLabel.text = LocalizedString.PaidAmount.localized
-        paidAmountLabel.text = "\(AppConstants.kRuppeeSymbol)\(8000.0.delimiter)"
+        paidAmountLabel.text = "\(8000.0.amountInDelimeterWithSymbol)"
         
         balanceAmountTextLabel.text = LocalizedString.BalanceAmount.localized
-        balanceAmountLabel.text = "\(AppConstants.kRuppeeSymbol)\(2000.0.delimiter)"
+        balanceAmountLabel.text = "\(2000.0.amountInDelimeterWithSymbol)"
         
         payButton.setTitle(LocalizedString.Pay.localized, for: .normal)
         

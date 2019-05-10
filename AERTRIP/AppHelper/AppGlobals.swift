@@ -315,31 +315,35 @@ struct AppGlobals {
             }
         }
     }
-    
-//    func nativePopUp(vc: UIViewController) {
-//        let actionSheetAlertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-////        actionSheetAlertController.addAction(cancelActionButton)
-//        
-//        let documentsActionButton = UIAlertAction(title: "Documents", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(documentsActionButton)
-//        documentsActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        documentsActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        let cameraActionButton = UIAlertAction(title: "Camera", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(cameraActionButton)
-//        cameraActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        cameraActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        let galleryActionButton = UIAlertAction(title: "Gallery", style: .default, handler: nil)
-//        actionSheetAlertController.addAction(galleryActionButton)
-//        galleryActionButton.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
-//        galleryActionButton.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
-//        
-//        
-//        actionSheetAlertController.view.tintColor = AppColors.themeWhite.withAlphaComponent(0.85)
-//        vc.present(actionSheetAlertController, animated: true, completion: nil)
-//    }
 }
 
 
+//MARK:- Project Used Extensions
+extension Double {
+    var amountInDelimeterWithSymbol: String {
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(self).delimiter)"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2).delimiter)"
+        }
+    }
+    
+    var amountInDoubleWithSymbol: String {
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(self.roundTo(places: 2)))"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2))"
+        }
+    }
+    
+    var amountInIntWithSymbol: String {
+        if self < 0 {
+            return "-\(AppConstants.kRuppeeSymbol)\(abs(Int(self)))"
+        }
+        else {
+            return "\(AppConstants.kRuppeeSymbol)\(Int(self))"
+        }
+    }
+}
