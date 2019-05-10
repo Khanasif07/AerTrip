@@ -234,6 +234,7 @@ class AccountCheckoutVC: BaseVC {
         
         delay(seconds: 1.0) {[weak self] in
             self?.manageLoader(shouldStart: false)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "  \(self?.viewModel.totalPayableAmount.amountInDelimeterWithSymbol ?? "")")
         }
     }
 }

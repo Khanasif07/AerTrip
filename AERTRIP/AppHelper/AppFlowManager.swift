@@ -376,9 +376,11 @@ extension AppFlowManager {
         }
     }
     
-    func showBulkEnquiryVC() {
-        if let mVC = self.mainHomeVC {
+    func showBulkEnquiryVC(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .bulkBooking
+            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
@@ -642,6 +644,15 @@ extension AppFlowManager {
     func moveToAccountCheckoutVC() {
         let obj = AccountCheckoutVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func showAccountDepositSuccessVC(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .accountDeposit
+            ob.buttonTitle = buttonTitle
+            mVC.add(childViewController: ob)
+        }
     }
     
     func moveHotelCalenderVC(isHotelCalendar: Bool = false ,isReturn: Bool = false ,isMultiCity: Bool = false , checkInDate: Date =  Date() , checkOutDate: Date? = nil , delegate: CalendarDataHandler ){

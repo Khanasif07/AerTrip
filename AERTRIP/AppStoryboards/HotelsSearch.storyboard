@@ -84,13 +84,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
+                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
+                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1139,13 +1139,13 @@ been sent</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Customer service team shall contact you soon regarding this enquiry." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SZ-mV-NbB">
-                                        <rect key="frame" x="48" y="307" width="280" height="36"/>
+                                        <rect key="frame" x="34" y="307" width="307" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-B4-bs8">
-                                        <rect key="frame" x="163" y="460" width="50" height="36"/>
+                                        <rect key="frame" x="162.5" y="460" width="50" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="hLh-on-oWF"/>
                                             <constraint firstAttribute="height" constant="36" id="nHW-co-NWh"/>
@@ -1157,7 +1157,7 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW3-qM-cup" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="113" y="574.5" width="150" height="50"/>
+                                        <rect key="frame" x="112.5" y="574.5" width="150" height="50"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="IWD-zh-eUI"/>
@@ -1172,14 +1172,14 @@ been sent</string>
                                     <constraint firstAttribute="height" constant="647" id="4e5-V0-BgO"/>
                                     <constraint firstItem="UW3-qM-cup" firstAttribute="centerX" secondItem="Jsa-B4-bs8" secondAttribute="centerX" id="57g-zP-WwP"/>
                                     <constraint firstAttribute="trailing" secondItem="8dt-Lv-VS0" secondAttribute="trailing" constant="34" id="7lO-kN-1j2"/>
-                                    <constraint firstAttribute="trailing" secondItem="9SZ-mV-NbB" secondAttribute="trailing" constant="47" id="8OQ-Zb-Jg4"/>
+                                    <constraint firstAttribute="trailing" secondItem="9SZ-mV-NbB" secondAttribute="trailing" constant="34" id="8OQ-Zb-Jg4"/>
                                     <constraint firstAttribute="bottom" secondItem="UW3-qM-cup" secondAttribute="bottom" constant="22.5" id="FBM-9j-1f9"/>
                                     <constraint firstItem="9SZ-mV-NbB" firstAttribute="top" secondItem="8dt-Lv-VS0" secondAttribute="bottom" constant="17" id="J2S-zh-z1A"/>
                                     <constraint firstItem="Jsa-B4-bs8" firstAttribute="centerX" secondItem="9SZ-mV-NbB" secondAttribute="centerX" id="Rqa-y8-aBA"/>
                                     <constraint firstItem="Jsa-B4-bs8" firstAttribute="top" secondItem="9SZ-mV-NbB" secondAttribute="bottom" constant="117" id="U6Z-zs-2Ck"/>
                                     <constraint firstItem="8dt-Lv-VS0" firstAttribute="leading" secondItem="9FW-MM-6cL" secondAttribute="leading" constant="34" id="i08-0O-fok"/>
                                     <constraint firstItem="8dt-Lv-VS0" firstAttribute="top" secondItem="9FW-MM-6cL" secondAttribute="top" constant="216" id="jaz-Kk-8l2"/>
-                                    <constraint firstItem="9SZ-mV-NbB" firstAttribute="leading" secondItem="9FW-MM-6cL" secondAttribute="leading" constant="48" id="z4Q-sF-Ksh"/>
+                                    <constraint firstItem="9SZ-mV-NbB" firstAttribute="leading" secondItem="9FW-MM-6cL" secondAttribute="leading" constant="34" id="z4Q-sF-Ksh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1193,13 +1193,14 @@ been sent</string>
                     </view>
                     <connections>
                         <outlet property="backgroundView" destination="t4W-xe-8Pk" id="wPC-Ma-KsY"/>
-                        <outlet property="bulkEnquiryLabel" destination="8dt-Lv-VS0" id="HdD-22-Nvf"/>
                         <outlet property="containerView" destination="9FW-MM-6cL" id="NhU-ni-bEa"/>
-                        <outlet property="customerServiceLabel" destination="9SZ-mV-NbB" id="Rlj-Am-e3z"/>
                         <outlet property="doneBtnOutlet" destination="Jsa-B4-bs8" id="nEc-fF-snt"/>
                         <outlet property="mainContainerBottomConstraint" destination="bJ2-AA-Nk4" id="Ugk-7V-uh8"/>
                         <outlet property="mainContainerViewHeightConstraint" destination="4e5-V0-BgO" id="jas-Lg-Fjn"/>
+                        <outlet property="mainTitleLabel" destination="8dt-Lv-VS0" id="iS7-0c-aNY"/>
                         <outlet property="searchBtnOutlet" destination="UW3-qM-cup" id="VSI-eA-3jH"/>
+                        <outlet property="searchButtonWidthConstraint" destination="S4s-vz-ZUp" id="NJZ-E6-XSk"/>
+                        <outlet property="subTitleLabel" destination="9SZ-mV-NbB" id="Bn5-OG-fP7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqN-j0-MuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1510,13 +1511,13 @@ been sent</string>
                                                 <rect key="frame" x="99.5" y="0.0" width="100" height="232"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="wVg-xb-02g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="237"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="232"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-PK-7qo">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adults" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1P-RP-Eqz">
                                                                                 <rect key="frame" x="0.0" y="5" width="100" height="20.5"/>
@@ -1544,7 +1545,7 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-dd-HPg">
-                                                                        <rect key="frame" x="0.0" y="62" width="100" height="58"/>
+                                                                        <rect key="frame" x="0.0" y="57" width="100" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
                                                                                 <rect key="frame" x="26" y="5" width="48" height="48"/>
@@ -1561,7 +1562,7 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="139.5" width="100" height="97.5"/>
+                                                                <rect key="frame" x="0.0" y="134.5" width="100" height="97.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
                                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="97.5"/>

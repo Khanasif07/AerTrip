@@ -183,6 +183,11 @@ class ATButton: UIButton {
         super.setTitle(title, for: .highlighted)
     }
     
+    override func setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
+        super.setAttributedTitle(title, for: .normal)
+        super.setAttributedTitle(title, for: .highlighted)
+    }
+    
     private func initialSetup() {
         fontForTitle = AppFonts.SemiBold.withSize(17.0)
         addRequiredAction()

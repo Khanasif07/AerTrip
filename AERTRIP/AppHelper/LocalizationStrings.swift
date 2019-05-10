@@ -693,4 +693,6 @@ enum LocalizedString: String {
     case Breakup
     case DepositAmount
     case ConvenienceFeeNonRefundable
+    case PaymentRegisteredSuccesfully
+    case WeShallCreditYourAccount
  }

@@ -660,3 +660,5 @@
 "Breakup" = "Breakup";
 "DepositAmount" = "Deposit amount";
 "ConvenienceFeeNonRefundable" = "Convenience fee (Non-refundable)";
+"PaymentRegisteredSuccesfully" = "Payment registered succesfully";
+"WeShallCreditYourAccount" = "We shall credit your account once we recieve your payment in our account.";

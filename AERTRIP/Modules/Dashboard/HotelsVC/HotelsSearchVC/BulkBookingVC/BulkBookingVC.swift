@@ -542,7 +542,7 @@ extension BulkBookingVC: BulkBookingVMDelegate {
         printDebug(enquiryId)
         self.searchButtonOutlet.isLoading = false
         self.hide(animated: true, shouldRemove: true)
-        AppFlowManager.default.showBulkEnquiryVC()
+        AppFlowManager.default.showBulkEnquiryVC(buttonTitle: LocalizedString.Submit.localized)
     }
     
     func bulkBookingEnquiryFail(errors:ErrorCodes) {
