@@ -756,7 +756,7 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
     
     func openDocument(atURL url: URL, screenTitle: String) {
         self.documentInteractionController.url = url
-        self.documentInteractionController.name = LocalizedString.ConfirmationVoucher.localized
+        self.documentInteractionController.name = screenTitle
         self.documentInteractionController.delegate = self
         self.documentInteractionController.presentPreview(animated: true)
     }

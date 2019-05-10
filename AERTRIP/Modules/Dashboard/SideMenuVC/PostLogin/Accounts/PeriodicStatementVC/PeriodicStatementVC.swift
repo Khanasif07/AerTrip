@@ -81,7 +81,7 @@ class PeriodicStatementVC: BaseVC {
         
         for idx in 0..<self.viewModel.allYears.count {
             let vc = PeriodicStatementListVC.instantiate(fromAppStoryboard: .Account)
-            printDebug(idx)
+            vc.viewModel.currentFinYear = self.viewModel.allYears[idx]
             self.allChildVCs.append(vc)
         }
         

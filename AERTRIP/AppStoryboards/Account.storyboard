@@ -1207,7 +1207,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="du2-Z8-c7h" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="45" width="414" height="817"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PeriodicStatementCell" id="Fum-Wt-pKY" customClass="PeriodicStatementCell" customModule="AERTRIP" customModuleProvider="target">
@@ -1268,7 +1268,7 @@
                             <constraint firstItem="JWn-o4-NrI" firstAttribute="trailing" secondItem="du2-Z8-c7h" secondAttribute="trailing" id="a67-qk-m12"/>
                             <constraint firstItem="3jD-iR-X1F" firstAttribute="leading" secondItem="JWn-o4-NrI" secondAttribute="leading" id="byP-Si-Z7C"/>
                             <constraint firstItem="du2-Z8-c7h" firstAttribute="leading" secondItem="JWn-o4-NrI" secondAttribute="leading" id="f7u-eu-LhN"/>
-                            <constraint firstItem="du2-Z8-c7h" firstAttribute="top" secondItem="3jD-iR-X1F" secondAttribute="bottom" id="kPy-t9-mzR"/>
+                            <constraint firstItem="du2-Z8-c7h" firstAttribute="top" secondItem="3jD-iR-X1F" secondAttribute="bottom" constant="-1" id="kPy-t9-mzR"/>
                             <constraint firstItem="JWn-o4-NrI" firstAttribute="trailing" secondItem="3jD-iR-X1F" secondAttribute="trailing" id="lAG-aq-6Xe"/>
                             <constraint firstItem="3jD-iR-X1F" firstAttribute="top" secondItem="JWn-o4-NrI" secondAttribute="top" id="nNa-KG-Gyc"/>
                         </constraints>

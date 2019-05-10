@@ -44,11 +44,15 @@ class PeriodicStatementListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
+        self.viewModel.fetchMonthsForGivenYear()
+        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.backgroundView = self.emptyView
         self.tableView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
+        
+        self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
     //MARK:- Public
@@ -84,11 +88,11 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
 //        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
 //            return allEvent.count
 //        }
-        return 0
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 44.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,11 +102,12 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
 //            return UITableViewCell()
 //        }
         
-        let allCount = 1
+        let allCount = 4
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: PeriodicStatementCell.reusableIdentifier) as? PeriodicStatementCell else {
             return UITableViewCell()
         }
         
+        cell.event = "Statement \(indexPath.row + 1)"
         if (indexPath.section == (self.viewModel.allDates.count - 1)), (indexPath.row >= (allCount - 1)) {
             cell.dividerView.isHidden = false
             cell.dividerViewLeadingConstraint.constant = 0
@@ -144,6 +149,11 @@ class PeriodicStatementCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
 
+    var event: String? {
+        didSet {
+            self.setData()
+        }
+    }
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -175,7 +185,7 @@ class PeriodicStatementCell: UITableViewCell {
     
     private func setData() {
 
-        self.titleLabel.text = ""
-        self.dateLabel.text = ""
+        self.titleLabel.text = self.event ?? ""
+        self.dateLabel.text = "6 Jan - 11 Jan"
     }
 }
