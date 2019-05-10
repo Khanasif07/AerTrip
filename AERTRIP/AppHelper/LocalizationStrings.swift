@@ -685,4 +685,8 @@ enum LocalizedString: String {
     case ason
     case PeriodicStatement
     case NoStatementGenerated
+    case PayOnline
+    case PayOfflineNRegister
+    case ChequeDemandDraft
+    case FundTransfer
  }

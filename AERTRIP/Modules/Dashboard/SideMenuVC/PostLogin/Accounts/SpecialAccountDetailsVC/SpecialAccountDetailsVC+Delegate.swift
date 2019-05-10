@@ -228,6 +228,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.configure(amount: amount.amountInDelimeterWithSymbol)
+        cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
         return cell
     }
