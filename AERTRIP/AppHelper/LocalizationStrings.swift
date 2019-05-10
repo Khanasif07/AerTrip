@@ -548,6 +548,7 @@ enum LocalizedString: String {
     case Pay = "Pay"
     case FareRules = "FareRules"
     case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
+    case CheckOutFareRulesPrivacyAndPolicyTerms
     case PayableWalletMessage = "PayableWalletMessage"
     case NetEffectiveFare = "NetEffectiveFare"
     case GrossFare = "GrossFare"
@@ -689,4 +690,7 @@ enum LocalizedString: String {
     case PayOfflineNRegister
     case ChequeDemandDraft
     case FundTransfer
+    case Breakup
+    case DepositAmount
+    case ConvenienceFeeNonRefundable
  }

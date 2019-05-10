@@ -27,7 +27,6 @@ class FinalCheckOutVC: BaseVC {
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "FareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
-    private var gradientLayer: CAGradientLayer!
     var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
         didSet {
             self.viewDidLayoutSubviews()

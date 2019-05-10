@@ -525,9 +525,6 @@ extension AppFlowManager {
         else {
             self.mainNavigationController.present(obj, animated: true)
         }
-//        delay(seconds: 0.1) { [weak obj] in
-//            obj?.delegate = delegate
-//        }
     }
     
     func moveToGuestDetailScreen(delegate: GuestDetailsVCDelegate,_ indexPath:IndexPath) {
@@ -639,6 +636,11 @@ extension AppFlowManager {
     
     func moveToPeriodicStatementVC() {
         let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToAccountCheckoutVC() {
+        let obj = AccountCheckoutVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

@@ -1283,6 +1283,80 @@
             </objects>
             <point key="canvasLocation" x="3810" y="25"/>
         </scene>
+        <!--Account CheckoutVC-->
+        <scene sceneID="vlC-XD-DUF">
+            <objects>
+                <viewController storyboardIdentifier="AccountCheckoutVC" id="puJ-On-eTn" customClass="AccountCheckoutVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JrQ-VD-sWE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZc-0A-tyn" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6k2-8S-oM8"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="jdd-ph-CmQ" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-pX-rey">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Xgd-w7-5CF"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="payButtonAction:" destination="puJ-On-eTn" eventType="touchUpInside" id="Ntb-Qj-Gvq"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4IB-Js-Lz2">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5Bg-6S-EbS">
+                                        <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5Bg-6S-EbS" firstAttribute="centerX" secondItem="4IB-Js-Lz2" secondAttribute="centerX" id="3QV-kK-zir"/>
+                                    <constraint firstItem="5Bg-6S-EbS" firstAttribute="centerY" secondItem="4IB-Js-Lz2" secondAttribute="centerY" id="9Jc-xX-CF7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="7Le-pX-rey" firstAttribute="leading" secondItem="BuY-Oc-bUv" secondAttribute="leading" id="2fq-h1-awE"/>
+                            <constraint firstItem="YZc-0A-tyn" firstAttribute="top" secondItem="BuY-Oc-bUv" secondAttribute="top" id="HuM-Ei-dci"/>
+                            <constraint firstItem="BuY-Oc-bUv" firstAttribute="trailing" secondItem="jdd-ph-CmQ" secondAttribute="trailing" id="JCN-Gn-ELG"/>
+                            <constraint firstItem="BuY-Oc-bUv" firstAttribute="trailing" secondItem="YZc-0A-tyn" secondAttribute="trailing" id="KQs-4U-jSm"/>
+                            <constraint firstItem="jdd-ph-CmQ" firstAttribute="leading" secondItem="BuY-Oc-bUv" secondAttribute="leading" id="LVr-du-mFo"/>
+                            <constraint firstItem="jdd-ph-CmQ" firstAttribute="top" secondItem="YZc-0A-tyn" secondAttribute="bottom" id="Ovm-RJ-CLO"/>
+                            <constraint firstItem="4IB-Js-Lz2" firstAttribute="trailing" secondItem="7Le-pX-rey" secondAttribute="trailing" id="Wxo-tv-2sI"/>
+                            <constraint firstItem="BuY-Oc-bUv" firstAttribute="trailing" secondItem="7Le-pX-rey" secondAttribute="trailing" id="b8C-JQ-tDq"/>
+                            <constraint firstItem="BuY-Oc-bUv" firstAttribute="bottom" secondItem="7Le-pX-rey" secondAttribute="bottom" id="dlG-o3-z8S"/>
+                            <constraint firstItem="YZc-0A-tyn" firstAttribute="leading" secondItem="BuY-Oc-bUv" secondAttribute="leading" id="fuR-Fj-lio"/>
+                            <constraint firstItem="4IB-Js-Lz2" firstAttribute="leading" secondItem="7Le-pX-rey" secondAttribute="leading" id="kdz-SS-g3W"/>
+                            <constraint firstItem="BuY-Oc-bUv" firstAttribute="bottom" secondItem="jdd-ph-CmQ" secondAttribute="bottom" constant="50" id="kzH-8x-GF5"/>
+                            <constraint firstItem="4IB-Js-Lz2" firstAttribute="top" secondItem="7Le-pX-rey" secondAttribute="top" id="nml-DY-P85"/>
+                            <constraint firstItem="4IB-Js-Lz2" firstAttribute="bottom" secondItem="7Le-pX-rey" secondAttribute="bottom" id="pWE-3g-7hT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BuY-Oc-bUv"/>
+                    </view>
+                    <connections>
+                        <outlet property="checkOutTableView" destination="jdd-ph-CmQ" id="rfJ-WI-djU"/>
+                        <outlet property="indicatorView" destination="5Bg-6S-EbS" id="ChK-EP-0Lr"/>
+                        <outlet property="loaderContainer" destination="4IB-Js-Lz2" id="ewo-WX-zYJ"/>
+                        <outlet property="payButton" destination="7Le-pX-rey" id="2BA-3F-Ob6"/>
+                        <outlet property="topNavView" destination="YZc-0A-tyn" id="puE-CB-o1I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cXi-HM-sRs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="896" y="1415"/>
+        </scene>
     </scenes>
     <resources>
         <image name="rightArrow" width="40" height="44"/>

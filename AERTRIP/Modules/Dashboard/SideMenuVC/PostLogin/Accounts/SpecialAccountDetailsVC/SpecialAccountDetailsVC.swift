@@ -60,7 +60,7 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                printDebug("PayOnline")
+                AppFlowManager.default.moveToAccountCheckoutVC()
                 
             case 2:
                 //ChequeDemandDraft
