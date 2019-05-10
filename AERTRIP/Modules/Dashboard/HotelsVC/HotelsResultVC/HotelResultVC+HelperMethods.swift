@@ -702,5 +702,13 @@ extension HotelResultVC {
         final.removeLast(2)
         return final + " \(LocalizedString.stars.localized)"
     }
+    
+    // show toast when come from Aerin Text Speech Controller
+    func applyAerinFilter() {
+        AppToast.default.showToastMessage(message: LocalizedString.FilterApplied.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.Undo.localized, buttonImage: nil, buttonAction: self.aerinFilterUndoCompletion)
+    }
 
 }
+
+
+

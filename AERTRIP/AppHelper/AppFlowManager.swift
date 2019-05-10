@@ -639,14 +639,27 @@ extension AppFlowManager {
     }
     
     func moveToAerinTextSpeechDetailVC() {
-       
-          let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
+        
+        let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
         // Doing for temporary
         self.mainNavigationController.pushViewController(ob, animated: true)
-      
-
-//        }
+        
+        
+        //        }
+        
+    }
     
+    func moveToBookingDetail() {
+        let ob = BookingDetailViewController.instantiate(fromAppStoryboard: .Bookings)
+        
+        // Doing for temporary
+         self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func presentAerinTextSpeechVC() {
+        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
+        ob.isFromHotelResult = true
+        self.mainNavigationController.present(ob, animated: true)
     }
 }
 

@@ -178,9 +178,10 @@ class AerinVC: BaseVC {
     @IBAction func aerinButtonAction(_ sender: Any) {
         if !AppConstants.isReleasingToClient {
                     // move to Aerin VC
-               // AppFlowManager.default.showAerinTextToSpeechVC()
-            AppFlowManager.default.moveToMyBookingsVC()
+                //AppFlowManager.default.showAerinTextToSpeechVC()
            //AppFlowManager.default.moveToAerinTextSpeechDetailVC()
+           // AppFlowManager.default.moveToMyBookingsVC()
+            AppFlowManager.default.moveToBookingDetail()
             }
         }
     

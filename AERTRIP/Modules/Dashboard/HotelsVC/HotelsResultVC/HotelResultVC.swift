@@ -106,6 +106,7 @@ class HotelResultVC: BaseVC {
     var searchIntitialFrame: CGRect = .zero
     var completion: (() -> Void)?
     var toastDidClose : (() -> Void)?
+    var aerinFilterUndoCompletion : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
     var displayingHotelLocation: CLLocationCoordinate2D? {
         didSet {
@@ -231,10 +232,16 @@ class HotelResultVC: BaseVC {
             self?.doneButtonTapped()
         }
         
+        // toast Completion when toast goes way from the screen
         self.toastDidClose = {
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             UserInfo.hotelFilterApplied = nil
             HotelFilterVM.shared.resetToDefault()
+        }
+        
+        // toast completion,When undo button tapped
+        self.aerinFilterUndoCompletion = {
+            printDebug("Undo Button tapped")
         }
         
         //call API to get vcode, sid
@@ -245,6 +252,7 @@ class HotelResultVC: BaseVC {
         collectionViewLayout.minimumLineSpacing = 0
         
         self.setUpLongPressOnFilterButton()
+        
         
     }
     
@@ -468,6 +476,7 @@ class HotelResultVC: BaseVC {
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
              printDebug("Long press tapped")
+            AppFlowManager.default.presentAerinTextSpeechVC()
         }
        
     }

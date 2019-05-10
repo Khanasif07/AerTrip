@@ -661,6 +661,12 @@ enum LocalizedString: String {
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
     
+    
+    //MARK: - Aerin Text Speech VC
+    case TryAskingFor
+    case FilterText
+    case Listening
+    
     //MARK: - Aerin Text Speech Detail VC
     
     case Departure = "Departure"
@@ -668,6 +674,12 @@ enum LocalizedString: String {
     case Class = "Class"
     case TapToEdit = "TapToEdit"
     case ThingsYouCanAskMe
+    case FilterApplied
+    
+    
+    // Booking Details VC
+    case ForwardArrow 
+    case Dimensions
     
     
    

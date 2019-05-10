@@ -174,7 +174,11 @@ extension HotelResultVC: HotelResultDelegate {
 
         if UserInfo.hotelFilter != nil {
              self.getSavedFilter()
+            // Apply previous filter
             self.applyPreviousFilter()
+            
+            // Apply Aerin Filter
+           // self.applyAerinFilter()
            }
     }
     
