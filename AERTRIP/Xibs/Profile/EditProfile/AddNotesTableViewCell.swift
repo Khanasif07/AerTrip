@@ -16,10 +16,17 @@ class AddNotesTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
 
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var addNoteTextView: UITextView!
-
+    @IBOutlet var addNoteTextView: PKTextView!
+    @IBOutlet weak var sepratorView: ATDividerView!
+    
     // MARK: - Variables
-
+    
+    var isHiddenBottomView: Bool = false {
+        didSet {
+            self.manageSeprator()
+        }
+    }
+    
     weak var delegate: AddNotesTableViewCellDelegate?
 
     override func awakeFromNib() {
@@ -28,6 +35,7 @@ class AddNotesTableViewCell: UITableViewCell {
         addNoteTextView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         addNoteTextView.text = LocalizedString.AddNotes.localized
         addNoteTextView.textColor = UIColor.lightGray
+        self.manageSeprator()
     }
 
     func configureCell(_ note: String) {
@@ -37,31 +45,21 @@ class AddNotesTableViewCell: UITableViewCell {
             addNoteTextView.text = note
         }
     }
+    
+    private func manageSeprator() {
+        self.sepratorView.isHidden = self.isHiddenBottomView
+    }
 }
 
 extension AddNotesTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         delegate?.textViewText(textView.text)
     }
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if addNoteTextView.text == LocalizedString.AddNotes.localized {
-            addNoteTextView.text = nil
-            addNoteTextView.textColor = AppColors.textFieldTextColor51
-        }
-    }
-
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == " "{
             return false
         }
         return true
-    }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = LocalizedString.AddNotes.localized
-            textView.textColor = UIColor.lightGray
-        }
     }
 }

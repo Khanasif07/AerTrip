@@ -1,5 +1,5 @@
 //
-//  AccountCheckoutVM.swift
+//  AccountOnlineDepositVM.swift
 //  AERTRIP
 //
 //  Created by apple on 26/03/19.
@@ -9,13 +9,13 @@
 import Foundation
 
 
-protocol AccountCheckoutVMDelegate: class {
+protocol AccountOnlineDepositVMDelegate: class {
 
 }
 
-class AccountCheckoutVM: NSObject {
+class AccountOnlineDepositVM: NSObject {
     
-    weak var delegate: AccountCheckoutVMDelegate?
+    weak var delegate: AccountOnlineDepositVMDelegate?
     var depositAmount : Double = 24425.0
     var feeAmount : Double = 75.0
     var totalPayableAmount : Double {

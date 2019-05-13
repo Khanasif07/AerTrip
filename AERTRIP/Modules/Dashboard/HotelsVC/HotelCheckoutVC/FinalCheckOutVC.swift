@@ -70,7 +70,7 @@ class FinalCheckOutVC: BaseVC {
         self.getAppliedCoupons()
         self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
         
-        self.loaderContainer.addGredient()
+        self.loaderContainer.addGredient(isVertical: false)
         self.manageLoader(shouldStart: false)
     }
     

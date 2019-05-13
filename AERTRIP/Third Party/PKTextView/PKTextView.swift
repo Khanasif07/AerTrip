@@ -22,6 +22,7 @@ class PKTextView: UITextView {
     var borderWidth: CGFloat = 0.0
     var borderColor: UIColor = UIColor.darkGray
     var cornerRad: CGFloat = 0.0
+    var placeholderInsets: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
 
     
     //MARK:- View Initializatio
@@ -69,11 +70,12 @@ class PKTextView: UITextView {
         // Drawing code
         self.font = self.currentFont
         if self.shouldDrawPlaceholder {
+            let finalRect = CGRect(x: self.placeholderInsets.left,y: self.placeholderInsets.top,width: self.frame.size.width-(self.placeholderInsets.left + self.placeholderInsets.right),height: self.frame.size.height-(self.placeholderInsets.top+self.placeholderInsets.bottom))
             if let plceText = self.attributedPlaceholder {
-                plceText.draw(in: CGRect(x: 5.0,y: 5.0,width: self.frame.size.width-10,height: self.frame.size.height-10.0))
+                plceText.draw(in: finalRect)
             }
             else {
-                self.placeholder.draw(in: CGRect(x: 5.0,y: 5.0,width: self.frame.size.width-10,height: self.frame.size.height-10.0), withAttributes: [NSAttributedString.Key.font : self.currentFont, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+                self.placeholder.draw(in: finalRect, withAttributes: [NSAttributedString.Key.font : self.currentFont, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
             }
         }
     }

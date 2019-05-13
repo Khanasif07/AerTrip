@@ -641,8 +641,14 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountCheckoutVC() {
-        let obj = AccountCheckoutVC.instantiate(fromAppStoryboard: .Account)
+    func moveToAccountOnlineDepositVC() {
+        let obj = AccountOnlineDepositVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor) {
+        let obj = AccountOfflineDepositVC.instantiate(fromAppStoryboard: .Account)
+        obj.currentUsingAs = usingFor
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -671,8 +677,14 @@ extension AppFlowManager {
         }
     }
     
-    func presentAccountChargeInfoVC() {
+    func presentAccountChargeInfoVC(usingFor: AccountChargeInfoVM.UsingFor) {
         let obj = AccountChargeInfoVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.currentUsingFor = usingFor
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
+    func presentAertripBankDetailsVC() {
+        let obj = AertripBankDetailsVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     

@@ -60,14 +60,16 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountCheckoutVC()
+                AppFlowManager.default.moveToAccountOnlineDepositVC()
                 
             case 2:
                 //ChequeDemandDraft
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD)
                 printDebug("ChequeDemandDraft")
                 
             case 3:
                 //FundTransfer
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer)
                 printDebug("FundTransfer")
                 
             default:
@@ -109,6 +111,6 @@ extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //info button action
-        AppFlowManager.default.presentAccountChargeInfoVC()
+        AppFlowManager.default.presentAccountChargeInfoVC(usingFor: .chargeInfo)
     }
 }

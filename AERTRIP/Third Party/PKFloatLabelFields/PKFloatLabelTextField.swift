@@ -18,6 +18,12 @@ import UIKit
     /// The internal `UIView` to display the line below the text input.
     open var lineView = UIView()
     
+    var isHiddenBottomLine: Bool = false {
+        didSet {
+            updateLineView()
+        }
+    }
+    
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -278,6 +284,7 @@ import UIKit
     }
     
     fileprivate func updateLineView() {
+        lineView.isHidden = self.isHiddenBottomLine
         lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
         lineView.backgroundColor = self.lineColor
     }

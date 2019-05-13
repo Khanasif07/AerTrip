@@ -24,6 +24,8 @@ class HCEmailTextFieldCell: UITableViewCell {
         }
     }
     @IBOutlet weak var separatorView: ATDividerView!
+    @IBOutlet weak var textFiledBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldTopConstraint: NSLayoutConstraint!
     
     
     // MARK: - Variables

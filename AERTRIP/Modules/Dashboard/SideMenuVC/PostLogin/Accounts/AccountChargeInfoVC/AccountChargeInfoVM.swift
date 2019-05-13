@@ -10,8 +10,16 @@ import UIKit
 
 
 class AccountChargeInfoVM {
+    
+    enum UsingFor {
+        case chargeInfo
+        case offlinePaymentSteps
+    }
+    
     //MARK:- Properties
     //MARK:- Public
+    var currentUsingFor = UsingFor.chargeInfo
+
     private let statementTitles: [String] = [
                             "Opening Balance",
                             "Recent Payments & Credits",
@@ -42,15 +50,35 @@ class AccountChargeInfoVM {
         "It includes your total credit limit minus all billed, unbilled & pending charges. This amount is updated real time."
     ]
     
+    private let offlineDepositTitles: [String] = [
+        "Step 1",
+        "Step 2",
+        "Step 3",
+        "Step 4",
+        "Step 5"
+    ]
+    
+    private let offlineDepositDescription: [String] = [
+        "Select preferred Aertrip Bank for deposit",
+        "Download blank Cheque / DD deposit slip for printing",
+        "Deposit via Cheque / DD / RTGS / NEFT / IMPS / Fund Transfer in our Bank Account",
+        "Fill in all of the details in the form and Register Payment",
+        "Upload a copy of the deposit confirmation slip"
+    ]
+    
     
     var titles: [String] = []
     var description: [String] = []
     
     //MARK:- Private
-    init() {
-        if let user = UserInfo.loggedInUser {
+    func fetchData() {
+        if self.currentUsingFor == .chargeInfo, let user = UserInfo.loggedInUser {
             titles = (user.userType == UserInfo.UserType.billWise) ? self.billWiseTitles : self.statementTitles
             description = (user.userType == UserInfo.UserType.billWise) ? self.billWiseDescription : self.statementDescription
+        }
+        else if self.currentUsingFor == .offlinePaymentSteps {
+            titles = offlineDepositTitles
+            description = offlineDepositDescription
         }
     }
     

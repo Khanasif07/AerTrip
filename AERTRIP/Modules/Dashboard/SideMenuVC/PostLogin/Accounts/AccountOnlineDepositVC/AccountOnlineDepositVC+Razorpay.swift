@@ -1,5 +1,5 @@
 //
-//  AccountCheckoutVC+Razorpay.swift
+//  AccountOnlineDepositVC+Razorpay.swift
 //  AERTRIP
 //
 //  Created by Admin on 03/04/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Razorpay
 
-extension AccountCheckoutVC: RazorpayPaymentCompletionProtocolWithData {
+extension AccountOnlineDepositVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
         let razorpay: Razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)

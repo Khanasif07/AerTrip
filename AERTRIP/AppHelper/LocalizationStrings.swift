@@ -695,4 +695,21 @@ enum LocalizedString: String {
     case ConvenienceFeeNonRefundable
     case PaymentRegisteredSuccesfully
     case WeShallCreditYourAccount
+    case Payment
+    case DraftOrChequeDepositDate
+    case EnterDraftOrChequeNumber
+    case DepositBranchDetails
+    case YourBank
+    case SelectBank
+    case EnterAccountName
+    case EnterAccountNumber
+    case AdditionalNote
+    case AertripBankName
+    case SeeBankDetails
+    case UploadDepositConfirmationSlip
+    case OffileDepositTerms
+    case StepsForOfflinePayment
+    case DepositDate
+    case TransferType
+    case EnterUTRSwiftCode
  }
