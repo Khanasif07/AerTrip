@@ -88,10 +88,14 @@ enum APIEndPoint : String {
     case setRecentSearch               = "recent-search/set"
     // Final Checkout
    
+    
+    //ACCOUNT
+    case accountDetail = "user-accounts/detail"
+    
+    
     case hotelItinerary = "hotels/itinerary?action=traveller"    
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
-    
     
 }
 

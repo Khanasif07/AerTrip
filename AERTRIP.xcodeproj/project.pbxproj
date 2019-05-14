@@ -125,7 +125,6 @@
 		1870AD16220C769400FB32C8 /* FlyerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD06220C769400FB32C8 /* FlyerModel.swift */; };
 		1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD07220C769400FB32C8 /* TravellerData+CoreDataProperties.swift */; };
 		1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD08220C769400FB32C8 /* HotelModel.swift */; };
-		1870AD19220C769400FB32C8 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD09220C769400FB32C8 /* AccountModel.swift */; };
 		1870AD1A220C769400FB32C8 /* SearchedDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD0A220C769400FB32C8 /* SearchedDestination.swift */; };
 		1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD0B220C769400FB32C8 /* TravelDetailModel.swift */; };
 		1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870AD0C220C769400FB32C8 /* HotelsSearched.swift */; };
@@ -410,13 +409,11 @@
 		84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84271E822237A10700C1A70D /* HCDataSelectionVC.swift */; };
 		84271E852237A13F00C1A70D /* HCDataSelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84271E842237A13F00C1A70D /* HCDataSelectionVM.swift */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
-		842A56A2228958F2004FD51F /* AccountOfflineDepositDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56A1228958F2004FD51F /* AccountOfflineDepositDetails.swift */; };
 		842A56AB22897C70004FD51F /* OfflineDepositeTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56A922897C70004FD51F /* OfflineDepositeTextImageCell.swift */; };
 		842A56AC22897C70004FD51F /* OfflineDepositeTextImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842A56AA22897C70004FD51F /* OfflineDepositeTextImageCell.xib */; };
 		842A56B122898C6E004FD51F /* AertripBankDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56AE22898C6E004FD51F /* AertripBankDetailsVM.swift */; };
 		842A56B222898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56AF22898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift */; };
 		842A56B322898C6E004FD51F /* AertripBankDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56B022898C6E004FD51F /* AertripBankDetailsVC.swift */; };
-		842A56B722898CED004FD51F /* BankAccountDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56B622898CED004FD51F /* BankAccountDetail.swift */; };
 		842A56BB2289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842A56B92289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.xib */; };
 		842A56BC2289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A56BA2289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.swift */; };
 		842BA833223B93DE00EED7B0 /* HCSelectGuestsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BA832223B93DE00EED7B0 /* HCSelectGuestsVC.swift */; };
@@ -548,7 +545,6 @@
 		847775592265BE6900EAB8B0 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847775582265BE6900EAB8B0 /* Account.storyboard */; };
 		8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */; };
 		8477755F2265DE7100EAB8B0 /* AccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */; };
-		847775612265E0AA00EAB8B0 /* AccountDetailEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847775602265E0AA00EAB8B0 /* AccountDetailEvent.swift */; };
 		847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */; };
 		84791ED5228195FF00472E54 /* AccountLadgerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */; };
 		84791ED722819FE700472E54 /* AccountLadgerDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */; };
@@ -771,6 +767,11 @@
 		84F9EADE226EDCD7005A1B8B /* AppBeautifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */; };
 		84FABD67228569520066CEB0 /* AccountDepositAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABD65228569520066CEB0 /* AccountDepositAmountCell.swift */; };
 		84FABD68228569520066CEB0 /* AccountDepositAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABD66228569520066CEB0 /* AccountDepositAmountCell.xib */; };
+		84FD0DCB228A8E4800915A09 /* AccountDetailEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC7228A8E4800915A09 /* AccountDetailEvent.swift */; };
+		84FD0DCC228A8E4800915A09 /* BankAccountDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC8228A8E4800915A09 /* BankAccountDetail.swift */; };
+		84FD0DCD228A8E4800915A09 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC9228A8E4800915A09 /* AccountModel.swift */; };
+		84FD0DCE228A8E4800915A09 /* AccountOfflineDepositDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DCA228A8E4800915A09 /* AccountOfflineDepositDetails.swift */; };
+		84FD0DD0228AB66800915A09 /* APICaller+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DCF228AB66800915A09 /* APICaller+Account.swift */; };
 		84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FFDFA321F9DBD8005CA257 /* Settings.storyboard */; };
 		84FFDFA721F9DC19005CA257 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFDFA621F9DC19005CA257 /* SettingsVC.swift */; };
 		84FFDFAD21F9F67B005CA257 /* ATCategoryNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFDFA921F9F67B005CA257 /* ATCategoryNavBar.swift */; };
@@ -899,7 +900,6 @@
 		1870AD06220C769400FB32C8 /* FlyerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyerModel.swift; sourceTree = "<group>"; };
 		1870AD07220C769400FB32C8 /* TravellerData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TravellerData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1870AD08220C769400FB32C8 /* HotelModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelModel.swift; sourceTree = "<group>"; };
-		1870AD09220C769400FB32C8 /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		1870AD0A220C769400FB32C8 /* SearchedDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedDestination.swift; sourceTree = "<group>"; };
 		1870AD0B220C769400FB32C8 /* TravelDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelDetailModel.swift; sourceTree = "<group>"; };
 		1870AD0C220C769400FB32C8 /* HotelsSearched.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelsSearched.swift; sourceTree = "<group>"; };
@@ -1227,13 +1227,11 @@
 		84271E822237A10700C1A70D /* HCDataSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataSelectionVC.swift; sourceTree = "<group>"; };
 		84271E842237A13F00C1A70D /* HCDataSelectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataSelectionVM.swift; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
-		842A56A1228958F2004FD51F /* AccountOfflineDepositDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOfflineDepositDetails.swift; sourceTree = "<group>"; };
 		842A56A922897C70004FD51F /* OfflineDepositeTextImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineDepositeTextImageCell.swift; sourceTree = "<group>"; };
 		842A56AA22897C70004FD51F /* OfflineDepositeTextImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfflineDepositeTextImageCell.xib; sourceTree = "<group>"; };
 		842A56AE22898C6E004FD51F /* AertripBankDetailsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AertripBankDetailsVM.swift; sourceTree = "<group>"; };
 		842A56AF22898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AertripBankDetailsVC+Delegates.swift"; sourceTree = "<group>"; };
 		842A56B022898C6E004FD51F /* AertripBankDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AertripBankDetailsVC.swift; sourceTree = "<group>"; };
-		842A56B622898CED004FD51F /* BankAccountDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountDetail.swift; sourceTree = "<group>"; };
 		842A56B92289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfflineDepositeSlipUoloadCell.xib; sourceTree = "<group>"; };
 		842A56BA2289A0BC004FD51F /* OfflineDepositeSlipUoloadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineDepositeSlipUoloadCell.swift; sourceTree = "<group>"; };
 		842BA832223B93DE00EED7B0 /* HCSelectGuestsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSelectGuestsVC.swift; sourceTree = "<group>"; };
@@ -1367,7 +1365,6 @@
 		847775582265BE6900EAB8B0 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVC.swift; sourceTree = "<group>"; };
 		8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVM.swift; sourceTree = "<group>"; };
-		847775602265E0AA00EAB8B0 /* AccountDetailEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailEvent.swift; sourceTree = "<group>"; };
 		847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountDetailsVC+Delegates.swift"; sourceTree = "<group>"; };
 		84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVC.swift; sourceTree = "<group>"; };
 		84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVM.swift; sourceTree = "<group>"; };
@@ -1591,6 +1588,11 @@
 		84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBeautifier.swift; sourceTree = "<group>"; };
 		84FABD65228569520066CEB0 /* AccountDepositAmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDepositAmountCell.swift; sourceTree = "<group>"; };
 		84FABD66228569520066CEB0 /* AccountDepositAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDepositAmountCell.xib; sourceTree = "<group>"; };
+		84FD0DC7228A8E4800915A09 /* AccountDetailEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailEvent.swift; sourceTree = "<group>"; };
+		84FD0DC8228A8E4800915A09 /* BankAccountDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountDetail.swift; sourceTree = "<group>"; };
+		84FD0DC9228A8E4800915A09 /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		84FD0DCA228A8E4800915A09 /* AccountOfflineDepositDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOfflineDepositDetails.swift; sourceTree = "<group>"; };
+		84FD0DCF228AB66800915A09 /* APICaller+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Account.swift"; sourceTree = "<group>"; };
 		84FFDFA321F9DBD8005CA257 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		84FFDFA621F9DC19005CA257 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		84FFDFA921F9F67B005CA257 /* ATCategoryNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCategoryNavBar.swift; sourceTree = "<group>"; };
@@ -1893,6 +1895,7 @@
 		1870AD03220C769400FB32C8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84FD0DC6228A8E4800915A09 /* Account */,
 				8415160E2268A08F00C6E52F /* HotelDetailsModel */,
 				18F181D0223A3D0900323775 /* HotelCheckOut */,
 				1870AD30220D64C000FB32C8 /* HotelSearched+CoreDataClass.swift */,
@@ -1902,7 +1905,6 @@
 				1870AD06220C769400FB32C8 /* FlyerModel.swift */,
 				1870AD07220C769400FB32C8 /* TravellerData+CoreDataProperties.swift */,
 				1870AD08220C769400FB32C8 /* HotelModel.swift */,
-				1870AD09220C769400FB32C8 /* AccountModel.swift */,
 				1870AD0A220C769400FB32C8 /* SearchedDestination.swift */,
 				1870AD0B220C769400FB32C8 /* TravelDetailModel.swift */,
 				1870AD0C220C769400FB32C8 /* HotelsSearched.swift */,
@@ -1915,9 +1917,6 @@
 				18FDDD22221E973D00EF01FC /* HotelFilter.swift */,
 				841FA50A22324F3300DE9FE9 /* TripModel.swift */,
 				849EC9E5223A56F300B217D4 /* ItineraryData.swift */,
-				847775602265E0AA00EAB8B0 /* AccountDetailEvent.swift */,
-				842A56A1228958F2004FD51F /* AccountOfflineDepositDetails.swift */,
-				842A56B622898CED004FD51F /* BankAccountDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4132,6 +4131,7 @@
 				18727EB4222949DD00DB1786 /* APICaller+MailComposer.swift */,
 				84254F4B223B97FD00E3D120 /* Api+HotelCheckOut.swift */,
 				8483806B2249EC8000202828 /* APICaller+Trips.swift */,
+				84FD0DCF228AB66800915A09 /* APICaller+Account.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -4165,6 +4165,17 @@
 				84FABD66228569520066CEB0 /* AccountDepositAmountCell.xib */,
 			);
 			path = AccountDepositAmountCell;
+			sourceTree = "<group>";
+		};
+		84FD0DC6228A8E4800915A09 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				84FD0DC7228A8E4800915A09 /* AccountDetailEvent.swift */,
+				84FD0DC8228A8E4800915A09 /* BankAccountDetail.swift */,
+				84FD0DC9228A8E4800915A09 /* AccountModel.swift */,
+				84FD0DCA228A8E4800915A09 /* AccountOfflineDepositDetails.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		84FFDFA521F9DC08005CA257 /* SettingsVC */ = {
@@ -4655,7 +4666,6 @@
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
 				84011A9B222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift in Sources */,
 				18EF5E73221D261B00EFFA6E /* GMUStaticCluster.m in Sources */,
-				847775612265E0AA00EAB8B0 /* AccountDetailEvent.swift in Sources */,
 				842EDE822238E7D600E99409 /* CreateNewTripVC.swift in Sources */,
 				84323D39222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.swift in Sources */,
 				18727EB322291CF400DB1786 /* MailComposerVM.swift in Sources */,
@@ -4691,6 +4701,7 @@
 				18020AFD228296B500DE5FE0 /* InternationalRetunFlightResultTableViewCell.swift in Sources */,
 				18EF5E7B221D261B00EFFA6E /* GMUPolygon.m in Sources */,
 				1807F001223F8DF60092E127 /* HotelResultVC+CoreData.swift in Sources */,
+				84FD0DCC228A8E4800915A09 /* BankAccountDetail.swift in Sources */,
 				84085D0C21F59C0E00F1E844 /* AssignGroupVM.swift in Sources */,
 				843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */,
 				843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */,
@@ -4792,6 +4803,7 @@
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
+				84FD0DD0228AB66800915A09 /* APICaller+Account.swift in Sources */,
 				84534EC522490D15009FF536 /* HCConfirmationVoucherTableViewCell.swift in Sources */,
 				18020AE2228174C800DE5FE0 /* InternationalRetunrFlightResultCollectionViewCell.swift in Sources */,
 				18EF5E70221D261B00EFFA6E /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
@@ -4832,6 +4844,7 @@
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
 				8483AFA622118549009F7600 /* HotelRatingInfoCell.swift in Sources */,
 				849D37952289397200763AD8 /* AccountOnlineDepositVC+DelegateMethods.swift in Sources */,
+				84FD0DCE228A8E4800915A09 /* AccountOfflineDepositDetails.swift in Sources */,
 				8491D1FD222D3FC2001D0313 /* AERTRIP.xcdatamodeld in Sources */,
 				84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */,
 				84AD5F2B222D52FC0095EA5D /* ATNotificationButton.swift in Sources */,
@@ -4886,7 +4899,6 @@
 				182EB204228550D8001BFB20 /* BookingDetailVC+ HelperMethods.swift in Sources */,
 				84085CE021F59C0E00F1E844 /* SideMenuVC.swift in Sources */,
 				1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */,
-				842A56B722898CED004FD51F /* BankAccountDetail.swift in Sources */,
 				1870AD16220C769400FB32C8 /* FlyerModel.swift in Sources */,
 				84B6DEA922805D770042D902 /* AccountChargeInfoVC+Delegate.swift in Sources */,
 				18930A2621D34D16005442C8 /* APICaller+Search.swift in Sources */,
@@ -4924,7 +4936,6 @@
 				84AD5F28222D51F80095EA5D /* PKAlertController.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
 				84FFDFAF21F9F67B005CA257 /* ATPageContainerView.swift in Sources */,
-				1870AD19220C769400FB32C8 /* AccountModel.swift in Sources */,
 				842EDE762238E7D600E99409 /* HotelDetailsVC.swift in Sources */,
 				84534ED32249E594009FF536 /* YouAreAllDoneVC+TableCells.swift in Sources */,
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
@@ -5032,6 +5043,7 @@
 				18EF5E6F221D261B00EFFA6E /* GMUSimpleClusterAlgorithm.m in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
 				84DD247B2266102F0013F77E /* CancelledVC.swift in Sources */,
+				84FD0DCD228A8E4800915A09 /* AccountModel.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				84534EA52248B83E009FF536 /* HCPhoneTableViewCell.swift in Sources */,
@@ -5047,7 +5059,6 @@
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
 				18F967FF2233945400B163C8 /* EmptyTableViewCell.swift in Sources */,
 				84F4DB92226DDEA600B68171 /* ADVoucherTypeVC.swift in Sources */,
-				842A56A2228958F2004FD51F /* AccountOfflineDepositDetails.swift in Sources */,
 				8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */,
 				18EF5E75221D261B00EFFA6E /* GMUGradient.m in Sources */,
 				8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */,
@@ -5102,6 +5113,7 @@
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
 				841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */,
 				842EDEA1223A61F200E99409 /* HCEmailItinerariesVC.swift in Sources */,
+				84FD0DCB228A8E4800915A09 /* AccountDetailEvent.swift in Sources */,
 				840494FE2253AA7400983F5E /* HotelCheckOutDetailsVIew+TableCell.swift in Sources */,
 				842EDEA5223A624400E99409 /* HCEmailItinerariesTableViewCell.swift in Sources */,
 				84085CEC21F59C0E00F1E844 /* ForgotPasswordVC.swift in Sources */,

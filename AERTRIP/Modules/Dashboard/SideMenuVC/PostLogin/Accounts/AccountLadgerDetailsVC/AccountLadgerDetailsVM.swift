@@ -32,13 +32,13 @@ class AccountLadgerDetailsVM {
     
     //MARK:- Methods
     //MARK:- Private
-    private func parseDataForCredit() {
+    private func parseDataForDebitNote() {
         self.ladgerDetails.removeAll()
         
         //amount details
         var amountDetails = JSONDictionary()
         amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
-        amountDetails["Voucher"] = self.ladgerEvent!.voucher.title
+        amountDetails["Voucher"] = self.ladgerEvent!.voucherName
         amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
         amountDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
         amountDetails["Balance"] = self.ladgerEvent!.balance.amountInDelimeterWithSymbol
@@ -46,7 +46,7 @@ class AccountLadgerDetailsVM {
         self.ladgerDetails["0"] = amountDetails
     }
     
-    private func parseDataForFlight() {
+    private func parseDataForFlightSales() {
         //flight amount details
         var fAmountDetails = JSONDictionary()
         fAmountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
@@ -65,7 +65,7 @@ class AccountLadgerDetailsVM {
         //voucher details
         var voucherDetails = JSONDictionary()
         voucherDetails["Voucher Date"] = self.ladgerEvent!.voucherDate?.toString(dateFormat: "dd-MM-YYYY")
-        voucherDetails["Voucher"] = self.ladgerEvent!.voucher.title
+        voucherDetails["Voucher"] = self.ladgerEvent!.voucherName
         voucherDetails["Voucher Number"] = self.ladgerEvent!.voucherNo
         voucherDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
         
@@ -92,13 +92,13 @@ class AccountLadgerDetailsVM {
         self.ladgerDetails["2"] = flightDetails
     }
     
-    private func parseDataForOther() {
+    private func parseDataForHotelSales() {
         self.ladgerDetails.removeAll()
 
         //amount details
         var amountDetails = JSONDictionary()
         amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
-        amountDetails["Voucher"] = self.ladgerEvent!.voucher.title
+        amountDetails["Voucher"] = self.ladgerEvent!.voucherName
         amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
         amountDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
         amountDetails["Balance"] = self.ladgerEvent!.balance.amountInDelimeterWithSymbol
@@ -135,16 +135,22 @@ class AccountLadgerDetailsVM {
             return
         }
         
-        if event.voucher == .creditNote {
-            self.parseDataForCredit()
-        }
-        else if event.voucher == .flight {
-            self.parseDataForFlight()
+        if event.voucher == .sales {
+            
+            if event.productType == .hotel {
+                self.parseDataForHotelSales()
+            }
+            else if event.productType == .flight {
+                self.parseDataForFlightSales()
+            }
         }
         else {
-            self.parseDataForOther()
+            self.parseDataForDebitNote()
         }
         
+        delay(seconds: 1.0) { [weak self] in
+            self?.delegate?.fetchLadgerDetailsSuccess()
+        }
         self.delegate?.fetchLadgerDetailsSuccess()
     }
 }

@@ -38,8 +38,11 @@ class AccountLadgerDetailsVC: BaseVC {
         self.topNavView.backgroundColor = AppColors.clear
         self.topNavView.containerView.backgroundColor = AppColors.clear
         
-        if let event = self.viewModel.ladgerEvent, let img = event.voucher.image {
+        if let event = self.viewModel.ladgerEvent, let img = event.iconImage {
             self.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+        }
+        else {
+            self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
         }
         
         self.viewModel.fetchLadgerDetails()
@@ -74,7 +77,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
         
         self.tableView.parallaxHeader.height = self.headerHeightForNormal
-        if let event = self.viewModel.ladgerEvent, event.voucher == .creditNote {
+        if let event = self.viewModel.ladgerEvent, event.voucher == .debitNote {
             self.tableView.parallaxHeader.height = self.headerHeightForCredit
         }
 

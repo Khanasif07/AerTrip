@@ -140,7 +140,18 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //deposit cell
             case 2:
-                return getDepositCell(amount: 0.0)
+                
+                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                
+                var dateStr = ""
+                if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
+                    let str = date.toString(dateFormat: "EE, dd MMM YYYY")
+                    if !str.isEmpty {
+                        dateStr = "Before \(str)"
+                    }
+                }
+                
+                return getDepositCell(amount: amount, dateStr: dateStr)
                 
             //other action
             case 3:
@@ -168,8 +179,19 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //deposit cell
             case 1:
-                return getDepositCell(amount: 5953.0)
                 
+                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                
+                var dateStr = ""
+                if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
+                    let str = date.toString(dateFormat: "EE, dd MMM YYYY")
+                    if !str.isEmpty {
+                        dateStr = "Before \(str)"
+                    }
+                }
+                
+                return getDepositCell(amount: amount, dateStr: dateStr)
+        
             //other action
             case 2:
                 return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
@@ -197,7 +219,18 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //deposit cell
             case 2:
-                return getDepositCell(amount: 0.0)
+                
+                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                
+                var dateStr = ""
+                if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
+                    let str = date.toString(dateFormat: "EE, dd MMM YYYY")
+                    if !str.isEmpty {
+                        dateStr = "Before \(str)"
+                    }
+                }
+                
+                return getDepositCell(amount: amount, dateStr: dateStr)
                 
             //other action
             case 3:
@@ -222,12 +255,12 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func getDepositCell(amount: Double) -> UITableViewCell {
+    func getDepositCell(amount: Double, dateStr: String) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountDepositCell.reusableIdentifier) as? AccountDepositCell else {
             return UITableViewCell()
         }
         
-        cell.configure(amount: amount.amountInDelimeterWithSymbol)
+        cell.configure(amount: amount, dateStr: dateStr)
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
         return cell
@@ -239,7 +272,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
-                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger)
                     
                 case 1:
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC()
@@ -256,7 +289,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 2) {
                 switch indexPath.row {
                 case 0:
-                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger)
                     
                 case 1:
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC()
@@ -270,7 +303,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
-                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger)
+                    AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger)
                     
                 case 1:
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC()
@@ -481,7 +514,7 @@ class AccountDepositCell: UITableViewCell {
     
     //MARK:- Methods
     //MARK:- Private
-    func configure(amount: String) {
+    func configure(amount: Double, dateStr: String) {
         
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.textColor = AppColors.themeGray40
@@ -489,11 +522,11 @@ class AccountDepositCell: UITableViewCell {
         
         self.amountLabel.font = AppFonts.SemiBold.withSize(28.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.text = amount
+        self.amountLabel.text = amount.amountInDelimeterWithSymbol
         
         self.dateLabel.font = AppFonts.Regular.withSize(14.0)
         self.dateLabel.textColor = AppColors.themeRed
-        self.dateLabel.text = "Before Fri, 12 May 2017"
+        self.dateLabel.text = dateStr
         
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)

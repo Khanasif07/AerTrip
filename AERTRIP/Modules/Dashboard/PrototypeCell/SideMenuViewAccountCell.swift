@@ -58,9 +58,14 @@ extension SideMenuViewAccountCell {
     
     func populateData() {
         // FIXME:  Amount would be in double ,doing it for temporary as per QA
-        let amount = (UserInfo.loggedInUser?.accountData?.statements.amountDue ?? 0)
-        self.amountLabel.text = amount.amountInDelimeterWithSymbol
+        self.amountLabel.text = (UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0).amountInDelimeterWithSymbol
         
-        self.dateLabel.text = "Before Fri, 12 May 2017"
+        self.dateLabel.text = ""
+        if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
+            let str = date.toString(dateFormat: "EE, dd MMM YYYY")
+            if !str.isEmpty {
+                self.dateLabel.text = "Before \(str)"
+            }
+        }
     }
 }

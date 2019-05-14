@@ -23,11 +23,15 @@ class AccountDetailsVM: NSObject {
     var _accountDetails: JSONDictionary = JSONDictionary()
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
-        return Array(accountDetails.keys)
+        var arr = Array(accountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        return arr
     }
     var searchedAccountDetails: JSONDictionary = JSONDictionary()
     var searchedAllDates: [String] {
-        return Array(searchedAccountDetails.keys)
+        var arr = Array(searchedAccountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        return arr
     }
     
     weak var delegate: AccountDetailsVMDelegate? = nil
@@ -56,8 +60,20 @@ class AccountDetailsVM: NSObject {
         self.delegate?.searchEventsSuccess()
     }
     
+    func setAccountDetails(details: JSONDictionary) {
+        self._accountDetails = details
+        self.accountDetails = details
+    }
+    
     func getAccountDetails() {
         self.delegate?.willGetAccountDetails()
+        
+        guard self._accountDetails.isEmpty else {
+            //because the data has been send from previous screen
+            self.delegate?.getAccountDetailsSuccess()
+            return
+        }
+        
         
         delay(seconds: 0.8) { [weak self] in
             guard let sSelf = self else {

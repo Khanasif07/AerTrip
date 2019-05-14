@@ -51,6 +51,12 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    if let acc = userData["account_data"] as? JSONDictionary {
+                        //if there is account data then save it
+                        UserInfo.loggedInUser?.accountData = AccountModel(json: acc)
+                    }
+                    
                     if let img = UserInfo.loggedInUser?.profileImagePlaceholder() {
                         UserInfo.loggedInUser?.profilePlaceholder = img
                     }

@@ -54,37 +54,47 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             var descColor: UIColor? = nil
             
             if let event = self.viewModel.ladgerEvent {
-                if event.voucher == .creditNote {
-                    switch indexPath.section {
-                    case 0:
-                        key = self.viewModel.amountDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        
-                    default: key = ""
+                if event.voucher == .sales {
+                    
+                    if event.productType == .hotel {
+                        switch indexPath.section {
+                        case 0:
+                            key = self.viewModel.amountDetailKeys[indexPath.row]
+                            value = (dict[key] as? String) ?? ""
+                            
+                        case 1:
+                            key = self.viewModel.bookingDetailKeys[indexPath.row]
+                            value = (dict[key] as? String) ?? ""
+                            if key.contains("Names"), (key != "Names") {
+                                key = ""
+                            }
+                            
+                        default: key = ""
+                        }
                     }
-                }
-                else if event.voucher == .flight {
-                    switch indexPath.section {
-                    case 0:
-                        key = self.viewModel.flightAmountDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        
-                        if key.lowercased() == "Over Due by days".lowercased() {
-                            descColor = AppColors.themeRed
+                    else if event.productType == .flight {
+                        switch indexPath.section {
+                        case 0:
+                            key = self.viewModel.flightAmountDetailKeys[indexPath.row]
+                            value = (dict[key] as? String) ?? ""
+                            
+                            if key.lowercased() == "Over Due by days".lowercased() {
+                                descColor = AppColors.themeRed
+                            }
+                            
+                        case 1:
+                            key = self.viewModel.voucherDetailKeys[indexPath.row]
+                            value = (dict[key] as? String) ?? ""
+                            
+                        case 2:
+                            key = self.viewModel.flightDetailKeys[indexPath.row]
+                            value = (dict[key] as? String) ?? ""
+                            if key.contains("Names"), (key != "Names") {
+                                key = ""
+                            }
+                            
+                        default: key = ""
                         }
-                        
-                    case 1:
-                        key = self.viewModel.voucherDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        
-                    case 2:
-                        key = self.viewModel.flightDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        if key.contains("Names"), (key != "Names") {
-                            key = ""
-                        }
-                        
-                    default: key = ""
                     }
                 }
                 else {
@@ -92,13 +102,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     case 0:
                         key = self.viewModel.amountDetailKeys[indexPath.row]
                         value = (dict[key] as? String) ?? ""
-                        
-                    case 1:
-                        key = self.viewModel.bookingDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        if key.contains("Names"), (key != "Names") {
-                            key = ""
-                        }
                         
                     default: key = ""
                     }

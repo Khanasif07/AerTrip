@@ -63,7 +63,7 @@ class AccountDetailEventDescriptionCell: UITableViewCell {
     }
     
     private func setData() {
-        self.voucherValueLabel.text = self.event?.voucher.title ?? ""
+        self.voucherValueLabel.text = self.event?.voucherName ?? ""
         self.amountValueLabel.text = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol
         self.balanceValueLabel.text = (self.event?.balance ?? 0.0).amountInDelimeterWithSymbol
     }
