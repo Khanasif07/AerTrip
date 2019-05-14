@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="AerinChatTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJ7-m1-0ov">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEN-KO-ATX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteGreen" translatesAutoresizingMaskIntoConstraints="NO" id="Son-Uf-9Cf">
+                                        <rect key="frame" x="100" y="0.0" width="220" height="81.5"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NF5-OI-Vpc">
+                                        <rect key="frame" x="115" y="0.0" width="190" height="71.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text"> f fs df s df sd f sdf ds f sdf ds f dsf sd f sd f sdf ds f s f sd fs df sd f fs df sd f s fsdf s f sf fsf s f s fs fsdf sf s df sf s df sdf s f s f</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Son-Uf-9Cf" secondAttribute="bottom" id="D2S-zd-ebg"/>
+                                    <constraint firstItem="Son-Uf-9Cf" firstAttribute="top" secondItem="XEN-KO-ATX" secondAttribute="top" id="I1U-tI-d7w"/>
+                                    <constraint firstAttribute="bottom" secondItem="NF5-OI-Vpc" secondAttribute="bottom" constant="10" id="IZf-zD-cGd"/>
+                                    <constraint firstItem="NF5-OI-Vpc" firstAttribute="leading" secondItem="Son-Uf-9Cf" secondAttribute="leading" constant="15" id="YOn-y4-eVu"/>
+                                    <constraint firstItem="NF5-OI-Vpc" firstAttribute="top" secondItem="XEN-KO-ATX" secondAttribute="top" id="pbe-S8-Ueq"/>
+                                    <constraint firstAttribute="trailing" secondItem="NF5-OI-Vpc" secondAttribute="trailing" constant="15" id="q1k-R5-P5r"/>
+                                    <constraint firstItem="Son-Uf-9Cf" firstAttribute="leading" secondItem="XEN-KO-ATX" secondAttribute="leading" constant="100" id="tfa-KL-T3n"/>
+                                    <constraint firstAttribute="trailing" secondItem="Son-Uf-9Cf" secondAttribute="trailing" id="vbP-e9-pmy"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMY-5E-spR">
+                                <rect key="frame" x="0.0" y="81.5" width="320" height="18"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwN-7c-QQG">
+                                        <rect key="frame" x="241" y="0.0" width="63" height="18"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <state key="normal" title="Tap to Edit">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapToEditButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JXt-MA-TQs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="7kG-45-xBB"/>
+                                    <constraint firstItem="fwN-7c-QQG" firstAttribute="top" secondItem="zMY-5E-spR" secondAttribute="top" id="qip-xn-YWD"/>
+                                    <constraint firstAttribute="bottom" secondItem="fwN-7c-QQG" secondAttribute="bottom" id="tfy-pg-v61"/>
+                                    <constraint firstAttribute="trailing" secondItem="fwN-7c-QQG" secondAttribute="trailing" constant="16" id="xBO-kr-JnY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zMY-5E-spR" firstAttribute="top" secondItem="XEN-KO-ATX" secondAttribute="bottom" id="4vG-em-KMG"/>
+                            <constraint firstAttribute="trailing" secondItem="XEN-KO-ATX" secondAttribute="trailing" id="DIs-rk-Hf3"/>
+                            <constraint firstItem="XEN-KO-ATX" firstAttribute="top" secondItem="eJ7-m1-0ov" secondAttribute="top" id="XPu-bv-zY8"/>
+                            <constraint firstItem="zMY-5E-spR" firstAttribute="leading" secondItem="eJ7-m1-0ov" secondAttribute="leading" id="dUA-fi-3Mp"/>
+                            <constraint firstItem="XEN-KO-ATX" firstAttribute="leading" secondItem="eJ7-m1-0ov" secondAttribute="leading" id="lTd-Za-ACj"/>
+                            <constraint firstAttribute="bottom" secondItem="zMY-5E-spR" secondAttribute="bottom" id="nX9-EG-i98"/>
+                            <constraint firstAttribute="trailing" secondItem="zMY-5E-spR" secondAttribute="trailing" id="quW-4O-qUz"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="eJ7-m1-0ov" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Qh5-LR-aWp"/>
+                    <constraint firstAttribute="bottom" secondItem="eJ7-m1-0ov" secondAttribute="bottom" constant="10" id="b0b-Dl-iV9"/>
+                    <constraint firstItem="eJ7-m1-0ov" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cH2-vu-uK3"/>
+                    <constraint firstAttribute="trailing" secondItem="eJ7-m1-0ov" secondAttribute="trailing" id="vwA-sX-w3H"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="chatTextView" destination="NF5-OI-Vpc" id="ERv-gc-ob3"/>
+                <outlet property="tapToEditButton" destination="fwN-7c-QQG" id="4KS-cb-KDw"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="156.69642857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="whiteGreen" width="241" height="66"/>
+    </resources>
+</document>

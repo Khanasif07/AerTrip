@@ -37,6 +37,7 @@ class MyBookingFilterVC: BaseVC {
     @IBOutlet var mainContainerView: UIView!
     @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var mainBackView: UIView!
     
     //MARK:- LifeCycle
     override func viewDidLoad() {
@@ -151,7 +152,7 @@ class MyBookingFilterVC: BaseVC {
         gestureRecognizer.numberOfTapsRequired = 1
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
+        self.mainBackView.addGestureRecognizer(gestureRecognizer)
     }
     
     //MARK:- IBActions
@@ -176,9 +177,4 @@ extension MyBookingFilterVC: ATCategoryNavBarDelegate {
     }
 }
 
-//MARK:- UIGestureRecognizerDelegate Method
-extension MyBookingFilterVC {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === self.view)
-    }
-}
+

@@ -174,7 +174,11 @@ extension HotelResultVC: HotelResultDelegate {
 
         if UserInfo.hotelFilter != nil {
              self.getSavedFilter()
+            // Apply previous filter
             self.applyPreviousFilter()
+            
+            // Apply Aerin Filter
+           // self.applyAerinFilter()
            }
     }
     
@@ -306,6 +310,10 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 
     func doneButtonTapped() {
+        
+        if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
+            UserInfo.hotelFilterApplied = UserInfo.hotelFilter
+        }
         
         self.fetchRequestType = .FilterApplied
         HotelFilterVM.shared.saveDataToUserDefaults()

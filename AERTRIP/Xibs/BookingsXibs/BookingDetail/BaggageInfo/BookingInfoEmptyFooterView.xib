@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BookingInfoEmptyFooterView" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5s-Ae-v2L">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Z-Vq-RiM" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="TYQ-Vu-N9s"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noF-h3-kKn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="34" width="414" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="yli-1v-KvM"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="noF-h3-kKn" secondAttribute="bottom" id="U08-Ue-OtQ"/>
+                        <constraint firstAttribute="trailing" secondItem="Q0Z-Vq-RiM" secondAttribute="trailing" id="UFd-fU-mh2"/>
+                        <constraint firstItem="Q0Z-Vq-RiM" firstAttribute="leading" secondItem="i5s-Ae-v2L" secondAttribute="leading" id="VEq-y0-Cpx"/>
+                        <constraint firstAttribute="trailing" secondItem="noF-h3-kKn" secondAttribute="trailing" id="asD-9t-8Qn"/>
+                        <constraint firstItem="Q0Z-Vq-RiM" firstAttribute="top" secondItem="i5s-Ae-v2L" secondAttribute="top" id="bph-ws-E7b"/>
+                        <constraint firstItem="noF-h3-kKn" firstAttribute="leading" secondItem="i5s-Ae-v2L" secondAttribute="leading" id="d1u-gp-mSO"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="i5s-Ae-v2L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AWO-mW-Wzw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="i5s-Ae-v2L" secondAttribute="trailing" id="Wtc-V5-qld"/>
+                <constraint firstAttribute="bottom" secondItem="i5s-Ae-v2L" secondAttribute="bottom" id="cza-vd-K6e"/>
+                <constraint firstItem="i5s-Ae-v2L" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iAQ-0n-b44"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

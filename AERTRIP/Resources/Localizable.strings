@@ -615,6 +615,9 @@
 "PaymentInfo" = "Payment Info";
 "Booking" = "Booking";
 "Paid" = "Paid";
+"FareInfo" = "Fare Info";
+"ViewDetails" = "View  Details";
+"TravellersAddOns" = "Travellers & Add-ons";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";
@@ -628,6 +631,25 @@
 "NoContactFoundInGoogle" = "No contacts found on your google.";
 "NotAbleToSaveContactTryAgain" = "Not able to save contacts. Please try again.";
 "SelectMaxNContacts" = "Please select 100 contacts at a time.";
+
+//MARK: - Aerin VC Speech Text
+"TryAskingFor" = "Try asking for\n";
+"FilterText" = "5 star hotels within 3 km having Wi-Fi and Pool";
+
+
+//MARK: - Aerin Speech Text Detail VC
+"Departure" = "Departure";
+"Return" = "Return";
+"Class" = "Class";
+"TapToEdit" = "Tap to Edit";
+"ThingsYouCanAskMe" = "Things you can ask me…";
+"Listening" = "Listening...";
+"FilterApplied" = "Filters have been applied";
+
+//MARK: - Booking Details Info
+"ForwardArrow" = "→";
+"Dimensions" = "Dimensions";
+"HandBaggageDimensions" = "Hand Baggage Dimensions";
 
 //MARK:- Account Ladger
 "DownloadAsPdf" = "Download as PDF";

@@ -580,7 +580,11 @@ extension AppFlowManager {
         let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
-
+    
+    func presentBookingFareInfoDetailVC() {
+        let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(obj, animated: true)
+    }
 
     //MARK:- Account Section
     //MARK:-
@@ -696,15 +700,32 @@ extension AppFlowManager {
     }
     
     func moveToAerinTextSpeechDetailVC() {
-       
-          let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
-        // Doing for temporary
+        
+        let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
         self.mainNavigationController.pushViewController(ob, animated: true)
-      
-
-//        }
-    
+        
     }
+    func presentAerinTextSpeechVC() {
+        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
+        ob.isFromHotelResult = true
+        self.mainNavigationController.present(ob, animated: true)
+    }
+    
+    
+    func moveToBookingDetail() {
+        let ob = BookingDetailVC.instantiate(fromAppStoryboard: .Bookings)
+
+         self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    func presentBaggageInfoVC() {
+        let ob = BaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(ob, animated: true)
+    }
+    
+    
+   
+
 }
 
 //MARK:- Select Trip Flow Methods

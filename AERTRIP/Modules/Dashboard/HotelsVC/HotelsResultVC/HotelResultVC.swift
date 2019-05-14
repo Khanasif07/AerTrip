@@ -106,6 +106,7 @@ class HotelResultVC: BaseVC {
     var searchIntitialFrame: CGRect = .zero
     var completion: (() -> Void)?
     var toastDidClose : (() -> Void)?
+    var aerinFilterUndoCompletion : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
     var displayingHotelLocation: CLLocationCoordinate2D? {
         didSet {
@@ -223,20 +224,24 @@ class HotelResultVC: BaseVC {
         
         self.startProgress()
         self.completion = { [weak self] in
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.fetchRequestType = .FilterApplied
-            self?.loadSaveData()
+            if let old = UserInfo.hotelFilterApplied {
+                HotelFilterVM.shared.setData(from: old)
+            }
+            self?.doneButtonTapped()
         }
         
+        // toast Completion when toast goes way from the screen
         self.toastDidClose = {
-            if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
-                var filter = UserInfo.HotelFilter()
-                filter.ratingCount = self.viewModel.searchedFormData.ratingCount
-                UserInfo.hotelFilter = filter
-            }
-            else {
-                UserInfo.hotelFilter = nil
-                HotelFilterVM.shared.resetToDefault()
-            }
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
+            UserInfo.hotelFilterApplied = nil
+            HotelFilterVM.shared.resetToDefault()
+        }
+        
+        // toast completion,When undo button tapped
+        self.aerinFilterUndoCompletion = {
+            printDebug("Undo Button tapped")
         }
         
         //call API to get vcode, sid
@@ -244,8 +249,11 @@ class HotelResultVC: BaseVC {
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
-        
         collectionViewLayout.minimumLineSpacing = 0
+        
+        self.setUpLongPressOnFilterButton()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -379,6 +387,12 @@ class HotelResultVC: BaseVC {
             self.view.bringSubviewToFront(self.shimmerView)
         }
     }
+    
+    private func setUpLongPressOnFilterButton() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_ :)))
+        self.filterButton.addGestureRecognizer(longPressGesture)
+    }
+    
     // MARK: - Public
     
     // MARK: - Action
@@ -458,4 +472,13 @@ class HotelResultVC: BaseVC {
         self.moveMapToCurrentCity()
         self.mapView?.animate(toZoom: self.defaultZoomLabel + 5.0)
     }
+    
+    @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+             printDebug("Long press tapped")
+            AppFlowManager.default.presentAerinTextSpeechVC()
+        }
+       
+    }
 }
+

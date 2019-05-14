@@ -648,6 +648,9 @@ enum LocalizedString: String {
     case PaymentInfo = "PaymentInfo"
     case Booking = "Booking"
     case Paid = "Paid"
+    case FareInfo = "FareInfo"
+    case ViewDetails
+    case TravellersAddOns
     
     //MARK: - AerinVC
     case Hi = "Hi"
@@ -662,6 +665,30 @@ enum LocalizedString: String {
     case NoContactFoundInGoogle
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
+    
+    
+    //MARK: - Aerin Text Speech VC
+    case TryAskingFor
+    case FilterText
+    case Listening
+    
+    //MARK: - Aerin Text Speech Detail VC
+    
+    case Departure = "Departure"
+    case Return = "Return"
+    case Class = "Class"
+    case TapToEdit = "TapToEdit"
+    case ThingsYouCanAskMe
+    case FilterApplied
+    
+    
+    // Booking Details VC
+    case ForwardArrow 
+    case Dimensions
+    case HandBaggageDimensions
+    
+    
+   
     
     //MARK:- Account Ladger
     case DownloadAsPdf
