@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BaggageAirlineInfoTableViewCellDelegate: class {
-    func dimensionButtonTapped()
+    func dimensionButtonTapped(_ dimensionButton: UIButton)
 }
 
 class BaggageAirlineInfoTableViewCell: UITableViewCell {
@@ -20,6 +20,9 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var airlineNameLabel: UILabel!
     @IBOutlet weak var airlineCodeLabel: UILabel!
     @IBOutlet weak var dimensionButton: UIButton!
+    
+    // MARK: - Variables
+    weak var delegate: BaggageAirlineInfoTableViewCellDelegate?
     
     
     override func awakeFromNib() {
@@ -42,11 +45,16 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     private func setUpTextColor() {
         self.airlineNameLabel.textColor = AppColors.themeBlack
         self.airlineCodeLabel.textColor = AppColors.themeGray40
-        self.dimensionButton.titleLabel?.textColor = AppColors.themeGreen
+        self.dimensionButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
     private func setUpText() {
-        self.dimensionButton.titleLabel?.text = LocalizedString.Dimensions.localized
+       self.dimensionButton.setTitle(LocalizedString.Dimensions.localized, for: .normal)
+    }
+    
+    
+    @IBAction func dimensionButtonTapped(_ sender: Any) {
+        self.delegate?.dimensionButtonTapped(self.dimensionButton)
     }
     
     

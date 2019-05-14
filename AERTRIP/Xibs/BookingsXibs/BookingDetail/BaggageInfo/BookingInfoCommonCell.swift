@@ -12,13 +12,23 @@ class BookingInfoCommonCell: UITableViewCell {
     
     // MARK: - IBOutlets
     
-    @IBOutlet weak  var
-    leftLabel: UILabel!
-     @IBOutlet weak  var middleLabel: UILabel!
+    @IBOutlet weak  var leftLabel: UILabel!
+    @IBOutlet weak  var middleLabel: UILabel!
     @IBOutlet weak var rightLabel: UILabel!
+    
+    // MARK: - Variables
+    var isForPassenger : Bool = false
     
     
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.leftLabel.text = ""
+         self.middleLabel.text = ""
+         self.rightLabel.text = ""
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
       
@@ -29,9 +39,9 @@ class BookingInfoCommonCell: UITableViewCell {
     
     private func setUpFont() {
         self.leftLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.middleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.rightLabel.font = AppFonts.SemiBold.withSize(18.0)
-        
+        self.middleLabel.font = self.isForPassenger ? AppFonts.Regular.withSize(18.0) : AppFonts.SemiBold.withSize(18.0)
+        self.rightLabel.font = self.isForPassenger ? AppFonts.Regular
+            .withSize(18.0) : AppFonts.SemiBold.withSize(18.0)
     }
     
     private func setUpColor() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookingDetailViewController: BaseVC {
+class BookingDetailVC: BaseVC {
     
     // MARK: - IBOutlet
     
@@ -19,7 +19,7 @@ class BookingDetailViewController: BaseVC {
     
     // MARK: - Variables
     let headerViewIdentifier = "BookingInfoHeaderView"
-    let footerViewIdentifier = "BookingInfoFooterView"
+    let footerViewIdentifier = "BookingInfoEmptyFooterView"
     
     
     override func initialSetup() {
@@ -27,6 +27,8 @@ class BookingDetailViewController: BaseVC {
             self.tableView.dataSource = self
             self.tableView.delegate = self
             self.setUpSegmentControl()
+            self.registerXib()
+            self.tableView.reloadData()
         
     }
     
@@ -38,14 +40,14 @@ class BookingDetailViewController: BaseVC {
     
     
     private func setUpSegmentControl() {
-        segmentControl.selectedSegmentIndex = 0
+        segmentControl.selectedSegmentIndex = 1
         segmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
     }
     
     private func registerXib() {
-        self.tableView.registerCell(nibName: BaggageAirlineInfoTableViewCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
+       self.tableView.registerCell(nibName: BaggageAirlineInfoTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName:BookingInfoCommonCell.reusableIdentifier)
         self.tableView.registerCell(nibName: NightStateTableViewCell.reusableIdentifier)
     }
@@ -58,6 +60,7 @@ class BookingDetailViewController: BaseVC {
             
         case 1:
             printDebug("Baggage  tapped")
+            self.tableView.reloadData()
            
         case 2:
             printDebug("Fare info tapped")
@@ -72,7 +75,7 @@ class BookingDetailViewController: BaseVC {
 
 // MARK: - Top Navigation View
 
-extension BookingDetailViewController: TopNavigationViewDelegate {
+extension BookingDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.mainNavigationController.popViewController(animated: true)
     }

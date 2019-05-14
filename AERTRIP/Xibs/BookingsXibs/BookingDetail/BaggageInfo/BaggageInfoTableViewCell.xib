@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="BaggageInfoTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="606"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="605.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eK4-w1-utq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="605.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BaggageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="vbJ-aq-ziJ">
+                                <rect key="frame" x="20" y="0.0" width="280" height="334"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="334" id="OUo-8A-mdU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baggage Dimensions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0B-Sl-dTe">
+                                <rect key="frame" x="16" y="351" width="288" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="mIF-SO-uyF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34l-nJ-iAG">
+                                <rect key="frame" x="16" y="377" width="304" height="0.0"/>
+                                <string key="text">The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed 62 inches or 158 centimeters for each piece.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svI-tk-Efz" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="393.5" width="288" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="d7S-6Z-oZ9"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54P-iy-TbU">
+                                <rect key="frame" x="16" y="410" width="288" height="175.5"/>
+                                <mutableString key="text">In addition to the Hand Baggage, the following items are permitted to be carried on board: A ladies purse/hand bag, a camera or binoculars, a rug or a blanket, an overcoat or wrap, reasonable amount of reading material for the flight, infant's feed for consumption during the flight and infant's carrying basket, feeding bottle, if an Infant is carried, a fully collapsible wheelchair or pair of crutches or braces for Customer's use (only 1 per flight), a walking stick, an umbrella (folding type), medicines required during flight like Asthma inhaler etc, a laptop computer, mobile and tablet. When an infant (not entitled to a seat or free baggage allowance) accompanies an adult, a carrycot, or a fully collapsible push chair/stroller is allowed. This may be carried in the cabin if space is available, or else as checked baggage.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="34l-nJ-iAG" firstAttribute="top" secondItem="u0B-Sl-dTe" secondAttribute="bottom" constant="6" id="1wn-xL-EZd"/>
+                            <constraint firstItem="u0B-Sl-dTe" firstAttribute="top" secondItem="vbJ-aq-ziJ" secondAttribute="bottom" constant="17" id="2ON-gf-3JM"/>
+                            <constraint firstAttribute="trailing" secondItem="54P-iy-TbU" secondAttribute="trailing" constant="16" id="2pY-bN-glC"/>
+                            <constraint firstAttribute="bottom" secondItem="54P-iy-TbU" secondAttribute="bottom" constant="20" id="B3R-5A-hge"/>
+                            <constraint firstItem="34l-nJ-iAG" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="16" id="CD2-gs-dde"/>
+                            <constraint firstItem="vbJ-aq-ziJ" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="20" id="FiQ-FL-mjH"/>
+                            <constraint firstItem="54P-iy-TbU" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="16" id="HPJ-ok-5Ek"/>
+                            <constraint firstAttribute="trailing" secondItem="svI-tk-Efz" secondAttribute="trailing" constant="16" id="MRf-wS-3NR"/>
+                            <constraint firstItem="u0B-Sl-dTe" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="16" id="V1p-mX-Mx3"/>
+                            <constraint firstAttribute="trailing" secondItem="vbJ-aq-ziJ" secondAttribute="trailing" constant="20" id="bHX-C0-kQH"/>
+                            <constraint firstItem="svI-tk-Efz" firstAttribute="top" secondItem="34l-nJ-iAG" secondAttribute="bottom" constant="16.5" id="dWI-PI-w79"/>
+                            <constraint firstAttribute="trailing" secondItem="34l-nJ-iAG" secondAttribute="trailing" id="feR-9Y-bTm"/>
+                            <constraint firstItem="54P-iy-TbU" firstAttribute="top" secondItem="svI-tk-Efz" secondAttribute="bottom" constant="16" id="h8O-W0-c5j"/>
+                            <constraint firstItem="svI-tk-Efz" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="16" id="hqC-oo-wXO"/>
+                            <constraint firstAttribute="trailing" secondItem="u0B-Sl-dTe" secondAttribute="trailing" constant="16" id="sbx-rO-4T8"/>
+                            <constraint firstItem="vbJ-aq-ziJ" firstAttribute="top" secondItem="eK4-w1-utq" secondAttribute="top" id="tvr-5h-jje"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="eK4-w1-utq" secondAttribute="trailing" id="C3V-sv-7oH"/>
+                    <constraint firstItem="eK4-w1-utq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="eDX-EJ-wx6"/>
+                    <constraint firstItem="eK4-w1-utq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kO2-Xn-8ZE"/>
+                    <constraint firstAttribute="bottom" secondItem="eK4-w1-utq" secondAttribute="bottom" id="pGc-mM-A48"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="baggageAdditionalDetailLabel" destination="54P-iy-TbU" id="Phr-nZ-lbS"/>
+                <outlet property="baggageDetailLabel" destination="34l-nJ-iAG" id="nxj-q5-V3c"/>
+                <outlet property="baggageImageView" destination="vbJ-aq-ziJ" id="1KE-LE-NNt"/>
+                <outlet property="baggageTitleLabel" destination="u0B-Sl-dTe" id="Yjz-Ji-1Pm"/>
+                <outlet property="dividerView" destination="svI-tk-Efz" id="iIH-OB-48b"/>
+            </connections>
+            <point key="canvasLocation" x="373.91304347826087" y="136.60714285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="BaggageIcon" width="335" height="293"/>
+    </resources>
+</document>
