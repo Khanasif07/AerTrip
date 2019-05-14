@@ -9,10 +9,16 @@
 import UIKit
 
 class BookingAmenityCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var amenityImageView: UIImageView!
+    @IBOutlet weak var amenityTitle: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+     
+        self.amenityTitle.font = AppFonts.Regular.withSize(14.0)
+        self.amenityTitle.textColor = AppColors.themeGray60
     }
 
 }

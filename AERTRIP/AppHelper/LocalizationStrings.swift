@@ -647,6 +647,9 @@ enum LocalizedString: String {
     case PaymentInfo = "PaymentInfo"
     case Booking = "Booking"
     case Paid = "Paid"
+    case FareInfo = "FareInfo"
+    case ViewDetails
+    case TravellersAddOns
     
     //MARK: - AerinVC
     case Hi = "Hi"
@@ -681,6 +684,7 @@ enum LocalizedString: String {
     // Booking Details VC
     case ForwardArrow 
     case Dimensions
+    case HandBaggageDimensions
     
     
    

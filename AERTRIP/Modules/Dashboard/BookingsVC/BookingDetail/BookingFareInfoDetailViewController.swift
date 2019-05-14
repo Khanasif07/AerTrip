@@ -1,5 +1,5 @@
 //
-//  BookingFareInfoDetailVC.swift
+//  BookingFareInfoDetailViewController.swift
 //  AERTRIP
 //
 //  Created by apple on 13/05/19.
@@ -20,7 +20,7 @@ class BookingFareInfoDetailVC: BaseVC {
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     private var allChildVCs : [UIViewController]  = [UIViewController]()
-     private let allTabsStr: [String] = [LocalizedString.FareInfo.localized, LocalizedString.FareRules.localized]
+     private let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized]
     
     fileprivate weak var categoryView: ATCategoryView!
     private var allTabs: [ATCategoryItem] {
@@ -41,11 +41,11 @@ class BookingFareInfoDetailVC: BaseVC {
         self.currentIndex = 0
         
         for i in 0..<self.allTabsStr.count {
-            if i == 0 {
-                let vc = FareInfoVC.instantiate(fromAppStoryboard: .Bookings)
+            if i == 1 {
+                let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
                 self.allChildVCs.append(vc)
-            } else if i == 1 {
-                let vc = FareRulesVC.instantiate(fromAppStoryboard: .Bookings)
+            } else if i == 2 {
+                let vc = PriceVC.instantiate(fromAppStoryboard: .Filter)
                 self.allChildVCs.append(vc)
             }
         }
@@ -73,20 +73,14 @@ class BookingFareInfoDetailVC: BaseVC {
         self.dateLabel.textColor = AppColors.themeBlack
     }
     
-    override func setupTexts() {
-        // configuration title label
-        self.routeLabel.text = "Mumbai → Plaine Magnien"
-        self.dateLabel.text = "1 Jul 2018"
-    }
-    
     
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
-        style.height = 50.0 // category bar Height
-        style.interItemSpace = 110.0
-        style.itemPadding = 8.0
+        style.height = 24.0
+        style.interItemSpace = 15.0
+        style.itemPadding = 4.0
         style.isScrollable = true
-        style.layoutAlignment = .center
+        style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
         style.bottomSeparatorColor = AppColors.themeGray40

@@ -614,6 +614,9 @@
 "PaymentInfo" = "Payment Info";
 "Booking" = "Booking";
 "Paid" = "Paid";
+"FareInfo" = "Fare Info";
+"ViewDetails" = "View  Details";
+"TravellersAddOns" = "Travellers & Add-ons";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";
@@ -645,6 +648,7 @@
 //MARK: - Booking Details Info
 "ForwardArrow" = "→";
 "Dimensions" = "Dimensions";
+"HandBaggageDimensions" = "Hand Baggage Dimensions";
 
 //MARK:- Account Ladger
 "DownloadAsPdf" = "Download as PDF";

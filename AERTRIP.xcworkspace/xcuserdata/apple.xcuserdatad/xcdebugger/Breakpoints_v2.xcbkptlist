@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            timestampString = "579102133.103544"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/BookingDetailVC+ HelperMethods.swift"
+            timestampString = "579501624.721244"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
-            landmarkName = "moveToAerinTextSpeechDetailVC()"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "getCellForFlightInfo(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+HelperMethods.swift"
-            timestampString = "579102133.1039701"
+            filePath = "AERTRIP/Xibs/BookingsXibs/BookingDetail/FlightInfo/BookingTravellerCollectionViewCell.swift"
+            timestampString = "579501624.721609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "708"
-            endingLineNumber = "708"
-            landmarkName = "applyAerinFilter()"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "configureCell()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

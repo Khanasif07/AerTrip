@@ -8,23 +8,47 @@
 
 import UIKit
 
-class FareRulesVC: UIViewController {
+class FareRulesVC: BaseVC {
+    
+    // MARK: - IBOutlet
+    @IBOutlet weak var fareRuleTableView: ATTableView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    // MARK: - Override methods
+    
+    override func initialSetup() {
+        registerXib()
+        self.fareRuleTableView.dataSource = self
+        self.fareRuleTableView.delegate = self
+        self.fareRuleTableView.reloadData()
+    }
 
-        // Do any additional setup after loading the view.
+    
+    // MARK: - Helper methods
+    
+    private func registerXib() {
+        self.fareRuleTableView.registerCell(nibName: FareRuleTableViewCell.reusableIdentifier)
+    }
+}
+
+// MARK: - UITableViewDataSource and UITableViewDelegate methods
+
+extension FareRulesVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.fareRuleTableView.dequeueReusableCell(withIdentifier: "FareRuleTableViewCell", for: indexPath) as? FareRuleTableViewCell else {
+            fatalError("FareRuleTableViewCell not found")
+        }
+        
+        cell.configureCell()
+        return cell
     }
-    */
-
+    
+    
 }
+
+
+

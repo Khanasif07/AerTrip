@@ -1,5 +1,5 @@
 //
-//  BookingDetailVC+Extensions.swift
+//  BookingDetailVC+Delegatemethods.swift
 //  AERTRIP
 //
 //  Created by apple on 09/05/19.
@@ -13,136 +13,97 @@ import UIKit
 extension BookingDetailVC : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        switch self.bookingDetailType {
+        case .flightInfo:
+            return 1
+        case .baggage:
+            return 2
+        case .fareInfo:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 11
-        } else {
-            return 4
+        switch self.bookingDetailType {
+        case .flightInfo:
+            return 9
+        case .baggage:
+            if section == 0 {
+                return 11
+            } else {
+                return 4
+            }
+        case .fareInfo:
+            return 15
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let airlineCell = self.tableView.dequeueReusableCell(withIdentifier: "BaggageAirlineInfoTableViewCell") as? BaggageAirlineInfoTableViewCell else {
-            fatalError("BaggageAirlineInfoTableViewCell not found")
-        }
-        guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
-            fatalError("BookingInfoCommonCell not found")
-        }
+      
         
-        guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: "NightStateTableViewCell") as? NightStateTableViewCell else {
-                            fatalError("NightStateTableViewCell not found")
-                        }
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0:
-               
-                airlineCell.airlineNameLabel.text = "Airline Name"
-                airlineCell.airlineCodeLabel.text = "EK-5154・Economy (E)"
-                return airlineCell
-            case 1:
-                commonCell.leftLabel.text = "Type"
-                commonCell.middleLabel.text = "Check-in"
-                commonCell.rightLabel.text = "Cabin"
-                return commonCell
-            case 2:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Adult"
-                commonCell.middleLabel.text = "2 x 23 kgs"
-                commonCell.rightLabel.text = "2 x 23 kgs "
-                return commonCell
-            case 3:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Child"
-                commonCell.middleLabel.text = "1 x 7 kgs"
-                commonCell.rightLabel.text = "1 x 7 kgs"
-                return commonCell
-            case 4:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Infant"
-                commonCell.middleLabel.text = "1 x 7 kgs"
-                commonCell.rightLabel.text = "1 x 7 kgs"
-                return commonCell
-            case 5:
-                return nightStateCell
-            case 6:
-                airlineCell.airlineNameLabel.text = "Airline Name"
-                airlineCell.airlineCodeLabel.text = "EK-5154・Economy (E)"
-                return airlineCell
-            case 7:
-                commonCell.leftLabel.text = "Type"
-                commonCell.middleLabel.text = "Check-in"
-                commonCell.rightLabel.text = "Cabin"
-                return commonCell
-            case 8:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Adult"
-                commonCell.middleLabel.text = "1 x 7 kgs"
-                commonCell.rightLabel.text = "1 x 7 kgs"
-                return commonCell
-            case 9:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Child"
-                commonCell.middleLabel.text = "1 x 7 kgs"
-                commonCell.rightLabel.text = "1 x 7 kgs"
-                return commonCell
-            case 10:
-                commonCell.isForPassenger = true
-                commonCell.leftLabel.text = "Per Child"
-                commonCell.middleLabel.text = "1 x 7 kgs"
-                commonCell.rightLabel.text = "1 x 7 kgs"
-                return commonCell
-            default:
-                return UITableViewCell()
-            }
-        } else {
-            switch indexPath.row  {
-            case 0:
-                airlineCell.airlineNameLabel.text = "Airline Name"
-                airlineCell.airlineCodeLabel.text = "EK-5154・Economy (E)"
-                airlineCell.delegate = self
-                return airlineCell
-            case 1:
-                commonCell.leftLabel.text = "Type"
-                commonCell.middleLabel.text = "Check-in"
-                commonCell.rightLabel.text = "Cabin"
-                return commonCell
-            case 2:
-                commonCell.leftLabel.text = "Type"
-                commonCell.middleLabel.text = "Check-in"
-                commonCell.rightLabel.text = "Cabin"
-                return commonCell
-            default:
-                return UITableViewCell()
-
-            }
+        switch self.bookingDetailType {
+        case .flightInfo:
+            return getCellForFlightInfo(indexPath)
+        case .baggage:
+            return getCellForBaggageInfo(indexPath)
+        case .fareInfo:
+            return getCellForFareInfo(indexPath)
         }
         
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return self.getHeightForRowFirstSection(indexPath)
-        } else {
-            return self.getHeightForRowSecondSection(indexPath)
+        switch self.bookingDetailType {
+        case .flightInfo:
+            return getHeightForFlightInfoRowFirstSection(indexPath)
+        case .baggage:
+            if indexPath.section == 0 {
+                return self.getHeightForBaggageInfoRowFirstSection(indexPath)
+            } else {
+                return self.getHeightForBaggageInfoRowSecondSection(indexPath)
+            }
+        case .fareInfo:
+            return UITableView.automaticDimension
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        
+        switch self.bookingDetailType {
+        case .flightInfo:
+            return 44.0
+        case .baggage:
+           return 60.0
+        case .fareInfo:
+            return 114.0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 44
+        return 35.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
-        headerView.tripRougteLabel.text = "DEL" + LocalizedString.ForwardArrow.localized + "BEL"
-        return headerView
+        
+        switch self.bookingDetailType {
+        case .flightInfo:
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
+            headerView.tripRougteLabel.text = "Mumbai" + LocalizedString.ForwardArrow.localized + "Delhi"
+            return headerView
+        case .baggage:
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
+            headerView.tripRougteLabel.text = "DEL" + LocalizedString.ForwardArrow.localized + "BEL"
+            return headerView
+        case .fareInfo:
+          guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
+            headerView.titleLabel.text = "Economy Saver (SS50322)"
+            headerView.refundPolicyLabel.text = "Refund Policy"
+            headerView.delegate = self
+        headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
+            headerView.infoLabel.text = "Non-refundable • Non-reschedulable"
+            return headerView
+        }
     }
     
     
@@ -152,10 +113,25 @@ extension BookingDetailVC : UITableViewDataSource,UITableViewDelegate {
         }
         return footerView
     }
-    
-    
-    
-    
+}
 
+
+// Delegate methods
+
+extension BookingDetailVC : BaggageAirlineInfoTableViewCellDelegate {
+    func dimensionButtonTapped(_ dimensionButton: UIButton) {
+            printDebug("Dimension Button Tapped ")
+        AppFlowManager.default.presentBaggageInfoVC()
+        
+    }
+
+}
+
+// Route Fare info table View cell Delegate methods
+
+extension BookingDetailVC: RouteFareInfoTableViewCellDelegate {
+    func viewDetailsButtonTapped() {
+        printDebug("View Details Button Tapped")
+    }
     
 }

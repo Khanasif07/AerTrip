@@ -180,8 +180,8 @@ class AerinVC: BaseVC {
                     // move to Aerin VC
                 //AppFlowManager.default.showAerinTextToSpeechVC()
            //AppFlowManager.default.moveToAerinTextSpeechDetailVC()
-           // AppFlowManager.default.moveToMyBookingsVC()
             AppFlowManager.default.moveToBookingDetail()
+       //    AppFlowManager.default.moveToOtherBookingsDetailsVC()
             }
         }
     
