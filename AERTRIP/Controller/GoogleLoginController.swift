@@ -112,7 +112,7 @@ extension GoogleLoginController {
             guard let token = GIDSignIn.sharedInstance().currentUser.authentication.accessToken else {
                 return
             }
-            let urlString = "https://www.google.com/m8/feeds/contacts/default/full?access_token=\(token)&alt=json"
+            let urlString = "https://www.google.com/m8/feeds/contacts/default/full?access_token=\(token)&alt=json&max-results=10000"
             
             printDebug(GIDSignIn.sharedInstance().scopes)
             
