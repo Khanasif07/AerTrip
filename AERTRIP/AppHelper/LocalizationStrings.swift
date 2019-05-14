@@ -548,6 +548,7 @@ enum LocalizedString: String {
     case Pay = "Pay"
     case FareRules = "FareRules"
     case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
+    case CheckOutFareRulesPrivacyAndPolicyTerms
     case PayableWalletMessage = "PayableWalletMessage"
     case NetEffectiveFare = "NetEffectiveFare"
     case GrossFare = "GrossFare"
@@ -712,4 +713,30 @@ enum LocalizedString: String {
     case ason
     case PeriodicStatement
     case NoStatementGenerated
+    case PayOnline
+    case PayOfflineNRegister
+    case ChequeDemandDraft
+    case FundTransfer
+    case Breakup
+    case DepositAmount
+    case ConvenienceFeeNonRefundable
+    case PaymentRegisteredSuccesfully
+    case WeShallCreditYourAccount
+    case Payment
+    case DraftOrChequeDepositDate
+    case EnterDraftOrChequeNumber
+    case DepositBranchDetails
+    case YourBank
+    case SelectBank
+    case EnterAccountName
+    case EnterAccountNumber
+    case AdditionalNote
+    case AertripBankName
+    case SeeBankDetails
+    case UploadDepositConfirmationSlip
+    case OffileDepositTerms
+    case StepsForOfflinePayment
+    case DepositDate
+    case TransferType
+    case EnterUTRSwiftCode
  }

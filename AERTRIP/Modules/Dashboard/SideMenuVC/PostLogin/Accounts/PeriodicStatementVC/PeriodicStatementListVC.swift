@@ -44,13 +44,69 @@ class PeriodicStatementListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
+        self.viewModel.fetchMonthsForGivenYear()
+        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.backgroundView = self.emptyView
         self.tableView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
+        
+        self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
+    private func downloadPdf(forBookingId bookingId: String, screenTitle: String, complition: @escaping ((URL?)->Void)) {
+        // Create destination URL
+        if let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\(screenTitle).pdf")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
+            //Create URL to the source file you want to download
+            let fileURL = URL(string: "https://beta.aertrip.com/api/v1/dashboard/download-voucher?id=\(bookingId)")
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url:fileURL!)
+            
+            let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch (let writeError) {
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                } else {
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription)")
+                }
+            }
+            task.resume()
+        }
+        else {
+            complition(nil)
+        }
+    }
+    
+    private func viewStatement(forId: String, screenTitle: String) {
+        //open pdf for booking id
+        downloadPdf(forBookingId: forId, screenTitle: screenTitle) { (localPdf) in
+            if let url = localPdf {
+                DispatchQueue.mainSync {
+                    AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
+                }
+            }
+        }
+    }
+
     //MARK:- Public
     
     
@@ -84,11 +140,11 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
 //        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
 //            return allEvent.count
 //        }
-        return 0
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 44.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,11 +154,12 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
 //            return UITableViewCell()
 //        }
         
-        let allCount = 1
+        let allCount = 4
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: PeriodicStatementCell.reusableIdentifier) as? PeriodicStatementCell else {
             return UITableViewCell()
         }
         
+        cell.event = "Statement \(indexPath.row + 1)"
         if (indexPath.section == (self.viewModel.allDates.count - 1)), (indexPath.row >= (allCount - 1)) {
             cell.dividerView.isHidden = false
             cell.dividerViewLeadingConstraint.constant = 0
@@ -129,6 +186,10 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
 //
 //        return (allEvent[indexPath.row], allEvent.count)
 //    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewStatement(forId: "14377", screenTitle: "Statement\(indexPath.row + 1)")
+    }
 }
 
 
@@ -144,6 +205,11 @@ class PeriodicStatementCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
 
+    var event: String? {
+        didSet {
+            self.setData()
+        }
+    }
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -175,7 +241,7 @@ class PeriodicStatementCell: UITableViewCell {
     
     private func setData() {
 
-        self.titleLabel.text = ""
-        self.dateLabel.text = ""
+        self.titleLabel.text = self.event ?? ""
+        self.dateLabel.text = "6 Jan - 11 Jan"
     }
 }

@@ -209,6 +209,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let addNotesCell = tableView.dequeueReusableCell(withIdentifier: addNotesTableViewCellIdentifier, for: indexPath) as? AddNotesTableViewCell else {
                     fatalError("AddNotesTableViewCell not found")
                 }
+                addNotesCell.addNoteTextView.placeholder = LocalizedString.AddNotes.localized
                 addNotesCell.delegate = self
                 addNotesCell.configureCell(viewModel.notes)
                 return addNotesCell

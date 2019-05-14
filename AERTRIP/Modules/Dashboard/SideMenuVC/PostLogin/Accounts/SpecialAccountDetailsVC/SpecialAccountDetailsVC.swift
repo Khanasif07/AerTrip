@@ -52,12 +52,39 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
-    
+    private func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeGreen, AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC()
+                
+            case 2:
+                //ChequeDemandDraft
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD)
+                printDebug("ChequeDemandDraft")
+                
+            case 3:
+                //FundTransfer
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer)
+                printDebug("FundTransfer")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
     
     //MARK:- Public
     
     
     //MARK:- Action
+    @objc func depositButtonAction(_ sender: ATButton) {
+        self.showDepositOptions()
+    }
 }
 
 //MARK:- ViewModel Delegate Methods
@@ -84,6 +111,6 @@ extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //info button action
-        AppFlowManager.default.presentAccountChargeInfoVC()
+        AppFlowManager.default.presentAccountChargeInfoVC(usingFor: .chargeInfo)
     }
 }

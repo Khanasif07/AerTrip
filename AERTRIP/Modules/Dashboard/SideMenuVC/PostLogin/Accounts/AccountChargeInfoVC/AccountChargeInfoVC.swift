@@ -25,11 +25,16 @@ class AccountChargeInfoVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        
+        self.viewModel.fetchData()
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-
-        self.topNavView.configureNavBar(title: LocalizedString.Info.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         
+        let navTitle = (self.viewModel.currentUsingFor == .chargeInfo) ? LocalizedString.Info.localized : LocalizedString.StepsForOfflinePayment.localized
+        self.topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        
+        self.topNavView.navTitleLabel.textAlignment = (self.viewModel.currentUsingFor == .chargeInfo) ? NSTextAlignment.center : NSTextAlignment.left
         self.topNavView.delegate = self
         
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"))

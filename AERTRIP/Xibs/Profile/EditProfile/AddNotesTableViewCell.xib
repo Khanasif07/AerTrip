@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,13 +28,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="71.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XdK-16-vQy">
-                                <rect key="frame" x="14" y="7" width="306" height="17.5"/>
+                                <rect key="frame" x="16" y="7" width="304" height="17.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="59U-sQ-BSb">
-                                <rect key="frame" x="14" y="24.5" width="292" height="47"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="59U-sQ-BSb" customClass="PKTextView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="24.5" width="290" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="W6X-f6-uKm"/>
@@ -43,15 +43,25 @@
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="679-0G-1NF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="70.5" width="304" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="bb2-NS-yu3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="59U-sQ-BSb" secondAttribute="bottom" id="EfL-72-uXe"/>
                             <constraint firstItem="59U-sQ-BSb" firstAttribute="leading" secondItem="XdK-16-vQy" secondAttribute="leading" id="Kb5-xO-0FM"/>
+                            <constraint firstItem="679-0G-1NF" firstAttribute="leading" secondItem="ce0-wo-G2r" secondAttribute="leading" constant="16" id="LJ6-fD-5xg"/>
                             <constraint firstItem="XdK-16-vQy" firstAttribute="top" secondItem="ce0-wo-G2r" secondAttribute="top" constant="7" id="PUG-04-oum"/>
                             <constraint firstItem="59U-sQ-BSb" firstAttribute="top" secondItem="XdK-16-vQy" secondAttribute="bottom" id="Yad-lc-zka"/>
                             <constraint firstAttribute="trailing" secondItem="XdK-16-vQy" secondAttribute="trailing" id="aEY-IW-HOR"/>
-                            <constraint firstItem="XdK-16-vQy" firstAttribute="leading" secondItem="ce0-wo-G2r" secondAttribute="leading" constant="14" id="cxU-LN-cAX"/>
+                            <constraint firstItem="XdK-16-vQy" firstAttribute="leading" secondItem="ce0-wo-G2r" secondAttribute="leading" constant="16" id="cxU-LN-cAX"/>
+                            <constraint firstAttribute="bottom" secondItem="679-0G-1NF" secondAttribute="bottom" id="gF7-uc-jgu"/>
+                            <constraint firstAttribute="trailing" secondItem="679-0G-1NF" secondAttribute="trailing" id="hdV-lw-WYD"/>
                             <constraint firstAttribute="trailing" secondItem="59U-sQ-BSb" secondAttribute="trailing" constant="14" id="kfk-8V-1L7"/>
                         </constraints>
                     </view>
@@ -66,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addNoteTextView" destination="59U-sQ-BSb" id="iJT-cb-4li"/>
+                <outlet property="sepratorView" destination="679-0G-1NF" id="yPv-hq-5gE"/>
                 <outlet property="titleLabel" destination="XdK-16-vQy" id="v8d-DV-Tug"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="166.41679160419793"/>

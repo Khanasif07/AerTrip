@@ -376,9 +376,11 @@ extension AppFlowManager {
         }
     }
     
-    func showBulkEnquiryVC() {
-        if let mVC = self.mainHomeVC {
+    func showBulkEnquiryVC(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .bulkBooking
+            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
@@ -525,9 +527,6 @@ extension AppFlowManager {
         else {
             self.mainNavigationController.present(obj, animated: true)
         }
-//        delay(seconds: 0.1) { [weak obj] in
-//            obj?.delegate = delegate
-//        }
     }
     
     func moveToGuestDetailScreen(delegate: GuestDetailsVCDelegate,_ indexPath:IndexPath) {
@@ -646,6 +645,26 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func moveToAccountOnlineDepositVC() {
+        let obj = AccountOnlineDepositVC.instantiate(fromAppStoryboard: .Account)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor) {
+        let obj = AccountOfflineDepositVC.instantiate(fromAppStoryboard: .Account)
+        obj.currentUsingAs = usingFor
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func showAccountDepositSuccessVC(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .accountDeposit
+            ob.buttonTitle = buttonTitle
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     func moveHotelCalenderVC(isHotelCalendar: Bool = false ,isReturn: Bool = false ,isMultiCity: Bool = false , checkInDate: Date =  Date() , checkOutDate: Date? = nil , delegate: CalendarDataHandler ){
         
         
@@ -662,8 +681,14 @@ extension AppFlowManager {
         }
     }
     
-    func presentAccountChargeInfoVC() {
+    func presentAccountChargeInfoVC(usingFor: AccountChargeInfoVM.UsingFor) {
         let obj = AccountChargeInfoVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.currentUsingFor = usingFor
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
+    func presentAertripBankDetailsVC() {
+        let obj = AertripBankDetailsVC.instantiate(fromAppStoryboard: .Account)
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
@@ -777,7 +802,7 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
     
     func openDocument(atURL url: URL, screenTitle: String) {
         self.documentInteractionController.url = url
-        self.documentInteractionController.name = LocalizedString.ConfirmationVoucher.localized
+        self.documentInteractionController.name = screenTitle
         self.documentInteractionController.delegate = self
         self.documentInteractionController.presentPreview(animated: true)
     }
