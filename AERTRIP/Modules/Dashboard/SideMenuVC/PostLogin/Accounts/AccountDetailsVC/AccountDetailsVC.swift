@@ -13,6 +13,7 @@ class AccountDetailsVC: BaseVC {
     enum ViewState {
         case searching
         case filterApplied
+        case filterAppliedInSearchMode
         case normal
     }
     
@@ -49,7 +50,7 @@ class AccountDetailsVC: BaseVC {
     var currentUsingAs = UsingFor.account
     
     //MARK:- Private
-    private var currentViewState = ViewState.normal {
+    var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
         }
@@ -301,14 +302,42 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC()
+        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
     }
 }
 
+//MARK:- Filter VC delegate methods
+//MARK:-
+extension AccountDetailsVC: ADEventFilterVCDelegate {
+    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
+        if let _ = filter {
+            //apply filter
+            if self.currentViewState == .searching {
+                self.currentViewState = .filterAppliedInSearchMode
+            }
+            else {
+                self.currentViewState = .filterApplied
+            }
+        }
+        else {
+            //clear all filter
+            self.currentViewState = .normal
+        }
+        self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
+    }
+}
 
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountDetailsVC: AccountDetailsVMDelegate {
+    func applyFilterSuccess() {
+        self.reloadList()
+    }
+    
+    func applyFilterFail() {
+        self.reloadList()
+    }
+
     func willGetAccountDetails() {
     }
     

@@ -8,6 +8,16 @@
 
 import UIKit
 
+struct AccountSelectedFilter {
+    var fromDate: Date? = nil
+    var toDate: Date? = nil
+    var voucherType: String = ""
+}
+
+protocol ADEventFilterVCDelegate: class {
+    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?)
+}
+
 class ADEventFilterVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -24,8 +34,12 @@ class ADEventFilterVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
+    var voucherTypes: [String] = []
+    weak var delegate: ADEventFilterVCDelegate?
+    var oldFilter: AccountSelectedFilter?
     
     //MARK:- Private
+    private var selectedFilter: AccountSelectedFilter = AccountSelectedFilter()
     private var currentIndex: Int = 0
     fileprivate weak var categoryView: ATCategoryView!
     private let allTabsStr: [String] = [LocalizedString.DateSpan.localized, LocalizedString.VoucherType.localized]
@@ -43,17 +57,40 @@ class ADEventFilterVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        
+        if !self.voucherTypes.isEmpty {
+            self.voucherTypes.insert("All", at: 0)
+        }
+        
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
+        
+        self.selectedFilter = self.oldFilter ?? AccountSelectedFilter()
+        
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.oldToDate = self.oldFilter?.toDate
+                vc.oldFromDate = self.oldFilter?.fromDate
+                vc.delegate = self
                 self.allChildVCs.append(vc)
             } else {
                 let vc = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
-                vc.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+                vc.delegate = self
+                vc.viewModel.allTypes = self.voucherTypes
+                
+                if self.selectedFilter.voucherType.isEmpty {
+                    self.selectedFilter.voucherType = self.voucherTypes.first ?? ""
+                }
+                
+                if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
+                    vc.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
+                }
+                else {
+                    vc.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+                }
                 self.allChildVCs.append(vc)
             }
         }
@@ -164,6 +201,14 @@ class ADEventFilterVC: BaseVC {
 extension ADEventFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        //clear all
+        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: nil)
+        self.hide(animated: true, shouldRemove: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        //done
+        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: self.selectedFilter)
         self.hide(animated: true, shouldRemove: true)
     }
 }
@@ -179,5 +224,19 @@ extension ADEventFilterVC: ATCategoryNavBarDelegate {
 extension ADEventFilterVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view === self.view)
+    }
+}
+
+extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
+    func didSelect(voucher: String) {
+        self.selectedFilter.voucherType = voucher
+    }
+    
+    func didSelect(toDate: Date) {
+        self.selectedFilter.toDate = toDate
+    }
+    
+    func didSelect(fromDate: Date) {
+        self.selectedFilter.fromDate = fromDate
     }
 }

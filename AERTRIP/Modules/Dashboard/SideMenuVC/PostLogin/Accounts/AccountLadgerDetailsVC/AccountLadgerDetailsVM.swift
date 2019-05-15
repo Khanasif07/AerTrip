@@ -148,7 +148,7 @@ class AccountLadgerDetailsVM {
             self.parseDataForDebitNote()
         }
         
-        delay(seconds: 1.0) { [weak self] in
+        delay(seconds: 0.8) { [weak self] in
             self?.delegate?.fetchLadgerDetailsSuccess()
         }
         self.delegate?.fetchLadgerDetailsSuccess()

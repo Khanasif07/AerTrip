@@ -336,8 +336,9 @@ struct AccountDetailEvent {
         }
     }
     
-    static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {
+    static func modelsDict(data: [JSONDictionary]) -> (data: JSONDictionary, allVoucher: [String]) {
         var temp = JSONDictionary()
+        var vchrType: [String] = []
         
         for dict in data {
             let obj = AccountDetailEvent(json: dict)
@@ -349,9 +350,12 @@ struct AccountDetailEvent {
                 else {
                     temp[cDate] = [obj]
                 }
+                if !vchrType.contains(obj.voucher.rawValue) {
+                    vchrType.append(obj.voucher.rawValue)
+                }
             }
         }
         
-        return temp
+        return (temp, vchrType)
     }
 }

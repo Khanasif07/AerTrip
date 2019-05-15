@@ -595,7 +595,7 @@ extension AppFlowManager {
         
         switch user.userType {
         case .regular:
-            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:])
+            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [])
             
         case .billWise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
@@ -611,9 +611,10 @@ extension AppFlowManager {
         }
     }
     
-    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary) {
+    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String]) {
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
+        obj.viewModel.allVouchers = forVoucherTypes
         obj.viewModel.setAccountDetails(details: forDetails)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
@@ -624,10 +625,13 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToADEventFilterVC() {
+    func moveToADEventFilterVC(delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?) {
         if let obj = UIApplication.topViewController() {
-            let ob = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
-            obj.add(childViewController: ob)
+            let vc = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
+            vc.oldFilter = oldFilter
+            vc.voucherTypes = voucherTypes
+            vc.delegate = delegate
+            obj.add(childViewController: vc)
         }
     }
     

@@ -360,7 +360,15 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC()
+        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: ["Sales", "Receipt"], oldFilter: nil)
+    }
+}
+
+//MARK:- Filter VC delegate methods
+//MARK:-
+extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
+    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
+        printDebug(filter)
     }
 }
 

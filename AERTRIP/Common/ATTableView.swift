@@ -19,5 +19,7 @@ class ATTableView: UITableView {
     private func intitalSetup() {
         self.keyboardDismissMode = .onDrag
         self.separatorStyle = .none
+        self.showsHorizontalScrollIndicator = false
+        self.showsVerticalScrollIndicator = false
     }
 }

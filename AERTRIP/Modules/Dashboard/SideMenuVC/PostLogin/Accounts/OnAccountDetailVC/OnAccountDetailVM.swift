@@ -81,7 +81,7 @@ class OnAccountDetailVM: NSObject {
                            ]
                           ]
             
-            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData)
+            sSelf.accountDetails = AccountDetailEvent.modelsDict(data: allData).data
             
             sSelf.delegate?.getOnAccountDetailsSuccess()
         }

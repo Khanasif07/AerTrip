@@ -56,6 +56,9 @@ class SpecialAccountDetailsVM {
     private(set) var bilWiseSummery: [SpecialAccountEvent] = []
     private(set) var creditSummery: [SpecialAccountEvent] = []
     private(set) var otherAction: [SpecialAccountEvent] = []
+
+    private(set) var accVouchers: [String] = []
+    private(set) var outVouchers: [String] = []
     
     private(set) var accountLadger: JSONDictionary = JSONDictionary()
     private(set) var outstandingLadger: JSONDictionary = JSONDictionary()
@@ -247,10 +250,14 @@ class SpecialAccountDetailsVM {
         self.formatDataForScreen()
         
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: ["limit":20]) { [weak self](success, accLad, outLad, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: ["limit":20]) { [weak self](success, accLad, accVchrs, outLad, outVchrs, errors) in
             if success {
                 self?.accountLadger = accLad
                 self?.outstandingLadger = outLad
+                
+                self?.accVouchers = accVchrs
+                self?.outVouchers = outVchrs
+                
                 self?.formatDataForScreen()
             }
             else {

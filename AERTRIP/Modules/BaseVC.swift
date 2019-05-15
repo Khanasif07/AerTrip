@@ -29,14 +29,14 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        self.bindViewModel()
+
         NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
 
         self.initialSetup()
         self.setupFonts()
         self.setupTexts()
         self.setupColors()
-    
-        self.bindViewModel()
         
         if !AppConstants.isStatusBarBlured, let backV = UIApplication.shared.statusBarView {
             AppConstants.isStatusBarBlured = true
