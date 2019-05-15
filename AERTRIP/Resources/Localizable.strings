@@ -618,6 +618,10 @@
 "FareInfo" = "Fare Info";
 "ViewDetails" = "View  Details";
 "TravellersAddOns" = "Travellers & Add-ons";
+"BookingPolicy" = "Booking Policy";
+"cancellationPolicy" = "Cancellation Policy";
+"OpenInMaps" = "Open in Maps";
+ "OpenInGoogleMaps"   = "Open in Google Maps";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";

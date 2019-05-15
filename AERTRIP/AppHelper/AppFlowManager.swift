@@ -714,8 +714,7 @@ extension AppFlowManager {
     
     func moveToBookingDetail() {
         let ob = BookingDetailVC.instantiate(fromAppStoryboard: .Bookings)
-
-         self.mainNavigationController.pushViewController(ob, animated: true)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func presentBaggageInfoVC() {
@@ -723,7 +722,10 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    
+    func moveToBookingHotelDetailVC() {
+        let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
    
 
 }

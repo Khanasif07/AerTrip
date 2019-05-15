@@ -52,19 +52,15 @@ extension BookingTravellerTableViewCell: UICollectionViewDataSource,UICollection
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return  CGSize(width: collectionView.frame.width / 4, height: 100.0 )
     }
-    
 
-    
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {
             fatalError("BookingTravellerCollectionViewCell not found")
         }
-        travellerCollectionCell.backgroundColor = .red
         travellerCollectionCell.configureCell()
         return travellerCollectionCell
     }

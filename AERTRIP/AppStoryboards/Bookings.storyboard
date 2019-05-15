@@ -678,6 +678,47 @@ with us!</string>
             </objects>
             <point key="canvasLocation" x="5953" y="-302"/>
         </scene>
+        <!--Booking Hotel DetailVC-->
+        <scene sceneID="wZb-4S-ICK">
+            <objects>
+                <viewController storyboardIdentifier="BookingHotelDetailVC" id="Pqs-Ny-7iG" customClass="BookingHotelDetailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DXk-Of-kSW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EB2-S1-rV5" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="uWk-gc-pyV"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="690-M3-wZS" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="690-M3-wZS" secondAttribute="bottom" id="5bl-No-Jck"/>
+                            <constraint firstAttribute="trailing" secondItem="EB2-S1-rV5" secondAttribute="trailing" id="8Ju-an-zwc"/>
+                            <constraint firstItem="EB2-S1-rV5" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" id="JTD-EU-Owc"/>
+                            <constraint firstItem="EB2-S1-rV5" firstAttribute="leading" secondItem="DXk-Of-kSW" secondAttribute="leading" id="Z0r-lu-Gso"/>
+                            <constraint firstAttribute="trailing" secondItem="690-M3-wZS" secondAttribute="trailing" id="d1L-8C-QXE"/>
+                            <constraint firstItem="690-M3-wZS" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" id="gjB-j5-Cee"/>
+                            <constraint firstItem="690-M3-wZS" firstAttribute="leading" secondItem="DXk-Of-kSW" secondAttribute="leading" id="rXs-Fg-xuc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nM1-LK-bcA"/>
+                    </view>
+                    <connections>
+                        <outlet property="hotelDetailTableView" destination="690-M3-wZS" id="KqU-ET-D4X"/>
+                        <outlet property="topNavigationView" destination="EB2-S1-rV5" id="4iO-Oz-8J2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Os6-L3-XXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7589" y="-96"/>
+        </scene>
         <!--Travel DateVC-->
         <scene sceneID="zd5-jh-iFs">
             <objects>

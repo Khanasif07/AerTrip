@@ -20,5 +20,12 @@ class BookingAmenityCollectionViewCell: UICollectionViewCell {
         self.amenityTitle.font = AppFonts.Regular.withSize(14.0)
         self.amenityTitle.textColor = AppColors.themeGray60
     }
+    
+    
+    func configureCell() {
+        self.amenityImageView.image = #imageLiteral(resourceName: "premiumMeal")
+        self.amenityTitle.text = "Fresh meals provided "
+    }
 
+    
 }

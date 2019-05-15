@@ -276,7 +276,7 @@ struct AppGlobals {
     }
     
     
-    private func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+     func openGoogleMaps(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             //to show the route between source and destination uncomment the next line
             let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
@@ -291,7 +291,7 @@ struct AppGlobals {
         }
     }
     
-    private func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+     func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
 //        let directionsURL = "http://maps.apple.com/?\(destLat),\(destLong)"
         //to show the route between source and destination uncomment the next line
         let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"

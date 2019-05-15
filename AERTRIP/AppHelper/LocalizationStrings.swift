@@ -651,6 +651,10 @@ enum LocalizedString: String {
     case FareInfo = "FareInfo"
     case ViewDetails
     case TravellersAddOns
+    case BookingPolicy
+    case cancellationPolicy
+    case OpenInMaps
+    case OpenInGoogleMaps
     
     //MARK: - AerinVC
     case Hi = "Hi"
