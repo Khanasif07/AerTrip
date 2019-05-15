@@ -8,6 +8,38 @@
 
 import UIKit
 
+struct AccountOutstanding {
+    var ladger: JSONDictionary = JSONDictionary()
+    var vouchers: [String] = []
+    var grossAmount: Double = 0.0
+    var onAccountAmount: Double = 0.0
+    var netAmount: Double = 0.0
+    
+    private var _onAccountDate: String = ""
+    var onAccountDate: Date? {
+        //"2019-05-15 16:39:11"
+        return _onAccountDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+    }
+    
+    init(json: JSONDictionary) {
+        if let transactions = json["transactions"] as? [JSONDictionary] {
+            let (lad, vchr) = AccountDetailEvent.modelsDict(data: transactions)
+            self.ladger = lad
+            self.vouchers = vchr
+        }
+        
+        if let onAccount = json["on_account"] as? JSONDictionary {
+            if let obj = onAccount["amount"] {
+                self.onAccountAmount = "\(obj)".toDouble ?? 0.0
+            }
+            
+            if let obj = onAccount["transaction_datetime"] as? String {
+                self._onAccountDate = obj
+            }
+        }
+    }
+}
+
 protocol AccountDetailsVMDelegate: class {
     func willGetAccountDetails()
     func getAccountDetailsSuccess()
@@ -189,7 +221,7 @@ class AccountDetailsVM: NSObject {
         
         self.oldFilter = filter
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, outVchrs, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, errors) in
             
             guard let sSelf = self else {return}
             if success {

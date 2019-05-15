@@ -22,11 +22,15 @@ class AccountOutstandingLadgerVM: NSObject {
     var _accountDetails: JSONDictionary = JSONDictionary()
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
-        return Array(accountDetails.keys)
+        var arr = Array(accountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        return arr
     }
     var searchedAccountDetails: JSONDictionary = JSONDictionary()
     var searchedAllDates: [String] {
-        return Array(searchedAccountDetails.keys)
+        var arr = Array(searchedAccountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        return arr
     }
     
     var selectedEvent: [AccountDetailEvent] = []
@@ -35,6 +39,16 @@ class AccountOutstandingLadgerVM: NSObject {
     
     var totalAmountForSelected: Double {
         return self.selectedEvent.reduce(0.0) { $0 + $1.pendingAmount}
+    }
+    
+    
+    var accountOutstanding: AccountOutstanding? {
+        didSet {
+            if let obj = accountOutstanding {
+                self._accountDetails = obj.ladger
+                self.accountDetails = obj.ladger
+            }
+        }
     }
     
     //MARK:- Private
@@ -62,67 +76,6 @@ class AccountOutstandingLadgerVM: NSObject {
         }
         
         self.delegate?.searchEventsSuccess()
-    }
-    
-    func getAccountDetails() {
-        self.delegate?.willGetAccountDetails()
-        
-        delay(seconds: 0.8) { [weak self] in
-            guard let sSelf = self else {
-                self?.delegate?.getAccountDetailsFail()
-                return
-            }
-            
-            let allData = [[
-                            "id":"1",
-                            "title":"Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"hotels",
-                            "amount":24425.01,
-                            "pendingAmount":24425.01,
-                            "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
-                           ],
-                           [
-                            "id":"11",
-                            "title":"11 Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"hotelCancellation",
-                            "amount":2314.51,
-                            "pendingAmount":2314.51
-                            ],
-                           [
-                            "id":"12",
-                            "title":"12 Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"journalVoucher",
-                            "amount":2314.51,
-                            "pendingAmount":2314.51
-                            ],
-                           [
-                            "id":"2",
-                            "title":"DEL → BOM → DEL → GOA",
-                            "creationDate":"Mon 29 Apr",
-                            "voucher":"flight",
-                            "amount":3452.2,
-                            "pendingAmount":3452.2,
-                            "names": ["Mrs. Shashi Poddar"]
-                           ],
-                           [
-                            "id":"3",
-                            "title":"Credit Card",
-                            "creationDate":"Sat 27 Apr",
-                            "voucher":"creditNote",
-                            "amount":645.2,
-                            "pendingAmount":645.2
-                           ]
-                          ]
-            
-            sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData).data
-            sSelf.accountDetails = sSelf._accountDetails
-            
-            sSelf.delegate?.getAccountDetailsSuccess()
-        }
-        
     }
     
     //MARK:- Private

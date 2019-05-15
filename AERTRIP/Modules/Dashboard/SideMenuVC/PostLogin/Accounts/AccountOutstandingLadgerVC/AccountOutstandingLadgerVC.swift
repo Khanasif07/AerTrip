@@ -88,10 +88,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
-        self.viewModel.getAccountDetails()
-        
         self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
         self.mainSearchBar.showsCancelButton = true
         self.searchBar.delegate = self
@@ -380,8 +376,6 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     }
     
     func getAccountDetailsSuccess() {
-        self.topNavView.firstRightButton.isEnabled = true
-        self.topNavView.secondRightButton.isEnabled = true
         self.reloadList()
     }
     

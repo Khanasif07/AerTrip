@@ -635,8 +635,9 @@ extension AppFlowManager {
         }
     }
     
-    func moveToAccountOutstandingLadgerVC() {
+    func moveToAccountOutstandingLadgerVC(data: AccountOutstanding) {
         let obj = AccountOutstandingLadgerVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.accountOutstanding = data
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
