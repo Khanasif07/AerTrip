@@ -136,7 +136,7 @@ class OnAccountEventCell: UITableViewCell {
             self.resetAllText()
             return
         }
-        self.titleLabel.text = event.voucher.title
+        self.titleLabel.text = event.voucherName
         self.descriptionLabel.text = event.billNumber
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])

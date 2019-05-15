@@ -57,6 +57,9 @@ class SpecialAccountDetailsVM {
     private(set) var creditSummery: [SpecialAccountEvent] = []
     private(set) var otherAction: [SpecialAccountEvent] = []
     
+    private(set) var accountLadger: JSONDictionary = JSONDictionary()
+    private(set) var outstandingLadger: JSONDictionary = JSONDictionary()
+    
     let depositCellHeight: CGFloat = 99.0
     
     //MARK:- Private
@@ -64,11 +67,9 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Methods
     //MARK:- Public
-    func fetchScreenDetails() {
-        self.delegate?.willFetchScreenDetails()
-        
+    func formatDataForScreen() {
         //************************//
-        guard let usr = UserInfo.loggedInUser else {
+        guard let usr = UserInfo.loggedInUser, let accoundData = usr.accountData else {
             return
         }
         let titleH: CGFloat = 40.0
@@ -79,6 +80,7 @@ class SpecialAccountDetailsVM {
         let stmtSummery = ["Statement Summery", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
         let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
         
+        self.statementSummery.removeAll()
         for (idx, str) in stmtSummery.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
@@ -88,22 +90,35 @@ class SpecialAccountDetailsVM {
                 obj.isForTitle = true
             }
             else if idx == 1 {
-                obj.description = "Up to Tue, 31 Jul 2018"
-                obj.amount = (-76641.0).amountInDelimeterWithSymbol
+                if let event = accoundData.statements?.lastStatementBalence {
+                    if let date = event.dates.last {
+                        let dateStr = date.toString(dateFormat: "EE, dd MMM YYYY")
+                        obj.description = dateStr.isEmpty ? "" : "Up to \(dateStr)"
+                    }
+                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                }
             }
             else if idx == 2 {
-                obj.symbol = "-"
-                obj.amount = (40211.0).amountInDelimeterWithSymbol
+                if let amount = accoundData.statements?.recentCredit {
+                    obj.symbol = (amount < 0) ? "-" : "+"
+                    obj.amount = abs(amount).amountInDelimeterWithSymbol
+                }
             }
             else if idx == 3 {
-                obj.symbol = "+"
-                obj.amount = (75599.0).amountInDelimeterWithSymbol
-                obj.description = "01 Aug - 07 Aug"
+                
+                if let event = accoundData.statements?.recentDebit {
+                    if let start = event.dates.first, let end = event.dates.last {
+                        obj.description = "\(start.toString(dateFormat: "dd MMM")) - \(end.toString(dateFormat: "dd MMM"))"
+                    }
+                    
+                    obj.symbol = (event.amount < 0) ? "-" : "+"
+                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                }
                 obj.isDevider = true
             }
             else if idx == 4 {
                 obj.symbol = "="
-                obj.amount = (-41253.0).amountInDelimeterWithSymbol
+                obj.amount = (accoundData.statements?.amountDue ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.statementSummery.append(obj)
@@ -112,6 +127,7 @@ class SpecialAccountDetailsVM {
         let tpupSummery = ["Top-up Summary", "Active Top-up Limit", "Used Credits", "Available Credits"]
         let tpupSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
+        self.topUpSummery.removeAll()
         for (idx, str) in tpupSummery.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
@@ -142,6 +158,7 @@ class SpecialAccountDetailsVM {
         let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Charges", "Total Outstanding"]
         let bwSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
+        self.bilWiseSummery.removeAll()
         for (idx, str) in bwSummery.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
@@ -170,6 +187,7 @@ class SpecialAccountDetailsVM {
         let crdSummery = ["Credit Summery", "Credit Limit", "Current Balance", "Available Credits"]
         let crdSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
+        self.creditSummery.removeAll()
         for (idx, str) in crdSummery.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
@@ -180,18 +198,19 @@ class SpecialAccountDetailsVM {
                 obj.height = crdSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
-                obj.amount = ((usr.userType == UserInfo.UserType.statement) ? 2500000.0 : 0.0).amountInDelimeterWithSymbol
+                obj.amount = (accoundData.credit?.creditLimit ?? 0.0).amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
+                let amount = (accoundData.credit?.currentBalance ?? 0.0)
                 obj.symbol = "-"
-                obj.amount = ((usr.userType == UserInfo.UserType.statement) ? -41253.0 : 0.0).amountInDelimeterWithSymbol
+                obj.amount = abs(amount).amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx]
                 obj.isDevider = true
             }
             else if idx == 3 {
                 obj.symbol = "="
-                obj.amount = ((usr.userType == UserInfo.UserType.statement) ? 2541253.0 : 0.0).amountInDelimeterWithSymbol
+                obj.amount = (accoundData.credit?.availableCredit ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.creditSummery.append(obj)
@@ -204,6 +223,7 @@ class SpecialAccountDetailsVM {
             otrAction.append("Periodic statement")
         }
         
+        self.otherAction.removeAll()
         for (idx, str) in otrAction.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
@@ -218,6 +238,25 @@ class SpecialAccountDetailsVM {
         //************************//
         
         self.delegate?.fetchScreenDetailsSuccess()
+    }
+    
+    func fetchScreenDetails() {
+        self.delegate?.willFetchScreenDetails()
+        
+        //firstly show the saved data
+        self.formatDataForScreen()
+        
+        //hit api to update the saved data and show it on screen
+        APICaller.shared.getAccountDetailsAPI(params: ["limit":20]) { [weak self](success, accLad, outLad, errors) in
+            if success {
+                self?.accountLadger = accLad
+                self?.outstandingLadger = outLad
+                self?.formatDataForScreen()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
     }
     
     //MARK:- Private

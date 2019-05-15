@@ -501,8 +501,6 @@ class UserInfo {
         }
     }
     
-    var userType: UserType = .statement
-    
     class var hotelFilter: HotelFilter? {
         get {
             if let obj = UserDefaults.standard.retrieve(objectType: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {
@@ -558,10 +556,10 @@ class UserInfo {
     }
     
     var accountData: AccountModel? {
+        
         get {
-            
-            if let dict = UserDefaults.getObject(forKey: "account_data") {
-                return AccountModel(json: JSON(dict))
+            if let dict = UserDefaults.getObject(forKey: "account_data") as? JSONDictionary {
+                return AccountModel(json: dict)
             }
             return nil
         }
@@ -573,6 +571,17 @@ class UserInfo {
                 UserDefaults.removeObject(forKey: "account_data")
             }
         }
+    }
+
+    var userType: UserType {
+        var current: UserType = UserType.statement
+        if let accData = accountData {
+            if let stmt = accData.statements?.jsonDict, !stmt.isEmpty {
+                current = UserType.statement
+            }
+        }
+        
+        return current
     }
 
     var socialLoginType: LinkedAccount.SocialType? {

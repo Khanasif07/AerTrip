@@ -128,7 +128,7 @@ struct SocialUserModel {
         self.points = json["points"].intValue
         self.preferredCurrency    = json["preferred_currency"].stringValue.removeNull
         self.hotels = HotelsModel(json: json["hotels"])
-        self.accountData = AccountModel(json: json["account_data"])
+        self.accountData = AccountModel(json: json["account_data"].dictionaryObject ?? [:])
         self.generalPref = GeneralPrefrenceModel(json: json[APIKeys.generalPref.rawValue])
         self.countryCode = json["countryCode"].stringValue.removeNull
         

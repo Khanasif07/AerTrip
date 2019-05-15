@@ -75,7 +75,7 @@ class AccountDetailEventHeaderCell: UITableViewCell {
     }
     
     private func setData() {
-        self.iconImageView.image = self.event?.voucher.image
+        self.iconImageView.image = self.event?.iconImage
         self.titleLabel.text = self.event?.title
     }
 }

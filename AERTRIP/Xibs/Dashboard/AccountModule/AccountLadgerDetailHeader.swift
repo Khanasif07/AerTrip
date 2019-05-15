@@ -69,8 +69,8 @@ class AccountLadgerDetailHeader: UIView {
             return
         }
         
-        self.imageView.image = event.voucher.image
-        if event.voucher == .creditNote {
+        self.imageView.image = event.iconImage
+        if event.voucher == .debitNote {
             self.titleLabel.text = event.title + "\n" + event.creditCardNo
             self.bookingIdKeyLabel.text = ""
             self.bookingIdValueLabel.text = ""
