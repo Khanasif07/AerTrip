@@ -88,7 +88,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
@@ -101,7 +101,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
-        self.manageMakePaymentView(isHidden: true, animated: true)
+        self.reloadList()
     }
     
     override func bindViewModel() {
@@ -199,6 +199,10 @@ class AccountOutstandingLadgerVC: BaseVC {
                 sSelf.searchTableView.reloadData()
                 if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                }
+                else {
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.clear
                 }
         })
     }
@@ -206,13 +210,14 @@ class AccountOutstandingLadgerVC: BaseVC {
     private func showMoreOptions() {
         
         var titles = [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized]
-        if self.currentViewState == .selecting {
-            titles.insert("De\(LocalizedString.SelectBookingsPay.localized.lowercased())", at: 0)
+        if !self.viewModel.allDates.isEmpty {
+            let titleStr = (self.currentViewState == .selecting) ? "De\(LocalizedString.SelectBookingsPay.localized.lowercased())" : LocalizedString.SelectBookingsPay.localized
+            titles.insert(titleStr, at: 0)
         }
-        else {
-            titles.insert(LocalizedString.SelectBookingsPay.localized, at: 0)
-        }
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        
+        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
@@ -228,10 +233,11 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
-                printDebug("email tapped")
+                self.viewModel.sendEmailForLedger()
             }
             else {
                 //download pdf tapped
+                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized)
                 printDebug("download pdf tapped")
             }
         }
@@ -272,9 +278,15 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.tableView.backgroundView = self.noAccountTransectionView
         
-        self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
-        self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
-        self.manageMakePaymentView(isHidden: self.viewModel.allDates.isEmpty, animated: true)
+        let isAllDatesEmpty = self.viewModel.allDates.isEmpty
+        self.tableView.backgroundView?.isHidden = !isAllDatesEmpty
+        self.tableView.isScrollEnabled = !isAllDatesEmpty
+        self.manageMakePaymentView(isHidden: isAllDatesEmpty, animated: true)
+        self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
+        
+        self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
+        self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+        
         self.tableView.reloadData()
         self.searchTableView.reloadData()
     }

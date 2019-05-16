@@ -133,20 +133,25 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         guard let event = self.getEvent(forIndexPath: indexPath, forTableView: tableView).event else {
             return
         }
         
-        if let index = self.viewModel.selectedArrayIndex(forEvent: event) {
-            //already selected
-            self.viewModel.selectedEvent.remove(at: index)
+        if self.currentViewState == .selecting {
+            if let index = self.viewModel.selectedArrayIndex(forEvent: event) {
+                //already selected
+                self.viewModel.selectedEvent.remove(at: index)
+            }
+            else {
+                //select it
+                self.viewModel.selectedEvent.append(event)
+            }
+            self.reloadList()
         }
         else {
-            //select it
-            self.viewModel.selectedEvent.append(event)
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event)
         }
-        self.reloadList()
     }
     
     func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: AccountDetailEvent?, allCount: Int){

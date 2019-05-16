@@ -55,4 +55,29 @@ extension APICaller {
             }
         }
     }
+    
+    func accountReportActionAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.accountReportAction, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    completionBlock(true, [])
+                }
+                else {
+                    completionBlock(false, [])
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
 }

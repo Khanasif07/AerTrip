@@ -23,13 +23,13 @@ class AccountOutstandingLadgerVM: NSObject {
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         var arr = Array(accountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
         return arr
     }
     var searchedAccountDetails: JSONDictionary = JSONDictionary()
     var searchedAllDates: [String] {
         var arr = Array(searchedAccountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
         return arr
     }
     
@@ -67,15 +67,46 @@ class AccountOutstandingLadgerVM: NSObject {
     
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
-        
-        self.searchedAccountDetails = self._accountDetails.filter { (date, evnts) -> Bool in
-            if let events = evnts as? [AccountDetailEvent] {
-                return events.contains(where: { $0.title.contains(forText) })
-            }
-            return false
-        }
+
+        self.searchedAccountDetails = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
         
         self.delegate?.searchEventsSuccess()
+    }
+    
+    private func getDataApplySearch(forText: String, onData: JSONDictionary) -> JSONDictionary? {
+        if forText.isEmpty {
+            return onData
+        }
+        else {
+            
+            var newData = JSONDictionary()
+            
+            for date in Array(onData.keys) {
+                if let events = onData[date] as? [AccountDetailEvent] {
+                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+                    if !fltrd.isEmpty {
+                        newData[date] = fltrd
+                    }
+                }
+            }
+            return newData
+        }
+    }
+    
+    func sendEmailForLedger() {
+        var param = JSONDictionary()
+        param["action"] = "email"
+        param["type"] = "outstanding"
+        param["limit"] = 20
+        
+        APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
+            if success {
+                AppToast.default.showToastMessage(message: "Ledger has been sent to your registered email-id.")
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
     }
     
     //MARK:- Private

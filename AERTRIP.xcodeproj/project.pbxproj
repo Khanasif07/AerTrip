@@ -230,7 +230,6 @@
 		18C31F0B2227E40D0052162C /* EmailComposerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C31F0A2227E40D0052162C /* EmailComposerHeaderView.xib */; };
 		18C31F0D2227FFB60052162C /* EmailComposerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C31F0C2227FFB60052162C /* EmailComposerHeaderView.swift */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
-		18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9721C8D535003A37E1 /* AppLoader.swift */; };
 		18D4C40E220AB061005E1E37 /* AmenitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */; };
 		18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C410220AB572005E1E37 /* AmenitiesTableViewCell.swift */; };
 		18D4C413220AB572005E1E37 /* AmenitiesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D4C411220AB572005E1E37 /* AmenitiesTableViewCell.xib */; };
@@ -1027,7 +1026,6 @@
 		18C31F0A2227E40D0052162C /* EmailComposerHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailComposerHeaderView.xib; sourceTree = "<group>"; };
 		18C31F0C2227FFB60052162C /* EmailComposerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposerHeaderView.swift; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
-		18D2BC9721C8D535003A37E1 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesVC.swift; sourceTree = "<group>"; };
 		18D4C410220AB572005E1E37 /* AmenitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesTableViewCell.swift; sourceTree = "<group>"; };
 		18D4C411220AB572005E1E37 /* AmenitiesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesTableViewCell.xib; sourceTree = "<group>"; };
@@ -4131,7 +4129,6 @@
 				84F983A821B51A070018DFED /* AppConstants.swift */,
 				84F983A921B51A070018DFED /* AppGlobals.swift */,
 				84F983AA21B51A070018DFED /* AppFonts.swift */,
-				18D2BC9721C8D535003A37E1 /* AppLoader.swift */,
 				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
 			);
 			path = AppHelper;
@@ -4626,7 +4623,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
@@ -4639,7 +4636,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */ = {
@@ -4648,7 +4645,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/AertripCalendar/AertripCalendar.framework",
@@ -4669,6 +4666,7 @@
 				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
 				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
@@ -4697,6 +4695,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKLoader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
@@ -4705,7 +4704,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5111,7 +5110,6 @@
 				18727EB5222949DD00DB1786 /* APICaller+MailComposer.swift in Sources */,
 				8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */,
 				84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */,
-				18D2BC9821C8D535003A37E1 /* AppLoader.swift in Sources */,
 				18E7971A224A17CD00A7AC8B /* FinalCheckOutVM.swift in Sources */,
 				840BE9ED2254DD430025A867 /* FinalCheckOutVC+Razorpay.swift in Sources */,
 				84DD249F2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift in Sources */,

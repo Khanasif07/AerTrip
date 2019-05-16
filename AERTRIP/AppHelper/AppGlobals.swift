@@ -347,3 +347,62 @@ extension Double {
         }
     }
 }
+
+
+extension AppGlobals {
+    private func downloadPdf(fileURL: URL, screenTitle: String, complition: @escaping ((URL?)->Void)) {
+        // Create destination URL
+        if let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\(screenTitle).pdf")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url:fileURL)
+            
+            let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch (let writeError) {
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                } else {
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription)")
+                }
+            }
+            task.resume()
+        }
+        else {
+            complition(nil)
+        }
+    }
+    
+    func viewPdf(urlPath: String, screenTitle: String) {
+        //open pdf for booking id
+        
+        guard let url = urlPath.toUrl else {
+            printDebug("Please pass valid url")
+            return
+        }
+        
+        downloadPdf(fileURL: url, screenTitle: screenTitle) { (localPdf) in
+            if let url = localPdf {
+                DispatchQueue.mainSync {
+                    AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
+                }
+            }
+        }
+    }
+}

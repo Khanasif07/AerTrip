@@ -13,7 +13,6 @@ class AccountDetailsVC: BaseVC {
     enum ViewState {
         case searching
         case filterApplied
-        case filterAppliedInSearchMode
         case normal
     }
     
@@ -102,7 +101,7 @@ class AccountDetailsVC: BaseVC {
         self.topNavView.secondRightButton.isEnabled = false
         self.viewModel.getAccountDetails()
         
-        self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
@@ -197,7 +196,13 @@ class AccountDetailsVC: BaseVC {
                 sSelf.searchTableView.reloadData()
                 if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
                 }
+                else {
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.clear
+                }
+                
+                sSelf.topNavView.secondRightButton.isSelected = (sSelf.currentViewState == .filterApplied)
         })
     }
     
@@ -207,9 +212,10 @@ class AccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
-                printDebug("email tapped")
+                self.viewModel.sendEmailForLedger()
             } else {
                 //download pdf tapped
+                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.AccountsLegder.localized)
                 printDebug("download pdf tapped")
             }
         }
@@ -219,8 +225,14 @@ class AccountDetailsVC: BaseVC {
     func reloadList() {
         self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
         
-        self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
-        self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
+        let isAllDatesEmpty = self.viewModel.allDates.isEmpty
+        self.tableView.backgroundView?.isHidden = !isAllDatesEmpty
+        self.tableView.isScrollEnabled = !isAllDatesEmpty
+        self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
+        
+        self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
+        self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+        
         self.tableView.reloadData()
         self.searchTableView.reloadData()
     }
@@ -313,7 +325,6 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
         if let _ = filter {
             //apply filter
             if self.currentViewState == .searching {
-                self.currentViewState = .filterAppliedInSearchMode
             }
             else {
                 self.currentViewState = .filterApplied

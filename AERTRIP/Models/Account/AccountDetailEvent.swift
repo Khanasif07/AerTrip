@@ -140,6 +140,14 @@ struct AccountDetailEvent {
             self.voucherNo = "\(obj)"
         }
         
+        if let obj = json["overdue_days"] {
+            self.overDueDays = "\(obj)".toInt ?? 0
+        }
+        
+        if let obj = json["pending"] {
+            self.pendingAmount = "\(obj)".toDouble ?? 0.0
+        }
+        
 //        if let obj = json["voucher_name"] {
 //            self.voucherName = "\(obj)"
 //        }

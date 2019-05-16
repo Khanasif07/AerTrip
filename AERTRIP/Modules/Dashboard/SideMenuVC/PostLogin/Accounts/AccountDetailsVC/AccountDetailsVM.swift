@@ -244,5 +244,21 @@ class AccountDetailsVM: NSObject {
         }
     }
     
+    func sendEmailForLedger() {
+        var param = JSONDictionary()
+        param["action"] = "email"
+        param["type"] = "ledger"
+        param["limit"] = 20
+        
+        APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
+            if success {
+                AppToast.default.showToastMessage(message: "Ledger has been sent to your registered email-id.")
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
+    }
+    
     //MARK:- Private
 }
