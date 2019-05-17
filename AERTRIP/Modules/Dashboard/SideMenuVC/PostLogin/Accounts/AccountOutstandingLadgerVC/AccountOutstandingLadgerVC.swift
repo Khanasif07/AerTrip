@@ -130,20 +130,23 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
-        let drAttr = NSMutableAttributedString(string: LocalizedString.DebitShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
-        let crAttr = NSMutableAttributedString(string: LocalizedString.CreditShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
-
-        let gross = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        gross.append(drAttr)
-        self.grossOutstandingValueLabel.attributedText = gross
+        let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
+        let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let onAcc = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        onAcc.append(crAttr)
+        let grossAmount = self.viewModel.accountOutstanding?.grossAmount ?? 0.0
+        let grossStr = abs(grossAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        grossStr.append((grossAmount > 0) ? drAttr : crAttr)
+        self.grossOutstandingValueLabel.attributedText = grossStr
+        
+        let onAccAmount = self.viewModel.accountOutstanding?.onAccountAmount ?? 0.0
+        let onAcc = abs(onAccAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        onAcc.append((onAccAmount > 0) ? drAttr : crAttr)
         self.onAccountValueLabel.attributedText = onAcc
         
-        let netOut = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        netOut.append(crAttr)
-        self.netOutstandingValueLabel.attributedText = netOut
+        let netOutAmount = self.viewModel.accountOutstanding?.netAmount ?? 0.0
+        let netOutStr = abs(netOutAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        netOutStr.append((netOutAmount > 0) ? drAttr : crAttr)
+        self.netOutstandingValueLabel.attributedText = netOutStr
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
@@ -260,7 +263,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = Double(675640.74)
+        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.netAmount ?? 0.0)
         
         let selected = self.viewModel.totalAmountForSelected
         if self.currentViewState == .selecting, selected > 0.0 {
@@ -293,7 +296,9 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToOnAccountDetailVC()
+        if let obj = self.viewModel.accountOutstanding {
+            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj)
+        }
     }
 }
 

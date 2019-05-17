@@ -43,6 +43,11 @@ struct AccountDetailEvent {
             self._voucher = newValue.rawValue
         }
     }
+    var voucherNo: String = ""
+    
+    var voucherName: String {
+        return self.voucher.rawValue
+    }
     
     private var _productType : String = ""
     var productType: ProductType {
@@ -59,12 +64,6 @@ struct AccountDetailEvent {
     var balance: Double = 0.0
     
     var iconImage: UIImage? = nil
-    
-    var voucherNo: String = ""
-    
-    var voucherName: String {
-        return self.voucher.rawValue
-    }
     
     var date: Date?
     var checkIn: Date?

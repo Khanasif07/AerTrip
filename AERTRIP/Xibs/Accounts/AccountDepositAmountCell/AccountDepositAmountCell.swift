@@ -22,6 +22,8 @@ class AccountDepositAmountCell: UITableViewCell {
         
         self.selectionStyle = .none
         
+        self.amountTextField.keyboardType = .numberPad
+
         self.setFontAndColor()
     }
     
@@ -29,6 +31,7 @@ class AccountDepositAmountCell: UITableViewCell {
         super.prepareForReuse()
         
         self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
+        self.amountTextField.keyboardType = .numberPad
     }
     
     private func setFontAndColor() {

@@ -641,8 +641,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToOnAccountDetailVC() {
+    func moveToOnAccountDetailVC(outstanding: AccountOutstanding) {
         let obj = OnAccountDetailVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.outstanding = outstanding
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

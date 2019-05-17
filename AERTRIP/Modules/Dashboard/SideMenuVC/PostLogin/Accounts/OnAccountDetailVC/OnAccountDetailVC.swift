@@ -43,9 +43,15 @@ class OnAccountDetailVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundView = self.noAccountTransectionView
-        self.viewModel.getOnAccountDetails()
         
         self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.setScreenTitle()
+        self.reloadList()
     }
     
     override func bindViewModel() {
@@ -56,7 +62,7 @@ class OnAccountDetailVC: BaseVC {
     //MARK:- Private
     private func setScreenTitle() {
         let title = LocalizedString.OnAccount.localized
-        let dateStr = "22 Oct 2018"
+        let dateStr = (self.viewModel.outstanding?.onAccountDate ?? Date()).toString(dateFormat: "dd MMM YYYY")//"22 Oct 2018"
         let subTitle = "\(LocalizedString.ason.localized) \(dateStr)"
         
         let finalStr = "\(title)\n\(subTitle)"

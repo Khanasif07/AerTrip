@@ -322,28 +322,28 @@ struct AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "-\(AppConstants.kRuppeeSymbol)\(abs(self).delimiter)"
+            return "-\(abs(self.roundTo(places: 2)).delimiter)"
         }
         else {
-            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2).delimiter)"
+            return "\(self.roundTo(places: 2).delimiter)"
         }
     }
     
     var amountInDoubleWithSymbol: String {
         if self < 0 {
-            return "-\(AppConstants.kRuppeeSymbol)\(abs(self.roundTo(places: 2)))"
+            return "-\(abs(self.roundTo(places: 2)))"
         }
         else {
-            return "\(AppConstants.kRuppeeSymbol)\(self.roundTo(places: 2))"
+            return "\(self.roundTo(places: 2))"
         }
     }
     
     var amountInIntWithSymbol: String {
         if self < 0 {
-            return "-\(AppConstants.kRuppeeSymbol)\(abs(Int(self)))"
+            return "-\(abs(Int(self)))"
         }
         else {
-            return "\(AppConstants.kRuppeeSymbol)\(Int(self))"
+            return "\(Int(self))"
         }
     }
 }
