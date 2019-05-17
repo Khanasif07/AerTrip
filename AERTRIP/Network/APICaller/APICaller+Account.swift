@@ -11,7 +11,7 @@ import Foundation
 
 extension APICaller {
     
-    func getAccountDetailsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ accountLadger: JSONDictionary, _ outstandingLadger: JSONDictionary, _ errorCodes: ErrorCodes) -> Void) {
+    func getAccountDetailsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ accountLadger: JSONDictionary, _ accountLadgerVouchers: [String], _ outstanding: AccountOutstanding? , _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.accountDetail, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
@@ -21,34 +21,62 @@ extension APICaller {
                     let ledger = data["ledger"]
                     
                     var accLadger: JSONDictionary = JSONDictionary()
-                    var outLadger: JSONDictionary = JSONDictionary()
+                    var accLadgerVchrs: [String] = []
+                    var outStand: AccountOutstanding? = nil
                     
-                    if let transactions = data["outstanding"]["transactions"].arrayObject as? [JSONDictionary] {
-                        outLadger = AccountDetailEvent.modelsDict(data: transactions)
+                    if let outstanding = data["outstanding"].dictionaryObject {
+                        outStand = AccountOutstanding(json: outstanding)
                     }
                     
                     if let transactions = ledger["transactions"].arrayObject as? [JSONDictionary] {
-                        accLadger = AccountDetailEvent.modelsDict(data: transactions)
+                        let (lad, vchr) = AccountDetailEvent.modelsDict(data: transactions)
+                        accLadger = lad
+                        accLadgerVchrs = vchr
                     }
 
                     if let accData = ledger["summary"].dictionaryObject {
                         UserInfo.loggedInUser?.accountData = AccountModel(json: accData)
                     }
-                    completionBlock(true, accLadger, outLadger, [])
+                    completionBlock(true, accLadger, accLadgerVchrs, outStand, [])
                 }
                 else {
-                    completionBlock(false, [:], [:], [])
+                    completionBlock(false, [:], [], nil, [])
                 }
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, [:], [:], error)
+                completionBlock(false, [:], [], nil, error)
             })
         }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [:], [:], [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [:], [], nil, [ATErrorManager.LocalError.noInternet.rawValue])
             }
             else {
-                completionBlock(false, [:], [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [:], [], nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
+    
+    func accountReportActionAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.accountReportAction, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    completionBlock(true, [])
+                }
+                else {
+                    completionBlock(false, [])
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }

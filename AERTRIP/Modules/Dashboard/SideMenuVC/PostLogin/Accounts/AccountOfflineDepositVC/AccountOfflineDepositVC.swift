@@ -111,24 +111,26 @@ class AccountOfflineDepositVC: BaseVC {
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
-        self.manageLoader(shouldStart: true)
-        
-        delay(seconds: 1.0) {[weak self] in
-            guard let sSelf = self else {return}
-            sSelf.manageLoader(shouldStart: false)
+        if self.viewModel.userEnteredDetails.isDataVarified {
+            self.manageLoader(shouldStart: true)
+            printDebug(self.viewModel.userEnteredDetails.dict)
+            delay(seconds: 1.0) {[weak self] in
+                guard let sSelf = self else {return}
+                sSelf.manageLoader(shouldStart: false)
+            }
         }
     }
     
     @objc func fileDeleteButtonAction(_ sender: UIButton) {
         
-        if let indexPath = self.checkOutTableView.indexPath(forItem: sender), indexPath.section == 1, indexPath.row < self.viewModel.uploadedDocs.count {
+        if let indexPath = self.checkOutTableView.indexPath(forItem: sender), indexPath.section == 1, indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
             
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
             
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
-                    self.viewModel.uploadedDocs.remove(at: indexPath.row)
+                    self.viewModel.userEnteredDetails.uploadedSlips.remove(at: indexPath.row)
                     self.checkOutTableView.reloadData()
                 }
             }

@@ -20,7 +20,6 @@ enum AppNetworking {
         case image, video
     }
     
-    static var loader = __Loader(frame: CGRect(x:0, y:0, width:0, height:0))
     static let username = ""
     static let password = ""
     //static var manager:AFHTTPSessionManager?
@@ -393,11 +392,9 @@ extension AppNetworking {
     static func showLoader() {
         
         guard let window = AppDelegate.shared.window else {return}
-        loader.start(sender: window)
     }
     
     static func hideLoader() {
-        loader.stop()
     }
 }
 

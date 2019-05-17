@@ -91,6 +91,7 @@ enum APIEndPoint : String {
     
     //ACCOUNT
     case accountDetail = "user-accounts/detail"
+    case accountReportAction = "user-accounts/report-action"
     
     
     case hotelItinerary = "hotels/itinerary?action=traveller"    

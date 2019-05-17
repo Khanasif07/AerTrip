@@ -26,14 +26,19 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topSeparatorView.isHidden = false
-        headerView.headerLabel.text = self.viewModel.allDates[section]
+        
+        var dateStr = ""
+        if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section), forTableView: tableView).event {
+            dateStr = event.onAccountDate?.toString(dateFormat: "dd MMM YYYY") ?? ""
+        }
+        headerView.headerLabel.text = dateStr
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
+        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [OnAccountLedgerEvent] {
             return allEvent.count
         }
         return 0
@@ -65,13 +70,13 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: AccountDetailEvent?, allCount: Int){
+    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: OnAccountLedgerEvent?, allCount: Int){
         
         guard !self.viewModel.accountDetails.isEmpty else {
             return (nil, 0)
         }
         
-        let allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+        let allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [OnAccountLedgerEvent]) ?? []
         
         guard !allEvent.isEmpty else {
             return (nil, 0)
@@ -95,7 +100,7 @@ class OnAccountEventCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     
-    var event: AccountDetailEvent? {
+    var event: OnAccountLedgerEvent? {
         didSet {
             self.setData()
         }
@@ -137,12 +142,16 @@ class OnAccountEventCell: UITableViewCell {
             return
         }
         self.titleLabel.text = event.voucherName
-        self.descriptionLabel.text = event.billNumber
+        self.descriptionLabel.text = event.voucherNo
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let amount = event.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        amount.append(drAttr)
-        self.amountLabel.attributedText = amount
+        let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
+
+        let amount = event.amount
+        
+        let amountStr = abs(event.amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        amountStr.append((amount > 0) ? drAttr : crAttr)
+        self.amountLabel.attributedText = amountStr
     }
 }

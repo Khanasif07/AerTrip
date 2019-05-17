@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ADVoucherTypeVCDelegate: class {
+    func didSelect(voucher: String)
+}
+
+
 class ADVoucherTypeVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -17,6 +22,7 @@ class ADVoucherTypeVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
+    weak var delegate: ADVoucherTypeVCDelegate?
     let viewModel = ADVoucherTypeVM()
     
     //MARK:- Private
@@ -74,6 +80,7 @@ extension ADVoucherTypeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.selectedIndexPath = indexPath
+        self.delegate?.didSelect(voucher: self.viewModel.allTypes[indexPath.row])
         tableView.reloadData()
     }
     

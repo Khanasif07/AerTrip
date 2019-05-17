@@ -13,7 +13,7 @@ class ADVoucherTypeVM {
     //MARK:- Properties
     //MARK:- Public
     var selectedIndexPath: IndexPath?
-    let allTypes = ["All", "Sales", "Receipt"]
+    var allTypes: [String] = []
     
     //MARK:- Private
     

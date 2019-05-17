@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol TravelDateVCDelegate: class {
+    func didSelect(fromDate: Date)
+    func didSelect(toDate: Date)
+}
+
 class TravelDateVC: BaseVC {
     
     //Mark:- Variables
@@ -34,6 +39,12 @@ class TravelDateVC: BaseVC {
     @IBOutlet weak var fromDatePickerBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var toDatePickerBottomConstraints: NSLayoutConstraint!
     
+    weak var delegate: TravelDateVCDelegate?
+    var oldFromDate: Date?
+    var oldToDate: Date?
+    
+    private let dateFormate = "E, dd MMM yy"
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -48,6 +59,17 @@ class TravelDateVC: BaseVC {
         self.toParentView.addGestureRecognizer(toTapGesture)
         self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
         self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
+        
+        self.fromDatePicker.setDate(self.oldFromDate ?? Date(), animated: false)
+        self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+        
+        self.fromDatePicker.maximumDate = Date()
+        self.toDatePicker.maximumDate = Date()
+        
+        self.toDatePicker.minimumDate = self.oldFromDate ?? Date()
+        
+        self.toDateLabel.text = (self.oldToDate ?? Date()).toString(dateFormat: dateFormate)
+        self.fromDateLabel.text = (self.oldFromDate ?? Date()).toString(dateFormat: dateFormate)
     }
     
     override func setupTexts() {
@@ -100,17 +122,24 @@ class TravelDateVC: BaseVC {
     }
     
     @objc func toDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM yy"
-        let dateValue = dateFormatter.string(from: datePicker.date)
-        self.toDateLabel.text = dateValue
+        self.setLabelsDate()
+        self.delegate?.didSelect(toDate: datePicker.date)
     }
     
     @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM yy"
-        let dateValue = dateFormatter.string(from: datePicker.date)
-        self.fromDateLabel.text = dateValue
+        self.setLabelsDate()
+        
+        if datePicker.date.timeIntervalSince1970 > (self.toDatePicker.minimumDate?.timeIntervalSince1970 ?? 0) {
+            self.toDatePicker.setDate(datePicker.date, animated: false)
+            self.toDatePickerValueChanged(self.toDatePicker)
+        }
+        self.toDatePicker.minimumDate = datePicker.date
+        self.delegate?.didSelect(fromDate: datePicker.date)
+    }
+    
+    private func setLabelsDate() {
+        self.fromDateLabel.text = self.fromDatePicker.date.toString(dateFormat: dateFormate)
+        self.toDateLabel.text = self.toDatePicker.date.toString(dateFormat: dateFormate)
     }
 }
 

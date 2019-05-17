@@ -29,6 +29,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        self.bindViewModel()
+
         NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
 
         self.initialSetup()
@@ -36,7 +38,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.setupTexts()
         self.setupColors()
         self.setupNavBar()
-    
         self.bindViewModel()
         
         if !AppConstants.isStatusBarBlured, let backV = UIApplication.shared.statusBarView {

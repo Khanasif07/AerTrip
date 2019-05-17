@@ -17,7 +17,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0) ? 12 : (self.viewModel.uploadedDocs.count + 2)
+        return (section == 0) ? 12 : (self.viewModel.userEnteredDetails.uploadedSlips.count + 2)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -50,12 +50,12 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             
-            if indexPath.row < self.viewModel.uploadedDocs.count {
+            if indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
                 //uploaded document type
                 return 55.0
             }
             else {
-                let newIndex = indexPath.row - self.viewModel.uploadedDocs.count
+                let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
                 if newIndex == 0 {
                     //uploaded deposit slip
                     return 78.0
@@ -140,12 +140,12 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             
-            if indexPath.row < self.viewModel.uploadedDocs.count {
+            if indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
                 //uploaded document type
-                return self.getFileCell(title: self.viewModel.uploadedDocs[indexPath.row], size: "230.05 KB")
+                return self.getFileCell(title: self.viewModel.userEnteredDetails.uploadedSlips[indexPath.row], size: "230.05 KB")
             }
             else {
-                let newIndex = indexPath.row - self.viewModel.uploadedDocs.count
+                let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
                 if newIndex == 0 {
                     //uploaded deposit slip
                     return self.getUploadSlipCell()
@@ -165,14 +165,14 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             AppFlowManager.default.presentAertripBankDetailsVC()
         }
         else if indexPath.section == 1 {
-            let newIndex = indexPath.row - self.viewModel.uploadedDocs.count
+            let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
             if newIndex == 0 {
                 //add new slip
-                if !self.viewModel.uploadedDocs.contains("slip.pdf") {
-                    self.viewModel.uploadedDocs.append("slip.pdf")
+                if !self.viewModel.userEnteredDetails.uploadedSlips.contains("slip.pdf") {
+                    self.viewModel.userEnteredDetails.uploadedSlips.append("slip.pdf")
                 }
-                else if !self.viewModel.uploadedDocs.contains("slip.jpg") {
-                    self.viewModel.uploadedDocs.append("slip.jpg")
+                else if !self.viewModel.userEnteredDetails.uploadedSlips.contains("slip.jpg") {
+                    self.viewModel.userEnteredDetails.uploadedSlips.append("slip.jpg")
                 }
             }
             else if newIndex == 1 {
@@ -202,6 +202,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
+        
+        depositCell.amountTextField.delegate = self
+        depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
         return depositCell
     }
@@ -272,10 +275,14 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
-        
-        cell.titleLabel.text = value.isEmpty ? title : value
-        cell.editableTextField.text = placeholder
+ 
+        cell.titleLabel.text = title
+        cell.editableTextField.text = value
+        cell.editableTextField.placeholder = placeholder
+
         cell.separatorView.isHidden = !isDivider
+        cell.editableTextField.delegate = self
+        cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
 
         return cell
     }
@@ -293,6 +300,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.text = value
         cell.editableTextField.placeholder = placeholder
         cell.separatorView.isHidden = !isDivider
+        cell.editableTextField.delegate = self
+        cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+
         
         return cell
     }
@@ -310,6 +320,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.addNoteTextView.textColor = AppColors.themeBlack
         cell.addNoteTextView.placeholderInsets = .zero
         cell.sepratorView.isHidden = !isDivider
+        cell.addNoteTextView.delegate = self
         
         return cell
     }
@@ -324,6 +335,109 @@ extension AccountOfflineDepositVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         AppFlowManager.default.presentAccountChargeInfoVC(usingFor: .offlinePaymentSteps)
     }
+}
+
+extension AccountOfflineDepositVC {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
+            if indexPath.section == 0 {
+                switch indexPath.row {
+                    
+                case 2:
+                    //select bank name
+                    PKMultiPicker.noOfComponent = 1
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["ICICI", "HDFC", "SBI"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.userEnteredDetails.aertripBank = firstSelect
+                    }
+                    
+                case 5:
+                    //deposit date
+                    let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-YYYY")
+                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light) { (dateStr) in
+                        textField.text = dateStr
+                        self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
+                    }
+                    
+                case 6:
+                    
+                    if self.currentUsingAs == .fundTransfer {
+                        //transfer type
+                        PKMultiPicker.noOfComponent = 1
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                            textField.text = firstSelect
+                            self.viewModel.userEnteredDetails.transferType = firstSelect
+                        }
+                    }
+                    
+                case 8:
+                    //select your bank name
+                    PKMultiPicker.noOfComponent = 1
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["ICICI", "HDFC", "SBI"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.userEnteredDetails.userBank = firstSelect
+                    }
+                    
+                default:
+                    printDebug("")
+                    return true
+                }
+            }
+        }
+        return true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+
+        if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
+            if indexPath.section == 0 {
+                
+                switch indexPath.row {
+                case 0:
+                    //deposit amoutn cell
+                    self.viewModel.userEnteredDetails.depositAmount = (textField.text ?? "").removeAllWhitespaces.toDouble ?? 0.0
+
+                case 6:
+                    if self.currentUsingAs == .chequeOrDD {
+                        //chaque/dd numer
+                        self.viewModel.userEnteredDetails.ddNum = (textField.text ?? "").removeAllWhitespaces
+                    }
+                    
+                case 7:
+                    if self.currentUsingAs == .chequeOrDD {
+                        //branch details
+                        self.viewModel.userEnteredDetails.depositBranchDetail = (textField.text ?? "").removeAllWhitespaces
+                    }
+                    else {
+                        //UTR Code
+                        self.viewModel.userEnteredDetails.utrCode = (textField.text ?? "").removeAllWhitespaces
+                    }
+                    
+                case 9:
+                    //your account name
+                    self.viewModel.userEnteredDetails.userAccountName = (textField.text ?? "").removeAllWhitespaces
+
+                case 10:
+                    //your account number
+                    self.viewModel.userEnteredDetails.userAccountNum = (textField.text ?? "").removeAllWhitespaces
+                    
+                default:
+                    printDebug("")
+                }
+            }
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if let indexPath = self.checkOutTableView.indexPath(forItem: textView) {
+            if indexPath.section == 0, indexPath.row == 11 {
+                //additional note
+                self.viewModel.userEnteredDetails.additionalNote = (textView.text ?? "").removeAllWhitespaces
+            }
+        }
+    }
+    
 }
 
 extension AccountOfflineDepositVC: AccountOfflineDepositVMDelegate {

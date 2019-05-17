@@ -88,11 +88,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
-        self.viewModel.getAccountDetails()
-        
-        self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
@@ -105,7 +101,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
-        self.manageMakePaymentView(isHidden: true, animated: true)
+        self.reloadList()
     }
     
     override func bindViewModel() {
@@ -134,20 +130,23 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
-        let drAttr = NSMutableAttributedString(string: LocalizedString.DebitShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
-        let crAttr = NSMutableAttributedString(string: LocalizedString.CreditShort.localized, attributes: [.font: AppFonts.Regular.withSize(16.0)])
-
-        let gross = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        gross.append(drAttr)
-        self.grossOutstandingValueLabel.attributedText = gross
+        let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
+        let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let onAcc = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        onAcc.append(crAttr)
+        let grossAmount = self.viewModel.accountOutstanding?.grossAmount ?? 0.0
+        let grossStr = abs(grossAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        grossStr.append((grossAmount > 0) ? drAttr : crAttr)
+        self.grossOutstandingValueLabel.attributedText = grossStr
+        
+        let onAccAmount = self.viewModel.accountOutstanding?.onAccountAmount ?? 0.0
+        let onAcc = abs(onAccAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        onAcc.append((onAccAmount > 0) ? drAttr : crAttr)
         self.onAccountValueLabel.attributedText = onAcc
         
-        let netOut = Double(675640.74).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        netOut.append(crAttr)
-        self.netOutstandingValueLabel.attributedText = netOut
+        let netOutAmount = self.viewModel.accountOutstanding?.netAmount ?? 0.0
+        let netOutStr = abs(netOutAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        netOutStr.append((netOutAmount > 0) ? drAttr : crAttr)
+        self.netOutstandingValueLabel.attributedText = netOutStr
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
@@ -203,6 +202,10 @@ class AccountOutstandingLadgerVC: BaseVC {
                 sSelf.searchTableView.reloadData()
                 if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                }
+                else {
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.clear
                 }
         })
     }
@@ -210,13 +213,14 @@ class AccountOutstandingLadgerVC: BaseVC {
     private func showMoreOptions() {
         
         var titles = [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized]
-        if self.currentViewState == .selecting {
-            titles.insert("De\(LocalizedString.SelectBookingsPay.localized.lowercased())", at: 0)
+        if !self.viewModel.allDates.isEmpty {
+            let titleStr = (self.currentViewState == .selecting) ? "De\(LocalizedString.SelectBookingsPay.localized.lowercased())" : LocalizedString.SelectBookingsPay.localized
+            titles.insert(titleStr, at: 0)
         }
-        else {
-            titles.insert(LocalizedString.SelectBookingsPay.localized, at: 0)
-        }
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        
+        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
@@ -232,10 +236,11 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
-                printDebug("email tapped")
+                self.viewModel.sendEmailForLedger()
             }
             else {
                 //download pdf tapped
+                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized)
                 printDebug("download pdf tapped")
             }
         }
@@ -258,7 +263,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = Double(675640.74)
+        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.netAmount ?? 0.0)
         
         let selected = self.viewModel.totalAmountForSelected
         if self.currentViewState == .selecting, selected > 0.0 {
@@ -276,16 +281,24 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.tableView.backgroundView = self.noAccountTransectionView
         
-        self.tableView.backgroundView?.isHidden = !self.viewModel.allDates.isEmpty
-        self.tableView.isScrollEnabled = !self.viewModel.allDates.isEmpty
-        self.manageMakePaymentView(isHidden: self.viewModel.allDates.isEmpty, animated: true)
+        let isAllDatesEmpty = self.viewModel.allDates.isEmpty
+        self.tableView.backgroundView?.isHidden = !isAllDatesEmpty
+        self.tableView.isScrollEnabled = !isAllDatesEmpty
+        self.manageMakePaymentView(isHidden: isAllDatesEmpty, animated: true)
+        self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
+        
+        self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
+        self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+        
         self.tableView.reloadData()
         self.searchTableView.reloadData()
     }
     
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToOnAccountDetailVC()
+        if let obj = self.viewModel.accountOutstanding {
+            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj)
+        }
     }
 }
 
@@ -360,7 +373,15 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC()
+        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: ["Sales", "Receipt"], oldFilter: nil)
+    }
+}
+
+//MARK:- Filter VC delegate methods
+//MARK:-
+extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
+    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
+        printDebug(filter)
     }
 }
 
@@ -372,8 +393,6 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     }
     
     func getAccountDetailsSuccess() {
-        self.topNavView.firstRightButton.isEnabled = true
-        self.topNavView.secondRightButton.isEnabled = true
         self.reloadList()
     }
     

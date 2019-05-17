@@ -282,7 +282,8 @@ extension Double{
     
     private static var numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
         
         return numberFormatter
     }()

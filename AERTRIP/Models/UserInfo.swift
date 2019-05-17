@@ -501,6 +501,17 @@ class UserInfo {
         }
     }
     
+    var currentLocale: Locale {
+
+        switch self.preferredCurrency.uppercased() {
+        case "USD":
+            return Locale(identifier: "en_US")
+            
+        default:
+            return Locale(identifier: "en_IN")
+        }
+    }
+    
     class var hotelFilter: HotelFilter? {
         get {
             if let obj = UserDefaults.standard.retrieve(objectType: UserInfo.HotelFilter.self , fromKey: APIKeys.hotelFilter.rawValue) {

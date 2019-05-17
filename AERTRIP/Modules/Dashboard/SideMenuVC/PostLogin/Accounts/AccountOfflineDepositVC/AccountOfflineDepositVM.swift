@@ -17,7 +17,5 @@ class AccountOfflineDepositVM: NSObject {
     
     var userEnteredDetails: AccountOfflineDepositDetails = AccountOfflineDepositDetails()
     
-    weak var delegate: AccountOfflineDepositVMDelegate?
-    
-    var uploadedDocs: [String] = []
+    weak var delegate: AccountOfflineDepositVMDelegate?    
 }

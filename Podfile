@@ -25,6 +25,7 @@ target 'AERTRIP' do
     pod 'GooglePlaces'
     pod 'FlexiblePageControl'
     pod 'razorpay-pod', '1.1.0'
+    pod 'PKLoader'
 
     pod 'ActiveLabel'
     pod 'TransitionButton'

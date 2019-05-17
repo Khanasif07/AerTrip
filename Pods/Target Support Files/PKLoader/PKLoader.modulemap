@@ -1,0 +1,6 @@
+framework module PKLoader {
+  umbrella header "PKLoader-umbrella.h"
+
+  export *
+  module * { export * }
+}

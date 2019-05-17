@@ -81,12 +81,12 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let amount = event.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        amount.append(drAttr)
+        let amount = abs(event.amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        amount.append((event.amount < 0) ? drAttr : crAttr)
         self.amountValueLabel.attributedText = amount
         
-        let pending = event.pendingAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        pending.append(crAttr)
+        let pending = abs(event.pendingAmount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        pending.append((event.pendingAmount > 0) ? drAttr : crAttr)
         self.pendingValueLabel.attributedText = pending
         
         //set date

@@ -43,6 +43,11 @@ struct AccountDetailEvent {
             self._voucher = newValue.rawValue
         }
     }
+    var voucherNo: String = ""
+    
+    var voucherName: String {
+        return self.voucher.rawValue
+    }
     
     private var _productType : String = ""
     var productType: ProductType {
@@ -59,12 +64,6 @@ struct AccountDetailEvent {
     var balance: Double = 0.0
     
     var iconImage: UIImage? = nil
-    
-    var voucherNo: String = ""
-    
-    var voucherName: String {
-        return self.voucher.rawValue
-    }
     
     var date: Date?
     var checkIn: Date?
@@ -138,6 +137,14 @@ struct AccountDetailEvent {
         
         if let obj = json["voucher_number"] {
             self.voucherNo = "\(obj)"
+        }
+        
+        if let obj = json["overdue_days"] {
+            self.overDueDays = "\(obj)".toInt ?? 0
+        }
+        
+        if let obj = json["pending"] {
+            self.pendingAmount = "\(obj)".toDouble ?? 0.0
         }
         
 //        if let obj = json["voucher_name"] {
@@ -336,8 +343,9 @@ struct AccountDetailEvent {
         }
     }
     
-    static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {
+    static func modelsDict(data: [JSONDictionary]) -> (data: JSONDictionary, allVoucher: [String]) {
         var temp = JSONDictionary()
+        var vchrType: [String] = []
         
         for dict in data {
             let obj = AccountDetailEvent(json: dict)
@@ -349,9 +357,12 @@ struct AccountDetailEvent {
                 else {
                     temp[cDate] = [obj]
                 }
+                if !vchrType.contains(obj.voucher.rawValue) {
+                    vchrType.append(obj.voucher.rawValue)
+                }
             }
         }
         
-        return temp
+        return (temp, vchrType)
     }
 }

@@ -30,6 +30,8 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        self.viewModel.fetchLadgerDetails()
+
         self.setupParallexHeaderView()
         
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
@@ -44,8 +46,6 @@ class AccountLadgerDetailsVC: BaseVC {
         else {
             self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
         }
-        
-        self.viewModel.fetchLadgerDetails()
     }
     
     override func bindViewModel() {

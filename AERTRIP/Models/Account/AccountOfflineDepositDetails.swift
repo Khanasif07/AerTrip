@@ -93,11 +93,11 @@ struct AccountOfflineDepositDetails {
         }
         else if userAccountName.removeAllWhitespaces.isEmpty {
             flag = false
-            AppToast.default.showToastMessage(message: "Please select your account name.")
+            AppToast.default.showToastMessage(message: "Please enter your account name.")
         }
         else if userAccountNum.removeAllWhitespaces.isEmpty {
             flag = false
-            AppToast.default.showToastMessage(message: "Please select your account number.")
+            AppToast.default.showToastMessage(message: "Please enter your account number.")
         }
         else if uploadedSlips.isEmpty {
             flag = false
