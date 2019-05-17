@@ -655,6 +655,20 @@ enum LocalizedString: String {
     case cancellationPolicy
     case OpenInMaps
     case OpenInGoogleMaps
+    case CancellationFee
+    case SpecialCheckInInstructions
+    case CheckInInstructions
+    case BookingNote
+    case AddOnRequest
+    case InProcess
+    case ActionRequired
+    case AbortThisRequest
+    case ConfirmAbort
+    case NotesCapitalised
+    case Vouchers
+    case PayNow
+    case EnterComments
+    case AbortTitle
     
     //MARK: - AerinVC
     case Hi = "Hi"

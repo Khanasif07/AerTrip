@@ -46,6 +46,7 @@ class MyBookingFilterVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: "2230 of 3000 Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
+       
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
@@ -116,7 +117,7 @@ class MyBookingFilterVC: BaseVC {
         style.height = 50.0
         style.interItemSpace = 21.8
         style.itemPadding = 12.8
-        style.isScrollable = true
+        style.isScrollable = false
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
@@ -166,6 +167,10 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.hide(animated: true, shouldRemove: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+           self.hide(animated: true, shouldRemove: true)
     }
 }
 

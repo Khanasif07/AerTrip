@@ -29,13 +29,18 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HMQ-rw-mQP">
+                                <rect key="frame" x="177.5" y="333.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="w2T-fa-GqB" firstAttribute="trailing" secondItem="1Wg-GL-mVQ" secondAttribute="trailing" id="0pD-0O-3oS"/>
                             <constraint firstItem="1Wg-GL-mVQ" firstAttribute="top" secondItem="w2T-fa-GqB" secondAttribute="top" id="Gf7-kN-h6y"/>
                             <constraint firstItem="w2T-fa-GqB" firstAttribute="trailing" secondItem="BTg-OI-L8R" secondAttribute="trailing" id="HiB-aT-1ZV"/>
+                            <constraint firstItem="HMQ-rw-mQP" firstAttribute="centerX" secondItem="w2T-fa-GqB" secondAttribute="centerX" id="J3u-IV-abf"/>
                             <constraint firstItem="w2T-fa-GqB" firstAttribute="bottom" secondItem="BTg-OI-L8R" secondAttribute="bottom" id="RQ3-dG-PQE"/>
+                            <constraint firstItem="HMQ-rw-mQP" firstAttribute="centerY" secondItem="w2T-fa-GqB" secondAttribute="centerY" id="bAb-V3-LSI"/>
                             <constraint firstItem="1Wg-GL-mVQ" firstAttribute="leading" secondItem="w2T-fa-GqB" secondAttribute="leading" id="fd1-sZ-nPM"/>
                             <constraint firstItem="BTg-OI-L8R" firstAttribute="leading" secondItem="w2T-fa-GqB" secondAttribute="leading" id="r9Y-6f-YVY"/>
                             <constraint firstItem="BTg-OI-L8R" firstAttribute="top" secondItem="1Wg-GL-mVQ" secondAttribute="bottom" id="vm8-vb-Ca6"/>
@@ -43,6 +48,7 @@
                         <viewLayoutGuide key="safeArea" id="w2T-fa-GqB"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="HMQ-rw-mQP" id="8uo-Wn-2xi"/>
                         <outlet property="topNavView" destination="1Wg-GL-mVQ" id="Q37-lS-Zlw"/>
                         <outlet property="webViewContainer" destination="BTg-OI-L8R" id="Mwg-p1-t6u"/>
                     </connections>

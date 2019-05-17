@@ -109,8 +109,6 @@ extension BookingDetailVC: FareInfoHeaderViewDelegate {
         printDebug("fare info butto n tapped")
         AppFlowManager.default.presentBookingFareInfoDetailVC()
     }
-    
-    
 }
 
 

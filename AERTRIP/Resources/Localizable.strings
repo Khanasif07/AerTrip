@@ -621,7 +621,22 @@
 "BookingPolicy" = "Booking Policy";
 "cancellationPolicy" = "Cancellation Policy";
 "OpenInMaps" = "Open in Maps";
- "OpenInGoogleMaps"   = "Open in Google Maps";
+"OpenInGoogleMaps"   = "Open in Google Maps";
+"CancellationFee" = "Cancellation Fee";
+"NonRefundable" = "Non-refundable";
+"SpecialCheckInInstructions" = "Special Check-in Instructions";
+"CheckInInstructions" = "Check-in Instructions";
+"BookingNote" = "Booking Note";
+"AddOnRequest" = "Add-on Request";
+"InProcess" = "In Process";
+"ActionRequired" = "Action Required";
+"AbortThisRequest" = "Abort this Request";
+"ConfirmAbort" = "Confirm Abort";
+"NotesCapitalised"= "NOTES";
+"Vouchers" = "Vouchers";
+"PayNow" = "Pay Now";
+"EnterComments" = "Enter your comments (Optional)";
+"AbortTitle" = "Why would you want to abort this request";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";

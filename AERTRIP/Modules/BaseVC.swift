@@ -35,6 +35,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.setupFonts()
         self.setupTexts()
         self.setupColors()
+        self.setupNavBar()
     
         self.bindViewModel()
         
@@ -225,6 +226,14 @@ extension BaseVC {
     @objc func setupLayout() {
         
     }
+    
+    /// Setup up Nav Bar
+    
+    @objc func setupNavBar() {
+        
+    }
+    
+   
     
     @objc func keyboardWillShow(notification: Notification) {
     }

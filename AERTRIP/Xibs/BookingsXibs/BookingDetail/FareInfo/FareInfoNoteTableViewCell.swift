@@ -22,31 +22,45 @@ class FareInfoNoteTableViewCell: UITableViewCell {
             self.noteTextView.isUserInteractionEnabled = false
         }
     }
+    @IBOutlet weak var noteTextViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var noteTextViewBottomConstraint: NSLayoutConstraint!
     
+    // MARK: - Variables
+    // this is the case for the booking policy
+    var isForBookingPolicyCell: Bool = false {
+        didSet {
+            self.setUpFont()
+            self.setUpTextColor()
+            self.doInitialSetup()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.setUpFont()
-        self.setUpTextColor()
       
+    }
+    
+    
+    private func doInitialSetup() {
+    self.noteTextViewTopConstraint.constant = self.isForBookingPolicyCell ? 10 : 0
+    self.noteTextViewBottomConstraint.constant = self.isForBookingPolicyCell ? 12 : 0
     }
     
     
     // MARK: - Helper methods
     
     private func setUpFont() {
-        self.noteLabel.font = AppFonts.Regular.withSize(14.0)
+        self.noteLabel.font = isForBookingPolicyCell ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(14.0)
     }
     
     private func setUpTextColor() {
-        self.noteLabel.textColor = AppColors.themeGray60
+        self.noteLabel.textColor = isForBookingPolicyCell ?  AppColors.themeBlack : AppColors.themeGray60
     }
     
     
     ///Bulleted Notes Details
     private func bulletedNotesDetails(notes: [String]) -> NSMutableAttributedString {
-        let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
+        let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0)
         for (_,text) in notes.enumerated() {
@@ -60,7 +74,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
             bulletedString.append(attributedString)
             fullAttributedString.append(bulletedString)
         }
-        self.noteTextView.textColor = AppColors.textFieldTextColor51
+        self.noteTextView.textColor = isForBookingPolicyCell ? AppColors.themeBlack : AppColors.textFieldTextColor51
         return fullAttributedString
     }
     

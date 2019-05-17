@@ -24,6 +24,7 @@ class ATTableViewCell: UITableViewCell {
         self.setupFonts()
         self.setupTexts()
         self.setupColors()
+        self.doInitialSetup()
         
     }
     
@@ -45,6 +46,12 @@ class ATTableViewCell: UITableViewCell {
     
     /// Setup Texts
     @objc func setupTexts() {
+        
+    }
+    
+    /// Do Inital setup
+    
+    @objc func doInitialSetup()  {
         
     }
     

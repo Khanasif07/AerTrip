@@ -138,6 +138,7 @@ enum APIKeys: String {
     case lat = "lat"
     case long = "long"
     case amenities = "amenities"
+    case title = "title"
     
     //BulkBookings
     case source = "source"
@@ -263,6 +264,7 @@ enum APIKeys: String {
     case rankingStringDetail = "ranking_string_detail"
     case ratingImageUrl = "rating_image_url"
     case localizedName = "localized_name"
+    case date = "date"
     
     //itinerary data
     case payment_amount
@@ -335,7 +337,6 @@ enum APIKeys: String {
     case coupons
     case amount
     case user_amount
-    case date
     case processing_fee
     case _t
     case fname

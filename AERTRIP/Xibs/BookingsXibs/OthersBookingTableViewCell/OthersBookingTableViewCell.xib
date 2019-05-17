@@ -18,14 +18,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OthersBookingTableViewCell" id="KGk-i7-Jjw" customClass="OthersBookingTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fP2-dV-8J0">
-                        <rect key="frame" x="16" y="5" width="343" height="82"/>
+                        <rect key="frame" x="16" y="5" width="343" height="79.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vnh-M9-I15">
                                 <rect key="frame" x="20" y="26" width="30" height="30"/>
@@ -34,8 +34,8 @@
                                     <constraint firstAttribute="width" secondItem="Vnh-M9-I15" secondAttribute="height" multiplier="1:1" id="rK0-zZ-3ut"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-yh-LDO">
-                                <rect key="frame" x="70" y="20" width="256" height="42"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-yh-LDO">
+                                <rect key="frame" x="70" y="20.5" width="256" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-eO-RBL">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="23"/>
@@ -44,7 +44,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-ig-vT8">
-                                        <rect key="frame" x="0.0" y="24" width="256" height="18"/>
+                                        <rect key="frame" x="0.0" y="23" width="256" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
                         <constraints>
                             <constraint firstItem="Vnh-M9-I15" firstAttribute="leading" secondItem="fP2-dV-8J0" secondAttribute="leading" constant="20" id="0IG-uY-qcO"/>
                             <constraint firstItem="ER8-yh-LDO" firstAttribute="centerY" secondItem="Vnh-M9-I15" secondAttribute="centerY" id="3co-Yb-IdC"/>
-                            <constraint firstAttribute="bottom" secondItem="Vnh-M9-I15" secondAttribute="bottom" constant="26" id="8cN-QA-ZDP"/>
+                            <constraint firstAttribute="bottom" secondItem="Vnh-M9-I15" secondAttribute="bottom" constant="23.5" id="8cN-QA-ZDP"/>
                             <constraint firstAttribute="trailing" secondItem="ER8-yh-LDO" secondAttribute="trailing" constant="17" id="9R1-6J-FY7"/>
                             <constraint firstItem="ER8-yh-LDO" firstAttribute="leading" secondItem="Vnh-M9-I15" secondAttribute="trailing" constant="20" id="btf-dD-FfD"/>
                             <constraint firstItem="Vnh-M9-I15" firstAttribute="top" secondItem="fP2-dV-8J0" secondAttribute="top" constant="26" id="zDy-KS-qNn"/>

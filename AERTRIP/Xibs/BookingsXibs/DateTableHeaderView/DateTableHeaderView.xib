@@ -32,7 +32,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqI-ud-bKw">
-                            <rect key="frame" x="16" y="6" width="343" height="20"/>
+                            <rect key="frame" x="16" y="6" width="343" height="25"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="vqI-ud-bKw" secondAttribute="bottom" constant="5" id="7gL-kQ-gDO"/>
+                        <constraint firstAttribute="bottom" secondItem="vqI-ud-bKw" secondAttribute="bottom" id="7gL-kQ-gDO"/>
                         <constraint firstAttribute="trailing" secondItem="vqI-ud-bKw" secondAttribute="trailing" constant="16" id="bp1-4I-ASL"/>
                         <constraint firstItem="vqI-ud-bKw" firstAttribute="leading" secondItem="FCB-It-Ot6" secondAttribute="leading" constant="16" id="i2K-fB-6ss"/>
                         <constraint firstItem="vqI-ud-bKw" firstAttribute="top" secondItem="FCB-It-Ot6" secondAttribute="top" constant="6" id="oIz-Fe-cI0"/>

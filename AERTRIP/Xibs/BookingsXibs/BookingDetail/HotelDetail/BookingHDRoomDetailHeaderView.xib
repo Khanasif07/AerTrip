@@ -13,29 +13,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BookingHDRoomDetailHeaderView" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="103"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6s-o2-7vv">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bfu-8O-cdc">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="bfu-8O-cdc">
                             <rect key="frame" x="16" y="0.0" width="398" height="93"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQb-eo-IQq">
-                                    <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="398" height="26"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnQ-uJ-7xY">
-                                    <rect key="frame" x="0.0" y="31" width="398" height="31"/>
+                                    <rect key="frame" x="0.0" y="32" width="398" height="26"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wML-SS-Mg2">
-                                    <rect key="frame" x="0.0" y="62" width="398" height="31"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wML-SS-Mg2">
+                                    <rect key="frame" x="0.0" y="64" width="398" height="29"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q6s-o2-7vv" secondAttribute="trailing" id="2xn-aW-pZS"/>
                 <constraint firstItem="Q6s-o2-7vv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GaY-4S-560"/>
-                <constraint firstAttribute="bottom" secondItem="Q6s-o2-7vv" secondAttribute="bottom" id="YZo-sH-rhA"/>
+                <constraint firstAttribute="bottom" secondItem="Q6s-o2-7vv" secondAttribute="bottom" constant="10" id="YZo-sH-rhA"/>
                 <constraint firstItem="Q6s-o2-7vv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="l33-lD-UCj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

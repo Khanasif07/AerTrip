@@ -47,7 +47,14 @@ class SelectTripVC: BaseVC {
         
         topNavView.configureLeftButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
-        let btnTitle = self.viewModel.tripDetails == nil ? LocalizedString.Save.localized : LocalizedString.Move.localized
+        var btnTitle: String = ""
+    
+        if self.viewModel.isFromBooking {
+              btnTitle = self.viewModel.tripDetails == nil ? LocalizedString.Save.localized : LocalizedString.Move.localized
+        } else {
+           btnTitle = self.viewModel.tripDetails == nil ? LocalizedString.Add.localized : LocalizedString.Move.localized
+        }
+       
         topNavView.configureFirstRightButton(normalTitle: btnTitle, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
         if viewModel.allTrips.isEmpty {

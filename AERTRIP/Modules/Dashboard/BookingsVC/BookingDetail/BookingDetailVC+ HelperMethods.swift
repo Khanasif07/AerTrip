@@ -159,7 +159,7 @@ extension BookingDetailVC {
             guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
-            
+            fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: ["Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"])
             return fareInfoNoteCell

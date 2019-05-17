@@ -39,6 +39,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
             self.searchBar.backgroundColor = AppColors.screensBackground.color
+            self.searchBar.placeholder = LocalizedString.search.localized
         }
     }
     @IBOutlet weak var emptyStateImageView: UIImageView!
@@ -55,11 +56,12 @@ class MyBookingsVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_hotel_filter"), selectedImage: #imageLiteral(resourceName: "ic_hotel_filter"))
+        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
         self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
         self.emptyStateSetUp()
+        self.footerView.isHidden = true
     }
     
     override func setupTexts() {
@@ -89,7 +91,7 @@ class MyBookingsVC: BaseVC {
     //================
     private func filterOptionsPopUp() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TravelDate.localized,LocalizedString.EventType.localized,LocalizedString.BookingDate.localized], colors: [AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen])
-        _ = PKAlertController.default.presentActionSheetWithTextAllignMentAndImage(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton , textAlignment: CATextLayerAlignmentMode.center , selectedButtonIndex: self.selectedButton) { _, index in
+        _ = PKAlertController.default.presentActionSheetWithTextAllignMentAndImage(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton , textAlignment: CATextLayerAlignmentMode.right , selectedButtonIndex: self.selectedButton) { _, index in
             switch index {
             case 0:
                 self.selectedButton = index
@@ -112,11 +114,15 @@ class MyBookingsVC: BaseVC {
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
             self.childContainerView.isHidden = true
+            self.searchBarContainerView.isHidden = true
+            self.footerView.isHidden = true
         } else {
             self.emptyStateImageView.isHidden = true
             self.emptyStateTitleLabel.isHidden = true
             self.emptyStateSubTitleLabel.isHidden = true
             self.childContainerView.isHidden = false
+            self.searchBarContainerView.isHidden = false
+             self.footerView.isHidden = true
             self.instantiateChildVC()
         }
     }
@@ -217,7 +223,7 @@ extension MyBookingsVC: ATCategoryNavBarDelegate {
         if toIndex == 1 , self.viewModel.completedBookingsData.isEmpty {
             self.footerView.isHidden = true
         } else {
-            self.footerView.isHidden = false
+            self.footerView.isHidden = true
         }
         self.currentIndex = toIndex
 //        HotelFilterVM.shared.lastSelectedIndex = toIndex

@@ -46,6 +46,11 @@ class EventTypeVC: BaseVC {
     
     //Mark:- IBActions
     //================
+    
+    
+    @IBAction func openBookingFlow(_ sender: Any) {
+        AppFlowManager.default.moveToBookingDetail()
+    }
 }
 
 //Mark:- Extensions

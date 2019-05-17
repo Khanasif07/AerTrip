@@ -180,10 +180,19 @@ class AerinVC: BaseVC {
                     // move to Aerin VC
                 //AppFlowManager.default.showAerinTextToSpeechVC()
            //AppFlowManager.default.moveToAerinTextSpeechDetailVC()
-           // AppFlowManager.default.moveToBookingDetail()
+          
            //AppFlowManager.default.moveToOtherBookingsDetailsVC()
-             //AppFlowManager.default.moveToBookingDetail()
+          
+            // for  showing my booking
+            
+          //  AppFlowManager.default.moveToMyBookingsVC()
+            
+            
+        //   --------  for showing Boking hotel Detail --------
             AppFlowManager.default.moveToBookingHotelDetailVC()
+            
+//             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+//            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
             }
         }
     

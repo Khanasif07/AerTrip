@@ -508,11 +508,12 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentSelectTripVC(delegate: SelectTripVCDelegate) {
+    func presentSelectTripVC(delegate: SelectTripVCDelegate,isFromBooking: Bool = false) {
         /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
          In that case use `AppFlowManager.default.selectTrip()` method.
         */
         let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        obj.viewModel.isFromBooking = isFromBooking
         obj.delegate = delegate
         self.mainNavigationController.present(obj, animated: true)
     }
@@ -584,6 +585,12 @@ extension AppFlowManager {
     func presentBookingFareInfoDetailVC() {
         let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    
+    func moveToAbortRequestVC() {
+        let obj = AbortRequestVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 
     //MARK:- Account Section
@@ -726,6 +733,40 @@ extension AppFlowManager {
     func moveToBookingHotelDetailVC() {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    
+    func presentPolicyVC(_ usingForVC: VCUsingFor) {
+        let ob = BookingCancellationPolicyVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.viewModel.vcUsingType = usingForVC
+        self.mainNavigationController.present(ob, animated: true)
+    }
+    
+    // Move to  select Trip VC
+    func moveToSelectTripVC(delegate: SelectTripVCDelegate) {
+        /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
+         In that case use `AppFlowManager.default.selectTrip()` method.
+         */
+        let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        obj.delegate = delegate
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    
+    // Move to Add on Request Clel
+    
+    func moveToAddOnRequestVC(_ hotelData: HotelDetails = HotelDetails()) {
+        let obj = BookingAddOnRequestVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.hotelData = hotelData
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    
+    // Move to Voucher VC
+    
+    func moveToVoucherVC() {
+        let obj = BookingVoucherVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
    
 

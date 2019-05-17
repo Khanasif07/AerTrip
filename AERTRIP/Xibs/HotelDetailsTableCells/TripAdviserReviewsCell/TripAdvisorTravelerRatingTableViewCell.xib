@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,20 +20,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TripAdvisor Traveler Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXa-UK-RI3">
-                        <rect key="frame" x="16" y="19.5" width="288" height="21"/>
+                        <rect key="frame" x="16" y="18" width="288" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="MnX-uc-XFV">
-                        <rect key="frame" x="16" y="53.5" width="32" height="18"/>
+                        <rect key="frame" x="16" y="52" width="32" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="pxr-yN-5Xw"/>
                             <constraint firstAttribute="width" constant="32" id="yrK-03-TOs"/>
                         </constraints>
                     </imageView>
                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-hL-504" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="51" y="54" width="84" height="17"/>
+                        <rect key="frame" x="51" y="52.5" width="84" height="17"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="WwP-hT-KNJ"/>
@@ -54,13 +54,13 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3,089 Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylO-VJ-vhw">
-                        <rect key="frame" x="151" y="52" width="153" height="21"/>
+                        <rect key="frame" x="151" y="50.5" width="153" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#24 of 484 Hotels in Mumbai" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSe-g5-rXf">
-                        <rect key="frame" x="16" y="81" width="288" height="23"/>
+                        <rect key="frame" x="16" y="81.5" width="288" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -69,10 +69,10 @@
                 <constraints>
                     <constraint firstItem="ylO-VJ-vhw" firstAttribute="centerY" secondItem="QpF-hL-504" secondAttribute="centerY" id="7W0-oH-S1r"/>
                     <constraint firstAttribute="trailing" secondItem="yXa-UK-RI3" secondAttribute="trailing" constant="16" id="8Ca-LV-Hu9"/>
-                    <constraint firstItem="KSe-g5-rXf" firstAttribute="top" secondItem="QpF-hL-504" secondAttribute="bottom" constant="10" id="LXw-wZ-488"/>
-                    <constraint firstItem="yXa-UK-RI3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19.5" id="Pty-DS-JSn"/>
+                    <constraint firstItem="KSe-g5-rXf" firstAttribute="top" secondItem="QpF-hL-504" secondAttribute="bottom" constant="12" id="LXw-wZ-488"/>
+                    <constraint firstItem="yXa-UK-RI3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="Pty-DS-JSn"/>
                     <constraint firstItem="KSe-g5-rXf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VWQ-Xh-vwl"/>
-                    <constraint firstAttribute="bottom" secondItem="KSe-g5-rXf" secondAttribute="bottom" constant="21.5" id="VgU-xD-vY0"/>
+                    <constraint firstAttribute="bottom" secondItem="KSe-g5-rXf" secondAttribute="bottom" constant="21" id="VgU-xD-vY0"/>
                     <constraint firstItem="MnX-uc-XFV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZOq-4h-e9q"/>
                     <constraint firstItem="yXa-UK-RI3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Zhg-CC-qH1"/>
                     <constraint firstItem="QpF-hL-504" firstAttribute="centerY" secondItem="MnX-uc-XFV" secondAttribute="centerY" id="bhk-g2-81G"/>

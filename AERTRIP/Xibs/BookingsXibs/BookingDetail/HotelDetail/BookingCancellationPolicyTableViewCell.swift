@@ -48,4 +48,19 @@ class BookingCancellationPolicyTableViewCell: ATTableViewCell {
         self.bookingPolicyButton.setTitle(LocalizedString.BookingPolicy.localized, for: .selected)
         self.cancellationPolicyButton.setTitle(LocalizedString.cancellationPolicy.localized, for: .selected)
     }
+    
+    // booking Policy Button action
+    
+    @IBAction func bookingPolicyButton(_ sender: Any) {
+        delegate?.bookingPolicyButtonTapped()
+    }
+    
+    // booking Cancellation Button action
+    @IBAction func bookingCancellationButton(_ sender: Any) {
+        delegate?.cancellationPolicyButonTapped()
+    }
+    
+    
+    
+    
 }

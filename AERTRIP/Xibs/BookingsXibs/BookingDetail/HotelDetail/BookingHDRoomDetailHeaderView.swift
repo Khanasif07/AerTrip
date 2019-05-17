@@ -19,6 +19,8 @@ class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.setUpFont()
+        self.setUpColor()
         
     }
     

@@ -30,6 +30,8 @@ class SelectTripVM {
     
     var eventId: String = ""
     
+    var isFromBooking: Bool = false
+    
     //MARK:- Private
     
     

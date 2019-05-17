@@ -54,9 +54,13 @@ class UpcomingBookingsVM {
                 "travellersName": "You and Bhushan",
                 "queries": []
             ]
-            
+
         ]
-//        self.upcomingBookingData = UpComingBookingEvent.getEventData(jsonDictArray: jsonData)
+        
+        // uncomment below line for empty state
+       // let jsonData: [JSONDictionary] = []
+
+        //        self.upcomingBookingData = UpComingBookingEvent.getEventData(jsonDictArray: jsonData)
         self.upcomingDetails = UpComingBookingEvent.getEventJsondict(jsonDictArray: jsonData)
     }
 }

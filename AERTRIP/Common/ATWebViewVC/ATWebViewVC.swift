@@ -20,6 +20,9 @@ class ATWebViewVC: BaseVC {
         }
     }
     
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
+    
     
     //MARK:- Properties
     //MARK:- Public
@@ -38,6 +41,7 @@ class ATWebViewVC: BaseVC {
         
         //create webView
         self.loadUrl()
+        webView.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,5 +69,23 @@ class ATWebViewVC: BaseVC {
 extension ATWebViewVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+extension ATWebViewVC: UIWebViewDelegate {
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.activityIndicatorView.isHidden = false
+        self.activityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.isHidden = true
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.isHidden = true
     }
 }

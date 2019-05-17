@@ -23,13 +23,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99f-j0-0Fn">
-                                <rect key="frame" x="16" y="19" width="288" height="20.5"/>
+                                <rect key="frame" x="16" y="24" width="288" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3ZI-p4-ZuL">
-                                <rect key="frame" x="16" y="55.5" width="211" height="22"/>
+                                <rect key="frame" x="16" y="58.5" width="228" height="22"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38r-hB-1JM" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="2" width="85" height="18"/>
@@ -50,16 +50,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzB-ZI-fll">
-                                        <rect key="frame" x="89" y="0.0" width="122" height="22"/>
+                                        <rect key="frame" x="89" y="0.0" width="139" height="22"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="uRk-xH-Z9I">
-                                                <rect key="frame" x="0.0" y="-10" width="43" height="24"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserMailComposer" translatesAutoresizingMaskIntoConstraints="NO" id="uRk-xH-Z9I">
+                                                <rect key="frame" x="20" y="-10" width="32" height="18"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="43" id="Zet-cL-e3p"/>
+                                                    <constraint firstAttribute="width" constant="32" id="Zet-cL-e3p"/>
                                                 </constraints>
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LQ-ho-SCJ" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="38" y="1" width="84" height="20"/>
+                                                <rect key="frame" x="55" y="1" width="84" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="84" id="imM-d1-syc"/>
@@ -78,15 +78,16 @@
                                             </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="uRk-xH-Z9I" firstAttribute="leading" secondItem="FzB-ZI-fll" secondAttribute="leading" id="60p-UH-GPs"/>
+                                            <constraint firstItem="uRk-xH-Z9I" firstAttribute="leading" secondItem="FzB-ZI-fll" secondAttribute="leading" constant="20" id="60p-UH-GPs"/>
                                             <constraint firstAttribute="trailing" secondItem="4LQ-ho-SCJ" secondAttribute="trailing" priority="900" id="6KS-6v-A0I"/>
                                             <constraint firstItem="4LQ-ho-SCJ" firstAttribute="centerY" secondItem="FzB-ZI-fll" secondAttribute="centerY" id="Cpq-lg-UbV"/>
-                                            <constraint firstItem="4LQ-ho-SCJ" firstAttribute="leading" secondItem="uRk-xH-Z9I" secondAttribute="trailing" constant="-5" id="b8C-bR-qAX"/>
+                                            <constraint firstItem="4LQ-ho-SCJ" firstAttribute="leading" secondItem="uRk-xH-Z9I" secondAttribute="trailing" constant="3" id="b8C-bR-qAX"/>
                                             <constraint firstItem="uRk-xH-Z9I" firstAttribute="top" secondItem="FzB-ZI-fll" secondAttribute="top" constant="-10" id="kb5-yh-dnz"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="FzB-ZI-fll" firstAttribute="leading" secondItem="38r-hB-1JM" secondAttribute="trailing" constant="4" id="tRS-WX-rfm"/>
                                     <constraint firstAttribute="height" constant="22" id="vMZ-oM-RUf"/>
                                 </constraints>
                             </stackView>
@@ -94,9 +95,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3ZI-p4-ZuL" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="9kz-6n-m7a"/>
-                            <constraint firstItem="99f-j0-0Fn" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="19" id="IMT-BU-0MP"/>
-                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="top" secondItem="99f-j0-0Fn" secondAttribute="bottom" constant="16" id="O7H-I5-3lF"/>
-                            <constraint firstAttribute="bottom" secondItem="3ZI-p4-ZuL" secondAttribute="bottom" constant="23" id="b03-nD-awS"/>
+                            <constraint firstItem="99f-j0-0Fn" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="24" id="IMT-BU-0MP"/>
+                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="top" secondItem="99f-j0-0Fn" secondAttribute="bottom" constant="21" id="O7H-I5-3lF"/>
+                            <constraint firstAttribute="bottom" secondItem="3ZI-p4-ZuL" secondAttribute="bottom" constant="20" id="b03-nD-awS"/>
                             <constraint firstAttribute="trailing" secondItem="99f-j0-0Fn" secondAttribute="trailing" constant="16" id="mdC-0S-qtw"/>
                             <constraint firstItem="99f-j0-0Fn" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="v5U-HI-siD"/>
                         </constraints>
@@ -126,6 +127,6 @@
         <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="tripAdviser" width="32" height="24"/>
+        <image name="tripAdviserMailComposer" width="32" height="18"/>
     </resources>
 </document>

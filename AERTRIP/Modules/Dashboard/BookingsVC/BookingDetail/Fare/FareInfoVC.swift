@@ -58,7 +58,7 @@ class FareInfoVC: BaseVC {
             guard let fareInfoNoteCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
-            
+            fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: ["Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"])
             return fareInfoNoteCell
