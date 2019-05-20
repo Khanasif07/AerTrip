@@ -1009,16 +1009,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxg-Be-dXr">
-                                                    <rect key="frame" x="16" y="14" width="382" height="25"/>
+                                                    <rect key="frame" x="16" y="14" width="382" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="0gg-KU-cMo"/>
+                                                        <constraint firstAttribute="height" constant="20" id="0gg-KU-cMo"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbG-as-V44">
-                                                    <rect key="frame" x="16" y="42" width="382" height="55"/>
+                                                    <rect key="frame" x="16" y="40" width="382" height="53"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1028,8 +1028,8 @@
                                                 <constraint firstItem="fxg-Be-dXr" firstAttribute="top" secondItem="2SV-F0-3kV" secondAttribute="top" constant="14" id="22O-Yo-wJT"/>
                                                 <constraint firstItem="tbG-as-V44" firstAttribute="leading" secondItem="2SV-F0-3kV" secondAttribute="leading" constant="16" id="6Wr-pt-MEL"/>
                                                 <constraint firstItem="fxg-Be-dXr" firstAttribute="leading" secondItem="2SV-F0-3kV" secondAttribute="leading" constant="16" id="CyM-yE-Bza"/>
-                                                <constraint firstAttribute="bottom" secondItem="tbG-as-V44" secondAttribute="bottom" constant="8" id="OAK-Se-jfA"/>
-                                                <constraint firstItem="tbG-as-V44" firstAttribute="top" secondItem="fxg-Be-dXr" secondAttribute="bottom" constant="3" id="tP4-tZ-b6a"/>
+                                                <constraint firstAttribute="bottom" secondItem="tbG-as-V44" secondAttribute="bottom" constant="12" id="OAK-Se-jfA"/>
+                                                <constraint firstItem="tbG-as-V44" firstAttribute="top" secondItem="fxg-Be-dXr" secondAttribute="bottom" constant="6" id="tP4-tZ-b6a"/>
                                                 <constraint firstAttribute="trailing" secondItem="tbG-as-V44" secondAttribute="trailing" constant="16" id="tcZ-mg-bD4"/>
                                                 <constraint firstAttribute="trailing" secondItem="fxg-Be-dXr" secondAttribute="trailing" constant="16" id="yj7-cc-XOF"/>
                                             </constraints>

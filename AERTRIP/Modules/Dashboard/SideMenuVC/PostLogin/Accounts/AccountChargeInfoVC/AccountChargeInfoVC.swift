@@ -37,7 +37,7 @@ class AccountChargeInfoVC: BaseVC {
         self.topNavView.navTitleLabel.textAlignment = (self.viewModel.currentUsingFor == .chargeInfo) ? NSTextAlignment.center : NSTextAlignment.left
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"))
+        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"), normalTitle: " ", selectedTitle: " ")
     }
 
     
