@@ -491,6 +491,7 @@
 		843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */; };
 		843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
+		843E63202292782F00A04248 /* DepositItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E631F2292782F00A04248 /* DepositItinerary.swift */; };
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D502212BB07002C1374 /* UITextViewExtensions.swift */; };
@@ -757,7 +758,6 @@
 		84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839021B51A070018DFED /* AppProtocols.swift */; };
 		84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839221B51A070018DFED /* NSErrorExtension.swift */; };
 		84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839321B51A070018DFED /* UIColorExtension.swift */; };
-		84F983D221B51A070018DFED /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84F9839421B51A070018DFED /* LICENSE */; };
 		84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839521B51A070018DFED /* NSObjectExtension.swift */; };
 		84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839621B51A070018DFED /* ArrayExtension.swift */; };
 		84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839721B51A070018DFED /* UIApplicationExtension.swift */; };
@@ -1331,6 +1331,7 @@
 		843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBookingIncompleteVC.swift; sourceTree = "<group>"; };
 		843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRefundRequestedVC.swift; sourceTree = "<group>"; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
+		843E631F2292782F00A04248 /* DepositItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositItinerary.swift; sourceTree = "<group>"; };
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		84504D502212BB07002C1374 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
@@ -1600,7 +1601,6 @@
 		84F9839021B51A070018DFED /* AppProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppProtocols.swift; sourceTree = "<group>"; };
 		84F9839221B51A070018DFED /* NSErrorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
 		84F9839321B51A070018DFED /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		84F9839421B51A070018DFED /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84F9839521B51A070018DFED /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		84F9839621B51A070018DFED /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		84F9839721B51A070018DFED /* UIApplicationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
@@ -4164,7 +4164,6 @@
 			children = (
 				84F9839221B51A070018DFED /* NSErrorExtension.swift */,
 				84F9839321B51A070018DFED /* UIColorExtension.swift */,
-				84F9839421B51A070018DFED /* LICENSE */,
 				84F9839521B51A070018DFED /* NSObjectExtension.swift */,
 				84F9839621B51A070018DFED /* ArrayExtension.swift */,
 				84F9839721B51A070018DFED /* UIApplicationExtension.swift */,
@@ -4264,6 +4263,7 @@
 				84FD0DC9228A8E4800915A09 /* AccountModel.swift */,
 				84FD0DCA228A8E4800915A09 /* AccountOfflineDepositDetails.swift */,
 				845D3A19228D724500062EE5 /* AccountOutstanding.swift */,
+				843E631F2292782F00A04248 /* DepositItinerary.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -4537,7 +4537,6 @@
 				1887859F21DF746F0061869E /* TravellerListHeaderView.xib in Resources */,
 				18D4C413220AB572005E1E37 /* AmenitiesTableViewCell.xib in Resources */,
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
-				84F983D221B51A070018DFED /* LICENSE in Resources */,
 				8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */,
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
 				84DD24A02267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib in Resources */,
@@ -4947,6 +4946,7 @@
 				8455A67E2232920900CEE2B3 /* ReviewsOptionTableViewCell.swift in Sources */,
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
 				182D4860228AF515004796A2 /* BookingHDRoomDetailTableViewCell.swift in Sources */,
+				843E63202292782F00A04248 /* DepositItinerary.swift in Sources */,
 				8483AFA622118549009F7600 /* HotelRatingInfoCell.swift in Sources */,
 				849D37952289397200763AD8 /* AccountOnlineDepositVC+DelegateMethods.swift in Sources */,
 				84FD0DCE228A8E4800915A09 /* AccountOfflineDepositDetails.swift in Sources */,

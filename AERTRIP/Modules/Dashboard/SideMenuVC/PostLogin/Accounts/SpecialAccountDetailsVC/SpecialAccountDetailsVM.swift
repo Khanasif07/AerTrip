@@ -44,6 +44,10 @@ protocol SpecialAccountDetailsVMDelegate: class {
     func willFetchScreenDetails()
     func fetchScreenDetailsSuccess()
     func fetchScreenDetailsFail()
+    
+    func willGetOutstandingPayment()
+    func getOutstandingPaymentSuccess()
+    func getOutstandingPaymentFail()
 }
 
 class SpecialAccountDetailsVM {
@@ -61,6 +65,8 @@ class SpecialAccountDetailsVM {
     
     private(set) var accountLadger: JSONDictionary = JSONDictionary()
     private(set) var outstandingLadger: AccountOutstanding = AccountOutstanding(json: [:])
+    
+    private(set) var itineraryData: DepositItinerary?
     
     let depositCellHeight: CGFloat = 99.0
     
@@ -229,7 +235,7 @@ class SpecialAccountDetailsVM {
         for (idx, str) in otrAction.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
-            obj.height = 32.0
+            obj.height = 40.0
             
             obj.isDevider = true
             obj.isNext = true
@@ -263,6 +269,21 @@ class SpecialAccountDetailsVM {
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
+    }
+    
+    func getOutstandingPayment() {
+        
+        self.delegate?.willGetOutstandingPayment()
+        APICaller.shared.outstandingPaymentAPI(params: [:]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getOutstandingPaymentSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getOutstandingPaymentFail()
             }
         }
     }

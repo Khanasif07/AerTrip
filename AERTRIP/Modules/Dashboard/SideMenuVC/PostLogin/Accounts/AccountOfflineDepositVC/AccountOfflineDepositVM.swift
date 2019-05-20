@@ -15,6 +15,9 @@ protocol AccountOfflineDepositVMDelegate: class {
 
 class AccountOfflineDepositVM: NSObject {
     
+    var paymentModeDetails: PaymentModeDetails?
+    var bankMaster: [String] = []
+
     var userEnteredDetails: AccountOfflineDepositDetails = AccountOfflineDepositDetails()
     
     weak var delegate: AccountOfflineDepositVMDelegate?    

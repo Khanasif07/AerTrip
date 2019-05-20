@@ -58,7 +58,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
             
         case 4:
             //branch
-            return self.getDetailCell(title: "Bank Branch", value: bankDetail.branch)
+            return self.getDetailCell(title: "Bank Branch", value: bankDetail.branchName)
             
         case 5:
             //ifsc
@@ -74,6 +74,13 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 7 {
+            //download slip
+            AppGlobals.shared.viewPdf(urlPath: self.viewModel.allBanks[indexPath.section].depositSlip, screenTitle: "Slip")
         }
     }
     

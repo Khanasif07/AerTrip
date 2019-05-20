@@ -261,6 +261,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.configure(amount: amount, dateStr: dateStr)
+        self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
         return cell
@@ -478,6 +479,8 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
         self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        
+        self.stackViewTop.constant = 6.0
         self.amountLabelTraillingConstant.constant = 0.0
     }
 }
@@ -528,6 +531,7 @@ class AccountDepositCell: UITableViewCell {
         self.dateLabel.textColor = AppColors.themeRed
         self.dateLabel.text = dateStr
         
+        self.depositButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
         self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)

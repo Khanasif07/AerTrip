@@ -16,9 +16,17 @@ protocol AccountOnlineDepositVMDelegate: class {
 class AccountOnlineDepositVM: NSObject {
     
     weak var delegate: AccountOnlineDepositVMDelegate?
-    var depositAmount : Double = 24425.0
-    var feeAmount : Double = 75.0
-    var totalPayableAmount : Double {
+    var depositItinerary: DepositItinerary?
+    
+    var depositAmount: Double {
+        return depositItinerary?.netAmount ?? 0.0
+    }
+    
+    var feeAmount: Double {
+        return depositItinerary?.razorpay?.convenienceFees ?? 0.0
+    }
+    
+    var totalPayableAmount: Double {
         return depositAmount + feeAmount
     }
 }

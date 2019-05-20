@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import IQKeyboardManager
+import MapKit
 
 func printDebug<T>(_ obj : T) {
    print(obj)
@@ -291,8 +292,8 @@ struct AppGlobals {
         }
     }
     
-     func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
-//        let directionsURL = "http://maps.apple.com/?\(destLat),\(destLong)"
+    func openAppleMap(originLat: String ,originLong:String ,destLat: String ,destLong:String) {
+        //        let directionsURL = "http://maps.apple.com/?\(destLat),\(destLong)"
         //to show the route between source and destination uncomment the next line
         let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
         if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
@@ -300,6 +301,23 @@ struct AppGlobals {
         } else {
             printDebug("Can't use apple map://")
         }
+        
+        
+        
+        //        let latitute:CLLocationDegrees = originLat.toDouble ?? 0.0
+        //        let longitute:CLLocationDegrees = originLong.toDouble ?? 0.0
+        //
+        //        let regionDistance:CLLocationDistance = 10000
+        //        let coordinates = CLLocationCoordinate2DMake(latitute, longitute)
+        //        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+        //        let options = [
+        //            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+        //            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        //        ]
+        //        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        //        let mapItem = MKMapItem(placemark: placemark)
+        //        mapItem.name = ""
+        //        mapItem.openInMaps(launchOptions: options)
     }
     
     func redirectToMap(sourceView: UIView , originLat: String, originLong: String, destLat: String, destLong: String) {

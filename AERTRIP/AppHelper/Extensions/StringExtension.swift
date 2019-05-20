@@ -315,6 +315,16 @@ extension String {
         return nil
     }
     
+    /// EZSE: Converts String to Bool
+    var toBool: Bool {
+        switch self.lowercased() {
+        case "true", "1":
+            return true
+        default:
+            return false
+        }
+    }
+    
     /// EZSE: Converts String to Double
     var toDouble: Double? {
         if let num = NumberFormatter().number(from: self) {

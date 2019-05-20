@@ -21,6 +21,7 @@ class SpecialAccountDetailsVC: BaseVC {
     let viewModel = SpecialAccountDetailsVM()
     
     //MARK:- Private
+    var depositButton: ATButton?
     var currentUserType: UserInfo.UserType {
         return UserInfo.loggedInUser?.userType ?? UserInfo.UserType.statement
     }
@@ -60,16 +61,16 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC()
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData)
                 
             case 2:
                 //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD)
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("ChequeDemandDraft")
                 
             case 3:
                 //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer)
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("FundTransfer")
                 
             default:
@@ -83,13 +84,26 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Action
     @objc func depositButtonAction(_ sender: ATButton) {
-        self.showDepositOptions()
+        self.viewModel.getOutstandingPayment()
     }
 }
 
 //MARK:- ViewModel Delegate Methods
 //MARK:-
 extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
+    func willGetOutstandingPayment() {
+        self.depositButton?.isLoading = true
+    }
+    
+    func getOutstandingPaymentSuccess() {
+        self.depositButton?.isLoading = false
+        self.showDepositOptions()
+    }
+    
+    func getOutstandingPaymentFail() {
+        self.depositButton?.isLoading = false
+    }
+    
     func willFetchScreenDetails() {
     }
     

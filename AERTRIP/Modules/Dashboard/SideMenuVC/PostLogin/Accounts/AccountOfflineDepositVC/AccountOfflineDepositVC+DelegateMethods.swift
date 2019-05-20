@@ -162,7 +162,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0, indexPath.row == 3 {
             //see bank details
-            AppFlowManager.default.presentAertripBankDetailsVC()
+            AppFlowManager.default.presentAertripBankDetailsVC(bankDetails: self.viewModel.paymentModeDetails?.types ?? [])
         }
         else if indexPath.section == 1 {
             let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
@@ -347,7 +347,7 @@ extension AccountOfflineDepositVC {
                 case 2:
                     //select bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["ICICI", "HDFC", "SBI"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.aertripBank = firstSelect
                     }
@@ -374,7 +374,7 @@ extension AccountOfflineDepositVC {
                 case 8:
                     //select your bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["ICICI", "HDFC", "SBI"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.userBank = firstSelect
                     }
