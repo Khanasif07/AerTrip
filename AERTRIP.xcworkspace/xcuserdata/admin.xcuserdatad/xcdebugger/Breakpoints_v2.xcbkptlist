@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AertripBankDetailsVC/AertripBankDetailsVC+Delegates.swift"
-            timestampString = "580047513.918934"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC.swift"
+            timestampString = "580108968.52586"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "manageHeader(animated:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
-            timestampString = "580047513.919345"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/AccountDetailsVC/AccountDetailsVC.swift"
+            timestampString = "580108968.527133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413"
-            landmarkName = "viewPdf(urlPath:screenTitle:)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "manageSubView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Accounts/SpecialAccountDetailsVC/SpecialAccountDetailsVC+Delegate.swift"
+            timestampString = "580108968.527591"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

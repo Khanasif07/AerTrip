@@ -227,7 +227,7 @@ class SpecialAccountDetailsVM {
         
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
         
-        if usr.userType == UserInfo.UserType.statement {
+        if usr.userCreditType == UserCreditType.statement {
             otrAction.append("Periodic statement")
         }
         

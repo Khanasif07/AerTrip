@@ -73,8 +73,8 @@ class AccountChargeInfoVM {
     //MARK:- Private
     func fetchData() {
         if self.currentUsingFor == .chargeInfo, let user = UserInfo.loggedInUser {
-            titles = (user.userType == UserInfo.UserType.billWise) ? self.billWiseTitles : self.statementTitles
-            description = (user.userType == UserInfo.UserType.billWise) ? self.billWiseDescription : self.statementDescription
+            titles = (user.userCreditType == UserCreditType.billwise) ? self.billWiseTitles : self.statementTitles
+            description = (user.userCreditType == UserCreditType.billwise) ? self.billWiseDescription : self.statementDescription
         }
         else if self.currentUsingFor == .offlinePaymentSteps {
             titles = offlineDepositTitles

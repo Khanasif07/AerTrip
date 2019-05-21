@@ -12,8 +12,8 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         switch self.currentUserType {
         case .statement: return 4
-        case .topUp: return 3
-        case .billWise: return 4
+        case .topup: return 3
+        case .billwise: return 4
         default: return 0
         }
     }
@@ -24,11 +24,11 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             
             return [0.0, 10.0, 10.0, 35.0][section]
             
-        case .topUp:
+        case .topup:
             
             return [0.0, 10.0, 35.0][section]
             
-        case .billWise:
+        case .billwise:
             
             return [0.0, 10.0, 10.0, 35.0][section]
             
@@ -54,11 +54,11 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             
             return [self.viewModel.statementSummery.count, self.viewModel.creditSummery.count, 1, self.viewModel.otherAction.count][section]
             
-        case .topUp:
+        case .topup:
             
             return [self.viewModel.topUpSummery.count, 1, self.viewModel.otherAction.count][section]
             
-        case .billWise:
+        case .billwise:
             
             return [self.viewModel.bilWiseSummery.count, self.viewModel.creditSummery.count, 1, self.viewModel.otherAction.count][section]
             
@@ -87,7 +87,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             default: return 0
             }
             
-        case .topUp:
+        case .topup:
             
             switch indexPath.section {
             //topup summery
@@ -102,7 +102,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             default: return 0
             }
             
-        case .billWise:
+        case .billwise:
             
             switch indexPath.section {
             //bilwise summery
@@ -161,7 +161,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-        case .topUp:
+        case .topup:
             
             switch indexPath.section {
             //topup summery
@@ -200,7 +200,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-        case .billWise:
+        case .billwise:
             
             switch indexPath.section {
             //bilwise summery
@@ -286,7 +286,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
 
-        case .topUp:
+        case .topup:
             if (indexPath.section == 2) {
                 switch indexPath.row {
                 case 0:
@@ -300,7 +300,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
 
-        case .billWise:
+        case .billwise:
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
@@ -371,7 +371,7 @@ class AccountSummeryCell: UITableViewCell {
         dividerViewTrailingConstraint.constant = 16.0
         amountLabelTraillingConstant.constant = 16.0
         
-        if let user = UserInfo.loggedInUser, (user.userType == .topUp) {
+        if let user = UserInfo.loggedInUser, (user.userCreditType == .topup) {
             stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
         }
     }

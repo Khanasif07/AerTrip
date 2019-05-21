@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-Sa-j4l">
-                                <rect key="frame" x="0.0" y="88" width="414" height="76"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="77"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPi-8M-Jyd">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dmr-t0-8LE">
                                                 <rect key="frame" x="16" y="11" width="382" height="18"/>
@@ -34,7 +34,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixO-GK-RLc">
-                                                <rect key="frame" x="16" y="37" width="382" height="31"/>
+                                                <rect key="frame" x="16" y="37" width="382" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -88,7 +88,7 @@
                                     <constraint firstItem="vPi-8M-Jyd" firstAttribute="leading" secondItem="eOR-Sa-j4l" secondAttribute="leading" id="dAm-o2-1dN"/>
                                     <constraint firstItem="vPi-8M-Jyd" firstAttribute="top" secondItem="eOR-Sa-j4l" secondAttribute="top" id="dBD-oB-StY"/>
                                     <constraint firstItem="IJQ-2A-2pv" firstAttribute="leading" secondItem="eOR-Sa-j4l" secondAttribute="leading" id="df6-ra-lxE"/>
-                                    <constraint firstAttribute="height" constant="76" id="uWa-mY-Ahg"/>
+                                    <constraint firstAttribute="height" constant="77" id="uWa-mY-Ahg"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoE-5V-ZMQ" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
@@ -99,7 +99,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-Lg-1eA" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="164" width="414" height="698"/>
+                                <rect key="frame" x="0.0" y="165" width="414" height="697"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGS-5S-Bgb">

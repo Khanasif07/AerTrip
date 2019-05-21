@@ -589,7 +589,8 @@
 
 //AccountDetails Screen
 "Accounts" = "Accounts";
-"AccountsLegder" = "Accounts Legder";
+"AccountsLegder" = "Accounts Ledger";
+"AccountLegder" = "Account Ledger";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
 "Pending" = "Pending";

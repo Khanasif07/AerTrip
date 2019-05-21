@@ -82,7 +82,7 @@ class AccountDetailsVC: BaseVC {
         tableView.dataSource = self
         
         self.manageSubView()
-        let navTitle = (self.currentUsingAs == .account) ? LocalizedString.Accounts.localized : LocalizedString.AccountsLegder.localized
+        let navTitle = (self.currentUsingAs == .account) ? LocalizedString.Accounts.localized : LocalizedString.AccountLegder.localized
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
         
         self.topNavView.delegate = self
@@ -228,7 +228,10 @@ class AccountDetailsVC: BaseVC {
         let isAllDatesEmpty = self.viewModel.allDates.isEmpty
         self.tableView.backgroundView?.isHidden = !isAllDatesEmpty
         self.tableView.isScrollEnabled = !isAllDatesEmpty
-        self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
+        
+        if self.currentUsingAs == .account {
+            self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
+        }
         
         self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
         self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty

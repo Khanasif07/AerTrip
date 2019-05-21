@@ -39,7 +39,7 @@ class AccountDetailEventDescriptionCell: UITableViewCell {
     private func setFontAndColor() {
         
         self.mainContainerView.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.7, shadowRadius: 3.0)
+        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.5, shadowRadius: 5.0)
         
         self.clipsToBounds = true
         
@@ -64,7 +64,7 @@ class AccountDetailEventDescriptionCell: UITableViewCell {
     
     private func setData() {
         self.voucherValueLabel.text = self.event?.voucherName ?? ""
-        self.amountValueLabel.text = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol
-        self.balanceValueLabel.text = (self.event?.balance ?? 0.0).amountInDelimeterWithSymbol
+        self.amountValueLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        self.balanceValueLabel.attributedText = (self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
 }

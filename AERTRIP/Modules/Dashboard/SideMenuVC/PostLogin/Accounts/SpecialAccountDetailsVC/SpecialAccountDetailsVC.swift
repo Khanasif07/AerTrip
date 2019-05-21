@@ -22,8 +22,8 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Private
     var depositButton: ATButton?
-    var currentUserType: UserInfo.UserType {
-        return UserInfo.loggedInUser?.userType ?? UserInfo.UserType.statement
+    var currentUserType: UserCreditType {
+        return UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement
     }
     
     //MARK:- ViewLifeCycle
@@ -36,7 +36,7 @@ class SpecialAccountDetailsVC: BaseVC {
         
         self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         
-        if let user = UserInfo.loggedInUser, (user.userType == .statement || user.userType == .billWise) {
+        if let user = UserInfo.loggedInUser, (user.userCreditType == .statement || user.userCreditType == .billwise) {
             self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         }
         

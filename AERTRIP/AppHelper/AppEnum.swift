@@ -434,3 +434,11 @@ enum PassengersType : String {
     case Adult = "ADT"
     case child = "CHD"
 }
+
+
+enum UserCreditType: String {
+    case regular = "R"
+    case statement = "S"
+    case billwise = "B"
+    case topup = "T"
+}

@@ -593,11 +593,11 @@ extension AppFlowManager {
             return
         }
         
-        switch user.userType {
+        switch user.userCreditType {
         case .regular:
             self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [])
             
-        case .billWise:
+        case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
@@ -605,7 +605,7 @@ extension AppFlowManager {
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
-        case .topUp:
+        case .topup:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
         }
