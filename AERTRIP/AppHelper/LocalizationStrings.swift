@@ -669,6 +669,10 @@ enum LocalizedString: String {
     case PayNow
     case EnterComments
     case AbortTitle
+    case Call
+    case Date
+    case VoucherNo
+    case DownloadInvoice
     
     //MARK: - AerinVC
     case Hi = "Hi"

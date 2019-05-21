@@ -20,13 +20,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fx7-L8-x4N">
-                            <rect key="frame" x="16" y="11" width="42" height="21"/>
+                            <rect key="frame" x="16" y="10" width="42" height="22"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZX-b8-BiC">
-                            <rect key="frame" x="317" y="11" width="42" height="21"/>
+                            <rect key="frame" x="317" y="10.5" width="42" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -58,7 +58,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="3vR-7f-6bF" firstAttribute="centerY" secondItem="K6q-3f-aq6" secondAttribute="centerY" id="7VP-ba-j5Q"/>
@@ -74,14 +74,16 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="L8I-8Q-cKd" firstAttribute="top" secondItem="fx7-L8-x4N" secondAttribute="bottom" constant="8" id="1xw-Al-3em"/>
                         <constraint firstItem="DZX-b8-BiC" firstAttribute="centerY" secondItem="fx7-L8-x4N" secondAttribute="centerY" id="7Ov-C7-J39"/>
                         <constraint firstAttribute="bottom" secondItem="L8I-8Q-cKd" secondAttribute="bottom" id="Eig-ce-0NM"/>
                         <constraint firstItem="L8I-8Q-cKd" firstAttribute="leading" secondItem="S5L-Wq-Vl1" secondAttribute="leading" id="FC2-cp-RtZ"/>
+                        <constraint firstAttribute="height" constant="67" id="l1g-Zt-EhF"/>
                         <constraint firstAttribute="trailing" secondItem="DZX-b8-BiC" secondAttribute="trailing" constant="16" id="tZx-fY-Jng"/>
                         <constraint firstAttribute="trailing" secondItem="L8I-8Q-cKd" secondAttribute="trailing" id="tkJ-4n-D8x"/>
-                        <constraint firstItem="fx7-L8-x4N" firstAttribute="top" secondItem="S5L-Wq-Vl1" secondAttribute="top" constant="11" id="xhD-zt-nfn"/>
+                        <constraint firstItem="fx7-L8-x4N" firstAttribute="top" secondItem="S5L-Wq-Vl1" secondAttribute="top" constant="10" id="xhD-zt-nfn"/>
                         <constraint firstItem="fx7-L8-x4N" firstAttribute="leading" secondItem="S5L-Wq-Vl1" secondAttribute="leading" constant="16" id="xvB-ri-7Xa"/>
                     </constraints>
                 </view>
@@ -97,10 +99,14 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="arrowButton" destination="3vR-7f-6bF" id="KuI-eF-OH3"/>
+                <outlet property="bottomViewBottomConstraint" destination="Eig-ce-0NM" id="hGz-y6-x0b"/>
+                <outlet property="bottomViewTopConstraint" destination="1xw-Al-3em" id="yOm-ts-3fh"/>
+                <outlet property="cellTopViewHeightConstraint" destination="l1g-Zt-EhF" id="lcI-6m-eMS"/>
                 <outlet property="discountPriceLabel" destination="6y9-eP-ASc" id="uAa-WN-TcC"/>
                 <outlet property="discountViewHeightConstraint" destination="x0U-o7-vfv" id="ZGy-Ws-ERq"/>
                 <outlet property="discountsTitleLabel" destination="K6q-3f-aq6" id="CFW-YO-RZA"/>
                 <outlet property="grossFareTitleLabel" destination="fx7-L8-x4N" id="nlh-yx-Ki3"/>
+                <outlet property="grossFareTopConstraint" destination="xhD-zt-nfn" id="GZU-9N-Qkw"/>
                 <outlet property="grossPriceLabel" destination="DZX-b8-BiC" id="DlG-ZJ-fcP"/>
                 <outlet property="topBackgroundView" destination="S5L-Wq-Vl1" id="Cmm-vx-ya7"/>
             </connections>

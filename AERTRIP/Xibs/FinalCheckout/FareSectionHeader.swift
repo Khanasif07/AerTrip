@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FareSectionHeaderDelegate: class{
+protocol FareSectionHeaderDelegate: class {
     func headerViewTapped()
 }
 
@@ -17,15 +17,20 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet var discountsTitleLabel: UILabel!
     @IBOutlet var grossPriceLabel: UILabel!
     @IBOutlet var discountPriceLabel: UILabel!
-    @IBOutlet weak var topBackgroundView: UIView!
+    @IBOutlet var topBackgroundView: UIView!
     
-    @IBOutlet weak var arrowButton: UIButton!
-    @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var cellTopViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var grossFareTopConstraint: NSLayoutConstraint!
+    @IBOutlet var arrowButton: UIButton!
+    @IBOutlet var discountViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var bottomViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var bottomViewTopConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
+    
     weak var delegate: FareSectionHeaderDelegate?
     var isTappedFirstTime: Bool = false
-    
     
     override func awakeFromNib() {
         self.setUpText()
@@ -42,6 +47,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     private func setUpFont() {
         self.grossFareTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.discountPriceLabel.font = AppFonts.Regular.withSize(16.0)
+        self.discountsTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.grossPriceLabel.font = AppFonts.Regular.withSize(16.0)
         self.discountPriceLabel.font = AppFonts.Regular.withSize(16.0)
     }
@@ -52,21 +58,19 @@ class FareSectionHeader: UITableViewHeaderFooterView {
         self.grossPriceLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
     }
-
+    
     private func addGesture() {
-        //Add tap gesture to your view
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleGesture))
-        topBackgroundView.addGestureRecognizer(tap)
+        // Add tap gesture to your view
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleGesture))
+        self.topBackgroundView.addGestureRecognizer(tap)
     }
     
     // GestureRecognizer
-    @objc func handleGesture(gesture: UITapGestureRecognizer) -> Void {
-       
-        delegate?.headerViewTapped()
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        self.delegate?.headerViewTapped()
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
-        delegate?.headerViewTapped()
+        self.delegate?.headerViewTapped()
     }
-    
 }

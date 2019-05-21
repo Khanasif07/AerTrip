@@ -637,6 +637,10 @@
 "PayNow" = "Pay Now";
 "EnterComments" = "Enter your comments (Optional)";
 "AbortTitle" = "Why would you want to abort this request";
+"Call" = "Call";
+"Date" = "Date";
+"VoucherNo"  = "Voucher No.";
+"DonwloadInvoice" = "Download Invoice";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";

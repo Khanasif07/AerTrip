@@ -1073,7 +1073,7 @@ with us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6p1-vU-sb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="360.80000000000001" y="1102.3988005997003"/>
+            <point key="canvasLocation" x="474" y="853"/>
         </scene>
         <!--CompletedVC-->
         <scene sceneID="iLY-KD-F0W">
@@ -1359,7 +1359,7 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="44" id="m82-3Z-Hjj"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sTn-3c-QGW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="sTn-3c-QGW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
@@ -1476,6 +1476,89 @@ with us!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3R-TB-gCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8820" y="998"/>
+        </scene>
+        <!--Booking CallVC-->
+        <scene sceneID="Vjp-g0-w7A">
+            <objects>
+                <viewController storyboardIdentifier="BookingCallVC" id="pj4-Mp-zz1" customClass="BookingCallVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7ff-ab-FEb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZu-ug-ggf" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="lJ5-9X-cyf"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b9r-2R-lYa" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="b9r-2R-lYa" firstAttribute="top" secondItem="KZu-ug-ggf" secondAttribute="bottom" id="7lr-T3-Iyy"/>
+                            <constraint firstItem="b9r-2R-lYa" firstAttribute="leading" secondItem="59g-2I-k8i" secondAttribute="leading" id="OLf-Sk-TSr"/>
+                            <constraint firstItem="KZu-ug-ggf" firstAttribute="top" secondItem="59g-2I-k8i" secondAttribute="top" id="OT0-ZD-eJ8"/>
+                            <constraint firstItem="59g-2I-k8i" firstAttribute="trailing" secondItem="KZu-ug-ggf" secondAttribute="trailing" id="ULs-hP-G2C"/>
+                            <constraint firstItem="59g-2I-k8i" firstAttribute="trailing" secondItem="b9r-2R-lYa" secondAttribute="trailing" id="Ypk-MQ-U3e"/>
+                            <constraint firstItem="59g-2I-k8i" firstAttribute="bottom" secondItem="b9r-2R-lYa" secondAttribute="bottom" id="n56-Zg-i6f"/>
+                            <constraint firstItem="KZu-ug-ggf" firstAttribute="leading" secondItem="59g-2I-k8i" secondAttribute="leading" id="uls-gl-bww"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="59g-2I-k8i"/>
+                    </view>
+                    <connections>
+                        <outlet property="callTableView" destination="b9r-2R-lYa" id="aM7-Rf-IXW"/>
+                        <outlet property="topNavBar" destination="KZu-ug-ggf" id="dac-E2-An5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFV-74-SYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="958"/>
+        </scene>
+        <!--Booking InvoiceVC-->
+        <scene sceneID="IFP-by-mAe">
+            <objects>
+                <viewController storyboardIdentifier="BookingInvoiceVC" id="dUV-wh-n9e" customClass="BookingInvoiceVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tbm-5m-ksa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CFv-Rw-eJl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HNu-sb-Ubo"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVN-KD-R9K" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CFv-Rw-eJl" firstAttribute="leading" secondItem="oxA-MX-1Cb" secondAttribute="leading" id="1Rp-EG-3KU"/>
+                            <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="nVN-KD-R9K" secondAttribute="trailing" id="4UG-Vu-rd0"/>
+                            <constraint firstItem="nVN-KD-R9K" firstAttribute="leading" secondItem="oxA-MX-1Cb" secondAttribute="leading" id="8am-P1-PwV"/>
+                            <constraint firstItem="CFv-Rw-eJl" firstAttribute="top" secondItem="oxA-MX-1Cb" secondAttribute="top" id="S0X-vS-9tU"/>
+                            <constraint firstItem="oxA-MX-1Cb" firstAttribute="bottom" secondItem="nVN-KD-R9K" secondAttribute="bottom" id="S9A-7D-qoo"/>
+                            <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="CFv-Rw-eJl" secondAttribute="trailing" id="m6F-kj-R4m"/>
+                            <constraint firstItem="nVN-KD-R9K" firstAttribute="top" secondItem="CFv-Rw-eJl" secondAttribute="bottom" id="vSR-WK-qNn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oxA-MX-1Cb"/>
+                    </view>
+                    <connections>
+                        <outlet property="invoiceTableView" destination="nVN-KD-R9K" id="G6Q-he-37H"/>
+                        <outlet property="topNavBar" destination="CFv-Rw-eJl" id="3cz-64-V6O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hJc-NG-VMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-31" y="1516"/>
         </scene>
     </scenes>
     <resources>

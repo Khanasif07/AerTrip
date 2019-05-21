@@ -13,6 +13,11 @@ class DiscountCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var amountLabel: UILabel!
+    @IBOutlet var titleLabelBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var titleLabelLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var titleLabelTopConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,5 +40,10 @@ class DiscountCell: UITableViewCell {
     private func setUpColor() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.amountLabel.textColor = AppColors.themeBlack
+    }
+    
+    func configureCell(title: String, amount: String) {
+        self.titleLabel.text = title
+        self.amountLabel.text = amount
     }
 }

@@ -31,7 +31,7 @@ class AerinVC: BaseVC {
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
-
+    
     // MARK: - ViewLifeCycle
     
     // MARK: -
@@ -175,25 +175,32 @@ class AerinVC: BaseVC {
     // MARK: - Public
     
     // MARK: - Action
+    
     @IBAction func aerinButtonAction(_ sender: Any) {
         if !AppConstants.isReleasingToClient {
-                    // move to Aerin VC
-                //AppFlowManager.default.showAerinTextToSpeechVC()
-           //AppFlowManager.default.moveToAerinTextSpeechDetailVC()
-          
-           //AppFlowManager.default.moveToOtherBookingsDetailsVC()
-          
+            // move to Aerin VC
+            // AppFlowManager.default.showAerinTextToSpeechVC()
+            // AppFlowManager.default.moveToAerinTextSpeechDetailVC()
+            
+            // AppFlowManager.default.moveToOtherBookingsDetailsVC()
+            
             // for  showing my booking
             
-          //  AppFlowManager.default.moveToMyBookingsVC()
+            //  AppFlowManager.default.moveToMyBookingsVC()
             
+            //   --------  for showing Boking hotel Detail --------
+            // AppFlowManager.default.moveToBookingHotelDetailVC()
             
-        //   --------  for showing Boking hotel Detail --------
-            AppFlowManager.default.moveToBookingHotelDetailVC()
+            // for showing booking call VC
+            
+            // AppFlowManager.default.moveToBookingCallVC()
+            
+            // for showing bookig invoice VC
+            
+            AppFlowManager.default.moveToBookingInvoiceVC()
             
 //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
 //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
-            }
         }
-    
+    }
 }

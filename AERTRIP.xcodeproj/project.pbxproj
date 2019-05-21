@@ -194,6 +194,15 @@
 		187684B122845A44009637D6 /* NightStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187684AF22845A44009637D6 /* NightStateTableViewCell.xib */; };
 		187684B422845C24009637D6 /* BookingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187684B322845C24009637D6 /* BookingDetailVC.swift */; };
 		187684B822845D4A009637D6 /* BookingDetailVC+Delegatemethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187684B722845D4A009637D6 /* BookingDetailVC+Delegatemethods.swift */; };
+		1879C4892292669000897CED /* BookingCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4882292669000897CED /* BookingCallVC.swift */; };
+		1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C48A2292680C00897CED /* BookingCallVM.swift */; };
+		1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C48D22927AA700897CED /* BookingCallTableViewCell.swift */; };
+		1879C49022927AA700897CED /* BookingCallTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1879C48E22927AA700897CED /* BookingCallTableViewCell.xib */; };
+		1879C4932292ACEE00897CED /* BookingInvoiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4922292ACEE00897CED /* BookingInvoiceVC.swift */; };
+		1879C4972292B44F00897CED /* BookingDateVoucherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4952292B44F00897CED /* BookingDateVoucherTableViewCell.swift */; };
+		1879C4982292B44F00897CED /* BookingDateVoucherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1879C4962292B44F00897CED /* BookingDateVoucherTableViewCell.xib */; };
+		1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4992292BD2600897CED /* DownloadInvoiceTableViewCell.swift */; };
+		1879C49C2292BD2600897CED /* DownloadInvoiceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1879C49A2292BD2600897CED /* DownloadInvoiceTableViewCell.xib */; };
 		187F9EAF22314F3F005B6027 /* HotelsSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187F9EAE22314F3F005B6027 /* HotelsSearch.storyboard */; };
 		187FCE5F21DCF627008E7BA1 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */; };
 		188290602238D51A0000C118 /* GuestDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882905E2238D51A0000C118 /* GuestDetailTableViewCell.swift */; };
@@ -779,7 +788,6 @@
 		84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839021B51A070018DFED /* AppProtocols.swift */; };
 		84F983D021B51A070018DFED /* NSErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839221B51A070018DFED /* NSErrorExtension.swift */; };
 		84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839321B51A070018DFED /* UIColorExtension.swift */; };
-		84F983D221B51A070018DFED /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84F9839421B51A070018DFED /* LICENSE */; };
 		84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839521B51A070018DFED /* NSObjectExtension.swift */; };
 		84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839621B51A070018DFED /* ArrayExtension.swift */; };
 		84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839721B51A070018DFED /* UIApplicationExtension.swift */; };
@@ -1013,6 +1021,15 @@
 		187684AF22845A44009637D6 /* NightStateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NightStateTableViewCell.xib; sourceTree = "<group>"; };
 		187684B322845C24009637D6 /* BookingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailVC.swift; sourceTree = "<group>"; };
 		187684B722845D4A009637D6 /* BookingDetailVC+Delegatemethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingDetailVC+Delegatemethods.swift"; sourceTree = "<group>"; };
+		1879C4882292669000897CED /* BookingCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallVC.swift; sourceTree = "<group>"; };
+		1879C48A2292680C00897CED /* BookingCallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallVM.swift; sourceTree = "<group>"; };
+		1879C48D22927AA700897CED /* BookingCallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallTableViewCell.swift; sourceTree = "<group>"; };
+		1879C48E22927AA700897CED /* BookingCallTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCallTableViewCell.xib; sourceTree = "<group>"; };
+		1879C4922292ACEE00897CED /* BookingInvoiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInvoiceVC.swift; sourceTree = "<group>"; };
+		1879C4952292B44F00897CED /* BookingDateVoucherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDateVoucherTableViewCell.swift; sourceTree = "<group>"; };
+		1879C4962292B44F00897CED /* BookingDateVoucherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingDateVoucherTableViewCell.xib; sourceTree = "<group>"; };
+		1879C4992292BD2600897CED /* DownloadInvoiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadInvoiceTableViewCell.swift; sourceTree = "<group>"; };
+		1879C49A2292BD2600897CED /* DownloadInvoiceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadInvoiceTableViewCell.xib; sourceTree = "<group>"; };
 		187F9EAE22314F3F005B6027 /* HotelsSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelsSearch.storyboard; sourceTree = "<group>"; };
 		187FCE5E21DCF627008E7BA1 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		1882905E2238D51A0000C118 /* GuestDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -1644,7 +1661,6 @@
 		84F9839021B51A070018DFED /* AppProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppProtocols.swift; sourceTree = "<group>"; };
 		84F9839221B51A070018DFED /* NSErrorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
 		84F9839321B51A070018DFED /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		84F9839421B51A070018DFED /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84F9839521B51A070018DFED /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		84F9839621B51A070018DFED /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		84F9839721B51A070018DFED /* UIApplicationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
@@ -2133,6 +2149,43 @@
 				182EB20722855C2C001BFB20 /* BaggageInfoVC.swift */,
 			);
 			path = BookingDetail;
+			sourceTree = "<group>";
+		};
+		1879C4862292666A00897CED /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				1879C4882292669000897CED /* BookingCallVC.swift */,
+				1879C48A2292680C00897CED /* BookingCallVM.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		1879C48C2292785A00897CED /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				1879C48D22927AA700897CED /* BookingCallTableViewCell.swift */,
+				1879C48E22927AA700897CED /* BookingCallTableViewCell.xib */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		1879C4912292ACC000897CED /* BookingInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				1879C4922292ACEE00897CED /* BookingInvoiceVC.swift */,
+			);
+			path = BookingInvoice;
+			sourceTree = "<group>";
+		};
+		1879C4942292B43200897CED /* Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				1879C4952292B44F00897CED /* BookingDateVoucherTableViewCell.swift */,
+				1879C4962292B44F00897CED /* BookingDateVoucherTableViewCell.xib */,
+				1879C4992292BD2600897CED /* DownloadInvoiceTableViewCell.swift */,
+				1879C49A2292BD2600897CED /* DownloadInvoiceTableViewCell.xib */,
+			);
+			path = Invoice;
 			sourceTree = "<group>";
 		};
 		1882905D2238D4C80000C118 /* GuestDetails */ = {
@@ -3951,6 +4004,8 @@
 		84DD245C2265A9630013F77E /* BookingsXibs */ = {
 			isa = PBXGroup;
 			children = (
+				1879C4942292B43200897CED /* Invoice */,
+				1879C48C2292785A00897CED /* Call */,
 				1820F0F9228E91440019B8BB /* Vouchers */,
 				1876849D22844903009637D6 /* BookingDetail */,
 				84DD245B2265A6030013F77E /* DateTableHeaderView */,
@@ -4114,6 +4169,8 @@
 		84F2DC9122644C4300212F05 /* BookingsVC */ = {
 			isa = PBXGroup;
 			children = (
+				1879C4912292ACC000897CED /* BookingInvoice */,
+				1879C4862292666A00897CED /* Call */,
 				1820F0FD228E93550019B8BB /* Vouchers */,
 				1820F0F2228E2E8B0019B8BB /* BookingRequest */,
 				187684B222845BFC009637D6 /* BookingDetail */,
@@ -4278,7 +4335,6 @@
 			children = (
 				84F9839221B51A070018DFED /* NSErrorExtension.swift */,
 				84F9839321B51A070018DFED /* UIColorExtension.swift */,
-				84F9839421B51A070018DFED /* LICENSE */,
 				84F9839521B51A070018DFED /* NSObjectExtension.swift */,
 				84F9839621B51A070018DFED /* ArrayExtension.swift */,
 				84F9839721B51A070018DFED /* UIApplicationExtension.swift */,
@@ -4495,6 +4551,7 @@
 				846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */,
 				187684AD228456F4009637D6 /* BookingInfoCommonCell.xib in Resources */,
 				183B71B32289990B00A75B7F /* BookingTravellerTableViewCell.xib in Resources */,
+				1879C4982292B44F00897CED /* BookingDateVoucherTableViewCell.xib in Resources */,
 				846856B12233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib in Resources */,
 				1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */,
 				183B71A7228984C600A75B7F /* RouteFareInfoTableViewCell.xib in Resources */,
@@ -4515,6 +4572,7 @@
 				18E79718224A06B100A7AC8B /* TotalPayableNowCell.xib in Resources */,
 				846856A922339607001B9E13 /* ReviewTableViewCell.xib in Resources */,
 				1809A47421CD053B0018AB2F /* EditProfileImageHeaderView.xib in Resources */,
+				1879C49C2292BD2600897CED /* DownloadInvoiceTableViewCell.xib in Resources */,
 				180F9BDA222CF35F00518D3B /* HotelSearchTableViewCell.xib in Resources */,
 				84323D3E222FE5A300DA7581 /* AmenitiesNameTableViewCell.xib in Resources */,
 				84BBEEAF2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib in Resources */,
@@ -4557,6 +4615,7 @@
 				84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */,
 				1809A48021CDFE850018AB2F /* EditProfileTwoPartTableViewCell.xib in Resources */,
 				842EDE8D2238E95F00E99409 /* CouponCodeTableViewCell.xib in Resources */,
+				1879C49022927AA700897CED /* BookingCallTableViewCell.xib in Resources */,
 				84D2FB8421BE351E00011000 /* PKCountryFlag.xcassets in Resources */,
 				84504D552212E436002C1374 /* TripAdvisorTableViewCell.xib in Resources */,
 				84E4CC7621E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib in Resources */,
@@ -4656,7 +4715,6 @@
 				1887859F21DF746F0061869E /* TravellerListHeaderView.xib in Resources */,
 				18D4C413220AB572005E1E37 /* AmenitiesTableViewCell.xib in Resources */,
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
-				84F983D221B51A070018DFED /* LICENSE in Resources */,
 				8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */,
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
 				84DD24A02267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib in Resources */,
@@ -5029,6 +5087,7 @@
 				84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */,
 				84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */,
 				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
+				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
@@ -5158,6 +5217,7 @@
 				84085CD921F59C0E00F1E844 /* BaseVC.swift in Sources */,
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
+				1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */,
 				18EF5E71221D261B00EFFA6E /* GMUDefaultClusterRenderer.m in Sources */,
 				84534E9F2248AB8F009FF536 /* HCHotelRatingTableViewCell.swift in Sources */,
 				84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */,
@@ -5215,6 +5275,7 @@
 				84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */,
 				84B841212223F24900CAA226 /* RecentSearchesModel.swift in Sources */,
 				842EDE7C2238E7D600E99409 /* HotelDetailsReviewsVM.swift in Sources */,
+				1879C4892292669000897CED /* BookingCallVC.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				8477163D22844AC0000E1BB6 /* PeriodicStatementVC.swift in Sources */,
 				841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */,
@@ -5226,6 +5287,7 @@
 				84DD24792266100C0013F77E /* CompletedVC.swift in Sources */,
 				847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */,
 				84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */,
+				1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
 				849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */,
 				18EF5E6C221D261B00EFFA6E /* GMUClusterManager.m in Sources */,
@@ -5320,6 +5382,7 @@
 				1893299E22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift in Sources */,
 				840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */,
 				84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */,
+				1879C4932292ACEE00897CED /* BookingInvoiceVC.swift in Sources */,
 				842EDE772238E7D600E99409 /* HotelDetails.swift in Sources */,
 				18020AF92281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift in Sources */,
 				842EDE752238E7D600E99409 /* HotelDetailsVC+Delegates.swift in Sources */,
@@ -5333,6 +5396,7 @@
 				18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,
 				84F1626E2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift in Sources */,
+				1879C4972292B44F00897CED /* BookingDateVoucherTableViewCell.swift in Sources */,
 				8480703A22295A1B0061C642 /* HotelGroupCardCollectionViewCell.swift in Sources */,
 				84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */,
 				842EDE7D2238E7D600E99409 /* HotelDetailsOverviewVC.swift in Sources */,
