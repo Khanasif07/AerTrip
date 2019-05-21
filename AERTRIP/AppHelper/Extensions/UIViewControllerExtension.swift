@@ -125,6 +125,7 @@ extension UIViewController{
     func captureImage(delegate:(UIImagePickerControllerDelegate & UINavigationControllerDelegate)?,
                       photoGallary:Bool = true,
                       camera:Bool = true,
+                      optionsColor:UIColor = AppColors.themeGreen,
                       cameraDevice: UIImagePickerController.CameraDevice = .rear) {
         
         let alertController = UIAlertController(title: "Choose from options", message: "", preferredStyle: UIAlertController.Style.actionSheet)
@@ -134,6 +135,8 @@ extension UIViewController{
             let alertActionGallery = UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 self.checkAndOpenLibrary(delegate: delegate)
             }
+            
+            alertActionGallery.setValue(optionsColor, forKey: "titleTextColor")
             alertController.addAction(alertActionGallery)
         }
         
@@ -142,11 +145,15 @@ extension UIViewController{
                 
                 !UIDevice.isSimulator ? self.checkAndOpenCamera(delegate: delegate, cameraDevice: cameraDevice):self.checkAndOpenLibrary(delegate: delegate)
             }
+            
+            alertActionCamera.setValue(optionsColor, forKey: "titleTextColor")
             alertController.addAction(alertActionCamera)
         }
         let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action:UIAlertAction) in
             
         }
+        
+        alertActionCancel.setValue(optionsColor, forKey: "titleTextColor")
         alertController.addAction(alertActionCancel)
         
         self.present(alertController, animated: true, completion: nil)

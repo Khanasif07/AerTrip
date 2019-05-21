@@ -658,11 +658,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor, paymentModeDetail: PaymentModeDetails?, bankMaster: [String]) {
+    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor, paymentModeDetail: PaymentModeDetails?, netAmount: Double, bankMaster: [String]) {
         let obj = AccountOfflineDepositVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
         obj.viewModel.paymentModeDetails = paymentModeDetail
         obj.viewModel.bankMaster = bankMaster
+        obj.viewModel.userEnteredDetails.depositAmount = netAmount
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

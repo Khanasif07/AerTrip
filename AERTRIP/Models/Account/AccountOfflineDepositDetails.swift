@@ -25,36 +25,10 @@ struct AccountOfflineDepositDetails {
     var utrCode: String = ""
     
     var depositDateStr: String {
-        return depositDate?.toString(dateFormat: "dd-MM-YYYY") ?? ""
+        return depositDate?.toString(dateFormat: "YYYY-MM-dd") ?? ""
     }
     
     var isForFundTransfer: Bool = false
-    
-    
-    var dict: JSONDictionary {
-        var temp = JSONDictionary()
-        temp["depositAmount"] = depositAmount
-        temp["aertripBank"] = aertripBank
-        temp["depositDate"] = depositDateStr
-        temp["userBank"] = userBank
-        temp["userAccountName"] = userAccountName
-        temp["userAccountNum"] = userAccountNum
-        temp["additionalNote"] = additionalNote
-        temp["uploadedSlips"] = uploadedSlips
-        temp["isAgreeToTerms"] = isAgreeToTerms
-        
-        if isForFundTransfer {
-            temp["transferType"] = transferType
-            temp["utrCode"] = utrCode
-        }
-        else {
-            temp["ddNum"] = ddNum
-            temp["depositBranchDetail"] = depositBranchDetail
-        }
-        
-        
-        return temp
-    }
     
     var isDataVarified: Bool {
         var flag = true

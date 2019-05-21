@@ -35,18 +35,22 @@ struct DepositItinerary {
             
             if let razorPay = paymentModes["razorpay"] as? JSONDictionary {
                 self.razorpay = PaymentModeDetails(json: razorPay)
+                self.razorpay?.itId = self.id
             }
             
             if let razorPay = paymentModes["cash-deposit-in-bank"] as? JSONDictionary {
                 self.cashDeposit = PaymentModeDetails(json: razorPay)
+                self.cashDeposit?.itId = self.id
             }
             
             if let razorPay = paymentModes["demand-draft-cheque"] as? JSONDictionary {
                 self.chequeOrDD = PaymentModeDetails(json: razorPay)
+                self.chequeOrDD?.itId = self.id
             }
             
             if let razorPay = paymentModes["rtgs-neft-imps-transfer"] as? JSONDictionary {
                 self.fundTransfer = PaymentModeDetails(json: razorPay)
+                self.fundTransfer?.itId = self.id
             }
         }
         
@@ -70,6 +74,7 @@ struct PaymentModeValidation {
 struct PaymentModeDetails {
     
     var id: String = ""
+    var itId: String = ""
     var isDisplay : Bool = false
     var label: String = ""
     var category: String = ""

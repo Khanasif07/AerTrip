@@ -115,7 +115,7 @@ extension APICaller {
     
     //MARK: - Api for Save Edit profile user
     //MARK: -
-    func registerOfflinePaymentAPI(params: JSONDictionary,filePath:String, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func registerOfflinePaymentAPI(params: JSONDictionary, filePath:String, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
         
         if filePath.isEmpty {
             AppNetworking.POST(endPoint: APIEndPoint.registerPayment, parameters: params, success: { [weak self] (json) in
@@ -139,7 +139,8 @@ extension APICaller {
             }
             
         } else {
-            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.registerPayment, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: { (data) in
+            let exten = filePath.hasSuffix(".pdf") ? "pdf" : "jpeg"
+            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.registerPayment, parameters: params, multipartData: [(key: "deposit_slip", filePath:filePath, fileExtention: exten, fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: { (data) in
                 printDebug(data)
                 completionBlock(true,[])
             }, progress: { (progress) in

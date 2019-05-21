@@ -154,11 +154,11 @@ struct AppGlobals {
     }
     
     
-    func saveImage(data: Data) -> String {
+    func saveImage(data: Data, fileNameWithExtension: String? = nil) -> String {
         // get the documents directory url
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         // choose a name for your image
-        let fileName = "\(UIDevice.uuidString).jpg"
+        let fileName = fileNameWithExtension ?? "\(UIDevice.uuidString).jpg"
         // create the destination file url to save your image
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         // get your UIImage jpeg data representation and check if the destination file url already exists

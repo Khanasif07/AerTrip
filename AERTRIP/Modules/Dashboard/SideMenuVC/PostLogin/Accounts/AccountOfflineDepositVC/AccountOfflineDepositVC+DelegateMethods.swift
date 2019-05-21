@@ -142,7 +142,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             if indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
                 //uploaded document type
-                return self.getFileCell(title: self.viewModel.userEnteredDetails.uploadedSlips[indexPath.row], size: "230.05 KB")
+                let urlPath = self.viewModel.userEnteredDetails.uploadedSlips[indexPath.row]
+                let title = urlPath.toUrl?.lastPathComponent ?? ""
+                
+                return self.getFileCell(title: title, size: urlPath.fileSizeWithUnit)
             }
             else {
                 let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
@@ -168,12 +171,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
             if newIndex == 0 {
                 //add new slip
-                if !self.viewModel.userEnteredDetails.uploadedSlips.contains("slip.pdf") {
-                    self.viewModel.userEnteredDetails.uploadedSlips.append("slip.pdf")
-                }
-                else if !self.viewModel.userEnteredDetails.uploadedSlips.contains("slip.jpg") {
-                    self.viewModel.userEnteredDetails.uploadedSlips.append("slip.jpg")
-                }
+                self.captureImage(delegate: self)
             }
             else if newIndex == 1 {
                 self.viewModel.userEnteredDetails.isAgreeToTerms = !self.viewModel.userEnteredDetails.isAgreeToTerms
@@ -205,6 +203,8 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         depositCell.amountTextField.delegate = self
         depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        depositCell.amount = self.viewModel.userEnteredDetails.depositAmount
+        depositCell.delegate = self
         
         return depositCell
     }
@@ -326,6 +326,29 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK:- Image picker controller delegate methods
+//MARK:-
+extension AccountOfflineDepositVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let selectedImage = info[.editedImage] as? UIImage, let imgData = selectedImage.pngData() else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        let urlPath = AppGlobals.shared.saveImage(data: imgData, fileNameWithExtension: "slip.jpeg")
+        
+        self.viewModel.userEnteredDetails.uploadedSlips = [urlPath]
+        
+        picker.dismiss(animated: true) {
+            self.checkOutTableView.reloadData()
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
 // MARK:- TopNavigationView Delegate methods
 extension AccountOfflineDepositVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
@@ -347,7 +370,7 @@ extension AccountOfflineDepositVC {
                 case 2:
                     //select bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.aertripBank = firstSelect
                     }
@@ -355,7 +378,7 @@ extension AccountOfflineDepositVC {
                 case 5:
                     //deposit date
                     let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-YYYY")
-                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light) { (dateStr) in
+                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                         textField.text = dateStr
                         self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
                     }
@@ -365,7 +388,7 @@ extension AccountOfflineDepositVC {
                     if self.currentUsingAs == .fundTransfer {
                         //transfer type
                         PKMultiPicker.noOfComponent = 1
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
@@ -374,7 +397,7 @@ extension AccountOfflineDepositVC {
                 case 8:
                     //select your bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.userBank = firstSelect
                     }
@@ -440,6 +463,23 @@ extension AccountOfflineDepositVC {
     
 }
 
+extension AccountOfflineDepositVC: AccountDepositAmountCellDelegate {
+    func amountDidChanged(amount: Double, amountString: String) {
+        self.viewModel.userEnteredDetails.depositAmount = amount
+    }
+}
+
 extension AccountOfflineDepositVC: AccountOfflineDepositVMDelegate {
+    func willRegisterPayment() {
+        self.manageLoader(shouldStart: true)
+    }
     
+    func registerPaymentSuccess() {
+        self.manageLoader(shouldStart: false)
+        self.showPaymentSuccessMessage()
+    }
+    
+    func registerPaymentFail() {
+        self.manageLoader(shouldStart: false)
+    }
 }
