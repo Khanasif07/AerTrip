@@ -340,10 +340,10 @@ struct AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "-\(abs(self.roundTo(places: 2)).delimiter)"
+            return "-\(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
         }
         else {
-            return "\(self.roundTo(places: 2).delimiter)"
+            return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)"
         }
     }
     

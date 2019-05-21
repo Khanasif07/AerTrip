@@ -36,6 +36,9 @@ class TotalPayableNowCell: UITableViewCell {
         self.setUpText()
         self.setUpFont()
         self.setUpColor()
+        
+        self.topDeviderView.isHidden = true
+        self.bottomDeviderView.isHidden = true
     }
     
     private func setUpText() {

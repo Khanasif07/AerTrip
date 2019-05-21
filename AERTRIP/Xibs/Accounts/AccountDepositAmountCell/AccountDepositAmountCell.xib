@@ -31,8 +31,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKv-8X-jE2">
-                        <rect key="frame" x="32" y="42" width="22" height="36"/>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKv-8X-jE2">
+                        <rect key="frame" x="29" y="42" width="22" height="36"/>
                         <color key="backgroundColor" red="0.3428386578" green="0.89365664779999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="Auj-y3-uNg"/>
@@ -44,7 +44,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uKv-8X-jE2" secondAttribute="trailing" constant="16" id="1KR-Qz-SeE"/>
-                    <constraint firstItem="uKv-8X-jE2" firstAttribute="leading" secondItem="c8f-8h-9Je" secondAttribute="trailing" constant="5" id="4kW-ft-szH"/>
+                    <constraint firstItem="uKv-8X-jE2" firstAttribute="leading" secondItem="c8f-8h-9Je" secondAttribute="trailing" constant="2" id="4kW-ft-szH"/>
                     <constraint firstItem="c8f-8h-9Je" firstAttribute="centerY" secondItem="uKv-8X-jE2" secondAttribute="centerY" id="G8u-R1-zuU"/>
                     <constraint firstItem="HMu-I8-sMZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="L7S-fb-ZmB"/>
                     <constraint firstItem="c8f-8h-9Je" firstAttribute="leading" secondItem="HMu-I8-sMZ" secondAttribute="leading" id="bpD-ib-s7n"/>

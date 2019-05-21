@@ -111,4 +111,46 @@ extension APICaller {
             }
         }
     }
+    
+    
+    //MARK: - Api for Save Edit profile user
+    //MARK: -
+    func registerOfflinePaymentAPI(params: JSONDictionary,filePath:String, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+        
+        if filePath.isEmpty {
+            AppNetworking.POST(endPoint: APIEndPoint.registerPayment, parameters: params, success: { [weak self] (json) in
+                guard let sSelf = self else {return}
+                
+                sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                    completionBlock(true, [])
+                    
+                }, failure: { (errors) in
+                    ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
+                    completionBlock(false, errors)
+                })
+                
+            }) { (error) in
+                if error.code == AppNetworking.noInternetError.code {
+                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                }
+                else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                }
+            }
+            
+        } else {
+            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.registerPayment, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: { (data) in
+                printDebug(data)
+                completionBlock(true,[])
+            }, progress: { (progress) in
+            }) { (error) in
+                if error.code == AppNetworking.noInternetError.code {
+                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                }
+                else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                }
+            }
+        }
+    }
 }

@@ -15,11 +15,14 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
     private func getCellForFirstSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            //deposit amoutn cell
+            //deposit amount cell
             guard let depositCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: AccountDepositAmountCell.reusableIdentifier, for: indexPath) as? AccountDepositAmountCell else {
                 printDebug("Cell not found")
                 return UITableViewCell()
             }
+            
+            depositCell.delegate = self
+            depositCell.amount = self.viewModel.depositAmount
             
             return depositCell
             
@@ -40,6 +43,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             fareDetailCell.fareDetailTitleLabel.text = LocalizedString.Breakup.localized
             fareDetailCell.numberOfRoomAndLabel.text = ""
+            fareDetailCell.dividerView.isHidden = true
             return fareDetailCell
             
         case 3:
@@ -56,7 +60,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 16.0
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = -4.0
+            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
             
         case 4:
@@ -73,7 +78,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 16.0
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = -4.0
+            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
             
         case 5:
@@ -128,7 +134,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
         case 6:
             // Term and privacy Cell
-            return 120.0
+            return 110.0
             
         default:
             return 0.0
@@ -152,6 +158,15 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
+extension AccountOnlineDepositVC: AccountDepositAmountCellDelegate {
+    func amountDidChanged(amount: Double, amountString: String) {
+        self.viewModel.depositItinerary?.partPaymentAmount = amount
+        self.updatePayButtonText()
+        self.checkOutTableView.reloadData()
+    }
+}
+
 // MARK: - TopNavigationView Delegate methods
 
 extension AccountOnlineDepositVC: TopNavigationViewDelegate {
@@ -161,38 +176,16 @@ extension AccountOnlineDepositVC: TopNavigationViewDelegate {
 }
 
 extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
+    func willMakePayment() {
+        self.manageLoader(shouldStart: true)
+    }
     
+    func makePaymentSuccess(options: JSONDictionary) {
+        self.manageLoader(shouldStart: false)
+        self.initializePayment(withOptions: options)
+    }
+    
+    func makePaymentFail() {
+        self.manageLoader(shouldStart: false)
+    }
 }
-
-
-//extension AccountOnlineDepositVC : WalletTableViewCellDelegate {
-//    func valueForSwitch(isOn: Bool) {
-//        self.isWallet = (getWalletAmount() <= 0) ? false : isOn
-//        self.setConvenienceFeeToBeApplied()
-//        
-//    }
-//}
-//
-//
-//extension AccountOnlineDepositVC : ApplyCouponTableViewCellDelegate {
-//    func removeCouponTapped() {
-//        printDebug("Remove coupon tapped")
-//        self.viewModel.removeCouponCode()
-//    }
-//}
-//
-//extension AccountOnlineDepositVC : FareSectionHeaderDelegate {
-//    func headerViewTapped() {
-//        printDebug("Header View Tapped")
-//        if self.isCouponApplied {
-//            if self.isCouponSectionExpanded {
-//                  self.isCouponSectionExpanded = false
-//            } else {
-//                self.isCouponSectionExpanded = true
-//            }
-//          self.checkOutTableView.reloadData()
-//        }
-//    }
-//}
-//
-//

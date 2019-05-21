@@ -33,7 +33,7 @@ enum APIEndPoint : String {
     case flightsPreferences            = "flights/preference-master"
     case flyerSearch                   = "airlines/search"
     case countryList                   = "country/list"
-    case saveProfile                   =  "user-passenger/save-new"
+    case saveProfile                   = "user-passenger/save-new"
     case defaultAirlines               = "airlines/get-default-airlines"
     case hotelPreferenceList           = "users/hotel-pref-list-new"
     case searchHotels                  = "hotels/suggestions-new"
@@ -93,6 +93,7 @@ enum APIEndPoint : String {
     case accountDetail = "user-accounts/detail"
     case accountReportAction = "user-accounts/report-action"
     case outstandingPayment = "user-accounts/outstanding-payment"
+    case registerPayment = "payment/register-payment"
     
     
     case hotelItinerary = "hotels/itinerary?action=traveller"    

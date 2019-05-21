@@ -93,25 +93,24 @@ class AccountOnlineDepositVC: BaseVC {
     }
 
     // Get Update Pay Button Text
-    private func updatePayButtonText() {
+    func updatePayButtonText() {
         self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
     }
 
-    private func manageLoader(shouldStart: Bool) {
+    func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         
         self.loaderContainer.isHidden = !shouldStart
     }
+    
+    func showPaymentSuccessMessage() {
+        AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "  \(self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol)")
+    }
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
-        self.manageLoader(shouldStart: true)
-        
-        delay(seconds: 1.0) {[weak self] in
-            self?.manageLoader(shouldStart: false)
-            AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "  \(self?.viewModel.totalPayableAmount.amountInDelimeterWithSymbol ?? "")")
-        }
+        self.viewModel.makePayment()
     }
 }

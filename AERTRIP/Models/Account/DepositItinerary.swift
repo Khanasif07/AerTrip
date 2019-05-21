@@ -11,6 +11,7 @@ import UIKit
 struct DepositItinerary {
     var id: String = ""
     var netAmount: Double = 0.0
+    var partPaymentAmount: Double = 0.0
     
     var razorpay: PaymentModeDetails?
     var chequeOrDD: PaymentModeDetails?

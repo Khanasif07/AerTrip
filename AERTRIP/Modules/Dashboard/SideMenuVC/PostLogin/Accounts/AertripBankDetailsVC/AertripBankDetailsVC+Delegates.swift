@@ -134,7 +134,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.valueLabel.isHidden = false
         cell.valueLabel.font = AppFonts.SemiBold.withSize(16.0)
         cell.valueLabel.textColor = AppColors.themeTextColor
-        cell.valueLabel.text = value
+        cell.valueLabel.text = value.isEmpty ? "--" : value
         
         cell.dividerView.isHidden = true
         cell.titleTopConstraint.constant = 0.0
