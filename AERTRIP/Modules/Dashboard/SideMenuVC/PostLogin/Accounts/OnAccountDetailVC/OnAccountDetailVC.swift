@@ -68,13 +68,13 @@ class OnAccountDetailVC: BaseVC {
         let finalStr = "\(title)\n\(subTitle)"
         
         let titleAttributedString = NSMutableAttributedString(string: finalStr, attributes: [
-            .font: AppFonts.SemiBold.withSize(18.0),
+            .font: AppFonts.Regular.withSize(13.0),
             .foregroundColor: AppColors.themeBlack
             ])
         
         //subTitle beautify
-        if let subRange = finalStr.range(of: subTitle)?.asNSRange(inString: finalStr) {
-            titleAttributedString.addAttribute(.font, value: AppFonts.Regular.withSize(13.0), range: subRange)
+        if let subRange = finalStr.range(of: title)?.asNSRange(inString: finalStr) {
+            titleAttributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: subRange)
         }
 
         self.topNavView.navTitleLabel.attributedText = titleAttributedString
