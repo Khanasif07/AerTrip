@@ -279,7 +279,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
                     
                 case 2:
-                    AppFlowManager.default.moveToPeriodicStatementVC()
+                    AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
                     
                 default:
                     printDebug("no need to implement")

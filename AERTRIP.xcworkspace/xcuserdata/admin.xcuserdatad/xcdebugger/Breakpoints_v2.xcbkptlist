@@ -9,46 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/APICaller/APICaller+Account.swift"
-            timestampString = "580137519.912492"
+            filePath = "AERTRIP/Xibs/Accounts/AccountOutstandingEventDescriptionCell/AccountOutstandingEventDescriptionCell.swift"
+            timestampString = "580220804.369782"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "registerOfflinePaymentAPI(params:filePath:loader:completionBlock:)"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "setData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.registerOfflinePaymentAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "AERTRIP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Network/APICaller/APICaller+Account.swift"
-                  timestampString = "580137520.735431"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "124"
-                  endingLineNumber = "124"
-                  offsetFromSymbolStart = "550">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, AERTRIP.JSON) -&gt; () in closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.registerOfflinePaymentAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "AERTRIP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/PK/Projects/AERTRIP1/Code/AERTRIP_Code/AERTRIP/Network/APICaller/APICaller+Account.swift"
-                  timestampString = "580137520.739895"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "49">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -57,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/APICaller/APICaller+Account.swift"
-            timestampString = "580137519.912605"
+            filePath = "AERTRIP/Models/Account/AccountDetailEvent.swift"
+            timestampString = "580221001.671259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "registerOfflinePaymentAPI(params:filePath:loader:completionBlock:)"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

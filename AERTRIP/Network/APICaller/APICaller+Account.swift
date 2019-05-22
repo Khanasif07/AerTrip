@@ -11,7 +11,7 @@ import Foundation
 
 extension APICaller {
     
-    func getAccountDetailsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ accountLadger: JSONDictionary, _ accountLadgerVouchers: [String], _ outstanding: AccountOutstanding? , _ errorCodes: ErrorCodes) -> Void) {
+    func getAccountDetailsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ accountLadger: JSONDictionary, _ accountLadgerVouchers: [String], _ outstanding: AccountOutstanding?, _ periodicEventData: JSONDictionary, _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.accountDetail, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
@@ -33,25 +33,76 @@ extension APICaller {
                         accLadger = lad
                         accLadgerVchrs = vchr
                     }
+                    
+                    //***************//
+                    let periodicDict: [JSONDictionary] = [
+                        [
+                            "id": "37",
+                            "statement_date": "2018-03-08 00:00:00",
+                            "period_from": "2018-03-01",
+                            "period_to": "2018-03-07",
+                            "due_date": "2018-03-12 00:00:00"
+                        ],
+                        [
+                            "id": "25",
+                            "statement_date": "2018-03-01 00:00:00",
+                            "period_from": "2018-02-22",
+                            "period_to": "2018-02-28",
+                            "due_date": "2018-03-05 00:00:00"
+                        ],
+                        [
+                            "id": "16",
+                            "statement_date": "2018-02-22 00:00:00",
+                            "period_from": "2018-02-15",
+                            "period_to": "2018-02-21",
+                            "due_date": "2018-02-26 00:00:00"
+                        ],
+                        [
+                            "id": "1",
+                            "statement_date": "2018-02-15 00:00:00",
+                            "period_from": "2018-02-08",
+                            "period_to": "2018-02-14",
+                            "due_date": "2018-02-19 00:00:00"
+                        ],
+                        [
+                            "id": "3",
+                            "statement_date": "2018-01-15 00:00:00",
+                            "period_from": "2018-01-25",
+                            "period_to": "2018-02-07",
+                            "due_date": "2018-02-19 00:00:00"
+                        ],
+                        [
+                            "id": "5",
+                            "statement_date": "2019-01-15 00:00:00",
+                            "period_from": "2019-01-25",
+                            "period_to": "2019-02-07",
+                            "due_date": "2019-02-19 00:00:00"
+                        ]
+                    ]
+                    
+                    let periodicData = PeriodicStatementEvent.modelsDict(data: periodicDict)
+
+                    //****************//
+                    
 
                     if let accData = ledger["summary"].dictionaryObject {
                         UserInfo.loggedInUser?.accountData = AccountModel(json: accData)
                     }
-                    completionBlock(true, accLadger, accLadgerVchrs, outStand, [])
+                    completionBlock(true, accLadger, accLadgerVchrs, outStand, periodicData, [])
                 }
                 else {
-                    completionBlock(false, [:], [], nil, [])
+                    completionBlock(false, [:], [], nil, [:], [])
                 }
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, [:], [], nil, error)
+                completionBlock(false, [:], [], nil, [:], error)
             })
         }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [:], [], nil, [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [:], [], nil, [:], [ATErrorManager.LocalError.noInternet.rawValue])
             }
             else {
-                completionBlock(false, [:], [], nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [:], [], nil, [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }

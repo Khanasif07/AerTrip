@@ -44,8 +44,6 @@ class PeriodicStatementListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
-        self.viewModel.fetchMonthsForGivenYear()
-        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.backgroundView = self.emptyView
@@ -57,7 +55,7 @@ class PeriodicStatementListVC: BaseVC {
         
     private func viewStatement(forId: String, screenTitle: String) {
         //open pdf for booking id
-        AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/dashboard/download-voucher?id=\(forId)", screenTitle: screenTitle)
+        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=statement&statement_id[]=\(forId)", screenTitle: screenTitle)
     }
 
     //MARK:- Public
@@ -83,17 +81,20 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topSeparatorView.isHidden = false
-        headerView.headerLabel.text = self.viewModel.allDates[section]
+        var dateStr = self.viewModel.allDates[section]
+        
+        if dateStr.count >= 3 {
+            dateStr.removeFirst(3)
+        }
+        
+        headerView.headerLabel.text = dateStr
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
-//            return allEvent.count
-//        }
-        return 4
+        return self.getEvent(forIndexPath: IndexPath(row: 0, section: section)).allCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -101,18 +102,14 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let (currentEvent, allCount) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
-//        guard let event = currentEvent, let cell = self.tableView.dequeueReusableCell(withIdentifier: PeriodicStatementCell.reusableIdentifier) as? PeriodicStatementCell else {
-//            return UITableViewCell()
-//        }
-        
-        let allCount = 4
+
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: PeriodicStatementCell.reusableIdentifier) as? PeriodicStatementCell else {
             return UITableViewCell()
         }
         
-        cell.event = "Statement \(indexPath.row + 1)"
+        var (event, allCount) = self.getEvent(forIndexPath: indexPath)
+        event?.title = "Statement \(indexPath.row + 1)"
+        cell.event = event
         if (indexPath.section == (self.viewModel.allDates.count - 1)), (indexPath.row >= (allCount - 1)) {
             cell.dividerView.isHidden = false
             cell.dividerViewLeadingConstraint.constant = 0
@@ -125,23 +122,18 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: AccountDetailEvent?, allCount: Int){
-//
-//        guard !self.viewModel.accountDetails.isEmpty else {
-//            return (nil, 0)
-//        }
-//
-//        let allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-//
-//        guard !allEvent.isEmpty else {
-//            return (nil, 0)
-//        }
-//
-//        return (allEvent[indexPath.row], allEvent.count)
-//    }
+    func getEvent(forIndexPath indexPath: IndexPath) -> (event: PeriodicStatementEvent?, allCount: Int){
+
+        guard let allEvent = self.viewModel.yearData[self.viewModel.allDates[indexPath.section]] as? [PeriodicStatementEvent] else {
+            return (nil, 0)
+        }
+        return (allEvent[indexPath.row], allEvent.count)
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.viewStatement(forId: "14377", screenTitle: "Statement\(indexPath.row + 1)")
+        if let event = self.getEvent(forIndexPath: indexPath).event {
+            self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
+        }
     }
 }
 
@@ -158,7 +150,7 @@ class PeriodicStatementCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
 
-    var event: String? {
+    var event: PeriodicStatementEvent? {
         didSet {
             self.setData()
         }
@@ -194,7 +186,7 @@ class PeriodicStatementCell: UITableViewCell {
     
     private func setData() {
 
-        self.titleLabel.text = self.event ?? ""
-        self.dateLabel.text = "6 Jan - 11 Jan"
+        self.titleLabel.text = self.event?.title ?? ""
+        self.dateLabel.text = self.event?.periodTitle ?? ""
     }
 }

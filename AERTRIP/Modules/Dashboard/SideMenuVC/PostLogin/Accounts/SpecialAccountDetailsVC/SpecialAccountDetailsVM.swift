@@ -64,6 +64,7 @@ class SpecialAccountDetailsVM {
     private(set) var accVouchers: [String] = []
     
     private(set) var accountLadger: JSONDictionary = JSONDictionary()
+    private(set) var periodicEvents: JSONDictionary = JSONDictionary()
     private(set) var outstandingLadger: AccountOutstanding = AccountOutstanding(json: [:])
     
     private(set) var itineraryData: DepositItinerary?
@@ -255,9 +256,10 @@ class SpecialAccountDetailsVM {
         self.formatDataForScreen()
         
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: ["limit":20]) { [weak self](success, accLad, accVchrs, outLad, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
             if success {
                 self?.accountLadger = accLad
+                self?.periodicEvents = periodic
                 
                 if let obj = outLad {
                     self?.outstandingLadger = obj

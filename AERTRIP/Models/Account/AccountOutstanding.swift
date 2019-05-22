@@ -88,7 +88,10 @@ struct AccountOutstanding {
     var vouchers: [String] = []
     var grossAmount: Double = 0.0
     var onAccountAmount: Double = 0.0
-    var netAmount: Double = 0.0
+    
+    var netAmount: Double {
+        return grossAmount + onAccountAmount
+    }
     
     private var _onAccountDate: String = ""
     var onAccountDate: Date? {
@@ -105,12 +108,8 @@ struct AccountOutstanding {
         
         
         
-        if let subTotal = json["sub_total"] as? JSONDictionary, let pending = subTotal["pending"] {
+        if let subTotal = json["current_total"] as? JSONDictionary, let pending = subTotal["amount"] {
             self.grossAmount = "\(pending)".toDouble ?? 0.0
-        }
-        
-        if let currentTotal = json["current_total"] as? JSONDictionary, let pending = currentTotal["pending"] {
-            self.netAmount = "\(pending)".toDouble ?? 0.0
         }
         
         if let onAccount = json["on_account"] as? JSONDictionary {

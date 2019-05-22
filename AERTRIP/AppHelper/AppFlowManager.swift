@@ -647,8 +647,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToPeriodicStatementVC() {
+    func moveToPeriodicStatementVC(periodicEvents: JSONDictionary) {
         let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.periodicEvents = periodicEvents
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

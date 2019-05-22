@@ -116,7 +116,7 @@ class AccountOfflineDepositVC: BaseVC {
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
         if self.viewModel.userEnteredDetails.isDataVarified {
-            self.viewModel.registerPayment()
+            self.viewModel.registerPayment(currentUsingAs: self.currentUsingAs)
         }
     }
     

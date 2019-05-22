@@ -177,7 +177,6 @@ class AccountDetailsVM: NSObject {
         
         //filters are changed filter according dates and voucher
         var param = JSONDictionary()
-        param["limit"] = 20
         param["type"] = "ledger"
         
         if let date = filter?.fromDate {
@@ -189,7 +188,7 @@ class AccountDetailsVM: NSObject {
         
         self.oldFilter = filter
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
             
             guard let sSelf = self else {return}
             if success {
@@ -216,7 +215,6 @@ class AccountDetailsVM: NSObject {
         var param = JSONDictionary()
         param["action"] = "email"
         param["type"] = "ledger"
-        param["limit"] = 20
         
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {

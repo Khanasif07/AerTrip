@@ -639,6 +639,7 @@
 		84B23F74222FA39B00C952ED /* CityMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B23F72222FA39B00C952ED /* CityMarkerView.swift */; };
 		84B23F78222FFA9E00C952ED /* ClusterMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */; };
 		84B23F79222FFA9E00C952ED /* ClusterMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B23F77222FFA9E00C952ED /* ClusterMarkerView.swift */; };
+		84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5089E229528DB00D4D371 /* PeriodicStatementEvent.swift */; };
 		84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6DE9D228018D10042D902 /* SpecialAccountDetailsVC.swift */; };
 		84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6DE9F228018DC0042D902 /* SpecialAccountDetailsVM.swift */; };
 		84B6DEA2228018EC0042D902 /* SpecialAccountDetailsVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6DEA1228018EC0042D902 /* SpecialAccountDetailsVC+Delegate.swift */; };
@@ -1482,6 +1483,7 @@
 		84B23F72222FA39B00C952ED /* CityMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityMarkerView.swift; sourceTree = "<group>"; };
 		84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterMarkerView.xib; sourceTree = "<group>"; };
 		84B23F77222FFA9E00C952ED /* ClusterMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterMarkerView.swift; sourceTree = "<group>"; };
+		84B5089E229528DB00D4D371 /* PeriodicStatementEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicStatementEvent.swift; sourceTree = "<group>"; };
 		84B6DE9D228018D10042D902 /* SpecialAccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialAccountDetailsVC.swift; sourceTree = "<group>"; };
 		84B6DE9F228018DC0042D902 /* SpecialAccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialAccountDetailsVM.swift; sourceTree = "<group>"; };
 		84B6DEA1228018EC0042D902 /* SpecialAccountDetailsVC+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpecialAccountDetailsVC+Delegate.swift"; sourceTree = "<group>"; };
@@ -4264,6 +4266,7 @@
 				84FD0DCA228A8E4800915A09 /* AccountOfflineDepositDetails.swift */,
 				845D3A19228D724500062EE5 /* AccountOutstanding.swift */,
 				843E631F2292782F00A04248 /* DepositItinerary.swift */,
+				84B5089E229528DB00D4D371 /* PeriodicStatementEvent.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -5224,6 +5227,7 @@
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
 				84085D0821F59C0E00F1E844 /* ViewProfileDetailVC.swift in Sources */,
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
+				84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */,
 				841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */,
 				842EDEA1223A61F200E99409 /* HCEmailItinerariesVC.swift in Sources */,
 				84FD0DCB228A8E4800915A09 /* AccountDetailEvent.swift in Sources */,
