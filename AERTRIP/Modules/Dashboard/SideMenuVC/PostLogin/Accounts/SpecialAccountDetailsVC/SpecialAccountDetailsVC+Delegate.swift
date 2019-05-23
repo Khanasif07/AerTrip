@@ -439,7 +439,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.text = amount
+        self.amountLabel.attributedText = amount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
     }
     
     private func configureGrandTotal(title: String, totalAmount: String) {
@@ -458,7 +458,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.text = totalAmount
+        self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
     }
     
     private func configureNext(title: String) {
@@ -525,7 +525,7 @@ class AccountDepositCell: UITableViewCell {
         
         self.amountLabel.font = AppFonts.SemiBold.withSize(28.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.text = amount.amountInDelimeterWithSymbol
+        self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
         
         self.dateLabel.font = AppFonts.Regular.withSize(14.0)
         self.dateLabel.textColor = AppColors.themeRed

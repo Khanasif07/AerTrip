@@ -608,13 +608,6 @@ extension TravellerListVC: UISearchBarDelegate {
         didTapCrossKey = false
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {}
-    
-//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-//        searchBar.micButton.isHidden = false
-//        return true
-//    }
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         didTapCrossKey = text.isEmpty
         return true

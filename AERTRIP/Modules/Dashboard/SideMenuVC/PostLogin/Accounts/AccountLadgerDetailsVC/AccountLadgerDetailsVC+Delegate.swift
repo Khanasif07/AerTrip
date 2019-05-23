@@ -108,6 +108,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
+            value = value.isEmpty ? "--" : value
             return self.getDetailCell(title: key, description: value, descriptionColor: descColor)
 
         }

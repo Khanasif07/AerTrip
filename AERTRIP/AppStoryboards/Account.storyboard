@@ -584,102 +584,117 @@
         <!--Account Ladger DetailsVC-->
         <scene sceneID="KEA-CG-qbg">
             <objects>
-                <viewController storyboardIdentifier="AccountLadgerDetailsVC" id="a8f-ZV-a8j" customClass="AccountLadgerDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountLadgerDetailsVC" automaticallyAdjustsScrollViewInsets="NO" id="a8f-ZV-a8j" customClass="AccountLadgerDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wuB-pw-JyS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-5A-H5v" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDetailCell" rowHeight="92" id="roN-EN-Ykq" customClass="AccountLadgerDetailCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="roN-EN-Ykq" id="tda-kZ-a6q">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="8TX-7v-mBX">
-                                                    <rect key="frame" x="16" y="0.0" width="382" height="92"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-Ko-Xnv">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-5A-H5v" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDetailCell" rowHeight="92" id="roN-EN-Ykq" customClass="AccountLadgerDetailCell" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="1" width="414" height="92"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="roN-EN-Ykq" id="tda-kZ-a6q">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="asfasasd agsfdjasf dj afsjdfgas dfjasgfd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQH-F7-xva">
-                                                            <rect key="frame" x="0.0" y="0.0" width="108" height="92"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ajaghj agsdjkashg djadkadgh aks d" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-zb-w6O">
-                                                            <rect key="frame" x="111" y="0.0" width="271" height="92"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="8TX-7v-mBX">
+                                                            <rect key="frame" x="16" y="0.0" width="382" height="92"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="asfasasd agsfdjasf dj afsjdfgas dfjasgfd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQH-F7-xva">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="92"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ajaghj agsdjkashg djadkadgh aks d" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-zb-w6O">
+                                                                    <rect key="frame" x="111" y="0.0" width="271" height="92"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8TX-7v-mBX" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="2FW-il-xCt"/>
-                                                <constraint firstItem="8TX-7v-mBX" firstAttribute="leading" secondItem="tda-kZ-a6q" secondAttribute="leading" constant="16" id="Fv4-fo-yco"/>
-                                                <constraint firstAttribute="bottom" secondItem="8TX-7v-mBX" secondAttribute="bottom" id="I2d-LA-DGX"/>
-                                                <constraint firstAttribute="trailing" secondItem="8TX-7v-mBX" secondAttribute="trailing" constant="16" id="i9A-Ae-JaQ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="descLabel" destination="CQE-zb-w6O" id="aez-PX-471"/>
-                                            <outlet property="titleLabel" destination="tQH-F7-xva" id="tXw-Xc-uZp"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDividerell" rowHeight="92" id="krT-VY-oKJ" customClass="AccountLadgerDividerell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="414" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="krT-VY-oKJ" id="7rK-yW-V57">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18c-15-wcI" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="45.5" width="382" height="1"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="v3n-y4-sFC"/>
+                                                        <constraint firstItem="8TX-7v-mBX" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="2FW-il-xCt"/>
+                                                        <constraint firstItem="8TX-7v-mBX" firstAttribute="leading" secondItem="tda-kZ-a6q" secondAttribute="leading" constant="16" id="Fv4-fo-yco"/>
+                                                        <constraint firstAttribute="bottom" secondItem="8TX-7v-mBX" secondAttribute="bottom" id="I2d-LA-DGX"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8TX-7v-mBX" secondAttribute="trailing" constant="16" id="i9A-Ae-JaQ"/>
                                                     </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="18c-15-wcI" firstAttribute="centerY" secondItem="7rK-yW-V57" secondAttribute="centerY" id="K25-ef-gPr"/>
-                                                <constraint firstItem="18c-15-wcI" firstAttribute="leading" secondItem="7rK-yW-V57" secondAttribute="leading" constant="16" id="VM0-5W-GG9"/>
-                                                <constraint firstAttribute="trailing" secondItem="18c-15-wcI" secondAttribute="trailing" constant="16" id="j51-d8-QRI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="dividerView" destination="18c-15-wcI" id="7h3-zo-G5y"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OL-LP-5wt" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="descLabel" destination="CQE-zb-w6O" id="aez-PX-471"/>
+                                                    <outlet property="titleLabel" destination="tQH-F7-xva" id="tXw-Xc-uZp"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDividerell" rowHeight="92" id="krT-VY-oKJ" customClass="AccountLadgerDividerell" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="93" width="414" height="92"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="krT-VY-oKJ" id="7rK-yW-V57">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18c-15-wcI" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="45.5" width="382" height="1"/>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="v3n-y4-sFC"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="18c-15-wcI" firstAttribute="centerY" secondItem="7rK-yW-V57" secondAttribute="centerY" id="K25-ef-gPr"/>
+                                                        <constraint firstItem="18c-15-wcI" firstAttribute="leading" secondItem="7rK-yW-V57" secondAttribute="leading" constant="16" id="VM0-5W-GG9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="18c-15-wcI" secondAttribute="trailing" constant="16" id="j51-d8-QRI"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="dividerView" destination="18c-15-wcI" id="7h3-zo-G5y"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="HEl-5A-H5v" firstAttribute="leading" secondItem="yNN-Ko-Xnv" secondAttribute="leading" id="4mC-sU-1le"/>
+                                    <constraint firstAttribute="trailing" secondItem="HEl-5A-H5v" secondAttribute="trailing" id="Tyx-XQ-Bnj"/>
+                                    <constraint firstAttribute="bottom" secondItem="HEl-5A-H5v" secondAttribute="bottom" id="nVE-q0-Put"/>
+                                    <constraint firstItem="HEl-5A-H5v" firstAttribute="top" secondItem="yNN-Ko-Xnv" secondAttribute="top" id="xFo-jJ-9cA"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pin-zw-ibd" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="dI3-i8-6Uh"/>
+                                    <constraint firstAttribute="height" constant="44" id="qr5-mi-tnf"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="HEl-5A-H5v" secondAttribute="trailing" id="Gbs-mc-P54"/>
-                            <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="9OL-LP-5wt" secondAttribute="trailing" id="YbT-Pg-fBr"/>
-                            <constraint firstItem="HEl-5A-H5v" firstAttribute="top" secondItem="9OL-LP-5wt" secondAttribute="bottom" id="iJk-NH-NLg"/>
-                            <constraint firstItem="9OL-LP-5wt" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="nnk-tJ-bnM"/>
-                            <constraint firstItem="HEl-5A-H5v" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="pPV-YV-Q40"/>
-                            <constraint firstItem="8IO-QV-0GZ" firstAttribute="bottom" secondItem="HEl-5A-H5v" secondAttribute="bottom" id="ud2-qI-Vxd"/>
-                            <constraint firstItem="9OL-LP-5wt" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="vGJ-bn-NX3"/>
+                            <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="Pin-zw-ibd" secondAttribute="trailing" id="4LZ-PN-iFb"/>
+                            <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="Pin-zw-ibd" secondAttribute="trailing" id="8km-bZ-zNq"/>
+                            <constraint firstItem="Pin-zw-ibd" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="FJo-CP-5bX"/>
+                            <constraint firstItem="yNN-Ko-Xnv" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="HvG-yN-jwx"/>
+                            <constraint firstItem="Pin-zw-ibd" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="IQU-UT-7qe"/>
+                            <constraint firstAttribute="bottom" secondItem="yNN-Ko-Xnv" secondAttribute="bottom" id="OZA-zo-EgD"/>
+                            <constraint firstItem="Pin-zw-ibd" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="YiT-Su-saf"/>
+                            <constraint firstItem="Pin-zw-ibd" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="bGL-Pz-JUJ"/>
+                            <constraint firstItem="yNN-Ko-Xnv" firstAttribute="leading" secondItem="wuB-pw-JyS" secondAttribute="leading" id="fak-Rl-aJF"/>
+                            <constraint firstAttribute="trailing" secondItem="yNN-Ko-Xnv" secondAttribute="trailing" id="vNX-7E-a9Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8IO-QV-0GZ"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="HEl-5A-H5v" id="8TT-UT-lcI"/>
-                        <outlet property="topNavView" destination="9OL-LP-5wt" id="1vx-EB-KjP"/>
+                        <outlet property="topNavView" destination="Pin-zw-ibd" id="2Ks-AK-JfV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mm7-tU-jJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
