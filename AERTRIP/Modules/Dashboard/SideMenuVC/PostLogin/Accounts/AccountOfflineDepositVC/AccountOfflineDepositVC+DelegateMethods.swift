@@ -44,7 +44,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 11:
                 //additional note
-                return 100.0
+                return (self.currentUsingAs == .chequeOrDD) ? 100.0 : 103.0
                 
             default:
                 return 0.0
@@ -60,7 +60,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
                 if newIndex == 0 {
                     //uploaded deposit slip
-                    return 78.0
+                    return (self.currentUsingAs == .chequeOrDD) ? 81.0 : 84.0
                 }
                 else if newIndex == 1 {
                     //terms of use
@@ -193,6 +193,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         cell.iconImageView.image = title.hasSuffix("pdf") ? #imageLiteral(resourceName: "ic_file_pdf") : #imageLiteral(resourceName: "ic_file_img")
         cell.deleteButton.addTarget(self, action: #selector(self.fileDeleteButtonAction(_:)), for: .touchUpInside)
+        cell.imageCenterYConstraint.constant = 4.0
 
         return cell
     }
@@ -347,6 +348,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.addNoteTextView.placeholderInsets = .zero
         cell.sepratorView.isHidden = !isDivider
         cell.addNoteTextView.delegate = self
+        cell.addNoteTextView.textContainerInset = .zero
         
         return cell
     }

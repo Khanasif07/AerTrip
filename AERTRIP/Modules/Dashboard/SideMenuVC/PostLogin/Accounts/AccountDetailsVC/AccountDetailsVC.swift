@@ -270,6 +270,12 @@ extension AccountDetailsVC: UISearchBarDelegate {
         }
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar === self.mainSearchBar, (searchBar.text ?? "").isEmpty {
+            self.searchBarCancelButtonClicked(searchBar)
+        }
+    }
+    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         if (searchBar === self.searchBar) || (searchBar === self.ladgerDummySearchBar) {
             self.currentViewState = .searching

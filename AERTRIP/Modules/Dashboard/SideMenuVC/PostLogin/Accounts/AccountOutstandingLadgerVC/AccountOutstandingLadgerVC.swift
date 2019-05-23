@@ -340,6 +340,12 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         self.view.endEditing(true)
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if (searchBar.text ?? "").isEmpty {
+            self.searchBarCancelButtonClicked(searchBar)
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
             self.noResultemptyView.searchTextLabel.isHidden = false

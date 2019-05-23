@@ -66,6 +66,7 @@
                 <outlet property="fileNameLabel" destination="7yH-sT-xPL" id="w8X-Y0-Aka"/>
                 <outlet property="fileSizeLabel" destination="EDx-xS-BSa" id="zBd-sg-d3n"/>
                 <outlet property="iconImageView" destination="EIe-1J-qtv" id="Pgt-mf-qsd"/>
+                <outlet property="imageCenterYConstraint" destination="MJs-gu-OF6" id="a67-Aq-gFz"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="45.535714285714285"/>
         </tableViewCell>
