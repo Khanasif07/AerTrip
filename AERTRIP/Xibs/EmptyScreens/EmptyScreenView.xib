@@ -18,11 +18,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyScreenView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="bottomButton" destination="4ZX-42-Dni" id="VZ2-Ce-eH0"/>
+                <outlet property="bottomButtonHeightConstraint" destination="WQO-bL-VmV" id="wMe-P2-mBl"/>
+                <outlet property="bottomButtonTopConstraint" destination="28s-4P-lwX" id="h3j-lU-bIG"/>
                 <outlet property="containerView" destination="k6e-Wt-Gf4" id="mjM-mT-YsZ"/>
                 <outlet property="containerViewCenterYConstraint" destination="na9-oF-fcB" id="Ttb-j3-HcG"/>
                 <outlet property="contentView" destination="QTr-ii-F5R" id="RjT-6N-lcp"/>
                 <outlet property="firstButton" destination="6BF-Ab-CFI" id="Hra-1i-ObX"/>
                 <outlet property="firstButtonContainerView" destination="ggg-Pf-b7E" id="FxJ-Sh-xQi"/>
+                <outlet property="firstButtonTopConstraint" destination="vBM-CE-w8x" id="qDT-9f-Alu"/>
+                <outlet property="firstbuttonHeightConstraint" destination="3Y0-z6-jZs" id="aRD-CO-Rsi"/>
                 <outlet property="mainImageView" destination="HIw-8B-ngR" id="Ppe-Gu-32n"/>
                 <outlet property="mainImageViewTopConstraint" destination="wLA-fY-b7H" id="pPQ-CK-8Z9"/>
                 <outlet property="messageLabel" destination="FQ9-WX-qb2" id="JI0-Eb-Czm"/>
@@ -73,13 +77,15 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="6BF-Ab-CFI" secondAttribute="trailing" id="990-tO-PnF"/>
-                                        <constraint firstAttribute="height" constant="45" id="ETc-LZ-H7O"/>
                                         <constraint firstItem="6BF-Ab-CFI" firstAttribute="leading" secondItem="ggg-Pf-b7E" secondAttribute="leading" id="NX5-Jm-OoA"/>
                                         <constraint firstAttribute="bottom" secondItem="6BF-Ab-CFI" secondAttribute="bottom" id="SG6-1R-mEm"/>
                                         <constraint firstItem="6BF-Ab-CFI" firstAttribute="top" secondItem="ggg-Pf-b7E" secondAttribute="top" id="wMG-vB-8CY"/>
                                     </constraints>
                                 </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="3Y0-z6-jZs"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

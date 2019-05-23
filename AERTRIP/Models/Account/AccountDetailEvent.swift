@@ -143,13 +143,14 @@ struct AccountDetailEvent {
             self.overDueDays = "\(obj)".toInt ?? 0
         }
         
+        if let obj = json["due_date"] {
+            //2019-04-06
+            self.dueDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
+        }
+        
         if let obj = json["pending"] {
             self.pendingAmount = "\(obj)".toDouble ?? 0.0
         }
-        
-//        if let obj = json["voucher_name"] {
-//            self.voucherName = "\(obj)"
-//        }
         
         switch self.voucher {
         case .lockAmount:
