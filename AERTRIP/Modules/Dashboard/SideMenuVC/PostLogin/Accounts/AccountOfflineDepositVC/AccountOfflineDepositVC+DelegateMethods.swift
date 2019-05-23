@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ActiveLabel
+import SafariServices
 
 
 //MARK: - UITableViewDataSource and UITableViewDelegate
@@ -259,11 +261,35 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.isHiddenButton = false
-        cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-        cell.titleLabel.textColor = AppColors.themeTextColor
-        cell.titleLabel.text = LocalizedString.OffileDepositTerms.localized
         cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
+        
+        let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
+        
+        let allTypes = [termsOfUse]
+        cell.titleLabel.enabledTypes = allTypes
+        cell.titleLabel.customize { label in
+            label.font = AppFonts.Regular.withSize(18.0)
+            label.text = LocalizedString.OffileDepositTerms.localized
+            label.textColor = AppColors.themeBlack
+            
+            for item in allTypes {
+                label.customColor[item] = AppColors.themeGreen
+                label.customSelectedColor[item] = AppColors.themeGreen
+            }
+            
+            label.highlightFontName = AppFonts.SemiBold.rawValue
+            label.highlightFontSize = 18.0
+            
+            label.handleCustomTap(for: termsOfUse) { _ in
+                
+                guard let url = URL(string: AppConstants.termsOfUse) else { return }
+                let safariVC = SFSafariViewController(url: url)
+                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.delegate = self
+            }
+        }
+
         
         return cell
     }
@@ -277,7 +303,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
  
         cell.titleLabel.text = title
-        cell.editableTextField.text = value
+        cell.editableTextField.text = value.isEmpty ? placeholder : value
         cell.editableTextField.placeholder = placeholder
 
         cell.separatorView.isHidden = !isDivider
@@ -325,6 +351,13 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
+
+extension AccountOfflineDepositVC: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
+    }
+}
+
 
 //MARK:- Image picker controller delegate methods
 //MARK:-

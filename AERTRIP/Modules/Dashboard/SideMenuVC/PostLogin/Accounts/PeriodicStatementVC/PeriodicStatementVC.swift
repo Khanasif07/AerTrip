@@ -62,7 +62,7 @@ class PeriodicStatementVC: BaseVC {
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 51.0
-        style.interItemSpace = 5.0
+        style.interItemSpace = 17.0
         style.itemPadding = 8.0
         style.isScrollable = true
         style.layoutAlignment = .center

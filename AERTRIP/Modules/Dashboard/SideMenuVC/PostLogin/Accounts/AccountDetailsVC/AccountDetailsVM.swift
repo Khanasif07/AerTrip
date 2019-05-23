@@ -28,13 +28,13 @@ class AccountDetailsVM: NSObject {
     var allDates: [String] {
         var arr = Array(accountDetails.keys)
         arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return []//arr
+        return arr
     }
     var searchedAccountDetails: JSONDictionary = JSONDictionary()
     var searchedAllDates: [String] {
         var arr = Array(searchedAccountDetails.keys)
         arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return []//arr
+        return arr
     }
     
     var allVouchers: [String] = []

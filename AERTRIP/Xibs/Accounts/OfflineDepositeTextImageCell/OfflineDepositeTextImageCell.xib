@@ -31,7 +31,7 @@
                                 <state key="normal" image="untick"/>
                                 <state key="selected" image="tick"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label jhgf jsgf sfg jhgsdf ghsfg sjhgdf aghs dfs d fgjh dfkjgh jkahdg" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-Ac-5Xf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label jhgf jsgf sfg jhgsdf ghsfg sjhgdf aghs dfs d fgjh dfkjgh jkahdg" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-Ac-5Xf" customClass="ActiveLabel" customModule="ActiveLabel">
                                 <rect key="frame" x="32" y="0.0" width="228.5" height="72.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
