@@ -21,8 +21,9 @@ class SpecialAccountDetailsVC: BaseVC {
     let viewModel = SpecialAccountDetailsVM()
     
     //MARK:- Private
-    var currentUserType: UserInfo.UserType {
-        return UserInfo.loggedInUser?.userType ?? UserInfo.UserType.statement
+    var depositButton: ATButton?
+    var currentUserType: UserCreditType {
+        return UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement
     }
     
     //MARK:- ViewLifeCycle
@@ -35,7 +36,7 @@ class SpecialAccountDetailsVC: BaseVC {
         
         self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         
-        if let user = UserInfo.loggedInUser, (user.userType == .statement || user.userType == .billWise) {
+        if let user = UserInfo.loggedInUser, (user.userCreditType == .statement || user.userCreditType == .billwise) {
             self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         }
         
@@ -60,16 +61,16 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC()
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData)
                 
             case 2:
                 //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD)
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("ChequeDemandDraft")
                 
             case 3:
                 //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer)
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("FundTransfer")
                 
             default:
@@ -83,13 +84,26 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Action
     @objc func depositButtonAction(_ sender: ATButton) {
-        self.showDepositOptions()
+        self.viewModel.getOutstandingPayment()
     }
 }
 
 //MARK:- ViewModel Delegate Methods
 //MARK:-
 extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
+    func willGetOutstandingPayment() {
+        self.depositButton?.isLoading = true
+    }
+    
+    func getOutstandingPaymentSuccess() {
+        self.depositButton?.isLoading = false
+        self.showDepositOptions()
+    }
+    
+    func getOutstandingPaymentFail() {
+        self.depositButton?.isLoading = false
+    }
+    
     func willFetchScreenDetails() {
     }
     

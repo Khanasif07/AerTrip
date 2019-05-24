@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class OfflineDepositeTextImageCell: UITableViewCell {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var mainContainerView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: ActiveLabel!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var selectionButton: UIButton!

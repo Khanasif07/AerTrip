@@ -121,49 +121,7 @@ class AccountDetailsVM: NSObject {
                 return
             }
             
-            let allData = [[
-                            "id":"1",
-                            "title":"Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"hotels",
-                            "amount":-2314.51,
-                            "balance":-345,
-                            "names": ["Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal", "Mr. Pratik Choudhary", "Mr. Om Prakash Bairwal"]
-                           ],
-                           [
-                            "id":"11",
-                            "title":"11 Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"hotelCancellation",
-                            "amount":-2314.51,
-                            "balance":-345
-                            ],
-                           [
-                            "id":"12",
-                            "title":"12 Ramada Powai Hotel And Convention Centre",
-                            "creationDate":"Tue 30 Apr",
-                            "voucher":"journalVoucher",
-                            "amount":-2314.51,
-                            "balance":-345
-                            ],
-                           [
-                            "id":"2",
-                            "title":"DEL → BOM → DEL → GOA",
-                            "creationDate":"Mon 29 Apr",
-                            "voucher":"flight",
-                            "amount":-3452.2,
-                            "balance":-7856.2,
-                            "names": ["Mrs. Shashi Poddar"]
-                           ],
-                           [
-                            "id":"3",
-                            "title":"Credit Card",
-                            "creationDate":"Sat 27 Apr",
-                            "voucher":"creditNote",
-                            "amount":-645.2,
-                            "balance":-6354.0
-                           ]
-                          ]
+            let allData = [JSONDictionary]()
             
             sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData).data
             sSelf.accountDetails = sSelf._accountDetails
@@ -177,19 +135,17 @@ class AccountDetailsVM: NSObject {
         
         //filters are changed filter according dates and voucher
         var param = JSONDictionary()
-        param["limit"] = 20
         param["type"] = "ledger"
         
-        if let date = filter?.fromDate {
-            param["end_date"] = date.toString(dateFormat: "YYYY-MM-dd")
+        if let fromDate = filter?.fromDate, let toDate = filter?.toDate, fromDate.timeIntervalSince1970 != toDate.timeIntervalSince1970 {
+            param["start_date"] = fromDate.toString(dateFormat: "YYYY-MM-dd")
+            param["end_date"] = toDate.toString(dateFormat: "YYYY-MM-dd")
+
         }
-        if let date = filter?.toDate {
-            param["start_date"] = date.toString(dateFormat: "YYYY-MM-dd")
-        }
-        
+
         self.oldFilter = filter
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
             
             guard let sSelf = self else {return}
             if success {
@@ -216,7 +172,6 @@ class AccountDetailsVM: NSObject {
         var param = JSONDictionary()
         param["action"] = "email"
         param["type"] = "ledger"
-        param["limit"] = 20
         
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {

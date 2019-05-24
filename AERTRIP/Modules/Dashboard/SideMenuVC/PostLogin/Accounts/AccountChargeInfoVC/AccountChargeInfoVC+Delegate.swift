@@ -25,7 +25,7 @@ extension AccountChargeInfoVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.configure(title: self.viewModel.titles[indexPath.row], description: self.viewModel.description[indexPath.row])
+        cell.configure(title: self.viewModel.titles[indexPath.row], description: self.viewModel.description[indexPath.row], usingFor: self.viewModel.currentUsingFor)
         
         return cell
     }
@@ -40,6 +40,7 @@ class AccountChargeInfoCell: UITableViewCell {
     //MARK:-
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var discriptionLabelTopConstraint: NSLayoutConstraint!
     
     
     //MARK:- Life Cycle
@@ -60,7 +61,7 @@ class AccountChargeInfoCell: UITableViewCell {
     //MARK:- Private
 
     //MARK:- Public
-    func configure(title: String, description: String) {
+    func configure(title: String, description: String, usingFor: AccountChargeInfoVM.UsingFor) {
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
@@ -68,7 +69,15 @@ class AccountChargeInfoCell: UITableViewCell {
         self.titleLabel.text = title
         
         self.descLabel.isHidden = false
-        self.descLabel.font = AppFonts.Regular.withSize(16.0)
+        
+        if usingFor == .chargeInfo {
+            self.descLabel.font = AppFonts.Regular.withSize(16.0)
+            self.discriptionLabelTopConstraint.constant = 6.0
+        }
+        else {
+            self.descLabel.font = AppFonts.Regular.withSize(18.0)
+            self.discriptionLabelTopConstraint.constant = 9.0
+        }
         self.descLabel.textColor = AppColors.themeBlack
         self.descLabel.text = description
     }

@@ -97,7 +97,6 @@ class AccountOutstandingLadgerVM: NSObject {
         var param = JSONDictionary()
         param["action"] = "email"
         param["type"] = "outstanding"
-        param["limit"] = 20
         
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {

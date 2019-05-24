@@ -14,6 +14,7 @@ class AccountChargeInfoVC: BaseVC {
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     
     //MARK:- Properties
@@ -31,15 +32,27 @@ class AccountChargeInfoVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.topNavBarHeightConstraint.constant = (self.viewModel.currentUsingFor == .chargeInfo) ? 44.0 : 60.0
         let navTitle = (self.viewModel.currentUsingFor == .chargeInfo) ? LocalizedString.Info.localized : LocalizedString.StepsForOfflinePayment.localized
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         
-        self.topNavView.navTitleLabel.textAlignment = (self.viewModel.currentUsingFor == .chargeInfo) ? NSTextAlignment.center : NSTextAlignment.left
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"))
+        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"), normalTitle: " ", selectedTitle: " ")
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
+        if (self.viewModel.currentUsingFor == .offlinePaymentSteps) {
+            self.topNavView.titleLeadingConstraint.constant = 16.0
+            self.topNavView.navTitleLabel.font = AppFonts.SemiBold.withSize(22.0)
+            self.topNavView.navTitleLabel.textAlignment = .left
+        }
+        else {
+            self.topNavView.navTitleLabel.textAlignment = .center
+        }
+    }
     
     //MARK:- Methods
     //MARK:- Private

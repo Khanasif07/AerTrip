@@ -70,6 +70,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dividerView" destination="o88-Y4-ENM" id="Lok-0a-ZNU"/>
                 <outlet property="fareDetailTitleLabel" destination="CCw-Ko-TER" id="8Lc-KB-jCK"/>
                 <outlet property="numberOfRoomAndLabel" destination="kyJ-Qe-5K3" id="MBW-yZ-UH9"/>
             </connections>

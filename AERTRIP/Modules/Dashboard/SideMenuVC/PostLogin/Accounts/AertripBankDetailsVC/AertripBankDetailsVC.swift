@@ -32,7 +32,7 @@ class AertripBankDetailsVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.viewModel.getBankAccountDetails()
+//        self.viewModel.getBankAccountDetails()
     }
     
     override func bindViewModel() {

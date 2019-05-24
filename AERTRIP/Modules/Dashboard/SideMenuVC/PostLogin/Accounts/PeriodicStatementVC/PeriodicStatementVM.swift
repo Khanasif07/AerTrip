@@ -16,9 +16,9 @@ class PeriodicStatementVM {
     
     //MARK:- Properties
     //MARK:- Public
+    var periodicEvents: JSONDictionary = JSONDictionary()
     var allYears: [String] {
-//        return ["2018-19"]
-        return ["2018-19", "2017-18", "2016-17", "2015-16", "2014-15", "2013-14", "2012-13"]
+        return Array(periodicEvents.keys).sorted(by: { $0 > $1 })
     }
     
     var allTabs: [ATCategoryItem] {

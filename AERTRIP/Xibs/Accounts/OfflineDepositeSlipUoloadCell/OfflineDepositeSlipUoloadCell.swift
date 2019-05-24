@@ -15,6 +15,7 @@ class OfflineDepositeSlipUoloadCell: UITableViewCell {
     @IBOutlet weak var fileNameLabel: UILabel!
     @IBOutlet weak var fileSizeLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var imageCenterYConstraint: NSLayoutConstraint!
     
     //MARK:- ViewLifeCycle
     //MARK:-

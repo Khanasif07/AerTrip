@@ -26,38 +26,38 @@ class AertripBankDetailsVM: NSObject {
     //MARK:- Methods
     //MARK:- Public
 
-    func getBankAccountDetails() {
-        
-        delay(seconds: 0.8) { [weak self] in
-            guard let sSelf = self else {
-                self?.delegate?.getBankAccountDetailsFail()
-                return
-            }
-
-            let allData = [[
-                            "bankName": "ICICI Bank",
-                            "accountName": "Aertrip India Limited",
-                            "accountNumber": "08605001395",
-                            "branch": "J B Nagar",
-                            "ifsc": "ICIC0001086",
-                            "accType": "Current Account"
-                           ],
-                           [
-                            "bankName": "HDFC Bank",
-                            "accountName": "Aertrip India Limited",
-                            "accountNumber": "5020025506172",
-                            "branch": "Sahar Plaza, JB Nagar",
-                            "ifsc": "HDFC0001204",
-                            "accType": "Current Account"
-                           ]
-                          ]
-            
-            sSelf.allBanks = BankAccountDetail.getModels(data: allData)
-            
-            sSelf.delegate?.getBankAccountDetailsSuccess()
-        }
-        
-    }
+//    func getBankAccountDetails() {
+//
+//        delay(seconds: 0.8) { [weak self] in
+//            guard let sSelf = self else {
+//                self?.delegate?.getBankAccountDetailsFail()
+//                return
+//            }
+//
+//            let allData = [[
+//                            "bankName": "ICICI Bank",
+//                            "accountName": "Aertrip India Limited",
+//                            "accountNumber": "08605001395",
+//                            "branch": "J B Nagar",
+//                            "ifsc": "ICIC0001086",
+//                            "accType": "Current Account"
+//                           ],
+//                           [
+//                            "bankName": "HDFC Bank",
+//                            "accountName": "Aertrip India Limited",
+//                            "accountNumber": "5020025506172",
+//                            "branch": "Sahar Plaza, JB Nagar",
+//                            "ifsc": "HDFC0001204",
+//                            "accType": "Current Account"
+//                           ]
+//                          ]
+//
+//            sSelf.allBanks = BankAccountDetail.getModels(data: allData)
+//
+//            sSelf.delegate?.getBankAccountDetailsSuccess()
+//        }
+//
+//    }
     
     //MARK:- Private
 }

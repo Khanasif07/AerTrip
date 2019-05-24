@@ -27,13 +27,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yH-sT-xPL">
-                        <rect key="frame" x="64" y="17" width="42" height="21"/>
+                        <rect key="frame" x="64" y="17" width="204" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDx-xS-BSa">
-                        <rect key="frame" x="64" y="36" width="42" height="21"/>
+                        <rect key="frame" x="64" y="36" width="204" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -49,8 +49,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="2rP-YC-iYs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="80l-sh-50i"/>
+                    <constraint firstItem="2rP-YC-iYs" firstAttribute="leading" secondItem="7yH-sT-xPL" secondAttribute="trailing" id="9Od-04-Ob1"/>
                     <constraint firstItem="EIe-1J-qtv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MJs-gu-OF6"/>
                     <constraint firstItem="EIe-1J-qtv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Md3-ES-x66"/>
+                    <constraint firstItem="EDx-xS-BSa" firstAttribute="trailing" secondItem="7yH-sT-xPL" secondAttribute="trailing" id="THJ-TU-tuD"/>
                     <constraint firstAttribute="trailing" secondItem="2rP-YC-iYs" secondAttribute="trailing" constant="8" id="YTz-Lc-Xwg"/>
                     <constraint firstItem="EDx-xS-BSa" firstAttribute="bottom" secondItem="EIe-1J-qtv" secondAttribute="bottom" id="n23-qz-ncz"/>
                     <constraint firstItem="EDx-xS-BSa" firstAttribute="leading" secondItem="EIe-1J-qtv" secondAttribute="trailing" constant="16" id="tnE-w8-2Zn"/>
@@ -64,6 +66,7 @@
                 <outlet property="fileNameLabel" destination="7yH-sT-xPL" id="w8X-Y0-Aka"/>
                 <outlet property="fileSizeLabel" destination="EDx-xS-BSa" id="zBd-sg-d3n"/>
                 <outlet property="iconImageView" destination="EIe-1J-qtv" id="Pgt-mf-qsd"/>
+                <outlet property="imageCenterYConstraint" destination="MJs-gu-OF6" id="a67-Aq-gFz"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="45.535714285714285"/>
         </tableViewCell>

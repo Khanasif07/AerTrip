@@ -15,13 +15,6 @@ extension Notification {
 
 class UserInfo {
     
-    enum UserType {
-        case regular
-        case statement
-        case billWise
-        case topUp
-    }
-    
     enum Gender: Int {
         case male = 0
         case female = 1
@@ -584,14 +577,12 @@ class UserInfo {
         }
     }
 
-    var userType: UserType {
-        var current: UserType = UserType.statement
-        if let accData = accountData {
-            if let stmt = accData.statements?.jsonDict, !stmt.isEmpty {
-                current = UserType.statement
-            }
-        }
+    var userCreditType: UserCreditType {
+        var current: UserCreditType = UserCreditType.statement
         
+        if !self.creditType.isEmpty, let type = UserCreditType(rawValue: self.creditType) {
+            current = type
+        }
         return current
     }
 

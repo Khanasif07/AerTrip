@@ -315,6 +315,16 @@ extension String {
         return nil
     }
     
+    /// EZSE: Converts String to Bool
+    var toBool: Bool {
+        switch self.lowercased() {
+        case "true", "1":
+            return true
+        default:
+            return false
+        }
+    }
+    
     /// EZSE: Converts String to Double
     var toDouble: Double? {
         if let num = NumberFormatter().number(from: self) {
@@ -742,4 +752,42 @@ extension NSAttributedString {
         return attributedSubstring(from: range)
     }
     
+}
+
+
+extension String {
+    
+    var fileSizeInBytes: Int {
+        
+        guard let url = self.toUrl else {
+            return 0
+        }
+        
+        do {
+            let resources = try url.resourceValues(forKeys:[.fileSizeKey])
+            return resources.fileSize ?? 0
+        } catch {
+            return 0
+        }
+    }
+    
+    var fileSizeWithUnit: String {
+        let bytes = Double(self.fileSizeInBytes)
+        guard bytes > 0 else {
+            return "0 bytes"
+        }
+        
+        let suffixes = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+        let k: Double = 1000
+        let i = floor(log(bytes) / log(k))
+        
+        // Format number with thousands separator and everything below 1 GB with no decimal places.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = i < 3 ? 0 : 1
+        numberFormatter.numberStyle = .decimal
+        
+        let numberString = numberFormatter.string(from: NSNumber(value: bytes / pow(k, i))) ?? "Unknown"
+        let suffix = suffixes[Int(i)]
+        return "\(numberString) \(suffix)"
+    }
 }

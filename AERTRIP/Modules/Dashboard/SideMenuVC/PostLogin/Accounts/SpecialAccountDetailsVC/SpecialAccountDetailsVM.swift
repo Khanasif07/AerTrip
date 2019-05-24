@@ -44,6 +44,10 @@ protocol SpecialAccountDetailsVMDelegate: class {
     func willFetchScreenDetails()
     func fetchScreenDetailsSuccess()
     func fetchScreenDetailsFail()
+    
+    func willGetOutstandingPayment()
+    func getOutstandingPaymentSuccess()
+    func getOutstandingPaymentFail()
 }
 
 class SpecialAccountDetailsVM {
@@ -60,7 +64,10 @@ class SpecialAccountDetailsVM {
     private(set) var accVouchers: [String] = []
     
     private(set) var accountLadger: JSONDictionary = JSONDictionary()
+    private(set) var periodicEvents: JSONDictionary = JSONDictionary()
     private(set) var outstandingLadger: AccountOutstanding = AccountOutstanding(json: [:])
+    
+    private(set) var itineraryData: DepositItinerary?
     
     let depositCellHeight: CGFloat = 99.0
     
@@ -221,7 +228,7 @@ class SpecialAccountDetailsVM {
         
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
         
-        if usr.userType == UserInfo.UserType.statement {
+        if usr.userCreditType == UserCreditType.statement {
             otrAction.append("Periodic statement")
         }
         
@@ -229,7 +236,7 @@ class SpecialAccountDetailsVM {
         for (idx, str) in otrAction.enumerated() {
             var obj = SpecialAccountEvent()
             obj.title = str
-            obj.height = 32.0
+            obj.height = 40.0
             
             obj.isDevider = true
             obj.isNext = true
@@ -249,9 +256,10 @@ class SpecialAccountDetailsVM {
         self.formatDataForScreen()
         
         //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: ["limit":20]) { [weak self](success, accLad, accVchrs, outLad, errors) in
+        APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
             if success {
                 self?.accountLadger = accLad
+                self?.periodicEvents = periodic
                 
                 if let obj = outLad {
                     self?.outstandingLadger = obj
@@ -263,6 +271,21 @@ class SpecialAccountDetailsVM {
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
+    }
+    
+    func getOutstandingPayment() {
+        
+        self.delegate?.willGetOutstandingPayment()
+        APICaller.shared.outstandingPaymentAPI(params: [:]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getOutstandingPaymentSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getOutstandingPaymentFail()
             }
         }
     }

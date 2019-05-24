@@ -18,6 +18,7 @@ class AddNotesTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var addNoteTextView: PKTextView!
     @IBOutlet weak var sepratorView: ATDividerView!
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     

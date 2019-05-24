@@ -101,23 +101,22 @@ class AccountOfflineDepositVC: BaseVC {
         self.payButton.setTitle("\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)", for: .normal)
     }
 
-    private func manageLoader(shouldStart: Bool) {
+    func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         
         self.loaderContainer.isHidden = !shouldStart
     }
+    
+    func showPaymentSuccessMessage() {
+        AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)")
+    }
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
         if self.viewModel.userEnteredDetails.isDataVarified {
-            self.manageLoader(shouldStart: true)
-            printDebug(self.viewModel.userEnteredDetails.dict)
-            delay(seconds: 1.0) {[weak self] in
-                guard let sSelf = self else {return}
-                sSelf.manageLoader(shouldStart: false)
-            }
+            self.viewModel.registerPayment(currentUsingAs: self.currentUsingAs)
         }
     }
     

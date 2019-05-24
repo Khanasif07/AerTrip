@@ -13,6 +13,7 @@ class FareDetailTableViewCell: UITableViewCell {
     
     @IBOutlet var fareDetailTitleLabel: UILabel!
     @IBOutlet var numberOfRoomAndLabel: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

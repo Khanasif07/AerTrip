@@ -57,7 +57,7 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.priceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(67000).delimiter)"
+//        self.priceLabel.text = AppConstants.kRuppeeSymbol + "\(Double(67000).delimiter)"
         self.makePaymentLabel.text = LocalizedString.MakePayment.localized
     }
     

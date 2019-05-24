@@ -59,6 +59,10 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var mainImageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchTextLabel: UILabel!
     @IBOutlet weak var bottomButton: UIButton!
+    @IBOutlet weak var firstbuttonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var firstButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomButtonTopConstraint: NSLayoutConstraint!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -155,9 +159,21 @@ extension EmptyScreenView {
         }
     }
     
+    private func hideFirstButton(isHidden: Bool) {
+        self.firstButtonContainerView.isHidden = isHidden
+        self.firstbuttonHeightConstraint.constant = isHidden ? 0.0 : 45.0
+        self.firstButtonTopConstraint.constant = isHidden ? 0.0 : 20.0
+    }
+    
+    private func hideBottomButton(isHidden: Bool) {
+        self.bottomButton.isHidden = isHidden
+        self.bottomButtonHeightConstraint.constant = isHidden ? 0.0 : 45.0
+        self.bottomButtonTopConstraint.constant = isHidden ? 0.0 : 10.0
+    }
+    
     //MARK: - Tenant My Apartments -
     private func setupForNone() {
-        self.firstButton.isHidden = true
+        self.hideFirstButton(isHidden: true)
         self.mainImageView.image = nil
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
@@ -165,15 +181,15 @@ extension EmptyScreenView {
     }
     
     private func setupForNoAccountTransection() {
-        self.firstButton.isHidden = true
+        self.hideFirstButton(isHidden: true)
         self.mainImageView.image = nil
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.NoTransactions.localized
+        self.messageLabel.text = " \n\(LocalizedString.NoTransactions.localized)"
     }
     
     private func setupForNoStatementGenrated() {
-        self.firstButton.isHidden = true
+        self.hideFirstButton(isHidden: true)
         self.mainImageView.image = nil
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -181,7 +197,7 @@ extension EmptyScreenView {
     }
     
     private func setupForNoAccountResult() {
-        self.firstButton.isHidden = true
+        self.hideFirstButton(isHidden: true)
         self.mainImageView.image = nil
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -192,7 +208,7 @@ extension EmptyScreenView {
         self.searchTextLabel.textColor = AppColors.themeGray60
         self.searchTextLabel.text = LocalizedString.NoResultsFound.localized
         
-        self.bottomButton.isHidden = false
+        self.hideBottomButton(isHidden: false)
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
@@ -201,8 +217,8 @@ extension EmptyScreenView {
     }
     
     private func setupForNoTraveller() {
-        self.firstButton.isHidden = true
-        
+        self.hideFirstButton(isHidden: true)
+
         self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -216,8 +232,8 @@ extension EmptyScreenView {
     }
     
     private func setupForNoTravellerWithAddButton() {
-        self.firstButton.isHidden = true
-        
+        self.hideFirstButton(isHidden: true)
+
         self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -229,7 +245,7 @@ extension EmptyScreenView {
         self.searchTextLabel.textColor = AppColors.themeGray60
         self.searchTextLabel.text = "Make a list of your travel companions, and access it on all platforms"
         
-        self.bottomButton.isHidden = false
+        self.hideBottomButton(isHidden: false)
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle("\(LocalizedString.Add.localized) \(LocalizedString.Travellers.localized)", for: .normal)
         self.bottomButton.setTitle("\(LocalizedString.Add.localized) \(LocalizedString.Travellers.localized)", for: .selected)
@@ -238,7 +254,7 @@ extension EmptyScreenView {
     }
     
     private func setupForHotelPreferences() {
-        self.firstButton.isHidden = true
+        self.hideFirstButton(isHidden: true)
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
@@ -246,8 +262,8 @@ extension EmptyScreenView {
     }
     
     private func setupForImportPhoneContacts() {
-        self.firstButton.isHidden = false
-        
+        self.hideFirstButton(isHidden: false)
+
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
@@ -263,7 +279,7 @@ extension EmptyScreenView {
     }
     
     private func setupForImportFacebookContacts() {
-        self.firstButton.isHidden = false
+        self.hideFirstButton(isHidden: false)
 
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
@@ -283,7 +299,7 @@ extension EmptyScreenView {
     }
     
     private func setupForImportGoogleContacts() {
-        self.firstButton.isHidden = false
+        self.hideFirstButton(isHidden: false)
 
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]

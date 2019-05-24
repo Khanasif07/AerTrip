@@ -590,7 +590,8 @@
 
 //AccountDetails Screen
 "Accounts" = "Accounts";
-"AccountsLegder" = "Accounts Legder";
+"AccountsLegder" = "Accounts Ledger";
+"AccountLegder" = "Account Ledger";
 "Voucher" = "Voucher";
 "Amount" = "Amount";
 "Pending" = "Pending";
@@ -725,7 +726,7 @@
 "FundTransfer" = "Fund Transfer";
 
 "Breakup" = "Breakup";
-"DepositAmount" = "Deposit amount";
+"DepositAmount" = "Deposit Amount";
 "ConvenienceFeeNonRefundable" = "Convenience fee (Non-refundable)";
 "PaymentRegisteredSuccesfully" = "Payment registered succesfully";
 "WeShallCreditYourAccount" = "We shall credit your account once we recieve your payment in our account.";

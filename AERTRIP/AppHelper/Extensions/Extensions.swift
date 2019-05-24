@@ -280,7 +280,7 @@ extension Double{
         return (self * divisor).rounded() / divisor
     }
     
-    private static var numberFormatter: NumberFormatter = {
+    private static var currencyFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
@@ -288,8 +288,24 @@ extension Double{
         return numberFormatter
     }()
     
-    var delimiter: String {
-        return Double.numberFormatter.string(from: NSNumber(value: self)) ?? ""
+    private static var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
+        
+        return numberFormatter
+    }()
+    
+    var delimiterWithSymbolTill2Places: String {
+        return Double.currencyFormatter.string(from: NSNumber(value: self)) ?? ""
+    }
+    
+    var delimiterWithSymbol: String {
+        return Double.currencyFormatter.string(from: NSNumber(value: Int(self))) ?? ""
+    }
+    
+    var delimiterWithoutSymbol: String {
+        return Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
     }
 }
 

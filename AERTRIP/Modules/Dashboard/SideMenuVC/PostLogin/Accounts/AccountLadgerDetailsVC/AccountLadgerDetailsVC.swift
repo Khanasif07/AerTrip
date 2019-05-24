@@ -23,9 +23,27 @@ class AccountLadgerDetailsVC: BaseVC {
     
     //MARK:- Private
     private var headerView: AccountLadgerDetailHeader!
-    private let headerHeightForNormal: CGFloat = 185.0
-    private let headerHeightForCredit: CGFloat = 122.0
+    private let headerHeightForNormal: CGFloat = 152.0
+    private let headerHeightForCredit: CGFloat = 152.0
+    private let headerHeightFlightSale: CGFloat = 190.0
+    private let headerHeightHotelSale: CGFloat = 215.0
     private let parallexHeaderMinHeight: CGFloat = 0.0
+    private var parallexHeaderMaxHeight: CGFloat {
+        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
+            if event.productType == .flight {
+                self.headerView.titleHeightConstraint.constant = 21.0
+                return self.headerHeightFlightSale
+            }
+            else {
+                return self.headerHeightHotelSale
+            }
+        }
+        else {
+            self.headerView.bottomContainerBottomConstraint.constant = 0.0
+            self.headerView.bottomDetailContainerHeightConstraint.constant = 0.0
+            return self.headerHeightForCredit
+        }
+    }
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -76,10 +94,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
         
-        self.tableView.parallaxHeader.height = self.headerHeightForNormal
-        if let event = self.viewModel.ladgerEvent, event.voucher == .debitNote {
-            self.tableView.parallaxHeader.height = self.headerHeightForCredit
-        }
+        self.tableView.parallaxHeader.height = self.parallexHeaderMaxHeight
 
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self

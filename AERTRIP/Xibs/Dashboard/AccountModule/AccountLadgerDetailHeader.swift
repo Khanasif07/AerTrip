@@ -19,6 +19,8 @@ class AccountLadgerDetailHeader: UIView {
     @IBOutlet weak var bottomDetailContainer: UIView!
     @IBOutlet weak var bottomDetailContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleHeightConstraint: NSLayoutConstraint!
+    
     //MARK:- Properties
     //MARK:- Private
     

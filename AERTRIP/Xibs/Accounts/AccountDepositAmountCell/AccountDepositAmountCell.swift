@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol AccountDepositAmountCellDelegate: class {
+    func amountDidChanged(amount: Double, amountString: String)
+}
+
+
 class AccountDepositAmountCell: UITableViewCell {
     //MARK:- IBOutlets
     //MARK:-
@@ -15,6 +20,15 @@ class AccountDepositAmountCell: UITableViewCell {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var amountTextField: UITextField!
 
+    
+    weak var delegate: AccountDepositAmountCellDelegate?
+    
+    var amount: Double = 0.0 {
+        didSet {
+            self.setData()
+        }
+    }
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func awakeFromNib() {
@@ -25,6 +39,7 @@ class AccountDepositAmountCell: UITableViewCell {
         self.amountTextField.keyboardType = .numberPad
 
         self.setFontAndColor()
+        self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
     }
     
     override func prepareForReuse() {
@@ -32,6 +47,17 @@ class AccountDepositAmountCell: UITableViewCell {
         
         self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .numberPad
+    }
+    
+    @objc private func textFieldDidEndEditing(_ sender: UITextField) {
+        if let txt = sender.text, !txt.isEmpty, let amt = txt.replacingOccurrences(of: ",", with: "").toDouble {
+            self.amountTextField.text = amt.delimiterWithoutSymbol
+            self.delegate?.amountDidChanged(amount: amt, amountString: txt)
+        }
+    }
+    
+    private func setData() {
+        self.amountTextField.text = amount.delimiterWithoutSymbol
     }
     
     private func setFontAndColor() {

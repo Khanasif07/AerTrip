@@ -62,7 +62,7 @@ class PeriodicStatementVC: BaseVC {
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 51.0
-        style.interItemSpace = 5.0
+        style.interItemSpace = 17.0
         style.itemPadding = 8.0
         style.isScrollable = true
         style.layoutAlignment = .center
@@ -81,7 +81,10 @@ class PeriodicStatementVC: BaseVC {
         
         for idx in 0..<self.viewModel.allYears.count {
             let vc = PeriodicStatementListVC.instantiate(fromAppStoryboard: .Account)
-            vc.viewModel.currentFinYear = self.viewModel.allYears[idx]
+            
+            if let data = self.viewModel.periodicEvents[self.viewModel.allYears[idx]] as? JSONDictionary {
+                vc.viewModel.yearData = data
+            }
             self.allChildVCs.append(vc)
         }
         

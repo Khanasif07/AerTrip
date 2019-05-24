@@ -17,12 +17,12 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
     static var noOfComponent = 2
     
     
-    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, doneBlock: @escaping PickerDone) {
+    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
         
         let picker = PKMultiPicker()
         picker.doneBlock = doneBlock
         
-        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent)
+        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint)
         
         if titles != nil {
             let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.size.width/4 - 10, y: 0, width: 100, height: 30))
@@ -42,7 +42,7 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    private func openPickerInTextField(_ textField: UITextField?, firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?) {
+    private func openPickerInTextField(_ textField: UITextField?, firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, toolBarTint: UIColor = UIColor.black) {
         
         firstValueArray  = firstComponentArray
         secondValueArray = secondComponentArray
@@ -52,9 +52,9 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         
      
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
-        cancelButton.tintColor = UIColor.black
+        cancelButton.tintColor = toolBarTint
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(pickerDoneButtonTapped))
-        doneButton.tintColor = UIColor.black
+        doneButton.tintColor = toolBarTint
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action:nil)
         
         let toolbar = UIToolbar()
@@ -148,7 +148,7 @@ class PKDatePicker: UIDatePicker {
     }
     
     
-    class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, doneBlock: @escaping PickerDone) {
+    class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDone) {
         
         let picker = PKDatePicker()
         picker.doneBlock = doneBlock
@@ -176,10 +176,10 @@ class PKDatePicker: UIDatePicker {
         
         picker.maximumDate = maximumDate
         
-        picker.openDatePickerInTextField(textField, appearance: appearance)
+        picker.openDatePickerInTextField(textField, appearance: appearance, toolBarTint: toolBarTint)
     }
     
-    private func openDatePickerInTextField(_ textField: UITextField?, appearance: Appearance = .light) {
+    private func openDatePickerInTextField(_ textField: UITextField?, appearance: Appearance = .light, toolBarTint: UIColor? = nil) {
 
         if let text = textField?.text, !text.isEmpty, let selDate = self.dateFormatter.date(from: text) {
             self.setDate(selDate, animated: false)
@@ -200,15 +200,15 @@ class PKDatePicker: UIDatePicker {
             self.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
             self.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
             toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            cancelButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         }
         else {
             self.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
             self.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
             toolbar.barTintColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
-            cancelButton.tintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            doneButton.tintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
         }
         
         let array = [cancelButton, spaceButton, doneButton]

@@ -601,11 +601,11 @@ extension AppFlowManager {
             return
         }
         
-        switch user.userType {
+        switch user.userCreditType {
         case .regular:
             self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [])
             
-        case .billWise:
+        case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
@@ -613,7 +613,7 @@ extension AppFlowManager {
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
             
-        case .topUp:
+        case .topup:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             self.mainNavigationController.pushViewController(obj, animated: true)
         }
@@ -655,19 +655,24 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToPeriodicStatementVC() {
+    func moveToPeriodicStatementVC(periodicEvents: JSONDictionary) {
         let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.periodicEvents = periodicEvents
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountOnlineDepositVC() {
+    func moveToAccountOnlineDepositVC(depositItinerary: DepositItinerary?) {
         let obj = AccountOnlineDepositVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.depositItinerary = depositItinerary
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor) {
+    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor, paymentModeDetail: PaymentModeDetails?, netAmount: Double, bankMaster: [String]) {
         let obj = AccountOfflineDepositVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
+        obj.viewModel.paymentModeDetails = paymentModeDetail
+        obj.viewModel.bankMaster = bankMaster
+        obj.viewModel.userEnteredDetails.depositAmount = netAmount
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -700,8 +705,9 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
-    func presentAertripBankDetailsVC() {
+    func presentAertripBankDetailsVC(bankDetails: [BankAccountDetail]) {
         let obj = AertripBankDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.allBanks = bankDetails
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
@@ -867,7 +873,8 @@ extension AppFlowManager {
 
 extension AppFlowManager: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
-        guard let navVC = AppFlowManager.default.mainNavigationController else {
+        
+        guard let navVC = UIApplication.topViewController() else {
             return AppFlowManager.default.mainNavigationController
         }
         
