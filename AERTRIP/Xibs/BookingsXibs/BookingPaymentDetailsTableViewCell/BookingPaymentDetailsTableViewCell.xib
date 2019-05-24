@@ -18,14 +18,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BookingPaymentDetailsTableViewCell" id="KGk-i7-Jjw" customClass="BookingPaymentDetailsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cC-tC-t7L">
-                        <rect key="frame" x="16" y="0.0" width="288" height="44.5"/>
+                        <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VR6-oh-NG8" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="256" height="0.5"/>
@@ -49,25 +49,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextScreen" translatesAutoresizingMaskIntoConstraints="NO" id="04W-hc-xPf">
-                                <rect key="frame" x="264" y="9.5" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="3H7-bv-qDE"/>
-                                    <constraint firstAttribute="width" secondItem="04W-hc-xPf" secondAttribute="height" multiplier="1:1" id="TeN-ye-8t5"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="04W-hc-xPf" firstAttribute="centerY" secondItem="nKe-WE-HjL" secondAttribute="centerY" id="3wo-jQ-Did"/>
                             <constraint firstItem="VR6-oh-NG8" firstAttribute="top" secondItem="8cC-tC-t7L" secondAttribute="top" id="4Yq-mC-Sfy"/>
+                            <constraint firstAttribute="height" constant="43.5" id="7NZ-by-jxp"/>
                             <constraint firstAttribute="trailing" secondItem="5JS-h4-6wS" secondAttribute="trailing" constant="16" id="Iei-7R-W1m"/>
-                            <constraint firstAttribute="trailing" secondItem="04W-hc-xPf" secondAttribute="trailing" id="MNJ-vU-7md"/>
                             <constraint firstItem="5JS-h4-6wS" firstAttribute="centerY" secondItem="nKe-WE-HjL" secondAttribute="centerY" id="NSl-nh-nJR"/>
                             <constraint firstItem="nKe-WE-HjL" firstAttribute="top" secondItem="VR6-oh-NG8" secondAttribute="bottom" constant="11" id="OXe-NW-IyY"/>
                             <constraint firstItem="VR6-oh-NG8" firstAttribute="leading" secondItem="8cC-tC-t7L" secondAttribute="leading" constant="16" id="W7A-1Z-86j"/>
                             <constraint firstItem="nKe-WE-HjL" firstAttribute="leading" secondItem="8cC-tC-t7L" secondAttribute="leading" constant="16" id="cui-jt-55r"/>
-                            <constraint firstAttribute="bottom" secondItem="nKe-WE-HjL" secondAttribute="bottom" constant="13" id="glF-Rb-di1"/>
+                            <constraint firstAttribute="bottom" secondItem="nKe-WE-HjL" secondAttribute="bottom" constant="12" id="glF-Rb-di1"/>
                             <constraint firstAttribute="trailing" secondItem="VR6-oh-NG8" secondAttribute="trailing" constant="16" id="lx6-d9-SRJ"/>
                             <constraint firstItem="5JS-h4-6wS" firstAttribute="leading" secondItem="nKe-WE-HjL" secondAttribute="trailing" constant="10" id="xs9-Vj-7Ev"/>
                         </constraints>
@@ -82,19 +74,16 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cellHeight" destination="7NZ-by-jxp" id="2wJ-9E-3Pf"/>
                 <outlet property="containerView" destination="8cC-tC-t7L" id="d2I-Yn-Mth"/>
                 <outlet property="containerViewBottomConstraint" destination="73Z-dq-E3g" id="7Pl-g6-r7h"/>
                 <outlet property="containerViewTopConstraint" destination="Vo9-YB-pv2" id="0EJ-5S-H9D"/>
                 <outlet property="costLabel" destination="5JS-h4-6wS" id="lvK-Jw-IqH"/>
                 <outlet property="dividerView" destination="VR6-oh-NG8" id="5S6-Ao-lNp"/>
-                <outlet property="rightArrowImageView" destination="04W-hc-xPf" id="obY-tk-q8S"/>
                 <outlet property="titleBottomConstraint" destination="glF-Rb-di1" id="tBR-H8-qYe"/>
                 <outlet property="titleLabel" destination="nKe-WE-HjL" id="r70-ag-rIE"/>
                 <outlet property="titleTopConstraint" destination="OXe-NW-IyY" id="EfH-QI-Ado"/>
             </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="arrowNextScreen" width="40" height="44"/>
-    </resources>
 </document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-//Mark:- UITableView Delegate And Datasource
+//MARK:- UITableView Delegate And Datasource
 //==========================================
 extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
@@ -157,7 +157,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
 }
 
-//Mark:- HotelDetailDelegate
+//MARK:- HotelDetailDelegate
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
     
@@ -229,7 +229,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
 }
 
-//Mark:- ScrollView Delegate
+//MARK:- ScrollView Delegate
 //==========================
 extension HotelDetailsVC {
      func manageHeaderView() {
@@ -324,7 +324,7 @@ extension HotelDetailsVC {
     }
 }
 
-//Mark:- HotelDetailsImgSlideCellDelegate
+//MARK:- HotelDetailsImgSlideCellDelegate
 //=======================================
 extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
@@ -339,7 +339,7 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     }
 }
 
-//Mark:- ATGallery Delegate And Datasource
+//MARK:- ATGallery Delegate And Datasource
 //========================================
 extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
     
@@ -358,9 +358,10 @@ extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
     }
 }
 
-//Mark:- HotelDetailsBedsTableViewCellDelegate
+//MARK:- HotelDetailsBedsTableViewCellDelegate
 //============================================
 extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
+    
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self](isGuest) in
             
@@ -385,7 +386,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     }
 }
 
-//Mark:- GetFullInfoDelegate
+//MARK:- GetFullInfoDelegate
 //==========================
 extension HotelDetailsVC: GetFullInfoDelegate {
     func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
@@ -396,7 +397,7 @@ extension HotelDetailsVC: GetFullInfoDelegate {
     }
 }
 
-//Mark:- HotelDetailAmenitesCellDelegate
+//MARK:- HotelDetailAmenitesCellDelegate
 //=======================================
 extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {

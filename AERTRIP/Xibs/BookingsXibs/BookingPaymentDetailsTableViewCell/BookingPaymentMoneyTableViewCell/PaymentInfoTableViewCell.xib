@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PaymentInfoTableViewCell" id="KGk-i7-Jjw" customClass="PaymentInfoTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA2-fO-V4D">
+                        <rect key="frame" x="16" y="26" width="343" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCE-m0-2pT">
+                                <rect key="frame" x="16" y="12" width="78" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCheckoutForwardArrow" translatesAutoresizingMaskIntoConstraints="NO" id="pZe-ht-lCw">
+                                <rect key="frame" x="315" y="14" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pZe-ht-lCw" secondAttribute="height" multiplier="1:1" id="6YJ-bO-gcO"/>
+                                    <constraint firstAttribute="height" constant="16" id="T7o-9T-GRT"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pZe-ht-lCw" secondAttribute="trailing" constant="12" id="9iT-dD-jAV"/>
+                            <constraint firstItem="zCE-m0-2pT" firstAttribute="top" secondItem="tA2-fO-V4D" secondAttribute="top" constant="12" id="M0v-xI-pvH"/>
+                            <constraint firstItem="zCE-m0-2pT" firstAttribute="leading" secondItem="tA2-fO-V4D" secondAttribute="leading" constant="16" id="fvq-jl-RR0"/>
+                            <constraint firstAttribute="bottom" secondItem="zCE-m0-2pT" secondAttribute="bottom" id="fzr-KY-AlI"/>
+                            <constraint firstAttribute="bottom" secondItem="pZe-ht-lCw" secondAttribute="bottom" id="p4A-yz-fgu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="tA2-fO-V4D" secondAttribute="bottom" id="9xL-jd-sbg"/>
+                    <constraint firstAttribute="trailing" secondItem="tA2-fO-V4D" secondAttribute="trailing" constant="16" id="Twk-fz-seh"/>
+                    <constraint firstItem="tA2-fO-V4D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YuS-IQ-hLL"/>
+                    <constraint firstItem="tA2-fO-V4D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="gZw-aQ-sq1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="tA2-fO-V4D" id="Ymj-3L-OfT"/>
+                <outlet property="nextScreenImageView" destination="pZe-ht-lCw" id="0ta-gt-XtX"/>
+                <outlet property="paymentInfoLabel" destination="zCE-m0-2pT" id="lgD-og-dhN"/>
+            </connections>
+            <point key="canvasLocation" x="138.40579710144928" y="118.52678571428571"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="hotelCheckoutForwardArrow" width="8" height="14"/>
+    </resources>
+</document>

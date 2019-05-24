@@ -665,6 +665,8 @@
 		84AD5F28222D51F80095EA5D /* PKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD5F26222D51F80095EA5D /* PKAlertController.swift */; };
 		84AD5F29222D51F80095EA5D /* PKAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD5F27222D51F80095EA5D /* PKAlertButton.swift */; };
 		84AD5F2B222D52FC0095EA5D /* ATNotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD5F2A222D52FC0095EA5D /* ATNotificationButton.swift */; };
+		84AF53642297FC450059197A /* OtherBookingDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF53632297FC450059197A /* OtherBookingDetailsHeaderView.swift */; };
+		84AF53662297FC5F0059197A /* OtherBookingDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AF53652297FC5F0059197A /* OtherBookingDetailsHeaderView.xib */; };
 		84B23F73222FA39B00C952ED /* CityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B23F71222FA39A00C952ED /* CityMarkerView.xib */; };
 		84B23F74222FA39B00C952ED /* CityMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B23F72222FA39B00C952ED /* CityMarkerView.swift */; };
 		84B23F78222FFA9E00C952ED /* ClusterMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */; };
@@ -743,8 +745,8 @@
 		84DD2497226731310013F77E /* OtherBookingsDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD2496226731310013F77E /* OtherBookingsDetailsVM.swift */; };
 		84DD249A226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD2498226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift */; };
 		84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */; };
-		84DD249F2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD249D2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift */; };
-		84DD24A02267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib */; };
+		84DD249F2267A6030013F77E /* PaymentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */; };
+		84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */; };
 		84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */; };
 		84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */; };
 		84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */; };
@@ -1538,6 +1540,8 @@
 		84AD5F26222D51F80095EA5D /* PKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKAlertController.swift; sourceTree = "<group>"; };
 		84AD5F27222D51F80095EA5D /* PKAlertButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKAlertButton.swift; sourceTree = "<group>"; };
 		84AD5F2A222D52FC0095EA5D /* ATNotificationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATNotificationButton.swift; sourceTree = "<group>"; };
+		84AF53632297FC450059197A /* OtherBookingDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherBookingDetailsHeaderView.swift; sourceTree = "<group>"; };
+		84AF53652297FC5F0059197A /* OtherBookingDetailsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherBookingDetailsHeaderView.xib; sourceTree = "<group>"; };
 		84B23F71222FA39A00C952ED /* CityMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityMarkerView.xib; sourceTree = "<group>"; };
 		84B23F72222FA39B00C952ED /* CityMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityMarkerView.swift; sourceTree = "<group>"; };
 		84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterMarkerView.xib; sourceTree = "<group>"; };
@@ -1616,8 +1620,8 @@
 		84DD2496226731310013F77E /* OtherBookingsDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherBookingsDetailsVM.swift; sourceTree = "<group>"; };
 		84DD2498226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingPaymentDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingPaymentDetailsTableViewCell.xib; sourceTree = "<group>"; };
-		84DD249D2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingPaymentMoneyTableViewCell.swift; sourceTree = "<group>"; };
-		84DD249E2267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingPaymentMoneyTableViewCell.xib; sourceTree = "<group>"; };
+		84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentInfoTableViewCell.swift; sourceTree = "<group>"; };
+		84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentInfoTableViewCell.xib; sourceTree = "<group>"; };
 		84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerOptions.swift; sourceTree = "<group>"; };
 		84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerTabView.swift; sourceTree = "<group>"; };
 		84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerController.swift; sourceTree = "<group>"; };
@@ -4120,8 +4124,8 @@
 		84DD24A12267A6080013F77E /* BookingPaymentMoneyTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				84DD249D2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift */,
-				84DD249E2267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib */,
+				84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */,
+				84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */,
 			);
 			path = BookingPaymentMoneyTableViewCell;
 			sourceTree = "<group>";
@@ -4193,6 +4197,8 @@
 				84DD247A2266102F0013F77E /* CancelledVC.swift */,
 				84DD247E2266FF460013F77E /* OtherBookingsDetailsVC.swift */,
 				84DD2496226731310013F77E /* OtherBookingsDetailsVM.swift */,
+				84AF53632297FC450059197A /* OtherBookingDetailsHeaderView.swift */,
+				84AF53652297FC5F0059197A /* OtherBookingDetailsHeaderView.xib */,
 			);
 			path = MyBookingsVC;
 			sourceTree = "<group>";
@@ -4562,6 +4568,7 @@
 				1804888E21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.xib in Resources */,
 				84F983F421B51A070018DFED /* PreLogin.storyboard in Resources */,
 				182EB22322859BA8001BFB20 /* FlightInfoTableViewCell.xib in Resources */,
+				84AF53662297FC5F0059197A /* OtherBookingDetailsHeaderView.xib in Resources */,
 				84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */,
 				84534EC622490D15009FF536 /* HCConfirmationVoucherTableViewCell.xib in Resources */,
 				8491D1F9222D3FC2001D0313 /* SourceSansPro-BoldItalic.ttf in Resources */,
@@ -4717,7 +4724,7 @@
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
 				8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */,
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
-				84DD24A02267A6030013F77E /* BookingPaymentMoneyTableViewCell.xib in Resources */,
+				84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */,
 				18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */,
 				8491D1F2222D3FC2001D0313 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				8438C17C22045E4C001D510B /* TopNavigationView.xib in Resources */,
@@ -5324,7 +5331,7 @@
 				84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */,
 				18E7971A224A17CD00A7AC8B /* FinalCheckOutVM.swift in Sources */,
 				840BE9ED2254DD430025A867 /* FinalCheckOutVC+Razorpay.swift in Sources */,
-				84DD249F2267A6030013F77E /* BookingPaymentMoneyTableViewCell.swift in Sources */,
+				84DD249F2267A6030013F77E /* PaymentInfoTableViewCell.swift in Sources */,
 				84254F48223A917400E3D120 /* HCEmailItinerariesVM.swift in Sources */,
 				180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */,
 				84FFDFAE21F9F67B005CA257 /* ATCategoryView.swift in Sources */,
@@ -5444,6 +5451,7 @@
 				8460C0C421F34A38007768CC /* ATTableView.swift in Sources */,
 				84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
+				84AF53642297FC450059197A /* OtherBookingDetailsHeaderView.swift in Sources */,
 				84534EA22248B306009FF536 /* YouAreAllDoneVM.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
 				18BF0AB7221293C500950A17 /* StepSlider.m in Sources */,
