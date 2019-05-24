@@ -9,14 +9,12 @@
 import UIKit
 
 class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
-    
     // MARK: - IB Outlets
     
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var passengerNameLabel: UILabel!
-    @IBOutlet weak var dividerView: UIView!
-    @IBOutlet weak var frequentFlyerLabel: UILabel!
-    
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var passengerNameLabel: UILabel!
+    @IBOutlet var dividerView: UIView!
+    @IBOutlet var frequentFlyerLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,9 +23,9 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
         self.setUpText()
         self.setUpTextColor()
     }
-
     
-    // MARK: - Variables
+    // MARK: - Helper methods
+
     
     func setUpFont() {
         self.passengerNameLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -35,14 +33,10 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     }
     
     func setUpText() {
-    self.frequentFlyerLabel.text = LocalizedString.FrequentFlyer.localized
+        self.frequentFlyerLabel.text = LocalizedString.FrequentFlyer.localized
     }
     
     func setUpTextColor() {
-    self.frequentFlyerLabel.textColor = AppColors.themeGray40
+        self.frequentFlyerLabel.textColor = AppColors.themeGray40
     }
-    
-    
-    
-
 }

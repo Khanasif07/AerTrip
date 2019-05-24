@@ -82,10 +82,10 @@ class BookingFareInfoDetailVC: BaseVC {
     
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
-        style.height = 50.0 // category bar Height
+        style.height = 49.0 // category bar Height
         style.interItemSpace = 110.0
         style.itemPadding = 8.0
-        style.isScrollable = true
+        style.isScrollable = false
         style.layoutAlignment = .center
         style.isEmbeddedToView = true
         style.showBottomSeparator = true

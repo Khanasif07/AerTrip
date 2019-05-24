@@ -10,12 +10,31 @@ import UIKit
 
 class BookingAddOnHeaderView: UITableViewHeaderFooterView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    // MARK: - IBOutlet
+    @IBOutlet weak var routeLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    
+    
+  
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.setUpFont()
+        self.setUpColor()
     }
-    */
+    
+    
+    
+      // MARK: - Helper methods
+   func  setUpFont() {
+        self.routeLabel.font = AppFonts.SemiBold.withSize(22.0)
+        self.infoLabel.font = AppFonts.Regular.withSize(14.0)
+    }
+    
+   func setUpColor() {
+    self.routeLabel.textColor = AppColors.themeBlack
+        self.infoLabel.textColor = AppColors.themeBlack
 
+    }
+    
 }

@@ -199,6 +199,10 @@ class AerinVC: BaseVC {
             
             AppFlowManager.default.moveToBookingInvoiceVC()
             
+          //****  Booking DirectionVC ******
+ 
+            //AppFlowManager.default.moveToBookingDirectionVC()
+            
 //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
 //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
         }

@@ -16,6 +16,8 @@ class BookingFFMealTableViewCell: ATTableViewCell {
     @IBOutlet weak var selectedMealPreferenceLabel: UILabel!
     
     @IBOutlet weak var downImageView: UIImageView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     
     
     override func setupTexts() {

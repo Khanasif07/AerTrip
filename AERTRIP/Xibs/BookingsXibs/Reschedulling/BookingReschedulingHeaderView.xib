@@ -19,7 +19,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxA-Eg-DnU">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Qzg-YS-9QU">
+                        <stackView opaque="NO" contentMode="scaleToFill" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qzg-YS-9QU">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWE-ub-doU">
@@ -30,16 +30,16 @@
                                     <state key="normal" image="untick"/>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAK-PP-wXS">
-                                    <rect key="frame" x="76" y="0.0" width="338" height="60"/>
+                                    <rect key="frame" x="60" y="0.0" width="354" height="60"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-3s-C6E">
-                                            <rect key="frame" x="0.0" y="13" width="338" height="13.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="13" width="354" height="13.666666666666664"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIE-uq-1aZ">
-                                            <rect key="frame" x="0.0" y="26.666666666666671" width="338" height="20.333333333333329"/>
+                                            <rect key="frame" x="0.0" y="26.666666666666671" width="354" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -57,6 +57,10 @@
                                     </constraints>
                                 </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="sWE-ub-doU" firstAttribute="leading" secondItem="Qzg-YS-9QU" secondAttribute="leading" id="Epo-ko-XoF"/>
+                                <constraint firstItem="CAK-PP-wXS" firstAttribute="centerY" secondItem="sWE-ub-doU" secondAttribute="centerY" id="FfU-sy-uhU"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,6 +84,7 @@
             <connections>
                 <outlet property="infoLabel" destination="vIE-uq-1aZ" id="b7G-W0-Ehc"/>
                 <outlet property="routeLabel" destination="ySg-3s-C6E" id="hKg-z1-ebJ"/>
+                <outlet property="topBackgroundView" destination="vxA-Eg-DnU" id="Goh-81-89H"/>
             </connections>
         </view>
     </objects>

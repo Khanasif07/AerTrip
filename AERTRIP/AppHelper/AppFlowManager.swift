@@ -375,6 +375,17 @@ extension AppFlowManager {
         }
     }
     
+    func showAddonRequestSent(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .addOnRequest
+            ob.buttonTitle = buttonTitle
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    
+    
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
@@ -770,6 +781,27 @@ extension AppFlowManager {
     func moveToBookingInvoiceVC() {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    // Move To Booking Direction VC
+
+    func moveToBookingDirectionVC() {
+        let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    // Present BookingRequestAddOnsAndFFC
+    
+    func presentBookingReuqestAddOnVC() {
+        let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    // Present BookingReschedulingVC
+    
+    func presentBookingReschedulingVC() {
+        let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(obj, animated: true)
     }
 }
 

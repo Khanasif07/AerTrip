@@ -1,5 +1,5 @@
 //
-//  BookingRequestAddOns.swift
+//  BookingRequestAddOnsFFVC.swift
 //  AERTRIP
 //
 //  Created by apple on 21/05/19.
@@ -11,8 +11,11 @@ import UIKit
 class BookingRequestAddOnsFFVC: BaseVC {
     
     
-     @IBOutlet weak var topNavigationView: TopNavigationView!
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var dataContainerView : UIView!
+    @IBOutlet weak var requestButton: UIButton!
     
     // MARK: - Properties
     private var currentIndex: Int = 0
@@ -48,7 +51,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
             }
         }
         self.setupPagerView()
-        
+         self.requestButton.addGredient(isVertical: false)
         self.setupNavBar()
         
         
@@ -62,6 +65,21 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.topNavigationView.configureNavBar(title: LocalizedString.RequestAddOnsAndFF.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavigationView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithRightSpace.localized, selectedTitle: LocalizedString.CancelWithRightSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
+    }
+    
+    
+    override func setupFonts() {
+        self.requestButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+    }
+    
+    override func setupTexts() {
+        self.requestButton.setTitle(LocalizedString.Request.localized, for: .normal)
+        self.requestButton.setTitle(LocalizedString.Request.localized, for: .selected)
+    }
+    
+    override func setupColors() {
+        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
     
    
@@ -105,6 +123,11 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.categoryView = categoryView
         
         
+    }
+    
+    
+    @IBAction func requstButtonTapped(_ sender: Any) {
+     AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
     }
     
     

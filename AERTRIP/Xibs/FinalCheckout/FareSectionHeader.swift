@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FareSectionHeaderDelegate: class {
-    func headerViewTapped()
+    func headerViewTapped(_ view:UITableViewHeaderFooterView)
 }
 
 class FareSectionHeader: UITableViewHeaderFooterView {
@@ -26,11 +26,17 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     
     @IBOutlet var bottomViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var bottomViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var arrowButtonLeadingConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     
     weak var delegate: FareSectionHeaderDelegate?
-    var isTappedFirstTime: Bool = false
+
+    var isDownArrow: Bool = true {
+        didSet {
+            arrowButton.setImage(#imageLiteral(resourceName: isDownArrow ? "downArrowCheckOut": "upArrowIconCheckout"), for: .normal)
+        }
+    }
     
     override func awakeFromNib() {
         self.setUpText()
@@ -67,10 +73,10 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     
     // GestureRecognizer
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
-        self.delegate?.headerViewTapped()
+        self.delegate?.headerViewTapped(self)
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
-        self.delegate?.headerViewTapped()
+        self.delegate?.headerViewTapped(self)
     }
 }

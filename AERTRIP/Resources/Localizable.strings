@@ -472,6 +472,7 @@
 //Hotel Checkout Guest Details screen
 "GuestDetails" = "Guest Details";
 "CancelWithSpace" = " Cancel";
+"CancelWithRightSpace" = "Cancel ";
 "DoneWithSpace" = "Done ";
 "FirstName" = "First Name";
 "LastName" = "Last Name";
@@ -640,7 +641,28 @@
 "Call" = "Call";
 "Date" = "Date";
 "VoucherNo"  = "Voucher No.";
-"DonwloadInvoice" = "Download Invoice";
+"DownloadInvoice" = "Download Invoice";
+"Directions" = "Directions";
+"RequestAddOnsAndFF" = "Request Add-ons & FF";
+"AddOns" = "Add-ons";
+"Request" = "Request";
+"SelectPassengerFlightRescheduled" = "Select Passengers or flights to be rescheduled";
+"Rescheduling" = "Rescheduling";
+"AddOnRequestSent" = "Add-on Request has been sent";
+"AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"PNRNo" = "PNR No.";
+"SaleAmount" = "Sale Amount";
+"CancellationCharges" = "Cancellation Charges";
+"NetRefund" = "Net Refund";
+
+
+
+// Booking Action sheet option
+"RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";
+"RequestRescheduling" = "Request Reschedulling";
+"RequestCancellation" = "Request Cancellation";
+"Download" = "Download";
+"ResendConfirmationMail" = "Resend Confirmation Email";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";

@@ -9,8 +9,7 @@
 import UIKit
 
 class MyBookingsVC: BaseVC {
-    
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     let viewModel = MyBookingsVM()
     private var selectedButton: Int = 0
@@ -26,29 +25,32 @@ class MyBookingsVC: BaseVC {
         }
         return temp
     }
+    
     private var allChildVCs: [UIViewController] = [UIViewController]()
     
-    //Mark:- IBOutlets
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var topNavBar: TopNavigationView! {
+    @IBOutlet var topNavBar: TopNavigationView! {
         didSet {
             self.topNavBar.delegate = self
         }
     }
-    @IBOutlet weak var searchBarContainerView: UIView!
-    @IBOutlet weak var searchBar: ATSearchBar! {
+    
+    @IBOutlet var searchBarContainerView: UIView!
+    @IBOutlet var searchBar: ATSearchBar! {
         didSet {
             self.searchBar.backgroundColor = AppColors.screensBackground.color
             self.searchBar.placeholder = LocalizedString.search.localized
         }
     }
-    @IBOutlet weak var emptyStateImageView: UIImageView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
+    
+    @IBOutlet var emptyStateImageView: UIImageView!
+    @IBOutlet var emptyStateTitleLabel: UILabel!
+    @IBOutlet var emptyStateSubTitleLabel: UILabel!
     @IBOutlet var childContainerView: UIView!
     @IBOutlet var footerView: MyBookingFooterView!
     
-    //Mark:- LifeCycle
+    // Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,18 +82,17 @@ class MyBookingsVC: BaseVC {
         self.emptyStateTitleLabel.textColor = AppColors.themeBlack
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
-
     }
     
     override func bindViewModel() {
         self.footerView.delegate = self
     }
     
-    //Mark:- Functions
+    // Mark:- Functions
     //================
     private func filterOptionsPopUp() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TravelDate.localized,LocalizedString.EventType.localized,LocalizedString.BookingDate.localized], colors: [AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen])
-        _ = PKAlertController.default.presentActionSheetWithTextAllignMentAndImage(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton , textAlignment: CATextLayerAlignmentMode.right , selectedButtonIndex: self.selectedButton) { _, index in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TravelDate.localized, LocalizedString.EventType.localized, LocalizedString.BookingDate.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        _ = PKAlertController.default.presentActionSheetWithTextAllignMentAndImage(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, textAlignment: CATextLayerAlignmentMode.right, selectedButtonIndex: self.selectedButton) { _, index in
             switch index {
             case 0:
                 self.selectedButton = index
@@ -109,7 +110,7 @@ class MyBookingsVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        if self.viewModel.upComingBookingsData.isEmpty , self.viewModel.completedBookingsData.isEmpty , self.viewModel.cancelledBookingData.isEmpty {
+        if self.viewModel.upComingBookingsData.isEmpty, self.viewModel.completedBookingsData.isEmpty, self.viewModel.cancelledBookingData.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
@@ -122,13 +123,12 @@ class MyBookingsVC: BaseVC {
             self.emptyStateSubTitleLabel.isHidden = true
             self.childContainerView.isHidden = false
             self.searchBarContainerView.isHidden = false
-             self.footerView.isHidden = true
+            self.footerView.isHidden = true
             self.instantiateChildVC()
         }
     }
     
     private func instantiateChildVC() {
-        
         if !self.viewModel.upComingBookingsData.isEmpty {
             self.allTabsStr.append(LocalizedString.Upcoming.localized)
             if !self.viewModel.completedBookingsData.isEmpty {
@@ -143,7 +143,7 @@ class MyBookingsVC: BaseVC {
             if i == 0 {
                 let vc = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
-            } else if i == 1 , !self.viewModel.completedBookingsData.isEmpty {
+            } else if i == 1, !self.viewModel.completedBookingsData.isEmpty {
                 let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
             } else if !self.viewModel.cancelledBookingData.isEmpty {
@@ -155,7 +155,7 @@ class MyBookingsVC: BaseVC {
         }
         
         if self.allChildVCs.count == 1 {
-            self.setupPagerView(headerHeight: 0.0, interItemSpace: 0.0, itemPadding: 0.0 , isScrollable: false)
+            self.setupPagerView(headerHeight: 0.0, interItemSpace: 0.0, itemPadding: 0.0, isScrollable: false)
         } else if self.allChildVCs.count == 2 {
             self.setupPagerView(interItemSpace: 45.0, itemPadding: 32.0)
         } else {
@@ -163,11 +163,11 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-    private func setupPagerView(headerHeight: CGFloat = 50.0 , interItemSpace: CGFloat , itemPadding: CGFloat , isScrollable: Bool = true) {
+    private func setupPagerView(headerHeight: CGFloat = 50.0, interItemSpace: CGFloat, itemPadding: CGFloat, isScrollable: Bool = true) {
         var style = ATCategoryNavBarStyle()
-        style.height = headerHeight//50.0
-        style.interItemSpace = interItemSpace//21.8
-        style.itemPadding = itemPadding//12.8
+        style.height = headerHeight // 50.0
+        style.interItemSpace = interItemSpace // 21.8
+        style.itemPadding = itemPadding // 12.8
         style.isScrollable = isScrollable
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
@@ -192,14 +192,14 @@ class MyBookingsVC: BaseVC {
         // Set last Selected Index on Nav bar
         self.categoryView.select(at: 0)
     }
-    //Mark:- IBActions
+    
+    // Mark:- IBActions
     //================
 }
 
-//Mark:- Extensions
+// Mark:- Extensions
 //=================
 extension MyBookingsVC: TopNavigationViewDelegate {
-    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -213,14 +213,13 @@ extension MyBookingsVC: TopNavigationViewDelegate {
         printDebug("topNavBarSecondRightButtonAction")
         self.filterOptionsPopUp()
     }
-    
 }
 
 // MARK: - ATCategoryNavBarDelegate
 
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        if toIndex == 1 , self.viewModel.completedBookingsData.isEmpty {
+        if toIndex == 1, self.viewModel.completedBookingsData.isEmpty {
             self.footerView.isHidden = true
         } else {
             self.footerView.isHidden = true
@@ -228,10 +227,10 @@ extension MyBookingsVC: ATCategoryNavBarDelegate {
         self.currentIndex = toIndex
 //        HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
-    
 }
 
 // MARK: - MyBookingFooterViewDelegate
+
 extension MyBookingsVC: MyBookingFooterViewDelegate {
     func showPendingActionsOnly() {
         printDebug("MyBookingFooterViewDelegate")

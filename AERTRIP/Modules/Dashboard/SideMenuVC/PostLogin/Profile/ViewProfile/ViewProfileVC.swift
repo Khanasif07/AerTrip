@@ -304,6 +304,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 self?.topNavView.leftButton.isSelected = false
                 self?.topNavView.leftButton.tintColor = AppColors.themeWhite
                 self?.topNavView.navTitleLabel.text = ""
+                self?.topNavView.backView.backgroundColor = AppColors.themeWhite
             }
         }
         self.profileImageHeaderView?.layoutIfNeeded()

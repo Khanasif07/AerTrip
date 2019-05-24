@@ -13,6 +13,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     enum UsingFor {
         case bulkBooking
         case accountDeposit
+        case addOnRequest
     }
     
     //Mark:- Variables
@@ -85,12 +86,20 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 15.0)
         }
-        else {
+        else if self.currentUsingAs == .accountDeposit {
             self.mainTitleLabel.text = LocalizedString.PaymentRegisteredSuccesfully.localized
             self.subTitleLabel.text = LocalizedString.WeShallCreditYourAccount.localized
             
             let title = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), endText: self.buttonTitle, font: AppFonts.SemiBold.withSize(20.0))
             self.searchBtnOutlet.setAttributedTitle(title, for: .normal)
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+        } else {
+            self.mainTitleLabel.text = LocalizedString.AddOnRequestSent.localized
+            self.subTitleLabel.text = LocalizedString.AddOnRequestMesage.localized
+            self.searchBtnOutlet.setTitle(self.buttonTitle, for: .normal)
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
             
             self.mainContainerViewHeightConstraint.constant = self.view.height

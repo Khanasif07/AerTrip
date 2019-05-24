@@ -40,7 +40,7 @@ class BookingRequestAddOnTableViewCell: ATTableViewCell {
     
     
     func configureCell() {
-        self.messageImageView.image = UIImage(named: "emailIcon")
+        self.messageImageView.image = UIImage(named: "bookingEmailIcon")
         self.dotImageView.image = #imageLiteral(resourceName: "greenDot")
         self.titleLabel.text = "Flight Addon request registered  - B/18-19/1040"
         self.messageLabel.text = "Suddenly today when I was online, but not using my Hotmail account, all the contents of…"

@@ -12,4 +12,6 @@ class MyBookingsVM {
     var upComingBookingsData: [String] = ["1"]
     var completedBookingsData: [String] = ["2"]
     var cancelledBookingData: [String] = []
+    
+    func getBookings() {}
 }

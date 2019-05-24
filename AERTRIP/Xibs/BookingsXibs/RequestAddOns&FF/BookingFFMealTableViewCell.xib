@@ -41,15 +41,25 @@
                                     <constraint firstAttribute="height" constant="6" id="A1i-RH-EqG"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfa-Ir-2Tg" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="50.5" width="268" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Ol2-oQ-75X"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bdh-XW-lFg" firstAttribute="top" secondItem="M7g-Qo-ZBm" secondAttribute="bottom" id="5yV-as-iAo"/>
                             <constraint firstAttribute="trailing" secondItem="M7g-Qo-ZBm" secondAttribute="trailing" constant="10" id="AZu-30-1Xh"/>
                             <constraint firstAttribute="trailing" secondItem="Qs9-6p-iC1" secondAttribute="trailing" constant="16" id="MKh-5w-SX8"/>
+                            <constraint firstAttribute="bottom" secondItem="qfa-Ir-2Tg" secondAttribute="bottom" id="Mm5-vu-Yzl"/>
                             <constraint firstItem="Qs9-6p-iC1" firstAttribute="leading" secondItem="bdh-XW-lFg" secondAttribute="trailing" constant="200" id="S0t-KS-Cph"/>
+                            <constraint firstItem="qfa-Ir-2Tg" firstAttribute="leading" secondItem="bdh-XW-lFg" secondAttribute="leading" id="TjE-sS-Uzt"/>
                             <constraint firstItem="M7g-Qo-ZBm" firstAttribute="leading" secondItem="433-ih-MlX" secondAttribute="leading" constant="16" id="f2t-lr-it8"/>
                             <constraint firstItem="bdh-XW-lFg" firstAttribute="leading" secondItem="433-ih-MlX" secondAttribute="leading" constant="16" id="hs9-yJ-Tgp"/>
+                            <constraint firstAttribute="trailing" secondItem="qfa-Ir-2Tg" secondAttribute="trailing" id="kDg-04-3mE"/>
                             <constraint firstAttribute="bottom" secondItem="bdh-XW-lFg" secondAttribute="bottom" constant="9" id="m5s-00-5kX"/>
                             <constraint firstItem="Qs9-6p-iC1" firstAttribute="centerY" secondItem="bdh-XW-lFg" secondAttribute="centerY" id="qVF-IJ-uzY"/>
                             <constraint firstItem="M7g-Qo-ZBm" firstAttribute="top" secondItem="433-ih-MlX" secondAttribute="top" id="t91-wa-RBK"/>
@@ -65,6 +75,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dividerView" destination="qfa-Ir-2Tg" id="L1k-hP-DXf"/>
                 <outlet property="downImageView" destination="Qs9-6p-iC1" id="hyn-81-u7q"/>
                 <outlet property="mealPreferenceLabel" destination="M7g-Qo-ZBm" id="vAT-XR-Flv"/>
                 <outlet property="selectedMealPreferenceLabel" destination="bdh-XW-lFg" id="xLu-uy-Q16"/>

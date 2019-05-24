@@ -8,17 +8,38 @@
 
 import UIKit
 
-class AirlineTableViewCell: UITableViewCell {
+class AirlineTableViewCell: ATTableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var airlineNameLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var airlineImageView: UIImageView!
+    
+   
+    
+    
+    // MARK: - Override methods
+    
+    
+    override func setupColors() {
+        self.airlineNameLabel.textColor = AppColors.themeBlack
+        self.infoLabel.textColor = AppColors.textFieldTextColor51
     }
     
+    override func setupFonts() {
+        self.airlineNameLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.infoLabel.font = AppFonts.Regular.withSize(14.0)
+    }
+    
+    
+    
+    // MARK: - Helper methods
+    
+    func configureCell(airlineName: String,info:String) {
+        self.airlineNameLabel.text = airlineName
+        self.infoLabel.text = info
+    }
+
+   
 }

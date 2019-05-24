@@ -8,17 +8,21 @@
 
 import UIKit
 
-class BookingSchedulingPassengerTableViewCell: UITableViewCell {
+class BookingSchedulingPassengerTableViewCell: ATTableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+  
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleValueLabel: UILabel!
+    
+   
+    
+    override func setupColors() {
+        self.titleLabel.textColor = AppColors.themeGray40
+        self.titleValueLabel.textColor = AppColors.themeGray40
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func setupFonts() {
+      self.titleLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
 }

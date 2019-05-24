@@ -8,17 +8,38 @@
 
 import UIKit
 
-class BookingDirectionTableViewCell: UITableViewCell {
+class BookingDirectionTableViewCell: ATTableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    // MARK: - IBOutlet
+    @IBOutlet weak var airportCodeLabel: UILabel!
+      @IBOutlet weak var airportNameLabel: UILabel!
+      @IBOutlet weak var aiportAddressLabel: UILabel!
+    @IBOutlet weak var bottomDividerView: UIView!
+    @IBOutlet weak var edgeToedgeBottomDividerView: UIView!
+    
+    
+    // MARK:  Override methods
+    override func setupFonts() {
+        self.airportCodeLabel.font = AppFonts.SemiBold.withSize(18.0)
+         self.airportNameLabel.font = AppFonts.Regular.withSize(18.0)
+         self.aiportAddressLabel.font = AppFonts.Regular.withSize(14.0)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+   
+    
+    override func setupColors() {
+        self.airportCodeLabel.textColor = AppColors.themeGreen
+        self.airportNameLabel.textColor = AppColors.themeBlack
+       self.aiportAddressLabel.textColor = AppColors.themeGray40
     }
+    
+    
+    func configureCell(airportCode: String,airportName: String,airportAddress: String) {
+        self.airportCodeLabel.text = airportCode
+        self.airportNameLabel.text = airportName
+        self.aiportAddressLabel.text = airportAddress
+    }
+   
+   
     
 }

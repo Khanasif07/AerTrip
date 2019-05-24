@@ -9,10 +9,9 @@
 import UIKit
 
 class SideMenuOptionsLabelCell: UITableViewCell {
+    @IBOutlet var displayTextLabel: UILabel!
+    @IBOutlet var sepratorView: ATDividerView!
 
-    @IBOutlet weak var displayTextLabel: UILabel!
-    @IBOutlet weak var sepratorView: ATDividerView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,22 +23,20 @@ class SideMenuOptionsLabelCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
 
-//MARK:- Extension Setup Text
-//MARK:-
+// MARK: - Extension Setup Text
+
+// MARK: -
+
 extension SideMenuOptionsLabelCell {
-    
     private func initialSetups() {
-        
         self.sepratorView.isHidden = true
-        self.displayTextLabel.font      = AppFonts.Regular.withSize(20)
+        self.displayTextLabel.font = AppFonts.Regular.withSize(20)
         self.displayTextLabel.textColor = AppColors.themeBlack
     }
-    
+
     func populateData(text: String) {
-        
         self.displayTextLabel.text = text
     }
 }

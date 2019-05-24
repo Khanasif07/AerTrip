@@ -43,7 +43,7 @@ class BookingDetailVC: BaseVC {
     
     
     private func configureNavBar() {
-        self.topNavigationView.configureNavBar(title: "BEL" + LocalizedString.ForwardArrow.localized + "DEL", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: "BEL " + LocalizedString.ForwardArrow.localized + " DEL", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         self.topNavigationView.delegate = self
     }
     

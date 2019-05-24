@@ -18,6 +18,7 @@ class TravellerListVC: BaseVC {
             tableView.dataSource = nil
         }
     }
+    
     @IBOutlet var bottomView: UIView!
     
     @IBOutlet var assignGroupButton: UIButton!
@@ -27,6 +28,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet var topNavView: TopNavigationView!
     
     // MARK: - Variables
+    
     private lazy var noTravEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noTravellerWithAddButton
@@ -68,7 +70,7 @@ class TravellerListVC: BaseVC {
         }
         
         tableView.sectionIndexColor = AppColors.themeGreen
-        tableView.backgroundView = self.noTravEmptyView
+        tableView.backgroundView = noTravEmptyView
         tableView.backgroundView?.isHidden = true
         
         loadSavedData()
@@ -329,8 +331,7 @@ class TravellerListVC: BaseVC {
     }
     
     func reloadList() {
-       
-       self.tableView.reloadData()
+        tableView.reloadData()
         
         for result in selectedTravller {
             if let indexPath = self.fetchedResultsController.indexPath(forObject: result) {
@@ -486,7 +487,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             return []
         } else {
-            
             guard let sections = self.fetchedResultsController.sections else {
                 return []
             }
@@ -667,13 +667,12 @@ extension TravellerListVC: TravellerListHeaderViewDelegate {
     }
 }
 
-
 extension TravellerListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
-        //not required
+        // not required
     }
     
     func bottomButtonAction(sender: UIButton) {
-        self.topNavBarSecondRightButtonAction(sender)
+        topNavBarSecondRightButtonAction(sender)
     }
 }

@@ -8,17 +8,42 @@
 
 import UIKit
 
-class BookingPassengerTableViewCell: UITableViewCell {
+protocol BookingPassengerTableViewCellDelegate: class {
+    func arrowButtonTapped(arrowButton: UIButton)
+}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+class BookingPassengerTableViewCell: ATTableViewCell {
+    // MARK: - IBOutlet
+    
+    @IBOutlet var passengerNameLabel: UILabel!
+    @IBOutlet var arrowButton: UIButton!
+    @IBOutlet var statusButton: UIButton!
+    
+    // MARK: - Variabels
+    
+    weak var delegate: BookingPassengerTableViewCellDelegate?
+    
+    var passenger: BookingPassenger = BookingPassenger() {
+        didSet {
+            self.configureCell()
+        }
     }
     
+    // MARK: - Override methods
+    
+    override func setupFonts() {
+        self.passengerNameLabel.font = AppFonts.Regular.withSize(18.0)
+    }
+    
+    override func setupColors() {
+        self.passengerNameLabel.textColor = AppColors.themeBlack
+    }
+    
+    func configureCell() {
+        self.passengerNameLabel.text = self.passenger.name
+    }
+    
+    @IBAction func arrowButtonTapped(_ sender: UIButton) {
+        self.delegate?.arrowButtonTapped(arrowButton: sender)
+    }
 }

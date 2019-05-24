@@ -83,6 +83,7 @@ enum LocalizedString: String {
     case Cancel = "Cancel"
     case Add = "Add"
     case CancelWithSpace = "CancelWithSpace"
+    case CancelWithRightSpace = "CancelWithRightSpace"
     case Mail_Default = "Mail_Default"
     case Gmail = "Gmail"
 
@@ -673,6 +674,26 @@ enum LocalizedString: String {
     case Date
     case VoucherNo
     case DownloadInvoice
+    case Directions
+    case RequestAddOnsAndFF
+    case AddOns
+    case Request
+    case SelectPassengerFlightRescheduled
+    case Rescheduling
+    case AddOnRequestSent
+    case AddOnRequestMesage
+    case PNRNo
+    case SaleAmount
+    case CancellationCharges
+    case NetRefund
+    
+    // Booking Action sheet text
+    case RequestAddOnAndFrequentFlyer
+    case RequestRescheduling
+    case RequestCancellation
+    case Download
+    case ResendConfirmationMail
+    
     
     //MARK: - AerinVC
     case Hi = "Hi"

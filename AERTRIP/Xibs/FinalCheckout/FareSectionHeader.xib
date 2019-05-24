@@ -99,6 +99,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="arrowButton" destination="3vR-7f-6bF" id="KuI-eF-OH3"/>
+                <outlet property="arrowButtonLeadingConstraint" destination="MMU-42-71w" id="iV4-rs-YzV"/>
                 <outlet property="bottomViewBottomConstraint" destination="Eig-ce-0NM" id="hGz-y6-x0b"/>
                 <outlet property="bottomViewTopConstraint" destination="1xw-Al-3em" id="yOm-ts-3fh"/>
                 <outlet property="cellTopViewHeightConstraint" destination="l1g-Zt-EhF" id="lcI-6m-eMS"/>

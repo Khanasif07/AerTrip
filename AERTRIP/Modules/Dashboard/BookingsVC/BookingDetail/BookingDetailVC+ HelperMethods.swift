@@ -15,6 +15,8 @@ extension BookingDetailVC {
         switch indexPath.row {
         case 0,6:
             return 44.0
+        case 5:
+            return 72.0
         default:
             return 34.0
         }
@@ -110,6 +112,7 @@ extension BookingDetailVC {
                 guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: "NightStateTableViewCell") as? NightStateTableViewCell else {
                     fatalError("NightStateTableViewCell not found")
                 }
+                nightStateCell.configureCell(image: #imageLiteral(resourceName: "overnightIcon"), status: "Overnight Layover in London", time: "8h 59m")
                 return nightStateCell
             default:
                 return UITableViewCell()
