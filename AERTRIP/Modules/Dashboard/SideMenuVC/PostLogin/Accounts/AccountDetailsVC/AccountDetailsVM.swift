@@ -137,13 +137,12 @@ class AccountDetailsVM: NSObject {
         var param = JSONDictionary()
         param["type"] = "ledger"
         
-        if let date = filter?.fromDate {
-            param["end_date"] = date.toString(dateFormat: "YYYY-MM-dd")
+        if let fromDate = filter?.fromDate, let toDate = filter?.toDate, fromDate.timeIntervalSince1970 != toDate.timeIntervalSince1970 {
+            param["start_date"] = fromDate.toString(dateFormat: "YYYY-MM-dd")
+            param["end_date"] = toDate.toString(dateFormat: "YYYY-MM-dd")
+
         }
-        if let date = filter?.toDate {
-            param["start_date"] = date.toString(dateFormat: "YYYY-MM-dd")
-        }
-        
+
         self.oldFilter = filter
         //hit api to update the saved data and show it on screen
         APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in

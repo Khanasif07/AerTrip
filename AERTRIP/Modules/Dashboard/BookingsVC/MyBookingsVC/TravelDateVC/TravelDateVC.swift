@@ -53,6 +53,10 @@ class TravelDateVC: BaseVC {
     
     override func initialSetup() {
         self.fromDatePicker.datePickerMode = .date
+        
+        self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+        self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+        
         let fromTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.fromTapGestureAction))
         self.fromView.addGestureRecognizer(fromTapGesture)
         let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
@@ -103,7 +107,7 @@ class TravelDateVC: BaseVC {
     @objc func toTapGestureAction(_ gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             //open to close from
-            self.fromViewHeightConstraint.constant = self.closedHeight
+            self.fromViewHeightConstraint.constant = self.closedHeight + 1
             self.toViewHeightConstraint.constant = self.openedHeight
             self.fromDatePicker.alpha = 0.0
             self.toDatePicker.alpha = 1.0

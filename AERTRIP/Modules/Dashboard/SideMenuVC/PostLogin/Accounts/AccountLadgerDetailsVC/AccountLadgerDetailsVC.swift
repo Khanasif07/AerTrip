@@ -29,10 +29,7 @@ class AccountLadgerDetailsVC: BaseVC {
     private let headerHeightHotelSale: CGFloat = 215.0
     private let parallexHeaderMinHeight: CGFloat = 0.0
     private var parallexHeaderMaxHeight: CGFloat {
-        if let event = self.viewModel.ladgerEvent, event.voucher == .debitNote {
-            return self.headerHeightForCredit
-        }
-        else if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
+        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
             if event.productType == .flight {
                 self.headerView.titleHeightConstraint.constant = 21.0
                 return self.headerHeightFlightSale
@@ -41,7 +38,11 @@ class AccountLadgerDetailsVC: BaseVC {
                 return self.headerHeightHotelSale
             }
         }
-        return self.headerHeightForNormal
+        else {
+            self.headerView.bottomContainerBottomConstraint.constant = 0.0
+            self.headerView.bottomDetailContainerHeightConstraint.constant = 0.0
+            return self.headerHeightForCredit
+        }
     }
     
     //MARK:- ViewLifeCycle
