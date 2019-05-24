@@ -11,7 +11,6 @@ import UIKit
 class MyBookingsVC: BaseVC {
     // Mark:- Variables
     //================
-    let viewModel = MyBookingsVM()
     private var selectedButton: Int = 0
     private var currentIndex: Int = 0
     fileprivate weak var categoryView: ATCategoryView!
@@ -26,7 +25,7 @@ class MyBookingsVC: BaseVC {
         return temp
     }
     
-    private var allChildVCs: [UIViewController] = [UIViewController]()
+     var allChildVCs: [UIViewController] = [UIViewController]()
     
     // Mark:- IBOutlets
     //================
@@ -51,10 +50,6 @@ class MyBookingsVC: BaseVC {
     @IBOutlet var footerView: MyBookingFooterView!
     
     // Mark:- LifeCycle
-    //================
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
@@ -63,6 +58,8 @@ class MyBookingsVC: BaseVC {
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
         self.emptyStateSetUp()
+         MyBookingsVM.shared.delgate = self
+        MyBookingsVM.shared.getBookings()
         self.footerView.isHidden = true
     }
     
@@ -85,6 +82,8 @@ class MyBookingsVC: BaseVC {
     }
     
     override func bindViewModel() {
+       
+        MyBookingsVM.shared.delgate = self
         self.footerView.delegate = self
     }
     
@@ -110,7 +109,7 @@ class MyBookingsVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        if self.viewModel.upComingBookingsData.isEmpty, self.viewModel.completedBookingsData.isEmpty, self.viewModel.cancelledBookingData.isEmpty {
+        if MyBookingsVM.shared.upComingBookings.isEmpty, MyBookingsVM.shared.upComingBookings.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
@@ -129,27 +128,29 @@ class MyBookingsVC: BaseVC {
     }
     
     private func instantiateChildVC() {
-        if !self.viewModel.upComingBookingsData.isEmpty {
+        if !MyBookingsVM.shared.upComingBookings.isEmpty {
             self.allTabsStr.append(LocalizedString.Upcoming.localized)
-            if !self.viewModel.completedBookingsData.isEmpty {
+            if !MyBookingsVM.shared.completedBookings.isEmpty {
                 self.allTabsStr.append(LocalizedString.Completed.localized)
             }
-            if !self.viewModel.cancelledBookingData.isEmpty {
-                self.allTabsStr.append(LocalizedString.Cancelled.localized)
-            }
+//            if !self.viewModel.cancelledBookingData.isEmpty {
+//                self.allTabsStr.append(LocalizedString.Cancelled.localized)
+//            }
         }
         
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
-            } else if i == 1, !self.viewModel.completedBookingsData.isEmpty {
+            } else if i == 1, !MyBookingsVM.shared.completedBookings.isEmpty {
                 let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
-            } else if !self.viewModel.cancelledBookingData.isEmpty {
-                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
-                self.allChildVCs.append(vc)
-            } else {
+            }
+//            else if !self.viewModel.cancelledBookingData.isEmpty {
+//                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+//                self.allChildVCs.append(vc)
+//            }
+            else {
                 printDebug("No vc")
             }
         }
@@ -219,7 +220,7 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        if toIndex == 1, self.viewModel.completedBookingsData.isEmpty {
+        if toIndex == 1, MyBookingsVM.shared.completedBookings.isEmpty {
             self.footerView.isHidden = true
         } else {
             self.footerView.isHidden = true

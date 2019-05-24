@@ -71,6 +71,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bookingTypeImgView" destination="BPF-cz-nPT" id="5Wg-0i-vBM"/>
+                <outlet property="containerView" destination="H2p-sc-9uM" id="gSi-Qb-F7O"/>
+                <outlet property="plcaeNameLabel" destination="43T-B4-Xcb" id="U9e-tt-FCs"/>
+                <outlet property="travellersNameLabel" destination="bbe-aW-BfS" id="8hF-mI-Khk"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

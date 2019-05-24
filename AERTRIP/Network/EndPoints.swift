@@ -86,6 +86,7 @@ enum APIEndPoint: String {
     // booking
     case bookingReceipt = "booking/receipt"
     case setRecentSearch = "recent-search/set"
+    case bookingList = "dashboard/list-booking"
     // Final Checkout
     
     // ACCOUNT

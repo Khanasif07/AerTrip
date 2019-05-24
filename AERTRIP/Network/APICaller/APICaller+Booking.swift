@@ -33,4 +33,32 @@ extension APICaller {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
                 }
     }
+    
+    
+    func getBookingList(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ bookings: [BookingModel]) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.bookingList, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let bookings = response["bookings"] as? [JSONDictionary] {
+                    let bookings = BookingModel.getModels(data: bookings)
+                    completionBlock(true, [],bookings)
+                }
+                else {
+                    completionBlock(false,[],[])
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, [])
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
+            }
+        }
+    }
+    
 }

@@ -138,6 +138,17 @@ extension CompletedVC {
         return cell
     }
     
+    internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: BookingModel) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
+//        cell.configCell(plcaeName: eventData., travellersName: eventData.travellersName, bookingTypeImg: #imageLiteral(resourceName: "flight_blue_icon"), isOnlyOneCell: eventData.queries.isEmpty)
+        cell.clipsToBounds = true
+        //        cell.containerViewBottomConstraint.constant = !eventData.queries.isEmpty ? 0.0 : 5.0
+        return cell
+    }
+    
+    
+    
+    
     internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeWhite

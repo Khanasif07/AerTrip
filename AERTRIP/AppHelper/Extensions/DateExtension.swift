@@ -258,6 +258,19 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: self)?.toString(dateFormat: "yyyy-MM-dd")
     }
     
+    
+    func isEqualTo(_ date: Date) -> Bool {
+        return self == date
+    }
+    
+    func isGreaterThan(_ date: Date) -> Bool {
+        return self > date
+    }
+    
+    func isSmallerThan(_ date: Date) -> Bool {
+        return self < date
+    }
+    
     ///GetDateFromString
     static func getDateFromString(stringDate: String, currentFormat: String, requiredFormat: String) -> String? {
         //String to Date Convert

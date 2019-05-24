@@ -8,10 +8,49 @@
 
 import Foundation
 
+protocol MyBookingsVMDelegate: class {
+    func willGetBookings()
+    func getBookingsDetailSuccess()
+    func getBookingDetailFail(error:ErrorCodes)
+}
+
 class MyBookingsVM {
+    
+    // MARK: - Variables
     var upComingBookingsData: [String] = ["1"]
     var completedBookingsData: [String] = ["2"]
     var cancelledBookingData: [String] = []
     
-    func getBookings() {}
+    var upComingBookings: [BookingModel] = []
+    var completedBookings: [BookingModel] = []
+    
+    var bookings: [BookingModel] = []
+    weak var delgate: MyBookingsVMDelegate?
+    static let shared = MyBookingsVM()
+    
+    func getFilteredData() {
+        self.upComingBookings = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false})
+        self.completedBookings  = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false})
+        
+    }
+    
+    
+    private init() {}
+    
+    func getBookings() {
+        let params: JSONDictionary = [:]
+        printDebug(params)
+            delgate?.willGetBookings()
+        APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.delgate?.getBookingsDetailSuccess()
+                sSelf.bookings = bookings
+                sSelf.getFilteredData()
+                printDebug(bookings)
+            } else {
+                
+            }
+        }
+    }
 }
