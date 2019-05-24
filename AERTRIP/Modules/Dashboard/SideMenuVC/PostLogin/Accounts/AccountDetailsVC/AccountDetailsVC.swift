@@ -233,8 +233,10 @@ class AccountDetailsVC: BaseVC {
             self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
         }
         
-        self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
-        self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+        if (self.currentViewState != .filterApplied) {
+            self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
+            self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+        }
         
         self.tableView.reloadData()
         self.searchTableView.reloadData()

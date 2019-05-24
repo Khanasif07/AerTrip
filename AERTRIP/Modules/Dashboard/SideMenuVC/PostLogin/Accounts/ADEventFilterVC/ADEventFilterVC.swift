@@ -63,8 +63,12 @@ class ADEventFilterVC: BaseVC {
         }
         
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
-        self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        
+        let clearAll = "  \(LocalizedString.ClearAll.localized)"
+        self.topNavBar.configureLeftButton(normalTitle: clearAll, selectedTitle: clearAll, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        
+        let done = "\(LocalizedString.Done.localized)  "
+        self.topNavBar.configureFirstRightButton(normalTitle: done, selectedTitle: done, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
         
         self.selectedFilter = self.oldFilter ?? AccountSelectedFilter()
@@ -146,8 +150,8 @@ class ADEventFilterVC: BaseVC {
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 50.0
-        style.interItemSpace = 50.0
-        style.itemPadding = 25.0
+        style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
+        style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
         style.isScrollable = true
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
