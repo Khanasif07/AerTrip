@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+import MXParallaxHeader
 import UIKit
 
 class OtherBookingsDetailsVC: BaseVC {
@@ -13,19 +14,13 @@ class OtherBookingsDetailsVC: BaseVC {
     //MARK:- Variables
     //MARK
     let viewModel = OtherBookingsDetailsVM()
+    private var headerView: OtherBookingDetailsHeaderView?
     
     //MARK:- IBOutlets
     //MARK
     @IBOutlet weak var topNavBar: TopNavigationView!
-    @IBOutlet weak var bookingDataContainerView: UIView!
-    @IBOutlet weak var bookingEventTypeImageView: UIImageView!
-    @IBOutlet weak var bookingIdAndDateTitleLabel: UILabel!
-    @IBOutlet weak var bookingIdAndDateLabel: UILabel!
-    @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var dataTableView: UITableView! {
+    @IBOutlet weak var dataTableView: ATTableView! {
         didSet {
-            self.dataTableView.delegate = self
-            self.dataTableView.dataSource = self
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
             self.dataTableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 10.0, right: 0.0)
@@ -36,7 +31,6 @@ class OtherBookingsDetailsVC: BaseVC {
     //MARK
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.viewModel.getSectionData()
     }
     
@@ -47,37 +41,79 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.statusBarStyle = .default
+        self.topNavBar.shouldAddBlurEffect = true
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true , isDivider: false)
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.setupParallaxHeader()
+        self.configureTableHeaderView()
         self.registerNibs()
+        self.dataTableView.delegate = self
+        self.dataTableView.dataSource = self
     }
     
     override func setupTexts() {
-        self.bookingIdAndDateTitleLabel.text = LocalizedString.BookingIDAndDate.localized
     }
-    
+
     override func setupFonts() {
-        self.bookingIdAndDateTitleLabel.font = AppFonts.Regular.withSize(14.0)
-        self.bookingIdAndDateLabel.font = AppFonts.Regular.withSize(16.0)
     }
-    
+
     override func setupColors() {
-        self.bookingIdAndDateTitleLabel.textColor = AppColors.themeGray40
-        self.bookingIdAndDateLabel.textColor = AppColors.themeBlack
         self.topNavBar.backgroundColor = AppColors.clear
     }
     
     override func bindViewModel() {
         self.topNavBar.delegate = self
+        self.headerView?.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let view = self.headerView {
+            view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
+        }
+    }
+    
+//    override func viewDidLayoutSubviews() {
+//        guard let headerView = dataTableView.tableHeaderView else {
+//            return
+//        }
+//
+//        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+//        if headerView.frame.size.height != size.height {
+//            headerView.frame.size.height = size.height
+//            self.dataTableView.tableHeaderView = headerView
+//            self.dataTableView.layoutIfNeeded()
+//        }
+//    }
+    
+    ///ConfigureCheckInOutView
+    private func configureTableHeaderView() {
+        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0))
+        if let view = self.headerView {
+            self.dataTableView.tableHeaderView = view
+        }
     }
     
     //MARK:- Functions
     //MARK
+    
+    private func setupParallaxHeader() { // Parallax Header
+        let parallexHeaderHeight = CGFloat(152.0)
+        let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74 //105
+        self.dataTableView.parallaxHeader.view = self.headerView
+        self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
+        self.dataTableView.parallaxHeader.height = parallexHeaderHeight
+        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.dataTableView.parallaxHeader.delegate = self
+        self.view.bringSubviewToFront(self.topNavBar)
+    }
+    
     private func registerNibs() {
         self.dataTableView.registerCell(nibName: TitleWithSubTitleTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingTravellersDetailsTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingDocumentsTableViewCell.reusableIdentifier)
+        self.dataTableView.registerCell(nibName: PaymentInfoTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
     }
     
@@ -148,7 +184,6 @@ extension OtherBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 0.0
         cell.dividerView.isHidden = true
         cell.containerView.backgroundColor = AppColors.themeWhite
-//        cell.titleLabelTopConstraint.constant = 16.0
         return cell
     }
     
@@ -174,16 +209,14 @@ extension OtherBookingsDetailsVC {
         }
     
     func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        cell.containerViewTopConstraint.constant = 26.0
-        cell.titleBottomConstraint.constant = 6.0
-        cell.configCell(title: LocalizedString.PaymentInfo.localized, titleFont: AppFonts.Regular.withSize(14.0) , titleColor: AppColors.themeGray40 , isFirstCell: true, isLastCell: false)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentInfoTableViewCell.reusableIdentifier, for: indexPath) as? PaymentInfoTableViewCell else { return UITableViewCell() }
         return cell
     }
     
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        cell.titleTopConstraint.constant = 6.0
+        cell.containerViewBottomConstraint.constant = 0.0
         cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 10,000", isLastCell: false)
         return cell
     }
@@ -278,5 +311,62 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
         let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
         let downloadTask = urlSession.downloadTask(with: url)
         downloadTask.resume()
+    }
+}
+
+//MARK:- ScrollView Delegate
+//==========================
+extension OtherBookingsDetailsVC : MXParallaxHeaderDelegate {
+    func updateForParallexProgress() {
+        
+        let prallexProgress = self.dataTableView.parallaxHeader.progress
+        
+        printDebug("progress %f \(prallexProgress)")
+        
+        if prallexProgress >= 0.6 {
+//            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * prallexProgress
+        }
+        
+        if prallexProgress <= 0.5 {
+            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+                self?.topNavBar.firstRightButton.isSelected = true
+                self?.topNavBar.leftButton.isSelected = true
+                self?.topNavBar.leftButton.tintColor = AppColors.themeGreen
+                self?.topNavBar.navTitleLabel.text = "BOM → DEL"
+                self?.topNavBar.dividerView.isHidden = false
+            }
+        } else {
+            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+                self?.topNavBar.firstRightButton.isSelected = false
+                self?.topNavBar.leftButton.isSelected = false
+                self?.topNavBar.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavBar.navTitleLabel.text = ""
+                self?.topNavBar.dividerView.isHidden = true
+            }
+        }
+        self.headerView?.layoutIfNeeded()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.updateForParallexProgress()
+    }
+}
+
+extension OtherBookingsDetailsVC: OtherBookingDetailsHeaderViewDelegate {
+    func backButtonAction() {
+        print("Back Button Pressed")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func optionButtonAction() {
+        print("Option Button Pressed")
     }
 }
