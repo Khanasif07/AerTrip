@@ -663,6 +663,7 @@
 "Oops" = "Oops!";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
+"OpeningBalance" = "Opening Balance";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";

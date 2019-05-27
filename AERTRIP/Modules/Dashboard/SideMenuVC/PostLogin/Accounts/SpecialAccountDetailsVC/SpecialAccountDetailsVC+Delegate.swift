@@ -180,10 +180,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 1:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                let amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
                 
                 var dateStr = ""
-                if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
+                if let date = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.dates.first {
                     let str = date.toString(dateFormat: "EE, dd MMM YYYY")
                     if !str.isEmpty {
                         dateStr = "Before \(str)"
@@ -220,17 +220,9 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 2:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                let amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
                 
-                var dateStr = ""
-                if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
-                    let str = date.toString(dateFormat: "EE, dd MMM YYYY")
-                    if !str.isEmpty {
-                        dateStr = "Before \(str)"
-                    }
-                }
-                
-                return getDepositCell(amount: amount, dateStr: dateStr)
+                return getDepositCell(amount: amount, dateStr: "")
                 
             //other action
             case 3:

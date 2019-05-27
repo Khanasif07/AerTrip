@@ -702,6 +702,7 @@ enum LocalizedString: String {
     case Oops
     case ClearFilters
     case BookingID
+    case OpeningBalance
     
     //MARK:- OutStanding Ladger
     case Summary

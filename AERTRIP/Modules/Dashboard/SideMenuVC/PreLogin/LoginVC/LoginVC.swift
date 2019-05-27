@@ -26,6 +26,7 @@ class LoginVC: BaseVC {
     @IBOutlet weak private var registerHereLabel: UILabel!
     @IBOutlet weak private var registerHereButton: UIButton!
     @IBOutlet weak var showPasswordButton: UIButton!
+    @IBOutlet weak var creditTypeButtonContainer: UIView!
     
     
     internal var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
@@ -101,6 +102,39 @@ class LoginVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBAction func regularButtonAction(_ sender: UIButton) {
+        self.emailTextField.text = "rajan.singh@appinventiv.com"
+        self.passwordTextField.text = "Rajan@12345"
+        self.viewModel.email = self.emailTextField.text ?? ""
+        self.viewModel.password = self.passwordTextField.text ?? ""
+        self.loginButtonAction(self.loginButton)
+    }
+    
+    @IBAction func statementButtonAction(_ sender: UIButton) {
+        self.emailTextField.text = "pawan.kumar@appinventiv.com"
+        self.passwordTextField.text = "Pk71@yahoo"
+        self.viewModel.email = self.emailTextField.text ?? ""
+        self.viewModel.password = self.passwordTextField.text ?? ""
+        self.loginButtonAction(self.loginButton)
+    }
+    
+    @IBAction func topupButtonAction(_ sender: UIButton) {
+        self.emailTextField.text = "pramod.kumar@appinventiv.com"
+        self.passwordTextField.text = "Pramod@123"
+        self.viewModel.email = self.emailTextField.text ?? ""
+        self.viewModel.password = self.passwordTextField.text ?? ""
+        self.loginButtonAction(self.loginButton)
+    }
+    
+    @IBAction func bilwiseButtonAction(_ sender: UIButton) {
+        self.emailTextField.text = "rahulTest@yopmail.com"
+        self.passwordTextField.text = "Taruna@03"
+        self.viewModel.email = self.emailTextField.text ?? ""
+        self.viewModel.password = self.passwordTextField.text ?? ""
+        self.loginButtonAction(self.loginButton)
+    }
+    
+    
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
@@ -154,6 +188,8 @@ class LoginVC: BaseVC {
 private extension LoginVC {
     
     func initialSetups() {
+        
+        self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingToClient
         
         self.view.backgroundColor = AppColors.screensBackground.color
         

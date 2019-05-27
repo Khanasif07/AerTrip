@@ -56,7 +56,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             totalPayableNowCell.currentUsingFor = .normal
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.DepositAmount.localized
             
-            totalPayableNowCell.totalPriceLabel.text = self.viewModel.depositAmount.amountInDelimeterWithSymbol
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.depositAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
@@ -74,7 +74,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             totalPayableNowCell.currentUsingFor = .normal
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.ConvenienceFeeNonRefundable.localized
             
-            totalPayableNowCell.totalPriceLabel.text = self.viewModel.feeAmount.amountInDelimeterWithSymbol
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.feeAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
@@ -88,7 +88,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            totalPayableNowCell.totalPriceLabel.text = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = true
             return totalPayableNowCell

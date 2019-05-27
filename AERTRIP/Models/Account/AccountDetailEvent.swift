@@ -60,6 +60,8 @@ struct AccountDetailEvent {
         }
     }
     
+    var transactionId: String = ""
+    
     var amount: Double = 0.0
     var balance: Double = 0.0
     
@@ -111,6 +113,10 @@ struct AccountDetailEvent {
         if let obj = json["amount"] {
             let amt = "\(obj)".toDouble ?? 0.0
             self.amount = amt * -1
+        }
+        
+        if let obj = json["transaction_id"] {
+            self.transactionId = "\(obj)"
         }
         
         if let obj = json["balance"] {

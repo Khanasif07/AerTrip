@@ -37,6 +37,8 @@ class TravelDateVC: BaseVC {
     @IBOutlet weak var fromViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var toViewHeightConstraint: NSLayoutConstraint!
     
+    
+    
     weak var delegate: TravelDateVCDelegate?
     var oldFromDate: Date?
     var oldToDate: Date?

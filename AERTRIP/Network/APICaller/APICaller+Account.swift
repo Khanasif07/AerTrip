@@ -86,7 +86,12 @@ extension APICaller {
                     
 
                     if let accData = ledger["summary"].dictionaryObject {
-                        UserInfo.loggedInUser?.accountData = AccountModel(json: accData)
+                        var temp = accData
+                        temp["opening_balance"] = ledger["opening_balance"]
+                        temp["current_total"] = ledger["current_total"]
+                        temp["running_balance"] = ledger["running_balance"]
+                        let data = AccountModel(json: temp)
+                        UserInfo.loggedInUser?.accountData = data
                     }
                     completionBlock(true, accLadger, accLadgerVchrs, outStand, periodicData, [])
                 }
