@@ -181,6 +181,11 @@ enum AppNetworking {
             return
         }
         
+        //add the X-Auth-Token for the security perpose as discussed with aertrip backend
+//        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
+//            header["X-Auth-Token"] = xToken
+//        }
+        
        let request = Alamofire.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
@@ -196,6 +201,11 @@ enum AppNetworking {
         request.responseData { (response:DataResponse<Data>) in
                             
                             printDebug(headers)
+            
+            //save the X-Auth-Token for the security perpose as discussed with aertrip backend
+//            if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
+//                UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
+//            }
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
             
@@ -229,7 +239,6 @@ enum AppNetworking {
                                 failure(e as NSError)
                             }
         }
-        
     }
     
     //Multipart
@@ -274,6 +283,11 @@ enum AppNetworking {
         for (key, value) in headers {
             header[key] = value
         }
+        
+        //add the X-Auth-Token for the security perpose as discussed with aertrip backend
+//        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
+//            header["X-Auth-Token"] = xToken
+//        }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
         
@@ -390,8 +404,7 @@ extension AppNetworking {
 extension AppNetworking {
     
     static func showLoader() {
-        
-        guard let window = AppDelegate.shared.window else {return}
+//        guard let window = AppDelegate.shared.window else {return}
     }
     
     static func hideLoader() {

@@ -30,6 +30,8 @@ extension UserDefaults {
         case recentGroupSearchesForLlName
         case recentGroupSearchesForLocation
         case currentUserCookies
+        
+        case xAuthToken
     }
 }
 extension UserDefaults {

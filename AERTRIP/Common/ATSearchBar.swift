@@ -84,6 +84,7 @@ class ATSearchBar: UISearchBar {
         self.addSubview(self.micButton)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
     }
 
     func hideMiceButton(isHidden: Bool) {
@@ -93,6 +94,12 @@ class ATSearchBar: UISearchBar {
     
     @objc private func micButtonAction(_ sender: UIButton) {
         self.mDelegate?.searchBarDidTappedMicButton(self)
+    }
+    
+    @objc private func textDidEndEditing() {
+        if !(self.text ?? "").isEmpty {
+            self.hideMiceButton(isHidden: true)
+        }
     }
     
     @objc private func textDidChange() {

@@ -71,6 +71,7 @@ class AccountDetailsVC: BaseVC {
     private lazy var noAccountResultView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noAccountResult
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     
@@ -247,7 +248,7 @@ class AccountDetailsVC: BaseVC {
                 self.viewModel.sendEmailForLedger()
             } else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.AccountsLegder.localized)
+                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
                 printDebug("download pdf tapped")
             }
         }
@@ -365,7 +366,7 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
     }
 }
 
@@ -386,6 +387,18 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
             self.currentViewState = .normal
         }
         self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
+    }
+}
+
+//MARK:- EmptyScreenViewdelegate methods
+//MARK:-
+extension AccountDetailsVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    func bottomButtonAction(sender: UIButton) {
+        //clear all filter
+        self.currentViewState = .normal
+        self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
     }
 }
 

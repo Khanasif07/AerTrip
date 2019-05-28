@@ -109,7 +109,7 @@ class TravelDateVC: BaseVC {
     @objc func toTapGestureAction(_ gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             //open to close from
-            self.fromViewHeightConstraint.constant = self.closedHeight + 1
+            self.fromViewHeightConstraint.constant = self.closedHeight - 1
             self.toViewHeightConstraint.constant = self.openedHeight
             self.fromDatePicker.alpha = 0.0
             self.toDatePicker.alpha = 1.0

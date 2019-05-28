@@ -108,7 +108,7 @@ struct AccountOutstanding {
         
         
         
-        if let subTotal = json["current_total"] as? JSONDictionary, let pending = subTotal["amount"] {
+        if let subTotal = json["sub_total"] as? JSONDictionary, let pending = subTotal["pending"] {
             self.grossAmount = "\(pending)".toDouble ?? 0.0
         }
         

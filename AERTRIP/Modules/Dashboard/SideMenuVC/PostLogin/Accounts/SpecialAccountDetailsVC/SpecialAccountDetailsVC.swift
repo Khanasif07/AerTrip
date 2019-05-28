@@ -26,6 +26,13 @@ class SpecialAccountDetailsVC: BaseVC {
         return UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement
     }
     
+    private var tableFooterView: UIView {
+        let bView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 80.0))
+        bView.backgroundColor = AppColors.clear
+        
+        return bView
+    }
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
@@ -45,6 +52,8 @@ class SpecialAccountDetailsVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
         
         self.viewModel.fetchScreenDetails()
+        
+        self.tableView.tableFooterView = self.tableFooterView
     }
     
     override func bindViewModel() {
