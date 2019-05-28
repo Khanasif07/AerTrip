@@ -633,8 +633,8 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToADEventFilterVC(delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?) {
-        if let obj = UIApplication.topViewController() {
+    func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?) {
+        if let obj = onViewController ?? UIApplication.topViewController() {
             let vc = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
             vc.oldFilter = oldFilter
             vc.voucherTypes = voucherTypes

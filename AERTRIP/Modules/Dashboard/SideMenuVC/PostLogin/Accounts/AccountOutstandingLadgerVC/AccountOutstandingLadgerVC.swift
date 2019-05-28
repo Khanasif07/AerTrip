@@ -43,6 +43,8 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var makePaymentTitleLabel: UILabel!
     @IBOutlet weak var makePaymentContainerHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -75,6 +77,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         tableView.delegate = self
         tableView.dataSource = self
         
+        self.loaderContainer.addGredient(isVertical: false)
+
         self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         
         self.topNavView.delegate = self
@@ -102,6 +106,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.manageHeader(animated: false)
         self.reloadList()
+        self.manageLoader(shouldStart: false)
     }
     
     override func bindViewModel() {
@@ -263,7 +268,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.netAmount ?? 0.0)
+        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.grossAmount ?? 0.0)
         
         let selected = self.viewModel.totalAmountForSelected
         if self.currentViewState == .selecting, selected > 0.0 {
@@ -272,6 +277,14 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.payableAmountLabel.attributedText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
+    }
+    
+    private func manageLoader(shouldStart: Bool) {
+        self.indicatorView.style = .white
+        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.startAnimating()
+        
+        self.loaderContainer.isHidden = !shouldStart
     }
     
     //MARK:- Public
@@ -299,6 +312,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         if let obj = self.viewModel.accountOutstanding {
             AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj)
         }
+    }
+    @IBAction func makePaymentButtonAction(_ sender: UIButton) {
+        self.viewModel.getOutstandingPayment()
     }
 }
 
@@ -395,6 +411,19 @@ extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
+    func willGetOutstandingPayment() {
+        self.manageLoader(shouldStart: true)
+    }
+    
+    func getOutstandingPaymentSuccess() {
+        self.manageLoader(shouldStart: false)
+        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData)
+    }
+    
+    func getOutstandingPaymentFail() {
+        self.manageLoader(shouldStart: false)
+    }
+    
     func willGetAccountDetails() {
     }
     

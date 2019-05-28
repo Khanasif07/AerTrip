@@ -300,6 +300,55 @@
                                     <action selector="registerHereButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jiw-At-z7l"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4u-qL-7kU">
+                                <rect key="frame" x="0.0" y="144.5" width="375" height="73.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pHX-Ov-NUv">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4X-8G-6TI">
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="73.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Regular"/>
+                                                <connections>
+                                                    <action selector="regularButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Sl-Fn-WCM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzA-Ls-7Sv">
+                                                <rect key="frame" x="94" y="0.0" width="93.5" height="73.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Statement"/>
+                                                <connections>
+                                                    <action selector="statementButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBR-pg-sfz"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjb-km-sOe">
+                                                <rect key="frame" x="187.5" y="0.0" width="94" height="73.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Topup"/>
+                                                <connections>
+                                                    <action selector="topupButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sJe-Tw-0WW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofY-K2-hLk">
+                                                <rect key="frame" x="281.5" y="0.0" width="93.5" height="73.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Bilwise"/>
+                                                <connections>
+                                                    <action selector="bilwiseButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KvU-ad-AFr"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pHX-Ov-NUv" firstAttribute="top" secondItem="c4u-qL-7kU" secondAttribute="top" id="JIz-SN-vs1"/>
+                                    <constraint firstItem="pHX-Ov-NUv" firstAttribute="leading" secondItem="c4u-qL-7kU" secondAttribute="leading" id="VaB-7z-s69"/>
+                                    <constraint firstAttribute="trailing" secondItem="pHX-Ov-NUv" secondAttribute="trailing" id="ruK-ns-v9S"/>
+                                    <constraint firstAttribute="bottom" secondItem="pHX-Ov-NUv" secondAttribute="bottom" id="vP9-N6-2nK"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -307,27 +356,32 @@
                             <constraint firstItem="ef3-Jf-KiE" firstAttribute="top" secondItem="eWx-zl-ou5" secondAttribute="bottom" constant="16" id="4gN-gZ-g7W"/>
                             <constraint firstItem="eWx-zl-ou5" firstAttribute="top" secondItem="Hk6-lw-OH2" secondAttribute="bottom" constant="26" id="B48-DL-FDG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CIg-eF-8Re" secondAttribute="trailing" constant="20" id="F7R-4x-QP9"/>
+                            <constraint firstItem="c4u-qL-7kU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GMr-zc-Qgd"/>
                             <constraint firstItem="Fn8-Ii-58k" firstAttribute="top" secondItem="HKn-aw-gYL" secondAttribute="bottom" constant="-3" id="HPd-cd-1CD"/>
                             <constraint firstItem="u4x-KU-Ehx" firstAttribute="bottom" secondItem="di7-Bv-0cQ" secondAttribute="bottom" constant="-3" id="HWD-zH-eqE"/>
                             <constraint firstItem="eWx-zl-ou5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="HYS-UZ-NpP"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="IZe-qR-5RO"/>
                             <constraint firstItem="Hk6-lw-OH2" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="MTb-Jj-gOJ"/>
+                            <constraint firstItem="c4u-qL-7kU" firstAttribute="top" secondItem="CIg-eF-8Re" secondAttribute="bottom" id="NwC-ES-xJd"/>
                             <constraint firstItem="ef3-Jf-KiE" firstAttribute="centerX" secondItem="eWx-zl-ou5" secondAttribute="centerX" id="Syp-B2-FiZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hk6-lw-OH2" secondAttribute="trailing" constant="16" id="UDK-be-Ze5"/>
                             <constraint firstItem="Fn8-Ii-58k" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WSB-0K-O6W"/>
                             <constraint firstItem="HKn-aw-gYL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="a1M-8c-rhq"/>
                             <constraint firstItem="CIg-eF-8Re" firstAttribute="top" secondItem="Fn8-Ii-58k" secondAttribute="bottom" constant="13" id="dQt-9c-NxP"/>
                             <constraint firstItem="482-jm-agR" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.75" id="gCV-bU-cTq"/>
+                            <constraint firstAttribute="trailing" secondItem="c4u-qL-7kU" secondAttribute="trailing" id="iXN-HS-TAf"/>
                             <constraint firstItem="CIg-eF-8Re" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pab-85-MYm"/>
                             <constraint firstItem="dk8-xp-fXq" firstAttribute="leading" secondItem="482-jm-agR" secondAttribute="trailing" constant="5" id="r0H-M6-nDn"/>
                             <constraint firstItem="dk8-xp-fXq" firstAttribute="centerY" secondItem="482-jm-agR" secondAttribute="centerY" id="wJY-Qw-eqo"/>
                             <constraint firstItem="HKn-aw-gYL" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yvg-7H-J4n"/>
                             <constraint firstItem="HKn-aw-gYL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zip-L2-1SI"/>
+                            <constraint firstItem="Hk6-lw-OH2" firstAttribute="top" secondItem="c4u-qL-7kU" secondAttribute="bottom" id="zkp-I9-4cn"/>
                             <constraint firstAttribute="bottom" secondItem="482-jm-agR" secondAttribute="bottom" constant="26" id="zxW-yX-oFi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="creditTypeButtonContainer" destination="c4u-qL-7kU" id="Big-zg-Mus"/>
                         <outlet property="emailTextField" destination="wBs-5f-tsh" id="hP0-mn-MKz"/>
                         <outlet property="forgotPasswordButton" destination="ef3-Jf-KiE" id="en9-CC-c9c"/>
                         <outlet property="loginButton" destination="eWx-zl-ou5" id="cGy-8j-AZZ"/>

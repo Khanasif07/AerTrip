@@ -72,8 +72,13 @@ class AccountLadgerDetailHeader: UIView {
         }
         
         self.imageView.image = event.iconImage
-        if event.voucher == .debitNote {
-            self.titleLabel.text = event.title + "\n" + event.creditCardNo
+        if event.voucher == .receipt {
+            var ttlStr = event.title
+            
+            if !event.creditCardNo.isEmpty {
+                ttlStr += "\n\(event.creditCardNo)"
+            }
+            self.titleLabel.text = ttlStr
             self.bookingIdKeyLabel.text = ""
             self.bookingIdValueLabel.text = ""
             self.bottomDetailContainer.isHidden = true

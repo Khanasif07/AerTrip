@@ -12,17 +12,30 @@ struct AccountDetailEvent {
     
     enum Voucher: String {
         case none
-        case lockAmount = "Lock Amount"
-        case sales = "Sales"
+        
+        //with-out subtypes
         case receipt = "Receipt"
+        case lockAmount = "Lock Amount"
         case debitNote = "Debit Note"
         case creditNote = "Credit Note"
+        
+        //these have sub types
+        case sales = "Sales"
+        case journal = "Journal"
+
+    }
+    
+    enum ReceiptMethod: String {
+        case none
+        case netbanking = "netbanking"
+        case card = "card"
     }
     
     enum ProductType: String {
         case none
         case hotel = "hotel"
         case flight = "flight"
+        case addOns = "addOns"
     }
 
     var id : String = ""
@@ -49,6 +62,17 @@ struct AccountDetailEvent {
         return self.voucher.rawValue
     }
     
+    private var _receiptMethod : String = ""
+    var receiptMethod: ReceiptMethod {
+        get {
+            return ReceiptMethod(rawValue: self._receiptMethod) ?? ReceiptMethod.none
+        }
+        
+        set {
+            self._receiptMethod = newValue.rawValue
+        }
+    }
+    
     private var _productType : String = ""
     var productType: ProductType {
         get {
@@ -59,6 +83,8 @@ struct AccountDetailEvent {
             self._productType = newValue.rawValue
         }
     }
+    
+    var transactionId: String = ""
     
     var amount: Double = 0.0
     var balance: Double = 0.0
@@ -113,6 +139,10 @@ struct AccountDetailEvent {
             self.amount = amt * -1
         }
         
+        if let obj = json["transaction_id"] {
+            self.transactionId = "\(obj)"
+        }
+        
         if let obj = json["balance"] {
             let amt = "\(obj)".toDouble ?? 0.0
             self.balance = amt * -1
@@ -132,6 +162,7 @@ struct AccountDetailEvent {
         
         if let obj = json["voucher"] {
             self._voucher = "\(obj)"
+            self.fetchVoucherDetails(json: json)
         }
         
         
@@ -151,21 +182,39 @@ struct AccountDetailEvent {
         if let obj = json["pending"] {
             self.pendingAmount = "\(obj)".toDouble ?? 0.0
         }
+    }
+    
+    mutating private func fetchVoucherDetails(json: JSONDictionary) {
         
         switch self.voucher {
         case .lockAmount:
-            
+            self.iconImage = #imageLiteral(resourceName: "ic_acc_lockAmount")
             if let details = json["detail"] as? JSONDictionary, let partyName = details["party_name"] {
                 self.title = "\(partyName)"
             }
             
         case .receipt:
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
             if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
-                let method = (info["method"] as? String) ?? ""
-                let bankName = (info["bank_name"] as? String) ?? ""
-                
-                self.title = method.isEmpty ? bankName : "\(method.capitalizedFirst()): \(bankName)"
+                self._receiptMethod = (info["method"] as? String) ?? ""
+                switch self.receiptMethod {
+                case .netbanking:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    let bankName = (info["bank_name"] as? String) ?? ""
+                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
+                    
+                case .card:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_card")
+                    let cardType = (info["card_type"] as? String) ?? ""
+                    self.title = cardType.isEmpty ? self._receiptMethod : "\(cardType.capitalizedFirst()) \(self._receiptMethod.capitalizedFirst())"
+                    
+                    let cardNum = (info["card_number"] as? String) ?? "XXXX"
+                    self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
+                    
+                case .none:
+                    printDebug("No need for other voucher types")
+                @unknown default:
+                    printDebug("No need for other voucher types")
+                }
             }
             
         case .debitNote:
@@ -186,21 +235,40 @@ struct AccountDetailEvent {
                     self._productType = "\(obj)"
                 }
                 
-                if self.productType == .hotel {
+                switch self.productType {
+                case .hotel:
                     self.parseForHotelSales(details: details)
-                }
-                else if self.productType == .flight {
+                    
+                case .flight:
                     self.parseForFlightSales(details: details)
+                    
+                case .addOns:
+                    self.parseForAddOnsSales(details: details)
+                    
+                case .none:
+                    printDebug("No need for other voucher types")
+                @unknown default:
+                    printDebug("No need for other voucher types")
                 }
             }
 
+        case .journal:
+            //To-Do: need to find the types of the journal and then handel them same as sales
+            self.title = self.voucher.rawValue //temp work
             
-        default:
+        case .none:
+            printDebug("No need for other voucher types")
+        @unknown default:
             printDebug("No need for other voucher types")
         }
-        
     }
     
+    private mutating func parseForAddOnsSales(details: JSONDictionary) {
+        
+        self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
+        self.title = "Add-ons"
+        
+    }
     private mutating func parseForFlightSales(details: JSONDictionary) {
         
         self.iconImage = #imageLiteral(resourceName: "ic_acc_flight")

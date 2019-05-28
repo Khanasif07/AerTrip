@@ -71,21 +71,13 @@ class SpecialAccountDetailsVM {
     
     let depositCellHeight: CGFloat = 99.0
     
+    private let titleH: CGFloat = 40.0
+    private let detailH: CGFloat = 37.0
+    private let detailWithDescH: CGFloat = 40.0
+    private let grandTotalH: CGFloat = 41.0
+    
     //MARK:- Private
-    
-    
-    //MARK:- Methods
-    //MARK:- Public
-    func formatDataForScreen() {
-        //************************//
-        guard let usr = UserInfo.loggedInUser, let accoundData = usr.accountData else {
-            return
-        }
-        let titleH: CGFloat = 40.0
-        let detailH: CGFloat = 37.0
-        let detailWithDescH: CGFloat = 40.0
-        let grandTotalH: CGFloat = 41.0
-        
+    private func getStatementSummery(accountData: AccountModel) {
         let stmtSummery = ["Statement Summery", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
         let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
         
@@ -99,7 +91,7 @@ class SpecialAccountDetailsVM {
                 obj.isForTitle = true
             }
             else if idx == 1 {
-                if let event = accoundData.statements?.lastStatementBalence {
+                if let event = accountData.statements?.lastStatementBalence {
                     if let date = event.dates.last {
                         let dateStr = date.toString(dateFormat: "EE, dd MMM YYYY")
                         obj.description = dateStr.isEmpty ? "" : "Up to \(dateStr)"
@@ -108,14 +100,14 @@ class SpecialAccountDetailsVM {
                 }
             }
             else if idx == 2 {
-                if let amount = accoundData.statements?.recentCredit {
+                if let amount = accountData.statements?.recentCredit {
                     obj.symbol = (amount < 0) ? "-" : "+"
                     obj.amount = abs(amount).amountInDelimeterWithSymbol
                 }
             }
             else if idx == 3 {
                 
-                if let event = accoundData.statements?.recentDebit {
+                if let event = accountData.statements?.recentDebit {
                     if let start = event.dates.first, let end = event.dates.last {
                         obj.description = "\(start.toString(dateFormat: "dd MMM")) - \(end.toString(dateFormat: "dd MMM"))"
                     }
@@ -127,12 +119,14 @@ class SpecialAccountDetailsVM {
             }
             else if idx == 4 {
                 obj.symbol = "="
-                obj.amount = (accoundData.statements?.amountDue ?? 0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.statements?.amountDue ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.statementSummery.append(obj)
         }
-        
+    }
+    
+    private func getTopupSummery(accountData: AccountModel) {
         let tpupSummery = ["Top-up Summary", "Active Top-up Limit", "Used Credits", "Available Credits"]
         let tpupSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
@@ -146,24 +140,25 @@ class SpecialAccountDetailsVM {
                 obj.isForTitle = true
             }
             else if idx == 1 {
-                obj.amount = (0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.topup?.topupLimit ?? 0.0).amountInDelimeterWithSymbol
                 obj.height = tpupSummeryHeight[idx] - 13.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
-                obj.amount = (5953.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.topup?.usedCredit ?? 0.0).amountInDelimeterWithSymbol
                 obj.height = tpupSummeryHeight[idx] - 4.0
                 obj.isDevider = true
             }
             else if idx == 3 {
                 obj.symbol = "="
-                obj.amount = (-5953.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.topup?.availableCredit ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.topUpSummery.append(obj)
         }
-        
-        
+    }
+    
+    private func getBilwiseSummery(accountData: AccountModel) {
         let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Charges", "Total Outstanding"]
         let bwSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
@@ -177,22 +172,24 @@ class SpecialAccountDetailsVM {
                 obj.isForTitle = true
             }
             else if idx == 1 {
-                obj.amount = (0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 13.0
+                obj.amount = (accountData.billwise?.totalOverDue ?? 0.0).amountInDelimeterWithSymbol
+                obj.height = bwSummeryHeight[idx] - 13.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
-                obj.amount = (0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.billwise?.recentCharges ?? 0.0).amountInDelimeterWithSymbol
                 obj.isDevider = true
             }
             else if idx == 3 {
                 obj.symbol = "="
-                obj.amount = (0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.billwise?.totalOutstanding ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.bilWiseSummery.append(obj)
         }
-        
+    }
+    
+    private func getCreditSummery(accountData: AccountModel) {
         let crdSummery = ["Credit Summery", "Credit Limit", "Current Balance", "Available Credits"]
         let crdSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
@@ -207,11 +204,11 @@ class SpecialAccountDetailsVM {
                 obj.height = crdSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
-                obj.amount = (accoundData.credit?.creditLimit ?? 0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.credit?.creditLimit ?? 0.0).amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
-                let amount = (accoundData.credit?.currentBalance ?? 0.0)
+                let amount = (accountData.credit?.currentBalance ?? 0.0)
                 obj.symbol = "-"
                 obj.amount = abs(amount).amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx]
@@ -219,16 +216,17 @@ class SpecialAccountDetailsVM {
             }
             else if idx == 3 {
                 obj.symbol = "="
-                obj.amount = (accoundData.credit?.availableCredit ?? 0.0).amountInDelimeterWithSymbol
+                obj.amount = (accountData.credit?.availableCredit ?? 0.0).amountInDelimeterWithSymbol
             }
             
             self.creditSummery.append(obj)
         }
-        
-        
+    }
+    
+    private func getOtherActions() {
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
         
-        if usr.userCreditType == UserCreditType.statement {
+        if let usr = UserInfo.loggedInUser, usr.userCreditType == UserCreditType.statement {
             otrAction.append("Periodic statement")
         }
         
@@ -243,6 +241,35 @@ class SpecialAccountDetailsVM {
             obj.isLastNext = (idx == (otrAction.count - 1))
             self.otherAction.append(obj)
         }
+    }
+    
+    //MARK:- Methods
+    //MARK:- Public
+    func formatDataForScreen() {
+        //************************//
+        guard let usr = UserInfo.loggedInUser, let accountData = usr.accountData else {
+            return
+        }
+        
+        switch usr.userCreditType {
+        case .billwise:
+            self.getBilwiseSummery(accountData: accountData)
+            self.getCreditSummery(accountData: accountData)
+            self.getOtherActions()
+            
+        case .topup:
+            self.getTopupSummery(accountData: accountData)
+            self.getOtherActions()
+            
+        case .statement:
+            self.getStatementSummery(accountData: accountData)
+            self.getCreditSummery(accountData: accountData)
+            self.getOtherActions()
+            
+        default:
+            printDebug("no need to implement")
+        }
+
         
         //************************//
         

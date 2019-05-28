@@ -52,7 +52,10 @@ class ADEventFilterVC: BaseVC {
         }
         return temp
     }
-    private var allChildVCs: [UIViewController] = [UIViewController]()
+    private var allChildVCs: [UIViewController] = [UIViewController(), UIViewController()]
+    
+    private var travelDateVC = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+    private var adVoucherTypeVC = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -72,41 +75,40 @@ class ADEventFilterVC: BaseVC {
         self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
         
         self.selectedFilter = self.oldFilter ?? AccountSelectedFilter()
-        
-        for i in 0..<self.allTabsStr.count {
-            if i == 0 {
-                let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
-                vc.oldToDate = self.oldFilter?.toDate
-                vc.oldFromDate = self.oldFilter?.fromDate
-                vc.delegate = self
-                self.allChildVCs.append(vc)
-            } else {
-                let vc = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
-                vc.delegate = self
-                vc.viewModel.allTypes = self.voucherTypes
-                
-                if self.selectedFilter.voucherType.isEmpty {
-                    self.selectedFilter.voucherType = self.voucherTypes.first ?? ""
-                }
-                
-                if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
-                    vc.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
-                }
-                else {
-                    vc.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
-                }
-                self.allChildVCs.append(vc)
-            }
-        }
-        
+    
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
-        self.setupPagerView()
+
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
-            self?.show(animated: true)
+            self?.setupPagerView()
         }
         self.setupGesture()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        travelDateVC.oldToDate = self.oldFilter?.toDate
+        travelDateVC.oldFromDate = self.oldFilter?.fromDate
+        travelDateVC.delegate = self
+        
+        
+        adVoucherTypeVC.delegate = self
+        adVoucherTypeVC.viewModel.allTypes = self.voucherTypes
+        
+        
+        if self.selectedFilter.voucherType.isEmpty {
+            self.selectedFilter.voucherType = self.voucherTypes.first ?? ""
+        }
+        
+        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
+            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
+        }
+        else {
+            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+        }
+        self.show(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -168,7 +170,7 @@ class ADEventFilterVC: BaseVC {
         style.badgeBorderWidth = 0.0
 
         
-        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: [travelDateVC, adVoucherTypeVC], parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self
         self.childContainerView.addSubview(categoryView)

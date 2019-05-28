@@ -42,6 +42,12 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var ladgerDummySearchView: UIView!
     @IBOutlet weak var ladgerDummySearchBar: ATSearchBar!
     
+    @IBOutlet var openingDetailContainerView: UIView!
+    @IBOutlet weak var openingBalanceTitleLabel: UILabel!
+    @IBOutlet weak var openingBalanceDateLabel: UILabel!
+    @IBOutlet weak var openingBalanceAmountLabel: UILabel!
+    
+    
     
     //MARK:- Properties
     //MARK:- Public
@@ -65,6 +71,7 @@ class AccountDetailsVC: BaseVC {
     private lazy var noAccountResultView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noAccountResult
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     
@@ -99,7 +106,10 @@ class AccountDetailsVC: BaseVC {
         
         self.topNavView.firstRightButton.isEnabled = false
         self.topNavView.secondRightButton.isEnabled = false
-        self.viewModel.getAccountDetails()
+        
+        if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
+            self.viewModel.getAccountDetails()
+        }
         
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
@@ -115,6 +125,10 @@ class AccountDetailsVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
+        
+        delay(seconds: 0.8) { [weak self] in
+            self?.getAccountDetailsSuccess()
+        }
     }
     
     override func bindViewModel() {
@@ -124,15 +138,20 @@ class AccountDetailsVC: BaseVC {
     override func setupFonts() {
         self.balanceTextLabel.font = AppFonts.Regular.withSize(14.0)
         self.balanceAmountLabel.font = AppFonts.SemiBold.withSize(28.0)
+        
+        self.openingBalanceTitleLabel.font = AppFonts.Regular.withSize(16.0)
+        self.openingBalanceAmountLabel.font = AppFonts.Regular.withSize(16.0)
+        self.openingBalanceDateLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     override func setupTexts() {
         self.balanceTextLabel.text = LocalizedString.Balance.localized
-        self.balanceAmountLabel.text = "\(18992.0.amountInDelimeterWithSymbol)"
         
         self.searchBar.placeholder = LocalizedString.search.localized
         self.mainSearchBar.placeholder = LocalizedString.search.localized
         self.ladgerDummySearchBar.placeholder = LocalizedString.search.localized
+        
+        self.openingBalanceTitleLabel.text = LocalizedString.OpeningBalance.localized
     }
     
     override func setupColors() {
@@ -143,10 +162,24 @@ class AccountDetailsVC: BaseVC {
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
+        
+        self.openingBalanceTitleLabel.textColor = AppColors.themeBlack
+        self.openingBalanceAmountLabel.textColor = AppColors.themeBlack
+        self.openingBalanceDateLabel.textColor = AppColors.themeGray40
     }
     
     //MARK:- Methods
     //MARK:- Private
+    private func setupHeaderFooterText() {
+        
+        if let accountData = UserInfo.loggedInUser?.accountData {
+            self.openingBalanceAmountLabel.attributedText = accountData.openingBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            self.openingBalanceDateLabel.text = ""//"Upto Tue, 31 Jul 2018"
+            
+            self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+        }
+    }
+    
     private func manageSubView() {
         if self.currentUsingAs == .account {
             self.subHeaderContainerHeightConstraint.constant = 76.0
@@ -215,7 +248,7 @@ class AccountDetailsVC: BaseVC {
                 self.viewModel.sendEmailForLedger()
             } else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.AccountsLegder.localized)
+                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
                 printDebug("download pdf tapped")
             }
         }
@@ -223,6 +256,9 @@ class AccountDetailsVC: BaseVC {
     
     //MARK:- Public
     func reloadList() {
+        
+        self.setupHeaderFooterText()
+
         self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
         
         let isAllDatesEmpty = self.viewModel.allDates.isEmpty
@@ -232,6 +268,11 @@ class AccountDetailsVC: BaseVC {
         if self.currentUsingAs == .account {
             self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
         }
+        
+        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
+            self.tableView.tableFooterView = isAllDatesEmpty ? nil : self.openingDetailContainerView
+        }
+    
         
         if (self.currentViewState != .filterApplied) {
             self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
@@ -325,7 +366,7 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
     }
 }
 
@@ -346,6 +387,18 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
             self.currentViewState = .normal
         }
         self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
+    }
+}
+
+//MARK:- EmptyScreenViewdelegate methods
+//MARK:-
+extension AccountDetailsVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    func bottomButtonAction(sender: UIButton) {
+        //clear all filter
+        self.currentViewState = .normal
+        self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
     }
 }
 

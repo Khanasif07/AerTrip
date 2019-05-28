@@ -348,6 +348,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         AppFlowManager.default.goToDashboard()
         CoreDataManager.shared.deleteCompleteDB()
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
+        UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
     }
     
     func didLogOutFail(errors: ErrorCodes) {

@@ -14,6 +14,10 @@ protocol AccountOutstandingLadgerVMDelegate: class {
     func getAccountDetailsFail()
     
     func searchEventsSuccess()
+    
+    func willGetOutstandingPayment()
+    func getOutstandingPaymentSuccess()
+    func getOutstandingPaymentFail()
 }
 
 class AccountOutstandingLadgerVM: NSObject {
@@ -42,6 +46,8 @@ class AccountOutstandingLadgerVM: NSObject {
     }
     
     
+    private(set) var itineraryData: DepositItinerary?
+    
     var accountOutstanding: AccountOutstanding? {
         didSet {
             if let obj = accountOutstanding {
@@ -52,7 +58,6 @@ class AccountOutstandingLadgerVM: NSObject {
     }
     
     //MARK:- Private
-    
     
     
     //MARK:- Methods
@@ -104,6 +109,38 @@ class AccountOutstandingLadgerVM: NSObject {
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
+    }
+    
+    func getOutstandingPayment() {
+        
+        self.delegate?.willGetOutstandingPayment()
+        
+        var allIds: [String] = []
+        if self.selectedEvent.isEmpty {
+            for key in Array(self._accountDetails.keys) {
+                if let arr = self._accountDetails[key] as? [AccountDetailEvent] {
+                    for event in arr {
+                        allIds.append(event.transactionId)
+                    }
+                }
+            }
+        }
+        else {
+            for event in self.selectedEvent {
+                allIds.append(event.transactionId)
+            }
+        }
+
+        APICaller.shared.outstandingPaymentAPI(params: ["txn_ids": allIds]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getOutstandingPaymentSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getOutstandingPaymentFail()
             }
         }
     }

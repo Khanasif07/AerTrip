@@ -562,7 +562,7 @@ class UserInfo {
     var accountData: AccountModel? {
         
         get {
-            if let dict = UserDefaults.getObject(forKey: "account_data") as? JSONDictionary {
+            if let dict = UserDefaults.getObject(forKey: "account_data") as? JSONDictionary, !dict.isEmpty {
                 return AccountModel(json: dict)
             }
             return nil

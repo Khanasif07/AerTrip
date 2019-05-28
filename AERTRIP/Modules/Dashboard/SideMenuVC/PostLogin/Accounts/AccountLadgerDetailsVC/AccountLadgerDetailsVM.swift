@@ -32,7 +32,7 @@ class AccountLadgerDetailsVM {
     
     //MARK:- Methods
     //MARK:- Private
-    private func parseDataForDebitNote() {
+    private func parseDataForDefault() {
         self.ladgerDetails.removeAll()
         
         //amount details
@@ -145,7 +145,7 @@ class AccountLadgerDetailsVM {
             }
         }
         else {
-            self.parseDataForDebitNote()
+            self.parseDataForDefault()
         }
         
         delay(seconds: 0.8) { [weak self] in

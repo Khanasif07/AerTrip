@@ -114,21 +114,23 @@ class AccountDetailsVM: NSObject {
             return
         }
         
-        
-        delay(seconds: 0.8) { [weak self] in
+        //hit api to update the saved data and show it on screen
+        APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
+            
             guard let sSelf = self else {
-                self?.delegate?.getAccountDetailsFail()
                 return
             }
             
-            let allData = [JSONDictionary]()
-            
-            sSelf._accountDetails = AccountDetailEvent.modelsDict(data: allData).data
-            sSelf.accountDetails = sSelf._accountDetails
-            
-            sSelf.delegate?.getAccountDetailsSuccess()
+            if success {
+                sSelf._accountDetails = accLad
+                sSelf.accountDetails = sSelf._accountDetails
+                sSelf.delegate?.getAccountDetailsSuccess()
+            }
+            else {
+                sSelf.delegate?.getAccountDetailsFail()
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
         }
-        
     }
     
     func applyFilter(filter: AccountSelectedFilter?, searchText: String) {

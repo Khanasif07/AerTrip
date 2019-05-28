@@ -55,7 +55,7 @@ struct AccountOfflineDepositDetails {
         }
         else if !isForFundTransfer, ddNum.removeAllWhitespaces.isEmpty {
             flag = false
-            AppToast.default.showToastMessage(message: "Please enter draft/chaque number.")
+            AppToast.default.showToastMessage(message: "Please enter draft/cheque number.")
         }
         else if !isForFundTransfer, depositBranchDetail.removeAllWhitespaces.isEmpty {
             flag = false

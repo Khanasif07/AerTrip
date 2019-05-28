@@ -58,11 +58,33 @@ extension SideMenuViewAccountCell {
     
     func populateData() {
         // FIXME:  Amount would be in double ,doing it for temporary as per QA
-        self.amountLabel.text = (UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0).amountInDelimeterWithSymbol
+        var amount: Double = 0.0
+        var date: Date? = nil
+        
+        if let usr = UserInfo.loggedInUser {
+            
+            switch usr.userCreditType {
+            case .billwise:
+                amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
+
+            case .topup:
+                amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
+                date = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.dates.first
+                
+            case .statement:
+                amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first
+                
+            default:
+                amount = UserInfo.loggedInUser?.accountData?.currentBalance ?? 0.0
+            }
+        }
+        
+        self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
         
         self.dateLabel.text = ""
-        if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
-            let str = date.toString(dateFormat: "EE, dd MMM YYYY")
+        if let dt = date {
+            let str = dt.toString(dateFormat: "EE, dd MMM YYYY")
             if !str.isEmpty {
                 self.dateLabel.text = "Before \(str)"
             }
