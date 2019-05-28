@@ -14,23 +14,21 @@ class OtherBookingsDetailsVC: BaseVC {
     //MARK:- Variables
     //MARK
     let viewModel = OtherBookingsDetailsVM()
-    private var headerView: OtherBookingDetailsHeaderView?
+    private var headerView: OtherBookingDetailsHeaderView = OtherBookingDetailsHeaderView()
     
     //MARK:- IBOutlets
     //MARK
     @IBOutlet weak var topNavBar: TopNavigationView!
-    @IBOutlet weak var dataTableView: ATTableView! {
-        didSet {
-            self.dataTableView.estimatedRowHeight = 100.0
-            self.dataTableView.rowHeight = UITableView.automaticDimension
-            self.dataTableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 10.0, right: 0.0)
-        }
-    }
+    @IBOutlet weak var dataTableView: ATTableView!
     
     //MARK:- LifeCycle
     //MARK
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+       headerView = OtherBookingDetailsHeaderView.instanceFromNib()
+       headerView.backgroundColor = .red
         self.viewModel.getSectionData()
     }
     
@@ -46,7 +44,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.setupParallaxHeader()
-        self.configureTableHeaderView()
+        //self.configureTableHeaderView()
         self.registerNibs()
         self.dataTableView.delegate = self
         self.dataTableView.dataSource = self
@@ -64,36 +62,36 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func bindViewModel() {
         self.topNavBar.delegate = self
-        self.headerView?.delegate = self
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if let view = self.headerView {
-            view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
-        }
+        self.headerView.delegate = self
     }
     
 //    override func viewDidLayoutSubviews() {
-//        guard let headerView = dataTableView.tableHeaderView else {
-//            return
-//        }
-//
-//        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//        if headerView.frame.size.height != size.height {
-//            headerView.frame.size.height = size.height
-//            self.dataTableView.tableHeaderView = headerView
-//            self.dataTableView.layoutIfNeeded()
-//        }
+//        super.viewDidLayoutSubviews()
+//      
+//            headerView.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
+//        
 //    }
     
-    ///ConfigureCheckInOutView
-    private func configureTableHeaderView() {
-        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0))
-        if let view = self.headerView {
-            self.dataTableView.tableHeaderView = view
+    override func viewDidLayoutSubviews() {
+        guard let headerView = dataTableView.tableHeaderView else {
+            return
+        }
+
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if headerView.frame.size.height != size.height {
+            headerView.frame.size.height = size.height
+            self.dataTableView.tableHeaderView = headerView
+            self.dataTableView.layoutIfNeeded()
         }
     }
+    
+//    ///ConfigureCheckInOutView
+//    private func configureTableHeaderView() {
+//        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0))
+////        if let view = self.headerView {
+////            self.dataTableView.tableHeaderView = view
+////        }
+//    }
     
     //MARK:- Functions
     //MARK
@@ -344,7 +342,7 @@ extension OtherBookingsDetailsVC : MXParallaxHeaderDelegate {
                 self?.topNavBar.dividerView.isHidden = true
             }
         }
-        self.headerView?.layoutIfNeeded()
+        self.headerView.layoutIfNeeded()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

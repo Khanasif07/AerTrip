@@ -31,26 +31,39 @@ class OtherBookingDetailsHeaderView: UIView {
 
     //MARK:- LifeCycle
     //MARK:-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initialSetUp()
-    }
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        self.initialSetUp()
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        self.initialSetUp()
+//    }
+//    
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initialSetUp()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.configureUI()
     }
     
     //MARK:- Functions
     //MARK:-
-    private func initialSetUp() {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "OtherBookingDetailsHeaderView", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        view.frame = bounds
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(view)
-        self.configureUI()
+//    private func initialSetUp() {
+//        let bundle = Bundle(for: type(of: self))
+//        let nib = UINib(nibName: "OtherBookingDetailsHeaderView", bundle: bundle)
+//        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+//        view.frame = bounds
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        self.addSubview(view)
+//        self.configureUI()
+//    }
+
+    
+    class func instanceFromNib() -> OtherBookingDetailsHeaderView {
+        let parentView = UINib(nibName: "OtherBookingDetailsHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! OtherBookingDetailsHeaderView
+        return parentView
     }
     
     private func configureUI() {

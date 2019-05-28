@@ -63,6 +63,15 @@ class MyBookingsVC: BaseVC {
         self.footerView.isHidden = true
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        CoreDataManager.shared.deleteData("BookingData", predicate: nil)
+    }
+    
+    
+    // MARK:- Override methods
+    
     override func setupTexts() {
         self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
         self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
@@ -87,7 +96,9 @@ class MyBookingsVC: BaseVC {
         self.footerView.delegate = self
     }
     
-    // Mark:- Functions
+    
+    
+    // MARK:- Functions
     //================
     private func filterOptionsPopUp() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TravelDate.localized, LocalizedString.EventType.localized, LocalizedString.BookingDate.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])

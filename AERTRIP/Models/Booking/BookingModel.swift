@@ -24,6 +24,19 @@ struct BookingModel {
         self.init(json: [:])
     }
     
+    
+    var jsonDict: JSONDictionary {
+        return ["bid": self.bookingId,
+                "booking_number": self.bookingNumber,
+                "booking_date": self.bookingDate,
+                "product": self.product,
+                "bdetails": self.bookingDetails,
+                "bstatus" : self.bookingStatus,
+            "requests" : self.requests,
+            "description" : self.description,
+            "action_required" : self.actionRequired ]
+    }
+    
     init(json: JSONDictionary) {
         if let obj = json["id"] {
             self.bookingId = "\(obj)"

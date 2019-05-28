@@ -12,6 +12,7 @@
 
 #import "AertripCalendar.h"
 #import "AertripCalendarViewController.h"
+#import "ALToastView.h"
 #import "DIYCalendarCell.h"
 
 FOUNDATION_EXPORT double AertripCalendarVersionNumber;

@@ -51,7 +51,7 @@ class CoreDataManager {
         }
         catch {
             /// Report any error we got.
-            printDebug("Failed to initialize the Chat saved data")
+            printDebug("Failed to initialize the Aertrip saved data")
         }
         return coordinator
     }()

@@ -1,6 +1,6 @@
 PODS:
   - ActiveLabel (1.0.1)
-  - AertripCalendar (0.0.1):
+  - AertripCalendar (0.0.2):
     - FSCalendar
   - AertripCalendarDataModel (0.0.1)
   - AFNetworking (3.2.1):
@@ -208,7 +208,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AertripCalendar:
-    :commit: c5f28f740909546aabb339f60ff48ff6eede69f5
+    :commit: 997e6358e525b71650c13fbff5c6e4981130e6aa
     :git: "git@gitlab.com:aertrip/ios-calendar.git"
   AertripCalendarDataModel:
     :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
@@ -216,7 +216,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
-  AertripCalendar: e6bf7810dfc20e0a5c3d0e4601c8def62a9a3531
+  AertripCalendar: 00eef33938fa45eade7e9a222400f6c7c6365271
   AertripCalendarDataModel: 52eb9d654ff2145e55b247ad72f7d14641a791b2
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
@@ -256,4 +256,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d1e606e5cfa80b697fe08c4a8e4be1e749344496
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

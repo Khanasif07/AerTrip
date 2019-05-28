@@ -44,8 +44,14 @@ class MyBookingsVM {
         APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings) in
             guard let sSelf = self else { return }
             if success {
-                sSelf.delgate?.getBookingsDetailSuccess()
-                sSelf.bookings = bookings
+//                
+//                BookingData.insert(dataDictArray: bookings, completionBlock: { (all) in
+//                    DispatchQueue.mainAsync {
+//                      sSelf.delgate?.getBookingsDetailSuccess()
+//                    }
+//                })
+                
+                // sSelf.bookings = bookings
                 sSelf.getFilteredData()
                 printDebug(bookings)
             } else {

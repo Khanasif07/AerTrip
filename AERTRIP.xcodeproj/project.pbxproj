@@ -145,6 +145,8 @@
 		182EB22722859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB22522859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib */; };
 		182EB22A2285B444001BFB20 /* AmentityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EB2282285B444001BFB20 /* AmentityTableViewCell.swift */; };
 		182EB22B2285B444001BFB20 /* AmentityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB2292285B444001BFB20 /* AmentityTableViewCell.xib */; };
+		1838557D229BE93F00D59A4E /* BookingData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */; };
+		1838557E229BE93F00D59A4E /* BookingData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */; };
 		183B71952289386300A75B7F /* BookingFareInfoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B71942289386300A75B7F /* BookingFareInfoDetailVC.swift */; };
 		183B71982289480800A75B7F /* FareRulesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B71972289480800A75B7F /* FareRulesVC.swift */; };
 		183B719C228948C400A75B7F /* FareRuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B719A228948C400A75B7F /* FareRuleTableViewCell.swift */; };
@@ -1008,6 +1010,8 @@
 		182EB22522859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlightTimeLocationInfoTableViewCell.xib; sourceTree = "<group>"; };
 		182EB2282285B444001BFB20 /* AmentityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmentityTableViewCell.swift; sourceTree = "<group>"; };
 		182EB2292285B444001BFB20 /* AmentityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmentityTableViewCell.xib; sourceTree = "<group>"; };
+		1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		183B71942289386300A75B7F /* BookingFareInfoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingFareInfoDetailVC.swift; path = AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/BookingFareInfoDetailVC.swift; sourceTree = SOURCE_ROOT; };
 		183B71972289480800A75B7F /* FareRulesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareRulesVC.swift; sourceTree = "<group>"; };
 		183B719A228948C400A75B7F /* FareRuleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareRuleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1891,6 +1895,8 @@
 		1807A3792297CB9B00B78D47 /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */,
+				1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */,
 				1807A37A2297CBD100B78D47 /* BookingModel.swift */,
 			);
 			path = Booking;
@@ -5004,7 +5010,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
@@ -5017,7 +5023,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */ = {
@@ -5026,7 +5032,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/AertripCalendar/AertripCalendar.framework",
@@ -5085,7 +5091,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5104,6 +5110,7 @@
 				1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */,
 				180692BD229525D100177487 /* BookingFFAirlineTableViewCell.swift in Sources */,
 				187684B822845D4A009637D6 /* BookingDetailVC+Delegatemethods.swift in Sources */,
+				1838557D229BE93F00D59A4E /* BookingData+CoreDataClass.swift in Sources */,
 				84BBEEA72214236400844034 /* HotelDetailsInclusionTableViewCell.swift in Sources */,
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
 				84FFDFB021F9F67B005CA257 /* ATCategoryNavBarStyle.swift in Sources */,
@@ -5597,6 +5604,7 @@
 				18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,
 				84F1626E2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift in Sources */,
+				1838557E229BE93F00D59A4E /* BookingData+CoreDataProperties.swift in Sources */,
 				1879C4972292B44F00897CED /* BookingDateVoucherTableViewCell.swift in Sources */,
 				1879C49F2293CA7500897CED /* BookingDirectionVC.swift in Sources */,
 				8480703A22295A1B0061C642 /* HotelGroupCardCollectionViewCell.swift in Sources */,

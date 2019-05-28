@@ -65,7 +65,7 @@ public class TravellerData: NSManagedObject {
             userData!.salutation = "\(obj)".removeNull
         }
         
-        CoreDataManager.shared.saveContext()
+        CoreDataManager.shared.saveContext(managedContext: context)
         
         return userData!
     }

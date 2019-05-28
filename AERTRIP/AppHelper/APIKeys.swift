@@ -411,4 +411,12 @@ enum APIKeys: String {
     case queries
     case creationDate
     case currentEvent
+    
+    // MARK: - Booking module
+    case bid
+    case booking_date
+    case bdetails
+    case requests
+    case action_required
+    case bstatus
 }

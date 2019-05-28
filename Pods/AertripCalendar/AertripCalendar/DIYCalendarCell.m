@@ -18,6 +18,11 @@
     if (self) {
         CAShapeLayer *selectionLayer = [[CAShapeLayer alloc] init];
         selectionLayer.fillColor = [UIColor colorWithRed:0/255.0 green:204/255.0 blue:153/255.0 alpha:1].CGColor;
+        selectionLayer.shadowOpacity = 0.15;
+        selectionLayer.shadowRadius = 10;
+        selectionLayer.shadowOffset = CGSizeMake(15, 10);
+        selectionLayer.shadowColor = [UIColor blackColor].CGColor;
+        
         selectionLayer.actions = @{@"hidden":[NSNull null]}; 
         [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
         self.selectionLayer = selectionLayer;
@@ -44,7 +49,7 @@
 {
     [super layoutSubviews];
      self.titleLabel.frame = self.contentView.bounds;
-    float constantMinus = 8.0;
+    float constantMinus = 10.0;
     float radius = 10.0;
 
 

@@ -41,8 +41,9 @@ extension APICaller {
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let bookings = response["bookings"] as? [JSONDictionary] {
-                    let bookings = BookingModel.getModels(data: bookings)
-                    completionBlock(true, [],bookings)
+                    BookingData.insert(dataDictArray: bookings, completionBlock: { (allData) in
+                        completionBlock(true, [],[])
+                    })
                 }
                 else {
                     completionBlock(false,[],[])

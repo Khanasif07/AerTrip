@@ -13,6 +13,7 @@
 #import <FSCalendar/FSCalendar.h>
 #import <AertripCalendarDataModel/CalendarDataModel.h>
 #import <CoreText/CoreText.h>
+#import "ALToastView.h"
 
 @interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource>
 
@@ -24,6 +25,7 @@
 @property (assign, nonatomic) CGFloat primaryDuration;
 @property (strong , nonatomic) NSMutableArray * selectedDates;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIView *weekdaysBaseView;
 
 @end
 
@@ -70,6 +72,11 @@
 }
 
 
+-(UIColor*)TWO_ZERO_FOUR_COLOR
+{
+    return [UIColor colorWithRed: 204/255.0  green:204/255.0  blue:204/255.0 alpha:1];
+}
+
 
 - (NSString *)dayOfDate:(NSDate *)date {
     if (date != nil) {
@@ -101,10 +108,31 @@
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     
     self.doneButton.userInteractionEnabled = YES;
-    
+    self.doneButton.titleLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
+    [self setupWeekdays];
+    if ( self.viewModel.isHotelCalendar) {
+        
+        [self.doneButton setTitleColor:[self AertripColor] forState:UIControlStateNormal];
+        [self.doneButton setTitleColor:[self TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
 
+        self.cancelButton.hidden = YES;
+    }
+
+    NSBundle * bundle = [NSBundle bundleForClass:self.class];
+    self.cancelButton.imageView.image = [UIImage imageNamed:@"cancelGray" inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
+
+-(void)setupWeekdays {
+    
+    for (UILabel *label  in self.weekdaysStackView.subviews) {
+        label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:16.0];
+    }
+    
+    self.weekdaysBaseView.layer.shadowColor = UIColor.blackColor.CGColor;
+    self.weekdaysBaseView.layer.shadowOpacity = 0.1;
+    self.weekdaysBaseView.layer.shadowRadius = 10;
+}
     
     - (void) loadFont:(NSString*)fontName {
         NSString *fontPath = [[NSBundle mainBundle] pathForResource:fontName ofType:@"ttf"];
@@ -147,8 +175,9 @@
     self.topViewHeightConstraint.constant = 93;
     self.TopSpaceConstraint.constant = 93;
     self.startDateLabel.text = @"Onwards";
-    self.cancelButton.hidden = !self.viewModel.isReturn;
-    
+    if (!self.viewModel.isHotelCalendar) {
+        self.cancelButton.hidden = !self.viewModel.isReturn;
+    }
     if (self.viewModel.date2) {
         self.endDateLabel.text = @"Return";
         self.cancelButton.hidden = NO;
@@ -157,6 +186,12 @@
         self.endDateLabel.text = @"Add Return?";
         self.cancelButton.hidden = YES;
     }
+    
+    if (self.viewModel.isHotelCalendar){
+        self.endDateLabel.text = @"Check-out";
+        self.cancelButton.hidden = YES;
+    }
+    
     [self setupCheckInDateView];
     [self setupCheckOutDateView];
 }
@@ -422,6 +457,12 @@
 
 - (void)setupTopViewWrapper {
     
+    [self.startDateValueLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:26.0]];
+    [self.startDateSubLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
+    [self.endDateValueLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:26.0]];
+    [self.endDateSubLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
+
+    
     if( self.multicityViewModel != nil) {
         self.topViewHeightConstraint.constant = 0;
         self.TopSpaceConstraint.constant = 62;
@@ -439,6 +480,8 @@
         self.cancelButton.hidden = YES;
         self.startDateLabel.text = @"Check-in";
         self.endDateLabel.text = @"Check-out";
+        [self setupCheckInDateView];
+        [self setupCheckOutDateView];
 
     }else {
             [self setupTopViewForSingleJourney];
@@ -612,14 +655,22 @@
             [self.TopView layoutIfNeeded];
         }];
         
-        [self.startDateLabel setFont:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16.0]];
+        [self.startDateLabel setFont:[UIFont fontWithName:@"SourceSansPro-Semibold" size:18.0]];
         [self.startDateLabel setTextColor:[self AertripColor]];
-        [self.endDateLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:18.0]];
+        [self.endDateLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
         [self.endDateLabel setTextColor:[self ONE_FIVE_THREE_COLOR]];
     }else {
-        self.endDateLabel.text = @"Return";
-        self.viewModel.isReturn = YES;
+        if (self.viewModel.isHotelCalendar) {
+            self.endDateLabel.text = @"Check-out";
+        }
+        else {
+            self.endDateLabel.text = @"Return";
+        }        self.viewModel.isReturn = YES;
         self.cancelButton.hidden = FALSE;
+        
+        if (self.viewModel.isHotelCalendar) {
+            self.cancelButton.hidden = YES;
+        }
 
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroudViewLeadingConstraint.constant = self.view.frame.size.width/2;
@@ -699,7 +750,7 @@
 {
     
     if (self.viewModel != nil ) {
-        [self performDateSelectionForFlight:calendar date:date];
+        [self performSelectionInCalendar:calendar ForDate:date];
         return NO;
     }
 
@@ -714,7 +765,14 @@
         
     }else {
         if (self.viewModel.date2 == nil ) {
-            if (date > self.viewModel.date1) {
+            
+            if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] > 30 ) {
+                [ALToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
+                [self.customCalenderView deselectDate:date];
+                return;
+            }
+            
+            if ([self.viewModel.date1 earlierDate:date] == self.viewModel.date1 ) {
                 self.viewModel.date2 = date;
                 [self.customCalenderView selectDate:self.viewModel.date2];
                 [self selectDatesInRange:self.viewModel.date1 endDate:self.viewModel.date2];
@@ -735,7 +793,6 @@
             [self.customCalenderView selectDate:self.viewModel.date1];
             self.viewModel.isStartDateSelection = YES;
             
-            
         }
     }
     [self setupCheckInDateView];
@@ -746,7 +803,7 @@
 
 
 
-- (void)performDateSelectionForFlight:(FSCalendar * _Nonnull)calendar date:(NSDate * _Nonnull)date {
+- (void)performSelectionInCalendar:(FSCalendar * _Nonnull)calendar ForDate:(NSDate * _Nonnull)date {
     
     
         if (self.viewModel.date1 != nil) {
@@ -764,6 +821,19 @@
     
     if (self.viewModel.isStartDateSelection) {
 
+        if ( self.viewModel.isHotelCalendar &&  self.viewModel.date2) {
+            
+        if ( [self getNumberOfNightsInRange:date endDate:self.viewModel.date2] >  30) {
+                [ALToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
+                [self.customCalenderView deselectDate:date];
+                return;
+            }
+            if ([self.viewModel.date2 compare:date] == NSOrderedSame) {
+                 self.viewModel.date2 = nil;
+                [self setupCheckOutDateView];
+
+            }
+        }
         
         //Trim selection  if new date is later to currently selected onwards date
         // e.g. if previously 14 is onwards date ( self.viewModel.date1 ) and new date is 17,
@@ -792,6 +862,22 @@
         }
     }
     else {
+        
+        
+        
+        if ( self.viewModel.isHotelCalendar &&  self.viewModel.date1) {
+            
+                if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] >  30) {
+                    [ALToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
+                    [self.customCalenderView deselectDate:date];
+                    return;
+                }
+                
+                if ([date compare:self.viewModel.date1] == NSOrderedSame){
+                    self.viewModel.date1 = nil;
+                    [self setupCheckInDateView];
+                }
+        }
         
         //Removing previously selected dates if new date is prior to currently selected return date
         // e.g. if previously 25 is returned date ( self.viewModel.date2 ) and new date is 21,
@@ -867,13 +953,8 @@
 {
 
     if(self.viewModel !=  nil ) {
-        
-        if (self.viewModel.isHotelCalendar) {
-            [self performDateSelectionForHotel:date];
-        }else {
-            [self performDateSelectionForFlight:calendar date:date];
-        }
-        return;
+        [self performSelectionInCalendar:calendar ForDate:date];
+         return;
     }
  
     if ( self.multicityViewModel != nil) {
@@ -1094,7 +1175,10 @@
         self.endDateValueLabel.hidden = NO;
         self.endDateValueLabel.text = [self dateFormatedFromDate:self.viewModel.date2];
         self.endDateSubLabel.text = [self dayOfDate:self.viewModel.date2];
-        self.cancelButton.hidden = NO;
+        
+        if (!self.viewModel.isHotelCalendar) {
+            self.cancelButton.hidden = NO;
+        }
     }
     [self setupNightCount];
     

@@ -46,6 +46,7 @@
 
 @property (strong, nonatomic,nullable) CalendarVM * viewModel;
 @property (strong ,nullable)  MulticityCalendarVM * multicityViewModel;
+@property (weak, nonatomic) IBOutlet UIStackView *weekdaysStackView;
 
 @property (weak, nonatomic) IBOutlet UIView * _Nullable multiCitySelectionTap;
 
