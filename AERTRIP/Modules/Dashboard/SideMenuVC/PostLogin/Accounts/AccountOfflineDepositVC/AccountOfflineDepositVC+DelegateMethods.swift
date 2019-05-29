@@ -554,10 +554,11 @@ extension AccountOfflineDepositVC: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         // you get from the urls parameter the urls from the files selected
-        if let url = urls.first {
-            let urlPath = AppGlobals.shared.saveFileToDocument(fromUrl: url)
-            self.viewModel.userEnteredDetails.addSlip(urlPath: urlPath)
-            self.checkOutTableView.reloadData()
-        }
+        print(urls)
+//        if let url = urls.first {
+//            let urlPath = AppGlobals.shared.saveFileToDocument(fromUrl: url)
+//            self.viewModel.userEnteredDetails.addSlip(urlPath: urlPath)
+//            self.checkOutTableView.reloadData()
+//        }
     }
 }
