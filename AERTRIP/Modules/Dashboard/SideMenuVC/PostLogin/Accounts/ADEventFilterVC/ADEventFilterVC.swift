@@ -37,6 +37,7 @@ class ADEventFilterVC: BaseVC {
     var voucherTypes: [String] = []
     weak var delegate: ADEventFilterVCDelegate?
     var oldFilter: AccountSelectedFilter?
+    var minFromDate: Date?
     
     //MARK:- Private
     private var selectedFilter: AccountSelectedFilter = AccountSelectedFilter()
@@ -74,8 +75,37 @@ class ADEventFilterVC: BaseVC {
         self.topNavBar.configureFirstRightButton(normalTitle: done, selectedTitle: done, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
         
-        self.selectedFilter = self.oldFilter ?? AccountSelectedFilter()
+        if let old = self.oldFilter {
+            self.selectedFilter = old
+        }
+        else {
+            self.selectedFilter = AccountSelectedFilter()
+            self.selectedFilter.fromDate = self.minFromDate
+            self.selectedFilter.toDate = Date()
+        }
     
+        travelDateVC.oldToDate = self.oldFilter?.toDate
+        travelDateVC.oldFromDate = self.oldFilter?.fromDate
+        travelDateVC.minFromDate = self.minFromDate
+        
+        travelDateVC.delegate = self
+        
+        
+        adVoucherTypeVC.delegate = self
+        adVoucherTypeVC.viewModel.allTypes = self.voucherTypes
+        
+        
+        if self.selectedFilter.voucherType.isEmpty {
+            self.didSelect(voucher: self.voucherTypes.first ?? "")
+        }
+        
+        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
+            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
+        }
+        else {
+            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+        }
+        
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
 
@@ -89,25 +119,6 @@ class ADEventFilterVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        travelDateVC.oldToDate = self.oldFilter?.toDate
-        travelDateVC.oldFromDate = self.oldFilter?.fromDate
-        travelDateVC.delegate = self
-        
-        
-        adVoucherTypeVC.delegate = self
-        adVoucherTypeVC.viewModel.allTypes = self.voucherTypes
-        
-        
-        if self.selectedFilter.voucherType.isEmpty {
-            self.selectedFilter.voucherType = self.voucherTypes.first ?? ""
-        }
-        
-        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
-            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
-        }
-        else {
-            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
-        }
         self.show(animated: true)
     }
     
@@ -235,7 +246,12 @@ extension ADEventFilterVC {
 
 extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
     func didSelect(voucher: String) {
-        self.selectedFilter.voucherType = voucher
+        if !voucher.isEmpty, voucher.lowercased() != "all" {
+            self.selectedFilter.voucherType = voucher
+        }
+        else {
+            self.selectedFilter.voucherType = ""
+        }
     }
     
     func didSelect(toDate: Date) {

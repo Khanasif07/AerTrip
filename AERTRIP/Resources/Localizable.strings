@@ -707,3 +707,8 @@
 "DepositDate" = "Deposit Date";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
+
+"Camera" = "Camera";
+"PhotoLibrary" = "Photo Library";
+"Document" = "Document";
+"ChooseOptionToSelect" = "Choose Options To Select";

@@ -182,9 +182,9 @@ enum AppNetworking {
         }
         
         //add the X-Auth-Token for the security perpose as discussed with aertrip backend
-//        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
-//            header["X-Auth-Token"] = xToken
-//        }
+        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
+            header["X-Auth-Token"] = xToken
+        }
         
        let request = Alamofire.request(URLString,
                           method: httpMethod,
@@ -203,9 +203,9 @@ enum AppNetworking {
                             printDebug(headers)
             
             //save the X-Auth-Token for the security perpose as discussed with aertrip backend
-//            if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
-//                UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
-//            }
+            if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
+                UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
+            }
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
             
@@ -285,9 +285,9 @@ enum AppNetworking {
         }
         
         //add the X-Auth-Token for the security perpose as discussed with aertrip backend
-//        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
-//            header["X-Auth-Token"] = xToken
-//        }
+        if let xToken = UserDefaults.getObject(forKey: UserDefaults.Key.xAuthToken.rawValue) as? String {
+            header["X-Auth-Token"] = xToken
+        }
         
         let url = try! URLRequest(url: URLString, method: httpMethod, headers: header)
         

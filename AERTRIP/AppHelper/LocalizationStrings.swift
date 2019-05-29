@@ -745,4 +745,9 @@ enum LocalizedString: String {
     case DepositDate
     case TransferType
     case EnterUTRSwiftCode
+    
+    case Camera
+    case PhotoLibrary
+    case Document
+    case ChooseOptionToSelect
  }

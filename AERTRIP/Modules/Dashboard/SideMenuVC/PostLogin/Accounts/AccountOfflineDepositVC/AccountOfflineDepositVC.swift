@@ -129,7 +129,7 @@ class AccountOfflineDepositVC: BaseVC {
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
-                    self.viewModel.userEnteredDetails.uploadedSlips.remove(at: indexPath.row)
+                    self.viewModel.userEnteredDetails.removeSlip(atIndex: indexPath.row)
                     self.checkOutTableView.reloadData()
                 }
             }

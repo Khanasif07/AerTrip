@@ -41,6 +41,7 @@ class TravelDateVC: BaseVC {
     
     weak var delegate: TravelDateVCDelegate?
     var oldFromDate: Date?
+    var minFromDate: Date?
     var oldToDate: Date?
     
     private let dateFormate = "E, dd MMM YYYY"
@@ -66,16 +67,18 @@ class TravelDateVC: BaseVC {
         self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
         self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
         
-        self.fromDatePicker.setDate(self.oldFromDate ?? Date(), animated: false)
+        let fromDt = self.oldFromDate ?? self.minFromDate
+        self.fromDatePicker.setDate(fromDt ?? Date(), animated: false)
         self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
         
         self.fromDatePicker.maximumDate = Date()
         self.toDatePicker.maximumDate = Date()
         
-        self.toDatePicker.minimumDate = self.oldFromDate ?? Date()
+        self.fromDatePicker.minimumDate = self.minFromDate
+        self.toDatePicker.minimumDate = self.oldFromDate ?? fromDt
         
         self.toDateLabel.text = (self.oldToDate ?? Date()).toString(dateFormat: dateFormate)
-        self.fromDateLabel.text = (self.oldFromDate ?? Date()).toString(dateFormat: dateFormate)
+        self.fromDateLabel.text = (fromDt ?? Date()).toString(dateFormat: dateFormate)
         
         self.fromTapGestureAction(fromTapGesture)
     }
@@ -138,10 +141,10 @@ class TravelDateVC: BaseVC {
     @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
         self.setLabelsDate()
         
-        if datePicker.date.timeIntervalSince1970 > (self.toDatePicker.minimumDate?.timeIntervalSince1970 ?? 0) {
-            self.toDatePicker.setDate(datePicker.date, animated: false)
-            self.toDatePickerValueChanged(self.toDatePicker)
-        }
+//        if datePicker.date.timeIntervalSince1970 > (self.toDatePicker.minimumDate?.timeIntervalSince1970 ?? 0) {
+//            self.toDatePicker.setDate(datePicker.date, animated: false)
+//            self.toDatePickerValueChanged(self.toDatePicker)
+//        }
         self.toDatePicker.minimumDate = datePicker.date
         self.delegate?.didSelect(fromDate: datePicker.date)
     }

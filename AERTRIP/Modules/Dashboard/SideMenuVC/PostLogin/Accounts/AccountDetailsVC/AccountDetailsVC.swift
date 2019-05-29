@@ -366,7 +366,7 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter, minFromDate: self.viewModel.ledgerStartDate)
     }
 }
 
@@ -374,19 +374,32 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
 //MARK:-
 extension AccountDetailsVC: ADEventFilterVCDelegate {
     func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
-        if let _ = filter {
-            //apply filter
-            if self.currentViewState == .searching {
+        
+        if let fltr = filter {
+            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
+                //apply filter
+                if self.currentViewState == .searching {
+                }
+                else {
+                    self.currentViewState = .filterApplied
+                }
             }
-            else {
-                self.currentViewState = .filterApplied
+            else if !fltr.voucherType.isEmpty {
+                //apply filter
+                if self.currentViewState == .searching {
+                }
+                else {
+                    self.currentViewState = .filterApplied
+                }
             }
+            
+            self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
         }
         else {
             //clear all filter
             self.currentViewState = .normal
+            self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
         }
-        self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
     }
 }
 
