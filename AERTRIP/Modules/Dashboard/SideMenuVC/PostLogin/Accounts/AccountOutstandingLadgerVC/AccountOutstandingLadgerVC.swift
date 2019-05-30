@@ -42,15 +42,18 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var payableAmountLabel: UILabel!
     @IBOutlet weak var makePaymentTitleLabel: UILabel!
     @IBOutlet weak var makePaymentContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subheaderDetailsConstainer: UIView!
     
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var subHeaderTopConstraint: NSLayoutConstraint!
     
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountOutstandingLadgerVM()
     
     //MARK:- Private
+    private var oldOffset: CGPoint = CGPoint.zero
     private(set) var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
@@ -187,14 +190,12 @@ class AccountOutstandingLadgerVC: BaseVC {
             if (sSelf.currentViewState == .searching) {
                 sSelf.subHeaderContainerTopConstraint.constant = -(sSelf.subHeaderContainer.height)
                 sSelf.subHeaderContainer.alpha = 0.0
-                sSelf.tableView.tableHeaderView = nil
                 sSelf.searchDataContainerView.isHidden = false
                 sSelf.searchModeSearchBarTopConstraint.constant = 0.0
             }
             else {
                 sSelf.subHeaderContainerTopConstraint.constant = 0.0
                 sSelf.subHeaderContainer.alpha = 1.0
-                sSelf.tableView.tableHeaderView = sSelf.searchContainerView
                 sSelf.searchDataContainerView.isHidden = true
                 sSelf.searchModeSearchBarTopConstraint.constant = 186.0
             }
@@ -298,7 +299,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.backgroundView?.isHidden = !isAllDatesEmpty
         self.tableView.isScrollEnabled = !isAllDatesEmpty
         self.manageMakePaymentView(isHidden: isAllDatesEmpty, animated: true)
-        self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
         
         self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
         self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
@@ -404,6 +404,114 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
 extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
     func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
         printDebug(filter)
+    }
+}
+
+
+//MARK:- ScrollView delegate methods
+//MARK:-
+extension AccountOutstandingLadgerVC {
+    
+    func manageSubheader(isHidden: Bool, animated: Bool) {
+        
+        let constToHide: CGFloat = -(self.subHeaderContainer.height)
+        if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
+            //if already hidden then return
+            return
+        }
+        else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
+            //if already shown then return
+            return
+        }
+        
+        self.subheaderDetailsConstainer.isHidden = false
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : 0.0
+            sSelf.view.layoutIfNeeded()
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+
+                sSelf.subHeaderContainer.isHidden = isHidden
+                if !isHidden {
+                    sSelf.searchModeSearchBarTopConstraint.constant = ((sSelf.subHeaderContainer.height + sSelf.topNavView.height) - sSelf.mainSearchBar.height)
+                }
+        })
+    }
+    
+    func manageSubheaderSearch(isHidden: Bool, animated: Bool) {
+        
+        let constToHide: CGFloat = -(self.subHeaderContainer.height)
+        let constToShow: CGFloat = -(self.subHeaderContainer.height - self.searchBarContainerView.height)
+        if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
+            //if already hidden then return
+            return
+        }
+        else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
+            //if already shown then return
+            return
+        }
+        
+        self.subheaderDetailsConstainer.isHidden = true
+        self.subHeaderContainer.isHidden = false
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : constToShow
+            sSelf.view.layoutIfNeeded()
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                
+                sSelf.subHeaderContainer.isHidden = isHidden
+                if !isHidden {
+                    sSelf.searchModeSearchBarTopConstraint.constant = 79.0
+                }
+        })
+    }
+    
+    func manageHeader(_ scrollView: UIScrollView) {
+        defer {
+            self.oldOffset = scrollView.contentOffset
+        }
+        let yOffset = scrollView.contentOffset.y
+        
+        let maxLimit = (scrollView.contentSize.height - scrollView.height)
+        if yOffset < 0.0 {
+            //show full header
+             self.manageSubheader(isHidden: false, animated: true)
+        }
+        else if yOffset >= maxLimit {
+            //hide full header
+             self.manageSubheader(isHidden: true, animated: true)
+        }
+        
+        guard maxLimit > 0, 0...maxLimit ~= yOffset else {return}
+        let yChanged = self.oldOffset.y - yOffset
+        if (0...self.subHeaderContainerHeightConstraint.constant) ~= yOffset {
+            if yChanged > 0 {
+                //show full header
+                self.manageSubheader(isHidden: false, animated: true)
+            }
+            else {
+                //hide full header
+                self.manageSubheader(isHidden: true, animated: true)
+            }
+        }
+        else {
+            if yChanged > 0 {
+                //show search bar
+                self.manageSubheaderSearch(isHidden: false, animated: true)
+            }
+            else {
+                //hide search bar
+                self.manageSubheaderSearch(isHidden: true, animated: true)
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.manageHeader(scrollView)
     }
 }
 

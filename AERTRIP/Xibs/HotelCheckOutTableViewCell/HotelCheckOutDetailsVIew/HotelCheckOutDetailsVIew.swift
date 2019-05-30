@@ -74,7 +74,6 @@ class HotelCheckOutDetailsVIew: UIView {
     
     ///ConfigureUI
     private func configureUI() {
-        self.headerView.shouldAddBlurEffect = true
         self.registerXibs()
         self.headerViewSetUp()
     }

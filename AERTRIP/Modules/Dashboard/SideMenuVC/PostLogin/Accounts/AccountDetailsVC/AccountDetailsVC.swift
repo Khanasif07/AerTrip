@@ -102,6 +102,8 @@ class AccountDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
+        self.tableView.registerCell(nibName: AccountLedgerEventCell.reusableIdentifier)
+        
         self.searchBar.isMicEnabled = true
         
         self.topNavView.firstRightButton.isEnabled = false

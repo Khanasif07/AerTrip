@@ -22,13 +22,20 @@ extension TopNavigationViewDelegate {
 
 class TopNavigationView: UIView {
     
+    enum BackgroundType {
+        case clear
+        case blurMainView(isDark: Bool)
+        case blurAnimatedView(isDark: Bool)
+        case color(color: UIColor)
+    }
+    
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: TopNavigationViewDelegate?
-    
-    var shouldAddBlurEffect: Bool = false {
+
+    var backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false) {
         didSet {
-            self.addBlurEffect()
+            self.setBackground()
         }
     }
     
@@ -79,25 +86,51 @@ class TopNavigationView: UIView {
         
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         
-        //add blur on backView
-        self.addBlurEffect()
-        
         self.configureNavBar(title: "")
     }
     
-    private func addBlurEffect() {
-        self.backView.backgroundColor = AppColors.clear
-        guard shouldAddBlurEffect else {return}
-        if let backClr = self.backgroundColor, backClr != AppColors.clear {
-            self.insertSubview(getBlurView(forView: self), at: 0)
-            self.backgroundColor = AppColors.clear
-        }
+    private func setBackground() {
         
-        self.backView.addSubview(getBlurView(forView: self.backView))
+        switch self.backgroundType {
+        case .clear:
+            self.backgroundColor = UIColor.clear
+            self.backView.backgroundColor = UIColor.clear
+            
+        case .color(let color):
+            self.backgroundColor = color
+            self.backView.backgroundColor = color
+            
+        case .blurMainView(let isDark):
+            self.addBlurEffect(onView: self, isDark: isDark)
+            self.addBlurEffect(onView: self.backView, isDark: isDark)
+            
+        case .blurAnimatedView(let isDark):
+            self.removeBlur(fromView: self)
+            self.addBlurEffect(onView: self.backView, isDark: isDark)
+        }
     }
     
-    private func getBlurView(forView: UIView) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+    private func removeBlur(fromView: UIView) {
+        for vw in fromView.subviews {
+            if vw.isKind(of: UIVisualEffectView.self) {
+                vw.removeFromSuperview()
+                break
+            }
+        }
+    }
+    
+    private func addBlurEffect(onView: UIView, isDark: Bool) {
+        onView.backgroundColor = AppColors.clear
+        if let _ = onView.subviews.first as? UIVisualEffectView {
+            //blur is already added
+        }
+        else {
+            onView.insertSubview(getBlurView(forView: onView, isDark: isDark), at: 0)
+        }
+    }
+    
+    private func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: isDark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = forView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -140,7 +173,7 @@ class TopNavigationView: UIView {
         }
     }
     
-    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true) {
+    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false)) {
         
         self.navTitleLabel.text = title
         
@@ -149,6 +182,7 @@ class TopNavigationView: UIView {
         self.secondRightButton.isHidden = !isSecondRightButton
         self.dividerView.isHidden = !isDivider
         self.backView.isHidden = true
+        self.backgroundType = backgroundType
         
         self.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)

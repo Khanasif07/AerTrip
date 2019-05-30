@@ -44,7 +44,7 @@ struct AccountDetailEvent {
     
     private var _creationDate: Date?
     var creationDateStr: String? {
-        return _creationDate?.toString(dateFormat: "EEE dd MMM")
+        return _creationDate?.toString(dateFormat: "EEE, dd MMM")
     }
     
     private var _voucher : String = ""
