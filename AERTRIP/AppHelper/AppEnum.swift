@@ -443,86 +443,85 @@ enum UserCreditType: String {
     case topup = "T"
 }
 
-//enum ATFileType: RawRepresentable {
-//    case pdf(extension: String)
-//    case text(extension: String)
-//    case word(extension: String)
-//    case powerPoint(extension: String)
-//    case excel(extension: String)
-//    case zip(extension: String)
-//    case image(extension: String)
-//    case code(extension: String)
-//    case other(extension: String)
-//
-//    init?(rawValue: String) {
-//        switch (rawValue.lowercased()){
-//
-//        case "pdf", "epub":
-//            self = .pdf(extension: rawValue)
-//
-//        case "txt", "rtf":
-//            self = .text(extension: rawValue)
-//
-//        case "doc", "docx", "dot", "dotx", "pages", "odt", "ott", "wps", "wpd", "sxw", "hwp":
-//            self = .word(extension: rawValue)
-//
-//        case "ppt", "pptx", "pps", "ppsx", "pot", "key", "odp", "otp", "sti", "sxi":
-//            self = .powerPoint(extension: rawValue)
-//
-//        case "xls", "xlsx", "xlsm", "xlt", "xlr", "csv", "xlsb", "numbers", "ods", "ots", "wks", "sxc":
-//            self = .excel(extension: rawValue)
-//
-//        case "rar", "zip", "zipx", "7z":
-//            self = .zip(extension: rawValue)
-//
-//        case "jpg", "jpeg", "png", "bmp", "gif", "tif", "tiff", "webp":
-//            self = .image(extension: rawValue)
-//
-//        case "html", "xml", "xps", "chm":
-//            self = .code(extension: rawValue)
-//
-//        default:
-//            self = .other(extension: rawValue)
-//        }
-//    }
-//    var rawValue: String{
-//        switch (self){
-//        case .pdf(let ext): return ext
-//        case .text(let ext): return ext
-//        case .word(let ext): return ext
-//        case .powerPoint(let ext): return ext
-//        case .excel(let ext): return ext
-//        case .zip(let ext): return ext
-//        case .image(let ext): return ext
-//        case .code(let ext): return ext
-//        case .other(let ext): return ext
-//        }
-//    }
-//
-//    var icon: UIImage {
-//        switch self {
-//        case .pdf: return #imageLiteral(resourceName: "ic_file_pdf")
-//        case .text: return #imageLiteral(resourceName: "ic_file_text")
-//        case .word: return #imageLiteral(resourceName: "ic_file_others")
-//        case .powerPoint: return #imageLiteral(resourceName: "ic_file_powerpoint")
-//        case .excel: return #imageLiteral(resourceName: "ic_file_excel")
-//        case .zip: return #imageLiteral(resourceName: "ic_file_zip")
-//        case .image: return #imageLiteral(resourceName: "ic_file_images")
-//        case .code: return #imageLiteral(resourceName: "ic_file_others")
-//        default: return #imageLiteral(resourceName: "ic_file_others")
-//        }
-//    }
-//}
+enum ATFileType: RawRepresentable {
+    case pdf(extension: String)
+    case text(extension: String)
+    case word(extension: String)
+    case powerPoint(extension: String)
+    case excel(extension: String)
+    case zip(extension: String)
+    case image(extension: String)
+    case code(extension: String)
+    case other(extension: String)
+
+    init?(rawValue: String) {
+        switch (rawValue.lowercased()){
+
+        case "pdf", "epub":
+            self = .pdf(extension: rawValue)
+
+        case "txt", "rtf":
+            self = .text(extension: rawValue)
+
+        case "doc", "docx", "dot", "dotx", "pages", "odt", "ott", "wps", "wpd", "sxw", "hwp":
+            self = .word(extension: rawValue)
+
+        case "ppt", "pptx", "pps", "ppsx", "pot", "key", "odp", "otp", "sti", "sxi":
+            self = .powerPoint(extension: rawValue)
+
+        case "xls", "xlsx", "xlsm", "xlt", "xlr", "csv", "xlsb", "numbers", "ods", "ots", "wks", "sxc":
+            self = .excel(extension: rawValue)
+
+        case "rar", "zip", "zipx", "7z":
+            self = .zip(extension: rawValue)
+
+        case "jpg", "jpeg", "png", "bmp", "gif", "tif", "tiff", "webp":
+            self = .image(extension: rawValue)
+
+        case "html", "xml", "xps", "chm":
+            self = .code(extension: rawValue)
+
+        default:
+            self = .other(extension: rawValue)
+        }
+    }
+    var rawValue: String{
+        switch (self){
+        case .pdf(let ext): return ext
+        case .text(let ext): return ext
+        case .word(let ext): return ext
+        case .powerPoint(let ext): return ext
+        case .excel(let ext): return ext
+        case .zip(let ext): return ext
+        case .image(let ext): return ext
+        case .code(let ext): return ext
+        case .other(let ext): return ext
+        }
+    }
+
+    var icon: UIImage {
+        switch self {
+        case .pdf: return #imageLiteral(resourceName: "ic_file_pdf")
+        case .text: return #imageLiteral(resourceName: "ic_file_text")
+        case .word: return #imageLiteral(resourceName: "ic_file_others")
+        case .powerPoint: return #imageLiteral(resourceName: "ic_file_powerpoint")
+        case .excel: return #imageLiteral(resourceName: "ic_file_excel")
+        case .zip: return #imageLiteral(resourceName: "ic_file_zip")
+        case .image: return #imageLiteral(resourceName: "ic_file_images")
+        case .code: return #imageLiteral(resourceName: "ic_file_others")
+        default: return #imageLiteral(resourceName: "ic_file_others")
+        }
+    }
+}
 
 extension String {
     var fileIcon: UIImage? {
-        return #imageLiteral(resourceName: "ic_file_others")
-//        if let last = self.components(separatedBy: "/").last {
-//            if let type = last.components(separatedBy: ".").last {
-//                return (ATFileType(rawValue: type.lowercased()) ?? ATFileType.other(extension: type)).icon
-//            }
-//        }
-//        return ATFileType.other(extension: self).icon
+        if let last = self.components(separatedBy: "/").last {
+            if let type = last.components(separatedBy: ".").last {
+                return (ATFileType(rawValue: type.lowercased()) ?? ATFileType.other(extension: type)).icon
+            }
+        }
+        return ATFileType.other(extension: self).icon
     }
 }
 
