@@ -170,6 +170,8 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+            printDebug("Done Button Tapped")
+            sendDataChangedNotification(data: self)
            self.hide(animated: true, shouldRemove: true)
     }
 }

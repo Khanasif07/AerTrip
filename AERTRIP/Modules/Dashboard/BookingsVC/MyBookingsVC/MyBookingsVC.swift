@@ -25,6 +25,8 @@ class MyBookingsVC: BaseVC {
         return temp
     }
     
+    
+    
      var allChildVCs: [UIViewController] = [UIViewController]()
     
     // Mark:- IBOutlets
@@ -57,16 +59,16 @@ class MyBookingsVC: BaseVC {
         self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
-        self.emptyStateSetUp()
-         MyBookingsVM.shared.delgate = self
+        self.hideAllData()
+        MyBookingsVM.shared.delgate = self
         MyBookingsVM.shared.getBookings()
-        self.footerView.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        CoreDataManager.shared.deleteData("BookingData", predicate: nil)
+        self.allTabsStr.removeAll()
+       _ = CoreDataManager.shared.deleteData("BookingData", predicate: nil)
     }
     
     
@@ -106,12 +108,15 @@ class MyBookingsVC: BaseVC {
             switch index {
             case 0:
                 self.selectedButton = index
+                MyBookingFilterVM.shared.bookingSortType = .travelDate
                 printDebug(LocalizedString.TravelDate.localized)
             case 1:
                 self.selectedButton = index
+                MyBookingFilterVM.shared.bookingSortType = .eventType
                 printDebug(LocalizedString.EventType.localized)
             case 2:
                 self.selectedButton = index
+                MyBookingFilterVM.shared.bookingSortType = .bookingDate
                 printDebug(LocalizedString.BookingDate.localized)
             default:
                 printDebug("default")
@@ -119,7 +124,8 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-    private func emptyStateSetUp() {
+     func emptyStateSetUp() {
+        self.allChildVCs.removeAll()
         if MyBookingsVM.shared.upComingBookings.isEmpty, MyBookingsVM.shared.upComingBookings.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
@@ -139,6 +145,8 @@ class MyBookingsVC: BaseVC {
     }
     
     private func instantiateChildVC() {
+        self.allTabsStr.removeAll()
+        
         if !MyBookingsVM.shared.upComingBookings.isEmpty {
             self.allTabsStr.append(LocalizedString.Upcoming.localized)
             if !MyBookingsVM.shared.completedBookings.isEmpty {
@@ -205,6 +213,17 @@ class MyBookingsVC: BaseVC {
         self.categoryView.select(at: 0)
     }
     
+    
+    private func hideAllData() {
+        self.emptyStateImageView.isHidden = true
+        self.emptyStateTitleLabel.isHidden = true
+        self.emptyStateSubTitleLabel.isHidden = true
+        self.childContainerView.isHidden = true
+        self.searchBarContainerView.isHidden = true
+        self.footerView.isHidden = true
+    }
+   
+    
     // Mark:- IBActions
     //================
 }
@@ -218,6 +237,7 @@ extension MyBookingsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("topNavBarFirstRightButtonAction")
+        
         AppFlowManager.default.showBookingFilterVC(self)
     }
     

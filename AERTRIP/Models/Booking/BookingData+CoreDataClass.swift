@@ -36,11 +36,14 @@ public class BookingData: NSManagedObject {
         // Function set product Type
         
         func setProductType(productType: String) -> Int {
-            if productType == "hotel" {
+            if productType == "flight" {
+               booking?.eventType = 1
                return 1
-            } else if productType == "flight" {
+            } else if productType == "hotel" {
+                booking?.eventType = 2
                 return 2
-            } else if productType == "Other" {
+            } else if productType == "other" {
+              booking?.eventType = 3
                return 3
             }
             
@@ -54,6 +57,7 @@ public class BookingData: NSManagedObject {
        
         if let obj = dataDict[APIKeys.product.rawValue] {
             booking?.product = "\(obj)".removeNull
+            booking?.bookingProductType = Int16(setProductType(productType: obj as? String ?? ""))
         
         }
         
@@ -102,7 +106,6 @@ public class BookingData: NSManagedObject {
             booking?.eventEndDate = obj["event_end_date"] as? String
             booking?.guestCount =  obj["guest_count"] as? Int16 ?? 0
             booking?.bookingTabType = Int16(setBookingType(date: obj["event_start_date"] as? String ?? ""))
-            booking?.bookingProductType = Int16(setProductType(productType: obj[APIKeys.product.rawValue] as? String ?? ""))
        
             if let request = obj["requests"] as? JSONDictionary {
                 booking?.reschedulingRequests = request["rescheduling"] as? [String]

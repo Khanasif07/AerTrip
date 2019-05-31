@@ -89,6 +89,13 @@ class CancelledVC: BaseVC {
         }
     }
     
+    
+    override func dataChanged(_ note: Notification) {
+        if let _ = note.object as? MyBookingFilterVC {
+            printDebug("Booking filter Applied ")
+        }
+    }
+    
     //Mark:- IBActions
     //================
 }

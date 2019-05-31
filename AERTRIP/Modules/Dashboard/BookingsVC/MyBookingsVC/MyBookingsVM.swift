@@ -21,19 +21,45 @@ class MyBookingsVM {
     var completedBookingsData: [String] = ["2"]
     var cancelledBookingData: [String] = []
     
-    var upComingBookings: [BookingModel] = []
-    var completedBookings: [BookingModel] = []
+//    var upComingBookings: [BookingModel] = []
+//    var completedBookings: [BookingModel] = []
+    
+    
+    
+    // MARK: - Booking Data
+    
+    // MARK: - Upcoming Bookings
+    var upComingBookings: [BookingData] = []
+    var completedBookings: [BookingData] = []
+    var cancelledBookings: [BookingData] = []
     
     var bookings: [BookingModel] = []
     weak var delgate: MyBookingsVMDelegate?
     static let shared = MyBookingsVM()
+//
+//    func getFilteredData() {
+//        self.upComingBookings = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false})
+//        self.completedBookings  = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false})
+//
+//    }
+//
     
-    func getFilteredData() {
-        self.upComingBookings = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false})
-        self.completedBookings  = bookings.filter({  $0.bookingDetails?.eventStartDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false})
+    
+    
+    func getBookingData() {
         
+        if let upcomingBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '1'") as? [BookingData] {
+               self.upComingBookings = upcomingBookings
+        }
+        
+        if let completedBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '2'") as? [BookingData] {
+            self.completedBookings = completedBookings
+        }
+        
+        if let cancelledBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '3'") as? [BookingData] {
+            self.cancelledBookings = cancelledBookings
+        }
     }
-    
     
     private init() {}
     
@@ -44,15 +70,10 @@ class MyBookingsVM {
         APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings) in
             guard let sSelf = self else { return }
             if success {
-//                
-//                BookingData.insert(dataDictArray: bookings, completionBlock: { (all) in
-//                    DispatchQueue.mainAsync {
-//                      sSelf.delgate?.getBookingsDetailSuccess()
-//                    }
-//                })
-                
                 // sSelf.bookings = bookings
-                sSelf.getFilteredData()
+                sSelf.getBookingData()
+                
+                sSelf.delgate?.getBookingsDetailSuccess()
                 printDebug(bookings)
             } else {
                 

@@ -8,6 +8,41 @@
 
 import Foundation
 
+enum BookingSortType {
+    case travelDate
+    case eventType
+    case bookingDate
+}
+
 class MyBookingFilterVM {
+    
+    // shared instance
+    static let shared = MyBookingFilterVM()
+    
+    
+    // Booking sorting Type
+    var bookingSortType: BookingSortType = .travelDate
+    // event Type
+    var eventType: ProductType = .flight
+    
+    // Travel Date
+    var travelFromDate: Date = Date()
+    var travelToDate: Date = Date()
+    
+    // Booking Date
+    var bookingFromDate: Date = Date()
+    var bookingToDate: Date = Date()
+    
+//    var eventType:
+    
+    
+   
+    
+    
+    private init() {
+        
+    }
+    
+    
     
 }

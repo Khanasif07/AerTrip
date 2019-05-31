@@ -171,6 +171,8 @@
 		1841AF8B21C8B6A10038111D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1841AF8A21C8B6A10038111D /* Profile.storyboard */; };
 		1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1841AF9221C8BE830038111D /* ViewProfileTableViewCell.swift */; };
 		1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1841AF9321C8BE830038111D /* ViewProfileTableViewCell.xib */; };
+		1848B86C229E8CB800310953 /* UpcomingBookingVC+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848B86B229E8CB800310953 /* UpcomingBookingVC+CoreData.swift */; };
+		1848B86E229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848B86D229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift */; };
 		1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */; };
 		1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */; };
 		1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75B21C3E051008DF03F /* AppUserDefaults.swift */; };
@@ -266,6 +268,7 @@
 		18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */; };
 		18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */; };
 		18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */; };
+		18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A90191229FB29D004EAEC3 /* BlurLoader.swift */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18B435612202C59F000C5E31 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B435602202C59F000C5E31 /* Filter.storyboard */; };
@@ -1036,6 +1039,8 @@
 		1841AF8A21C8B6A10038111D /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		1841AF9221C8BE830038111D /* ViewProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1841AF9321C8BE830038111D /* ViewProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileTableViewCell.xib; sourceTree = "<group>"; };
+		1848B86B229E8CB800310953 /* UpcomingBookingVC+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingBookingVC+CoreData.swift"; sourceTree = "<group>"; };
+		1848B86D229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingBookingVC+UITableViewMethods.swift"; sourceTree = "<group>"; };
 		1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuProfileImageCell.swift; sourceTree = "<group>"; };
 		1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuProfileImageCell.xib; sourceTree = "<group>"; };
 		1851A75B21C3E051008DF03F /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
@@ -1132,6 +1137,7 @@
 		18A01E4521CA765D0071E772 /* AERTRIP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AERTRIP.entitlements; sourceTree = "<group>"; };
 		18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuProfileImageHeaderView.swift; sourceTree = "<group>"; };
 		18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlideMenuProfileImageHeaderView.xib; sourceTree = "<group>"; };
+		18A90191229FB29D004EAEC3 /* BlurLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLoader.swift; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18B435602202C59F000C5E31 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
@@ -4155,6 +4161,8 @@
 				84DD24522265A2FF0013F77E /* UpcomingBookingsVC.swift */,
 				84DD24762265EA8E0013F77E /* UpComingBookingEventModel.swift */,
 				84DD24542265A3080013F77E /* UpcomingBookingsVM.swift */,
+				1848B86B229E8CB800310953 /* UpcomingBookingVC+CoreData.swift */,
+				1848B86D229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift */,
 			);
 			path = UpcomingBookingsVC;
 			sourceTree = "<group>";
@@ -4460,6 +4468,7 @@
 				84D2FB8721BE353E00011000 /* PKSideMenuController */,
 				84020F1A21B5486700248A6F /* SwiftyJSON */,
 				84F9838221B51A070018DFED /* PKTextView */,
+				18A90191229FB29D004EAEC3 /* BlurLoader.swift */,
 			);
 			path = "Third Party";
 			sourceTree = "<group>";
@@ -5504,6 +5513,7 @@
 				84085CE221F59C0E00F1E844 /* LoginVM.swift in Sources */,
 				843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */,
 				84AD5F24222D51C60095EA5D /* SearchFavouriteHotelsVC.swift in Sources */,
+				18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */,
 				84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */,
 				84DD24732265BB300013F77E /* SpaceTableViewCell.swift in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,
@@ -5603,6 +5613,7 @@
 				1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */,
 				18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,
+				1848B86E229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift in Sources */,
 				84F1626E2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift in Sources */,
 				1838557E229BE93F00D59A4E /* BookingData+CoreDataProperties.swift in Sources */,
 				1879C4972292B44F00897CED /* BookingDateVoucherTableViewCell.swift in Sources */,
@@ -5657,6 +5668,7 @@
 				842EDE9A223A3B1F00E99409 /* HCSpecialRequestTextfieldCell.swift in Sources */,
 				8460C0C421F34A38007768CC /* ATTableView.swift in Sources */,
 				84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */,
+				1848B86C229E8CB800310953 /* UpcomingBookingVC+CoreData.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				84AF53642297FC450059197A /* OtherBookingDetailsHeaderView.swift in Sources */,
 				84534EA22248B306009FF536 /* YouAreAllDoneVM.swift in Sources */,

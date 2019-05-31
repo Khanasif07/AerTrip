@@ -12,18 +12,26 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     
    
     func getBookingDetailFail(error: ErrorCodes) {
+        self.view.removeBluerLoader()
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
     }
     
     func willGetBookings() {
+        self.view.showBlurLoader(frame:self.view.frame)
         printDebug("Will get bookings ")
     }
     
     func getBookingsDetailSuccess() {
-//        if let obj = allChildVCs[0] as? UpcomingBookingsVC {
-//            obj.emptyStateSetUp()
-//        }
-//        
+        //        if let obj = allChildVCs[0] as? UpcomingBookingsVC {
+        //            obj.emptyStateSetUp()
+        //        }
+        //
+        self.view.removeBluerLoader()
+        self.allChildVCs.removeAll()
+        self.emptyStateSetUp()
+        
+        
+        
     }
     
   

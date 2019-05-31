@@ -55,6 +55,7 @@ extension BookingData {
     
     @NSManaged public var bookingTabType: Int16
     @NSManaged public var bookingProductType: Int16
+    @NSManaged public var eventType: Int16
     
     
     

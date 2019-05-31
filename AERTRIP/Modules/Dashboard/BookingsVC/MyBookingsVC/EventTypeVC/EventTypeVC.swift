@@ -74,6 +74,16 @@ extension EventTypeVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedIndexPath = indexPath
+        switch indexPath.row {
+        case 0:
+            MyBookingFilterVM.shared.eventType = .flight
+        case 1:
+            MyBookingFilterVM.shared.eventType = .hotel
+        case 2:
+            MyBookingFilterVM.shared.eventType = .other
+        default:
+            return
+        }
         self.eventTypeTableView.reloadData()
     }
 }

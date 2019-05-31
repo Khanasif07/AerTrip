@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class UpcomingBookingsVC: BaseVC {
     
@@ -23,7 +24,6 @@ class UpcomingBookingsVC: BaseVC {
         didSet {
             self.upcomingBookingsTableView.delegate = self
             self.upcomingBookingsTableView.dataSource = self
-//            self.upcomingBookingsTableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.upcomingBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.upcomingBookingsTableView.rowHeight = UITableView.automaticDimension
             self.upcomingBookingsTableView.estimatedSectionHeaderHeight = 41.0
@@ -33,21 +33,33 @@ class UpcomingBookingsVC: BaseVC {
         }
     }
     
+    var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
+    
+    // fetch result controller
+    lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
+        
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "depart", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "bookingDate", cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+        }
+        return fetchedResultsController
+    }()
+    
     
     //Mark:- LifeCycle
     //================
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+   
     override func initialSetup() {
+        
         self.registerXibs()
-       // self.viewModel.getSectionData()
         printDebug(MyBookingsVM.shared.upComingBookings)
-//        self.viewModel.upcomingBookingData.removeAll()
-    
-             self.upcomingBookingsTableView.reloadData()
-       
+        self.loadSaveData()
+
     }
     
     override func setupTexts() {
@@ -79,8 +91,6 @@ class UpcomingBookingsVC: BaseVC {
     }
     
      func emptyStateSetUp() {
-        
-        
         if MyBookingsVM.shared.upComingBookings.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
@@ -94,19 +104,25 @@ class UpcomingBookingsVC: BaseVC {
         }
     }
     
+    override func dataChanged(_ note: Notification) {
+         if let _ = note.object as? MyBookingFilterVC {
+            printDebug("Booking Filter applied replied")
+        }
+    }
+    
     //Mark:- IBActions
     //================
 }
 
 //Mark:- Extensions
 //=================
-extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-//        return self.viewModel.upcomingBookingData.count
-        return 1
-    }
-    
+//extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
+//    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+////        return self.viewModel.upcomingBookingData.count
+//        return 1
+//    }
+//    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.viewModel.upcomingBookingData[section].numbOfRows + 1
 //        if let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
@@ -116,50 +132,50 @@ extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
         
         return MyBookingsVM.shared.upComingBookings.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[indexPath.section]] as? [UpComingBookingEvent] else { return UITableViewCell() }
-//        let currentSecData = eventData[0]
-//        let currentRows = currentSecData.cellType()
-        
-        
-        guard let cell = self.upcomingBookingsTableView.dequeueReusableCell(withIdentifier: "HotelTableViewCell") as? HotelTableViewCell else {
-            fatalError("HotelTableViewCell not fund ")
-        }
-        let upcomingBooking = MyBookingsVM.shared.upComingBookings[indexPath.row]
-        cell.configCell(plcaeName: upcomingBooking.bookingDetails?.hotelName ?? "", travellersName: upcomingBooking.bookingDetails?.passengerDetail.first ?? "")
-      
-        return cell
-//        switch currentRows[indexPath.row] {
-//        case .eventTypeCell:
-//            let cell = self.getEventTypeCell(tableView, indexPath: indexPath, eventData: currentSecData)
-//            return cell
-//        default:
-////        case .spaceCell:
-////            let cell = self.getSpaceCell(tableView, indexPath: indexPath)
-////            return cell
-////        case .queryCell:
-////            let cell = self.getQueryCell(tableView, indexPath: indexPath, eventData: currentSecData)
-////            return cell
-////        }
-//    }
-        
-    }
-    
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-////        let currentSecData = self.viewModel.upcomingBookingData[section]
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-//        if let currentSecData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
-//            headerView.dateLabel.text = currentSecData[0].creationDate
-////            headerView.configView(date: currentSecData[0].creationDate, isFirstHeaderView: T##Bool)
-//            headerView.dateLabelTopConstraint.constant = 11.0
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        guard let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[indexPath.section]] as? [UpComingBookingEvent] else { return UITableViewCell() }
+////        let currentSecData = eventData[0]
+////        let currentRows = currentSecData.cellType()
+//        
+//        
+//        guard let cell = self.upcomingBookingsTableView.dequeueReusableCell(withIdentifier: "HotelTableViewCell") as? HotelTableViewCell else {
+//            fatalError("HotelTableViewCell not fund ")
 //        }
-//        headerView.contentView.backgroundColor = AppColors.themeWhite
-//        headerView.backgroundColor = AppColors.themeWhite
-//        return headerView
+////        let upcomingBooking = MyBookingsVM.shared.upComingBookings[indexPath.row]
+////        cell.configCell(plcaeName: upcomingBooking.bookingDetails?.hotelName ?? "", travellersName: upcomingBooking.bookingDetails?.passengerDetail.first ?? "")
+//      
+//        return cell
+////        switch currentRows[indexPath.row] {
+////        case .eventTypeCell:
+////            let cell = self.getEventTypeCell(tableView, indexPath: indexPath, eventData: currentSecData)
+////            return cell
+////        default:
+//////        case .spaceCell:
+//////            let cell = self.getSpaceCell(tableView, indexPath: indexPath)
+//////            return cell
+//////        case .queryCell:
+////            let cell = self.getQueryCell(tableView, indexPath: indexPath, eventData: currentSecData)
+//////            return cell
+//////        }
+////    }
+//        
 //    }
-}
+//    
+//    
+////    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//////        let currentSecData = self.viewModel.upcomingBookingData[section]
+////        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
+////        if let currentSecData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
+////            headerView.dateLabel.text = currentSecData[0].creationDate
+//////            headerView.configView(date: currentSecData[0].creationDate, isFirstHeaderView: T##Bool)
+////            headerView.dateLabelTopConstraint.constant = 11.0
+////        }
+////        headerView.contentView.backgroundColor = AppColors.themeWhite
+////        headerView.backgroundColor = AppColors.themeWhite
+////        return headerView
+////    }
+//}
 
 extension UpcomingBookingsVC {
     internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {

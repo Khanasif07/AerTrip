@@ -16,6 +16,7 @@
         <attribute name="disconnected" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="eventEndDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventStartDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="guestCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="origin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pax" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
@@ -75,7 +76,7 @@
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookingData" positionX="72" positionY="-225" width="128" height="420"/>
+        <element name="BookingData" positionX="72" positionY="-225" width="128" height="435"/>
         <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="555"/>
         <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="178"/>
     </elements>

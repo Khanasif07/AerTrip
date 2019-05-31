@@ -21,6 +21,7 @@ extension Notification.Name {
     static let dataChanged = Notification.Name("dataChanged")
     static let sessionExpired = Notification.Name("sessionExpired")
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
+    static let bookingFilterApplied =  Notification.Name("bookingFilterApplied")
 }
 
 // MARK: - Applicaion Response Code From Server

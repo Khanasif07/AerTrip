@@ -10,11 +10,11 @@ import UIKit
 
 class QueryStatusTableViewCell: UITableViewCell {
 
-    //Mark:- Variables
-    //================
+    //MARK:- Variables
+    //MARK:===========
     
     
-    //Mark:- IBOutlets
+    //MARK:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
@@ -22,14 +22,14 @@ class QueryStatusTableViewCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
-    //Mark:- LifeCycle
+    //MARK:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
     }
     
-    //Mark:- Functions
+    //MARK:- Functions
     //================
     private func configUI() {
         self.statusLabel.textColor = AppColors.themeBlack
@@ -48,7 +48,7 @@ class QueryStatusTableViewCell: UITableViewCell {
         }
     }
     
-    //Mark:- IBActions
+    //MARK:- IBActions
     //================
     
 }
