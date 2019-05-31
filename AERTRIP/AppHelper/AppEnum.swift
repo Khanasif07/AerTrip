@@ -14,6 +14,7 @@ enum ATNotification {
     case userLoggedInSuccess
     case userAsGuest
     case GRNSessionExpired
+    case accountPaymentRegister
 }
 
 extension Notification.Name {

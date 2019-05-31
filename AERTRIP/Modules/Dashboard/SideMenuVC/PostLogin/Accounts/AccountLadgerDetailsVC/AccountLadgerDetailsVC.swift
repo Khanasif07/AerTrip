@@ -52,8 +52,9 @@ class AccountLadgerDetailsVC: BaseVC {
 
         self.setupParallexHeaderView()
         
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
         
+        self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
         self.topNavView.delegate = self
         self.topNavView.backgroundColor = AppColors.clear
         self.topNavView.containerView.backgroundColor = AppColors.clear

@@ -17,7 +17,7 @@ class TextEditableTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var editableTextField: UITextField! {
+    @IBOutlet weak var editableTextField: PKFloatLabelTextField! {
         didSet {
             editableTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: UIControl.Event.editingChanged)
         }

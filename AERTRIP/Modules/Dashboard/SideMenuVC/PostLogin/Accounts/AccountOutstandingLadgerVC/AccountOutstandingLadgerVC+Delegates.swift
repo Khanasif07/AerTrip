@@ -119,6 +119,9 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
         cell.isSelectable = self.currentViewState == .selecting
         
+        cell.clipsToBounds = true
+        cell.backgroundColor = AppColors.themeWhite
+
         return cell
     }
     
@@ -129,6 +132,10 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         
         cell.event = forData
         
+        cell.clipsToBounds = true
+        cell.backgroundColor = AppColors.themeWhite
+        cell.mainContainerView.backgroundColor = AppColors.themeWhite
+
         return cell
     }
     

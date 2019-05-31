@@ -86,7 +86,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 2:
                 //select bank name
-                return self.getTextEditableTableViewCell(title: LocalizedString.AertripBankName.localized, value: self.viewModel.userEnteredDetails.aertripBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true)
+                return self.getTextEditableTableViewCell(title: LocalizedString.AertripBankName.localized, value: self.viewModel.userEnteredDetails.aertripBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true, isSelectionEnable: false)
                 
             case 3:
                 //see bank details
@@ -95,10 +95,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             case 5:
                 //deposit date
                 if self.currentUsingAs == .chequeOrDD {
-                    return self.getTextEditableTableViewCell(title: LocalizedString.DraftOrChequeDepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.DraftOrChequeDepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
                 }
                 else {
-                    return self.getTextEditableTableViewCell(title: LocalizedString.DepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.DepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
                 }
                 
             case 6:
@@ -108,7 +108,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 else {
                     //transfer type
-                    return self.getTextEditableTableViewCell(title: LocalizedString.TransferType.localized, value: self.viewModel.userEnteredDetails.transferType, placeholder: "\(LocalizedString.Select.localized) \(LocalizedString.TransferType.localized.lowercased())", isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.TransferType.localized, value: self.viewModel.userEnteredDetails.transferType, placeholder: "\(LocalizedString.Select.localized) \(LocalizedString.TransferType.localized.lowercased())", isDivider: true, isSelectionEnable: false)
                 }
                 
             case 7:
@@ -123,7 +123,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 8:
                 //your bank
-                return self.getTextEditableTableViewCell(title: LocalizedString.YourBank.localized, value: self.viewModel.userEnteredDetails.userBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true)
+                return self.getTextEditableTableViewCell(title: LocalizedString.YourBank.localized, value: self.viewModel.userEnteredDetails.userBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true, isSelectionEnable: false)
                 
             case 9:
                 //your account name
@@ -317,7 +317,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     
-    func getTextEditableTableViewCell(title: String, value: String = "", placeholder: String, isDivider: Bool) -> UITableViewCell {
+    func getTextEditableTableViewCell(title: String, value: String = "", placeholder: String, isDivider: Bool, isSelectionEnable: Bool = true) -> UITableViewCell {
         //blank gap
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TextEditableTableViewCell.reusableIdentifier) as? TextEditableTableViewCell else {
             printDebug("Cell not found")
@@ -326,8 +326,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
  
         cell.titleLabel.text = title
         cell.editableTextField.text = value.isEmpty ? placeholder : value
-        cell.editableTextField.placeholder = placeholder
-
+        cell.editableTextField.placeholder = ""
+        cell.editableTextField.isHiddenBottomLine = true
+        cell.editableTextField.isSelectionOptionEnabled = isSelectionEnable
+        
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)

@@ -393,11 +393,11 @@ extension AppFlowManager {
         }
     }
     
-    func showBulkEnquiryVC(buttonTitle: String) {
+    func showBulkEnquiryVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.searchButtonConfiguration = buttonConfig
             ob.currentUsingAs = .bulkBooking
-            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
@@ -686,11 +686,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showAccountDepositSuccessVC(buttonTitle: String) {
+    func showAccountDepositSuccessVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            ob.searchButtonConfiguration = buttonConfig
             ob.currentUsingAs = .accountDeposit
-            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }

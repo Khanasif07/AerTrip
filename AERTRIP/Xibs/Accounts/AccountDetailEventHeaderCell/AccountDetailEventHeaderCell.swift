@@ -50,12 +50,11 @@ class AccountDetailEventHeaderCell: UITableViewCell {
     private func setFontAndColor() {
         
         self.mainContainerView.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.5, shadowRadius: 5.0)
+//        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.5, shadowRadius: 5.0)
         
-        self.clipsToBounds = true
-        
-        self.backgroundColor = AppColors.themeWhite
-        
+        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+
+
         self.dividerView.defaultHeight = 1.0
         
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)

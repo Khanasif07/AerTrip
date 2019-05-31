@@ -106,11 +106,28 @@ class AccountOnlineDepositVC: BaseVC {
     }
     
     func showPaymentSuccessMessage() {
-        AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "  \(self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol)")
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = self.payButton.titleLabel?.text ?? ""
+        config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+        config.cornerRadius = 0.0
+        config.textFont = AppFonts.SemiBold.withSize(20.0)
+        config.width = self.payButton.width
+        config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+        
+        AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
     }
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
         self.viewModel.makePayment()
+    }
+}
+
+extension AccountOnlineDepositVC: BulkEnquirySuccessfulVCDelegate {
+    func doneButtonAction() {
+        self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
+        if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
+            AppFlowManager.default.popToViewController(vc, animated: true)
+        }
     }
 }

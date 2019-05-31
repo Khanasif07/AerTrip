@@ -110,7 +110,14 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     func showPaymentSuccessMessage() {
-        AppFlowManager.default.showAccountDepositSuccessVC(buttonTitle: "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)")
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)"
+        config.textFont = AppFonts.SemiBold.withSize(20.0)
+        config.cornerRadius = 0.0
+        config.width = self.payButton.width
+        config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+        
+        AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
     }
 
     //MARK: - Action
@@ -133,6 +140,15 @@ class AccountOfflineDepositVC: BaseVC {
                     self.checkOutTableView.reloadData()
                 }
             }
+        }
+    }
+}
+
+extension AccountOfflineDepositVC: BulkEnquirySuccessfulVCDelegate {
+    func doneButtonAction() {
+        self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
+        if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
+            AppFlowManager.default.popToViewController(vc, animated: true)
         }
     }
 }

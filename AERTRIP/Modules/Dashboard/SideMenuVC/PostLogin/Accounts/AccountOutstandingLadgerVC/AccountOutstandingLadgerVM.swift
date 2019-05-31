@@ -14,7 +14,6 @@ protocol AccountOutstandingLadgerVMDelegate: class {
     func getAccountDetailsFail()
     
     func searchEventsSuccess()
-    
     func willGetOutstandingPayment()
     func getOutstandingPaymentSuccess()
     func getOutstandingPaymentFail()

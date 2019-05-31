@@ -60,13 +60,10 @@ class AccountLedgerEventCell: UITableViewCell {
     private func setFontAndColor() {
         
         self.mainContainerView.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.4, shadowRadius: 8.0)
+//        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.4, shadowRadius: 8.0)
         
-        self.clipsToBounds = false
-        self.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.clipsToBounds = false
-        
+        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.5, shadowRadius: 2.0)
+
         self.backgroundColor = AppColors.themeWhite
         
         self.dividerView.defaultHeight = 1.0

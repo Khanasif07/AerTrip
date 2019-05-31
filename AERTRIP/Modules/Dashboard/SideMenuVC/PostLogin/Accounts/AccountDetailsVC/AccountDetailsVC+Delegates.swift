@@ -124,6 +124,8 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.event = forData
+        cell.clipsToBounds = true
+        cell.backgroundColor = AppColors.themeWhite
         
         return cell
     }
