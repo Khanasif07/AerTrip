@@ -38,6 +38,7 @@ extension SideMenuViewAccountCell {
     func initialSetups() {
         
         self.setupFontColorAndText()
+        self.viewAccountButton.isUserInteractionEnabled = false
     }
     
     func setupFontColorAndText() {

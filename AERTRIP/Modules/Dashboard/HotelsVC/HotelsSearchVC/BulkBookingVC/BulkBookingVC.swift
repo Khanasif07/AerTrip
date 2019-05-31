@@ -542,7 +542,16 @@ extension BulkBookingVC: BulkBookingVMDelegate {
         printDebug(enquiryId)
         self.searchButtonOutlet.isLoading = false
         self.hide(animated: true, shouldRemove: true)
-        AppFlowManager.default.showBulkEnquiryVC(buttonTitle: LocalizedString.Submit.localized)
+        
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = LocalizedString.Submit.localized
+        config.cornerRadius = 25.0
+        if let font = self.searchButtonOutlet.titleLabel?.font {
+            config.textFont = font
+        }
+        config.width = self.searchButtonOutlet.width
+        
+        AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config)
     }
     
     func bulkBookingEnquiryFail(errors:ErrorCodes) {

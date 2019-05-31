@@ -18,7 +18,7 @@ struct AccountOfflineDepositDetails {
     var userAccountName: String = ""
     var userAccountNum: String = ""
     var additionalNote: String = ""
-    var uploadedSlips: [String] = []
+    private(set) var uploadedSlips: [String] = []
     var isAgreeToTerms: Bool = false
     
     var transferType: String = ""
@@ -29,6 +29,29 @@ struct AccountOfflineDepositDetails {
     }
     
     var isForFundTransfer: Bool = false
+    
+    mutating func addSlip(urlPath: String) {
+        if !self.uploadedSlips.isEmpty {
+            //remove the file which is being to replace
+            for path in self.uploadedSlips {
+                try? FileManager.default.removeItem(atPath: path)
+            }
+        }
+        self.uploadedSlips = [urlPath]
+    }
+    
+    mutating func removeSlip(atIndex: Int) {
+        if self.uploadedSlips.count > atIndex {
+            try? FileManager.default.removeItem(atPath: self.uploadedSlips[atIndex])
+            self.uploadedSlips.remove(at: atIndex)
+        }
+    }
+    
+    mutating func removeSlip(urlPath: String) {
+        if let idx = self.uploadedSlips.index(of: urlPath) {
+            self.removeSlip(atIndex: idx)
+        }
+    }
     
     var isDataVarified: Bool {
         var flag = true

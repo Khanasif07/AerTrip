@@ -126,6 +126,8 @@ import UIKit
     
     @IBInspectable var titleErrorTextColour: UIColor = AppColors.themeRed
     
+    var isSelectionOptionEnabled: Bool = true
+    
     var isError: Bool = false{
         didSet {
             self.layoutSubviews()
@@ -144,6 +146,15 @@ import UIKit
 	}
 	
 	// MARK:- Overrides
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if self.isSelectionOptionEnabled {
+            return super.canPerformAction(action, withSender: sender)
+        }
+        else {
+            return false
+        }
+    }
+    
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		setTitlePositionForTextAlignment()

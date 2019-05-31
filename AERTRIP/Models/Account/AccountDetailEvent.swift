@@ -29,6 +29,7 @@ struct AccountDetailEvent {
         case none
         case netbanking = "netbanking"
         case card = "card"
+        case upi = "upi"
     }
     
     enum ProductType: String {
@@ -201,6 +202,11 @@ struct AccountDetailEvent {
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
                     let bankName = (info["bank_name"] as? String) ?? ""
                     self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
+                    
+                case .upi:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    let upi_id = (info["upi_id"] as? String) ?? ""
+                    self.title = self._receiptMethod.isEmpty ? upi_id : "\(self._receiptMethod.uppercased()): \(upi_id)"
                     
                 case .card:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_card")

@@ -350,6 +350,15 @@ extension UIViewController{
     }
 }
 
+extension UINavigationController {
+    func viewController(atIndex: Int) -> UIViewController? {
+        guard self.viewControllers.count > atIndex else  {
+            return nil
+        }
+        return self.viewControllers[atIndex]
+    }
+}
+
 
 //MARK:- Contacts Fetching
 extension UIViewController {

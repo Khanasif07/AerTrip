@@ -12,7 +12,7 @@ import IQKeyboardManager
 import MapKit
 
 func printDebug<T>(_ obj : T) {
-   print(obj)
+ //  print(obj)
 }
 
 func printFonts() {
@@ -171,6 +171,27 @@ struct AppGlobals {
             return fileURL.path
         } catch {
             printDebug("error saving file:")
+            return ""
+        }
+    }
+    
+    func saveFileToDocument(fromUrl: URL) -> String {
+        // get the documents directory url
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = fromUrl.lastPathComponent
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        
+        FileManager.removeFile(atPath: fileURL.path)
+        do {
+            // copy item
+            try FileManager.default.moveItem(at: fromUrl, to: fileURL)
+            printDebug("copy saved")
+            return fileURL.path
+        } catch {
+            printDebug("error copying file:")
             return ""
         }
     }

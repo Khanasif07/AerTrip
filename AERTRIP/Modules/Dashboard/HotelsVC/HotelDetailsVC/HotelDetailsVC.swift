@@ -80,7 +80,6 @@ class HotelDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.viewModel.getHotelDistanceAndTimeInfo()
-        self.headerView.shouldAddBlurEffect = true
         self.configUI()
         self.registerNibs()
         self.footerViewSetUp()
@@ -248,7 +247,7 @@ class HotelDetailsVC: BaseVC {
     private func configUI() {
         self.view.backgroundColor = AppColors.clear
         self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-        self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.manageFavIcon()
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.addTarget(self, action: #selector(self.cancelButtonAction), for: .touchUpInside)

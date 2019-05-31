@@ -9,6 +9,7 @@
 import UIKit
 import ActiveLabel
 import SafariServices
+import MobileCoreServices
 
 
 //MARK: - UITableViewDataSource and UITableViewDelegate
@@ -85,7 +86,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 2:
                 //select bank name
-                return self.getTextEditableTableViewCell(title: LocalizedString.AertripBankName.localized, value: self.viewModel.userEnteredDetails.aertripBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true)
+                return self.getTextEditableTableViewCell(title: LocalizedString.AertripBankName.localized, value: self.viewModel.userEnteredDetails.aertripBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true, isSelectionEnable: false)
                 
             case 3:
                 //see bank details
@@ -94,10 +95,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             case 5:
                 //deposit date
                 if self.currentUsingAs == .chequeOrDD {
-                    return self.getTextEditableTableViewCell(title: LocalizedString.DraftOrChequeDepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.DraftOrChequeDepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
                 }
                 else {
-                    return self.getTextEditableTableViewCell(title: LocalizedString.DepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.DepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
                 }
                 
             case 6:
@@ -107,7 +108,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 else {
                     //transfer type
-                    return self.getTextEditableTableViewCell(title: LocalizedString.TransferType.localized, value: self.viewModel.userEnteredDetails.transferType, placeholder: "\(LocalizedString.Select.localized) \(LocalizedString.TransferType.localized.lowercased())", isDivider: true)
+                    return self.getTextEditableTableViewCell(title: LocalizedString.TransferType.localized, value: self.viewModel.userEnteredDetails.transferType, placeholder: "\(LocalizedString.Select.localized) \(LocalizedString.TransferType.localized.lowercased())", isDivider: true, isSelectionEnable: false)
                 }
                 
             case 7:
@@ -122,7 +123,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 8:
                 //your bank
-                return self.getTextEditableTableViewCell(title: LocalizedString.YourBank.localized, value: self.viewModel.userEnteredDetails.userBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true)
+                return self.getTextEditableTableViewCell(title: LocalizedString.YourBank.localized, value: self.viewModel.userEnteredDetails.userBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true, isSelectionEnable: false)
                 
             case 9:
                 //your account name
@@ -164,6 +165,28 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func makeFileSelection() {
+        let titles = [LocalizedString.Camera.localized, LocalizedString.PhotoLibrary.localized, LocalizedString.Document.localized]
+        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            if index == 0 {
+                //Camera
+                self.checkAndOpenCamera(delegate: self)
+            }
+            else if index == 1 {
+                //PhotoLibrary
+                self.checkAndOpenLibrary(delegate: self)
+            }
+            else {
+                //Document
+                self.openDocumentPicker()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0, indexPath.row == 3 {
             //see bank details
@@ -173,7 +196,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
             if newIndex == 0 {
                 //add new slip
-                self.captureImage(delegate: self)
+                self.makeFileSelection()
             }
             else if newIndex == 1 {
                 self.viewModel.userEnteredDetails.isAgreeToTerms = !self.viewModel.userEnteredDetails.isAgreeToTerms
@@ -191,7 +214,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.fileNameLabel.text = title
         cell.fileSizeLabel.text = size
         
-        cell.iconImageView.image = title.hasSuffix("pdf") ? #imageLiteral(resourceName: "ic_file_pdf") : #imageLiteral(resourceName: "ic_file_img")
+        cell.iconImageView.image = title.fileIcon
         cell.deleteButton.addTarget(self, action: #selector(self.fileDeleteButtonAction(_:)), for: .touchUpInside)
         cell.imageCenterYConstraint.constant = 4.0
 
@@ -290,13 +313,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 safariVC.delegate = self
             }
         }
-
-        
         return cell
     }
 
     
-    func getTextEditableTableViewCell(title: String, value: String = "", placeholder: String, isDivider: Bool) -> UITableViewCell {
+    func getTextEditableTableViewCell(title: String, value: String = "", placeholder: String, isDivider: Bool, isSelectionEnable: Bool = true) -> UITableViewCell {
         //blank gap
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TextEditableTableViewCell.reusableIdentifier) as? TextEditableTableViewCell else {
             printDebug("Cell not found")
@@ -305,8 +326,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
  
         cell.titleLabel.text = title
         cell.editableTextField.text = value.isEmpty ? placeholder : value
-        cell.editableTextField.placeholder = placeholder
-
+        cell.editableTextField.placeholder = ""
+        cell.editableTextField.isHiddenBottomLine = true
+        cell.editableTextField.isSelectionOptionEnabled = isSelectionEnable
+        
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -372,7 +395,7 @@ extension AccountOfflineDepositVC: UIImagePickerControllerDelegate, UINavigation
         
         let urlPath = AppGlobals.shared.saveImage(data: imgData, fileNameWithExtension: "slip.jpeg")
         
-        self.viewModel.userEnteredDetails.uploadedSlips = [urlPath]
+        self.viewModel.userEnteredDetails.addSlip(urlPath: urlPath)
         
         picker.dismiss(animated: true) {
             self.checkOutTableView.reloadData()
@@ -516,5 +539,25 @@ extension AccountOfflineDepositVC: AccountOfflineDepositVMDelegate {
     
     func registerPaymentFail() {
         self.manageLoader(shouldStart: false)
+    }
+}
+
+
+extension AccountOfflineDepositVC: UIDocumentPickerDelegate {
+    func openDocumentPicker() {
+        let types: [String] = [kUTTypePDF as String]
+        let documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
+        documentPicker.delegate = self
+        documentPicker.modalPresentationStyle = .formSheet
+        self.present(documentPicker, animated: true, completion: nil)
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        // you get from the urls parameter the urls from the files selected
+        if let url = urls.first {
+            let urlPath = AppGlobals.shared.saveFileToDocument(fromUrl: url)
+            self.viewModel.userEnteredDetails.addSlip(urlPath: urlPath)
+            self.checkOutTableView.reloadData()
+        }
     }
 }

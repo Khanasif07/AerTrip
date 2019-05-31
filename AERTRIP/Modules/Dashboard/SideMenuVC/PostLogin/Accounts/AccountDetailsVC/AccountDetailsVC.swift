@@ -102,6 +102,8 @@ class AccountDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
+        self.tableView.registerCell(nibName: AccountLedgerEventCell.reusableIdentifier)
+        
         self.searchBar.isMicEnabled = true
         
         self.topNavView.firstRightButton.isEnabled = false
@@ -128,6 +130,13 @@ class AccountDetailsVC: BaseVC {
         
         delay(seconds: 0.8) { [weak self] in
             self?.getAccountDetailsSuccess()
+        }
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
+            //re-hit the details API
+            self.viewModel.getAccountDetails()
         }
     }
     
@@ -366,7 +375,7 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter)
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter, minFromDate: self.viewModel.ledgerStartDate)
     }
 }
 
@@ -374,19 +383,32 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
 //MARK:-
 extension AccountDetailsVC: ADEventFilterVCDelegate {
     func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
-        if let _ = filter {
-            //apply filter
-            if self.currentViewState == .searching {
+        
+        if let fltr = filter {
+            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
+                //apply filter
+                if self.currentViewState == .searching {
+                }
+                else {
+                    self.currentViewState = .filterApplied
+                }
             }
-            else {
-                self.currentViewState = .filterApplied
+            else if !fltr.voucherType.isEmpty {
+                //apply filter
+                if self.currentViewState == .searching {
+                }
+                else {
+                    self.currentViewState = .filterApplied
+                }
             }
+            
+            self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
         }
         else {
             //clear all filter
             self.currentViewState = .normal
+            self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
         }
-        self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
     }
 }
 

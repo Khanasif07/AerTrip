@@ -56,6 +56,13 @@ class SpecialAccountDetailsVC: BaseVC {
         self.tableView.tableFooterView = self.tableFooterView
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister {
+            //re-hit the details API
+            self.viewModel.fetchScreenDetails()
+        }
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }

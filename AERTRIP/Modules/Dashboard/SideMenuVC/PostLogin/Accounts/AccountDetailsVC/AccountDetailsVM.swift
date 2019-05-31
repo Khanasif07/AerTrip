@@ -23,7 +23,12 @@ class AccountDetailsVM: NSObject {
     //MARK:- Public
     var oldFilter: AccountSelectedFilter?
     var walletAmount: Double = 0.0
-    var _accountDetails: JSONDictionary = JSONDictionary()
+    var _accountDetails: JSONDictionary = JSONDictionary() {
+        didSet {
+            self.fetchLedgerStartDate()
+        }
+    }
+    
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         var arr = Array(accountDetails.keys)
@@ -41,6 +46,8 @@ class AccountDetailsVM: NSObject {
     
     weak var delegate: AccountDetailsVMDelegate? = nil
     
+    var ledgerStartDate: Date = Date()
+    
     //MARK:- Private
     
     
@@ -57,6 +64,14 @@ class AccountDetailsVM: NSObject {
         self.searchedAccountDetails = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
         
         self.delegate?.searchEventsSuccess()
+    }
+    
+    private func fetchLedgerStartDate() {
+        var arr = Array(_accountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        if let lastD = arr.last, let dataArr = _accountDetails[lastD] as? [AccountDetailEvent] {
+            self.ledgerStartDate = dataArr.last?.date ?? Date()
+        }
     }
     
     private func getDataApplySearch(forText: String, onData: JSONDictionary) -> JSONDictionary? {
@@ -139,10 +154,9 @@ class AccountDetailsVM: NSObject {
         var param = JSONDictionary()
         param["type"] = "ledger"
         
-        if let fromDate = filter?.fromDate, let toDate = filter?.toDate, fromDate.timeIntervalSince1970 != toDate.timeIntervalSince1970 {
+        if let fromDate = filter?.fromDate, let toDate = filter?.toDate {
             param["start_date"] = fromDate.toString(dateFormat: "YYYY-MM-dd")
             param["end_date"] = toDate.toString(dateFormat: "YYYY-MM-dd")
-
         }
 
         self.oldFilter = filter

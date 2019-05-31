@@ -74,6 +74,23 @@ class AppFlowManager: NSObject {
         self.tabBarController = controller
     }
     
+    func getNavigationController(forPresentVC: UIViewController) -> SwipeNavigationController {
+        let nav = SwipeNavigationController(rootViewController: forPresentVC)
+        let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
+                              NSAttributedString.Key.foregroundColor: AppColors.themeWhite
+        ]
+        
+        nav.navigationBar.titleTextAttributes = textAttributes
+        nav.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+        nav.navigationBar.shadowImage = nil
+        nav.navigationBar.barTintColor = AppColors.themeWhite
+        nav.navigationBar.backgroundColor = AppColors.themeWhite
+        nav.navigationBar.tintColor = AppColors.themeGreen
+        nav.navigationBar.isTranslucent = false
+        
+        return nav
+    }
+    
     @objc private func dataChanged(_ note: Notification) {
         // function intended to override
         if let noti = note.object as? ATNotification, let com = loginVerificationComplition {
@@ -366,11 +383,11 @@ extension AppFlowManager {
         }
     }
     
-    func showBulkEnquiryVC(buttonTitle: String) {
+    func showBulkEnquiryVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.searchButtonConfiguration = buttonConfig
             ob.currentUsingAs = .bulkBooking
-            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
@@ -379,7 +396,6 @@ extension AppFlowManager {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.currentUsingAs = .addOnRequest
-            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
@@ -633,10 +649,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?) {
+    func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?, minFromDate: Date? = nil) {
         if let obj = onViewController ?? UIApplication.topViewController() {
             let vc = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
             vc.oldFilter = oldFilter
+            vc.minFromDate = minFromDate
             vc.voucherTypes = voucherTypes
             vc.delegate = delegate
             obj.add(childViewController: vc)
@@ -676,11 +693,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showAccountDepositSuccessVC(buttonTitle: String) {
+    func showAccountDepositSuccessVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
+            ob.searchButtonConfiguration = buttonConfig
             ob.currentUsingAs = .accountDeposit
-            ob.buttonTitle = buttonTitle
             mVC.add(childViewController: ob)
         }
     }
