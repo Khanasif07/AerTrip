@@ -22,9 +22,6 @@ class MyBookingFilterVM {
     
     // Booking sorting Type
     var bookingSortType: BookingSortType = .travelDate
-    // event Type
-    var eventType: ProductType = .flight
-    
     // Travel Date
     var travelFromDate: Date = Date()
     var travelToDate: Date = Date()
@@ -33,7 +30,11 @@ class MyBookingFilterVM {
     var bookingFromDate: Date = Date()
     var bookingToDate: Date = Date()
     
-//    var eventType:
+
+
+    // let event Type filter 
+    var eventType: [Int] = [1]
+    
     
     
    

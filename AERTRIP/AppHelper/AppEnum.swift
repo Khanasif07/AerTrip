@@ -443,3 +443,37 @@ enum UserCreditType: String {
     case billwise = "B"
     case topup = "T"
 }
+
+enum ProductType: Int, CaseIterable {
+    case flight = 1
+    case hotel = 2
+    case other = 3
+    
+    // title for  handling
+    var title: String {
+        switch self {
+        case .flight:
+            return LocalizedString.flights.localized
+            
+        case .hotel:
+            return LocalizedString.hotels.localized
+            
+        case .other:
+            return LocalizedString.Internet.localized
+            
+        }
+    }
+    
+    var icon: UIImage {
+        switch self {
+        case .flight:
+            return #imageLiteral(resourceName: "flight_blue_icon")
+            
+        case .hotel:
+            return #imageLiteral(resourceName: "hotel_green_icon")
+            
+        case .other:
+            return #imageLiteral(resourceName: "others")
+        }
+    }
+}

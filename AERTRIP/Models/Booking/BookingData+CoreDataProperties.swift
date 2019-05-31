@@ -17,11 +17,7 @@ enum BookingTabCategory: Int {
     case cancelled = 3
 }
 
-enum ProductType: Int {
-    case hotel = 1
-    case flight = 2
-    case other = 3
-}
+
 
 extension BookingData {
 

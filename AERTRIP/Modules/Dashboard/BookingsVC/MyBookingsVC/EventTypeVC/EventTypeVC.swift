@@ -13,8 +13,14 @@ class EventTypeVC: BaseVC {
     //Mark:- Variables
     //================
     
+    
+    
     let rowTitle: [String] = [LocalizedString.flights.localized , LocalizedString.hotels.localized , LocalizedString.Others.localized]
     let rowImages: [UIImage] = [#imageLiteral(resourceName: "flight_blue_icon"),#imageLiteral(resourceName: "hotel_green_icon"),#imageLiteral(resourceName: "others")]
+    
+    // var eventType
+    let eventType: [ProductType] = ProductType.allCases
+    
     var selectedIndexPath: IndexPath?
     
     //Mark:- IBOutlets
@@ -57,32 +63,21 @@ class EventTypeVC: BaseVC {
 //=================
 extension EventTypeVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rowTitle.count
+        return self.eventType.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesTableViewCell.reusableIdentifier) as? AmenitiesTableViewCell else { return UITableViewCell() }
-        cell.amentityTitleLabel.text = self.rowTitle[indexPath.row]
-        cell.amenityImageView.image = self.rowImages[indexPath.row]
-        if let index = self.selectedIndexPath , index == indexPath {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-        } else {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
-        }
+        cell.eventType = eventType[indexPath.row]
+        cell.statusButton.isSelected = MyBookingFilterVM.shared.eventType.contains(eventType[indexPath.row].rawValue)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedIndexPath = indexPath
-        switch indexPath.row {
-        case 0:
-            MyBookingFilterVM.shared.eventType = .flight
-        case 1:
-            MyBookingFilterVM.shared.eventType = .hotel
-        case 2:
-            MyBookingFilterVM.shared.eventType = .other
-        default:
-            return
+        if MyBookingFilterVM.shared.eventType.contains(eventType[indexPath.row].rawValue) {
+           MyBookingFilterVM.shared.eventType.remove(at: MyBookingFilterVM.shared.eventType.firstIndex(of: self.eventType[indexPath.row].rawValue)!)
+        } else {
+            MyBookingFilterVM.shared.eventType.append(self.eventType[indexPath.row].rawValue)
         }
         self.eventTypeTableView.reloadData()
     }

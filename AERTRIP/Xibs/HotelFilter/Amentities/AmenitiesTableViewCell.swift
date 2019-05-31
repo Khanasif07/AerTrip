@@ -23,6 +23,12 @@ class AmenitiesTableViewCell: UITableViewCell {
         }
     }
     
+    var eventType: ProductType? {
+        didSet {
+            self.populateProductType()
+        }
+    }
+    
     
     // MARK: - View Life cycle
     
@@ -35,4 +41,11 @@ class AmenitiesTableViewCell: UITableViewCell {
         self.amenityImageView.image = amenitie?.icon
         self.amentityTitleLabel.text = amenitie?.title
     }
+    
+    
+    private func populateProductType() {
+        self.amenityImageView.image = eventType?.icon
+        self.amentityTitleLabel.text = eventType?.title
+    }
+    
 }

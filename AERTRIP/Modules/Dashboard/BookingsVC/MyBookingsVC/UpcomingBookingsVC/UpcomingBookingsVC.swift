@@ -11,9 +11,11 @@ import CoreData
 
 class UpcomingBookingsVC: BaseVC {
     
-    //Mark:- Variables
+    //MARK:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
+    var subpredicates: [NSPredicate] = []
+
     
     //Mark:- IBOutlets
     //================
@@ -38,7 +40,7 @@ class UpcomingBookingsVC: BaseVC {
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "depart", ascending: true)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "bookingDate", cacheName: nil)
         
