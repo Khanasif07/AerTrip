@@ -119,7 +119,12 @@
     }
 
     NSBundle * bundle = [NSBundle bundleForClass:self.class];
-    self.cancelButton.imageView.image = [UIImage imageNamed:@"cancelGray" inBundle:bundle compatibleWithTraitCollection:nil];
+    UIImage * cancelImage = [UIImage imageNamed:@"cancelGray" inBundle:bundle compatibleWithTraitCollection:nil];
+    
+    if ( cancelImage == nil ) {
+        cancelImage = [UIImage imageNamed:@"cancelGray" inBundle:[NSBundle mainBundle] compatibleWithTraitCollection:nil];
+    }
+    self.cancelButton.imageView.image = cancelImage;
 }
 
 
@@ -826,6 +831,7 @@
         if ( [self getNumberOfNightsInRange:date endDate:self.viewModel.date2] >  30) {
                 [ALToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                 [self.customCalenderView deselectDate:date];
+                [self showDatesSelection];
                 return;
             }
             if ([self.viewModel.date2 compare:date] == NSOrderedSame) {
@@ -870,6 +876,7 @@
                 if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] >  30) {
                     [ALToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                     [self.customCalenderView deselectDate:date];
+                    [self showDatesSelection];
                     return;
                 }
                 

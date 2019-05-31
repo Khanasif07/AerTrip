@@ -208,7 +208,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AertripCalendar:
-    :commit: 997e6358e525b71650c13fbff5c6e4981130e6aa
+    :commit: 3d8fab44ee5918bf1734f89ea15b8a079754e74d
     :git: "git@gitlab.com:aertrip/ios-calendar.git"
   AertripCalendarDataModel:
     :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
