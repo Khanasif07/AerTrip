@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="FlightsOptionsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="242.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="242"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-b3-VSY">
+                        <rect key="frame" x="0.0" y="13" width="375" height="79"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="79.099999999999994" id="NI4-ZB-f37"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="v1C-Q5-Rl5">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyV-k1-zGx">
+                        <rect key="frame" x="16" y="119" width="343" height="45"/>
+                        <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="wg5-jA-zsE"/>
+                        </constraints>
+                        <inset key="titleEdgeInsets" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Add to Calender" image="bookmark_hotel-icon_white">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="addToCalenderBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="unW-o0-MWO"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P7o-Cm-3vm">
+                        <rect key="frame" x="16" y="184" width="343" height="45"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                        <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Add to Apple Wallet" image="AddToAppleWallet"/>
+                        <connections>
+                            <action selector="addToAppleWalletBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0sk-UG-gvQ"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fyV-k1-zGx" firstAttribute="top" secondItem="fWL-b3-VSY" secondAttribute="bottom" constant="26.899999999999999" id="5DG-4D-zFm"/>
+                    <constraint firstItem="fWL-b3-VSY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="C9e-3s-gf4"/>
+                    <constraint firstItem="fWL-b3-VSY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="C9p-Vp-rlu"/>
+                    <constraint firstItem="P7o-Cm-3vm" firstAttribute="height" secondItem="fyV-k1-zGx" secondAttribute="height" id="Lp5-Sn-2hK"/>
+                    <constraint firstItem="fyV-k1-zGx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="N7F-OX-z4H"/>
+                    <constraint firstItem="P7o-Cm-3vm" firstAttribute="trailing" secondItem="fyV-k1-zGx" secondAttribute="trailing" id="U3d-bz-VA7"/>
+                    <constraint firstItem="P7o-Cm-3vm" firstAttribute="leading" secondItem="fyV-k1-zGx" secondAttribute="leading" id="YCa-v5-9zG"/>
+                    <constraint firstItem="P7o-Cm-3vm" firstAttribute="top" secondItem="fyV-k1-zGx" secondAttribute="bottom" constant="20" id="cvP-sO-xQT"/>
+                    <constraint firstAttribute="trailing" secondItem="fyV-k1-zGx" secondAttribute="trailing" constant="16" id="mq6-2m-xD1"/>
+                    <constraint firstAttribute="trailing" secondItem="fWL-b3-VSY" secondAttribute="trailing" id="te4-7D-vPl"/>
+                    <constraint firstAttribute="bottom" secondItem="P7o-Cm-3vm" secondAttribute="bottom" constant="13" id="xbb-gE-8hG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addToAppleWallet" destination="P7o-Cm-3vm" id="6Sf-97-vZD"/>
+                <outlet property="addToCalenderBtnOutlet" destination="fyV-k1-zGx" id="JSS-ut-WJV"/>
+                <outlet property="containerView" destination="H2p-sc-9uM" id="Ojm-4m-HoT"/>
+                <outlet property="flightsOptionCollectionView" destination="fWL-b3-VSY" id="7fZ-KU-N63"/>
+            </connections>
+            <point key="canvasLocation" x="48.550724637681164" y="39.84375"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="AddToAppleWallet" width="30" height="22"/>
+        <image name="bookmark_hotel-icon_white" width="27" height="27"/>
+    </resources>
+</document>

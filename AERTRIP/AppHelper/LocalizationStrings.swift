@@ -761,4 +761,22 @@ enum LocalizedString: String {
     case DepositDate
     case TransferType
     case EnterUTRSwiftCode
+    case Economy = "Economy"
+    case Carriers = "Carriers"
+    case AddOns = "AddOns"
+    case Cancellation = "Cancellation"
+    case Refund = "Refund"
+    case PaymentPending = "PaymentPending"
+    case WebCheckin = "WebCheckin"
+    case Directions
+    case Weather
+    case SeeAll = "SeeAll"
+    case Downloading = "Downloading"
+    case Requests = "Requests"
+    case capNotes = "NOTES"
+    case newDate = "newDate"
+    case selectNewDepartingDate = "selectNewDepartingDate"
+    case newDepartingDate = "newDepartingDate"
+    case customerExecutiveWillContact = "customerExecutiveWillContact"
+    case preferredFlightNo = "preferredFlightNo"
  }

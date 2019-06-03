@@ -12,6 +12,8 @@ import SwiftyJSON
 
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
+typealias DownloadData = (_ data : Data) -> ()
+typealias ProgressUpdate = ((Double) -> Void)
 
 
 enum AppNetworking {
@@ -132,6 +134,64 @@ enum AppNetworking {
                        failure : @escaping Failure) {
         
         request(URLString: endPoint.path, httpMethod: .delete, parameters: parameters, headers: headers, success: success, failure: failure)
+    }
+    
+    static func DOWNLOAD(sourceUrl : String,
+                         parameters : JSONDictionary = [:],
+                         headers : HTTPHeaders = [:],
+                         destinationUrl: URL,
+                         loader : Bool = false,
+                         requestHandler: @escaping (DownloadRequest) -> Void,
+                         progressUpdate: @escaping (Double) -> Void,
+                         success : @escaping (JSON) -> Void,
+                         failure : @escaping (NSError) -> Void) {
+        
+        download(URLString: sourceUrl, httpMethod: .get, parameters: parameters, headers: headers, destinationUrl: destinationUrl, loader: loader, requestHandler: requestHandler, progressUpdate: progressUpdate, success: success, failure: failure)
+    }
+    
+    private static func download(URLString : String,
+                                 httpMethod : HTTPMethod,
+                                 parameters : JSONDictionary = [:],
+                                 encoding: ParameterEncoding = JSONEncoding.default,
+                                 headers : HTTPHeaders = [:],
+                                 destinationUrl : URL,
+                                 loader : Bool = true,
+                                 requestHandler: @escaping (DownloadRequest) -> Void,
+                                 progressUpdate: @escaping ProgressUpdate,
+                                 success : @escaping (JSON) -> Void,
+                                 failure : @escaping (NSError) -> Void) {
+        
+        let destination: DownloadRequest.DownloadFileDestination = { _, _  in
+            return (destinationUrl, [.removePreviousFile, .createIntermediateDirectories])
+        }
+        
+        if loader { showLoader() }
+        
+        let downloadRequest = Alamofire.download(URLString, method: httpMethod, parameters: parameters, encoding: encoding, headers: headers, to: destination).response { (response) in
+            
+            if loader { showLoader() }
+            
+            if response.error != nil {
+                printDebug("===================== FAILURE =======================")
+                let e = response.error!
+                printDebug(e.localizedDescription)
+                
+                if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+                    printDebug("response: \(e)\nresponse url: \(URLString)")
+                }
+                failure(e as NSError)
+                
+            } else {
+                printDebug("===================== RESPONSE =======================")
+                guard response.error == nil else { return }
+                
+                
+                success(JSON.init([:]))
+            }
+            }.downloadProgress { (progress) in
+                progressUpdate(progress.fractionCompleted)
+        }
+        requestHandler(downloadRequest)
     }
     
     private static func request(URLString : String,

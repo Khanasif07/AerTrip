@@ -17,10 +17,18 @@ class OtherBookingsDetailsVM {
     var sectionData: [[TableViewCell]] = []
     var urlOfDocuments: String = ""
     var urlLink: URL?
+    var currentDocumentPath: String = ""
+    var documentDownloadingData = [DocumentDownloadingModel]()
     
     func getSectionData() {
         self.sectionData.append([.insurenceCell , .policyDetailCell , .travellersDetailCell , .documentCell])
         self.sectionData.append([.paymentInfoCell , .bookingCell , .paidCell])
         self.sectionData.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
+    }
+    
+    func getDocumentDownloadingData() {
+        for _ in 0..<9 {
+            self.documentDownloadingData.append(DocumentDownloadingModel())
+        }
     }
 }

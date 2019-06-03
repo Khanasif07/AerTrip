@@ -571,6 +571,16 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func moveToFlightBookingsDetailsVC() {
+        let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+
+    func moveToRequestReschedulingVC() {
+        let obj = RequestReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func presentBookingFareInfoDetailVC() {
         let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.present(obj, animated: true)

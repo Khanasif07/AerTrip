@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FlightStopsCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Td1-s0-097">
+                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVc-hk-kTY">
+                                <rect key="frame" x="9.5" y="12" width="6" height="6"/>
+                                <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="6" id="66i-4H-xOj"/>
+                                    <constraint firstAttribute="width" secondItem="JVc-hk-kTY" secondAttribute="height" multiplier="1:1" id="WIT-m1-wOz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JVc-hk-kTY" firstAttribute="centerY" secondItem="Td1-s0-097" secondAttribute="centerY" id="Udm-b3-gM7"/>
+                            <constraint firstItem="JVc-hk-kTY" firstAttribute="centerX" secondItem="Td1-s0-097" secondAttribute="centerX" id="pJ9-2N-OTh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Td1-s0-097" secondAttribute="trailing" id="01V-QP-wPB"/>
+                <constraint firstItem="Td1-s0-097" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TDC-K5-O9r"/>
+                <constraint firstAttribute="bottom" secondItem="Td1-s0-097" secondAttribute="bottom" id="U0G-0l-g91"/>
+                <constraint firstItem="Td1-s0-097" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b80-Q4-EBY"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="containerView" destination="Td1-s0-097" id="GeR-vw-lkg"/>
+                <outlet property="dotView" destination="JVc-hk-kTY" id="U3J-Xh-bzS"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

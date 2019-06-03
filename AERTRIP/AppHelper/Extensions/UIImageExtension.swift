@@ -171,5 +171,15 @@ extension UIImage {
         let cgimg = context.createCGImage(output!, from: output!.extent)
         return UIImage(cgImage: cgimg!)
     }
-    
+}
+
+extension UIImageView {
+    func applyGaussianBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        if let resultImage = blurfilter?.value(forKey: "outputImage") as? CIImage {
+            self.image = UIImage(ciImage: resultImage)
+        }
+    }
 }
