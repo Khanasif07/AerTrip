@@ -19,6 +19,7 @@ class RequestReschedulingVC: BaseVC {
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
     @IBOutlet weak var reschedulingTableView: UITableView! {
         didSet {
+            self.reschedulingTableView.contentInset = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reschedulingTableView.estimatedRowHeight = UITableView.automaticDimension
 //            self.reschedulingTableView.rowHeight = UITableView.automaticDimension
         }
@@ -83,7 +84,7 @@ extension RequestReschedulingVC {
     
     func getFlightDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParallelLabelsTableViewCell.reusableIdentifier, for: indexPath) as? ParallelLabelsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(leftTitle: "Mumbai → Delhi", rightTitle: "3 Passengers", topConstraint: 12.0, bottomConstraint: 11.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
+        cell.configureCell(leftTitle: "Mumbai → Delhi", rightTitle: "3 Passengers", topConstraint: 10.0, bottomConstraint: 11.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
         return cell
     }
     
