@@ -780,4 +780,6 @@ enum LocalizedString: String {
     case customerExecutiveWillContact = "customerExecutiveWillContact"
     case preferredFlightNo = "preferredFlightNo"
     case RequestRescheduling = "RequestRescheduling"
+    case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
+    case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
  }

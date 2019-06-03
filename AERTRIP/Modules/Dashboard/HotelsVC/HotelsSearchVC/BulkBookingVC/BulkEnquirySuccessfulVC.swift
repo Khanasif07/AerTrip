@@ -13,6 +13,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     enum UsingFor {
         case bulkBooking
         case accountDeposit
+        case reschedulingRequest
     }
     
     //Mark:- Variables
@@ -76,7 +77,9 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func initialSetup() {
-        if self.currentUsingAs == .bulkBooking {
+        
+        switch self.currentUsingAs {
+        case .bulkBooking:
             self.mainTitleLabel.text = LocalizedString.BulkEnquirySent.localized
             self.subTitleLabel.text = LocalizedString.CustomerServicesShallConnect.localized
             self.searchBtnOutlet.setTitle(self.buttonTitle, for: .normal)
@@ -84,24 +87,29 @@ class BulkEnquirySuccessfulVC: BaseVC {
             
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 15.0)
-        }
-        else {
+        case .accountDeposit:
             self.mainTitleLabel.text = LocalizedString.PaymentRegisteredSuccesfully.localized
             self.subTitleLabel.text = LocalizedString.WeShallCreditYourAccount.localized
             
             let title = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), endText: self.buttonTitle, font: AppFonts.SemiBold.withSize(20.0))
             self.searchBtnOutlet.setAttributedTitle(title, for: .normal)
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
-            
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .reschedulingRequest:
+            self.mainTitleLabel.text = LocalizedString.ReschedulingRequestHasBeenSent.localized
+            self.subTitleLabel.text = LocalizedString.OurCustomerServiceRepresenstativeWillContact.localized
+            self.searchBtnOutlet.setTitle(self.buttonTitle, for: .normal)
+            self.searchButtonWidthConstraint.constant = 150.0
+            self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+
         }
         
         self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        //self.headerView.cornerRadius = 15.0
         self.mainTitleLabel.alpha = 0.0
         self.subTitleLabel.alpha = 0.0
         self.doneBtnOutlet.alpha = 0.0

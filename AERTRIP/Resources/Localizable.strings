@@ -741,3 +741,5 @@
 "customerExecutiveWillContact" = "After you place a request, our customer executive will contact you.";
 "preferredFlightNo" = "Preferred Flight No. (Optional)";
 "RequestRescheduling" = "Request Rescheduling";
+"ReschedulingRequestHasBeenSent" = "Rescheduling Request has been sent";
+"OurCustomerServiceRepresenstativeWillContact" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
