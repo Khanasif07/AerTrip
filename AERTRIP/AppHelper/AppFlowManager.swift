@@ -823,9 +823,17 @@ extension AppFlowManager {
     
     // Present BookingReschedulingVC
     
-    func presentBookingReschedulingVC() {
+    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.usingFor = data
         self.mainNavigationController.present(obj, animated: true)
+    }
+    
+    // Move to Booking Review Cancellation
+    
+    func moveToReviewCancellationVC() {
+        let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
     }
 }
 

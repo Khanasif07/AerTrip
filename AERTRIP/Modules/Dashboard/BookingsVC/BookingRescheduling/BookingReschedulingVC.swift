@@ -15,6 +15,12 @@ class BookingReschedulingVC: BaseVC {
     @IBOutlet var passengerLabel: UILabel!
     @IBOutlet var reschedulingTableView: ATTableView!
     
+    @IBOutlet var priceView: UIView!
+    
+    @IBOutlet var totalNetRefundLabel: UILabel!
+    @IBOutlet var totalPriceLabel: UILabel!
+    @IBOutlet var continueButton: UIButton!
+    
     // MARK: - Variables
     
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
@@ -31,12 +37,14 @@ class BookingReschedulingVC: BaseVC {
     var collapseCompletionHandler: () -> Void = {} // completion for collapse
     
     override func initialSetup() {
+        self.continueButton.addGredient(isVertical: false)
         self.registerXib()
         self.setupNavBar()
         self.setUpBookingPassengers()
         self.reschedulingTableView.dataSource = self
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.reloadData()
+        self.continueButton.addGredient(isVertical: false)
     }
     
     func registerXib() {
@@ -53,19 +61,31 @@ class BookingReschedulingVC: BaseVC {
         self.topNavBar.delegate = self
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavBar.navTitleLabel.textColor = AppColors.themeBlack
-        self.topNavBar.configureNavBar(title: LocalizedString.Rescheduling.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureNavBar(title: self.viewModel.usingFor == .rescheduling ? LocalizedString.Rescheduling.localized : LocalizedString.Cancellation.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         self.topNavBar.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
     override func setupFonts() {
+        self.continueButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.passengerLabel.font = AppFonts.Regular.withSize(16.0)
+        self.totalNetRefundLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.totalPriceLabel.font = AppFonts.SemiBold.withSize(18.0)
     }
     
     override func setupColors() {
+        self.continueButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.continueButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.passengerLabel.textColor = AppColors.textFieldTextColor51
+        self.totalNetRefundLabel.textColor = AppColors.themeBlack
+        self.totalPriceLabel.textColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
+        self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
+        self.totalPriceLabel.text = "₹ 1,47,000"
+        self.continueButton.setTitle(LocalizedString.Continue.localized, for: .normal)
+        self.continueButton.setTitle(LocalizedString.Continue.localized, for: .selected)
+        
         self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
     }
     
@@ -217,6 +237,7 @@ class BookingReschedulingVC: BaseVC {
             } else {
                 bookingAccordionCell.selectedTravellerButton.isSelected = false
             }
+            
             return bookingAccordionCell
         }
     }
@@ -246,6 +267,10 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 60.0
     }
     
@@ -288,6 +313,8 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
 //
 //            self.reschedulingTableView.reloadData()
 //        }
+        
+        self.passengerLabel.text = self.viewModel.selectedPassenger.count == 1 ? "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passengers.localized + LocalizedString.Selected.localized : "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passenger.localized + LocalizedString.Selected.localized
     }
 }
 

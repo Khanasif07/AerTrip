@@ -189,7 +189,7 @@ class AerinVC: BaseVC {
             //  AppFlowManager.default.moveToMyBookingsVC()
             
             //   --------  for showing Boking hotel Detail --------
-            // AppFlowManager.default.moveToBookingHotelDetailVC()
+            /// AppFlowManager.default.moveToBookingHotelDetailVC()
             
             // for showing booking call VC
             
@@ -197,7 +197,7 @@ class AerinVC: BaseVC {
             
             // for showing bookig invoice VC
             
-            AppFlowManager.default.moveToBookingInvoiceVC()
+           AppFlowManager.default.moveToBookingInvoiceVC()
             
           //****  Booking DirectionVC ******
  
@@ -205,6 +205,9 @@ class AerinVC: BaseVC {
             
 //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
 //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
+            
+            // Move To Review Cancellation
+          //  AppFlowManager.default.moveToReviewCancellationVC()
         }
     }
 }

@@ -8,9 +8,19 @@
 
 import Foundation
 
+enum BookingReschedulingVCUsingFor {
+    case rescheduling
+    case cancellation
+    case none
+}
+
 class BookingReschedulingVM {
+    // MARK: - Variables
+
+    var usingFor: BookingReschedulingVCUsingFor = .rescheduling
+
     var sectionData: [(title: String, info: String)] = [(title: "Mumbai → Delhi", info: "12 Oct 2018 | Non-refundable"), (title: "Delhi → Mumbai", info: "12 Oct 2018 | Non-refundable")]
-    
+
     var passengers: [BookingPassenger] = []
     var airlinesDetail: [String] = ["", ""]
     var selectedPassenger: [String] = []
@@ -29,12 +39,12 @@ struct BookingPassenger {
                 "passengerDetails": self.passengerDetails,
                 "isChecked": self.isChecked]
     }
-    
+
     init() {
         let json = JSON()
         self.init(json: json)
     }
-    
+
     init(json: JSON) {
         self.id = json["id"].stringValue
         self.name = json["type"].stringValue.removeNull

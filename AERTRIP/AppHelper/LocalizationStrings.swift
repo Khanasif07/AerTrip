@@ -695,6 +695,21 @@ enum LocalizedString: String {
     case Download
     case ResendConfirmationMail
     
+    // Booking Review Cancellation VC
+    
+    case ReviewCancellation
+    case RefundMode
+    case ReasonForCancellation
+    case TotalNetRefund
+    case ReviewCancellationInfoLabel
+    case EnterYourCommentOptional
+    case Passengers
+    case Passenger
+    case Selected
+    
+    // Booking Cancellation VC
+    case Cancellation
+    
     
     //MARK: - AerinVC
     case Hi = "Hi"
