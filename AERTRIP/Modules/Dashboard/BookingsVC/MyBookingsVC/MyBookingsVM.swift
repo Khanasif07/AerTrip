@@ -17,21 +17,12 @@ protocol MyBookingsVMDelegate: class {
 class MyBookingsVM {
     
     // MARK: - Variables
-    var upComingBookingsData: [String] = ["1"]
-    var completedBookingsData: [String] = ["2"]
-    var cancelledBookingData: [String] = []
-    
-//    var upComingBookings: [BookingModel] = []
-//    var completedBookings: [BookingModel] = []
-    
-    
+
     
     // MARK: - Booking Data
     
     // MARK: - Upcoming Bookings
-    var upComingBookings: [BookingData] = []
-    var completedBookings: [BookingData] = []
-    var cancelledBookings: [BookingData] = []
+    var allTabTypes: [Int16] = [] //fetching when data is getting inserted in
     
     var bookings: [BookingModel] = []
     weak var delgate: MyBookingsVMDelegate?
@@ -44,39 +35,21 @@ class MyBookingsVM {
 //    }
 //
     
-    
-    
-    func getBookingData() {
-        
-        if let upcomingBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '1'") as? [BookingData] {
-               self.upComingBookings = upcomingBookings
-        }
-        
-        if let completedBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '2'") as? [BookingData] {
-            self.completedBookings = completedBookings
-        }
-        
-        if let cancelledBookings = CoreDataManager.shared.fetchData("BookingData", predicate: "bookingTabType == '3'") as? [BookingData] {
-            self.cancelledBookings = cancelledBookings
-        }
-    }
-    
     private init() {}
     
     func getBookings() {
         let params: JSONDictionary = [:]
         printDebug(params)
             delgate?.willGetBookings()
-        APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings) in
+        APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings, allTabs) in
             guard let sSelf = self else { return }
             if success {
-                // sSelf.bookings = bookings
-                sSelf.getBookingData()
-                
-                sSelf.delgate?.getBookingsDetailSuccess()
+                DispatchQueue.mainAsync {
+                    sSelf.allTabTypes = allTabs
+                    sSelf.delgate?.getBookingsDetailSuccess()
+                }
                 printDebug(bookings)
             } else {
-                
             }
         }
     }

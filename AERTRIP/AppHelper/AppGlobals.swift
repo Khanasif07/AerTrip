@@ -12,7 +12,7 @@ import IQKeyboardManager
 import MapKit
 
 func printDebug<T>(_ obj : T) {
- //  print(obj)
+   print(obj)
 }
 
 func printFonts() {

@@ -40,9 +40,9 @@ class UpcomingBookingsVC: BaseVC {
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: true)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: false)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "bookingDate", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "eventStartDate", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
@@ -59,7 +59,6 @@ class UpcomingBookingsVC: BaseVC {
     override func initialSetup() {
         
         self.registerXibs()
-        printDebug(MyBookingsVM.shared.upComingBookings)
         self.loadSaveData()
 
     }
@@ -93,7 +92,7 @@ class UpcomingBookingsVC: BaseVC {
     }
     
      func emptyStateSetUp() {
-        if MyBookingsVM.shared.upComingBookings.isEmpty {
+        if MyBookingsVM.shared.allTabTypes.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
@@ -125,16 +124,16 @@ class UpcomingBookingsVC: BaseVC {
 //        return 1
 //    }
 //    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.viewModel.upcomingBookingData[section].numbOfRows + 1
 //        if let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
 //            return (eventData.reduce(0) { $0 + $1.numbOfRows}) + 1
 //        }
 //        return 0
-        
-        return MyBookingsVM.shared.upComingBookings.count
-    }
-//    
+//
+//        return MyBookingsVM.shared.upComingBookings.count
+//    }
+//
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 ////        guard let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[indexPath.section]] as? [UpComingBookingEvent] else { return UITableViewCell() }
 ////        let currentSecData = eventData[0]
@@ -180,26 +179,10 @@ class UpcomingBookingsVC: BaseVC {
 //}
 
 extension UpcomingBookingsVC {
-    internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
-        cell.configCell(plcaeName: eventData.placeName, travellersName: eventData.travellersName, bookingTypeImg: eventData.eventType.image , isOnlyOneCell: eventData.queries.isEmpty)
-        return cell
-    }
-    
+
     internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeWhite
-        return cell
-    }
-    
-    internal func getQueryCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: QueryStatusTableViewCell.reusableIdentifier, for: indexPath) as? QueryStatusTableViewCell else { return UITableViewCell() }
-        cell.configCell(status: eventData.queries[indexPath.row - 1], statusImage: #imageLiteral(resourceName: "checkIcon"), isLastCell: (eventData.queries.count - 1 == indexPath.row - 1))
-        if (eventData.queries.count - 1 == indexPath.row - 1) {
-            cell.containerViewBottomConstraint.constant = 5.0
-        } else {
-            cell.containerViewBottomConstraint.constant = 0.0
-        }
         return cell
     }
 }

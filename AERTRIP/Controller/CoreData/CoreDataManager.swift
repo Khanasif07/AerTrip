@@ -158,7 +158,7 @@ class CoreDataManager {
     
     //MARK:- Fetch Data From Core Data
     //MARK:-
-    func fetchData(_ modelName: String, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
+    func fetchData(_ modelName: String, predicate:String? = nil, properties: [String]? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
         
         let cdhObj = inManagedContext!
         
@@ -168,6 +168,8 @@ class CoreDataManager {
         if let prdStr = predicate {
             fReq.predicate = NSPredicate(format:prdStr)
         }
+        
+        fReq.propertiesToFetch = properties
         
         //set sort descripter
         if let sortDict = sort {

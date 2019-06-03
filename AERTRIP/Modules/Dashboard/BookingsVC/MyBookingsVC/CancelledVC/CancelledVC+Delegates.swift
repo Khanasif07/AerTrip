@@ -1,16 +1,17 @@
 //
-//  UpcomingBookingVC+UITableViewMethods.swift
+//  CompletedVC.swift
 //  AERTRIP
 //
-//  Created by apple on 29/05/19.
+//  Created by Admin on 16/04/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-// MARK: - Table view datasource and delegate methods
-
-extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
+//Mark:- Extensions
+//=================
+extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.fetchedResultsController.sections?.count ?? 0
     }
@@ -43,15 +44,15 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         let aSection = sections[section]
         let dateStr = aSection.name
         /*  logic to show header text : - if date is greater than 1 year date format  shoulr be d MMM yyyy
-            else
- 
-       */
-          var headerText  = ""
-          if dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan(Date().add(years: 1) ?? Date()) ?? false {
+         else
+         
+         */
+        var headerText  = ""
+        if dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan(Date().add(years: 1) ?? Date()) ?? false {
             headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "d MMM yyyy") ?? ""
-            } else {
-             headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "E, d MMM") ?? ""
-             }
+        } else {
+            headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "E, d MMM") ?? ""
+        }
         headerView.dateLabel.text = headerText
         headerView.dateLabelTopConstraint.constant = 11.0
         headerView.contentView.backgroundColor = AppColors.themeWhite
@@ -66,6 +67,16 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         
         cell.shouldRoundAllCorners = true
         cell.bookingData = bookingData
+        return cell
+    }
+    
+}
+
+extension CancelledVC {
+
+    internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
+        cell.backgroundColor = AppColors.themeWhite
         return cell
     }
 }
