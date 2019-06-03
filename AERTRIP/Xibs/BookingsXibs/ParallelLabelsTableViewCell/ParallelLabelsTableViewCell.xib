@@ -20,16 +20,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dh3-Wn-JjO">
-                        <rect key="frame" x="16" y="10" width="294" height="23"/>
+                        <rect key="frame" x="16" y="10" width="288" height="23"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhv-lk-FCn">
-                                <rect key="frame" x="0.0" y="0.0" width="147" height="23"/>
+                                <rect key="frame" x="0.0" y="0.0" width="144" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0IJ-vO-l5k">
-                                <rect key="frame" x="147" y="0.0" width="147" height="23"/>
+                                <rect key="frame" x="144" y="0.0" width="144" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="dh3-Wn-JjO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Mkj-az-d5Y"/>
-                    <constraint firstAttribute="trailing" secondItem="dh3-Wn-JjO" secondAttribute="trailing" constant="10" id="pQU-MG-rQ8"/>
+                    <constraint firstAttribute="trailing" secondItem="dh3-Wn-JjO" secondAttribute="trailing" constant="16" id="pQU-MG-rQ8"/>
                     <constraint firstAttribute="bottom" secondItem="dh3-Wn-JjO" secondAttribute="bottom" constant="11" id="rg4-t1-cD5"/>
                     <constraint firstItem="dh3-Wn-JjO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u1l-4w-plC"/>
                 </constraints>

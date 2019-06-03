@@ -23,6 +23,7 @@ class RequestReschedulingVC: BaseVC {
 //            self.reschedulingTableView.rowHeight = UITableView.automaticDimension
         }
     }
+    @IBOutlet weak var requestReschedulingBtnOutlet: UIButton!
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -37,6 +38,18 @@ class RequestReschedulingVC: BaseVC {
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.dataSource = self
         self.topNavBar.delegate = self
+    }
+    
+    override func setupColors() {
+        self.requestReschedulingBtnOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+    }
+    
+    override func setupTexts() {
+        self.requestReschedulingBtnOutlet.setTitle(LocalizedString.RequestRescheduling.localized, for: .normal)
+    }
+    
+    override func setupFonts() {
+        self.requestReschedulingBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     //MARK:- Functions
@@ -58,6 +71,9 @@ class RequestReschedulingVC: BaseVC {
     
     //MARK:- IBActions
     //MARK:===========
+    @IBAction func requestReschedulingBtnAction(_ sender: UIButton) {
+        printDebug(requestReschedulingBtnOutlet.constraints)
+    }
 }
 
 //MARK:- Extensions
@@ -67,7 +83,7 @@ extension RequestReschedulingVC {
     
     func getFlightDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParallelLabelsTableViewCell.reusableIdentifier, for: indexPath) as? ParallelLabelsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(leftTitle: "Mumbai → Delhi", rightTitle: "3 Passengers", topConstraint: 12.0, bottomConstraint: 10.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
+        cell.configureCell(leftTitle: "Mumbai → Delhi", rightTitle: "3 Passengers", topConstraint: 12.0, bottomConstraint: 11.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
         return cell
     }
     
@@ -82,6 +98,7 @@ extension RequestReschedulingVC {
         cell.topDividerViewLeadingConstraints.constant = 16.0
         cell.bottomDividerViewLeadingConstraints.constant = 0.0
         cell.bottomDividerViewTrailingConstraints.constant = 0.0
+        cell.containerViewHeightConstraint.constant = 60.0
         cell.configCell(placeHolderText: LocalizedString.preferredFlightNo.localized)
         return cell
     }

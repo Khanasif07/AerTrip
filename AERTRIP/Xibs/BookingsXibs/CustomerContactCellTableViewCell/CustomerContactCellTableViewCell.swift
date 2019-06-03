@@ -17,6 +17,7 @@ class CustomerContactCellTableViewCell: UITableViewCell {
         //MARK:- IBOutlets
         //MARK:===========
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
     
         
         //MARK:- LifeCycle

@@ -779,4 +779,5 @@ enum LocalizedString: String {
     case newDepartingDate = "newDepartingDate"
     case customerExecutiveWillContact = "customerExecutiveWillContact"
     case preferredFlightNo = "preferredFlightNo"
+    case RequestRescheduling = "RequestRescheduling"
  }

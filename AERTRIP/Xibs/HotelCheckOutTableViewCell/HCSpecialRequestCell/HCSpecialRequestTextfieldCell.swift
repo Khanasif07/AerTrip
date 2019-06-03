@@ -32,6 +32,8 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     @IBOutlet weak var topDividerViewLeadingConstraints: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewTrailingConstraints: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewLeadingConstraints: NSLayoutConstraint!
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {

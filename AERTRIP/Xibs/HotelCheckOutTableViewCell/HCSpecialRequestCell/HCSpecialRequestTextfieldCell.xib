@@ -51,6 +51,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="tfS-xN-gZM" secondAttribute="bottom" id="23H-cZ-T0d"/>
                             <constraint firstItem="3Ue-HZ-H8e" firstAttribute="top" secondItem="bgJ-7e-3eE" secondAttribute="top" id="4hC-dh-hua"/>
+                            <constraint firstAttribute="height" constant="60.5" id="A8T-Jf-s8J"/>
                             <constraint firstItem="9Mg-AH-RaU" firstAttribute="top" secondItem="3Ue-HZ-H8e" secondAttribute="bottom" constant="28" id="EtC-ZA-8JL"/>
                             <constraint firstItem="9Mg-AH-RaU" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="YVA-8q-5DZ"/>
                             <constraint firstAttribute="trailing" secondItem="tfS-xN-gZM" secondAttribute="trailing" constant="16" id="dAP-k6-khM"/>
@@ -73,6 +74,7 @@
                 <outlet property="bottomDividerView" destination="tfS-xN-gZM" id="h6L-zb-Mv9"/>
                 <outlet property="bottomDividerViewLeadingConstraints" destination="fmP-Q8-a4S" id="Z5I-GV-G77"/>
                 <outlet property="bottomDividerViewTrailingConstraints" destination="dAP-k6-khM" id="DNl-nB-E13"/>
+                <outlet property="containerViewHeightConstraint" destination="A8T-Jf-s8J" id="xap-TS-qhb"/>
                 <outlet property="infoTextField" destination="9Mg-AH-RaU" id="wA5-cA-UVp"/>
                 <outlet property="topDividerView" destination="3Ue-HZ-H8e" id="W8H-Ft-cbr"/>
                 <outlet property="topDividerViewLeadingConstraints" destination="xoj-Qi-H1T" id="sgV-Pc-tkx"/>
