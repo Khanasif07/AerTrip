@@ -82,6 +82,24 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized,LocalizedString.SpecialRequest.localized,LocalizedString.Download.localized,LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen])
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
+            switch index {
+            case 0:
+                printDebug("0")
+            case 1:
+                printDebug("1")
+            case 2:
+                printDebug("2")
+            case 3:
+                printDebug("3")
+            default:
+                printDebug("default")
+            }
+        })
+    }
 }
 
 

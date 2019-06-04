@@ -743,3 +743,5 @@
 "RequestRescheduling" = "Request Rescheduling";
 "ReschedulingRequestHasBeenSent" = "Rescheduling Request has been sent";
 "OurCustomerServiceRepresenstativeWillContact" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"ProcessCancellation" = "Process Cancellation";
+"ResendConfirmationEmail" ="Resend Confirmation Email";
