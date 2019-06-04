@@ -86,7 +86,7 @@ class CancelledVC: BaseVC {
     //================
     private func registerXibs() {
         self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.cancelledBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.cancelledBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }

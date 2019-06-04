@@ -86,7 +86,7 @@ class CompletedVC: BaseVC {
     //================
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }

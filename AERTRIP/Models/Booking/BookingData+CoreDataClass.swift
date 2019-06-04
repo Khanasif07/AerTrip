@@ -65,7 +65,7 @@ public class BookingData: NSManagedObject {
             booking?.bookingStatus = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.requests.rawValue] as? [String] {
+        if let obj = dataDict[APIKeys.requests.rawValue] as? [String:Any] {
             booking?.requests = obj
         }
         

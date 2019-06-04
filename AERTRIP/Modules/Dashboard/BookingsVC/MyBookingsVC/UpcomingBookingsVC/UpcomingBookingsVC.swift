@@ -85,7 +85,7 @@ class UpcomingBookingsVC: BaseVC {
     //================
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: HotelTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
