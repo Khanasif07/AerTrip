@@ -66,4 +66,8 @@ enum AppConstants {
     // CellIdentifier
     
     static let ktableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
+    
+    
+    static let dummyTextPdfLink = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 }
+

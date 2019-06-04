@@ -655,7 +655,8 @@
 "SaleAmount" = "Sale Amount";
 "CancellationCharges" = "Cancellation Charges";
 "NetRefund" = "Net Refund";
-
+"CancellationRequestSent" = "Cancellation Request has been sent";
+"CancellationRequestMessage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
 
 
 // Booking Action sheet option
@@ -677,6 +678,9 @@
 "Selected" = "selected";
 "Passenger" = "Passenger";
 "Cancellation" = "Cancellation";
+"ConfirmationEmail" = "Confirmation Email";
+"BookingConfirmationInfo" = "The booking confirmation email will be resent.";
+"ETicket" = "E-Ticket";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";

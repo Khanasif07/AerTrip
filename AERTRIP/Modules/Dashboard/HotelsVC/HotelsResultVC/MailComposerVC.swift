@@ -6,9 +6,10 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+
+import UIKit
 import Contacts
 import ContactsUI
-import UIKit
 
 class MailComposerVC: BaseVC {
     // MARK: IB Outlets
@@ -283,3 +284,5 @@ extension MailComposerVC: MailComoserVMDelegate {
         stopLoading()
     }
 }
+
+

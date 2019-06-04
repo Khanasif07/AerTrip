@@ -204,7 +204,9 @@ class BookingInvoiceVC: BaseVC {
                 printDebug("Present Request Cancellation")
             } else if index == 3 {
                 printDebug("Present Download")
+                AppGlobals.shared.viewPdf(urlPath: AppConstants.dummyTextPdfLink, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
+                AppFlowManager.default.presentConfirmationMailVC()
                 printDebug("Present Resend Confirmation Email")
             }
         }

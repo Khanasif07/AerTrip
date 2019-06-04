@@ -401,6 +401,14 @@ extension AppFlowManager {
     }
     
     
+    func showCancellationRequest(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .cancellationRequest
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
@@ -835,6 +843,15 @@ extension AppFlowManager {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
+    
+    
+    // Move to Booking confirm email
+    
+    func presentConfirmationMailVC() {
+        let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
 }
 
 // MARK: - Select Trip Flow Methods

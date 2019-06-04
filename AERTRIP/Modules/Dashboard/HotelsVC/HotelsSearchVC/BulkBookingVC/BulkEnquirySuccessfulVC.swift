@@ -31,6 +31,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case bulkBooking
         case accountDeposit
         case addOnRequest
+        case cancellationRequest
+         
     }
     
     //Mark:- Variables
@@ -112,6 +114,15 @@ class BulkEnquirySuccessfulVC: BaseVC {
             
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        }
+        else if self.currentUsingAs == .cancellationRequest {
+            self.searchBtnOutlet.setTitle("", for: .normal)
+            self.mainTitleLabel.text = LocalizedString.CancellationRequestSent.localized
+            self.subTitleLabel.text = LocalizedString.CancellationRequestMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+            
         } else {
             self.mainTitleLabel.text = LocalizedString.AddOnRequestSent.localized
             self.subTitleLabel.text = LocalizedString.AddOnRequestMesage.localized

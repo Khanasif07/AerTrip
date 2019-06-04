@@ -380,6 +380,7 @@
 		18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FDDD24221FF52F00EF01FC /* SectionFooter.xib */; };
 		18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDDD25221FF52F00EF01FC /* SectionFooter.swift */; };
 		18FDF3272236A9A5009CC909 /* ATEmailSelectorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */; };
+		18FFD1AF22A674410010C7DB /* BookingConfimationMailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD1AE22A674410010C7DB /* BookingConfimationMailVC.swift */; };
 		1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */; };
 		1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */; };
 		84011A9B222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84011A99222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift */; };
@@ -1295,6 +1296,7 @@
 		18FDDD24221FF52F00EF01FC /* SectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionFooter.xib; sourceTree = "<group>"; };
 		18FDDD25221FF52F00EF01FC /* SectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionFooter.swift; sourceTree = "<group>"; };
 		18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATEmailSelectorTextView.swift; sourceTree = "<group>"; };
+		18FFD1AE22A674410010C7DB /* BookingConfimationMailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfimationMailVC.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
 		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
@@ -2785,6 +2787,14 @@
 				18FDF3262236A9A5009CC909 /* ATEmailSelectorTextView.swift */,
 			);
 			path = ATEmailSelectorTextView;
+			sourceTree = "<group>";
+		};
+		18FFD1AD22A672FB0010C7DB /* BookingConfirmation */ = {
+			isa = PBXGroup;
+			children = (
+				18FFD1AE22A674410010C7DB /* BookingConfimationMailVC.swift */,
+			);
+			path = BookingConfirmation;
 			sourceTree = "<group>";
 		};
 		1F4636CC21F5ABE2000D56B0 /* HotelSearchView */ = {
@@ -4396,6 +4406,7 @@
 		84F2DC9122644C4300212F05 /* BookingsVC */ = {
 			isa = PBXGroup;
 			children = (
+				18FFD1AD22A672FB0010C7DB /* BookingConfirmation */,
 				18AE8F5822A4F491009D625E /* ReviewCancellation */,
 				18FD91632296690F00D005E9 /* BookingRescheduling */,
 				1879C4AB2293DCDA00897CED /* BookingRequestAddOnAndFF */,
@@ -5504,6 +5515,7 @@
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
 				840494F82253203900983F5E /* HCRoomTableViewCell.swift in Sources */,
 				1820F0F7228E34700019B8BB /* BookingRequestStatusTableViewCell.swift in Sources */,
+				18FFD1AF22A674410010C7DB /* BookingConfimationMailVC.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
 				18020AF62281A64400DE5FE0 /* AerinInfoSectionHeader.swift in Sources */,

@@ -86,6 +86,14 @@ class BookingReviewCancellationVC: BaseVC {
     @IBAction func refundCancellationButtonTapped(_ sender: Any) {
         printDebug("refund cancellation Button tapped")
     }
+    
+    
+    
+    @IBAction func requestContinueButtonTapped(_ sender: UIButton) {
+        printDebug("Request Continue Button Tapped")
+    }
+    
+    
 }
 
 // MARK: - Top Navigation view Delegate methods

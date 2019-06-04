@@ -139,6 +139,12 @@ class BookingReschedulingVC: BaseVC {
         }
     }
     
+    @IBAction func continueButtonTapped(_ sender: Any) {
+         AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.Done.localized)
+    }
+    
+    
+    
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
         if let indexPath = reschedulingTableView.indexPath(for: cell) {
             if !animated {
@@ -317,6 +323,8 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         self.passengerLabel.text = self.viewModel.selectedPassenger.count == 1 ? "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passengers.localized + LocalizedString.Selected.localized : "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passenger.localized + LocalizedString.Selected.localized
     }
 }
+
+
 
 // MARK: - TopNavigationView delegate
 

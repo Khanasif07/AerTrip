@@ -495,6 +495,7 @@ enum LocalizedString: String {
     case Whoops = "Whoops"
     case HotelDetailsEmptyState = "HotelDetailsEmptyState"
     case ResetFilter = "ResetFilter"
+    case ConfirmationEmail 
     
     // Mail Composer View
     case ContactUsAertrip = "ContactUsAertrip"
@@ -687,6 +688,10 @@ enum LocalizedString: String {
     case SaleAmount
     case CancellationCharges
     case NetRefund
+    case CancellationRequestSent
+    case CancellationRequestMessage
+    case BookingConfirmationInfo
+    case ETicket
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
