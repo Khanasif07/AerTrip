@@ -43,9 +43,10 @@ class FlightsVC: BaseVC {
     
     @IBAction func myButtonAction(_ sender: UIButton) {
         //        AppFlowManager.default.presentHCEmailItinerariesVC()
-//        AppFlowManager.default.moveToOtherBookingsDetailsVC()
-                AppFlowManager.default.moveToRequestReschedulingVC()
-        
+//                AppFlowManager.default.moveToOtherBookingsDetailsVC()
+        //                AppFlowManager.default.moveToRequestReschedulingVC()
+        AppFlowManager.default.moveToFlightBookingsDetailsVC()
+//        AppFlowManager.default.moveToHotlelBookingsDetailsVC()
         //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "", bookingIds: [], cid: [], originLat: "", originLong: "")
         
         //

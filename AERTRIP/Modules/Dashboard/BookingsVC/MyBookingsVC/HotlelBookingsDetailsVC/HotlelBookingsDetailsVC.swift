@@ -1,27 +1,27 @@
 //
-//  FlightBookingsDetailsVC.swift
+//  HotlelBookingsDetailsVC.swift
 //  AERTRIP
 //
-//  Created by Admin on 27/05/19.
+//  Created by Admin on 04/06/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 import MXParallaxHeader
 
-class FlightBookingsDetailsVC: BaseVC {
+class HotlelBookingsDetailsVC: BaseVC {
     
     //MARK:- Variables
     //MARK:-
-    let viewModel = FlightBookingsDetailsVM()
+    let viewModel = HotlelBookingsDetailsVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "flightIcon")
+        return #imageLiteral(resourceName: "hotelAerinIcon")
     }
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 84.0 : 64.0
     }
-
+    
     
     //MARK:- IBOutlets
     //MARK:-
@@ -30,17 +30,14 @@ class FlightBookingsDetailsVC: BaseVC {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
-//            self.bookingDetailsTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
     }
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
 
-    //MARK:- LifeCycle
-    //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.statusBarStyle = .lightContent
@@ -60,7 +57,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
     }
-
+    
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
     }
@@ -89,7 +86,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
-        let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74 //105
+        let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
@@ -99,17 +96,17 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     private func registerNibs() {
+        self.bookingDetailsTableView.registerCell(nibName: HotelBookingAddressDetailsTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: TitleWithSubTitleTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: TravellersDetailsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: FlightBookingsRequestTitleTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: FlightBookingRequestsTableViewCell.reusableIdentifier)
-        self.bookingDetailsTableView.registerCell(nibName: FlightCarriersTableViewCell.reusableIdentifier)
-        self.bookingDetailsTableView.registerCell(nibName: FlightBoardingAndDestinationTableViewCell.reusableIdentifier)
-        self.bookingDetailsTableView.registerCell(nibName: TravellersPnrStatusTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: TitleWithSubTitleTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: BookingTravellersDetailsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: BookingDocumentsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: PaymentInfoTableViewCell.reusableIdentifier)
-        self.bookingDetailsTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: PaymentPendingTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: FlightsOptionsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)

@@ -30,7 +30,7 @@ class OtherBookingsDetailsVC: BaseVC {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
-//            self.dataTableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 10.0, right: 0.0)
+            self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.dataTableView.estimatedSectionHeaderHeight = CGFloat.zero
             self.dataTableView.sectionHeaderHeight = CGFloat.zero
         }
@@ -98,14 +98,15 @@ class OtherBookingsDetailsVC: BaseVC {
     
     ///ConfigureCheckInOutView
     private func configureTableHeaderView() {
-        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0))
+        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: "B/16-17/", bookingIdNumbers: "6859403", date: "4 Mar’17")
+            view.dividerView.isHidden = true
         }
     }
     
     private func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(152.0)
+        let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight

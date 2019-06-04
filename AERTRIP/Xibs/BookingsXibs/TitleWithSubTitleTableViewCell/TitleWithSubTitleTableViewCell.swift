@@ -19,6 +19,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
@@ -26,6 +28,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var subtitleLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewTrailingConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -43,6 +47,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.subTitleLabel.textColor = AppColors.themeGray40
         self.titleLabelBottomConstraint.constant = 8.0
         self.titleLabelTopConstraint.constant = 8.0
+        self.dividerViewLeadingConstraint.constant = 0.0
+        self.dividerViewTrailingConstraint.constant = 0.0
         self.dividerView.isHidden = true
     }
     
@@ -53,6 +59,23 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.subTitleLabel.text = subTitle
         self.subTitleLabel.font = subTitleFont
         self.subTitleLabel.textColor = subTitleColor
+    }
+    
+    internal func configHotelBookingDetailsCell(title: String , titleFont: UIFont = AppFonts.Regular.withSize(14.0) , titleColor: UIColor = AppColors.themeBlack , subTitle: String , subTitleFont: UIFont = AppFonts.Regular.withSize(14.0) , subTitleColor: UIColor = AppColors.themeBlack) {
+        self.containerViewLeadingConstraint.constant = 16.0
+        self.containerViewTrailingConstraint.constant = 16.0
+        self.titleLabelTopConstraint.constant = 12.0
+        self.titleLabelBottomConstraint.constant = 0.0
+        self.subtitleLabelBottomConstraint.constant = 8.0
+        self.titleLabel.text = title
+        self.titleLabel.font = titleFont
+        self.titleLabel.textColor = titleColor
+        self.subTitleLabel.text = subTitle
+        self.subTitleLabel.font = subTitleFont
+        self.subTitleLabel.textColor = subTitleColor
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        self.containerView.backgroundColor = AppColors.themeWhite
+        self.backgroundColor = AppColors.themeWhite
     }
     
     //Mark:- IBActions
