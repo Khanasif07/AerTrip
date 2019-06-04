@@ -27,13 +27,6 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         //        }
         //
         self.view.removeBluerLoader()
-        self.allChildVCs.removeAll()
         self.emptyStateSetUp()
-        
-        
-        
     }
-    
-  
-    
 }

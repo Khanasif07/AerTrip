@@ -33,17 +33,10 @@ class MyBookingFilterVM {
 
 
     // let event Type filter 
-    var eventType: [Int] = [1]
-    
-    
-    
-   
-    
+    var eventType: [Int] = [1,2,3]
+
     
     private init() {
         
     }
-    
-    
-    
 }

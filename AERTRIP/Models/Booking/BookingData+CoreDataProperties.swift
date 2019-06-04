@@ -45,6 +45,7 @@ extension BookingData {
     @NSManaged public var origin: String? // Source origin station
     @NSManaged public var depart: String? // departure date
     @NSManaged public var product: String? // It stores type of product like hotel , flight or Others
+    @NSManaged public var hotelName: String?
     @NSManaged public var bookingDate: String?
     @NSManaged public var bookingNumber: String?
     @NSManaged public var bookingId: String?
@@ -61,10 +62,11 @@ extension BookingData {
     @NSManaged public var cancellationRequests: Array<Any>?
     
     @NSManaged public var addOnRequests: Array<Any>?
+}
 
-    
 
-    
+//Computed properties
+extension BookingData {
     var bookingTab: BookingTabCategory {
         get {
             return BookingTabCategory(rawValue: Int(self.bookingTabType))!
@@ -75,13 +77,61 @@ extension BookingData {
     }
     
     var productType: ProductType {
-        get {
-            return ProductType(rawValue: Int(self.bookingProductType))!
-        }
-        set {
-            self.bookingProductType = Int16(newValue.rawValue)
-        }
+        return ProductType(rawValue: Int(self.bookingProductType)) ?? .other
     }
     
+    var tripCitiesStr: String {
+        if self.productType == .flight {
+            if let cities = self.tripCities as? [String], !cities.isEmpty {
+                return cities.joined(separator: " → ")
+            }
+            else {
+                return self.origin ?? ""
+            }
+        }
+        else if self.productType == .hotel {
+            return self.hotelName ?? ""
+        }
+        return ""
+    }
     
+    var paxStr: String {
+        func getStringForOthers(arr: [String]) -> String {
+            
+            var nameStr = ""
+            var verbStr = (self.bookingTabType == 1) ? "are" : "were"
+            
+            switch arr.count {
+            case 1:
+                nameStr = arr.first ?? ""
+                if nameStr.lowercased() != "you" {
+                    verbStr = (self.bookingTabType == 1) ? "is" : "was"
+                }
+                
+            case 2: nameStr = arr.joined(separator: " and ")
+            case 3:
+                nameStr = arr.first ?? ""
+                nameStr += ", \(arr[1...2].joined(separator: " and "))"
+                
+            default:
+                nameStr = arr.first ?? ""
+                nameStr += " and \(arr.count-1) others"
+            }
+            
+            return nameStr.isEmpty ? "N/A" : "\(nameStr) \(verbStr) \((self.productType == .flight) ? "flying" : "staying")"
+        }
+        
+        if let pax = self.pax as? [String] {
+            var temp: [String] = pax
+            if let index = pax.firstIndex(where: { $0.lowercased().hasPrefix("you::") }){
+                //you are included
+                temp.remove(at: index)
+                temp.insert("You", at: 0)
+            }
+            return getStringForOthers(arr: temp)
+        }
+        else {
+            return LocalizedString.na.localized
+        }
+    }
 }

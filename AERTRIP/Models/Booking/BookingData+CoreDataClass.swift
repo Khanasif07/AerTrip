@@ -63,7 +63,6 @@ public class BookingData: NSManagedObject {
         
         if let obj = dataDict[APIKeys.bstatus.rawValue] {
             booking?.bookingStatus = "\(obj)".removeNull
-            
         }
         
         if let obj = dataDict[APIKeys.requests.rawValue] as? [String] {
@@ -82,18 +81,21 @@ public class BookingData: NSManagedObject {
         
         
         // function to get Set Booking Type
-        
-        func setBookingType(date: String) -> Int {
+        func bookingType(forDate date: String, bstatus: String) -> Int16 {
             if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false {
-              return 1
-            } else if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false {
-              return 2
-            } else {
-               return 3
+                return 1
             }
+            else if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false, ((bstatus.lowercased() == "pending") || (bstatus.lowercased() == "successful")) {
+                return 2
+            }
+            else if ((bstatus.lowercased() == "cancelled") || (bstatus.lowercased() == "rescheduled") || (bstatus.lowercased() == "booked")) {
+                return 3
+            }
+            return -1
         }
         
         if let obj = dataDict[APIKeys.bdetails.rawValue] as? JSONDictionary {
+            booking?.hotelName = obj["hotel_name"] as? String
             booking?.origin = obj["origin"] as? String
             booking?.destination = obj["destination"] as? String
             booking?.tripType = obj["trip_type"] as? String
@@ -105,7 +107,9 @@ public class BookingData: NSManagedObject {
             booking?.eventStartDate = obj["event_start_date"] as? String
             booking?.eventEndDate = obj["event_end_date"] as? String
             booking?.guestCount =  obj["guest_count"] as? Int16 ?? 0
-            booking?.bookingTabType = Int16(setBookingType(date: obj["event_start_date"] as? String ?? ""))
+            if let date = obj["event_start_date"] as? String, let status = booking?.bookingStatus {
+                booking?.bookingTabType = bookingType(forDate: date, bstatus: status)
+            }
        
             if let request = obj["requests"] as? JSONDictionary {
                 booking?.reschedulingRequests = request["rescheduling"] as? [String]
@@ -124,9 +128,10 @@ public class BookingData: NSManagedObject {
     
     // MARK: -
     
-    class func insert(dataDictArray: [JSONDictionary], completionBlock: @escaping ([BookingData]) -> Void) {
+    class func insert(dataDictArray: [JSONDictionary], completionBlock: @escaping ([BookingData], [Int16]) -> Void) {
         var dataArr = [BookingData]()
         var tempDataArr = [BookingData]()
+        var allTabTypes = [Int16]()
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
 //        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
@@ -139,7 +144,10 @@ public class BookingData: NSManagedObject {
                     // insert new entity object
                     for dataDict in dataDictArray {
                         let dataTemp = BookingData.insert(dataDict: dataDict, into: managedObjectContext)
-                            dataArr.append(dataTemp)
+                        if !allTabTypes.contains(dataTemp.bookingTabType) {
+                            allTabTypes.append(dataTemp.bookingTabType)
+                        }
+                        dataArr.append(dataTemp)
                     }
                 }
                 
@@ -164,7 +172,7 @@ public class BookingData: NSManagedObject {
                         let data = CoreDataManager.shared.managedObjectContext.object(with: dataTemp.objectID) as! BookingData
                         tempDataArr.append(data)
                     }
-                    completionBlock(tempDataArr)
+                    completionBlock(tempDataArr, allTabTypes)
                 })
                 return
             }

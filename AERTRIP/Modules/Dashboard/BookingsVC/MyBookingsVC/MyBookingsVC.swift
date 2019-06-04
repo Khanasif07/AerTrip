@@ -126,7 +126,7 @@ class MyBookingsVC: BaseVC {
     
      func emptyStateSetUp() {
         self.allChildVCs.removeAll()
-        if MyBookingsVM.shared.upComingBookings.isEmpty, MyBookingsVM.shared.upComingBookings.isEmpty {
+        if MyBookingsVM.shared.allTabTypes.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
             self.emptyStateSubTitleLabel.isHidden = false
@@ -147,28 +147,29 @@ class MyBookingsVC: BaseVC {
     private func instantiateChildVC() {
         self.allTabsStr.removeAll()
         
-        if !MyBookingsVM.shared.upComingBookings.isEmpty {
+        if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.upcoming.rawValue)) {
             self.allTabsStr.append(LocalizedString.Upcoming.localized)
-            if !MyBookingsVM.shared.completedBookings.isEmpty {
+            if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
                 self.allTabsStr.append(LocalizedString.Completed.localized)
             }
-//            if !self.viewModel.cancelledBookingData.isEmpty {
-//                self.allTabsStr.append(LocalizedString.Cancelled.localized)
-//            }
+            if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.cancelled.rawValue)) {
+                self.allTabsStr.append(LocalizedString.Cancelled.localized)
+            }
         }
         
+        self.allChildVCs.removeAll()
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
-            } else if i == 1, !MyBookingsVM.shared.completedBookings.isEmpty {
+            } else if i == 1 {
                 let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
             }
-//            else if !self.viewModel.cancelledBookingData.isEmpty {
-//                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
-//                self.allChildVCs.append(vc)
-//            }
+            else if i == 2 {
+                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+                self.allChildVCs.append(vc)
+            }
             else {
                 printDebug("No vc")
             }
@@ -203,11 +204,15 @@ class MyBookingsVC: BaseVC {
 //        style.badgeBorderColor = AppColors.clear
 //        style.badgeBorderWidth = 0.0
         
+        if let _ = self.categoryView {
+            self.categoryView?.removeFromSuperview()
+            self.categoryView = nil
+        }
         let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+        self.categoryView = categoryView
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self
         self.childContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
         
         // Set last Selected Index on Nav bar
         self.categoryView.select(at: 0)
@@ -251,7 +256,7 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        if toIndex == 1, MyBookingsVM.shared.completedBookings.isEmpty {
+        if toIndex == 1, MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
             self.footerView.isHidden = true
         } else {
             self.footerView.isHidden = true
