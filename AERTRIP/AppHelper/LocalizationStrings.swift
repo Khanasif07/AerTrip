@@ -785,4 +785,5 @@ enum LocalizedString: String {
     case ProcessCancellation = "ProcessCancellation"
     case Download
     case ResendConfirmationEmail = "ResendConfirmationEmail"
+    case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
  }

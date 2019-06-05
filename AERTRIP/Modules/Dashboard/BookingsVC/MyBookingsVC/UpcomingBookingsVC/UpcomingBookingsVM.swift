@@ -19,7 +19,7 @@ class UpcomingBookingsVM {
     enum TableViewCellType {
         case eventTypeCell , spaceCell , queryCell
     }
-    var upcomingBookingData: [UpComingBookingEvent] = []
+    var upcomingBookingData: [String] = []
     var upcomingDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] {
         return Array(upcomingDetails.keys)
@@ -61,7 +61,7 @@ class UpcomingBookingsVM {
        // let jsonData: [JSONDictionary] = []
 
         //        self.upcomingBookingData = UpComingBookingEvent.getEventData(jsonDictArray: jsonData)
-        self.upcomingDetails = UpComingBookingEvent.getEventJsondict(jsonDictArray: jsonData)
+//        self.upcomingDetails = UpComingBookingEvent.getEventJsondict(jsonDictArray: jsonData)
     }
 }
 

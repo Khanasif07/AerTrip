@@ -147,7 +147,7 @@ class MyBookingsVC: BaseVC {
                 let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
             } else if !self.viewModel.cancelledBookingData.isEmpty {
-                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+                let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
             } else {
                 printDebug("No vc")

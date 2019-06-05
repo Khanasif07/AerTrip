@@ -21,8 +21,8 @@ class CompletedVC: BaseVC {
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var completedBookingsTableView: UITableView! {
         didSet {
-            self.completedBookingsTableView.delegate = self
-            self.completedBookingsTableView.dataSource = self
+//            self.completedBookingsTableView.delegate = self
+//            self.completedBookingsTableView.dataSource = self
             self.completedBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.completedBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.completedBookingsTableView.rowHeight = UITableView.automaticDimension
@@ -93,63 +93,63 @@ class CompletedVC: BaseVC {
     //================
 }
 
-//Mark:- Extensions
-//=================
-extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.upcomingBookingData.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.upcomingBookingData[section].numbOfRows + 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentSecData = self.viewModel.upcomingBookingData[indexPath.section]
-        let currentRows = currentSecData.cellType()
-        switch currentRows[indexPath.row] {
-        case .eventTypeCell:
-            let cell = self.getEventTypeCell(tableView, indexPath: indexPath, eventData: currentSecData)
-            return cell
-        case .spaceCell:
-            let cell = self.getSpaceCell(tableView, indexPath: indexPath)
-            return cell
-        case .queryCell:
-            let cell = self.getQueryCell(tableView, indexPath: indexPath, eventData: currentSecData)
-            return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let currentSecData = self.viewModel.upcomingBookingData[section]
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-        headerView.dateLabel.text = currentSecData.creationDate
-        return headerView
-    }
-}
-
-extension CompletedVC {
-    internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
-        cell.configCell(plcaeName: eventData.placeName, travellersName: eventData.travellersName, bookingTypeImg: #imageLiteral(resourceName: "flight_blue_icon"), isOnlyOneCell: eventData.queries.isEmpty)
-        cell.clipsToBounds = true
-//        cell.containerViewBottomConstraint.constant = !eventData.queries.isEmpty ? 0.0 : 5.0
-        return cell
-    }
-    
-    internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
-        cell.backgroundColor = AppColors.themeWhite
-        return cell
-    }
-    
-    internal func getQueryCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: QueryStatusTableViewCell.reusableIdentifier, for: indexPath) as? QueryStatusTableViewCell else { return UITableViewCell() }
-        cell.configCell(status: eventData.queries[indexPath.row - 1], statusImage: #imageLiteral(resourceName: "checkIcon"), isLastCell: (eventData.queries.count - 1 == indexPath.row - 1))
-        if !(eventData.queries.count - 1 == indexPath.row - 1) {
-            cell.clipsToBounds = true
-        }
-        return cell
-    }
-}
+////Mark:- Extensions
+////=================
+//extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return self.viewModel.upcomingBookingData.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.viewModel.upcomingBookingData[section].numbOfRows + 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let currentSecData = self.viewModel.upcomingBookingData[indexPath.section]
+//        let currentRows = currentSecData.cellType()
+//        switch currentRows[indexPath.row] {
+//        case .eventTypeCell:
+//            let cell = self.getEventTypeCell(tableView, indexPath: indexPath, eventData: currentSecData)
+//            return cell
+//        case .spaceCell:
+//            let cell = self.getSpaceCell(tableView, indexPath: indexPath)
+//            return cell
+//        case .queryCell:
+//            let cell = self.getQueryCell(tableView, indexPath: indexPath, eventData: currentSecData)
+//            return cell
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let currentSecData = self.viewModel.upcomingBookingData[section]
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
+//        headerView.dateLabel.text = currentSecData.creationDate
+//        return headerView
+//    }
+//}
+//
+//extension CompletedVC {
+//    internal func getEventTypeCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
+//        cell.configCell(plcaeName: eventData.placeName, travellersName: eventData.travellersName, bookingTypeImg: #imageLiteral(resourceName: "flight_blue_icon"), isOnlyOneCell: eventData.queries.isEmpty)
+//        cell.clipsToBounds = true
+////        cell.containerViewBottomConstraint.constant = !eventData.queries.isEmpty ? 0.0 : 5.0
+//        return cell
+//    }
+//
+//    internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
+//        cell.backgroundColor = AppColors.themeWhite
+//        return cell
+//    }
+//
+//    internal func getQueryCell(_ tableView: UITableView, indexPath: IndexPath , eventData: UpComingBookingEvent) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: QueryStatusTableViewCell.reusableIdentifier, for: indexPath) as? QueryStatusTableViewCell else { return UITableViewCell() }
+//        cell.configCell(status: eventData.queries[indexPath.row - 1], statusImage: #imageLiteral(resourceName: "checkIcon"), isLastCell: (eventData.queries.count - 1 == indexPath.row - 1))
+//        if !(eventData.queries.count - 1 == indexPath.row - 1) {
+//            cell.clipsToBounds = true
+//        }
+//        return cell
+//    }
+//}
