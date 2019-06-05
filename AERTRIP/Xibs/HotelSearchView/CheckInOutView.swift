@@ -15,12 +15,12 @@ protocol CheckInOutViewDelegate: class {
 
 class CheckInOutView: UIView {
     
-    //Mark:- Variables
-    //================
+    //MARK:- Variables
+    //MARK:===========
     weak var delegate: CheckInOutViewDelegate?
     
-    //Mark:- IBOutlets
-    //================
+    //MARK:- IBOutlets
+    //MARK:===========
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!
@@ -31,8 +31,8 @@ class CheckInOutView: UIView {
     @IBOutlet weak var checkInButton: UIButton!
     @IBOutlet weak var checkOutButton: UIButton!
     
-    //Mark:- LifeCycle
-    //================
+    //MARK:- LifeCycle
+    //MARK:===========
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initialSetUp()
@@ -43,9 +43,9 @@ class CheckInOutView: UIView {
         self.initialSetUp()
     }
     
-    //Mark:- PrivateFunctions
-    //=======================
-    //.InitialSetUp
+    //MARK:- PrivateFunctions
+    //MARK:==================
+    ///InitialSetUp
     private func initialSetUp() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "CheckInOutView", bundle: bundle)

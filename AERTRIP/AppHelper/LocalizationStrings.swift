@@ -809,4 +809,25 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    case Economy = "Economy"
+    case Carriers = "Carriers"
+    
+    case Refund = "Refund"
+    case PaymentPending = "PaymentPending"
+    case WebCheckin = "WebCheckin"
+    case Weather
+    case SeeAll = "SeeAll"
+    case Downloading = "Downloading"
+    case Requests = "Requests"
+    case capNotes = "NOTES"
+    case newDate = "newDate"
+    case selectNewDepartingDate = "selectNewDepartingDate"
+    case newDepartingDate = "newDepartingDate"
+    case customerExecutiveWillContact = "customerExecutiveWillContact"
+    case preferredFlightNo = "preferredFlightNo"
+    case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
+    case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
+    case ProcessCancellation = "ProcessCancellation"
+    case ResendConfirmationEmail = "ResendConfirmationEmail"
+    case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
  }

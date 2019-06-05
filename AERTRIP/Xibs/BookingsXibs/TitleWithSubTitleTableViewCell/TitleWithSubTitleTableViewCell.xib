@@ -75,7 +75,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerView" destination="Qus-RW-xb4" id="YCt-zw-MO6"/>
+                <outlet property="containerViewLeadingConstraint" destination="gki-3h-Z1p" id="ibR-XM-aZn"/>
+                <outlet property="containerViewTrailingConstraint" destination="MFA-di-Go3" id="rTI-Ya-Az2"/>
                 <outlet property="dividerView" destination="fN1-41-WIC" id="iEt-HP-nDl"/>
+                <outlet property="dividerViewLeadingConstraint" destination="WcC-ZD-FIf" id="3eu-gx-JIc"/>
+                <outlet property="dividerViewTrailingConstraint" destination="Dpp-nT-lMZ" id="PzP-vW-LNg"/>
                 <outlet property="subTitleLabel" destination="9xQ-gh-DHR" id="Mgc-M6-W85"/>
                 <outlet property="subtitleLabelBottomConstraint" destination="lBA-es-91s" id="BCz-jc-mfy"/>
                 <outlet property="titleLabel" destination="O1N-iv-Ufk" id="tXU-cA-B62"/>

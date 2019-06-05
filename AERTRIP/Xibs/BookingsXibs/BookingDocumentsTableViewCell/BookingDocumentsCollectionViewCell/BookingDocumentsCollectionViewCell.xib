@@ -18,43 +18,86 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BookingDocumentsCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+            <rect key="frame" x="0.0" y="0.0" width="113" height="177.5"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+                <rect key="frame" x="0.0" y="0.0" width="113" height="177.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vk2-pY-Cpx">
-                        <rect key="frame" x="0.0" y="0.0" width="109" height="177"/>
+                        <rect key="frame" x="0.0" y="0.0" width="113" height="177.5"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="va" translatesAutoresizingMaskIntoConstraints="NO" id="jU3-9v-rtM">
-                                <rect key="frame" x="19.5" y="10" width="70" height="91"/>
-                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Me9-EM-gtK">
+                                <rect key="frame" x="20" y="10" width="73" height="91"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pdf" translatesAutoresizingMaskIntoConstraints="NO" id="jU3-9v-rtM">
+                                        <rect key="frame" x="0.0" y="0.0" width="73" height="91"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uvt-P8-m2G">
+                                        <rect key="frame" x="0.0" y="0.0" width="73" height="91"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22U-fb-3OX" customClass="CircularProgress" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="27.5" width="37" height="37"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMO-zt-PCz">
+                                                <rect key="frame" x="14" y="14" width="9" height="9"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="VMO-zt-PCz" secondAttribute="height" id="Lab-3N-Ehd"/>
+                                                    <constraint firstAttribute="height" constant="9" id="i3n-DY-NFf"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="cancelDownloading:" destination="gTV-IL-0wX" eventType="touchUpInside" id="0t1-ez-ozg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0039215686269999999" green="0.94509803920000002" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="7RC-Al-6co"/>
+                                            <constraint firstItem="VMO-zt-PCz" firstAttribute="centerX" secondItem="22U-fb-3OX" secondAttribute="centerX" id="ARI-dw-at4"/>
+                                            <constraint firstItem="VMO-zt-PCz" firstAttribute="centerY" secondItem="22U-fb-3OX" secondAttribute="centerY" id="O9V-E4-iSn"/>
+                                            <constraint firstAttribute="width" secondItem="22U-fb-3OX" secondAttribute="height" multiplier="1:1" id="cuR-gZ-MxI"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downloadingImage" translatesAutoresizingMaskIntoConstraints="NO" id="bxa-kw-b3F">
+                                        <rect key="frame" x="50" y="73" width="14" height="13"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="13" id="b4M-BM-dX1"/>
+                                            <constraint firstAttribute="width" constant="14" id="cd6-sX-A1r"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="dIU-uK-cvt"/>
-                                    <constraint firstAttribute="height" constant="91" id="rsX-5S-mir"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22U-fb-3OX" customClass="CircularProgress" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="37" y="38" width="35" height="35"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="7RC-Al-6co"/>
-                                    <constraint firstAttribute="width" secondItem="22U-fb-3OX" secondAttribute="height" multiplier="1:1" id="cuR-gZ-MxI"/>
+                                    <constraint firstAttribute="bottom" secondItem="bxa-kw-b3F" secondAttribute="bottom" constant="5" id="6hJ-Gg-Hky"/>
+                                    <constraint firstItem="22U-fb-3OX" firstAttribute="centerY" secondItem="Me9-EM-gtK" secondAttribute="centerY" multiplier="1.01" id="DYI-pa-iFD"/>
+                                    <constraint firstAttribute="trailing" secondItem="jU3-9v-rtM" secondAttribute="trailing" id="NcW-5E-1jC"/>
+                                    <constraint firstAttribute="bottom" secondItem="jU3-9v-rtM" secondAttribute="bottom" id="Sp7-H7-csN"/>
+                                    <constraint firstItem="Uvt-P8-m2G" firstAttribute="top" secondItem="Me9-EM-gtK" secondAttribute="top" id="V9s-i0-1XT"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uvt-P8-m2G" secondAttribute="trailing" id="XHA-od-cyN"/>
+                                    <constraint firstAttribute="height" constant="91" id="Y2e-br-Dnc"/>
+                                    <constraint firstItem="jU3-9v-rtM" firstAttribute="leading" secondItem="Me9-EM-gtK" secondAttribute="leading" id="aJS-My-663"/>
+                                    <constraint firstItem="jU3-9v-rtM" firstAttribute="top" secondItem="Me9-EM-gtK" secondAttribute="top" id="fIB-Ld-2ti"/>
+                                    <constraint firstItem="22U-fb-3OX" firstAttribute="centerX" secondItem="Me9-EM-gtK" secondAttribute="centerX" id="hjj-x3-639"/>
+                                    <constraint firstItem="Uvt-P8-m2G" firstAttribute="leading" secondItem="Me9-EM-gtK" secondAttribute="leading" id="iyL-Gu-Gty"/>
+                                    <constraint firstAttribute="width" constant="73" id="j3d-1F-zIN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Uvt-P8-m2G" secondAttribute="bottom" id="jzt-pC-pz8"/>
+                                    <constraint firstAttribute="trailing" secondItem="bxa-kw-b3F" secondAttribute="trailing" constant="9" id="uEx-mP-92f"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-hA-4ZW">
-                                <rect key="frame" x="2" y="107" width="105" height="43"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-hA-4ZW">
+                                <rect key="frame" x="2" y="107" width="109" height="60.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kjh" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kY-6J-AJC">
-                                        <rect key="frame" x="0.0" y="0.0" width="105" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kjhkrecdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kY-6J-AJC">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="40.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="293.03 KB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="663-DD-XcJ">
-                                        <rect key="frame" x="0.0" y="22.5" width="105" height="20.5"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <rect key="frame" x="0.0" y="42.5" width="109" height="18"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -63,13 +106,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="22U-fb-3OX" firstAttribute="centerX" secondItem="jU3-9v-rtM" secondAttribute="centerX" id="BoQ-sz-SF4"/>
                             <constraint firstItem="bgK-hA-4ZW" firstAttribute="leading" secondItem="Vk2-pY-Cpx" secondAttribute="leading" constant="2" id="Jd4-4z-zSP"/>
-                            <constraint firstItem="jU3-9v-rtM" firstAttribute="top" secondItem="Vk2-pY-Cpx" secondAttribute="top" constant="10" id="QKE-dc-0Ir"/>
-                            <constraint firstItem="bgK-hA-4ZW" firstAttribute="top" secondItem="jU3-9v-rtM" secondAttribute="bottom" constant="6" id="Yah-Dk-MBx"/>
                             <constraint firstAttribute="trailing" secondItem="bgK-hA-4ZW" secondAttribute="trailing" constant="2" id="auw-gy-Ief"/>
-                            <constraint firstItem="22U-fb-3OX" firstAttribute="centerY" secondItem="jU3-9v-rtM" secondAttribute="centerY" id="g29-gi-Xhx"/>
-                            <constraint firstItem="jU3-9v-rtM" firstAttribute="centerX" secondItem="Vk2-pY-Cpx" secondAttribute="centerX" id="oPn-2h-SFD"/>
+                            <constraint firstItem="Me9-EM-gtK" firstAttribute="centerX" secondItem="Vk2-pY-Cpx" secondAttribute="centerX" id="h9e-ue-CnY"/>
+                            <constraint firstItem="bgK-hA-4ZW" firstAttribute="top" secondItem="Me9-EM-gtK" secondAttribute="bottom" constant="6" id="rvY-VR-02Z"/>
+                            <constraint firstItem="Me9-EM-gtK" firstAttribute="top" secondItem="Vk2-pY-Cpx" secondAttribute="top" constant="10" id="vg4-jI-BTT"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -82,15 +123,24 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
+                <outlet property="cancelDownloadBtn" destination="VMO-zt-PCz" id="pFz-tr-bIW"/>
                 <outlet property="containerView" destination="Vk2-pY-Cpx" id="vDZ-tD-cZe"/>
                 <outlet property="documentsImageView" destination="jU3-9v-rtM" id="y34-6W-L7d"/>
                 <outlet property="documentsSizeLabel" destination="663-DD-XcJ" id="bPx-46-6TL"/>
+                <outlet property="dowloadingPlaceHolderImgView" destination="Uvt-P8-m2G" id="VVZ-uM-B3O"/>
+                <outlet property="downloadingIcon" destination="bxa-kw-b3F" id="z9s-tz-g5a"/>
+                <outlet property="imageContainerViewBottomConstraint" destination="rvY-VR-02Z" id="ebP-Sk-hLs"/>
+                <outlet property="imageContainerViewHeightConstraint" destination="Y2e-br-Dnc" id="MxH-In-DXA"/>
+                <outlet property="imageContainerViewTopConstraint" destination="vg4-jI-BTT" id="IMw-4v-E2W"/>
+                <outlet property="imageContainerViewWidthConstraint" destination="j3d-1F-zIN" id="653-0K-khs"/>
                 <outlet property="nameLabel" destination="3kY-6J-AJC" id="9rC-Pz-AN9"/>
                 <outlet property="progressView" destination="22U-fb-3OX" id="ca4-TO-0O6"/>
             </connections>
+            <point key="canvasLocation" x="48.550724637681164" y="35.825892857142854"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="va" width="100" height="100"/>
+        <image name="downloadingImage" width="14" height="13"/>
+        <image name="pdf" width="73" height="91"/>
     </resources>
 </document>

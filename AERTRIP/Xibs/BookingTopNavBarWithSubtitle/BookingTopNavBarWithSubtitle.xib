@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="dividerView" destination="rbm-Yv-yCQ" id="gg3-4p-JeG"/>
+                <outlet property="leftButonOutlet" destination="1RQ-Ja-dU2" id="3yh-6N-kRf"/>
+                <outlet property="rightButtonOutlet" destination="Wms-bC-Y8C" id="iG6-DX-2jx"/>
+                <outlet property="subTitleLabel" destination="kr6-mL-f6K" id="CkR-Sz-VP9"/>
+                <outlet property="titleLabel" destination="bux-bZ-Xrq" id="qjc-1z-nYV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RQ-Ja-dU2">
+                    <rect key="frame" x="8" y="8" width="27" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" id="7MP-aq-iw4"/>
+                        <constraint firstAttribute="width" secondItem="1RQ-Ja-dU2" secondAttribute="height" multiplier="1:1" id="x8a-v6-ksn"/>
+                    </constraints>
+                    <state key="normal" image="backGreen"/>
+                    <connections>
+                        <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="oCu-nq-abP"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bux-bZ-Xrq">
+                    <rect key="frame" x="100.5" y="10" width="174" height="23"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select new departing date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kr6-mL-f6K">
+                    <rect key="frame" x="10" y="55" width="355" height="21"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbm-Yv-yCQ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="87.5" width="375" height="0.5"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="9rp-RJ-cvF"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wms-bC-Y8C">
+                    <rect key="frame" x="284" y="10" width="75" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="JzU-vu-Xpi"/>
+                        <constraint firstAttribute="height" constant="23" id="j0k-1h-C8F"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="xAJ-ee-2UW"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1RQ-Ja-dU2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="7Rc-gz-FvE"/>
+                <constraint firstItem="Wms-bC-Y8C" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="H1m-fu-Osw"/>
+                <constraint firstItem="Wms-bC-Y8C" firstAttribute="leading" secondItem="bux-bZ-Xrq" secondAttribute="trailing" constant="9.5" id="M3g-Hu-I5L"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Wms-bC-Y8C" secondAttribute="trailing" constant="16" id="VD9-Ci-TL9"/>
+                <constraint firstItem="1RQ-Ja-dU2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="W4F-2y-L6O"/>
+                <constraint firstItem="bux-bZ-Xrq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="WkG-CS-BPx"/>
+                <constraint firstItem="rbm-Yv-yCQ" firstAttribute="top" secondItem="kr6-mL-f6K" secondAttribute="bottom" constant="11.5" id="Xar-Df-JoI"/>
+                <constraint firstItem="kr6-mL-f6K" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="ack-wH-m5C"/>
+                <constraint firstItem="rbm-Yv-yCQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="baB-MN-0qs"/>
+                <constraint firstAttribute="bottom" secondItem="rbm-Yv-yCQ" secondAttribute="bottom" id="cF5-67-OK9"/>
+                <constraint firstItem="bux-bZ-Xrq" firstAttribute="leading" secondItem="1RQ-Ja-dU2" secondAttribute="trailing" constant="65.5" id="e8j-Q1-2Vu"/>
+                <constraint firstItem="kr6-mL-f6K" firstAttribute="top" secondItem="bux-bZ-Xrq" secondAttribute="bottom" constant="22" id="fuz-dN-6Xz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kr6-mL-f6K" secondAttribute="trailing" constant="10" id="jmF-LE-way"/>
+                <constraint firstAttribute="trailing" secondItem="rbm-Yv-yCQ" secondAttribute="trailing" id="vLQ-fB-7rB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="backGreen" width="27" height="27"/>
+    </resources>
+</document>

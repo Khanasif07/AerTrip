@@ -15,7 +15,7 @@ class QueryStatusTableViewCell: UITableViewCell {
     
     
     //MARK:- IBOutlets
-    //================
+    //MARK:===========
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var statusImageView: UIImageView!
@@ -23,14 +23,14 @@ class QueryStatusTableViewCell: UITableViewCell {
     @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     //MARK:- LifeCycle
-    //================
+    //MARK:===========
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
     }
     
     //MARK:- Functions
-    //================
+    //MARK:===========
     private func configUI() {
         self.statusLabel.textColor = AppColors.themeBlack
         self.statusLabel.font = AppFonts.Regular.withSize(14.0)
@@ -49,6 +49,6 @@ class QueryStatusTableViewCell: UITableViewCell {
     }
     
     //MARK:- IBActions
-    //================
+    //MARK:===========
     
 }
