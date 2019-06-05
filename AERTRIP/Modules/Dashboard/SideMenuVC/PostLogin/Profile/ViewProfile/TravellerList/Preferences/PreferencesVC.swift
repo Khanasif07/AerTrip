@@ -46,7 +46,7 @@ class PreferencesVC: BaseVC {
         registerXib()
         viewModel.setUpData()
         
-        labelsCountDict = CoreDataManager.shared.getCount(fromEntity: "TravellerData", forAttribute: "label")
+        labelsCountDict = CoreDataManager.shared.fetchData(fromEntity: "TravellerData", forAttribute: "label", usingFunction: "count")
     }
     
     // MARK: - IB Actions

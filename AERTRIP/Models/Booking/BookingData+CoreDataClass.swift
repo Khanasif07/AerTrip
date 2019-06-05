@@ -32,9 +32,7 @@ public class BookingData: NSManagedObject {
             booking?.bookingDate = "\(obj)".removeNull
         }
         
-        
         // Function set product Type
-        
         func setProductType(productType: String) -> Int {
             if productType == "flight" {
                booking?.eventType = 1
@@ -99,7 +97,8 @@ public class BookingData: NSManagedObject {
             booking?.origin = obj["origin"] as? String
             booking?.destination = obj["destination"] as? String
             booking?.tripType = obj["trip_type"] as? String
-            booking?.pax  =  obj["pax"] as?  [String]
+            booking?.depart = obj["depart"] as? String
+            booking?.pax = obj["pax"] as?  [String]
             booking?.tripCities = obj["trip_cities"] as? [String]
             booking?.travelledCities = obj["travelled_cities"] as? [String]
             booking?.disconnected = obj["disconnected"] as? Bool ?? false
@@ -128,10 +127,9 @@ public class BookingData: NSManagedObject {
     
     // MARK: -
     
-    class func insert(dataDictArray: [JSONDictionary], completionBlock: @escaping ([BookingData], [Int16]) -> Void) {
+    class func insert(dataDictArray: [JSONDictionary], completionBlock: @escaping ([BookingData]) -> Void) {
         var dataArr = [BookingData]()
         var tempDataArr = [BookingData]()
-        var allTabTypes = [Int16]()
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
 //        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
@@ -144,9 +142,6 @@ public class BookingData: NSManagedObject {
                     // insert new entity object
                     for dataDict in dataDictArray {
                         let dataTemp = BookingData.insert(dataDict: dataDict, into: managedObjectContext)
-                        if !allTabTypes.contains(dataTemp.bookingTabType) {
-                            allTabTypes.append(dataTemp.bookingTabType)
-                        }
                         dataArr.append(dataTemp)
                     }
                 }
@@ -172,7 +167,7 @@ public class BookingData: NSManagedObject {
                         let data = CoreDataManager.shared.managedObjectContext.object(with: dataTemp.objectID) as! BookingData
                         tempDataArr.append(data)
                     }
-                    completionBlock(tempDataArr, allTabTypes)
+                    completionBlock(tempDataArr)
                 })
                 return
             }

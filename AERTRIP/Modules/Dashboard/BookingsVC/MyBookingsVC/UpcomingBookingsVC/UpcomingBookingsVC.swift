@@ -79,7 +79,6 @@ class UpcomingBookingsVC: BaseVC {
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
         self.upcomingBookingsTableView.backgroundColor = AppColors.themeWhite
     }
-
     
     //Mark:- Functions
     //================
@@ -106,8 +105,9 @@ class UpcomingBookingsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-         if let _ = note.object as? MyBookingFilterVC {
-            printDebug("Booking Filter applied replied")
+        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
+            //re-hit the search API
+            printDebug("in upcoming \(MyBookingFilterVM.shared)")
         }
     }
     

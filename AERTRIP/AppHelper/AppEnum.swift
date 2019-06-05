@@ -15,6 +15,7 @@ enum ATNotification {
     case userAsGuest
     case GRNSessionExpired
     case accountPaymentRegister
+    case myBookingFilterApplied
 }
 
 extension Notification.Name {

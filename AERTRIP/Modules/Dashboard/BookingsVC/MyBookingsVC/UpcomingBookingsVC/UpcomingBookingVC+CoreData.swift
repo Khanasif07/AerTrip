@@ -27,38 +27,61 @@ extension UpcomingBookingsVC {
 
     
     //  Final Predicate
-    private func createFinalPredicate () -> NSPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [bookingDatePredicates(),tabTypePredicate(),eventTypePredicates()])
+    private func createFinalPredicate () -> NSPredicate? {
+        
+        var allPred: [NSPredicate] = []
+        
+        if let obj = bookingDatePredicates() {
+            allPred.append(obj)
+        }
+        
+        if let obj = tabTypePredicate() {
+            allPred.append(obj)
+        }
+        
+        if let obj = eventTypePredicates() {
+            allPred.append(obj)
+        }
+        
+        if allPred.isEmpty {
+            return nil
+        }
+        else {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: allPred)
+        }
     }
     
     
     // upcoming Tab Type Predicate
     
-    private func tabTypePredicate() -> NSPredicate {
+    private func tabTypePredicate() -> NSPredicate? {
         return NSPredicate(format: "bookingTabType == '1'")
     }
     
     
     // Booking Date Predicates
     
-    private func bookingDatePredicates() -> NSPredicate {
-        let fromDate = MyBookingFilterVM.shared.bookingFromDate.addDay(days: -60)
-        let toDate = MyBookingFilterVM.shared.bookingFromDate.addDay(days: 1)
+    private func bookingDatePredicates() -> NSPredicate? {
+        guard let fromDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: -60), let toDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: 1) else {
+            return nil
+        }
+
         // Set predicate as date being today's date
-        let fromPredicate = NSPredicate(format: "bookingDate >= %@",fromDate ?? NSPredicate())
-        let toPredicate = NSPredicate(format: "bookingDate <= %@",toDate ?? NSPredicate())
+        let fromPredicate = NSPredicate(format: "bookingDate >= %@", fromDate)
+        let toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
         let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
         return datePredicate
        }
     
     // Booking Travel Predicate
     
-    private func bookingTravelDatePredicates() -> NSPredicate {
-        let fromTravelDate = MyBookingFilterVM.shared.bookingFromDate.addDay(days: -3)
-        let toTravelDate = MyBookingFilterVM.shared.bookingFromDate.addDay(days: 1)
+    private func bookingTravelDatePredicates() -> NSPredicate? {
+        guard let fromTravelDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: -3), let toTravelDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: 1) else {
+            return nil
+        }
         // Set predicate as date being today's date
-        let fromTravelDatePredicate = NSPredicate(format: "depart >= %@",fromTravelDate ?? NSPredicate())
-        let toTravelDatePredicate = NSPredicate(format: "depart <= %@",toTravelDate ?? NSPredicate())
+        let fromTravelDatePredicate = NSPredicate(format: "depart >= %@", fromTravelDate)
+        let toTravelDatePredicate = NSPredicate(format: "depart <= %@", toTravelDate)
         let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromTravelDatePredicate, toTravelDatePredicate])
         return datePredicate
     }
@@ -66,7 +89,7 @@ extension UpcomingBookingsVC {
     
     // Predicate for Event type
     
-    private func eventTypePredicates() -> NSPredicate {
+    private func eventTypePredicates() -> NSPredicate? {
         var typePredicate : [NSPredicate] = []
         if MyBookingFilterVM.shared.eventType.isEmpty {
             MyBookingFilterVM.shared.eventType = [1,2,3]

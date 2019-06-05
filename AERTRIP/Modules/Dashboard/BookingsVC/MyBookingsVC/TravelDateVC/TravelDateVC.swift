@@ -9,11 +9,17 @@
 import UIKit
 
 protocol TravelDateVCDelegate: class {
-    func didSelect(fromDate: Date)
-    func didSelect(toDate: Date)
+    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor)
+    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor)
 }
 
 class TravelDateVC: BaseVC {
+    
+    enum UsingFor {
+        case travelDate
+        case bookingDate
+        case account
+    }
     
     //Mark:- Variables
     //================
@@ -39,10 +45,11 @@ class TravelDateVC: BaseVC {
     
     
     
+    var currentlyUsingAs = UsingFor.account
     weak var delegate: TravelDateVCDelegate?
     var oldFromDate: Date?
-    var minFromDate: Date?
     var oldToDate: Date?
+    var minFromDate: Date?
     
     private let dateFormate = "E, dd MMM YYYY"
     
@@ -67,20 +74,7 @@ class TravelDateVC: BaseVC {
         self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
         self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
         
-        let fromDt = self.oldFromDate ?? self.minFromDate
-        self.fromDatePicker.setDate(fromDt ?? Date(), animated: false)
-        self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
-        
-        self.fromDatePicker.maximumDate = Date()
-        self.toDatePicker.maximumDate = Date()
-        
-        self.fromDatePicker.minimumDate = self.minFromDate
-        self.toDatePicker.minimumDate = self.oldFromDate ?? fromDt
-        
-        self.toDateLabel.text = (self.oldToDate ?? Date()).toString(dateFormat: dateFormate)
-        self.fromDateLabel.text = (fromDt ?? Date()).toString(dateFormat: dateFormate)
-        
-        self.fromTapGestureAction(fromTapGesture)
+        self.setupDateSpan()
     }
     
     override func setupTexts() {
@@ -104,7 +98,74 @@ class TravelDateVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func setDateOnLabels(fromDate: Date?, toDate: Date?) {
+        self.toDateLabel.text = "-"
+        if let date = toDate {
+            self.toDateLabel.text = date.toString(dateFormat: dateFormate)
+        }
+        
+        self.fromDateLabel.text = "-"
+        if let date = fromDate {
+            self.fromDateLabel.text = date.toString(dateFormat: dateFormate)
+        }
+    }
     
+    private func setupDateSpan() {
+        if self.currentlyUsingAs == .travelDate {
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
+            self.closeBothPicker(animated: false)
+
+            self.fromDatePicker.minimumDate = self.minFromDate
+            self.fromDatePicker.maximumDate = Date().add(years: 2)
+            
+            self.toDatePicker.minimumDate = self.minFromDate
+            self.toDatePicker.maximumDate = Date().add(years: 2)
+            
+            self.fromDatePicker.setDate(self.minFromDate ?? self.oldFromDate ?? Date(), animated: false)
+            self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+        }
+        else if self.currentlyUsingAs == .bookingDate {
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
+            self.closeBothPicker(animated: false)
+            
+            self.fromDatePicker.minimumDate = self.minFromDate
+            self.fromDatePicker.maximumDate = Date()
+            
+            self.toDatePicker.minimumDate = self.minFromDate
+            self.toDatePicker.maximumDate = Date()
+            
+            self.fromDatePicker.setDate(self.minFromDate ?? self.oldFromDate ?? Date(), animated: false)
+            self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+        }
+        else {
+            //account
+            self.fromTapGestureAction(UITapGestureRecognizer())
+
+            let fromDt = self.oldFromDate ?? self.minFromDate
+            self.fromDatePicker.setDate(fromDt ?? Date(), animated: false)
+            self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+            
+            self.fromDatePicker.maximumDate = Date()
+            self.toDatePicker.maximumDate = Date()
+            
+            self.fromDatePicker.minimumDate = self.minFromDate
+            self.toDatePicker.minimumDate = self.oldFromDate ?? fromDt
+            
+            self.setDateOnLabels(fromDate: fromDt ?? Date(), toDate: self.oldToDate ?? Date())
+        }
+    }
+    
+    private func closeBothPicker(animated: Bool) {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            //close from and to both
+            self.fromViewHeightConstraint.constant = self.closedHeight - 1
+            self.toViewHeightConstraint.constant = self.closedHeight
+            self.fromDatePicker.alpha = 0.0
+            self.toDatePicker.alpha = 0.0
+            self.view.layoutIfNeeded()
+        }) { (isDone) in
+        }
+    }
     
     //Mark:- IBActions
     //================
@@ -135,23 +196,17 @@ class TravelDateVC: BaseVC {
     
     @objc func toDatePickerValueChanged (_ datePicker: UIDatePicker) {
         self.setLabelsDate()
-        self.delegate?.didSelect(toDate: datePicker.date)
+        self.delegate?.didSelect(toDate: datePicker.date, forType: self.currentlyUsingAs)
     }
     
     @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
         self.setLabelsDate()
-        
-//        if datePicker.date.timeIntervalSince1970 > (self.toDatePicker.minimumDate?.timeIntervalSince1970 ?? 0) {
-//            self.toDatePicker.setDate(datePicker.date, animated: false)
-//            self.toDatePickerValueChanged(self.toDatePicker)
-//        }
         self.toDatePicker.minimumDate = datePicker.date
-        self.delegate?.didSelect(fromDate: datePicker.date)
+        self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
     }
     
     private func setLabelsDate() {
-        self.fromDateLabel.text = self.fromDatePicker.date.toString(dateFormat: dateFormate)
-        self.toDateLabel.text = self.toDatePicker.date.toString(dateFormat: dateFormate)
+        self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
     }
 }
 

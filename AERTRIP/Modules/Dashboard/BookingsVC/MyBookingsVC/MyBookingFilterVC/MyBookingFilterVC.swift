@@ -24,7 +24,9 @@ class MyBookingFilterVC: BaseVC {
         }
         return temp
     }
+    
     private var allChildVCs: [UIViewController] = [UIViewController]()
+    private var minDate: Date?
     
     //MARK:- IBOutlets
     @IBOutlet var topNavBar: TopNavigationView!{
@@ -45,6 +47,8 @@ class MyBookingFilterVC: BaseVC {
     }
     
     override func initialSetup() {
+        
+        self.fetchMinDateFromCoreData()
         self.topNavBar.configureNavBar(title: "2230 of 3000 Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
        
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
@@ -52,15 +56,26 @@ class MyBookingFilterVC: BaseVC {
         
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
+    
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.delegate = self
+                vc.minFromDate = minDate
+                vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
+                vc.oldFromDate = MyBookingFilterVM.shared.travelToDate
+                vc.currentlyUsingAs = .travelDate
                 self.allChildVCs.append(vc)
             } else if i == 1 {
                 let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
                 self.allChildVCs.append(vc)
             } else {
-                let vc = BookingDateVC.instantiate(fromAppStoryboard: .Bookings)
+                let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.delegate = self
+                vc.minFromDate = minDate
+                vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
+                vc.oldFromDate = MyBookingFilterVM.shared.bookingToDate
+                vc.currentlyUsingAs = .bookingDate
                 self.allChildVCs.append(vc)
             }
         }
@@ -93,6 +108,23 @@ class MyBookingFilterVC: BaseVC {
     }
     
     //MARK:- Functions
+    private func notifyToFilterApplied() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(sendNotification), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc private func sendNotification() {
+        self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
+    }
+    
+    private func fetchMinDateFromCoreData() {
+        if let dict = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "depart", usingFunction: "min").first, let minDt = dict["min"] as? String {
+            
+            //2019-08-07 00:00:00
+            printDebug("Min date \(minDt)")
+            self.minDate = minDt.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+    }
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
@@ -184,4 +216,25 @@ extension MyBookingFilterVC: ATCategoryNavBarDelegate {
     }
 }
 
+extension MyBookingFilterVC: TravelDateVCDelegate {
+    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
+        if forType == .bookingDate {
+            MyBookingFilterVM.shared.bookingFromDate = fromDate
+        }
+        else if forType == .travelDate {
+            MyBookingFilterVM.shared.travelFromDate = fromDate
+        }
+        self.notifyToFilterApplied()
+    }
+    
+    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
+        if forType == .bookingDate {
+            MyBookingFilterVM.shared.bookingToDate = toDate
+        }
+        else if forType == .travelDate {
+            MyBookingFilterVM.shared.travelToDate = toDate
+        }
+        self.notifyToFilterApplied()
+    }
+}
 

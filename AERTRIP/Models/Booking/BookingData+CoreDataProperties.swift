@@ -82,55 +82,91 @@ extension BookingData {
     
     var tripCitiesStr: NSMutableAttributedString? {
         if self.productType == .flight {
-            guard let travledCity = self.travelledCities as? [String] else {
-                return NSMutableAttributedString(string: self.origin ?? "")
-            }
-            
-            if travledCity.isEmpty, let cities = self.tripCities as? [String], !cities.isEmpty {
-                //still not travlled
-                let temp = cities.joined(separator: " → ")
-                return NSMutableAttributedString(string: temp)
-            }
-            else if let routes = self.routes as? [[String]] {
-                //travlled some where
+
+            func isReturnFlight(forArr: [String]) -> Bool {
+                guard !forArr.isEmpty else {return false}
                 
-                if (routes.first ?? []).isEmpty, let cities = self.tripCities as? [String], !cities.isEmpty {
-                    //still not travlled
-                    let temp = cities.joined(separator: " → ")
-                    return NSMutableAttributedString(string: temp)
+                if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+                    return (first.lowercased() == last.lowercased())
                 }
                 else {
-                    
-                    var routeStr = ""
-                    var travRange: [NSRange] = []
-                    for route in routes {
-                        var temp = route.joined(separator: " → ")
-                        
-                        if !routeStr.isEmpty {
-                            temp = ", \(temp)"
-                        }
-                        
-                        if travledCity.count > route.count, travledCity.contains(array: route) {
-                            travRange.append(NSRange(location: routeStr.count, length: temp.count))
-                        }
-                        else if travledCity.count <= route.count, route.contains(array: travledCity) {
-                            let trv = travledCity.joined(separator: " → ")
-                            travRange.append(NSRange(location: routeStr.count, length: trv.count))
-                        }
-                        routeStr += temp
-                    }
-                    
-                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
-                    for range in travRange {
-                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: range)
-                    }
-                    
-                    return attributedStr1
+                    return ((self.tripType ?? "").lowercased() == "return")
                 }
+            }
+            
+            func getNormalString(forArr: [String]) -> String {
+                guard !forArr.isEmpty else {return "--"}
+                return forArr.joined(separator: " → ")
+            }
+            
+            func getReturnString(forArr: [String]) -> String {
+                guard forArr.count >= 2 else {return "--"}
+                return "\(forArr[0]) ⇋ \(forArr[1])"
+            }
+            
+            guard let tripCts = self.tripCities as? [String] else {
+                return NSMutableAttributedString(string: self.origin ?? "--")
+            }
+            
+            if ((self.tripType ?? "").lowercased() == "single") {
+                //single flight case
+                let temp = getNormalString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
+            }
+            else if isReturnFlight(forArr: tripCts){
+                //return flight case
+                let temp = getReturnString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
+            }
+            else {
+                //multi flight case
+                if let routes = self.routes as? [[String]], let travledCity = self.travelledCities as? [String] {
+                    //travlled some where
+                    
+                    if (routes.first ?? []).isEmpty {
+                        //still not travlled
+                        let temp = getNormalString(forArr: tripCts)
+                        return NSMutableAttributedString(string: temp)
+                    }
+                    else {
+                        
+                        var routeStr = ""
+                        var travLastIndex: Int = 0
+                        var prevCount: Int = 0
+                        for route in routes {
+                            var temp = route.joined(separator: " → ")
+                            
+                            if !routeStr.isEmpty {
+                                temp = ", \(temp)"
+                            }
+                            
+                            for (idx, ct) in route.enumerated() {
+                                let newIdx = idx + prevCount
+                                if travledCity.count > newIdx, travledCity[newIdx] == ct {
+                                    //travelled through this city
+                                    var currentCityTemp = " \(ct) →"
+                                    if !routeStr.isEmpty, idx == 0 {
+                                        currentCityTemp = ", \(ct) →"
+                                    }
+                                    travLastIndex = routeStr.count + currentCityTemp.count
+                                }
+                            }
+                            routeStr += temp
+                            prevCount = route.count
+                        }
+                        
+                        let attributedStr1 = NSMutableAttributedString(string: routeStr)
+                        if travLastIndex > 0 {
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+2))
+                        }
+                        return attributedStr1
+                    }
+                }
+                return NSMutableAttributedString(string: "--")
             }
         }
         else if self.productType == .hotel {
-            return NSMutableAttributedString(string: self.hotelName ?? "")
+            return NSMutableAttributedString(string: self.hotelName ?? "--")
         }
         return nil
     }
@@ -191,21 +227,36 @@ extension BookingData {
         if let addOnSteps = requestDict["addon"] as? [String] {
             let title = "Add-ons"
             for step in addOnSteps {
-                steps.append("\(title) \(step.lowercased())")
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) payment pending")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
             }
         }
         
         if let cancellationSteps = requestDict["cancellation"] as? [String] {
             let title = "Cancellation"
             for step in cancellationSteps {
-                steps.append("\(title) \(step.lowercased())")
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) action required")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
             }
         }
         
         if let reschedulingSteps = requestDict["rescheduling"] as? [String] {
             let title = "Rescheduling"
             for step in reschedulingSteps {
-                steps.append("\(title) \(step.lowercased())")
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) payment required")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
             }
         }
         
