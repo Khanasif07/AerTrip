@@ -55,6 +55,7 @@ class BookingTopNavBarWithSubtitle: UIView {
         self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.subTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.rightButtonOutlet.titleLabel?.font = AppFonts.Regular.withSize(18.0)
+        self.rightButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         self.leftButonOutlet.isHidden = true
         self.rightButtonOutlet.isHidden = true
     }

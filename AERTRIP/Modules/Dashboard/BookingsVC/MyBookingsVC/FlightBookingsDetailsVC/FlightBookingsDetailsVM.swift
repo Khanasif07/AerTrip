@@ -25,6 +25,8 @@ class FlightBookingsDetailsVM {
         self.getDocumentDownloadingData()
 //        self.sectionData.append([.notesCell,.requestCell])
 //        self.sectionData.append([.cancellationsReqCell , .addOnRequestCell , .reschedulingRequestCell, .reschedulingRequestCell])
+//        var sjd = [TableViewCell] = []
+        
         self.sectionData.append([.flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell , .travellersPnrStatusCell , .travellersPnrStatusCell , .travellersPnrStatusCell , .travellersPnrStatusCell])
         self.sectionData.append([.flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell , .travellersPnrStatusCell , .travellersPnrStatusCell , .travellersPnrStatusCell , .travellersPnrStatusCell])
         self.sectionData.append([.documentCell])

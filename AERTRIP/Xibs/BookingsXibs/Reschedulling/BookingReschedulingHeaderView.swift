@@ -17,7 +17,7 @@ class BookingReschedulingHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet var routeLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
-    
+    @IBOutlet var selectedButton: UIButton!
     @IBOutlet var topBackgroundView: UIView!
     
     // MARK: - Variables

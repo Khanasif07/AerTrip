@@ -12,7 +12,7 @@ class HotelCancellationVC: BaseVC {
     
     //MARK:- Variables
     //MARK:===========
-    let viewModel = RequestReschedulingVM()
+    let viewModel = HotelCancellationVM()
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -20,11 +20,9 @@ class HotelCancellationVC: BaseVC {
     @IBOutlet weak var hotelCancellationTableView: UITableView! {
         didSet {
             self.hotelCancellationTableView.contentInset = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 0.0, right: 0.0)
-            self.hotelCancellationTableView.estimatedRowHeight = UITableView.automaticDimension
-            //            self.reschedulingTableView.rowHeight = UITableView.automaticDimension
         }
     }
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var cancellationButtonOutlet: UIButton!
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -34,7 +32,7 @@ class HotelCancellationVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureView(title: LocalizedString.Cancellation.localized, subTitle: LocalizedString.SelectHotelOrRoomsForCancellation.localized, isleftButton: false, isRightButton: true)
-        self.viewModel.getSectionData()
+        self.viewModel.getHotelData()
         self.registerXibs()
         self.hotelCancellationTableView.delegate = self
         self.hotelCancellationTableView.dataSource = self
@@ -42,37 +40,38 @@ class HotelCancellationVC: BaseVC {
     }
     
     override func setupColors() {
-        self.cancelButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.cancellationButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
     }
     
     override func setupTexts() {
-        self.cancelButtonOutlet.setTitle(LocalizedString.RequestRescheduling.localized, for: .normal)
+        self.cancellationButtonOutlet.setTitle(LocalizedString.Cancellation.localized, for: .normal)
     }
     
     override func setupFonts() {
-        self.cancelButtonOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+        self.cancellationButtonOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     //MARK:- Functions
     //MARK:===========
     private func registerXibs() {
-        self.hotelCancellationTableView.registerCell(nibName: ParallelLabelsTableViewCell.reusableIdentifier)
-        self.hotelCancellationTableView.registerCell(nibName: SelectDateTableViewCell.reusableIdentifier)
-        self.hotelCancellationTableView.registerCell(nibName: HCSpecialRequestTextfieldCell.reusableIdentifier)
-        self.hotelCancellationTableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
-        self.hotelCancellationTableView.registerCell(nibName: CustomerContactCellTableViewCell.reusableIdentifier)
+        self.hotelCancellationTableView.register(UINib(nibName: "BookingReschedulingHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BookingReschedulingHeaderView")
+        self.hotelCancellationTableView.registerCell(nibName: HotelCancellationRoomInfoTableViewCell.reusableIdentifier)
     }
     
-    internal func heightForRow(_ tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 35.0
+    internal func allRoomIsSelectedOrNot() -> Bool {
+        var isRoomSelected: Bool = false
+        for room in self.viewModel.bookedHotelData {
+            isRoomSelected = room.isChecked
+            if !isRoomSelected {
+                return false
+            }
         }
-        return UITableView.automaticDimension
+        return isRoomSelected
     }
     
     //MARK:- IBActions
     //MARK:===========
-    @IBAction func cancelButtonAction(_ sender: UIButton) {
-        printDebug(cancelButtonOutlet.constraints)
+    @IBAction func cancellationButtonAction(_ sender: UIButton) {
+        printDebug(cancellationButtonOutlet.constraints)
     }
 }

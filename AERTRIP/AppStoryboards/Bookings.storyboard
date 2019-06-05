@@ -2338,11 +2338,11 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="49" id="zbi-Vm-vQQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Request Rescheduling">
+                                <state key="normal" title="Cancellation">
                                     <color key="titleColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelButtonAction:" destination="fY2-gt-Hcc" eventType="touchUpInside" id="6zD-EX-zgv"/>
+                                    <action selector="cancellationButtonAction:" destination="fY2-gt-Hcc" eventType="touchUpInside" id="6zD-EX-zgv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2362,7 +2362,7 @@ with us!</string>
                         <viewLayoutGuide key="safeArea" id="UN3-ei-9OI"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButtonOutlet" destination="fXs-r7-uDg" id="FA9-kE-1Ef"/>
+                        <outlet property="cancellationButtonOutlet" destination="fXs-r7-uDg" id="FA9-kE-1Ef"/>
                         <outlet property="hotelCancellationTableView" destination="WgX-Xa-Hq1" id="91u-o7-zn7"/>
                         <outlet property="topNavBar" destination="eQY-xz-Jff" id="2EM-hp-PiJ"/>
                     </connections>
