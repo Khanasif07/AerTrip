@@ -19,7 +19,6 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private var typesOfBed = [String]()
     private var bedPickerView = UIPickerView()
     private var selectedRow: Int?
-    
     weak var delegate: HotelDetailsBedsTableViewCellDelegate? = nil
     
     //Mark:- IBOutlets

@@ -1,6 +1,6 @@
 //
 //  AppConstants.swift
-//  
+//
 //
 //  Created by Pramod Kumar on 28/07/17.
 //  Copyright © 2017 Pramod Kumar. All rights reserved.
@@ -13,23 +13,23 @@ enum AppConstants {
     static let isReleasingToClient: Bool = false
     
     static let kCurrency = ""
-
-    static let kAppName                     = "Aertrip"
-    static let kGoogleClientID              = ""
-    static let kGoogleUrlScheme             = ""
-    static let kGoogleApiKey                = ""
-    static let kFacebookAppID               = ""
+    
+    static let kAppName = "Aertrip"
+    static let kGoogleClientID = ""
+    static let kGoogleUrlScheme = ""
+    static let kGoogleApiKey = ""
+    static let kFacebookAppID = ""
     static let kMe = "Me"
     
-    static let kOtpLength                  =         6
-    static let kMinTextFieldCharLength     =         2
-    static let kMaxTextFieldCharLength     =         32
-    static let kMinPassLength              =         6
-    static let kMaxPassLength              =         32
-    static let kMinPhoneLength: Int        =         7
-    static let kMaxPhoneLength: Int        =         15
-    static let kOtpTimeOutSeconds          =         60
-    static let kMaxDescriptionLength       =         250
+    static let kOtpLength = 6
+    static let kMinTextFieldCharLength = 2
+    static let kMaxTextFieldCharLength = 32
+    static let kMinPassLength = 6
+    static let kMaxPassLength = 32
+    static let kMinPhoneLength: Int = 7
+    static let kMaxPhoneLength: Int = 15
+    static let kOtpTimeOutSeconds = 60
+    static let kMaxDescriptionLength = 250
     
     static let fbUrl = "fb1080161318756977"
     static let googleUrl = "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
@@ -39,8 +39,8 @@ enum AppConstants {
     static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
     static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
     static let privacyPolicy = "https://beta.aertrip.com/privacy"
-    static let termsOfUse    = "https://beta.aertrip.com/terms"
-    static let fareRules    = "https://beta.aertrip.com/terms"
+    static let termsOfUse = "https://beta.aertrip.com/terms"
+    static let fareRules = "https://beta.aertrip.com/terms"
     static let walletAmountUrl = "https://beta.aertrip.com/wallet"
     
     static let kSearchTextLimit = 3
@@ -55,16 +55,19 @@ enum AppConstants {
     static let kMaxTextLimit = 256 // max limit for special request and preferred hotels
     
     static var isStatusBarBlured = true
-
-    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64"//"AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
+    
+    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
     
-    //razor pay key
+    // razor pay key
     static let kRazorpayPublicKey = "rzp_test_QJYU8TtB6deJgb"
     
     // CellIdentifier
     
     static let ktableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
-  
+    
+    
+    static let dummyTextPdfLink = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 }
+

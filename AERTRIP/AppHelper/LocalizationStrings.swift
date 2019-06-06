@@ -495,6 +495,7 @@ enum LocalizedString: String {
     case Whoops = "Whoops"
     case HotelDetailsEmptyState = "HotelDetailsEmptyState"
     case ResetFilter = "ResetFilter"
+    case ConfirmationEmail 
     
     // Mail Composer View
     case ContactUsAertrip = "ContactUsAertrip"
@@ -687,6 +688,10 @@ enum LocalizedString: String {
     case SaleAmount
     case CancellationCharges
     case NetRefund
+    case CancellationRequestSent
+    case CancellationRequestMessage
+    case BookingConfirmationInfo
+    case ETicket
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
@@ -694,6 +699,21 @@ enum LocalizedString: String {
     case RequestCancellation
     case Download
     case ResendConfirmationMail
+    
+    // Booking Review Cancellation VC
+    
+    case ReviewCancellation
+    case RefundMode
+    case ReasonForCancellation
+    case TotalNetRefund
+    case ReviewCancellationInfoLabel
+    case EnterYourCommentOptional
+    case Passengers
+    case Passenger
+    case Selected
+    
+    // Booking Cancellation VC
+    case Cancellation
     
     
     //MARK: - AerinVC
@@ -789,4 +809,25 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    case Economy = "Economy"
+    case Carriers = "Carriers"
+    
+    case Refund = "Refund"
+    case PaymentPending = "PaymentPending"
+    case WebCheckin = "WebCheckin"
+    case Weather
+    case SeeAll = "SeeAll"
+    case Downloading = "Downloading"
+    case Requests = "Requests"
+    case capNotes = "NOTES"
+    case newDate = "newDate"
+    case selectNewDepartingDate = "selectNewDepartingDate"
+    case newDepartingDate = "newDepartingDate"
+    case customerExecutiveWillContact = "customerExecutiveWillContact"
+    case preferredFlightNo = "preferredFlightNo"
+    case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
+    case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
+    case ProcessCancellation = "ProcessCancellation"
+    case ResendConfirmationEmail = "ResendConfirmationEmail"
+    case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
  }

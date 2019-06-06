@@ -54,9 +54,9 @@ class MyBookingsVC: BaseVC {
     // Mark:- LifeCycle
     
     override func initialSetup() {
-        self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
-        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
+        self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+//        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
         self.hideAllData()
@@ -68,9 +68,19 @@ class MyBookingsVC: BaseVC {
         super.viewDidDisappear(animated)
         
         self.allTabsStr.removeAll()
-       _ = CoreDataManager.shared.deleteData("BookingData", predicate: nil)
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification {
+            if noti == .myBookingFilterApplied {
+                self.topNavBar.firstRightButton.isSelected = true
+            }
+            else if noti == .myBookingFilterCleared {
+                self.topNavBar.firstRightButton.isSelected = false
+                MyBookingFilterVM.shared.setToDefault()
+            }
+        }
+    }
     
     // MARK:- Override methods
     

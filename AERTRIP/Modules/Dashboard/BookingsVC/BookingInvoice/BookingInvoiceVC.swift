@@ -88,7 +88,6 @@ class BookingInvoiceVC: BaseVC {
         }
     }
     
-    
     private func getCellForSecondSection(_ indexPath: IndexPath) -> UITableViewCell {
         guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
             fatalError("DiscountCell not found")
@@ -189,9 +188,6 @@ class BookingInvoiceVC: BaseVC {
         return [46, 28, 44][indexPath.row]
     }
     
-    
-    
-    
     func openActionSheet() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         
@@ -204,11 +200,14 @@ class BookingInvoiceVC: BaseVC {
                 self?.presentBookingReschedulingVC()
                 printDebug("Present Request Reschedulling")
             } else if index == 2 {
-                 printDebug("Present Request Cancellation")
+                AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation)
+                printDebug("Present Request Cancellation")
             } else if index == 3 {
-                   printDebug("Present Download")
+                printDebug("Present Download")
+                AppGlobals.shared.viewPdf(urlPath: AppConstants.dummyTextPdfLink, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
-               printDebug("Present Resend Confirmation Email")
+                AppFlowManager.default.presentConfirmationMailVC()
+                printDebug("Present Resend Confirmation Email")
             }
         }
     }
@@ -216,6 +215,7 @@ class BookingInvoiceVC: BaseVC {
     private func presentRequestAddOnFrequentFlyer() {
         AppFlowManager.default.presentBookingReuqestAddOnVC()
     }
+    
     private func presentBookingReschedulingVC() {
         AppFlowManager.default.presentBookingReschedulingVC()
     }
@@ -234,9 +234,9 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             return 2
         case 1:
             
-           return  self.isBaseFareSectionExpanded ? 4 :  0
+            return self.isBaseFareSectionExpanded ? 4 : 0
         case 2:
-             return self.isGrossFareSectionExpanded ? 1 : 0
+            return self.isGrossFareSectionExpanded ? 1 : 0
         case 3:
             return 3
         default:
@@ -253,7 +253,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         case 2:
             return self.getCellForThirdSection(indexPath)
         case 3:
-             return self.getCellForFourthSection(indexPath)
+            return self.getCellForFourthSection(indexPath)
         default:
             return UITableViewCell()
         }
@@ -330,7 +330,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0, indexPath.row == 0 {
-            openActionSheet()
+            self.openActionSheet()
         }
     }
 }
@@ -345,7 +345,7 @@ extension BookingInvoiceVC: TopNavigationViewDelegate {
 
 extension BookingInvoiceVC: FareSectionHeaderDelegate {
     func headerViewTapped(_ view: UITableViewHeaderFooterView) {
-       let section = view.tag
+        let section = view.tag
         if section == 1 {
             if self.isBaseFareSectionExpanded {
                 self.isBaseFareSectionExpanded = false
@@ -359,6 +359,6 @@ extension BookingInvoiceVC: FareSectionHeaderDelegate {
                 self.isGrossFareSectionExpanded = true
             }
         }
-         self.invoiceTableView.reloadData()
+        self.invoiceTableView.reloadData()
     }
 }

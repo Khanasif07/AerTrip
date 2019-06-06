@@ -100,11 +100,21 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "  " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
+    internal func configureNotesCell(notes: String) {
+        self.moreBtnOutlet.isHidden = false
+        self.addressLabel.font = AppFonts.Regular.withSize(14.0)
+        self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
+        self.addressLabel.textColor = AppColors.themeGray40
+        self.addressInfoTextView.textColor = AppColors.themeBlack
+        self.addressLabel.text = LocalizedString.capNotes.localized
+        self.addressInfoTextView.text = notes
+    }
+    
     //Mark:- IBActions
     //================
-    @IBAction func mapButtonAction(_ sender: UIButton) {
-        printDebug("Go To Maps")
-    }
+//    @IBAction func mapButtonAction(_ sender: UIButton) {
+//        printDebug("Go To Maps")
+//    }
     
     @IBAction func moreButtonAction(_ sender: UIButton) {
         printDebug("More")

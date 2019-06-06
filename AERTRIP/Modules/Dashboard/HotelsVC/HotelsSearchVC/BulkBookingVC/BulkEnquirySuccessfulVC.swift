@@ -31,6 +31,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case bulkBooking
         case accountDeposit
         case addOnRequest
+        case cancellationRequest
+        case reschedulingRequest
     }
     
     //Mark:- Variables
@@ -43,7 +45,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var backgroundView: UIView!
-//    @IBOutlet weak var textContainerView: UIView!
+    //    @IBOutlet weak var textContainerView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mainTitleLabel: UILabel!
     @IBOutlet weak var subTitleLabel: UILabel!
@@ -97,35 +99,48 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     override func initialSetup() {
         self.setupSearchButton()
-        if self.currentUsingAs == .bulkBooking {
+        switch self.currentUsingAs {
+        case .bulkBooking:
             self.mainTitleLabel.text = LocalizedString.BulkEnquirySent.localized
             self.subTitleLabel.text = LocalizedString.CustomerServicesShallConnect.localized
             self.searchButtonWidthConstraint.constant = 150.0
             
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 15.0)
-        }
-        else if self.currentUsingAs == .accountDeposit {
+        case .accountDeposit:
             self.mainTitleLabel.text = LocalizedString.PaymentRegisteredSuccesfully.localized
             self.subTitleLabel.text = LocalizedString.WeShallCreditYourAccount.localized
             
             
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
-        } else {
+        case .cancellationRequest :
+            self.searchBtnOutlet.setTitle("", for: .normal)
+            self.mainTitleLabel.text = LocalizedString.CancellationRequestSent.localized
+            self.subTitleLabel.text = LocalizedString.CancellationRequestMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+            
+        case .addOnRequest:
             self.mainTitleLabel.text = LocalizedString.AddOnRequestSent.localized
             self.subTitleLabel.text = LocalizedString.AddOnRequestMesage.localized
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
-            
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .reschedulingRequest:
+            self.mainTitleLabel.text = LocalizedString.ReschedulingRequestHasBeenSent.localized
+            self.subTitleLabel.text = LocalizedString.OurCustomerServiceRepresenstativeWillContact.localized
+            self.searchButtonWidthConstraint.constant = 150.0
+            self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+            
         }
         
         self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        //self.headerView.cornerRadius = 15.0
         self.mainTitleLabel.alpha = 0.0
         self.subTitleLabel.alpha = 0.0
         self.doneBtnOutlet.alpha = 0.0
@@ -144,7 +159,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         
         self.searchBtnOutlet.setTitleColor(searchButtonConfiguration.textColor, for: .normal)
         self.searchBtnOutlet.setTitleColor(searchButtonConfiguration.textColor, for: .selected)
-
+        
         self.searchBtnOutlet.myCornerRadius = searchButtonConfiguration.cornerRadius
         
         self.searchBtnOutlet.titleLabel?.font = searchButtonConfiguration.textFont
@@ -246,10 +261,10 @@ class BulkEnquirySuccessfulVC: BaseVC {
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineJoin = CAShapeLayerLineJoin.round
         shapeLayer.path = self.getTickMarkPath()
-
+        
         // Animation
         self.searchBtnOutlet.layer.addSublayer(shapeLayer)
-
+        
         // Animation
         self.searchBtnOutlet.layer.addSublayer(shapeLayer)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -263,7 +278,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     private func getTickMarkPath() -> CGPath {
-
+        
         let size: CGSize = tickImageSize
         let path = CGMutablePath()
         path.move(to: CGPoint(x: tickLineWidth / 2.0, y: size.height / 2.0), transform: .identity)

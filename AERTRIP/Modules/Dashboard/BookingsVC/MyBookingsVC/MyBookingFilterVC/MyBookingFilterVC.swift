@@ -49,8 +49,8 @@ class MyBookingFilterVC: BaseVC {
     override func initialSetup() {
         
         self.fetchMinDateFromCoreData()
-        self.topNavBar.configureNavBar(title: "2230 of 3000 Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
-       
+        self.setCounts()
+        
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
@@ -63,18 +63,20 @@ class MyBookingFilterVC: BaseVC {
                 vc.delegate = self
                 vc.minFromDate = minDate
                 vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
-                vc.oldFromDate = MyBookingFilterVM.shared.travelToDate
+                vc.oldToDate = MyBookingFilterVM.shared.travelToDate
                 vc.currentlyUsingAs = .travelDate
                 self.allChildVCs.append(vc)
             } else if i == 1 {
                 let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.delegate = self
+                vc.oldSelection = MyBookingFilterVM.shared.eventType
                 self.allChildVCs.append(vc)
             } else {
                 let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
                 vc.delegate = self
                 vc.minFromDate = minDate
                 vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
-                vc.oldFromDate = MyBookingFilterVM.shared.bookingToDate
+                vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
                 vc.currentlyUsingAs = .bookingDate
                 self.allChildVCs.append(vc)
             }
@@ -108,6 +110,10 @@ class MyBookingFilterVC: BaseVC {
     }
     
     //MARK:- Functions
+    private func setCounts() {
+        
+        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
+    }
     private func notifyToFilterApplied() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(sendNotification), with: nil, afterDelay: 0.5)
@@ -115,6 +121,9 @@ class MyBookingFilterVC: BaseVC {
     
     @objc private func sendNotification() {
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
+        delay(seconds: 0.5) { [weak self] in
+            self?.setCounts()
+        }
     }
     
     private func fetchMinDateFromCoreData() {
@@ -198,13 +207,14 @@ class MyBookingFilterVC: BaseVC {
 extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        //clear all
+        self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
         self.hide(animated: true, shouldRemove: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-            printDebug("Done Button Tapped")
-            sendDataChangedNotification(data: self)
-           self.hide(animated: true, shouldRemove: true)
+        printDebug("Filters \(MyBookingFilterVM.shared)")
+        self.hide(animated: true, shouldRemove: true)
     }
 }
 
@@ -212,7 +222,13 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
 extension MyBookingFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
-//        HotelFilterVM.shared.lastSelectedIndex = toIndex
+    }
+}
+
+extension MyBookingFilterVC: EventTypeVCDelegate {
+    func didSelectEventTypes(selection: [Int]) {
+        MyBookingFilterVM.shared.eventType = selection
+        self.notifyToFilterApplied()
     }
 }
 

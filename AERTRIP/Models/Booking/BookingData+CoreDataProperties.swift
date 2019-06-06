@@ -46,10 +46,12 @@ extension BookingData {
     @NSManaged public var depart: String? // departure date
     @NSManaged public var product: String? // It stores type of product like hotel , flight or Others
     @NSManaged public var hotelName: String?
+    @NSManaged public var dateHeader: String?
     @NSManaged public var bookingDate: String?
     @NSManaged public var bookingNumber: String?
     @NSManaged public var bookingId: String?
     
+    @NSManaged public var isContainsPending: Int16
     @NSManaged public var bookingTabType: Int16
     @NSManaged public var bookingProductType: Int16
     @NSManaged public var eventType: Int16
@@ -57,6 +59,7 @@ extension BookingData {
     
     
     //Requests
+    @NSManaged public var stepsArray: Array<String>?
     @NSManaged public var reschedulingRequests: Array<Any>?
     
     @NSManaged public var cancellationRequests: Array<Any>?
@@ -216,50 +219,50 @@ extension BookingData {
         }
     }
     
-    var stepsArray: [String] {
-        
-        guard let requestDict = self.requests else {
-            return []
-        }
-        
-        var steps: [String] = []
-        
-        if let addOnSteps = requestDict["addon"] as? [String] {
-            let title = "Add-ons"
-            for step in addOnSteps {
-                if step.lowercased() == "action required / payment pending" {
-                    steps.append("\(title) payment pending")
-                }
-                else {
-                    steps.append("\(title) \(step.lowercased())")
-                }
-            }
-        }
-        
-        if let cancellationSteps = requestDict["cancellation"] as? [String] {
-            let title = "Cancellation"
-            for step in cancellationSteps {
-                if step.lowercased() == "action required / payment pending" {
-                    steps.append("\(title) action required")
-                }
-                else {
-                    steps.append("\(title) \(step.lowercased())")
-                }
-            }
-        }
-        
-        if let reschedulingSteps = requestDict["rescheduling"] as? [String] {
-            let title = "Rescheduling"
-            for step in reschedulingSteps {
-                if step.lowercased() == "action required / payment pending" {
-                    steps.append("\(title) payment required")
-                }
-                else {
-                    steps.append("\(title) \(step.lowercased())")
-                }
-            }
-        }
-        
-        return steps
-    }
+//    var stepsArray: [String] {
+//
+//        guard let requestDict = self.requests else {
+//            return []
+//        }
+//
+//        var steps: [String] = []
+//
+//        if let addOnSteps = requestDict["addon"] as? [String] {
+//            let title = "Add-ons"
+//            for step in addOnSteps {
+//                if step.lowercased() == "action required / payment pending" {
+//                    steps.append("\(title) payment pending")
+//                }
+//                else {
+//                    steps.append("\(title) \(step.lowercased())")
+//                }
+//            }
+//        }
+//
+//        if let cancellationSteps = requestDict["cancellation"] as? [String] {
+//            let title = "Cancellation"
+//            for step in cancellationSteps {
+//                if step.lowercased() == "action required / payment pending" {
+//                    steps.append("\(title) action required")
+//                }
+//                else {
+//                    steps.append("\(title) \(step.lowercased())")
+//                }
+//            }
+//        }
+//
+//        if let reschedulingSteps = requestDict["rescheduling"] as? [String] {
+//            let title = "Rescheduling"
+//            for step in reschedulingSteps {
+//                if step.lowercased() == "action required / payment pending" {
+//                    steps.append("\(title) payment required")
+//                }
+//                else {
+//                    steps.append("\(title) \(step.lowercased())")
+//                }
+//            }
+//        }
+//
+//        return steps
+//    }
 }

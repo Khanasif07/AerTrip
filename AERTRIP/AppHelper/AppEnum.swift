@@ -16,6 +16,7 @@ enum ATNotification {
     case GRNSessionExpired
     case accountPaymentRegister
     case myBookingFilterApplied
+    case myBookingFilterCleared
 }
 
 extension Notification.Name {
@@ -461,7 +462,7 @@ enum ProductType: Int, CaseIterable {
             return LocalizedString.hotels.localized
             
         case .other:
-            return LocalizedString.Internet.localized
+            return LocalizedString.Others.localized
             
         }
     }

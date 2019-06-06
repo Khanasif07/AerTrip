@@ -196,8 +196,9 @@ struct AppGlobals {
             return ""
         }
     }
-    
-    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont) -> NSMutableAttributedString {
+
+    // Use  it for creating an image with text .It will return NSMutableattributed string.
+    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont , isEndTextBold: Bool = false) -> NSMutableAttributedString {
         // create an NSMutableAttributedString that we'll append everything to
         let fullString = NSMutableAttributedString(string: startText)
         // create our NSTextAttachment
@@ -208,11 +209,18 @@ struct AppGlobals {
         image1Attachment.image = image
         
         // wrap the attachment in its own attributed string so we can append it
+        
         let image1String = NSAttributedString(attachment: image1Attachment)
         
         // add the NSTextAttachment wrapper to our full string, then add some more text.
         fullString.append(image1String)
-        fullString.append(NSAttributedString(string: endText))
+        if isEndTextBold {
+            let endStringAttribute = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+            let endAttributedString = NSAttributedString(string: "   " + endText, attributes: endStringAttribute)
+            fullString.append(endAttributedString)
+        } else {
+            fullString.append(NSAttributedString(string: endText))
+        }
         fullString.addAttributes([NSAttributedString.Key.font: font], range: NSRange(location: 0, length: fullString.length))
         
         return fullString
@@ -457,3 +465,82 @@ extension AppGlobals {
         }
     }
 }
+
+/*extension AppGlobals {
+    
+    enum DocumentType {
+        case others , flights , hotels
+    }
+    
+    func checkCreateAndReturnDocumentFolder(currentDocumentType: DocumentType) -> String {
+        let fileManager = FileManager.default
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        switch currentDocumentType {
+        case .others:
+            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("others").path) {
+                return documentDirectory.appendingPathComponent("others").path
+            } else {
+                do {
+                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("others").path, withIntermediateDirectories: true, attributes: nil)
+                    return documentDirectory.appendingPathComponent("others").path
+                }
+                catch let error as NSError {
+                    printDebug("Ooops! Something went wrong: \(error)")
+                    return ""
+                }
+            }
+        case .flights:
+            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("flights").path) {
+                return documentDirectory.appendingPathComponent("flights").path
+            } else {
+                do {
+                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("flights").path, withIntermediateDirectories: true, attributes: nil)
+                    return documentDirectory.appendingPathComponent("flights").path
+                }
+                catch let error as NSError {
+                    printDebug("Ooops! Something went wrong: \(error)")
+                    return ""
+                }
+            }
+        case .hotels:
+            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("/hotels").path) {
+                return documentDirectory.appendingPathComponent("hotels").path
+            } else {
+                do {
+                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("hotels").path, withIntermediateDirectories: true, attributes: nil)
+                    return documentDirectory.appendingPathComponent("hotels").path
+                }
+                catch let error as NSError {
+                    printDebug("Ooops! Something went wrong: \(error)")
+                    return ""
+                }
+            }
+        }
+    }
+    
+    func directoryExistsAtPath(_ path: String) -> Bool {
+        var isDirectory = ObjCBool(true)
+        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+        return exists && isDirectory.boolValue
+    }
+    
+    func checkIsFileExist(nameOfFile: String ,path: String) -> Bool {
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent(nameOfFile) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                printDebug("FILE AVAILABLE")
+                return true
+            } else {
+                printDebug("FILE NOT AVAILABLE")
+                return false
+            }
+        } else {
+            printDebug("FILE PATH NOT AVAILABLE")
+            return false
+        }
+    }
+}
+*/

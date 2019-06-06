@@ -28,7 +28,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let bookingData = fetchedResultsController.object(at: indexPath)
-        let stepsH: CGFloat = CGFloat(bookingData.stepsArray.count) * 40.0
+        let stepsH: CGFloat = CGFloat(bookingData.stepsArray?.count ?? 0) * 40.0
         return stepsH + 92.0
     }
     

@@ -401,6 +401,14 @@ extension AppFlowManager {
     }
     
     
+    func showCancellationRequest(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .cancellationRequest
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
@@ -594,7 +602,22 @@ extension AppFlowManager {
     }
     
     func moveToOtherBookingsDetailsVC() {
-        let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+//        let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+//        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToFlightBookingsDetailsVC() {
+        let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+
+    func moveToHotlelBookingsDetailsVC() {
+        let obj = HotlelBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToRequestReschedulingVC() {
+        let obj = RequestReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -823,10 +846,27 @@ extension AppFlowManager {
     
     // Present BookingReschedulingVC
     
-    func presentBookingReschedulingVC() {
+    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.usingFor = data
         self.mainNavigationController.present(obj, animated: true)
     }
+    
+    // Move to Booking Review Cancellation
+    
+    func moveToReviewCancellationVC() {
+        let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    
+    // Move to Booking confirm email
+    
+    func presentConfirmationMailVC() {
+        let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
+        self.mainNavigationController.present(obj, animated: true)
+    }
+    
 }
 
 // MARK: - Select Trip Flow Methods

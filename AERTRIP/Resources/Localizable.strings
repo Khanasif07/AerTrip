@@ -655,7 +655,8 @@
 "SaleAmount" = "Sale Amount";
 "CancellationCharges" = "Cancellation Charges";
 "NetRefund" = "Net Refund";
-
+"CancellationRequestSent" = "Cancellation Request has been sent";
+"CancellationRequestMessage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
 
 
 // Booking Action sheet option
@@ -664,6 +665,22 @@
 "RequestCancellation" = "Request Cancellation";
 "Download" = "Download";
 "ResendConfirmationMail" = "Resend Confirmation Email";
+
+// Booking Review Cancellation VC
+"ReviewCancellation" = "Review Cancellation";
+"RefundMode" = "Refund Mode";
+"ReasonForCancellation" = "Reason for cancellation";
+"TotalNetRefund" = "Total Net Refund";
+"RequestCancellation" = "Request Cancellation";
+"ReviewCancellationInfoLabel" = "After you place a request, our customer executive will contact you.";
+"EnterYourCommentOptional" = "Enter your comments (Optional)";
+"Passengers" = "Passengers";
+"Selected" = "selected";
+"Passenger" = "Passenger";
+"Cancellation" = "Cancellation";
+"ConfirmationEmail" = "Confirmation Email";
+"BookingConfirmationInfo" = "The booking confirmation email will be resent.";
+"ETicket" = "E-Ticket";
 
 //MARK: - Aerin VC
 "Hi" = "Hi";
@@ -753,3 +770,23 @@
 "PhotoLibrary" = "Photo Library";
 "Document" = "Document";
 "ChooseOptionToSelect" = "Choose Options To Select";
+"Economy" = "Economy";
+"Carriers" = "Carriers";
+"Cancellation" = "Cancellation";
+"Refund" = "Refund";
+"PaymentPending" = "Payment pending";
+"WebCheckin" = "Web Checkin";
+"SeeAll" = "See All";
+"Downloading" = "Downloading…";
+"Requests" = "REQUESTS";
+"CapNotes" = "NOTES";
+ "newDate" = "New Date";
+"selectNewDepartingDate" = "Select new departing date";
+"newDepartingDate" = "New Departing Date";
+"customerExecutiveWillContact" = "After you place a request, our customer executive will contact you.";
+"preferredFlightNo" = "Preferred Flight No. (Optional)";
+"ReschedulingRequestHasBeenSent" = "Rescheduling Request has been sent";
+"OurCustomerServiceRepresenstativeWillContact" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"ProcessCancellation" = "Process Cancellation";
+"ResendConfirmationEmail" ="Resend Confirmation Email";
+"SelectHotelOrRoomsForCancellation" = "Select hotel or rooms for cancellation";
