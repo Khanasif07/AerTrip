@@ -41,7 +41,7 @@ class CancelledVC: BaseVC {
         
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: false)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "eventStartDate", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
@@ -53,15 +53,24 @@ class CancelledVC: BaseVC {
     
     //Mark:- LifeCycle
     //================
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.loadSaveData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.loadSaveData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func initialSetup() {
         self.registerXibs()
-
-        //        self.viewModel.upcomingBookingData.removeAll()
         self.emptyStateSetUp()
+        self.loadSaveData()
     }
     
     override func setupTexts() {
@@ -107,9 +116,9 @@ class CancelledVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
-            //re-hit the search API
-            printDebug("in cancelled \(MyBookingFilterVM.shared)")
+        if let noti = note.object as? ATNotification, (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            //refresh the data with filters
+            self.loadSaveData()
         }
     }
     

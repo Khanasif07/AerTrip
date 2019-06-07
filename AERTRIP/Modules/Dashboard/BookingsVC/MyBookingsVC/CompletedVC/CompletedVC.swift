@@ -37,6 +37,16 @@ class CompletedVC: BaseVC {
     
     //Mark:- LifeCycle
     //================
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.loadSaveData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.loadSaveData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -72,7 +82,7 @@ class CompletedVC: BaseVC {
         
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: false)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "eventStartDate", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
@@ -108,9 +118,9 @@ class CompletedVC: BaseVC {
     
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
-            //re-hit the search API
-            printDebug("in completed \(MyBookingFilterVM.shared)")
+        if let noti = note.object as? ATNotification, (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            //refresh the data with filters
+            self.loadSaveData()
         }
     }
 

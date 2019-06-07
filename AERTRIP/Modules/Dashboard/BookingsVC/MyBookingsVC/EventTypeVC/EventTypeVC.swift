@@ -8,20 +8,20 @@
 
 import UIKit
 
+protocol EventTypeVCDelegate: class {
+    func didSelectEventTypes(selection: [Int])
+}
+
 class EventTypeVC: BaseVC {
     
     //Mark:- Variables
     //================
-    
-    
-    
-    let rowTitle: [String] = [LocalizedString.flights.localized , LocalizedString.hotels.localized , LocalizedString.Others.localized]
-    let rowImages: [UIImage] = [#imageLiteral(resourceName: "flight_blue_icon"),#imageLiteral(resourceName: "hotel_green_icon"),#imageLiteral(resourceName: "others")]
-    
     // var eventType
     let eventType: [ProductType] = ProductType.allCases
     
     var selectedIndexPath: IndexPath?
+    var oldSelection: [Int] = []
+    weak var delegate: EventTypeVCDelegate?
     
     //Mark:- IBOutlets
     //================
@@ -69,16 +69,18 @@ extension EventTypeVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesTableViewCell.reusableIdentifier) as? AmenitiesTableViewCell else { return UITableViewCell() }
         cell.eventType = eventType[indexPath.row]
-        cell.statusButton.isSelected = MyBookingFilterVM.shared.eventType.contains(eventType[indexPath.row].rawValue)
+        cell.statusButton.isSelected = oldSelection.contains(eventType[indexPath.row].rawValue)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if MyBookingFilterVM.shared.eventType.contains(eventType[indexPath.row].rawValue) {
-           MyBookingFilterVM.shared.eventType.remove(at: MyBookingFilterVM.shared.eventType.firstIndex(of: self.eventType[indexPath.row].rawValue)!)
+        if let idx = oldSelection.firstIndex(of: self.eventType[indexPath.row].rawValue) {
+           oldSelection.remove(at: idx)
         } else {
-            MyBookingFilterVM.shared.eventType.append(self.eventType[indexPath.row].rawValue)
+            oldSelection.append(self.eventType[indexPath.row].rawValue)
         }
+        
+        self.delegate?.didSelectEventTypes(selection: oldSelection)
         self.eventTypeTableView.reloadData()
     }
 }

@@ -3444,8 +3444,8 @@
 		84247F8722A5308200A0FEB7 /* CompletedVC */ = {
 			isa = PBXGroup;
 			children = (
-				84247F8C22A530BC00A0FEB7 /* CompletedVC+Delegates.swift */,
 				84247F8822A5308200A0FEB7 /* CompletedVC+CoreData.swift */,
+				84247F8C22A530BC00A0FEB7 /* CompletedVC+Delegates.swift */,
 				84247F8922A5308200A0FEB7 /* CompletedVC.swift */,
 			);
 			path = CompletedVC;
@@ -4442,10 +4442,10 @@
 		84DD24562265A30D0013F77E /* UpcomingBookingsVC */ = {
 			isa = PBXGroup;
 			children = (
-				84DD24522265A2FF0013F77E /* UpcomingBookingsVC.swift */,
-				84DD24542265A3080013F77E /* UpcomingBookingsVM.swift */,
 				1848B86B229E8CB800310953 /* UpcomingBookingVC+CoreData.swift */,
+				84DD24542265A3080013F77E /* UpcomingBookingsVM.swift */,
 				1848B86D229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift */,
+				84DD24522265A2FF0013F77E /* UpcomingBookingsVC.swift */,
 			);
 			path = UpcomingBookingsVC;
 			sourceTree = "<group>";
@@ -4790,6 +4790,7 @@
 				84247F8E22A53D6D00A0FEB7 /* CancelledVC */,
 				84247F8722A5308200A0FEB7 /* CompletedVC */,
 				84DD24562265A30D0013F77E /* UpcomingBookingsVC */,
+
 				84F2DCA6226477D700212F05 /* MyBookingFilterVC */,
 				84F2DC992264730800212F05 /* TravelDateVC */,
 				84F2DC9E2264738100212F05 /* EventTypeVC */,

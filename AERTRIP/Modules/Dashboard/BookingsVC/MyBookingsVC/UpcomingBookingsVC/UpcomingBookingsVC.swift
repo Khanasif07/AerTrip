@@ -40,9 +40,9 @@ class UpcomingBookingsVC: BaseVC {
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: false)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "eventStartDate", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
@@ -105,9 +105,9 @@ class UpcomingBookingsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
-            //re-hit the search API
-            printDebug("in upcoming \(MyBookingFilterVM.shared)")
+        if let noti = note.object as? ATNotification, (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            //refresh the data with filters
+            self.loadSaveData()
         }
     }
     
@@ -115,68 +115,6 @@ class UpcomingBookingsVC: BaseVC {
     //================
 }
 
-//Mark:- Extensions
-//=================
-//extension UpcomingBookingsVC: UITableViewDelegate , UITableViewDataSource {
-//    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-////        return self.viewModel.upcomingBookingData.count
-//        return 1
-//    }
-//    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel.upcomingBookingData[section].numbOfRows + 1
-//        if let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
-//            return (eventData.reduce(0) { $0 + $1.numbOfRows}) + 1
-//        }
-//        return 0
-//
-//        return MyBookingsVM.shared.upComingBookings.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        guard let eventData = self.viewModel.upcomingDetails[self.viewModel.allDates[indexPath.section]] as? [UpComingBookingEvent] else { return UITableViewCell() }
-////        let currentSecData = eventData[0]
-////        let currentRows = currentSecData.cellType()
-//        
-//        
-//        guard let cell = self.upcomingBookingsTableView.dequeueReusableCell(withIdentifier: "HotelTableViewCell") as? HotelTableViewCell else {
-//            fatalError("HotelTableViewCell not fund ")
-//        }
-////        let upcomingBooking = MyBookingsVM.shared.upComingBookings[indexPath.row]
-////        cell.configCell(plcaeName: upcomingBooking.bookingDetails?.hotelName ?? "", travellersName: upcomingBooking.bookingDetails?.passengerDetail.first ?? "")
-//      
-//        return cell
-////        switch currentRows[indexPath.row] {
-////        case .eventTypeCell:
-////            let cell = self.getEventTypeCell(tableView, indexPath: indexPath, eventData: currentSecData)
-////            return cell
-////        default:
-//////        case .spaceCell:
-//////            let cell = self.getSpaceCell(tableView, indexPath: indexPath)
-//////            return cell
-//////        case .queryCell:
-////            let cell = self.getQueryCell(tableView, indexPath: indexPath, eventData: currentSecData)
-//////            return cell
-//////        }
-////    }
-//        
-//    }
-//    
-//    
-////    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//////        let currentSecData = self.viewModel.upcomingBookingData[section]
-////        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-////        if let currentSecData = self.viewModel.upcomingDetails[self.viewModel.allDates[section]] as? [UpComingBookingEvent] {
-////            headerView.dateLabel.text = currentSecData[0].creationDate
-//////            headerView.configView(date: currentSecData[0].creationDate, isFirstHeaderView: T##Bool)
-////            headerView.dateLabelTopConstraint.constant = 11.0
-////        }
-////        headerView.contentView.backgroundColor = AppColors.themeWhite
-////        headerView.backgroundColor = AppColors.themeWhite
-////        return headerView
-////    }
-//}
 
 extension UpcomingBookingsVC {
 

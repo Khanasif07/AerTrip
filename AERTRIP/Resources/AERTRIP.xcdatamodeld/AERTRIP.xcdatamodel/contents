@@ -10,6 +10,7 @@
         <attribute name="bookingStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bookingTabType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cancellationRequests" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
+        <attribute name="dateHeader" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="depart" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptions" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="destination" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,12 +20,14 @@
         <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="guestCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="hotelName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isContainsPending" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="origin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pax" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="product" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="requests" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;String, Any&gt;" syncable="YES"/>
         <attribute name="reschedulingRequests" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="routes" optional="YES" attributeType="Transformable" customClassName="Array&lt;Array&lt;Any&gt;&gt;" syncable="YES"/>
+        <attribute name="stepsArray" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;" syncable="YES"/>
         <attribute name="travelledCities" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="tripCities" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="tripType" optional="YES" attributeType="String" syncable="YES"/>
@@ -77,7 +80,7 @@
         <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookingData" positionX="72" positionY="-225" width="128" height="450"/>
+        <element name="BookingData" positionX="72" positionY="-225" width="128" height="495"/>
         <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="555"/>
         <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="178"/>
     </elements>

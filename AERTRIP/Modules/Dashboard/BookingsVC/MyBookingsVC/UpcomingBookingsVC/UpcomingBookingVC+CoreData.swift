@@ -13,25 +13,36 @@ extension UpcomingBookingsVC {
     // fetch data from Core Data
     func loadSaveData() {
         do {
-            
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
+            MyBookingFilterVM.shared.filteredUpcomingResultCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")
         }
         
-        self.upcomingBookingsTableView.reloadData()
+        self.upcomingBookingsTableView?.reloadData()
     }
     
+    // upcoming Tab Type Predicate
+    private func tabTypePredicate() -> NSPredicate? {
+        return NSPredicate(format: "bookingTabType == '1'")
+    }
 
-    
+}
+
+
+extension UpcomingBookingsVC {
     //  Final Predicate
     private func createFinalPredicate () -> NSPredicate? {
         
         var allPred: [NSPredicate] = []
         
         if let obj = bookingDatePredicates() {
+            allPred.append(obj)
+        }
+        
+        if let obj = bookingTravelDatePredicates() {
             allPred.append(obj)
         }
         
@@ -52,38 +63,55 @@ extension UpcomingBookingsVC {
     }
     
     
-    // upcoming Tab Type Predicate
-    
-    private func tabTypePredicate() -> NSPredicate? {
-        return NSPredicate(format: "bookingTabType == '1'")
-    }
-    
-    
     // Booking Date Predicates
-    
     private func bookingDatePredicates() -> NSPredicate? {
-        guard let fromDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: -60), let toDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: 1) else {
-            return nil
+        
+        var fromPredicate: NSPredicate?
+        var toPredicate: NSPredicate?
+        if let fromDate = MyBookingFilterVM.shared.bookingFromDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
+            fromPredicate = NSPredicate(format: "bookingDate >= %@", fromDate)
         }
-
-        // Set predicate as date being today's date
-        let fromPredicate = NSPredicate(format: "bookingDate >= %@", fromDate)
-        let toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
-        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
-        return datePredicate
-       }
+        
+        if let toDate = MyBookingFilterVM.shared.bookingToDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
+            toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
+        }
+        
+        if let from = fromPredicate, let to = toPredicate {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [from, to])
+        }
+        else if let from = fromPredicate {
+            return from
+        }
+        else if let to = toPredicate {
+            return to
+        }
+        return nil
+    }
     
     // Booking Travel Predicate
     
     private func bookingTravelDatePredicates() -> NSPredicate? {
-        guard let fromTravelDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: -3), let toTravelDate = MyBookingFilterVM.shared.bookingFromDate?.addDay(days: 1) else {
-            return nil
+        
+        var fromPredicate: NSPredicate?
+        var toPredicate: NSPredicate?
+        if let fromDate = MyBookingFilterVM.shared.travelFromDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
+            fromPredicate = NSPredicate(format: "dateHeader >= %@", fromDate)
         }
-        // Set predicate as date being today's date
-        let fromTravelDatePredicate = NSPredicate(format: "depart >= %@", fromTravelDate)
-        let toTravelDatePredicate = NSPredicate(format: "depart <= %@", toTravelDate)
-        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromTravelDatePredicate, toTravelDatePredicate])
-        return datePredicate
+        
+        if let toDate = MyBookingFilterVM.shared.travelToDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
+            toPredicate = NSPredicate(format: "dateHeader <= %@",toDate)
+        }
+        
+        if let from = fromPredicate, let to = toPredicate {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [from, to])
+        }
+        else if let from = fromPredicate {
+            return from
+        }
+        else if let to = toPredicate {
+            return to
+        }
+        return nil
     }
     
     

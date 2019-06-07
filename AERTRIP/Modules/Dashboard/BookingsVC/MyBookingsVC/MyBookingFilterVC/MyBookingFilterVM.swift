@@ -31,13 +31,34 @@ class MyBookingFilterVM {
     var bookingFromDate: Date?
     var bookingToDate: Date?
     
-
-
-    // let event Type filter 
+    // let event Type filter
     var eventType: [Int] = [1,2,3]
+    
+    var totalResultCount: Int {
+        return CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingId", usingFunction: "count").count
+    }
+    var filteredUpcomingResultCount: Int = 0
+    var filteredCompletedResultCount: Int = 0
+    var filteredCanceledResultCount: Int = 0
+    
+    var filteredResultCount: Int {
+        return filteredUpcomingResultCount + filteredCompletedResultCount + filteredCanceledResultCount
+    }
 
     
     private init() {
+    }
+    
+    func setToDefault() {
+        self.bookingSortType = .travelDate
+        
+        self.travelFromDate = nil
+        self.travelToDate = nil
+        
+        self.bookingFromDate = nil
+        self.bookingToDate = nil
+        
+        self.eventType = [1,2,3]
     }
 }
 

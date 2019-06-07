@@ -14,6 +14,7 @@ import CoreData
 public class BookingData: NSManagedObject {
     
     class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext) -> BookingData {
+        
         var booking: BookingData?
         
         if let id = dataDict[APIKeys.bid.rawValue], !"\(id)".isEmpty {
@@ -63,8 +64,57 @@ public class BookingData: NSManagedObject {
             booking?.bookingStatus = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.requests.rawValue] as? [String:Any] {
+        
+        //for seting the steps array anf pending status
+        func setStepsArrayAndPendingStatus(forData: JSONDictionary) {
+
+            var steps: [String] = []
+            
+            if let addOnSteps = forData["addon"] as? [String] {
+                let title = "Add-ons"
+                for step in addOnSteps {
+                    if step.lowercased() == "action required / payment pending" {
+                        steps.append("\(title) payment pending")
+                        booking?.isContainsPending = 1
+                    }
+                    else {
+                        steps.append("\(title) \(step.lowercased())")
+                    }
+                }
+            }
+            
+            if let cancellationSteps = forData["cancellation"] as? [String] {
+                let title = "Cancellation"
+                for step in cancellationSteps {
+                    if step.lowercased() == "action required / payment pending" {
+                        steps.append("\(title) action required")
+                        booking?.isContainsPending = 1
+                    }
+                    else {
+                        steps.append("\(title) \(step.lowercased())")
+                    }
+                }
+            }
+            
+            if let reschedulingSteps = forData["rescheduling"] as? [String] {
+                let title = "Rescheduling"
+                for step in reschedulingSteps {
+                    if step.lowercased() == "action required / payment pending" {
+                        steps.append("\(title) payment required")
+                        booking?.isContainsPending = 1
+                    }
+                    else {
+                        steps.append("\(title) \(step.lowercased())")
+                    }
+                }
+            }
+            
+            booking?.stepsArray = steps
+        }
+        
+        if let obj = dataDict[APIKeys.requests.rawValue] as? JSONDictionary {
             booking?.requests = obj
+            setStepsArrayAndPendingStatus(forData: obj)
         }
         
         if let obj = dataDict[APIKeys.description.rawValue] as? [String] {
@@ -114,6 +164,13 @@ public class BookingData: NSManagedObject {
                 booking?.reschedulingRequests = request["rescheduling"] as? [String]
                 booking?.cancellationRequests = request["cancellation"] as? [String]
                 booking?.addOnRequests = request["addOns"] as? [String]
+            }
+            
+            if let type = booking?.productType, type == .flight {
+                booking?.dateHeader = booking?.depart
+            }
+            else {
+                booking?.dateHeader = booking?.eventStartDate
             }
         }
         

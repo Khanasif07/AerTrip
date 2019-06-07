@@ -112,8 +112,15 @@ class TravelDateVC: BaseVC {
     
     private func setupDateSpan() {
         if self.currentlyUsingAs == .travelDate {
-            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
-            self.closeBothPicker(animated: false)
+            if let _ = self.oldFromDate {
+                self.fromTapGestureAction(UITapGestureRecognizer())
+            }
+            else if let _ = self.oldToDate {
+                self.toTapGestureAction(UITapGestureRecognizer())
+            }
+            else {
+                self.closeBothPicker(animated: false)
+            }
 
             self.fromDatePicker.minimumDate = self.minFromDate
             self.fromDatePicker.maximumDate = Date().add(years: 2)
@@ -121,12 +128,22 @@ class TravelDateVC: BaseVC {
             self.toDatePicker.minimumDate = self.minFromDate
             self.toDatePicker.maximumDate = Date().add(years: 2)
             
-            self.fromDatePicker.setDate(self.minFromDate ?? self.oldFromDate ?? Date(), animated: false)
+            self.fromDatePicker.setDate(self.oldFromDate ?? self.minFromDate ?? Date(), animated: false)
             self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+            
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
         else if self.currentlyUsingAs == .bookingDate {
-            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
-            self.closeBothPicker(animated: false)
+            
+            if let _ = self.oldFromDate {
+                self.fromTapGestureAction(UITapGestureRecognizer())
+            }
+            else if let _ = self.oldToDate {
+                self.toTapGestureAction(UITapGestureRecognizer())
+            }
+            else {
+                self.closeBothPicker(animated: false)
+            }
             
             self.fromDatePicker.minimumDate = self.minFromDate
             self.fromDatePicker.maximumDate = Date()
@@ -134,8 +151,10 @@ class TravelDateVC: BaseVC {
             self.toDatePicker.minimumDate = self.minFromDate
             self.toDatePicker.maximumDate = Date()
             
-            self.fromDatePicker.setDate(self.minFromDate ?? self.oldFromDate ?? Date(), animated: false)
+            self.fromDatePicker.setDate(self.oldFromDate ?? self.minFromDate ?? Date(), animated: false)
             self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+            
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
         else {
             //account
@@ -201,7 +220,11 @@ class TravelDateVC: BaseVC {
     
     @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
         self.setLabelsDate()
-        self.toDatePicker.minimumDate = datePicker.date
+        
+        if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
+            self.toDatePicker.minimumDate = datePicker.date
+            self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
+        }
         self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
     }
     
