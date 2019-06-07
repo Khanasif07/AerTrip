@@ -45,6 +45,7 @@ class MyBookingFilterVM {
         return filteredUpcomingResultCount + filteredCompletedResultCount + filteredCanceledResultCount
     }
 
+    var searchText: String = ""
     
     private init() {
     }

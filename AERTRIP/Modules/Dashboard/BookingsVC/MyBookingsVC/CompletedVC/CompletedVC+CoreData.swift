@@ -21,7 +21,7 @@ extension CompletedVC {
             printDebug("Fetch failed")
         }
         
-        self.completedBookingsTableView?.reloadData()
+        self.reloadList()
     }
     
     // upcoming Tab Type Predicate
@@ -53,6 +53,14 @@ extension CompletedVC {
             allPred.append(obj)
         }
         
+        if let obj = onlyPendingActionPredicate() {
+            allPred.append(obj)
+        }
+        
+        if let obj = getSearchPredicates() {
+            allPred.append(obj)
+        }
+        
         if allPred.isEmpty {
             return nil
         }
@@ -61,6 +69,20 @@ extension CompletedVC {
         }
     }
     
+    private func getSearchPredicates() -> NSPredicate?{
+        if !MyBookingFilterVM.shared.searchText.isEmpty {
+            let hotelName = NSPredicate(format: "hotelName CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            return hotelName
+        }
+        return nil
+    }
+    
+    private func onlyPendingActionPredicate() -> NSPredicate?{
+        if self.isOnlyPendingAction {
+            return NSPredicate(format: "isContainsPending == '1'")
+        }
+        return nil
+    }
     
     // Booking Date Predicates
     private func bookingDatePredicates() -> NSPredicate? {

@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension MyBookingsVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(search(_:)), with: searchText, afterDelay: 0.5)
+    }
+    
+    @objc private func search(_ forText: String) {
+        printDebug(forText)
+        self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
+        MyBookingFilterVM.shared.searchText = forText
+    }
+}
+
 extension MyBookingsVC: MyBookingsVMDelegate {
     
    

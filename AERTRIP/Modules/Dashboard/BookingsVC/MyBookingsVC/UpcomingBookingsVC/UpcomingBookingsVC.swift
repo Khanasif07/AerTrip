@@ -34,7 +34,16 @@ class UpcomingBookingsVC: BaseVC {
             self.upcomingBookingsTableView.sectionFooterHeight = 0.0
         }
     }
+    @IBOutlet var footerView: MyBookingFooterView! {
+        didSet {
+            footerView.delegate = self
+            footerView.pendingActionSwitch.isOn = false
+        }
+    }
+    @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
     
+    
+    var isOnlyPendingAction: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     
     // fetch result controller
@@ -60,7 +69,7 @@ class UpcomingBookingsVC: BaseVC {
         
         self.registerXibs()
         self.loadSaveData()
-
+        self.reloadList(isFirstTimeLoading: true)
     }
     
     override func setupTexts() {
@@ -82,6 +91,19 @@ class UpcomingBookingsVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func manageFooter(isHidden: Bool) {
+        self.footerView?.isHidden = isHidden
+        self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
+    }
+    
+    func reloadList(isFirstTimeLoading: Bool = false) {
+        if isFirstTimeLoading, let count = self.fetchedResultsController.fetchedObjects?.count {
+            self.manageFooter(isHidden: count <= 0)
+        }
+        self.emptyStateSetUp()
+        self.upcomingBookingsTableView?.reloadData()
+    }
+    
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
 //        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
@@ -91,23 +113,30 @@ class UpcomingBookingsVC: BaseVC {
     }
     
      func emptyStateSetUp() {
-        if MyBookingsVM.shared.allTabTypes.isEmpty {
-            self.emptyStateImageView.isHidden = false
-            self.emptyStateTitleLabel.isHidden = false
-            self.emptyStateSubTitleLabel.isHidden = false
-            self.upcomingBookingsTableView.isHidden = true
+        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoUpcomingBookings.localized
+        if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
+            self.emptyStateImageView?.isHidden = true
+            self.emptyStateTitleLabel?.isHidden = true
+            self.emptyStateSubTitleLabel?.isHidden = true
+            self.upcomingBookingsTableView?.isHidden = false
         } else {
-            self.emptyStateImageView.isHidden = true
-            self.emptyStateTitleLabel.isHidden = true
-            self.emptyStateSubTitleLabel.isHidden = true
-            self.upcomingBookingsTableView.isHidden = false
+            self.emptyStateImageView?.isHidden = false
+            self.emptyStateTitleLabel?.isHidden = false
+            self.emptyStateSubTitleLabel?.isHidden = false
+            self.upcomingBookingsTableView?.isHidden = true
         }
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+        if let noti = note.object as? ATNotification {
             //refresh the data with filters
-            self.loadSaveData()
+            
+            if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.loadSaveData()
+            }
+            else if noti == .myBookingSearching {
+                self.loadSaveData()
+            }
         }
     }
     

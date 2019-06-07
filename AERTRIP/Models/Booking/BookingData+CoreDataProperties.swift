@@ -51,20 +51,19 @@ extension BookingData {
     @NSManaged public var bookingNumber: String?
     @NSManaged public var bookingId: String?
     
+    @NSManaged public var routesArrStr: String?
+    @NSManaged public var travelledCitiesArrStr: String?
+    @NSManaged public var tripCitiesArrStr: String?
+    @NSManaged public var paxArrStr: String?
+    @NSManaged public var stepsArrayStr: String?
+    
     @NSManaged public var isContainsPending: Int16
     @NSManaged public var bookingTabType: Int16
     @NSManaged public var bookingProductType: Int16
     @NSManaged public var eventType: Int16
     
-    
-    
     //Requests
     @NSManaged public var stepsArray: Array<String>?
-    @NSManaged public var reschedulingRequests: Array<Any>?
-    
-    @NSManaged public var cancellationRequests: Array<Any>?
-    
-    @NSManaged public var addOnRequests: Array<Any>?
 }
 
 

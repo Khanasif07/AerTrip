@@ -644,7 +644,10 @@ enum LocalizedString: String {
     case Upcoming = "Upcoming"
     case Completed = "Completed"
     case Cancelled = "Cancelled"
-    case YouHaveNoUpcomingBookings = "YouHaveNoUpcomingBookings"
+    case YouHaveNoUpcomingBookings
+    case YouHaveNoComletedBookings
+    case YouHaveNoCancelledBookings
+    case YouHaveNoPendingAction
     case NewDestinationsAreAwaiting = "NewDestinationsAreAwaiting"
     case BookingIDAndDate = "BookingIDAndDate"
     case Documents = "Documents"

@@ -611,6 +611,9 @@
 "Completed" = "Completed";
 "Cancelled" = "Cancelled";
 "YouHaveNoUpcomingBookings" = "You have no upcoming bookings";
+"YouHaveNoComletedBookings" = "You have no comleted bookings";
+"YouHaveNoCancelledBookings" = "You have no cancelled bookings";
+"YouHaveNoPendingAction" = "You have no pending actions";
 "NewDestinationsAreAwaiting"  = "New destinations are awaiting";
 "BookingIDAndDate" = "Booking ID & Date";
 "Documents" = "DOCUMENTS";

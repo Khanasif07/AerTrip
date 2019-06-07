@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MyBookingFooterViewDelegate: class {
-    func showPendingActionsOnly()
+    func myBookingFooterView(_ sender: MyBookingFooterView, didChangedPendingActionSwitch isOn: Bool)
 }
 
 class MyBookingFooterView: UIView {
@@ -57,6 +57,6 @@ class MyBookingFooterView: UIView {
     }
     
     @IBAction func showPendingActions(_ sender: UISwitch) {
-        self.delegate?.showPendingActionsOnly()
+        self.delegate?.myBookingFooterView(self, didChangedPendingActionSwitch: sender.isOn)
     }
 }
