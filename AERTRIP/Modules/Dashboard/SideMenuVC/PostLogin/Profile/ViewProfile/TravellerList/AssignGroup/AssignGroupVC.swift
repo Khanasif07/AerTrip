@@ -36,7 +36,8 @@ class AssignGroupVC: BaseVC {
         doInitialSetUp()
         registerXib()
         
-        labelsCountDict = CoreDataManager.shared.getCount(fromEntity: "TravellerData", forAttribute: "label")
+        
+        labelsCountDict = CoreDataManager.shared.fetchData(fromEntity: "TravellerData", forAttribute: "label", usingFunction: "count")
     }
     
     override func bindViewModel() {

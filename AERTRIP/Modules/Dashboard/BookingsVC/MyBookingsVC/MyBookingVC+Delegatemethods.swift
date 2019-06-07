@@ -12,12 +12,12 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     
    
     func getBookingDetailFail(error: ErrorCodes) {
-        self.view.removeBluerLoader()
+        AppGlobals.shared.stopLoading()
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
     }
     
     func willGetBookings() {
-        self.view.showBlurLoader(frame:self.view.frame)
+        AppGlobals.shared.startLoading()
         printDebug("Will get bookings ")
     }
     
@@ -26,7 +26,8 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         //            obj.emptyStateSetUp()
         //        }
         //
-        self.view.removeBluerLoader()
+        AppGlobals.shared.stopLoading()
+        MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         self.emptyStateSetUp()
     }
 }

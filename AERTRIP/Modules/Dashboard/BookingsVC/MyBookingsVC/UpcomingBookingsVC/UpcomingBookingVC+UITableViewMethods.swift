@@ -26,7 +26,10 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+
+        let bookingData = fetchedResultsController.object(at: indexPath)
+        let stepsH: CGFloat = CGFloat(bookingData.stepsArray.count) * 40.0
+        return stepsH + 92.0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -64,7 +67,6 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
         
-        cell.shouldRoundAllCorners = true
         cell.bookingData = bookingData
         return cell
     }

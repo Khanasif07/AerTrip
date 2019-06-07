@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import IQKeyboardManager
 import MapKit
+import PKLoader
 
 func printDebug<T>(_ obj : T) {
    print(obj)
@@ -397,6 +398,17 @@ extension Double {
 
 
 extension AppGlobals {
+    
+    func startLoading(animatingView: UIView? = nil) {
+        PKLoaderSettings.shared.indicatorColor = AppColors.themeGreen
+        PKLoaderSettings.shared.indicatorType = .activityIndicator
+        PKLoader.shared.startAnimating(onView: animatingView)
+    }
+    
+    func stopLoading() {
+        PKLoader.shared.stopAnimating()
+    }
+    
     private func downloadPdf(fileURL: URL, screenTitle: String, complition: @escaping ((URL?)->Void)) {
         // Create destination URL
         if let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

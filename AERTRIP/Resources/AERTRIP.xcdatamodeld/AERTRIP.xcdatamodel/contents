@@ -22,7 +22,7 @@
         <attribute name="origin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pax" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="product" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="requests" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
+        <attribute name="requests" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;String, Any&gt;" syncable="YES"/>
         <attribute name="reschedulingRequests" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="routes" optional="YES" attributeType="Transformable" customClassName="Array&lt;Array&lt;Any&gt;&gt;" syncable="YES"/>
         <attribute name="travelledCities" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>

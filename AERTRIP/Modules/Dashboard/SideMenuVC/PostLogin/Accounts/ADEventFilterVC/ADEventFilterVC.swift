@@ -245,6 +245,7 @@ extension ADEventFilterVC {
 }
 
 extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
+
     func didSelect(voucher: String) {
         if !voucher.isEmpty, voucher.lowercased() != "all" {
             self.selectedFilter.voucherType = voucher
@@ -254,11 +255,11 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
         }
     }
     
-    func didSelect(toDate: Date) {
+    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.toDate = toDate
     }
     
-    func didSelect(fromDate: Date) {
+    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.fromDate = fromDate
     }
 }

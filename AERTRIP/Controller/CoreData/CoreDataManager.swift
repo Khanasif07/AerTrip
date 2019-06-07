@@ -158,7 +158,7 @@ class CoreDataManager {
     
     //MARK:- Fetch Data From Core Data
     //MARK:-
-    func fetchData(_ modelName: String, predicate:String? = nil, properties: [String]? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
+    func fetchData(_ modelName: String, predicate:String? = nil, sort:[(sortKey:String?,isAscending:Bool)]? = nil, inManagedContext: NSManagedObjectContext? = CoreDataManager.shared.managedObjectContext) -> [Any]? {
         
         let cdhObj = inManagedContext!
         
@@ -168,8 +168,6 @@ class CoreDataManager {
         if let prdStr = predicate {
             fReq.predicate = NSPredicate(format:prdStr)
         }
-        
-        fReq.propertiesToFetch = properties
         
         //set sort descripter
         if let sortDict = sort {
@@ -199,47 +197,31 @@ class CoreDataManager {
         }
     }
     
-    func getCount(fromEntity: String, forAttribute: String) -> [JSONDictionary] {
+    func fetchData(fromEntity: String, forAttribute: String, usingFunction function: String) -> [JSONDictionary] {
+        /*
+         Function ca be like:
+         count  :::  use to get the count for perticular attribute
+         max    :::  use to get the maximum value for perticular attribute
+         min    :::  use to get the minimum value for perticular attribute
+        */
         let keypathExp = NSExpression(forKeyPath: forAttribute)
-        let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
+        let expression = NSExpression(forFunction: "\(function):", arguments: [keypathExp])
         
-        let countDesc = NSExpressionDescription()
-        countDesc.expression = expression
-        countDesc.name = "count"
-        countDesc.expressionResultType = .decimalAttributeType
+        let funcDesc = NSExpressionDescription()
+        funcDesc.expression = expression
+        funcDesc.name = function
+        funcDesc.expressionResultType = (function.lowercased() == "count") ? .decimalAttributeType : .stringAttributeType
         
         let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: fromEntity)
         
         request.returnsObjectsAsFaults = false
-        request.propertiesToGroupBy = [forAttribute]
-        request.propertiesToFetch = [forAttribute, countDesc]
-        request.resultType = .dictionaryResultType
-        
-        //final fetch data
-        do {
-            let result = try CoreDataManager.shared.managedObjectContext.fetch(request) as? [JSONDictionary]
-            return result ?? [[:]]
+        if function.lowercased() == "count" {
+            request.propertiesToGroupBy = [forAttribute]
+            request.propertiesToFetch = [forAttribute, funcDesc]
         }
-        catch let error {
-            printDebug("Problem in fetching data from core data is: \(error.localizedDescription)")
-            return [[:]]
+        else {
+            request.propertiesToFetch = [funcDesc]
         }
-    }
-    
-    func filterData(fromEntity: String, forAttribute: String) -> [JSONDictionary] {
-        let keypathExp = NSExpression(forKeyPath: forAttribute)
-        let expression = NSExpression(forFunction: "modulus:by:", arguments: [keypathExp])
-        
-        let countDesc = NSExpressionDescription()
-        countDesc.expression = expression
-        countDesc.name = "modulus:by"
-        countDesc.expressionResultType = .decimalAttributeType
-        
-        let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: fromEntity)
-        
-        request.returnsObjectsAsFaults = false
-        request.propertiesToGroupBy = [forAttribute]
-        request.propertiesToFetch = [forAttribute, countDesc]
         request.resultType = .dictionaryResultType
         
         //final fetch data

@@ -86,7 +86,7 @@ class CancelledVC: BaseVC {
     //================
     private func registerXibs() {
         self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.cancelledBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.cancelledBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }
@@ -107,8 +107,9 @@ class CancelledVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let _ = note.object as? MyBookingFilterVC {
-            printDebug("Booking filter Applied ")
+        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
+            //re-hit the search API
+            printDebug("in cancelled \(MyBookingFilterVM.shared)")
         }
     }
     

@@ -79,13 +79,12 @@ class UpcomingBookingsVC: BaseVC {
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
         self.upcomingBookingsTableView.backgroundColor = AppColors.themeWhite
     }
-
     
     //Mark:- Functions
     //================
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: HotelTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
@@ -106,8 +105,9 @@ class UpcomingBookingsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-         if let _ = note.object as? MyBookingFilterVC {
-            printDebug("Booking Filter applied replied")
+        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
+            //re-hit the search API
+            printDebug("in upcoming \(MyBookingFilterVM.shared)")
         }
     }
     

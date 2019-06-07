@@ -28,10 +28,10 @@ extension BookingData {
     @NSManaged public var actionRequired: Int16
     
     // bdetails
-    
+
     @NSManaged public var guestCount: Int16
     @NSManaged public var descriptions: Array<Any>?
-    @NSManaged public var requests: Array<Any>?
+    @NSManaged public var requests: Dictionary<String, Any>?
     @NSManaged public var bookingStatus: String? // Booking status - Pending and Other
     @NSManaged public var eventStartDate: String? // event Start Date
     @NSManaged public var eventEndDate: String?  // event end Date
@@ -80,19 +80,95 @@ extension BookingData {
         return ProductType(rawValue: Int(self.bookingProductType)) ?? .other
     }
     
-    var tripCitiesStr: String {
+    var tripCitiesStr: NSMutableAttributedString? {
         if self.productType == .flight {
-            if let cities = self.tripCities as? [String], !cities.isEmpty {
-                return cities.joined(separator: " → ")
+
+            func isReturnFlight(forArr: [String]) -> Bool {
+                guard !forArr.isEmpty else {return false}
+                
+                if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+                    return (first.lowercased() == last.lowercased())
+                }
+                else {
+                    return ((self.tripType ?? "").lowercased() == "return")
+                }
+            }
+            
+            func getNormalString(forArr: [String]) -> String {
+                guard !forArr.isEmpty else {return "--"}
+                return forArr.joined(separator: " → ")
+            }
+            
+            func getReturnString(forArr: [String]) -> String {
+                guard forArr.count >= 2 else {return "--"}
+                return "\(forArr[0]) ⇋ \(forArr[1])"
+            }
+            
+            guard let tripCts = self.tripCities as? [String] else {
+                return NSMutableAttributedString(string: self.origin ?? "--")
+            }
+            
+            if ((self.tripType ?? "").lowercased() == "single") {
+                //single flight case
+                let temp = getNormalString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
+            }
+            else if isReturnFlight(forArr: tripCts){
+                //return flight case
+                let temp = getReturnString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
             }
             else {
-                return self.origin ?? ""
+                //multi flight case
+                if let routes = self.routes as? [[String]], let travledCity = self.travelledCities as? [String] {
+                    //travlled some where
+                    
+                    if (routes.first ?? []).isEmpty {
+                        //still not travlled
+                        let temp = getNormalString(forArr: tripCts)
+                        return NSMutableAttributedString(string: temp)
+                    }
+                    else {
+                        
+                        var routeStr = ""
+                        var travLastIndex: Int = 0
+                        var prevCount: Int = 0
+                        for route in routes {
+                            var temp = route.joined(separator: " → ")
+                            
+                            if !routeStr.isEmpty {
+                                temp = ", \(temp)"
+                            }
+                            
+                            for (idx, ct) in route.enumerated() {
+                                let newIdx = idx + prevCount
+                                if travledCity.count > newIdx, travledCity[newIdx] == ct {
+                                    //travelled through this city
+                                    var currentCityTemp = " \(ct) →"
+                                    if !routeStr.isEmpty, idx == 0 {
+                                        currentCityTemp = ", \(ct) →"
+                                    }
+                                    travLastIndex = routeStr.count + currentCityTemp.count
+                                }
+                            }
+                            routeStr += temp
+                            prevCount = route.count
+                        }
+                        
+                        let attributedStr1 = NSMutableAttributedString(string: routeStr)
+                        if travLastIndex > 0 {
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+2))
+                        }
+                        return attributedStr1
+                    }
+                }
+                return NSMutableAttributedString(string: "--")
             }
         }
         else if self.productType == .hotel {
-            return self.hotelName ?? ""
+            return NSMutableAttributedString(string: self.hotelName ?? "--")
         }
-        return ""
+        return nil
     }
     
     var paxStr: String {
@@ -100,6 +176,11 @@ extension BookingData {
             
             var nameStr = ""
             var verbStr = (self.bookingTabType == 1) ? "are" : "were"
+            
+            var actionStr = "staying"
+            if (self.productType == .flight) {
+                actionStr = (self.bookingTabType == 1) ? "flying" : "flown"
+            }
             
             switch arr.count {
             case 1:
@@ -118,7 +199,7 @@ extension BookingData {
                 nameStr += " and \(arr.count-1) others"
             }
             
-            return nameStr.isEmpty ? "N/A" : "\(nameStr) \(verbStr) \((self.productType == .flight) ? "flying" : "staying")"
+            return nameStr.isEmpty ? "N/A" : "\(nameStr) \(verbStr) \(actionStr)"
         }
         
         if let pax = self.pax as? [String] {
@@ -133,5 +214,52 @@ extension BookingData {
         else {
             return LocalizedString.na.localized
         }
+    }
+    
+    var stepsArray: [String] {
+        
+        guard let requestDict = self.requests else {
+            return []
+        }
+        
+        var steps: [String] = []
+        
+        if let addOnSteps = requestDict["addon"] as? [String] {
+            let title = "Add-ons"
+            for step in addOnSteps {
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) payment pending")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
+            }
+        }
+        
+        if let cancellationSteps = requestDict["cancellation"] as? [String] {
+            let title = "Cancellation"
+            for step in cancellationSteps {
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) action required")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
+            }
+        }
+        
+        if let reschedulingSteps = requestDict["rescheduling"] as? [String] {
+            let title = "Rescheduling"
+            for step in reschedulingSteps {
+                if step.lowercased() == "action required / payment pending" {
+                    steps.append("\(title) payment required")
+                }
+                else {
+                    steps.append("\(title) \(step.lowercased())")
+                }
+            }
+        }
+        
+        return steps
     }
 }

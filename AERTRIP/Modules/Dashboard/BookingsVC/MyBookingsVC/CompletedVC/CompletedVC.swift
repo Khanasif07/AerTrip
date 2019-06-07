@@ -86,7 +86,7 @@ class CompletedVC: BaseVC {
     //================
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
+//        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }
@@ -108,8 +108,9 @@ class CompletedVC: BaseVC {
     
     
     override func dataChanged(_ note: Notification) {
-        if let _ = note.object as? MyBookingFilterVC {
-            printDebug("Booking filter applied : Completed VC")
+        if let noti = note.object as? ATNotification, noti == .myBookingFilterApplied {
+            //re-hit the search API
+            printDebug("in completed \(MyBookingFilterVM.shared)")
         }
     }
 

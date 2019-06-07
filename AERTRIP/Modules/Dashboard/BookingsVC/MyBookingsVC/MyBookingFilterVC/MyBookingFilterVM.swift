@@ -22,13 +22,14 @@ class MyBookingFilterVM {
     
     // Booking sorting Type
     var bookingSortType: BookingSortType = .travelDate
+    
     // Travel Date
-    var travelFromDate: Date = Date()
-    var travelToDate: Date = Date()
+    var travelFromDate: Date?
+    var travelToDate: Date?
     
     // Booking Date
-    var bookingFromDate: Date = Date()
-    var bookingToDate: Date = Date()
+    var bookingFromDate: Date?
+    var bookingToDate: Date?
     
 
 
@@ -37,6 +38,19 @@ class MyBookingFilterVM {
 
     
     private init() {
+    }
+}
+
+extension MyBookingFilterVM: CustomStringConvertible {
+    var description: String {
+        var temp = ""
+        temp += "bookingSortType \(bookingSortType)\n"
+        temp += "travelFromDate \(travelFromDate?.toString(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? "-")\n"
+        temp += "travelToDate \(travelToDate?.toString(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? "-")\n"
+        temp += "bookingFromDate \(bookingFromDate?.toString(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? "-")\n"
+        temp += "bookingToDate \(bookingToDate?.toString(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? "-")\n"
+        temp += "eventType \(eventType)\n"
         
+        return temp
     }
 }
