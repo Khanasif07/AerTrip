@@ -21,7 +21,7 @@ struct BookingDetailModel {
     var specialFare: String = ""
     var bookingDetail: BookingDetail?
     var itineraryId: String = ""
-    var cases: [CaseStatus] = []
+    var cases: [Case] = []
     var receipt: Receipt?
     
     var totalAmountPaid: String = ""
@@ -93,7 +93,38 @@ struct BookingDetail {
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
     var journeyCompleted: Int16 = 0
-    var pax: [String] = []
+    
+    // Keys for Product = Hotel
+    
+    var bookingHotelId: String = ""
+    var hotelAddress: String = ""
+    var country: String = ""
+    var isRefundable: Bool = false
+    var rooms: Int = 0
+    var roomDetails: [RoomDetailModel] = []
+    var pax: [String] = [] // Used for pax details array
+    var latitude: String = ""
+    var longitude: String = ""
+    var cancellation: Cancellation?
+    var hotelPhone: String = ""
+    var hotelEmail: String = ""
+    
+    var city: String = ""
+    var hotelImage: String = ""
+    var hotelStarRating: String = ""
+    var taRating: String = ""
+    var taReviewCount: String = ""
+    var hotelId: String = ""
+    var nights: Int = 0
+    var checkIn: String = ""
+    var checkOut: String = ""
+    
+    // Product key  = other
+    
+    var bookingDate: String = ""
+    var title: String = ""
+    var details: String = ""
+    
     var note: String = ""
     var eventStartDate: String = ""
     var eventEndDate: String = ""
@@ -118,8 +149,81 @@ struct BookingDetail {
         if let obj = json["routes"] as? [[String]] {
             self.routes = obj
         }
+        
+        // Initialising  for hotel
+        if let obj = json["booking_hotel_id"] {
+            self.bookingHotelId = "\(obj)"
+        }
+        
+        if let obj = json["hotel_address"] {
+            self.hotelAddress = "\(obj)"
+        }
+        
+        if let obj = json["country"] {
+            self.country = "\(obj)"
+        }
+        
+        if let obj = json["is_refundable"] {
+            self.isRefundable = "\(obj)".toBool
+        }
+        
+        if let obj = json["rooms"] {
+            self.rooms = "\(obj)".toInt ?? 0
+        }
+        
+        // TODO: For Room detail
+        
+        // TODO: For Cancellation
+        
+        if let obj = json["latitude"] {
+            self.latitude = "\(obj)"
+        }
+        
+        if let obj = json["longitude"] {
+            self.longitude = "\(obj)"
+        }
+        
+        if let obj = json["hotel_phone"] {
+            self.hotelPhone = "\(obj)"
+        }
+        
+        if let obj = json["hotel_emai"] {
+            self.hotelEmail = "\(obj)"
+        }
+        
+        if let obj = json["city"] {
+            self.city = "\(obj)"
+        }
+        if let obj = json["hotel_img"] {
+            self.hotelImage = "\(obj)"
+        }
+        if let obj = json["hotel_star_rating"] {
+            self.hotelStarRating = "\(obj)"
+        }
+        if let obj = json["ta_rating"] {
+            self.taRating = "\(obj)"
+        }
+        
+        if let obj = json["ta_review_count"] {
+            self.taReviewCount = "\(obj)"
+        }
+        if let obj = json["hotel_id"] {
+            self.hotelId = "\(obj)"
+        }
+        if let obj = json["nights"] {
+            self.nights = "\(obj)".toInt ?? 0
+        }
+        if let obj = json["check_in"] {
+            self.checkIn = "\(obj)"
+        }
+        
+        if let obj = json["check_out"] {
+            self.checkOut = "\(obj)"
+        }
     }
 }
+
+// MARK: - Leg ,Flight and pax Details
 
 struct Leg {
     var legId: String = ""
@@ -132,7 +236,8 @@ struct Leg {
     var fareName: String = ""
     var flight: [FlightDetail] = []
     var halts: String = ""
-
+    var pax: [Pax] = []
+    
     init() {}
     
     init(json: JSONDictionary) {
@@ -192,6 +297,13 @@ struct FlightDetail {
     var cabinClass: String = ""
     var operatedBy: String = ""
     var baggage: Baggage?
+    var icc: Int = 0
+    var originWeather: Weather?
+    var destinationWeather: Weather?
+    var layoverTime: String = ""
+    var changeOfPlane: Int = 0
+    var bookingClass: String = ""
+    var fbn: String = ""
     
     init() {
         self.init(json: [:])
@@ -288,16 +400,189 @@ struct FlightDetail {
         if let obj = json["operated_by"] {
             self.operatedBy = "\(obj)"
         }
+        
+        if let obj = json["icc"] {
+            self.icc = "\(obj)".toInt ?? 0
+        }
+        
+        // origin weather
+        if let obj = json["origin_weather"] as? JSONDictionary {
+            self.originWeather = Weather(json: obj)
+        }
+        
+        // destination weather
+        
+        if let obj = json["dest_weather"] as? JSONDictionary {
+            self.destinationWeather = Weather(json: obj)
+        }
+        
+        if let obj = json["layover_time"] {
+            self.layoverTime = "\(obj)"
+        }
+        
+        if let obj = json["change_of_plane"] {
+            self.changeOfPlane = "\(obj)".toInt ?? 0
+        }
+        
+        if let obj = json["booking_class"] {
+            self.bookingClass = "\(obj)"
+        }
+        
+        if let obj = json["fbn"] {
+            self.fbn = "\(obj)"
+        }
     }
 }
 
-
 struct Baggage {
-//    var bg: Bg?
-//    var cbg: Cbg?
-    var icc: Int16
+    var bg: Bg?
+    var cbg: Cbg?
     
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["bg"] as? JSONDictionary {
+            self.bg = Bg(json: obj)
+        }
+        
+        if let obj = json["cbg"] as? JSONDictionary {
+            self.cbg = Cbg(json: obj)
+        }
+    }
 }
+
+// Structure for baggage
+struct Bg {
+    var adt: String = ""
+    var notes: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["adt"] {
+            self.adt = "\(obj)"
+        }
+        
+        if let obj = json["notes"] {
+            self.notes = "\(obj)"
+        }
+    }
+}
+
+// Structure for Cbg
+
+struct Cbg {
+    var adt: ADT?
+    var dimension: Dimension?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["ADT"] as? JSONDictionary {
+            self.adt = ADT(json: obj)
+        }
+        
+        if let obj = json["dimension"] as? JSONDictionary {
+            self.dimension = Dimension(json: obj)
+        }
+    }
+}
+
+struct ADT {
+    var weight: String = ""
+    var piece: String = "" // Now its coming as null, what does this mean
+    var dimension: Dimension?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["weight"] {
+            self.weight = "\(obj)"
+        }
+        
+        if let obj = json["piece"] {
+            self.piece = "\(obj)"
+        }
+        
+        if let obj = json["dimension"] as? JSONDictionary {
+            self.dimension = Dimension(json: obj)
+        }
+    }
+}
+
+struct Dimension {
+    var cm: Cm?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["cm"] as? JSONDictionary {
+            self.cm = Cm(json: obj)
+        }
+    }
+}
+
+struct Cm {
+    var width: String = ""
+    var height: String = ""
+    var depth: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["width"] {
+            self.width = "\(obj)"
+        }
+        
+        if let obj = json["height"] {
+            self.height = "\(obj)"
+        }
+        if let obj = json["depth"] {
+            self.depth = "\(obj)"
+        }
+    }
+}
+
+struct Weather {
+    var maxTemperature: String = ""
+    var minTemperature: String = ""
+    var weather: String = ""
+    var weatherIcon: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["min_temperature"] {
+            self.minTemperature = "\(obj)"
+        }
+        
+        if let obj = json["max_temperature"] {
+            self.maxTemperature = "\(obj)"
+        }
+        if let obj = json["weather"] {
+            self.weather = "\(obj)"
+        }
+        if let obj = json["weather_icon"] {
+            self.weatherIcon = "\(obj)"
+        }
+    }
+}
+
+// Billing Details
 
 struct BillingDetail {
     var email: String = ""
@@ -370,6 +655,80 @@ struct BillingAddress {
         
         if let obj = json["country"] {
             self.country = "\(obj)"
+        }
+    }
+}
+
+// Passenger Detail
+
+struct Pax {
+    var paxId: String = ""
+    var uPid: String = ""
+    var salutation: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var paxName: String = ""
+    var paxType: String = ""
+    var status: String = ""
+    var amountPaid: Double = 0.0
+    var cancellationCharge: String = ""
+    var rescheduleCharge: String = ""
+    var addOns: [String] = [] // TODO: Need to confirm this with yash as always coming in array
+    var ticket: String = ""
+    var pnr: String = ""
+    var inProcess: Bool = false
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["pax_id"] {
+            self.paxId = "\(obj)"
+        }
+        if let obj = json["upid"] {
+            self.uPid = "\(obj)"
+        }
+        if let obj = json["salutation"] {
+            self.salutation = "\(obj)"
+        }
+        if let obj = json["first_name"] {
+            self.firstName = "\(obj)"
+        }
+        if let obj = json["last_name"] {
+            self.lastName = "\(obj)"
+        }
+        if let obj = json["pax_name"] {
+            self.paxName = "\(obj)"
+        }
+        if let obj = json["pax_type"] {
+            self.paxType = "\(obj)"
+        }
+        if let obj = json["status"] {
+            self.status = "\(obj)"
+        }
+        if let obj = json["amount_paid"] {
+            self.amountPaid = "\(obj)".toDouble ?? 0.0
+        }
+        if let obj = json["cancellation_charge"] {
+            self.cancellationCharge = "\(obj)"
+        }
+        
+        if let obj = json["reschedule_charge"] {
+            self.rescheduleCharge = "\(obj)"
+        }
+        if let obj = json["ticket"] {
+            self.ticket = "\(obj)"
+        }
+        if let obj = json["pnr"] {
+            self.pnr = "\(obj)"
+        }
+        if let obj = json["addons"] as? [String] {
+            self.addOns = obj
+        }
+        
+        if let obj = json["in_process"] as? Bool {
+            self.paxId = "\(obj)"
         }
     }
 }
