@@ -45,7 +45,7 @@ class FlightsVC: BaseVC {
         //        AppFlowManager.default.presentHCEmailItinerariesVC()
 //                AppFlowManager.default.moveToOtherBookingsDetailsVC()
         //                AppFlowManager.default.moveToRequestReschedulingVC()
-        AppFlowManager.default.moveToFlightBookingsDetailsVC()
+//        AppFlowManager.default.moveToFlightBookingsDetailsVC()
 //        AppFlowManager.default.moveToHotlelBookingsDetailsVC()
         //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "", bookingIds: [], cid: [], originLat: "", originLong: "")
         
@@ -58,5 +58,8 @@ class FlightsVC: BaseVC {
         //            } else {
         //            }
         //        }
+        
+        let obj = MyViewController.instantiate(fromAppStoryboard: .Bookings)
+        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
     }
 }

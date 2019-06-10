@@ -17,6 +17,7 @@ enum ATNotification {
     case accountPaymentRegister
     case myBookingFilterApplied
     case myBookingFilterCleared
+    case myBookingSearching
 }
 
 extension Notification.Name {

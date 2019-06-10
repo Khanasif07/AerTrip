@@ -33,7 +33,14 @@ class CompletedVC: BaseVC {
             self.completedBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
     }
-    
+    @IBOutlet var footerView: MyBookingFooterView!{
+        didSet {
+            footerView.delegate = self
+            footerView.pendingActionSwitch.isOn = false
+        }
+    }
+    @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
+
     
     //Mark:- LifeCycle
     //================
@@ -56,11 +63,12 @@ class CompletedVC: BaseVC {
 
         self.emptyStateSetUp()
         self.loadSaveData()
+        self.reloadList(isFirstTimeLoading: true)
     }
     
     override func setupTexts() {
         self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoUpcomingBookings.localized
+        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoComletedBookings.localized
         self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
     }
     
@@ -75,6 +83,7 @@ class CompletedVC: BaseVC {
         self.completedBookingsTableView.backgroundColor = AppColors.themeWhite
     }
     
+    var isOnlyPendingAction: Bool = false
     
     // fetch result controller
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
@@ -94,6 +103,19 @@ class CompletedVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func manageFooter(isHidden: Bool) {
+        self.footerView?.isHidden = isHidden
+        self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
+    }
+    
+    func reloadList(isFirstTimeLoading: Bool = false) {
+        if isFirstTimeLoading, let count = self.fetchedResultsController.fetchedObjects?.count {
+            self.manageFooter(isHidden: count <= 0)
+        }
+        self.emptyStateSetUp()
+        self.completedBookingsTableView?.reloadData()
+    }
+    
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
 //        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
@@ -102,33 +124,35 @@ class CompletedVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
+        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoComletedBookings.localized
         if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
-            self.emptyStateImageView.isHidden = true
-            self.emptyStateTitleLabel.isHidden = true
-            self.emptyStateSubTitleLabel.isHidden = true
-            self.completedBookingsTableView.isHidden = false
+            self.emptyStateImageView?.isHidden = true
+            self.emptyStateTitleLabel?.isHidden = true
+            self.emptyStateSubTitleLabel?.isHidden = true
+            self.completedBookingsTableView?.isHidden = false
         }
         else {
-            self.emptyStateImageView.isHidden = false
-            self.emptyStateTitleLabel.isHidden = false
-            self.emptyStateSubTitleLabel.isHidden = false
-            self.completedBookingsTableView.isHidden = true
+            self.emptyStateImageView?.isHidden = false
+            self.emptyStateTitleLabel?.isHidden = false
+            self.emptyStateSubTitleLabel?.isHidden = false
+            self.completedBookingsTableView?.isHidden = true
         }
     }
     
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+        if let noti = note.object as? ATNotification {
             //refresh the data with filters
-            self.loadSaveData()
+            
+            if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.loadSaveData()
+            }
+            else if noti == .myBookingSearching {
+                self.loadSaveData()
+            }
         }
     }
 
-    func reloadList() {
-        self.emptyStateSetUp()
-        self.completedBookingsTableView.reloadData()
-    }
-    
     //Mark:- IBActions
     //================
 }

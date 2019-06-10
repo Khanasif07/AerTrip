@@ -110,6 +110,7 @@ public class BookingData: NSManagedObject {
             }
             
             booking?.stepsArray = steps
+            booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
         }
         
         if let obj = dataDict[APIKeys.requests.rawValue] as? JSONDictionary {
@@ -148,22 +149,26 @@ public class BookingData: NSManagedObject {
             booking?.destination = obj["destination"] as? String
             booking?.tripType = obj["trip_type"] as? String
             booking?.depart = obj["depart"] as? String
+            
             booking?.pax = obj["pax"] as?  [String]
+            booking?.paxArrStr = (booking?.pax ?? [String]()).joined(separator: ",")
+
             booking?.tripCities = obj["trip_cities"] as? [String]
+            booking?.tripCitiesArrStr = (booking?.tripCities ?? [String]()).joined(separator: ",")
+
             booking?.travelledCities = obj["travelled_cities"] as? [String]
+            booking?.travelledCitiesArrStr = (booking?.travelledCities ?? [String]()).joined(separator: ",")
+
             booking?.disconnected = obj["disconnected"] as? Bool ?? false
+            
             booking?.routes = obj["routes"] as? [[String]] ?? [[]]
+            booking?.routesArrStr = (booking?.routes ?? [[String]]()).joined(separator: ",")
+            
             booking?.eventStartDate = obj["event_start_date"] as? String
             booking?.eventEndDate = obj["event_end_date"] as? String
             booking?.guestCount =  obj["guest_count"] as? Int16 ?? 0
             if let date = obj["event_start_date"] as? String, let status = booking?.bookingStatus {
                 booking?.bookingTabType = bookingType(forDate: date, bstatus: status)
-            }
-       
-            if let request = obj["requests"] as? JSONDictionary {
-                booking?.reschedulingRequests = request["rescheduling"] as? [String]
-                booking?.cancellationRequests = request["cancellation"] as? [String]
-                booking?.addOnRequests = request["addOns"] as? [String]
             }
             
             if let type = booking?.productType, type == .flight {
@@ -178,7 +183,6 @@ public class BookingData: NSManagedObject {
         
         return booking!
     }
-    
     
     // MARK: - Insert Bulk Data
     

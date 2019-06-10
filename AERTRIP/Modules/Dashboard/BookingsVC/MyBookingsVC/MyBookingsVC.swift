@@ -42,6 +42,7 @@ class MyBookingsVC: BaseVC {
         didSet {
             self.searchBar.backgroundColor = AppColors.screensBackground.color
             self.searchBar.placeholder = LocalizedString.search.localized
+            self.searchBar.delegate = self
         }
     }
     
@@ -49,7 +50,6 @@ class MyBookingsVC: BaseVC {
     @IBOutlet var emptyStateTitleLabel: UILabel!
     @IBOutlet var emptyStateSubTitleLabel: UILabel!
     @IBOutlet var childContainerView: UIView!
-    @IBOutlet var footerView: MyBookingFooterView!
     
     // Mark:- LifeCycle
     
@@ -105,7 +105,6 @@ class MyBookingsVC: BaseVC {
     override func bindViewModel() {
        
         MyBookingsVM.shared.delgate = self
-        self.footerView.delegate = self
     }
     
     
@@ -142,14 +141,12 @@ class MyBookingsVC: BaseVC {
             self.emptyStateSubTitleLabel.isHidden = false
             self.childContainerView.isHidden = true
             self.searchBarContainerView.isHidden = true
-            self.footerView.isHidden = true
         } else {
             self.emptyStateImageView.isHidden = true
             self.emptyStateTitleLabel.isHidden = true
             self.emptyStateSubTitleLabel.isHidden = true
             self.childContainerView.isHidden = false
             self.searchBarContainerView.isHidden = false
-            self.footerView.isHidden = true
             self.instantiateChildVC()
         }
     }
@@ -235,7 +232,6 @@ class MyBookingsVC: BaseVC {
         self.emptyStateSubTitleLabel.isHidden = true
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
-        self.footerView.isHidden = true
     }
    
     
@@ -267,9 +263,6 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         if toIndex == 1, MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
-            self.footerView.isHidden = true
-        } else {
-            self.footerView.isHidden = true
         }
         self.currentIndex = toIndex
 //        HotelFilterVM.shared.lastSelectedIndex = toIndex
@@ -278,8 +271,3 @@ extension MyBookingsVC: ATCategoryNavBarDelegate {
 
 // MARK: - MyBookingFooterViewDelegate
 
-extension MyBookingsVC: MyBookingFooterViewDelegate {
-    func showPendingActionsOnly() {
-        printDebug("MyBookingFooterViewDelegate")
-    }
-}

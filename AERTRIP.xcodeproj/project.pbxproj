@@ -576,6 +576,7 @@
 		843E63202292782F00A04248 /* DepositItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E631F2292782F00A04248 /* DepositItinerary.swift */; };
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
+		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
 		8445B51A22A50F2700DDBC7F /* RequestReschedulingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */; };
 		8445B51C22A50F3000DDBC7F /* RequestReschedulingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51B22A50F3000DDBC7F /* RequestReschedulingVM.swift */; };
 		8445B51F22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51E22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift */; };
@@ -1545,6 +1546,7 @@
 		843E631F2292782F00A04248 /* DepositItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositItinerary.swift; sourceTree = "<group>"; };
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
+		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReschedulingVC.swift; sourceTree = "<group>"; };
 		8445B51B22A50F3000DDBC7F /* RequestReschedulingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReschedulingVM.swift; sourceTree = "<group>"; };
 		8445B51E22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTopNavBarWithSubtitle.swift; sourceTree = "<group>"; };
@@ -2976,6 +2978,7 @@
 				84085C7121F59C0C00F1E844 /* BaseVC.swift */,
 				84085C7221F59C0C00F1E844 /* MainHomeVC */,
 				84085C7421F59C0C00F1E844 /* Dashboard */,
+				8441BFAB22AA6E7A0046830B /* MyViewController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -5795,6 +5798,7 @@
 				842EDE96223A2CAA00E99409 /* HCSpecialRequestsVC.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				84AFF97822A78D2800E91F14 /* HotelCancellationVC+Extensions.swift in Sources */,
+				8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */,
 				841C8DAF225742BA009B9A54 /* YouAreAllDoneModel.swift in Sources */,
 				849D379C22893A4B00763AD8 /* AccountOfflineDepositVM.swift in Sources */,
 				84E4BC6022A0EC1F00B72306 /* OtherBookingsDetailsVC+Extensions.swift in Sources */,

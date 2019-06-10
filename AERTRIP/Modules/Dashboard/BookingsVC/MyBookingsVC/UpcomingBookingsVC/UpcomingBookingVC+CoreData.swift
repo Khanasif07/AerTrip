@@ -21,14 +21,13 @@ extension UpcomingBookingsVC {
             printDebug("Fetch failed")
         }
         
-        self.upcomingBookingsTableView?.reloadData()
+        self.reloadList()
     }
     
     // upcoming Tab Type Predicate
     private func tabTypePredicate() -> NSPredicate? {
         return NSPredicate(format: "bookingTabType == '1'")
     }
-
 }
 
 
@@ -54,6 +53,14 @@ extension UpcomingBookingsVC {
             allPred.append(obj)
         }
         
+        if let obj = onlyPendingActionPredicate() {
+            allPred.append(obj)
+        }
+        
+        if let obj = getSearchPredicates() {
+            allPred.append(obj)
+        }
+        
         if allPred.isEmpty {
             return nil
         }
@@ -62,6 +69,31 @@ extension UpcomingBookingsVC {
         }
     }
     
+    private func getSearchPredicates() -> NSPredicate?{
+        if !MyBookingFilterVM.shared.searchText.isEmpty {
+            let hotelName = NSPredicate(format: "hotelName CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let tripType = NSPredicate(format: "tripType CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let destination = NSPredicate(format: "destination CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let origin = NSPredicate(format: "origin CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let product = NSPredicate(format: "product CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            
+            let tripCitiesArrStr = NSPredicate(format: "tripCitiesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let routesArrStr = NSPredicate(format: "routesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let travelledCitiesArrStr = NSPredicate(format: "travelledCitiesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let paxArrStr = NSPredicate(format: "paxArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let stepsArrayStr = NSPredicate(format: "stepsArrayStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr])
+        }
+        return nil
+    }
+    
+    private func onlyPendingActionPredicate() -> NSPredicate?{
+        if self.isOnlyPendingAction {
+            return NSPredicate(format: "isContainsPending == '1'")
+        }
+        return nil
+    }
     
     // Booking Date Predicates
     private func bookingDatePredicates() -> NSPredicate? {

@@ -71,3 +71,11 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
+
+
+extension UpcomingBookingsVC: MyBookingFooterViewDelegate {
+    func myBookingFooterView(_ sender: MyBookingFooterView, didChangedPendingActionSwitch isOn: Bool) {
+        self.isOnlyPendingAction = isOn
+        self.loadSaveData()
+    }
+}

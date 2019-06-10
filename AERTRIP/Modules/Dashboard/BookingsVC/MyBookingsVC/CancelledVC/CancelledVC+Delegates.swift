@@ -89,3 +89,10 @@ extension CancelledVC {
         return cell
     }
 }
+
+extension CancelledVC: MyBookingFooterViewDelegate {
+    func myBookingFooterView(_ sender: MyBookingFooterView, didChangedPendingActionSwitch isOn: Bool) {
+        self.isOnlyPendingAction = isOn
+        self.loadSaveData()
+    }
+}
