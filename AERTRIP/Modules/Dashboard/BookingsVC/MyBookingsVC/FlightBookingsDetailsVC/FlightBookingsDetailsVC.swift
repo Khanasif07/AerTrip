@@ -14,7 +14,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // MARK: -
     
-    let viewModel = FlightBookingsDetailsVM()
+    let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "flightIcon")
@@ -46,7 +46,7 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.viewModel.getSectionData()
+        //self.viewModel.getSectionData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false)
@@ -120,18 +120,3 @@ class FlightBookingsDetailsVC: BaseVC {
     }
 }
 
-// MARK: -
-
-extension FlightBookingsDetailsVC: FlightBookingsDetailsVMDelegate {
-    func willGetBookingDetail() {
-        AppGlobals.shared.startLoading()
-    }
-    
-    func getBookingDetailSucces() {
-        AppGlobals.shared.stopLoading()
-    }
-    
-    func getBookingDetailFaiure() {
-        AppGlobals.shared.stopLoading()
-    }
-}

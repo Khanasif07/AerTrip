@@ -1,5 +1,5 @@
 //
-//  BookingDetailVC+ HelperMethods.swift
+//  BookingFlightDetailVC + HelperMethods.swift
 //  AERTRIP
 //
 //  Created by apple on 10/05/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension BookingDetailVC {
+extension BookingFlightDetailVC {
     
     // get height for Baggage row for first sections
     func getHeightForBaggageInfoRowFirstSection(_ indexPath: IndexPath) -> CGFloat {

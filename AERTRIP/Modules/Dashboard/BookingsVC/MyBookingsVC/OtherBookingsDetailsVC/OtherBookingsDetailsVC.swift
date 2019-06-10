@@ -14,7 +14,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     //MARK:- Variables
     //MARK:===========
-    let viewModel = OtherBookingsDetailsVM()
+    let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "others")
@@ -41,7 +41,7 @@ class OtherBookingsDetailsVC: BaseVC {
     //MARK:===========
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel.getSectionData()
+        self.viewModel.getSectionDataForOtherProductType()
         self.viewModel.getDocumentDownloadingData()
     }
     

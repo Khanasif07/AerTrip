@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-extension BookingDetailVC : UITableViewDataSource,UITableViewDelegate {
+extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         switch self.bookingDetailType {
@@ -118,7 +118,7 @@ extension BookingDetailVC : UITableViewDataSource,UITableViewDelegate {
 
 // Delegate methods
 
-extension BookingDetailVC : BaggageAirlineInfoTableViewCellDelegate {
+extension BookingFlightDetailVC : BaggageAirlineInfoTableViewCellDelegate {
     func dimensionButtonTapped(_ dimensionButton: UIButton) {
             printDebug("Dimension Button Tapped ")
         AppFlowManager.default.presentBaggageInfoVC()
@@ -129,7 +129,7 @@ extension BookingDetailVC : BaggageAirlineInfoTableViewCellDelegate {
 
 // Route Fare info table View cell Delegate methods
 
-extension BookingDetailVC: RouteFareInfoTableViewCellDelegate {
+extension BookingFlightDetailVC: RouteFareInfoTableViewCellDelegate {
     func viewDetailsButtonTapped() {
         printDebug("View Details Button Tapped")
     }

@@ -1,5 +1,5 @@
 //
-//  BookingDetailViewController.swift
+//  BookingFlightDetailVC.swift
 //  AERTRIP
 //
 //  Created by apple on 09/05/19.
@@ -15,7 +15,7 @@ enum BookingDetailType {
 }
 
 
-class BookingDetailVC: BaseVC {
+class BookingFlightDetailVC: BaseVC {
     
     // MARK: - IBOutlet
     
@@ -96,7 +96,7 @@ class BookingDetailVC: BaseVC {
 
 // MARK: - Top Navigation View Delegate
 
-extension BookingDetailVC: TopNavigationViewDelegate {
+extension BookingFlightDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.mainNavigationController.popViewController(animated: true)
     }
@@ -104,7 +104,7 @@ extension BookingDetailVC: TopNavigationViewDelegate {
 
 // MARK: - Fare Info header view Delegate
 
-extension BookingDetailVC: FareInfoHeaderViewDelegate {
+extension BookingFlightDetailVC: FareInfoHeaderViewDelegate {
     func fareButtonTapped() {
         printDebug("fare info butto n tapped")
         AppFlowManager.default.presentBookingFareInfoDetailVC()

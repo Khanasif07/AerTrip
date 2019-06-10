@@ -479,10 +479,10 @@ with us!</string>
             </objects>
             <point key="canvasLocation" x="2320.8000000000002" y="131.78410794602701"/>
         </scene>
-        <!--Booking DetailVC-->
+        <!--Booking Flight DetailVC-->
         <scene sceneID="bbO-YR-jxU">
             <objects>
-                <viewController storyboardIdentifier="BookingDetailVC" id="Pd0-Xj-sqO" customClass="BookingDetailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingFlightDetailVC" id="Pd0-Xj-sqO" customClass="BookingFlightDetailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HJM-2t-QRR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

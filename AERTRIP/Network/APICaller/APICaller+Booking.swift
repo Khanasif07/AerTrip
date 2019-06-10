@@ -62,37 +62,28 @@ extension APICaller {
     
     // MARK: - Booking detail
     
-    func getBookingDetail(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ hotels: [HotelsSearched], _ done: Bool) -> Void) {
+    func getBookingDetail(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes,_ bookingDetailModel: BookingDetailModel?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.getBookingDetails, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let hotels = response["results"] as? [JSONDictionary] {
-                    let hotelsInfo = HotelsSearched.models(jsonArr: hotels)
-                    let done = response["done"] as? Bool
-                    let filters = response["filters"] as? JSONDictionary
-                    HotelFilterVM.shared.minimumPrice = filters?["min_price"] as? Double ?? 0.0
-                    HotelFilterVM.shared.maximumPrice = filters?["max_price"] as? Double ?? 0.0
-                    HotelFilterVM.shared.leftRangePrice = HotelFilterVM.shared.minimumPrice
-                    HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
-                    HotelFilterVM.shared.defaultLeftRangePrice = HotelFilterVM.shared.minimumPrice
-                    HotelFilterVM.shared.defaultRightRangePrice = HotelFilterVM.shared.maximumPrice
-                    
-                    completionBlock(true, [], hotelsInfo, done ?? false)
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject{
+                let data = BookingDetailModel(json: response)
+                    completionBlock(true, [], data)
                 }
                 else {
-                    completionBlock(false, [], [], false)
+                    completionBlock(false, [],nil)
                 }
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, error, [], false)
+                completionBlock(false, error,nil)
             })
         }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [], false)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue],nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [], false)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue],nil)
             }
         }
     }

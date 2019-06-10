@@ -14,15 +14,15 @@ import MXParallaxHeader
 extension OtherBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionData.count
+        return self.viewModel.sectionDataForProductType.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionData[section].count
+        return self.viewModel.sectionDataForProductType[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentSection = self.viewModel.sectionData[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .insurenceCell:
             let cell = self.getInsurenceCell(tableView, indexPath: indexPath)
@@ -164,5 +164,22 @@ extension OtherBookingsDetailsVC : MXParallaxHeaderDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.updateForParallexProgress()
+    }
+}
+
+
+// MARK: -
+
+extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
+    func willGetBookingDetail() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getBookingDetailSucces() {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    func getBookingDetailFaiure() {
+        AppGlobals.shared.stopLoading()
     }
 }
