@@ -42,7 +42,6 @@ struct BookingDetailModel {
     }
     
     init(json: JSONDictionary) {
-        
         if let obj = json["id"] {
             self.id = "\(obj)"
         }
@@ -77,12 +76,16 @@ struct BookingDetailModel {
             self.specialFare = "\(obj)"
         }
         
+        if let obj = json["bdetails"] as? JSONDictionary {
+            self.bookingDetail = BookingDetail(json: obj)
+        }
+        
+        self.cases = Case.retunsCaseArray(jsonArr: json["cases"] as? [JSONDictionary] ?? [])
         if let obj = json["user"] as? UserInfo {
             self.user = obj
         }
         
-        
-        //other data parsing
+        // other data parsing
         if let obj = json["billing_info"] as? JSONDictionary {
             self.billingInfo = BillingDetail(json: obj)
         }
@@ -96,7 +99,7 @@ struct BookingDetailModel {
 extension BookingDetailModel {
     var tripCitiesStr: NSMutableAttributedString? {
         func isReturnFlight(forArr: [String]) -> Bool {
-            guard !forArr.isEmpty else {return false}
+            guard !forArr.isEmpty else { return false }
             
             if forArr.count == 3, let first = forArr.first, let last = forArr.last {
                 return (first.lowercased() == last.lowercased())
@@ -107,12 +110,12 @@ extension BookingDetailModel {
         }
         
         func getNormalString(forArr: [String]) -> String {
-            guard !forArr.isEmpty else {return "--"}
+            guard !forArr.isEmpty else { return "--" }
             return forArr.joined(separator: " → ")
         }
         
         func getReturnString(forArr: [String]) -> String {
-            guard forArr.count >= 2 else {return "--"}
+            guard forArr.count >= 2 else { return "--" }
             return "\(forArr[0]) ⇋ \(forArr[1])"
         }
         
@@ -120,28 +123,27 @@ extension BookingDetailModel {
             return NSMutableAttributedString(string: "--")
         }
         
-        if (self.tripType.lowercased() == "single") {
-            //single flight case
+        if self.tripType.lowercased() == "single" {
+            // single flight case
             let temp = getNormalString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
         }
-        else if isReturnFlight(forArr: tripCts){
-            //return flight case
+        else if isReturnFlight(forArr: tripCts) {
+            // return flight case
             let temp = getReturnString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
         }
         else {
-            //multi flight case
+            // multi flight case
             if let routes = self.bookingDetail?.routes, let travledCity = self.bookingDetail?.travelledCities {
                 //travlled some where
                 
                 if (routes.first ?? []).isEmpty {
-                    //still not travlled
+                    // still not travlled
                     let temp = getNormalString(forArr: tripCts)
                     return NSMutableAttributedString(string: temp)
                 }
                 else {
-                    
                     var routeStr = ""
                     var travLastIndex: Int = 0
                     var prevCount: Int = 0
@@ -169,7 +171,7 @@ extension BookingDetailModel {
                     
                     let attributedStr1 = NSMutableAttributedString(string: routeStr)
                     if travLastIndex > 0 {
-                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+2))
+                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
                     }
                     return attributedStr1
                 }
@@ -179,7 +181,6 @@ extension BookingDetailModel {
     }
 }
 
-
 struct BookingDetail {
     var tripCities: [String] = []
     var travelledCities: [String] = []
@@ -187,6 +188,7 @@ struct BookingDetail {
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
     var journeyCompleted: Int16 = 0
+    var travellers: [Traveller] = []
     
     // Keys for Product = Hotel
     
@@ -315,7 +317,26 @@ struct BookingDetail {
             self.checkOut = "\(obj)"
         }
         
-        //leg parsing
+        // Product key other
+        
+        if let obj = json["title"] {
+            self.title = "\(obj)"
+        }
+        
+        if let obj = json["details"] {
+            self.details = "\(obj)"
+        }
+        
+        if let obj = json["booking_date"] {
+            self.bookingDate = "\(obj)"
+        }
+        
+        self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
+        
+        var paymentStatus: String {
+            return self.isRefundable ? "Refundable" : " Non-Refundable"
+        }
+        // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
             self.leg = Leg.getModels(json: obj)
         }
@@ -366,7 +387,7 @@ struct Leg {
             self.fareName = "\(obj)"
         }
         
-        //other parsing
+        // other parsing
         if let obj = json["flights"] as? [JSONDictionary] {
             self.flight = FlightDetail.getModels(json: obj)
         }
@@ -592,7 +613,7 @@ struct FlightDetail {
         return json.map { FlightDetail(json: $0) }
     }
     
-    //computed
+    // computed
     var equipmentDetails: String {
         var finalStr = ""
         if !self.equipment.isEmpty {
@@ -779,17 +800,17 @@ struct BillingDetail {
     
     init(json: JSONDictionary) {
         if let obj = json["email"] {
-            self.email = "\(obj)"
+            self.email = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         if let obj = json["communication_number"] {
-            self.communicationNumber = "\(obj)"
+            self.communicationNumber = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         if let obj = json["billing_name"] {
-            self.billingName = "\(obj)"
+            self.billingName = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         
         if let obj = json["gst"] {
-            self.gst = "\(obj)"
+            self.gst = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         
         if let obj = json["address"] as? JSONDictionary {
@@ -834,6 +855,10 @@ struct BillingAddress {
         if let obj = json["country"] {
             self.country = "\(obj)"
         }
+    }
+    
+    var completeAddress: String {
+        return self.addressLine1 + "," + self.addressLine2 + "," + self.city + "," + self.state + "," + self.postalCode + "," + self.country
     }
 }
 
@@ -986,6 +1011,14 @@ struct Case {
         if let obj = json["note"] {
             self.note = "\(obj)"
         }
+    }
+    
+    static func retunsCaseArray(jsonArr: [JSONDictionary]) -> [Case] {
+        var cases = [Case]()
+        for element in jsonArr {
+            cases.append(Case(json: element))
+        }
+        return cases
     }
 }
 

@@ -812,6 +812,13 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    //MARK: - OTHER BOOKING PRODUCT DETAIL
+    
+    case BillingName
+    case GSTIN
+    case BillingAddress
+    
+    
     case Economy = "Economy"
     case Carriers = "Carriers"
     
@@ -831,6 +838,10 @@ enum LocalizedString: String {
     case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
     case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
     case ProcessCancellation = "ProcessCancellation"
+    case CancellationHasBeenProcessed = "CancellationHasBeenProcessed"
     case ResendConfirmationEmail = "ResendConfirmationEmail"
     case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
+    case SpecialRequestHasBeenSent = "SpecialRequestHasBeenSent"
+    case WriteAboutYourSpecialRequest = "WriteAboutYourSpecialRequest"
+    case RequestType = "RequestType"
  }

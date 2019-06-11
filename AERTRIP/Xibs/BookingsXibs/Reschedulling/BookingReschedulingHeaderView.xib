@@ -39,7 +39,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIE-uq-1aZ">
-                                            <rect key="frame" x="0.0" y="26.666666666666671" width="354" height="20.333333333333329"/>
+                                            <rect key="frame" x="0.0" y="28.666666666666671" width="354" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -47,8 +47,8 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="vIE-uq-1aZ" firstAttribute="top" secondItem="ySg-3s-C6E" secondAttribute="bottom" id="0xq-IF-yz8"/>
-                                        <constraint firstAttribute="bottom" secondItem="vIE-uq-1aZ" secondAttribute="bottom" constant="13" id="9I2-UR-hEg"/>
+                                        <constraint firstItem="vIE-uq-1aZ" firstAttribute="top" secondItem="ySg-3s-C6E" secondAttribute="bottom" constant="2" id="0xq-IF-yz8"/>
+                                        <constraint firstAttribute="bottom" secondItem="vIE-uq-1aZ" secondAttribute="bottom" constant="11" id="9I2-UR-hEg"/>
                                         <constraint firstItem="ySg-3s-C6E" firstAttribute="leading" secondItem="CAK-PP-wXS" secondAttribute="leading" id="Jy9-Se-fLi"/>
                                         <constraint firstAttribute="trailing" secondItem="vIE-uq-1aZ" secondAttribute="trailing" id="ctD-st-a2F"/>
                                         <constraint firstItem="ySg-3s-C6E" firstAttribute="top" secondItem="CAK-PP-wXS" secondAttribute="top" constant="13" id="ohT-2f-bq7"/>
@@ -84,6 +84,7 @@
             <connections>
                 <outlet property="infoLabel" destination="vIE-uq-1aZ" id="b7G-W0-Ehc"/>
                 <outlet property="routeLabel" destination="ySg-3s-C6E" id="hKg-z1-ebJ"/>
+                <outlet property="selectedButton" destination="sWE-ub-doU" id="HNN-Vg-Ppa"/>
                 <outlet property="topBackgroundView" destination="vxA-Eg-DnU" id="Goh-81-89H"/>
             </connections>
         </view>

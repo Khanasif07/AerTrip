@@ -159,79 +159,87 @@ struct Traveller {
         }
         
         if let obj = json["salutation"] {
-            self.bookingId = "\(obj)"
+            self.salutation = "\(obj)"
         }
         
         if let obj = json["first_name"] {
-            self.refTable = "\(obj)"
+            self.firstName = "\(obj)"
         }
         
         if let obj = json["middle_name"] {
-            self.refTableId = "\(obj)"
+            self.middleName = "\(obj)"
         }
         
         if let obj = json["last_name"] {
-            self.paxType = "\(obj)"
+            self.lastName = "\(obj)"
         }
         
         if let obj = json["age"] {
-            self.bookingId = "\(obj)"
+            self.age = "\(obj)"
         }
         
         if let obj = json["dob"] {
-            self.refTable = "\(obj)"
+            self.dob = "\(obj)"
         }
         
         if let obj = json["gender"] {
-            self.refTableId = "\(obj)"
+            self.gender = "\(obj)"
         }
         
         if let obj = json["pax_status"] {
-            self.paxType = "\(obj)"
+            self.paxStatus = "\(obj)"
         }
         
         if let obj = json["status_id"] {
-            self.paxId = "\(obj)"
+            self.statusId = "\(obj)"
         }
         
         if let obj = json["lead_pax"] {
-            self.bookingId = "\(obj)"
+            self.leadPax = "\(obj)"
         }
         
         if let obj = json["pnr"] {
-            self.refTable = "\(obj)"
+            self.pnr = "\(obj)"
         }
         
         if let obj = json["pnr_sector"] {
-            self.refTableId = "\(obj)"
+            self.pnrSector = "\(obj)"
         }
         
         if let obj = json["ticket_no"] {
-            self.paxType = "\(obj)"
+            self.ticketNo = "\(obj)"
         }
         
         if let obj = json["crs_pnr"] {
-            self.paxType = "\(obj)"
+            self.crsPnr = "\(obj)"
         }
         
         if let obj = json["added_while_booking"] {
-            self.paxId = "\(obj)"
+            self.addedWhileBooking = "\(obj)"
         }
         
         if let obj = json["pax_group"] {
-            self.bookingId = "\(obj)"
+            self.paxGroup = "\(obj)"
         }
         
         if let obj = json["added_on"] {
-            self.refTable = "\(obj)"
+            self.addedOn = "\(obj)"
         }
         
         if let obj = json["updated_on"] {
-            self.refTableId = "\(obj)"
+            self.updatedOn = "\(obj)"
         }
         
         if let obj = json["pax_name"] {
-            self.paxType = "\(obj)"
+            self.paxName = "\(obj)"
         }
+    }
+    
+    static func retunsTravellerArray(jsonArr: [JSONDictionary]) -> [Traveller] {
+        var traveller = [Traveller]()
+        for element in jsonArr {
+            traveller.append(Traveller(json: element))
+        }
+        return traveller
     }
 }

@@ -73,6 +73,8 @@
             <connections>
                 <outlet property="containerView" destination="f4G-GM-dwP" id="Idb-UE-cgB"/>
                 <outlet property="containerViewBottomConstraint" destination="8Ua-bq-RV4" id="6pf-4j-RnS"/>
+                <outlet property="containerViewLeadingConstraint" destination="QkD-lU-3lE" id="RzT-hL-4OM"/>
+                <outlet property="containerViewTrailingConstraint" destination="vKE-at-xa6" id="JNn-Qj-Uy3"/>
                 <outlet property="dividerView" destination="57t-Eg-czC" id="qfk-sU-xNN"/>
                 <outlet property="travellerImgViewBottomConstraint" destination="3Bf-y2-Tt6" id="qaj-3m-m1Y"/>
                 <outlet property="travellerName" destination="oyt-1t-QEr" id="qhR-O7-jkb"/>

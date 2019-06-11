@@ -36,7 +36,7 @@ class BookingFlightDetailVC: BaseVC {
     
     override func initialSetup() {
         
-        self.viewModel.getBookingDetail()
+        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -80,6 +80,10 @@ class BookingFlightDetailVC: BaseVC {
         self.tableView.registerCell(nibName: BookingTravellerTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: BookingTravellerDetailTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: RouteFareInfoTableViewCell.reusableIdentifier)
+        
+        // Traveller Addon TableViewCell
+        self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
+
         
     }
     

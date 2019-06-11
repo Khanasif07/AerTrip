@@ -6,27 +6,31 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
-import MXParallaxHeader
 import Alamofire
+import MXParallaxHeader
+import UIKit
 
 class OtherBookingsDetailsVC: BaseVC {
+    // MARK: - Variables
     
-    //MARK:- Variables
-    //MARK:===========
+    // MARK: ===========
+    
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "others")
     }
+    
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 84.0 : 64.0
     }
     
-    //MARK:- IBOutlets
-    //MARK:===========
-    @IBOutlet weak var topNavBar: TopNavigationView!
-    @IBOutlet weak var dataTableView: ATTableView! {
+    // MARK: - IBOutlets
+    
+    // MARK: ===========
+    
+    @IBOutlet var topNavBar: TopNavigationView!
+    @IBOutlet var dataTableView: ATTableView! {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
@@ -35,11 +39,12 @@ class OtherBookingsDetailsVC: BaseVC {
             self.dataTableView.sectionHeaderHeight = CGFloat.zero
         }
     }
-    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
-    //MARK:- LifeCycle
-    //MARK:===========
-   
+    @IBOutlet var topNavBarHeightConstraint: NSLayoutConstraint!
+    
+    // MARK: - LifeCycle
+    
+    // MARK: ===========
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -47,19 +52,18 @@ class OtherBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.viewModel.getBookingDetail()
-        self.viewModel.getSectionDataForOtherProductType()
+        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
+        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
         self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true , isDivider: false)
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false)
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.configureTableHeaderView()
+        self.topNavBar.backgroundType = .clear
+        // self.configureTableHeaderView()
         self.setupParallaxHeader()
         self.registerNibs()
-        self.dataTableView.delegate = self
-        self.dataTableView.dataSource = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,11 +74,9 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    override func setupTexts() {
-    }
+    override func setupTexts() {}
     
-    override func setupFonts() {
-    }
+    override func setupFonts() {}
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
@@ -82,6 +84,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func bindViewModel() {
         self.topNavBar.delegate = self
+        self.viewModel.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,14 +94,14 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    //MARK:- Functions
-    //MARK:===========
+    // MARK: - Functions
     
-    ///ConfigureCheckInOutView
-    private func configureTableHeaderView() {
-        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
+    // MARK: ===========
+    
+    /// ConfigureCheckInOutView
+    func configureTableHeaderView() {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: "B/16-17/", bookingIdNumbers: "6859403", date: "4 Mar’17")
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate ?? "")
             view.dividerView.isHidden = true
         }
     }
@@ -120,8 +123,10 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.registerCell(nibName: BookingDocumentsTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: PaymentInfoTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
+        self.dataTableView.registerCell(nibName: TravellersDetailsTableViewCell.reusableIdentifier)
     }
     
-    //MARK:- IBActions
-    //MARK:===========
+    // MARK: - IBActions
+    
+    // MARK: ===========
 }

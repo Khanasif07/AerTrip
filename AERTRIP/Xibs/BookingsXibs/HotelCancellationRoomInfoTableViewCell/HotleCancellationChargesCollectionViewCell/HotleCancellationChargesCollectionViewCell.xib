@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HotleCancellationChargesCollectionViewCell" id="gTV-IL-0wX" customClass="HotleCancellationChargesCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="317" height="24"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="317" height="24"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Fs-Zh-8A3">
+                        <rect key="frame" x="0.0" y="0.0" width="317" height="24"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="o2j-TE-V5g">
+                                <rect key="frame" x="0.0" y="0.0" width="317" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation No." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwG-W1-nrv">
+                                        <rect key="frame" x="0.0" y="0.0" width="153.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="201806-030787" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqE-7F-8jM">
+                                        <rect key="frame" x="163.5" y="0.0" width="153.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="o2j-TE-V5g" secondAttribute="bottom" id="MSv-Z7-aTX"/>
+                            <constraint firstItem="o2j-TE-V5g" firstAttribute="top" secondItem="2Fs-Zh-8A3" secondAttribute="top" id="a2l-3N-3rC"/>
+                            <constraint firstItem="o2j-TE-V5g" firstAttribute="leading" secondItem="2Fs-Zh-8A3" secondAttribute="leading" id="bQR-OJ-OX0"/>
+                            <constraint firstAttribute="trailing" secondItem="o2j-TE-V5g" secondAttribute="trailing" id="gwS-9c-1pu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2Fs-Zh-8A3" secondAttribute="trailing" id="8pk-y2-FM1"/>
+                <constraint firstItem="2Fs-Zh-8A3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MBJ-ur-7tl"/>
+                <constraint firstItem="2Fs-Zh-8A3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YUv-VK-0JK"/>
+                <constraint firstAttribute="bottom" secondItem="2Fs-Zh-8A3" secondAttribute="bottom" id="o5s-fv-ZQf"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="chargeAmountLabel" destination="fqE-7F-8jM" id="eJs-cf-YSF"/>
+                <outlet property="chargeNameLabel" destination="hwG-W1-nrv" id="G1K-mF-tFs"/>
+                <outlet property="containerView" destination="2Fs-Zh-8A3" id="ls5-kh-27u"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

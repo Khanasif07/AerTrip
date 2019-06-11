@@ -9,43 +9,83 @@
 import UIKit
 
 class BookingReviewCancellationVC: BaseVC {
+    
+    //MARK:- Enum
+    enum UsingFor {
+        case reviewCancellation
+        case specialRequest
+    }
+    
     // MARK: - IB Outlet
     
-    @IBOutlet var topNavBar: TopNavigationView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
     
     // refund View
-    @IBOutlet var refundModeTitleLabel: UILabel!
-    @IBOutlet var refundModeValueLabel: UILabel!
-    @IBOutlet var requestCancellationButton: UIButton!
+    @IBOutlet weak var refundView: UIView!
+    @IBOutlet weak var cancellationReasonView: UIView!
+    @IBOutlet weak var refundViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cancellationViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var refundModeTitleLabel: UILabel!
+    @IBOutlet weak var refundModeValueLabel: UILabel!
+    @IBOutlet weak var requestCancellationButton: UIButton!
     
     // Cancellation View
-    @IBOutlet var cancellationTitleLabel: UILabel!
-    @IBOutlet var cancellationValueLabel: UILabel!
-    @IBOutlet var commentTextView: PKTextView!
+    @IBOutlet weak var cancellationTitleLabel: UILabel!
+    @IBOutlet weak var cancellationValueLabel: UILabel!
+    @IBOutlet weak var commentTextView: PKTextView!
+    @IBOutlet weak var totalNetRefundView: UIView!
+    @IBOutlet weak var totalNetRefundViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var totalNetRefundLabel: UILabel!
+    @IBOutlet weak var refundAmountLabel: UILabel!
     
-    @IBOutlet var totalNetRefundLabel: UILabel!
-    @IBOutlet var refundAmountLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
     
-    @IBOutlet var infoLabel: UILabel!
+    //MARK: - Variables
+    var currentUsingAs = UsingFor.reviewCancellation
     
     // MARK: - Override methods
     
     override func initialSetup() {
         self.requestCancellationButton.addGredient(isVertical: false)
         self.commentTextView.delegate = self
-        self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
+//        self.currentUsingAs = .specialRequest
+        switch currentUsingAs {
+        case .reviewCancellation:
+            self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
+        case .specialRequest:
+            self.cancellationReasonView.isHidden = true
+            self.cancellationViewHeightConstraint.constant = 0.0
+            self.totalNetRefundView.isHidden = true
+            self.totalNetRefundViewHeightConstraint.constant = 0.0
+        }
     }
     
     override func setupTexts() {
-        self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .normal)
-        self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .selected)
-        self.refundModeTitleLabel.text = LocalizedString.RefundMode.localized
-        self.refundModeValueLabel.text = LocalizedString.Select.localized
-        self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
-        self.refundAmountLabel.text = "₹ 1,47,000"
-        self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
-        self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
-        self.cancellationValueLabel.text = LocalizedString.Select.localized
+        
+        switch currentUsingAs {
+        case .reviewCancellation:
+            self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .normal)
+            self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .selected)
+            self.refundModeTitleLabel.text = LocalizedString.RefundMode.localized
+            self.refundModeValueLabel.text = LocalizedString.Select.localized
+            self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
+            self.refundAmountLabel.text = "₹ 1,47,000"
+            self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
+            self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
+            self.cancellationValueLabel.text = LocalizedString.Select.localized
+        case .specialRequest:
+            self.requestCancellationButton.setTitle(LocalizedString.Request.localized, for: .normal)
+            self.requestCancellationButton.setTitle(LocalizedString.Request.localized, for: .selected)
+            self.refundModeTitleLabel.text = LocalizedString.RequestType.localized
+            self.refundModeValueLabel.text = LocalizedString.Select.localized
+            self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
+            self.commentTextView.placeholder = LocalizedString.WriteAboutYourSpecialRequest.localized
+//            self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
+//            self.refundAmountLabel.text = "₹ 1,47,000"
+//            self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
+//            self.cancellationValueLabel.text = LocalizedString.Select.localized
+
+        }
     }
     
     override func setupFonts() {
@@ -57,13 +97,14 @@ class BookingReviewCancellationVC: BaseVC {
         self.infoLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationValueLabel.font = AppFonts.Regular.withSize(18.0)
+//        self.commentTextView.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupColors() {
         self.refundModeTitleLabel.textColor = AppColors.themeGray40
         self.refundModeValueLabel.textColor = AppColors.textFieldTextColor51
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
         self.infoLabel.textColor = AppColors.themeGray40
@@ -72,8 +113,14 @@ class BookingReviewCancellationVC: BaseVC {
     }
     
     override func setupNavBar() {
-        self.topNavBar.configureNavBar(title: LocalizedString.ReviewCancellation.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: true)
-        
+        switch self.currentUsingAs {
+        case .reviewCancellation:
+            self.topNavBar.configureNavBar(title: LocalizedString.ReviewCancellation.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: true)
+        case .specialRequest:
+            self.topNavBar.configureNavBar(title: LocalizedString.SpecialRequest.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+            self.topNavBar.firstRightButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
+            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
         self.topNavBar.delegate = self
     }
     
@@ -87,8 +134,6 @@ class BookingReviewCancellationVC: BaseVC {
         printDebug("refund cancellation Button tapped")
     }
     
-    
-    
     @IBAction func requestContinueButtonTapped(_ sender: UIButton) {
         printDebug("Request Continue Button Tapped")
     }
@@ -100,6 +145,10 @@ class BookingReviewCancellationVC: BaseVC {
 
 extension BookingReviewCancellationVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.popViewController(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
 }

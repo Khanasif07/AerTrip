@@ -15,8 +15,7 @@ protocol BookingProductDetailVMDelegate: class {
 }
 
 class BookingProductDetailVM {
-    
-    //MARK: - Variables
+    // MARK: - Variables
     
     weak var delegate: BookingProductDetailVMDelegate?
     var bookingId: String = "9705"
@@ -25,7 +24,7 @@ class BookingProductDetailVM {
     enum TableViewCellForFlightProductType {
         case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell
     }
-
+    
     var cityName: [String] = ["", "Mumbai, IN", "Bangkok, TH", "Bangkok, TH", "Mumbai, IN", "Chennai, IN"]
     var sectionDataForFlightProductType: [[TableViewCellForFlightProductType]] = []
     var flightBookingData: FlightBookingsDataModel?
@@ -33,7 +32,7 @@ class BookingProductDetailVM {
     var currentDocumentPath: String = ""
     var urlOfDocuments: String = ""
     var urlLink: URL?
-
+    
     func getSectionDataForFlightProductType() {
         self.getDocumentDownloadingData()
         // It will be for the notes cell type
@@ -48,19 +47,26 @@ class BookingProductDetailVM {
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
-
-    
     enum TableViewCellForOtherProductType {
-        case insurenceCell , policyDetailCell , travellersDetailCell , documentCell , paymentInfoCell , bookingCell , paidCell , nameCell , emailCell , mobileCell , gstCell , billingAddressCell
+        case insurenceCell, policyDetailCell, travellersDetailCell, documentCell, paymentInfoCell, bookingCell, paidCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell
     }
     
-    var sectionDataForProductType: [[TableViewCellForOtherProductType]] = []
-    
+    var sectionDataForOtherProductType: [[TableViewCellForOtherProductType]] = []
     
     func getSectionDataForOtherProductType() {
-        self.sectionDataForProductType.append([.insurenceCell , .policyDetailCell , .travellersDetailCell , .documentCell])
-        self.sectionDataForProductType.append([.paymentInfoCell , .bookingCell , .paidCell])
-        self.sectionDataForProductType.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
+        self.sectionDataForOtherProductType.append([.insurenceCell, .policyDetailCell])
+        var tempTravellers: [TableViewCellForOtherProductType] = []
+        for _ in self.bookingDetail?.bookingDetail?.travellers ?? [] {
+            tempTravellers.append(.travellersDetailCell)
+        }
+        self.sectionDataForOtherProductType.append(tempTravellers)
+        /* if !document is empty  {
+         self.sectionDataForOtherProductType.append([.documentCell])
+         }
+         */
+        
+//        self.sectionDataForOtherProductType.append([.paymentInfoCell , .bookingCell , .paidCell])
+        self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
     func getDocumentDownloadingData() {
@@ -69,9 +75,9 @@ class BookingProductDetailVM {
         }
     }
     
-   
+
     
-    func getBookingDetail() {
+    func getBookingDetail(id: String) {
         let params: JSONDictionary = ["booking_id": bookingId]
          delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in

@@ -18,6 +18,7 @@ class DocumentDownloadingModel {
     var progressUpdate: ProgressUpdate? = nil
     var destinationUrl: String
     var downloadingStatus: DownloadingStatus = .notDownloaded
+    
 //    var previosProgress: Double = 0.0
     
     init() {
