@@ -34,16 +34,16 @@
                                     <constraint firstAttribute="width" secondItem="9lV-7N-UcE" secondAttribute="height" multiplier="1:1" id="bWr-e9-J8C"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fresh meals" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-fv-QjW">
-                                <rect key="frame" x="10" y="26" width="66" height="32"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fresh meals cjvasdcjgs" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-fv-QjW">
+                                <rect key="frame" x="10" y="23" width="66" height="35"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gk8-fv-QjW" firstAttribute="top" secondItem="9lV-7N-UcE" secondAttribute="bottom" constant="5" id="6Ng-RZ-Xgt"/>
+                            <constraint firstItem="gk8-fv-QjW" firstAttribute="top" secondItem="9lV-7N-UcE" secondAttribute="bottom" constant="2" id="6Ng-RZ-Xgt"/>
                             <constraint firstItem="9lV-7N-UcE" firstAttribute="top" secondItem="LrS-Wm-q81" secondAttribute="top" id="Rv7-Vb-uqY"/>
                             <constraint firstItem="gk8-fv-QjW" firstAttribute="leading" secondItem="LrS-Wm-q81" secondAttribute="leading" constant="10" id="b11-Ds-jqg"/>
                             <constraint firstAttribute="trailing" secondItem="gk8-fv-QjW" secondAttribute="trailing" constant="10" id="bLo-yj-Ncx"/>

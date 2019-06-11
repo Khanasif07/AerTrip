@@ -415,13 +415,35 @@ struct FlightDetail {
     var icc: Int = 0
     var originWeather: Weather?
     var destinationWeather: Weather?
-    var layoverTime: String = ""
+    var layoverTime: Double = 0.0
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    var amenities: [ATAmenity] = []
     
     var numberOfCell: Int {
-        return 2
+        var temp: Int = 2
+        
+        if !amenities.isEmpty {
+            temp += 1
+        }
+        
+        if layoverTime > 0 {
+            temp += 1
+        }
+        return temp
+    }
+    
+    let numberOfAmenitiesInRow: Double = 4.0
+    var totalRowsForAmenities: Int {
+        let cont: Double = Double(self.amenities.count)
+        let val = Double(cont/numberOfAmenitiesInRow)
+        let diff = val - floor(val)
+        var total = Int(floor(val))
+        if diff > 0.0 && diff < 1.0 {
+            total += 1
+        }
+        return total
     }
     
     init() {
@@ -547,7 +569,7 @@ struct FlightDetail {
         }
         
         if let obj = json["layover_time"] {
-            self.layoverTime = "\(obj)"
+            self.layoverTime = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["change_of_plane"] {
@@ -561,6 +583,9 @@ struct FlightDetail {
         if let obj = json["fbn"] {
             self.fbn = "\(obj)"
         }
+        
+        //TODO: parse the real data for amenities
+        self.amenities = [ATAmenity.Wifi, ATAmenity.Gym, ATAmenity.Internet, ATAmenity.Pool, ATAmenity.RoomService]
     }
     
     static func getModels(json: [JSONDictionary]) -> [FlightDetail] {

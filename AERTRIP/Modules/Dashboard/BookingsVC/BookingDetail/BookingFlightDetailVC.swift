@@ -29,6 +29,8 @@ class BookingFlightDetailVC: BaseVC {
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     var bookingDetailType: BookingDetailType = .flightInfo
+    var calculatedIndexForShowingFlightDetails: Int = 0
+    var calculatedTotalRows: Int = 0
     
     let viewModel = BookingProductDetailVM()
     

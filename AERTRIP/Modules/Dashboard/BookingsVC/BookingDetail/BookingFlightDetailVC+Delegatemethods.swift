@@ -96,7 +96,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch self.bookingDetailType {
         case .flightInfo:
-            return getHeightForFlightInfoRowFirstSection(indexPath)
+            return getHeightForFlightInfo(indexPath)
         case .baggage:
             if indexPath.section == 0 {
                 return self.getHeightForBaggageInfoRowFirstSection(indexPath)

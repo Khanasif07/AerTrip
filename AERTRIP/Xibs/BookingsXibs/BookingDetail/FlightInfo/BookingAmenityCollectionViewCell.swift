@@ -13,6 +13,11 @@ class BookingAmenityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var amenityImageView: UIImageView!
     @IBOutlet weak var amenityTitle: UILabel!
     
+    var amenity: ATAmenity? {
+        didSet {
+            self.configureCell()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +26,8 @@ class BookingAmenityCollectionViewCell: UICollectionViewCell {
         self.amenityTitle.textColor = AppColors.themeGray60
     }
     
-    
-    func configureCell() {
-        self.amenityImageView.image = #imageLiteral(resourceName: "premiumMeal")
-        self.amenityTitle.text = "Fresh meals provided "
+    private func configureCell() {
+        self.amenityImageView.image = amenity?.icon
+        self.amenityTitle.text = amenity?.title
     }
-
-    
 }
