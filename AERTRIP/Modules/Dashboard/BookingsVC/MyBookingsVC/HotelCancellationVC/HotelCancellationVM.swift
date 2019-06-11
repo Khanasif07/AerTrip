@@ -14,6 +14,7 @@ class HotelCancellationVM {
     var bookingDateAndRefundableStatus: String = "12 Oct 2018 | Non-refundable"
     var bookedHotelData: [BookedHotelRoomData] = []
     var isAllRoomSelected: Bool = false
+//    var isAnyRoomSelected: Bool = false
     
     func getHotelData() {
         for i in 0...1 {

@@ -47,6 +47,7 @@ class FlightsVC: BaseVC {
         //                AppFlowManager.default.moveToRequestReschedulingVC()
 //        AppFlowManager.default.moveToFlightBookingsDetailsVC()
         AppFlowManager.default.moveToHotelCancellationVC()
+//        AppFlowManager.default.moveToReviewCancellationVC()
 //        AppFlowManager.default.moveToHotlelBookingsDetailsVC()
         //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "", bookingIds: [], cid: [], originLat: "", originLong: "")
         

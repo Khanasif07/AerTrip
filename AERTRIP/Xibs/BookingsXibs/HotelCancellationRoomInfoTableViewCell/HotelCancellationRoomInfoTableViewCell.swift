@@ -29,8 +29,11 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var guestNamesLabel: UILabel!
     @IBOutlet weak var chargesCollectionView: UICollectionView!
     @IBOutlet weak var cellExpandButtonOutlet: UIButton!
+    @IBOutlet weak var rightArrowImageView: UIImageView!
     @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var bottomDividerView: ATDividerView!
+    @IBOutlet weak var topDividerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomDividerViewLeadingConstraint: NSLayoutConstraint!
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -58,6 +61,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         
         self.topDividerView.isHidden = true
         self.bottomDividerView.isHidden = false
+        self.rightArrowImageView.image = #imageLiteral(resourceName: "rightArrow")
     }
     
     internal func configureCell(roomNumber: String , roomName: String, guestNames: [String], isRoomSelected: Bool, isExpanded: Bool) {
@@ -66,8 +70,10 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         self.guestNamesLabel.text = guestNames.joined(separator: ", ")
         if isRoomSelected {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+//            self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: .pi)
         } else {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
+//            self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: -.pi)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded

@@ -32,7 +32,9 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case accountDeposit
         case addOnRequest
         case cancellationRequest
+        case cancellationProcessed
         case reschedulingRequest
+        case specialRequest
     }
     
     //Mark:- Variables
@@ -104,14 +106,11 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.mainTitleLabel.text = LocalizedString.BulkEnquirySent.localized
             self.subTitleLabel.text = LocalizedString.CustomerServicesShallConnect.localized
             self.searchButtonWidthConstraint.constant = 150.0
-            
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 15.0)
         case .accountDeposit:
             self.mainTitleLabel.text = LocalizedString.PaymentRegisteredSuccesfully.localized
             self.subTitleLabel.text = LocalizedString.WeShallCreditYourAccount.localized
-            
-            
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
         case .cancellationRequest :
@@ -121,7 +120,6 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
-            
         case .addOnRequest:
             self.mainTitleLabel.text = LocalizedString.AddOnRequestSent.localized
             self.subTitleLabel.text = LocalizedString.AddOnRequestMesage.localized
@@ -134,9 +132,21 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = 150.0
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 0.0)
-            
+        case .cancellationProcessed:
+            self.searchBtnOutlet.setTitle("", for: .normal)
+            self.mainTitleLabel.text = LocalizedString.CancellationHasBeenProcessed.localized
+            self.subTitleLabel.text = ""
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .specialRequest:
+            self.searchBtnOutlet.setTitle("", for: .normal)
+            self.mainTitleLabel.text = LocalizedString.SpecialRequestHasBeenSent.localized
+            self.subTitleLabel.text = LocalizedString.OurCustomerServiceRepresenstativeWillContact.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
         }
-        
         self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0

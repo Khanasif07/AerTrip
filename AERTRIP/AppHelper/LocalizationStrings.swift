@@ -828,6 +828,10 @@ enum LocalizedString: String {
     case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
     case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
     case ProcessCancellation = "ProcessCancellation"
+    case CancellationHasBeenProcessed = "CancellationHasBeenProcessed"
     case ResendConfirmationEmail = "ResendConfirmationEmail"
     case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
+    case SpecialRequestHasBeenSent = "SpecialRequestHasBeenSent"
+    case WriteAboutYourSpecialRequest = "WriteAboutYourSpecialRequest"
+    case RequestType = "RequestType"
  }
