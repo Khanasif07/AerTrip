@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/BaseVC.swift"
-            timestampString = "581844009.689036"
+            timestampString = "581855234.302862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "163"
@@ -89,54 +89,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingsVC.swift"
-            timestampString = "581002203.993368"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "dataChanged(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
-            timestampString = "580912454.863444"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "topNavBarFirstRightButtonAction(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
-            timestampString = "580912454.863506"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "topNavBarLeftButtonAction(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/CancelledVC.swift"
             timestampString = "580912454.863578"
             startingColumnNumber = "9223372036854775807"
@@ -144,38 +96,6 @@
             startingLineNumber = "94"
             endingLineNumber = "94"
             landmarkName = "dataChanged(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingVC+UITableViewMethods.swift"
-            timestampString = "581000163.944275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingVC+UITableViewMethods.swift"
-            timestampString = "581000163.9443491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -218,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            timestampString = "581844123.758152"
+            timestampString = "581855234.303086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
@@ -346,7 +266,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Models/FlightBookingsDataModel.swift"
-                  timestampString = "581844010.6966209"
+                  timestampString = "581865676.9472589"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "37"
@@ -361,7 +281,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Models/FlightBookingsDataModel.swift"
-                  timestampString = "581844010.699957"
+                  timestampString = "581865676.9501359"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -426,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Network/APICaller/APICaller+Booking.swift"
-            timestampString = "581844123.758442"
+            timestampString = "581855234.3034329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -438,31 +358,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581844123.758513"
+            timestampString = "581866545.785351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "willGetBookingDetail()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581844123.758572"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
             landmarkName = "getBookingDetailSucces()"
             landmarkType = "7">
          </BreakpointContent>
@@ -470,16 +374,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581844123.758629"
+            timestampString = "581866545.78543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "getBookingDetailFaiure()"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
+            timestampString = "581866545.785498"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "getTravellersDetailsCell(_:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
+            timestampString = "581866545.785565"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "getTravellersDetailsCell(_:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
+            timestampString = "581866545.785628"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "getBookingDetailSucces()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
+            timestampString = "581866545.785691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "getPolicyDetailCell(_:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -489,13 +457,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/BookingProductDetailVM.swift"
-            timestampString = "581844123.75869"
+            filePath = "AERTRIP/Xibs/BookingsXibs/TravellersDetailsTableViewCell/TravellersDetailsTableViewCell.swift"
+            timestampString = "581866545.785761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "getBookingDetail(id:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "configCell(imageUrl:travellerName:isLastTravellerInRoom:isLastTraveller:isOtherBookingData:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -505,13 +473,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/BookingProductDetailVM.swift"
-            timestampString = "581844123.758746"
+            filePath = "AERTRIP/Xibs/BookingsXibs/TravellersDetailsTableViewCell/TravellersDetailsTableViewCell.swift"
+            timestampString = "581866545.785823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "getBookingDetail(id:)"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "configCell(imageUrl:travellerName:isLastTravellerInRoom:isLastTraveller:isOtherBookingData:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,14 +9,13 @@
 import UIKit
 
 class BookingHotelDetailVC: BaseVC {
-    
     // MARK: - IBOutlet
     
-    @IBOutlet weak var hotelDetailTableView: ATTableView!
-    @IBOutlet weak var topNavigationView: TopNavigationView!
+    @IBOutlet var hotelDetailTableView: ATTableView!
+    @IBOutlet var topNavigationView: TopNavigationView!
     
+    // MARK: - Variables
     
-    //MARK: - Variables
     let viewModel = BookingHotelDetailVM()
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
@@ -24,17 +23,15 @@ class BookingHotelDetailVC: BaseVC {
     // MARK: - Override methods
     
     override func initialSetup() {
-       self.registerXib()
-       self.hotelDetailTableView.dataSource = self
-       self.hotelDetailTableView.delegate = self
-       self.hotelDetailTableView.reloadData()
+        self.registerXib()
+        self.hotelDetailTableView.dataSource = self
+        self.hotelDetailTableView.delegate = self
+        self.hotelDetailTableView.reloadData()
         
         self.hotelDetailTableView.sectionHeaderHeight = UITableView.automaticDimension
         self.viewModel.getHotelDetail()
         self.configureNavBar()
-    
     }
-    
     
     // Register xib file
     private func registerXib() {
@@ -56,12 +53,9 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.registerCell(nibName: BookingCheckinCheckOutTableViewCell.reusableIdentifier)
         self.hotelDetailTableView.registerCell(nibName: BookingTravellerTableViewCell.reusableIdentifier)
         
-         self.hotelDetailTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
-        
+        self.hotelDetailTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
     }
     
-    
-   
     // configure nav bar
     private func configureNavBar() {
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
@@ -70,7 +64,4 @@ class BookingHotelDetailVC: BaseVC {
         self.topNavigationView.backgroundColor = .clear
         self.view.bringSubviewToFront(self.topNavigationView)
     }
-    
-    
-    
 }

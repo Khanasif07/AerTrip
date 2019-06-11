@@ -80,6 +80,11 @@ struct BookingDetailModel {
             self.specialFare = "\(obj)"
         }
         
+        if let obj = json["bdetails"] as? JSONDictionary {
+            self.bookingDetail = BookingDetail(json: obj)
+        }
+        
+        self.cases = Case.retunsCaseArray(jsonArr: json["cases"] as? [JSONDictionary] ?? [])
         if let obj = json["user"] as? UserInfo {
             self.user = obj
         }
@@ -93,6 +98,7 @@ struct BookingDetail {
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
     var journeyCompleted: Int16 = 0
+    var travellers: [Traveller] = []
     
     // Keys for Product = Hotel
     
@@ -220,6 +226,26 @@ struct BookingDetail {
         if let obj = json["check_out"] {
             self.checkOut = "\(obj)"
         }
+        
+        // Product key other
+        
+        if let obj = json["title"] {
+            self.title = "\(obj)"
+        }
+        
+        if let obj = json["details"] {
+            self.details = "\(obj)"
+        }
+        
+        if let obj = json["booking_date"] {
+            self.bookingDate = "\(obj)"
+        }
+        
+        self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
+    }
+    
+    var paymentStatus: String {
+        return self.isRefundable ? "Refundable" : " Non-Refundable"
     }
 }
 
@@ -601,17 +627,17 @@ struct BillingDetail {
     
     init(json: JSONDictionary) {
         if let obj = json["email"] {
-            self.email = "\(obj)"
+            self.email = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         if let obj = json["communication_number"] {
-            self.communicationNumber = "\(obj)"
+            self.communicationNumber = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         if let obj = json["billing_name"] {
-            self.billingName = "\(obj)"
+            self.billingName = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         
         if let obj = json["gst"] {
-            self.gst = "\(obj)"
+            self.gst = !"\(obj)".isEmpty ? "\(obj)" : "-"
         }
         
         if let obj = json["address"] as? JSONDictionary {
@@ -656,6 +682,10 @@ struct BillingAddress {
         if let obj = json["country"] {
             self.country = "\(obj)"
         }
+    }
+    
+    var completeAddress: String {
+        return self.addressLine1 + "," + self.addressLine2 + "," + self.city + "," + self.state + "," + self.postalCode + "," + self.country
     }
 }
 
@@ -804,6 +834,14 @@ struct Case {
         if let obj = json["note"] {
             self.note = "\(obj)"
         }
+    }
+    
+    static func retunsCaseArray(jsonArr: [JSONDictionary]) -> [Case] {
+        var cases = [Case]()
+        for element in jsonArr {
+            cases.append(Case(json: element))
+        }
+        return cases
     }
 }
 

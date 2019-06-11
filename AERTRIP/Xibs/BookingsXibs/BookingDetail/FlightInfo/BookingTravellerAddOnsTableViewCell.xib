@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BookingTravellerAddOnsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="558"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="557.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Mi-Rv-l1g">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="557.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmg-je-VlN">
+                                <rect key="frame" x="16" y="16" width="294" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="PZD-ws-M13">
+                                <rect key="frame" x="20" y="37" width="300" height="139"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="139" id="2PQ-5C-XPM"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="U6H-oy-9dw">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3k-C5-xih" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="20" y="176" width="300" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="LeO-Gy-gNB"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rxb-Jq-9KP">
+                                <rect key="frame" x="0.0" y="177" width="320" height="380.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qdz-SL-1Jm">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="f3k-C5-xih" firstAttribute="top" secondItem="PZD-ws-M13" secondAttribute="bottom" id="3sg-la-qSP"/>
+                            <constraint firstItem="jmg-je-VlN" firstAttribute="top" secondItem="1Mi-Rv-l1g" secondAttribute="top" constant="16" id="7pm-uD-cxo"/>
+                            <constraint firstItem="rxb-Jq-9KP" firstAttribute="leading" secondItem="1Mi-Rv-l1g" secondAttribute="leading" id="ATN-I2-eJ8"/>
+                            <constraint firstAttribute="trailing" secondItem="rxb-Jq-9KP" secondAttribute="trailing" id="BgX-7I-d7y"/>
+                            <constraint firstItem="jmg-je-VlN" firstAttribute="leading" secondItem="1Mi-Rv-l1g" secondAttribute="leading" constant="16" id="CQZ-K7-bj8"/>
+                            <constraint firstItem="PZD-ws-M13" firstAttribute="leading" secondItem="1Mi-Rv-l1g" secondAttribute="leading" constant="20" id="EC8-U4-bXP"/>
+                            <constraint firstAttribute="trailing" secondItem="f3k-C5-xih" secondAttribute="trailing" id="HcT-8a-y46"/>
+                            <constraint firstAttribute="trailing" secondItem="jmg-je-VlN" secondAttribute="trailing" constant="10" id="JUZ-do-OWZ"/>
+                            <constraint firstItem="PZD-ws-M13" firstAttribute="top" secondItem="jmg-je-VlN" secondAttribute="bottom" id="LKs-2a-tcJ"/>
+                            <constraint firstAttribute="trailing" secondItem="PZD-ws-M13" secondAttribute="trailing" id="YrE-rc-IjY"/>
+                            <constraint firstItem="f3k-C5-xih" firstAttribute="leading" secondItem="PZD-ws-M13" secondAttribute="leading" id="g2W-1T-fYp"/>
+                            <constraint firstItem="rxb-Jq-9KP" firstAttribute="top" secondItem="f3k-C5-xih" secondAttribute="bottom" id="gmp-I5-iEX"/>
+                            <constraint firstAttribute="bottom" secondItem="rxb-Jq-9KP" secondAttribute="bottom" id="pi1-bs-cbb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="1Mi-Rv-l1g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="FhX-a4-Fly"/>
+                    <constraint firstAttribute="bottom" secondItem="1Mi-Rv-l1g" secondAttribute="bottom" id="HIl-Nx-BNF"/>
+                    <constraint firstAttribute="trailing" secondItem="1Mi-Rv-l1g" secondAttribute="trailing" id="fyi-za-0Sn"/>
+                    <constraint firstItem="1Mi-Rv-l1g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="syB-Gq-hP3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dividerView" destination="f3k-C5-xih" id="UGi-ix-Kfr"/>
+                <outlet property="titleLabel" destination="jmg-je-VlN" id="F95-FQ-xCr"/>
+                <outlet property="travellerAddonsCollectionView" destination="rxb-Jq-9KP" id="Diw-jX-gf4"/>
+                <outlet property="travellerCollectionView" destination="PZD-ws-M13" id="QkT-v5-F2r"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

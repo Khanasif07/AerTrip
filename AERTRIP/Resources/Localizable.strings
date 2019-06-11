@@ -793,3 +793,9 @@
 "ProcessCancellation" = "Process Cancellation";
 "ResendConfirmationEmail" ="Resend Confirmation Email";
 "SelectHotelOrRoomsForCancellation" = "Select hotel or rooms for cancellation";
+
+// MARK: - OtherBookingProduct Type
+
+"BillingName" = "Billing Name";
+"BillingAddress" = "Billing Address";
+"GSTIN" = "GSTIN";

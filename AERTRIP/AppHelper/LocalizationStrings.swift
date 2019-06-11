@@ -812,6 +812,13 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    //MARK: - OTHER BOOKING PRODUCT DETAIL
+    
+    case BillingName
+    case GSTIN
+    case BillingAddress
+    
+    
     case Economy = "Economy"
     case Carriers = "Carriers"
     

@@ -6,23 +6,24 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import MXParallaxHeader
+import UIKit
 
-//MARK:- Extensions
-//MARK:============
-extension OtherBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
-    
+// MARK: - Extensions
+
+// MARK: ============
+
+extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionDataForProductType.count
+        return self.viewModel.sectionDataForOtherProductType.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionDataForProductType[section].count
+        return self.viewModel.sectionDataForOtherProductType[section].count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentSection = self.viewModel.sectionDataForProductType[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .insurenceCell:
             let cell = self.getInsurenceCell(tableView, indexPath: indexPath)
@@ -64,14 +65,13 @@ extension OtherBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
 }
 
-
 extension OtherBookingsDetailsVC: TopNavigationViewDelegate {
-    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized,LocalizedString.SpecialRequest.localized,LocalizedString.Download.localized,LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
             switch index {
             case 0:
@@ -89,30 +89,28 @@ extension OtherBookingsDetailsVC: TopNavigationViewDelegate {
     }
 }
 
-
 extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
-    
     func downloadDocument(documentDirectory: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
         self.viewModel.currentDocumentPath = documentDirectory
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
+        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
-            }, progressUpdate: { [weak self] progress in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
-            }, success: { [weak self] (success) in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
-                UIView.performWithoutAnimation {
-                    sSelf.dataTableView.reloadData()
-                }
-                printDebug(success)
-        }) { [weak self] (error) in
+        }, progressUpdate: { [weak self] progress in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+        }, success: { [weak self] success in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+            UIView.performWithoutAnimation {
+                sSelf.dataTableView.reloadData()
+            }
+            printDebug(success)
+        }) { [weak self] error in
             guard let sSelf = self else { return }
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
@@ -121,31 +119,32 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             printDebug(error)
         }
     }
-    
+
     func cancelDownloadDocument(itemIndexPath: IndexPath) {
         printDebug("Downloading Stop")
         self.viewModel.documentDownloadingData[itemIndexPath.item].downloadRequest?.cancel()
     }
 }
 
-//MARK:- ScrollView Delegate
+// MARK: - ScrollView Delegate
+
 //==========================
-extension OtherBookingsDetailsVC : MXParallaxHeaderDelegate {
+extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
     func updateForParallexProgress() {
         let prallexProgress = self.dataTableView.parallaxHeader.progress
         printDebug("progress %f \(prallexProgress)")
         //        if prallexProgress >= 0.6 {
         //            self.dataTableView.parallaxHeader.height = 152.0
         //        }
-        
+
         if prallexProgress <= 0.65 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: "BOM → DEL", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
-            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.navTitleLabel.text = ""
                 sSelf.topNavBar.dividerView.isHidden = true
@@ -153,20 +152,19 @@ extension OtherBookingsDetailsVC : MXParallaxHeaderDelegate {
         }
         self.headerView?.layoutIfNeeded()
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.updateForParallexProgress()
     }
 }
-
 
 // MARK: -
 
@@ -174,11 +172,16 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
         AppGlobals.shared.startLoading()
     }
-    
+
     func getBookingDetailSucces() {
+        self.configureTableHeaderView()
+        self.dataTableView.delegate = self
+        self.dataTableView.dataSource = self
+        self.viewModel.getSectionDataForOtherProductType()
+        self.dataTableView.reloadData()
         AppGlobals.shared.stopLoading()
     }
-    
+
     func getBookingDetailFaiure() {
         AppGlobals.shared.stopLoading()
     }
