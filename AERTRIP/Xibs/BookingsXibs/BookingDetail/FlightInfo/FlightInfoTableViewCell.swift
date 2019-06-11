@@ -14,16 +14,19 @@ class FlightInfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var flightImageView: UIImageView!
     @IBOutlet weak var flightNameLabel: UILabel!
-    @IBOutlet weak var flightOwnerLabel: UILabel!
-    @IBOutlet weak var flightCodeClassLabel: UILabel!
+    @IBOutlet weak var flightDetailsLabel: UILabel!
     
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
-
     // MARK: - View life cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
         self.setUpFont()
         self.setUpTextColor()
     }
@@ -33,23 +36,33 @@ class FlightInfoTableViewCell: UITableViewCell {
     
     private func setUpFont() {
         self.flightNameLabel.font = AppFonts.SemiBold.withSize(14.0)
-          self.flightOwnerLabel.font = AppFonts.Regular.withSize(14.0)
-          self.flightCodeClassLabel.font = AppFonts.Regular.withSize(14.0)
+        self.flightDetailsLabel.font = AppFonts.Regular.withSize(14.0)
         
     }
     
     private func setUpTextColor() {
         self.flightNameLabel.textColor = AppColors.themeBlack
-        self.flightOwnerLabel.textColor = AppColors.themeGray40
-        self.flightCodeClassLabel.textColor = AppColors.themeGray40
+        self.flightDetailsLabel.textColor = AppColors.themeGray40
     }
     
     
-    func configureCell() {
-        self.flightNameLabel.text = "Virgin Atlantic"
-        self.flightOwnerLabel.text = "Operated by Jet Airways"
-        self.flightCodeClassLabel.text = "EK-5154・Premium E (B)"
-    }
+    private func configureCell() {
+        self.flightNameLabel.text = self.flightDetail?.carrier ?? ""
+        
+        var finalDetails = ""
+        if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
+            finalDetails = obj
+        }
 
-    
+        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized)"
+        
+        finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
+        
+        self.flightDetailsLabel.text = finalDetails
+        
+        if let code = self.flightDetail?.carrierCode, !code.isEmpty {
+            let imageUrl = "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+            self.flightImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+        }
+    }
 }

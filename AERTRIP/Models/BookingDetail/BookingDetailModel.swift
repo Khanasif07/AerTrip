@@ -42,6 +42,7 @@ struct BookingDetailModel {
     }
     
     init(json: JSONDictionary) {
+        
         if let obj = json["id"] {
             self.id = "\(obj)"
         }
@@ -58,10 +59,6 @@ struct BookingDetailModel {
         
         if let obj = json["depart"] {
             self.depart = "\(obj)"
-        }
-        
-        if let obj = json["billing_info"] as? JSONDictionary {
-            self.billingInfo = BillingDetail(json: obj)
         }
         
         if let obj = json["product"] {
@@ -83,12 +80,109 @@ struct BookingDetailModel {
         if let obj = json["user"] as? UserInfo {
             self.user = obj
         }
+        
+        
+        //other data parsing
+        if let obj = json["billing_info"] as? JSONDictionary {
+            self.billingInfo = BillingDetail(json: obj)
+        }
+        
+        if let obj = json["bdetails"] as? JSONDictionary {
+            self.bookingDetail = BookingDetail(json: obj)
+        }
     }
 }
 
+extension BookingDetailModel {
+    var tripCitiesStr: NSMutableAttributedString? {
+        func isReturnFlight(forArr: [String]) -> Bool {
+            guard !forArr.isEmpty else {return false}
+            
+            if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+                return (first.lowercased() == last.lowercased())
+            }
+            else {
+                return (self.tripType.lowercased() == "return")
+            }
+        }
+        
+        func getNormalString(forArr: [String]) -> String {
+            guard !forArr.isEmpty else {return "--"}
+            return forArr.joined(separator: " → ")
+        }
+        
+        func getReturnString(forArr: [String]) -> String {
+            guard forArr.count >= 2 else {return "--"}
+            return "\(forArr[0]) ⇋ \(forArr[1])"
+        }
+        
+        guard let tripCts = self.bookingDetail?.tripCities else {
+            return NSMutableAttributedString(string: "--")
+        }
+        
+        if (self.tripType.lowercased() == "single") {
+            //single flight case
+            let temp = getNormalString(forArr: tripCts)
+            return NSMutableAttributedString(string: temp)
+        }
+        else if isReturnFlight(forArr: tripCts){
+            //return flight case
+            let temp = getReturnString(forArr: tripCts)
+            return NSMutableAttributedString(string: temp)
+        }
+        else {
+            //multi flight case
+            if let routes = self.bookingDetail?.routes, let travledCity = self.bookingDetail?.travelledCities {
+                //travlled some where
+                
+                if (routes.first ?? []).isEmpty {
+                    //still not travlled
+                    let temp = getNormalString(forArr: tripCts)
+                    return NSMutableAttributedString(string: temp)
+                }
+                else {
+                    
+                    var routeStr = ""
+                    var travLastIndex: Int = 0
+                    var prevCount: Int = 0
+                    for route in routes {
+                        var temp = route.joined(separator: " → ")
+                        
+                        if !routeStr.isEmpty {
+                            temp = ", \(temp)"
+                        }
+                        
+                        for (idx, ct) in route.enumerated() {
+                            let newIdx = idx + prevCount
+                            if travledCity.count > newIdx, travledCity[newIdx] == ct {
+                                //travelled through this city
+                                var currentCityTemp = " \(ct) →"
+                                if !routeStr.isEmpty, idx == 0 {
+                                    currentCityTemp = ", \(ct) →"
+                                }
+                                travLastIndex = routeStr.count + currentCityTemp.count
+                            }
+                        }
+                        routeStr += temp
+                        prevCount = route.count
+                    }
+                    
+                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
+                    if travLastIndex > 0 {
+                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+2))
+                    }
+                    return attributedStr1
+                }
+            }
+            return NSMutableAttributedString(string: "--")
+        }
+    }
+}
+
+
 struct BookingDetail {
     var tripCities: [String] = []
-    var travelledCities: String = ""
+    var travelledCities: [String] = []
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
@@ -134,12 +228,12 @@ struct BookingDetail {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["tripCities"] as? [String] {
+        if let obj = json["trip_cities"] as? [String] {
             self.tripCities = obj
         }
         
-        if let obj = json["travelledCities"] {
-            self.travelledCities = "\(obj)"
+        if let obj = json["travelled_cities"] as? [String] {
+            self.travelledCities = obj
         }
         
         if let obj = json["disconnected"] as? Bool {
@@ -220,6 +314,11 @@ struct BookingDetail {
         if let obj = json["check_out"] {
             self.checkOut = "\(obj)"
         }
+        
+        //leg parsing
+        if let obj = json["leg"] as? [JSONDictionary] {
+            self.leg = Leg.getModels(json: obj)
+        }
     }
 }
 
@@ -266,6 +365,19 @@ struct Leg {
         if let obj = json["fare_name"] {
             self.fareName = "\(obj)"
         }
+        
+        //other parsing
+        if let obj = json["flights"] as? [JSONDictionary] {
+            self.flight = FlightDetail.getModels(json: obj)
+        }
+        
+        if let obj = json["pax"] as? [JSONDictionary] {
+            self.pax = Pax.getModels(json: obj)
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [Leg] {
+        return json.map { Leg(json: $0) }
     }
 }
 
@@ -288,11 +400,14 @@ struct FlightDetail {
     var arrivalCountryCode: String = ""
     var arrivalDate: String = ""
     var arrivalTime: String = ""
-    var flightTime: String = ""
+    var flightTime: Double = 0.0
     var carrier: String = ""
     var carrierCode: String = ""
     var flightNumber: String = ""
     var equipment: String = ""
+    var equipmentDescription: String = ""
+    var equipmentDescription2: String = ""
+    var equipmentLayout: String = ""
     var quality: String = ""
     var cabinClass: String = ""
     var operatedBy: String = ""
@@ -304,6 +419,10 @@ struct FlightDetail {
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    
+    var numberOfCell: Int {
+        return 2
+    }
     
     init() {
         self.init(json: [:])
@@ -377,7 +496,7 @@ struct FlightDetail {
             self.arrivalTime = "\(obj)"
         }
         if let obj = json["flight_time"] {
-            self.flightTime = "\(obj)"
+            self.flightTime = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["carrier"] {
             self.carrier = "\(obj)"
@@ -390,6 +509,17 @@ struct FlightDetail {
         }
         if let obj = json["equipment"] {
             self.equipment = "\(obj)"
+        }
+        if let obj = json["equipment_description"] {
+            self.equipmentDescription = "\(obj)"
+        }
+        
+        if let obj = json["equipment_description_2"] {
+            self.equipmentDescription2 = "\(obj)"
+        }
+        
+        if let obj = json["equipment_layout"] {
+            self.equipmentLayout = "\(obj)"
         }
         if let obj = json["qualiy"] {
             self.quality = "\(obj)"
@@ -431,6 +561,29 @@ struct FlightDetail {
         if let obj = json["fbn"] {
             self.fbn = "\(obj)"
         }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [FlightDetail] {
+        return json.map { FlightDetail(json: $0) }
+    }
+    
+    //computed
+    var equipmentDetails: String {
+        var finalStr = ""
+        if !self.equipment.isEmpty {
+            finalStr = self.equipment
+        }
+        if !self.equipmentDescription.isEmpty {
+            finalStr += "\n\(self.equipmentDescription)"
+        }
+        if !self.equipmentDescription2.isEmpty {
+            finalStr += "\n\(self.equipmentDescription2)"
+        }
+        if !self.equipmentLayout.isEmpty {
+            finalStr += "\n\(self.equipmentLayout)"
+        }
+        
+        return finalStr
     }
 }
 
@@ -730,6 +883,10 @@ struct Pax {
         if let obj = json["in_process"] as? Bool {
             self.paxId = "\(obj)"
         }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [Pax] {
+        return json.map { Pax(json: $0) }
     }
 }
 

@@ -47,7 +47,7 @@ class OtherBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
+        self.viewModel.getBookingDetail()
         self.viewModel.getSectionDataForOtherProductType()
         self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default

@@ -70,6 +70,22 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.bookingData = bookingData
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bookingData = fetchedResultsController.object(at: indexPath)
+        if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
+            if bookingData.productType == .flight {
+                AppFlowManager.default.moveToBookingDetail(bookingId: bookingId)
+            }
+            else if bookingData.productType == .other {
+                AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+            }
+            else {
+                //open hotel details
+            }
+            
+        }
+    }
 }
 
 

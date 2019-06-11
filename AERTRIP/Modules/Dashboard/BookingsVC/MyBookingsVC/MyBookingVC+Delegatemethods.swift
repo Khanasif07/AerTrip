@@ -35,10 +35,7 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     }
     
     func getBookingsDetailSuccess() {
-        //        if let obj = allChildVCs[0] as? UpcomingBookingsVC {
-        //            obj.emptyStateSetUp()
-        //        }
-        //
+
         AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         self.emptyStateSetUp()

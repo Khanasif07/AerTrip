@@ -19,7 +19,7 @@ class BookingProductDetailVM {
     //MARK: - Variables
     
     weak var delegate: BookingProductDetailVMDelegate?
-    var bookingId: String = ""
+    var bookingId: String = "9705"
     var bookingDetail: BookingDetailModel?
     
     enum TableViewCellForFlightProductType {
@@ -71,8 +71,8 @@ class BookingProductDetailVM {
     
    
     
-    func getBookingDetail(id: String) {
-        let params: JSONDictionary = ["booking_id": 10490]
+    func getBookingDetail() {
+        let params: JSONDictionary = ["booking_id": bookingId]
          delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let sSelf = self else { return }

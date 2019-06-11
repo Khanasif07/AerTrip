@@ -9,7 +9,6 @@
 import UIKit
 
 class FlightTimeLocationInfoTableViewCell: UITableViewCell {
-
     
     // MARK: - IBOutlets
     
@@ -18,7 +17,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var sourceDateLabel: UILabel!
     @IBOutlet weak var sourceFlightNameLbel: UILabel!
     @IBOutlet weak var sourceFlightAddressLabel: UILabel!
-     @IBOutlet weak var sourceTerminalLabel: UILabel!
+    @IBOutlet weak var sourceTerminalLabel: UILabel!
     
     // Destination
     @IBOutlet weak var destinationFlightCodeLabel: UILabel!
@@ -27,63 +26,96 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var destinationFlightAddressLabel: UILabel!
     @IBOutlet weak var destinationTerminalLabel: UILabel!
     
-
+    
     // Travel Time Label
     
     @IBOutlet weak var dayNightImageView: UIImageView!
     @IBOutlet weak var travelTimeLabel: UILabel!
-    @IBOutlet weak var  dottedView: UIView!
+    @IBOutlet weak var dottedView: UIView!
     @IBOutlet weak var wingNameLabel: UILabel!
     
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
-    
-    
-    
+    private let defaultStr = LocalizedString.na.localized
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
+        self.dottedView.makeDottedLine()
         self.setUpFonts()
         self.setUpTextColor()
         
     }
     
-    
-    func configureCell() {
+    private func setToDefault() {
+
+        // source
+        self.sourceFlightCodeLabel.text = defaultStr
+        self.sourceDateLabel.text = defaultStr
+        self.sourceFlightNameLbel.text = defaultStr
+        self.sourceFlightAddressLabel.text = defaultStr
+        self.sourceTerminalLabel.text = defaultStr
         
+        // Destination
+        self.destinationFlightCodeLabel.text = defaultStr
+        self.destinationDateLabel.text = defaultStr
+        self.destinationFlightNameLbel.text = defaultStr
+        self.destinationFlightAddressLabel.text = defaultStr
+        self.destinationTerminalLabel.text = defaultStr
+        
+        
+        // Travel
+        
+        self.travelTimeLabel.text = defaultStr
+        self.wingNameLabel.text = defaultStr
+    }
+    
+    private func configureCell() {
+        
+        guard let details = self.flightDetail else {
+            self.setToDefault()
+            return
+        }
         
         // source
-        self.sourceFlightCodeLabel.text = "BOM 02:55"
-        self.sourceDateLabel.text =  "Fri, 20 Nov 2017"
-        self.sourceFlightNameLbel.text =  "Chhatrapati Shivaji International Airport,"
-        self.sourceFlightAddressLabel.text =  "Mumbai, IN"
-        self.sourceTerminalLabel.text =  "T-3"
-    
+        let sourceTimeStr = "\(details.departure) \(details.departureTime)"
+        let sourceAttr = NSMutableAttributedString(string: sourceTimeStr)
+        sourceAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (sourceTimeStr as NSString).range(of: details.departure))
+        self.sourceFlightCodeLabel.attributedText = sourceAttr
+        self.sourceDateLabel.text = details.departDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? defaultStr
+        self.sourceFlightNameLbel.text = details.departureAirport
+        self.sourceFlightAddressLabel.text = "\(details.departCity), \(details.departureCountryCode)"
+        self.sourceTerminalLabel.text = details.departureTerminal
+        
         // Destination
-        self.destinationFlightCodeLabel.text = "BOM 02:55"
-        self.destinationDateLabel.text =  "Fri, 20 Nov 2017"
-        self.destinationFlightNameLbel.text =  "Chhatrapati Shivaji International Airport,"
-        self.destinationFlightAddressLabel.text =  "Mumbai, IN"
-        self.destinationTerminalLabel.text =  "T-3"
+        let desTimeStr = "\(details.arrivalTime) \(details.arrival)"
+        let destAttr = NSMutableAttributedString(string: sourceTimeStr)
+        destAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (desTimeStr as NSString).range(of: details.arrival))
+        self.destinationFlightCodeLabel.attributedText = destAttr
+        self.destinationDateLabel.text = details.arrivalDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? defaultStr
+        self.destinationFlightNameLbel.text = details.arrivalAirport
+        self.destinationFlightAddressLabel.text = "\(details.arrivalCity), \(details.arrivalCountryCode)"
+        self.destinationTerminalLabel.text = details.arrivalTerminal
         
         
-        // Travel 
-        
-        self.travelTimeLabel.text = "15h 34m"
-        self.wingNameLabel.text = "Boeing 777-888 Passenger Aircraft (wingman) 3 - 3 - 3 . "
-        
-        
+        // Travel
+        self.travelTimeLabel.text = details.flightTime.asString(units: [.hour, .minute], style: .abbreviated)
+        self.wingNameLabel.text = details.equipmentDetails
     }
-
+    
     
     // MARK: - Helper methods
     
     private func setUpFonts() {
         self.sourceFlightCodeLabel.font = AppFonts.SemiBold.withSize(24.0)
-         self.sourceDateLabel.font = AppFonts.Regular.withSize(14.0)
-         self.sourceFlightNameLbel.font = AppFonts.Regular.withSize(14.0)
-         self.sourceFlightAddressLabel.font = AppFonts.Regular.withSize(14.0)
-         self.sourceTerminalLabel.font = AppFonts.Regular.withSize(14.0)
+        self.sourceDateLabel.font = AppFonts.Regular.withSize(14.0)
+        self.sourceFlightNameLbel.font = AppFonts.Regular.withSize(14.0)
+        self.sourceFlightAddressLabel.font = AppFonts.Regular.withSize(14.0)
+        self.sourceTerminalLabel.font = AppFonts.Regular.withSize(14.0)
         
         //Destination
         self.destinationFlightCodeLabel.font = AppFonts.SemiBold.withSize(24.0)
@@ -115,5 +147,5 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.travelTimeLabel.textColor = AppColors.themeGray60
         self.wingNameLabel.textColor = AppColors.themeGray40
     }
- 
+    
 }
