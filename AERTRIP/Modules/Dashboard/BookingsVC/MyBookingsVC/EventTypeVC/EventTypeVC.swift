@@ -55,7 +55,7 @@ class EventTypeVC: BaseVC {
     
     
     @IBAction func openBookingFlow(_ sender: Any) {
-        AppFlowManager.default.moveToBookingDetail()
+        AppFlowManager.default.moveToBookingDetail(bookingId: "9705")
     }
 }
 

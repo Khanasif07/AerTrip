@@ -14,37 +14,51 @@ enum BookingDetailType {
     case fareInfo
 }
 
+
 class BookingFlightDetailVC: BaseVC {
+    
     // MARK: - IBOutlet
     
-    @IBOutlet var topNavigationView: TopNavigationView!
-    @IBOutlet var segmentControl: UISegmentedControl!
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
+    
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var tableView: ATTableView!
     
     // MARK: - Variables
-    
     let headerViewIdentifier = "BookingInfoHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     var bookingDetailType: BookingDetailType = .flightInfo
     
+    let viewModel = BookingProductDetailVM()
+    
     override func initialSetup() {
-        self.configureNavBar()
+        
+        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
+        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.setUpSegmentControl()
         self.registerXib()
-        self.tableView.reloadData()
+        self.reloadDetails()
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
+    
     private func configureNavBar() {
-        self.topNavigationView.configureNavBar(title: "BEL " + LocalizedString.ForwardArrow.localized + " DEL", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        
+        self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.bookingDetail?.tripCitiesStr
         self.topNavigationView.delegate = self
     }
     
+    
     private func setUpSegmentControl() {
-        self.segmentControl.selectedSegmentIndex = 0
-        self.segmentControl.addTarget(self, action: #selector(self.indexChanged(_:)), for: .valueChanged)
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
     }
     
     private func registerXib() {
@@ -67,7 +81,10 @@ class BookingFlightDetailVC: BaseVC {
         
         // Traveller Addon TableViewCell
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
+
+        
     }
+    
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -84,9 +101,15 @@ class BookingFlightDetailVC: BaseVC {
         default:
             printDebug("Tapped")
         }
+        self.reloadDetails()
+    }
+    
+    func reloadDetails() {
+        self.configureNavBar()
         self.tableView.reloadData()
     }
 }
+
 
 // MARK: - Top Navigation View Delegate
 
@@ -104,3 +127,6 @@ extension BookingFlightDetailVC: FareInfoHeaderViewDelegate {
         AppFlowManager.default.presentBookingFareInfoDetailVC()
     }
 }
+
+
+

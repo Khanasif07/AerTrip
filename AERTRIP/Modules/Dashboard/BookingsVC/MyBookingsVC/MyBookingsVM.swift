@@ -39,13 +39,17 @@ class MyBookingsVM {
         let params: JSONDictionary = [:]
         printDebug(params)
         delgate?.willGetBookings()
-        APICaller.shared.getBookingList(params: params) { [weak self] success, _ in
+        APICaller.shared.getBookingList(params: params) { [weak self] success, error in
             guard let sSelf = self else { return }
             if success {
                 DispatchQueue.mainAsync {
                     sSelf.delgate?.getBookingsDetailSuccess()
                 }
-            } else {}
+            } else {
+                DispatchQueue.mainAsync {
+                    sSelf.delgate?.getBookingDetailFail(error: error)
+                }
+            }
         }
     }
 }

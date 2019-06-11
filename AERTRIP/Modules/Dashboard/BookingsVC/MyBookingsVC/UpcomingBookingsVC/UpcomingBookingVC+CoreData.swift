@@ -70,7 +70,6 @@ extension UpcomingBookingsVC {
     }
     
     private func getSearchPredicates() -> NSPredicate?{
-        print("adas")
         if !MyBookingFilterVM.shared.searchText.isEmpty {
             let hotelName = NSPredicate(format: "hotelName CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             let tripType = NSPredicate(format: "tripType CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")

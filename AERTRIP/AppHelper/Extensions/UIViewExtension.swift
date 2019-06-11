@@ -372,3 +372,20 @@ extension UIView {
         self.layer.shadowPath = path.cgPath
     }
 }
+
+
+extension UIView {
+    func makeDottedLine(dashLength: Int = 3, gapLength: Int = 2, dashColor: UIColor = .lightGray) {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = dashColor.cgColor
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineDashPattern = [dashLength, gapLength] as [NSNumber] // 3 is the length of dash, 2 is length of the gap.
+        
+        let path = CGMutablePath()
+        let start = CGPoint(x: self.bounds.minX, y: self.bounds.minY)
+        let end = CGPoint(x: self.bounds.maxX, y: self.bounds.minY)
+        path.addLines(between: [start, end])
+        shapeLayer.path = path
+        self.layer.addSublayer(shapeLayer)
+    }
+}

@@ -59,8 +59,8 @@ class EmailComposerHeaderView: UIView {
     // MARK: - Helper methods
     
     private func doInitialSeup() {
-        self.drawDottedLine(start: CGPoint(x: self.firstDotedView.bounds.minX, y: self.firstDotedView.bounds.minY), end: CGPoint(x: self.firstDotedView.bounds.maxX, y: self.firstDotedView.bounds.minY), view: self.firstDotedView)
-        self.drawDottedLine(start: CGPoint(x: self.secondDotedView.bounds.minX, y: self.secondDotedView.bounds.minY), end: CGPoint(x: self.secondDotedView.bounds.maxX, y: self.secondDotedView.bounds.minY), view: self.secondDotedView)
+        self.firstDotedView.makeDottedLine()
+        self.secondDotedView.makeDottedLine()
         self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized
         self.checkInCheckOutView.layer.cornerRadius = 5.0
         self.checkInCheckOutView.layer.borderWidth = 0.5
