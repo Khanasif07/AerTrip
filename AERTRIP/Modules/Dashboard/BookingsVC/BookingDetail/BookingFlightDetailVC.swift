@@ -83,8 +83,6 @@ class BookingFlightDetailVC: BaseVC {
         
         // Traveller Addon TableViewCell
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
-
-        
     }
     
     

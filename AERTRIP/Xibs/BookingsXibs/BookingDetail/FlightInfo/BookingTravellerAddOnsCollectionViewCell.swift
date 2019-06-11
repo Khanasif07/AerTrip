@@ -9,6 +9,7 @@
 import UIKit
 
 class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var titleValueLabel: UILabel!
     
@@ -27,5 +28,10 @@ class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
     private func setUpColor() {
         self.titleLabel.textColor = AppColors.themeGray40
         self.titleValueLabel.textColor = AppColors.textFieldTextColor51
+    }
+    
+    func configure(title: String, detail: String) {
+        self.titleLabel.text = title
+        self.titleValueLabel.text = detail
     }
 }

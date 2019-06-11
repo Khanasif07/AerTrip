@@ -881,6 +881,40 @@ struct Pax {
     var pnr: String = ""
     var inProcess: Bool = false
     
+    var fullName: String {
+        return "\(salutation) \(paxName)"
+    }
+    
+    var detailsToShow: JSONDictionary {
+        var temp = JSONDictionary()
+        
+        temp["0PNR"] = "PNR"
+        temp["1Ticket Number"] = "Ticket Number"
+        temp["2Seat"] = "Seat"
+        temp["3Meal"] = "Meal"
+        temp["4Baggage"] = "Baggage"
+        temp["5Others"] = "Others"
+        
+        return temp
+    }
+    
+    var salutationImage: UIImage {
+        switch salutation {
+        case "Mrs":
+            return #imageLiteral(resourceName: "woman")
+        case "Mr":
+            return #imageLiteral(resourceName: "man")
+        case "Mast":
+            return #imageLiteral(resourceName: "man")
+        case "Miss":
+            return #imageLiteral(resourceName: "girl")
+        case "Ms":
+            return #imageLiteral(resourceName: "woman")
+        default:
+            return #imageLiteral(resourceName: "person")
+        }
+    }
+    
     init() {
         self.init(json: [:])
     }
@@ -936,7 +970,16 @@ struct Pax {
     }
     
     static func getModels(json: [JSONDictionary]) -> [Pax] {
-        return json.map { Pax(json: $0) }
+        var temp = json.map { Pax(json: $0) }
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        temp.append(contentsOf: json.map { Pax(json: $0) })
+        return temp
+//        return json.map { Pax(json: $0) }
     }
 }
 

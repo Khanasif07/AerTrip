@@ -53,8 +53,6 @@ extension TravellerData {
             return #imageLiteral(resourceName: "girl")
         case "Ms":
             return #imageLiteral(resourceName: "woman")
-        case "Mast":
-            return #imageLiteral(resourceName: "boy")
         default:
             return #imageLiteral(resourceName: "person")
         }

@@ -77,8 +77,9 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         switch self.bookingDetailType {
         case .flightInfo:
             
-            if let allFlight = self.viewModel.bookingDetail?.bookingDetail?.leg[section].flight {
-                return allFlight.reduce(into: 0) { $0 += $1.numberOfCell}
+            if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[section] {
+                let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCell}
+                return leg.pax.isEmpty ? detailsC : (detailsC + 1)
             }
             return 0
             
