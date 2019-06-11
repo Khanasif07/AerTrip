@@ -1,11 +1,9 @@
 //
-//  BookingDetailVM.swift
+//  DoubleExtension.swift
 //  AERTRIP
 //
-//  Created by apple on 10/05/19.
+//  Created by Admin on 10/06/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
 import Foundation
-
-

@@ -11,20 +11,18 @@ import Foundation
 protocol MyBookingsVMDelegate: class {
     func willGetBookings()
     func getBookingsDetailSuccess()
-    func getBookingDetailFail(error:ErrorCodes)
+    func getBookingDetailFail(error: ErrorCodes)
 }
 
 class MyBookingsVM {
-    
     // MARK: - Variables
-
     
     // MARK: - Booking Data
     
     // MARK: - Upcoming Bookings
-    var allTabTypes: [Int16] = [] //fetching when data is getting inserted in
     
-    var bookings: [BookingModel] = []
+    var allTabTypes: [Int16] = [] // fetching when data is getting inserted in
+    
     weak var delgate: MyBookingsVMDelegate?
     static let shared = MyBookingsVM()
 //
@@ -40,16 +38,14 @@ class MyBookingsVM {
     func getBookings() {
         let params: JSONDictionary = [:]
         printDebug(params)
-            delgate?.willGetBookings()
-        APICaller.shared.getBookingList(params: params)  {  [weak self] (success, error, bookings) in
+        delgate?.willGetBookings()
+        APICaller.shared.getBookingList(params: params) { [weak self] success, _ in
             guard let sSelf = self else { return }
             if success {
                 DispatchQueue.mainAsync {
                     sSelf.delgate?.getBookingsDetailSuccess()
                 }
-                printDebug(bookings)
-            } else {
-            }
+            } else {}
         }
     }
 }

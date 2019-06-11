@@ -14,15 +14,15 @@ import MXParallaxHeader
 extension FlightBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionData.count
+        return self.viewModel.sectionDataForFlightProductType.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionData[section].count
+        return self.viewModel.sectionDataForFlightProductType[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentSection = self.viewModel.sectionData[indexPath.section]
+       let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .notesCell:
             return self.getNotesCell(tableView, indexPath: indexPath)
@@ -206,4 +206,23 @@ extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
     func seeAllWeathers() {
         printDebug("See All Weathers")
     }
+}
+
+
+// MARK:- BookingProductDetailVM methods
+
+extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
+    func willGetBookingDetail() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getBookingDetailSucces() {
+          AppGlobals.shared.stopLoading()
+    }
+    
+    func getBookingDetailFaiure() {
+          AppGlobals.shared.stopLoading()
+    }
+    
+    
 }

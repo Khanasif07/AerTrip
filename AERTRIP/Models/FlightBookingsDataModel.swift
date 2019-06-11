@@ -56,9 +56,7 @@ struct BillDetails {
     
 }
 
-struct Receipt {
-    
-}
+
 
 struct TravellerDocuments {
     

@@ -72,6 +72,13 @@ extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          let bookingData = fetchedResultsController.object(at: indexPath)
+        if bookingData.productType == .other {
+            AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+        }
+    }
+    
 }
 
 extension CancelledVC {

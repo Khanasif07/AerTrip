@@ -14,7 +14,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     //MARK:- Variables
     //MARK:===========
-    let viewModel = OtherBookingsDetailsVM()
+    let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "others")
@@ -39,11 +39,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     //MARK:- LifeCycle
     //MARK:===========
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewModel.getSectionData()
-        self.viewModel.getDocumentDownloadingData()
-    }
+   
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -51,6 +47,9 @@ class OtherBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
+        self.viewModel.getSectionDataForOtherProductType()
+        self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true , isDivider: false)
