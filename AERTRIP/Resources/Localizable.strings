@@ -799,3 +799,7 @@
 "BillingName" = "Billing Name";
 "BillingAddress" = "Billing Address";
 "GSTIN" = "GSTIN";
+"CancellationHasBeenProcessed" = "Cancellation has been processed";
+"SpecialRequestHasBeenSent" = "Special Request has been sent";
+"WriteAboutYourSpecialRequest" = "Write about your special request...";
+"RequestType" = "Request Type";

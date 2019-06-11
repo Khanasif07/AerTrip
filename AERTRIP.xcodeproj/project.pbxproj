@@ -592,6 +592,10 @@
 		8445B52B22A5352F00DDBC7F /* ParallelLabelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8445B52922A5352F00DDBC7F /* ParallelLabelsTableViewCell.xib */; };
 		8445B52F22A5371700DDBC7F /* CustomerContactCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B52D22A5371700DDBC7F /* CustomerContactCellTableViewCell.swift */; };
 		8445B53022A5371700DDBC7F /* CustomerContactCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8445B52E22A5371700DDBC7F /* CustomerContactCellTableViewCell.xib */; };
+		8446C8FD22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C8FB22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.swift */; };
+		8446C8FE22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8446C8FC22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib */; };
+		8446C90222A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C90022A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift */; };
+		8446C90322A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8446C90122A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib */; };
 		84504D512212BB07002C1374 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D502212BB07002C1374 /* UITextViewExtensions.swift */; };
 		84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */; };
 		84504D552212E436002C1374 /* TripAdvisorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */; };
@@ -1567,6 +1571,10 @@
 		8445B52922A5352F00DDBC7F /* ParallelLabelsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParallelLabelsTableViewCell.xib; sourceTree = "<group>"; };
 		8445B52D22A5371700DDBC7F /* CustomerContactCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerContactCellTableViewCell.swift; sourceTree = "<group>"; };
 		8445B52E22A5371700DDBC7F /* CustomerContactCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerContactCellTableViewCell.xib; sourceTree = "<group>"; };
+		8446C8FB22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCancellationRoomInfoTableViewCell.swift; sourceTree = "<group>"; };
+		8446C8FC22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelCancellationRoomInfoTableViewCell.xib; sourceTree = "<group>"; };
+		8446C90022A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotleCancellationChargesCollectionViewCell.swift; sourceTree = "<group>"; };
+		8446C90122A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotleCancellationChargesCollectionViewCell.xib; sourceTree = "<group>"; };
 		84504D502212BB07002C1374 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
 		84504D522212E436002C1374 /* TripAdvisorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorTableViewCell.swift; sourceTree = "<group>"; };
 		84504D532212E436002C1374 /* TripAdvisorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdvisorTableViewCell.xib; sourceTree = "<group>"; };
@@ -3814,6 +3822,25 @@
 			path = CustomerContactCellTableViewCell;
 			sourceTree = "<group>";
 		};
+		8446C8FF22A7CDA80077556B /* HotelCancellationRoomInfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8446C8FB22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.swift */,
+				8446C8FC22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib */,
+				8446C90422A7D5620077556B /* HotleCancellationChargesCollectionViewCell */,
+			);
+			path = HotelCancellationRoomInfoTableViewCell;
+			sourceTree = "<group>";
+		};
+		8446C90422A7D5620077556B /* HotleCancellationChargesCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8446C90022A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift */,
+				8446C90122A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib */,
+			);
+			path = HotleCancellationChargesCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		8452D36C21E614BA00927287 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -4517,6 +4544,7 @@
 				8445B53122A5371F00DDBC7F /* CustomerContactCellTableViewCell */,
 				84D5F22F22A648F400824A9F /* HotelBookingAddressDetailsTableViewCell */,
 				84D5F23422A65EF600824A9F /* TravellersDetailsTableViewCell */,
+				8446C8FF22A7CDA80077556B /* HotelCancellationRoomInfoTableViewCell */,
 			);
 			path = BookingsXibs;
 			sourceTree = "<group>";
@@ -5351,6 +5379,7 @@
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
 				84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */,
 				84100A9122391B60006A05EC /* ContactTableCell.xib in Resources */,
+				8446C90322A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib in Resources */,
 				84269063228E9EF700CFCBFC /* LICENSE in Resources */,
 				8491D1F7222D3FC2001D0313 /* SourceSansPro-Black.ttf in Resources */,
 				182D4865228B03F3004796A2 /* BookingCheckinCheckOutTableViewCell.xib in Resources */,
@@ -5371,6 +5400,7 @@
 				84B23F73222FA39B00C952ED /* CityMarkerView.xib in Resources */,
 				84534E9C2248A188009FF536 /* HCBookingDetailsTableViewHeaderFooterView.xib in Resources */,
 				188290612238D51A0000C118 /* GuestDetailTableViewCell.xib in Resources */,
+				8446C8FE22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib in Resources */,
 				18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */,
 				18020ADB2280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib in Resources */,
 				84BDE9CB222D2B37006B9926 /* hotelData.json in Resources */,
@@ -6026,6 +6056,7 @@
 				84085CF021F59C0E00F1E844 /* ThankYouRegistrationVM.swift in Sources */,
 				182D4855228AE8F7004796A2 /* BookingHotelDetailVC+HelperMethods.swift in Sources */,
 				183B719F22894D5600A75B7F /* FareInfoVC.swift in Sources */,
+				8446C8FD22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.swift in Sources */,
 				840A84222229BA890040EB99 /* HotelTagCollectionCell.swift in Sources */,
 				84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */,
 				182D4847228AA8C8004796A2 /* ATTableViewCell.swift in Sources */,
@@ -6074,6 +6105,7 @@
 				18E797072248F4B600A7AC8B /* WallletAmountCellTableViewCell.swift in Sources */,
 				18F967DC22327A9200B163C8 /* HotelsGroupExtendedVM.swift in Sources */,
 				847716282283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift in Sources */,
+				8446C90222A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
