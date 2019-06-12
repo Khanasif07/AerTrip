@@ -52,11 +52,13 @@ extension OtherBookingsDetailsVC {
     func getBookingDocumentsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingDocumentsTableViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        cell.documentsData = self.viewModel.documentDownloadingData
+//        cell.documentsData = self.viewModel.documentDownloadingData
+         cell.documentsData = self.viewModel.bookingDetail?.documents ?? []
         cell.currentDocumentType = .others
         return cell
     }
     
+    // get Payment Cell
     func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentInfoTableViewCell.reusableIdentifier, for: indexPath) as? PaymentInfoTableViewCell else { return UITableViewCell() }
         cell.clipsToBounds = true
@@ -66,7 +68,7 @@ extension OtherBookingsDetailsVC {
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 10,000", isLastCell: false)
+        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.receipt?.voucher.first?.transaction?.total?.amount ?? "", isLastCell: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -74,7 +76,7 @@ extension OtherBookingsDetailsVC {
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 10,000", isLastCell: true)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.totalAmountPaid ?? "" , isLastCell: true)
         cell.clipsToBounds = true
         return cell
     }

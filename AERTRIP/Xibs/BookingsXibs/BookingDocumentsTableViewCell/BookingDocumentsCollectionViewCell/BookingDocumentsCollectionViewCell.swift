@@ -95,6 +95,9 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
                 sSelf.downloadingStopAnimation()
             }
         }
+        if !request.path.isEmpty {
+             self.documentsImageView.image = request.path.fileIcon
+        }
         if request.downloadingStatus == .notDownloaded {
             previousProgress = 0.0
         }

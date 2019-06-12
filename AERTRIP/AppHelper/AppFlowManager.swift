@@ -581,6 +581,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    
+    //MARK:- Booking Module
+    //MARK:----
     func moveToMyBookingsVC() {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -601,14 +604,17 @@ extension AppFlowManager {
         }
     }
     
+    //MARK:- Booking Detail VC
+    //MARK:-
     func moveToOtherBookingsDetailsVC(bookingId: String) {
         let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFlightBookingsDetailsVC() {
+    func moveToFlightBookingsDetailsVC(bookingId: String) {
         let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
 

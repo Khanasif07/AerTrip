@@ -60,7 +60,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false)
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.topNavBar.backgroundType = .clear
+        self.topNavBar.backgroundColor = .clear
         // self.configureTableHeaderView()
         self.setupParallaxHeader()
         self.registerNibs()

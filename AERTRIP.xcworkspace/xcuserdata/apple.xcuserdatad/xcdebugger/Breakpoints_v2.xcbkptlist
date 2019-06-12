@@ -57,22 +57,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingVC+Delegatemethods.swift"
-            timestampString = "580912454.862518"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "getBookingDetailFail(error:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/CompletedVC.swift"
             timestampString = "581002203.992837"
             startingColumnNumber = "9223372036854775807"
@@ -138,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            timestampString = "581855234.303086"
+            timestampString = "582005614.294716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
@@ -266,7 +250,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Models/FlightBookingsDataModel.swift"
-                  timestampString = "581865676.9472589"
+                  timestampString = "581951769.945062"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "37"
@@ -281,7 +265,7 @@
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Models/FlightBookingsDataModel.swift"
-                  timestampString = "581865676.9501359"
+                  timestampString = "581951769.9480129"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -330,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/FlightsVC/FlightsVC.swift"
-            timestampString = "581604457.162269"
+            timestampString = "581925322.913506"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -346,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Network/APICaller/APICaller+Booking.swift"
-            timestampString = "581855234.3034329"
+            timestampString = "581951556.76657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -362,13 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581866545.785351"
+            timestampString = "581930359.159644"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "getBookingDetailSucces()"
-            landmarkType = "7">
+            startingLineNumber = "189"
+            endingLineNumber = "189">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -378,13 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581866545.78543"
+            timestampString = "581930359.159716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "189"
+            endingLineNumber = "189">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -394,13 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
-            timestampString = "581866545.785498"
+            timestampString = "582005614.295637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "getTravellersDetailsCell(_:indexPath:)"
-            landmarkType = "7">
+            startingLineNumber = "140"
+            endingLineNumber = "140">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -410,13 +388,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
-            timestampString = "581866545.785565"
+            timestampString = "582005614.29573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "getTravellersDetailsCell(_:indexPath:)"
-            landmarkType = "7">
+            startingLineNumber = "140"
+            endingLineNumber = "140">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -426,13 +402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
-            timestampString = "581866545.785628"
+            timestampString = "581930359.15994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "getBookingDetailSucces()"
-            landmarkType = "7">
+            startingLineNumber = "189"
+            endingLineNumber = "189">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -442,13 +416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
-            timestampString = "581866545.785691"
+            timestampString = "582005614.295832"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "getPolicyDetailCell(_:indexPath:)"
-            landmarkType = "7">
+            startingLineNumber = "140"
+            endingLineNumber = "140">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -458,13 +430,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Xibs/BookingsXibs/TravellersDetailsTableViewCell/TravellersDetailsTableViewCell.swift"
-            timestampString = "581866545.785761"
+            timestampString = "581930359.160081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "configCell(imageUrl:travellerName:isLastTravellerInRoom:isLastTraveller:isOtherBookingData:)"
-            landmarkType = "7">
+            startingLineNumber = "66"
+            endingLineNumber = "66">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -474,13 +444,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Xibs/BookingsXibs/TravellersDetailsTableViewCell/TravellersDetailsTableViewCell.swift"
-            timestampString = "581866545.785823"
+            timestampString = "581930359.160143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "configCell(imageUrl:travellerName:isLastTravellerInRoom:isLastTraveller:isOtherBookingData:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/BookingsXibs/BookingDocumentsTableViewCell/BookingDocumentsTableViewCell.swift"
+            timestampString = "582005614.29597"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/BookingsXibs/BookingDocumentsTableViewCell/BookingDocumentsTableViewCell.swift"
+            timestampString = "582005614.296061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Network/APICaller/APICaller+Booking.swift"
+            timestampString = "581951556.767083"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "getBookingDetail(params:loader:completionBlock:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/TopNavigationView/TopNavigationView.swift"
+            timestampString = "582005614.296151"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "backgroundType"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

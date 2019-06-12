@@ -27,6 +27,7 @@ struct BookingDetailModel {
     var totalAmountPaid: String = ""
     var vCode: String = ""
     var bookingStatus: String = ""
+    var documents: [DocumentDownloadingModel] = []
     var addOnRequestAllowed: Bool = false
     var cancellationRequestAllowed: Bool = false
     var rescheduleRequestAllowed: Bool = false
@@ -83,6 +84,10 @@ struct BookingDetailModel {
         self.cases = Case.retunsCaseArray(jsonArr: json["cases"] as? [JSONDictionary] ?? [])
         if let obj = json["user"] as? UserInfo {
             self.user = obj
+        }
+        
+        if let obj = json["documents"] as? [JSONDictionary] {
+            self.documents = DocumentDownloadingModel.getModels(json: obj)
         }
         
         // other data parsing
@@ -1014,6 +1019,10 @@ struct Receipt {
         if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)"
         }
+        
+        if let obj = json["voucher"] as? [JSONDictionary] {
+            self.voucher = Voucher.getModels(json: obj)
+        }
     }
 }
 
@@ -1021,6 +1030,28 @@ struct Voucher {
     var basic: Basic?
     var transaction: Transactions?
     var paymentInfo: BookingPaymentInfo?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["basic"] as? JSONDictionary {
+            self.basic = Basic(json: obj)
+        }
+        
+        if let obj = json["transaction"] as? JSONDictionary {
+            self.transaction = Transactions(json: obj)
+        }
+        
+        if let obj = json["paymentinfo"] as? JSONDictionary {
+            self.paymentInfo = BookingPaymentInfo(json: obj)
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [Voucher] {
+        return json.map { Voucher(json: $0) }
+    }
 }
 
 struct Basic {
@@ -1082,12 +1113,13 @@ struct Basic {
 }
 
 struct Transactions {
-    var taxesAndFees: TaxesAndFees
+    var taxesAndFees: TaxesAndFees?
     var baseFare: Amount?
     var grandTotal: Amount?
     var totalPayableNow: Amount?
     var total: Amount?
     var grossFare: Amount?
+    var netFare: Amount?
     
     // TODO: need to Add after discussion with Nitesh
 //    [
@@ -1096,6 +1128,40 @@ struct Transactions {
 //    "ledger_name": "RazorPay"
 //    }
 //    ]
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["Taxes and Fees"] as? JSONDictionary {
+            self.taxesAndFees = TaxesAndFees(json: obj)
+        }
+        
+        if let obj = json["Base Fare"] as? JSONDictionary {
+            self.baseFare = Amount(json: obj)
+        }
+        
+        if let obj = json["Grand Total"] as? JSONDictionary {
+            self.grandTotal = Amount(json: obj)
+        }
+        
+        if let obj = json["Total Payable Now"] as? JSONDictionary {
+            self.totalPayableNow = Amount(json: obj)
+        }
+        
+        if let obj = json["total"] as? JSONDictionary {
+            self.total = Amount(json: obj)
+        }
+        
+        if let obj = json["grossFare"] as? JSONDictionary {
+            self.grossFare = Amount(json: obj)
+        }
+        
+        if let obj = json["Net Amount"] as? JSONDictionary {
+            self.netFare = Amount(json: obj)
+        }
+    }
 }
 
 struct BookingPaymentInfo {

@@ -510,6 +510,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isSelectMode {
             let current = fetchedResultsController.object(at: indexPath) as? TravellerData
+          
             if !selectedTravller.contains(where: { (result) -> Bool in
                 ((result as? TravellerData)?.id ?? "") == (current?.id ?? "")
             }) {

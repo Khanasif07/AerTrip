@@ -16,7 +16,7 @@ protocol BookingDocumentsTableViewCellDelegate: class {
 class BookingDocumentsTableViewCell: UITableViewCell {
     
     //MARK:- Enums
-    //MARK:=======
+    //MARK:=======  qq
     enum DocumentType {
         case others , flights , hotels
     }
@@ -25,7 +25,7 @@ class BookingDocumentsTableViewCell: UITableViewCell {
     //MARK:===========
     weak var delegate: BookingDocumentsTableViewCellDelegate?
     internal var currentDocumentType: DocumentType = .others
-    private var documentsName: [String] = ["Govind.mp4" , "Julian.mp4" , "Delgado.mp4", "Govind1.mp4" , "Julian1.mp4" , "Delgado1.mp4", "Govind2.mp4" , "Julian2.mp4" , "Delgado2.mp4"]
+//    private var documentsName: [String] = ["Govind.mp4" , "Julian.mp4" , "Delgado.mp4", "Govind1.mp4" , "Julian1.mp4" , "Delgado1.mp4", "Govind2.mp4" , "Julian2.mp4" , "Delgado2.mp4"]
     var documentsData: [DocumentDownloadingModel] = []
     
     //MARK:- IBOutlets
@@ -136,23 +136,23 @@ class BookingDocumentsTableViewCell: UITableViewCell {
 
 extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.documentsName.count
+        return self.documentsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookingDocumentsCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsCollectionViewCell else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.configCell(name: self.documentsName[indexPath.item], documentsSize: "293.03 KB", request: documentsData[indexPath.item])
+        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: "293.03 KB", request: documentsData[indexPath.item])
         switch self.documentsData[indexPath.item].downloadingStatus {
         case .notDownloaded:
-            cell.notDownloadingStatusSetUp(name: self.documentsName[indexPath.item])
+            cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName)
         case .downloading:
             cell.downloadingStatusSetUp()
         case .downloaded:
-            cell.downloadedStatusSetUp(name: self.documentsName[indexPath.item])
+            cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName)
         }
         let currentDocumentFolder = self.checkCreateAndReturnDocumentFolder()
-        if self.checkIsFileExist(nameOfFile: self.documentsName[indexPath.item], path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
+        if self.checkIsFileExist(nameOfFile: self.documentsData[indexPath.item].fileName, path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
             cell.downloadingIcon.image = nil
         } else {
             cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
@@ -163,10 +163,10 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let superVw = self.superview as? UITableView , let index = superVw.indexPath(for: self) , let safeDelegate = self.delegate , let cell = collectionView.cellForItem(at: indexPath) as? BookingDocumentsCollectionViewCell {
             let currentDirecotry = self.checkCreateAndReturnDocumentFolder()
-            if !self.checkIsFileExist(nameOfFile: self.documentsName[indexPath.item], path: currentDirecotry) && self.documentsData[indexPath.item].downloadingStatus == .notDownloaded {
+            if !self.checkIsFileExist(nameOfFile: self.documentsData[indexPath.item].fileName, path: currentDirecotry) && self.documentsData[indexPath.item].downloadingStatus == .notDownloaded {
                 self.documentsData[indexPath.item].downloadingStatus = .downloading
                 cell.downloadingStartAnimation()
-                safeDelegate.downloadDocument(documentDirectory: currentDirecotry + "/\(self.documentsName[indexPath.item])", tableIndex: index, collectionIndex: indexPath)
+                safeDelegate.downloadDocument(documentDirectory: currentDirecotry + "/\(self.documentsData[indexPath.item])", tableIndex: index, collectionIndex: indexPath)
             } else {
                 printDebug("FILE AVAILABLE")
             }

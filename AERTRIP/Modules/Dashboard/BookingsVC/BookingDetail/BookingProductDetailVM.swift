@@ -60,15 +60,16 @@ class BookingProductDetailVM {
             tempTravellers.append(.travellersDetailCell)
         }
         self.sectionDataForOtherProductType.append(tempTravellers)
-        /* if !document is empty  {
+        if !(self.bookingDetail?.documents.isEmpty ?? false)   {
          self.sectionDataForOtherProductType.append([.documentCell])
          }
-         */
         
-//        self.sectionDataForOtherProductType.append([.paymentInfoCell , .bookingCell , .paidCell])
+        
+        self.sectionDataForOtherProductType.append([.paymentInfoCell , .bookingCell , .paidCell])
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
+    // Created for testing purpose
     func getDocumentDownloadingData() {
         for _ in 0..<9 {
             self.documentDownloadingData.append(DocumentDownloadingModel())
